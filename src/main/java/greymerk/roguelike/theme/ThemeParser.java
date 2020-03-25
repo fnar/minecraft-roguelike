@@ -3,7 +3,6 @@ package greymerk.roguelike.theme;
 import com.google.gson.JsonObject;
 
 import java.util.Arrays;
-import java.util.Optional;
 import java.util.function.Function;
 
 import static java.util.Optional.ofNullable;
@@ -39,14 +38,25 @@ public class ThemeParser {
     return parseBlockSet(json, base, SECONDARY_KEY, ITheme::getSecondary);
   }
 
-  private static IBlockSet parseBlockSet(JsonObject json, ITheme base, String key, Function<ITheme, IBlockSet> getBlockSetFunction) throws Exception {
+  private static IBlockSet parseBlockSet(JsonObject json, ITheme baseTheme, String key, Function<ITheme, IBlockSet> getBlockSetFunction) throws Exception {
     if (!json.has(key)) {
       return null;
     } else {
       JsonObject data = json.get(key).getAsJsonObject();
-      Optional<IBlockSet> baseBlockSet = ofNullable(base).map(getBlockSetFunction);
+      IBlockSet baseBlockSet = ofNullable(baseTheme).map(getBlockSetFunction).orElse(getEmptyBlockSet());
       return BlockSetParser.parseBlockSet(data, baseBlockSet);
     }
+  }
+
+  private static BlockSet getEmptyBlockSet() {
+    return new BlockSet(
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null);
   }
 
   public static Theme get(String name) throws Exception {
