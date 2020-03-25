@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 
 import java.util.Arrays;
 import java.util.Optional;
+import java.util.function.Function;
 
 import static java.util.Optional.ofNullable;
 
@@ -31,21 +32,21 @@ public class ThemeParser {
   }
 
   private static IBlockSet parsePrimaryBlockSet(JsonObject json, ThemeBase base) throws Exception {
-    if (!json.has(PRIMARY_KEY)) {
-      return null;
-    }
-    JsonObject data = json.get(PRIMARY_KEY).getAsJsonObject();
-    Optional<IBlockSet> baseBlockSet = ofNullable((ITheme) base).map(ITheme::getPrimary);
-    return BlockSetParser.parseBlockSet(data, baseBlockSet);
+    return parseBlockSet(json, base, PRIMARY_KEY, ITheme::getPrimary);
   }
 
   private static IBlockSet parseSecondaryBlockSet(JsonObject json, ThemeBase base) throws Exception {
-    if (!json.has(SECONDARY_KEY)) {
+    return parseBlockSet(json, base, SECONDARY_KEY, ITheme::getSecondary);
+  }
+
+  private static IBlockSet parseBlockSet(JsonObject json, ITheme base, String key, Function<ITheme, IBlockSet> getBlockSetFunction) throws Exception {
+    if (!json.has(key)) {
       return null;
+    } else {
+      JsonObject data = json.get(key).getAsJsonObject();
+      Optional<IBlockSet> baseBlockSet = ofNullable(base).map(getBlockSetFunction);
+      return BlockSetParser.parseBlockSet(data, baseBlockSet);
     }
-    JsonObject data = json.get(SECONDARY_KEY).getAsJsonObject();
-    Optional<IBlockSet> baseBlockSet = ofNullable((ITheme) base).map(ITheme::getSecondary);
-    return BlockSetParser.parseBlockSet(data, baseBlockSet);
   }
 
   public static Theme get(String name) throws Exception {
