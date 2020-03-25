@@ -102,7 +102,7 @@ public class LevelSettings {
       secrets = new SecretFactory(parent.secrets, child.secrets);
     }
 
-    setTheme(selectTheme(parent, child, overrides));
+    setTheme(inherit(parent, child, overrides));
 
     if (parent.segments != null || child.segments != null) {
       segments = child.segments == null ? new SegmentGenerator(parent.segments) : new SegmentGenerator(child.segments);
@@ -115,13 +115,13 @@ public class LevelSettings {
     filters.addAll(child.filters);
   }
 
-  private ITheme selectTheme(LevelSettings parent, LevelSettings child, Set<SettingsType> overrides) {
+  private ITheme inherit(LevelSettings parent, LevelSettings child, Set<SettingsType> overrides) {
     Optional<ITheme> parentTheme = ofNullable(parent.theme);
     Optional<ITheme> childTheme = ofNullable(child.theme);
     if (overrides.contains(THEMES) && childTheme.isPresent()) {
       return childTheme.get();
     } else if (parentTheme.isPresent() && childTheme.isPresent()) {
-      return Theme.create(parentTheme.get(), childTheme.get());
+      return Theme.inherit(parentTheme.get(), childTheme.get());
     } else if (childTheme.isPresent()) {
       return childTheme.get();
     } else if (parentTheme.isPresent()) {
