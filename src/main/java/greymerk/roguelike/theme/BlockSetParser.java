@@ -13,6 +13,7 @@ import greymerk.roguelike.worldgen.blocks.door.Door;
 import greymerk.roguelike.worldgen.blocks.door.IDoor;
 
 import static java.util.Optional.empty;
+import static java.util.Optional.of;
 import static java.util.Optional.ofNullable;
 
 class BlockSetParser {
@@ -20,66 +21,31 @@ class BlockSetParser {
   public static BlockSet parseBlockSet(JsonObject json, Optional<IBlockSet> base) throws Exception {
     return new BlockSet(
         parseFloor(json).orElse(base.map(IBlockSet::getFloor).orElse(null)),
-        parseWalls(json, base),
-        parseStair(json, base),
-        parsePillar(json, base),
-        parseDoor(json, base),
-        parseLightBlock(json, base),
-        parseLiquid(json, base)
+        parseWalls(json).orElse(base.map(IBlockSet::getWall).orElse(null)),
+        parseStair(json).orElse(base.map(IBlockSet::getStair).orElse(null)),
+        parsePillar(json).orElse(base.map(IBlockSet::getPillar).orElse(null)),
+        parseDoor(json).orElse(base.map(IBlockSet::getDoor).orElse(null)),
+        parseLightBlock(json).orElse(base.map(IBlockSet::getLightBlock).orElse(null)),
+        parseLiquid(json).orElse(base.map(IBlockSet::getLiquid).orElse(null))
     );
   }
 
   private static Optional<IBlockFactory> parseFloor(JsonObject json) throws Exception {
-    if (!json.has("floor")) {
-      return empty();
-    }
-    return ofNullable(BlockProvider.create(json.get("floor").getAsJsonObject()));
+    return json.has("floor")
+        ? ofNullable(BlockProvider.create(json.get("floor").getAsJsonObject()))
+        : empty();
   }
 
-  private static IStair parseStair(JsonObject json, Optional<IBlockSet> base) throws Exception {
-    return json.has("stair")
-        ? somethingAboutStairWithData(json)
-        : base
-            .map(IBlockSet::getStair)
-            .orElse(null);
-  }
-
-  private static IBlockFactory parseLiquid(JsonObject json, Optional<IBlockSet> base) throws Exception {
-    return json.has("liquid")
-        ? BlockProvider.create(json.get("liquid").getAsJsonObject())
-        : base
-            .map(IBlockSet::getLiquid)
-            .orElse(null);
-  }
-
-  private static IBlockFactory parseLightBlock(JsonObject json, Optional<IBlockSet> base) throws Exception {
-    return json.has("lightblock")
-        ? BlockProvider.create(json.get("lightblock").getAsJsonObject())
-        : base
-            .map(IBlockSet::getLightBlock)
-            .orElse(null);
-  }
-
-  private static IDoor parseDoor(JsonObject json, Optional<IBlockSet> base) throws Exception {
-    return json.has("door") ? new Door(json.get("door")) : base
-        .map(IBlockSet::getDoor)
-        .orElse(null);
-  }
-
-  private static IBlockFactory parsePillar(JsonObject json, Optional<IBlockSet> base) throws Exception {
-    return json.has("pillar")
-        ? BlockProvider.create(json.get("pillar").getAsJsonObject())
-        : base
-            .map(IBlockSet::getPillar)
-            .orElse(null);
-  }
-
-  private static IBlockFactory parseWalls(JsonObject json, Optional<IBlockSet> base) throws Exception {
+  private static Optional<IBlockFactory> parseWalls(JsonObject json) throws Exception {
     return json.has("walls")
-        ? BlockProvider.create(json.get("walls").getAsJsonObject())
-        : base
-            .map(IBlockSet::getWall)
-            .orElse(null);
+        ? ofNullable(BlockProvider.create(json.get("walls").getAsJsonObject()))
+        : empty();
+  }
+
+  private static Optional<IStair> parseStair(JsonObject json) throws Exception {
+    return json.has("stair")
+        ? of(somethingAboutStairWithData(json))
+        : empty();
   }
 
   private static MetaStair somethingAboutStairWithData(JsonObject json) throws Exception {
@@ -87,5 +53,29 @@ class BlockSetParser {
     return stairData.has("data")
         ? new MetaStair(new MetaBlock(stairData.get("data").getAsJsonObject()))
         : new MetaStair(new MetaBlock(stairData));
+  }
+
+  private static Optional<IBlockFactory> parsePillar(JsonObject json) throws Exception {
+    return json.has("pillar")
+        ? ofNullable(BlockProvider.create(json.get("pillar").getAsJsonObject()))
+        : empty();
+  }
+
+  private static Optional<IDoor> parseDoor(JsonObject json) throws Exception {
+    return json.has("door")
+        ? of(new Door(json.get("door")))
+        : empty();
+  }
+
+  private static Optional<IBlockFactory> parseLightBlock(JsonObject json) throws Exception {
+    return json.has("lightblock")
+        ? ofNullable(BlockProvider.create(json.get("lightblock").getAsJsonObject()))
+        : empty();
+  }
+
+  private static Optional<IBlockFactory> parseLiquid(JsonObject json) throws Exception {
+    return json.has("liquid")
+        ? ofNullable(BlockProvider.create(json.get("liquid").getAsJsonObject()))
+        : empty();
   }
 }
