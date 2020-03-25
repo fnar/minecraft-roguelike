@@ -18,15 +18,15 @@ import static java.util.Optional.ofNullable;
 
 class BlockSetParser {
 
-  public static BlockSet parseBlockSet(JsonObject json, Optional<IBlockSet> base) throws Exception {
+  public static BlockSet parseBlockSet(JsonObject json, IBlockSet baseBlockSet) throws Exception {
     return new BlockSet(
-        parseFloor(json).orElse(base.map(IBlockSet::getFloor).orElse(null)),
-        parseWalls(json).orElse(base.map(IBlockSet::getWall).orElse(null)),
-        parseStair(json).orElse(base.map(IBlockSet::getStair).orElse(null)),
-        parsePillar(json).orElse(base.map(IBlockSet::getPillar).orElse(null)),
-        parseDoor(json).orElse(base.map(IBlockSet::getDoor).orElse(null)),
-        parseLightBlock(json).orElse(base.map(IBlockSet::getLightBlock).orElse(null)),
-        parseLiquid(json).orElse(base.map(IBlockSet::getLiquid).orElse(null))
+        parseFloor(json).orElse(baseBlockSet.getFloor()),
+        parseWalls(json).orElse(baseBlockSet.getWall()),
+        parseStair(json).orElse(baseBlockSet.getStair()),
+        parsePillar(json).orElse(baseBlockSet.getPillar()),
+        parseDoor(json).orElse(baseBlockSet.getDoor()),
+        parseLightBlock(json).orElse(baseBlockSet.getLightBlock()),
+        parseLiquid(json).orElse(baseBlockSet.getLiquid())
     );
   }
 
