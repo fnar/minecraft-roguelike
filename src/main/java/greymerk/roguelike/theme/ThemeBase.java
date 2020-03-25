@@ -12,11 +12,6 @@ public class ThemeBase implements ITheme {
     this.secondary = secondary;
   }
 
-  public ThemeBase(ThemeBase base, IBlockSet primary, IBlockSet secondary) {
-    this.primary = Optional.ofNullable(primary).orElse(base.getPrimary());
-    this.secondary = Optional.ofNullable(secondary).orElse(base.getSecondary());
-  }
-
   public ThemeBase() {
   }
 
