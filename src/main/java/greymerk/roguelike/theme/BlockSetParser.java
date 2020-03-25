@@ -12,11 +12,14 @@ import greymerk.roguelike.worldgen.MetaStair;
 import greymerk.roguelike.worldgen.blocks.door.Door;
 import greymerk.roguelike.worldgen.blocks.door.IDoor;
 
+import static java.util.Optional.empty;
+import static java.util.Optional.ofNullable;
+
 class BlockSetParser {
 
   public static BlockSet parseBlockSet(JsonObject json, Optional<IBlockSet> base) throws Exception {
     return new BlockSet(
-        parseFloor(json, base),
+        parseFloor(json).orElse(base.map(IBlockSet::getFloor).orElse(null)),
         parseWalls(json, base),
         parseStair(json, base),
         parsePillar(json, base),
@@ -24,6 +27,13 @@ class BlockSetParser {
         parseLightBlock(json, base),
         parseLiquid(json, base)
     );
+  }
+
+  private static Optional<IBlockFactory> parseFloor(JsonObject json) throws Exception {
+    if (!json.has("floor")) {
+      return empty();
+    }
+    return ofNullable(BlockProvider.create(json.get("floor").getAsJsonObject()));
   }
 
   private static IStair parseStair(JsonObject json, Optional<IBlockSet> base) throws Exception {
@@ -61,14 +71,6 @@ class BlockSetParser {
         ? BlockProvider.create(json.get("pillar").getAsJsonObject())
         : base
             .map(IBlockSet::getPillar)
-            .orElse(null);
-  }
-
-  private static IBlockFactory parseFloor(JsonObject json, Optional<IBlockSet> base) throws Exception {
-    return json.has("floor")
-        ? BlockProvider.create(json.get("floor").getAsJsonObject())
-        : base
-            .map(IBlockSet::getFloor)
             .orElse(null);
   }
 
