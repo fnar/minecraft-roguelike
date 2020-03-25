@@ -77,9 +77,9 @@ public class ThemeTest {
     ITheme base = new ThemeBase(blockSet, null);
     ITheme other = new ThemeBase(null, blockSet);
 
-    assertThat(Theme.create(null, null)).isNull();
-    assertThat(Theme.create(base, null)).isNotNull();
-    assertThat(Theme.create(null, other)).isNotNull();
-    assertThat(Theme.create(base, other)).isNotNull();
+    assertThat(Theme.inherit(null, null)).isNull();
+    assertThat(Theme.inherit(base, null)).isNotNull();
+    assertThat(Theme.inherit(null, other)).isNotNull();
+    assertThat(Theme.inherit(base, other)).isNotNull();
   }
 }

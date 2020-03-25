@@ -56,7 +56,7 @@ public enum Theme {
     return themeBase;
   }
 
-  public static ITheme create(ITheme parent, ITheme child) {
+  public static ITheme inherit(ITheme parent, ITheme child) {
     if (parent == null && child == null) {
       return null;
     }
