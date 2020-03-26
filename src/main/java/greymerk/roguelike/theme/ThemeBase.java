@@ -7,17 +7,17 @@ public class ThemeBase implements ITheme {
   protected IBlockSet primary;
   protected IBlockSet secondary;
 
+  public ThemeBase() {
+  }
+
   public ThemeBase(IBlockSet primary, IBlockSet secondary) {
     this.primary = primary;
     this.secondary = secondary;
   }
 
-  public ThemeBase() {
-  }
-
   @Override
   public IBlockSet getPrimary() {
-    return Optional.ofNullable(primary).orElse(new BlockSet());
+    return primary;
   }
 
   @Override

@@ -71,15 +71,71 @@ public class ThemeTest {
   }
 
   @Test
-  public void merge() {
-    IBlockSet blockSet = new BlockSet(BlockType.get(BlockType.DIRT), null, null);
+  public void themesInheritFromTheirParents() {
+    IBlockSet dirtBlockSet = new BlockSet(BlockType.get(BlockType.DIRT), null, null);
+    IBlockSet grassBlockSet = new BlockSet(BlockType.get(BlockType.GRASS), null, null);
 
-    ITheme base = new ThemeBase(blockSet, null);
-    ITheme other = new ThemeBase(null, blockSet);
+    ITheme parent = new ThemeBase(dirtBlockSet, null);
+    ITheme child = new ThemeBase(null, grassBlockSet);
 
-    assertThat(Theme.inherit(null, null)).isNull();
-    assertThat(Theme.inherit(base, null)).isNotNull();
-    assertThat(Theme.inherit(null, other)).isNotNull();
-    assertThat(Theme.inherit(base, other)).isNotNull();
+    ITheme actual = Theme.inherit(parent, child);
+    assertThat(actual.getPrimary().getFloor()).isEqualTo(dirtBlockSet.getFloor());
+    assertThat(actual.getSecondary().getFloor()).isEqualTo(grassBlockSet.getFloor());
+  }
+
+  @Test
+  public void themesInheritTheirSecondaryBlockSetFromTheirPrimaryIfTheirSecondaryBlockSetIsAbsent() {
+    IBlockSet dirtBlockSet = new BlockSet(BlockType.get(BlockType.DIRT), null, null);
+    IBlockSet grassBlockSet = new BlockSet(BlockType.get(BlockType.GRASS), null, null);
+
+    ITheme parent = new ThemeBase(dirtBlockSet, null);
+    ITheme child = new ThemeBase(grassBlockSet, null);
+
+    ITheme actual = Theme.inherit(parent, child);
+    assertThat(actual.getPrimary().getFloor()).isEqualTo(grassBlockSet.getFloor());
+    assertThat(actual.getSecondary().getFloor()).isEqualTo(grassBlockSet.getFloor());
+  }
+
+  @Test
+  public void themesInheritTheirPrimaryBlockSetFromTheirParentIfAbsent() {
+    IBlockSet dirtBlockSet = new BlockSet(BlockType.get(BlockType.DIRT), null, null);
+
+    ITheme parent = new ThemeBase(dirtBlockSet, null);
+    ITheme child = new ThemeBase(null, null);
+
+    ITheme actual = Theme.inherit(parent, child);
+    assertThat(actual.getPrimary().getFloor()).isEqualTo(dirtBlockSet.getFloor());
+  }
+
+  @Test
+  public void themesInheritTheirSecondaryBlockSetFromTheirParentIfAbsent() {
+    IBlockSet dirtBlockSet = new BlockSet(BlockType.get(BlockType.DIRT), null, null);
+
+    ITheme parent = new ThemeBase(null, dirtBlockSet);
+    ITheme child = new ThemeBase(null, null);
+
+    ITheme actual = Theme.inherit(parent, child);
+    assertThat(actual.getSecondary().getFloor()).isEqualTo(dirtBlockSet.getFloor());
+  }
+
+  @Test
+  public void themesInheritTheirSecondaryBlockSetFromTheirParentsPrimaryIfTheParentHasNoSecondary() {
+    IBlockSet dirtBlockSet = new BlockSet(BlockType.get(BlockType.DIRT), null, null);
+
+    ITheme parent = new ThemeBase(dirtBlockSet, null);
+    ITheme child = new ThemeBase(null, null);
+
+    ITheme actual = Theme.inherit(parent, child);
+    assertThat(actual.getSecondary().getFloor()).isEqualTo(dirtBlockSet.getFloor());
+  }
+
+  @Test
+  public void themesGetADefaultStoneBrickThemeWhenThereIsNothingToInherit() {
+    ITheme parent = new ThemeBase(null, null);
+    ITheme child = new ThemeBase(null, null);
+
+    ITheme actual = Theme.inherit(parent, child);
+    assertThat(actual.getPrimary().getFloor()).isEqualTo(BlockType.get(BlockType.STONE_BRICK));
+    assertThat(actual.getSecondary().getFloor()).isEqualTo(BlockType.get(BlockType.STONE_BRICK));
   }
 }
