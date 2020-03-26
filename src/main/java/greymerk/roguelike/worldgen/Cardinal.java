@@ -8,8 +8,8 @@ public enum Cardinal {
 
   NORTH(EnumFacing.SOUTH, EnumOrientation.SOUTH),
   EAST(EnumFacing.WEST, EnumOrientation.WEST),
-  WEST(EnumFacing.EAST, EnumOrientation.EAST),
   SOUTH(EnumFacing.NORTH, EnumOrientation.NORTH),
+  WEST(EnumFacing.EAST, EnumOrientation.EAST),
   UP(EnumFacing.UP, EnumOrientation.UP_X),
   DOWN(EnumFacing.DOWN, EnumOrientation.DOWN_X),
   ;
