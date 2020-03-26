@@ -16,9 +16,7 @@ import greymerk.roguelike.worldgen.IBlockFactory;
 import greymerk.roguelike.worldgen.IStair;
 import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
-import greymerk.roguelike.worldgen.MetaStair;
 import greymerk.roguelike.worldgen.blocks.BlockType;
-import greymerk.roguelike.worldgen.blocks.StairType;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.Spawner;
 
@@ -122,7 +120,7 @@ public class DungeonObsidian extends DungeonBase {
     int z = origin.getZ();
     ITheme theme = settings.getTheme();
 
-    HashSet<Coord> spawners = new HashSet<Coord>();
+    HashSet<Coord> spawners = new HashSet<>();
     MetaBlock air = BlockType.get(BlockType.AIR);
     IBlockFactory primaryWall = theme.getPrimary().getWall();
     IBlockFactory secondaryWall = theme.getSecondary().getWall();
@@ -256,33 +254,33 @@ public class DungeonObsidian extends DungeonBase {
         end.add(Cardinal.DOWN, 2);
 
         RectSolid.fill(editor, rand, start, end, primaryWall);
-        IStair step = new MetaStair(StairType.NETHERBRICK);
-        Coord stepSpot = new Coord(x, y, z);
-        stepSpot.add(dir, 8);
-        stepSpot.add(Cardinal.DOWN, 1);
-        stepSpot.add(orth, 2);
-        step.setOrientation(orth, false);
-        step.set(editor, rand, stepSpot);
-        stepSpot.add(dir, 1);
-        step.set(editor, rand, stepSpot);
+        IStair stair = theme.getPrimary().getStair();
+        Coord stepCoord = new Coord(x, y, z);
+        stepCoord.add(dir, 8);
+        stepCoord.add(Cardinal.DOWN, 1);
+        stepCoord.add(orth, 2);
+        stair.setOrientation(orth, false);
+        stair.set(editor, rand, stepCoord);
+        stepCoord.add(dir, 1);
+        stair.set(editor, rand, stepCoord);
 
-        step.setOrientation(Cardinal.reverse(dir), false);
-        stepSpot = new Coord(x, y, z);
-        stepSpot.add(Cardinal.DOWN, 2);
-        stepSpot.add(dir, 7);
-        stepSpot.add(orth, 3);
-        step.set(editor, rand, stepSpot);
-        stepSpot.add(orth, 1);
-        step.set(editor, rand, stepSpot);
-        stepSpot.add(Cardinal.DOWN, 1);
-        stepSpot.add(Cardinal.reverse(dir), 1);
-        step.set(editor, rand, stepSpot);
-        stepSpot.add(Cardinal.reverse(orth), 1);
-        step.set(editor, rand, stepSpot);
-        stepSpot.add(dir, 1);
-        primaryWall.set(editor, rand, stepSpot);
-        stepSpot.add(orth, 1);
-        primaryWall.set(editor, rand, stepSpot);
+        stair.setOrientation(Cardinal.reverse(dir), false);
+        stepCoord = new Coord(x, y, z);
+        stepCoord.add(Cardinal.DOWN, 2);
+        stepCoord.add(dir, 7);
+        stepCoord.add(orth, 3);
+        stair.set(editor, rand, stepCoord);
+        stepCoord.add(orth, 1);
+        stair.set(editor, rand, stepCoord);
+        stepCoord.add(Cardinal.DOWN, 1);
+        stepCoord.add(Cardinal.reverse(dir), 1);
+        stair.set(editor, rand, stepCoord);
+        stepCoord.add(Cardinal.reverse(orth), 1);
+        stair.set(editor, rand, stepCoord);
+        stepCoord.add(dir, 1);
+        primaryWall.set(editor, rand, stepCoord);
+        stepCoord.add(orth, 1);
+        primaryWall.set(editor, rand, stepCoord);
 
         Coord corner = new Coord(x, y, z);
         corner.add(dir, 7);
