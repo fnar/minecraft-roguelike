@@ -58,7 +58,7 @@ public class DungeonMess extends DungeonBase {
     for (Cardinal dir : Cardinal.directions) {
       start = new Coord(origin);
       start.add(dir, 3);
-      start.add(Cardinal.left(dir), 3);
+      start.add(dir.left(), 3);
       end = new Coord(start);
       end.add(Cardinal.UP, 3);
       RectSolid.fill(editor, rand, start, end, pillar, true, true);
@@ -73,12 +73,12 @@ public class DungeonMess extends DungeonBase {
       start.add(dir, 3);
       start.add(Cardinal.UP, 4);
       end = new Coord(start);
-      start.add(Cardinal.left(dir), 3);
-      end.add(Cardinal.right(dir), 3);
+      start.add(dir.left(), 3);
+      end.add(dir.right(), 3);
       RectSolid.fill(editor, rand, start, end, wall, true, true);
 
 
-      Cardinal[] corner = new Cardinal[]{dir, Cardinal.left(dir)};
+      Cardinal[] corner = new Cardinal[]{dir, dir.left()};
       if (entrances.length == 4 && dir == entrances[0]) {
         supplyCorner(editor, rand, settings, corner, origin);
       } else {
@@ -92,7 +92,7 @@ public class DungeonMess extends DungeonBase {
       cursor.add(dir);
       stair.setOrientation(dir, true).set(editor, cursor);
       cursor.add(dir);
-      stair.setOrientation(Cardinal.reverse(dir), true).set(editor, cursor);
+      stair.setOrientation(dir.reverse(), true).set(editor, cursor);
     }
 
     List<Cardinal> nonDoors = new ArrayList<Cardinal>();
@@ -156,7 +156,7 @@ public class DungeonMess extends DungeonBase {
     cursor.add(entrances[0], 5);
     cursor.add(entrances[1], 5);
     cursor.add(entrances[1], 2);
-    Furnace.generate(editor, true, Cardinal.reverse(entrances[1]), cursor);
+    Furnace.generate(editor, true, entrances[1].reverse(), cursor);
 
     for (Cardinal dir : entrances) {
       cursor = new Coord(origin);
@@ -168,15 +168,15 @@ public class DungeonMess extends DungeonBase {
       end.add(Cardinal.UP, 3);
       RectSolid.fill(editor, rand, start, end, pillar, true, true);
       cursor.add(Cardinal.UP, 3);
-      cursor.add(Cardinal.reverse(dir));
+      cursor.add(dir.reverse());
       wall.set(editor, rand, cursor);
       cursor.add(Cardinal.DOWN);
-      stair.setOrientation(Cardinal.reverse(dir), true).set(editor, cursor);
+      stair.setOrientation(dir.reverse(), true).set(editor, cursor);
       cursor.add(Cardinal.UP);
-      cursor.add(Cardinal.reverse(dir));
-      stair.setOrientation(Cardinal.reverse(dir), true).set(editor, cursor);
+      cursor.add(dir.reverse());
+      stair.setOrientation(dir.reverse(), true).set(editor, cursor);
       cursor.add(Cardinal.UP);
-      cursor.add(Cardinal.reverse(dir));
+      cursor.add(dir.reverse());
       start = new Coord(cursor);
       end = new Coord(cursor);
       end.add(dir, 3);
@@ -187,14 +187,14 @@ public class DungeonMess extends DungeonBase {
       cursor.add(entrances[1], 5);
       cursor.add(dir, 2);
       start = new Coord(cursor);
-      start.add(Cardinal.left(dir));
+      start.add(dir.left());
       end = new Coord(cursor);
-      end.add(Cardinal.right(dir));
-      stair.setOrientation(Cardinal.reverse(dir), true).fill(editor, rand, new RectSolid(start, end));
+      end.add(dir.right());
+      stair.setOrientation(dir.reverse(), true).fill(editor, rand, new RectSolid(start, end));
       start.add(Cardinal.UP, 2);
       end.add(Cardinal.UP, 2);
-      stair.setOrientation(Cardinal.right(dir), true).set(editor, start);
-      stair.setOrientation(Cardinal.left(dir), true).set(editor, end);
+      stair.setOrientation(dir.right(), true).set(editor, start);
+      stair.setOrientation(dir.left(), true).set(editor, end);
       start.add(Cardinal.UP);
       end.add(Cardinal.UP);
       RectSolid.fill(editor, rand, start, end, wall, true, true);
@@ -232,13 +232,13 @@ public class DungeonMess extends DungeonBase {
     cursor = new Coord(origin);
     cursor.add(entrances[0], 4);
     cursor.add(entrances[1], 4);
-    table.setOrientation(Cardinal.reverse(entrances[0]), true).set(editor, cursor);
+    table.setOrientation(entrances[0].reverse(), true).set(editor, cursor);
     cursor.add(entrances[1]);
     table.setOrientation(entrances[1], true).set(editor, cursor);
     cursor.add(entrances[0]);
     table.setOrientation(entrances[0], true).set(editor, cursor);
-    cursor.add(Cardinal.reverse(entrances[1]));
-    table.setOrientation(Cardinal.reverse(entrances[1]), true).set(editor, cursor);
+    cursor.add(entrances[1].reverse());
+    table.setOrientation(entrances[1].reverse(), true).set(editor, cursor);
 
 
     for (Cardinal dir : entrances) {
@@ -251,15 +251,15 @@ public class DungeonMess extends DungeonBase {
       end.add(Cardinal.UP, 3);
       RectSolid.fill(editor, rand, start, end, pillar, true, true);
       cursor.add(Cardinal.UP, 3);
-      cursor.add(Cardinal.reverse(dir));
+      cursor.add(dir.reverse());
       wall.set(editor, rand, cursor);
       cursor.add(Cardinal.DOWN);
-      stair.setOrientation(Cardinal.reverse(dir), true).set(editor, cursor);
+      stair.setOrientation(dir.reverse(), true).set(editor, cursor);
       cursor.add(Cardinal.UP);
-      cursor.add(Cardinal.reverse(dir));
-      stair.setOrientation(Cardinal.reverse(dir), true).set(editor, cursor);
+      cursor.add(dir.reverse());
+      stair.setOrientation(dir.reverse(), true).set(editor, cursor);
       cursor.add(Cardinal.UP);
-      cursor.add(Cardinal.reverse(dir));
+      cursor.add(dir.reverse());
       start = new Coord(cursor);
       end = new Coord(cursor);
       end.add(dir, 3);
@@ -270,14 +270,14 @@ public class DungeonMess extends DungeonBase {
       cursor.add(entrances[1], 5);
       cursor.add(dir, 2);
       start = new Coord(cursor);
-      start.add(Cardinal.left(dir));
+      start.add(dir.left());
       end = new Coord(cursor);
-      end.add(Cardinal.right(dir));
-      stair.setOrientation(Cardinal.reverse(dir), false).fill(editor, rand, new RectSolid(start, end));
+      end.add(dir.right());
+      stair.setOrientation(dir.reverse(), false).fill(editor, rand, new RectSolid(start, end));
       start.add(Cardinal.UP, 2);
       end.add(Cardinal.UP, 2);
-      stair.setOrientation(Cardinal.right(dir), true).set(editor, start);
-      stair.setOrientation(Cardinal.left(dir), true).set(editor, end);
+      stair.setOrientation(dir.right(), true).set(editor, start);
+      stair.setOrientation(dir.left(), true).set(editor, end);
       start.add(Cardinal.UP);
       end.add(Cardinal.UP);
       RectSolid.fill(editor, rand, start, end, wall, true, true);
@@ -302,33 +302,33 @@ public class DungeonMess extends DungeonBase {
     start.add(Cardinal.UP, 3);
     end = new Coord(start);
     end.add(Cardinal.UP);
-    start.add(Cardinal.left(dir), 2);
-    end.add(Cardinal.right(dir), 2);
+    start.add(dir.left(), 2);
+    end.add(dir.right(), 2);
     RectSolid.fill(editor, rand, start, end, wall, true, true);
 
-    for (Cardinal o : Cardinal.orthogonal(dir)) {
+    for (Cardinal o : dir.orthogonal()) {
       cursor = new Coord(origin);
       cursor.add(dir, 7);
       cursor.add(o, 2);
       cursor.add(Cardinal.UP, 2);
-      stair.setOrientation(Cardinal.reverse(o), true).set(editor, cursor);
+      stair.setOrientation(o.reverse(), true).set(editor, cursor);
 
-      cursor.add(Cardinal.reverse(dir));
+      cursor.add(dir.reverse());
       cursor.add(Cardinal.UP, 2);
-      stair.setOrientation(Cardinal.reverse(o), true).set(editor, cursor);
-      cursor.add(Cardinal.reverse(o));
+      stair.setOrientation(o.reverse(), true).set(editor, cursor);
+      cursor.add(o.reverse());
       stair.setOrientation(o, true).set(editor, cursor);
     }
 
     cursor = new Coord(origin);
     cursor.add(dir, 6);
     cursor.add(Cardinal.UP, 3);
-    stair.setOrientation(Cardinal.reverse(dir), true).set(editor, cursor);
+    stair.setOrientation(dir.reverse(), true).set(editor, cursor);
     cursor.add(Cardinal.UP);
     wall.set(editor, rand, cursor);
-    cursor.add(Cardinal.reverse(dir));
-    stair.setOrientation(Cardinal.reverse(dir), true).set(editor, cursor);
-    cursor.add(Cardinal.reverse(dir));
+    cursor.add(dir.reverse());
+    stair.setOrientation(dir.reverse(), true).set(editor, cursor);
+    cursor.add(dir.reverse());
     stair.setOrientation(dir, true).set(editor, cursor);
 
     start = new Coord(origin);
@@ -336,8 +336,8 @@ public class DungeonMess extends DungeonBase {
     start.add(dir, 4);
     end = new Coord(start);
     end.add(dir);
-    start.add(Cardinal.left(dir), 2);
-    end.add(Cardinal.right(dir), 2);
+    start.add(dir.left(), 2);
+    end.add(dir.right(), 2);
     RectSolid.fill(editor, rand, start, end, panel, false, true);
 
 
@@ -358,8 +358,8 @@ public class DungeonMess extends DungeonBase {
     start = new Coord(origin);
     start.add(dir, 7);
     end = new Coord(start);
-    start.add(Cardinal.left(dir), 2);
-    end.add(Cardinal.right(dir), 2);
+    start.add(dir.left(), 2);
+    end.add(dir.right(), 2);
     end.add(Cardinal.UP, 2);
     end.add(dir);
     RectSolid.fill(editor, rand, start, end, wall, true, true);
@@ -367,8 +367,8 @@ public class DungeonMess extends DungeonBase {
     start = new Coord(origin);
     start.add(dir, 7);
     end = new Coord(start);
-    start.add(Cardinal.left(dir));
-    end.add(Cardinal.right(dir));
+    start.add(dir.left());
+    end.add(dir.right());
     end.add(Cardinal.UP);
     RectSolid.fill(editor, rand, start, end, air);
 
@@ -384,10 +384,10 @@ public class DungeonMess extends DungeonBase {
     air.set(editor, cursor);
     cursor.add(Cardinal.UP);
     air.set(editor, cursor);
-    cursor.add(Cardinal.reverse(dir));
-    stair.setOrientation(Cardinal.reverse(dir), false).set(editor, cursor);
+    cursor.add(dir.reverse());
+    stair.setOrientation(dir.reverse(), false).set(editor, cursor);
 
-    for (Cardinal o : Cardinal.orthogonal(dir)) {
+    for (Cardinal o : dir.orthogonal()) {
       cursor = new Coord(origin);
       cursor.add(dir, 6);
       cursor.add(o);
@@ -396,12 +396,12 @@ public class DungeonMess extends DungeonBase {
       wall.set(editor, rand, cursor);
       cursor.add(Cardinal.UP);
       stair.setOrientation(o, false).set(editor, cursor);
-      cursor.add(Cardinal.reverse(o));
-      stair.setOrientation(Cardinal.reverse(o), true).set(editor, cursor);
+      cursor.add(o.reverse());
+      stair.setOrientation(o.reverse(), true).set(editor, cursor);
       cursor.add(dir);
-      stair.setOrientation(Cardinal.reverse(o), true).set(editor, cursor);
+      stair.setOrientation(o.reverse(), true).set(editor, cursor);
       cursor.add(Cardinal.UP);
-      cursor.add(Cardinal.reverse(dir));
+      cursor.add(dir.reverse());
       stair.setOrientation(o, false).set(editor, cursor);
 
       cursor = new Coord(origin);
@@ -424,27 +424,27 @@ public class DungeonMess extends DungeonBase {
 
     cursor = new Coord(origin);
     cursor.add(dir, 7);
-    stair.setOrientation(Cardinal.reverse(dir), true).set(editor, cursor);
+    stair.setOrientation(dir.reverse(), true).set(editor, cursor);
     cursor.add(Cardinal.UP);
     try {
       Treasure.generate(editor, rand, cursor, Treasure.FOOD, settings.getDifficulty(origin));
     } catch (ChestPlacementException cpe) {
       // do nothing
     }
-    cursor.add(Cardinal.left(dir));
+    cursor.add(dir.left());
     Furnace.generate(editor, dir, cursor);
-    cursor.add(Cardinal.right(dir), 2);
+    cursor.add(dir.right(), 2);
     BlockType.get(BlockType.CRAFTING_TABLE).set(editor, cursor);
 
-    for (Cardinal o : Cardinal.orthogonal(dir)) {
+    for (Cardinal o : dir.orthogonal()) {
       cursor = new Coord(origin);
       cursor.add(dir, 7);
       cursor.add(o);
-      stair.setOrientation(Cardinal.reverse(dir), true).set(editor, cursor);
+      stair.setOrientation(dir.reverse(), true).set(editor, cursor);
       cursor.add(o);
-      stair.setOrientation(Cardinal.reverse(o), true).set(editor, cursor);
+      stair.setOrientation(o.reverse(), true).set(editor, cursor);
       cursor.add(Cardinal.UP);
-      stair.setOrientation(Cardinal.reverse(o), false).set(editor, cursor);
+      stair.setOrientation(o.reverse(), false).set(editor, cursor);
     }
 
 
@@ -456,11 +456,11 @@ public class DungeonMess extends DungeonBase {
     Coord cursor = new Coord(origin);
 
     cursor.add(dir, 5);
-    table.setOrientation(Cardinal.reverse(dir), true).set(editor, cursor);
+    table.setOrientation(dir.reverse(), true).set(editor, cursor);
     cursor.add(dir);
     table.setOrientation(dir, true).set(editor, cursor);
 
-    for (Cardinal o : Cardinal.orthogonal(dir)) {
+    for (Cardinal o : dir.orthogonal()) {
       cursor = new Coord(origin);
       cursor.add(dir, 5);
       cursor.add(o);

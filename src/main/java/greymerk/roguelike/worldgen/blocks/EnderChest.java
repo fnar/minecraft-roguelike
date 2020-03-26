@@ -16,8 +16,8 @@ public class EnderChest {
   public static void set(IWorldEditor editor, Cardinal dir, Coord pos) {
 
     EnumFacing facing = Arrays.asList(Cardinal.directions).contains(dir)
-        ? Cardinal.facing(Cardinal.reverse(dir))
-        : Cardinal.facing(Cardinal.SOUTH);
+        ? dir.reverse().getFacing()
+        : Cardinal.SOUTH.getFacing();
 
     MetaBlock chest = new MetaBlock(Blocks.ENDER_CHEST);
     chest.withProperty(BlockEnderChest.FACING, facing);

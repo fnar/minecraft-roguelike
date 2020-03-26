@@ -26,7 +26,7 @@ public class SegmentCave extends SegmentBase {
     fill.addBlock(wall);
 
 
-    Cardinal[] orth = Cardinal.orthogonal(dir);
+    Cardinal[] orth = dir.orthogonal();
 
     Coord cursor = new Coord(origin);
     Coord start;

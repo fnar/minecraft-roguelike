@@ -61,7 +61,7 @@ public class DungeonTreetho extends DungeonBase {
     cursor = new Coord(origin);
     treeFarm(editor, rand, settings, cursor, dir);
 
-    for (Cardinal o : Cardinal.orthogonal(dir)) {
+    for (Cardinal o : dir.orthogonal()) {
       cursor = new Coord(origin);
       cursor.add(o, 5);
       treeFarm(editor, rand, settings, cursor, dir);
@@ -85,17 +85,17 @@ public class DungeonTreetho extends DungeonBase {
     start = new Coord(origin);
     end = new Coord(origin);
 
-    start.add(Cardinal.left(dir));
-    end.add(Cardinal.right(dir));
+    start.add(dir.left());
+    end.add(dir.right());
 
-    start.add(Cardinal.reverse(dir), 7);
+    start.add(dir.reverse(), 7);
     end.add(dir, 7);
 
     RectSolid.fill(editor, rand, start, end, slab, true, true);
 
     cursor = new Coord(origin);
 
-    cursor.add(Cardinal.reverse(dir), 6);
+    cursor.add(dir.reverse(), 6);
     for (int i = 0; i <= 12; ++i) {
       if (i % 2 == 0) {
         Coord p = new Coord(cursor);
@@ -127,18 +127,18 @@ public class DungeonTreetho extends DungeonBase {
       start.add(dir, 9);
       Coord end = new Coord(start);
 
-      start.add(Cardinal.left(dir), 9);
-      end.add(Cardinal.right(dir), 9);
+      start.add(dir.left(), 9);
+      end.add(dir.right(), 9);
 
       RectSolid.fill(editor, rand, start, end, fill, true, true);
 
       Coord cursor = new Coord(origin);
       cursor.add(Cardinal.DOWN);
       cursor.add(dir, 10);
-      cursor.add(Cardinal.left(dir), 10);
+      cursor.add(dir.left(), 10);
       for (int i = 0; i < 5; ++i) {
         pillar(editor, rand, settings, cursor);
-        cursor.add(Cardinal.right(dir), 4);
+        cursor.add(dir.right(), 4);
       }
     }
 

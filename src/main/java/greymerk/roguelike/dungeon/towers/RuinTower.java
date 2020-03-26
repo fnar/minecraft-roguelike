@@ -45,7 +45,7 @@ public class RuinTower implements ITower {
     }
 
     for (Cardinal dir : Cardinal.directions) {
-      for (Cardinal orth : Cardinal.orthogonal(dir)) {
+      for (Cardinal orth : dir.orthogonal()) {
         cursor = new Coord(floor);
         cursor.add(dir, 4);
         cursor.add(orth);
@@ -64,13 +64,13 @@ public class RuinTower implements ITower {
       start.add(Cardinal.DOWN);
       start.add(dir, 4);
       end = new Coord(start.getX(), origin.getY() + 10, start.getZ());
-      start.add(Cardinal.left(dir), 2);
-      end.add(Cardinal.right(dir), 2);
+      start.add(dir.left(), 2);
+      end.add(dir.right(), 2);
       RectSolid.fill(editor, rand, start, end, blocks, true, false);
 
       cursor = new Coord(floor);
       cursor.add(dir, 3);
-      cursor.add(Cardinal.left(dir), 3);
+      cursor.add(dir.left(), 3);
       RectSolid.fill(editor, rand,
           new Coord(cursor.getX(), origin.getY() + 20, cursor.getZ()),
           new Coord(cursor.getX(), floor.getY() + 2 + rand.nextInt(4), cursor.getZ()),

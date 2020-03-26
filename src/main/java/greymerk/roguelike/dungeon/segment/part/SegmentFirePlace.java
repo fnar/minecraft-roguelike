@@ -25,7 +25,7 @@ public class SegmentFirePlace extends SegmentBase {
     Coord start;
     Coord end;
 
-    Cardinal[] orth = Cardinal.orthogonal(dir);
+    Cardinal[] orth = dir.orthogonal();
 
     cursor.add(dir, 2);
     start = new Coord(cursor);
@@ -45,7 +45,7 @@ public class SegmentFirePlace extends SegmentBase {
     for (Cardinal d : orth) {
       Coord c = new Coord(cursor);
       c.add(d, 1);
-      stair.setOrientation(Cardinal.reverse(d), true);
+      stair.setOrientation(d.reverse(), true);
       stair.set(editor, c);
     }
 
@@ -53,12 +53,12 @@ public class SegmentFirePlace extends SegmentBase {
 
     cursor = new Coord(origin);
     cursor.add(dir, 3);
-    stair.setOrientation(Cardinal.reverse(dir), false);
+    stair.setOrientation(dir.reverse(), false);
     stair.set(editor, cursor);
     cursor.add(Cardinal.UP);
     BlockType.get(BlockType.IRON_BAR).set(editor, cursor);
     cursor.add(Cardinal.UP);
-    stair.setOrientation(Cardinal.reverse(dir), true);
+    stair.setOrientation(dir.reverse(), true);
     stair.set(editor, cursor);
 
     start = new Coord(origin);

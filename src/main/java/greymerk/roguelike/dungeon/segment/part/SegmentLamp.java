@@ -30,7 +30,7 @@ public class SegmentLamp extends SegmentBase {
     Coord start;
     Coord end;
 
-    Cardinal[] orth = Cardinal.orthogonal(dir);
+    Cardinal[] orth = dir.orthogonal();
 
     start = new Coord(origin);
     start.add(dir, 2);
@@ -45,7 +45,7 @@ public class SegmentLamp extends SegmentBase {
     end = new Coord(start);
     start.add(dir);
     start.add(orth[0]);
-    end.add(Cardinal.reverse(dir));
+    end.add(dir.reverse());
     end.add(orth[1]);
     RectSolid.fill(editor, rand, start, end, air);
 
@@ -59,7 +59,7 @@ public class SegmentLamp extends SegmentBase {
     RectSolid.fill(editor, rand, start, end, wall);
     start = new Coord(end);
     start.add(Cardinal.DOWN, 2);
-    start.add(Cardinal.reverse(dir), 6);
+    start.add(dir.reverse(), 6);
     start.add(orth[0], 2);
     RectSolid.fill(editor, rand, start, end, wall);
 
@@ -68,9 +68,9 @@ public class SegmentLamp extends SegmentBase {
       cursor = new Coord(origin);
       cursor.add(dir, 2);
       cursor.add(side);
-      stair.setOrientation(Cardinal.reverse(side), false).set(editor, cursor);
+      stair.setOrientation(side.reverse(), false).set(editor, cursor);
       cursor.add(Cardinal.UP, 2);
-      stair.setOrientation(Cardinal.reverse(side), true).set(editor, cursor);
+      stair.setOrientation(side.reverse(), true).set(editor, cursor);
     }
 
     cursor = new Coord(origin);
@@ -84,7 +84,7 @@ public class SegmentLamp extends SegmentBase {
     Coord lever = new Coord(cursor);
     cursor.add(dir);
     ColorBlock.get(ColorBlock.CLAY, DyeColor.ORANGE).set(editor, cursor);
-    Lever.generate(editor, Cardinal.reverse(dir), lever, false);
+    Lever.generate(editor, dir.reverse(), lever, false);
     cursor.add(dir);
     Torch.generate(editor, Torch.REDSTONE, dir, cursor);
     cursor.add(Cardinal.UP, 2);
@@ -92,7 +92,7 @@ public class SegmentLamp extends SegmentBase {
     cursor.add(Cardinal.UP, 2);
     start = new Coord(cursor);
     end = new Coord(start);
-    end.add(Cardinal.reverse(dir), 3);
+    end.add(dir.reverse(), 3);
     MetaBlock wire = BlockType.get(BlockType.REDSTONE_WIRE);
     RectSolid.fill(editor, rand, start, end, wire);
   }
@@ -108,8 +108,8 @@ public class SegmentLamp extends SegmentBase {
     for (Cardinal dir : Cardinal.directions) {
       cursor = new Coord(origin);
       cursor.add(dir);
-      stair.setOrientation(Cardinal.reverse(dir), true).set(editor, cursor);
-      cursor.add(Cardinal.orthogonal(dir)[0]);
+      stair.setOrientation(dir.reverse(), true).set(editor, cursor);
+      cursor.add(dir.orthogonal()[0]);
       stair.set(editor, cursor);
     }
 

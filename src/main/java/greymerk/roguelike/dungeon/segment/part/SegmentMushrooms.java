@@ -34,7 +34,7 @@ public class SegmentMushrooms extends SegmentBase {
     Coord start;
     Coord end;
 
-    Cardinal[] orth = Cardinal.orthogonal(wallDirection);
+    Cardinal[] orth = wallDirection.orthogonal();
     start = new Coord(origin);
     start.add(wallDirection, 2);
     end = new Coord(start);
@@ -55,7 +55,7 @@ public class SegmentMushrooms extends SegmentBase {
       cursor.add(wallDirection, 2);
       cursor.add(d, 1);
       cursor.add(Cardinal.UP, 1);
-      stair.setOrientation(Cardinal.reverse(d), true);
+      stair.setOrientation(d.reverse(), true);
       stair.set(editor, cursor);
     }
 

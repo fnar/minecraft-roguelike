@@ -25,7 +25,7 @@ public class SegmentFlowers extends SegmentBase {
     Coord start;
     Coord end;
 
-    Cardinal[] orth = Cardinal.orthogonal(dir);
+    Cardinal[] orth = dir.orthogonal();
 
     cursor.add(dir, 2);
     start = new Coord(cursor);
@@ -37,15 +37,15 @@ public class SegmentFlowers extends SegmentBase {
     end.add(dir, 1);
     end.add(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, theme.getSecondary().getWall(), false, true);
-    start.add(Cardinal.reverse(dir), 1);
+    start.add(dir.reverse(), 1);
     start.add(Cardinal.UP, 1);
-    end.add(Cardinal.reverse(dir), 1);
+    end.add(dir.reverse(), 1);
     RectSolid.fill(editor, rand, start, end, air, false, true);
     cursor.add(Cardinal.UP, 2);
     for (Cardinal d : orth) {
       Coord c = new Coord(cursor);
       c.add(d, 1);
-      stair.setOrientation(Cardinal.reverse(d), true);
+      stair.setOrientation(d.reverse(), true);
       stair.set(editor, c);
     }
 

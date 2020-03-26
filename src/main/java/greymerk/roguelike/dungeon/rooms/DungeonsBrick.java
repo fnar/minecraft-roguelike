@@ -21,7 +21,8 @@ import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.Spawner;
 
-import static greymerk.roguelike.worldgen.Cardinal.*;
+import static greymerk.roguelike.worldgen.Cardinal.UP;
+import static greymerk.roguelike.worldgen.Cardinal.directions;
 
 public class DungeonsBrick extends DungeonBase {
 
@@ -68,9 +69,9 @@ public class DungeonsBrick extends DungeonBase {
       cursor = new Coord(x, y, z);
       cursor.add(dir, 1);
       cursor.add(UP, 5);
-      stair.setOrientation(reverse(dir), true);
+      stair.setOrientation(dir.reverse(), true);
       stair.set(editor, rand, cursor, false, true);
-      cursor.add(left(dir), 1);
+      cursor.add(dir.left(), 1);
       blocks.set(editor, rand, cursor, false, true);
 
       cursor = new Coord(x, y, z);
@@ -83,7 +84,7 @@ public class DungeonsBrick extends DungeonBase {
       // pillar
       cursor = new Coord(x, y, z);
       cursor.add(dir, 3);
-      cursor.add(left(dir), 3);
+      cursor.add(dir.left(), 3);
       start = new Coord(cursor);
       cursor.add(UP, 2);
       end = new Coord(cursor);
@@ -92,38 +93,38 @@ public class DungeonsBrick extends DungeonBase {
       blocks.set(editor, rand, cursor);
 
       // pillar stairs
-      for (Cardinal orth : orthogonal(dir)) {
+      for (Cardinal orth : dir.orthogonal()) {
         cursor = new Coord(x, y, z);
         cursor.add(dir, 3);
         cursor.add(orth, 2);
         cursor.add(UP, 3);
-        stair.setOrientation(reverse(orth), true);
+        stair.setOrientation(orth.reverse(), true);
         stair.set(editor, rand, cursor);
       }
 
       // layer above pillars
       cursor = new Coord(x, y, z);
       cursor.add(dir, 2);
-      cursor.add(left(dir), 2);
+      cursor.add(dir.left(), 2);
       cursor.add(UP, 4);
       blocks.set(editor, rand, cursor, false, true);
 
-      for (Cardinal orth : orthogonal(dir)) {
+      for (Cardinal orth : dir.orthogonal()) {
         cursor = new Coord(x, y, z);
         cursor.add(UP, 4);
         cursor.add(dir, 2);
         cursor.add(orth, 1);
-        stair.setOrientation(reverse(orth), true);
+        stair.setOrientation(orth.reverse(), true);
         stair.set(editor, rand, cursor, false, true);
       }
 
       cursor = new Coord(x, y, z);
       cursor.add(dir, 1);
-      cursor.add(left(dir), 1);
+      cursor.add(dir.left(), 1);
       cursor.add(UP, 5);
       blocks.set(editor, rand, cursor, false, true);
 
-      for (Cardinal orth : orthogonal(dir)) {
+      for (Cardinal orth : dir.orthogonal()) {
         cursor = new Coord(x, y, z);
         cursor.add(dir, 3);
         cursor.add(orth, 2);

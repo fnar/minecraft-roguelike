@@ -27,7 +27,7 @@ public class SegmentTomb extends SegmentBase {
     Coord start;
     Coord end;
 
-    Cardinal[] orth = Cardinal.orthogonal(dir);
+    Cardinal[] orth = dir.orthogonal();
     start = new Coord(pos);
     start.add(dir, 3);
     end = new Coord(start);
@@ -71,7 +71,7 @@ public class SegmentTomb extends SegmentBase {
     Coord start;
     Coord end;
 
-    Cardinal[] orth = Cardinal.orthogonal(dir);
+    Cardinal[] orth = dir.orthogonal();
 
     cursor.add(dir, 2);
     start = new Coord(cursor);
@@ -89,7 +89,7 @@ public class SegmentTomb extends SegmentBase {
     for (Cardinal d : orth) {
       Coord c = new Coord(cursor);
       c.add(d, 1);
-      stair.setOrientation(Cardinal.reverse(d), true);
+      stair.setOrientation(d.reverse(), true);
       stair.set(editor, rand, c);
     }
 

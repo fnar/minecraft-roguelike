@@ -28,7 +28,7 @@ public class DungeonAvidya extends DungeonBase {
       step.setOrientation(dir, true);
       cursor.add(dir, 1);
       step.set(editor, rand, cursor, true, false);
-      cursor.add(Cardinal.reverse(dir), 1);
+      cursor.add(dir.reverse(), 1);
     }
   }
 
@@ -113,7 +113,7 @@ public class DungeonAvidya extends DungeonBase {
 
 
     for (Cardinal dir : Cardinal.directions) {
-      for (Cardinal orth : Cardinal.orthogonal(dir)) {
+      for (Cardinal orth : dir.orthogonal()) {
 
         // upper trim
         start = new Coord(x, y, z);
@@ -145,7 +145,7 @@ public class DungeonAvidya extends DungeonBase {
         cursor.add(dir, 1);
         quartz.set(editor, rand, cursor);
         cursor = new Coord(end);
-        cursor.add(Cardinal.reverse(dir), 1);
+        cursor.add(dir.reverse(), 1);
         cursor.add(orth, 1);
         quartz.set(editor, rand, cursor);
         pillarTop(editor, rand, cursor);
@@ -171,16 +171,16 @@ public class DungeonAvidya extends DungeonBase {
         pillarTop(editor, rand, cursor);
         cursor2.add(orth, 4);
         pillarTop(editor, rand, cursor2);
-        cursor2.add(Cardinal.reverse(dir), 1);
+        cursor2.add(dir.reverse(), 1);
         cursor2.add(Cardinal.UP, 1);
         quartz.set(editor, cursor2);
-        cursor2.add(Cardinal.reverse(dir), 1);
+        cursor2.add(dir.reverse(), 1);
         cursor2.add(Cardinal.UP, 1);
         whiteClay.set(editor, cursor2);
-        cursor.add(Cardinal.reverse(dir), 1);
+        cursor.add(dir.reverse(), 1);
         cursor.add(Cardinal.UP, 1);
         pillarTop(editor, rand, cursor);
-        cursor.add(Cardinal.reverse(dir), 1);
+        cursor.add(dir.reverse(), 1);
         cursor.add(Cardinal.UP, 1);
         pillarTop(editor, rand, cursor);
 
@@ -197,7 +197,7 @@ public class DungeonAvidya extends DungeonBase {
         cursor.add(dir, 7);
         cursor.add(Cardinal.DOWN, 1);
         IStair step = new MetaStair(StairType.STONEBRICK);
-        step.setOrientation(Cardinal.reverse(dir), false);
+        step.setOrientation(dir.reverse(), false);
         step.set(editor, cursor);
 
         cursor.add(orth, 1);
@@ -206,22 +206,22 @@ public class DungeonAvidya extends DungeonBase {
         cursor.add(orth, 1);
         step.set(editor, cursor);
 
-        step.setOrientation(Cardinal.reverse(orth), false);
+        step.setOrientation(orth.reverse(), false);
         cursor.add(orth, 1);
         step.set(editor, cursor);
 
-        cursor.add(Cardinal.reverse(dir), 1);
+        cursor.add(dir.reverse(), 1);
         step.set(editor, cursor);
 
-        step.setOrientation(Cardinal.reverse(dir), false);
+        step.setOrientation(dir.reverse(), false);
         cursor.add(orth, 1);
         step.set(editor, cursor);
 
-        step.setOrientation(Cardinal.reverse(orth), false);
+        step.setOrientation(orth.reverse(), false);
         cursor.add(orth, 1);
         step.set(editor, cursor);
 
-        cursor.add(Cardinal.reverse(dir), 1);
+        cursor.add(dir.reverse(), 1);
         step.set(editor, cursor);
 
         // perimeter decor
@@ -239,16 +239,16 @@ public class DungeonAvidya extends DungeonBase {
         cursor.add(orth, 1);
         BlockType.get(BlockType.GRASS).set(editor, cursor);
         leaves.set(editor, cursor);
-        cursor.add(Cardinal.reverse(dir), 1);
+        cursor.add(dir.reverse(), 1);
         BlockType.get(BlockType.COBBLESTONE).set(editor, cursor);
-        cursor.add(Cardinal.reverse(orth), 1);
+        cursor.add(orth.reverse(), 1);
         glowstone.set(editor, cursor);
         cursor.add(orth, 2);
         air.set(editor, cursor);
         cursor.add(Cardinal.DOWN, 1);
         glowstone.set(editor, cursor);
         cursor.add(Cardinal.UP, 1);
-        cursor.add(Cardinal.reverse(dir), 1);
+        cursor.add(dir.reverse(), 1);
         BlockType.get(BlockType.COBBLESTONE).set(editor, cursor);
         cursor.add(dir, 1);
         cursor.add(orth, 1);

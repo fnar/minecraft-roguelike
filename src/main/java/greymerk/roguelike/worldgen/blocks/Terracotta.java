@@ -11,7 +11,7 @@ public class Terracotta {
 
   public static MetaBlock get(DyeColor color, Cardinal dir) {
     MetaBlock block = getByColor(color);
-    block.withProperty(BlockGlazedTerracotta.FACING, Cardinal.facing(dir));
+    block.withProperty(BlockGlazedTerracotta.FACING, dir.getFacing());
     return block;
   }
 

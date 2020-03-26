@@ -46,7 +46,7 @@ public class RogueTower implements ITower {
     RectSolid.fill(editor, rand, new Coord(x - 3, roof, z - 3), new Coord(x + 3, roof, z + 3), blocks);
 
     for (Cardinal dir : Cardinal.directions) {
-      for (Cardinal orth : Cardinal.orthogonal(dir)) {
+      for (Cardinal orth : dir.orthogonal()) {
         // ground floor
         start = new Coord(floor);
         start.add(Cardinal.DOWN, 1);
@@ -56,7 +56,7 @@ public class RogueTower implements ITower {
         end.add(orth, 1);
         RectSolid.fill(editor, rand, start, end, blocks, true, true);
         start.add(orth, 2);
-        end.add(Cardinal.reverse(dir), 2);
+        end.add(dir.reverse(), 2);
         end.add(orth, 2);
         RectSolid.fill(editor, rand, start, end, blocks, true, true);
 
@@ -65,12 +65,12 @@ public class RogueTower implements ITower {
         cursor.add(orth, 1);
         start = new Coord(cursor);
         end = new Coord(cursor);
-        end.add(Cardinal.reverse(dir), 1);
+        end.add(dir.reverse(), 1);
         end.add(Cardinal.UP, 2);
         RectSolid.fill(editor, rand, start, end, blocks);
         start = new Coord(end);
         start.add(dir, 1);
-        start.add(Cardinal.reverse(orth), 1);
+        start.add(orth.reverse(), 1);
         RectSolid.fill(editor, rand, start, end, blocks);
         cursor.add(Cardinal.UP, 2);
         stair.setOrientation(orth, false);
@@ -101,10 +101,10 @@ public class RogueTower implements ITower {
         cursor.add(dir, 3);
         cursor.add(orth, 2);
         cursor.add(Cardinal.UP, 3);
-        stair.setOrientation(Cardinal.reverse(orth), true);
+        stair.setOrientation(orth.reverse(), true);
         stair.set(editor, cursor);
         cursor.add(Cardinal.UP, 5);
-        stair.setOrientation(Cardinal.reverse(orth), true);
+        stair.setOrientation(orth.reverse(), true);
         stair.set(editor, cursor);
 
         start = new Coord(floor);
@@ -154,17 +154,17 @@ public class RogueTower implements ITower {
         cursor.add(orth, 1);
         stair.set(editor, cursor);
 
-        cursor.add(Cardinal.reverse(orth), 1);
+        cursor.add(orth.reverse(), 1);
         blocks.set(editor, rand, cursor);
         cursor.add(Cardinal.UP, 1);
         blocks.set(editor, rand, cursor);
         cursor.add(orth, 1);
         blocks.set(editor, rand, cursor);
         cursor.add(Cardinal.UP, 1);
-        this.addCrenellation(editor, rand, cursor, blocks);
+        addCrenellation(editor, rand, cursor, blocks);
 
         cursor.add(Cardinal.DOWN, 2);
-        cursor.add(Cardinal.reverse(dir), 1);
+        cursor.add(dir.reverse(), 1);
         cursor.add(orth, 1);
         blocks.set(editor, rand, cursor);
         cursor.add(Cardinal.DOWN, 1);
@@ -181,13 +181,13 @@ public class RogueTower implements ITower {
         stair.setOrientation(orth, true);
         stair.set(editor, rand, cursor);
 
-        cursor.add(Cardinal.reverse(orth), 1);
+        cursor.add(orth.reverse(), 1);
         cursor.add(Cardinal.UP, 1);
         blocks.set(editor, rand, cursor);
         cursor.add(orth, 1);
         blocks.set(editor, rand, cursor);
         cursor.add(Cardinal.UP, 1);
-        this.addCrenellation(editor, rand, cursor, blocks);
+        addCrenellation(editor, rand, cursor, blocks);
 
         cursor = new Coord(floor);
         cursor.add(dir, 4);
@@ -201,12 +201,12 @@ public class RogueTower implements ITower {
     }
 
     for (Cardinal dir : Cardinal.directions) {
-      for (Cardinal orth : Cardinal.orthogonal(dir)) {
+      for (Cardinal orth : dir.orthogonal()) {
         start = new Coord(x, ground, z);
         start.add(dir, 4);
         end = new Coord(x, 60, z);
         end.add(dir, 4);
-        start.add(Cardinal.reverse(orth), 2);
+        start.add(orth.reverse(), 2);
         end.add(orth, 2);
 
         RectSolid.fill(editor, rand, start, end, blocks, true, true);

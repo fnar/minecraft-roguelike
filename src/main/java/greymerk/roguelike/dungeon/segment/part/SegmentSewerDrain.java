@@ -27,7 +27,7 @@ public class SegmentSewerDrain extends SegmentBase {
     Coord start;
     Coord end;
 
-    Cardinal[] orth = Cardinal.orthogonal(dir);
+    Cardinal[] orth = dir.orthogonal();
 
     start = new Coord(origin);
     start.add(Cardinal.DOWN);
@@ -54,11 +54,11 @@ public class SegmentSewerDrain extends SegmentBase {
       cursor = new Coord(origin);
       cursor.add(dir, 2);
       cursor.add(o);
-      stair.setOrientation(Cardinal.reverse(o), false).set(editor, cursor);
+      stair.setOrientation(o.reverse(), false).set(editor, cursor);
       cursor.add(Cardinal.UP);
       bars.set(editor, cursor);
       cursor.add(Cardinal.UP);
-      stair.setOrientation(Cardinal.reverse(o), true).set(editor, cursor);
+      stair.setOrientation(o.reverse(), true).set(editor, cursor);
     }
 
     start = new Coord(origin);

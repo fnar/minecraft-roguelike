@@ -21,7 +21,7 @@ public class SegmentMineShaft extends SegmentBase {
 
     IBlockFactory wall = theme.getSecondary().getWall();
 
-    Cardinal[] orth = Cardinal.orthogonal(dir);
+    Cardinal[] orth = dir.orthogonal();
 
     Coord cursor = new Coord(origin);
     Coord start;
@@ -52,7 +52,7 @@ public class SegmentMineShaft extends SegmentBase {
 
     start = new Coord(cursor);
     end = new Coord(cursor);
-    end.add(Cardinal.reverse(dir), 2);
+    end.add(dir.reverse(), 2);
     RectSolid.fill(editor, rand, start, end, wall);
   }
 }

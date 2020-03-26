@@ -18,13 +18,13 @@ public class SecretRoom implements ISecretRoom {
   public SecretRoom(DungeonRoom type, int count) {
     this.count = count;
     this.type = type;
-    this.prototype = DungeonRoom.getInstance(type);
+    prototype = DungeonRoom.getInstance(type);
   }
 
   public SecretRoom(SecretRoom toCopy) {
-    this.count = toCopy.count;
-    this.prototype = toCopy.prototype;
-    this.type = toCopy.type;
+    count = toCopy.count;
+    prototype = toCopy.prototype;
+    type = toCopy.type;
   }
 
   private boolean isValid(IWorldEditor editor, Random rand, Cardinal dir, Coord pos) {
@@ -44,7 +44,7 @@ public class SecretRoom implements ISecretRoom {
 
   @Override
   public int getCount() {
-    return this.count;
+    return count;
   }
 
   @Override
@@ -57,10 +57,10 @@ public class SecretRoom implements ISecretRoom {
 
     Coord start = new Coord(pos);
     Coord end = new Coord(pos);
-    start.add(Cardinal.orthogonal(dir)[0]);
+    start.add(dir.orthogonal()[0]);
     start.add(Cardinal.DOWN);
     start.add(dir, 2);
-    end.add(Cardinal.orthogonal(dir)[1]);
+    end.add(dir.orthogonal()[1]);
     end.add(dir, size + 5);
     end.add(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, settings.getTheme().getPrimary().getWall(), false, true);
@@ -72,11 +72,11 @@ public class SecretRoom implements ISecretRoom {
     RectSolid.fill(editor, rand, pos, end, BlockType.get(BlockType.AIR));
 
     end.add(Cardinal.DOWN);
-    this.prototype.generate(editor, rand, settings, new Cardinal[]{dir}, end);
+    prototype.generate(editor, rand, settings, new Cardinal[]{dir}, end);
     count -= 1;
 
-    IDungeonRoom generated = this.prototype;
-    this.prototype = DungeonRoom.getInstance(this.type);
+    IDungeonRoom generated = prototype;
+    prototype = DungeonRoom.getInstance(type);
 
     return generated;
   }
@@ -86,10 +86,10 @@ public class SecretRoom implements ISecretRoom {
 
     SecretRoom other = (SecretRoom) o;
 
-    if (this.type != other.type) {
+    if (type != other.type) {
       return false;
     }
 
-    return this.count == other.count;
+    return count == other.count;
   }
 }

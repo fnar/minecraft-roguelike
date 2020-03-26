@@ -37,7 +37,7 @@ public class SegmentNetherLava extends SegmentBase {
     boolean isAir = editor.isAirBlock(cursor);
     IBlockFactory wall = theme.getSecondary().getWall();
 
-    for (Cardinal orth : Cardinal.orthogonal(dir)) {
+    for (Cardinal orth : dir.orthogonal()) {
       start = new Coord(origin);
       start.add(dir, 3);
       end = new Coord(start);
@@ -47,24 +47,24 @@ public class SegmentNetherLava extends SegmentBase {
       if (!isAir) {
         RectSolid.fill(editor, rand, start, end, air);
         lava.set(editor, start);
-        start.add(Cardinal.reverse(orth), 1);
+        start.add(orth.reverse(), 1);
         lava.set(editor, start);
       }
 
       cursor = new Coord(origin);
       cursor.add(dir, 2);
 
-      step.setOrientation(Cardinal.reverse(orth), false);
+      step.setOrientation(orth.reverse(), false);
       cursor.add(orth, 1);
       step.set(editor, cursor);
 
-      step.setOrientation(Cardinal.reverse(orth), true);
+      step.setOrientation(orth.reverse(), true);
       cursor.add(Cardinal.UP, 1);
       step.set(editor, cursor);
 
       cursor.add(Cardinal.UP, 1);
       wall.set(editor, rand, cursor);
-      cursor.add(Cardinal.reverse(orth), 1);
+      cursor.add(orth.reverse(), 1);
       wall.set(editor, rand, cursor);
     }
 

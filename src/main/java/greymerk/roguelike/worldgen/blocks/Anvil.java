@@ -34,7 +34,7 @@ public enum Anvil {
       default:
     }
 
-    anvil.withProperty(BlockAnvil.FACING, Cardinal.facing(dir));
+    anvil.withProperty(BlockAnvil.FACING, dir.getFacing());
 
     return anvil;
   }

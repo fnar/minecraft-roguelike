@@ -26,14 +26,14 @@ public class BumboTower implements ITower {
     stem(editor, rand, theme, ground, dir);
 
     Coord pos = new Coord(ground);
-    pos.add(Cardinal.right(dir), 5);
+    pos.add(dir.right(), 5);
     pos.add(Cardinal.UP, 9);
-    arm(editor, rand, theme, pos, Cardinal.right(dir));
+    arm(editor, rand, theme, pos, dir.right());
 
     pos = new Coord(ground);
-    pos.add(Cardinal.left(dir), 5);
+    pos.add(dir.left(), 5);
     pos.add(Cardinal.UP, 10);
-    arm(editor, rand, theme, pos, Cardinal.left(dir));
+    arm(editor, rand, theme, pos, dir.left());
 
     pos = new Coord(ground);
     pos.add(Cardinal.UP, 16);
@@ -62,9 +62,9 @@ public class BumboTower implements ITower {
     start = new Coord(origin);
     end = new Coord(origin);
     start.add(dir, 4);
-    start.add(Cardinal.left(dir), 3);
-    end.add(Cardinal.reverse(dir), 4);
-    end.add(Cardinal.right(dir), 3);
+    start.add(dir.left(), 3);
+    end.add(dir.reverse(), 4);
+    end.add(dir.right(), 3);
     start.add(Cardinal.DOWN, 10);
     end.add(Cardinal.UP, 16);
 
@@ -72,17 +72,17 @@ public class BumboTower implements ITower {
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(Cardinal.left(dir), 4);
+    start.add(dir.left(), 4);
     start.add(dir, 3);
-    end.add(Cardinal.left(dir), 4);
-    end.add(Cardinal.reverse(dir), 3);
+    end.add(dir.left(), 4);
+    end.add(dir.reverse(), 3);
     start.add(Cardinal.DOWN, 10);
     end.add(Cardinal.UP, 16);
 
     RectSolid.fill(editor, rand, start, end, green);
 
-    start.add(Cardinal.right(dir), 8);
-    end.add(Cardinal.right(dir), 8);
+    start.add(dir.right(), 8);
+    end.add(dir.right(), 8);
 
     RectSolid.fill(editor, rand, start, end, green);
 
@@ -99,8 +99,8 @@ public class BumboTower implements ITower {
 
     start.add(dir, 5);
     start.add(Cardinal.DOWN, 4);
-    start.add(Cardinal.left(dir), 2);
-    end.add(Cardinal.right(dir), 2);
+    start.add(dir.left(), 2);
+    end.add(dir.right(), 2);
     end.add(Cardinal.DOWN);
     RectSolid.fill(editor, rand, start, end, green);
 
@@ -108,15 +108,15 @@ public class BumboTower implements ITower {
     end = new Coord(origin);
     start.add(dir, 5);
     end.add(dir, 3);
-    start.add(Cardinal.left(dir), 2);
-    end.add(Cardinal.right(dir), 2);
+    start.add(dir.left(), 2);
+    end.add(dir.right(), 2);
     end.add(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, green);
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(Cardinal.left(dir));
-    end.add(Cardinal.right(dir));
+    start.add(dir.left());
+    end.add(dir.right());
     end.add(dir, 2);
     RectSolid.fill(editor, rand, start, end, green);
 
@@ -134,15 +134,15 @@ public class BumboTower implements ITower {
     end = new Coord(start);
     start.add(Cardinal.UP, 2);
     end.add(Cardinal.DOWN, 4);
-    start.add(Cardinal.left(dir));
-    end.add(Cardinal.right(dir));
+    start.add(dir.left());
+    end.add(dir.right());
     RectSolid.fill(editor, rand, start, end, green);
 
     start = new Coord(origin);
     start.add(Cardinal.DOWN, 5);
     end = new Coord(start);
-    start.add(Cardinal.left(dir));
-    end.add(Cardinal.right(dir));
+    start.add(dir.left());
+    end.add(dir.right());
     end.add(dir, 5);
     RectSolid.fill(editor, rand, start, end, green);
 
@@ -150,8 +150,8 @@ public class BumboTower implements ITower {
     start.add(dir, 3);
     start.add(Cardinal.UP, 3);
     end = new Coord(start);
-    start.add(Cardinal.left(dir));
-    end.add(Cardinal.right(dir));
+    start.add(dir.left());
+    end.add(dir.right());
     end.add(dir, 2);
     RectSolid.fill(editor, rand, start, end, green);
   }
@@ -178,27 +178,27 @@ public class BumboTower implements ITower {
       start = new Coord(origin);
       start.add(dir, 3);
       end = new Coord(start);
-      start.add(Cardinal.left(dir), 2);
-      end.add(Cardinal.right(dir), 2);
+      start.add(dir.left(), 2);
+      end.add(dir.right(), 2);
       end.add(Cardinal.UP, 5);
       RectSolid.fill(editor, rand, start, end, yellow);
 
       start = new Coord(origin);
       start.add(dir, 4);
       end = new Coord(start);
-      start.add(Cardinal.left(dir), 2);
-      end.add(Cardinal.right(dir), 2);
+      start.add(dir.left(), 2);
+      end.add(dir.right(), 2);
       end.add(Cardinal.UP, 2);
       RectSolid.fill(editor, rand, start, end, yellow);
 
       start = new Coord(origin);
       start.add(dir, 3);
-      start.add(Cardinal.left(dir), 3);
+      start.add(dir.left(), 3);
       end = new Coord(start);
       end.add(Cardinal.UP, 2);
       RectSolid.fill(editor, rand, start, end, yellow);
 
-      for (Cardinal o : Cardinal.orthogonal(dir)) {
+      for (Cardinal o : dir.orthogonal()) {
         start = new Coord(origin);
         start.add(dir, 3);
         end = new Coord(start);
@@ -211,8 +211,8 @@ public class BumboTower implements ITower {
       start = new Coord(origin);
       start.add(dir, 7);
       end = new Coord(start);
-      start.add(Cardinal.left(dir), 4);
-      end.add(Cardinal.right(dir), 4);
+      start.add(dir.left(), 4);
+      end.add(dir.right(), 4);
       RectSolid.fill(editor, rand, start, end, rim2);
       start.add(dir);
       end.add(dir);
@@ -220,7 +220,7 @@ public class BumboTower implements ITower {
       end.add(Cardinal.UP);
       RectSolid.fill(editor, rand, start, end, rim);
 
-      for (Cardinal o : Cardinal.orthogonal(dir)) {
+      for (Cardinal o : dir.orthogonal()) {
         pos = new Coord(origin);
         pos.add(dir, 5);
         pos.add(o, 5);
@@ -230,7 +230,7 @@ public class BumboTower implements ITower {
         pos.add(Cardinal.UP);
         pos.add(dir);
         rim2.set(editor, rand, pos);
-        pos.add(Cardinal.reverse(dir));
+        pos.add(dir.reverse());
         pos.add(o);
         rim.set(editor, rand, pos);
       }
@@ -252,33 +252,33 @@ public class BumboTower implements ITower {
     // mouth
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(Cardinal.left(dir), 2);
-    end.add(Cardinal.right(dir), 2);
+    start.add(dir.left(), 2);
+    end.add(dir.right(), 2);
     end.add(dir);
     end.add(Cardinal.DOWN, 3);
     RectSolid.fill(editor, rand, start, end, green);
-    start.add(Cardinal.right(dir));
+    start.add(dir.right());
     start.add(Cardinal.DOWN);
-    end.add(Cardinal.left(dir));
+    end.add(dir.left());
     end.add(Cardinal.UP);
     RectSolid.fill(editor, rand, start, end, BlockType.get(BlockType.AIR));
     pos = new Coord(origin);
     pos.add(dir);
-    pos.add(Cardinal.right(dir), 2);
+    pos.add(dir.right(), 2);
     pos.add(Cardinal.DOWN, 3);
     air.set(editor, pos);
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(Cardinal.reverse(dir));
-    end.add(Cardinal.reverse(dir));
-    start.add(Cardinal.left(dir));
-    end.add(Cardinal.right(dir));
+    start.add(dir.reverse());
+    end.add(dir.reverse());
+    start.add(dir.left());
+    end.add(dir.right());
     start.add(Cardinal.DOWN);
     end.add(Cardinal.DOWN, 2);
     RectSolid.fill(editor, rand, start, end, black);
 
-    for (Cardinal o : Cardinal.orthogonal(dir)) {
+    for (Cardinal o : dir.orthogonal()) {
       pos = new Coord(origin);
       pos.add(Cardinal.DOWN);
       pos.add(o);
@@ -289,7 +289,7 @@ public class BumboTower implements ITower {
     pos.add(dir, 2);
     moustache.set(editor, rand, pos);
 
-    for (Cardinal o : Cardinal.orthogonal(dir)) {
+    for (Cardinal o : dir.orthogonal()) {
       start = new Coord(origin);
       start.add(dir, 2);
       end = new Coord(start);
@@ -306,10 +306,10 @@ public class BumboTower implements ITower {
       air.set(editor, pos);
     }
 
-    for (Cardinal o : Cardinal.orthogonal(dir)) {
+    for (Cardinal o : dir.orthogonal()) {
       pos = new Coord(origin);
       pos.add(o, 2);
-      if (o == Cardinal.right(dir)) {
+      if (o == dir.right()) {
         pos.add(Cardinal.UP);
       }
       pos.add(Cardinal.UP, 2);
@@ -339,7 +339,7 @@ public class BumboTower implements ITower {
       start = new Coord(origin);
       start.add(Cardinal.UP, 5);
       start.add(d, 3);
-      start.add(Cardinal.left(d), 3);
+      start.add(d.left(), 3);
       end = new Coord(start);
       end.add(Cardinal.UP, 10);
       RectSolid.fill(editor, rand, start, end, theme.getPrimary().getFloor());

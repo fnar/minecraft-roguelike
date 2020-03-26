@@ -53,7 +53,7 @@ public class DungeonCorner extends DungeonBase {
 
       cursor = new Coord(x, y, z);
       cursor.add(dir, 2);
-      cursor.add(Cardinal.left(dir), 2);
+      cursor.add(dir.left(), 2);
       start = new Coord(cursor);
       cursor.add(Cardinal.UP, 2);
       end = new Coord(cursor);
@@ -64,15 +64,15 @@ public class DungeonCorner extends DungeonBase {
       cursor = new Coord(x, y, z);
       cursor.add(dir, 1);
       cursor.add(Cardinal.UP, 4);
-      stair.setOrientation(Cardinal.reverse(dir), true);
+      stair.setOrientation(dir.reverse(), true);
       stair.set(editor, rand, cursor);
 
-      for (Cardinal orth : Cardinal.orthogonal(dir)) {
+      for (Cardinal orth : dir.orthogonal()) {
         cursor = new Coord(x, y, z);
         cursor.add(dir, 2);
         cursor.add(orth, 1);
         cursor.add(Cardinal.UP, 3);
-        stair.setOrientation(Cardinal.reverse(orth), true);
+        stair.setOrientation(orth.reverse(), true);
         stair.set(editor, rand, cursor);
       }
     }

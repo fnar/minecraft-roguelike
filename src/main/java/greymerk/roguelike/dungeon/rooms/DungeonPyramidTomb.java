@@ -109,16 +109,16 @@ public class DungeonPyramidTomb extends DungeonBase {
       cursor = new Coord(origin);
       cursor.add(dir, 5);
       cursor.add(Cardinal.UP, 3);
-      ceilingTiles(editor, rand, theme, 9, Cardinal.reverse(dir), cursor);
+      ceilingTiles(editor, rand, theme, 9, dir.reverse(), cursor);
 
       start = new Coord(origin);
       start.add(dir, 5);
-      start.add(Cardinal.left(dir), 5);
+      start.add(dir.left(), 5);
       end = new Coord(start);
       end.add(Cardinal.UP, 3);
       RectSolid.fill(editor, rand, start, end, pillar, true, true);
 
-      for (Cardinal o : Cardinal.orthogonal(dir)) {
+      for (Cardinal o : dir.orthogonal()) {
         start = new Coord(origin);
         start.add(dir, 5);
         start.add(o);
@@ -160,14 +160,14 @@ public class DungeonPyramidTomb extends DungeonBase {
 
     Coord start = new Coord(origin);
     Coord end = new Coord(origin);
-    start.add(Cardinal.left(dir), width / 2);
-    end.add(Cardinal.right(dir), width / 2);
+    start.add(dir.left(), width / 2);
+    end.add(dir.right(), width / 2);
     RectSolid.fill(editor, rand, start, end, air, true, true);
     start.add(Cardinal.UP);
     end.add(Cardinal.UP);
     RectSolid.fill(editor, rand, start, end, theme.getPrimary().getWall(), true, true);
 
-    for (Cardinal o : Cardinal.orthogonal(dir)) {
+    for (Cardinal o : dir.orthogonal()) {
       for (int i = 0; i <= width / 2; ++i) {
         if ((width / 2) % 2 == 0) {
           cursor = new Coord(origin);
@@ -217,7 +217,7 @@ public class DungeonPyramidTomb extends DungeonBase {
     cursor.add(Cardinal.UP);
     blocks.set(editor, cursor);
 
-    for (Cardinal end : Cardinal.orthogonal(dir)) {
+    for (Cardinal end : dir.orthogonal()) {
 
       cursor = new Coord(origin);
       cursor.add(end);
@@ -235,7 +235,7 @@ public class DungeonPyramidTomb extends DungeonBase {
       cursor.add(Cardinal.UP);
       stair.setOrientation(end, false).set(editor, cursor);
 
-      for (Cardinal side : Cardinal.orthogonal(end)) {
+      for (Cardinal side : end.orthogonal()) {
 
         cursor = new Coord(origin);
         cursor.add(side);

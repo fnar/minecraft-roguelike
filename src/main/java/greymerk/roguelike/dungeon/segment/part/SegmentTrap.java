@@ -32,7 +32,7 @@ public class SegmentTrap extends SegmentBase {
     IStair stair = theme.getPrimary().getStair();
     IBlockFactory wall = theme.getPrimary().getWall();
 
-    Cardinal[] orth = Cardinal.orthogonal(dir);
+    Cardinal[] orth = dir.orthogonal();
 
     Coord cursor;
     Coord start;
@@ -58,15 +58,15 @@ public class SegmentTrap extends SegmentBase {
       cursor = new Coord(origin);
       cursor.add(dir, 2);
       cursor.add(side);
-      stair.setOrientation(Cardinal.reverse(side), false).set(editor, cursor);
+      stair.setOrientation(side.reverse(), false).set(editor, cursor);
       cursor.add(Cardinal.UP, 2);
-      stair.setOrientation(Cardinal.reverse(side), true).set(editor, cursor);
+      stair.setOrientation(side.reverse(), true).set(editor, cursor);
     }
 
     start = new Coord(origin);
     end = new Coord(start);
     start.add(dir);
-    end.add(Cardinal.reverse(dir));
+    end.add(dir.reverse());
 
     RectSolid.fill(editor, rand, start, end, plate);
 
@@ -82,7 +82,7 @@ public class SegmentTrap extends SegmentBase {
     cursor.add(Cardinal.UP, 2);
     Torch.generate(editor, Torch.REDSTONE, Cardinal.UP, cursor);
     cursor.add(Cardinal.UP);
-    Dispenser.generate(editor, Cardinal.reverse(dir), cursor);
+    Dispenser.generate(editor, dir.reverse(), cursor);
 
     for (int i = 0; i < 5; i++) {
       int amount = rand.nextInt(5) + 1;

@@ -43,71 +43,71 @@ public class DungeonOssuary extends DungeonBase {
     for (Cardinal dir : Cardinal.directions) {
       cursor = new Coord(origin);
       cursor.add(dir, 7);
-      for (Cardinal o : Cardinal.orthogonal(dir)) {
+      for (Cardinal o : dir.orthogonal()) {
         start = new Coord(cursor);
         start.add(o, 2);
         end = new Coord(start);
         end.add(Cardinal.UP, 5);
-        end.add(Cardinal.reverse(dir));
+        end.add(dir.reverse());
         RectSolid.fill(editor, rand, start, end, walls);
 
         start = new Coord(cursor);
         start.add(o, 2);
         start.add(Cardinal.UP, 2);
-        start.add(Cardinal.reverse(dir), 2);
+        start.add(dir.reverse(), 2);
         end = new Coord(start);
         end.add(Cardinal.UP, 3);
         RectSolid.fill(editor, rand, start, end, walls);
-        stair.setOrientation(Cardinal.reverse(dir), true).set(editor, start);
+        stair.setOrientation(dir.reverse(), true).set(editor, start);
 
-        start.add(Cardinal.reverse(dir));
+        start.add(dir.reverse());
         start.add(Cardinal.UP);
-        end.add(Cardinal.reverse(dir));
+        end.add(dir.reverse());
         RectSolid.fill(editor, rand, start, end, walls);
-        stair.setOrientation(Cardinal.reverse(dir), true).set(editor, start);
+        stair.setOrientation(dir.reverse(), true).set(editor, start);
 
-        start.add(Cardinal.reverse(dir));
+        start.add(dir.reverse());
         start.add(Cardinal.UP);
-        end.add(Cardinal.reverse(dir));
+        end.add(dir.reverse());
         RectSolid.fill(editor, rand, start, end, walls);
-        stair.setOrientation(Cardinal.reverse(dir), true).set(editor, start);
+        stair.setOrientation(dir.reverse(), true).set(editor, start);
 
         start = new Coord(cursor);
         start.add(Cardinal.UP, 3);
         end = new Coord(start);
-        start.add(Cardinal.left(dir));
-        end.add(Cardinal.right(dir));
+        start.add(dir.left());
+        end.add(dir.right());
         end.add(Cardinal.UP, 3);
         RectSolid.fill(editor, rand, start, end, walls);
         start.add(Cardinal.UP);
-        start.add(Cardinal.reverse(dir));
-        end.add(Cardinal.reverse(dir));
+        start.add(dir.reverse());
+        end.add(dir.reverse());
         RectSolid.fill(editor, rand, start, end, walls);
         start.add(Cardinal.UP);
-        start.add(Cardinal.reverse(dir));
-        end.add(Cardinal.reverse(dir));
+        start.add(dir.reverse());
+        end.add(dir.reverse());
         RectSolid.fill(editor, rand, start, end, walls);
 
         Coord c = new Coord(cursor);
         c.add(o);
         c.add(Cardinal.UP, 2);
-        stair.setOrientation(Cardinal.reverse(o), true).set(editor, c);
-        c.add(Cardinal.reverse(dir));
+        stair.setOrientation(o.reverse(), true).set(editor, c);
+        c.add(dir.reverse());
         c.add(Cardinal.UP);
-        stair.setOrientation(Cardinal.reverse(dir), true).set(editor, c);
-        c.add(Cardinal.reverse(dir));
+        stair.setOrientation(dir.reverse(), true).set(editor, c);
+        c.add(dir.reverse());
         c.add(Cardinal.UP);
-        stair.setOrientation(Cardinal.reverse(dir), true).set(editor, c);
-        c.add(Cardinal.reverse(dir));
+        stair.setOrientation(dir.reverse(), true).set(editor, c);
+        c.add(dir.reverse());
       }
 
       Coord c = new Coord(origin);
       c.add(dir, 7);
       c.add(Cardinal.UP, 3);
-      stair.setOrientation(Cardinal.reverse(dir), true).set(editor, c);
-      c.add(Cardinal.reverse(dir));
+      stair.setOrientation(dir.reverse(), true).set(editor, c);
+      c.add(dir.reverse());
       c.add(Cardinal.UP);
-      stair.setOrientation(Cardinal.reverse(dir), true).set(editor, c);
+      stair.setOrientation(dir.reverse(), true).set(editor, c);
     }
 
     for (Cardinal dir : Cardinal.directions) {
@@ -125,7 +125,7 @@ public class DungeonOssuary extends DungeonBase {
       for (Cardinal d : Cardinal.directions) {
         Coord c = new Coord(cursor);
         c.add(d);
-        stair.setOrientation(Cardinal.reverse(d), true).set(editor, c);
+        stair.setOrientation(d.reverse(), true).set(editor, c);
       }
     }
 
@@ -133,10 +133,10 @@ public class DungeonOssuary extends DungeonBase {
     for (Cardinal dir : Cardinal.directions) {
       start = new Coord(origin);
       start.add(dir, 6);
-      start.add(Cardinal.left(dir), 6);
+      start.add(dir.left(), 6);
       end = new Coord(start);
       end.add(dir);
-      end.add(Cardinal.left(dir));
+      end.add(dir.left());
       end.add(Cardinal.UP, 6);
       RectSolid.fill(editor, rand, start, end, walls);
     }
@@ -158,11 +158,11 @@ public class DungeonOssuary extends DungeonBase {
     for (Cardinal d : Cardinal.directions) {
       Coord c = new Coord(cursor);
       c.add(d);
-      stair.setOrientation(Cardinal.reverse(d), true).set(editor, c);
+      stair.setOrientation(d.reverse(), true).set(editor, c);
     }
 
     for (Cardinal dir : Cardinal.directions) {
-      Cardinal[] orth = Cardinal.orthogonal(dir);
+      Cardinal[] orth = dir.orthogonal();
       cursor = new Coord(origin);
       cursor.add(Cardinal.UP, 5);
       cursor.add(dir, 2);
@@ -170,7 +170,7 @@ public class DungeonOssuary extends DungeonBase {
       for (Cardinal o : orth) {
         Coord c = new Coord(cursor);
         c.add(o);
-        stair.setOrientation(Cardinal.reverse(o), true).set(editor, c);
+        stair.setOrientation(o.reverse(), true).set(editor, c);
       }
       cursor.add(orth[0], 2);
       walls.set(editor, rand, cursor);
@@ -179,7 +179,7 @@ public class DungeonOssuary extends DungeonBase {
     for (Cardinal dir : Cardinal.directions) {
       cursor = new Coord(origin);
       cursor.add(dir, 4);
-      cursor.add(Cardinal.left(dir), 4);
+      cursor.add(dir.left(), 4);
       cursor.add(Cardinal.UP, 5);
       start = new Coord(cursor);
       start.add(Cardinal.NORTH);
@@ -192,55 +192,55 @@ public class DungeonOssuary extends DungeonBase {
       for (Cardinal d : Cardinal.directions) {
         Coord c = new Coord(cursor);
         c.add(d);
-        stair.setOrientation(Cardinal.reverse(d), true).set(editor, c);
+        stair.setOrientation(d.reverse(), true).set(editor, c);
       }
 
-      for (Cardinal d : new Cardinal[]{dir, Cardinal.left(dir)}) {
+      for (Cardinal d : new Cardinal[]{dir, dir.left()}) {
         cursor = new Coord(origin);
         cursor.add(dir, 4);
-        cursor.add(Cardinal.left(dir), 4);
+        cursor.add(dir.left(), 4);
         cursor.add(Cardinal.UP, 4);
         cursor.add(d, 2);
         air.set(editor, cursor);
-        for (Cardinal o : Cardinal.orthogonal(d)) {
+        for (Cardinal o : d.orthogonal()) {
           Coord c = new Coord(cursor);
           c.add(o);
-          stair.setOrientation(Cardinal.reverse(o), true).set(editor, c);
+          stair.setOrientation(o.reverse(), true).set(editor, c);
         }
 
         start = new Coord(origin);
         start.add(dir, 4);
-        start.add(Cardinal.left(dir), 4);
+        start.add(dir.left(), 4);
         start.add(d, 3);
         end = new Coord(start);
         end.add(Cardinal.UP, 4);
         RectSolid.fill(editor, rand, start, end, walls);
         start = new Coord(end);
-        start.add(Cardinal.orthogonal(d)[0]);
-        end.add(Cardinal.orthogonal(d)[1]);
+        start.add(d.orthogonal()[0]);
+        end.add(d.orthogonal()[1]);
         end.add(Cardinal.UP, 2);
         RectSolid.fill(editor, rand, start, end, walls);
-        start.add(Cardinal.reverse(d));
-        end.add(Cardinal.reverse(d));
+        start.add(d.reverse());
+        end.add(d.reverse());
         start.add(Cardinal.UP);
         RectSolid.fill(editor, rand, start, end, walls);
 
-        for (Cardinal o : Cardinal.orthogonal(d)) {
+        for (Cardinal o : d.orthogonal()) {
           cursor = new Coord(origin);
           cursor.add(dir, 4);
-          cursor.add(Cardinal.left(dir), 4);
+          cursor.add(dir.left(), 4);
           cursor.add(d, 3);
           cursor.add(o);
           walls.set(editor, rand, cursor);
           cursor.add(Cardinal.UP);
-          skull(editor, rand, Cardinal.reverse(d), cursor);
+          skull(editor, rand, d.reverse(), cursor);
           cursor.add(Cardinal.UP);
           walls.set(editor, rand, cursor);
           cursor.add(Cardinal.UP);
-          skull(editor, rand, Cardinal.reverse(d), cursor);
+          skull(editor, rand, d.reverse(), cursor);
           cursor.add(Cardinal.UP);
-          cursor.add(Cardinal.reverse(d));
-          stair.setOrientation(Cardinal.reverse(o), true).set(editor, cursor);
+          cursor.add(d.reverse());
+          stair.setOrientation(o.reverse(), true).set(editor, cursor);
         }
       }
 

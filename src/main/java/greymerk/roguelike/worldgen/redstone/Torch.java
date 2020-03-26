@@ -42,7 +42,7 @@ public enum Torch {
     } else if (dir == Cardinal.DOWN) {
       torch.withProperty(BlockTorch.FACING, EnumFacing.DOWN);
     } else {
-      torch.withProperty(BlockTorch.FACING, Cardinal.facing(Cardinal.reverse(dir)));
+      torch.withProperty(BlockTorch.FACING, dir.reverse().getFacing());
     }
 
 

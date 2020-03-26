@@ -33,8 +33,8 @@ public class DungeonBedRoom extends DungeonBase {
     end.add(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, theme.getSecondary().getPillar());
     IStair stair = theme.getSecondary().getStair();
-    stair.setOrientation(Cardinal.reverse(dir), true);
-    end.add(Cardinal.reverse(dir));
+    stair.setOrientation(dir.reverse(), true);
+    end.add(dir.reverse());
     stair.set(editor, end);
   }
 
@@ -52,9 +52,9 @@ public class DungeonBedRoom extends DungeonBase {
     start = new Coord(origin);
     end = new Coord(origin);
 
-    start.add(Cardinal.left(dir), 4);
-    end.add(Cardinal.right(dir), 4);
-    start.add(Cardinal.reverse(dir), 4);
+    start.add(dir.left(), 4);
+    end.add(dir.right(), 4);
+    start.add(dir.reverse(), 4);
     end.add(dir, 4);
     start.add(Cardinal.DOWN);
     end.add(Cardinal.UP, 4);
@@ -64,22 +64,22 @@ public class DungeonBedRoom extends DungeonBase {
     start = new Coord(origin);
     start.add(Cardinal.DOWN);
     end = new Coord(start);
-    start.add(Cardinal.left(dir), 1);
-    end.add(Cardinal.right(dir), 1);
-    start.add(Cardinal.reverse(dir), 2);
+    start.add(dir.left(), 1);
+    end.add(dir.right(), 1);
+    start.add(dir.reverse(), 2);
     end.add(dir, 2);
 
     RectSolid.fill(editor, rand, start, end, theme.getSecondary().getWall());
 
-    for (Cardinal o : Cardinal.orthogonal(dir)) {
+    for (Cardinal o : dir.orthogonal()) {
       IStair stair = theme.getSecondary().getStair();
-      stair.setOrientation(Cardinal.reverse(o), true);
+      stair.setOrientation(o.reverse(), true);
 
       start = new Coord(origin);
       start.add(o, 3);
       end = new Coord(start);
-      start.add(Cardinal.left(o), 2);
-      end.add(Cardinal.right(o), 2);
+      start.add(o.left(), 2);
+      end.add(o.right(), 2);
 
       RectSolid.fill(editor, rand, start, end, stair);
       start.add(Cardinal.UP, 2);
@@ -88,16 +88,16 @@ public class DungeonBedRoom extends DungeonBase {
       start.add(Cardinal.UP);
       end.add(Cardinal.UP);
       RectSolid.fill(editor, rand, start, end, theme.getPrimary().getWall());
-      start.add(Cardinal.reverse(o));
-      end.add(Cardinal.reverse(o));
+      start.add(o.reverse());
+      end.add(o.reverse());
       RectSolid.fill(editor, rand, start, end, stair, true, true);
     }
 
-    for (Cardinal o : Cardinal.orthogonal(dir)) {
+    for (Cardinal o : dir.orthogonal()) {
       cursor = new Coord(origin);
       cursor.add(o, 3);
       pillar(editor, rand, o, theme, cursor);
-      for (Cardinal p : Cardinal.orthogonal(o)) {
+      for (Cardinal p : o.orthogonal()) {
         Coord c = new Coord(cursor);
         c.add(p, 3);
         pillar(editor, rand, o, theme, c);
@@ -106,37 +106,37 @@ public class DungeonBedRoom extends DungeonBase {
 
     cursor = new Coord(origin);
     cursor.add(Cardinal.UP, 3);
-    cursor.add(Cardinal.reverse(dir), 3);
+    cursor.add(dir.reverse(), 3);
 
     for (int i = 0; i < 3; ++i) {
       start = new Coord(cursor);
       end = new Coord(cursor);
-      start.add(Cardinal.left(dir), 2);
-      end.add(Cardinal.right(dir), 2);
+      start.add(dir.left(), 2);
+      end.add(dir.right(), 2);
       RectSolid.fill(editor, rand, start, end, theme.getSecondary().getWall());
       cursor.add(dir, 3);
     }
 
-    Cardinal side = rand.nextBoolean() ? Cardinal.left(dir) : Cardinal.right(dir);
+    Cardinal side = rand.nextBoolean() ? dir.left() : dir.right();
 
     cursor = new Coord(origin);
     cursor.add(dir, 3);
     cursor.add(side, 1);
     DyeColor color = DyeColor.values()[rand.nextInt(DyeColor.values().length)];
-    Bed.generate(editor, Cardinal.reverse(dir), cursor, color);
+    Bed.generate(editor, dir.reverse(), cursor, color);
     cursor.add(side);
     BlockType.get(BlockType.SHELF).set(editor, cursor);
     cursor.add(Cardinal.UP);
     FlowerPot.generate(editor, rand, cursor);
-    cursor.add(Cardinal.reverse(side), 3);
+    cursor.add(side.reverse(), 3);
     cursor.add(Cardinal.DOWN);
     IStair stair = theme.getSecondary().getStair();
-    stair.setOrientation(Cardinal.reverse(dir), true);
+    stair.setOrientation(dir.reverse(), true);
     stair.set(editor, cursor);
     cursor.add(Cardinal.UP);
     Torch.generate(editor, Torch.WOODEN, Cardinal.UP, cursor);
 
-    side = Cardinal.orthogonal(dir)[rand.nextBoolean() ? 1 : 0];
+    side = dir.orthogonal()[rand.nextBoolean() ? 1 : 0];
     cursor = new Coord(origin);
     cursor.add(dir);
     cursor.add(side, 3);
@@ -145,7 +145,7 @@ public class DungeonBedRoom extends DungeonBase {
     } catch (ChestPlacementException cpe) {
       // do nothing
     }
-    cursor.add(Cardinal.reverse(side), 6);
+    cursor.add(side.reverse(), 6);
     if (rand.nextBoolean()) {
       cursor.add(Cardinal.UP);
       Torch.generate(editor, Torch.WOODEN, Cardinal.UP, cursor);
@@ -160,14 +160,14 @@ public class DungeonBedRoom extends DungeonBase {
       cursor.add(Cardinal.DOWN);
     }
 
-    side = rand.nextBoolean() ? Cardinal.left(dir) : Cardinal.right(dir);
+    side = rand.nextBoolean() ? dir.left() : dir.right();
     cursor = new Coord(origin);
-    cursor.add(Cardinal.reverse(dir));
+    cursor.add(dir.reverse());
     cursor.add(side, 3);
     if (rand.nextBoolean()) {
-      cursor.add(Cardinal.reverse(dir));
+      cursor.add(dir.reverse());
     }
-    Furnace.generate(editor, new ItemStack(Items.COAL, 2 + rand.nextInt(3)), true, Cardinal.reverse(side), cursor);
+    Furnace.generate(editor, new ItemStack(Items.COAL, 2 + rand.nextInt(3)), true, side.reverse(), cursor);
 
 
     return true;
@@ -185,10 +185,10 @@ public class DungeonBedRoom extends DungeonBase {
 
     start = new Coord(pos);
     end = new Coord(start);
-    start.add(Cardinal.reverse(dir), 5);
+    start.add(dir.reverse(), 5);
     end.add(dir, 5);
-    start.add(Cardinal.left(dir), 5);
-    end.add(Cardinal.right(dir), 5);
+    start.add(dir.left(), 5);
+    end.add(dir.right(), 5);
     start.add(Cardinal.DOWN);
     end.add(Cardinal.UP, 3);
 

@@ -25,7 +25,7 @@ public class SegmentSewer extends SegmentBase {
     Coord start;
     Coord end;
 
-    Cardinal[] orth = Cardinal.orthogonal(dir);
+    Cardinal[] orth = dir.orthogonal();
 
     start = new Coord(origin);
     start.add(Cardinal.UP, 2);
@@ -33,7 +33,7 @@ public class SegmentSewer extends SegmentBase {
     end = new Coord(start);
     start.add(orth[0]);
     end.add(orth[1]);
-    stair.setOrientation(Cardinal.reverse(dir), true);
+    stair.setOrientation(dir.reverse(), true);
     RectSolid.fill(editor, rand, start, end, stair);
 
     start = new Coord(origin);

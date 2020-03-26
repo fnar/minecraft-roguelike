@@ -95,7 +95,7 @@ public class TreeTower implements ITower {
     for (Cardinal dir : Cardinal.directions) {
       start = new Coord(origin);
       start.add(dir, size - 1);
-      start.add(Cardinal.left(dir), size - 1);
+      start.add(dir.left(), size - 1);
       end = new Coord(start);
       end.add(Cardinal.UP, size + 1);
       new RectSolid(start, end).fill(editor, rand, log);
@@ -117,19 +117,19 @@ public class TreeTower implements ITower {
 
     public Branch(Random rand, Coord start) {
       this.start = new Coord(start);
-      this.branches = new ArrayList<Branch>();
+      branches = new ArrayList<Branch>();
       int counter = 7;
       double length = 12;
-      this.thickness = 7;
+      thickness = 7;
       int mainBranches = 5;
       int density = 3;
       double noise = 0.15;
       double pitch = 0;
       double yaw = Math.PI / 2;
-      this.end = getEnd(start, 4, pitch, yaw);
+      end = getEnd(start, 4, pitch, yaw);
 
       for (int i = 0; i < mainBranches; ++i) {
-        this.branches.add(
+        branches.add(
             new Branch(
                 rand,
                 new Coord(end),
@@ -149,15 +149,15 @@ public class TreeTower implements ITower {
 
       this.start = new Coord(start);
       this.thickness = thickness < 1 ? 1 : thickness;
-      this.branches = new ArrayList<Branch>();
-      this.end = getEnd(start, length, pitch, yaw);
+      branches = new ArrayList<Branch>();
+      end = getEnd(start, length, pitch, yaw);
 
       if (counter <= 0) {
         return;
       }
 
       for (int i = 0; i < rand.nextInt(density) + 1; ++i) {
-        this.branches.add(
+        branches.add(
             new Branch(
                 rand,
                 new Coord(end),
@@ -175,7 +175,7 @@ public class TreeTower implements ITower {
 
     public void genWood(IWorldEditor editor, Random rand) {
       MetaBlock log = Log.get(WOOD_TYPE, start.dirTo(end));
-      for (Branch b : this.branches) {
+      for (Branch b : branches) {
         b.genWood(editor, rand);
       }
 
@@ -205,8 +205,8 @@ public class TreeTower implements ITower {
     }
 
     public void getLeafShape(MultiShape leaves, Random rand) {
-      if (!this.branches.isEmpty()) {
-        for (Branch b : this.branches) {
+      if (!branches.isEmpty()) {
+        for (Branch b : branches) {
           b.getLeafShape(leaves, rand);
         }
         return;

@@ -21,7 +21,9 @@ import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.Spawner;
 
-import static greymerk.roguelike.worldgen.Cardinal.*;
+import static greymerk.roguelike.worldgen.Cardinal.DOWN;
+import static greymerk.roguelike.worldgen.Cardinal.UP;
+import static greymerk.roguelike.worldgen.Cardinal.directions;
 
 public class DungeonsNetherBrickFortress extends DungeonBase {
 
@@ -99,32 +101,32 @@ public class DungeonsNetherBrickFortress extends DungeonBase {
       start.add(UP, 5);
       start.add(dir, 4);
       end = new Coord(start);
-      start.add(left(dir), 6);
-      end.add(right(dir), 6);
+      start.add(dir.left(), 6);
+      end.add(dir.right(), 6);
       RectSolid.fill(editor, rand, start, end, wall);
 
       start = new Coord(origin);
       start.add(UP, 5);
       start.add(dir, 6);
       end = new Coord(start);
-      start.add(left(dir), 6);
-      end.add(right(dir), 6);
+      start.add(dir.left(), 6);
+      end.add(dir.right(), 6);
       RectSolid.fill(editor, rand, start, end, wall);
 
       start = new Coord(origin);
       start.add(DOWN);
       start.add(dir, 4);
       end = new Coord(start);
-      start.add(left(dir), 2);
-      end.add(right(dir), 2);
-      stair.setOrientation(reverse(dir), false).fill(editor, rand, new RectSolid(start, end));
+      start.add(dir.left(), 2);
+      end.add(dir.right(), 2);
+      stair.setOrientation(dir.reverse(), false).fill(editor, rand, new RectSolid(start, end));
 
       cursor = new Coord(origin);
       cursor.add(dir, 4);
-      cursor.add(left(dir), 4);
+      cursor.add(dir.left(), 4);
       supportPillar(editor, rand, settings, cursor);
 
-      for (Cardinal o : orthogonal(dir)) {
+      for (Cardinal o : dir.orthogonal()) {
         cursor = new Coord(origin);
         cursor.add(dir, 7);
         cursor.add(o, 2);

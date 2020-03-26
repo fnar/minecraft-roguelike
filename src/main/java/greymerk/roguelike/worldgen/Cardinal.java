@@ -6,17 +6,37 @@ import net.minecraft.util.EnumFacing;
 
 public enum Cardinal {
 
-  NORTH,
-  EAST,
-  WEST,
-  SOUTH,
-  UP,
-  DOWN;
+  NORTH(EnumFacing.SOUTH, EnumOrientation.SOUTH),
+  EAST(EnumFacing.WEST, EnumOrientation.WEST),
+  WEST(EnumFacing.EAST, EnumOrientation.EAST),
+  SOUTH(EnumFacing.NORTH, EnumOrientation.NORTH),
+  UP(EnumFacing.UP, EnumOrientation.UP_X),
+  DOWN(EnumFacing.DOWN, EnumOrientation.DOWN_X),
+  ;
+
+  private final EnumFacing facing;
+  private final EnumOrientation orientation;
+
+  Cardinal(
+      EnumFacing facing,
+      EnumOrientation orientation
+  ) {
+    this.facing = facing;
+    this.orientation = orientation;
+  }
+
+  public EnumFacing getFacing() {
+    return facing;
+  }
+
+  public EnumOrientation getOrientation() {
+    return orientation;
+  }
 
   public static Cardinal[] directions = {NORTH, EAST, SOUTH, WEST};
 
-  public static Cardinal reverse(Cardinal dir) {
-    switch (dir) {
+  public Cardinal reverse() {
+    switch (this) {
       case NORTH:
         return SOUTH;
       case EAST:
@@ -33,8 +53,8 @@ public enum Cardinal {
     }
   }
 
-  public static Cardinal left(Cardinal dir) {
-    switch (dir) {
+  public Cardinal left() {
+    switch (this) {
       case NORTH:
         return WEST;
       case EAST:
@@ -44,12 +64,12 @@ public enum Cardinal {
       case WEST:
         return SOUTH;
       default:
-        return dir;
+        return this;
     }
   }
 
-  public static Cardinal right(Cardinal dir) {
-    switch (dir) {
+  public Cardinal right() {
+    switch (this) {
       case NORTH:
         return EAST;
       case EAST:
@@ -59,13 +79,12 @@ public enum Cardinal {
       case WEST:
         return NORTH;
       default:
-        return dir;
+        return this;
     }
   }
 
-  public static Cardinal[] orthogonal(Cardinal dir) {
-
-    switch (dir) {
+  public Cardinal[] orthogonal() {
+    switch (this) {
       case NORTH:
         return new Cardinal[]{WEST, EAST};
       case SOUTH:
@@ -75,47 +94,7 @@ public enum Cardinal {
       case WEST:
         return new Cardinal[]{SOUTH, NORTH};
       default:
-        return new Cardinal[]{dir, dir};
-    }
-  }
-
-  public static EnumFacing facing(Cardinal dir) {
-
-    switch (dir) {
-      case NORTH:
-        return EnumFacing.SOUTH;
-      case EAST:
-        return EnumFacing.WEST;
-      case WEST:
-        return EnumFacing.EAST;
-      case SOUTH:
-        return EnumFacing.NORTH;
-      case UP:
-        return EnumFacing.UP;
-      case DOWN:
-        return EnumFacing.DOWN;
-      default:
-        return null;
-    }
-  }
-
-  public static EnumOrientation orientation(Cardinal dir) {
-
-    switch (dir) {
-      case NORTH:
-        return EnumOrientation.SOUTH;
-      case EAST:
-        return EnumOrientation.WEST;
-      case WEST:
-        return EnumOrientation.EAST;
-      case SOUTH:
-        return EnumOrientation.NORTH;
-      case UP:
-        return EnumOrientation.UP_X;
-      case DOWN:
-        return EnumOrientation.DOWN_X;
-      default:
-        return null;
+        return new Cardinal[]{this, this};
     }
   }
 }

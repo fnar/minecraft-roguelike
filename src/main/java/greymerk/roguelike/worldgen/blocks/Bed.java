@@ -20,7 +20,7 @@ public class Bed {
     if (RogueConfig.getBoolean(RogueConfig.FURNITURE)) {
       MetaBlock head = new MetaBlock(Blocks.BED);
       head.withProperty(BlockBed.PART, BlockBed.EnumPartType.HEAD);
-      head.withProperty(BlockBed.FACING, Cardinal.facing(dir));
+      head.withProperty(BlockBed.FACING, dir.getFacing());
       head.set(editor, cursor);
       TileEntityBed bed = (TileEntityBed) editor.getTileEntity(cursor);
       bed.setColor(DyeColor.get(color));
@@ -32,7 +32,7 @@ public class Bed {
     if (RogueConfig.getBoolean(RogueConfig.FURNITURE)) {
       MetaBlock foot = new MetaBlock(Blocks.BED);
       foot.withProperty(BlockBed.PART, BlockBed.EnumPartType.FOOT);
-      foot.withProperty(BlockBed.FACING, Cardinal.facing(dir));
+      foot.withProperty(BlockBed.FACING, dir.getFacing());
       foot.set(editor, cursor);
       TileEntityBed bed = (TileEntityBed) editor.getTileEntity(cursor);
       bed.setColor(DyeColor.get(color));
