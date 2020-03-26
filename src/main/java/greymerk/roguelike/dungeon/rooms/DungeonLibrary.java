@@ -81,39 +81,39 @@ public class DungeonLibrary extends DungeonBase {
 
       start = new Coord(origin);
       start.add(dir, 4);
-      start.add(Cardinal.left(dir), 4);
+      start.add(dir.left(), 4);
       end = new Coord(start);
       end.add(Cardinal.UP, 4);
       RectSolid.fill(editor, rand, start, end, settings.getTheme().getPrimary().getPillar(), true, true);
 
       start = new Coord(origin);
       start.add(dir, 3);
-      start.add(Cardinal.left(dir), 3);
+      start.add(dir.left(), 3);
       start.add(Cardinal.UP, 3);
       end = new Coord(start);
       end.add(Cardinal.UP, 3);
       RectSolid.fill(editor, rand, start, end, settings.getTheme().getPrimary().getPillar(), true, true);
 
       cursor = new Coord(end);
-      cursor.add(Cardinal.reverse(dir));
-      cursor.add(Cardinal.right(dir));
+      cursor.add(dir.reverse());
+      cursor.add(dir.right());
       cursor.add(Cardinal.UP);
       walls.set(editor, rand, cursor);
 
-      for (Cardinal o : Cardinal.orthogonal(dir)) {
+      for (Cardinal o : dir.orthogonal()) {
         cursor = new Coord(origin);
         cursor.add(dir, 4);
         cursor.add(o, 3);
         cursor.add(Cardinal.UP, 2);
 
-        stair.setOrientation(Cardinal.reverse(o), true).set(editor, cursor);
+        stair.setOrientation(o.reverse(), true).set(editor, cursor);
         cursor.add(Cardinal.UP);
         walls.set(editor, rand, cursor);
-        cursor.add(Cardinal.reverse(o));
-        stair.setOrientation(Cardinal.reverse(o), true).set(editor, cursor);
+        cursor.add(o.reverse());
+        stair.setOrientation(o.reverse(), true).set(editor, cursor);
         cursor.add(Cardinal.UP, 3);
-        cursor.add(Cardinal.reverse(dir));
-        stair.setOrientation(Cardinal.reverse(o), true).set(editor, cursor);
+        cursor.add(dir.reverse());
+        stair.setOrientation(o.reverse(), true).set(editor, cursor);
       }
 
       // Light fixture related stuff
@@ -122,18 +122,18 @@ public class DungeonLibrary extends DungeonBase {
       cursor.add(dir);
       stair.setOrientation(dir, true).set(editor, cursor);
       cursor.add(dir, 2);
-      stair.setOrientation(Cardinal.reverse(dir), true).set(editor, cursor);
+      stair.setOrientation(dir.reverse(), true).set(editor, cursor);
       cursor.add(Cardinal.UP);
       start = new Coord(cursor);
       end = new Coord(cursor);
-      start.add(Cardinal.reverse(dir), 2);
+      start.add(dir.reverse(), 2);
       RectSolid.fill(editor, rand, start, end, walls);
       cursor.add(Cardinal.UP);
       walls.set(editor, rand, cursor);
       cursor.add(Cardinal.UP);
-      cursor.add(Cardinal.reverse(dir));
-      stair.setOrientation(Cardinal.reverse(dir), true).set(editor, cursor);
-      cursor.add(Cardinal.reverse(dir));
+      cursor.add(dir.reverse());
+      stair.setOrientation(dir.reverse(), true).set(editor, cursor);
+      cursor.add(dir.reverse());
       stair.setOrientation(dir, true).set(editor, cursor);
     }
 
@@ -148,8 +148,8 @@ public class DungeonLibrary extends DungeonBase {
     start = new Coord(pos);
     start.add(dir, 7);
     end = new Coord(start);
-    start.add(Cardinal.left(dir));
-    end.add(Cardinal.right(dir));
+    start.add(dir.left());
+    end.add(dir.right());
     end.add(Cardinal.UP, 2);
 
     RectSolid.fill(editor, rand, start, end, theme.getPrimary().getWall());
@@ -158,7 +158,7 @@ public class DungeonLibrary extends DungeonBase {
     cursor.add(dir, 7);
     theme.getPrimary().getDoor().generate(editor, cursor, dir, false);
 
-    for (Cardinal o : Cardinal.orthogonal(dir)) {
+    for (Cardinal o : dir.orthogonal()) {
 
       cursor = new Coord(pos);
       cursor.add(dir, 5);
@@ -166,9 +166,9 @@ public class DungeonLibrary extends DungeonBase {
       cursor.add(Cardinal.UP, 2);
 
       IStair stair = theme.getPrimary().getStair();
-      stair.setOrientation(Cardinal.reverse(dir), true).set(editor, cursor);
+      stair.setOrientation(dir.reverse(), true).set(editor, cursor);
       cursor.add(dir);
-      stair.setOrientation(Cardinal.reverse(o), true).set(editor, cursor);
+      stair.setOrientation(o.reverse(), true).set(editor, cursor);
     }
   }
 
@@ -183,19 +183,19 @@ public class DungeonLibrary extends DungeonBase {
     cursor.add(dir, 5);
     start = new Coord(cursor);
     end = new Coord(cursor);
-    start.add(Cardinal.left(dir), 2);
-    end.add(Cardinal.right(dir), 2);
+    start.add(dir.left(), 2);
+    end.add(dir.right(), 2);
     end.add(Cardinal.UP, 2);
     BlockType.get(BlockType.AIR).fill(editor, rand, new RectSolid(start, end));
     start.add(dir);
     end.add(dir);
     theme.getPrimary().getWall().fill(editor, rand, new RectSolid(start, end), false, true);
 
-    for (Cardinal o : Cardinal.orthogonal(dir)) {
+    for (Cardinal o : dir.orthogonal()) {
       Coord c = new Coord(cursor);
       c.add(o, 2);
       c.add(Cardinal.UP, 2);
-      theme.getPrimary().getStair().setOrientation(Cardinal.reverse(o), true).set(editor, c);
+      theme.getPrimary().getStair().setOrientation(o.reverse(), true).set(editor, c);
       c.add(dir);
       c.add(Cardinal.DOWN);
       shelf.set(editor, c);
@@ -210,21 +210,21 @@ public class DungeonLibrary extends DungeonBase {
     stair.setOrientation(dir, false).set(editor, cursor);
 
     cursor.add(dir);
-    stair.setOrientation(Cardinal.reverse(dir), true).set(editor, cursor);
+    stair.setOrientation(dir.reverse(), true).set(editor, cursor);
 
-    cursor.add(Cardinal.left(dir));
-    stair.setOrientation(Cardinal.right(dir), true).set(editor, cursor);
+    cursor.add(dir.left());
+    stair.setOrientation(dir.right(), true).set(editor, cursor);
 
-    cursor.add(Cardinal.right(dir), 2);
-    stair.setOrientation(Cardinal.left(dir), true).set(editor, cursor);
+    cursor.add(dir.right(), 2);
+    stair.setOrientation(dir.left(), true).set(editor, cursor);
 
     cursor.add(Cardinal.UP);
     FlowerPot.generate(editor, rand, cursor);
 
-    cursor.add(Cardinal.left(dir));
+    cursor.add(dir.left());
     ColorBlock.get(ColorBlock.CARPET, DyeColor.GREEN).set(editor, cursor);
 
-    cursor.add(Cardinal.left(dir));
+    cursor.add(dir.left());
     Torch.generate(editor, Torch.WOODEN, Cardinal.UP, cursor);
   }
 
@@ -237,25 +237,25 @@ public class DungeonLibrary extends DungeonBase {
     cursor.add(dir, 5);
     start = new Coord(cursor);
     end = new Coord(cursor);
-    start.add(Cardinal.left(dir), 2);
-    end.add(Cardinal.left(dir), 2);
+    start.add(dir.left(), 2);
+    end.add(dir.left(), 2);
     end.add(Cardinal.UP, 2);
     BlockType.get(BlockType.AIR).fill(editor, rand, new RectSolid(start, end));
     start.add(dir);
     end.add(dir);
     theme.getPrimary().getWall().fill(editor, rand, new RectSolid(start, end), false, true);
 
-    for (Cardinal o : Cardinal.orthogonal(dir)) {
+    for (Cardinal o : dir.orthogonal()) {
       Coord c = new Coord(cursor);
       c.add(o, 2);
       c.add(Cardinal.UP, 2);
-      theme.getPrimary().getStair().setOrientation(Cardinal.reverse(o), true).set(editor, c);
+      theme.getPrimary().getStair().setOrientation(o.reverse(), true).set(editor, c);
     }
 
     start = new Coord(cursor);
     end = new Coord(cursor);
-    start.add(Cardinal.left(dir));
-    end.add(Cardinal.right(dir));
+    start.add(dir.left());
+    end.add(dir.right());
     RectSolid rect = new RectSolid(start, end);
     for (Coord c : rect) {
       plant(editor, rand, theme, c);
@@ -269,7 +269,7 @@ public class DungeonLibrary extends DungeonBase {
     for (Cardinal dir : Cardinal.directions) {
       cursor = new Coord(origin);
       cursor.add(dir);
-      Trapdoor.get(Trapdoor.OAK, Cardinal.reverse(dir), true, true).set(editor, rand, cursor, true, false);
+      Trapdoor.get(Trapdoor.OAK, dir.reverse(), true, true).set(editor, rand, cursor, true, false);
     }
 
     cursor = new Coord(origin);

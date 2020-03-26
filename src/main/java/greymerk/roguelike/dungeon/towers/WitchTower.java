@@ -47,7 +47,7 @@ public class WitchTower implements ITower {
 
     for (Cardinal dir : Cardinal.directions) {
 
-      Cardinal[] orth = Cardinal.orthogonal(dir);
+      Cardinal[] orth = dir.orthogonal();
 
       start = new Coord(main);
       start.add(dir, 3);
@@ -96,7 +96,7 @@ public class WitchTower implements ITower {
 
     for (Cardinal dir : Cardinal.directions) {
 
-      Cardinal[] orth = Cardinal.orthogonal(dir);
+      Cardinal[] orth = dir.orthogonal();
 
       start = new Coord(secondFloor);
       start.add(dir, 4);
@@ -162,7 +162,7 @@ public class WitchTower implements ITower {
 
     for (Cardinal dir : Cardinal.directions) {
 
-      Cardinal[] orth = Cardinal.orthogonal(dir);
+      Cardinal[] orth = dir.orthogonal();
 
       cursor = new Coord(thirdFloor);
       cursor.add(dir, 3);
@@ -244,7 +244,7 @@ public class WitchTower implements ITower {
           cursor.add(dir, 6);
           cursor.add(o);
           cursor.add(Cardinal.DOWN, 2);
-          stair.setOrientation(Cardinal.reverse(o), true).set(editor, cursor);
+          stair.setOrientation(o.reverse(), true).set(editor, cursor);
         }
       }
     }
@@ -287,7 +287,7 @@ public class WitchTower implements ITower {
 
     for (Cardinal dir : Cardinal.directions) {
 
-      Cardinal[] orth = Cardinal.orthogonal(dir);
+      Cardinal[] orth = dir.orthogonal();
 
       cursor = new Coord(attic);
       cursor.add(dir, 2);
@@ -370,12 +370,12 @@ public class WitchTower implements ITower {
     cursor.add(Cardinal.UP);
     air.set(editor, cursor);
 
-    for (Cardinal o : Cardinal.orthogonal(dir)) {
+    for (Cardinal o : dir.orthogonal()) {
       cursor = new Coord(origin);
       cursor.add(o);
-      stair.setOrientation(Cardinal.reverse(o), false).set(editor, cursor);
+      stair.setOrientation(o.reverse(), false).set(editor, cursor);
       cursor.add(Cardinal.UP);
-      stair.setOrientation(Cardinal.reverse(o), true).set(editor, cursor);
+      stair.setOrientation(o.reverse(), true).set(editor, cursor);
     }
   }
 
@@ -391,7 +391,7 @@ public class WitchTower implements ITower {
     IStair stair = theme.getPrimary().getStair();
     IBlockFactory blocks = theme.getPrimary().getWall();
 
-    Cardinal[] orth = Cardinal.orthogonal(dir);
+    Cardinal[] orth = dir.orthogonal();
 
     start = new Coord(origin);
     end = new Coord(origin);

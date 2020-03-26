@@ -27,7 +27,7 @@ public class Ellipsoid implements IShape {
 
   @Override
   public void fill(IWorldEditor editor, Random rand, IBlockFactory block) {
-    this.fill(editor, rand, block, true, true);
+    fill(editor, rand, block, true, true);
 
   }
 
@@ -62,12 +62,12 @@ public class Ellipsoid implements IShape {
       Coord s = new Coord(centre);
       Coord e = new Coord(end);
 
-      this.diff = e.sub(s);
-      this.diff = new Coord(Math.abs(diff.getX()), Math.abs(diff.getY()), Math.abs(diff.getZ()));
+      diff = e.sub(s);
+      diff = new Coord(Math.abs(diff.getX()), Math.abs(diff.getY()), Math.abs(diff.getZ()));
 
       cursor = new Coord(0, 0, 0);
       top = true;
-      this.dir = Cardinal.NORTH;
+      dir = Cardinal.NORTH;
     }
 
     @Override
@@ -80,25 +80,25 @@ public class Ellipsoid implements IShape {
       Coord toReturn = new Coord(centre);
       toReturn.add(top ? Cardinal.UP : Cardinal.DOWN, cursor.getY());
       if (dir == Cardinal.NORTH || dir == Cardinal.SOUTH) {
-        toReturn.add(Cardinal.left(dir), cursor.getX());
+        toReturn.add(dir.left(), cursor.getX());
         toReturn.add(dir, cursor.getZ());
       } else {
         toReturn.add(dir, cursor.getX());
-        toReturn.add(Cardinal.left(dir), cursor.getZ());
+        toReturn.add(dir.left(), cursor.getZ());
       }
 
-      if (this.dir != Cardinal.NORTH || top) {
-        if (this.dir == Cardinal.NORTH) {
+      if (dir != Cardinal.NORTH || top) {
+        if (dir == Cardinal.NORTH) {
           top = false;
         }
-        dir = Cardinal.left(dir);
+        dir = dir.left();
         return toReturn;
       }
 
       cursor.add(Cardinal.SOUTH);
 
       if (inRange(cursor)) {
-        dir = Cardinal.left(dir);
+        dir = dir.left();
         top = true;
         return toReturn;
       } else {
@@ -108,7 +108,7 @@ public class Ellipsoid implements IShape {
       cursor.add(Cardinal.EAST);
 
       if (inRange(cursor)) {
-        dir = Cardinal.left(dir);
+        dir = dir.left();
         top = true;
         return toReturn;
       } else {
@@ -116,7 +116,7 @@ public class Ellipsoid implements IShape {
       }
 
       cursor.add(Cardinal.UP);
-      dir = Cardinal.left(dir);
+      dir = dir.left();
       top = true;
       return toReturn;
     }
@@ -126,9 +126,9 @@ public class Ellipsoid implements IShape {
       double y = pos.getY();
       double z = pos.getZ();
 
-      double rx = this.diff.getX() == 0 ? 1 : this.diff.getX();
-      double ry = this.diff.getY() == 0 ? 1 : this.diff.getY();
-      double rz = this.diff.getZ() == 0 ? 1 : this.diff.getZ();
+      double rx = diff.getX() == 0 ? 1 : diff.getX();
+      double ry = diff.getY() == 0 ? 1 : diff.getY();
+      double rz = diff.getZ() == 0 ? 1 : diff.getZ();
 
       return ((x / rx) * (x / rx)) +
           ((y / ry) * (y / ry)) +

@@ -78,7 +78,7 @@ public class RectPyramid implements IShape {
 
     @Override
     public boolean hasNext() {
-      return cursor.getY() < this.diff.getY();
+      return cursor.getY() < diff.getY();
     }
 
     @Override
@@ -87,22 +87,22 @@ public class RectPyramid implements IShape {
       Coord toReturn = new Coord(start);
       toReturn.add(Cardinal.UP, cursor.getY());
       if (dir == Cardinal.NORTH || dir == Cardinal.SOUTH) {
-        toReturn.add(Cardinal.left(dir), cursor.getX());
+        toReturn.add(dir.left(), cursor.getX());
         toReturn.add(dir, cursor.getZ());
       } else {
         toReturn.add(dir, cursor.getX());
-        toReturn.add(Cardinal.left(dir), cursor.getZ());
+        toReturn.add(dir.left(), cursor.getZ());
       }
 
-      if (this.dir != Cardinal.NORTH) {
-        dir = Cardinal.left(dir);
+      if (dir != Cardinal.NORTH) {
+        dir = dir.left();
         return toReturn;
       }
 
       cursor.add(Cardinal.SOUTH);
 
       if (inRange(cursor)) {
-        dir = Cardinal.left(dir);
+        dir = dir.left();
         return toReturn;
       }
 
@@ -112,13 +112,13 @@ public class RectPyramid implements IShape {
       cursor.add(Cardinal.EAST);
 
       if (inRange(cursor)) {
-        dir = Cardinal.left(dir);
+        dir = dir.left();
         return toReturn;
       }
 
       cursor = new Coord(0, cursor.getY(), cursor.getZ());
       cursor.add(Cardinal.UP);
-      dir = Cardinal.left(dir);
+      dir = dir.left();
       return toReturn;
     }
 

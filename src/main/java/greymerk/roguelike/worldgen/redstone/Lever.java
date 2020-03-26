@@ -20,7 +20,7 @@ public class Lever {
     } else if (dir == Cardinal.DOWN) {
       lever.withProperty(BlockLever.FACING, EnumOrientation.DOWN_X);
     } else {
-      lever.withProperty(BlockLever.FACING, Cardinal.orientation(Cardinal.reverse(dir)));
+      lever.withProperty(BlockLever.FACING, dir.reverse().getOrientation());
     }
     lever.set(editor, pos);
   }

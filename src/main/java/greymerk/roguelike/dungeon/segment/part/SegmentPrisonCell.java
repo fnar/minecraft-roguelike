@@ -28,7 +28,7 @@ public class SegmentPrisonCell extends SegmentBase {
     Coord start;
     Coord end;
 
-    Cardinal[] orth = Cardinal.orthogonal(dir);
+    Cardinal[] orth = dir.orthogonal();
 
     cursor.add(dir, 2);
     start = new Coord(cursor);
@@ -49,14 +49,14 @@ public class SegmentPrisonCell extends SegmentBase {
     for (Cardinal d : orth) {
       Coord c = new Coord(cursor);
       c.add(d, 1);
-      stair.setOrientation(Cardinal.reverse(d), true);
+      stair.setOrientation(d.reverse(), true);
       stair.set(editor, c);
     }
 
     if (room != null) {
       cursor = new Coord(origin);
       cursor.add(dir, 3);
-      theme.getSecondary().getDoor().generate(editor, cursor, Cardinal.reverse(dir));
+      theme.getSecondary().getDoor().generate(editor, cursor, dir.reverse());
     } else {
       IAlcove cell = new PrisonCell();
       if (cell.isValidLocation(editor, new Coord(origin), dir)) {

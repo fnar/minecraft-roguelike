@@ -37,7 +37,7 @@ public class DungeonBlaze extends DungeonBase {
 
       start = new Coord(origin);
       start.add(dir);
-      start.add(Cardinal.left(dir));
+      start.add(dir.left());
       end = new Coord(start);
       end.add(Cardinal.UP, 2);
       RectSolid.fill(editor, rand, start, end, pillar, true, false);
@@ -54,7 +54,7 @@ public class DungeonBlaze extends DungeonBase {
       cursor.add(Cardinal.UP, 6);
       cursor.add(dir, 3);
 
-      for (Cardinal o : Cardinal.orthogonal(dir)) {
+      for (Cardinal o : dir.orthogonal()) {
         Coord c = new Coord(cursor);
         c.add(o, 2);
         stair.setOrientation(dir, true).set(editor, rand, c, true, false);
@@ -74,8 +74,8 @@ public class DungeonBlaze extends DungeonBase {
       start.add(Cardinal.UP, 3);
       start.add(dir, 2);
       end = new Coord(start);
-      start.add(Cardinal.left(dir), 2);
-      end.add(Cardinal.right(dir), 2);
+      start.add(dir.left(), 2);
+      end.add(dir.right(), 2);
       stair.setOrientation(dir, true);
       RectSolid.fill(editor, rand, start, end, stair, true, false);
     }
@@ -127,7 +127,7 @@ public class DungeonBlaze extends DungeonBase {
     RectSolid.fill(editor, rand, start, end, theme.getPrimary().getFloor(), false, true);
 
     for (Cardinal dir : Cardinal.directions) {
-      for (Cardinal orth : Cardinal.orthogonal(dir)) {
+      for (Cardinal orth : dir.orthogonal()) {
         start = new Coord(origin);
         start.add(dir, 7);
         start.add(orth, 2);
@@ -139,11 +139,11 @@ public class DungeonBlaze extends DungeonBase {
         cursor.add(dir, 8);
         cursor.add(orth);
         cursor.add(Cardinal.UP, 2);
-        stair.setOrientation(Cardinal.reverse(orth), true).set(editor, rand, cursor, true, false);
+        stair.setOrientation(orth.reverse(), true).set(editor, rand, cursor, true, false);
 
-        cursor.add(Cardinal.reverse(dir));
+        cursor.add(dir.reverse());
         cursor.add(Cardinal.UP);
-        stair.setOrientation(Cardinal.reverse(orth), true).set(editor, cursor);
+        stair.setOrientation(orth.reverse(), true).set(editor, cursor);
 
         start = new Coord(cursor);
         start.add(Cardinal.UP);
@@ -151,9 +151,9 @@ public class DungeonBlaze extends DungeonBase {
         end.add(Cardinal.UP, 3);
         RectSolid.fill(editor, rand, start, end, pillar);
 
-        cursor.add(Cardinal.reverse(dir));
+        cursor.add(dir.reverse());
         cursor.add(orth);
-        stair.setOrientation(Cardinal.reverse(dir), true).set(editor, cursor);
+        stair.setOrientation(dir.reverse(), true).set(editor, cursor);
 
         start = new Coord(cursor);
         start.add(Cardinal.UP);
@@ -175,7 +175,7 @@ public class DungeonBlaze extends DungeonBase {
 
       cursor = new Coord(origin);
       cursor.add(dir, 6);
-      cursor.add(Cardinal.left(dir), 6);
+      cursor.add(dir.left(), 6);
 
       genFire(editor, rand, theme, cursor);
 
@@ -186,34 +186,34 @@ public class DungeonBlaze extends DungeonBase {
       end = new Coord(cursor);
       end.add(dir, 6);
       RectSolid.fill(editor, rand, start, end, wall);
-      cursor.add(Cardinal.left(dir));
+      cursor.add(dir.left());
       wall.set(editor, rand, cursor);
 
       start = new Coord(end);
       end.add(Cardinal.UP, 2);
-      end.add(Cardinal.reverse(dir));
+      end.add(dir.reverse());
       RectSolid.fill(editor, rand, start, end, wall);
 
-      stair.setOrientation(Cardinal.reverse(dir), true);
+      stair.setOrientation(dir.reverse(), true);
 
       cursor = new Coord(end);
       start = new Coord(cursor);
-      start.add(Cardinal.left(dir), 3);
-      end.add(Cardinal.right(dir), 3);
+      start.add(dir.left(), 3);
+      end.add(dir.right(), 3);
       RectSolid.fill(editor, rand, start, end, wall, true, false);
 
       start = new Coord(cursor);
       start.add(Cardinal.DOWN);
       end = new Coord(start);
-      start.add(Cardinal.left(dir), 3);
-      end.add(Cardinal.right(dir), 3);
+      start.add(dir.left(), 3);
+      end.add(dir.right(), 3);
       RectSolid.fill(editor, rand, start, end, stair, true, false);
 
       start = new Coord(cursor);
-      start.add(Cardinal.reverse(dir));
+      start.add(dir.reverse());
       end = new Coord(start);
-      start.add(Cardinal.left(dir), 3);
-      end.add(Cardinal.right(dir), 3);
+      start.add(dir.left(), 3);
+      end.add(dir.right(), 3);
       RectSolid.fill(editor, rand, start, end, stair, true, false);
     }
 

@@ -25,18 +25,18 @@ public class DungeonsPrison extends DungeonBase {
 
     Coord cursor;
 
-    this.largeRoom(editor, rand, settings, origin);
+    largeRoom(editor, rand, settings, origin);
 
     for (Cardinal dir : entrances) {
       cursor = new Coord(origin);
       cursor.add(dir, 6);
-      this.sideRoom(editor, rand, settings, cursor, dir);
+      sideRoom(editor, rand, settings, cursor, dir);
     }
 
     for (Cardinal dir : Cardinal.directions) {
       cursor = new Coord(origin);
       cursor.add(dir, 3);
-      cursor.add(Cardinal.left(dir), 3);
+      cursor.add(dir.left(), 3);
       pillar(editor, rand, settings, cursor, 4);
     }
 
@@ -44,11 +44,11 @@ public class DungeonsPrison extends DungeonBase {
       List<Cardinal> doors = new ArrayList<>();
 
       if (Arrays.asList(entrances).contains(dir)) {
-        doors.add(Cardinal.right(dir));
+        doors.add(dir.right());
       }
 
-      if (Arrays.asList(entrances).contains(Cardinal.left(dir))) {
-        doors.add(Cardinal.reverse(dir));
+      if (Arrays.asList(entrances).contains(dir.left())) {
+        doors.add(dir.reverse());
       }
 
       if (doors.isEmpty()) {
@@ -57,7 +57,7 @@ public class DungeonsPrison extends DungeonBase {
 
       cursor = new Coord(origin);
       cursor.add(dir, 6);
-      cursor.add(Cardinal.left(dir), 6);
+      cursor.add(dir.left(), 6);
 
       cell(editor, rand, settings, cursor, doors, rand.nextBoolean());
     }
@@ -114,7 +114,7 @@ public class DungeonsPrison extends DungeonBase {
     for (Cardinal dir : Cardinal.directions) {
       cursor = new Coord(origin);
       cursor.add(dir, 3);
-      cursor.add(Cardinal.left(dir), 3);
+      cursor.add(dir.left(), 3);
       pillar(editor, rand, settings, cursor, 4);
     }
 
@@ -133,17 +133,17 @@ public class DungeonsPrison extends DungeonBase {
       cursor.add(Cardinal.UP, 5);
       cursor.add(dir, 2);
       air.set(editor, cursor);
-      for (Cardinal o : Cardinal.orthogonal(dir)) {
+      for (Cardinal o : dir.orthogonal()) {
         Coord c = new Coord(cursor);
         c.add(o);
-        stair.setOrientation(Cardinal.reverse(o), true).set(editor, c);
+        stair.setOrientation(o.reverse(), true).set(editor, c);
       }
 
       cursor = new Coord(origin);
       cursor.add(Cardinal.UP, 6);
       air.set(editor, cursor);
       cursor.add(dir, 1);
-      stair.setOrientation(Cardinal.reverse(dir), true).set(editor, cursor);
+      stair.setOrientation(dir.reverse(), true).set(editor, cursor);
     }
   }
 
@@ -199,13 +199,13 @@ public class DungeonsPrison extends DungeonBase {
     start.add(Cardinal.UP, 4);
     end = new Coord(start);
     start.add(dir);
-    end.add(Cardinal.reverse(dir), 3);
-    start.add(Cardinal.left(dir));
-    end.add(Cardinal.right(dir));
+    end.add(dir.reverse(), 3);
+    start.add(dir.left());
+    end.add(dir.right());
     end.add(Cardinal.UP);
     RectSolid.fill(editor, rand, start, end, air, true, true);
 
-    for (Cardinal d : Cardinal.orthogonal(dir)) {
+    for (Cardinal d : dir.orthogonal()) {
       cursor = new Coord(origin);
       cursor.add(d, 3);
       cursor.add(dir, 3);
@@ -215,28 +215,28 @@ public class DungeonsPrison extends DungeonBase {
     start = new Coord(origin);
     start.add(Cardinal.UP, 4);
     end = new Coord(start);
-    start.add(Cardinal.left(dir));
-    end.add(Cardinal.right(dir));
-    start.add(Cardinal.reverse(dir), 3);
+    start.add(dir.left());
+    end.add(dir.right());
+    start.add(dir.reverse(), 3);
     end.add(dir, 2);
 
-    for (Cardinal d : Cardinal.orthogonal(dir)) {
+    for (Cardinal d : dir.orthogonal()) {
       cursor = new Coord(origin);
       cursor.add(Cardinal.UP, 4);
       start = new Coord(cursor);
       start.add(d, 2);
       end = new Coord(start);
-      start.add(Cardinal.left(d), 3);
-      end.add(Cardinal.right(d), 3);
-      stair.setOrientation(Cardinal.reverse(d), true).fill(editor, rand, new RectSolid(start, end));
+      start.add(d.left(), 3);
+      end.add(d.right(), 3);
+      stair.setOrientation(d.reverse(), true).fill(editor, rand, new RectSolid(start, end));
 
       cursor.add(Cardinal.UP, 1);
       start = new Coord(cursor);
       start.add(d);
       end = new Coord(start);
-      start.add(Cardinal.left(d), 3);
-      end.add(Cardinal.right(d), 3);
-      stair.setOrientation(Cardinal.reverse(d), true).fill(editor, rand, new RectSolid(start, end));
+      start.add(d.left(), 3);
+      end.add(d.right(), 3);
+      stair.setOrientation(d.reverse(), true).fill(editor, rand, new RectSolid(start, end));
     }
 
 
@@ -245,18 +245,18 @@ public class DungeonsPrison extends DungeonBase {
     start = new Coord(cursor);
     start.add(dir, 2);
     end = new Coord(start);
-    start.add(Cardinal.left(dir), 2);
-    end.add(Cardinal.right(dir), 2);
-    stair.setOrientation(Cardinal.reverse(dir), true).fill(editor, rand, new RectSolid(start, end));
+    start.add(dir.left(), 2);
+    end.add(dir.right(), 2);
+    stair.setOrientation(dir.reverse(), true).fill(editor, rand, new RectSolid(start, end));
 
     cursor.add(Cardinal.UP, 1);
     air.set(editor, cursor);
     start = new Coord(cursor);
     start.add(dir, 1);
     end = new Coord(start);
-    start.add(Cardinal.left(dir), 1);
-    end.add(Cardinal.right(dir), 1);
-    stair.setOrientation(Cardinal.reverse(dir), true).fill(editor, rand, new RectSolid(start, end));
+    start.add(dir.left(), 1);
+    end.add(dir.right(), 1);
+    stair.setOrientation(dir.reverse(), true).fill(editor, rand, new RectSolid(start, end));
   }
 
   private void pillar(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, int height) {
@@ -316,8 +316,8 @@ public class DungeonsPrison extends DungeonBase {
       cursor.add(dir, 2);
       start = new Coord(cursor);
       end = new Coord(cursor);
-      start.add(Cardinal.left(dir));
-      end.add(Cardinal.right(dir));
+      start.add(dir.left());
+      end.add(dir.right());
       end.add(Cardinal.UP, 2);
       RectSolid.fill(editor, rand, start, end, bar);
 

@@ -26,7 +26,7 @@ public class SegmentPlant extends SegmentBase {
     Coord start;
     Coord end;
 
-    Cardinal[] orth = Cardinal.orthogonal(dir);
+    Cardinal[] orth = dir.orthogonal();
 
     cursor.add(dir, 2);
     start = new Coord(cursor);
@@ -44,7 +44,7 @@ public class SegmentPlant extends SegmentBase {
     for (Cardinal d : orth) {
       Coord c = new Coord(cursor);
       c.add(d, 1);
-      stair.setOrientation(Cardinal.reverse(d), true);
+      stair.setOrientation(d.reverse(), true);
       stair.set(editor, c);
     }
 
@@ -61,7 +61,7 @@ public class SegmentPlant extends SegmentBase {
     for (Cardinal dir : Cardinal.directions) {
       cursor = new Coord(origin);
       cursor.add(dir);
-      Trapdoor.get(Trapdoor.OAK, Cardinal.reverse(dir), true, true).set(editor, rand, cursor, true, false);
+      Trapdoor.get(Trapdoor.OAK, dir.reverse(), true, true).set(editor, rand, cursor, true, false);
     }
 
     cursor = new Coord(origin);

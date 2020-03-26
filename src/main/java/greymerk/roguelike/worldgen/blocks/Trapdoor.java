@@ -27,7 +27,7 @@ public enum Trapdoor {
         break;
     }
 
-    block.withProperty(BlockTrapDoor.FACING, Cardinal.facing(dir));
+    block.withProperty(BlockTrapDoor.FACING, dir.getFacing());
 
     if (bottom) {
       block.withProperty(BlockTrapDoor.HALF, BlockTrapDoor.DoorHalf.BOTTOM);

@@ -27,7 +27,7 @@ public class SegmentSkull extends SegmentBase {
     Coord start;
     Coord end;
 
-    Cardinal[] orth = Cardinal.orthogonal(dir);
+    Cardinal[] orth = dir.orthogonal();
 
     start = new Coord(origin);
     start.add(dir, 2);
@@ -50,7 +50,7 @@ public class SegmentSkull extends SegmentBase {
       cursor = new Coord(origin);
       cursor.add(dir, 2);
       cursor.add(d, 1);
-      stair.setOrientation(Cardinal.reverse(d), false);
+      stair.setOrientation(d.reverse(), false);
       stair.set(editor, cursor);
     }
 
@@ -59,7 +59,7 @@ public class SegmentSkull extends SegmentBase {
     cursor.add(dir, 3);
     air.set(editor, cursor);
     cursor.add(Cardinal.UP, 1);
-    stair.setOrientation(Cardinal.reverse(dir), true);
+    stair.setOrientation(dir.reverse(), true);
     stair.set(editor, cursor);
 
 
@@ -77,7 +77,7 @@ public class SegmentSkull extends SegmentBase {
       type = Skull.ZOMBIE;
     } else {
       type = rand.nextInt(10) == 0 ? Skull.WITHER : Skull.SKELETON;
-      Skull.set(editor, rand, shelf, Cardinal.reverse(dir), type);
+      Skull.set(editor, rand, shelf, dir.reverse(), type);
     }
   }
 }

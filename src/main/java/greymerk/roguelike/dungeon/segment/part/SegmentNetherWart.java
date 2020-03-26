@@ -39,8 +39,8 @@ public class SegmentNetherWart extends SegmentBase {
     cursor.add(Cardinal.UP, 1);
     BlockType.get(BlockType.FENCE_NETHER_BRICK).set(editor, cursor);
 
-    for (Cardinal orth : Cardinal.orthogonal(dir)) {
-      step.setOrientation(Cardinal.reverse(orth), true);
+    for (Cardinal orth : dir.orthogonal()) {
+      step.setOrientation(orth.reverse(), true);
       cursor = new Coord(origin);
       cursor.add(dir, 2);
       cursor.add(orth, 1);
@@ -48,7 +48,7 @@ public class SegmentNetherWart extends SegmentBase {
       step.set(editor, cursor);
       cursor.add(Cardinal.UP, 1);
       wall.set(editor, rand, cursor);
-      cursor.add(Cardinal.reverse(orth), 1);
+      cursor.add(orth.reverse(), 1);
       wall.set(editor, rand, cursor);
       cursor.add(Cardinal.DOWN, 2);
       Crops.get(Crops.NETHERWART).set(editor, cursor);
@@ -56,7 +56,7 @@ public class SegmentNetherWart extends SegmentBase {
       Crops.get(Crops.NETHERWART).set(editor, cursor);
       cursor.add(Cardinal.DOWN, 1);
       BlockType.get(BlockType.SOUL_SAND).set(editor, cursor);
-      cursor.add(Cardinal.reverse(orth), 1);
+      cursor.add(orth.reverse(), 1);
       BlockType.get(BlockType.SOUL_SAND).set(editor, cursor);
     }
 

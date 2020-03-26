@@ -25,7 +25,7 @@ public class DungeonObsidian extends DungeonBase {
 
   private static void outerPillars(IWorldEditor editor, Random rand, ITheme theme, int x, int y, int z) {
     for (Cardinal dir : Cardinal.directions) {
-      for (Cardinal orth : Cardinal.orthogonal(dir)) {
+      for (Cardinal orth : dir.orthogonal()) {
         Coord pillarLocation = new Coord(x, y, z);
         pillarLocation.add(dir, 10);
 
@@ -56,7 +56,7 @@ public class DungeonObsidian extends DungeonBase {
     secondaryWall.set(editor, rand, blockLocation);
 
     for (int i = 0; i < 3; ++i) {
-      blockLocation.add(Cardinal.reverse(dir), 1);
+      blockLocation.add(dir.reverse(), 1);
       blockLocation.add(Cardinal.UP, 1);
       secondaryWall.set(editor, rand, blockLocation);
     }
@@ -67,7 +67,7 @@ public class DungeonObsidian extends DungeonBase {
     IBlockFactory secondaryWall = theme.getSecondary().getPillar();
 
     for (Cardinal dir : Cardinal.directions) {
-      for (Cardinal orth : Cardinal.orthogonal(dir)) {
+      for (Cardinal orth : dir.orthogonal()) {
         Coord pillar = new Coord(x, y, z);
         pillar.add(dir, 2);
         pillar.add(orth, 2);
@@ -92,7 +92,7 @@ public class DungeonObsidian extends DungeonBase {
         secondaryWall.set(editor, rand, start);
         start.add(Cardinal.DOWN, 1);
         end = new Coord(start);
-        end.add(Cardinal.reverse(dir), 1);
+        end.add(dir.reverse(), 1);
         end.add(orth, 1);
         end.add(Cardinal.DOWN, 1);
         RectSolid.fill(editor, rand, start, end, secondaryWall);
@@ -143,7 +143,7 @@ public class DungeonObsidian extends DungeonBase {
 
     // ceiling holes
     for (Cardinal dir : Cardinal.directions) {
-      for (Cardinal orth : Cardinal.orthogonal(dir)) {
+      for (Cardinal orth : dir.orthogonal()) {
         Coord start = new Coord(x, y, z);
         start.add(Cardinal.UP, 3);
         start.add(dir, 3);
@@ -187,8 +187,8 @@ public class DungeonObsidian extends DungeonBase {
       Coord start = new Coord(x, y, z);
       start.add(dir, 10);
       Coord end = new Coord(start);
-      start.add(Cardinal.left(dir), 9);
-      end.add(Cardinal.right(dir), 9);
+      start.add(dir.left(), 9);
+      end.add(dir.right(), 9);
 
       start.add(Cardinal.DOWN, 4);
       end.add(Cardinal.DOWN, 1);
@@ -203,8 +203,8 @@ public class DungeonObsidian extends DungeonBase {
       start.add(dir, 6);
       start.add(Cardinal.UP, 3);
       end = new Coord(start);
-      start.add(Cardinal.left(dir), 9);
-      end.add(Cardinal.right(dir), 9);
+      start.add(dir.left(), 9);
+      end.add(dir.right(), 9);
       RectSolid.fill(editor, rand, start, end, secondaryWall);
 
       // inner
@@ -212,8 +212,8 @@ public class DungeonObsidian extends DungeonBase {
       start.add(dir, 2);
       start.add(Cardinal.UP, 3);
       end = new Coord(start);
-      start.add(Cardinal.left(dir), 9);
-      end.add(Cardinal.right(dir), 9);
+      start.add(dir.left(), 9);
+      end.add(dir.right(), 9);
       RectSolid.fill(editor, rand, start, end, secondaryWall);
 
       // outer shell
@@ -222,8 +222,8 @@ public class DungeonObsidian extends DungeonBase {
       end = new Coord(start);
       start.add(Cardinal.DOWN, 3);
       end.add(Cardinal.UP, 3);
-      start.add(Cardinal.left(dir), 11);
-      end.add(Cardinal.right(dir), 11);
+      start.add(dir.left(), 11);
+      end.add(dir.right(), 11);
       RectSolid.fill(editor, rand, start, end, secondaryWall, false, true);
     }
 
@@ -236,14 +236,14 @@ public class DungeonObsidian extends DungeonBase {
       Coord end = new Coord(start);
       end.add(Cardinal.DOWN, 3);
       start.add(dir, 9);
-      start.add(Cardinal.left(dir), 1);
-      end.add(Cardinal.right(dir), 1);
+      start.add(dir.left(), 1);
+      end.add(dir.right(), 1);
       RectSolid.fill(editor, rand, start, end, primaryWall);
     }
 
     // mid outer floors
     for (Cardinal dir : Cardinal.directions) {
-      for (Cardinal orth : Cardinal.orthogonal(dir)) {
+      for (Cardinal orth : dir.orthogonal()) {
         Coord start = new Coord(x, y, z);
         Coord end = new Coord(start);
         start.add(dir, 9);
@@ -264,7 +264,7 @@ public class DungeonObsidian extends DungeonBase {
         stepCoord.add(dir, 1);
         stair.set(editor, rand, stepCoord);
 
-        stair.setOrientation(Cardinal.reverse(dir), false);
+        stair.setOrientation(dir.reverse(), false);
         stepCoord = new Coord(x, y, z);
         stepCoord.add(Cardinal.DOWN, 2);
         stepCoord.add(dir, 7);
@@ -273,9 +273,9 @@ public class DungeonObsidian extends DungeonBase {
         stepCoord.add(orth, 1);
         stair.set(editor, rand, stepCoord);
         stepCoord.add(Cardinal.DOWN, 1);
-        stepCoord.add(Cardinal.reverse(dir), 1);
+        stepCoord.add(dir.reverse(), 1);
         stair.set(editor, rand, stepCoord);
-        stepCoord.add(Cardinal.reverse(orth), 1);
+        stepCoord.add(orth.reverse(), 1);
         stair.set(editor, rand, stepCoord);
         stepCoord.add(dir, 1);
         primaryWall.set(editor, rand, stepCoord);
@@ -294,7 +294,7 @@ public class DungeonObsidian extends DungeonBase {
 
     // chests areas
     for (Cardinal dir : Cardinal.directions) {
-      for (Cardinal orth : Cardinal.orthogonal(dir)) {
+      for (Cardinal orth : dir.orthogonal()) {
         Coord cursor = new Coord(x, y, z);
         cursor.add(Cardinal.DOWN, 2);
         cursor.add(dir, 3);

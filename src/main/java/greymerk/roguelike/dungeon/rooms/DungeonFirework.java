@@ -44,109 +44,109 @@ public class DungeonFirework extends DungeonBase {
     Cardinal dir = entrances[0];
     start = new Coord(x, y, z);
     end = new Coord(start);
-    start.add(Cardinal.reverse(dir), 9);
+    start.add(dir.reverse(), 9);
     end.add(dir, 9);
-    start.add(Cardinal.left(dir), 4);
-    end.add(Cardinal.right(dir), 4);
+    start.add(dir.left(), 4);
+    end.add(dir.right(), 4);
     start.add(Cardinal.DOWN);
     end.add(Cardinal.UP, 3);
     RectHollow.fill(editor, rand, start, end, ColorBlock.get(ColorBlock.CLAY, DyeColor.ORANGE), false, true);
 
     start = new Coord(x, y, z);
-    start.add(Cardinal.left(dir), 2);
+    start.add(dir.left(), 2);
     end = new Coord(start);
-    start.add(Cardinal.reverse(dir), 3);
+    start.add(dir.reverse(), 3);
     end.add(dir, 7);
     end.add(Cardinal.UP);
     RectSolid.fill(editor, rand, start, end, breadboard);
 
-    start.add(Cardinal.right(dir), 2);
-    end.add(Cardinal.right(dir), 2);
+    start.add(dir.right(), 2);
+    end.add(dir.right(), 2);
     RectSolid.fill(editor, rand, start, end, breadboard, true, true);
 
-    start.add(Cardinal.right(dir), 2);
-    end.add(Cardinal.right(dir), 2);
+    start.add(dir.right(), 2);
+    end.add(dir.right(), 2);
     RectSolid.fill(editor, rand, start, end, breadboard, true, true);
 
     cursor = new Coord(x, y, z);
-    cursor.add(Cardinal.left(dir), 2);
+    cursor.add(dir.left(), 2);
 
     launcher(editor, rand, dir, cursor);
-    cursor.add(Cardinal.right(dir), 2);
+    cursor.add(dir.right(), 2);
     launcher(editor, rand, dir, cursor);
-    cursor.add(Cardinal.right(dir), 2);
+    cursor.add(dir.right(), 2);
     launcher(editor, rand, dir, cursor);
     cursor.add(dir, 6);
     launcher(editor, rand, dir, cursor);
-    cursor.add(Cardinal.left(dir), 2);
+    cursor.add(dir.left(), 2);
     launcher(editor, rand, dir, cursor);
-    cursor.add(Cardinal.left(dir), 2);
+    cursor.add(dir.left(), 2);
     launcher(editor, rand, dir, cursor);
 
     start = new Coord(x, y, z);
     start.add(dir, 4);
     end = new Coord(start);
-    start.add(Cardinal.left(dir), 2);
-    end.add(Cardinal.right(dir), 2);
+    start.add(dir.left(), 2);
+    end.add(dir.right(), 2);
     end.add(dir, 2);
     RectSolid.fill(editor, rand, start, end, BlockType.get(BlockType.AIR), true, true);
 
     cursor = new Coord(x, y, z);
     cursor.add(dir, 2);
     Repeater.generate(editor, rand, dir, 0, cursor);
-    cursor.add(Cardinal.left(dir), 2);
+    cursor.add(dir.left(), 2);
     Repeater.generate(editor, rand, dir, 0, cursor);
-    cursor.add(Cardinal.right(dir), 4);
+    cursor.add(dir.right(), 4);
     Repeater.generate(editor, rand, dir, 0, cursor);
 
     cursor = new Coord(x, y, z);
-    cursor.add(Cardinal.reverse(dir), 3);
-    cursor.add(Cardinal.left(dir));
-    Repeater.generate(editor, rand, Cardinal.left(dir), 0, cursor);
-    cursor.add(Cardinal.right(dir), 2);
-    Repeater.generate(editor, rand, Cardinal.right(dir), 0, cursor);
+    cursor.add(dir.reverse(), 3);
+    cursor.add(dir.left());
+    Repeater.generate(editor, rand, dir.left(), 0, cursor);
+    cursor.add(dir.right(), 2);
+    Repeater.generate(editor, rand, dir.right(), 0, cursor);
 
     MetaBlock wire = BlockType.get(BlockType.REDSTONE_WIRE);
 
     start = new Coord(x, y, z);
     start.add(Cardinal.DOWN, 2);
-    start.add(Cardinal.right(dir));
-    start.add(Cardinal.reverse(dir), 2);
+    start.add(dir.right());
+    start.add(dir.reverse(), 2);
     end = new Coord(start);
-    end.add(Cardinal.left(dir), 5);
-    end.add(Cardinal.reverse(dir), 5);
+    end.add(dir.left(), 5);
+    end.add(dir.reverse(), 5);
     end.add(Cardinal.DOWN, 2);
     RectSolid.fill(editor, rand, start, end, BlockType.get(BlockType.COBBLESTONE), true, true);
 
     cursor = new Coord(x, y, z);
-    cursor.add(Cardinal.reverse(dir), 3);
+    cursor.add(dir.reverse(), 3);
     cursor.add(Cardinal.DOWN);
     Torch.generate(editor, Torch.REDSTONE, Cardinal.UP, cursor);
     cursor.add(Cardinal.DOWN);
     breadboard.set(editor, cursor);
-    cursor.add(Cardinal.left(dir));
-    Torch.generate(editor, Torch.REDSTONE_UNLIT, Cardinal.left(dir), cursor);
-    cursor.add(Cardinal.left(dir));
+    cursor.add(dir.left());
+    Torch.generate(editor, Torch.REDSTONE_UNLIT, dir.left(), cursor);
+    cursor.add(dir.left());
     wire.set(editor, cursor);
-    cursor.add(Cardinal.reverse(dir));
+    cursor.add(dir.reverse());
     wire.set(editor, cursor);
-    cursor.add(Cardinal.reverse(dir));
+    cursor.add(dir.reverse());
     wire.set(editor, cursor);
-    cursor.add(Cardinal.right(dir));
+    cursor.add(dir.right());
     wire.set(editor, cursor);
-    cursor.add(Cardinal.right(dir));
+    cursor.add(dir.right());
     wire.set(editor, cursor);
     cursor.add(dir);
     Repeater.generate(editor, rand, dir, 4, true, cursor);
     cursor.add(Cardinal.UP);
-    cursor.add(Cardinal.reverse(dir));
+    cursor.add(dir.reverse());
     ColorBlock.get(ColorBlock.CLAY, DyeColor.RED).set(editor, cursor);
     cursor.add(Cardinal.UP);
     Lever.generate(editor, Cardinal.UP, cursor, true);
 
     MetaBlock glowstone = BlockType.get(BlockType.GLOWSTONE);
     cursor = new Coord(x, y, z);
-    cursor.add(Cardinal.reverse(dir), 5);
+    cursor.add(dir.reverse(), 5);
     cursor.add(Cardinal.UP, 3);
     glowstone.set(editor, cursor);
     cursor.add(dir, 4);
@@ -161,11 +161,11 @@ public class DungeonFirework extends DungeonBase {
   private void launcher(IWorldEditor editor, Random rand, Cardinal dir, Coord pos) {
     Coord cursor = new Coord(pos);
     BlockType.get(BlockType.REDSTONE_WIRE).set(editor, cursor);
-    cursor.add(Cardinal.reverse(dir));
+    cursor.add(dir.reverse());
     BlockType.get(BlockType.REDSTONE_WIRE).set(editor, cursor);
-    cursor.add(Cardinal.reverse(dir));
+    cursor.add(dir.reverse());
     Repeater.generate(editor, rand, dir, 0, cursor);
-    cursor.add(Cardinal.reverse(dir));
+    cursor.add(dir.reverse());
     cursor.add(Cardinal.UP);
 
     Dropper dropper = new Dropper();
@@ -234,8 +234,8 @@ public class DungeonFirework extends DungeonBase {
     cursor.add(Cardinal.UP);
     MetaBlock cob = BlockType.get(BlockType.COBBLESTONE);
     RectSolid.fill(editor, rand, start, end, cob, true, true);
-    start.add(Cardinal.reverse(dir), 2);
-    end.add(Cardinal.reverse(dir), 2);
+    start.add(dir.reverse(), 2);
+    end.add(dir.reverse(), 2);
     RectSolid.fill(editor, rand, start, end, cob, true, true);
     start.add(dir);
     end.add(dir);
@@ -247,11 +247,11 @@ public class DungeonFirework extends DungeonBase {
         air.set(editor, c);
       }
     }
-    start.add(Cardinal.left(dir));
-    end.add(Cardinal.left(dir));
+    start.add(dir.left());
+    end.add(dir.left());
     RectSolid.fill(editor, rand, start, end, cob, true, true);
-    start.add(Cardinal.right(dir), 2);
-    end.add(Cardinal.right(dir), 2);
+    start.add(dir.right(), 2);
+    end.add(dir.right(), 2);
     RectSolid.fill(editor, rand, start, end, cob, true, true);
   }
 
@@ -268,9 +268,9 @@ public class DungeonFirework extends DungeonBase {
 
     start = new Coord(pos);
     end = new Coord(start);
-    start.add(Cardinal.reverse(dir), 9);
+    start.add(dir.reverse(), 9);
     end.add(dir, 9);
-    Cardinal[] orth = Cardinal.orthogonal(dir);
+    Cardinal[] orth = dir.orthogonal();
     start.add(orth[0], 5);
     end.add(orth[1], 5);
     start.add(Cardinal.DOWN);

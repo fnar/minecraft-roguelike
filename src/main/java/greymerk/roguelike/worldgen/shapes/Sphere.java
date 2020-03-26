@@ -10,7 +10,7 @@ import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
 import greymerk.roguelike.worldgen.IWorldEditor;
 
-import static java.lang.Math.*;
+import static java.lang.Math.max;
 
 public class Sphere implements IShape {
 
@@ -29,7 +29,7 @@ public class Sphere implements IShape {
 
   @Override
   public void fill(IWorldEditor editor, Random rand, IBlockFactory block) {
-    this.fill(editor, rand, block, true, true);
+    fill(editor, rand, block, true, true);
 
   }
 
@@ -79,7 +79,7 @@ public class Sphere implements IShape {
       row = 0;
       col = 0;
       top = true;
-      this.dir = Cardinal.NORTH;
+      dir = Cardinal.NORTH;
     }
 
     @Override
@@ -92,19 +92,19 @@ public class Sphere implements IShape {
       Coord toReturn = new Coord(centre);
       toReturn.add(top ? Cardinal.UP : Cardinal.DOWN, layer);
       toReturn.add(dir, row);
-      toReturn.add(Cardinal.left(dir), col);
-      if (this.dir != Cardinal.NORTH || top) {
-        if (this.dir == Cardinal.NORTH) {
+      toReturn.add(dir.left(), col);
+      if (dir != Cardinal.NORTH || top) {
+        if (dir == Cardinal.NORTH) {
           top = false;
         }
-        dir = Cardinal.left(dir);
+        dir = dir.left();
         return toReturn;
       }
 
       col += 1;
 
       if (inRange(col, layer, row)) {
-        dir = Cardinal.left(dir);
+        dir = dir.left();
         top = true;
         return toReturn;
       } else {
@@ -114,7 +114,7 @@ public class Sphere implements IShape {
       row += 1;
 
       if (inRange(col, layer, row)) {
-        dir = Cardinal.left(dir);
+        dir = dir.left();
         top = true;
         return toReturn;
       } else {
@@ -122,7 +122,7 @@ public class Sphere implements IShape {
       }
 
       layer += 1;
-      dir = Cardinal.left(dir);
+      dir = dir.left();
       top = true;
       return toReturn;
     }

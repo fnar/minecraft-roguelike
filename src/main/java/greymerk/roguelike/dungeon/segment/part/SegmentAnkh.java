@@ -29,7 +29,7 @@ public class SegmentAnkh extends SegmentBase {
     MetaBlock back = ColorBlock.get(ColorBlock.CLAY, color);
     MetaBlock glowstone = BlockType.get(BlockType.GLOWSTONE);
 
-    Cardinal[] orth = Cardinal.orthogonal(dir);
+    Cardinal[] orth = dir.orthogonal();
 
     start = new Coord(pos);
     start.add(dir, 2);
@@ -44,11 +44,11 @@ public class SegmentAnkh extends SegmentBase {
       cursor = new Coord(pos);
       cursor.add(dir, 2);
       cursor.add(o);
-      stair.setOrientation(Cardinal.reverse(o), false).set(editor, cursor);
+      stair.setOrientation(o.reverse(), false).set(editor, cursor);
       cursor.add(Cardinal.UP);
-      stair.setOrientation(Cardinal.reverse(o), false).set(editor, cursor);
+      stair.setOrientation(o.reverse(), false).set(editor, cursor);
       cursor.add(Cardinal.UP);
-      stair.setOrientation(Cardinal.reverse(o), true).set(editor, cursor);
+      stair.setOrientation(o.reverse(), true).set(editor, cursor);
     }
 
     start = new Coord(pos);

@@ -27,7 +27,7 @@ public class DungeonStorage extends DungeonBase {
       step.setOrientation(dir, true);
       cursor.add(dir, 1);
       step.set(editor, rand, cursor, true, false);
-      cursor.add(Cardinal.reverse(dir), 1);
+      cursor.add(dir.reverse(), 1);
     }
   }
 
@@ -61,7 +61,7 @@ public class DungeonStorage extends DungeonBase {
     RectSolid.fill(editor, rand, new Coord(x - 5, y + 4, z - 5), new Coord(x + 5, y + 4, z + 5), blocks);
 
     for (Cardinal dir : Cardinal.directions) {
-      for (Cardinal orth : Cardinal.orthogonal(dir)) {
+      for (Cardinal orth : dir.orthogonal()) {
 
         cursor = new Coord(x, y, z);
         cursor.add(Cardinal.UP, 3);
@@ -95,10 +95,10 @@ public class DungeonStorage extends DungeonBase {
         pillarTop(editor, rand, theme, cursor);
 
         cursor.add(Cardinal.UP, 1);
-        cursor.add(Cardinal.reverse(dir), 1);
+        cursor.add(dir.reverse(), 1);
         pillarTop(editor, rand, theme, cursor);
 
-        cursor.add(Cardinal.reverse(dir), 3);
+        cursor.add(dir.reverse(), 3);
         pillarTop(editor, rand, theme, cursor);
 
         start = new Coord(x, y, z);
@@ -116,13 +116,13 @@ public class DungeonStorage extends DungeonBase {
         cursor.add(dir, 6);
         cursor.add(orth, 3);
         IStair step = theme.getSecondary().getStair();
-        step.setOrientation(Cardinal.reverse(dir), true);
+        step.setOrientation(dir.reverse(), true);
         step.set(editor, cursor);
         cursor.add(orth, 1);
         step.set(editor, cursor);
         cursor.add(Cardinal.UP, 1);
         chestSpaces.add(new Coord(cursor));
-        cursor.add(Cardinal.reverse(orth), 1);
+        cursor.add(orth.reverse(), 1);
         chestSpaces.add(new Coord(cursor));
 
         start = new Coord(x, y, z);

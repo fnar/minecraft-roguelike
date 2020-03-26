@@ -15,7 +15,7 @@ import greymerk.roguelike.worldgen.MetaBlock;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
-import static greymerk.roguelike.worldgen.Cardinal.*;
+import static greymerk.roguelike.worldgen.Cardinal.UP;
 
 public class SegmentChest extends SegmentBase {
 
@@ -31,7 +31,7 @@ public class SegmentChest extends SegmentBase {
     Coord start;
     Coord end;
 
-    Cardinal[] orth = orthogonal(dir);
+    Cardinal[] orth = dir.orthogonal();
 
     start = new Coord(origin);
     start.add(dir, 2);
@@ -49,13 +49,13 @@ public class SegmentChest extends SegmentBase {
       cursor.add(UP, 2);
       cursor.add(dir, 2);
       cursor.add(d, 1);
-      stair.setOrientation(reverse(dir), true);
+      stair.setOrientation(dir.reverse(), true);
       stair.set(editor, cursor);
 
       cursor = new Coord(origin);
       cursor.add(dir, 2);
       cursor.add(d, 1);
-      stair.setOrientation(reverse(d), false);
+      stair.setOrientation(d.reverse(), false);
       stair.set(editor, cursor);
     }
 
@@ -64,7 +64,7 @@ public class SegmentChest extends SegmentBase {
     cursor.add(dir, 3);
     air.set(editor, rand, cursor);
     cursor.add(UP, 1);
-    stair.setOrientation(reverse(dir), true);
+    stair.setOrientation(dir.reverse(), true);
     stair.set(editor, cursor);
 
     Coord shelf = new Coord(origin);

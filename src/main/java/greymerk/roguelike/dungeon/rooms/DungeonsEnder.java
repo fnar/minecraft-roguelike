@@ -35,7 +35,7 @@ public class DungeonsEnder extends DungeonBase {
     RectSolid.fill(editor, inRandom, start, end, air);
     for (Cardinal dir : Cardinal.directions) {
 
-      Cardinal[] orth = Cardinal.orthogonal(dir);
+      Cardinal[] orth = dir.orthogonal();
 
       start = new Coord(origin);
       start.add(dir, 4);
@@ -90,10 +90,10 @@ public class DungeonsEnder extends DungeonBase {
       for (Cardinal dir : Cardinal.directions) {
         cursor.add(dir);
         if (editor.getBlock(cursor).isOpaqueCube()) {
-          EnderChest.set(editor, Cardinal.reverse(dir), pos);
+          EnderChest.set(editor, dir.reverse(), pos);
           return;
         }
-        cursor.add(Cardinal.reverse(dir));
+        cursor.add(dir.reverse());
       }
     }
   }

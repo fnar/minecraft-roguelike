@@ -25,7 +25,7 @@ public class SegmentFireArch extends SegmentBase {
     Coord end;
     Coord cursor;
 
-    Cardinal[] orths = Cardinal.orthogonal(dir);
+    Cardinal[] orths = dir.orthogonal();
 
     start = new Coord(origin);
     start.add(dir, 3);
@@ -37,15 +37,15 @@ public class SegmentFireArch extends SegmentBase {
     RectSolid.fill(editor, rand, start, end, walls);
     cursor = new Coord(origin);
     cursor.add(dir, 2);
-    stair.setOrientation(Cardinal.reverse(dir), false).set(editor, cursor);
+    stair.setOrientation(dir.reverse(), false).set(editor, cursor);
     cursor.add(Cardinal.UP, 2);
-    stair.setOrientation(Cardinal.reverse(dir), true).set(editor, cursor);
+    stair.setOrientation(dir.reverse(), true).set(editor, cursor);
     cursor.add(Cardinal.DOWN, 2);
     cursor.add(dir);
     BlockType.get(BlockType.NETHERRACK).set(editor, cursor);
     cursor.add(Cardinal.UP);
     BlockType.get(BlockType.FIRE).set(editor, cursor);
-    cursor.add(Cardinal.reverse(dir));
+    cursor.add(dir.reverse());
     BlockType.get(BlockType.IRON_BAR).set(editor, cursor);
 
     for (Cardinal orth : orths) {
@@ -54,7 +54,7 @@ public class SegmentFireArch extends SegmentBase {
       cursor.add(dir);
       cursor.add(orth);
       cursor.add(Cardinal.UP, 2);
-      stair.setOrientation(Cardinal.reverse(dir), true).set(editor, cursor);
+      stair.setOrientation(dir.reverse(), true).set(editor, cursor);
 
     }
   }

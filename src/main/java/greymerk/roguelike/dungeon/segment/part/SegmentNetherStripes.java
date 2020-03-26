@@ -46,7 +46,7 @@ public class SegmentNetherStripes extends SegmentBase {
     cursor.add(Cardinal.UP, 1);
     slab.set(editor, cursor);
 
-    for (Cardinal orth : Cardinal.orthogonal(dir)) {
+    for (Cardinal orth : dir.orthogonal()) {
       start = new Coord(origin);
       start.add(dir, 3);
       end = new Coord(start);
@@ -57,7 +57,7 @@ public class SegmentNetherStripes extends SegmentBase {
         RectSolid.fill(editor, rand, start, end, BlockType.get(BlockType.LAVA_FLOWING), false, true);
       }
 
-      step.setOrientation(Cardinal.reverse(orth), true);
+      step.setOrientation(orth.reverse(), true);
       cursor = new Coord(origin);
       cursor.add(dir, 2);
       cursor.add(orth, 1);
@@ -66,7 +66,7 @@ public class SegmentNetherStripes extends SegmentBase {
       step.set(editor, cursor);
       cursor.add(Cardinal.UP, 1);
       step.set(editor, cursor);
-      cursor.add(Cardinal.reverse(dir), 1);
+      cursor.add(dir.reverse(), 1);
       step.set(editor, cursor);
     }
   }

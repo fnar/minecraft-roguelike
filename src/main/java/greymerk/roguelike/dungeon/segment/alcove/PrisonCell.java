@@ -23,7 +23,7 @@ public class PrisonCell implements IAlcove {
   @Override
   public void generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal dir) {
 
-    this.theme = settings.getTheme();
+    theme = settings.getTheme();
     IBlockFactory walls = theme.getPrimary().getWall();
     MetaBlock air = BlockType.get(BlockType.AIR);
     MetaBlock plate = BlockType.get(BlockType.PRESSURE_PLATE_STONE);
@@ -51,7 +51,7 @@ public class PrisonCell implements IAlcove {
 
     cursor = new Coord(origin);
     cursor.add(dir, 3);
-    theme.getSecondary().getDoor().generate(editor, cursor, Cardinal.reverse(dir));
+    theme.getSecondary().getDoor().generate(editor, cursor, dir.reverse());
   }
 
   @Override

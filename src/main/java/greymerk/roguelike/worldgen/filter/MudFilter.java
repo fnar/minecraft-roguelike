@@ -115,7 +115,7 @@ public class MudFilter implements IFilter {
       if (!editor.getBlock(pos).isOpaqueCube()) {
         return false;
       }
-      cursor.add(Cardinal.reverse(dir));
+      cursor.add(dir.reverse());
     }
 
     return true;

@@ -17,7 +17,7 @@ public class SegmentArch extends SegmentBase {
   protected void genWall(IWorldEditor editor, Random rand, IDungeonLevel level, Cardinal dir, ITheme theme, Coord origin) {
 
     IStair stair = theme.getSecondary().getStair();
-    stair.setOrientation(Cardinal.reverse(dir), true);
+    stair.setOrientation(dir.reverse(), true);
 
     MetaBlock air = BlockType.get(BlockType.AIR);
 
@@ -29,7 +29,7 @@ public class SegmentArch extends SegmentBase {
     cursor.add(Cardinal.UP, 1);
     stair.set(editor, cursor);
 
-    for (Cardinal orth : Cardinal.orthogonal(dir)) {
+    for (Cardinal orth : dir.orthogonal()) {
       cursor = new Coord(origin);
       cursor.add(orth, 1);
       cursor.add(dir, 2);
@@ -38,7 +38,7 @@ public class SegmentArch extends SegmentBase {
       theme.getSecondary().getPillar().set(editor, rand, cursor);
       cursor.add(Cardinal.UP, 1);
       theme.getPrimary().getWall().set(editor, rand, cursor);
-      cursor.add(Cardinal.reverse(dir), 1);
+      cursor.add(dir.reverse(), 1);
       stair.set(editor, cursor);
     }
   }

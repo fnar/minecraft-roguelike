@@ -19,11 +19,11 @@ public class Door implements IDoor {
   }
 
   public Door(DoorType type) {
-    this.block = DoorType.get(type);
+    block = DoorType.get(type);
   }
 
   public Door(JsonElement e) throws Exception {
-    this.block = new MetaBlock(e);
+    block = new MetaBlock(e);
   }
 
   public static void generate(IWorldEditor editor, Coord pos, Cardinal dir, DoorType type) {
@@ -44,7 +44,7 @@ public class Door implements IDoor {
 
     IBlockState door = doorblock.getBlock().getDefaultState();
     door = door.withProperty(BlockDoor.HALF, top ? BlockDoor.EnumDoorHalf.UPPER : BlockDoor.EnumDoorHalf.LOWER);
-    door = door.withProperty(BlockDoor.FACING, Cardinal.facing(dir));
+    door = door.withProperty(BlockDoor.FACING, dir.getFacing());
     door = door.withProperty(BlockDoor.OPEN, open);
     door = door.withProperty(BlockDoor.HINGE, hingeLeft ? BlockDoor.EnumHingePosition.LEFT : BlockDoor.EnumHingePosition.RIGHT);
 
@@ -53,12 +53,12 @@ public class Door implements IDoor {
 
   @Override
   public void generate(IWorldEditor editor, Coord pos, Cardinal dir) {
-    Door.generate(editor, this.block, pos, dir, false);
+    Door.generate(editor, block, pos, dir, false);
   }
 
   @Override
   public void generate(IWorldEditor editor, Coord pos, Cardinal dir, boolean open) {
-    Door.generate(editor, this.block, pos, dir, open);
+    Door.generate(editor, block, pos, dir, open);
   }
 
 }

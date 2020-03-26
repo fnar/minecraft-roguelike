@@ -22,10 +22,10 @@ public class MetaStair extends MetaBlock implements IStair {
   }
 
   public MetaStair setOrientation(Cardinal dir, Boolean upsideDown) {
-    IBlockState stair = this.getBlock().getDefaultState();
-    stair = stair.withProperty(BlockStairs.FACING, Cardinal.facing(dir));
+    IBlockState stair = getBlock().getDefaultState();
+    stair = stair.withProperty(BlockStairs.FACING, dir.getFacing());
     stair = stair.withProperty(BlockStairs.HALF, upsideDown ? EnumHalf.TOP : EnumHalf.BOTTOM);
-    this.setState(stair);
+    setState(stair);
     return this;
   }
 

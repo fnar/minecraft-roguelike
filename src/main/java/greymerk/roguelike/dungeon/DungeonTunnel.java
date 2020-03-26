@@ -33,8 +33,8 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
   public DungeonTunnel(Coord start, Coord end) {
     this.start = start;
     this.end = end;
-    this.tunnel = new RectSolid(start, end).get();
-    this.segments = new ArrayList<ISegment>();
+    tunnel = new RectSolid(start, end).get();
+    segments = new ArrayList<ISegment>();
   }
 
   @Override
@@ -45,13 +45,13 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
   public void encase(IWorldEditor editor, Random rand, ITheme theme) {
     Coord s;
     Coord e;
-    Cardinal dir = this.getDirection();
+    Cardinal dir = getDirection();
 
-    s = new Coord(this.start);
-    e = new Coord(this.end);
-    s.add(Cardinal.left(dir), 3);
+    s = new Coord(start);
+    e = new Coord(end);
+    s.add(dir.left(), 3);
     s.add(Cardinal.UP, 3);
-    e.add(Cardinal.right(dir), 3);
+    e.add(dir.right(), 3);
     e.add(Cardinal.DOWN, 3);
     RectSolid.fill(editor, rand, s, e, theme.getPrimary().getWall());
   }
@@ -69,10 +69,10 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
     bridgeBlocks.addBlock(floor);
     bridgeBlocks.addBlock(air);
 
-    s = new Coord(this.start);
+    s = new Coord(start);
     s.add(Cardinal.NORTH);
     s.add(Cardinal.EAST);
-    e = new Coord(this.end);
+    e = new Coord(end);
     e.add(Cardinal.SOUTH);
     e.add(Cardinal.WEST);
     e.add(Cardinal.UP, 2);
@@ -86,25 +86,25 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
     e.add(Cardinal.UP);
     RectHollow.fill(editor, rand, s, e, wallBlocks, false, true);
 
-    s = new Coord(this.start);
+    s = new Coord(start);
     s.add(Cardinal.NORTH);
     s.add(Cardinal.EAST);
     s.add(Cardinal.DOWN);
-    e = new Coord(this.end);
+    e = new Coord(end);
     e.add(Cardinal.SOUTH);
     e.add(Cardinal.WEST);
     e.add(Cardinal.DOWN);
     RectSolid.fill(editor, rand, s, e, floor, false, true);
     RectSolid.fill(editor, rand, s, e, bridgeBlocks, true, false);
 
-    Cardinal dir = this.getDirection();
+    Cardinal dir = getDirection();
 
     // end of the tunnel;
     Coord location = new Coord(end);
     location.add(dir, 1);
 
     Coord start = new Coord(location);
-    Cardinal[] orth = Cardinal.orthogonal(dir);
+    Cardinal[] orth = dir.orthogonal();
     start.add(orth[0], 2);
     start.add(Cardinal.UP, 2);
     Coord end = new Coord(location);
@@ -123,56 +123,56 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
   }
 
   public Cardinal getDirection() {
-    return this.start.dirTo(this.end);
+    return start.dirTo(end);
   }
 
   public void genSegments(IWorldEditor editor, Random rand, IDungeonLevel level) {
     LevelSettings settings = level.getSettings();
     ISegmentGenerator segGen = settings.getSegments();
     for (Coord c : this) {
-      this.segments.addAll(segGen.genSegment(editor, rand, level, this.getDirection(), c));
+      segments.addAll(segGen.genSegment(editor, rand, level, getDirection(), c));
     }
 
   }
 
   public List<ISegment> getSegments() {
-    return this.segments;
+    return segments;
   }
 
   public BoundingBox getBoundingBox() {
     Coord s;
     Coord e;
-    Cardinal dir = this.getDirection();
-    s = new Coord(this.start);
-    e = new Coord(this.end);
-    s.add(Cardinal.left(dir), 2);
+    Cardinal dir = getDirection();
+    s = new Coord(start);
+    e = new Coord(end);
+    s.add(dir.left(), 2);
     s.add(Cardinal.UP, 3);
-    e.add(Cardinal.right(dir), 2);
+    e.add(dir.right(), 2);
     e.add(Cardinal.DOWN, 1);
     return new BoundingBox(s, e);
   }
 
   public boolean hasEnd(Coord pos) {
-    return pos.equals(this.start) || pos.equals(this.end);
+    return pos.equals(start) || pos.equals(end);
   }
 
   @Override
   public boolean collide(IBounded other) {
-    return this.getBoundingBox().collide(other);
+    return getBoundingBox().collide(other);
   }
 
   @Override
   public IShape getShape(Shape type) {
-    return this.getBoundingBox().getShape(type);
+    return getBoundingBox().getShape(type);
   }
 
   @Override
   public Coord getStart() {
-    return this.getBoundingBox().getStart();
+    return getBoundingBox().getStart();
   }
 
   @Override
   public Coord getEnd() {
-    return this.getBoundingBox().getEnd();
+    return getBoundingBox().getEnd();
   }
 }

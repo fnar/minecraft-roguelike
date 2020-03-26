@@ -35,7 +35,7 @@ public class SegmentSquareArch extends SegmentBase {
     end.add(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, pillar);
 
-    for (Cardinal orth : Cardinal.orthogonal(dir)) {
+    for (Cardinal orth : dir.orthogonal()) {
       start = new Coord(origin);
       start.add(orth, 1);
       start.add(dir, 2);

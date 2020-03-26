@@ -82,31 +82,31 @@ public class DungeonEniko extends DungeonBase {
     for (Cardinal dir : Cardinal.directions) {
       cursor = new Coord(origin);
       cursor.add(dir, 5);
-      for (Cardinal o : Cardinal.orthogonal(dir)) {
+      for (Cardinal o : dir.orthogonal()) {
         Coord c = new Coord(cursor);
         c.add(o, 2);
         pillar(editor, rand, theme, c);
 
         c = new Coord(cursor);
         c.add(o, 3);
-        stair.setOrientation(Cardinal.reverse(dir), true).set(editor, c);
+        stair.setOrientation(dir.reverse(), true).set(editor, c);
         c.add(o);
-        stair.setOrientation(Cardinal.reverse(dir), true).set(editor, c);
+        stair.setOrientation(dir.reverse(), true).set(editor, c);
         c.add(Cardinal.UP);
         chests.add(new Coord(c));
-        c.add(Cardinal.reverse(o));
+        c.add(o.reverse());
         chests.add(new Coord(c));
       }
 
-      cursor.add(Cardinal.left(dir), 5);
+      cursor.add(dir.left(), 5);
       pillar(editor, rand, theme, cursor);
 
       if (Arrays.asList(entrances).contains(dir)) {
         start = new Coord(origin);
         start.add(Cardinal.DOWN);
         end = new Coord(start);
-        start.add(Cardinal.left(dir));
-        end.add(Cardinal.right(dir));
+        start.add(dir.left());
+        end.add(dir.right());
         end.add(dir, 6);
         RectSolid.fill(editor, rand, start, end, floor, true, true);
       }

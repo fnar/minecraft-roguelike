@@ -18,7 +18,7 @@ public class SegmentNetherArch extends SegmentBase {
   protected void genWall(IWorldEditor editor, Random rand, IDungeonLevel level, Cardinal dir, ITheme theme, Coord origin) {
 
     IStair step = theme.getSecondary().getStair();
-    step.setOrientation(Cardinal.reverse(dir), true);
+    step.setOrientation(dir.reverse(), true);
     IBlockFactory pillar = theme.getSecondary().getPillar();
 
 
@@ -26,7 +26,7 @@ public class SegmentNetherArch extends SegmentBase {
 
     boolean hasLava = rand.nextInt(5) == 0;
 
-    for (Cardinal orth : Cardinal.orthogonal(dir)) {
+    for (Cardinal orth : dir.orthogonal()) {
       cursor = new Coord(origin);
       cursor.add(dir, 1);
       cursor.add(orth, 1);

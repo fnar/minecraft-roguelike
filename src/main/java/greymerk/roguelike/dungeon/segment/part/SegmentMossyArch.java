@@ -21,7 +21,7 @@ public class SegmentMossyArch extends SegmentBase {
   protected void genWall(IWorldEditor editor, Random rand, IDungeonLevel level, Cardinal wallDirection, ITheme theme, Coord origin) {
 
     IStair stair = theme.getSecondary().getStair();
-    stair.setOrientation(Cardinal.reverse(wallDirection), true);
+    stair.setOrientation(wallDirection.reverse(), true);
 
     MetaBlock air = BlockType.get(BlockType.AIR);
 
@@ -35,7 +35,7 @@ public class SegmentMossyArch extends SegmentBase {
     cursor.add(Cardinal.UP, 1);
     stair.set(editor, cursor);
 
-    for (Cardinal orth : Cardinal.orthogonal(wallDirection)) {
+    for (Cardinal orth : wallDirection.orthogonal()) {
       cursor = new Coord(origin);
       cursor.add(orth, 1);
       cursor.add(wallDirection, 2);
@@ -44,7 +44,7 @@ public class SegmentMossyArch extends SegmentBase {
       theme.getSecondary().getPillar().set(editor, rand, cursor);
       cursor.add(Cardinal.UP, 1);
       theme.getSecondary().getWall().set(editor, rand, cursor);
-      cursor.add(Cardinal.reverse(wallDirection), 1);
+      cursor.add(wallDirection.reverse(), 1);
       stair.set(editor, cursor);
     }
 

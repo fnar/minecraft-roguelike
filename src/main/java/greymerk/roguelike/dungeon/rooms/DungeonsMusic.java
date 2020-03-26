@@ -80,20 +80,20 @@ public class DungeonsMusic extends DungeonBase {
       cursor.add(dir, 5);
       cursor.add(Cardinal.UP, 3);
       panel.set(editor, rand, cursor);
-      cursor.add(Cardinal.reverse(dir));
-      stair.setOrientation(Cardinal.reverse(dir), true).set(editor, cursor);
+      cursor.add(dir.reverse());
+      stair.setOrientation(dir.reverse(), true).set(editor, cursor);
 
       cursor = new Coord(origin);
       cursor.add(dir, 5);
-      cursor.add(Cardinal.left(dir), 5);
+      cursor.add(dir.left(), 5);
       pillar(editor, rand, settings, cursor);
 
       start = new Coord(origin);
       start.add(Cardinal.UP, 4);
       start.add(dir, 3);
       end = new Coord(start);
-      start.add(Cardinal.left(dir), 3);
-      end.add(Cardinal.right(dir), 3);
+      start.add(dir.left(), 3);
+      end.add(dir.right(), 3);
       RectSolid.fill(editor, rand, start, end, pillar, true, true);
 
       cursor = new Coord(origin);
@@ -101,9 +101,9 @@ public class DungeonsMusic extends DungeonBase {
       cursor.add(dir);
       stair.setOrientation(dir, true).set(editor, cursor);
       cursor.add(dir);
-      stair.setOrientation(Cardinal.reverse(dir), true).set(editor, cursor);
+      stair.setOrientation(dir.reverse(), true).set(editor, cursor);
 
-      for (Cardinal o : Cardinal.orthogonal(dir)) {
+      for (Cardinal o : dir.orthogonal()) {
         cursor = new Coord(origin);
         cursor.add(dir, 5);
         cursor.add(o, 2);
@@ -113,7 +113,7 @@ public class DungeonsMusic extends DungeonBase {
         cursor.add(dir, 4);
         cursor.add(Cardinal.UP, 3);
         cursor.add(o);
-        stair.setOrientation(Cardinal.reverse(dir), true).set(editor, cursor);
+        stair.setOrientation(dir.reverse(), true).set(editor, cursor);
 
         cursor = new Coord(origin);
         cursor.add(dir, 5);
@@ -126,21 +126,21 @@ public class DungeonsMusic extends DungeonBase {
         cursor = new Coord(origin);
         cursor.add(dir, 5);
         cursor.add(o, 3);
-        stair.setOrientation(Cardinal.reverse(dir), true).set(editor, cursor);
+        stair.setOrientation(dir.reverse(), true).set(editor, cursor);
         cursor.add(o);
-        stair.setOrientation(Cardinal.reverse(dir), true).set(editor, cursor);
+        stair.setOrientation(dir.reverse(), true).set(editor, cursor);
         cursor.add(Cardinal.UP, 2);
-        stair.setOrientation(Cardinal.reverse(o), true).set(editor, cursor);
-        cursor.add(Cardinal.reverse(o));
+        stair.setOrientation(o.reverse(), true).set(editor, cursor);
+        cursor.add(o.reverse());
         stair.setOrientation(o, true).set(editor, cursor);
         cursor.add(Cardinal.UP);
         panel.set(editor, rand, cursor);
         cursor.add(o);
         panel.set(editor, rand, cursor);
-        cursor.add(Cardinal.reverse(dir));
-        stair.setOrientation(Cardinal.reverse(dir), true).set(editor, cursor);
-        cursor.add(Cardinal.reverse(o));
-        stair.setOrientation(Cardinal.reverse(dir), true).set(editor, cursor);
+        cursor.add(dir.reverse());
+        stair.setOrientation(dir.reverse(), true).set(editor, cursor);
+        cursor.add(o.reverse());
+        stair.setOrientation(dir.reverse(), true).set(editor, cursor);
 
       }
     }

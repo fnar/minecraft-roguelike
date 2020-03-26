@@ -27,24 +27,24 @@ public class SegmentGenerator implements ISegmentGenerator {
   }
 
   public SegmentGenerator(Segment arch) {
-    this.segments = new WeightedRandomizer<>();
+    segments = new WeightedRandomizer<>();
     this.arch = arch;
   }
 
   public SegmentGenerator(SegmentGenerator toCopy) {
-    this.arch = toCopy.arch;
-    this.segments = new WeightedRandomizer<>(toCopy.segments);
+    arch = toCopy.arch;
+    segments = new WeightedRandomizer<>(toCopy.segments);
   }
 
   public SegmentGenerator(JsonObject json) {
     String archType = json.get("arch").getAsString();
     arch = Segment.valueOf(archType);
 
-    this.segments = new WeightedRandomizer<>();
+    segments = new WeightedRandomizer<>();
     JsonArray segmentList = json.get("segments").getAsJsonArray();
     for (JsonElement e : segmentList) {
       JsonObject segData = e.getAsJsonObject();
-      this.add(segData);
+      add(segData);
     }
   }
 
@@ -64,18 +64,18 @@ public class SegmentGenerator implements ISegmentGenerator {
     if (entry.has("arch")) {
       boolean a = entry.get("arch").getAsBoolean();
       if (a) {
-        this.arch = type;
+        arch = type;
       }
       return;
     }
 
     int weight = entry.has("weight") ? entry.get("weight").getAsInt() : 1;
 
-    this.segments.add(new WeightedChoice<>(type, weight));
+    segments.add(new WeightedChoice<>(type, weight));
   }
 
   public void add(Segment toAdd, int weight) {
-    this.segments.add(new WeightedChoice<>(toAdd, weight));
+    segments.add(new WeightedChoice<>(toAdd, weight));
   }
 
   @Override
@@ -87,7 +87,7 @@ public class SegmentGenerator implements ISegmentGenerator {
 
     List<ISegment> segments = new ArrayList<>();
 
-    for (Cardinal cardinal : Cardinal.orthogonal(dir)) {
+    for (Cardinal cardinal : dir.orthogonal()) {
       ISegment segment = pickSegment(rand, dir, pos);
       if (segment == null) {
         return segments;
@@ -111,18 +111,18 @@ public class SegmentGenerator implements ISegmentGenerator {
       if (z % 6 == 0) {
         return Segment.getSegment(arch);
       }
-      return this.segments.isEmpty()
+      return segments.isEmpty()
           ? Segment.getSegment(Segment.WALL)
-          : Segment.getSegment(this.segments.get(rand));
+          : Segment.getSegment(segments.get(rand));
     }
 
     if ((dir == Cardinal.WEST || dir == Cardinal.EAST) && x % 3 == 0) {
       if (x % 6 == 0) {
         return Segment.getSegment(arch);
       }
-      return this.segments.isEmpty()
+      return segments.isEmpty()
           ? Segment.getSegment(Segment.WALL)
-          : Segment.getSegment(this.segments.get(rand));
+          : Segment.getSegment(segments.get(rand));
     }
 
     return null;

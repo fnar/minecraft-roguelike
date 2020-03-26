@@ -165,11 +165,11 @@ public class DungeonsPit extends DungeonBase {
     start = new Coord(origin);
     start.add(dir, 3);
     start.add(Cardinal.DOWN);
-    start.add(Cardinal.left(dir));
+    start.add(dir.left());
     end = new Coord(origin);
     end.add(dir, 6);
     end.add(Cardinal.UP, 3);
-    end.add(Cardinal.right(dir));
+    end.add(dir.right());
 
     for (Coord cell : new RectHollow(start, end)) {
       if (editor.isAirBlock(cell)) {
@@ -191,9 +191,9 @@ public class DungeonsPit extends DungeonBase {
     cursor.add(Cardinal.UP);
     cursor.add(dir);
     Torch.generate(editor, Torch.REDSTONE_UNLIT, Cardinal.UP, cursor);
-    cursor.add(Cardinal.reverse(dir));
+    cursor.add(dir.reverse());
     cursor.add(Cardinal.UP);
-    Piston.generate(editor, cursor, Cardinal.reverse(dir), true);
+    Piston.generate(editor, cursor, dir.reverse(), true);
   }
 
   public int getSize() {

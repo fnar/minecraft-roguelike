@@ -39,15 +39,15 @@ public class DungeonsSlime extends DungeonBase {
     for (Cardinal dir : Cardinal.directions) {
       cursor = new Coord(origin);
       cursor.add(dir, 5);
-      cursor.add(Cardinal.left(dir), 5);
+      cursor.add(dir.left(), 5);
       corner(editor, rand, settings, cursor);
 
       start = new Coord(origin);
       start.add(Cardinal.UP, 4);
       start.add(dir, 3);
       end = new Coord(start);
-      start.add(Cardinal.left(dir), 8);
-      end.add(Cardinal.right(dir), 8);
+      start.add(dir.left(), 8);
+      end.add(dir.right(), 8);
       RectSolid.fill(editor, rand, start, end, wall);
       start.add(dir, 4);
       end.add(dir, 4);
@@ -62,8 +62,8 @@ public class DungeonsSlime extends DungeonBase {
         start.add(dir, 4);
         end = new Coord(start);
         end.add(dir, 2);
-        start.add(Cardinal.left(dir), 3);
-        end.add(Cardinal.right(dir), 3);
+        start.add(dir.left(), 3);
+        end.add(dir.right(), 3);
         RectSolid.fill(editor, rand, start, end, air);
         start.add(Cardinal.DOWN);
         end.add(Cardinal.DOWN);
@@ -75,8 +75,8 @@ public class DungeonsSlime extends DungeonBase {
         start = new Coord(origin);
         start.add(dir, 3);
         end = new Coord(start);
-        start.add(Cardinal.left(dir), 2);
-        end.add(Cardinal.right(dir), 2);
+        start.add(dir.left(), 2);
+        end.add(dir.right(), 2);
         RectSolid.fill(editor, rand, start, end, bars);
 
         cursor = new Coord(origin);
@@ -87,7 +87,7 @@ public class DungeonsSlime extends DungeonBase {
         cursor.add(Cardinal.DOWN);
         cursor.add(dir);
         liquid.set(editor, rand, cursor);
-        for (Cardinal o : Cardinal.orthogonal(dir)) {
+        for (Cardinal o : dir.orthogonal()) {
           cursor = new Coord(origin);
           cursor.add(dir, 7);
           cursor.add(o);
@@ -133,7 +133,7 @@ public class DungeonsSlime extends DungeonBase {
     for (Cardinal dir : Cardinal.directions) {
       start = new Coord(origin);
       start.add(dir, 2);
-      start.add(Cardinal.left(dir), 2);
+      start.add(dir.left(), 2);
       end = new Coord(start);
       end.add(Cardinal.UP, 3);
       RectSolid.fill(editor, rand, start, end, pillar);
@@ -147,8 +147,8 @@ public class DungeonsSlime extends DungeonBase {
       start = new Coord(origin);
       start.add(dir, 2);
       end = new Coord(start);
-      start.add(Cardinal.left(dir));
-      end.add(Cardinal.right(dir));
+      start.add(dir.left());
+      end.add(dir.right());
       RectSolid.fill(editor, rand, start, end, bars);
 
     }
