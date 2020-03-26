@@ -25,12 +25,11 @@ public enum Cardinal {
         return EAST;
       case SOUTH:
         return NORTH;
-      case DOWN:
-        return UP;
       case UP:
         return DOWN;
       default:
-        return null;
+      case DOWN:
+        return UP;
     }
   }
 
