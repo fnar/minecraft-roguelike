@@ -57,41 +57,44 @@ public enum Theme {
   }
 
   public static ITheme inherit(ITheme parent, ITheme child) {
-    if (parent == null && child == null) {
-      return null;
-    }
-    if (child == null) {
-      return parent;
-    }
-    if (parent == null) {
-      return child;
-    }
     return new ThemeBase(
         getPrimaryBlockSet(parent, child),
         getSecondaryBlockSet(parent, child));
   }
 
   private static IBlockSet getPrimaryBlockSet(ITheme parent, ITheme child) {
-    return newBlockSet(
+    return inherit(
         parent.getPrimary(),
         child.getPrimary());
   }
 
   private static IBlockSet getSecondaryBlockSet(ITheme parent, ITheme child) {
-    return newBlockSet(
+    return inherit(
         parent.getSecondary(),
         child.getSecondary());
   }
 
-  private static BlockSet newBlockSet(IBlockSet parent, IBlockSet child) {
+  private static IBlockSet inherit(
+      IBlockSet parentBlockSet,
+      IBlockSet childBlockSet
+  ) {
+    if (parentBlockSet == null && childBlockSet == null) {
+      return new BlockSet();
+    }
+    if (parentBlockSet == null) {
+      return childBlockSet;
+    }
+    if (childBlockSet == null) {
+      return parentBlockSet;
+    }
     return new BlockSet(
-        ofNullable(child.getFloor()).orElse(parent.getFloor()),
-        ofNullable(child.getWall()).orElse(parent.getWall()),
-        ofNullable(child.getStair()).orElse(parent.getStair()),
-        ofNullable(child.getPillar()).orElse(parent.getPillar()),
-        ofNullable(child.getDoor()).orElse(parent.getDoor()),
-        ofNullable(child.getLightBlock()).orElse(parent.getLightBlock()),
-        ofNullable(child.getLiquid()).orElse(parent.getLiquid()));
+        ofNullable(childBlockSet.getFloor()).orElse(parentBlockSet.getFloor()),
+        ofNullable(childBlockSet.getWall()).orElse(parentBlockSet.getWall()),
+        ofNullable(childBlockSet.getStair()).orElse(parentBlockSet.getStair()),
+        ofNullable(childBlockSet.getPillar()).orElse(parentBlockSet.getPillar()),
+        ofNullable(childBlockSet.getDoor()).orElse(parentBlockSet.getDoor()),
+        ofNullable(childBlockSet.getLightBlock()).orElse(parentBlockSet.getLightBlock()),
+        ofNullable(childBlockSet.getLiquid()).orElse(parentBlockSet.getLiquid()));
   }
 
   public static Theme randomTheme() {
