@@ -3,6 +3,7 @@ package greymerk.roguelike.treasure;
 
 import net.minecraft.init.Blocks;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -57,28 +58,23 @@ public enum Treasure {
     }
   }
 
-  private static boolean isValidChestSpace(IWorldEditor editor, Coord pos) {
+  private static boolean isValidChestSpace(IWorldEditor editor, Coord coord) {
+    return editor.isAirBlock(coord)
+        && !isNonSolidBlock(editor, coord)
+        && isNotNextToChest(editor, coord);
+  }
 
-    if (!editor.isAirBlock(pos)) {
-      return false;
-    }
+  private static boolean isNotNextToChest(IWorldEditor editor, Coord coord) {
+    return Arrays.stream(Cardinal.directions).noneMatch(dir -> isBesideChest(editor, coord, dir));
+  }
 
-    Coord cursor;
-    cursor = new Coord(pos);
-    cursor.add(Cardinal.DOWN);
+  private static boolean isBesideChest(IWorldEditor editor, Coord coord, Cardinal dir) {
+    Coord otherCursor = new Coord(coord).add(dir);
+    return editor.getBlock(otherCursor).getBlock() == Blocks.CHEST;
+  }
 
-    if (!editor.getBlock(cursor).getMaterial().isSolid()) {
-      return false;
-    }
-
-    for (Cardinal dir : Cardinal.directions) {
-      cursor = new Coord(pos);
-      cursor.add(dir);
-      if (editor.getBlock(cursor).getBlock() == Blocks.CHEST) {
-        return false;
-      }
-    }
-
-    return true;
+  private static boolean isNonSolidBlock(IWorldEditor editor, Coord coord) {
+    Coord cursor = new Coord(coord).add(Cardinal.DOWN);
+    return !editor.getBlock(cursor).getMaterial().isSolid();
   }
 }
