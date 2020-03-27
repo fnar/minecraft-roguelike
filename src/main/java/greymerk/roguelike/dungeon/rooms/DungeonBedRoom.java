@@ -27,13 +27,13 @@ import static greymerk.roguelike.treasure.Treasure.createChest;
 
 public class DungeonBedRoom extends DungeonBase {
 
-  public static void pillar(IWorldEditor editor, Random rand, Cardinal dir, ITheme theme, final Coord base) {
+  public void pillar(IWorldEditor editor, Random rand, Cardinal dir, ITheme theme, final Coord base) {
     Coord start = new Coord(base);
     Coord end = new Coord(base);
 
     end.add(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, theme.getSecondary().getPillar());
-    IStair stair = theme.getSecondary().getStair();
+    IStair stair = getStairs(theme);
     stair.setOrientation(dir.reverse(), true);
     end.add(dir.reverse());
     stair.set(editor, end);
@@ -73,7 +73,7 @@ public class DungeonBedRoom extends DungeonBase {
     RectSolid.fill(editor, rand, start, end, theme.getSecondary().getWall());
 
     for (Cardinal o : dir.orthogonal()) {
-      IStair stair = theme.getSecondary().getStair();
+      IStair stair = getStairs(theme);
       stair.setOrientation(o.reverse(), true);
 
       start = new Coord(origin);
@@ -131,7 +131,7 @@ public class DungeonBedRoom extends DungeonBase {
     FlowerPot.generate(editor, rand, cursor);
     cursor.add(side.reverse(), 3);
     cursor.add(Cardinal.DOWN);
-    IStair stair = theme.getSecondary().getStair();
+    IStair stair = getStairs(theme);
     stair.setOrientation(dir.reverse(), true);
     stair.set(editor, cursor);
     cursor.add(Cardinal.UP);
@@ -142,7 +142,7 @@ public class DungeonBedRoom extends DungeonBase {
     cursor.add(dir);
     cursor.add(side, 3);
 
-    createChest(editor, rand, Dungeon.getLevel(cursor.getY()), cursor, false, STARTER);
+    createChest(editor, rand, Dungeon.getLevel(cursor.getY()), cursor.newCoord(Cardinal.UP), false, STARTER);
 
     cursor.add(side.reverse(), 6);
     if (rand.nextBoolean()) {
@@ -170,6 +170,10 @@ public class DungeonBedRoom extends DungeonBase {
 
 
     return true;
+  }
+
+  private static IStair getStairs(ITheme theme) {
+    return theme.getSecondary().getStair();
   }
 
   @Override
