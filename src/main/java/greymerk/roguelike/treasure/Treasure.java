@@ -57,7 +57,7 @@ public enum Treasure {
     }
   }
 
-  public static boolean isValidChestSpace(IWorldEditor editor, Coord pos) {
+  private static boolean isValidChestSpace(IWorldEditor editor, Coord pos) {
 
     if (!editor.isAirBlock(pos)) {
       return false;
