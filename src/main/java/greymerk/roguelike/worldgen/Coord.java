@@ -17,15 +17,15 @@ public class Coord {
   }
 
   public Coord(Coord toClone) {
-    this.x = toClone.x;
-    this.y = toClone.y;
-    this.z = toClone.z;
+    x = toClone.x;
+    y = toClone.y;
+    z = toClone.z;
   }
 
   public Coord(BlockPos bp) {
-    this.x = bp.getX();
-    this.y = bp.getY();
-    this.z = bp.getZ();
+    x = bp.getX();
+    y = bp.getY();
+    z = bp.getZ();
   }
 
   // Arranges two coords so that the they create a positive cube.
@@ -65,6 +65,14 @@ public class Coord {
     return z;
   }
 
+  public Coord newCoord(Cardinal dir) {
+    return new Coord(this).add(dir, 1);
+  }
+
+  public Coord newCoord(Cardinal dir, int amount) {
+    return new Coord(this).add(dir, amount);
+  }
+
   public Coord add(Cardinal dir, int amount) {
     switch (dir) {
       case EAST:
@@ -96,6 +104,11 @@ public class Coord {
     return this;
   }
 
+  public Coord add(Cardinal dir) {
+    add(dir, 1);
+    return this;
+  }
+
   public Coord sub(Coord other) {
     x -= other.x;
     y -= other.y;
@@ -103,14 +116,9 @@ public class Coord {
     return this;
   }
 
-  public Coord add(Cardinal dir) {
-    add(dir, 1);
-    return this;
-  }
-
   public double distance(Coord other) {
-    double side1 = Math.abs(this.getX() - other.getX());
-    double side2 = Math.abs(this.getZ() - other.getZ());
+    double side1 = Math.abs(getX() - other.getX());
+    double side2 = Math.abs(getZ() - other.getZ());
 
     return Math.sqrt((side1 * side1) + (side2 * side2));
   }
@@ -170,6 +178,6 @@ public class Coord {
   }
 
   public BlockPos getBlockPos() {
-    return new BlockPos(this.x, this.y, this.z);
+    return new BlockPos(x, y, z);
   }
 }
