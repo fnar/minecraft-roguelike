@@ -7,8 +7,6 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
-import greymerk.roguelike.treasure.ChestPlacementException;
-import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.worldgen.BlockJumble;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -20,6 +18,8 @@ import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.Spawner;
 
+import static greymerk.roguelike.treasure.Treasure.RARE_TREASURES;
+import static greymerk.roguelike.treasure.Treasure.createChest;
 import static greymerk.roguelike.worldgen.spawners.Spawner.COMMON_MOBS;
 
 public class DungeonObsidian extends DungeonBase {
@@ -309,18 +309,7 @@ public class DungeonObsidian extends DungeonBase {
         chestPos.add(orth, 2);
         chestPos.add(Cardinal.DOWN, 3);
 
-        Treasure[] types = {
-            Treasure.ARMOUR,
-            Treasure.ENCHANTING,
-            Treasure.ORE,
-            Treasure.POTIONS,
-            Treasure.WEAPONS
-        };
-        try {
-          Treasure.generate(editor, rand, chestPos, types[rand.nextInt(types.length)], Dungeon.getLevel(chestPos.getY()));
-        } catch (ChestPlacementException cpe) {
-          // do nothing
-        }
+        createChest(editor, rand, Dungeon.getLevel(chestPos.getY()), chestPos, false, RARE_TREASURES);
       }
     }
 

@@ -10,8 +10,6 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
-import greymerk.roguelike.treasure.ChestPlacementException;
-import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -30,6 +28,9 @@ import greymerk.roguelike.worldgen.blocks.StairType;
 import greymerk.roguelike.worldgen.redstone.Torch;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
+
+import static greymerk.roguelike.treasure.Treasure.BREWING;
+import static greymerk.roguelike.treasure.Treasure.createChest;
 
 public class DungeonLab extends DungeonBase {
 
@@ -263,11 +264,7 @@ public class DungeonLab extends DungeonBase {
       BrewingStand.generate(editor, bs);
       BrewingStand.add(editor, bs, BrewingStand.FUEL, new ItemStack(Items.BLAZE_POWDER));
     }
-    try {
-      Treasure.generate(editor, rand, new Coord(x, y + 1, z + 4), Treasure.BREWING, Dungeon.getLevel(y));
-    } catch (ChestPlacementException cpe) {
-      // do nothing
-    }
+    createChest(editor, rand, Dungeon.getLevel(y), new Coord(x, y + 1, z + 4), false, BREWING);
   }
 
   public int getSize() {

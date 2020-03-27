@@ -8,7 +8,6 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
-import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
@@ -18,6 +17,9 @@ import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.redstone.Piston;
 import greymerk.roguelike.worldgen.redstone.Torch;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
+
+import static greymerk.roguelike.treasure.Treasure.COMMON_TREASURES;
+import static greymerk.roguelike.treasure.Treasure.createChests;
 
 public class DungeonsPit extends DungeonBase {
   IWorldEditor editor;
@@ -62,13 +64,14 @@ public class DungeonsPit extends DungeonBase {
       setTrap(editor, rand, settings, dir, origin);
     }
 
-    List<Coord> space = new ArrayList<Coord>();
-    space.add(new Coord(originX - 2, originY, originZ - 2));
-    space.add(new Coord(originX - 2, originY, originZ + 2));
-    space.add(new Coord(originX + 2, originY, originZ - 2));
-    space.add(new Coord(originX + 2, originY, originZ + 2));
+    List<Coord> spaces = new ArrayList<Coord>();
+    spaces.add(new Coord(originX - 2, originY, originZ - 2));
+    spaces.add(new Coord(originX - 2, originY, originZ + 2));
+    spaces.add(new Coord(originX + 2, originY, originZ - 2));
+    spaces.add(new Coord(originX + 2, originY, originZ + 2));
 
-    Treasure.createChests(editor, inRandom, 1, space, Dungeon.getLevel(originY));
+    List<Coord> chestLocations = chooseRandomLocations(inRandom, 1, spaces);
+    createChests(editor, inRandom, Dungeon.getLevel(originY), chestLocations, false, COMMON_TREASURES);
 
     return true;
   }

@@ -5,8 +5,6 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
-import greymerk.roguelike.treasure.ChestPlacementException;
-import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IStair;
@@ -14,6 +12,9 @@ import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
+
+import static greymerk.roguelike.treasure.Treasure.REWARD;
+import static greymerk.roguelike.treasure.Treasure.createChest;
 
 public class DungeonReward extends DungeonBase {
 
@@ -177,12 +178,7 @@ public class DungeonReward extends DungeonBase {
 
     cursor = new Coord(x, y, z);
     cursor.add(Cardinal.UP);
-    try {
-      Treasure.generate(editor, rand, cursor, Treasure.REWARD, settings.getDifficulty(cursor));
-    } catch (ChestPlacementException cpe) {
-      // do nothing
-    }
-
+    createChest(editor, rand, settings.getDifficulty(cursor), cursor, false, REWARD);
     return true;
   }
 

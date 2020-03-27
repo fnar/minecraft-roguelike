@@ -3,8 +3,6 @@ package greymerk.roguelike.dungeon.towers;
 import java.util.Random;
 
 import greymerk.roguelike.theme.ITheme;
-import greymerk.roguelike.treasure.ChestPlacementException;
-import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockStripes;
 import greymerk.roguelike.worldgen.Cardinal;
@@ -25,6 +23,9 @@ import greymerk.roguelike.worldgen.blocks.StairType;
 import greymerk.roguelike.worldgen.redstone.Torch;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
+
+import static greymerk.roguelike.treasure.Treasure.STARTER;
+import static greymerk.roguelike.treasure.Treasure.createChest;
 
 public class HouseTower implements ITower {
 
@@ -186,11 +187,7 @@ public class HouseTower implements ITower {
     cursor = new Coord(origin);
     cursor.add(Cardinal.UP, 4);
     cursor.add(orth[0], 8);
-    try {
-      Treasure.generate(editor, rand, cursor, Treasure.STARTER, 0);
-    } catch (ChestPlacementException cpe) {
-      // do nothing
-    }
+    createChest(editor, rand, 0, cursor, false, STARTER);
     cursor.add(dir.reverse());
     BlockType.get(BlockType.SHELF).set(editor, cursor);
     cursor.add(Cardinal.UP);

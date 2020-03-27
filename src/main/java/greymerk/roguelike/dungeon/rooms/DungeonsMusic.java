@@ -9,7 +9,6 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
-import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -21,6 +20,9 @@ import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.blocks.ColorBlock;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
+
+import static greymerk.roguelike.treasure.Treasure.MUSIC;
+import static greymerk.roguelike.treasure.Treasure.createChests;
 
 public class DungeonsMusic extends DungeonBase {
 
@@ -151,7 +153,8 @@ public class DungeonsMusic extends DungeonBase {
     cursor.add(Cardinal.UP, 4);
     BlockType.get(BlockType.GLOWSTONE).set(editor, cursor);
 
-    Treasure.generate(editor, rand, chests, Treasure.MUSIC, settings.getDifficulty(origin));
+    List<Coord> chestLocations = chooseRandomLocations(rand, 1, chests);
+    createChests(editor, rand, settings.getDifficulty(origin), chestLocations, false, MUSIC);
 
     return false;
   }

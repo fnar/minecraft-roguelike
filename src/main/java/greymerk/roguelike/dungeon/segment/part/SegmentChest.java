@@ -5,8 +5,6 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.IDungeonLevel;
 import greymerk.roguelike.theme.ITheme;
-import greymerk.roguelike.treasure.ChestPlacementException;
-import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IStair;
@@ -15,6 +13,8 @@ import greymerk.roguelike.worldgen.MetaBlock;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
+import static greymerk.roguelike.treasure.Treasure.COMMON_TREASURES;
+import static greymerk.roguelike.treasure.Treasure.createChest;
 import static greymerk.roguelike.worldgen.Cardinal.UP;
 
 public class SegmentChest extends SegmentBase {
@@ -76,17 +76,13 @@ public class SegmentChest extends SegmentBase {
       return;
     }
 
-    try {
-      boolean trapped = Dungeon.getLevel(origin.getY()) == 3 && rand.nextInt(3) == 0;
-      Treasure.generate(editor, rand, shelf, Dungeon.getLevel(origin.getY()), trapped);
-      if (trapped) {
-        BlockType.get(BlockType.TNT).set(editor, new Coord(shelf.getX(), shelf.getY() - 2, shelf.getZ()));
-        if (rand.nextBoolean()) {
-          BlockType.get(BlockType.TNT).set(editor, new Coord(shelf.getX(), shelf.getY() - 3, shelf.getZ()));
-        }
+    boolean isTrapped = rand.nextInt(20) == 0;
+    createChest(editor, rand, Dungeon.getLevel(origin.getY()), shelf, isTrapped, COMMON_TREASURES);
+    if (isTrapped) {
+      BlockType.get(BlockType.TNT).set(editor, new Coord(shelf.getX(), shelf.getY() - 2, shelf.getZ()));
+      if (rand.nextBoolean()) {
+        BlockType.get(BlockType.TNT).set(editor, new Coord(shelf.getX(), shelf.getY() - 3, shelf.getZ()));
       }
-    } catch (ChestPlacementException cpe) {
-      // do nothing
     }
   }
 }

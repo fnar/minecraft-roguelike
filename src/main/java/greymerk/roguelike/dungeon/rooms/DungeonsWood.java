@@ -7,7 +7,6 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
@@ -19,6 +18,9 @@ import greymerk.roguelike.worldgen.blocks.Log;
 import greymerk.roguelike.worldgen.blocks.Wood;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
+
+import static greymerk.roguelike.treasure.Treasure.FOOD;
+import static greymerk.roguelike.treasure.Treasure.createChests;
 
 public class DungeonsWood extends DungeonBase {
 
@@ -57,14 +59,14 @@ public class DungeonsWood extends DungeonBase {
     planks.set(editor, rand, new Coord(x, y, z));
     Cake.get().set(editor, new Coord(x, y + 1, z));
 
-    List<Coord> space = new ArrayList<Coord>();
-    space.add(new Coord(x - WIDTH, y, z - LENGTH + 1));
-    space.add(new Coord(x - WIDTH, y, z + LENGTH - 1));
-    space.add(new Coord(x + WIDTH, y, z - LENGTH + 1));
-    space.add(new Coord(x + WIDTH, y, z + LENGTH - 1));
+    List<Coord> spaces = new ArrayList<>();
+    spaces.add(new Coord(x - WIDTH, y, z - LENGTH + 1));
+    spaces.add(new Coord(x - WIDTH, y, z + LENGTH - 1));
+    spaces.add(new Coord(x + WIDTH, y, z - LENGTH + 1));
+    spaces.add(new Coord(x + WIDTH, y, z + LENGTH - 1));
 
-    Treasure.generate(editor, rand, space, Treasure.FOOD, Dungeon.getLevel(y));
-
+    List<Coord> chestLocations = chooseRandomLocations(rand, 1, spaces);
+    createChests(editor, rand, Dungeon.getLevel(y), chestLocations, false, FOOD);
     return true;
   }
 

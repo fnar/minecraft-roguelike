@@ -7,7 +7,6 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
-import greymerk.roguelike.treasure.ChestPlacementException;
 import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -24,6 +23,10 @@ import greymerk.roguelike.worldgen.blocks.StairType;
 import greymerk.roguelike.worldgen.redstone.Hopper;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
+
+import static greymerk.roguelike.treasure.Treasure.EMPTY;
+import static greymerk.roguelike.treasure.Treasure.SMITH;
+import static greymerk.roguelike.treasure.Treasure.createChest;
 
 public class DungeonsSmithy extends DungeonBase {
 
@@ -286,27 +289,16 @@ public class DungeonsSmithy extends DungeonBase {
   }
 
   private void smelter(IWorldEditor editor, Random rand, Cardinal dir, Coord origin) {
+    Treasure.createChest(editor, rand, 1, origin, false, EMPTY);
+
     Coord cursor;
-    try {
-      Treasure.generate(editor, rand, origin, Treasure.EMPTY, 1, false);
-    } catch (ChestPlacementException cpe) {
-      // do nothing
-    }
     cursor = new Coord(origin);
     cursor.add(dir, 2);
     cursor.add(Cardinal.UP, 2);
-    try {
-      Treasure.generate(editor, rand, cursor, Treasure.EMPTY, 1, false);
-    } catch (ChestPlacementException cpe) {
-      // do nothing
-    }
+    Treasure.createChest(editor, rand, 1, cursor, false, EMPTY);
     cursor.add(Cardinal.UP);
     cursor.add(dir.reverse());
-    try {
-      Treasure.generate(editor, rand, cursor, Treasure.EMPTY, 1, false);
-    } catch (ChestPlacementException cpe) {
-      // do nothing
-    }
+    Treasure.createChest(editor, rand, 1, cursor, false, EMPTY);
 
     cursor = new Coord(origin);
     cursor.add(Cardinal.UP);
@@ -479,12 +471,7 @@ public class DungeonsSmithy extends DungeonBase {
     stair.setOrientation(dir.right(), true);
     RectSolid.fill(editor, rand, start, end, stair);
     cursor.add(Cardinal.UP);
-    try {
-      Treasure.generate(editor, rand, cursor, Treasure.SMITH, Dungeon.getLevel(cursor.getY()));
-    } catch (ChestPlacementException cpe) {
-      // do nothing
-    }
-
+    createChest(editor, rand, Dungeon.getLevel(cursor.getY()), cursor, false, SMITH);
     cursor = new Coord(origin);
   }
 

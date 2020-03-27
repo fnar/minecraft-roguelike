@@ -8,7 +8,6 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
-import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
@@ -20,6 +19,8 @@ import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.Spawner;
 
+import static greymerk.roguelike.treasure.Treasure.COMMON_TREASURES;
+import static greymerk.roguelike.treasure.Treasure.createChests;
 import static greymerk.roguelike.worldgen.spawners.Spawner.COMMON_MOBS;
 
 
@@ -115,7 +116,8 @@ public class DungeonEniko extends DungeonBase {
     }
 
     Spawner.generate(editor, rand, settings, origin, COMMON_MOBS);
-    Treasure.createChests(editor, rand, 1, chests, settings.getDifficulty(origin));
+    List<Coord> chestLocations = chooseRandomLocations(rand, 1, chests);
+    createChests(editor, rand, settings.getDifficulty(origin), chestLocations, false, COMMON_TREASURES);
 
     return true;
   }

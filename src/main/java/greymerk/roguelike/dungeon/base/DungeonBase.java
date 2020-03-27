@@ -1,5 +1,6 @@
 package greymerk.roguelike.dungeon.base;
 
+import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.settings.LevelSettings;
@@ -9,7 +10,18 @@ import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 
+import static java.util.Collections.shuffle;
+import static java.util.stream.Collectors.toList;
+
 public abstract class DungeonBase implements IDungeonRoom, Comparable<DungeonBase> {
+
+  public static List<Coord> chooseRandomLocations(Random random, int limit, List<Coord> spaces) {
+    shuffle(spaces, random);
+
+    return spaces.stream()
+        .limit(limit)
+        .collect(toList());
+  }
 
   @Override
   public abstract boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal[] entrances, Coord origin);
@@ -36,6 +48,6 @@ public abstract class DungeonBase implements IDungeonRoom, Comparable<DungeonBas
 
   @Override
   public int compareTo(DungeonBase other) {
-    return this.getSize() - other.getSize();
+    return getSize() - other.getSize();
   }
 }

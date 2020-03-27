@@ -11,6 +11,7 @@ import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.treasure.ChestPlacementException;
 import greymerk.roguelike.treasure.ITreasureChest;
 import greymerk.roguelike.treasure.Treasure;
+import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.loot.Loot;
 import greymerk.roguelike.treasure.loot.PotionMixture;
 import greymerk.roguelike.treasure.loot.Record;
@@ -178,7 +179,8 @@ public class DungeonBTeam extends DungeonBase {
     BlockType.get(BlockType.JUKEBOX).set(editor, cursor);
     cursor.add(dir.left());
     try {
-      ITreasureChest stal = Treasure.generate(editor, rand, cursor, Treasure.EMPTY, settings.getDifficulty(cursor));
+      ITreasureChest chest = new TreasureChest(Treasure.EMPTY);
+      ITreasureChest stal = chest.generate(editor, rand, cursor, settings.getDifficulty(cursor), false);
       stal.setSlot(stal.getSize() / 2, Record.getRecord(Record.STAL));
     } catch (ChestPlacementException cpe) {
       // do nothing
@@ -188,7 +190,8 @@ public class DungeonBTeam extends DungeonBase {
     cursor.add(dir.reverse(), 3);
     cursor.add(dir.left(), 4);
     try {
-      ITreasureChest bdub = Treasure.generate(editor, rand, cursor, Treasure.EMPTY, settings.getDifficulty(cursor));
+      ITreasureChest chest = new TreasureChest(Treasure.EMPTY);
+      ITreasureChest bdub = chest.generate(editor, rand, cursor, settings.getDifficulty(cursor), false);
       bdub.setSlot((bdub.getSize() / 2) - 2, ItemNovelty.getItem(ItemNovelty.BDOUBLEO));
       ItemStack shirt = new ItemStack(Items.LEATHER_CHESTPLATE);
       Loot.setItemName(shirt, "Pink Sweater", null);
@@ -203,7 +206,8 @@ public class DungeonBTeam extends DungeonBase {
     cursor.add(dir.reverse(), 3);
     cursor.add(dir.right(), 4);
     try {
-      ITreasureChest genny = Treasure.generate(editor, rand, cursor, Treasure.EMPTY, settings.getDifficulty(cursor));
+      ITreasureChest chest = new TreasureChest(Treasure.EMPTY);
+      ITreasureChest genny = chest.generate(editor, rand, cursor, settings.getDifficulty(cursor), false);
       genny.setSlot(genny.getSize() / 2, ItemNovelty.getItem(ItemNovelty.GENERIKB));
     } catch (ChestPlacementException cpe) {
       // do nothing

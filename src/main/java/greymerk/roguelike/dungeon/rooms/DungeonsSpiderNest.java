@@ -1,11 +1,11 @@
 package greymerk.roguelike.dungeon.rooms;
 
+import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -13,6 +13,9 @@ import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.Spawner;
+
+import static greymerk.roguelike.treasure.Treasure.COMMON_TREASURES;
+import static greymerk.roguelike.treasure.Treasure.createChests;
 
 public class DungeonsSpiderNest extends DungeonBase {
   IWorldEditor editor;
@@ -75,13 +78,12 @@ public class DungeonsSpiderNest extends DungeonBase {
 
     Spawner.generate(editor, rand, settings, new Coord(originX, originY, originZ), Spawner.CAVESPIDER);
 
-    Treasure.createChests(editor, rand, 1 + rand.nextInt(3),
-        new RectSolid(
-            new Coord(originX - dungeonLength, originY - 1, originZ - dungeonWidth),
-            new Coord(originX + dungeonLength, originY + 1, originZ + dungeonWidth)
-        ).get()
-        , Dungeon.getLevel(originY));
-
+    List<Coord> spaces = new RectSolid(
+        new Coord(originX - dungeonLength, originY - 1, originZ - dungeonWidth),
+        new Coord(originX + dungeonLength, originY + 1, originZ + dungeonWidth)
+    ).get();
+    List<Coord> chestLocations = chooseRandomLocations(rand, 1 + rand.nextInt(3), spaces);
+    createChests(editor, rand, Dungeon.getLevel(originY), chestLocations, false, COMMON_TREASURES);
     return true;
   }
 

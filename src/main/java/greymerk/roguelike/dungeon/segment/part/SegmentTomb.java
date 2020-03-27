@@ -7,8 +7,6 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.IDungeonLevel;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
-import greymerk.roguelike.treasure.ChestPlacementException;
-import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IStair;
@@ -19,6 +17,8 @@ import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.Spawner;
 
+import static greymerk.roguelike.treasure.Treasure.COMMON_TREASURES;
+import static greymerk.roguelike.treasure.Treasure.createChest;
 import static greymerk.roguelike.worldgen.spawners.Spawner.UNDEAD_MOBS;
 
 public class SegmentTomb extends SegmentBase {
@@ -55,12 +55,7 @@ public class SegmentTomb extends SegmentBase {
     cursor.add(dir, 4);
     Spawner.generate(editor, rand, level, cursor, UNDEAD_MOBS);
     cursor.add(dir);
-    try {
-      Treasure.generate(editor, rand, cursor, rand.nextBoolean() ? Treasure.ARMOUR : Treasure.WEAPONS, Dungeon.getLevel(cursor.getY()));
-    } catch (ChestPlacementException cpe) {
-      // do nothing
-    }
-
+    createChest(editor, rand, Dungeon.getLevel(cursor.getY()), cursor, false, COMMON_TREASURES);
   }
 
   @Override

@@ -1,15 +1,12 @@
 package greymerk.roguelike.dungeon.rooms;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
-import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
@@ -18,6 +15,9 @@ import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
+
+import static greymerk.roguelike.treasure.Treasure.SUPPLIES_TREASURES;
+import static greymerk.roguelike.treasure.Treasure.createChests;
 
 public class DungeonStorage extends DungeonBase {
 
@@ -45,7 +45,7 @@ public class DungeonStorage extends DungeonBase {
     int z = origin.getZ();
     ITheme theme = settings.getTheme();
 
-    HashSet<Coord> chestSpaces = new HashSet<Coord>();
+    List<Coord> chestSpaces = new ArrayList<>();
     MetaBlock air = BlockType.get(BlockType.AIR);
 
     // space
@@ -142,12 +142,8 @@ public class DungeonStorage extends DungeonBase {
       }
     }
 
-    List<Coord> spaces = new ArrayList<Coord>(chestSpaces);
-    Collections.shuffle(spaces);
-    List<Treasure> types = new ArrayList<Treasure>();
-    types.add(Treasure.SUPPLIES);
-    types.add(Treasure.BLOCKS);
-    Treasure.createChests(editor, rand, 2, spaces, types, settings.getDifficulty(origin));
+    List<Coord> chestLocations = chooseRandomLocations(rand, 2, chestSpaces);
+    createChests(editor, rand, settings.getDifficulty(origin), chestLocations, false, SUPPLIES_TREASURES);
     return true;
   }
 
