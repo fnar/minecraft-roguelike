@@ -7,7 +7,6 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
-import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -19,6 +18,9 @@ import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.blocks.ColorBlock;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
+
+import static greymerk.roguelike.treasure.Treasure.ENCHANTING;
+import static greymerk.roguelike.treasure.Treasure.createChests;
 
 public class DungeonsEnchant extends DungeonBase {
 
@@ -294,7 +296,8 @@ public class DungeonsEnchant extends DungeonBase {
     cursor.add(dir, 5);
     BlockType.get(BlockType.ENCHANTING_TABLE).set(editor, cursor);
 
-    Treasure.generate(editor, rand, chests, Treasure.ENCHANTING, settings.getDifficulty(origin));
+    List<Coord> chestLocations = chooseRandomLocations(rand, 1, chests);
+    createChests(editor, rand, settings.getDifficulty(origin), chestLocations, false, ENCHANTING);
 
     return true;
   }

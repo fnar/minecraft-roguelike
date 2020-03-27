@@ -1,7 +1,6 @@
 package greymerk.roguelike.dungeon.rooms;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
@@ -9,7 +8,6 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
-import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
@@ -20,6 +18,8 @@ import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.Spawner;
 
+import static greymerk.roguelike.treasure.Treasure.COMMON_TREASURES;
+import static greymerk.roguelike.treasure.Treasure.createChests;
 import static greymerk.roguelike.worldgen.spawners.Spawner.COMMON_MOBS;
 
 public class DungeonPyramidSpawner extends DungeonBase {
@@ -113,11 +113,9 @@ public class DungeonPyramidSpawner extends DungeonBase {
       }
     }
 
-    List<Treasure> types = new ArrayList<Treasure>(Arrays.asList(Treasure.ARMOUR, Treasure.WEAPONS, Treasure.TOOLS));
-    Treasure.createChests(editor, rand, 1, space, types, Dungeon.getLevel(origin.getY()));
-
+    List<Coord> chestLocations = chooseRandomLocations(rand, 1, space);
+    createChests(editor, rand, Dungeon.getLevel(origin.getY()), chestLocations, false, COMMON_TREASURES);
     Spawner.generate(editor, rand, settings, new Coord(x, y, z), COMMON_MOBS);
-
     return true;
   }
 

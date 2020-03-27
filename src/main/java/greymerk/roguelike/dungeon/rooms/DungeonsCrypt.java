@@ -7,8 +7,6 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
-import greymerk.roguelike.treasure.ChestPlacementException;
-import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
@@ -19,6 +17,8 @@ import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.Spawner;
 
+import static greymerk.roguelike.treasure.Treasure.COMMON_TREASURES;
+import static greymerk.roguelike.treasure.Treasure.createChest;
 import static greymerk.roguelike.worldgen.spawners.Spawner.UNDEAD_MOBS;
 
 public class DungeonsCrypt extends DungeonBase {
@@ -378,14 +378,7 @@ public class DungeonsCrypt extends DungeonBase {
     Spawner.generate(editor, rand, settings, cursor, UNDEAD_MOBS);
 
     cursor.add(dir);
-    Treasure[] types = {Treasure.ARMOUR, Treasure.WEAPONS};
-    Treasure chestType = types[rand.nextInt(types.length)];
-    try {
-      Treasure.generate(editor, rand, cursor, chestType, settings.getDifficulty(cursor), false);
-    } catch (ChestPlacementException cpe) {
-      // do nothing
-    }
-
+    createChest(editor, rand, settings.getDifficulty(cursor), cursor, false, COMMON_TREASURES);
   }
 
   public int getSize() {

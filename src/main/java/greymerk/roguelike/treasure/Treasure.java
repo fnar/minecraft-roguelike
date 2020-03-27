@@ -3,17 +3,12 @@ package greymerk.roguelike.treasure;
 
 import net.minecraft.init.Blocks;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IWorldEditor;
-
-import static java.util.Collections.shuffle;
-import static java.util.Collections.singletonList;
 
 public enum Treasure {
 
@@ -33,76 +28,33 @@ public enum Treasure {
   EMPTY,
   BREWING;
 
-  private static final List<Treasure> common = new ArrayList<>(Arrays.asList(TOOLS, ARMOUR, WEAPONS));
+  public static final Treasure[] COMMON_TREASURES = {ARMOUR, TOOLS, WEAPONS};
+  public static final Treasure[] RARE_TREASURES = {ARMOUR, ENCHANTING, POTIONS, ORE, TOOLS, WEAPONS};
 
-  public static ITreasureChest generate(IWorldEditor editor, Random rand, Coord pos, Treasure type, int level, boolean trapped) throws ChestPlacementException {
-    ITreasureChest chest = new TreasureChest(type);
-    return chest.generate(editor, rand, pos, level, trapped);
+  public static final Treasure[] SUPPLIES_TREASURES = {BLOCKS, SUPPLIES};
+
+  public static void createChests(IWorldEditor editor, Random random, int level, List<Coord> chestLocations, boolean isTrapped, Treasure... types) {
+    chestLocations.forEach(chestLocation ->
+        createChest(editor, random, level, chestLocation, isTrapped, types));
   }
 
-  public static ITreasureChest generate(IWorldEditor editor, Random rand, Coord pos, int level, boolean trapped) throws ChestPlacementException {
-    Treasure type = getChestType(rand, level);
-    return generate(editor, rand, pos, type, level, trapped);
+  public static void createChest(IWorldEditor editor, Random random, int level, Coord chestLocation, boolean isTrapped, Treasure... treasures) {
+    if (isValidChestSpace(editor, chestLocation)) {
+      Treasure type = chooseRandomType(random, treasures);
+      safeGenerate(editor, random, level, chestLocation, isTrapped, type);
+    }
   }
 
-  public static ITreasureChest generate(IWorldEditor editor, Random rand, Coord pos, Treasure type, int level) throws ChestPlacementException {
-    return generate(editor, rand, pos, type, level, false);
+  private static Treasure chooseRandomType(Random random, Treasure... treasures) {
+    return treasures[random.nextInt(treasures.length)];
   }
 
-  public static List<ITreasureChest> generate(IWorldEditor editor, Random rand, List<Coord> space, Treasure type, int level) {
-    return createChests(editor, rand, 1, space, new ArrayList<>(singletonList(type)), level);
-  }
-
-  public static void createChests(IWorldEditor editor, Random rand, int numChests, List<Coord> space, int level) {
-    createChests(editor, rand, numChests, space, level, false);
-  }
-
-  public static void createChests(IWorldEditor editor, Random rand, int numChests, List<Coord> space, int level, boolean trapped) {
-    shuffle(space, rand);
-
-    space.stream()
-        .limit(numChests)
-        .filter(block -> isValidChestSpace(editor, block))
-        .forEach(block -> safeGenerate(editor, rand, level, block));
-  }
-
-  private static void safeGenerate(IWorldEditor editor, Random rand, int level, Coord block) {
+  private static void safeGenerate(IWorldEditor editor, Random random, int level, Coord chestLocation, boolean isTrapped, Treasure type) {
     try {
-      generate(editor, rand, block, getChestType(rand, level), level);
+      ITreasureChest chest = new TreasureChest(type);
+      chest.generate(editor, random, chestLocation, level, isTrapped);
     } catch (ChestPlacementException ignored) {
     }
-  }
-
-  public static List<ITreasureChest> createChests(IWorldEditor editor, Random rand, int numChests, List<Coord> space, List<Treasure> types, int level) {
-
-    List<ITreasureChest> chests = new ArrayList<>();
-
-    shuffle(space, rand);
-
-    int count = 0;
-
-    for (Coord block : space) {
-
-      if (count == numChests) {
-        return chests;
-      }
-
-      if (isValidChestSpace(editor, block)) {
-        try {
-          ITreasureChest chest = generate(editor, rand, block, types.get(rand.nextInt(types.size())), level);
-          chests.add(chest);
-          count++;
-        } catch (ChestPlacementException cpe) {
-          // do nothing
-        }
-      }
-    }
-
-    return chests;
-  }
-
-  private static Treasure getChestType(Random rand, int level) {
-    return common.get(rand.nextInt(common.size()));
   }
 
   public static boolean isValidChestSpace(IWorldEditor editor, Coord pos) {
