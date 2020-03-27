@@ -15,19 +15,18 @@ import greymerk.roguelike.worldgen.IWorldEditor;
 
 public class SpawnerSettings {
 
-  private Map<Spawner, WeightedRandomizer<Spawnable>> spawners;
+  private Map<Spawner, WeightedRandomizer<Spawnable>> spawners = new HashMap<>();
 
   public SpawnerSettings() {
-    this.spawners = new HashMap<>();
   }
 
   public SpawnerSettings(SpawnerSettings toCopy) {
     this();
     for (Spawner type : toCopy.spawners.keySet()) {
-      if (this.spawners.get(type) == null) {
-        this.spawners.put(type, new WeightedRandomizer<>());
+      if (spawners.get(type) == null) {
+        spawners.put(type, new WeightedRandomizer<>());
       }
-      this.spawners.get(type).merge(toCopy.spawners.get(type));
+      spawners.get(type).merge(toCopy.spawners.get(type));
     }
   }
 
@@ -35,17 +34,17 @@ public class SpawnerSettings {
     this();
 
     for (Spawner type : base.spawners.keySet()) {
-      if (this.spawners.get(type) == null) {
-        this.spawners.put(type, new WeightedRandomizer<>());
+      if (spawners.get(type) == null) {
+        spawners.put(type, new WeightedRandomizer<>());
       }
-      this.spawners.get(type).merge(base.spawners.get(type));
+      spawners.get(type).merge(base.spawners.get(type));
     }
 
     for (Spawner type : other.spawners.keySet()) {
-      if (this.spawners.get(type) == null) {
-        this.spawners.put(type, new WeightedRandomizer<>());
+      if (spawners.get(type) == null) {
+        spawners.put(type, new WeightedRandomizer<>());
       }
-      this.spawners.get(type).merge(other.spawners.get(type));
+      spawners.get(type).merge(other.spawners.get(type));
     }
   }
 
@@ -53,22 +52,33 @@ public class SpawnerSettings {
     if (!entry.has("type")) {
       throw new Exception("Spawners entry missing type");
     }
+    add(
+        parseType(entry),
+        parseSpawnPotentials(entry),
+        parseWeight(entry));
+  }
 
-    String typeName = entry.get("type").getAsString().toUpperCase();
-    Spawner type = Spawner.valueOf(typeName);
+  private Spawner parseType(JsonObject entry) {
+    return Spawner.valueOf(entry.get("type").getAsString().toUpperCase());
+  }
 
+  private Spawnable parseSpawnPotentials(JsonObject entry) throws Exception {
+    // todo: Check for potentials before getting
     JsonElement potentials = entry.get("potentials");
-    Spawnable spawn = new Spawnable(potentials);
+    return new Spawnable(potentials);
+  }
 
-    int weight = entry.has("weight") ? entry.get("weight").getAsInt() : 1;
+  private int parseWeight(JsonObject entry) {
+    return entry.has("weight")
+        ? entry.get("weight").getAsInt()
+        : 1;
+  }
 
-    if (!this.spawners.containsKey(type)) {
-      this.spawners.put(type, new WeightedRandomizer<>());
+  private void add(Spawner type, Spawnable spawn, int weight) {
+    if (!spawners.containsKey(type)) {
+      spawners.put(type, new WeightedRandomizer<>());
     }
-
-    WeightedChoice<Spawnable> toAdd = new WeightedChoice<>(spawn, weight);
-
-    this.spawners.get(type).add(toAdd);
+    spawners.get(type).add(new WeightedChoice<>(spawn, weight));
   }
 
   public void generate(IWorldEditor editor, Random rand, Coord cursor, Spawner type, int level) {
@@ -78,6 +88,6 @@ public class SpawnerSettings {
 
   @Override
   public String toString() {
-    return this.spawners.keySet().toString();
+    return spawners.keySet().toString();
   }
 }

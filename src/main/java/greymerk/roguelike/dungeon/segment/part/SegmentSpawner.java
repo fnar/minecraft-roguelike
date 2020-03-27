@@ -13,6 +13,8 @@ import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.Spawner;
 
+import static greymerk.roguelike.worldgen.spawners.Spawner.COMMON_MOBS;
+
 public class SegmentSpawner extends SegmentBase {
 
 
@@ -67,6 +69,6 @@ public class SegmentSpawner extends SegmentBase {
     shelf.add(dir, 3);
     shelf.add(Cardinal.UP, 1);
 
-    Spawner.generate(editor, rand, level.getSettings(), shelf);
+    Spawner.generate(editor, rand, level.getSettings(), shelf, COMMON_MOBS);
   }
 }

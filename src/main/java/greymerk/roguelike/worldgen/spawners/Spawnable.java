@@ -28,7 +28,7 @@ public class Spawnable {
 
   public Spawnable(JsonElement data) throws Exception {
     for (JsonElement spawnPotential : data.getAsJsonArray()) {
-      this.potentials.add(new SpawnPotential(spawnPotential.getAsJsonObject()));
+      potentials.add(new SpawnPotential(spawnPotential.getAsJsonObject()));
     }
   }
 
@@ -58,8 +58,8 @@ public class Spawnable {
 
   private NBTTagList getSpawnPotentials(Random rand, int level) {
 
-    if (this.type != null) {
-      SpawnPotential potential = new SpawnPotential(Spawner.getName(type));
+    if (type != null) {
+      SpawnPotential potential = new SpawnPotential(type.getName());
       return potential.get(rand, level);
     }
 

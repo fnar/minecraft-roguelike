@@ -19,6 +19,8 @@ import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.Spawner;
 
+import static greymerk.roguelike.worldgen.spawners.Spawner.UNDEAD_MOBS;
+
 public class SegmentTomb extends SegmentBase {
 
   private static void tomb(IWorldEditor editor, Random rand, LevelSettings level, ITheme theme, Cardinal dir, Coord pos) {
@@ -51,7 +53,7 @@ public class SegmentTomb extends SegmentBase {
     cursor = new Coord(pos);
     cursor.add(Cardinal.UP);
     cursor.add(dir, 4);
-    Spawner.generate(editor, rand, level, cursor, rand.nextBoolean() ? Spawner.SKELETON : Spawner.ZOMBIE);
+    Spawner.generate(editor, rand, level, cursor, UNDEAD_MOBS);
     cursor.add(dir);
     try {
       Treasure.generate(editor, rand, cursor, rand.nextBoolean() ? Treasure.ARMOUR : Treasure.WEAPONS, Dungeon.getLevel(cursor.getY()));

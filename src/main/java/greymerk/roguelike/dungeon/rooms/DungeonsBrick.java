@@ -23,6 +23,7 @@ import greymerk.roguelike.worldgen.spawners.Spawner;
 
 import static greymerk.roguelike.worldgen.Cardinal.UP;
 import static greymerk.roguelike.worldgen.Cardinal.directions;
+import static greymerk.roguelike.worldgen.spawners.Spawner.COMMON_MOBS;
 
 public class DungeonsBrick extends DungeonBase {
 
@@ -134,7 +135,7 @@ public class DungeonsBrick extends DungeonBase {
 
     List<Treasure> types = new ArrayList<Treasure>(Arrays.asList(Treasure.ARMOUR, Treasure.WEAPONS, Treasure.TOOLS));
     Treasure.createChests(editor, rand, 1, space, types, Dungeon.getLevel(origin.getY()));
-    Spawner.generate(editor, rand, settings, new Coord(x, y, z));
+    Spawner.generate(editor, rand, settings, new Coord(x, y, z), COMMON_MOBS);
     return true;
   }
 
