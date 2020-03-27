@@ -24,6 +24,7 @@ import greymerk.roguelike.worldgen.spawners.Spawner;
 import static greymerk.roguelike.worldgen.Cardinal.DOWN;
 import static greymerk.roguelike.worldgen.Cardinal.UP;
 import static greymerk.roguelike.worldgen.Cardinal.directions;
+import static greymerk.roguelike.worldgen.spawners.Spawner.COMMON_MOBS;
 
 public class DungeonsNetherBrickFortress extends DungeonBase {
 
@@ -170,7 +171,7 @@ public class DungeonsNetherBrickFortress extends DungeonBase {
     end.add(UP, 5);
     RectSolid.fill(editor, rand, start, end, lava);
     List<Coord> core = new RectSolid(start, end).get();
-    Spawner.generate(editor, rand, settings, core.get(rand.nextInt(core.size())));
+    Spawner.generate(editor, rand, settings, core.get(rand.nextInt(core.size())), COMMON_MOBS);
   }
 
   private void pillar(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin) {

@@ -19,6 +19,8 @@ import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.Spawner;
 
+import static greymerk.roguelike.worldgen.spawners.Spawner.UNDEAD_MOBS;
+
 public class DungeonsCrypt extends DungeonBase {
 
   public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal[] entrances, Coord origin) {
@@ -373,8 +375,7 @@ public class DungeonsCrypt extends DungeonBase {
     }
 
     cursor.add(dir);
-    Spawner spawnerType = rand.nextBoolean() ? Spawner.SKELETON : Spawner.ZOMBIE;
-    Spawner.generate(editor, rand, settings, cursor, spawnerType);
+    Spawner.generate(editor, rand, settings, cursor, UNDEAD_MOBS);
 
     cursor.add(dir);
     Treasure[] types = {Treasure.ARMOUR, Treasure.WEAPONS};

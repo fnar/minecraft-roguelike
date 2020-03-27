@@ -20,6 +20,8 @@ import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.Spawner;
 
+import static greymerk.roguelike.worldgen.spawners.Spawner.COMMON_MOBS;
+
 public class DungeonObsidian extends DungeonBase {
 
 
@@ -318,7 +320,7 @@ public class DungeonObsidian extends DungeonBase {
     innerPillars(editor, rand, theme, x, y, z);
 
     for (Coord space : spawners) {
-      Spawner.generate(editor, rand, settings, space);
+      Spawner.generate(editor, rand, settings, space, COMMON_MOBS);
     }
 
     BlockJumble crap = new BlockJumble();

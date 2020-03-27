@@ -20,6 +20,8 @@ import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.Spawner;
 
+import static greymerk.roguelike.worldgen.spawners.Spawner.COMMON_MOBS;
+
 public class DungeonPyramidSpawner extends DungeonBase {
 
   public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal[] entrances, Coord origin) {
@@ -114,7 +116,7 @@ public class DungeonPyramidSpawner extends DungeonBase {
     List<Treasure> types = new ArrayList<Treasure>(Arrays.asList(Treasure.ARMOUR, Treasure.WEAPONS, Treasure.TOOLS));
     Treasure.createChests(editor, rand, 1, space, types, Dungeon.getLevel(origin.getY()));
 
-    Spawner.generate(editor, rand, settings, new Coord(x, y, z));
+    Spawner.generate(editor, rand, settings, new Coord(x, y, z), COMMON_MOBS);
 
     return true;
   }

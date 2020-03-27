@@ -21,6 +21,8 @@ import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.Spawner;
 
+import static greymerk.roguelike.worldgen.spawners.Spawner.UNDEAD_MOBS;
+
 public class DungeonPyramidTomb extends DungeonBase {
 
   @Override
@@ -223,7 +225,7 @@ public class DungeonPyramidTomb extends DungeonBase {
       cursor.add(end);
       blocks.set(editor, cursor);
       cursor.add(Cardinal.UP);
-      Spawner.generate(editor, rand, settings, cursor, Spawner.ZOMBIE);
+      Spawner.generate(editor, rand, settings, cursor, UNDEAD_MOBS);
       cursor.add(Cardinal.UP);
       blocks.set(editor, cursor);
 

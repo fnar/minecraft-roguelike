@@ -8,50 +8,57 @@ import greymerk.roguelike.worldgen.IWorldEditor;
 
 public enum Spawner {
 
-  CREEPER("creeper"),
+  BAT("bat"),
+  BLAZE("blaze"),
   CAVESPIDER("cave_spider"),
-  SPIDER("spider"),
-  SKELETON("skeleton"),
-  ZOMBIE("zombie"),
-  SILVERFISH("silverfish"),
+  CREEPER("creeper"),
   ENDERMAN("enderman"),
+  LAVASLIME("magma_cube"),
+  PIGZOMBIE("zombie_pigman"),
+  PRIMEDTNT("tnt"),
+  SILVERFISH("silverfish"),
+  SKELETON("skeleton"),
+  SLIME("slime"),
+  SPIDER("spider"),
   WITCH("witch"),
   WITHERBOSS("wither"),
-  BAT("bat"),
-  LAVASLIME("magma_cube"),
-  BLAZE("blaze"),
-  SLIME("slime"),
-  PRIMEDTNT("tnt"),
-  PIGZOMBIE("zombie_pigman");
+  WITHERSKELETON("wither_skeleton"),
+  ZOMBIE("zombie");
 
-  private static final Spawner[] common = {SPIDER, SKELETON, ZOMBIE};
+  public static final Spawner[] COMMON_MOBS = {SKELETON, SPIDER, ZOMBIE};
+  public static final Spawner[] UNCOMMON_MOBS = {CAVESPIDER, CREEPER};
+  public static final Spawner[] RARE_MOBS = {ENDERMAN, SLIME, WITCH};
+  public static final Spawner[] EPIC_MOBS = {WITHERBOSS};
+  public static final Spawner[] LEGENDARY_MOBS = {};
+
+
+  public static final Spawner[] HUMANOID_MOBS = {SKELETON, WITCH, ZOMBIE};
+  public static final Spawner[] UNDEAD_MOBS = {SKELETON, ZOMBIE};
+  public static final Spawner[] NETHER_MOBS = {BLAZE, LAVASLIME, PIGZOMBIE, WITHERSKELETON};
+
   private String name;
 
   Spawner(String name) {
-    this.name = name;
+    this.name = "minecraft:" + name;
   }
 
-  public static String getName(Spawner type) {
-    return "minecraft:" + type.name;
+  public String getName() {
+    return name;
   }
 
-
-  public static void generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord cursor) {
-    Spawner type = common[rand.nextInt(common.length)];
-    generate(editor, rand, settings, cursor, type);
-  }
-
-  public static void generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord cursor, Spawner type) {
-
-    int difficulty = settings.getDifficulty(cursor);
-
-
+  public static void generate(
+      IWorldEditor editor,
+      Random rand,
+      LevelSettings settings,
+      Coord cursor,
+      Spawner... types
+  ) {
+    Spawner type = types[rand.nextInt(types.length)];
     SpawnerSettings spawners = settings.getSpawners();
     if (spawners == null) {
-      new Spawnable(type).generate(editor, rand, cursor, difficulty);
+      new Spawnable(type).generate(editor, rand, cursor, settings.getDifficulty(cursor));
       return;
     }
-
-    spawners.generate(editor, rand, cursor, type, difficulty);
+    spawners.generate(editor, rand, cursor, type, settings.getDifficulty(cursor));
   }
 }

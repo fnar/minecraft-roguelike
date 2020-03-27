@@ -64,7 +64,11 @@ public class DungeonSettings implements ISettings {
     setTowerSettings(getTowerSettings(parent, child));
 
     IntStream.range(0, getMaxNumLevels())
-        .forEach(i -> getLevels().put(i, new LevelSettings(parent.getLevels().get(i), child.getLevels().get(i), getOverrides())));
+        .forEach(i -> getLevels().put(i, newLevelSettings(parent, child, i)));
+  }
+
+  private LevelSettings newLevelSettings(DungeonSettings parent, DungeonSettings child, int i) {
+    return new LevelSettings(parent.getLevels().get(i), child.getLevels().get(i), getOverrides());
   }
 
   private TowerSettings getTowerSettings(DungeonSettings parent, DungeonSettings child) {

@@ -12,6 +12,9 @@ import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.treasure.loot.Equipment;
 import greymerk.roguelike.treasure.loot.Quality;
 
+import static greymerk.roguelike.worldgen.spawners.Spawner.SKELETON;
+import static greymerk.roguelike.worldgen.spawners.Spawner.ZOMBIE;
+
 public class SpawnPotential {
 
   String name;
@@ -40,33 +43,33 @@ public class SpawnPotential {
   }
 
   public SpawnPotential(JsonObject entry) throws Exception {
-    this.weight = entry.has("weight") ? entry.get("weight").getAsInt() : 1;
+    weight = entry.has("weight") ? entry.get("weight").getAsInt() : 1;
     if (!entry.has("name")) {
       throw new Exception("Spawn potential missing name");
     }
 
-    this.name = entry.get("name").getAsString();
-    this.equip = entry.has("equip") && entry.get("equip").getAsBoolean();
+    name = entry.get("name").getAsString();
+    equip = entry.has("equip") && entry.get("equip").getAsBoolean();
 
     if (entry.has("nbt")) {
       String metadata = entry.get("nbt").getAsString();
-      this.nbt = JsonToNBT.getTagFromJson(metadata);
+      nbt = JsonToNBT.getTagFromJson(metadata);
     }
   }
 
   public NBTTagCompound get(int level) {
     NBTTagCompound nbt = this.nbt == null ? new NBTTagCompound() : this.nbt.copy();
-    return getPotential(getRoguelike(level, this.name, nbt));
+    return getPotential(getRoguelike(level, name, nbt));
   }
 
   public NBTTagList get(Random rand, int level) {
 
     NBTTagList potentials = new NBTTagList();
 
-    if (name.equals(Spawner.getName(Spawner.ZOMBIE))) {
+    if (name.equals(ZOMBIE.getName())) {
       for (int i = 0; i < 24; ++i) {
         NBTTagCompound mob = new NBTTagCompound();
-        mob = getRoguelike(level, this.name, mob);
+        mob = getRoguelike(level, name, mob);
 
         Equipment tool;
         switch (rand.nextInt(3)) {
@@ -93,10 +96,10 @@ public class SpawnPotential {
       return potentials;
     }
 
-    if (name.equals(Spawner.getName(Spawner.SKELETON))) {
+    if (name.equals(SKELETON.getName())) {
       for (int i = 0; i < 12; ++i) {
         NBTTagCompound mob = new NBTTagCompound();
-        mob = getRoguelike(level, this.name, mob);
+        mob = getRoguelike(level, name, mob);
         mob = equipHands(mob, "minecraft:bow", null);
         mob = equipArmour(mob, rand, level);
         potentials.appendTag(getPotential(mob));
@@ -105,14 +108,14 @@ public class SpawnPotential {
       return potentials;
     }
 
-    potentials.appendTag(getPotential(getRoguelike(level, this.name, new NBTTagCompound())));
+    potentials.appendTag(getPotential(getRoguelike(level, name, new NBTTagCompound())));
     return potentials;
   }
 
   private NBTTagCompound getPotential(NBTTagCompound mob) {
     NBTTagCompound potential = new NBTTagCompound();
     potential.setTag("Entity", mob);
-    potential.setInteger("Weight", this.weight);
+    potential.setInteger("Weight", weight);
     return potential;
   }
 
@@ -152,7 +155,7 @@ public class SpawnPotential {
     tag.setString("id", type);
 
     if (!(RogueConfig.getBoolean(RogueConfig.ROGUESPAWNERS)
-        && this.equip)) {
+        && equip)) {
       return tag;
     }
 

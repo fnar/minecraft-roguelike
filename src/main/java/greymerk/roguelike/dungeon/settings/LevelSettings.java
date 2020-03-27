@@ -1,5 +1,7 @@
 package greymerk.roguelike.dungeon.settings;
 
+import com.google.common.collect.Sets;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -30,27 +32,19 @@ public class LevelSettings {
   private static final int LEVEL_RANGE = 80;
   private static final int SCATTER = 12;
 
-  private int numRooms;
-  private int range;
-  private int scatter;
-  private int levelDifficulty;
-  private DungeonFactory rooms;
-  private SecretFactory secrets;
+  private int numRooms = NUM_ROOMS;
+  private int range = LEVEL_RANGE;
+  private int scatter = SCATTER;
+  private int levelDifficulty = -1;
+  private DungeonFactory rooms = new DungeonFactory();
+  private SecretFactory secrets = new SecretFactory();
   private ITheme theme;
   private SegmentGenerator segments;
-  private SpawnerSettings spawners;
+  private SpawnerSettings spawners = new SpawnerSettings();
   private LevelGenerator generator;
-  private Set<Filter> filters;
+  private Set<Filter> filters = new HashSet<>();
 
   public LevelSettings() {
-    numRooms = NUM_ROOMS;
-    range = LEVEL_RANGE;
-    scatter = SCATTER;
-    spawners = new SpawnerSettings();
-    rooms = new DungeonFactory();
-    secrets = new SecretFactory();
-    filters = new HashSet<>();
-    levelDifficulty = -1;
   }
 
   public LevelSettings(LevelSettings toCopy) {
@@ -58,8 +52,6 @@ public class LevelSettings {
   }
 
   public LevelSettings(LevelSettings parent, LevelSettings child, Set<SettingsType> overrides) {
-    this();
-
     if (parent == null && child == null) {
       return;
     }
@@ -137,8 +129,7 @@ public class LevelSettings {
     theme = toCopy.theme;
     segments = toCopy.segments != null ? new SegmentGenerator(toCopy.segments) : null;
     spawners = new SpawnerSettings(toCopy.spawners);
-    filters = new HashSet<>();
-    filters.addAll(toCopy.filters);
+    filters = Sets.newHashSet(toCopy.filters);
     generator = toCopy.generator;
   }
 
