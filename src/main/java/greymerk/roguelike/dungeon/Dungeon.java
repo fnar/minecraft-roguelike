@@ -1,6 +1,7 @@
 package greymerk.roguelike.dungeon;
 
 import com.google.common.base.Charsets;
+import com.google.common.collect.Maps;
 import com.google.common.io.Files;
 
 import net.minecraft.block.material.Material;
@@ -15,12 +16,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import greymerk.roguelike.config.RogueConfig;
@@ -69,39 +70,42 @@ public class Dungeon implements IDungeon {
   }
 
   public static void initResolver() throws Exception {
-    File settingsDir = new File(SETTINGS_DIRECTORY);
+    File settingsDirectory = new File(SETTINGS_DIRECTORY);
 
-    if (settingsDir.exists() && !settingsDir.isDirectory()) {
+    if (settingsDirectory.exists() && !settingsDirectory.isDirectory()) {
       throw new Exception("Settings directory is a file");
     }
 
-    if (!settingsDir.exists()) {
-      settingsDir.mkdir();
+    if (!settingsDirectory.exists()) {
+      settingsDirectory.mkdir();
     }
 
-    File[] settingsFiles = settingsDir.listFiles();
-    Arrays.sort(settingsFiles);
-
+    Map<String, String> fileByName = collectSettingsFiles(settingsDirectory);
     SettingsContainer settings = new SettingsContainer();
+    settings.put(fileByName);
     settingsResolver = new SettingsResolver(settings);
+  }
 
-    Map<String, String> files = new HashMap<>();
-
-    for (File file : settingsFiles) {
-
-      if (!FilenameUtils.getExtension(file.getName()).equals("json")) {
-        continue;
-      }
-
-      try {
-        String content = Files.toString(file, Charsets.UTF_8);
-        files.put(file.getName(), content);
-      } catch (IOException e) {
-        throw new Exception("Error reading file : " + file.getName());
-      }
+  private static Map<String, String> collectSettingsFiles(File settingsDirectory) throws Exception {
+    File[] files = settingsDirectory.listFiles();
+    Optional<File[]> filesMaybe = ofNullable(files);
+    if (!filesMaybe.isPresent()) {
+      return Maps.newHashMap();
     }
+    return Arrays.stream(files)
+        .filter(file -> FilenameUtils.getExtension(file.getName()).equals("json"))
+        .collect(Collectors.toMap(
+            File::getName,
+            Dungeon::getFileContent
+        ));
+  }
 
-    settings.put(files);
+  private static String getFileContent(File file) {
+    try {
+      return Files.toString(file, Charsets.UTF_8);
+    } catch (IOException e) {
+      throw new RuntimeException("Error reading file : " + file.getName());
+    }
   }
 
   public static boolean canSpawnInChunk(int chunkX, int chunkZ, IWorldEditor editor) {
