@@ -102,12 +102,13 @@ public class DungeonObsidian extends DungeonBase {
     }
   }
 
-  private static void lavaWindow(IWorldEditor editor, Coord cursor, Cardinal orth) {
-    MetaBlock lava = BlockType.get(BlockType.LAVA_FLOWING);
-    MetaBlock fence = BlockType.get(BlockType.FENCE_NETHER_BRICK);
-    lava.set(editor, cursor);
+  private static void liquidWindow(IWorldEditor editor, Coord cursor, Cardinal orth, ITheme theme, Random random) {
+    IBlockFactory liquid = theme.getPrimary().getLiquid();
+    RectSolid.fill(editor, random, cursor, cursor, liquid);
     cursor.add(Cardinal.DOWN, 1);
-    lava.set(editor, cursor);
+    RectSolid.fill(editor, random, cursor, cursor, liquid);
+
+    MetaBlock fence = BlockType.get(BlockType.FENCE_NETHER_BRICK);
     cursor.add(orth, 1);
     fence.set(editor, cursor);
     cursor.add(Cardinal.UP, 1);
@@ -300,9 +301,9 @@ public class DungeonObsidian extends DungeonBase {
         Coord cursor = new Coord(x, y, z);
         cursor.add(Cardinal.DOWN, 2);
         cursor.add(dir, 3);
-        lavaWindow(editor, new Coord(cursor), orth);
+        liquidWindow(editor, new Coord(cursor), orth, theme, rand);
         cursor.add(dir, 2);
-        lavaWindow(editor, new Coord(cursor), orth);
+        liquidWindow(editor, new Coord(cursor), orth, theme, rand);
 
         Coord chestPos = new Coord(x, y, z);
         chestPos.add(dir, 4);
@@ -320,7 +321,7 @@ public class DungeonObsidian extends DungeonBase {
     }
 
     BlockJumble crap = new BlockJumble();
-    crap.addBlock(BlockType.get(BlockType.LAVA_FLOWING));
+    crap.addBlock(theme.getPrimary().getLiquid());
     crap.addBlock(BlockType.get(BlockType.SOUL_SAND));
     crap.addBlock(BlockType.get(BlockType.OBSIDIAN));
 

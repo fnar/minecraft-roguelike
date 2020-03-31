@@ -42,9 +42,9 @@ public class DungeonsNetherBrick extends DungeonBase {
     IBlockFactory floor = theme.getPrimary().getFloor();
     RectSolid.fill(editor, rand, new Coord(x - length - 1, y - 1, z - width - 1), new Coord(x + length + 1, y - 1, z + width + 1), floor);
 
-    // lava crap under the floor
+    // liquid crap under the floor
     BlockWeightedRandom subFloor = new BlockWeightedRandom();
-    subFloor.addBlock(BlockType.get(BlockType.LAVA_FLOWING), 8);
+    subFloor.addBlock(theme.getPrimary().getLiquid(), 8);
     subFloor.addBlock(BlockType.get(BlockType.OBSIDIAN), 3);
     RectSolid.fill(editor, rand, new Coord(x - length, y - 5, z - width), new Coord(x + length, y - 2, z + width), subFloor);
 

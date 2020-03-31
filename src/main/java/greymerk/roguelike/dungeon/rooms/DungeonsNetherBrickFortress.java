@@ -32,7 +32,7 @@ public class DungeonsNetherBrickFortress extends DungeonBase {
     ITheme theme = settings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();
     IStair stair = theme.getPrimary().getStair();
-    MetaBlock lava = BlockType.get(BlockType.LAVA_FLOWING);
+    IBlockFactory liquid = theme.getPrimary().getLiquid();
     MetaBlock air = BlockType.get(BlockType.AIR);
     BlockWeightedRandom netherwart = new BlockWeightedRandom();
     netherwart.addBlock(air, 3);
@@ -64,7 +64,7 @@ public class DungeonsNetherBrickFortress extends DungeonBase {
     end = new Coord(origin);
     start.add(new Coord(-2, 7, -2));
     end.add(new Coord(2, 7, 2));
-    RectSolid.fill(editor, rand, start, end, lava);
+    RectSolid.fill(editor, rand, start, end, liquid);
 
     start = new Coord(origin);
     end = new Coord(origin);
