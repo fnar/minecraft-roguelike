@@ -1,7 +1,7 @@
 package greymerk.roguelike.dungeon;
 
 import com.google.common.base.Charsets;
-import com.google.common.collect.Maps;
+import com.google.common.collect.Lists;
 import com.google.common.io.Files;
 
 import net.minecraft.block.material.Material;
@@ -21,7 +21,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import greymerk.roguelike.config.RogueConfig;
@@ -39,11 +38,15 @@ import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.VanillaStructure;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
+import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.Math.PI;
 import static java.lang.Math.cos;
 import static java.lang.Math.max;
 import static java.lang.Math.sin;
+import static java.util.Collections.emptyList;
 import static java.util.Optional.ofNullable;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toMap;
 
 public class Dungeon implements IDungeon {
   public static final int VERTICAL_SPACING = 10;
@@ -86,18 +89,24 @@ public class Dungeon implements IDungeon {
     settingsResolver = new SettingsResolver(settings);
   }
 
-  private static Map<String, String> collectSettingsFiles(File settingsDirectory) throws Exception {
+  private static Map<String, String> collectSettingsFiles(File settingsDirectory) {
+    List<File> files = listFilesRecursively(settingsDirectory);
+    return mapContentByFilename(files);
+  }
+
+  private static List<File> listFilesRecursively(File settingsDirectory) {
     File[] files = settingsDirectory.listFiles();
-    Optional<File[]> filesMaybe = ofNullable(files);
-    if (!filesMaybe.isPresent()) {
-      return Maps.newHashMap();
-    }
-    return Arrays.stream(files)
+    return ofNullable(files).isPresent()
+        ? newArrayList(files).stream()
+        .flatMap(file -> file.isDirectory() ? listFilesRecursively(file).stream() : Lists.newArrayList(file).stream())
         .filter(file -> FilenameUtils.getExtension(file.getName()).equals("json"))
-        .collect(Collectors.toMap(
-            File::getName,
-            Dungeon::getFileContent
-        ));
+        .collect(toList())
+        : emptyList();
+  }
+
+  private static Map<String, String> mapContentByFilename(List<File> files) {
+    return files.stream()
+        .collect(toMap(File::getName, Dungeon::getFileContent));
   }
 
   private static String getFileContent(File file) {
