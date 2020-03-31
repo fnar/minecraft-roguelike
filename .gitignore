@@ -27,3 +27,5 @@
 /asm
 /eclipse/
 *.launch
+.idea/
+install.bat
