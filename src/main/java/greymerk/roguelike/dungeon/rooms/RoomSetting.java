@@ -2,6 +2,7 @@ package greymerk.roguelike.dungeon.rooms;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 import greymerk.roguelike.dungeon.base.DungeonRoom;
 import greymerk.roguelike.worldgen.spawners.Spawner;
@@ -26,8 +27,8 @@ public class RoomSetting {
     return dungeonRoom;
   }
 
-  public Spawner getSpawner() {
-    return spawner;
+  public Optional<Spawner> getSpawner() {
+    return Optional.ofNullable(spawner);
   }
 
   public String getFrequency() {

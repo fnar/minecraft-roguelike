@@ -3,6 +3,7 @@ package greymerk.roguelike.dungeon.base;
 import java.util.List;
 import java.util.Random;
 
+import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -14,6 +15,19 @@ import static java.util.Collections.shuffle;
 import static java.util.stream.Collectors.toList;
 
 public abstract class DungeonBase implements IDungeonRoom, Comparable<DungeonBase> {
+
+  private RoomSetting roomSetting;
+
+  public DungeonBase() {
+  }
+
+  public RoomSetting getRoomSetting() {
+    return roomSetting;
+  }
+
+  public DungeonBase(RoomSetting roomSetting) {
+    this.roomSetting = roomSetting;
+  }
 
   public static List<Coord> chooseRandomLocations(Random random, int limit, List<Coord> spaces) {
     shuffle(spaces, random);
