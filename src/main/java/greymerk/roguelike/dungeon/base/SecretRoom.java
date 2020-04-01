@@ -18,7 +18,7 @@ public class SecretRoom implements ISecretRoom {
   public SecretRoom(DungeonRoom type, int count) {
     this.count = count;
     this.type = type;
-    prototype = DungeonRoom.getInstance(type);
+    prototype = type.instantiate();
   }
 
   public SecretRoom(SecretRoom toCopy) {
@@ -76,7 +76,7 @@ public class SecretRoom implements ISecretRoom {
     count -= 1;
 
     IDungeonRoom generated = prototype;
-    prototype = DungeonRoom.getInstance(type);
+    prototype = type.instantiate();
 
     return generated;
   }

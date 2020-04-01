@@ -4,7 +4,7 @@ import java.util.Random;
 
 import greymerk.roguelike.util.IWeighted;
 
-import static java.lang.Integer.*;
+import static java.lang.Integer.compare;
 
 
 public class DungeonWeightedChoice implements IWeighted<DungeonRoom>, Comparable<IWeighted<?>> {
@@ -22,7 +22,7 @@ public class DungeonWeightedChoice implements IWeighted<DungeonRoom>, Comparable
   }
 
   public IDungeonRoom getInstance() {
-    return DungeonRoom.getInstance(type);
+    return type.instantiate();
   }
 
 

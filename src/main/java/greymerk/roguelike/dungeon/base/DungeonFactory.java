@@ -13,7 +13,6 @@ import greymerk.roguelike.util.WeightedRandomizer;
 
 import static com.google.common.collect.Lists.newLinkedList;
 import static greymerk.roguelike.dungeon.base.DungeonRoom.CORNER;
-import static greymerk.roguelike.dungeon.base.DungeonRoom.getInstance;
 import static greymerk.roguelike.dungeon.base.DungeonRoom.getRandomRoom;
 import static java.util.stream.IntStream.range;
 
@@ -75,10 +74,10 @@ public class DungeonFactory implements IDungeonFactory {
     }
 
     if (dungeonRoomWeightedRandomizer.isEmpty()) {
-      return getInstance(base);
+      return base.instantiate();
     }
 
-    return getInstance(dungeonRoomWeightedRandomizer.get(rand));
+    return dungeonRoomWeightedRandomizer.get(rand).instantiate();
   }
 
   public void addSingle(DungeonRoom type) {
