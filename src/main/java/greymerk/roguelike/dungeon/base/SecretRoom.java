@@ -48,7 +48,7 @@ public class SecretRoom implements ISecretRoom {
   }
 
   @Override
-  public IDungeonRoom genRoom(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord pos) {
+  public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord pos) {
     if (!isValid(editor, rand, dir, pos)) {
       return null;
     }

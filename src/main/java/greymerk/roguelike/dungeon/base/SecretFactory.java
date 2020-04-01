@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.settings.LevelSettings;
@@ -87,16 +88,11 @@ public class SecretFactory {
     secrets.put(type, room);
   }
 
-  public IDungeonRoom genRoom(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord pos) {
-
-    for (ISecretRoom room : secrets.values()) {
-      IDungeonRoom generated = room.genRoom(editor, rand, settings, dir, pos);
-      if (generated != null) {
-        return generated;
-      }
-    }
-
-    return null;
+  public IDungeonRoom generateRoom(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord pos) {
+    return secrets.values().stream()
+        .map(room -> room.generate(editor, rand, settings, dir, pos))
+        .filter(Objects::nonNull).findFirst()
+        .orElse(null);
   }
 
   @Override
