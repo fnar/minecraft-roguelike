@@ -231,6 +231,7 @@ public class LevelSettings {
 
   @Override
   public boolean equals(Object o) {
+    // I think this is only for tests, which means the behaviour isn't being tested, just the state
     LevelSettings other = (LevelSettings) o;
     if (other.generator != generator) {
       return false;

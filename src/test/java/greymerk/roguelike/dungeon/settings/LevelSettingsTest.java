@@ -15,6 +15,8 @@ import greymerk.roguelike.dungeon.base.DungeonRoom;
 import greymerk.roguelike.dungeon.base.SecretFactory;
 import greymerk.roguelike.worldgen.filter.Filter;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class LevelSettingsTest {
 
   @Before
@@ -30,23 +32,23 @@ public class LevelSettingsTest {
     base.setGenerator(LevelGenerator.CLASSIC);
 
     LevelSettings other = new LevelSettings();
-    assert (!base.equals(other));
+    assert !base.equals(other);
     other.setGenerator(LevelGenerator.CLASSIC);
-    assert (base.equals(other));
+    assert base.equals(other);
 
     DungeonFactory baseRooms = new DungeonFactory();
     DungeonFactory otherRooms = new DungeonFactory();
 
     baseRooms.addRandom(DungeonRoom.BRICK, 1);
     base.setRooms(baseRooms);
-    assert (!base.equals(other));
+    assert !base.equals(other);
     otherRooms.addRandom(DungeonRoom.BRICK, 1);
     other.setRooms(otherRooms);
-    assert (base.equals(other));
+    assert base.equals(other);
     baseRooms.addRandom(DungeonRoom.CAKE, 2);
-    assert (!base.equals(other));
+    assert !base.equals(other);
     otherRooms.addRandom(DungeonRoom.CAKE, 2);
-    assert (base.equals(other));
+    assert base.equals(other);
 
 
   }
@@ -63,22 +65,20 @@ public class LevelSettingsTest {
     base.setRooms(baseRooms);
     other.setRooms(otherRooms);
 
-    LevelSettings merge;
     LevelSettings control = new LevelSettings();
     DungeonFactory controlRooms = new DungeonFactory();
     control.setRooms(controlRooms);
     Set<SettingsType> overrides = new HashSet<>();
 
-    merge = new LevelSettings(base, other, overrides);
-
-    assert (control.equals(merge));
+    LevelSettings merge = new LevelSettings(base, other, overrides);
+    assertThat(control).isEqualTo(merge);
 
     baseRooms.addSingle(DungeonRoom.CAKE);
     merge = new LevelSettings(base, other, overrides);
-    assert (!control.equals(merge));
+    assertThat(control).isNotEqualTo(merge);
 
     controlRooms.addSingle(DungeonRoom.CAKE);
-    assert (control.equals(merge));
+    assertThat(control).isEqualTo(merge);
   }
 
   @Test
@@ -102,15 +102,15 @@ public class LevelSettingsTest {
 
     merge = new LevelSettings(base, other, overrides);
 
-    assert (control.equals(merge));
+    assert control.equals(merge);
 
     baseSecrets.addRoom(DungeonRoom.BEDROOM, 2);
 
     merge = new LevelSettings(base, other, overrides);
-    assert (!control.equals(merge));
+    assert !control.equals(merge);
 
     controlSecrets.addRoom(DungeonRoom.BEDROOM, 2);
-    assert (control.equals(merge));
+    assert control.equals(merge);
   }
 
   @Test
@@ -138,18 +138,18 @@ public class LevelSettingsTest {
 
     LevelSettings control = new LevelSettings(base, other, overrides);
 
-    assert (!control.equals(compare));
+    assert !control.equals(compare);
 
     other.setGenerator(LevelGenerator.CLASSIC);
-    assert (other.equals(compare));
+    assert other.equals(compare);
 
     LevelSettings merge = new LevelSettings(base, other, overrides);
 
-    assert (merge.equals(compare));
+    assert merge.equals(compare);
 
     LevelSettings merge2 = new LevelSettings(other, base, overrides);
 
-    assert (merge2.equals(compare));
+    assert merge2.equals(compare);
 
   }
 
@@ -158,22 +158,22 @@ public class LevelSettingsTest {
     Set<SettingsType> overrides = new HashSet<>();
 
     LevelSettings compare = new LevelSettings();
-    assert (compare.getFilters().isEmpty());
+    assert compare.getFilters().isEmpty();
     compare.addFilter(Filter.VINE);
-    assert (compare.getFilters().contains(Filter.VINE));
+    assert compare.getFilters().contains(Filter.VINE);
 
     LevelSettings base = new LevelSettings();
     base.addFilter(Filter.VINE);
 
-    assert ((new LevelSettings(base)).getFilters().contains(Filter.VINE));
+    assert new LevelSettings(base).getFilters().contains(Filter.VINE);
 
     LevelSettings other = new LevelSettings();
 
-    assert (!(new LevelSettings(other, other, overrides)).getFilters().contains(Filter.VINE));
+    assert !new LevelSettings(other, other, overrides).getFilters().contains(Filter.VINE);
 
-    assert ((new LevelSettings(base, other, overrides)).getFilters().contains(Filter.VINE));
+    assert new LevelSettings(base, other, overrides).getFilters().contains(Filter.VINE);
 
-    assert ((new LevelSettings(other, base, overrides)).getFilters().contains(Filter.VINE));
+    assert new LevelSettings(other, base, overrides).getFilters().contains(Filter.VINE);
 
   }
 }
