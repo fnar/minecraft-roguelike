@@ -26,7 +26,7 @@ public class SecretFactory {
     this();
     for (DungeonRoom type : toCopy.secrets.keySet()) {
       int count = toCopy.secrets.get(type).getCount();
-      this.addRoom(type, count);
+      addRoom(type, count);
     }
   }
 
@@ -35,14 +35,14 @@ public class SecretFactory {
     if (base != null) {
       for (DungeonRoom type : base.secrets.keySet()) {
         int count = base.secrets.get(type).getCount();
-        this.addRoom(type, count);
+        addRoom(type, count);
       }
     }
 
     if (other != null) {
       for (DungeonRoom type : other.secrets.keySet()) {
         int count = other.secrets.get(type).getCount();
-        this.addRoom(type, count);
+        addRoom(type, count);
       }
     }
   }
@@ -51,7 +51,7 @@ public class SecretFactory {
     this();
     for (JsonElement e : data) {
       JsonObject room = e.getAsJsonObject();
-      this.add(room);
+      add(room);
     }
   }
 
@@ -66,7 +66,7 @@ public class SecretFactory {
   public void add(JsonObject room) {
     String type = room.get("name").getAsString();
     int count = room.get("count").getAsInt();
-    this.addRoom(DungeonRoom.valueOf(type), count);
+    addRoom(DungeonRoom.valueOf(type), count);
   }
 
   public void addRoom(DungeonRoom type) {
@@ -77,19 +77,19 @@ public class SecretFactory {
 
     ISecretRoom room;
 
-    if (this.secrets.containsKey(type)) {
-      room = this.secrets.get(type);
+    if (secrets.containsKey(type)) {
+      room = secrets.get(type);
       room.add(count);
       return;
     }
 
     room = new SecretRoom(type, count);
-    this.secrets.put(type, room);
+    secrets.put(type, room);
   }
 
   public IDungeonRoom genRoom(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord pos) {
 
-    for (ISecretRoom room : this.secrets.values()) {
+    for (ISecretRoom room : secrets.values()) {
       IDungeonRoom generated = room.genRoom(editor, rand, settings, dir, pos);
       if (generated != null) {
         return generated;
@@ -104,12 +104,12 @@ public class SecretFactory {
 
     SecretFactory other = (SecretFactory) o;
 
-    if (!this.secrets.keySet().equals(other.secrets.keySet())) {
+    if (!secrets.keySet().equals(other.secrets.keySet())) {
       return false;
     }
 
-    for (DungeonRoom type : this.secrets.keySet()) {
-      if (!this.secrets.get(type).equals(other.secrets.get(type))) {
+    for (DungeonRoom type : secrets.keySet()) {
+      if (!secrets.get(type).equals(other.secrets.get(type))) {
         return false;
       }
     }
