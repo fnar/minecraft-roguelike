@@ -3,6 +3,7 @@ package greymerk.roguelike.dungeon.rooms;
 import com.google.gson.JsonObject;
 
 import greymerk.roguelike.dungeon.base.DungeonRoom;
+import greymerk.roguelike.worldgen.spawners.Spawner;
 
 import static greymerk.roguelike.dungeon.base.DungeonRoom.valueOf;
 
@@ -11,6 +12,7 @@ public class RoomSettingParser {
   public static RoomSetting parse(JsonObject entry) throws Exception {
     return new RoomSetting(
         getDungeonRoom(entry),
+        getSpawner(entry),
         getRoomFrequency(entry),
         getWeight(entry));
   }
@@ -20,6 +22,17 @@ public class RoomSettingParser {
       return valueOf(getName(entry));
     } catch (IllegalArgumentException e) {
       throw new Exception("No such dungeon: " + getName(entry));
+    }
+  }
+
+  private static Spawner getSpawner(JsonObject entry) throws Exception {
+    if (!entry.has("spawner")) {
+      return null;
+    }
+    try {
+      return Spawner.valueOf(entry.get("spawner").getAsString());
+    } catch (IllegalArgumentException e) {
+      throw new Exception("No such spawner type: " + getName(entry));
     }
   }
 
