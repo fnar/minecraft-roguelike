@@ -3,7 +3,6 @@ package greymerk.roguelike.dungeon.base;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -12,9 +11,14 @@ import java.util.PriorityQueue;
 import java.util.Random;
 import java.util.Set;
 
+import greymerk.roguelike.dungeon.rooms.RoomSetting;
+import greymerk.roguelike.dungeon.rooms.RoomSettingParser;
 import greymerk.roguelike.util.WeightedChoice;
 import greymerk.roguelike.util.WeightedRandomizer;
 
+import static greymerk.roguelike.dungeon.base.DungeonRoom.CORNER;
+import static greymerk.roguelike.dungeon.base.DungeonRoom.getInstance;
+import static greymerk.roguelike.dungeon.base.DungeonRoom.getRandomRoom;
 import static java.util.stream.IntStream.range;
 
 public class DungeonFactory implements IDungeonFactory {
@@ -27,7 +31,7 @@ public class DungeonFactory implements IDungeonFactory {
 
 
   public DungeonFactory() {
-    this(DungeonRoom.CORNER);
+    this(CORNER);
   }
 
   public DungeonFactory(DungeonRoom base) {
@@ -40,7 +44,8 @@ public class DungeonFactory implements IDungeonFactory {
     this();
 
     for (JsonElement e : json) {
-      add(e.getAsJsonObject());
+      RoomSetting roomSetting = RoomSettingParser.parse(e.getAsJsonObject());
+      add(roomSetting);
     }
   }
 
@@ -69,35 +74,23 @@ public class DungeonFactory implements IDungeonFactory {
 
   public static DungeonFactory getRandom(Random rand, int numRooms) {
     DungeonFactory rooms = new DungeonFactory();
-    rooms.base = DungeonRoom.CORNER;
+    rooms.base = CORNER;
     range(0, numRooms).forEach(i -> {
       if (rand.nextBoolean()) {
-        rooms.addRandom(DungeonRoom.getRandomRoom(rand), 1);
+        rooms.addRandom(getRandomRoom(rand), 1);
       } else {
-        rooms.addSingle(DungeonRoom.getRandomRoom(rand), 1);
+        rooms.addSingle(getRandomRoom(rand), 1);
       }
     });
     return rooms;
   }
 
-  public void add(JsonObject entry) throws Exception {
-    String mode = (entry.get("type").getAsString()).toLowerCase();
-    String type = (entry.get("name").getAsString()).toUpperCase();
-
-    int weight = entry.has("weight") ? entry.get("weight").getAsInt() : 1;
-
-    if (!DungeonRoom.contains(type)) {
-      throw new Exception("No such dungeon: " + type);
+  public void add(RoomSetting roomSetting) {
+    if (roomSetting.getFrequency().equals("single")) {
+      addSingle(roomSetting.getDungeonRoom());
     }
-
-    DungeonRoom toAdd = DungeonRoom.valueOf(entry.get("name").getAsString());
-
-    if (mode.equals("single")) {
-      addSingle(toAdd);
-    }
-
-    if (mode.equals("random")) {
-      addRandom(toAdd, weight);
+    if (roomSetting.getFrequency().equals("random")) {
+      addRandom(roomSetting.getDungeonRoom(), roomSetting.getWeight());
     }
   }
 
@@ -113,7 +106,7 @@ public class DungeonFactory implements IDungeonFactory {
 
     Set<DungeonRoom> keyset = multiple.keySet();
     if (keyset.isEmpty()) {
-      return DungeonRoom.getInstance(base);
+      return getInstance(base);
     }
 
     WeightedRandomizer<DungeonRoom> randomizer = new WeightedRandomizer<>();
@@ -122,7 +115,7 @@ public class DungeonFactory implements IDungeonFactory {
     }
 
     DungeonRoom choice = randomizer.get(rand);
-    return DungeonRoom.getInstance(choice);
+    return getInstance(choice);
   }
 
   public void addSingle(DungeonRoom type) {
@@ -168,7 +161,7 @@ public class DungeonFactory implements IDungeonFactory {
       singles.keySet()
           .forEach(dungeonRoom ->
               range(0, singles.get(dungeonRoom))
-                  .forEach(i -> rooms.add(DungeonRoom.getInstance(dungeonRoom))));
+                  .forEach(i -> rooms.add(getInstance(dungeonRoom))));
     }
 
     @Override
