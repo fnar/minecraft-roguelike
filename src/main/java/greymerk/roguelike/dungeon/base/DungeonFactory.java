@@ -40,18 +40,18 @@ public class DungeonFactory implements IDungeonFactory {
     this();
 
     for (JsonElement e : json) {
-      this.add(e.getAsJsonObject());
+      add(e.getAsJsonObject());
     }
   }
 
   public DungeonFactory(DungeonFactory toCopy) {
     this();
     for (DungeonRoom room : toCopy.singles.keySet()) {
-      this.singles.put(room, toCopy.singles.get(room));
+      singles.put(room, toCopy.singles.get(room));
     }
 
     for (DungeonRoom room : toCopy.multiple.keySet()) {
-      this.multiple.put(room, toCopy.multiple.get(room));
+      multiple.put(room, toCopy.multiple.get(room));
     }
 
     base = toCopy.base;
@@ -93,25 +93,25 @@ public class DungeonFactory implements IDungeonFactory {
     DungeonRoom toAdd = DungeonRoom.valueOf(entry.get("name").getAsString());
 
     if (mode.equals("single")) {
-      this.addSingle(toAdd);
+      addSingle(toAdd);
     }
 
     if (mode.equals("random")) {
-      this.addRandom(toAdd, weight);
+      addRandom(toAdd, weight);
     }
   }
 
   public IDungeonRoom get(Random rand) {
 
-    if (this.singleRooms == null) {
-      this.singleRooms = new RoomIterator();
+    if (singleRooms == null) {
+      singleRooms = new RoomIterator();
     }
 
-    if (this.singleRooms.hasNext()) {
-      return this.singleRooms.next();
+    if (singleRooms.hasNext()) {
+      return singleRooms.next();
     }
 
-    Set<DungeonRoom> keyset = this.multiple.keySet();
+    Set<DungeonRoom> keyset = multiple.keySet();
     if (keyset.isEmpty()) {
       return DungeonRoom.getInstance(base);
     }
@@ -126,7 +126,7 @@ public class DungeonFactory implements IDungeonFactory {
   }
 
   public void addSingle(DungeonRoom type) {
-    this.addSingle(type, 1);
+    addSingle(type, 1);
   }
 
   public void addSingle(DungeonRoom type, int num) {
@@ -148,15 +148,15 @@ public class DungeonFactory implements IDungeonFactory {
   public boolean equals(Object o) {
     DungeonFactory other = (DungeonFactory) o;
 
-    if (!this.base.equals(other.base)) {
+    if (!base.equals(other.base)) {
       return false;
     }
 
-    if (!this.singles.equals(other.singles)) {
+    if (!singles.equals(other.singles)) {
       return false;
     }
 
-    return this.multiple.equals(other.multiple);
+    return multiple.equals(other.multiple);
   }
 
   private class RoomIterator implements Iterator<IDungeonRoom> {
