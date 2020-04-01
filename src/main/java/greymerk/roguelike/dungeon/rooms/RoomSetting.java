@@ -54,4 +54,14 @@ public class RoomSetting {
   public int hashCode() {
     return Objects.hash(dungeonRoom, spawner, frequency, weight);
   }
+
+  @Override
+  public String toString() {
+    return "RoomSetting{" +
+        "dungeonRoom=" + dungeonRoom +
+        ", spawner=" + spawner +
+        ", frequency='" + frequency + '\'' +
+        ", weight=" + weight +
+        '}';
+  }
 }

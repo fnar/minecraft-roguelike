@@ -4,11 +4,9 @@ package greymerk.roguelike.dungeon.base;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -25,11 +23,10 @@ import static java.util.stream.IntStream.range;
 
 public class DungeonFactory implements IDungeonFactory {
 
-  private Map<DungeonRoom, Integer> randomRooms = new HashMap<>();
   private DungeonRoom base = CORNER;
-
   private Iterator<IDungeonRoom> singleRoomsIterator;
   private List<RoomSetting> singleRoomSettings = new LinkedList<>();
+  private WeightedRandomizer<DungeonRoom> dungeonRoomWeightedRandomizer = new WeightedRandomizer<>();
 
   public DungeonFactory() {
   }
@@ -47,18 +44,14 @@ public class DungeonFactory implements IDungeonFactory {
 
   public DungeonFactory(DungeonFactory toCopy) {
     singleRoomSettings = newLinkedList(toCopy.singleRoomSettings);
-    for (DungeonRoom room : toCopy.randomRooms.keySet()) {
-      randomRooms.put(room, toCopy.randomRooms.get(room));
-    }
+    dungeonRoomWeightedRandomizer = new WeightedRandomizer<>(toCopy.dungeonRoomWeightedRandomizer);
     base = toCopy.base;
   }
 
   public DungeonFactory(DungeonFactory parent, DungeonFactory child) {
     base = child.base;
-    DungeonFactory dungeonFactory = child.randomRooms.keySet().isEmpty() ? parent : child;
-    singleRoomSettings = newLinkedList(dungeonFactory.singleRoomSettings);
-    dungeonFactory.randomRooms.keySet()
-        .forEach(room -> randomRooms.put(room, dungeonFactory.randomRooms.get(room)));
+    singleRoomSettings = newLinkedList((child.singleRoomSettings.isEmpty() ? parent : child).singleRoomSettings);
+    dungeonRoomWeightedRandomizer = new WeightedRandomizer<>((child.dungeonRoomWeightedRandomizer.isEmpty() ? parent : child).dungeonRoomWeightedRandomizer);
   }
 
   public static DungeonFactory getRandom(Random rand, int numRooms) {
@@ -84,7 +77,6 @@ public class DungeonFactory implements IDungeonFactory {
   }
 
   public IDungeonRoom get(Random rand) {
-
     if (singleRoomsIterator == null) {
       singleRoomsIterator = new RoomIterator();
     }
@@ -93,17 +85,11 @@ public class DungeonFactory implements IDungeonFactory {
       return singleRoomsIterator.next();
     }
 
-    if (randomRooms.isEmpty()) {
+    if (dungeonRoomWeightedRandomizer.isEmpty()) {
       return getInstance(base);
     }
 
-    WeightedRandomizer<DungeonRoom> randomizer = new WeightedRandomizer<>();
-    for (DungeonRoom room : randomRooms.keySet()) {
-      randomizer.add(new WeightedChoice<>(room, randomRooms.get(room)));
-    }
-
-    DungeonRoom choice = randomizer.get(rand);
-    return getInstance(choice);
+    return getInstance(dungeonRoomWeightedRandomizer.get(rand));
   }
 
   public void addSingle(DungeonRoom type) {
@@ -122,11 +108,7 @@ public class DungeonFactory implements IDungeonFactory {
   }
 
   public void addRandom(DungeonRoom type, int weight) {
-    randomRooms.put(type, weight);
-  }
-
-  public void addRandomRoom(RoomSetting roomSetting, int weight) {
-
+    dungeonRoomWeightedRandomizer.add(new WeightedChoice<>(type, weight));
   }
 
   @Override
@@ -139,7 +121,7 @@ public class DungeonFactory implements IDungeonFactory {
     if (!singleRoomSettings.equals(other.singleRoomSettings)) {
       return false;
     }
-    return randomRooms.equals(other.randomRooms);
+    return dungeonRoomWeightedRandomizer.equals(other.dungeonRoomWeightedRandomizer);
   }
 
   private class RoomIterator implements Iterator<IDungeonRoom> {
@@ -160,5 +142,15 @@ public class DungeonFactory implements IDungeonFactory {
     public IDungeonRoom next() {
       return rooms.poll();
     }
+  }
+
+  @Override
+  public String toString() {
+    return "DungeonFactory{" +
+        "base=" + base +
+        ", singleRoomsIterator=" + singleRoomsIterator +
+        ", singleRoomSettings=" + singleRoomSettings +
+        ", dungeonRoomWeightedRandomizer=" + dungeonRoomWeightedRandomizer +
+        '}';
   }
 }
