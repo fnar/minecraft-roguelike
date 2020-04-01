@@ -9,7 +9,7 @@ import greymerk.roguelike.worldgen.IWorldEditor;
 
 public interface ISecretRoom {
 
-  IDungeonRoom genRoom(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord pos);
+  IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord pos);
 
   int getCount();
 
