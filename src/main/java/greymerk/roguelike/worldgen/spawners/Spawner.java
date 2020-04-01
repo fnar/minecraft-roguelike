@@ -13,6 +13,7 @@ public enum Spawner {
   CAVESPIDER("cave_spider"),
   CREEPER("creeper"),
   ENDERMAN("enderman"),
+  GHAST("ghast"),
   LAVASLIME("magma_cube"),
   PIGZOMBIE("zombie_pigman"),
   PRIMEDTNT("tnt"),

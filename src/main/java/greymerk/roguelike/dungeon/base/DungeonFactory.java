@@ -57,14 +57,14 @@ public class DungeonFactory implements IDungeonFactory {
 
   public void add(RoomSetting roomSetting) {
     if (roomSetting.getFrequency().equals("single")) {
-      addSingleRoom(roomSetting, 1);
+      addSingleRoom(roomSetting, roomSetting.getCount());
     }
     if (roomSetting.getFrequency().equals("random")) {
       addRandom(roomSetting.getDungeonRoom(), roomSetting.getWeight());
     }
   }
 
-  public IDungeonRoom get(Random rand) {
+  public IDungeonRoom get(Random random) {
     if (singleRoomsIterator == null) {
       singleRoomsIterator = new RoomIterator(singleRoomSettings);
     }
@@ -74,24 +74,33 @@ public class DungeonFactory implements IDungeonFactory {
     }
 
     if (dungeonRoomWeightedRandomizer.isEmpty()) {
-      return base.instantiate(null);
+      return instantiate(base);
     }
 
-    return dungeonRoomWeightedRandomizer.get(rand).instantiate(null);
+    DungeonRoom dungeonRoom = dungeonRoomWeightedRandomizer.get(random);
+    return instantiate(dungeonRoom);
+  }
+
+  private IDungeonRoom instantiate(DungeonRoom dungeonRoom) {
+    return dungeonRoom.instantiate(newRoomSetting(dungeonRoom, 1));
   }
 
   public void addSingle(DungeonRoom type) {
     addSingle(type, 1);
   }
 
-  public void addSingle(DungeonRoom type, int num) {
+  public void addSingle(DungeonRoom type, int count) {
     // TODO: the fact that I have to set an empty list of levels here indicates that levels is at the wrong code level. It should be higher up.
-    RoomSetting roomSetting = new RoomSetting(type, null, "single", 0, Collections.emptyList());
-    addSingleRoom(roomSetting, num);
+    RoomSetting roomSetting = newRoomSetting(type, count);
+    addSingleRoom(roomSetting, count);
   }
 
-  public void addSingleRoom(RoomSetting roomSetting, int num) {
-    range(0, num)
+  private RoomSetting newRoomSetting(DungeonRoom type, int count) {
+    return new RoomSetting(type, null, "single", 0, count, Collections.emptyList());
+  }
+
+  public void addSingleRoom(RoomSetting roomSetting, int count) {
+    range(0, count)
         .mapToObj(operand -> roomSetting)
         .forEach(singleRoomSettings::add);
   }

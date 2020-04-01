@@ -11,17 +11,20 @@ import static greymerk.roguelike.dungeon.settings.level.LevelsParser.parseLevels
 public class RoomSettingParser {
 
   public static final String SPAWNERS_KEY = "spawners";
+  public static final String COUNT_KEY = "count";
+  public static final String WEIGHT_KEY = "weight";
 
   public static RoomSetting parse(JsonObject roomSettingJson) throws Exception {
     return new RoomSetting(
-        getDungeonRoom(roomSettingJson),
-        getSpawner(roomSettingJson),
-        getRoomFrequency(roomSettingJson),
-        getWeight(roomSettingJson),
+        parseDungeonRoom(roomSettingJson),
+        parseSpawners(roomSettingJson),
+        parseRoomFrequency(roomSettingJson),
+        parseWeight(roomSettingJson),
+        parseCount(roomSettingJson),
         parseLevelsIfPresent(roomSettingJson));
   }
 
-  private static DungeonRoom getDungeonRoom(JsonObject entry) throws Exception {
+  private static DungeonRoom parseDungeonRoom(JsonObject entry) throws Exception {
     try {
       return valueOf(getName(entry));
     } catch (IllegalArgumentException e) {
@@ -29,7 +32,7 @@ public class RoomSettingParser {
     }
   }
 
-  private static Spawner getSpawner(JsonObject entry) throws Exception {
+  private static Spawner parseSpawners(JsonObject entry) throws Exception {
     if (!entry.has(SPAWNERS_KEY)) {
       return null;
     }
@@ -40,15 +43,19 @@ public class RoomSettingParser {
     }
   }
 
-  private static int getWeight(JsonObject entry) {
-    return entry.has("weight") ? entry.get("weight").getAsInt() : 1;
-  }
-
   private static String getName(JsonObject entry) {
     return entry.get("name").getAsString();
   }
 
-  private static String getRoomFrequency(JsonObject entry) {
+  private static int parseCount(JsonObject roomSettingJson) {
+    return roomSettingJson.has(COUNT_KEY) ? roomSettingJson.get(COUNT_KEY).getAsInt() : 1;
+  }
+
+  private static int parseWeight(JsonObject entry) {
+    return entry.has(WEIGHT_KEY) ? entry.get(WEIGHT_KEY).getAsInt() : 1;
+  }
+
+  private static String parseRoomFrequency(JsonObject entry) {
     return entry.get("type").getAsString().toLowerCase();
   }
 }
