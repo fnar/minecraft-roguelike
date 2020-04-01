@@ -13,13 +13,15 @@ public class RoomSetting {
   private Spawner spawner;
   private String frequency;
   private int weight;
+  private int count;
   private List<Integer> levels;
 
-  public RoomSetting(DungeonRoom dungeonRoom, Spawner spawner, String frequency, int weight, List<Integer> levels) {
+  public RoomSetting(DungeonRoom dungeonRoom, Spawner spawner, String frequency, int weight, int count, List<Integer> levels) {
     this.dungeonRoom = dungeonRoom;
     this.spawner = spawner;
     this.frequency = frequency;
     this.weight = weight;
+    this.count = count;
     this.levels = levels;
   }
 
@@ -41,6 +43,10 @@ public class RoomSetting {
 
   public int getWeight() {
     return weight;
+  }
+
+  public int getCount() {
+    return count;
   }
 
   public List<Integer> getLevels() {
@@ -71,5 +77,4 @@ public class RoomSetting {
   public int hashCode() {
     return Objects.hash(dungeonRoom, spawner, frequency, weight);
   }
-
 }

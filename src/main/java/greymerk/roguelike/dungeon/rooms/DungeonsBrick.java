@@ -28,7 +28,6 @@ import static greymerk.roguelike.worldgen.spawners.Spawner.COMMON_MOBS;
 
 public class DungeonsBrick extends DungeonBase {
 
-
   public DungeonsBrick(RoomSetting roomSetting) {
     super(roomSetting);
   }
@@ -140,10 +139,17 @@ public class DungeonsBrick extends DungeonBase {
 
     List<Coord> chestLocations = chooseRandomLocations(rand, 1, potentialChestLocations);
     createChests(editor, rand, Dungeon.getLevel(origin.getY()), chestLocations, false, COMMON_TREASURES);
-    Optional<Spawner> spawnerMaybe = getRoomSetting().getSpawner();
-    Spawner[] spawner = spawnerMaybe.map(value -> new Spawner[]{value}).orElse(COMMON_MOBS);
-    Spawner.generate(editor, rand, settings, new Coord(x, y, z), spawner);
+    Spawner.generate(editor, rand, settings, new Coord(x, y, z), chooseSpawner());
     return true;
+  }
+
+  private Spawner[] chooseSpawner() {
+    Optional<RoomSetting> roomSettingMaybe = Optional.ofNullable(getRoomSetting());
+    if (roomSettingMaybe.isPresent()) {
+      Optional<Spawner> spawnerMaybe = roomSettingMaybe.get().getSpawner();
+      return spawnerMaybe.map(value -> new Spawner[]{value}).orElse(COMMON_MOBS);
+    }
+    return COMMON_MOBS;
   }
 
   public int getSize() {
