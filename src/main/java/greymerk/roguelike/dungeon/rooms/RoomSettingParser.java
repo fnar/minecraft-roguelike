@@ -6,15 +6,17 @@ import greymerk.roguelike.dungeon.base.DungeonRoom;
 import greymerk.roguelike.worldgen.spawners.Spawner;
 
 import static greymerk.roguelike.dungeon.base.DungeonRoom.valueOf;
+import static greymerk.roguelike.dungeon.settings.level.LevelsParser.parseLevelsIfPresent;
 
 public class RoomSettingParser {
 
-  public static RoomSetting parse(JsonObject entry) throws Exception {
+  public static RoomSetting parse(JsonObject roomSettingJson) throws Exception {
     return new RoomSetting(
-        getDungeonRoom(entry),
-        getSpawner(entry),
-        getRoomFrequency(entry),
-        getWeight(entry));
+        getDungeonRoom(roomSettingJson),
+        getSpawner(roomSettingJson),
+        getRoomFrequency(roomSettingJson),
+        getWeight(roomSettingJson),
+        parseLevelsIfPresent(roomSettingJson));
   }
 
   private static DungeonRoom getDungeonRoom(JsonObject entry) throws Exception {

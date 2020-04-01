@@ -1,9 +1,7 @@
 package greymerk.roguelike.dungeon.base;
 
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -11,7 +9,6 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
-import greymerk.roguelike.dungeon.rooms.RoomSettingParser;
 import greymerk.roguelike.util.WeightedChoice;
 import greymerk.roguelike.util.WeightedRandomizer;
 
@@ -33,13 +30,6 @@ public class DungeonFactory implements IDungeonFactory {
 
   public DungeonFactory(DungeonRoom base) {
     this.base = base;
-  }
-
-  public DungeonFactory(JsonArray json) throws Exception {
-    for (JsonElement roomSettingJson : json) {
-      RoomSetting roomSetting = RoomSettingParser.parse(roomSettingJson.getAsJsonObject());
-      add(roomSetting);
-    }
   }
 
   public DungeonFactory(DungeonFactory toCopy) {
@@ -97,7 +87,8 @@ public class DungeonFactory implements IDungeonFactory {
   }
 
   public void addSingle(DungeonRoom type, int num) {
-    RoomSetting roomSetting = new RoomSetting(type, null, "single", 0);
+    // TODO: the fact that I have to set an empty list of levels here indicates that levels is at the wrong code level. It should be higher up.
+    RoomSetting roomSetting = new RoomSetting(type, null, "single", 0, Collections.emptyList());
     addSingleRoom(roomSetting, num);
   }
 
