@@ -118,17 +118,18 @@ public class DungeonSettingsParser {
   }
 
   private static void parseLayouts(JsonObject root, DungeonSettings dungeonSettings) {
-    if (root.has("layouts")) {
-      JsonArray layouts = root.get("layouts").getAsJsonArray();
-      for (JsonElement e : layouts) {
-        JsonObject layout = e.getAsJsonObject();
-        if (layout.has("level")) {
-          List<Integer> levels = LevelsParser.parseLevelsIfPresent(layout);
-          for (Integer level : levels) {
-            if (dungeonSettings.getLevels().containsKey(level)) {
-              LevelSettings setting = dungeonSettings.getLevels().get(level);
-              setting.setGenerator(LevelGenerator.valueOf(layout.get("type").getAsString().toUpperCase()));
-            }
+    if (!root.has("layouts")) {
+      return;
+    }
+    JsonArray layouts = root.get("layouts").getAsJsonArray();
+    for (JsonElement e : layouts) {
+      JsonObject layout = e.getAsJsonObject();
+      if (layout.has("level")) {
+        List<Integer> levels = LevelsParser.parseLevelsIfPresent(layout);
+        for (Integer level : levels) {
+          if (dungeonSettings.getLevels().containsKey(level)) {
+            LevelSettings setting = dungeonSettings.getLevels().get(level);
+            setting.setGenerator(LevelGenerator.valueOf(layout.get("type").getAsString().toUpperCase()));
           }
         }
       }
@@ -136,114 +137,119 @@ public class DungeonSettingsParser {
   }
 
   private static void parseRooms(JsonObject root, DungeonSettings dungeonSettings) throws Exception {
-    if (root.has("rooms")) {
-      JsonArray roomArray = root.get("rooms").getAsJsonArray();
+    if (!root.has("rooms")) {
+      return;
+    }
+    JsonArray roomArray = root.get("rooms").getAsJsonArray();
 
-      // TODO:
-      // Step 1. Create a SecretSettings
-      // Step 2. make secretsFactory.add(SecretSettings)
-      // Step 3. Split this loop
-      //
-      // parseRoomSettings(roomArray);
+    // TODO:
+    // Step 1. Create a SecretSettings
+    // Step 2. make secretsFactory.add(SecretSettings)
+    // Step 3. Split this loop
+    //
+    // parseRoomSettings(roomArray);
 
-      for (int floorLevel : dungeonSettings.getLevels().keySet()) {
+    for (int floorLevel : dungeonSettings.getLevels().keySet()) {
 
-        DungeonFactory dungeonFactory = new DungeonFactory();
-        SecretFactory secretFactory = new SecretFactory();
-        for (JsonElement roomSettingElement : roomArray) {
-          JsonObject roomSettingJson = roomSettingElement.getAsJsonObject();
-          RoomSetting roomSetting = RoomSettingParser.parse(roomSettingJson);
-          if (roomSetting.isOnFloorLevel(floorLevel)) {
-            if (roomSetting.isSecret()) {
-              secretFactory.add(roomSettingJson);
-            } else {
-              dungeonFactory.add(roomSetting);
-            }
+      DungeonFactory dungeonFactory = new DungeonFactory();
+      SecretFactory secretFactory = new SecretFactory();
+      for (JsonElement roomSettingElement : roomArray) {
+        JsonObject roomSettingJson = roomSettingElement.getAsJsonObject();
+        RoomSetting roomSetting = RoomSettingParser.parse(roomSettingJson);
+        if (roomSetting.isOnFloorLevel(floorLevel)) {
+          if (roomSetting.isSecret()) {
+            secretFactory.add(roomSettingJson);
+          } else {
+            dungeonFactory.add(roomSetting);
           }
         }
-
-        LevelSettings level = dungeonSettings.getLevels().get(floorLevel);
-        level.setRooms(dungeonFactory);
-        level.setSecrets(secretFactory);
       }
+
+      LevelSettings level = dungeonSettings.getLevels().get(floorLevel);
+      level.setRooms(dungeonFactory);
+      level.setSecrets(secretFactory);
     }
   }
 
   private static void parseThemes(JsonObject root, DungeonSettings dungeonSettings) throws Exception {
-    if (root.has("themes")) {
-      JsonArray arr = root.get("themes").getAsJsonArray();
-      for (JsonElement e : arr) {
-        JsonObject entry = e.getAsJsonObject();
-        List<Integer> lvls = LevelsParser.parseLevelsIfPresent(entry);
-        if (lvls == null) {
-          continue;
-        }
+    if (!root.has("themes")) {
+      return;
+    }
+    JsonArray arr = root.get("themes").getAsJsonArray();
+    for (JsonElement e : arr) {
+      JsonObject entry = e.getAsJsonObject();
+      List<Integer> lvls = LevelsParser.parseLevelsIfPresent(entry);
+      if (lvls == null) {
+        continue;
+      }
 
-        for (int i : lvls) {
-          if (dungeonSettings.getLevels().containsKey(i)) {
-            LevelSettings settings = dungeonSettings.getLevels().get(i);
-            ITheme theme = ThemeParser.parse(entry);
-            settings.setTheme(theme);
-          }
+      for (int i : lvls) {
+        if (dungeonSettings.getLevels().containsKey(i)) {
+          LevelSettings settings = dungeonSettings.getLevels().get(i);
+          ITheme theme = ThemeParser.parse(entry);
+          settings.setTheme(theme);
         }
       }
     }
   }
 
   private static void parseSegments(JsonObject root, DungeonSettings dungeonSettings) {
-    if (root.has("segments")) {
-      JsonArray arr = root.get("segments").getAsJsonArray();
-      for (int lvl : dungeonSettings.getLevels().keySet()) {
-        boolean hasEntry = false;
-        SegmentGenerator segments = new SegmentGenerator();
-        for (JsonElement e : arr) {
-          JsonObject entry = e.getAsJsonObject();
-          List<Integer> lvls = LevelsParser.parseLevelsIfPresent(entry);
-          if (!lvls.contains(lvl)) {
-            continue;
-          }
-
-          hasEntry = true;
-          segments.add(entry);
+    if (!root.has("segments")) {
+      return;
+    }
+    JsonArray arr = root.get("segments").getAsJsonArray();
+    for (int lvl : dungeonSettings.getLevels().keySet()) {
+      boolean hasEntry = false;
+      SegmentGenerator segments = new SegmentGenerator();
+      for (JsonElement e : arr) {
+        JsonObject entry = e.getAsJsonObject();
+        List<Integer> lvls = LevelsParser.parseLevelsIfPresent(entry);
+        if (!lvls.contains(lvl)) {
+          continue;
         }
 
-        if (hasEntry) {
-          dungeonSettings.getLevels().get(lvl).setSegments(segments);
-        }
+        hasEntry = true;
+        segments.add(entry);
+      }
+
+      if (hasEntry) {
+        dungeonSettings.getLevels().get(lvl).setSegments(segments);
       }
     }
   }
 
   private static void parseSpawners(JsonObject root, DungeonSettings dungeonSettings) throws Exception {
-    if (root.has("spawners")) {
-      JsonArray arr = root.get("spawners").getAsJsonArray();
-      for (JsonElement e : arr) {
-        JsonObject entry = e.getAsJsonObject();
-        List<Integer> lvls = LevelsParser.parseLevelsIfPresent(entry);
-        for (int i : lvls) {
-          if (dungeonSettings.getLevels().containsKey(i)) {
-            LevelSettings level = dungeonSettings.getLevels().get(i);
-            SpawnerSettings spawners = level.getSpawners();
-            spawners.add(entry);
-          }
+    if (!root.has("spawners")) {
+      return;
+    }
+    JsonArray arr = root.get("spawners").getAsJsonArray();
+    for (JsonElement e : arr) {
+      JsonObject entry = e.getAsJsonObject();
+      List<Integer> lvls = LevelsParser.parseLevelsIfPresent(entry);
+      for (int i : lvls) {
+        if (dungeonSettings.getLevels().containsKey(i)) {
+          LevelSettings level = dungeonSettings.getLevels().get(i);
+          SpawnerSettings spawners = level.getSpawners();
+          spawners.add(entry);
         }
       }
     }
   }
 
   private static void parseFilters(JsonObject root, DungeonSettings dungeonSettings) {
-    if (root.has("filters")) {
-      JsonArray arr = root.get("filters").getAsJsonArray();
-      for (JsonElement e : arr) {
-        JsonObject entry = e.getAsJsonObject();
-        List<Integer> lvls = LevelsParser.parseLevelsIfPresent(entry);
-        for (int i : lvls) {
-          if (dungeonSettings.getLevels().containsKey(i)) {
-            String name = entry.get("name").getAsString();
-            Filter type = Filter.valueOf(name.toUpperCase());
-            LevelSettings level = dungeonSettings.getLevels().get(i);
-            level.addFilter(type);
-          }
+    if (!root.has("filters")) {
+      return;
+    }
+    JsonArray arr = root.get("filters").getAsJsonArray();
+    for (JsonElement e : arr) {
+      JsonObject entry = e.getAsJsonObject();
+      List<Integer> lvls = LevelsParser.parseLevelsIfPresent(entry);
+      for (int i : lvls) {
+        if (dungeonSettings.getLevels().containsKey(i)) {
+          String name = entry.get("name").getAsString();
+          Filter type = Filter.valueOf(name.toUpperCase());
+          LevelSettings level = dungeonSettings.getLevels().get(i);
+          level.addFilter(type);
         }
       }
     }
