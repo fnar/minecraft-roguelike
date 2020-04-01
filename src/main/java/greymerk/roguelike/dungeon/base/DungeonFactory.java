@@ -74,10 +74,10 @@ public class DungeonFactory implements IDungeonFactory {
     }
 
     if (dungeonRoomWeightedRandomizer.isEmpty()) {
-      return base.instantiate();
+      return base.instantiate(null);
     }
 
-    return dungeonRoomWeightedRandomizer.get(rand).instantiate();
+    return dungeonRoomWeightedRandomizer.get(rand).instantiate(null);
   }
 
   public void addSingle(DungeonRoom type) {

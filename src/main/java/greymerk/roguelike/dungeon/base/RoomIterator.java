@@ -13,7 +13,7 @@ class RoomIterator implements Iterator<IDungeonRoom> {
 
   public RoomIterator(List<RoomSetting> singleRoomSettings) {
     rooms = singleRoomSettings.stream()
-        .map(roomSetting -> roomSetting.getDungeonRoom().instantiate())
+        .map(roomSetting -> roomSetting.getDungeonRoom().instantiate(null))
         .collect(Collectors.toCollection(LinkedList::new));
   }
 

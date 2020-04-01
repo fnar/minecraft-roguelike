@@ -41,6 +41,7 @@ import greymerk.roguelike.dungeon.rooms.DungeonsSlime;
 import greymerk.roguelike.dungeon.rooms.DungeonsSmithy;
 import greymerk.roguelike.dungeon.rooms.DungeonsSpiderNest;
 import greymerk.roguelike.dungeon.rooms.DungeonsWood;
+import greymerk.roguelike.dungeon.rooms.RoomSetting;
 
 
 public enum DungeonRoom {
@@ -102,7 +103,7 @@ public enum DungeonRoom {
     return secrets[rand.nextInt(secrets.length)];
   }
 
-  public IDungeonRoom instantiate() {
+  public IDungeonRoom instantiate(RoomSetting roomSetting) {
     switch (this) {
       case ASHLEA:
         return new DungeonAshlea();
