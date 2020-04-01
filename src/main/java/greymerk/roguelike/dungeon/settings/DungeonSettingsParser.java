@@ -1,12 +1,12 @@
 package greymerk.roguelike.dungeon.settings;
 
+import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import greymerk.roguelike.dungeon.LevelGenerator;
@@ -15,6 +15,7 @@ import greymerk.roguelike.dungeon.base.SecretFactory;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.rooms.RoomSettingParser;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
+import greymerk.roguelike.dungeon.settings.level.LevelsParser;
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.theme.ThemeParser;
 import greymerk.roguelike.treasure.loot.LootRuleManager;
@@ -114,7 +115,7 @@ public class DungeonSettingsParser {
       for (JsonElement e : layouts) {
         JsonObject layout = e.getAsJsonObject();
         if (layout.has("level")) {
-          List<Integer> levels = parseLevels(layout.get("level"));
+          List<Integer> levels = LevelsParser.parseLevelsIfPresent(layout);
           for (Integer level : levels) {
             if (dungeonSettings.getLevels().containsKey(level)) {
               LevelSettings setting = dungeonSettings.getLevels().get(level);
@@ -128,29 +129,33 @@ public class DungeonSettingsParser {
     // parse level rooms
     if (root.has("rooms")) {
       JsonArray roomArray = root.get("rooms").getAsJsonArray();
-      for (int i : dungeonSettings.getLevels().keySet()) {
-        LevelSettings level = dungeonSettings.getLevels().get(i);
-        DungeonFactory rooms = new DungeonFactory();
-        SecretFactory secrets = new SecretFactory();
 
-        for (JsonElement e : roomArray) {
-          JsonObject room = e.getAsJsonObject();
-          if (room.has("level")) {
-            List<Integer> levels = parseLevels(room.get("level"));
-            if (levels.contains(i)) {
-              if (room.has("type")
-                  && room.get("type").getAsString().equals("secret")) {
-                secrets.add(room);
-                continue;
-              }
-              RoomSetting roomSetting = RoomSettingParser.parse(room);
-              rooms.add(roomSetting);
+      // TODO:
+      // Step 1. Create a SecretSettings
+      // Step 2. make secretsFactory.add(SecretSettings)
+      // Step 3. Split this loop
+      //
+      // parseRoomSettings(roomArray);
+
+      for (int floorLevel : dungeonSettings.getLevels().keySet()) {
+
+        DungeonFactory dungeonFactory = new DungeonFactory();
+        SecretFactory secretFactory = new SecretFactory();
+        for (JsonElement roomSettingElement : roomArray) {
+          JsonObject roomSettingJson = roomSettingElement.getAsJsonObject();
+          RoomSetting roomSetting = RoomSettingParser.parse(roomSettingJson);
+          if (roomSetting.isOnFloorLevel(floorLevel)) {
+            if (roomSetting.isSecret()) {
+              secretFactory.add(roomSettingJson);
+            } else {
+              dungeonFactory.add(roomSetting);
             }
           }
         }
 
-        level.setRooms(rooms);
-        level.setSecrets(secrets);
+        LevelSettings level = dungeonSettings.getLevels().get(floorLevel);
+        level.setRooms(dungeonFactory);
+        level.setSecrets(secretFactory);
       }
     }
 
@@ -159,11 +164,10 @@ public class DungeonSettingsParser {
       JsonArray arr = root.get("themes").getAsJsonArray();
       for (JsonElement e : arr) {
         JsonObject entry = e.getAsJsonObject();
-        if (!entry.has("level")) {
+        List<Integer> lvls = LevelsParser.parseLevelsIfPresent(entry);
+        if (lvls == null) {
           continue;
         }
-
-        List<Integer> lvls = parseLevels(entry.get("level"));
 
         for (int i : lvls) {
           if (dungeonSettings.getLevels().containsKey(i)) {
@@ -183,7 +187,7 @@ public class DungeonSettingsParser {
         SegmentGenerator segments = new SegmentGenerator();
         for (JsonElement e : arr) {
           JsonObject entry = e.getAsJsonObject();
-          List<Integer> lvls = parseLevels(entry.get("level"));
+          List<Integer> lvls = LevelsParser.parseLevelsIfPresent(entry);
           if (!lvls.contains(lvl)) {
             continue;
           }
@@ -203,7 +207,7 @@ public class DungeonSettingsParser {
       JsonArray arr = root.get("spawners").getAsJsonArray();
       for (JsonElement e : arr) {
         JsonObject entry = e.getAsJsonObject();
-        List<Integer> lvls = parseLevels(entry.get("level"));
+        List<Integer> lvls = LevelsParser.parseLevelsIfPresent(entry);
         for (int i : lvls) {
           if (dungeonSettings.getLevels().containsKey(i)) {
             LevelSettings level = dungeonSettings.getLevels().get(i);
@@ -219,7 +223,7 @@ public class DungeonSettingsParser {
       JsonArray arr = root.get("filters").getAsJsonArray();
       for (JsonElement e : arr) {
         JsonObject entry = e.getAsJsonObject();
-        List<Integer> lvls = parseLevels(entry.get("level"));
+        List<Integer> lvls = LevelsParser.parseLevelsIfPresent(entry);
         for (int i : lvls) {
           if (dungeonSettings.getLevels().containsKey(i)) {
             String name = entry.get("name").getAsString();
@@ -233,19 +237,13 @@ public class DungeonSettingsParser {
     return dungeonSettings;
   }
 
-  private static List<Integer> parseLevels(JsonElement e) {
-
-    List<Integer> levels = new ArrayList<>();
-
-    if (e.isJsonArray()) {
-      JsonArray arr = e.getAsJsonArray();
-      for (JsonElement i : arr) {
-        levels.add(i.getAsInt());
-      }
-      return levels;
+  // todo: See above
+  private static List<RoomSetting> parseRoomSettings(JsonArray roomArray) throws Exception {
+    List<RoomSetting> roomSettings = Lists.newArrayList();
+    for (JsonElement roomSettingElement : roomArray) {
+      JsonObject roomSettingJson = roomSettingElement.getAsJsonObject();
+      roomSettings.add(RoomSettingParser.parse(roomSettingJson));
     }
-
-    levels.add(e.getAsInt());
-    return levels;
+    return roomSettings;
   }
 }
