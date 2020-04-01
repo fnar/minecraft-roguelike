@@ -12,6 +12,8 @@ import java.util.List;
 import greymerk.roguelike.dungeon.LevelGenerator;
 import greymerk.roguelike.dungeon.base.DungeonFactory;
 import greymerk.roguelike.dungeon.base.SecretFactory;
+import greymerk.roguelike.dungeon.rooms.RoomSetting;
+import greymerk.roguelike.dungeon.rooms.RoomSettingParser;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.theme.ThemeParser;
@@ -141,7 +143,8 @@ public class DungeonSettingsParser {
                 secrets.add(room);
                 continue;
               }
-              rooms.add(room);
+              RoomSetting roomSetting = RoomSettingParser.parse(room);
+              rooms.add(roomSetting);
             }
           }
         }

@@ -177,15 +177,6 @@ public enum DungeonRoom {
     }
   }
 
-  public static boolean contains(String name) {
-    for (DungeonRoom value : values()) {
-      if (value.toString().equals(name)) {
-        return true;
-      }
-    }
-    return false;
-  }
-
   public static DungeonRoom getRandomRoom(Random rand) {
     return intersectionRooms[rand.nextInt(intersectionRooms.length)];
   }
