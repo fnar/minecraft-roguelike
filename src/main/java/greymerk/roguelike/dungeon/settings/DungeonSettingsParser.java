@@ -108,8 +108,16 @@ public class DungeonSettingsParser {
         setting.setScatter(e.getAsInt());
       }
     }
+    parseLayouts(root, dungeonSettings);
+    parseRooms(root, dungeonSettings);
+    parseThemes(root, dungeonSettings);
+    parseSegments(root, dungeonSettings);
+    parseSpawners(root, dungeonSettings);
+    parseFilters(root, dungeonSettings);
+    return dungeonSettings;
+  }
 
-    // parse level layouts
+  private static void parseLayouts(JsonObject root, DungeonSettings dungeonSettings) {
     if (root.has("layouts")) {
       JsonArray layouts = root.get("layouts").getAsJsonArray();
       for (JsonElement e : layouts) {
@@ -125,8 +133,9 @@ public class DungeonSettingsParser {
         }
       }
     }
+  }
 
-    // parse level rooms
+  private static void parseRooms(JsonObject root, DungeonSettings dungeonSettings) throws Exception {
     if (root.has("rooms")) {
       JsonArray roomArray = root.get("rooms").getAsJsonArray();
 
@@ -158,8 +167,9 @@ public class DungeonSettingsParser {
         level.setSecrets(secretFactory);
       }
     }
+  }
 
-    // parse level themes
+  private static void parseThemes(JsonObject root, DungeonSettings dungeonSettings) throws Exception {
     if (root.has("themes")) {
       JsonArray arr = root.get("themes").getAsJsonArray();
       for (JsonElement e : arr) {
@@ -178,8 +188,9 @@ public class DungeonSettingsParser {
         }
       }
     }
+  }
 
-    // parse segments
+  private static void parseSegments(JsonObject root, DungeonSettings dungeonSettings) {
     if (root.has("segments")) {
       JsonArray arr = root.get("segments").getAsJsonArray();
       for (int lvl : dungeonSettings.getLevels().keySet()) {
@@ -201,8 +212,9 @@ public class DungeonSettingsParser {
         }
       }
     }
+  }
 
-    // parse spawner settings
+  private static void parseSpawners(JsonObject root, DungeonSettings dungeonSettings) throws Exception {
     if (root.has("spawners")) {
       JsonArray arr = root.get("spawners").getAsJsonArray();
       for (JsonElement e : arr) {
@@ -217,8 +229,9 @@ public class DungeonSettingsParser {
         }
       }
     }
+  }
 
-    // parse filters
+  private static void parseFilters(JsonObject root, DungeonSettings dungeonSettings) {
     if (root.has("filters")) {
       JsonArray arr = root.get("filters").getAsJsonArray();
       for (JsonElement e : arr) {
@@ -234,7 +247,6 @@ public class DungeonSettingsParser {
         }
       }
     }
-    return dungeonSettings;
   }
 
   // todo: See above
