@@ -20,7 +20,7 @@ public class SecretFactory {
 
 
   public SecretFactory() {
-    secrets = new HashMap<DungeonRoom, ISecretRoom>();
+    secrets = new HashMap<>();
   }
 
   public SecretFactory(SecretFactory toCopy) {

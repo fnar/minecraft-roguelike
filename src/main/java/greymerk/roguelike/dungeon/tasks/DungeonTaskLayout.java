@@ -52,7 +52,7 @@ public class DungeonTaskLayout implements IDungeonTask {
       while (layout.hasEmptyRooms()) {
         IDungeonRoom toGenerate = count < level.getSettings().getNumRooms()
             ? rooms.get(rand)
-            : DungeonRoom.CORNER.instantiate();
+            : DungeonRoom.CORNER.instantiate(null);
         DungeonNode node = layout.getBestFit(toGenerate);
         node.setDungeon(toGenerate);
         ++count;

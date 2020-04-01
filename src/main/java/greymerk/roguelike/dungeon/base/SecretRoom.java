@@ -21,13 +21,7 @@ public class SecretRoom implements ISecretRoom {
     prototype = type.instantiate(null);
   }
 
-  public SecretRoom(SecretRoom toCopy) {
-    count = toCopy.count;
-    prototype = toCopy.prototype;
-    type = toCopy.type;
-  }
-
-  private boolean isValid(IWorldEditor editor, Random rand, Cardinal dir, Coord pos) {
+  private boolean isValid(IWorldEditor editor, Cardinal dir, Coord pos) {
     if (count <= 0) {
       return false;
     }
@@ -49,7 +43,7 @@ public class SecretRoom implements ISecretRoom {
 
   @Override
   public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord pos) {
-    if (!isValid(editor, rand, dir, pos)) {
+    if (!isValid(editor, dir, pos)) {
       return null;
     }
 
@@ -65,7 +59,6 @@ public class SecretRoom implements ISecretRoom {
     end.add(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, settings.getTheme().getPrimary().getWall(), false, true);
 
-    start = new Coord(pos);
     end = new Coord(pos);
     end.add(dir, size + 5);
     end.add(Cardinal.UP);
