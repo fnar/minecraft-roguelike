@@ -2,6 +2,7 @@ package greymerk.roguelike.dungeon.rooms;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.Dungeon;
@@ -27,6 +28,10 @@ import static greymerk.roguelike.worldgen.spawners.Spawner.COMMON_MOBS;
 
 public class DungeonsBrick extends DungeonBase {
 
+
+  public DungeonsBrick(RoomSetting roomSetting) {
+    super(roomSetting);
+  }
 
   public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal[] entrances, Coord origin) {
 
@@ -135,7 +140,9 @@ public class DungeonsBrick extends DungeonBase {
 
     List<Coord> chestLocations = chooseRandomLocations(rand, 1, potentialChestLocations);
     createChests(editor, rand, Dungeon.getLevel(origin.getY()), chestLocations, false, COMMON_TREASURES);
-    Spawner.generate(editor, rand, settings, new Coord(x, y, z), COMMON_MOBS);
+    Optional<Spawner> spawnerMaybe = getRoomSetting().getSpawner();
+    Spawner[] spawner = spawnerMaybe.map(value -> new Spawner[]{value}).orElse(COMMON_MOBS);
+    Spawner.generate(editor, rand, settings, new Coord(x, y, z), spawner);
     return true;
   }
 

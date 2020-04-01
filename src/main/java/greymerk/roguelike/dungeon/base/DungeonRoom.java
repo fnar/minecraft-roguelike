@@ -181,7 +181,7 @@ public enum DungeonRoom {
         return new DungeonTreetho();
       case BRICK:
       default:
-        return new DungeonsBrick();
+        return new DungeonsBrick(roomSetting);
     }
   }
 }

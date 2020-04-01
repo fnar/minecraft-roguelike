@@ -10,6 +10,8 @@ import static greymerk.roguelike.dungeon.settings.level.LevelsParser.parseLevels
 
 public class RoomSettingParser {
 
+  public static final String SPAWNERS_KEY = "spawners";
+
   public static RoomSetting parse(JsonObject roomSettingJson) throws Exception {
     return new RoomSetting(
         getDungeonRoom(roomSettingJson),
@@ -28,11 +30,11 @@ public class RoomSettingParser {
   }
 
   private static Spawner getSpawner(JsonObject entry) throws Exception {
-    if (!entry.has("spawner")) {
+    if (!entry.has(SPAWNERS_KEY)) {
       return null;
     }
     try {
-      return Spawner.valueOf(entry.get("spawner").getAsString());
+      return Spawner.valueOf(entry.get(SPAWNERS_KEY).getAsString().toUpperCase());
     } catch (IllegalArgumentException e) {
       throw new Exception("No such spawner type: " + getName(entry));
     }
