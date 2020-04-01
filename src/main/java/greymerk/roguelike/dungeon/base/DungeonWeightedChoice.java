@@ -22,7 +22,7 @@ public class DungeonWeightedChoice implements IWeighted<DungeonRoom>, Comparable
   }
 
   public IDungeonRoom getInstance() {
-    return type.instantiate();
+    return type.instantiate(null);
   }
 
 
