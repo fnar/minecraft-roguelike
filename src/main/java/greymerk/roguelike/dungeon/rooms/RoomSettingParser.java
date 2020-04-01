@@ -44,7 +44,7 @@ public class RoomSettingParser {
   }
 
   private static String getName(JsonObject entry) {
-    return entry.get("name").getAsString();
+    return entry.get("name").getAsString().toUpperCase();
   }
 
   private static int parseCount(JsonObject roomSettingJson) {
