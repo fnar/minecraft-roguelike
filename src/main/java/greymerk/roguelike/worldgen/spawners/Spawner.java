@@ -1,11 +1,5 @@
 package greymerk.roguelike.worldgen.spawners;
 
-import java.util.Random;
-
-import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
-
 public enum Spawner {
 
   BAT("bat"),
@@ -47,20 +41,4 @@ public enum Spawner {
     return name;
   }
 
-  public static void generate(
-      IWorldEditor editor,
-      Random rand,
-      LevelSettings settings,
-      Coord cursor,
-      int difficulty,
-      Spawner... types
-  ) {
-    Spawner type = types[rand.nextInt(types.length)];
-    SpawnerSettings spawners = settings.getSpawners();
-    if (spawners == null) {
-      new Spawnable(type).generate(editor, rand, cursor, difficulty);
-      return;
-    }
-    spawners.generate(editor, rand, cursor, type, difficulty);
-  }
 }

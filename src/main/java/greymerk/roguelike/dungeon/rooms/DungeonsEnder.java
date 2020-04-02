@@ -16,6 +16,7 @@ import greymerk.roguelike.worldgen.blocks.Quartz;
 import greymerk.roguelike.worldgen.shapes.IShape;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.Spawner;
+import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 public class DungeonsEnder extends DungeonBase {
 
@@ -75,7 +76,7 @@ public class DungeonsEnder extends DungeonBase {
     if (RogueConfig.getBoolean(RogueConfig.GENEROUS)) {
       addEnderChest(editor, new RectSolid(start, end));
     }
-    Spawner.generate(editor, inRandom, settings, origin, settings.getDifficulty(origin), Spawner.ENDERMAN);
+    SpawnerSettings.generate(editor, inRandom, settings, origin, settings.getDifficulty(origin), Spawner.ENDERMAN);
 
     return true;
   }

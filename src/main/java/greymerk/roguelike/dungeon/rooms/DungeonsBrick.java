@@ -19,6 +19,7 @@ import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.Spawner;
+import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 import static greymerk.roguelike.treasure.Treasure.COMMON_TREASURES;
 import static greymerk.roguelike.treasure.Treasure.createChests;
@@ -140,7 +141,7 @@ public class DungeonsBrick extends DungeonBase {
     List<Coord> chestLocations = chooseRandomLocations(rand, 1, potentialChestLocations);
     createChests(editor, rand, Dungeon.getLevel(origin.getY()), chestLocations, false, COMMON_TREASURES);
     final Coord cursor1 = new Coord(x, y, z);
-    Spawner.generate(editor, rand, settings, cursor1, settings.getDifficulty(cursor1), chooseSpawner());
+    SpawnerSettings.generate(editor, rand, settings, cursor1, settings.getDifficulty(cursor1), chooseSpawner());
     return true;
   }
 
