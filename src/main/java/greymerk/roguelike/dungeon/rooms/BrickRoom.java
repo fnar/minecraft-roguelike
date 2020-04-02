@@ -139,7 +139,7 @@ public class BrickRoom extends DungeonBase {
     createChests(editor, rand, level, chestLocations, false, COMMON_TREASURES);
 
     Coord spawnerLocation = new Coord(x, y, z);
-    generateSpawner(editor, rand, settings, origin, spawnerLocation);
+    generateSpawner(editor, rand, spawnerLocation, Dungeon.getLevel(origin.getY()), settings);
     return true;
   }
 
