@@ -3,6 +3,7 @@ package greymerk.roguelike.dungeon.base;
 
 import java.util.Random;
 
+import greymerk.roguelike.dungeon.rooms.BrickRoom;
 import greymerk.roguelike.dungeon.rooms.DungeonAshlea;
 import greymerk.roguelike.dungeon.rooms.DungeonAvidya;
 import greymerk.roguelike.dungeon.rooms.DungeonBTeam;
@@ -26,7 +27,6 @@ import greymerk.roguelike.dungeon.rooms.DungeonPyramidTomb;
 import greymerk.roguelike.dungeon.rooms.DungeonReward;
 import greymerk.roguelike.dungeon.rooms.DungeonStorage;
 import greymerk.roguelike.dungeon.rooms.DungeonTreetho;
-import greymerk.roguelike.dungeon.rooms.DungeonsBrick;
 import greymerk.roguelike.dungeon.rooms.DungeonsCreeperDen;
 import greymerk.roguelike.dungeon.rooms.DungeonsCrypt;
 import greymerk.roguelike.dungeon.rooms.DungeonsEnchant;
@@ -181,7 +181,7 @@ public enum DungeonRoom {
         return new DungeonTreetho();
       case BRICK:
       default:
-        return new DungeonsBrick(roomSetting);
+        return new BrickRoom(roomSetting);
     }
   }
 }
