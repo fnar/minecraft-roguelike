@@ -63,6 +63,7 @@ public enum DungeonRoom {
   ETHO,
   FIRE,
   FIREWORK,
+  FORTRESS,
   LAB,
   LIBRARY,
   LINKER,
@@ -70,7 +71,6 @@ public enum DungeonRoom {
   MESS,
   MUSIC,
   NETHER,
-  NETHERFORT,
   OBSIDIAN,
   OSSUARY,
   PIT,
@@ -86,8 +86,8 @@ public enum DungeonRoom {
   TREETHO;
 
   public static DungeonRoom[] intersectionRooms = {
-      BLAZE, BRICK, CAKE, CREEPER, CRYPT, DARKHALL, ENDER, FIRE, LAB, MESS,
-      MUSIC, NETHER, NETHERFORT, OBSIDIAN, OSSUARY, PIT, PRISON, PYRAMIDCORNER, PYRAMIDSPAWNER,
+      BLAZE, BRICK, CAKE, CREEPER, CRYPT, DARKHALL, ENDER, FIRE, FORTRESS, LAB,
+      MESS, MUSIC, NETHER, OBSIDIAN, OSSUARY, PIT, PRISON, PYRAMIDCORNER, PYRAMIDSPAWNER,
       PYRAMIDTOMB, SLIME, SPIDER, STORAGE
   };
 
@@ -137,6 +137,8 @@ public enum DungeonRoom {
         return new DungeonsFire(roomSetting);
       case FIREWORK:
         return new DungeonFirework();
+      case FORTRESS:
+        return new FortressRoom(roomSetting);
       case LAB:
         return new DungeonLab(roomSetting);
       case LIBRARY:
@@ -151,8 +153,6 @@ public enum DungeonRoom {
         return new DungeonsMusic(roomSetting);
       case NETHER:
         return new DungeonsNetherBrick(roomSetting);
-      case NETHERFORT:
-        return new FortressRoom(roomSetting);
       case OBSIDIAN:
         return new ObsidianRoom(roomSetting);
       case OSSUARY:
