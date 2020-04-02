@@ -24,9 +24,9 @@ import static greymerk.roguelike.worldgen.Cardinal.DOWN;
 import static greymerk.roguelike.worldgen.Cardinal.UP;
 import static greymerk.roguelike.worldgen.Cardinal.directions;
 
-public class DungeonsNetherBrickFortress extends DungeonBase {
+public class FortressRoom extends DungeonBase {
 
-  public DungeonsNetherBrickFortress(RoomSetting roomSetting) {
+  public FortressRoom(RoomSetting roomSetting) {
     super(roomSetting);
   }
 
