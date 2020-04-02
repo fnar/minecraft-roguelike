@@ -21,6 +21,7 @@ public class RoomSettingParser {
     return new RoomSetting(
         parseName(roomSettingJson),
         parseSpawners(roomSettingJson),
+        parseSpawnerId(roomSettingJson),
         parseRoomFrequency(roomSettingJson),
         parseWeight(roomSettingJson),
         parseCount(roomSettingJson),
@@ -64,5 +65,11 @@ public class RoomSettingParser {
     } catch (IllegalArgumentException e) {
       throw new Exception(format("No such spawner type %s for room of type %s", spawner, parseName(entry)));
     }
+  }
+
+  private static String parseSpawnerId(JsonObject roomSettingJson) {
+    return roomSettingJson.has("spawnerId")
+        ? roomSettingJson.get("spawnerId").getAsString()
+        : null;
   }
 }

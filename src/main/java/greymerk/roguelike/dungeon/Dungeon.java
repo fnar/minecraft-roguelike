@@ -202,7 +202,7 @@ public class Dungeon implements IDungeon {
       Coord start = getPosition();
       IntStream.range(0, dungeonSettings.getNumLevels())
           .mapToObj(dungeonSettings::getLevelSettings)
-          .map(levelSettings -> new DungeonLevel(levelSettings))
+          .map(DungeonLevel::new)
           .forEach(levels::add);
 
       Arrays.stream(DungeonStage.values())

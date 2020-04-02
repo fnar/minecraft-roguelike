@@ -21,7 +21,6 @@ public class SpawnerSettings {
   }
 
   public SpawnerSettings(SpawnerSettings toCopy) {
-    this();
     for (Spawner type : toCopy.spawners.keySet()) {
       if (spawners.get(type) == null) {
         spawners.put(type, new WeightedRandomizer<>());
@@ -31,8 +30,6 @@ public class SpawnerSettings {
   }
 
   public SpawnerSettings(SpawnerSettings base, SpawnerSettings other) {
-    this();
-
     for (Spawner type : base.spawners.keySet()) {
       if (spawners.get(type) == null) {
         spawners.put(type, new WeightedRandomizer<>());
@@ -48,16 +45,15 @@ public class SpawnerSettings {
     }
   }
 
-  public static void generate(IWorldEditor editor, Random rand, Coord cursor, int difficulty, SpawnerSettings spawners, Spawner... types) {
+  public static void generate(IWorldEditor editor, Random rand, Coord cursor, int difficulty, SpawnerSettings spawnerSettings, Spawner... types) {
     Spawner type = types[rand.nextInt(types.length)];
-    if (spawners == null) {
-      new Spawnable(type).generate(editor, rand, cursor, difficulty);
-      return;
-    }
-    spawners.generate(editor, rand, cursor, type, difficulty);
+    Spawnable toSpawn = spawnerSettings.spawners.containsKey(type)
+        ? spawnerSettings.spawners.get(type).get(rand)
+        : new Spawnable(type);
+    toSpawn.generate(editor, rand, cursor, difficulty);
   }
 
-  public void add(JsonObject entry) throws Exception {
+  public void parse(JsonObject entry) throws Exception {
     if (!entry.has("type")) {
       throw new Exception("Spawners entry missing type");
     }
@@ -83,16 +79,11 @@ public class SpawnerSettings {
         : 1;
   }
 
-  private void add(Spawner type, Spawnable spawn, int weight) {
+  private void add(Spawner type, Spawnable spawnable, int weight) {
     if (!spawners.containsKey(type)) {
       spawners.put(type, new WeightedRandomizer<>());
     }
-    spawners.get(type).add(new WeightedChoice<>(spawn, weight));
-  }
-
-  public void generate(IWorldEditor editor, Random rand, Coord cursor, Spawner type, int level) {
-    Spawnable toSpawn = spawners.containsKey(type) ? spawners.get(type).get(rand) : new Spawnable(type);
-    toSpawn.generate(editor, rand, cursor, level);
+    spawners.get(type).add(new WeightedChoice<>(spawnable, weight));
   }
 
   @Override

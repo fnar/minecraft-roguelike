@@ -11,14 +11,24 @@ public class RoomSetting {
 
   private DungeonRoom dungeonRoom;
   private Spawner spawner;
+  private String spawnerId;
   private String frequency;
   private int weight;
   private int count;
   private List<Integer> levels;
 
-  public RoomSetting(DungeonRoom dungeonRoom, Spawner spawner, String frequency, int weight, int count, List<Integer> levels) {
+  public RoomSetting(
+      DungeonRoom dungeonRoom,
+      Spawner spawner,
+      String spawnerId,
+      String frequency,
+      int weight,
+      int count,
+      List<Integer> levels
+  ) {
     this.dungeonRoom = dungeonRoom;
     this.spawner = spawner;
+    this.spawnerId = spawnerId;
     this.frequency = frequency;
     this.weight = weight;
     this.count = count;
@@ -55,6 +65,10 @@ public class RoomSetting {
 
   public boolean isOnFloorLevel(int floorLevel) {
     return getLevels() != null && getLevels().contains(floorLevel);
+  }
+
+  public String getSpawnerId() {
+    return spawnerId;
   }
 
   @Override

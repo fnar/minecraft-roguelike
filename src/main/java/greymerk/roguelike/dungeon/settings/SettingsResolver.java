@@ -54,7 +54,7 @@ public class SettingsResolver {
       return null;
     } catch (Exception e) {
       Minecraft.getMinecraft().player.sendChatMessage(Arrays.toString(e.getStackTrace()));
-      throw new RuntimeException(e.getMessage());
+      throw new RuntimeException(e);
 //      throw new RuntimeException("Malformed Setting ID String: " + name);
     }
   }
