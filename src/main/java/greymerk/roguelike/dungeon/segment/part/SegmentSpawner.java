@@ -69,6 +69,7 @@ public class SegmentSpawner extends SegmentBase {
     shelf.add(dir, 3);
     shelf.add(Cardinal.UP, 1);
 
-    SpawnerSettings.generate(editor, rand, level.getSettings(), shelf, level.getSettings().getDifficulty(shelf), COMMON_MOBS);
+    SpawnerSettings spawners = level.getSettings().getSpawners();
+    SpawnerSettings.generate(editor, rand, shelf, level.getSettings().getDifficulty(shelf), spawners, COMMON_MOBS);
   }
 }

@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.util.WeightedChoice;
 import greymerk.roguelike.util.WeightedRandomizer;
 import greymerk.roguelike.worldgen.Coord;
@@ -49,16 +48,8 @@ public class SpawnerSettings {
     }
   }
 
-  public static void generate(
-      IWorldEditor editor,
-      Random rand,
-      LevelSettings settings,
-      Coord cursor,
-      int difficulty,
-      Spawner... types
-  ) {
+  public static void generate(IWorldEditor editor, Random rand, Coord cursor, int difficulty, SpawnerSettings spawners, Spawner... types) {
     Spawner type = types[rand.nextInt(types.length)];
-    SpawnerSettings spawners = settings.getSpawners();
     if (spawners == null) {
       new Spawnable(type).generate(editor, rand, cursor, difficulty);
       return;

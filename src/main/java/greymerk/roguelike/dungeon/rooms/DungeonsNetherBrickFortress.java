@@ -163,7 +163,8 @@ public class DungeonsNetherBrickFortress extends DungeonBase {
     end.add(UP, 5);
     RectSolid.fill(editor, rand, start, end, lava);
     List<Coord> core = new RectSolid(start, end).get();
-    SpawnerSettings.generate(editor, rand, settings, core.get(rand.nextInt(core.size())), settings.getDifficulty(core.get(rand.nextInt(core.size()))), COMMON_MOBS);
+    SpawnerSettings spawners = settings.getSpawners();
+    SpawnerSettings.generate(editor, rand, core.get(rand.nextInt(core.size())), settings.getDifficulty(core.get(rand.nextInt(core.size()))), spawners, COMMON_MOBS);
   }
 
   private void pillar(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin) {
