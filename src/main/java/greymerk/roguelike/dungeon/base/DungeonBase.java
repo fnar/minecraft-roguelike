@@ -44,9 +44,9 @@ public abstract class DungeonBase implements IDungeonRoom, Comparable<DungeonBas
   @Override
   public abstract boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal[] entrances, Coord origin);
 
-  protected void generateSpawner(IWorldEditor editor, Random rand, Coord spawnerLocation, int difficulty, LevelSettings settings) {
+  protected void generateSpawner(IWorldEditor editor, Random rand, Coord spawnerLocation, int difficulty, LevelSettings levelSettings) {
     SpawnerSettings spawnersSettings = getDungeonSettings() == null
-        ? settings.getSpawners()
+        ? levelSettings.getSpawners()
         : getDungeonSettings().getLevelSettings(difficulty).getSpawners();
     SpawnerSettings.generate(editor, rand, spawnerLocation, difficulty, spawnersSettings, ZOMBIE);
   }
