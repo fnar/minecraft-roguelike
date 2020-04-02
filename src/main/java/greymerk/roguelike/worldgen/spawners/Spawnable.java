@@ -17,22 +17,23 @@ import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
 
+import static greymerk.roguelike.worldgen.spawners.SpawnPotentialParser.parse;
+
 public class Spawnable {
 
-  private Spawner type;
   private List<SpawnPotential> potentials = new ArrayList<>();
 
   public Spawnable(Spawner type) {
-    this.type = type;
+    potentials.add(new SpawnPotential(type.getName(), true, 1, new NBTTagCompound()));
   }
 
   public Spawnable(JsonElement data) throws Exception {
     for (JsonElement spawnPotential : data.getAsJsonArray()) {
-      potentials.add(SpawnPotentialParser.parse(spawnPotential.getAsJsonObject()));
+      potentials.add(parse(spawnPotential.getAsJsonObject()));
     }
   }
 
-  public void generate(IWorldEditor editor, Random rand, Coord cursor, int level) {
+  public void generate(IWorldEditor editor, Random random, Coord cursor, int level) {
     Coord pos = new Coord(cursor);
     editor.setBlock(pos, new MetaBlock(Blocks.MOB_SPAWNER.getDefaultState()), true, true);
 
@@ -49,27 +50,18 @@ public class Spawnable {
     nbt.setInteger("y", pos.getY());
     nbt.setInteger("z", pos.getZ());
 
-    nbt.setTag("SpawnPotentials", getSpawnPotentials(rand, level));
+    nbt.setTag("SpawnPotentials", getSpawnPotentials(random, level));
 
     spawnerLogic.readFromNBT(nbt);
     spawnerLogic.updateSpawner();
     tileentity.markDirty();
   }
 
-  private NBTTagList getSpawnPotentials(Random rand, int level) {
-
-    if (type != null) {
-      SpawnPotential potential = new SpawnPotential(type.getName(), true, 1, null);
-      return potential.get(rand, level);
-    }
-
-    NBTTagList potentials = new NBTTagList();
-
-    for (SpawnPotential potential : this.potentials) {
-      NBTTagCompound nbt = potential.get(level);
-      potentials.appendTag(nbt);
-    }
-
-    return potentials;
+  private NBTTagList getSpawnPotentials(Random random, int level) {
+    NBTTagList potentialsNbtTagList = new NBTTagList();
+    potentials.stream()
+        .map(potential -> potential.getSpawnPotentials(random, level))
+        .forEach(potentials -> potentials.forEach(potentialsNbtTagList::appendTag));
+    return potentialsNbtTagList;
   }
 }

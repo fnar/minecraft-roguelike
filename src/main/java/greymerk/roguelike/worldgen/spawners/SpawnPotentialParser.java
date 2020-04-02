@@ -16,11 +16,9 @@ class SpawnPotentialParser {
     String name = entry.get("name").getAsString();
     boolean equip = entry.has("equip") && entry.get("equip").getAsBoolean();
 
-    NBTTagCompound nbt = null;
-    if (entry.has("nbt")) {
-      String metadata = entry.get("nbt").getAsString();
-      nbt = JsonToNBT.getTagFromJson(metadata);
-    }
+    NBTTagCompound nbt = entry.has("nbt")
+        ? JsonToNBT.getTagFromJson(entry.get("nbt").getAsString())
+        : new NBTTagCompound();
     return new SpawnPotential(name, equip, weight, nbt);
   }
 }
