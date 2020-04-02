@@ -53,7 +53,8 @@ public class SegmentTomb extends SegmentBase {
     cursor = new Coord(pos);
     cursor.add(Cardinal.UP);
     cursor.add(dir, 4);
-    SpawnerSettings.generate(editor, rand, level, cursor, level.getDifficulty(cursor), UNDEAD_MOBS);
+    SpawnerSettings spawners = level.getSpawners();
+    SpawnerSettings.generate(editor, rand, cursor, level.getDifficulty(cursor), spawners, UNDEAD_MOBS);
     cursor.add(dir);
     createChest(editor, rand, Dungeon.getLevel(cursor.getY()), cursor, false, COMMON_TREASURES);
   }
