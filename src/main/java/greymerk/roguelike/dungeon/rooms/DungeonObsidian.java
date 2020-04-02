@@ -317,7 +317,7 @@ public class DungeonObsidian extends DungeonBase {
     innerPillars(editor, rand, theme, x, y, z);
 
     for (Coord space : spawners) {
-      Spawner.generate(editor, rand, settings, space, COMMON_MOBS);
+      Spawner.generate(editor, rand, settings, space, settings.getDifficulty(space), COMMON_MOBS);
     }
 
     BlockJumble crap = new BlockJumble();

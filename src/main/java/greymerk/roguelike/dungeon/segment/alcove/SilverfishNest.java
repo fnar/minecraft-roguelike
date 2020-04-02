@@ -37,7 +37,7 @@ public class SilverfishNest implements IAlcove {
     end.add(dir.reverse(), 1);
 
     RectSolid.fill(editor, rand, start, end, BlockType.get(BlockType.AIR));
-    Spawner.generate(editor, rand, settings, centre, Spawner.SILVERFISH);
+    Spawner.generate(editor, rand, settings, centre, settings.getDifficulty(centre), Spawner.SILVERFISH);
 
   }
 

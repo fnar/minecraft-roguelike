@@ -56,10 +56,14 @@ public class DungeonsNetherBrick extends DungeonBase {
     List<Coord> chestLocations = chooseRandomLocations(rand, 1, new RectSolid(new Coord(x - length, y, z - width), new Coord(x + length, y, z + width)).get());
     createChests(editor, rand, Dungeon.getLevel(y), chestLocations, false, COMMON_TREASURES);
 
-    Spawner.generate(editor, rand, settings, new Coord(x - length - 1, y + rand.nextInt(2), z - width - 1), COMMON_MOBS);
-    Spawner.generate(editor, rand, settings, new Coord(x - length - 1, y + rand.nextInt(2), z + width + 1), COMMON_MOBS);
-    Spawner.generate(editor, rand, settings, new Coord(x + length + 1, y + rand.nextInt(2), z - width - 1), COMMON_MOBS);
-    Spawner.generate(editor, rand, settings, new Coord(x + length + 1, y + rand.nextInt(2), z + width + 1), COMMON_MOBS);
+    final Coord cursor = new Coord(x - length - 1, y + rand.nextInt(2), z - width - 1);
+    Spawner.generate(editor, rand, settings, cursor, settings.getDifficulty(cursor), COMMON_MOBS);
+    final Coord cursor1 = new Coord(x - length - 1, y + rand.nextInt(2), z + width + 1);
+    Spawner.generate(editor, rand, settings, cursor1, settings.getDifficulty(cursor1), COMMON_MOBS);
+    final Coord cursor2 = new Coord(x + length + 1, y + rand.nextInt(2), z - width - 1);
+    Spawner.generate(editor, rand, settings, cursor2, settings.getDifficulty(cursor2), COMMON_MOBS);
+    final Coord cursor3 = new Coord(x + length + 1, y + rand.nextInt(2), z + width + 1);
+    Spawner.generate(editor, rand, settings, cursor3, settings.getDifficulty(cursor3), COMMON_MOBS);
 
     return true;
   }
