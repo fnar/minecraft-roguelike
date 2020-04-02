@@ -75,7 +75,7 @@ public class DungeonsEnder extends DungeonBase {
     if (RogueConfig.getBoolean(RogueConfig.GENEROUS)) {
       addEnderChest(editor, new RectSolid(start, end));
     }
-    Spawner.generate(editor, inRandom, settings, origin, Spawner.ENDERMAN);
+    Spawner.generate(editor, inRandom, settings, origin, settings.getDifficulty(origin), Spawner.ENDERMAN);
 
     return true;
   }

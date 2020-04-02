@@ -71,7 +71,8 @@ public class DungeonsCreeperDen extends DungeonBase {
         .peek(chestSpace -> createChest(editor, random, settings.getDifficulty(chestSpace), chestSpace, true, ORE))
         .forEach(chestSpace -> spawnTntBeneath(editor, chestSpace));
 
-    Spawner.generate(editor, random, settings, new Coord(origin), Spawner.CREEPER);
+    final Coord cursor = new Coord(origin);
+    Spawner.generate(editor, random, settings, cursor, settings.getDifficulty(cursor), Spawner.CREEPER);
 
     return true;
   }

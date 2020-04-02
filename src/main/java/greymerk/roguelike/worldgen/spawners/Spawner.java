@@ -52,14 +52,15 @@ public enum Spawner {
       Random rand,
       LevelSettings settings,
       Coord cursor,
+      int difficulty,
       Spawner... types
   ) {
     Spawner type = types[rand.nextInt(types.length)];
     SpawnerSettings spawners = settings.getSpawners();
     if (spawners == null) {
-      new Spawnable(type).generate(editor, rand, cursor, settings.getDifficulty(cursor));
+      new Spawnable(type).generate(editor, rand, cursor, difficulty);
       return;
     }
-    spawners.generate(editor, rand, cursor, type, settings.getDifficulty(cursor));
+    spawners.generate(editor, rand, cursor, type, difficulty);
   }
 }

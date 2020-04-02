@@ -375,7 +375,7 @@ public class DungeonsCrypt extends DungeonBase {
     }
 
     cursor.add(dir);
-    Spawner.generate(editor, rand, settings, cursor, UNDEAD_MOBS);
+    Spawner.generate(editor, rand, settings, cursor, settings.getDifficulty(cursor), UNDEAD_MOBS);
 
     cursor.add(dir);
     createChest(editor, rand, settings.getDifficulty(cursor), cursor, false, COMMON_TREASURES);

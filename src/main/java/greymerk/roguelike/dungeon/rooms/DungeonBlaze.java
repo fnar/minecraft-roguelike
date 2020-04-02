@@ -249,7 +249,7 @@ public class DungeonBlaze extends DungeonBase {
     end.add(Cardinal.SOUTH);
     end.add(Cardinal.WEST);
     RectSolid.fill(editor, rand, start, end, BlockType.get(BlockType.OBSIDIAN));
-    Spawner.generate(editor, rand, settings, cursor, NETHER_MOBS);
+    Spawner.generate(editor, rand, settings, cursor, settings.getDifficulty(cursor), NETHER_MOBS);
 
     return false;
   }
