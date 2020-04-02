@@ -33,13 +33,13 @@ import greymerk.roguelike.dungeon.rooms.DungeonsEnder;
 import greymerk.roguelike.dungeon.rooms.DungeonsFire;
 import greymerk.roguelike.dungeon.rooms.DungeonsMusic;
 import greymerk.roguelike.dungeon.rooms.DungeonsNetherBrick;
-import greymerk.roguelike.dungeon.rooms.DungeonsNetherBrickFortress;
 import greymerk.roguelike.dungeon.rooms.DungeonsPit;
 import greymerk.roguelike.dungeon.rooms.DungeonsPrison;
 import greymerk.roguelike.dungeon.rooms.DungeonsSlime;
 import greymerk.roguelike.dungeon.rooms.DungeonsSmithy;
 import greymerk.roguelike.dungeon.rooms.DungeonsSpiderNest;
 import greymerk.roguelike.dungeon.rooms.DungeonsWood;
+import greymerk.roguelike.dungeon.rooms.FortressRoom;
 import greymerk.roguelike.dungeon.rooms.ObsidianRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 
@@ -152,7 +152,7 @@ public enum DungeonRoom {
       case NETHER:
         return new DungeonsNetherBrick(roomSetting);
       case NETHERFORT:
-        return new DungeonsNetherBrickFortress(roomSetting);
+        return new FortressRoom(roomSetting);
       case OBSIDIAN:
         return new ObsidianRoom(roomSetting);
       case OSSUARY:
