@@ -23,6 +23,10 @@ import static greymerk.roguelike.worldgen.spawners.Spawner.UNDEAD_MOBS;
 
 public class DungeonsCrypt extends DungeonBase {
 
+  public DungeonsCrypt(RoomSetting roomSetting) {
+    super(roomSetting);
+  }
+
   public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal[] entrances, Coord origin) {
 
     ITheme theme = settings.getTheme();

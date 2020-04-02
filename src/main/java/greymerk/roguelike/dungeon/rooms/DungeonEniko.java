@@ -26,6 +26,10 @@ import static greymerk.roguelike.worldgen.spawners.Spawner.COMMON_MOBS;
 
 public class DungeonEniko extends DungeonBase {
 
+  public DungeonEniko(RoomSetting roomSetting) {
+    super(roomSetting);
+  }
+
   private static void pillar(IWorldEditor editor, Random rand, ITheme theme, Coord origin) {
 
     IStair stair = theme.getPrimary().getStair();

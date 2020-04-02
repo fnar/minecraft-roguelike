@@ -24,6 +24,10 @@ public class DungeonsCreeperDen extends DungeonBase {
 
   public static final MetaBlock TNT_META_BLOCK = BlockType.get(BlockType.TNT);
 
+  public DungeonsCreeperDen(RoomSetting roomSetting) {
+    super(roomSetting);
+  }
+
   public boolean generate(IWorldEditor editor, Random random, LevelSettings settings, Cardinal[] entrances, Coord origin) {
 
     ITheme theme = settings.getTheme();

@@ -28,6 +28,10 @@ import static greymerk.roguelike.worldgen.spawners.Spawner.COMMON_MOBS;
 
 public class DungeonsNetherBrickFortress extends DungeonBase {
 
+  public DungeonsNetherBrickFortress(RoomSetting roomSetting) {
+    super(roomSetting);
+  }
+
   public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal[] entrances, Coord origin) {
     ITheme theme = settings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();

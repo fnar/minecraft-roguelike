@@ -24,6 +24,10 @@ import static greymerk.roguelike.worldgen.spawners.Spawner.COMMON_MOBS;
 public class DungeonsNetherBrick extends DungeonBase {
 
 
+  public DungeonsNetherBrick(RoomSetting roomSetting) {
+    super(roomSetting);
+  }
+
   public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal[] entrances, Coord origin) {
 
     int x = origin.getX();

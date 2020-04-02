@@ -10,6 +10,10 @@ import greymerk.roguelike.worldgen.IWorldEditor;
 
 public class DungeonAshlea extends DungeonBase {
 
+  public DungeonAshlea(RoomSetting roomSetting) {
+    super(roomSetting);
+  }
+
   @Override
   public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal[] entrances, Coord origin) {
     return false;

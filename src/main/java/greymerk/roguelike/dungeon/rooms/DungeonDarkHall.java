@@ -18,6 +18,10 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class DungeonDarkHall extends DungeonBase {
 
+  public DungeonDarkHall(RoomSetting roomSetting) {
+    super(roomSetting);
+  }
+
   @Override
   public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal[] entrances, Coord origin) {
 

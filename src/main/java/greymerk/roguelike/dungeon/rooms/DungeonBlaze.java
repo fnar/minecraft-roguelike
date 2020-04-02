@@ -20,6 +20,10 @@ import static greymerk.roguelike.worldgen.spawners.Spawner.NETHER_MOBS;
 public class DungeonBlaze extends DungeonBase {
 
 
+  public DungeonBlaze(RoomSetting roomSetting) {
+    super(roomSetting);
+  }
+
   public static void genFire(IWorldEditor editor, Random rand, ITheme theme, Coord origin) {
 
     IBlockFactory wall = theme.getPrimary().getWall();

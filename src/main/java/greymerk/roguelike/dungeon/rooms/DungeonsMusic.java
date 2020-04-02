@@ -26,6 +26,10 @@ import static greymerk.roguelike.treasure.Treasure.createChests;
 
 public class DungeonsMusic extends DungeonBase {
 
+  public DungeonsMusic(RoomSetting roomSetting) {
+    super(roomSetting);
+  }
+
   public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal[] entrances, Coord origin) {
     ITheme theme = settings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();

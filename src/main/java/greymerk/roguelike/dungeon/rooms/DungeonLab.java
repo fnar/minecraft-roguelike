@@ -34,6 +34,10 @@ import static greymerk.roguelike.treasure.Treasure.createChest;
 
 public class DungeonLab extends DungeonBase {
 
+  public DungeonLab(RoomSetting roomSetting) {
+    super(roomSetting);
+  }
+
   private static void corner(IWorldEditor editor, Random rand, ITheme theme, int x, int y, int z) {
 
     MetaBlock air = BlockType.get(BlockType.AIR);

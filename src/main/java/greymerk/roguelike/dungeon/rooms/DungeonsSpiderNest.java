@@ -28,12 +28,11 @@ public class DungeonsSpiderNest extends DungeonBase {
   int dungeonLength;
   int dungeonWidth;
 
-  public DungeonsSpiderNest() {
-    super();
+  public DungeonsSpiderNest(RoomSetting roomSetting) {
+    super(roomSetting);
     dungeonHeight = 2;
     dungeonLength = 3;
     dungeonWidth = 3;
-
   }
 
   public boolean generate(IWorldEditor editor, Random inRandom, LevelSettings settings, Cardinal[] entrances, Coord origin) {

@@ -17,6 +17,10 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class DungeonsFire extends DungeonBase {
 
 
+  public DungeonsFire(RoomSetting roomSetting) {
+    super(roomSetting);
+  }
+
   public static void genFire(IWorldEditor editor, Random rand, ITheme theme, Coord origin) {
 
     IBlockFactory wall = theme.getPrimary().getWall();

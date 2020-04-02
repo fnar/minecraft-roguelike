@@ -106,79 +106,79 @@ public enum DungeonRoom {
   public IDungeonRoom instantiate(RoomSetting roomSetting) {
     switch (this) {
       case ASHLEA:
-        return new DungeonAshlea();
+        return new DungeonAshlea(roomSetting);
       case AVIDYA:
-        return new DungeonAvidya();
+        return new DungeonAvidya(roomSetting);
       case BEDROOM:
         return new DungeonBedRoom();
       case BLAZE:
-        return new DungeonBlaze();
+        return new DungeonBlaze(roomSetting);
       case BTEAM:
         return new DungeonBTeam();
       case CAKE:
         return new DungeonsWood();
       case CORNER:
-        return new DungeonCorner();
+        return new DungeonCorner(roomSetting);
       case CREEPER:
-        return new DungeonsCreeperDen();
+        return new DungeonsCreeperDen(roomSetting);
       case CRYPT:
-        return new DungeonsCrypt();
+        return new DungeonsCrypt(roomSetting);
       case DARKHALL:
-        return new DungeonDarkHall();
+        return new DungeonDarkHall(roomSetting);
       case ENCHANT:
         return new DungeonsEnchant();
       case ENDER:
-        return new DungeonsEnder();
+        return new DungeonsEnder(roomSetting);
       case ENIKO:
-        return new DungeonEniko();
+        return new DungeonEniko(roomSetting);
       case ETHO:
-        return new DungeonEtho();
+        return new DungeonEtho(roomSetting);
       case FIRE:
-        return new DungeonsFire();
+        return new DungeonsFire(roomSetting);
       case FIREWORK:
         return new DungeonFirework();
       case LAB:
-        return new DungeonLab();
+        return new DungeonLab(roomSetting);
       case LIBRARY:
-        return new DungeonLibrary();
+        return new DungeonLibrary(roomSetting);
       case LINKER:
-        return new DungeonLinker();
+        return new DungeonLinker(roomSetting);
       case LINKERTOP:
-        return new DungeonLinkerTop();
+        return new DungeonLinkerTop(roomSetting);
       case MESS:
-        return new DungeonMess();
+        return new DungeonMess(roomSetting);
       case MUSIC:
-        return new DungeonsMusic();
+        return new DungeonsMusic(roomSetting);
       case NETHER:
-        return new DungeonsNetherBrick();
+        return new DungeonsNetherBrick(roomSetting);
       case NETHERFORT:
-        return new DungeonsNetherBrickFortress();
+        return new DungeonsNetherBrickFortress(roomSetting);
       case OBSIDIAN:
         return new ObsidianRoom(roomSetting);
       case OSSUARY:
-        return new DungeonOssuary();
+        return new DungeonOssuary(roomSetting);
       case PIT:
-        return new DungeonsPit();
+        return new DungeonsPit(roomSetting);
       case PRISON:
         return new DungeonsPrison();
       case PYRAMIDCORNER:
-        return new DungeonPyramidCorner();
+        return new DungeonPyramidCorner(roomSetting);
       case PYRAMIDSPAWNER:
-        return new DungeonPyramidSpawner();
+        return new DungeonPyramidSpawner(roomSetting);
       case PYRAMIDTOMB:
         return new DungeonPyramidTomb();
       case REWARD:
-        return new DungeonReward();
+        return new DungeonReward(roomSetting);
       case SLIME:
-        return new DungeonsSlime();
+        return new DungeonsSlime(roomSetting);
       case SMITH:
         return new DungeonsSmithy();
       case SPIDER:
-        return new DungeonsSpiderNest();
+        return new DungeonsSpiderNest(roomSetting);
       case STORAGE:
-        return new DungeonStorage();
+        return new DungeonStorage(roomSetting);
       case TREETHO:
-        return new DungeonTreetho();
+        return new DungeonTreetho(roomSetting);
       case BRICK:
       default:
         return new BrickRoom(roomSetting);
