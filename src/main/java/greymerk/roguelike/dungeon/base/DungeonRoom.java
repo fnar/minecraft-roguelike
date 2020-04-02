@@ -19,7 +19,6 @@ import greymerk.roguelike.dungeon.rooms.DungeonLibrary;
 import greymerk.roguelike.dungeon.rooms.DungeonLinker;
 import greymerk.roguelike.dungeon.rooms.DungeonLinkerTop;
 import greymerk.roguelike.dungeon.rooms.DungeonMess;
-import greymerk.roguelike.dungeon.rooms.DungeonObsidian;
 import greymerk.roguelike.dungeon.rooms.DungeonOssuary;
 import greymerk.roguelike.dungeon.rooms.DungeonPyramidCorner;
 import greymerk.roguelike.dungeon.rooms.DungeonPyramidSpawner;
@@ -41,6 +40,7 @@ import greymerk.roguelike.dungeon.rooms.DungeonsSlime;
 import greymerk.roguelike.dungeon.rooms.DungeonsSmithy;
 import greymerk.roguelike.dungeon.rooms.DungeonsSpiderNest;
 import greymerk.roguelike.dungeon.rooms.DungeonsWood;
+import greymerk.roguelike.dungeon.rooms.ObsidianRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 
 
@@ -154,7 +154,7 @@ public enum DungeonRoom {
       case NETHERFORT:
         return new DungeonsNetherBrickFortress();
       case OBSIDIAN:
-        return new DungeonObsidian();
+        return new ObsidianRoom(roomSetting);
       case OSSUARY:
         return new DungeonOssuary();
       case PIT:

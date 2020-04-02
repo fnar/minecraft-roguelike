@@ -20,10 +20,12 @@ import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 import static greymerk.roguelike.treasure.Treasure.RARE_TREASURES;
 import static greymerk.roguelike.treasure.Treasure.createChest;
-import static greymerk.roguelike.worldgen.spawners.Spawner.COMMON_MOBS;
 
-public class DungeonObsidian extends DungeonBase {
+public class ObsidianRoom extends DungeonBase {
 
+  public ObsidianRoom(RoomSetting roomSetting) {
+    super(roomSetting);
+  }
 
   private static void outerPillars(IWorldEditor editor, Random rand, ITheme theme, int x, int y, int z) {
     for (Cardinal dir : Cardinal.directions) {
@@ -318,7 +320,9 @@ public class DungeonObsidian extends DungeonBase {
 
     for (Coord space : spawners) {
       SpawnerSettings spawners1 = settings.getSpawners();
-      SpawnerSettings.generate(editor, rand, space, settings.getDifficulty(space), spawners1, COMMON_MOBS);
+      int difficulty = settings.getDifficulty(space);
+      generateSpawner(editor, rand, space, difficulty, settings);
+//      SpawnerSettings.generate(editor, rand, space, difficulty, spawners1, COMMON_MOBS);
     }
 
     BlockJumble crap = new BlockJumble();
