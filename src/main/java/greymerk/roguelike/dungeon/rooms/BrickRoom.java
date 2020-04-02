@@ -23,9 +23,9 @@ import static greymerk.roguelike.treasure.Treasure.createChests;
 import static greymerk.roguelike.worldgen.Cardinal.UP;
 import static greymerk.roguelike.worldgen.Cardinal.directions;
 
-public class DungeonsBrick extends DungeonBase {
+public class BrickRoom extends DungeonBase {
 
-  public DungeonsBrick(RoomSetting roomSetting) {
+  public BrickRoom(RoomSetting roomSetting) {
     super(roomSetting);
   }
 
