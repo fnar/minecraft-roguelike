@@ -1,8 +1,5 @@
 package greymerk.roguelike.worldgen.spawners;
 
-import com.google.gson.JsonObject;
-
-import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 
@@ -17,44 +14,16 @@ import static greymerk.roguelike.worldgen.spawners.Spawner.ZOMBIE;
 
 public class SpawnPotential {
 
-  String name;
-  int weight;
-  boolean equip;
-  NBTTagCompound nbt;
-
-
-  public SpawnPotential(String name) {
-    this(name, 1);
-  }
-
-  public SpawnPotential(String name, int weight) {
-    this(name, true, weight, null);
-  }
-
-  public SpawnPotential(String name, boolean equip, int weight) {
-    this(name, equip, weight, null);
-  }
+  private String name;
+  private int weight;
+  private boolean equip;
+  private NBTTagCompound nbt;
 
   public SpawnPotential(String name, boolean equip, int weight, NBTTagCompound nbt) {
     this.name = name;
     this.equip = equip;
     this.weight = weight;
     this.nbt = nbt;
-  }
-
-  public SpawnPotential(JsonObject entry) throws Exception {
-    weight = entry.has("weight") ? entry.get("weight").getAsInt() : 1;
-    if (!entry.has("name")) {
-      throw new Exception("Spawn potential missing name");
-    }
-
-    name = entry.get("name").getAsString();
-    equip = entry.has("equip") && entry.get("equip").getAsBoolean();
-
-    if (entry.has("nbt")) {
-      String metadata = entry.get("nbt").getAsString();
-      nbt = JsonToNBT.getTagFromJson(metadata);
-    }
   }
 
   public NBTTagCompound get(int level) {
