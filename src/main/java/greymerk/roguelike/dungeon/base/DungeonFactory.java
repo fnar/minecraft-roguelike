@@ -96,7 +96,7 @@ public class DungeonFactory implements IDungeonFactory {
   }
 
   private RoomSetting newRoomSetting(DungeonRoom type, int count) {
-    return new RoomSetting(type, null, "single", 0, count, Collections.emptyList());
+    return new RoomSetting(type, null, "builtin:spawner", "single", 0, count, Collections.emptyList());
   }
 
   public void addSingleRoom(RoomSetting roomSetting, int count) {

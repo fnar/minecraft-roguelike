@@ -21,7 +21,6 @@ import greymerk.roguelike.theme.ThemeParser;
 import greymerk.roguelike.treasure.loot.LootRuleManager;
 import greymerk.roguelike.treasure.loot.LootTableRule;
 import greymerk.roguelike.worldgen.filter.Filter;
-import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 public class DungeonSettingsParser {
 
@@ -109,10 +108,10 @@ public class DungeonSettingsParser {
       }
     }
     parseLayouts(root, dungeonSettings);
+    parseSpawners(root, dungeonSettings);
     parseRooms(root, dungeonSettings);
     parseThemes(root, dungeonSettings);
     parseSegments(root, dungeonSettings);
-    parseSpawners(root, dungeonSettings);
     parseFilters(root, dungeonSettings);
     return dungeonSettings;
   }
@@ -228,9 +227,7 @@ public class DungeonSettingsParser {
       List<Integer> lvls = LevelsParser.parseLevelsIfPresent(entry);
       for (int i : lvls) {
         if (dungeonSettings.getLevels().containsKey(i)) {
-          LevelSettings level = dungeonSettings.getLevels().get(i);
-          SpawnerSettings spawners = level.getSpawners();
-          spawners.add(entry);
+          dungeonSettings.getLevels().get(i).getSpawners().parse(entry);
         }
       }
     }

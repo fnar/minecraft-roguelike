@@ -2,11 +2,11 @@ package greymerk.roguelike.dungeon.rooms;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.worldgen.Cardinal;
@@ -18,19 +18,21 @@ import greymerk.roguelike.worldgen.MetaBlock;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
-import greymerk.roguelike.worldgen.spawners.Spawner;
 import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 import static greymerk.roguelike.treasure.Treasure.COMMON_TREASURES;
 import static greymerk.roguelike.treasure.Treasure.createChests;
 import static greymerk.roguelike.worldgen.Cardinal.UP;
 import static greymerk.roguelike.worldgen.Cardinal.directions;
-import static greymerk.roguelike.worldgen.spawners.Spawner.COMMON_MOBS;
+import static greymerk.roguelike.worldgen.spawners.Spawner.ZOMBIE;
 
 public class DungeonsBrick extends DungeonBase {
 
+  private final DungeonSettings dungeonSettings;
+
   public DungeonsBrick(RoomSetting roomSetting) {
     super(roomSetting);
+    dungeonSettings = Dungeon.settingsResolver.getByName(roomSetting.getSpawnerId());
   }
 
   public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal[] entrances, Coord origin) {
@@ -139,20 +141,15 @@ public class DungeonsBrick extends DungeonBase {
     }
 
     List<Coord> chestLocations = chooseRandomLocations(rand, 1, potentialChestLocations);
-    createChests(editor, rand, Dungeon.getLevel(origin.getY()), chestLocations, false, COMMON_TREASURES);
-    final Coord cursor1 = new Coord(x, y, z);
-    SpawnerSettings spawners = settings.getSpawners();
-    SpawnerSettings.generate(editor, rand, cursor1, settings.getDifficulty(cursor1), spawners, chooseSpawner());
-    return true;
-  }
+    int level = Dungeon.getLevel(origin.getY());
+    createChests(editor, rand, level, chestLocations, false, COMMON_TREASURES);
 
-  private Spawner[] chooseSpawner() {
-    Optional<RoomSetting> roomSettingMaybe = Optional.ofNullable(getRoomSetting());
-    if (roomSettingMaybe.isPresent()) {
-      Optional<Spawner> spawnerMaybe = roomSettingMaybe.get().getSpawner();
-      return spawnerMaybe.map(value -> new Spawner[]{value}).orElse(COMMON_MOBS);
-    }
-    return COMMON_MOBS;
+    Coord spawnerLocation = new Coord(x, y, z);
+    SpawnerSettings spawnersSettings = dungeonSettings == null
+        ? settings.getSpawners()
+        : dungeonSettings.getLevelSettings(level).getSpawners();
+    SpawnerSettings.generate(editor, rand, spawnerLocation, level, spawnersSettings, ZOMBIE);
+    return true;
   }
 
   public int getSize() {
