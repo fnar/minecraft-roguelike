@@ -6,7 +6,6 @@ import java.util.Random;
 
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
-import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.worldgen.Cardinal;
@@ -18,21 +17,16 @@ import greymerk.roguelike.worldgen.MetaBlock;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
-import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 import static greymerk.roguelike.treasure.Treasure.COMMON_TREASURES;
 import static greymerk.roguelike.treasure.Treasure.createChests;
 import static greymerk.roguelike.worldgen.Cardinal.UP;
 import static greymerk.roguelike.worldgen.Cardinal.directions;
-import static greymerk.roguelike.worldgen.spawners.Spawner.ZOMBIE;
 
 public class DungeonsBrick extends DungeonBase {
 
-  private final DungeonSettings dungeonSettings;
-
   public DungeonsBrick(RoomSetting roomSetting) {
     super(roomSetting);
-    dungeonSettings = Dungeon.settingsResolver.getByName(roomSetting.getSpawnerId());
   }
 
   public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal[] entrances, Coord origin) {
@@ -145,10 +139,7 @@ public class DungeonsBrick extends DungeonBase {
     createChests(editor, rand, level, chestLocations, false, COMMON_TREASURES);
 
     Coord spawnerLocation = new Coord(x, y, z);
-    SpawnerSettings spawnersSettings = dungeonSettings == null
-        ? settings.getSpawners()
-        : dungeonSettings.getLevelSettings(level).getSpawners();
-    SpawnerSettings.generate(editor, rand, spawnerLocation, level, spawnersSettings, ZOMBIE);
+    generateSpawner(editor, rand, settings, origin, spawnerLocation);
     return true;
   }
 

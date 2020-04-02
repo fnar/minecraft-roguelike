@@ -3,30 +3,34 @@ package greymerk.roguelike.dungeon.base;
 import java.util.List;
 import java.util.Random;
 
+import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
+import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
+import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
+import static greymerk.roguelike.worldgen.spawners.Spawner.ZOMBIE;
 import static java.util.Collections.shuffle;
 import static java.util.stream.Collectors.toList;
 
 public abstract class DungeonBase implements IDungeonRoom, Comparable<DungeonBase> {
 
-  private RoomSetting roomSetting;
+  private DungeonSettings dungeonSettings;
 
   public DungeonBase() {
   }
 
-  public RoomSetting getRoomSetting() {
-    return roomSetting;
+  public DungeonBase(RoomSetting roomSetting) {
+    dungeonSettings = Dungeon.settingsResolver.getByName(roomSetting.getSpawnerId());
   }
 
-  public DungeonBase(RoomSetting roomSetting) {
-    this.roomSetting = roomSetting;
+  public DungeonSettings getDungeonSettings() {
+    return dungeonSettings;
   }
 
   public static List<Coord> chooseRandomLocations(Random random, int limit, List<Coord> spaces) {
@@ -39,6 +43,13 @@ public abstract class DungeonBase implements IDungeonRoom, Comparable<DungeonBas
 
   @Override
   public abstract boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal[] entrances, Coord origin);
+
+  protected void generateSpawner(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Coord spawnerLocation) {
+    SpawnerSettings spawnersSettings = getDungeonSettings() == null
+        ? settings.getSpawners()
+        : getDungeonSettings().getLevelSettings(Dungeon.getLevel(origin.getY())).getSpawners();
+    SpawnerSettings.generate(editor, rand, spawnerLocation, Dungeon.getLevel(origin.getY()), spawnersSettings, ZOMBIE);
+  }
 
   @Override
   public abstract int getSize();
