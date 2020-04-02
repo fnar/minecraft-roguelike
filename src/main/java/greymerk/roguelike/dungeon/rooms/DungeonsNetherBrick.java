@@ -15,7 +15,7 @@ import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
-import greymerk.roguelike.worldgen.spawners.Spawner;
+import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 import static greymerk.roguelike.treasure.Treasure.COMMON_TREASURES;
 import static greymerk.roguelike.treasure.Treasure.createChests;
@@ -57,13 +57,13 @@ public class DungeonsNetherBrick extends DungeonBase {
     createChests(editor, rand, Dungeon.getLevel(y), chestLocations, false, COMMON_TREASURES);
 
     final Coord cursor = new Coord(x - length - 1, y + rand.nextInt(2), z - width - 1);
-    Spawner.generate(editor, rand, settings, cursor, settings.getDifficulty(cursor), COMMON_MOBS);
+    SpawnerSettings.generate(editor, rand, settings, cursor, settings.getDifficulty(cursor), COMMON_MOBS);
     final Coord cursor1 = new Coord(x - length - 1, y + rand.nextInt(2), z + width + 1);
-    Spawner.generate(editor, rand, settings, cursor1, settings.getDifficulty(cursor1), COMMON_MOBS);
+    SpawnerSettings.generate(editor, rand, settings, cursor1, settings.getDifficulty(cursor1), COMMON_MOBS);
     final Coord cursor2 = new Coord(x + length + 1, y + rand.nextInt(2), z - width - 1);
-    Spawner.generate(editor, rand, settings, cursor2, settings.getDifficulty(cursor2), COMMON_MOBS);
+    SpawnerSettings.generate(editor, rand, settings, cursor2, settings.getDifficulty(cursor2), COMMON_MOBS);
     final Coord cursor3 = new Coord(x + length + 1, y + rand.nextInt(2), z + width + 1);
-    Spawner.generate(editor, rand, settings, cursor3, settings.getDifficulty(cursor3), COMMON_MOBS);
+    SpawnerSettings.generate(editor, rand, settings, cursor3, settings.getDifficulty(cursor3), COMMON_MOBS);
 
     return true;
   }

@@ -13,7 +13,7 @@ import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
-import greymerk.roguelike.worldgen.spawners.Spawner;
+import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 import static greymerk.roguelike.worldgen.spawners.Spawner.NETHER_MOBS;
 
@@ -249,7 +249,7 @@ public class DungeonBlaze extends DungeonBase {
     end.add(Cardinal.SOUTH);
     end.add(Cardinal.WEST);
     RectSolid.fill(editor, rand, start, end, BlockType.get(BlockType.OBSIDIAN));
-    Spawner.generate(editor, rand, settings, cursor, settings.getDifficulty(cursor), NETHER_MOBS);
+    SpawnerSettings.generate(editor, rand, settings, cursor, settings.getDifficulty(cursor), NETHER_MOBS);
 
     return false;
   }

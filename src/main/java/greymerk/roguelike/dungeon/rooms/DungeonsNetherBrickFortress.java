@@ -17,7 +17,7 @@ import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.blocks.Crops;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
-import greymerk.roguelike.worldgen.spawners.Spawner;
+import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 import static greymerk.roguelike.treasure.Treasure.RARE_TREASURES;
 import static greymerk.roguelike.treasure.Treasure.createChests;
@@ -163,7 +163,7 @@ public class DungeonsNetherBrickFortress extends DungeonBase {
     end.add(UP, 5);
     RectSolid.fill(editor, rand, start, end, lava);
     List<Coord> core = new RectSolid(start, end).get();
-    Spawner.generate(editor, rand, settings, core.get(rand.nextInt(core.size())), settings.getDifficulty(core.get(rand.nextInt(core.size()))), COMMON_MOBS);
+    SpawnerSettings.generate(editor, rand, settings, core.get(rand.nextInt(core.size())), settings.getDifficulty(core.get(rand.nextInt(core.size()))), COMMON_MOBS);
   }
 
   private void pillar(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin) {

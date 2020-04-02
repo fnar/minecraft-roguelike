@@ -13,6 +13,7 @@ import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.Spawner;
+import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 import static greymerk.roguelike.treasure.Treasure.COMMON_TREASURES;
 import static greymerk.roguelike.treasure.Treasure.createChests;
@@ -77,7 +78,7 @@ public class DungeonsSpiderNest extends DungeonBase {
     }
 
     final Coord cursor = new Coord(originX, originY, originZ);
-    Spawner.generate(editor, rand, settings, cursor, settings.getDifficulty(cursor), Spawner.CAVESPIDER);
+    SpawnerSettings.generate(editor, rand, settings, cursor, settings.getDifficulty(cursor), Spawner.CAVESPIDER);
 
     List<Coord> spaces = new RectSolid(
         new Coord(originX - dungeonLength, originY - 1, originZ - dungeonWidth),

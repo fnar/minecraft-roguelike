@@ -17,6 +17,7 @@ import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.Spawner;
+import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 public class DungeonsPrison extends DungeonBase {
 
@@ -330,9 +331,9 @@ public class DungeonsPrison extends DungeonBase {
 
     if (occupied) {
       if (rand.nextBoolean()) {
-        Spawner.generate(editor, rand, settings, origin, settings.getDifficulty(origin), Spawner.SKELETON);
+        SpawnerSettings.generate(editor, rand, settings, origin, settings.getDifficulty(origin), Spawner.SKELETON);
       } else {
-        Spawner.generate(editor, rand, settings, origin, settings.getDifficulty(origin), Spawner.ZOMBIE);
+        SpawnerSettings.generate(editor, rand, settings, origin, settings.getDifficulty(origin), Spawner.ZOMBIE);
       }
 
     }

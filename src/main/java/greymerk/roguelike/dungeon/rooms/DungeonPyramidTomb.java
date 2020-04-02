@@ -17,7 +17,7 @@ import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.blocks.StairType;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
-import greymerk.roguelike.worldgen.spawners.Spawner;
+import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 import static greymerk.roguelike.treasure.Treasure.ORE;
 import static greymerk.roguelike.treasure.Treasure.createChest;
@@ -221,7 +221,7 @@ public class DungeonPyramidTomb extends DungeonBase {
       cursor.add(end);
       blocks.set(editor, cursor);
       cursor.add(Cardinal.UP);
-      Spawner.generate(editor, rand, settings, cursor, settings.getDifficulty(cursor), UNDEAD_MOBS);
+      SpawnerSettings.generate(editor, rand, settings, cursor, settings.getDifficulty(cursor), UNDEAD_MOBS);
       cursor.add(Cardinal.UP);
       blocks.set(editor, cursor);
 

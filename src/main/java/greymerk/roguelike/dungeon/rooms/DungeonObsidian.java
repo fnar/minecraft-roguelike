@@ -16,7 +16,7 @@ import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
-import greymerk.roguelike.worldgen.spawners.Spawner;
+import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 import static greymerk.roguelike.treasure.Treasure.RARE_TREASURES;
 import static greymerk.roguelike.treasure.Treasure.createChest;
@@ -317,7 +317,7 @@ public class DungeonObsidian extends DungeonBase {
     innerPillars(editor, rand, theme, x, y, z);
 
     for (Coord space : spawners) {
-      Spawner.generate(editor, rand, settings, space, settings.getDifficulty(space), COMMON_MOBS);
+      SpawnerSettings.generate(editor, rand, settings, space, settings.getDifficulty(space), COMMON_MOBS);
     }
 
     BlockJumble crap = new BlockJumble();
