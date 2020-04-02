@@ -17,14 +17,12 @@ import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.blocks.Crops;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
-import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 import static greymerk.roguelike.treasure.Treasure.RARE_TREASURES;
 import static greymerk.roguelike.treasure.Treasure.createChests;
 import static greymerk.roguelike.worldgen.Cardinal.DOWN;
 import static greymerk.roguelike.worldgen.Cardinal.UP;
 import static greymerk.roguelike.worldgen.Cardinal.directions;
-import static greymerk.roguelike.worldgen.spawners.Spawner.COMMON_MOBS;
 
 public class DungeonsNetherBrickFortress extends DungeonBase {
 
@@ -32,8 +30,8 @@ public class DungeonsNetherBrickFortress extends DungeonBase {
     super(roomSetting);
   }
 
-  public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal[] entrances, Coord origin) {
-    ITheme theme = settings.getTheme();
+  public boolean generate(IWorldEditor editor, Random rand, LevelSettings levelSettings, Cardinal[] entrances, Coord origin) {
+    ITheme theme = levelSettings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();
     IStair stair = theme.getPrimary().getStair();
     IBlockFactory liquid = theme.getPrimary().getLiquid();
@@ -90,7 +88,7 @@ public class DungeonsNetherBrickFortress extends DungeonBase {
     List<Coord> chests = (new RectSolid(start, end).get());
 
     List<Coord> chestLocations = chooseRandomLocations(rand, rand.nextInt(3) + 1, chests);
-    createChests(editor, rand, settings.getDifficulty(origin), chestLocations, false, RARE_TREASURES);
+    createChests(editor, rand, levelSettings.getDifficulty(origin), chestLocations, false, RARE_TREASURES);
 
     for (Cardinal dir : directions) {
 
@@ -121,26 +119,26 @@ public class DungeonsNetherBrickFortress extends DungeonBase {
       cursor = new Coord(origin);
       cursor.add(dir, 4);
       cursor.add(dir.left(), 4);
-      supportPillar(editor, rand, settings, cursor);
+      supportPillar(editor, rand, levelSettings, cursor);
 
       for (Cardinal o : dir.orthogonal()) {
         cursor = new Coord(origin);
         cursor.add(dir, 7);
         cursor.add(o, 2);
-        pillar(editor, rand, settings, cursor);
+        pillar(editor, rand, levelSettings, cursor);
         cursor.add(o);
         cursor.add(o);
         cursor.add(o);
-        pillar(editor, rand, settings, cursor);
+        pillar(editor, rand, levelSettings, cursor);
       }
     }
 
     return true;
   }
 
-  private void supportPillar(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin) {
+  private void supportPillar(IWorldEditor editor, Random rand, LevelSettings levelSettings, Coord origin) {
 
-    ITheme theme = settings.getTheme();
+    ITheme theme = levelSettings.getTheme();
     IBlockFactory pillar = theme.getPrimary().getPillar();
     IStair stair = theme.getPrimary().getStair();
     MetaBlock lava = BlockType.get(BlockType.LAVA_FLOWING);
@@ -167,8 +165,9 @@ public class DungeonsNetherBrickFortress extends DungeonBase {
     end.add(UP, 5);
     RectSolid.fill(editor, rand, start, end, lava);
     List<Coord> core = new RectSolid(start, end).get();
-    SpawnerSettings spawners = settings.getSpawners();
-    SpawnerSettings.generate(editor, rand, core.get(rand.nextInt(core.size())), settings.getDifficulty(core.get(rand.nextInt(core.size()))), spawners, COMMON_MOBS);
+    Coord spawnerLocation = core.get(rand.nextInt(core.size()));
+    int difficulty = levelSettings.getDifficulty(spawnerLocation);
+    generateSpawner(editor, rand, spawnerLocation, difficulty, levelSettings);
   }
 
   private void pillar(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin) {
