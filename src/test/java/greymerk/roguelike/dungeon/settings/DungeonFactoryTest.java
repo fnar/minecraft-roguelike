@@ -8,6 +8,7 @@ import org.junit.Test;
 import java.util.Random;
 
 import greymerk.roguelike.config.RogueConfig;
+import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonFactory;
 import greymerk.roguelike.dungeon.base.DungeonRoom;
 import greymerk.roguelike.dungeon.rooms.DungeonCorner;
@@ -104,6 +105,8 @@ public class DungeonFactoryTest {
 
   @Test
   public void testGetSingle() {
+    Dungeon.settingsResolver = new SettingsResolver(new SettingsContainer());
+
 
     Random rand = new Random();
 

@@ -35,8 +35,8 @@ public class DungeonsPit extends DungeonBase {
   IBlockFactory blocks;
   MetaBlock air = BlockType.get(BlockType.AIR);
 
-  public DungeonsPit() {
-    super();
+  public DungeonsPit(RoomSetting roomSetting) {
+    super(roomSetting);
     dungeonHeight = 3;
     dungeonLength = 2;
     dungeonWidth = 2;

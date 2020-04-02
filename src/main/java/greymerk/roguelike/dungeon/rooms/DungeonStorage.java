@@ -21,6 +21,10 @@ import static greymerk.roguelike.treasure.Treasure.createChests;
 
 public class DungeonStorage extends DungeonBase {
 
+  public DungeonStorage(RoomSetting roomSetting) {
+    super(roomSetting);
+  }
+
   private static void pillarTop(IWorldEditor editor, Random rand, ITheme theme, Coord cursor) {
     IStair step = theme.getSecondary().getStair();
     for (Cardinal dir : Cardinal.directions) {

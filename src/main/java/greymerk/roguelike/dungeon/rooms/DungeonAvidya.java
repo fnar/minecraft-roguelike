@@ -22,6 +22,10 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class DungeonAvidya extends DungeonBase {
 
+  public DungeonAvidya(RoomSetting roomSetting) {
+    super(roomSetting);
+  }
+
   private static void pillarTop(IWorldEditor editor, Random rand, Coord cursor) {
     IStair step = new MetaStair(StairType.QUARTZ);
     for (Cardinal dir : Cardinal.directions) {

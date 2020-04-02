@@ -18,6 +18,10 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class DungeonOssuary extends DungeonBase {
 
+  public DungeonOssuary(RoomSetting roomSetting) {
+    super(roomSetting);
+  }
+
   @Override
   public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal[] entrances, Coord origin) {
     ITheme theme = settings.getTheme();

@@ -16,6 +16,10 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class DungeonPyramidCorner extends DungeonBase {
 
+  public DungeonPyramidCorner(RoomSetting roomSetting) {
+    super(roomSetting);
+  }
+
   @Override
   public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal[] entrances, Coord origin) {
 

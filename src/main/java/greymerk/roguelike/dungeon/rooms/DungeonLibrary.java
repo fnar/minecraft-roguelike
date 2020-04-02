@@ -27,6 +27,10 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class DungeonLibrary extends DungeonBase {
 
+  public DungeonLibrary(RoomSetting roomSetting) {
+    super(roomSetting);
+  }
+
   @Override
   public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal[] entrances, Coord origin) {
 

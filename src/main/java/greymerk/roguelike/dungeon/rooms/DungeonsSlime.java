@@ -18,6 +18,10 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class DungeonsSlime extends DungeonBase {
 
+  public DungeonsSlime(RoomSetting roomSetting) {
+    super(roomSetting);
+  }
+
   public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal[] entrances, Coord origin) {
     ITheme theme = settings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();

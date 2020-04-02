@@ -26,6 +26,10 @@ import static greymerk.roguelike.treasure.Treasure.createChest;
 
 public class DungeonMess extends DungeonBase {
 
+  public DungeonMess(RoomSetting roomSetting) {
+    super(roomSetting);
+  }
+
   @Override
   public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal[] entrances, Coord origin) {
 

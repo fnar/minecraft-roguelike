@@ -21,6 +21,10 @@ import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 public class DungeonsEnder extends DungeonBase {
 
 
+  public DungeonsEnder(RoomSetting roomSetting) {
+    super(roomSetting);
+  }
+
   public boolean generate(IWorldEditor editor, Random inRandom, LevelSettings settings, Cardinal[] entrances, Coord origin) {
 
     MetaBlock black = BlockType.get(BlockType.OBSIDIAN);
