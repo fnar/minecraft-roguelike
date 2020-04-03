@@ -25,7 +25,7 @@ public class DungeonsEnder extends DungeonBase {
     super(roomSetting);
   }
 
-  public boolean generate(IWorldEditor editor, Random inRandom, LevelSettings settings, Cardinal[] entrances, Coord origin) {
+  public boolean generate(IWorldEditor editor, Random inRandom, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     MetaBlock black = BlockType.get(BlockType.OBSIDIAN);
     MetaBlock white = Quartz.get(Quartz.SMOOTH);

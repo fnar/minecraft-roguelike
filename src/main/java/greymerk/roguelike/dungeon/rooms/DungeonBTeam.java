@@ -41,7 +41,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class DungeonBTeam extends DungeonBase {
 
   @Override
-  public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal[] entrances, Coord origin) {
+  public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     MetaBlock air = BlockType.get(BlockType.AIR);
     IStair stair = new MetaStair(StairType.SPRUCE);

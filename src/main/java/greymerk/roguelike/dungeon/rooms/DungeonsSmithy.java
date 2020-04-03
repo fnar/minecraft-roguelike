@@ -30,7 +30,7 @@ import static greymerk.roguelike.treasure.Treasure.createChest;
 
 public class DungeonsSmithy extends DungeonBase {
 
-  public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal[] entrances, Coord origin) {
+  public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     ITheme theme = settings.getTheme();
 

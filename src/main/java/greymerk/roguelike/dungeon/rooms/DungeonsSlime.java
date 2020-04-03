@@ -22,7 +22,7 @@ public class DungeonsSlime extends DungeonBase {
     super(roomSetting);
   }
 
-  public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal[] entrances, Coord origin) {
+  public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
     ITheme theme = settings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();
     MetaBlock bars = BlockType.get(BlockType.IRON_BAR);

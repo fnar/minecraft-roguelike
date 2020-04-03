@@ -42,7 +42,7 @@ public abstract class DungeonBase implements IDungeonRoom, Comparable<DungeonBas
   }
 
   @Override
-  public abstract boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal[] entrances, Coord origin);
+  public abstract boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances);
 
   protected void generateSpawner(IWorldEditor editor, Random rand, Coord spawnerLocation, int difficulty, LevelSettings levelSettings) {
     SpawnerSettings spawnersSettings = getDungeonSettings() == null

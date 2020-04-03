@@ -30,7 +30,7 @@ public class FortressRoom extends DungeonBase {
     super(roomSetting);
   }
 
-  public boolean generate(IWorldEditor editor, Random rand, LevelSettings levelSettings, Cardinal[] entrances, Coord origin) {
+  public boolean generate(IWorldEditor editor, Random rand, LevelSettings levelSettings, Coord origin, Cardinal[] entrances) {
     ITheme theme = levelSettings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();
     IStair stair = theme.getPrimary().getStair();

@@ -30,14 +30,14 @@ public enum LevelGenerator {
   public static void generateLevelLink(IWorldEditor editor, Random rand, LevelSettings settings, DungeonNode start, DungeonNode end) {
 
     IDungeonRoom downstairs = new DungeonLinker();
-    downstairs.generate(editor, rand, settings, Cardinal.directions, start.getPosition());
+    downstairs.generate(editor, rand, settings, start.getPosition(), Cardinal.directions);
 
     if (end == null) {
       return;
     }
 
     IDungeonRoom upstairs = new DungeonLinkerTop();
-    upstairs.generate(editor, rand, settings, end.getEntrances(), end.getPosition());
+    upstairs.generate(editor, rand, settings, end.getPosition(), end.getEntrances());
 
     IStair stair = settings.getTheme().getPrimary().getStair();
 

@@ -30,7 +30,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class DungeonFirework extends DungeonBase {
 
   @Override
-  public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal[] entrances, Coord origin) {
+  public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     int x = origin.getX();
     int y = origin.getY();

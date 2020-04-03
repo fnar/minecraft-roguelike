@@ -54,7 +54,7 @@ public class SecretRoom {
     RectSolid.fill(editor, rand, pos, end, BlockType.get(BlockType.AIR));
 
     end.add(Cardinal.DOWN);
-    prototype.generate(editor, rand, settings, new Cardinal[]{dir}, end);
+    prototype.generate(editor, rand, settings, end, new Cardinal[]{dir});
     return prototype;
   }
 
