@@ -48,9 +48,9 @@ public class DungeonFactory implements IDungeonFactory {
     rooms.base = CORNER;
     range(0, numRooms).forEach(i -> {
       if (rand.nextBoolean()) {
-        rooms.addRandom(getRandomRoom(rand).newRandomRoomSetting(1));
+        rooms.add(getRandomRoom(rand).newRandomRoomSetting(1));
       } else {
-        rooms.addSingle(getRandomRoom(rand).newSingleRoomSetting());
+        rooms.add(getRandomRoom(rand).newSingleRoomSetting());
       }
     });
     return rooms;
@@ -58,11 +58,21 @@ public class DungeonFactory implements IDungeonFactory {
 
   public void add(RoomSetting roomSetting) {
     if (roomSetting.getFrequency().equals("single")) {
-      addSingle(roomSetting);
+      addSingleRoom(roomSetting);
     }
     if (roomSetting.getFrequency().equals("random")) {
-      addRandom(roomSetting.getDungeonRoom().newRandomRoomSetting(roomSetting.getWeight()));
+      addRandomRoom(roomSetting);
     }
+  }
+
+  private void addSingleRoom(RoomSetting roomSetting) {
+    range(0, roomSetting.getCount())
+        .mapToObj(operand -> roomSetting)
+        .forEach(singleRoomSettings::add);
+  }
+
+  private void addRandomRoom(RoomSetting roomSetting) {
+    roomRandomizer.add(new WeightedChoice<>(roomSetting, roomSetting.getWeight()));
   }
 
   public IDungeonRoom get(Random random) {
@@ -79,16 +89,6 @@ public class DungeonFactory implements IDungeonFactory {
     }
 
     return roomRandomizer.get(random).instantiate();
-  }
-
-  public void addSingle(RoomSetting roomSetting) {
-    range(0, roomSetting.getCount())
-        .mapToObj(operand -> roomSetting)
-        .forEach(singleRoomSettings::add);
-  }
-
-  public void addRandom(RoomSetting roomSetting) {
-    roomRandomizer.add(new WeightedChoice<>(roomSetting, roomSetting.getWeight()));
   }
 
   @Override

@@ -39,11 +39,11 @@ public class SettingsForestTheme extends DungeonSettings {
       switch (i) {
         case 0:
           rooms = new DungeonFactory();
-          rooms.addRandom(DungeonRoom.CORNER.newRandomRoomSetting(8));
-          rooms.addRandom(DungeonRoom.BRICK.newRandomRoomSetting(3));
-          rooms.addSingle(DungeonRoom.CAKE.newSingleRoomSetting());
-          rooms.addSingle(DungeonRoom.DARKHALL.newSingleRoomSetting());
-          rooms.addSingle(DungeonRoom.LIBRARY.newSingleRoomSetting());
+          rooms.add(DungeonRoom.CORNER.newRandomRoomSetting(8));
+          rooms.add(DungeonRoom.BRICK.newRandomRoomSetting(3));
+          rooms.add(DungeonRoom.CAKE.newSingleRoomSetting());
+          rooms.add(DungeonRoom.DARKHALL.newSingleRoomSetting());
+          rooms.add(DungeonRoom.LIBRARY.newSingleRoomSetting());
           level.setRooms(rooms);
           secrets = new SecretFactory();
           secrets.addRoom(DungeonRoom.SMITH);
@@ -63,13 +63,13 @@ public class SettingsForestTheme extends DungeonSettings {
           break;
         case 1:
           rooms = new DungeonFactory();
-          rooms.addSingle(DungeonRoom.MUSIC.newSingleRoomSetting());
-          rooms.addSingle(DungeonRoom.PIT.newSingleRoomSetting());
-          rooms.addSingle(DungeonRoom.LAB.newSingleRoomSetting());
-          rooms.addSingle(DungeonRoom.SLIME.newSingleRoomSetting());
-          rooms.addSingle(DungeonRoom.SLIME.newSingleRoomSetting());
-          rooms.addRandom(DungeonRoom.CORNER.newRandomRoomSetting(10));
-          rooms.addRandom(DungeonRoom.BRICK.newRandomRoomSetting(3));
+          rooms.add(DungeonRoom.MUSIC.newSingleRoomSetting());
+          rooms.add(DungeonRoom.PIT.newSingleRoomSetting());
+          rooms.add(DungeonRoom.LAB.newSingleRoomSetting());
+          rooms.add(DungeonRoom.SLIME.newSingleRoomSetting());
+          rooms.add(DungeonRoom.SLIME.newSingleRoomSetting());
+          rooms.add(DungeonRoom.CORNER.newRandomRoomSetting(10));
+          rooms.add(DungeonRoom.BRICK.newRandomRoomSetting(3));
           level.setRooms(rooms);
           level.setTheme(Theme.DARKHALL.getThemeBase());
           segments = new SegmentGenerator(Segment.ARCH);

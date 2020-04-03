@@ -37,51 +37,51 @@ public class SettingsRooms extends DungeonSettings {
       switch (i) {
         case 0:
           factory = new DungeonFactory();
-          factory.addSingle(CAKE.newSingleRoomSetting());
-          factory.addSingle(FIRE.newSingleRoomSetting());
-          factory.addRandom(BRICK.newRandomRoomSetting(4));
-          factory.addRandom(CORNER.newRandomRoomSetting(2));
+          factory.add(CAKE.newSingleRoomSetting());
+          factory.add(FIRE.newSingleRoomSetting());
+          factory.add(BRICK.newRandomRoomSetting(4));
+          factory.add(CORNER.newRandomRoomSetting(2));
           break;
         case 1:
           factory = new DungeonFactory();
-          factory.addSingle(PIT.newSingleRoomSetting());
-          factory.addRandom(CORNER.newRandomRoomSetting(10));
-          factory.addRandom(BRICK.newRandomRoomSetting(3));
+          factory.add(PIT.newSingleRoomSetting());
+          factory.add(CORNER.newRandomRoomSetting(10));
+          factory.add(BRICK.newRandomRoomSetting(3));
           break;
         case 2:
           factory = new DungeonFactory();
-          factory.addSingle(OSSUARY.newSingleRoomSetting());
-          factory.addSingle(CRYPT.newSingleRoomSetting());
-          factory.addSingle(CREEPER.newSingleRoomSetting());
-          factory.addSingle(FIRE.newSingleRoomSetting());
-          factory.addSingle(SPIDER.newSingleRoomSetting());
-          factory.addSingle(PRISON.newSingleRoomSetting());
-          factory.addRandom(CRYPT.newRandomRoomSetting(5));
-          factory.addRandom(CORNER.newRandomRoomSetting(5));
-          factory.addRandom(BRICK.newRandomRoomSetting(3));
+          factory.add(OSSUARY.newSingleRoomSetting());
+          factory.add(CRYPT.newSingleRoomSetting());
+          factory.add(CREEPER.newSingleRoomSetting());
+          factory.add(FIRE.newSingleRoomSetting());
+          factory.add(SPIDER.newSingleRoomSetting());
+          factory.add(PRISON.newSingleRoomSetting());
+          factory.add(CRYPT.newRandomRoomSetting(5));
+          factory.add(CORNER.newRandomRoomSetting(5));
+          factory.add(BRICK.newRandomRoomSetting(3));
           break;
         case 3:
           factory = new DungeonFactory();
-          factory.addSingle(OSSUARY.newSingleRoomSetting());
-          factory.addSingle(ENDER.newSingleRoomSetting());
-          factory.addSingle(CRYPT.newSingleRoomSetting());
-          factory.addRandom(PRISON.newRandomRoomSetting(3));
-          factory.addRandom(SLIME.newRandomRoomSetting(5));
-          factory.addRandom(CREEPER.newRandomRoomSetting(1));
-          factory.addRandom(SPIDER.newRandomRoomSetting(1));
-          factory.addRandom(PIT.newRandomRoomSetting(1));
+          factory.add(OSSUARY.newSingleRoomSetting());
+          factory.add(ENDER.newSingleRoomSetting());
+          factory.add(CRYPT.newSingleRoomSetting());
+          factory.add(PRISON.newRandomRoomSetting(3));
+          factory.add(SLIME.newRandomRoomSetting(5));
+          factory.add(CREEPER.newRandomRoomSetting(1));
+          factory.add(SPIDER.newRandomRoomSetting(1));
+          factory.add(PIT.newRandomRoomSetting(1));
           break;
         case 4:
           factory = new DungeonFactory();
-          factory.addSingle(OBSIDIAN.newSingleRoomSetting());
-          factory.addSingle(BLAZE.newSingleRoomSetting());
-          factory.addSingle(PRISON.newSingleRoomSetting());
-          factory.addSingle(DARKHALL.newSingleRoomSetting());
-          factory.addSingle(FORTRESS.newSingleRoomSetting());
-          factory.addRandom(SLIME.newRandomRoomSetting(10));
-          factory.addRandom(BLAZE.newRandomRoomSetting(3));
-          factory.addRandom(NETHER.newRandomRoomSetting(3));
-          factory.addRandom(SPIDER.newRandomRoomSetting(2));
+          factory.add(OBSIDIAN.newSingleRoomSetting());
+          factory.add(BLAZE.newSingleRoomSetting());
+          factory.add(PRISON.newSingleRoomSetting());
+          factory.add(DARKHALL.newSingleRoomSetting());
+          factory.add(FORTRESS.newSingleRoomSetting());
+          factory.add(SLIME.newRandomRoomSetting(10));
+          factory.add(BLAZE.newRandomRoomSetting(3));
+          factory.add(NETHER.newRandomRoomSetting(3));
+          factory.add(SPIDER.newRandomRoomSetting(2));
           break;
         default:
           factory = new DungeonFactory();
