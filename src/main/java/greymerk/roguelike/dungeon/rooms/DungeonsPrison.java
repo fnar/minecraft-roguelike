@@ -18,7 +18,9 @@ import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.Spawner;
 import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode
 public class DungeonsPrison extends DungeonBase {
 
   @Override

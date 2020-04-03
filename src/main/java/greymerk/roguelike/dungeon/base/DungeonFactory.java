@@ -82,6 +82,7 @@ public class DungeonFactory implements IDungeonFactory {
   }
 
   private IDungeonRoom instantiate(DungeonRoom dungeonRoom) {
+    // todo: refactor: pull room setting up and out
     return dungeonRoom.instantiate(newRoomSetting(dungeonRoom, 1));
   }
 
@@ -99,7 +100,7 @@ public class DungeonFactory implements IDungeonFactory {
     return new RoomSetting(type, null, "builtin:spawner", "single", 0, count, Collections.emptyList());
   }
 
-  public void addSingleRoom(RoomSetting roomSetting, int count) {
+  private void addSingleRoom(RoomSetting roomSetting, int count) {
     range(0, count)
         .mapToObj(operand -> roomSetting)
         .forEach(singleRoomSettings::add);

@@ -157,7 +157,7 @@ public class DungeonSettingsParser {
         RoomSetting roomSetting = RoomSettingParser.parse(roomSettingJson);
         if (roomSetting.isOnFloorLevel(floorLevel)) {
           if (roomSetting.isSecret()) {
-            secretFactory.add(roomSettingJson);
+            secretFactory.add(roomSetting);
           } else {
             dungeonFactory.add(roomSetting);
           }

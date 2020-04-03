@@ -21,10 +21,12 @@ import greymerk.roguelike.worldgen.blocks.Furnace;
 import greymerk.roguelike.worldgen.redstone.Torch;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
+import lombok.EqualsAndHashCode;
 
 import static greymerk.roguelike.treasure.Treasure.STARTER;
 import static greymerk.roguelike.treasure.Treasure.createChest;
 
+@EqualsAndHashCode
 public class DungeonBedRoom extends DungeonBase {
 
   public void pillar(IWorldEditor editor, Random rand, Cardinal dir, ITheme theme, final Coord base) {
