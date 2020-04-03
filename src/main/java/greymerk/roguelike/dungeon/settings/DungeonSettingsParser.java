@@ -11,7 +11,7 @@ import java.util.List;
 
 import greymerk.roguelike.dungeon.LevelGenerator;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
-import greymerk.roguelike.dungeon.base.SecretFactory;
+import greymerk.roguelike.dungeon.base.SecretsSetting;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.rooms.RoomSettingParser;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
@@ -151,13 +151,13 @@ public class DungeonSettingsParser {
     for (int floorLevel : dungeonSettings.getLevels().keySet()) {
 
       RoomsSetting roomsSetting = new RoomsSetting();
-      SecretFactory secretFactory = new SecretFactory();
+      SecretsSetting secretsSetting = new SecretsSetting();
       for (JsonElement roomSettingElement : roomArray) {
         JsonObject roomSettingJson = roomSettingElement.getAsJsonObject();
         RoomSetting roomSetting = RoomSettingParser.parse(roomSettingJson);
         if (roomSetting.isOnFloorLevel(floorLevel)) {
           if (roomSetting.isSecret()) {
-            secretFactory.add(roomSetting);
+            secretsSetting.add(roomSetting);
           } else {
             roomsSetting.add(roomSetting);
           }
@@ -166,7 +166,7 @@ public class DungeonSettingsParser {
 
       LevelSettings level = dungeonSettings.getLevels().get(floorLevel);
       level.setRooms(roomsSetting);
-      level.setSecrets(secretFactory);
+      level.setSecrets(secretsSetting);
     }
   }
 

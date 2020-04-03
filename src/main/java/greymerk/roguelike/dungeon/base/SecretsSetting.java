@@ -14,18 +14,18 @@ import lombok.ToString;
 @EqualsAndHashCode
 @Getter
 @ToString
-public class SecretFactory {
+public class SecretsSetting {
 
   private List<SecretRoom> secretRooms = Lists.newArrayList();
 
-  public SecretFactory() {
+  public SecretsSetting() {
   }
 
-  public SecretFactory(SecretFactory toCopy) {
+  public SecretsSetting(SecretsSetting toCopy) {
     getSecretRooms().addAll(toCopy.getSecretRooms());
   }
 
-  public SecretFactory(SecretFactory base, SecretFactory other) {
+  public SecretsSetting(SecretsSetting base, SecretsSetting other) {
     if (base != null) {
       getSecretRooms().addAll(base.getSecretRooms());
     }
@@ -35,8 +35,8 @@ public class SecretFactory {
     }
   }
 
-  public static SecretFactory getRandom(Random rand, int count) {
-    SecretFactory secrets = new SecretFactory();
+  public static SecretsSetting getRandom(Random rand, int count) {
+    SecretsSetting secrets = new SecretsSetting();
     IntStream.range(0, count).mapToObj(i -> RoomType.getRandomSecret(rand)).forEach(type -> secrets.add(type.newSingleRoomSetting()));
     return secrets;
   }

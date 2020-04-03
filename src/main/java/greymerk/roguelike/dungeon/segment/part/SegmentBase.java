@@ -5,7 +5,7 @@ import java.util.Random;
 
 import greymerk.roguelike.dungeon.IDungeonLevel;
 import greymerk.roguelike.dungeon.base.IDungeonRoom;
-import greymerk.roguelike.dungeon.base.SecretFactory;
+import greymerk.roguelike.dungeon.base.SecretsSetting;
 import greymerk.roguelike.dungeon.segment.ISegment;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
@@ -63,8 +63,8 @@ public abstract class SegmentBase implements ISegment {
         && !editor.isAirBlock(southWest);
   }
 
-  public Optional<IDungeonRoom> generateSecret(SecretFactory secretFactory, IWorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord pos) {
-    return secretFactory.getSecretRooms().stream()
+  public Optional<IDungeonRoom> generateSecret(SecretsSetting secretsSetting, IWorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord pos) {
+    return secretsSetting.getSecretRooms().stream()
         .filter(secretRoom -> secretRoom.isValid(editor, dir, pos))
         .findFirst()
         .map(secretRoom -> secretRoom.generate(editor, rand, settings, pos, dir));

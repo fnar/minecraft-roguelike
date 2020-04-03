@@ -12,7 +12,7 @@ import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.dungeon.LevelGenerator;
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
-import greymerk.roguelike.dungeon.base.SecretFactory;
+import greymerk.roguelike.dungeon.base.SecretsSetting;
 import greymerk.roguelike.worldgen.filter.Filter;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -86,13 +86,13 @@ public class LevelSettingsTest {
     LevelSettings base = new LevelSettings();
     LevelSettings other = new LevelSettings();
 
-    SecretFactory baseSecrets = new SecretFactory();
-    SecretFactory otherSecrets = new SecretFactory();
+    SecretsSetting baseSecrets = new SecretsSetting();
+    SecretsSetting otherSecrets = new SecretsSetting();
 
     base.setSecrets(baseSecrets);
     other.setSecrets(otherSecrets);
 
-    SecretFactory controlSecrets = new SecretFactory();
+    SecretsSetting controlSecrets = new SecretsSetting();
     LevelSettings control = new LevelSettings();
     control.setSecrets(controlSecrets);
 

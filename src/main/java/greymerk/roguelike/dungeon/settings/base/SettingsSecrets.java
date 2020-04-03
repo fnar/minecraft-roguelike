@@ -1,6 +1,6 @@
 package greymerk.roguelike.dungeon.settings.base;
 
-import greymerk.roguelike.dungeon.base.SecretFactory;
+import greymerk.roguelike.dungeon.base.SecretsSetting;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.dungeon.settings.SettingIdentifier;
@@ -14,7 +14,7 @@ public class SettingsSecrets extends DungeonSettings {
     super(ID);
     for (int i = 0; i < 5; ++i) {
 
-      SecretFactory factory = new SecretFactory();
+      SecretsSetting factory = new SecretsSetting();
 
       switch (i) {
         case 0:
