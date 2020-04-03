@@ -20,58 +20,50 @@ public abstract class SegmentBase implements ISegment {
 
   @Override
   public void generate(IWorldEditor editor, Random rand, IDungeonLevel level, Cardinal dir, ITheme theme, Coord pos) {
-
-    if (level.hasNearbyNode(new Coord(pos))) {
-      return;
-    }
-
-    if (isValidWall(editor, dir, new Coord(pos))) {
-      genWall(editor, rand, level, dir, theme, new Coord(pos));
+    if (!level.hasNearbyNode(pos) && isValidWall(editor, dir, pos)) {
+      genWall(editor, rand, level, dir, theme, pos);
     }
   }
 
   protected abstract void genWall(IWorldEditor editor, Random rand, IDungeonLevel level, Cardinal dir, ITheme theme, Coord pos);
 
   protected boolean isValidWall(IWorldEditor editor, Cardinal wallDirection, Coord pos) {
+    return isValidNorthWall(wallDirection, editor, pos)
+        || isValidSouthWall(wallDirection, editor, pos)
+        || isValidEastWall(wallDirection, editor, pos)
+        || isValidWestWall(wallDirection, editor, pos);
+  }
 
-    switch (wallDirection) {
-      case NORTH:
-        if (editor.isAirBlock(new Coord(-1, 1, -2).add(pos))) {
-          return false;
-        }
-        if (editor.isAirBlock(new Coord(1, 1, -2).add(pos))) {
-          return false;
-        }
-        break;
-      case SOUTH:
-        if (editor.isAirBlock(new Coord(-1, 1, 2).add(pos))) {
-          return false;
-        }
-        if (editor.isAirBlock(new Coord(1, 1, 2).add(pos))) {
-          return false;
-        }
-        break;
-      case EAST:
-        if (editor.isAirBlock(new Coord(2, 1, -1).add(pos))) {
-          return false;
-        }
-        if (editor.isAirBlock(new Coord(2, 1, 1).add(pos))) {
-          return false;
-        }
-        break;
-      case WEST:
-        if (editor.isAirBlock(new Coord(-2, 1, -1).add(pos))) {
-          return false;
-        }
-        if (editor.isAirBlock(new Coord(-2, 1, 1).add(pos))) {
-          return false;
-        }
-        break;
-      default:
-        return false;
-    }
+  private boolean isValidNorthWall(Cardinal wallDirection, IWorldEditor editor, Coord pos) {
+    Coord northWest = new Coord(-1, 1, -2).add(pos);
+    Coord northEast = new Coord(1, 1, -2).add(pos);
+    return wallDirection == Cardinal.NORTH
+        && !editor.isAirBlock(northWest)
+        && !editor.isAirBlock(northEast);
+  }
 
-    return true;
+  private boolean isValidSouthWall(Cardinal wallDirection, IWorldEditor editor, Coord pos) {
+    Coord southWest = new Coord(-1, 1, 2).add(pos);
+    Coord southEast = new Coord(1, 1, 2).add(pos);
+    return wallDirection == Cardinal.SOUTH
+        && !editor.isAirBlock(southWest)
+        && !editor.isAirBlock(southEast);
+  }
+
+  private boolean isValidEastWall(Cardinal wallDirection, IWorldEditor editor, Coord pos) {
+    Coord northWest = new Coord(2, 1, -1).add(pos);
+    Coord southEast = new Coord(2, 1, 1).add(pos);
+    return wallDirection == Cardinal.EAST
+        && !editor.isAirBlock(northWest)
+        && !editor.isAirBlock(southEast);
+  }
+
+  private boolean isValidWestWall(Cardinal wallDirection, IWorldEditor editor, Coord pos) {
+    Coord northWest = new Coord(-2, 1, -1).add(pos);
+    Coord southWest = new Coord(-2, 1, 1).add(pos);
+    return wallDirection == Cardinal.WEST
+        && !editor.isAirBlock(northWest)
+        && !editor.isAirBlock(southWest);
   }
 
   public Optional<IDungeonRoom> generateSecret(SecretFactory secretFactory, IWorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord pos) {
