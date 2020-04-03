@@ -31,28 +31,28 @@ public class DungeonFactoryTest {
     DungeonFactory other = new DungeonFactory();
     assertThat(base).isEqualTo(other);
 
-    base.addSingle(DungeonRoom.BRICK.newSingleRoomSetting());
+    base.add(DungeonRoom.BRICK.newSingleRoomSetting());
     assertThat(base).isNotEqualTo(other);
 
-    other.addSingle(DungeonRoom.BRICK.newSingleRoomSetting());
+    other.add(DungeonRoom.BRICK.newSingleRoomSetting());
     assertThat(base).isEqualTo(other);
 
-    base.addRandom(DungeonRoom.CRYPT.newRandomRoomSetting(2));
+    base.add(DungeonRoom.CRYPT.newRandomRoomSetting(2));
     assertThat(base).isNotEqualTo(other);
 
-    other.addRandom(DungeonRoom.CRYPT.newRandomRoomSetting(2));
+    other.add(DungeonRoom.CRYPT.newRandomRoomSetting(2));
     assertThat(base).isEqualTo(other);
 
-    base.addRandom(DungeonRoom.DARKHALL.newRandomRoomSetting(3));
+    base.add(DungeonRoom.DARKHALL.newRandomRoomSetting(3));
     assertThat(base).isNotEqualTo(other);
 
-    other.addRandom(DungeonRoom.DARKHALL.newRandomRoomSetting(1));
+    other.add(DungeonRoom.DARKHALL.newRandomRoomSetting(1));
     assertThat(base).isNotEqualTo(other);
 
-    other.addRandom(DungeonRoom.DARKHALL.newRandomRoomSetting(3));
+    other.add(DungeonRoom.DARKHALL.newRandomRoomSetting(3));
     assertThat(base).isNotEqualTo(other);
 
-    base.addRandom(DungeonRoom.DARKHALL.newRandomRoomSetting(1));
+    base.add(DungeonRoom.DARKHALL.newRandomRoomSetting(1));
     assertThat(base).isNotEqualTo(other);
   }
 
@@ -63,45 +63,45 @@ public class DungeonFactoryTest {
     DungeonFactory other = new DungeonFactory();
 
     DungeonFactory third = new DungeonFactory();
-    base.addRandom(DungeonRoom.BLAZE.newRandomRoomSetting(5));
-    base.addRandom(DungeonRoom.CAKE.newRandomRoomSetting(1));
-    base.addRandom(DungeonRoom.SLIME.newRandomRoomSetting(2));
+    base.add(DungeonRoom.BLAZE.newRandomRoomSetting(5));
+    base.add(DungeonRoom.CAKE.newRandomRoomSetting(1));
+    base.add(DungeonRoom.SLIME.newRandomRoomSetting(2));
 
     DungeonFactory merge = new DungeonFactory(base, other);
     assertThat(third).isNotEqualTo(merge);
 
-    third.addRandom(DungeonRoom.CAKE.newRandomRoomSetting(1));
+    third.add(DungeonRoom.CAKE.newRandomRoomSetting(1));
     assertThat(third).isNotEqualTo(merge);
 
-    third.addRandom(DungeonRoom.SLIME.newRandomRoomSetting(2));
+    third.add(DungeonRoom.SLIME.newRandomRoomSetting(2));
     assertThat(third).isNotEqualTo(merge);
 
-    third.addRandom(DungeonRoom.BLAZE.newRandomRoomSetting(1));
+    third.add(DungeonRoom.BLAZE.newRandomRoomSetting(1));
     assertThat(third).isNotEqualTo(merge);
 
-    third.addRandom(DungeonRoom.BLAZE.newRandomRoomSetting(5));
+    third.add(DungeonRoom.BLAZE.newRandomRoomSetting(5));
     assertThat(third).isNotEqualTo(merge);
   }
 
   @Test
   public void testMerge1() {
     DungeonFactory base = new DungeonFactory();
-    base.addRandom(DungeonRoom.BLAZE.newRandomRoomSetting(5));
-    base.addRandom(DungeonRoom.CAKE.newRandomRoomSetting(1));
-    base.addRandom(DungeonRoom.SLIME.newRandomRoomSetting(2));
+    base.add(DungeonRoom.BLAZE.newRandomRoomSetting(5));
+    base.add(DungeonRoom.CAKE.newRandomRoomSetting(1));
+    base.add(DungeonRoom.SLIME.newRandomRoomSetting(2));
 
     DungeonFactory third = new DungeonFactory(base);
-    base.addSingle(DungeonRoom.CREEPER.newSingleRoomSetting());
-    base.addSingle(DungeonRoom.CREEPER.newSingleRoomSetting());
-    base.addSingle(DungeonRoom.CREEPER.newSingleRoomSetting());
+    base.add(DungeonRoom.CREEPER.newSingleRoomSetting());
+    base.add(DungeonRoom.CREEPER.newSingleRoomSetting());
+    base.add(DungeonRoom.CREEPER.newSingleRoomSetting());
     DungeonFactory merge = new DungeonFactory(base, new DungeonFactory());
     assertThat(third).isNotEqualTo(merge);
 
-    third.addSingle(DungeonRoom.CREEPER.newSingleRoomSetting());
+    third.add(DungeonRoom.CREEPER.newSingleRoomSetting());
     assertThat(third).isNotEqualTo(merge);
 
-    third.addSingle(DungeonRoom.CREEPER.newSingleRoomSetting());
-    third.addSingle(DungeonRoom.CREEPER.newSingleRoomSetting());
+    third.add(DungeonRoom.CREEPER.newSingleRoomSetting());
+    third.add(DungeonRoom.CREEPER.newSingleRoomSetting());
     assertThat(third).isEqualTo(merge);
   }
 
@@ -116,14 +116,14 @@ public class DungeonFactoryTest {
     assertThat(rooms.get(rand)).isInstanceOf(DungeonCorner.class);
 
     rooms = new DungeonFactory(DungeonRoom.CORNER);
-    rooms.addSingle(DungeonRoom.CAKE.newSingleRoomSetting());
-    rooms.addSingle(DungeonRoom.CAKE.newSingleRoomSetting());
+    rooms.add(DungeonRoom.CAKE.newSingleRoomSetting());
+    rooms.add(DungeonRoom.CAKE.newSingleRoomSetting());
     assertThat(rooms.get(rand)).isInstanceOf(DungeonsWood.class);
     assertThat(rooms.get(rand)).isInstanceOf(DungeonsWood.class);
     assertThat(rooms.get(rand)).isInstanceOf(DungeonCorner.class);
 
     rooms = new DungeonFactory(DungeonRoom.CORNER);
-    rooms.addSingle(DungeonRoom.PIT.newSingleRoomSetting());
+    rooms.add(DungeonRoom.PIT.newSingleRoomSetting());
     assertThat(rooms.get(rand)).isInstanceOf(DungeonsPit.class);
   }
 }

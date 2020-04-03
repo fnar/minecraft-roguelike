@@ -37,18 +37,18 @@ public class LevelSettingsTest {
 
     DungeonFactory baseRooms = new DungeonFactory();
     DungeonFactory otherRooms = new DungeonFactory();
-    baseRooms.addRandom(DungeonRoom.BRICK.newRandomRoomSetting(1));
+    baseRooms.add(DungeonRoom.BRICK.newRandomRoomSetting(1));
     base.setRooms(baseRooms);
     assertThat(base).isNotEqualTo(other);
 
-    otherRooms.addRandom(DungeonRoom.BRICK.newRandomRoomSetting(1));
+    otherRooms.add(DungeonRoom.BRICK.newRandomRoomSetting(1));
     other.setRooms(otherRooms);
     assertThat(base).isEqualTo(other);
 
-    baseRooms.addRandom(DungeonRoom.CAKE.newRandomRoomSetting(2));
+    baseRooms.add(DungeonRoom.CAKE.newRandomRoomSetting(2));
     assertThat(base).isNotEqualTo(other);
 
-    otherRooms.addRandom(DungeonRoom.CAKE.newRandomRoomSetting(2));
+    otherRooms.add(DungeonRoom.CAKE.newRandomRoomSetting(2));
     assertThat(base).isEqualTo(other);
   }
 
@@ -72,11 +72,11 @@ public class LevelSettingsTest {
     LevelSettings merge = new LevelSettings(base, other, overrides);
     assertThat(control).isEqualTo(merge);
 
-    baseRooms.addSingle(DungeonRoom.CAKE.newSingleRoomSetting());
+    baseRooms.add(DungeonRoom.CAKE.newSingleRoomSetting());
     merge = new LevelSettings(base, other, overrides);
     assertThat(control).isNotEqualTo(merge);
 
-    controlRooms.addSingle(DungeonRoom.CAKE.newSingleRoomSetting());
+    controlRooms.add(DungeonRoom.CAKE.newSingleRoomSetting());
     assertThat(control).isEqualTo(merge);
   }
 
