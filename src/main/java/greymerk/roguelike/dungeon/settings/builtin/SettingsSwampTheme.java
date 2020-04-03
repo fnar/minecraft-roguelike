@@ -66,10 +66,10 @@ public class SettingsSwampTheme extends DungeonSettings {
         level.setSegments(segments);
 
         DungeonFactory factory = new DungeonFactory();
-        factory.addSingle(DungeonRoom.CAKE);
-        factory.addSingle(DungeonRoom.DARKHALL);
-        factory.addRandom(DungeonRoom.BRICK, 10);
-        factory.addRandom(DungeonRoom.CORNER, 3);
+        factory.addSingle(DungeonRoom.CAKE.newSingleRoomSetting());
+        factory.addSingle(DungeonRoom.DARKHALL.newSingleRoomSetting());
+        factory.addRandom(DungeonRoom.BRICK.newRandomRoomSetting(10));
+        factory.addRandom(DungeonRoom.CORNER.newRandomRoomSetting(3));
         level.setRooms(factory);
         level.addFilter(Filter.MUD);
       }
@@ -84,13 +84,13 @@ public class SettingsSwampTheme extends DungeonSettings {
         level.setSegments(segments);
 
         DungeonFactory factory = new DungeonFactory();
-        factory.addSingle(DungeonRoom.CAKE);
-        factory.addSingle(DungeonRoom.LAB);
-        factory.addSingle(DungeonRoom.SPIDER);
-        factory.addSingle(DungeonRoom.PIT);
-        factory.addSingle(DungeonRoom.PRISON);
-        factory.addRandom(DungeonRoom.BRICK, 10);
-        factory.addRandom(DungeonRoom.CORNER, 3);
+        factory.addSingle(DungeonRoom.CAKE.newSingleRoomSetting());
+        factory.addSingle(DungeonRoom.LAB.newSingleRoomSetting());
+        factory.addSingle(DungeonRoom.SPIDER.newSingleRoomSetting());
+        factory.addSingle(DungeonRoom.PIT.newSingleRoomSetting());
+        factory.addSingle(DungeonRoom.PRISON.newSingleRoomSetting());
+        factory.addRandom(DungeonRoom.BRICK.newRandomRoomSetting(10));
+        factory.addRandom(DungeonRoom.CORNER.newRandomRoomSetting(3));
         level.setRooms(factory);
         level.addFilter(Filter.MUD);
       }

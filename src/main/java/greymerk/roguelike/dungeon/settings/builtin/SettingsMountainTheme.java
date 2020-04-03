@@ -42,10 +42,10 @@ public class SettingsMountainTheme extends DungeonSettings {
         DungeonFactory factory;
 
         factory = new DungeonFactory();
-        factory.addSingle(DungeonRoom.LIBRARY);
-        factory.addSingle(DungeonRoom.FIRE);
-        factory.addRandom(DungeonRoom.ENIKO, 10);
-        factory.addRandom(DungeonRoom.CORNER, 3);
+        factory.addSingle(DungeonRoom.LIBRARY.newSingleRoomSetting());
+        factory.addSingle(DungeonRoom.FIRE.newSingleRoomSetting());
+        DungeonRoom.ENIKO.newRandomRoomSetting(10);
+        DungeonRoom.CORNER.newRandomRoomSetting(3);
         level.setRooms(factory);
 
         SecretFactory secrets = new SecretFactory();
@@ -69,12 +69,12 @@ public class SettingsMountainTheme extends DungeonSettings {
 
         DungeonFactory factory;
         factory = new DungeonFactory();
-        factory.addSingle(DungeonRoom.FIRE);
-        factory.addSingle(DungeonRoom.MESS);
-        factory.addSingle(DungeonRoom.LIBRARY);
-        factory.addSingle(DungeonRoom.LAB);
-        factory.addRandom(DungeonRoom.ENIKO, 10);
-        factory.addRandom(DungeonRoom.CORNER, 3);
+        factory.addSingle(DungeonRoom.FIRE.newSingleRoomSetting());
+        factory.addSingle(DungeonRoom.MESS.newSingleRoomSetting());
+        factory.addSingle(DungeonRoom.LIBRARY.newSingleRoomSetting());
+        factory.addSingle(DungeonRoom.LAB.newSingleRoomSetting());
+        factory.addRandom(DungeonRoom.ENIKO.newRandomRoomSetting(10));
+        factory.addRandom(DungeonRoom.CORNER.newRandomRoomSetting(3));
         level.setRooms(factory);
 
         SecretFactory secrets = new SecretFactory();
@@ -94,12 +94,12 @@ public class SettingsMountainTheme extends DungeonSettings {
 
         DungeonFactory factory;
         factory = new DungeonFactory();
-        factory.addRandom(DungeonRoom.BRICK, 4);
-        factory.addRandom(DungeonRoom.SLIME, 7);
-        factory.addRandom(DungeonRoom.CORNER, 3);
-        factory.addRandom(DungeonRoom.SPIDER, 2);
-        factory.addRandom(DungeonRoom.PIT, 2);
-        factory.addRandom(DungeonRoom.PRISON, 3);
+        factory.addRandom(DungeonRoom.BRICK.newRandomRoomSetting(4));
+        factory.addRandom(DungeonRoom.SLIME.newRandomRoomSetting(7));
+        factory.addRandom(DungeonRoom.CORNER.newRandomRoomSetting(3));
+        factory.addRandom(DungeonRoom.SPIDER.newRandomRoomSetting(2));
+        factory.addRandom(DungeonRoom.PIT.newRandomRoomSetting(2));
+        factory.addRandom(DungeonRoom.PRISON.newRandomRoomSetting(3));
         level.setRooms(factory);
       }
 

@@ -1,7 +1,6 @@
 package greymerk.roguelike.dungeon.base;
 
 
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,18 +9,20 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.util.WeightedChoice;
 import greymerk.roguelike.util.WeightedRandomizer;
+import lombok.ToString;
 
 import static com.google.common.collect.Lists.newLinkedList;
 import static greymerk.roguelike.dungeon.base.DungeonRoom.CORNER;
 import static greymerk.roguelike.dungeon.base.DungeonRoom.getRandomRoom;
 import static java.util.stream.IntStream.range;
 
+@ToString
 public class DungeonFactory implements IDungeonFactory {
 
   private DungeonRoom base = CORNER;
   private Iterator<IDungeonRoom> singleRoomsIterator;
   private List<RoomSetting> singleRoomSettings = new LinkedList<>();
-  private WeightedRandomizer<DungeonRoom> dungeonRoomWeightedRandomizer = new WeightedRandomizer<>();
+  private WeightedRandomizer<RoomSetting> roomRandomizer = new WeightedRandomizer<>();
 
   public DungeonFactory() {
   }
@@ -32,14 +33,14 @@ public class DungeonFactory implements IDungeonFactory {
 
   public DungeonFactory(DungeonFactory toCopy) {
     singleRoomSettings = newLinkedList(toCopy.singleRoomSettings);
-    dungeonRoomWeightedRandomizer = new WeightedRandomizer<>(toCopy.dungeonRoomWeightedRandomizer);
+    roomRandomizer = new WeightedRandomizer<>(toCopy.roomRandomizer);
     base = toCopy.base;
   }
 
   public DungeonFactory(DungeonFactory parent, DungeonFactory child) {
     base = child.base;
     singleRoomSettings = newLinkedList((child.singleRoomSettings.isEmpty() ? parent : child).singleRoomSettings);
-    dungeonRoomWeightedRandomizer = new WeightedRandomizer<>((child.dungeonRoomWeightedRandomizer.isEmpty() ? parent : child).dungeonRoomWeightedRandomizer);
+    roomRandomizer = new WeightedRandomizer<>((child.roomRandomizer.isEmpty() ? parent : child).roomRandomizer);
   }
 
   public static DungeonFactory getRandom(Random rand, int numRooms) {
@@ -47,9 +48,9 @@ public class DungeonFactory implements IDungeonFactory {
     rooms.base = CORNER;
     range(0, numRooms).forEach(i -> {
       if (rand.nextBoolean()) {
-        rooms.addRandom(getRandomRoom(rand), 1);
+        rooms.addRandom(getRandomRoom(rand).newRandomRoomSetting(1));
       } else {
-        rooms.addSingle(getRandomRoom(rand), 1);
+        rooms.addSingle(getRandomRoom(rand).newSingleRoomSetting());
       }
     });
     return rooms;
@@ -57,10 +58,10 @@ public class DungeonFactory implements IDungeonFactory {
 
   public void add(RoomSetting roomSetting) {
     if (roomSetting.getFrequency().equals("single")) {
-      addSingleRoom(roomSetting, roomSetting.getCount());
+      addSingle(roomSetting);
     }
     if (roomSetting.getFrequency().equals("random")) {
-      addRandom(roomSetting.getDungeonRoom(), roomSetting.getWeight());
+      addRandom(roomSetting.getDungeonRoom().newRandomRoomSetting(roomSetting.getWeight()));
     }
   }
 
@@ -73,41 +74,21 @@ public class DungeonFactory implements IDungeonFactory {
       return singleRoomsIterator.next();
     }
 
-    if (dungeonRoomWeightedRandomizer.isEmpty()) {
-      return instantiate(base);
+    if (roomRandomizer.isEmpty()) {
+      return base.newSingleRoomSetting().instantiate();
     }
 
-    DungeonRoom dungeonRoom = dungeonRoomWeightedRandomizer.get(random);
-    return instantiate(dungeonRoom);
+    return roomRandomizer.get(random).instantiate();
   }
 
-  private IDungeonRoom instantiate(DungeonRoom dungeonRoom) {
-    // todo: refactor: pull room setting up and out
-    return newRoomSetting(dungeonRoom, 1).instantiate();
-  }
-
-  public void addSingle(DungeonRoom type) {
-    addSingle(type, 1);
-  }
-
-  public void addSingle(DungeonRoom type, int count) {
-    // TODO: the fact that I have to set an empty list of levels here indicates that levels is at the wrong code level. It should be higher up.
-    RoomSetting roomSetting = newRoomSetting(type, count);
-    addSingleRoom(roomSetting, count);
-  }
-
-  private RoomSetting newRoomSetting(DungeonRoom type, int count) {
-    return new RoomSetting(type, null, "builtin:spawner", "single", 0, count, Collections.emptyList());
-  }
-
-  private void addSingleRoom(RoomSetting roomSetting, int count) {
-    range(0, count)
+  public void addSingle(RoomSetting roomSetting) {
+    range(0, roomSetting.getCount())
         .mapToObj(operand -> roomSetting)
         .forEach(singleRoomSettings::add);
   }
 
-  public void addRandom(DungeonRoom type, int weight) {
-    dungeonRoomWeightedRandomizer.add(new WeightedChoice<>(type, weight));
+  public void addRandom(RoomSetting roomSetting) {
+    roomRandomizer.add(new WeightedChoice<>(roomSetting, roomSetting.getWeight()));
   }
 
   @Override
@@ -120,16 +101,6 @@ public class DungeonFactory implements IDungeonFactory {
     if (!singleRoomSettings.equals(other.singleRoomSettings)) {
       return false;
     }
-    return dungeonRoomWeightedRandomizer.equals(other.dungeonRoomWeightedRandomizer);
-  }
-
-  @Override
-  public String toString() {
-    return "DungeonFactory{" +
-        "base=" + base +
-        ", singleRoomsIterator=" + singleRoomsIterator +
-        ", singleRoomSettings=" + singleRoomSettings +
-        ", dungeonRoomWeightedRandomizer=" + dungeonRoomWeightedRandomizer +
-        '}';
+    return roomRandomizer.equals(other.roomRandomizer);
   }
 }

@@ -1,7 +1,11 @@
 package greymerk.roguelike.dungeon.base;
 
 
+import com.google.common.collect.Lists;
+
 import java.util.Random;
+
+import greymerk.roguelike.dungeon.rooms.RoomSetting;
 
 
 public enum DungeonRoom {
@@ -54,6 +58,14 @@ public enum DungeonRoom {
   public static DungeonRoom[] secrets = {
       BEDROOM, CAKE, ENCHANT, SMITH
   };
+
+  public RoomSetting newRandomRoomSetting(int weight) {
+    return new RoomSetting(this, null, "builtin:spawner", "random", weight, 1, Lists.newArrayList(0, 1, 2, 3, 4));
+  }
+
+  public RoomSetting newSingleRoomSetting() {
+    return new RoomSetting(this, null, "builtin:spawner", "single", 1, 1, Lists.newArrayList(0, 1, 2, 3, 4));
+  }
 
   public static DungeonRoom getRandomRoom(Random rand) {
     return intersectionRooms[rand.nextInt(intersectionRooms.length)];
