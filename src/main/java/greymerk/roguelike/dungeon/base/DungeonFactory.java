@@ -19,7 +19,7 @@ import static java.util.stream.IntStream.range;
 
 @ToString
 @EqualsAndHashCode
-public class DungeonFactory implements IDungeonFactory {
+public class DungeonFactory {
 
   private DungeonRoom base = CORNER;
   private Iterator<IDungeonRoom> singleRoomsIterator;
