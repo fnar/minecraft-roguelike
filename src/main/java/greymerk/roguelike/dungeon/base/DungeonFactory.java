@@ -21,7 +21,6 @@ import static java.util.stream.IntStream.range;
 @EqualsAndHashCode
 public class DungeonFactory {
 
-  private DungeonRoom base = CORNER;
   private Iterator<IDungeonRoom> singleRoomsIterator;
   private List<RoomSetting> singleRoomSettings = new LinkedList<>();
   private WeightedRandomizer<RoomSetting> roomRandomizer = new WeightedRandomizer<>();
@@ -29,25 +28,18 @@ public class DungeonFactory {
   public DungeonFactory() {
   }
 
-  public DungeonFactory(DungeonRoom base) {
-    this.base = base;
-  }
-
   public DungeonFactory(DungeonFactory toCopy) {
     singleRoomSettings = newLinkedList(toCopy.singleRoomSettings);
     roomRandomizer = new WeightedRandomizer<>(toCopy.roomRandomizer);
-    base = toCopy.base;
   }
 
   public DungeonFactory(DungeonFactory parent, DungeonFactory child) {
-    base = child.base;
     singleRoomSettings = newLinkedList((child.singleRoomSettings.isEmpty() ? parent : child).singleRoomSettings);
     roomRandomizer = new WeightedRandomizer<>((child.roomRandomizer.isEmpty() ? parent : child).roomRandomizer);
   }
 
   public static DungeonFactory getRandom(Random rand, int numRooms) {
     DungeonFactory rooms = new DungeonFactory();
-    rooms.base = CORNER;
     range(0, numRooms).forEach(i -> {
       if (rand.nextBoolean()) {
         rooms.add(getRandomRoom(rand).newRandomRoomSetting(1));
@@ -87,7 +79,7 @@ public class DungeonFactory {
     }
 
     if (roomRandomizer.isEmpty()) {
-      return base.newSingleRoomSetting().instantiate();
+      return CORNER.newSingleRoomSetting().instantiate();
     }
 
     return roomRandomizer.get(random).instantiate();
