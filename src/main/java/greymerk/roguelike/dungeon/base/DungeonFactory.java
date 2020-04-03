@@ -9,6 +9,7 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.util.WeightedChoice;
 import greymerk.roguelike.util.WeightedRandomizer;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import static com.google.common.collect.Lists.newLinkedList;
@@ -17,6 +18,7 @@ import static greymerk.roguelike.dungeon.base.DungeonRoom.getRandomRoom;
 import static java.util.stream.IntStream.range;
 
 @ToString
+@EqualsAndHashCode
 public class DungeonFactory implements IDungeonFactory {
 
   private DungeonRoom base = CORNER;
@@ -89,18 +91,5 @@ public class DungeonFactory implements IDungeonFactory {
     }
 
     return roomRandomizer.get(random).instantiate();
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    // I think this is only for tests, which means the behaviour isn't being tested, just the state
-    DungeonFactory other = (DungeonFactory) o;
-    if (!base.equals(other.base)) {
-      return false;
-    }
-    if (!singleRoomSettings.equals(other.singleRoomSettings)) {
-      return false;
-    }
-    return roomRandomizer.equals(other.roomRandomizer);
   }
 }
