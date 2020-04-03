@@ -34,7 +34,7 @@ public class SegmentBooks extends SegmentBase {
     end.add(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, air);
 
-    level.getSettings().getSecrets().generateSecretMaybe(editor, rand, level.getSettings(), dir, new Coord(origin));
+    generateSecret(level.getSettings().getSecrets(), editor, rand, level.getSettings(), dir, new Coord(origin));
 
     start.add(dir, 1);
     end.add(dir, 1);
