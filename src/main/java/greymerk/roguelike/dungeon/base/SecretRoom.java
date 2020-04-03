@@ -20,21 +20,18 @@ public class SecretRoom {
     this.roomSetting = roomSetting;
   }
 
-  private boolean isValid(IWorldEditor editor, Cardinal dir, Coord pos, IDungeonRoom prototype) {
-    if (roomSetting.getCount() <= 0) {
+  boolean isValid(IWorldEditor editor, Cardinal dir, Coord pos) {
+    if (getRoomSetting().getCount() <= 0) {
       return false;
     }
+    IDungeonRoom prototype = createPrototype();
     Coord cursor = new Coord(pos);
     cursor.add(dir, prototype.getSize() + 5);
-
     return prototype.validLocation(editor, dir, cursor);
   }
 
-  public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord pos) {
-    IDungeonRoom prototype = roomSetting.instantiate();
-    if (!isValid(editor, dir, pos, prototype)) {
-      return null;
-    }
+  public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord pos, Cardinal dir) {
+    IDungeonRoom prototype = createPrototype();
 
     int size = prototype.getSize();
 
@@ -54,8 +51,12 @@ public class SecretRoom {
     RectSolid.fill(editor, rand, pos, end, BlockType.get(BlockType.AIR));
 
     end.add(Cardinal.DOWN);
-    prototype.generate(editor, rand, settings, end, new Cardinal[]{dir});
+    prototype.generate(editor, rand, settings, end, dir);
     return prototype;
+  }
+
+  private IDungeonRoom createPrototype() {
+    return getRoomSetting().instantiate();
   }
 
   @Override
@@ -63,10 +64,14 @@ public class SecretRoom {
 
     SecretRoom other = (SecretRoom) o;
 
-    if (roomSetting.getRoomType() != other.roomSetting.getRoomType()) {
+    if (getRoomSetting().getRoomType() != other.getRoomSetting().getRoomType()) {
       return false;
     }
 
-    return roomSetting.getCount() == other.roomSetting.getCount();
+    return getRoomSetting().getCount() == other.getRoomSetting().getCount();
+  }
+
+  public RoomSetting getRoomSetting() {
+    return roomSetting;
   }
 }
