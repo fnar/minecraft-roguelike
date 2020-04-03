@@ -1,5 +1,6 @@
 package greymerk.roguelike.dungeon.segment.part;
 
+import java.util.Optional;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.IDungeonLevel;
@@ -37,7 +38,7 @@ public class SegmentDoor extends SegmentBase {
     RectSolid.fill(editor, rand, start, end, air);
 
     SecretFactory secrets = level.getSettings().getSecrets();
-    IDungeonRoom room = secrets.generateRoom(editor, rand, level.getSettings(), dir, new Coord(origin));
+    Optional<IDungeonRoom> secretMaybe = secrets.generateSecretMaybe(editor, rand, level.getSettings(), dir, new Coord(origin));
 
     start.add(dir, 1);
     end.add(dir, 1);
@@ -51,7 +52,7 @@ public class SegmentDoor extends SegmentBase {
       stair.set(editor, rand, c);
     }
 
-    if (room != null) {
+    if (secretMaybe.isPresent()) {
       cursor = new Coord(origin);
       cursor.add(dir, 3);
       theme.getSecondary().getDoor().generate(editor, cursor, dir.reverse());

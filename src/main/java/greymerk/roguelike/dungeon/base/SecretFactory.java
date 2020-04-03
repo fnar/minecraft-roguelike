@@ -74,8 +74,7 @@ public class SecretFactory {
     return new RoomSetting(type, null, "builtin:spawner", "single", 0, count, Collections.emptyList());
   }
 
-  // todo: return optional
-  public IDungeonRoom generateRoom(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord pos) {
+  public Optional<IDungeonRoom> generateSecretMaybe(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord pos) {
     return secretRooms.stream()
         .map(secretRoom -> {
           Optional<IDungeonRoom> dungeonRoomMaybe = ofNullable(secretRoom.generate(editor, rand, settings, dir, pos));
@@ -86,8 +85,7 @@ public class SecretFactory {
           return dungeonRoomMaybe.orElse(null);
         })
         .filter(Objects::nonNull)
-        .findFirst()
-        .orElse(null);
+        .findFirst();
   }
 
 }
