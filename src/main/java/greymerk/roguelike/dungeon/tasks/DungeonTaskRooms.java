@@ -29,7 +29,7 @@ public class DungeonTaskRooms implements IDungeonTask {
           continue;
         }
         IDungeonRoom toGenerate = node.getRoom();
-        toGenerate.generate(editor, rand, level.getSettings(), node.getEntrances(), node.getPosition());
+        toGenerate.generate(editor, rand, level.getSettings(), node.getPosition(), node.getEntrances());
       }
     }
 
