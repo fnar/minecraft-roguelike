@@ -11,9 +11,9 @@ import greymerk.roguelike.dungeon.IDungeonLevel;
 import greymerk.roguelike.dungeon.ILevelGenerator;
 import greymerk.roguelike.dungeon.ILevelLayout;
 import greymerk.roguelike.dungeon.LevelGenerator;
-import greymerk.roguelike.dungeon.base.DungeonFactory;
 import greymerk.roguelike.dungeon.base.DungeonRoom;
 import greymerk.roguelike.dungeon.base.IDungeonRoom;
+import greymerk.roguelike.dungeon.base.RoomIterator;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.ISettings;
 import greymerk.roguelike.worldgen.Cardinal;
@@ -23,14 +23,14 @@ import greymerk.roguelike.worldgen.IWorldEditor;
 public class DungeonTaskLayout implements IDungeonTask {
 
   @Override
-  public void execute(IWorldEditor editor, Random rand, IDungeon dungeon, ISettings settings) {
+  public void execute(IWorldEditor editor, Random random, IDungeon dungeon, ISettings settings) {
     List<IDungeonLevel> levels = dungeon.getLevels();
     Coord start = dungeon.getPosition();
 
 
     // generate level layouts
     for (IDungeonLevel level : levels) {
-      ILevelGenerator generator = LevelGenerator.getGenerator(editor, rand, level.getSettings().getGenerator(), level);
+      ILevelGenerator generator = LevelGenerator.getGenerator(editor, random, level.getSettings().getGenerator(), level);
 
       try {
         level.generate(generator, start);
@@ -39,7 +39,7 @@ public class DungeonTaskLayout implements IDungeonTask {
       }
 
       ILevelLayout layout = generator.getLayout();
-      rand = Dungeon.getRandom(editor, start);
+      random = Dungeon.getRandom(editor, start);
       start = new Coord(layout.getEnd().getPosition());
       start.add(Cardinal.DOWN, Dungeon.VERTICAL_SPACING);
     }
@@ -48,16 +48,13 @@ public class DungeonTaskLayout implements IDungeonTask {
     // assign dungeon rooms
     for (IDungeonLevel level : levels) {
       ILevelLayout layout = level.getLayout();
-      DungeonFactory rooms = level.getSettings().getRooms();
+      RoomIterator roomIterator = new RoomIterator(level.getSettings().getRooms(), random);
 
       int count = 0;
       while (layout.hasEmptyRooms()) {
-        IDungeonRoom toGenerate;
-        if (count < level.getSettings().getNumRooms()) {
-          toGenerate = DungeonFactory.get(rooms, rand);
-        } else {
-          toGenerate = cornerRoom().instantiate();
-        }
+        IDungeonRoom toGenerate = count < level.getSettings().getNumRooms()
+            ? roomIterator.getDungeonRoom()
+            : cornerRoom().instantiate();
         DungeonNode node = layout.getBestFit(toGenerate);
         node.setDungeon(toGenerate);
         ++count;

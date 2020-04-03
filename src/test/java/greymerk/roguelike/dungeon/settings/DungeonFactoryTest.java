@@ -11,6 +11,7 @@ import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonFactory;
 import greymerk.roguelike.dungeon.base.DungeonRoom;
+import greymerk.roguelike.dungeon.base.RoomIterator;
 import greymerk.roguelike.dungeon.rooms.DungeonCorner;
 import greymerk.roguelike.dungeon.rooms.DungeonsPit;
 import greymerk.roguelike.dungeon.rooms.DungeonsWood;
@@ -108,22 +109,20 @@ public class DungeonFactoryTest {
   @Test
   public void testGetSingle() {
     Dungeon.settingsResolver = new SettingsResolver(new SettingsContainer());
-
-
-    Random rand = new Random();
-
+    Random random = new Random();
     DungeonFactory rooms = new DungeonFactory();
-    assertThat(DungeonFactory.get(rooms, rand)).isInstanceOf(DungeonCorner.class);
+    assertThat(new RoomIterator(rooms, random).getDungeonRoom()).isInstanceOf(DungeonCorner.class);
 
     rooms = new DungeonFactory();
     rooms.add(DungeonRoom.CAKE.newSingleRoomSetting());
     rooms.add(DungeonRoom.CAKE.newSingleRoomSetting());
-    assertThat(DungeonFactory.get(rooms, rand)).isInstanceOf(DungeonsWood.class);
-    assertThat(DungeonFactory.get(rooms, rand)).isInstanceOf(DungeonsWood.class);
-    assertThat(DungeonFactory.get(rooms, rand)).isInstanceOf(DungeonCorner.class);
+    RoomIterator roomIterator = new RoomIterator(rooms, random);
+    assertThat(roomIterator.getDungeonRoom()).isInstanceOf(DungeonsWood.class);
+    assertThat(roomIterator.getDungeonRoom()).isInstanceOf(DungeonsWood.class);
+    assertThat(roomIterator.getDungeonRoom()).isInstanceOf(DungeonCorner.class);
 
     rooms = new DungeonFactory();
     rooms.add(DungeonRoom.PIT.newSingleRoomSetting());
-    assertThat(DungeonFactory.get(rooms, rand)).isInstanceOf(DungeonsPit.class);
+    assertThat(new RoomIterator(rooms, random).getDungeonRoom()).isInstanceOf(DungeonsPit.class);
   }
 }
