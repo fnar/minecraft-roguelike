@@ -23,7 +23,8 @@ public class SecretFactoryTest {
 
     SecretFactory test = new SecretFactory();
     test.addRoom(RoomType.FIREWORK);
-    test.addRoom(RoomType.BEDROOM, 2);
+    test.addRoom(RoomType.BEDROOM);
+    test.addRoom(RoomType.BEDROOM);
     test.addRoom(RoomType.PRISON);
 
     SecretFactory expected = new SecretFactory(secrets1, secrets2);
@@ -34,7 +35,9 @@ public class SecretFactoryTest {
   @Ignore // ugh, I'm being bad
   public void testAdd() {
     SecretFactory threeBeds = new SecretFactory();
-    threeBeds.addRoom(RoomType.BEDROOM, 3);
+    threeBeds.addRoom(RoomType.BEDROOM);
+    threeBeds.addRoom(RoomType.BEDROOM);
+    threeBeds.addRoom(RoomType.BEDROOM);
 
     SecretFactory test = new SecretFactory();
     test.addRoom(RoomType.BEDROOM);
@@ -51,7 +54,7 @@ public class SecretFactoryTest {
     secrets1.addRoom(RoomType.BEDROOM);
 
     SecretFactory secrets2 = new SecretFactory();
-    secrets2.addRoom(RoomType.BEDROOM, 1);
+    secrets2.addRoom(RoomType.BEDROOM);
 
     assertThat(secrets1).isEqualTo(secrets2);
 
