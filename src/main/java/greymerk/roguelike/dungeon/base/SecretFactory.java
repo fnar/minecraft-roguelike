@@ -1,115 +1,93 @@
 package greymerk.roguelike.dungeon.base;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.google.common.collect.Lists;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Random;
+import java.util.stream.IntStream;
 
+import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IWorldEditor;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
+import static java.util.Optional.ofNullable;
+
+@EqualsAndHashCode
+@ToString
 public class SecretFactory {
 
-  private Map<DungeonRoom, ISecretRoom> secrets;
-
+  private List<SecretRoom> secretRooms = Lists.newArrayList();
 
   public SecretFactory() {
-    secrets = new HashMap<>();
   }
 
   public SecretFactory(SecretFactory toCopy) {
-    this();
-    for (DungeonRoom type : toCopy.secrets.keySet()) {
-      int count = toCopy.secrets.get(type).getCount();
-      addRoom(type, count);
-    }
+    idkCopy(toCopy);
   }
 
   public SecretFactory(SecretFactory base, SecretFactory other) {
-    this();
     if (base != null) {
-      for (DungeonRoom type : base.secrets.keySet()) {
-        int count = base.secrets.get(type).getCount();
-        addRoom(type, count);
-      }
+      idkCopy(base);
     }
 
     if (other != null) {
-      for (DungeonRoom type : other.secrets.keySet()) {
-        int count = other.secrets.get(type).getCount();
-        addRoom(type, count);
-      }
+      idkCopy(other);
     }
   }
 
-  public SecretFactory(JsonArray data) {
-    this();
-    for (JsonElement e : data) {
-      JsonObject room = e.getAsJsonObject();
-      add(room);
-    }
+  private void idkCopy(SecretFactory toCopy) {
+    toCopy.secretRooms.forEach(this::addRoom);
   }
 
   public static SecretFactory getRandom(Random rand, int count) {
     SecretFactory secrets = new SecretFactory();
-    for (int i = 0; i < count; ++i) {
-      secrets.addRoom(DungeonRoom.getRandomSecret(rand));
-    }
+    IntStream.range(0, count).mapToObj(i -> DungeonRoom.getRandomSecret(rand)).forEach(secrets::addRoom);
     return secrets;
   }
 
-  public void add(JsonObject room) {
-    String type = room.get("name").getAsString();
-    int count = room.get("count").getAsInt();
-    addRoom(DungeonRoom.valueOf(type), count);
+  public void add(RoomSetting roomSetting) {
+    addRoom(roomSetting.getDungeonRoom(), roomSetting.getCount());
   }
 
   public void addRoom(DungeonRoom type) {
     addRoom(type, 1);
   }
 
-  public void addRoom(DungeonRoom type, int count) {
-
-    ISecretRoom room;
-
-    if (secrets.containsKey(type)) {
-      room = secrets.get(type);
-      room.add(count);
-      return;
-    }
-
-    room = new SecretRoom(type, count);
-    secrets.put(type, room);
+  private void addRoom(SecretRoom secretRoom) {
+    secretRooms.add(secretRoom);
   }
 
+  public void addRoom(DungeonRoom type, int count) {
+    RoomSetting roomSetting = newRoomSetting(type, count);
+    IntStream.range(0, count)
+        .forEach(value -> secretRooms.add(new SecretRoom(roomSetting)));
+  }
+
+  private RoomSetting newRoomSetting(DungeonRoom type, int count) {
+    return new RoomSetting(type, null, "builtin:spawner", "single", 0, count, Collections.emptyList());
+  }
+
+  // todo: return optional
   public IDungeonRoom generateRoom(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord pos) {
-    return secrets.values().stream()
-        .map(room -> room.generate(editor, rand, settings, dir, pos))
-        .filter(Objects::nonNull).findFirst()
+    return secretRooms.stream()
+        .map(secretRoom -> {
+          Optional<IDungeonRoom> dungeonRoomMaybe = ofNullable(secretRoom.generate(editor, rand, settings, dir, pos));
+          if (!dungeonRoomMaybe.isPresent()) {
+            return dungeonRoomMaybe.orElse(null);
+          }
+          secretRooms.remove(secretRoom);
+          return dungeonRoomMaybe.orElse(null);
+        })
+        .filter(Objects::nonNull)
+        .findFirst()
         .orElse(null);
   }
 
-  @Override
-  public boolean equals(Object o) {
-
-    SecretFactory other = (SecretFactory) o;
-
-    if (!secrets.keySet().equals(other.secrets.keySet())) {
-      return false;
-    }
-
-    for (DungeonRoom type : secrets.keySet()) {
-      if (!secrets.get(type).equals(other.secrets.get(type))) {
-        return false;
-      }
-    }
-
-    return true;
-  }
 }

@@ -2,27 +2,26 @@ package greymerk.roguelike.dungeon.base;
 
 import java.util.Random;
 
+import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
+import lombok.ToString;
 
-public class SecretRoom implements ISecretRoom {
+@ToString
+public class SecretRoom {
 
-  DungeonRoom type;
-  private int count;
-  private IDungeonRoom prototype;
+  private final RoomSetting roomSetting;
 
-  public SecretRoom(DungeonRoom type, int count) {
-    this.count = count;
-    this.type = type;
-    prototype = type.instantiate(null);
+  public SecretRoom(RoomSetting roomSetting) {
+    this.roomSetting = roomSetting;
   }
 
-  private boolean isValid(IWorldEditor editor, Cardinal dir, Coord pos) {
-    if (count <= 0) {
+  private boolean isValid(IWorldEditor editor, Cardinal dir, Coord pos, IDungeonRoom prototype) {
+    if (roomSetting.getCount() <= 0) {
       return false;
     }
     Coord cursor = new Coord(pos);
@@ -31,19 +30,9 @@ public class SecretRoom implements ISecretRoom {
     return prototype.validLocation(editor, dir, cursor);
   }
 
-  @Override
-  public void add(int count) {
-    this.count += count;
-  }
-
-  @Override
-  public int getCount() {
-    return count;
-  }
-
-  @Override
   public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord pos) {
-    if (!isValid(editor, dir, pos)) {
+    IDungeonRoom prototype = roomSetting.getDungeonRoom().instantiate(roomSetting);
+    if (!isValid(editor, dir, pos, prototype)) {
       return null;
     }
 
@@ -66,12 +55,7 @@ public class SecretRoom implements ISecretRoom {
 
     end.add(Cardinal.DOWN);
     prototype.generate(editor, rand, settings, new Cardinal[]{dir}, end);
-    count -= 1;
-
-    IDungeonRoom generated = prototype;
-    prototype = type.instantiate(null);
-
-    return generated;
+    return prototype;
   }
 
   @Override
@@ -79,10 +63,10 @@ public class SecretRoom implements ISecretRoom {
 
     SecretRoom other = (SecretRoom) o;
 
-    if (type != other.type) {
+    if (roomSetting.getDungeonRoom() != other.roomSetting.getDungeonRoom()) {
       return false;
     }
 
-    return count == other.count;
+    return roomSetting.getCount() == other.roomSetting.getCount();
   }
 }

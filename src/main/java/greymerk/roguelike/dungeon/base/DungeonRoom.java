@@ -103,6 +103,7 @@ public enum DungeonRoom {
     return secrets[rand.nextInt(secrets.length)];
   }
 
+  // todo: Move to RoomSetting
   public IDungeonRoom instantiate(RoomSetting roomSetting) {
     switch (this) {
       case ASHLEA:
