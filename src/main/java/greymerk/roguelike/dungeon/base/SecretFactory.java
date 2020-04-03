@@ -3,7 +3,6 @@ package greymerk.roguelike.dungeon.base;
 import com.google.common.collect.Lists;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
 import java.util.stream.IntStream;
@@ -15,8 +14,6 @@ import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IWorldEditor;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
-
-import static java.util.Optional.ofNullable;
 
 @EqualsAndHashCode
 @ToString
@@ -54,16 +51,9 @@ public class SecretFactory {
 
   public Optional<IDungeonRoom> generateSecretMaybe(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord pos) {
     return secretRooms.stream()
-        .map(secretRoom -> {
-          Optional<IDungeonRoom> dungeonRoomMaybe = ofNullable(secretRoom.generate(editor, rand, settings, dir, pos));
-          if (!dungeonRoomMaybe.isPresent()) {
-            return dungeonRoomMaybe.orElse(null);
-          }
-          secretRooms.remove(secretRoom);
-          return dungeonRoomMaybe.orElse(null);
-        })
-        .filter(Objects::nonNull)
-        .findFirst();
+        .filter(secretRoom -> secretRoom.isValid(editor, dir, pos))
+        .findFirst()
+        .map(secretRoom -> secretRoom.generate(editor, rand, settings, pos, dir));
   }
 
 }
