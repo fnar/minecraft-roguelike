@@ -2,29 +2,45 @@ package greymerk.roguelike.dungeon.base;
 
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
+import java.util.Random;
 
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
+import greymerk.roguelike.util.WeightedRandomizer;
 
+import static greymerk.roguelike.dungeon.base.DungeonRoom.CORNER;
 import static java.util.stream.Collectors.toCollection;
 
-class RoomIterator implements Iterator<IDungeonRoom> {
+public class RoomIterator implements Iterator<IDungeonRoom> {
 
-  private LinkedList<IDungeonRoom> rooms;
+  private final LinkedList<IDungeonRoom> singleRooms;
+  private final WeightedRandomizer<RoomSetting> randomRooms;
+  private Random random;
 
-  public RoomIterator(List<RoomSetting> singleRoomSettings) {
-    rooms = singleRoomSettings.stream()
+  public RoomIterator(DungeonFactory dungeonFactory, Random random) {
+    singleRooms = dungeonFactory.getSingleRoomSettings().stream()
         .map(RoomSetting::instantiate)
         .collect(toCollection(LinkedList::new));
+    randomRooms = dungeonFactory.getRoomRandomizer();
+    this.random = random;
+  }
+
+  public IDungeonRoom getDungeonRoom() {
+    if (hasNext()) {
+      return next();
+    } else if (randomRooms.isEmpty()) {
+      return CORNER.newSingleRoomSetting().instantiate();
+    } else {
+      return randomRooms.get(random).instantiate();
+    }
   }
 
   @Override
   public boolean hasNext() {
-    return !rooms.isEmpty();
+    return !singleRooms.isEmpty();
   }
 
   @Override
   public IDungeonRoom next() {
-    return rooms.poll();
+    return singleRooms.poll();
   }
 }

@@ -113,17 +113,17 @@ public class DungeonFactoryTest {
     Random rand = new Random();
 
     DungeonFactory rooms = new DungeonFactory();
-    assertThat(rooms.get(rand)).isInstanceOf(DungeonCorner.class);
+    assertThat(DungeonFactory.get(rooms, rand)).isInstanceOf(DungeonCorner.class);
 
     rooms = new DungeonFactory();
     rooms.add(DungeonRoom.CAKE.newSingleRoomSetting());
     rooms.add(DungeonRoom.CAKE.newSingleRoomSetting());
-    assertThat(rooms.get(rand)).isInstanceOf(DungeonsWood.class);
-    assertThat(rooms.get(rand)).isInstanceOf(DungeonsWood.class);
-    assertThat(rooms.get(rand)).isInstanceOf(DungeonCorner.class);
+    assertThat(DungeonFactory.get(rooms, rand)).isInstanceOf(DungeonsWood.class);
+    assertThat(DungeonFactory.get(rooms, rand)).isInstanceOf(DungeonsWood.class);
+    assertThat(DungeonFactory.get(rooms, rand)).isInstanceOf(DungeonCorner.class);
 
     rooms = new DungeonFactory();
     rooms.add(DungeonRoom.PIT.newSingleRoomSetting());
-    assertThat(rooms.get(rand)).isInstanceOf(DungeonsPit.class);
+    assertThat(DungeonFactory.get(rooms, rand)).isInstanceOf(DungeonsPit.class);
   }
 }
