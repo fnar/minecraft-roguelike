@@ -10,7 +10,7 @@ import java.util.Set;
 
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.LevelGenerator;
-import greymerk.roguelike.dungeon.base.DungeonFactory;
+import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.base.SecretFactory;
 import greymerk.roguelike.dungeon.segment.ISegmentGenerator;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
@@ -37,7 +37,7 @@ public class LevelSettings {
   private int range = LEVEL_RANGE;
   private int scatter = SCATTER;
   private int levelDifficulty = -1;
-  private DungeonFactory rooms = new DungeonFactory();
+  private RoomsSetting rooms = new RoomsSetting();
   private SecretFactory secrets = new SecretFactory();
   private ITheme theme;
   private SegmentGenerator segments;
@@ -84,9 +84,9 @@ public class LevelSettings {
         ? child.levelDifficulty : parent.levelDifficulty;
 
     if (overrides.contains(ROOMS)) {
-      rooms = new DungeonFactory(child.rooms);
+      rooms = new RoomsSetting(child.rooms);
     } else {
-      rooms = new DungeonFactory(parent.rooms, child.rooms);
+      rooms = new RoomsSetting(parent.rooms, child.rooms);
     }
 
     if (overrides.contains(SECRETS)) {
@@ -125,7 +125,7 @@ public class LevelSettings {
     range = toCopy.range;
     scatter = toCopy.scatter;
     levelDifficulty = toCopy.levelDifficulty;
-    rooms = toCopy.rooms != null ? new DungeonFactory(toCopy.rooms) : null;
+    rooms = toCopy.rooms != null ? new RoomsSetting(toCopy.rooms) : null;
     secrets = toCopy.secrets != null ? new SecretFactory(toCopy.secrets) : null;
     theme = toCopy.theme;
     segments = toCopy.segments != null ? new SegmentGenerator(toCopy.segments) : null;
@@ -171,11 +171,11 @@ public class LevelSettings {
     levelDifficulty = num;
   }
 
-  public DungeonFactory getRooms() {
-    return rooms != null ? rooms : new DungeonFactory();
+  public RoomsSetting getRooms() {
+    return rooms != null ? rooms : new RoomsSetting();
   }
 
-  public void setRooms(DungeonFactory rooms) {
+  public void setRooms(RoomsSetting rooms) {
     this.rooms = rooms;
   }
 

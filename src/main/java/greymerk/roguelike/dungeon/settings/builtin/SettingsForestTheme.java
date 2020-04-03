@@ -1,7 +1,7 @@
 package greymerk.roguelike.dungeon.settings.builtin;
 
-import greymerk.roguelike.dungeon.base.DungeonFactory;
 import greymerk.roguelike.dungeon.base.DungeonRoom;
+import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.base.SecretFactory;
 import greymerk.roguelike.dungeon.segment.Segment;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
@@ -32,13 +32,13 @@ public class SettingsForestTheme extends DungeonSettings {
 
       LevelSettings level = new LevelSettings();
       SecretFactory secrets;
-      DungeonFactory rooms;
+      RoomsSetting rooms;
       SegmentGenerator segments;
 
 
       switch (i) {
         case 0:
-          rooms = new DungeonFactory();
+          rooms = new RoomsSetting();
           rooms.add(DungeonRoom.CORNER.newRandomRoomSetting(8));
           rooms.add(DungeonRoom.BRICK.newRandomRoomSetting(3));
           rooms.add(DungeonRoom.CAKE.newSingleRoomSetting());
@@ -62,7 +62,7 @@ public class SettingsForestTheme extends DungeonSettings {
           level.setSegments(segments);
           break;
         case 1:
-          rooms = new DungeonFactory();
+          rooms = new RoomsSetting();
           rooms.add(DungeonRoom.MUSIC.newSingleRoomSetting());
           rooms.add(DungeonRoom.PIT.newSingleRoomSetting());
           rooms.add(DungeonRoom.LAB.newSingleRoomSetting());

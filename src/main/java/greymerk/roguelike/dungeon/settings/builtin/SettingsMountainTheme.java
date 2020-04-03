@@ -1,7 +1,7 @@
 package greymerk.roguelike.dungeon.settings.builtin;
 
-import greymerk.roguelike.dungeon.base.DungeonFactory;
 import greymerk.roguelike.dungeon.base.DungeonRoom;
+import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.base.SecretFactory;
 import greymerk.roguelike.dungeon.segment.Segment;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
@@ -39,9 +39,9 @@ public class SettingsMountainTheme extends DungeonSettings {
         level.setRange(60);
         level.setNumRooms(10);
 
-        DungeonFactory factory;
+        RoomsSetting factory;
 
-        factory = new DungeonFactory();
+        factory = new RoomsSetting();
         factory.add(DungeonRoom.LIBRARY.newSingleRoomSetting());
         factory.add(DungeonRoom.FIRE.newSingleRoomSetting());
         DungeonRoom.ENIKO.newRandomRoomSetting(10);
@@ -67,8 +67,8 @@ public class SettingsMountainTheme extends DungeonSettings {
         level.setRange(80);
         level.setNumRooms(20);
 
-        DungeonFactory factory;
-        factory = new DungeonFactory();
+        RoomsSetting factory;
+        factory = new RoomsSetting();
         factory.add(DungeonRoom.FIRE.newSingleRoomSetting());
         factory.add(DungeonRoom.MESS.newSingleRoomSetting());
         factory.add(DungeonRoom.LIBRARY.newSingleRoomSetting());
@@ -92,8 +92,8 @@ public class SettingsMountainTheme extends DungeonSettings {
         segments.add(Segment.SEWERDOOR, 2);
         level.setSegments(segments);
 
-        DungeonFactory factory;
-        factory = new DungeonFactory();
+        RoomsSetting factory;
+        factory = new RoomsSetting();
         factory.add(DungeonRoom.BRICK.newRandomRoomSetting(4));
         factory.add(DungeonRoom.SLIME.newRandomRoomSetting(7));
         factory.add(DungeonRoom.CORNER.newRandomRoomSetting(3));

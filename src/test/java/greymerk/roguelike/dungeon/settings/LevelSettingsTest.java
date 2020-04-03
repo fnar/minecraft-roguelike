@@ -10,8 +10,8 @@ import java.util.Set;
 
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.dungeon.LevelGenerator;
-import greymerk.roguelike.dungeon.base.DungeonFactory;
 import greymerk.roguelike.dungeon.base.DungeonRoom;
+import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.base.SecretFactory;
 import greymerk.roguelike.worldgen.filter.Filter;
 
@@ -35,8 +35,8 @@ public class LevelSettingsTest {
     other.setGenerator(LevelGenerator.CLASSIC);
     assertThat(base).isEqualTo(other);
 
-    DungeonFactory baseRooms = new DungeonFactory();
-    DungeonFactory otherRooms = new DungeonFactory();
+    RoomsSetting baseRooms = new RoomsSetting();
+    RoomsSetting otherRooms = new RoomsSetting();
     baseRooms.add(DungeonRoom.BRICK.newRandomRoomSetting(1));
     base.setRooms(baseRooms);
     assertThat(base).isNotEqualTo(other);
@@ -58,14 +58,14 @@ public class LevelSettingsTest {
     LevelSettings base = new LevelSettings();
     LevelSettings other = new LevelSettings();
 
-    DungeonFactory baseRooms = new DungeonFactory();
-    DungeonFactory otherRooms = new DungeonFactory();
+    RoomsSetting baseRooms = new RoomsSetting();
+    RoomsSetting otherRooms = new RoomsSetting();
 
     base.setRooms(baseRooms);
     other.setRooms(otherRooms);
 
     LevelSettings control = new LevelSettings();
-    DungeonFactory controlRooms = new DungeonFactory();
+    RoomsSetting controlRooms = new RoomsSetting();
     control.setRooms(controlRooms);
     Set<SettingsType> overrides = new HashSet<>();
 

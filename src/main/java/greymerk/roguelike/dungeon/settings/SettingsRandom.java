@@ -5,7 +5,7 @@ import java.util.Map;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.LevelGenerator;
-import greymerk.roguelike.dungeon.base.DungeonFactory;
+import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.base.SecretFactory;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
 import greymerk.roguelike.dungeon.towers.Tower;
@@ -36,7 +36,7 @@ public class SettingsRandom extends DungeonSettings {
       level.setNumRooms(15);
       level.setRange(60);
 
-      DungeonFactory rooms = DungeonFactory.getRandom(rand, 8);
+      RoomsSetting rooms = RoomsSetting.getRandom(rand, 8);
       level.setRooms(rooms);
 
       level.setScatter(15);

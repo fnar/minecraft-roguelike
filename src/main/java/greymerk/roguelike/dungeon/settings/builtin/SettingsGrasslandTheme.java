@@ -1,7 +1,7 @@
 package greymerk.roguelike.dungeon.settings.builtin;
 
-import greymerk.roguelike.dungeon.base.DungeonFactory;
 import greymerk.roguelike.dungeon.base.DungeonRoom;
+import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.base.SecretFactory;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
@@ -32,7 +32,7 @@ public class SettingsGrasslandTheme extends DungeonSettings {
 
       LevelSettings level = new LevelSettings();
       SecretFactory secrets = new SecretFactory();
-      DungeonFactory rooms = new DungeonFactory();
+      RoomsSetting rooms = new RoomsSetting();
 
       switch (i) {
         case 0:

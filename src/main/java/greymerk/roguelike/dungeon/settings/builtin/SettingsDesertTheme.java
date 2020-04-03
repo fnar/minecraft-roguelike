@@ -3,8 +3,8 @@ package greymerk.roguelike.dungeon.settings.builtin;
 import net.minecraft.init.Items;
 
 import greymerk.roguelike.dungeon.LevelGenerator;
-import greymerk.roguelike.dungeon.base.DungeonFactory;
 import greymerk.roguelike.dungeon.base.DungeonRoom;
+import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.base.SecretFactory;
 import greymerk.roguelike.dungeon.segment.Segment;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
@@ -52,7 +52,7 @@ public class SettingsDesertTheme extends DungeonSettings {
         segments.add(Segment.TOMB, 1);
         level.setSegments(segments);
 
-        DungeonFactory factory = new DungeonFactory();
+        RoomsSetting factory = new RoomsSetting();
         factory.add(DungeonRoom.PYRAMIDTOMB.newSingleRoomSetting());
         factory.add(DungeonRoom.PYRAMIDSPAWNER.newRandomRoomSetting(5));
         factory.add(DungeonRoom.PYRAMIDCORNER.newRandomRoomSetting(3));
@@ -78,7 +78,7 @@ public class SettingsDesertTheme extends DungeonSettings {
         segments.add(Segment.TOMB, 1);
         level.setSegments(segments);
 
-        DungeonFactory factory = new DungeonFactory();
+        RoomsSetting factory = new RoomsSetting();
         factory.add(DungeonRoom.PYRAMIDTOMB.newRandomRoomSetting(2));
         factory.add(DungeonRoom.PYRAMIDSPAWNER.newRandomRoomSetting(10));
         factory.add(DungeonRoom.PYRAMIDCORNER.newRandomRoomSetting(5));
@@ -99,7 +99,7 @@ public class SettingsDesertTheme extends DungeonSettings {
         segments.add(Segment.TOMB, 1);
         level.setSegments(segments);
 
-        DungeonFactory factory = new DungeonFactory();
+        RoomsSetting factory = new RoomsSetting();
         factory.add(DungeonRoom.PYRAMIDTOMB.newRandomRoomSetting(1));
         factory.add(DungeonRoom.CRYPT.newRandomRoomSetting(4));
         factory.add(DungeonRoom.OSSUARY.newSingleRoomSetting());
@@ -124,7 +124,7 @@ public class SettingsDesertTheme extends DungeonSettings {
         segments.add(Segment.TOMB, 1);
         level.setSegments(segments);
 
-        DungeonFactory factory = new DungeonFactory();
+        RoomsSetting factory = new RoomsSetting();
         factory.add(DungeonRoom.PYRAMIDTOMB.newRandomRoomSetting(1));
         factory.add(DungeonRoom.SLIME.newRandomRoomSetting(2));
         factory.add(DungeonRoom.FIRE.newRandomRoomSetting(2));
