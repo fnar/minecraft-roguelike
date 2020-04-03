@@ -23,19 +23,19 @@ public class DungeonFactory {
 
   private RoomIterator singleRoomsIterator;
   private List<RoomSetting> singleRoomSettings = new LinkedList<>();
-  private WeightedRandomizer<RoomSetting> roomRandomizer = new WeightedRandomizer<>();
+  private WeightedRandomizer<RoomSetting> randomRooms = new WeightedRandomizer<>();
 
   public DungeonFactory() {
   }
 
   public DungeonFactory(DungeonFactory toCopy) {
     singleRoomSettings = newLinkedList(toCopy.singleRoomSettings);
-    roomRandomizer = new WeightedRandomizer<>(toCopy.roomRandomizer);
+    randomRooms = new WeightedRandomizer<>(toCopy.randomRooms);
   }
 
   public DungeonFactory(DungeonFactory parent, DungeonFactory child) {
     singleRoomSettings = newLinkedList((child.singleRoomSettings.isEmpty() ? parent : child).singleRoomSettings);
-    roomRandomizer = new WeightedRandomizer<>((child.roomRandomizer.isEmpty() ? parent : child).roomRandomizer);
+    randomRooms = new WeightedRandomizer<>((child.randomRooms.isEmpty() ? parent : child).randomRooms);
   }
 
   public static DungeonFactory getRandom(Random rand, int numRooms) {
@@ -66,7 +66,7 @@ public class DungeonFactory {
   }
 
   private void addRandomRoom(RoomSetting roomSetting) {
-    roomRandomizer.add(new WeightedChoice<>(roomSetting, roomSetting.getWeight()));
+    randomRooms.add(new WeightedChoice<>(roomSetting, roomSetting.getWeight()));
   }
 
   public static IDungeonRoom get(DungeonFactory dungeonFactory, Random random) {
