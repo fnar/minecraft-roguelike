@@ -31,7 +31,7 @@ public class SecretRoom {
   }
 
   public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord pos) {
-    IDungeonRoom prototype = roomSetting.getDungeonRoom().instantiate(roomSetting);
+    IDungeonRoom prototype = roomSetting.instantiate();
     if (!isValid(editor, dir, pos, prototype)) {
       return null;
     }

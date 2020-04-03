@@ -1,5 +1,6 @@
 package greymerk.roguelike.dungeon.tasks;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -13,6 +14,7 @@ import greymerk.roguelike.dungeon.LevelGenerator;
 import greymerk.roguelike.dungeon.base.DungeonRoom;
 import greymerk.roguelike.dungeon.base.IDungeonFactory;
 import greymerk.roguelike.dungeon.base.IDungeonRoom;
+import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.ISettings;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -52,11 +54,16 @@ public class DungeonTaskLayout implements IDungeonTask {
       while (layout.hasEmptyRooms()) {
         IDungeonRoom toGenerate = count < level.getSettings().getNumRooms()
             ? rooms.get(rand)
-            : DungeonRoom.CORNER.instantiate(null);
+            : cornerRoom().instantiate();
         DungeonNode node = layout.getBestFit(toGenerate);
         node.setDungeon(toGenerate);
         ++count;
       }
     }
+  }
+
+  private RoomSetting cornerRoom() {
+    // todo: There's some smell here
+    return new RoomSetting(DungeonRoom.CORNER, null, "builtin:spawners", "single", 1, 1, Collections.emptyList());
   }
 }

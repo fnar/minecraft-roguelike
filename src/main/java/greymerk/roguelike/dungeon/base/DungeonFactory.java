@@ -83,7 +83,7 @@ public class DungeonFactory implements IDungeonFactory {
 
   private IDungeonRoom instantiate(DungeonRoom dungeonRoom) {
     // todo: refactor: pull room setting up and out
-    return dungeonRoom.instantiate(newRoomSetting(dungeonRoom, 1));
+    return newRoomSetting(dungeonRoom, 1).instantiate();
   }
 
   public void addSingle(DungeonRoom type) {
