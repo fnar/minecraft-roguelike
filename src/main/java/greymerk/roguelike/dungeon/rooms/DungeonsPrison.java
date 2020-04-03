@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.IDungeonRoom;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -24,7 +25,7 @@ import lombok.EqualsAndHashCode;
 public class DungeonsPrison extends DungeonBase {
 
   @Override
-  public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     Coord cursor;
 
@@ -65,7 +66,7 @@ public class DungeonsPrison extends DungeonBase {
       cell(editor, rand, settings, cursor, doors, rand.nextBoolean());
     }
 
-    return true;
+    return this;
   }
 
   public void largeRoom(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin) {

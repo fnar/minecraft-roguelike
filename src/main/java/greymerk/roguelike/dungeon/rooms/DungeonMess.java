@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.IDungeonRoom;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.worldgen.Cardinal;
@@ -31,7 +32,7 @@ public class DungeonMess extends DungeonBase {
   }
 
   @Override
-  public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     ITheme theme = settings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();
@@ -120,7 +121,7 @@ public class DungeonMess extends DungeonBase {
     }
 
 
-    return false;
+    return this;
   }
 
   private void supplyCorner(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal[] entrances, Coord origin) {

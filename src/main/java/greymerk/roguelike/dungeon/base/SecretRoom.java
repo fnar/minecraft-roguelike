@@ -32,6 +32,7 @@ public class SecretRoom {
     return prototype.validLocation(editor, dir, cursor);
   }
 
+  // todo: Match the signature of DungeonBase
   public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord pos, Cardinal dir) {
     IDungeonRoom prototype = createPrototype();
 

@@ -7,6 +7,7 @@ import java.util.Random;
 
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.IDungeonRoom;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.treasure.ChestPlacementException;
 import greymerk.roguelike.treasure.ITreasureChest;
@@ -41,7 +42,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class DungeonBTeam extends DungeonBase {
 
   @Override
-  public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     MetaBlock air = BlockType.get(BlockType.AIR);
     IStair stair = new MetaStair(StairType.SPRUCE);
@@ -214,7 +215,7 @@ public class DungeonBTeam extends DungeonBase {
     }
 
 
-    return true;
+    return this;
   }
 
   private void table(IWorldEditor editor, Random rand, Cardinal dir, Coord origin) {

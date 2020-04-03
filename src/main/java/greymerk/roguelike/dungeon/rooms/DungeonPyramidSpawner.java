@@ -6,6 +6,7 @@ import java.util.Random;
 
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.IDungeonRoom;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.worldgen.Cardinal;
@@ -28,7 +29,7 @@ public class DungeonPyramidSpawner extends DungeonBase {
     super(roomSetting);
   }
 
-  public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     int x = origin.getX();
     int y = origin.getY();
@@ -122,7 +123,7 @@ public class DungeonPyramidSpawner extends DungeonBase {
     final Coord cursor1 = new Coord(x, y, z);
     SpawnerSettings spawners = settings.getSpawners();
     SpawnerSettings.generate(editor, rand, cursor1, settings.getDifficulty(cursor1), spawners, COMMON_MOBS);
-    return true;
+    return this;
   }
 
   public boolean isValidDungeonLocation(IWorldEditor editor, int x, int y, int z) {

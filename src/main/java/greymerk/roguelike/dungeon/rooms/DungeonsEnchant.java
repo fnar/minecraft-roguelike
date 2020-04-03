@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.IDungeonRoom;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.util.DyeColor;
@@ -25,7 +26,7 @@ import static greymerk.roguelike.treasure.Treasure.createChests;
 public class DungeonsEnchant extends DungeonBase {
 
   @Override
-  public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
     Cardinal dir = entrances[0];
 
     ITheme theme = settings.getTheme();
@@ -299,7 +300,7 @@ public class DungeonsEnchant extends DungeonBase {
     List<Coord> chestLocations = chooseRandomLocations(rand, 1, chests);
     createChests(editor, rand, settings.getDifficulty(origin), chestLocations, false, ENCHANTING);
 
-    return true;
+    return this;
   }
 
   @Override

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.IDungeonRoom;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.util.DyeColor;
@@ -30,7 +31,7 @@ public class DungeonsMusic extends DungeonBase {
     super(roomSetting);
   }
 
-  public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
     ITheme theme = settings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();
     IStair stair = theme.getSecondary().getStair();
@@ -160,7 +161,7 @@ public class DungeonsMusic extends DungeonBase {
     List<Coord> chestLocations = chooseRandomLocations(rand, 1, chests);
     createChests(editor, rand, settings.getDifficulty(origin), chestLocations, false, MUSIC);
 
-    return false;
+    return this;
   }
 
   private void pillar(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin) {

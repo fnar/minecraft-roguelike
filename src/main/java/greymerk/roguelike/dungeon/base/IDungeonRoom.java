@@ -9,7 +9,7 @@ import greymerk.roguelike.worldgen.IWorldEditor;
 
 public interface IDungeonRoom {
 
-  boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal... entrances);
+  IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal... entrances);
 
   int getSize();
 

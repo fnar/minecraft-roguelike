@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.IDungeonRoom;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
@@ -30,7 +31,7 @@ public class FortressRoom extends DungeonBase {
     super(roomSetting);
   }
 
-  public boolean generate(IWorldEditor editor, Random rand, LevelSettings levelSettings, Coord origin, Cardinal[] entrances) {
+  public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings levelSettings, Coord origin, Cardinal[] entrances) {
     ITheme theme = levelSettings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();
     IStair stair = theme.getPrimary().getStair();
@@ -133,7 +134,7 @@ public class FortressRoom extends DungeonBase {
       }
     }
 
-    return true;
+    return this;
   }
 
   private void supportPillar(IWorldEditor editor, Random rand, LevelSettings levelSettings, Coord origin) {

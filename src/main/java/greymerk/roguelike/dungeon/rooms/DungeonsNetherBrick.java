@@ -5,6 +5,7 @@ import java.util.Random;
 
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.IDungeonRoom;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
@@ -28,7 +29,7 @@ public class DungeonsNetherBrick extends DungeonBase {
     super(roomSetting);
   }
 
-  public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     int x = origin.getX();
     int y = origin.getY();
@@ -73,7 +74,7 @@ public class DungeonsNetherBrick extends DungeonBase {
     SpawnerSettings spawners = settings.getSpawners();
     SpawnerSettings.generate(editor, rand, cursor3, settings.getDifficulty(cursor3), spawners, COMMON_MOBS);
 
-    return true;
+    return this;
   }
 
   public int getSize() {

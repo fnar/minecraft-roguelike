@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.IDungeonRoom;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.worldgen.Cardinal;
@@ -27,7 +28,7 @@ public class DungeonsCrypt extends DungeonBase {
     super(roomSetting);
   }
 
-  public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     ITheme theme = settings.getTheme();
     MetaBlock air = BlockType.get(BlockType.AIR);
@@ -132,7 +133,7 @@ public class DungeonsCrypt extends DungeonBase {
       RectSolid.fill(editor, rand, start, end, stair, true, false);
     }
 
-    return true;
+    return this;
   }
 
   private void sarcophagus(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal dir) {

@@ -3,6 +3,7 @@ package greymerk.roguelike.dungeon.rooms;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.IDungeonRoom;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.worldgen.Cardinal;
@@ -23,7 +24,7 @@ public class DungeonOssuary extends DungeonBase {
   }
 
   @Override
-  public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
     ITheme theme = settings.getTheme();
     IBlockFactory walls = theme.getPrimary().getWall();
     IStair stair = theme.getPrimary().getStair();
@@ -251,7 +252,7 @@ public class DungeonOssuary extends DungeonBase {
       cursor.add(dir, 2);
     }
 
-    return true;
+    return this;
   }
 
   private void skull(IWorldEditor editor, Random rand, Cardinal dir, Coord origin) {

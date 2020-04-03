@@ -3,6 +3,7 @@ package greymerk.roguelike.dungeon.rooms;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.IDungeonRoom;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.worldgen.Cardinal;
@@ -100,7 +101,7 @@ public class DungeonBlaze extends DungeonBase {
   }
 
   @Override
-  public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     ITheme theme = settings.getTheme();
 
@@ -256,7 +257,7 @@ public class DungeonBlaze extends DungeonBase {
     SpawnerSettings spawners = settings.getSpawners();
     SpawnerSettings.generate(editor, rand, cursor, settings.getDifficulty(cursor), spawners, NETHER_MOBS);
 
-    return false;
+    return this;
   }
 
   public int getSize() {

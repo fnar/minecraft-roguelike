@@ -5,6 +5,7 @@ import java.util.Random;
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.IDungeonRoom;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.treasure.Treasure;
@@ -30,7 +31,7 @@ import static greymerk.roguelike.treasure.Treasure.createChest;
 
 public class DungeonsSmithy extends DungeonBase {
 
-  public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     ITheme theme = settings.getTheme();
 
@@ -58,7 +59,7 @@ public class DungeonsSmithy extends DungeonBase {
 
     mainRoom(editor, rand, settings, dir, origin);
 
-    return true;
+    return this;
   }
 
   private void sideRoom(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord origin) {
