@@ -2,7 +2,6 @@ package greymerk.roguelike.dungeon.base;
 
 import com.google.common.collect.Lists;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -49,14 +48,8 @@ public class SecretFactory {
   }
 
   public void add(RoomSetting roomSetting) {
-    int count = roomSetting.getCount();
-    RoomSetting roomSetting1 = newRoomSetting(roomSetting.getRoomType(), count);
-    IntStream.range(0, count)
-        .forEach(value -> secretRooms.add(new SecretRoom(roomSetting1)));
-  }
-
-  private RoomSetting newRoomSetting(RoomType type, int count) {
-    return new RoomSetting(type, null, "builtin:spawner", "single", 0, count, Collections.emptyList());
+    IntStream.range(0, roomSetting.getCount())
+        .forEach(value -> secretRooms.add(new SecretRoom(roomSetting)));
   }
 
   public Optional<IDungeonRoom> generateSecretMaybe(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord pos) {
