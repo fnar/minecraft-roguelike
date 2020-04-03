@@ -5,7 +5,7 @@ import net.minecraft.init.Items;
 import greymerk.roguelike.dungeon.LevelGenerator;
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
-import greymerk.roguelike.dungeon.base.SecretFactory;
+import greymerk.roguelike.dungeon.base.SecretsSetting;
 import greymerk.roguelike.dungeon.segment.Segment;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
@@ -58,7 +58,7 @@ public class SettingsDesertTheme extends DungeonSettings {
         factory.add(RoomType.PYRAMIDCORNER.newRandomRoomSetting(3));
         level.setRooms(factory);
 
-        SecretFactory secrets = new SecretFactory();
+        SecretsSetting secrets = new SecretsSetting();
         secrets.add(RoomType.PYRAMIDTOMB.newSingleRoomSetting());
         level.setSecrets(secrets);
 

@@ -11,7 +11,7 @@ import java.util.Set;
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.LevelGenerator;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
-import greymerk.roguelike.dungeon.base.SecretFactory;
+import greymerk.roguelike.dungeon.base.SecretsSetting;
 import greymerk.roguelike.dungeon.segment.ISegmentGenerator;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
 import greymerk.roguelike.theme.ITheme;
@@ -38,7 +38,7 @@ public class LevelSettings {
   private int scatter = SCATTER;
   private int levelDifficulty = -1;
   private RoomsSetting rooms = new RoomsSetting();
-  private SecretFactory secrets = new SecretFactory();
+  private SecretsSetting secrets = new SecretsSetting();
   private ITheme theme;
   private SegmentGenerator segments;
   private SpawnerSettings spawners = new SpawnerSettings();
@@ -90,9 +90,9 @@ public class LevelSettings {
     }
 
     if (overrides.contains(SECRETS)) {
-      secrets = new SecretFactory(child.secrets);
+      secrets = new SecretsSetting(child.secrets);
     } else {
-      secrets = new SecretFactory(parent.secrets, child.secrets);
+      secrets = new SecretsSetting(parent.secrets, child.secrets);
     }
 
     setTheme(inherit(parent, child, overrides));
@@ -126,7 +126,7 @@ public class LevelSettings {
     scatter = toCopy.scatter;
     levelDifficulty = toCopy.levelDifficulty;
     rooms = toCopy.rooms != null ? new RoomsSetting(toCopy.rooms) : null;
-    secrets = toCopy.secrets != null ? new SecretFactory(toCopy.secrets) : null;
+    secrets = toCopy.secrets != null ? new SecretsSetting(toCopy.secrets) : null;
     theme = toCopy.theme;
     segments = toCopy.segments != null ? new SegmentGenerator(toCopy.segments) : null;
     spawners = new SpawnerSettings(toCopy.spawners);
@@ -179,11 +179,11 @@ public class LevelSettings {
     this.rooms = rooms;
   }
 
-  public SecretFactory getSecrets() {
-    return secrets != null ? secrets : new SecretFactory();
+  public SecretsSetting getSecrets() {
+    return secrets != null ? secrets : new SecretsSetting();
   }
 
-  public void setSecrets(SecretFactory secrets) {
+  public void setSecrets(SecretsSetting secrets) {
     this.secrets = secrets;
   }
 
