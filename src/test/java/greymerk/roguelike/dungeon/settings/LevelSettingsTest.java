@@ -10,7 +10,7 @@ import java.util.Set;
 
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.dungeon.LevelGenerator;
-import greymerk.roguelike.dungeon.base.DungeonRoom;
+import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.base.SecretFactory;
 import greymerk.roguelike.worldgen.filter.Filter;
@@ -37,18 +37,18 @@ public class LevelSettingsTest {
 
     RoomsSetting baseRooms = new RoomsSetting();
     RoomsSetting otherRooms = new RoomsSetting();
-    baseRooms.add(DungeonRoom.BRICK.newRandomRoomSetting(1));
+    baseRooms.add(RoomType.BRICK.newRandomRoomSetting(1));
     base.setRooms(baseRooms);
     assertThat(base).isNotEqualTo(other);
 
-    otherRooms.add(DungeonRoom.BRICK.newRandomRoomSetting(1));
+    otherRooms.add(RoomType.BRICK.newRandomRoomSetting(1));
     other.setRooms(otherRooms);
     assertThat(base).isEqualTo(other);
 
-    baseRooms.add(DungeonRoom.CAKE.newRandomRoomSetting(2));
+    baseRooms.add(RoomType.CAKE.newRandomRoomSetting(2));
     assertThat(base).isNotEqualTo(other);
 
-    otherRooms.add(DungeonRoom.CAKE.newRandomRoomSetting(2));
+    otherRooms.add(RoomType.CAKE.newRandomRoomSetting(2));
     assertThat(base).isEqualTo(other);
   }
 
@@ -72,11 +72,11 @@ public class LevelSettingsTest {
     LevelSettings merge = new LevelSettings(base, other, overrides);
     assertThat(control).isEqualTo(merge);
 
-    baseRooms.add(DungeonRoom.CAKE.newSingleRoomSetting());
+    baseRooms.add(RoomType.CAKE.newSingleRoomSetting());
     merge = new LevelSettings(base, other, overrides);
     assertThat(control).isNotEqualTo(merge);
 
-    controlRooms.add(DungeonRoom.CAKE.newSingleRoomSetting());
+    controlRooms.add(RoomType.CAKE.newSingleRoomSetting());
     assertThat(control).isEqualTo(merge);
   }
 
@@ -103,12 +103,12 @@ public class LevelSettingsTest {
 
     assert control.equals(merge);
 
-    baseSecrets.addRoom(DungeonRoom.BEDROOM, 2);
+    baseSecrets.addRoom(RoomType.BEDROOM, 2);
 
     merge = new LevelSettings(base, other, overrides);
     assert !control.equals(merge);
 
-    controlSecrets.addRoom(DungeonRoom.BEDROOM, 2);
+    controlSecrets.addRoom(RoomType.BEDROOM, 2);
     assert control.equals(merge);
   }
 

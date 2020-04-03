@@ -7,7 +7,7 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.util.WeightedRandomizer;
 
-import static greymerk.roguelike.dungeon.base.DungeonRoom.CORNER;
+import static greymerk.roguelike.dungeon.base.RoomType.CORNER;
 import static java.util.stream.Collectors.toCollection;
 
 public class RoomIterator implements Iterator<IDungeonRoom> {

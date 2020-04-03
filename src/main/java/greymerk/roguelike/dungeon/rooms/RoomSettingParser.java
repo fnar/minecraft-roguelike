@@ -2,10 +2,10 @@ package greymerk.roguelike.dungeon.rooms;
 
 import com.google.gson.JsonObject;
 
-import greymerk.roguelike.dungeon.base.DungeonRoom;
+import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.worldgen.spawners.Spawner;
 
-import static greymerk.roguelike.dungeon.base.DungeonRoom.valueOf;
+import static greymerk.roguelike.dungeon.base.RoomType.valueOf;
 import static greymerk.roguelike.dungeon.settings.level.LevelsParser.parseLevelsIfPresent;
 import static java.lang.String.format;
 
@@ -28,7 +28,7 @@ public class RoomSettingParser {
         parseLevelsIfPresent(roomSettingJson));
   }
 
-  private static DungeonRoom parseName(JsonObject entry) throws Exception {
+  private static RoomType parseName(JsonObject entry) throws Exception {
     String name = entry.has(NAME_KEY)
         ? entry.get(NAME_KEY).getAsString().toUpperCase()
         : "NAME MISSING";

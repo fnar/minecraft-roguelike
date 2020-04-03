@@ -13,7 +13,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 import static com.google.common.collect.Lists.newLinkedList;
-import static greymerk.roguelike.dungeon.base.DungeonRoom.getRandomIntersection;
+import static greymerk.roguelike.dungeon.base.RoomType.getRandomIntersection;
 import static java.util.stream.IntStream.range;
 
 @ToString

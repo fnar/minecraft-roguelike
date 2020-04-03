@@ -3,8 +3,8 @@ package greymerk.roguelike.dungeon.rooms;
 import java.util.List;
 import java.util.Optional;
 
-import greymerk.roguelike.dungeon.base.DungeonRoom;
 import greymerk.roguelike.dungeon.base.IDungeonRoom;
+import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.worldgen.spawners.Spawner;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
@@ -17,7 +17,7 @@ import lombok.ToString;
 @Getter
 public class RoomSetting {
 
-  private DungeonRoom dungeonRoom;
+  private RoomType roomType;
   private Spawner spawner;
   private String spawnerId;
   private String frequency;
@@ -38,7 +38,7 @@ public class RoomSetting {
   }
 
   public IDungeonRoom instantiate() {
-    switch (dungeonRoom) {
+    switch (roomType) {
       case ASHLEA:
         return new DungeonAshlea(this);
       case AVIDYA:

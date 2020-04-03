@@ -11,9 +11,9 @@ import greymerk.roguelike.dungeon.IDungeonLevel;
 import greymerk.roguelike.dungeon.ILevelGenerator;
 import greymerk.roguelike.dungeon.ILevelLayout;
 import greymerk.roguelike.dungeon.LevelGenerator;
-import greymerk.roguelike.dungeon.base.DungeonRoom;
 import greymerk.roguelike.dungeon.base.IDungeonRoom;
 import greymerk.roguelike.dungeon.base.RoomIterator;
+import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.ISettings;
 import greymerk.roguelike.worldgen.Cardinal;
@@ -64,6 +64,6 @@ public class DungeonTaskLayout implements IDungeonTask {
 
   private RoomSetting cornerRoom() {
     // todo: There's some smell here
-    return new RoomSetting(DungeonRoom.CORNER, null, "builtin:spawners", "single", 1, 1, Collections.emptyList());
+    return new RoomSetting(RoomType.CORNER, null, "builtin:spawners", "single", 1, 1, Collections.emptyList());
   }
 }
