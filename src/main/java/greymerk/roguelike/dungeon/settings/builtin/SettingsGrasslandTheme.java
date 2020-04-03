@@ -43,12 +43,12 @@ public class SettingsGrasslandTheme extends DungeonSettings {
           break;
         case 1:
           secrets.addRoom(DungeonRoom.BTEAM);
-          rooms.addSingle(DungeonRoom.MUSIC);
-          rooms.addSingle(DungeonRoom.PIT);
-          rooms.addSingle(DungeonRoom.MESS);
-          rooms.addSingle(DungeonRoom.LAB);
-          rooms.addRandom(DungeonRoom.CORNER, 10);
-          rooms.addRandom(DungeonRoom.BRICK, 3);
+          rooms.addSingle(DungeonRoom.MUSIC.newSingleRoomSetting());
+          rooms.addSingle(DungeonRoom.PIT.newSingleRoomSetting());
+          rooms.addSingle(DungeonRoom.MESS.newSingleRoomSetting());
+          rooms.addSingle(DungeonRoom.LAB.newSingleRoomSetting());
+          rooms.addRandom(DungeonRoom.CORNER.newRandomRoomSetting(10));
+          rooms.addRandom(DungeonRoom.BRICK.newRandomRoomSetting(3));
           level.setSecrets(secrets);
           level.setRooms(rooms);
           break;

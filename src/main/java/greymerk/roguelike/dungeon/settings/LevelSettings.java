@@ -20,12 +20,14 @@ import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.filter.Filter;
 import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
+import lombok.ToString;
 
 import static greymerk.roguelike.dungeon.settings.SettingsType.ROOMS;
 import static greymerk.roguelike.dungeon.settings.SettingsType.SECRETS;
 import static greymerk.roguelike.dungeon.settings.SettingsType.THEMES;
 import static java.util.Optional.ofNullable;
 
+@ToString
 public class LevelSettings {
 
   private static final int NUM_ROOMS = 12;
