@@ -36,13 +36,13 @@ public class SettingsGrasslandTheme extends DungeonSettings {
 
       switch (i) {
         case 0:
-          secrets.addRoom(RoomType.BEDROOM);
-          secrets.addRoom(RoomType.SMITH);
-          secrets.addRoom(RoomType.FIREWORK);
+          secrets.add(RoomType.BEDROOM.newSingleRoomSetting());
+          secrets.add(RoomType.SMITH.newSingleRoomSetting());
+          secrets.add(RoomType.FIREWORK.newSingleRoomSetting());
           level.setSecrets(secrets);
           break;
         case 1:
-          secrets.addRoom(RoomType.BTEAM);
+          secrets.add(RoomType.BTEAM.newSingleRoomSetting());
           rooms.add(RoomType.MUSIC.newSingleRoomSetting());
           rooms.add(RoomType.PIT.newSingleRoomSetting());
           rooms.add(RoomType.MESS.newSingleRoomSetting());

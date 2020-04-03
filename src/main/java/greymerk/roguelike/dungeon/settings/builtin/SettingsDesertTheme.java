@@ -59,7 +59,7 @@ public class SettingsDesertTheme extends DungeonSettings {
         level.setRooms(factory);
 
         SecretFactory secrets = new SecretFactory();
-        secrets.addRoom(RoomType.PYRAMIDTOMB);
+        secrets.add(RoomType.PYRAMIDTOMB.newSingleRoomSetting());
         level.setSecrets(secrets);
 
         level.setGenerator(LevelGenerator.CLASSIC);

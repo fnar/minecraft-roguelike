@@ -14,18 +14,18 @@ public class SecretFactoryTest {
   @Ignore // ugh, I'm being bad
   public void testOverride() {
     SecretFactory secrets1 = new SecretFactory();
-    secrets1.addRoom(RoomType.FIREWORK);
-    secrets1.addRoom(RoomType.BEDROOM);
+    secrets1.add(RoomType.FIREWORK.newSingleRoomSetting());
+    secrets1.add(RoomType.BEDROOM.newSingleRoomSetting());
 
     SecretFactory secrets2 = new SecretFactory();
-    secrets2.addRoom(RoomType.BEDROOM);
-    secrets2.addRoom(RoomType.PRISON);
+    secrets2.add(RoomType.BEDROOM.newSingleRoomSetting());
+    secrets2.add(RoomType.PRISON.newSingleRoomSetting());
 
     SecretFactory test = new SecretFactory();
-    test.addRoom(RoomType.FIREWORK);
-    test.addRoom(RoomType.BEDROOM);
-    test.addRoom(RoomType.BEDROOM);
-    test.addRoom(RoomType.PRISON);
+    test.add(RoomType.FIREWORK.newSingleRoomSetting());
+    test.add(RoomType.BEDROOM.newSingleRoomSetting());
+    test.add(RoomType.BEDROOM.newSingleRoomSetting());
+    test.add(RoomType.PRISON.newSingleRoomSetting());
 
     SecretFactory expected = new SecretFactory(secrets1, secrets2);
     assertThat(test).isEqualTo(expected);
@@ -35,14 +35,14 @@ public class SecretFactoryTest {
   @Ignore // ugh, I'm being bad
   public void testAdd() {
     SecretFactory threeBeds = new SecretFactory();
-    threeBeds.addRoom(RoomType.BEDROOM);
-    threeBeds.addRoom(RoomType.BEDROOM);
-    threeBeds.addRoom(RoomType.BEDROOM);
+    threeBeds.add(RoomType.BEDROOM.newSingleRoomSetting());
+    threeBeds.add(RoomType.BEDROOM.newSingleRoomSetting());
+    threeBeds.add(RoomType.BEDROOM.newSingleRoomSetting());
 
     SecretFactory test = new SecretFactory();
-    test.addRoom(RoomType.BEDROOM);
-    test.addRoom(RoomType.BEDROOM);
-    test.addRoom(RoomType.BEDROOM);
+    test.add(RoomType.BEDROOM.newSingleRoomSetting());
+    test.add(RoomType.BEDROOM.newSingleRoomSetting());
+    test.add(RoomType.BEDROOM.newSingleRoomSetting());
 
     assertThat(test).isEqualTo(threeBeds);
   }
@@ -51,20 +51,20 @@ public class SecretFactoryTest {
   @Ignore // ugh, I'm being bad
   public void testEquals() {
     SecretFactory secrets1 = new SecretFactory();
-    secrets1.addRoom(RoomType.BEDROOM);
+    secrets1.add(RoomType.BEDROOM.newSingleRoomSetting());
 
     SecretFactory secrets2 = new SecretFactory();
-    secrets2.addRoom(RoomType.BEDROOM);
+    secrets2.add(RoomType.BEDROOM.newSingleRoomSetting());
 
     assertThat(secrets1).isEqualTo(secrets2);
 
     SecretFactory secrets3 = new SecretFactory();
-    secrets3.addRoom(RoomType.BTEAM);
+    secrets3.add(RoomType.BTEAM.newSingleRoomSetting());
 
     assertThat(secrets1).isNotEqualTo(secrets3);
 
-    secrets1.addRoom(RoomType.BTEAM);
-    secrets3.addRoom(RoomType.BEDROOM);
+    secrets1.add(RoomType.BTEAM.newSingleRoomSetting());
+    secrets3.add(RoomType.BEDROOM.newSingleRoomSetting());
 
     assertThat(secrets1).isEqualTo(secrets3);
   }

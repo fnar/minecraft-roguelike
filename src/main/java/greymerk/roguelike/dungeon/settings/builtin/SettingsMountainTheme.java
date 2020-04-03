@@ -49,9 +49,9 @@ public class SettingsMountainTheme extends DungeonSettings {
         level.setRooms(factory);
 
         SecretFactory secrets = new SecretFactory();
-        secrets.addRoom(RoomType.BEDROOM);
-        secrets.addRoom(RoomType.BEDROOM);
-        secrets.addRoom(RoomType.SMITH);
+        secrets.add(RoomType.BEDROOM.newSingleRoomSetting());
+        secrets.add(RoomType.BEDROOM.newSingleRoomSetting());
+        secrets.add(RoomType.SMITH.newSingleRoomSetting());
         level.setSecrets(secrets);
 
         SegmentGenerator segments = new SegmentGenerator(Segment.ARCH);
@@ -79,7 +79,7 @@ public class SettingsMountainTheme extends DungeonSettings {
         level.setRooms(factory);
 
         SecretFactory secrets = new SecretFactory();
-        secrets.addRoom(RoomType.ENCHANT);
+        secrets.add(RoomType.ENCHANT.newSingleRoomSetting());
         level.setSecrets(secrets);
 
       }
