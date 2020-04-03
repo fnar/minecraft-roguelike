@@ -20,7 +20,7 @@ public class RoomIterator implements Iterator<IDungeonRoom> {
     singleRooms = dungeonFactory.getSingleRoomSettings().stream()
         .map(RoomSetting::instantiate)
         .collect(toCollection(LinkedList::new));
-    randomRooms = dungeonFactory.getRoomRandomizer();
+    randomRooms = dungeonFactory.getRandomRooms();
     this.random = random;
   }
 
