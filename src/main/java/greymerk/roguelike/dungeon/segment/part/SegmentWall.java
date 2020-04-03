@@ -39,7 +39,7 @@ public class SegmentWall extends SegmentBase {
     RectSolid.fill(editor, rand, start, end, air);
 
     SecretFactory secrets = level.getSettings().getSecrets();
-    Optional<IDungeonRoom> room = secrets.generateSecretMaybe(editor, rand, level.getSettings(), dir, new Coord(origin));
+    Optional<IDungeonRoom> room = generateSecret(secrets, editor, rand, level.getSettings(), dir, new Coord(origin));
 
     start.add(dir, 1);
     end.add(dir, 1);

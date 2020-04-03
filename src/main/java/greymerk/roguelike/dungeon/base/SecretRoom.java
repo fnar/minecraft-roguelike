@@ -22,7 +22,7 @@ public class SecretRoom extends DungeonBase {
     this.roomSetting = roomSetting;
   }
 
-  boolean isValid(IWorldEditor editor, Cardinal dir, Coord pos) {
+  public boolean isValid(IWorldEditor editor, Cardinal dir, Coord pos) {
     if (getRoomSetting().getCount() <= 0) {
       return false;
     }

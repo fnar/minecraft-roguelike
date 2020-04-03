@@ -25,7 +25,7 @@ public class SegmentMossyArch extends SegmentBase {
 
     MetaBlock air = BlockType.get(BlockType.AIR);
 
-    level.getSettings().getSecrets().generateSecretMaybe(editor, rand, level.getSettings(), wallDirection, new Coord(origin));
+    generateSecret(level.getSettings().getSecrets(), editor, rand, level.getSettings(), wallDirection, new Coord(origin));
 
     Coord cursor = new Coord(origin);
     cursor.add(wallDirection, 2);
