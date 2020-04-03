@@ -19,26 +19,26 @@ import static java.util.stream.IntStream.range;
 @ToString
 @EqualsAndHashCode
 @Getter
-public class DungeonFactory {
+public class RoomsSetting {
 
   private List<RoomSetting> singleRoomSettings = new LinkedList<>();
   private WeightedRandomizer<RoomSetting> randomRooms = new WeightedRandomizer<>();
 
-  public DungeonFactory() {
+  public RoomsSetting() {
   }
 
-  public DungeonFactory(DungeonFactory toCopy) {
+  public RoomsSetting(RoomsSetting toCopy) {
     singleRoomSettings = newLinkedList(toCopy.singleRoomSettings);
     randomRooms = new WeightedRandomizer<>(toCopy.randomRooms);
   }
 
-  public DungeonFactory(DungeonFactory parent, DungeonFactory child) {
+  public RoomsSetting(RoomsSetting parent, RoomsSetting child) {
     singleRoomSettings = newLinkedList((child.singleRoomSettings.isEmpty() ? parent : child).singleRoomSettings);
     randomRooms = new WeightedRandomizer<>((child.randomRooms.isEmpty() ? parent : child).randomRooms);
   }
 
-  public static DungeonFactory getRandom(Random rand, int numRooms) {
-    DungeonFactory rooms = new DungeonFactory();
+  public static RoomsSetting getRandom(Random rand, int numRooms) {
+    RoomsSetting rooms = new RoomsSetting();
     range(0, numRooms).forEach(i -> {
       if (rand.nextBoolean()) {
         rooms.add(getRandomRoom(rand).newRandomRoomSetting(1));

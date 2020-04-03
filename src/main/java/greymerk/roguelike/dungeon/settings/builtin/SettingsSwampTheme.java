@@ -3,8 +3,8 @@ package greymerk.roguelike.dungeon.settings.builtin;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
-import greymerk.roguelike.dungeon.base.DungeonFactory;
 import greymerk.roguelike.dungeon.base.DungeonRoom;
+import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.segment.Segment;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
@@ -65,7 +65,7 @@ public class SettingsSwampTheme extends DungeonSettings {
         segments.add(Segment.MUSHROOM, 2);
         level.setSegments(segments);
 
-        DungeonFactory factory = new DungeonFactory();
+        RoomsSetting factory = new RoomsSetting();
         factory.add(DungeonRoom.CAKE.newSingleRoomSetting());
         factory.add(DungeonRoom.DARKHALL.newSingleRoomSetting());
         factory.add(DungeonRoom.BRICK.newRandomRoomSetting(10));
@@ -83,7 +83,7 @@ public class SettingsSwampTheme extends DungeonSettings {
         segments.add(Segment.MUSHROOM, 3);
         level.setSegments(segments);
 
-        DungeonFactory factory = new DungeonFactory();
+        RoomsSetting factory = new RoomsSetting();
         factory.add(DungeonRoom.CAKE.newSingleRoomSetting());
         factory.add(DungeonRoom.LAB.newSingleRoomSetting());
         factory.add(DungeonRoom.SPIDER.newSingleRoomSetting());

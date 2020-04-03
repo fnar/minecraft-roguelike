@@ -16,11 +16,11 @@ public class RoomIterator implements Iterator<IDungeonRoom> {
   private final WeightedRandomizer<RoomSetting> randomRooms;
   private Random random;
 
-  public RoomIterator(DungeonFactory dungeonFactory, Random random) {
-    singleRooms = dungeonFactory.getSingleRoomSettings().stream()
+  public RoomIterator(RoomsSetting roomsSetting, Random random) {
+    singleRooms = roomsSetting.getSingleRoomSettings().stream()
         .map(RoomSetting::instantiate)
         .collect(toCollection(LinkedList::new));
-    randomRooms = dungeonFactory.getRandomRooms();
+    randomRooms = roomsSetting.getRandomRooms();
     this.random = random;
   }
 

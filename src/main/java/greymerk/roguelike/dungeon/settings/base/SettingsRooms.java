@@ -1,6 +1,6 @@
 package greymerk.roguelike.dungeon.settings.base;
 
-import greymerk.roguelike.dungeon.base.DungeonFactory;
+import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.dungeon.settings.SettingIdentifier;
@@ -32,24 +32,24 @@ public class SettingsRooms extends DungeonSettings {
     super(ID);
     for (int i = 0; i < 5; ++i) {
 
-      DungeonFactory factory;
+      RoomsSetting factory;
 
       switch (i) {
         case 0:
-          factory = new DungeonFactory();
+          factory = new RoomsSetting();
           factory.add(CAKE.newSingleRoomSetting());
           factory.add(FIRE.newSingleRoomSetting());
           factory.add(BRICK.newRandomRoomSetting(4));
           factory.add(CORNER.newRandomRoomSetting(2));
           break;
         case 1:
-          factory = new DungeonFactory();
+          factory = new RoomsSetting();
           factory.add(PIT.newSingleRoomSetting());
           factory.add(CORNER.newRandomRoomSetting(10));
           factory.add(BRICK.newRandomRoomSetting(3));
           break;
         case 2:
-          factory = new DungeonFactory();
+          factory = new RoomsSetting();
           factory.add(OSSUARY.newSingleRoomSetting());
           factory.add(CRYPT.newSingleRoomSetting());
           factory.add(CREEPER.newSingleRoomSetting());
@@ -61,7 +61,7 @@ public class SettingsRooms extends DungeonSettings {
           factory.add(BRICK.newRandomRoomSetting(3));
           break;
         case 3:
-          factory = new DungeonFactory();
+          factory = new RoomsSetting();
           factory.add(OSSUARY.newSingleRoomSetting());
           factory.add(ENDER.newSingleRoomSetting());
           factory.add(CRYPT.newSingleRoomSetting());
@@ -72,7 +72,7 @@ public class SettingsRooms extends DungeonSettings {
           factory.add(PIT.newRandomRoomSetting(1));
           break;
         case 4:
-          factory = new DungeonFactory();
+          factory = new RoomsSetting();
           factory.add(OBSIDIAN.newSingleRoomSetting());
           factory.add(BLAZE.newSingleRoomSetting());
           factory.add(PRISON.newSingleRoomSetting());
@@ -84,7 +84,7 @@ public class SettingsRooms extends DungeonSettings {
           factory.add(SPIDER.newRandomRoomSetting(2));
           break;
         default:
-          factory = new DungeonFactory();
+          factory = new RoomsSetting();
           break;
       }
 

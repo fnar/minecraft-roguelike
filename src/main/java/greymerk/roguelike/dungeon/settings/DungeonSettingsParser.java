@@ -10,7 +10,7 @@ import com.google.gson.JsonSyntaxException;
 import java.util.List;
 
 import greymerk.roguelike.dungeon.LevelGenerator;
-import greymerk.roguelike.dungeon.base.DungeonFactory;
+import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.base.SecretFactory;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.rooms.RoomSettingParser;
@@ -150,7 +150,7 @@ public class DungeonSettingsParser {
 
     for (int floorLevel : dungeonSettings.getLevels().keySet()) {
 
-      DungeonFactory dungeonFactory = new DungeonFactory();
+      RoomsSetting roomsSetting = new RoomsSetting();
       SecretFactory secretFactory = new SecretFactory();
       for (JsonElement roomSettingElement : roomArray) {
         JsonObject roomSettingJson = roomSettingElement.getAsJsonObject();
@@ -159,13 +159,13 @@ public class DungeonSettingsParser {
           if (roomSetting.isSecret()) {
             secretFactory.add(roomSetting);
           } else {
-            dungeonFactory.add(roomSetting);
+            roomsSetting.add(roomSetting);
           }
         }
       }
 
       LevelSettings level = dungeonSettings.getLevels().get(floorLevel);
-      level.setRooms(dungeonFactory);
+      level.setRooms(roomsSetting);
       level.setSecrets(secretFactory);
     }
   }
