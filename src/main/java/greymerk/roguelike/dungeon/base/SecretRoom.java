@@ -9,8 +9,10 @@ import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
+@EqualsAndHashCode
 @ToString
 public class SecretRoom {
 
@@ -57,18 +59,6 @@ public class SecretRoom {
 
   private IDungeonRoom createPrototype() {
     return getRoomSetting().instantiate();
-  }
-
-  @Override
-  public boolean equals(Object o) {
-
-    SecretRoom other = (SecretRoom) o;
-
-    if (getRoomSetting().getRoomType() != other.getRoomSetting().getRoomType()) {
-      return false;
-    }
-
-    return getRoomSetting().getCount() == other.getRoomSetting().getCount();
   }
 
   public RoomSetting getRoomSetting() {
