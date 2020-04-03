@@ -3,9 +3,10 @@ package greymerk.roguelike.dungeon.base;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
+
+import static java.util.stream.Collectors.toCollection;
 
 class RoomIterator implements Iterator<IDungeonRoom> {
 
@@ -13,8 +14,8 @@ class RoomIterator implements Iterator<IDungeonRoom> {
 
   public RoomIterator(List<RoomSetting> singleRoomSettings) {
     rooms = singleRoomSettings.stream()
-        .map(roomSetting -> roomSetting.getDungeonRoom().instantiate(roomSetting))
-        .collect(Collectors.toCollection(LinkedList::new));
+        .map(RoomSetting::instantiate)
+        .collect(toCollection(LinkedList::new));
   }
 
   @Override
