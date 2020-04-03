@@ -14,7 +14,7 @@ import lombok.ToString;
 
 @EqualsAndHashCode
 @ToString
-public class SecretRoom {
+public class SecretRoom extends DungeonBase {
 
   private final RoomSetting roomSetting;
 
@@ -33,29 +33,35 @@ public class SecretRoom {
   }
 
   // todo: Match the signature of DungeonBase
-  public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord pos, Cardinal dir) {
+  public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord pos, Cardinal... dir) {
     IDungeonRoom prototype = createPrototype();
 
     int size = prototype.getSize();
 
     Coord start = new Coord(pos);
     Coord end = new Coord(pos);
-    start.add(dir.orthogonal()[0]);
+    Cardinal entrance = dir[0];
+    start.add(entrance.orthogonal()[0]);
     start.add(Cardinal.DOWN);
-    start.add(dir, 2);
-    end.add(dir.orthogonal()[1]);
-    end.add(dir, size + 5);
+    start.add(entrance, 2);
+    end.add(entrance.orthogonal()[1]);
+    end.add(entrance, size + 5);
     end.add(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, settings.getTheme().getPrimary().getWall(), false, true);
 
     end = new Coord(pos);
-    end.add(dir, size + 5);
+    end.add(entrance, size + 5);
     end.add(Cardinal.UP);
     RectSolid.fill(editor, rand, pos, end, BlockType.get(BlockType.AIR));
 
     end.add(Cardinal.DOWN);
-    prototype.generate(editor, rand, settings, end, dir);
+    prototype.generate(editor, rand, settings, end, entrance);
     return prototype;
+  }
+
+  @Override
+  public int getSize() {
+    return createPrototype().getSize();
   }
 
   private IDungeonRoom createPrototype() {
