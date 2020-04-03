@@ -11,7 +11,6 @@ import java.util.Set;
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.LevelGenerator;
 import greymerk.roguelike.dungeon.base.DungeonFactory;
-import greymerk.roguelike.dungeon.base.IDungeonFactory;
 import greymerk.roguelike.dungeon.base.SecretFactory;
 import greymerk.roguelike.dungeon.segment.ISegmentGenerator;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
@@ -172,7 +171,7 @@ public class LevelSettings {
     levelDifficulty = num;
   }
 
-  public IDungeonFactory getRooms() {
+  public DungeonFactory getRooms() {
     return rooms != null ? rooms : new DungeonFactory();
   }
 

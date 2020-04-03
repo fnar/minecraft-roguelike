@@ -11,8 +11,8 @@ import greymerk.roguelike.dungeon.IDungeonLevel;
 import greymerk.roguelike.dungeon.ILevelGenerator;
 import greymerk.roguelike.dungeon.ILevelLayout;
 import greymerk.roguelike.dungeon.LevelGenerator;
+import greymerk.roguelike.dungeon.base.DungeonFactory;
 import greymerk.roguelike.dungeon.base.DungeonRoom;
-import greymerk.roguelike.dungeon.base.IDungeonFactory;
 import greymerk.roguelike.dungeon.base.IDungeonRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.ISettings;
@@ -48,7 +48,7 @@ public class DungeonTaskLayout implements IDungeonTask {
     // assign dungeon rooms
     for (IDungeonLevel level : levels) {
       ILevelLayout layout = level.getLayout();
-      IDungeonFactory rooms = level.getSettings().getRooms();
+      DungeonFactory rooms = level.getSettings().getRooms();
 
       int count = 0;
       while (layout.hasEmptyRooms()) {
