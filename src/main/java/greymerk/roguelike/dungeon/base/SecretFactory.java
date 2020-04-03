@@ -29,21 +29,17 @@ public class SecretFactory {
   }
 
   public SecretFactory(SecretFactory toCopy) {
-    idkCopy(toCopy);
+    secretRooms.addAll(toCopy.secretRooms);
   }
 
   public SecretFactory(SecretFactory base, SecretFactory other) {
     if (base != null) {
-      idkCopy(base);
+      secretRooms.addAll(base.secretRooms);
     }
 
     if (other != null) {
-      idkCopy(other);
+      secretRooms.addAll(other.secretRooms);
     }
-  }
-
-  private void idkCopy(SecretFactory toCopy) {
-    toCopy.secretRooms.forEach(this::addRoom);
   }
 
   public static SecretFactory getRandom(Random rand, int count) {
@@ -57,10 +53,6 @@ public class SecretFactory {
     RoomSetting roomSetting1 = newRoomSetting(roomSetting.getRoomType(), count);
     IntStream.range(0, count)
         .forEach(value -> secretRooms.add(new SecretRoom(roomSetting1)));
-  }
-
-  private void addRoom(SecretRoom secretRoom) {
-    secretRooms.add(secretRoom);
   }
 
   private RoomSetting newRoomSetting(RoomType type, int count) {
