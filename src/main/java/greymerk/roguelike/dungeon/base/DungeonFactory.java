@@ -21,7 +21,6 @@ import static java.util.stream.IntStream.range;
 @Getter
 public class DungeonFactory {
 
-  private RoomIterator singleRoomsIterator;
   private List<RoomSetting> singleRoomSettings = new LinkedList<>();
   private WeightedRandomizer<RoomSetting> randomRooms = new WeightedRandomizer<>();
 
@@ -68,13 +67,4 @@ public class DungeonFactory {
   private void addRandomRoom(RoomSetting roomSetting) {
     randomRooms.add(new WeightedChoice<>(roomSetting, roomSetting.getWeight()));
   }
-
-  public static IDungeonRoom get(DungeonFactory dungeonFactory, Random random) {
-    if (dungeonFactory.singleRoomsIterator == null) {
-      dungeonFactory.singleRoomsIterator = new RoomIterator(dungeonFactory, random);
-    }
-
-    return dungeonFactory.singleRoomsIterator.getDungeonRoom();
-  }
-
 }
