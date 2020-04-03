@@ -36,10 +36,10 @@ public abstract class SegmentBase implements ISegment {
 
     switch (wallDirection) {
       case NORTH:
-        if (editor.isAirBlock(new Coord(-1, 1, 2).add(pos))) {
+        if (editor.isAirBlock(new Coord(-1, 1, -2).add(pos))) {
           return false;
         }
-        if (editor.isAirBlock(new Coord(1, 1, 2).add(pos))) {
+        if (editor.isAirBlock(new Coord(1, 1, -2).add(pos))) {
           return false;
         }
         break;
