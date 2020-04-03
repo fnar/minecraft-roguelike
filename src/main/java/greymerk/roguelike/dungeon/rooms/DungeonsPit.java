@@ -6,6 +6,7 @@ import java.util.Random;
 
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.IDungeonRoom;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.worldgen.Cardinal;
@@ -42,7 +43,7 @@ public class DungeonsPit extends DungeonBase {
     dungeonWidth = 2;
   }
 
-  public boolean generate(IWorldEditor editor, Random inRandom, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public IDungeonRoom generate(IWorldEditor editor, Random inRandom, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     ITheme theme = settings.getTheme();
 
@@ -73,7 +74,7 @@ public class DungeonsPit extends DungeonBase {
     List<Coord> chestLocations = chooseRandomLocations(inRandom, 1, spaces);
     createChests(editor, inRandom, Dungeon.getLevel(originY), chestLocations, false, COMMON_TREASURES);
 
-    return true;
+    return this;
   }
 
   protected void buildWalls() {

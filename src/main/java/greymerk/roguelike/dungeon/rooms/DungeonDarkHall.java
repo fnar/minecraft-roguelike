@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.IDungeonRoom;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.worldgen.Cardinal;
@@ -23,7 +24,7 @@ public class DungeonDarkHall extends DungeonBase {
   }
 
   @Override
-  public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     ITheme theme = settings.getTheme();
 
@@ -180,7 +181,7 @@ public class DungeonDarkHall extends DungeonBase {
       }
     }
 
-    return false;
+    return this;
   }
 
   private void pillar(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord origin) {

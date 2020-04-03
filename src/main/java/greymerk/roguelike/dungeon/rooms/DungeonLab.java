@@ -8,6 +8,7 @@ import java.util.Random;
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.IDungeonRoom;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.util.DyeColor;
@@ -198,7 +199,7 @@ public class DungeonLab extends DungeonBase {
   }
 
   @Override
-  public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     int x = origin.getX();
     int y = origin.getY();
@@ -250,7 +251,7 @@ public class DungeonLab extends DungeonBase {
     RectSolid.fill(editor, rand, new Coord(x - 6, y + 1, z + 8), new Coord(x - 3, y + 3, z + 8), backWalls);
     RectSolid.fill(editor, rand, new Coord(x + 3, y + 1, z + 8), new Coord(x + 6, y + 3, z + 8), backWalls);
 
-    return false;
+    return this;
   }
 
   private void southWest(IWorldEditor editor, Random rand, LevelSettings settings, ITheme theme, int x, int y, int z) {

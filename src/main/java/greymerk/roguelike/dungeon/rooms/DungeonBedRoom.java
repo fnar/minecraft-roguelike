@@ -7,6 +7,7 @@ import java.util.Random;
 
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.IDungeonRoom;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.util.DyeColor;
@@ -42,7 +43,7 @@ public class DungeonBedRoom extends DungeonBase {
   }
 
   @Override
-  public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     ITheme theme = settings.getTheme();
 
@@ -171,7 +172,7 @@ public class DungeonBedRoom extends DungeonBase {
     Furnace.generate(editor, new ItemStack(Items.COAL, 2 + rand.nextInt(3)), true, side.reverse(), cursor);
 
 
-    return true;
+    return this;
   }
 
   private static IStair getStairs(ITheme theme) {

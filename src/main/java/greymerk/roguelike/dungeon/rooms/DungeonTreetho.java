@@ -3,6 +3,7 @@ package greymerk.roguelike.dungeon.rooms;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.IDungeonRoom;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.util.DyeColor;
@@ -29,7 +30,7 @@ public class DungeonTreetho extends DungeonBase {
   }
 
   @Override
-  public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     ITheme theme = settings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();
@@ -72,7 +73,7 @@ public class DungeonTreetho extends DungeonBase {
     }
 
 
-    return true;
+    return this;
   }
 
   private void treeFarm(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal dir) {

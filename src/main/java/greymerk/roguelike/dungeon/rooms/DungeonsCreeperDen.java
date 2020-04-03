@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.IDungeonRoom;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
@@ -28,7 +29,7 @@ public class DungeonsCreeperDen extends DungeonBase {
     super(roomSetting);
   }
 
-  public boolean generate(IWorldEditor editor, Random random, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public IDungeonRoom generate(IWorldEditor editor, Random random, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     ITheme theme = settings.getTheme();
 
@@ -80,7 +81,7 @@ public class DungeonsCreeperDen extends DungeonBase {
     SpawnerSettings spawners = settings.getSpawners();
     SpawnerSettings.generate(editor, random, cursor, settings.getDifficulty(cursor), spawners, Spawner.CREEPER);
 
-    return true;
+    return this;
   }
 
   private void spawnTntBeneath(IWorldEditor editor, Coord coord) {

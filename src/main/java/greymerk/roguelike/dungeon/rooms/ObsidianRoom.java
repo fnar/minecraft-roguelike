@@ -5,6 +5,7 @@ import java.util.Random;
 
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.IDungeonRoom;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.worldgen.BlockJumble;
@@ -118,7 +119,7 @@ public class ObsidianRoom extends DungeonBase {
   }
 
   @Override
-  public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     int x = origin.getX();
     int y = origin.getY();
@@ -340,7 +341,7 @@ public class ObsidianRoom extends DungeonBase {
     end.add(Cardinal.WEST, 6);
     RectSolid.fill(editor, rand, start, end, crap);
 
-    return true;
+    return this;
   }
 
   @Override

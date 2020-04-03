@@ -4,6 +4,7 @@ import java.util.Random;
 
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.IDungeonRoom;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.worldgen.Cardinal;
@@ -26,7 +27,7 @@ import static greymerk.roguelike.worldgen.spawners.Spawner.UNDEAD_MOBS;
 public class DungeonPyramidTomb extends DungeonBase {
 
   @Override
-  public boolean generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
 
     ITheme theme = settings.getTheme();
@@ -147,7 +148,7 @@ public class DungeonPyramidTomb extends DungeonBase {
 
     sarcophagus(editor, rand, settings, entrances[0], origin);
 
-    return true;
+    return this;
   }
 
   private void ceilingTiles(IWorldEditor editor, Random rand, ITheme theme, int width, Cardinal dir, Coord origin) {

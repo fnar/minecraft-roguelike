@@ -4,6 +4,7 @@ import java.util.Random;
 
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.IDungeonRoom;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.BlockCheckers;
 import greymerk.roguelike.worldgen.Cardinal;
@@ -25,7 +26,7 @@ public class DungeonsEnder extends DungeonBase {
     super(roomSetting);
   }
 
-  public boolean generate(IWorldEditor editor, Random inRandom, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public IDungeonRoom generate(IWorldEditor editor, Random inRandom, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     MetaBlock black = BlockType.get(BlockType.OBSIDIAN);
     MetaBlock white = Quartz.get(Quartz.SMOOTH);
@@ -83,7 +84,7 @@ public class DungeonsEnder extends DungeonBase {
     SpawnerSettings spawners = settings.getSpawners();
     SpawnerSettings.generate(editor, inRandom, origin, settings.getDifficulty(origin), spawners, Spawner.ENDERMAN);
 
-    return true;
+    return this;
   }
 
   private void addEnderChest(IWorldEditor editor, IShape area) {
