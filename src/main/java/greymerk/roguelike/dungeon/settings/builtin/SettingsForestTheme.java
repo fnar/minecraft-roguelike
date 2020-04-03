@@ -46,9 +46,9 @@ public class SettingsForestTheme extends DungeonSettings {
           rooms.add(RoomType.LIBRARY.newSingleRoomSetting());
           level.setRooms(rooms);
           secrets = new SecretFactory();
-          secrets.addRoom(RoomType.SMITH);
-          secrets.addRoom(RoomType.BEDROOM);
-          secrets.addRoom(RoomType.BEDROOM);
+          secrets.add(RoomType.SMITH.newSingleRoomSetting());
+          secrets.add(RoomType.BEDROOM.newSingleRoomSetting());
+          secrets.add(RoomType.BEDROOM.newSingleRoomSetting());
           level.setSecrets(secrets);
           level.setTheme(Theme.SPRUCE.getThemeBase());
           segments = new SegmentGenerator(Segment.ARCH);

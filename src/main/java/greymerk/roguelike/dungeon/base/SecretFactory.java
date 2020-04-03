@@ -48,7 +48,7 @@ public class SecretFactory {
 
   public static SecretFactory getRandom(Random rand, int count) {
     SecretFactory secrets = new SecretFactory();
-    IntStream.range(0, count).mapToObj(i -> RoomType.getRandomSecret(rand)).forEach(secrets::addRoom);
+    IntStream.range(0, count).mapToObj(i -> RoomType.getRandomSecret(rand)).forEach(type -> secrets.add(type.newSingleRoomSetting()));
     return secrets;
   }
 
@@ -57,10 +57,6 @@ public class SecretFactory {
     RoomSetting roomSetting1 = newRoomSetting(roomSetting.getRoomType(), count);
     IntStream.range(0, count)
         .forEach(value -> secretRooms.add(new SecretRoom(roomSetting1)));
-  }
-
-  public void addRoom(RoomType type) {
-    add(type.newSingleRoomSetting());
   }
 
   private void addRoom(SecretRoom secretRoom) {
