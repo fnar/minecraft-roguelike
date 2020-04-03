@@ -3,6 +3,7 @@ package greymerk.roguelike.dungeon.settings;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.stream.IntStream;
 
 import greymerk.roguelike.dungeon.LevelGenerator;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
@@ -28,28 +29,8 @@ public class SettingsRandom extends DungeonSettings {
 
     Map<Integer, LevelSettings> levels = new HashMap<>();
 
-    for (int i = 0; i < 5; ++i) {
-      LevelSettings level = new LevelSettings();
-
-      level.setDifficulty(i);
-      level.setGenerator(LevelGenerator.CLASSIC);
-      level.setNumRooms(15);
-      level.setRange(60);
-
-      RoomsSetting rooms = RoomsSetting.getRandom(rand, 8);
-      level.setRooms(rooms);
-
-      level.setScatter(15);
-
-      SecretFactory secrets = SecretFactory.getRandom(rand, 2);
-      level.setSecrets(secrets);
-
-      SegmentGenerator segments = SegmentGenerator.getRandom(rand, 12);
-      level.setSegments(segments);
-
-      level.setTheme(randomTheme());
-      levels.put(i, level);
-    }
+    IntStream.range(0, 5)
+        .forEach(i -> levels.put(i, createRandomLevel(rand, i)));
 
     setLevels(levels);
 
@@ -86,6 +67,19 @@ public class SettingsRandom extends DungeonSettings {
       getLootRules().add(null, new ItemSpecialty(0, i, Quality.get(i)), i, false, 3);
       getLootRules().add(null, new ItemEnchBook(0, i), i, false, i * 2 + 5);
     }
+  }
 
+  private LevelSettings createRandomLevel(Random rand, int i) {
+    LevelSettings level = new LevelSettings();
+    level.setDifficulty(i);
+    level.setGenerator(LevelGenerator.CLASSIC);
+    level.setNumRooms(15);
+    level.setRange(60);
+    level.setRooms(RoomsSetting.getRandom(rand, 8));
+    level.setScatter(15);
+    level.setSecrets(SecretFactory.getRandom(rand, 2));
+    level.setSegments(SegmentGenerator.getRandom(rand, 12));
+    level.setTheme(randomTheme());
+    return level;
   }
 }
