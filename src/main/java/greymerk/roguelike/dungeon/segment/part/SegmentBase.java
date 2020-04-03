@@ -15,9 +15,6 @@ import greymerk.roguelike.worldgen.IWorldEditor;
 
 public abstract class SegmentBase implements ISegment {
 
-  public SegmentBase() {
-  }
-
   @Override
   public void generate(IWorldEditor editor, Random rand, IDungeonLevel level, Cardinal dir, ITheme theme, Coord pos) {
     if (!level.hasNearbyNode(pos) && isValidWall(editor, dir, pos)) {
