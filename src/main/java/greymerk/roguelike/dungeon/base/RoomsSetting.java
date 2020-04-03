@@ -13,7 +13,7 @@ import lombok.Getter;
 import lombok.ToString;
 
 import static com.google.common.collect.Lists.newLinkedList;
-import static greymerk.roguelike.dungeon.base.DungeonRoom.getRandomRoom;
+import static greymerk.roguelike.dungeon.base.DungeonRoom.getRandomIntersection;
 import static java.util.stream.IntStream.range;
 
 @ToString
@@ -37,15 +37,9 @@ public class RoomsSetting {
     randomRooms = new WeightedRandomizer<>((child.randomRooms.isEmpty() ? parent : child).randomRooms);
   }
 
-  public static RoomsSetting getRandom(Random rand, int numRooms) {
+  public static RoomsSetting getRandom(Random random, int numRooms) {
     RoomsSetting rooms = new RoomsSetting();
-    range(0, numRooms).forEach(i -> {
-      if (rand.nextBoolean()) {
-        rooms.add(getRandomRoom(rand).newRandomRoomSetting(1));
-      } else {
-        rooms.add(getRandomRoom(rand).newSingleRoomSetting());
-      }
-    });
+    range(0, numRooms).forEach(i -> rooms.add(getRandomIntersection(random).newRandomRoomSetting(1)));
     return rooms;
   }
 
