@@ -12,7 +12,7 @@ import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import lombok.Getter;
 
 @Getter
-public enum DungeonRoom {
+public enum RoomType {
 
   ASHLEA(false, false),
   AVIDYA(false, false),
@@ -56,7 +56,7 @@ public enum DungeonRoom {
   private boolean isIntersection;
   private boolean isSecret;
 
-  DungeonRoom(
+  RoomType(
       boolean isIntersection,
       boolean isSecret
   ) {
@@ -72,25 +72,25 @@ public enum DungeonRoom {
     return new RoomSetting(this, null, "builtin:spawner", "single", 1, 1, Lists.newArrayList(0, 1, 2, 3, 4));
   }
 
-  public static DungeonRoom getRandomIntersection(Random random) {
-    List<DungeonRoom> intersections = getIntersections();
+  public static RoomType getRandomIntersection(Random random) {
+    List<RoomType> intersections = getIntersections();
     return intersections.get(random.nextInt(intersections.size()));
   }
 
-  private static List<DungeonRoom> getSecrets() {
+  private static List<RoomType> getSecrets() {
     return Arrays.stream(values())
-        .filter(DungeonRoom::isSecret)
+        .filter(RoomType::isSecret)
         .collect(Collectors.toList());
   }
 
-  private static List<DungeonRoom> getIntersections() {
+  private static List<RoomType> getIntersections() {
     return Arrays.stream(values())
-        .filter(DungeonRoom::isIntersection)
+        .filter(RoomType::isIntersection)
         .collect(Collectors.toList());
   }
 
-  public static DungeonRoom getRandomSecret(Random random) {
-    List<DungeonRoom> secrets = getSecrets();
+  public static RoomType getRandomSecret(Random random) {
+    List<RoomType> secrets = getSecrets();
     return secrets.get(random.nextInt(secrets.size()));
   }
 

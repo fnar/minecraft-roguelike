@@ -63,7 +63,7 @@ public class SecretRoom {
 
     SecretRoom other = (SecretRoom) o;
 
-    if (roomSetting.getDungeonRoom() != other.roomSetting.getDungeonRoom()) {
+    if (roomSetting.getRoomType() != other.roomSetting.getRoomType()) {
       return false;
     }
 

@@ -6,23 +6,23 @@ import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
 
-import static greymerk.roguelike.dungeon.base.DungeonRoom.BLAZE;
-import static greymerk.roguelike.dungeon.base.DungeonRoom.BRICK;
-import static greymerk.roguelike.dungeon.base.DungeonRoom.CAKE;
-import static greymerk.roguelike.dungeon.base.DungeonRoom.CORNER;
-import static greymerk.roguelike.dungeon.base.DungeonRoom.CREEPER;
-import static greymerk.roguelike.dungeon.base.DungeonRoom.CRYPT;
-import static greymerk.roguelike.dungeon.base.DungeonRoom.DARKHALL;
-import static greymerk.roguelike.dungeon.base.DungeonRoom.ENDER;
-import static greymerk.roguelike.dungeon.base.DungeonRoom.FIRE;
-import static greymerk.roguelike.dungeon.base.DungeonRoom.FORTRESS;
-import static greymerk.roguelike.dungeon.base.DungeonRoom.NETHER;
-import static greymerk.roguelike.dungeon.base.DungeonRoom.OBSIDIAN;
-import static greymerk.roguelike.dungeon.base.DungeonRoom.OSSUARY;
-import static greymerk.roguelike.dungeon.base.DungeonRoom.PIT;
-import static greymerk.roguelike.dungeon.base.DungeonRoom.PRISON;
-import static greymerk.roguelike.dungeon.base.DungeonRoom.SLIME;
-import static greymerk.roguelike.dungeon.base.DungeonRoom.SPIDER;
+import static greymerk.roguelike.dungeon.base.RoomType.BLAZE;
+import static greymerk.roguelike.dungeon.base.RoomType.BRICK;
+import static greymerk.roguelike.dungeon.base.RoomType.CAKE;
+import static greymerk.roguelike.dungeon.base.RoomType.CORNER;
+import static greymerk.roguelike.dungeon.base.RoomType.CREEPER;
+import static greymerk.roguelike.dungeon.base.RoomType.CRYPT;
+import static greymerk.roguelike.dungeon.base.RoomType.DARKHALL;
+import static greymerk.roguelike.dungeon.base.RoomType.ENDER;
+import static greymerk.roguelike.dungeon.base.RoomType.FIRE;
+import static greymerk.roguelike.dungeon.base.RoomType.FORTRESS;
+import static greymerk.roguelike.dungeon.base.RoomType.NETHER;
+import static greymerk.roguelike.dungeon.base.RoomType.OBSIDIAN;
+import static greymerk.roguelike.dungeon.base.RoomType.OSSUARY;
+import static greymerk.roguelike.dungeon.base.RoomType.PIT;
+import static greymerk.roguelike.dungeon.base.RoomType.PRISON;
+import static greymerk.roguelike.dungeon.base.RoomType.SLIME;
+import static greymerk.roguelike.dungeon.base.RoomType.SPIDER;
 
 public class SettingsRooms extends DungeonSettings {
 

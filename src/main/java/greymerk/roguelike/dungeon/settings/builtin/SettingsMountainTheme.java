@@ -1,6 +1,6 @@
 package greymerk.roguelike.dungeon.settings.builtin;
 
-import greymerk.roguelike.dungeon.base.DungeonRoom;
+import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.base.SecretFactory;
 import greymerk.roguelike.dungeon.segment.Segment;
@@ -42,15 +42,15 @@ public class SettingsMountainTheme extends DungeonSettings {
         RoomsSetting factory;
 
         factory = new RoomsSetting();
-        factory.add(DungeonRoom.LIBRARY.newSingleRoomSetting());
-        factory.add(DungeonRoom.FIRE.newSingleRoomSetting());
-        DungeonRoom.ENIKO.newRandomRoomSetting(10);
-        DungeonRoom.CORNER.newRandomRoomSetting(3);
+        factory.add(RoomType.LIBRARY.newSingleRoomSetting());
+        factory.add(RoomType.FIRE.newSingleRoomSetting());
+        RoomType.ENIKO.newRandomRoomSetting(10);
+        RoomType.CORNER.newRandomRoomSetting(3);
         level.setRooms(factory);
 
         SecretFactory secrets = new SecretFactory();
-        secrets.addRoom(DungeonRoom.BEDROOM, 2);
-        secrets.addRoom(DungeonRoom.SMITH);
+        secrets.addRoom(RoomType.BEDROOM, 2);
+        secrets.addRoom(RoomType.SMITH);
         level.setSecrets(secrets);
 
         SegmentGenerator segments = new SegmentGenerator(Segment.ARCH);
@@ -69,16 +69,16 @@ public class SettingsMountainTheme extends DungeonSettings {
 
         RoomsSetting factory;
         factory = new RoomsSetting();
-        factory.add(DungeonRoom.FIRE.newSingleRoomSetting());
-        factory.add(DungeonRoom.MESS.newSingleRoomSetting());
-        factory.add(DungeonRoom.LIBRARY.newSingleRoomSetting());
-        factory.add(DungeonRoom.LAB.newSingleRoomSetting());
-        factory.add(DungeonRoom.ENIKO.newRandomRoomSetting(10));
-        factory.add(DungeonRoom.CORNER.newRandomRoomSetting(3));
+        factory.add(RoomType.FIRE.newSingleRoomSetting());
+        factory.add(RoomType.MESS.newSingleRoomSetting());
+        factory.add(RoomType.LIBRARY.newSingleRoomSetting());
+        factory.add(RoomType.LAB.newSingleRoomSetting());
+        factory.add(RoomType.ENIKO.newRandomRoomSetting(10));
+        factory.add(RoomType.CORNER.newRandomRoomSetting(3));
         level.setRooms(factory);
 
         SecretFactory secrets = new SecretFactory();
-        secrets.addRoom(DungeonRoom.ENCHANT);
+        secrets.addRoom(RoomType.ENCHANT);
         level.setSecrets(secrets);
 
       }
@@ -94,12 +94,12 @@ public class SettingsMountainTheme extends DungeonSettings {
 
         RoomsSetting factory;
         factory = new RoomsSetting();
-        factory.add(DungeonRoom.BRICK.newRandomRoomSetting(4));
-        factory.add(DungeonRoom.SLIME.newRandomRoomSetting(7));
-        factory.add(DungeonRoom.CORNER.newRandomRoomSetting(3));
-        factory.add(DungeonRoom.SPIDER.newRandomRoomSetting(2));
-        factory.add(DungeonRoom.PIT.newRandomRoomSetting(2));
-        factory.add(DungeonRoom.PRISON.newRandomRoomSetting(3));
+        factory.add(RoomType.BRICK.newRandomRoomSetting(4));
+        factory.add(RoomType.SLIME.newRandomRoomSetting(7));
+        factory.add(RoomType.CORNER.newRandomRoomSetting(3));
+        factory.add(RoomType.SPIDER.newRandomRoomSetting(2));
+        factory.add(RoomType.PIT.newRandomRoomSetting(2));
+        factory.add(RoomType.PRISON.newRandomRoomSetting(3));
         level.setRooms(factory);
       }
 

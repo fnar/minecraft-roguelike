@@ -3,7 +3,7 @@ package greymerk.roguelike.dungeon.settings.builtin;
 import net.minecraft.init.Items;
 
 import greymerk.roguelike.dungeon.LevelGenerator;
-import greymerk.roguelike.dungeon.base.DungeonRoom;
+import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.base.SecretFactory;
 import greymerk.roguelike.dungeon.segment.Segment;
@@ -53,13 +53,13 @@ public class SettingsDesertTheme extends DungeonSettings {
         level.setSegments(segments);
 
         RoomsSetting factory = new RoomsSetting();
-        factory.add(DungeonRoom.PYRAMIDTOMB.newSingleRoomSetting());
-        factory.add(DungeonRoom.PYRAMIDSPAWNER.newRandomRoomSetting(5));
-        factory.add(DungeonRoom.PYRAMIDCORNER.newRandomRoomSetting(3));
+        factory.add(RoomType.PYRAMIDTOMB.newSingleRoomSetting());
+        factory.add(RoomType.PYRAMIDSPAWNER.newRandomRoomSetting(5));
+        factory.add(RoomType.PYRAMIDCORNER.newRandomRoomSetting(3));
         level.setRooms(factory);
 
         SecretFactory secrets = new SecretFactory();
-        secrets.addRoom(DungeonRoom.PYRAMIDTOMB);
+        secrets.addRoom(RoomType.PYRAMIDTOMB);
         level.setSecrets(secrets);
 
         level.setGenerator(LevelGenerator.CLASSIC);
@@ -79,9 +79,9 @@ public class SettingsDesertTheme extends DungeonSettings {
         level.setSegments(segments);
 
         RoomsSetting factory = new RoomsSetting();
-        factory.add(DungeonRoom.PYRAMIDTOMB.newRandomRoomSetting(2));
-        factory.add(DungeonRoom.PYRAMIDSPAWNER.newRandomRoomSetting(10));
-        factory.add(DungeonRoom.PYRAMIDCORNER.newRandomRoomSetting(5));
+        factory.add(RoomType.PYRAMIDTOMB.newRandomRoomSetting(2));
+        factory.add(RoomType.PYRAMIDSPAWNER.newRandomRoomSetting(10));
+        factory.add(RoomType.PYRAMIDCORNER.newRandomRoomSetting(5));
         level.setRooms(factory);
 
         level.setGenerator(LevelGenerator.CLASSIC);
@@ -100,12 +100,12 @@ public class SettingsDesertTheme extends DungeonSettings {
         level.setSegments(segments);
 
         RoomsSetting factory = new RoomsSetting();
-        factory.add(DungeonRoom.PYRAMIDTOMB.newRandomRoomSetting(1));
-        factory.add(DungeonRoom.CRYPT.newRandomRoomSetting(4));
-        factory.add(DungeonRoom.OSSUARY.newSingleRoomSetting());
-        factory.add(DungeonRoom.SPIDER.newRandomRoomSetting(2));
-        factory.add(DungeonRoom.PYRAMIDSPAWNER.newRandomRoomSetting(5));
-        factory.add(DungeonRoom.PYRAMIDCORNER.newRandomRoomSetting(4));
+        factory.add(RoomType.PYRAMIDTOMB.newRandomRoomSetting(1));
+        factory.add(RoomType.CRYPT.newRandomRoomSetting(4));
+        factory.add(RoomType.OSSUARY.newSingleRoomSetting());
+        factory.add(RoomType.SPIDER.newRandomRoomSetting(2));
+        factory.add(RoomType.PYRAMIDSPAWNER.newRandomRoomSetting(5));
+        factory.add(RoomType.PYRAMIDCORNER.newRandomRoomSetting(4));
 
         level.setRooms(factory);
 
@@ -125,12 +125,12 @@ public class SettingsDesertTheme extends DungeonSettings {
         level.setSegments(segments);
 
         RoomsSetting factory = new RoomsSetting();
-        factory.add(DungeonRoom.PYRAMIDTOMB.newRandomRoomSetting(1));
-        factory.add(DungeonRoom.SLIME.newRandomRoomSetting(2));
-        factory.add(DungeonRoom.FIRE.newRandomRoomSetting(2));
-        factory.add(DungeonRoom.PYRAMIDSPAWNER.newRandomRoomSetting(5));
-        factory.add(DungeonRoom.PYRAMIDCORNER.newRandomRoomSetting(4));
-        factory.add(DungeonRoom.SPIDER.newRandomRoomSetting(2));
+        factory.add(RoomType.PYRAMIDTOMB.newRandomRoomSetting(1));
+        factory.add(RoomType.SLIME.newRandomRoomSetting(2));
+        factory.add(RoomType.FIRE.newRandomRoomSetting(2));
+        factory.add(RoomType.PYRAMIDSPAWNER.newRandomRoomSetting(5));
+        factory.add(RoomType.PYRAMIDCORNER.newRandomRoomSetting(4));
+        factory.add(RoomType.SPIDER.newRandomRoomSetting(2));
         level.setRooms(factory);
 
         level.setGenerator(LevelGenerator.CLASSIC);

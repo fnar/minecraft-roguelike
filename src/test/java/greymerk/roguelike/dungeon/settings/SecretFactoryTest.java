@@ -3,7 +3,7 @@ package greymerk.roguelike.dungeon.settings;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import greymerk.roguelike.dungeon.base.DungeonRoom;
+import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.SecretFactory;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -14,17 +14,17 @@ public class SecretFactoryTest {
   @Ignore // ugh, I'm being bad
   public void testOverride() {
     SecretFactory secrets1 = new SecretFactory();
-    secrets1.addRoom(DungeonRoom.FIREWORK);
-    secrets1.addRoom(DungeonRoom.BEDROOM);
+    secrets1.addRoom(RoomType.FIREWORK);
+    secrets1.addRoom(RoomType.BEDROOM);
 
     SecretFactory secrets2 = new SecretFactory();
-    secrets2.addRoom(DungeonRoom.BEDROOM);
-    secrets2.addRoom(DungeonRoom.PRISON);
+    secrets2.addRoom(RoomType.BEDROOM);
+    secrets2.addRoom(RoomType.PRISON);
 
     SecretFactory test = new SecretFactory();
-    test.addRoom(DungeonRoom.FIREWORK);
-    test.addRoom(DungeonRoom.BEDROOM, 2);
-    test.addRoom(DungeonRoom.PRISON);
+    test.addRoom(RoomType.FIREWORK);
+    test.addRoom(RoomType.BEDROOM, 2);
+    test.addRoom(RoomType.PRISON);
 
     SecretFactory expected = new SecretFactory(secrets1, secrets2);
     assertThat(test).isEqualTo(expected);
@@ -34,12 +34,12 @@ public class SecretFactoryTest {
   @Ignore // ugh, I'm being bad
   public void testAdd() {
     SecretFactory threeBeds = new SecretFactory();
-    threeBeds.addRoom(DungeonRoom.BEDROOM, 3);
+    threeBeds.addRoom(RoomType.BEDROOM, 3);
 
     SecretFactory test = new SecretFactory();
-    test.addRoom(DungeonRoom.BEDROOM);
-    test.addRoom(DungeonRoom.BEDROOM);
-    test.addRoom(DungeonRoom.BEDROOM);
+    test.addRoom(RoomType.BEDROOM);
+    test.addRoom(RoomType.BEDROOM);
+    test.addRoom(RoomType.BEDROOM);
 
     assertThat(test).isEqualTo(threeBeds);
   }
@@ -48,20 +48,20 @@ public class SecretFactoryTest {
   @Ignore // ugh, I'm being bad
   public void testEquals() {
     SecretFactory secrets1 = new SecretFactory();
-    secrets1.addRoom(DungeonRoom.BEDROOM);
+    secrets1.addRoom(RoomType.BEDROOM);
 
     SecretFactory secrets2 = new SecretFactory();
-    secrets2.addRoom(DungeonRoom.BEDROOM, 1);
+    secrets2.addRoom(RoomType.BEDROOM, 1);
 
     assertThat(secrets1).isEqualTo(secrets2);
 
     SecretFactory secrets3 = new SecretFactory();
-    secrets3.addRoom(DungeonRoom.BTEAM);
+    secrets3.addRoom(RoomType.BTEAM);
 
     assertThat(secrets1).isNotEqualTo(secrets3);
 
-    secrets1.addRoom(DungeonRoom.BTEAM);
-    secrets3.addRoom(DungeonRoom.BEDROOM);
+    secrets1.addRoom(RoomType.BTEAM);
+    secrets3.addRoom(RoomType.BEDROOM);
 
     assertThat(secrets1).isEqualTo(secrets3);
   }

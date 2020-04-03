@@ -48,15 +48,15 @@ public class SecretFactory {
 
   public static SecretFactory getRandom(Random rand, int count) {
     SecretFactory secrets = new SecretFactory();
-    IntStream.range(0, count).mapToObj(i -> DungeonRoom.getRandomSecret(rand)).forEach(secrets::addRoom);
+    IntStream.range(0, count).mapToObj(i -> RoomType.getRandomSecret(rand)).forEach(secrets::addRoom);
     return secrets;
   }
 
   public void add(RoomSetting roomSetting) {
-    addRoom(roomSetting.getDungeonRoom(), roomSetting.getCount());
+    addRoom(roomSetting.getRoomType(), roomSetting.getCount());
   }
 
-  public void addRoom(DungeonRoom type) {
+  public void addRoom(RoomType type) {
     addRoom(type, 1);
   }
 
@@ -64,13 +64,13 @@ public class SecretFactory {
     secretRooms.add(secretRoom);
   }
 
-  public void addRoom(DungeonRoom type, int count) {
+  public void addRoom(RoomType type, int count) {
     RoomSetting roomSetting = newRoomSetting(type, count);
     IntStream.range(0, count)
         .forEach(value -> secretRooms.add(new SecretRoom(roomSetting)));
   }
 
-  private RoomSetting newRoomSetting(DungeonRoom type, int count) {
+  private RoomSetting newRoomSetting(RoomType type, int count) {
     return new RoomSetting(type, null, "builtin:spawner", "single", 0, count, Collections.emptyList());
   }
 

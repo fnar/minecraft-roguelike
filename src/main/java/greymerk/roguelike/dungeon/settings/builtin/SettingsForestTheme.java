@@ -1,6 +1,6 @@
 package greymerk.roguelike.dungeon.settings.builtin;
 
-import greymerk.roguelike.dungeon.base.DungeonRoom;
+import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.base.SecretFactory;
 import greymerk.roguelike.dungeon.segment.Segment;
@@ -39,15 +39,15 @@ public class SettingsForestTheme extends DungeonSettings {
       switch (i) {
         case 0:
           rooms = new RoomsSetting();
-          rooms.add(DungeonRoom.CORNER.newRandomRoomSetting(8));
-          rooms.add(DungeonRoom.BRICK.newRandomRoomSetting(3));
-          rooms.add(DungeonRoom.CAKE.newSingleRoomSetting());
-          rooms.add(DungeonRoom.DARKHALL.newSingleRoomSetting());
-          rooms.add(DungeonRoom.LIBRARY.newSingleRoomSetting());
+          rooms.add(RoomType.CORNER.newRandomRoomSetting(8));
+          rooms.add(RoomType.BRICK.newRandomRoomSetting(3));
+          rooms.add(RoomType.CAKE.newSingleRoomSetting());
+          rooms.add(RoomType.DARKHALL.newSingleRoomSetting());
+          rooms.add(RoomType.LIBRARY.newSingleRoomSetting());
           level.setRooms(rooms);
           secrets = new SecretFactory();
-          secrets.addRoom(DungeonRoom.SMITH);
-          secrets.addRoom(DungeonRoom.BEDROOM, 2);
+          secrets.addRoom(RoomType.SMITH);
+          secrets.addRoom(RoomType.BEDROOM, 2);
           level.setSecrets(secrets);
           level.setTheme(Theme.SPRUCE.getThemeBase());
           segments = new SegmentGenerator(Segment.ARCH);
@@ -63,13 +63,13 @@ public class SettingsForestTheme extends DungeonSettings {
           break;
         case 1:
           rooms = new RoomsSetting();
-          rooms.add(DungeonRoom.MUSIC.newSingleRoomSetting());
-          rooms.add(DungeonRoom.PIT.newSingleRoomSetting());
-          rooms.add(DungeonRoom.LAB.newSingleRoomSetting());
-          rooms.add(DungeonRoom.SLIME.newSingleRoomSetting());
-          rooms.add(DungeonRoom.SLIME.newSingleRoomSetting());
-          rooms.add(DungeonRoom.CORNER.newRandomRoomSetting(10));
-          rooms.add(DungeonRoom.BRICK.newRandomRoomSetting(3));
+          rooms.add(RoomType.MUSIC.newSingleRoomSetting());
+          rooms.add(RoomType.PIT.newSingleRoomSetting());
+          rooms.add(RoomType.LAB.newSingleRoomSetting());
+          rooms.add(RoomType.SLIME.newSingleRoomSetting());
+          rooms.add(RoomType.SLIME.newSingleRoomSetting());
+          rooms.add(RoomType.CORNER.newRandomRoomSetting(10));
+          rooms.add(RoomType.BRICK.newRandomRoomSetting(3));
           level.setRooms(rooms);
           level.setTheme(Theme.DARKHALL.getThemeBase());
           segments = new SegmentGenerator(Segment.ARCH);

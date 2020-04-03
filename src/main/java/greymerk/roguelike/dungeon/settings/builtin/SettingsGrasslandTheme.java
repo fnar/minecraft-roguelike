@@ -1,6 +1,6 @@
 package greymerk.roguelike.dungeon.settings.builtin;
 
-import greymerk.roguelike.dungeon.base.DungeonRoom;
+import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.base.SecretFactory;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
@@ -36,19 +36,19 @@ public class SettingsGrasslandTheme extends DungeonSettings {
 
       switch (i) {
         case 0:
-          secrets.addRoom(DungeonRoom.BEDROOM);
-          secrets.addRoom(DungeonRoom.SMITH);
-          secrets.addRoom(DungeonRoom.FIREWORK);
+          secrets.addRoom(RoomType.BEDROOM);
+          secrets.addRoom(RoomType.SMITH);
+          secrets.addRoom(RoomType.FIREWORK);
           level.setSecrets(secrets);
           break;
         case 1:
-          secrets.addRoom(DungeonRoom.BTEAM);
-          rooms.add(DungeonRoom.MUSIC.newSingleRoomSetting());
-          rooms.add(DungeonRoom.PIT.newSingleRoomSetting());
-          rooms.add(DungeonRoom.MESS.newSingleRoomSetting());
-          rooms.add(DungeonRoom.LAB.newSingleRoomSetting());
-          rooms.add(DungeonRoom.CORNER.newRandomRoomSetting(10));
-          rooms.add(DungeonRoom.BRICK.newRandomRoomSetting(3));
+          secrets.addRoom(RoomType.BTEAM);
+          rooms.add(RoomType.MUSIC.newSingleRoomSetting());
+          rooms.add(RoomType.PIT.newSingleRoomSetting());
+          rooms.add(RoomType.MESS.newSingleRoomSetting());
+          rooms.add(RoomType.LAB.newSingleRoomSetting());
+          rooms.add(RoomType.CORNER.newRandomRoomSetting(10));
+          rooms.add(RoomType.BRICK.newRandomRoomSetting(3));
           level.setSecrets(secrets);
           level.setRooms(rooms);
           break;

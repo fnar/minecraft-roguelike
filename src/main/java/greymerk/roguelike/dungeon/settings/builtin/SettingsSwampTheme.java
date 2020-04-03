@@ -3,7 +3,7 @@ package greymerk.roguelike.dungeon.settings.builtin;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
-import greymerk.roguelike.dungeon.base.DungeonRoom;
+import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.segment.Segment;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
@@ -66,10 +66,10 @@ public class SettingsSwampTheme extends DungeonSettings {
         level.setSegments(segments);
 
         RoomsSetting factory = new RoomsSetting();
-        factory.add(DungeonRoom.CAKE.newSingleRoomSetting());
-        factory.add(DungeonRoom.DARKHALL.newSingleRoomSetting());
-        factory.add(DungeonRoom.BRICK.newRandomRoomSetting(10));
-        factory.add(DungeonRoom.CORNER.newRandomRoomSetting(3));
+        factory.add(RoomType.CAKE.newSingleRoomSetting());
+        factory.add(RoomType.DARKHALL.newSingleRoomSetting());
+        factory.add(RoomType.BRICK.newRandomRoomSetting(10));
+        factory.add(RoomType.CORNER.newRandomRoomSetting(3));
         level.setRooms(factory);
         level.addFilter(Filter.MUD);
       }
@@ -84,13 +84,13 @@ public class SettingsSwampTheme extends DungeonSettings {
         level.setSegments(segments);
 
         RoomsSetting factory = new RoomsSetting();
-        factory.add(DungeonRoom.CAKE.newSingleRoomSetting());
-        factory.add(DungeonRoom.LAB.newSingleRoomSetting());
-        factory.add(DungeonRoom.SPIDER.newSingleRoomSetting());
-        factory.add(DungeonRoom.PIT.newSingleRoomSetting());
-        factory.add(DungeonRoom.PRISON.newSingleRoomSetting());
-        factory.add(DungeonRoom.BRICK.newRandomRoomSetting(10));
-        factory.add(DungeonRoom.CORNER.newRandomRoomSetting(3));
+        factory.add(RoomType.CAKE.newSingleRoomSetting());
+        factory.add(RoomType.LAB.newSingleRoomSetting());
+        factory.add(RoomType.SPIDER.newSingleRoomSetting());
+        factory.add(RoomType.PIT.newSingleRoomSetting());
+        factory.add(RoomType.PRISON.newSingleRoomSetting());
+        factory.add(RoomType.BRICK.newRandomRoomSetting(10));
+        factory.add(RoomType.CORNER.newRandomRoomSetting(3));
         level.setRooms(factory);
         level.addFilter(Filter.MUD);
       }
