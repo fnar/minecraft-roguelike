@@ -1,10 +1,12 @@
 package greymerk.roguelike.dungeon.segment.part;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.IDungeonLevel;
 import greymerk.roguelike.dungeon.base.IDungeonRoom;
+import greymerk.roguelike.dungeon.base.SecretRoom;
 import greymerk.roguelike.dungeon.base.SecretsSetting;
 import greymerk.roguelike.dungeon.segment.ISegment;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
@@ -64,10 +66,12 @@ public abstract class SegmentBase implements ISegment {
   }
 
   public Optional<IDungeonRoom> generateSecret(SecretsSetting secretsSetting, IWorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord pos) {
-    return secretsSetting.getSecretRooms().stream()
+    List<SecretRoom> secretRooms = secretsSetting.getSecretRooms();
+    Optional<SecretRoom> first = secretRooms.stream()
         .filter(secretRoom -> secretRoom.isValid(editor, dir, pos))
-        .findFirst()
-        .map(secretRoom -> secretRoom.generate(editor, rand, settings, pos, dir));
+        .findFirst();
+    first.ifPresent(secretRooms::remove);
+    return first.map(secretRoom -> secretRoom.generate(editor, rand, settings, pos, dir));
   }
 
 }
