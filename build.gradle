@@ -12,7 +12,7 @@ apply plugin: 'idea'
 apply plugin: 'java'
 
 version = "1.12.2-1.8.0"
-group= "ca.rivas.roguelike"
+group = "ca.rivas.roguelike"
 archivesBaseName = "RoguelikeDungeons"
 
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
@@ -23,21 +23,32 @@ compileJava {
 minecraft {
     version = "1.12.2-14.23.5.2768"
     runDir = "run"
-	mappings = "snapshot_20171003"
-	makeObfSourceJar = false
+    mappings = "snapshot_20171003"
+    makeObfSourceJar = false
 }
 
-repositories { jcenter() }
+repositories {
+    mavenCentral()
+    jcenter()
+}
 
 dependencies {
+
+    compile 'org.projectlombok:lombok:1.18.12'
+    annotationProcessor 'org.projectlombok:lombok:1.18.12'
+
+    testCompileOnly 'org.projectlombok:lombok:1.18.12'
+    testAnnotationProcessor 'org.projectlombok:lombok:1.18.12'
+
     testCompile "junit:junit:4.11"
 
-    dependencies { testCompile "org.mockito:mockito-core:1.+" }
+    dependencies {
+        testCompile "org.mockito:mockito-core:1.+"
+    }
     testCompile("org.assertj:assertj-core:3.11.1")
 }
 
-processResources
-{
+processResources {
     // this will ensure that this task is redone when the versions change.
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
@@ -45,11 +56,9 @@ processResources
     // replace stuff in mcmod.info, nothing else
     from(sourceSets.main.resources.srcDirs) {
         include 'mcmod.info'
-                
         // replace version and mcversion
-        expand 'version':project.version, 'mcversion':project.minecraft.version
+        expand 'version': project.version, 'mcversion': project.minecraft.version
     }
-        
     // copy everything else, thats not the mcmod.info
     from(sourceSets.main.resources.srcDirs) {
         exclude 'mcmod.info'
