@@ -1,7 +1,6 @@
 package greymerk.roguelike.dungeon.base;
 
 
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -10,18 +9,19 @@ import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.util.WeightedChoice;
 import greymerk.roguelike.util.WeightedRandomizer;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 import lombok.ToString;
 
 import static com.google.common.collect.Lists.newLinkedList;
-import static greymerk.roguelike.dungeon.base.DungeonRoom.CORNER;
 import static greymerk.roguelike.dungeon.base.DungeonRoom.getRandomRoom;
 import static java.util.stream.IntStream.range;
 
 @ToString
 @EqualsAndHashCode
+@Getter
 public class DungeonFactory {
 
-  private Iterator<IDungeonRoom> singleRoomsIterator;
+  private RoomIterator singleRoomsIterator;
   private List<RoomSetting> singleRoomSettings = new LinkedList<>();
   private WeightedRandomizer<RoomSetting> roomRandomizer = new WeightedRandomizer<>();
 
@@ -69,19 +69,12 @@ public class DungeonFactory {
     roomRandomizer.add(new WeightedChoice<>(roomSetting, roomSetting.getWeight()));
   }
 
-  public IDungeonRoom get(Random random) {
-    if (singleRoomsIterator == null) {
-      singleRoomsIterator = new RoomIterator(singleRoomSettings);
+  public static IDungeonRoom get(DungeonFactory dungeonFactory, Random random) {
+    if (dungeonFactory.singleRoomsIterator == null) {
+      dungeonFactory.singleRoomsIterator = new RoomIterator(dungeonFactory, random);
     }
 
-    if (singleRoomsIterator.hasNext()) {
-      return singleRoomsIterator.next();
-    }
-
-    if (roomRandomizer.isEmpty()) {
-      return CORNER.newSingleRoomSetting().instantiate();
-    }
-
-    return roomRandomizer.get(random).instantiate();
+    return dungeonFactory.singleRoomsIterator.getDungeonRoom();
   }
+
 }
