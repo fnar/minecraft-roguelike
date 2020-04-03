@@ -53,21 +53,18 @@ public class SecretFactory {
   }
 
   public void add(RoomSetting roomSetting) {
-    addRoom(roomSetting.getRoomType(), roomSetting.getCount());
+    int count = roomSetting.getCount();
+    RoomSetting roomSetting1 = newRoomSetting(roomSetting.getRoomType(), count);
+    IntStream.range(0, count)
+        .forEach(value -> secretRooms.add(new SecretRoom(roomSetting1)));
   }
 
   public void addRoom(RoomType type) {
-    addRoom(type, 1);
+    add(type.newSingleRoomSetting());
   }
 
   private void addRoom(SecretRoom secretRoom) {
     secretRooms.add(secretRoom);
-  }
-
-  public void addRoom(RoomType type, int count) {
-    RoomSetting roomSetting = newRoomSetting(type, count);
-    IntStream.range(0, count)
-        .forEach(value -> secretRooms.add(new SecretRoom(roomSetting)));
   }
 
   private RoomSetting newRoomSetting(RoomType type, int count) {

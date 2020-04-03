@@ -103,12 +103,14 @@ public class LevelSettingsTest {
 
     assert control.equals(merge);
 
-    baseSecrets.addRoom(RoomType.BEDROOM, 2);
+    baseSecrets.addRoom(RoomType.BEDROOM);
+    baseSecrets.addRoom(RoomType.BEDROOM);
 
     merge = new LevelSettings(base, other, overrides);
     assert !control.equals(merge);
 
-    controlSecrets.addRoom(RoomType.BEDROOM, 2);
+    controlSecrets.addRoom(RoomType.BEDROOM);
+    controlSecrets.addRoom(RoomType.BEDROOM);
     assert control.equals(merge);
   }
 

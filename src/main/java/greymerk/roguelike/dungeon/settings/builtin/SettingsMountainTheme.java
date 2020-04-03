@@ -49,7 +49,8 @@ public class SettingsMountainTheme extends DungeonSettings {
         level.setRooms(factory);
 
         SecretFactory secrets = new SecretFactory();
-        secrets.addRoom(RoomType.BEDROOM, 2);
+        secrets.addRoom(RoomType.BEDROOM);
+        secrets.addRoom(RoomType.BEDROOM);
         secrets.addRoom(RoomType.SMITH);
         level.setSecrets(secrets);
 
