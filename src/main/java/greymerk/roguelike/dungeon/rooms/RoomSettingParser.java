@@ -8,14 +8,14 @@ import static greymerk.roguelike.dungeon.settings.level.LevelsParser.parseLevels
 
 public class RoomSettingParser {
 
-  public static final String NAME_KEY = "name";
+  public static final String TYPE_KEY = "type";
   public static final String ROOM_FREQUENCY = "frequency";
   public static final String COUNT_KEY = "count";
   public static final String WEIGHT_KEY = "weight";
 
   public static RoomSetting parse(JsonObject roomSettingJson) {
     return new RoomSetting(
-        parseName(roomSettingJson),
+        parseType(roomSettingJson),
         parseSpawnerId(roomSettingJson),
         parseRoomFrequency(roomSettingJson),
         parseWeight(roomSettingJson),
@@ -23,11 +23,11 @@ public class RoomSettingParser {
         parseLevelsIfPresent(roomSettingJson));
   }
 
-  private static RoomType parseName(JsonObject roomSettingJson) {
-    if (!roomSettingJson.has(NAME_KEY)) {
-      throw new RuntimeException(String.format("Room setting is missing a value for key '%s' which is required", NAME_KEY));
+  private static RoomType parseType(JsonObject roomSettingJson) {
+    if (!roomSettingJson.has(TYPE_KEY)) {
+      throw new RuntimeException(String.format("Room setting is missing a value for key '%s' which is required", TYPE_KEY));
     }
-    return RoomType.valueOf(roomSettingJson.get(NAME_KEY).getAsString().toUpperCase());
+    return RoomType.valueOf(roomSettingJson.get(TYPE_KEY).getAsString().toUpperCase());
   }
 
   private static Frequency parseRoomFrequency(JsonObject roomSettingJson) {
