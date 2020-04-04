@@ -14,7 +14,7 @@ import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.blocks.SilverfishBlock;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
-import greymerk.roguelike.worldgen.spawners.Spawner;
+import greymerk.roguelike.worldgen.spawners.MobType;
 import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 public class SilverfishNest implements IAlcove {
@@ -39,7 +39,7 @@ public class SilverfishNest implements IAlcove {
 
     RectSolid.fill(editor, rand, start, end, BlockType.get(BlockType.AIR));
     SpawnerSettings spawners = settings.getSpawners().isEmpty()
-        ? Spawner.SILVERFISH.newSpawnerSetting()
+        ? MobType.SILVERFISH.newSpawnerSetting()
         : settings.getSpawners();
     spawners.generateSpawner(editor, rand, centre, settings.getDifficulty(centre));
   }

@@ -11,7 +11,7 @@ import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
-import greymerk.roguelike.worldgen.spawners.Spawner;
+import greymerk.roguelike.worldgen.spawners.MobType;
 import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 public class SegmentSpawner extends SegmentBase {
@@ -69,7 +69,7 @@ public class SegmentSpawner extends SegmentBase {
     shelf.add(Cardinal.UP, 1);
 
     SpawnerSettings spawners = level.getSettings().getSpawners().isEmpty()
-        ? Spawner.newSpawnerSetting(Spawner.COMMON_MOBS)
+        ? MobType.newSpawnerSetting(MobType.COMMON_MOBS)
         : level.getSettings().getSpawners();
     spawners.generateSpawner(editor, rand, shelf, level.getSettings().getDifficulty(shelf));
   }

@@ -12,7 +12,7 @@ import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
-import greymerk.roguelike.worldgen.spawners.Spawner;
+import greymerk.roguelike.worldgen.spawners.MobType;
 import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 import static java.util.Collections.shuffle;
@@ -40,11 +40,11 @@ public abstract class DungeonBase implements IDungeonRoom, Comparable<DungeonBas
   @Override
   public abstract IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances);
 
-  protected void generateSpawner(IWorldEditor editor, Random rand, Coord spawnerLocation, int difficulty, SpawnerSettings levelSettingsSpawners, Spawner... defaultMobs) {
+  protected void generateSpawner(IWorldEditor editor, Random rand, Coord spawnerLocation, int difficulty, SpawnerSettings levelSettingsSpawners, MobType... defaultMobs) {
     getSpawnerSettings(difficulty, defaultMobs, levelSettingsSpawners).generateSpawner(editor, rand, spawnerLocation, difficulty);
   }
 
-  private SpawnerSettings getSpawnerSettings(int difficulty, Spawner[] defaultMobs, SpawnerSettings levelSettingsSpawners) {
+  private SpawnerSettings getSpawnerSettings(int difficulty, MobType[] defaultMobs, SpawnerSettings levelSettingsSpawners) {
     String spawnerId = roomSetting.getSpawnerId();
     if (spawnerId != null) {
       DungeonSettings dungeonSettings = Dungeon.settingsResolver.getByName(spawnerId);
@@ -57,7 +57,7 @@ public abstract class DungeonBase implements IDungeonRoom, Comparable<DungeonBas
     }
     return !levelSettingsSpawners.isEmpty()
         ? levelSettingsSpawners
-        : Spawner.newSpawnerSetting(defaultMobs.length > 0 ? defaultMobs : Spawner.COMMON_MOBS);
+        : MobType.newSpawnerSetting(defaultMobs.length > 0 ? defaultMobs : MobType.COMMON_MOBS);
   }
 
   @Override

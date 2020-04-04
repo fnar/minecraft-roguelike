@@ -18,8 +18,8 @@ import static greymerk.roguelike.treasure.loot.Equipment.SHOVEL;
 import static greymerk.roguelike.treasure.loot.Equipment.getName;
 import static greymerk.roguelike.treasure.loot.Quality.getArmourQuality;
 import static greymerk.roguelike.treasure.loot.Quality.getToolQuality;
-import static greymerk.roguelike.worldgen.spawners.Spawner.SKELETON;
-import static greymerk.roguelike.worldgen.spawners.Spawner.ZOMBIE;
+import static greymerk.roguelike.worldgen.spawners.MobType.SKELETON;
+import static greymerk.roguelike.worldgen.spawners.MobType.ZOMBIE;
 import static java.util.stream.IntStream.range;
 
 public class SpawnPotential {

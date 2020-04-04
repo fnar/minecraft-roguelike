@@ -13,7 +13,7 @@ import greymerk.roguelike.worldgen.MetaBlock;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
-import greymerk.roguelike.worldgen.spawners.Spawner;
+import greymerk.roguelike.worldgen.spawners.MobType;
 import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 public class PrisonCell implements IAlcove {
@@ -48,7 +48,7 @@ public class PrisonCell implements IAlcove {
     cursor.add(Cardinal.DOWN);
     if (rand.nextBoolean()) {
       SpawnerSettings spawners = settings.getSpawners().isEmpty()
-          ? Spawner.ZOMBIE.newSpawnerSetting()
+          ? MobType.ZOMBIE.newSpawnerSetting()
           : settings.getSpawners();
       spawners.generateSpawner(editor, rand, cursor, settings.getDifficulty(cursor));
     }

@@ -22,7 +22,7 @@ import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 import static greymerk.roguelike.treasure.Treasure.ORE;
 import static greymerk.roguelike.treasure.Treasure.createChest;
-import static greymerk.roguelike.worldgen.spawners.Spawner.UNDEAD_MOBS;
+import static greymerk.roguelike.worldgen.spawners.MobType.UNDEAD_MOBS;
 
 public class DungeonPyramidTomb extends DungeonBase {
 

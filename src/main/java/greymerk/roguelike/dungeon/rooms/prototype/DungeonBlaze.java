@@ -15,7 +15,7 @@ import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
-import greymerk.roguelike.worldgen.spawners.Spawner;
+import greymerk.roguelike.worldgen.spawners.MobType;
 
 public class DungeonBlaze extends DungeonBase {
 
@@ -254,7 +254,7 @@ public class DungeonBlaze extends DungeonBase {
     end.add(Cardinal.WEST);
     RectSolid.fill(editor, random, start, end, BlockType.get(BlockType.OBSIDIAN));
     int difficulty = levelSettings.getDifficulty(cursor);
-    generateSpawner(editor, random, cursor, difficulty, levelSettings.getSpawners(), Spawner.NETHER_MOBS);
+    generateSpawner(editor, random, cursor, difficulty, levelSettings.getSpawners(), MobType.NETHER_MOBS);
 
     return this;
   }
