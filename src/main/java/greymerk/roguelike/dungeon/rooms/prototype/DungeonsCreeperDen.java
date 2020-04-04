@@ -16,7 +16,7 @@ import greymerk.roguelike.worldgen.MetaBlock;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
-import greymerk.roguelike.worldgen.spawners.Spawner;
+import greymerk.roguelike.worldgen.spawners.MobType;
 import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 import static greymerk.roguelike.treasure.Treasure.ORE;
@@ -80,7 +80,7 @@ public class DungeonsCreeperDen extends DungeonBase {
 
     final Coord cursor = new Coord(origin);
     SpawnerSettings spawners = settings.getSpawners();
-    generateSpawner(editor, random, cursor, settings.getDifficulty(cursor), spawners, Spawner.CREEPER);
+    generateSpawner(editor, random, cursor, settings.getDifficulty(cursor), spawners, MobType.CREEPER);
 
     return this;
   }

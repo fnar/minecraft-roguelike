@@ -6,7 +6,7 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.Arrays;
 
-public enum Spawner {
+public enum MobType {
 
   BAT("bat"),
   BLAZE("blaze"),
@@ -26,20 +26,20 @@ public enum Spawner {
   WITHERSKELETON("wither_skeleton"),
   ZOMBIE("zombie");
 
-  public static final Spawner[] COMMON_MOBS = {SKELETON, SPIDER, ZOMBIE};
-  public static final Spawner[] UNCOMMON_MOBS = {CAVESPIDER, CREEPER};
-  public static final Spawner[] RARE_MOBS = {ENDERMAN, SLIME, WITCH};
-  public static final Spawner[] EPIC_MOBS = {WITHERBOSS};
-  public static final Spawner[] LEGENDARY_MOBS = {};
+  public static final MobType[] COMMON_MOBS = {SKELETON, SPIDER, ZOMBIE};
+  public static final MobType[] UNCOMMON_MOBS = {CAVESPIDER, CREEPER};
+  public static final MobType[] RARE_MOBS = {ENDERMAN, SLIME, WITCH};
+  public static final MobType[] EPIC_MOBS = {WITHERBOSS};
+  public static final MobType[] LEGENDARY_MOBS = {};
 
 
-  public static final Spawner[] HUMANOID_MOBS = {SKELETON, WITCH, ZOMBIE};
-  public static final Spawner[] UNDEAD_MOBS = {SKELETON, ZOMBIE};
-  public static final Spawner[] NETHER_MOBS = {BLAZE, LAVASLIME, PIGZOMBIE, WITHERSKELETON};
+  public static final MobType[] HUMANOID_MOBS = {SKELETON, WITCH, ZOMBIE};
+  public static final MobType[] UNDEAD_MOBS = {SKELETON, ZOMBIE};
+  public static final MobType[] NETHER_MOBS = {BLAZE, LAVASLIME, PIGZOMBIE, WITHERSKELETON};
 
   private String name;
 
-  Spawner(String name) {
+  MobType(String name) {
     this.name = "minecraft:" + name;
   }
 
@@ -48,13 +48,13 @@ public enum Spawner {
   }
 
   public SpawnerSettings newSpawnerSetting() {
-    return Spawner.newSpawnerSetting(this);
+    return MobType.newSpawnerSetting(this);
   }
 
-  public static SpawnerSettings newSpawnerSetting(Spawner... spawners) {
+  public static SpawnerSettings newSpawnerSetting(MobType... mobTypes) {
     SpawnerSettings spawnerSettings = new SpawnerSettings();
 
-    Arrays.stream(spawners)
+    Arrays.stream(mobTypes)
         .map(spawner -> new SpawnPotential(spawner.getName(), true, 1, new NBTTagCompound()))
         .map(spawnPotential -> new Spawnable(Lists.newArrayList(spawnPotential)))
         .forEach(spawnable -> spawnerSettings.add(spawnable, 1));

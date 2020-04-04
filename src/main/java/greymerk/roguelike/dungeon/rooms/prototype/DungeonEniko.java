@@ -22,7 +22,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 import static greymerk.roguelike.treasure.Treasure.COMMON_TREASURES;
 import static greymerk.roguelike.treasure.Treasure.createChests;
-import static greymerk.roguelike.worldgen.spawners.Spawner.COMMON_MOBS;
+import static greymerk.roguelike.worldgen.spawners.MobType.COMMON_MOBS;
 
 
 public class DungeonEniko extends DungeonBase {

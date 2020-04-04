@@ -15,7 +15,7 @@ import greymerk.roguelike.worldgen.MetaBlock;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
-import greymerk.roguelike.worldgen.spawners.Spawner;
+import greymerk.roguelike.worldgen.spawners.MobType;
 import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 import static greymerk.roguelike.treasure.Treasure.COMMON_TREASURES;
@@ -54,7 +54,7 @@ public class SegmentTomb extends SegmentBase {
     cursor.add(Cardinal.UP);
     cursor.add(dir, 4);
     SpawnerSettings spawners = level.getSpawners().isEmpty()
-        ? Spawner.newSpawnerSetting(Spawner.UNDEAD_MOBS)
+        ? MobType.newSpawnerSetting(MobType.UNDEAD_MOBS)
         : level.getSpawners();
     spawners.generateSpawner(editor, rand, cursor, level.getDifficulty(cursor));
     cursor.add(dir);
