@@ -7,6 +7,7 @@ import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.base.IDungeonRoom;
+import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.treasure.loot.Firework;
 import greymerk.roguelike.treasure.loot.Loot;
@@ -29,6 +30,10 @@ import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class DungeonFirework extends DungeonBase {
+
+  public DungeonFirework(RoomSetting roomSetting) {
+    super(roomSetting);
+  }
 
   @Override
   public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {

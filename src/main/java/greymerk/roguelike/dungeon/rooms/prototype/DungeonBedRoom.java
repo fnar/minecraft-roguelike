@@ -8,6 +8,7 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.base.IDungeonRoom;
+import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.util.DyeColor;
@@ -29,6 +30,10 @@ import static greymerk.roguelike.treasure.Treasure.createChest;
 
 @EqualsAndHashCode
 public class DungeonBedRoom extends DungeonBase {
+
+  public DungeonBedRoom(RoomSetting roomSetting) {
+    super(roomSetting);
+  }
 
   public void pillar(IWorldEditor editor, Random rand, Cardinal dir, ITheme theme, final Coord base) {
     Coord start = new Coord(base);

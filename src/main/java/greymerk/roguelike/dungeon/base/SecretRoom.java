@@ -16,10 +16,8 @@ import lombok.ToString;
 @ToString
 public class SecretRoom extends DungeonBase {
 
-  private final RoomSetting roomSetting;
-
   public SecretRoom(RoomSetting roomSetting) {
-    this.roomSetting = roomSetting;
+    super(roomSetting);
   }
 
   public boolean isValid(IWorldEditor editor, Cardinal dir, Coord pos) {
@@ -68,7 +66,4 @@ public class SecretRoom extends DungeonBase {
     return getRoomSetting().instantiate();
   }
 
-  public RoomSetting getRoomSetting() {
-    return roomSetting;
-  }
 }

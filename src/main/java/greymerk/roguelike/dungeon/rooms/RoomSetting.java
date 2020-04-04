@@ -83,13 +83,13 @@ public class RoomSetting {
       case AVIDYA:
         return new DungeonAvidya(this);
       case BEDROOM:
-        return new DungeonBedRoom();
+        return new DungeonBedRoom(this);
       case BLAZE:
         return new DungeonBlaze(this);
       case BTEAM:
-        return new DungeonBTeam();
+        return new DungeonBTeam(this);
       case CAKE:
-        return new DungeonsWood();
+        return new DungeonsWood(this);
       case CORNER:
         return new DungeonCorner(this);
       case CREEPER:
@@ -99,7 +99,7 @@ public class RoomSetting {
       case DARKHALL:
         return new DungeonDarkHall(this);
       case ENCHANT:
-        return new DungeonsEnchant();
+        return new DungeonsEnchant(this);
       case ENDER:
         return new DungeonsEnder(this);
       case ENIKO:
@@ -109,7 +109,7 @@ public class RoomSetting {
       case FIRE:
         return new DungeonsFire(this);
       case FIREWORK:
-        return new DungeonFirework();
+        return new DungeonFirework(this);
       case FORTRESS:
         return new FortressRoom(this);
       case LAB:
@@ -133,19 +133,19 @@ public class RoomSetting {
       case PIT:
         return new DungeonsPit(this);
       case PRISON:
-        return new DungeonsPrison();
+        return new DungeonsPrison(this);
       case PYRAMIDCORNER:
         return new DungeonPyramidCorner(this);
       case PYRAMIDSPAWNER:
         return new DungeonPyramidSpawner(this);
       case PYRAMIDTOMB:
-        return new DungeonPyramidTomb();
+        return new DungeonPyramidTomb(this);
       case REWARD:
         return new DungeonReward(this);
       case SLIME:
         return new DungeonsSlime(this);
       case SMITH:
-        return new DungeonsSmithy();
+        return new DungeonsSmithy(this);
       case SPIDER:
         return new DungeonsSpiderNest(this);
       case STORAGE:

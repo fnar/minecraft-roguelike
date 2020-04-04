@@ -84,4 +84,8 @@ public abstract class DungeonBase implements IDungeonRoom, Comparable<DungeonBas
   public int compareTo(DungeonBase other) {
     return getSize() - other.getSize();
   }
+
+  protected RoomSetting getRoomSetting() {
+    return roomSetting;
+  }
 }

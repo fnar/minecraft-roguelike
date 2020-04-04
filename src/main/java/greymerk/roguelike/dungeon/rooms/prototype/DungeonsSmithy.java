@@ -6,6 +6,7 @@ import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.base.IDungeonRoom;
+import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.treasure.Treasure;
@@ -30,6 +31,10 @@ import static greymerk.roguelike.treasure.Treasure.SMITH;
 import static greymerk.roguelike.treasure.Treasure.createChest;
 
 public class DungeonsSmithy extends DungeonBase {
+
+  public DungeonsSmithy(RoomSetting roomSetting) {
+    super(roomSetting);
+  }
 
   public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
