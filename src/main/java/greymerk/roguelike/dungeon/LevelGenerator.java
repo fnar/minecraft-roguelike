@@ -3,8 +3,8 @@ package greymerk.roguelike.dungeon;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.IDungeonRoom;
-import greymerk.roguelike.dungeon.rooms.DungeonLinker;
-import greymerk.roguelike.dungeon.rooms.DungeonLinkerTop;
+import greymerk.roguelike.dungeon.rooms.prototype.DungeonLinker;
+import greymerk.roguelike.dungeon.rooms.prototype.DungeonLinkerTop;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;

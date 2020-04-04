@@ -12,9 +12,9 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.RoomIterator;
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
-import greymerk.roguelike.dungeon.rooms.DungeonCorner;
-import greymerk.roguelike.dungeon.rooms.DungeonsPit;
-import greymerk.roguelike.dungeon.rooms.DungeonsWood;
+import greymerk.roguelike.dungeon.rooms.prototype.DungeonCorner;
+import greymerk.roguelike.dungeon.rooms.prototype.DungeonsPit;
+import greymerk.roguelike.dungeon.rooms.prototype.DungeonsWood;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
