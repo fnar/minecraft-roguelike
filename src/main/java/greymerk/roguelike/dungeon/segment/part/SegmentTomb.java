@@ -15,11 +15,11 @@ import greymerk.roguelike.worldgen.MetaBlock;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
+import greymerk.roguelike.worldgen.spawners.Spawner;
 import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 import static greymerk.roguelike.treasure.Treasure.COMMON_TREASURES;
 import static greymerk.roguelike.treasure.Treasure.createChest;
-import static greymerk.roguelike.worldgen.spawners.Spawner.UNDEAD_MOBS;
 
 public class SegmentTomb extends SegmentBase {
 
@@ -53,8 +53,10 @@ public class SegmentTomb extends SegmentBase {
     cursor = new Coord(pos);
     cursor.add(Cardinal.UP);
     cursor.add(dir, 4);
-    SpawnerSettings spawners = level.getSpawners();
-    SpawnerSettings.generate(editor, rand, cursor, level.getDifficulty(cursor), spawners, UNDEAD_MOBS);
+    SpawnerSettings spawners = level.getSpawners().isEmpty()
+        ? Spawner.newSpawnerSetting(Spawner.UNDEAD_MOBS)
+        : level.getSpawners();
+    spawners.generateSpawner(editor, rand, cursor, level.getDifficulty(cursor));
     cursor.add(dir);
     createChest(editor, rand, Dungeon.getLevel(cursor.getY()), cursor, false, COMMON_TREASURES);
   }

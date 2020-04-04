@@ -335,10 +335,10 @@ public class DungeonsPrison extends DungeonBase {
     if (occupied) {
       if (rand.nextBoolean()) {
         SpawnerSettings spawners = settings.getSpawners();
-        SpawnerSettings.generate(editor, rand, origin, settings.getDifficulty(origin), spawners, Spawner.SKELETON);
+        generateSpawner(editor, rand, origin, settings.getDifficulty(origin), spawners, Spawner.SKELETON);
       } else {
         SpawnerSettings spawners = settings.getSpawners();
-        SpawnerSettings.generate(editor, rand, origin, settings.getDifficulty(origin), spawners, Spawner.ZOMBIE);
+        generateSpawner(editor, rand, origin, settings.getDifficulty(origin), spawners, Spawner.SKELETON);
       }
 
     }

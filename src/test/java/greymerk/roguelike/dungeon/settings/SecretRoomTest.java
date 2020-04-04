@@ -33,6 +33,6 @@ public class SecretRoomTest {
   }
 
   private RoomSetting newRoomSetting(RoomType type, int count) {
-    return new RoomSetting(type, null, "builtin:spawner", "single", 0, count, Collections.emptyList());
+    return new RoomSetting(type, "builtin:spawner", "single", 0, count, Collections.emptyList());
   }
 }

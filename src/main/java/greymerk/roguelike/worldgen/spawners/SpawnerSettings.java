@@ -3,8 +3,7 @@ package greymerk.roguelike.worldgen.spawners;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.util.WeightedChoice;
@@ -15,62 +14,43 @@ import greymerk.roguelike.worldgen.IWorldEditor;
 
 public class SpawnerSettings {
 
-  private Map<Spawner, WeightedRandomizer<Spawnable>> spawners = new HashMap<>();
+  private WeightedRandomizer<Spawnable> spawners = new WeightedRandomizer<>();
 
   public SpawnerSettings() {
   }
 
   public SpawnerSettings(SpawnerSettings toCopy) {
-    for (Spawner type : toCopy.spawners.keySet()) {
-      if (spawners.get(type) == null) {
-        spawners.put(type, new WeightedRandomizer<>());
-      }
-      spawners.get(type).merge(toCopy.spawners.get(type));
-    }
+    spawners.merge(toCopy.spawners);
   }
 
   public SpawnerSettings(SpawnerSettings base, SpawnerSettings other) {
-    for (Spawner type : base.spawners.keySet()) {
-      if (spawners.get(type) == null) {
-        spawners.put(type, new WeightedRandomizer<>());
-      }
-      spawners.get(type).merge(base.spawners.get(type));
-    }
+    spawners.merge(base.spawners);
+    spawners.merge(other.spawners);
+  }
 
-    for (Spawner type : other.spawners.keySet()) {
-      if (spawners.get(type) == null) {
-        spawners.put(type, new WeightedRandomizer<>());
-      }
-      spawners.get(type).merge(other.spawners.get(type));
+  public void generateSpawner(IWorldEditor editor, Random rand, Coord cursor, int difficulty) {
+    try {
+      spawners.get(rand).generate(editor, rand, cursor, difficulty);
+    } catch (Exception e) {
+      throw new RuntimeException("Tried to spawn empty spawner", e);
     }
   }
 
-  public static void generate(IWorldEditor editor, Random rand, Coord cursor, int difficulty, SpawnerSettings spawnerSettings, Spawner... types) {
-    Spawner type = types[rand.nextInt(types.length)];
-    Spawnable toSpawn = spawnerSettings.spawners.containsKey(type)
-        ? spawnerSettings.spawners.get(type).get(rand)
-        : new Spawnable(type);
-    toSpawn.generate(editor, rand, cursor, difficulty);
+  public boolean isEmpty() {
+    return spawners.isEmpty();
   }
 
-  public void parse(JsonObject entry) throws Exception {
-    if (!entry.has("type")) {
-      throw new Exception("Spawners entry missing type");
-    }
+  public void parse(JsonObject spawnerJson) throws Exception {
     add(
-        parseType(entry),
-        parseSpawnPotentials(entry),
-        parseWeight(entry));
-  }
-
-  private Spawner parseType(JsonObject entry) {
-    return Spawner.valueOf(entry.get("type").getAsString().toUpperCase());
+        parseSpawnPotentials(spawnerJson),
+        parseWeight(spawnerJson));
   }
 
   private Spawnable parseSpawnPotentials(JsonObject entry) throws Exception {
     // todo: Check for potentials before getting
-    JsonElement potentials = entry.get("potentials");
-    return new Spawnable(potentials);
+    JsonElement spawnPotentialsJson = entry.get("potentials");
+    List<SpawnPotential> spawnPotentials = SpawnPotentialParser.parse(spawnPotentialsJson);
+    return new Spawnable(spawnPotentials);
   }
 
   private int parseWeight(JsonObject entry) {
@@ -79,15 +59,12 @@ public class SpawnerSettings {
         : 1;
   }
 
-  private void add(Spawner type, Spawnable spawnable, int weight) {
-    if (!spawners.containsKey(type)) {
-      spawners.put(type, new WeightedRandomizer<>());
-    }
-    spawners.get(type).add(new WeightedChoice<>(spawnable, weight));
+  public void add(Spawnable spawnable, int weight) {
+    spawners.add(new WeightedChoice<>(spawnable, weight));
   }
 
   @Override
   public String toString() {
-    return spawners.keySet().toString();
+    return spawners.toString();
   }
 }

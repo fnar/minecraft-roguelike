@@ -79,7 +79,7 @@ public class DungeonsSpiderNest extends DungeonBase {
 
     final Coord cursor = new Coord(originX, originY, originZ);
     SpawnerSettings spawners = settings.getSpawners();
-    SpawnerSettings.generate(editor, rand, cursor, settings.getDifficulty(cursor), spawners, Spawner.CAVESPIDER);
+    generateSpawner(editor, rand, cursor, settings.getDifficulty(cursor), spawners, Spawner.CAVESPIDER);
 
     List<Coord> spaces = new RectSolid(
         new Coord(originX - dungeonLength, originY - 1, originZ - dungeonWidth),

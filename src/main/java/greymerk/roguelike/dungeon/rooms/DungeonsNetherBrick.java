@@ -16,11 +16,11 @@ import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
+import greymerk.roguelike.worldgen.spawners.Spawner;
 import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 import static greymerk.roguelike.treasure.Treasure.COMMON_TREASURES;
 import static greymerk.roguelike.treasure.Treasure.createChests;
-import static greymerk.roguelike.worldgen.spawners.Spawner.COMMON_MOBS;
 
 public class DungeonsNetherBrick extends DungeonBase {
 
@@ -63,16 +63,16 @@ public class DungeonsNetherBrick extends DungeonBase {
 
     final Coord cursor = new Coord(x - length - 1, y + rand.nextInt(2), z - width - 1);
     SpawnerSettings spawners3 = settings.getSpawners();
-    SpawnerSettings.generate(editor, rand, cursor, settings.getDifficulty(cursor), spawners3, COMMON_MOBS);
+    generateSpawner(editor, rand, cursor, settings.getDifficulty(cursor), spawners3, Spawner.COMMON_MOBS);
     final Coord cursor1 = new Coord(x - length - 1, y + rand.nextInt(2), z + width + 1);
     SpawnerSettings spawners2 = settings.getSpawners();
-    SpawnerSettings.generate(editor, rand, cursor1, settings.getDifficulty(cursor1), spawners2, COMMON_MOBS);
+    generateSpawner(editor, rand, cursor1, settings.getDifficulty(cursor1), spawners2, Spawner.COMMON_MOBS);
     final Coord cursor2 = new Coord(x + length + 1, y + rand.nextInt(2), z - width - 1);
     SpawnerSettings spawners1 = settings.getSpawners();
-    SpawnerSettings.generate(editor, rand, cursor2, settings.getDifficulty(cursor2), spawners1, COMMON_MOBS);
+    generateSpawner(editor, rand, cursor2, settings.getDifficulty(cursor2), spawners1, Spawner.COMMON_MOBS);
     final Coord cursor3 = new Coord(x + length + 1, y + rand.nextInt(2), z + width + 1);
     SpawnerSettings spawners = settings.getSpawners();
-    SpawnerSettings.generate(editor, rand, cursor3, settings.getDifficulty(cursor3), spawners, COMMON_MOBS);
+    generateSpawner(editor, rand, cursor3, settings.getDifficulty(cursor3), spawners, Spawner.COMMON_MOBS);
 
     return this;
   }

@@ -1,5 +1,11 @@
 package greymerk.roguelike.worldgen.spawners;
 
+import com.google.common.collect.Lists;
+
+import net.minecraft.nbt.NBTTagCompound;
+
+import java.util.Arrays;
+
 public enum Spawner {
 
   BAT("bat"),
@@ -39,6 +45,21 @@ public enum Spawner {
 
   public String getName() {
     return name;
+  }
+
+  public SpawnerSettings newSpawnerSetting() {
+    return Spawner.newSpawnerSetting(this);
+  }
+
+  public static SpawnerSettings newSpawnerSetting(Spawner... spawners) {
+    SpawnerSettings spawnerSettings = new SpawnerSettings();
+
+    Arrays.stream(spawners)
+        .map(spawner -> new SpawnPotential(spawner.getName(), true, 1, new NBTTagCompound()))
+        .map(spawnPotential -> new Spawnable(Lists.newArrayList(spawnPotential)))
+        .forEach(spawnable -> spawnerSettings.add(spawnable, 1));
+
+    return spawnerSettings;
   }
 
 }

@@ -1,11 +1,9 @@
 package greymerk.roguelike.dungeon.rooms;
 
 import java.util.List;
-import java.util.Optional;
 
 import greymerk.roguelike.dungeon.base.IDungeonRoom;
 import greymerk.roguelike.dungeon.base.RoomType;
-import greymerk.roguelike.worldgen.spawners.Spawner;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -18,16 +16,11 @@ import lombok.ToString;
 public class RoomSetting {
 
   private RoomType roomType;
-  private Spawner spawner;
   private String spawnerId;
   private String frequency;
   private int weight;
   private int count;
   private List<Integer> levels;
-
-  public Optional<Spawner> getSpawner() {
-    return Optional.ofNullable(spawner);
-  }
 
   public boolean isSecret() {
     return "secret".equals(getFrequency());
