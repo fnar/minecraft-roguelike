@@ -4,18 +4,16 @@ import com.google.gson.JsonObject;
 
 import greymerk.roguelike.dungeon.base.RoomType;
 
-import static greymerk.roguelike.dungeon.base.RoomType.valueOf;
 import static greymerk.roguelike.dungeon.settings.level.LevelsParser.parseLevelsIfPresent;
-import static java.lang.String.format;
 
 public class RoomSettingParser {
 
   public static final String NAME_KEY = "name";
-  public static final String ROOM_FREQUENCY = "type";
+  public static final String ROOM_FREQUENCY = "frequency";
   public static final String COUNT_KEY = "count";
   public static final String WEIGHT_KEY = "weight";
 
-  public static RoomSetting parse(JsonObject roomSettingJson) throws Exception {
+  public static RoomSetting parse(JsonObject roomSettingJson) {
     return new RoomSetting(
         parseName(roomSettingJson),
         parseSpawnerId(roomSettingJson),
@@ -25,19 +23,17 @@ public class RoomSettingParser {
         parseLevelsIfPresent(roomSettingJson));
   }
 
-  private static RoomType parseName(JsonObject entry) throws Exception {
-    String name = entry.has(NAME_KEY)
-        ? entry.get(NAME_KEY).getAsString().toUpperCase()
-        : "NAME MISSING";
-    try {
-      return valueOf(name);
-    } catch (IllegalArgumentException e) {
-      throw new Exception(format("No such room with name %s", name));
+  private static RoomType parseName(JsonObject roomSettingJson) {
+    if (!roomSettingJson.has(NAME_KEY)) {
+      throw new RuntimeException(String.format("Room setting is missing a value for key '%s' which is required", NAME_KEY));
     }
+    return RoomType.valueOf(roomSettingJson.get(NAME_KEY).getAsString().toUpperCase());
   }
 
-  private static String parseRoomFrequency(JsonObject entry) {
-    return entry.get(ROOM_FREQUENCY).getAsString().toLowerCase();
+  private static Frequency parseRoomFrequency(JsonObject roomSettingJson) {
+    return roomSettingJson.has(ROOM_FREQUENCY)
+        ? Frequency.valueOf(roomSettingJson.get(ROOM_FREQUENCY).getAsString().toUpperCase())
+        : Frequency.SINGLE;
   }
 
   private static int parseCount(JsonObject roomSettingJson) {
@@ -46,9 +42,9 @@ public class RoomSettingParser {
         : 1;
   }
 
-  private static int parseWeight(JsonObject entry) {
-    return entry.has(WEIGHT_KEY)
-        ? entry.get(WEIGHT_KEY).getAsInt()
+  private static int parseWeight(JsonObject roomSettingJson) {
+    return roomSettingJson.has(WEIGHT_KEY)
+        ? roomSettingJson.get(WEIGHT_KEY).getAsInt()
         : 1;
   }
 

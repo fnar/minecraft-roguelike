@@ -55,13 +55,21 @@ public class RoomSetting {
 
   private RoomType roomType;
   private String spawnerId;
-  private String frequency;
+  private Frequency frequency;
   private int weight;
   private int count;
   private List<Integer> levels;
 
+  public boolean isRandom() {
+    return frequency.isRandom();
+  }
+
   public boolean isSecret() {
-    return "secret".equals(getFrequency());
+    return frequency.isSecret();
+  }
+
+  public boolean isSingle() {
+    return frequency.isSingle();
   }
 
   public boolean isOnFloorLevel(int floorLevel) {

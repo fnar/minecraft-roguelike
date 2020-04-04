@@ -44,10 +44,10 @@ public class RoomsSetting {
   }
 
   public void add(RoomSetting roomSetting) {
-    if (roomSetting.getFrequency().equals("single")) {
+    if (roomSetting.isSingle()) {
       addSingleRoom(roomSetting);
     }
-    if (roomSetting.getFrequency().equals("random")) {
+    if (roomSetting.isRandom()) {
       addRandomRoom(roomSetting);
     }
   }
