@@ -79,7 +79,7 @@ public class DungeonsCreeperDen extends DungeonBase {
 
     final Coord cursor = new Coord(origin);
     SpawnerSettings spawners = settings.getSpawners();
-    SpawnerSettings.generate(editor, random, cursor, settings.getDifficulty(cursor), spawners, Spawner.CREEPER);
+    generateSpawner(editor, random, cursor, settings.getDifficulty(cursor), spawners, Spawner.CREEPER);
 
     return this;
   }

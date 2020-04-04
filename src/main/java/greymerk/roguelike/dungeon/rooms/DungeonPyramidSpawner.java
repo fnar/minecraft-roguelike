@@ -122,12 +122,8 @@ public class DungeonPyramidSpawner extends DungeonBase {
     createChests(editor, rand, Dungeon.getLevel(origin.getY()), chestLocations, false, COMMON_TREASURES);
     final Coord cursor1 = new Coord(x, y, z);
     SpawnerSettings spawners = settings.getSpawners();
-    SpawnerSettings.generate(editor, rand, cursor1, settings.getDifficulty(cursor1), spawners, COMMON_MOBS);
+    generateSpawner(editor, rand, cursor1, settings.getDifficulty(cursor1), spawners, COMMON_MOBS);
     return this;
-  }
-
-  public boolean isValidDungeonLocation(IWorldEditor editor, int x, int y, int z) {
-    return false;
   }
 
   public int getSize() {

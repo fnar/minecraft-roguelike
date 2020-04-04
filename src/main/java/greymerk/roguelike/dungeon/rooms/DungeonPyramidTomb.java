@@ -223,7 +223,7 @@ public class DungeonPyramidTomb extends DungeonBase {
       blocks.set(editor, cursor);
       cursor.add(Cardinal.UP);
       SpawnerSettings spawners = settings.getSpawners();
-      SpawnerSettings.generate(editor, rand, cursor, settings.getDifficulty(cursor), spawners, UNDEAD_MOBS);
+      generateSpawner(editor, rand, cursor, settings.getDifficulty(cursor), spawners, UNDEAD_MOBS);
       cursor.add(Cardinal.UP);
       blocks.set(editor, cursor);
 

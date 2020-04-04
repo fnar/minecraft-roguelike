@@ -3,7 +3,6 @@ package greymerk.roguelike.dungeon.rooms;
 import com.google.gson.JsonObject;
 
 import greymerk.roguelike.dungeon.base.RoomType;
-import greymerk.roguelike.worldgen.spawners.Spawner;
 
 import static greymerk.roguelike.dungeon.base.RoomType.valueOf;
 import static greymerk.roguelike.dungeon.settings.level.LevelsParser.parseLevelsIfPresent;
@@ -15,12 +14,10 @@ public class RoomSettingParser {
   public static final String ROOM_FREQUENCY = "type";
   public static final String COUNT_KEY = "count";
   public static final String WEIGHT_KEY = "weight";
-  public static final String SPAWNERS_KEY = "spawners";
 
   public static RoomSetting parse(JsonObject roomSettingJson) throws Exception {
     return new RoomSetting(
         parseName(roomSettingJson),
-        parseSpawners(roomSettingJson),
         parseSpawnerId(roomSettingJson),
         parseRoomFrequency(roomSettingJson),
         parseWeight(roomSettingJson),
@@ -53,18 +50,6 @@ public class RoomSettingParser {
     return entry.has(WEIGHT_KEY)
         ? entry.get(WEIGHT_KEY).getAsInt()
         : 1;
-  }
-
-  private static Spawner parseSpawners(JsonObject entry) throws Exception {
-    if (!entry.has(SPAWNERS_KEY)) {
-      return null;
-    }
-    String spawner = entry.get(SPAWNERS_KEY).getAsString().toUpperCase();
-    try {
-      return Spawner.valueOf(spawner);
-    } catch (IllegalArgumentException e) {
-      throw new Exception(format("No such spawner type %s for room of type %s", spawner, parseName(entry)));
-    }
   }
 
   private static String parseSpawnerId(JsonObject roomSettingJson) {

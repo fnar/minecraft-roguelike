@@ -322,8 +322,7 @@ public class ObsidianRoom extends DungeonBase {
     for (Coord space : spawners) {
       SpawnerSettings spawners1 = settings.getSpawners();
       int difficulty = settings.getDifficulty(space);
-      generateSpawner(editor, rand, space, difficulty, settings);
-//      SpawnerSettings.generate(editor, rand, space, difficulty, spawners1, COMMON_MOBS);
+      generateSpawner(editor, rand, space, difficulty, settings.getSpawners());
     }
 
     BlockJumble crap = new BlockJumble();

@@ -221,13 +221,13 @@ public class DungeonSettingsParser {
     if (!root.has("spawners")) {
       return;
     }
-    JsonArray arr = root.get("spawners").getAsJsonArray();
-    for (JsonElement e : arr) {
-      JsonObject entry = e.getAsJsonObject();
-      List<Integer> lvls = LevelsParser.parseLevelsIfPresent(entry);
+    JsonArray spawnersJson = root.get("spawners").getAsJsonArray();
+    for (JsonElement spawnerJsonElement : spawnersJson) {
+      JsonObject spawnerJson = spawnerJsonElement.getAsJsonObject();
+      List<Integer> lvls = LevelsParser.parseLevelsIfPresent(spawnerJson);
       for (int i : lvls) {
         if (dungeonSettings.getLevels().containsKey(i)) {
-          dungeonSettings.getLevels().get(i).getSpawners().parse(entry);
+          dungeonSettings.getLevels().get(i).getSpawners().parse(spawnerJson);
         }
       }
     }

@@ -1,6 +1,6 @@
 package greymerk.roguelike.worldgen.spawners;
 
-import com.google.gson.JsonElement;
+import com.google.common.collect.Lists;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
@@ -9,7 +9,6 @@ import net.minecraft.tileentity.MobSpawnerBaseLogic;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityMobSpawner;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -17,20 +16,12 @@ import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
 
-import static greymerk.roguelike.worldgen.spawners.SpawnPotentialParser.parse;
-
 public class Spawnable {
 
-  private List<SpawnPotential> potentials = new ArrayList<>();
+  private List<SpawnPotential> potentials = Lists.newArrayList();
 
-  public Spawnable(Spawner type) {
-    potentials.add(new SpawnPotential(type.getName(), true, 1, new NBTTagCompound()));
-  }
-
-  public Spawnable(JsonElement data) throws Exception {
-    for (JsonElement spawnPotential : data.getAsJsonArray()) {
-      potentials.add(parse(spawnPotential.getAsJsonObject()));
-    }
+  public Spawnable(List<SpawnPotential> spawnPotentials) {
+    potentials.addAll(spawnPotentials);
   }
 
   public void generate(IWorldEditor editor, Random random, Coord cursor, int level) {

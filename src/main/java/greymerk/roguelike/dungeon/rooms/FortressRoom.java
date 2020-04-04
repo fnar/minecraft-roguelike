@@ -168,7 +168,7 @@ public class FortressRoom extends DungeonBase {
     List<Coord> core = new RectSolid(start, end).get();
     Coord spawnerLocation = core.get(rand.nextInt(core.size()));
     int difficulty = levelSettings.getDifficulty(spawnerLocation);
-    generateSpawner(editor, rand, spawnerLocation, difficulty, levelSettings);
+    generateSpawner(editor, rand, spawnerLocation, difficulty, levelSettings.getSpawners());
   }
 
   private void pillar(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin) {

@@ -12,9 +12,9 @@ import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
+import greymerk.roguelike.worldgen.spawners.Spawner;
 import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
-import static greymerk.roguelike.worldgen.spawners.Spawner.ZOMBIE;
 import static java.util.Collections.shuffle;
 import static java.util.stream.Collectors.toList;
 
@@ -44,11 +44,20 @@ public abstract class DungeonBase implements IDungeonRoom, Comparable<DungeonBas
   @Override
   public abstract IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances);
 
-  protected void generateSpawner(IWorldEditor editor, Random rand, Coord spawnerLocation, int difficulty, LevelSettings levelSettings) {
-    SpawnerSettings spawnersSettings = getDungeonSettings() == null
-        ? levelSettings.getSpawners()
-        : getDungeonSettings().getLevelSettings(difficulty).getSpawners();
-    SpawnerSettings.generate(editor, rand, spawnerLocation, difficulty, spawnersSettings, ZOMBIE);
+  protected void generateSpawner(IWorldEditor editor, Random rand, Coord spawnerLocation, int difficulty, SpawnerSettings levelSettingsSpawners, Spawner... defaultMobs) {
+    getSpawnerSettings(difficulty, defaultMobs, levelSettingsSpawners).generateSpawner(editor, rand, spawnerLocation, difficulty);
+  }
+
+  private SpawnerSettings getSpawnerSettings(int difficulty, Spawner[] defaultMobs, SpawnerSettings levelSettingsSpawners) {
+    if (getDungeonSettings() != null) {
+      SpawnerSettings dungeonSettingsSpawners = getDungeonSettings().getLevelSettings(difficulty).getSpawners();
+      if (!dungeonSettingsSpawners.isEmpty()) {
+        return dungeonSettingsSpawners;
+      }
+    }
+    return !levelSettingsSpawners.isEmpty()
+        ? levelSettingsSpawners
+        : Spawner.newSpawnerSetting(defaultMobs.length > 0 ? defaultMobs : Spawner.COMMON_MOBS);
   }
 
   @Override

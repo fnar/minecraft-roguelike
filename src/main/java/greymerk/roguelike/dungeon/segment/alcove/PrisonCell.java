@@ -47,8 +47,10 @@ public class PrisonCell implements IAlcove {
     plate.set(editor, cursor);
     cursor.add(Cardinal.DOWN);
     if (rand.nextBoolean()) {
-      SpawnerSettings spawners = settings.getSpawners();
-      SpawnerSettings.generate(editor, rand, cursor, settings.getDifficulty(cursor), spawners, Spawner.ZOMBIE);
+      SpawnerSettings spawners = settings.getSpawners().isEmpty()
+          ? Spawner.ZOMBIE.newSpawnerSetting()
+          : settings.getSpawners();
+      spawners.generateSpawner(editor, rand, cursor, settings.getDifficulty(cursor));
     }
 
     cursor = new Coord(origin);

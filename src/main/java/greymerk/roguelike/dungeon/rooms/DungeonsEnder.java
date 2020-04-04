@@ -82,7 +82,7 @@ public class DungeonsEnder extends DungeonBase {
       addEnderChest(editor, new RectSolid(start, end));
     }
     SpawnerSettings spawners = settings.getSpawners();
-    SpawnerSettings.generate(editor, inRandom, origin, settings.getDifficulty(origin), spawners, Spawner.ENDERMAN);
+    generateSpawner(editor, inRandom, origin, settings.getDifficulty(origin), spawners, Spawner.ENDERMAN);
 
     return this;
   }
