@@ -1,0 +1,16 @@
+{
+  "name": "builtin:spawner",
+  "spawners": [
+    {
+      "level": [
+        0,
+        1
+      ],
+      "potentials": [
+        {
+          "name": "minecraft:blaze"
+        }
+      ]
+    }
+  ]
+}
