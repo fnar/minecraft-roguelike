@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import greymerk.roguelike.dungeon.rooms.Frequency;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import lombok.Getter;
 
@@ -65,11 +66,11 @@ public enum RoomType {
   }
 
   public RoomSetting newRandomRoomSetting(int weight) {
-    return new RoomSetting(this, "builtin:spawner", "random", weight, 1, Lists.newArrayList(0, 1, 2, 3, 4));
+    return new RoomSetting(this, "builtin:spawner", Frequency.RANDOM, weight, 1, Lists.newArrayList(0, 1, 2, 3, 4));
   }
 
   public RoomSetting newSingleRoomSetting() {
-    return new RoomSetting(this, "builtin:spawner", "single", 1, 1, Lists.newArrayList(0, 1, 2, 3, 4));
+    return new RoomSetting(this, "builtin:spawner", Frequency.SINGLE, 1, 1, Lists.newArrayList(0, 1, 2, 3, 4));
   }
 
   public static RoomType getRandomIntersection(Random random) {

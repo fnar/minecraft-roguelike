@@ -6,6 +6,7 @@ import java.util.Collections;
 
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.SecretRoom;
+import greymerk.roguelike.dungeon.rooms.Frequency;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 
 public class SecretRoomTest {
@@ -33,6 +34,6 @@ public class SecretRoomTest {
   }
 
   private RoomSetting newRoomSetting(RoomType type, int count) {
-    return new RoomSetting(type, "builtin:spawner", "single", 0, count, Collections.emptyList());
+    return new RoomSetting(type, "builtin:spawner", Frequency.SINGLE, 0, count, Collections.emptyList());
   }
 }
