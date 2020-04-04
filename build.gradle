@@ -11,9 +11,9 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'idea'
 apply plugin: 'java'
 
-version = "1.12.2-1.8.0"
-group = "ca.rivas.roguelike"
-archivesBaseName = "RoguelikeDungeons"
+version = "1.12.2-2.0.0"
+group = "com.github.srwaggon"
+archivesBaseName = "RoguelikeDungeonsFnarEdition"
 
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 compileJava {

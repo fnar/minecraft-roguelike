@@ -15,13 +15,13 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import greymerk.roguelike.command.CommandRoguelike;
 
-@Mod(modid = "roguelike", name = "Roguelike Dungeons", version = Roguelike.version, acceptableRemoteVersions = "*")
+@Mod(modid = "roguelike", name = "Roguelike Dungeons -- Fnar Edition", version = Roguelike.version, acceptableRemoteVersions = "*")
 
 public class Roguelike {
 
   // TODO: change version number
-  public static final String version = "1.8.0";
-  public static final String date = "Oct 20 2017";
+  public static final String version = "2.0.0";
+  public static final String date = "Apr 04 2017";
   // The instance of your mod that Forge uses.
   @Instance("roguelike")
   public static Roguelike instance;
