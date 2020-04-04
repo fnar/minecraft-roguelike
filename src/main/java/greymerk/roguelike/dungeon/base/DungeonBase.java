@@ -20,17 +20,13 @@ import static java.util.stream.Collectors.toList;
 
 public abstract class DungeonBase implements IDungeonRoom, Comparable<DungeonBase> {
 
-  private DungeonSettings dungeonSettings;
+  private RoomSetting roomSetting;
 
   public DungeonBase() {
   }
 
   public DungeonBase(RoomSetting roomSetting) {
-    dungeonSettings = Dungeon.settingsResolver.getByName(roomSetting.getSpawnerId());
-  }
-
-  public DungeonSettings getDungeonSettings() {
-    return dungeonSettings;
+    this.roomSetting = roomSetting;
   }
 
   public static List<Coord> chooseRandomLocations(Random random, int limit, List<Coord> spaces) {
@@ -49,10 +45,14 @@ public abstract class DungeonBase implements IDungeonRoom, Comparable<DungeonBas
   }
 
   private SpawnerSettings getSpawnerSettings(int difficulty, Spawner[] defaultMobs, SpawnerSettings levelSettingsSpawners) {
-    if (getDungeonSettings() != null) {
-      SpawnerSettings dungeonSettingsSpawners = getDungeonSettings().getLevelSettings(difficulty).getSpawners();
-      if (!dungeonSettingsSpawners.isEmpty()) {
-        return dungeonSettingsSpawners;
+    String spawnerId = roomSetting.getSpawnerId();
+    if (spawnerId != null) {
+      DungeonSettings dungeonSettings = Dungeon.settingsResolver.getByName(spawnerId);
+      if (dungeonSettings != null) {
+        SpawnerSettings dungeonSettingsSpawners = dungeonSettings.getLevelSettings(difficulty).getSpawners();
+        if (!dungeonSettingsSpawners.isEmpty()) {
+          return dungeonSettingsSpawners;
+        }
       }
     }
     return !levelSettingsSpawners.isEmpty()
