@@ -1,313 +1,37 @@
 {
   "name": "rooms:generic",
-  "overrides": [
-    "ROOMS"
-  ],
-  "rooms": [
-    {
-      "level": [
-        2
-      ],
-      "frequency": "single",
-      "name": "PRISON",
-      "count": 3
-    },
-    {
-      "level": [
-        4
-      ],
-      "frequency": "single",
-      "name": "NETHERFORT",
-      "count": 3
-    },
-    {
-      "level": [
-        4
-      ],
-      "frequency": "single",
-      "name": "OBSIDIAN",
-      "count": 1
-    },
-    {
-      "level": [
-        4
-      ],
-      "frequency": "single",
-      "name": "DARKHALL",
-      "count": 1
-    },
-    {
-      "level": [
-        0,
-        1,
-        2,
-        3,
-        4
-      ],
-      "frequency": "single",
-      "name": "REWARD",
-      "count": 1
-    },
-    {
-      "level": [
-        0,
-        1,
-        2,
-        3,
-        4
-      ],
-      "frequency": "random",
-      "name": "CORNER",
-      "weight": 10
-    },
-    {
-      "level": [
-        0,
-        1,
-        2,
-        3,
-        4
-      ],
-      "frequency": "random",
-      "name": "DARKHALL",
-      "weight": 10
-    },
-    {
-      "level": [
-        0,
-        1,
-        2,
-        3,
-        4
-      ],
-      "frequency": "random",
-      "name": "FIRE",
-      "weight": 5
-    },
-    {
-      "level": [
-        0,
-        1,
-        2,
-        3,
-        4
-      ],
-      "frequency": "random",
-      "name": "MESS",
-      "weight": 5
-    },
-    {
-      "level": [
-        0,
-        1,
-        2,
-        3,
-        4
-      ],
-      "frequency": "random",
-      "name": "LAB",
-      "weight": 5
-    },
-    {
-      "level": [
-        0,
-        1,
-        2,
-        3,
-        4
-      ],
-      "frequency": "random",
-      "name": "LIBRARY",
-      "weight": 5
-    },
-    {
-      "level": [
-        0,
-        1,
-        2,
-        3,
-        4
-      ],
-      "frequency": "random",
-      "name": "STORAGE",
-      "weight": 5
-    },
-    {
-      "level": [
-        1,
-        2,
-        3
-      ],
-      "frequency": "random",
-      "name": "PRISON",
-      "weight": 10
-    },
-    {
-      "level": [
-        2,
-        3,
-        4
-      ],
-      "frequency": "random",
-      "name": "OBSIDIAN",
-      "weight": 10
-    },
-    {
-      "level": [
-        0,
-        1,
-        2,
-        3,
-        4
-      ],
-      "frequency": "single",
-      "name": "BRICK",
-      "count": 5
-    },
-    {
-      "level": [
-        0,
-        1,
-        2,
-        3,
-        4
-      ],
-      "frequency": "single",
-      "name": "BRICK",
-      "count": 5,
-      "spawnerId": "builtin:spawner"
-    },
-    {
-      "level": [
-        0,
-        1,
-        2,
-        3,
-        4
-      ],
-      "frequency": "random",
-      "name": "NETHER",
-      "weight": 15
-    },
-    {
-      "level": [
-        0,
-        1,
-        2,
-        3,
-        4
-      ],
-      "frequency": "random",
-      "name": "NETHERFORT",
-      "weight": 5
-    },
-    {
-      "level": [
-        0,
-        1,
-        2,
-        3,
-        4
-      ],
-      "frequency": "secret",
-      "name": "REWARD",
-      "count": 1
-    },
-    {
-      "level": [
-        0,
-        1
-      ],
-      "frequency": "secret",
-      "name": "MUSIC",
-      "count": 10,
-      "spawnerId": "builtin:spawner"
-    },
-    {
-      "level": [
-        1,
-        2,
-        3
-      ],
-      "frequency": "secret",
-      "name": "SMITH",
-      "count": 10,
-      "spawnerId": "builtin:spawner"
-    },
-    {
-      "level": [
-        1,
-        3
-      ],
-      "frequency": "secret",
-      "name": "BTEAM",
-      "count": 10,
-      "spawnerId": "builtin:spawner"
-    },
-    {
-      "level": [
-        0,
-        2,
-        4
-      ],
-      "frequency": "secret",
-      "name": "BEDROOM",
-      "count": 3,
-      "spawnerId": "builtin:spawner"
-    },
-    {
-      "level": [
-        0,
-        1
-      ],
-      "frequency": "secret",
-      "name": "CAKE",
-      "count": 10,
-      "spawnerId": "builtin:spawner"
-    },
-    {
-      "level": [
-        1,
-        3
-      ],
-      "frequency": "secret",
-      "name": "ENCHANT",
-      "count": 10,
-      "spawnerId": "builtin:spawner"
-    },
-    {
-      "level": [
-        0,
-        1,
-        2,
-        3,
-        4
-      ],
-      "frequency": "secret",
-      "name": "FIREWORK",
-      "count": 10,
-      "spawnerId": "builtin:spawner"
-    },
-    {
-      "level": [
-        2,
-        3,
-        4
-      ],
-      "frequency": "secret",
-      "name": "LIBRARY",
-      "count": 10,
-      "spawnerId": "builtin:spawner"
-    },
-    {
-      "level": [
-        1,
-        3
-      ],
-      "frequency": "secret",
-      "name": "STORAGE",
-      "count": 10,
-      "spawnerId": "builtin:spawner"
-    }
+  "overrides": ["ROOMS"],
+  "rooms": [{"level": [2], "frequency": "single", "type": "PRISON", "count": 3},
+    {"level": [4], "frequency": "single", "type": "FORTRESS", "count": 3},
+    {"level": [4], "frequency": "single", "type": "OBSIDIAN", "count": 1},
+    {"level": [4], "frequency": "single", "type": "DARKHALL", "count": 1},
+
+    {"level": [0, 1, 2, 3, 4], "frequency": "single", "type": "REWARD", "count": 1},
+    {"level": [0, 1, 2, 3, 4], "frequency": "random", "type": "CORNER", "weight": 10},
+    {"level": [0, 1, 2, 3, 4], "frequency": "random", "type": "DARKHALL", "weight": 10},
+    {"level": [0, 1, 2, 3, 4], "frequency": "random", "type": "FIRE", "weight": 5},
+    {"level": [0, 1, 2, 3, 4], "frequency": "random", "type": "MESS", "weight": 5},
+    {"level": [0, 1, 2, 3, 4], "frequency": "random", "type": "LAB", "weight": 5},
+    {"level": [0, 1, 2, 3, 4], "frequency": "random", "type": "LIBRARY", "weight": 5},
+    {"level": [0, 1, 2, 3, 4], "frequency": "random", "type": "STORAGE", "weight": 5},
+
+    {"level": [1, 2, 3], "frequency": "random", "type": "PRISON", "weight": 10},
+    {"level": [2, 3, 4], "frequency": "random", "type": "OBSIDIAN", "weight": 10},
+
+    {"level": [0, 1, 2, 3, 4], "frequency": "single", "type": "BRICK", "count": 5},
+    {"level": [0, 1, 2, 3, 4], "frequency": "single", "type": "BRICK", "count": 5, "spawnerId": "spawners:blaze"},
+    {"level": [0, 1, 2, 3, 4], "frequency": "random", "type": "NETHER", "weight": 15},
+    {"level": [0, 1, 2, 3, 4], "frequency": "random", "type": "FORTRESS", "weight": 5},
+
+    {"level": [0, 1, 2, 3, 4], "frequency": "secret", "type": "REWARD", "count": 1},
+    {"level": [0, 1], "frequency": "secret", "type": "MUSIC", "count": 10},
+    {"level": [1, 2, 3], "frequency": "secret", "type": "SMITH", "count": 10},
+    {"level": [1, 3], "frequency": "secret", "type": "BTEAM", "count": 10},
+    {"level": [0, 2, 4], "frequency": "secret", "type": "BEDROOM", "count": 3},
+    {"level": [0, 1], "frequency": "secret", "type": "CAKE", "count": 10},
+    {"level": [1, 3], "frequency": "secret", "type": "ENCHANT", "count": 10},
+    {"level": [0, 1, 2, 3, 4], "frequency": "secret", "type": "FIREWORK", "count": 10},
+    {"level": [2, 3, 4], "frequency": "secret", "type": "LIBRARY", "count": 10},
+    {"level": [1, 3], "frequency": "secret", "type": "STORAGE", "count": 10}
   ]
 }

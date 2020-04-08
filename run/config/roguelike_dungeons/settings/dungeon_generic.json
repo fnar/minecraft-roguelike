@@ -3,6 +3,8 @@
   "inherit": [
     "layout:size_small",
     "segments:generic",
-    "rooms:generic"
+    "rooms:generic",
+    "spawners:generic",
+    "builtin:loot"
   ]
 }

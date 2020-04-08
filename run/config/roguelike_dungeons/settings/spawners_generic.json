@@ -1,42 +1,10 @@
 {
   "name": "spawners:generic",
-  "spawners": [
-    {
-      "level": [
-        0,
-        1
-      ],
-      "potentials": [
-        {
-          "name": "minecraft:vindication_illager"
-        },
-        {
-          "name": "minecraft:witch"
-        }
-      ]
-    },
-    {
-      "level": [
-        0,
-        1
-      ],
-      "potentials": [
-        {
-          "name": "minecraft:creeper",
-          "nbt": "{powered:1}"
-        }
-      ]
-    },
-    {
-      "level": [
-        0,
-        1
-      ],
-      "potentials": [
-        {
-          "name": "minecraft:wither_skeleton"
-        }
-      ]
-    }
-  ]
+  "spawners": [{"level": [0, 1], "potentials": [
+      {"name": "minecraft:vindication_illager"},
+      {"name": "minecraft:witch"}
+    ]
+  },
+    {"level": [0, 1], "potentials": [{"name": "minecraft:creeper", "nbt": "{powered:1}"}]},
+    {"level": [0, 1], "potentials": [{"name": "minecraft:wither_skeleton"}]}]
 }
