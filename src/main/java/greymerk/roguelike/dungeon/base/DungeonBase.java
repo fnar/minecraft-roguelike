@@ -14,10 +14,12 @@ import greymerk.roguelike.worldgen.MetaBlock;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.spawners.MobType;
 import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
+import lombok.EqualsAndHashCode;
 
 import static java.util.Collections.shuffle;
 import static java.util.stream.Collectors.toList;
 
+@EqualsAndHashCode
 public abstract class DungeonBase implements IDungeonRoom, Comparable<DungeonBase> {
 
   private RoomSetting roomSetting;

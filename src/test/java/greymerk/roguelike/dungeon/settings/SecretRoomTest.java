@@ -9,27 +9,24 @@ import greymerk.roguelike.dungeon.base.SecretRoom;
 import greymerk.roguelike.dungeon.rooms.Frequency;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 public class SecretRoomTest {
 
   @Test
   public void testEquals() {
-
     SecretRoom test = new SecretRoom(newRoomSetting(RoomType.BEDROOM, 1));
     SecretRoom other = new SecretRoom(newRoomSetting(RoomType.BEDROOM, 1));
-
-    assert (test.equals(other));
+    assertThat(test).isEqualTo(other);
 
     SecretRoom third = new SecretRoom(newRoomSetting(RoomType.CAKE, 1));
-
-    assert (!test.equals(third));
+    assertThat(test).isNotEqualTo(third);
 
     SecretRoom twoBeds = new SecretRoom(newRoomSetting(RoomType.BEDROOM, 2));
-
-    assert (!test.equals(twoBeds));
+    assertThat(test).isNotEqualTo(twoBeds);
 
     SecretRoom twoCakes = new SecretRoom(newRoomSetting(RoomType.CAKE, 2));
-
-    assert (!twoBeds.equals(twoCakes));
+    assertThat(twoBeds).isNotEqualTo(twoCakes);
 
   }
 
