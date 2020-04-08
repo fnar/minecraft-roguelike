@@ -169,10 +169,7 @@ public class DungeonSettings implements ISettings {
   @Override
   public void processLoot(Random rand, TreasureManager treasure) {
     getLootRules().process(rand, treasure);
-
-    if (!getLootTables().isEmpty()) {
-      getLootTables().forEach(table -> table.process(treasure));
-    }
+    getLootTables().forEach(table -> table.process(treasure));
   }
 
   public LootRuleManager getLootRules() {

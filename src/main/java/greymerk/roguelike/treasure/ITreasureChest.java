@@ -26,4 +26,15 @@ public interface ITreasureChest {
 
   int getLevel();
 
+  default boolean isOnLevel(int level) {
+    return getLevel() == level;
+  }
+
+  default boolean isType(Treasure type) {
+    return getType() == type;
+  }
+
+  default boolean isNotEmpty() {
+    return !isType(Treasure.EMPTY);
+  }
 }

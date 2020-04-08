@@ -5,8 +5,11 @@ import net.minecraft.item.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.IntStream;
 
 import greymerk.roguelike.util.IWeighted;
+
+import static java.util.stream.Collectors.*;
 
 public class TreasureManager {
 
@@ -29,11 +32,10 @@ public class TreasureManager {
   }
 
   private void addItemToAll(Random rand, List<ITreasureChest> chests, IWeighted<ItemStack> item, int amount) {
-    for (ITreasureChest chest : chests) {
-      for (int i = 0; i < amount; ++i) {
-        chest.setRandomEmptySlot(item.get(rand));
-      }
-    }
+    chests.forEach(chest ->
+        IntStream.range(0, amount)
+            .mapToObj(i -> item.get(rand))
+            .forEach(chest::setRandomEmptySlot));
   }
 
 
@@ -54,52 +56,34 @@ public class TreasureManager {
       return;
     }
 
-    for (int i = 0; i < amount; ++i) {
-      ITreasureChest chest = chests.get(rand.nextInt(chests.size()));
-      chest.setRandomEmptySlot(item.get(rand));
-    }
+    IntStream.range(0, amount)
+        .mapToObj(i -> chests.get(rand.nextInt(chests.size())))
+        .forEach(chest -> chest.setRandomEmptySlot(item.get(rand)));
   }
 
   public List<ITreasureChest> getChests(Treasure type, int level) {
-    ArrayList<ITreasureChest> c = new ArrayList<>();
-    for (ITreasureChest chest : this.chests) {
-      if (chest.getType() == type && chest.getLevel() == level) {
-        c.add(chest);
-      }
-    }
-    return c;
+    return this.chests.stream()
+        .filter(chest -> chest.isType(type))
+        .filter(chest -> chest.isOnLevel(level))
+        .collect(toList());
   }
 
   public List<ITreasureChest> getChests(Treasure type) {
-    ArrayList<ITreasureChest> c = new ArrayList<>();
-    for (ITreasureChest chest : this.chests) {
-      if (chest.getType() == type) {
-        c.add(chest);
-      }
-    }
-    return c;
+    return this.chests.stream()
+        .filter(chest -> chest.isType(type))
+        .collect(toList());
   }
 
   public List<ITreasureChest> getChests(int level) {
-    ArrayList<ITreasureChest> c = new ArrayList<>();
-    for (ITreasureChest chest : this.chests) {
-      if (chest.getType() == Treasure.EMPTY) {
-        continue;
-      }
-      if (chest.getLevel() == level) {
-        c.add(chest);
-      }
-    }
-    return c;
+    return this.chests.stream()
+        .filter(ITreasureChest::isNotEmpty)
+        .filter(chest -> chest.isOnLevel(level))
+        .collect(toList());
   }
 
   public List<ITreasureChest> getChests() {
-    ArrayList<ITreasureChest> c = new ArrayList<>();
-    for (ITreasureChest chest : this.chests) {
-      if (chest.getType() != Treasure.EMPTY) {
-        c.add(chest);
-      }
-    }
-    return c;
+    return this.chests.stream()
+        .filter(ITreasureChest::isNotEmpty)
+        .collect(toList());
   }
 }
