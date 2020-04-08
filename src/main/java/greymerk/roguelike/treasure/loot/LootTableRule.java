@@ -13,6 +13,7 @@ import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.treasure.TreasureManager;
 
 import static com.google.common.collect.Lists.newArrayList;
+import static java.util.stream.Collectors.toList;
 
 public class LootTableRule {
 
@@ -56,10 +57,6 @@ public class LootTableRule {
     this.levels.add(level);
   }
 
-  public void setTable(ResourceLocation table) {
-    this.table = table;
-  }
-
   public void setTable(String table) {
     this.table = new ResourceLocation(table);
   }
@@ -70,7 +67,7 @@ public class LootTableRule {
 
   private static List<Integer> parseLevels(JsonObject json) {
     if (!json.has("level")) {
-      return null;
+      return newArrayList();
     }
     JsonElement level = json.get("level");
     List<Integer> levels = new ArrayList<>();
@@ -115,21 +112,10 @@ public class LootTableRule {
   }
 
   private List<ITreasureChest> getMatching(TreasureManager treasure) {
-    if (types == null && levels == null) {
-      return treasure.getChests();
-    }
-
-    List<ITreasureChest> chests = new ArrayList<>();
-    if (types == null) {
-      for (int level : levels) {
-        chests.addAll(treasure.getChests(level));
-      }
-    }
-
-    if (levels == null) {
-      types.stream().map(treasure::getChests).forEach(chests::addAll);
-    }
-    return chests;
+    return treasure.getChests().stream()
+        .filter(chest -> levels.isEmpty() || levels.contains(chest.getLevel()))
+        .filter(chest -> types.isEmpty() || types.contains(chest.getType()))
+        .collect(toList());
   }
 
 }
