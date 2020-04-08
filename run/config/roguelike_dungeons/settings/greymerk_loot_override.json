@@ -1,0 +1,8 @@
+{
+  // This will override the default, builtin:loot which generates chests with
+  // the loot table minecraft:chests/simple_dungeon, to instead generate populated
+  // with the loot that Greymerk invisioned. Lower levels have better gear, rather than
+  // all chests grabbing from the same pool -- minecraft:chests/simple_dungeon
+  "name": "builtin:loot",
+  "inherit": ["greymerk:loot"]
+}
