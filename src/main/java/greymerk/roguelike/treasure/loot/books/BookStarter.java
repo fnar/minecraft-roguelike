@@ -12,9 +12,10 @@ public class BookStarter extends BookBase {
         "Roguelike Dungeons v" + Roguelike.version + "\n"
             + Roguelike.date + "\n\n"
             + "Credits\n\n"
-            + "Author: Greymerk\n\n"
+            + "Original Author: Greymerk\n\n"
             + "Bits: Drainedsoul\n\n"
             + "Ideas: Eniko @enichan"
+            + "Fnar Edition Enhancements: Fnar"
     );
   }
 }
