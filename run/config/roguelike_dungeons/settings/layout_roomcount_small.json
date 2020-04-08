@@ -1,10 +1,4 @@
 {
   "name": "layout:roomcount_small",
-  "num_rooms": [
-    30,
-    30,
-    30,
-    30,
-    30
-  ]
+  "num_rooms": [30, 30, 30, 30, 30]
 }
