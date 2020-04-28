@@ -22,7 +22,7 @@ import static greymerk.roguelike.dungeon.settings.SettingsContainer.DEFAULT_NAME
 import static java.util.Optional.ofNullable;
 
 
-public class DungeonSettings implements ISettings {
+public class DungeonSettings {
 
   private static final int MAX_NUM_LEVELS = 5;
   private SettingIdentifier id;
@@ -132,17 +132,14 @@ public class DungeonSettings implements ISettings {
     this.spawnCriteria = spawnCriteria;
   }
 
-  @Override
   public boolean isValid(IWorldEditor editor, Coord pos) {
     return getSpawnCriteria().isValid(new SpawnContext(editor.getInfo(pos)));
   }
 
-  @Override
   public LevelSettings getLevelSettings(int level) {
     return getLevels().get(level);
   }
 
-  @Override
   public TowerSettings getTower() {
     if (getTowerSettings() == null) {
       return new TowerSettings(Tower.ROGUE, Theme.STONE);
@@ -151,22 +148,18 @@ public class DungeonSettings implements ISettings {
     return getTowerSettings();
   }
 
-  @Override
   public int getNumLevels() {
     return getMaxNumLevels();
   }
 
-  @Override
   public Set<SettingsType> getOverrides() {
     return overrides;
   }
 
-  @Override
   public boolean isExclusive() {
     return exclusive;
   }
 
-  @Override
   public void processLoot(Random rand, TreasureManager treasure) {
     getLootRules().process(rand, treasure);
     getLootTables().forEach(table -> table.process(treasure));
