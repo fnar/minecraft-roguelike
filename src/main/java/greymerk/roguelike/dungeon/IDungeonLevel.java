@@ -13,7 +13,7 @@ public interface IDungeonLevel {
 
   boolean hasNearbyNode(Coord pos);
 
-  ILevelLayout getLayout();
+  LevelLayout getLayout();
 
   void encase(IWorldEditor editor, Random rand);
 

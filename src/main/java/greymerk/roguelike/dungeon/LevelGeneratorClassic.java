@@ -91,7 +91,7 @@ public class LevelGeneratorClassic implements ILevelGenerator {
   }
 
   @Override
-  public ILevelLayout getLayout() {
+  public LevelLayout getLayout() {
     return layout;
   }
 

@@ -45,7 +45,7 @@ public class DungeonLevel implements IDungeonLevel {
   }
 
   @Override
-  public ILevelLayout getLayout() {
+  public LevelLayout getLayout() {
     return generator.getLayout();
   }
 

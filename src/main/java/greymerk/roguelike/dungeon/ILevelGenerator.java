@@ -6,6 +6,6 @@ public interface ILevelGenerator {
 
   void generate(Coord start);
 
-  ILevelLayout getLayout();
+  LevelLayout getLayout();
 
 }
