@@ -77,15 +77,15 @@ public class SpawnCriteria {
     this.biomeTypes = biomeTypes;
   }
 
-  public boolean isValid(ISpawnContext spawnContext) {
+  public boolean isValid(SpawnContext spawnContext) {
     return isEverywhere() || isBiomeValid(spawnContext) && isBiomeTypeValid(spawnContext);
   }
 
-  private boolean isBiomeValid(ISpawnContext spawnContext) {
+  private boolean isBiomeValid(SpawnContext spawnContext) {
     return biomes.isEmpty() || spawnContext.includesBiome(biomes);
   }
 
-  private boolean isBiomeTypeValid(ISpawnContext spawnContext) {
+  private boolean isBiomeTypeValid(SpawnContext spawnContext) {
     return biomeTypes.isEmpty() || spawnContext.includesBiomeType(biomeTypes);
   }
 

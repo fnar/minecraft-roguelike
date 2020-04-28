@@ -9,7 +9,7 @@ import java.util.List;
 
 import greymerk.roguelike.worldgen.IPositionInfo;
 
-public class SpawnContext implements ISpawnContext {
+public class SpawnContext {
 
   private IPositionInfo info;
 
@@ -17,22 +17,18 @@ public class SpawnContext implements ISpawnContext {
     this.info = info;
   }
 
-  @Override
   public boolean biomeHasType(Type type) {
     return BiomeDictionary.hasType(info.getBiome(), type);
   }
 
-  @Override
   public Biome getBiome() {
     return info.getBiome();
   }
 
-  @Override
   public boolean includesBiome(List<ResourceLocation> biomeNames) {
     return biomeNames.contains(info.getBiome().getRegistryName());
   }
 
-  @Override
   public boolean includesBiomeType(List<Type> biomeTypes) {
 
     for (BiomeDictionary.Type type : biomeTypes) {
@@ -44,7 +40,6 @@ public class SpawnContext implements ISpawnContext {
     return false;
   }
 
-  @Override
   public int getDimension() {
     return this.info.getDimension();
   }
