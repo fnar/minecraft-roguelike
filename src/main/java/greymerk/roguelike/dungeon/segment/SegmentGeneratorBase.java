@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import greymerk.roguelike.dungeon.IDungeonLevel;
+import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.util.WeightedChoice;
 import greymerk.roguelike.util.WeightedRandomizer;
@@ -33,7 +33,7 @@ public class SegmentGeneratorBase implements ISegmentGenerator {
   }
 
   @Override
-  public List<ISegment> genSegment(IWorldEditor editor, Random rand, IDungeonLevel level, Cardinal dir, Coord pos) {
+  public List<ISegment> genSegment(IWorldEditor editor, Random rand, DungeonLevel level, Cardinal dir, Coord pos) {
 
     int x = pos.getX();
     int y = pos.getY();
@@ -56,7 +56,7 @@ public class SegmentGeneratorBase implements ISegmentGenerator {
     return segs;
   }
 
-  private ISegment pickSegment(IWorldEditor editor, Random rand, IDungeonLevel level, Cardinal dir, Coord pos) {
+  private ISegment pickSegment(IWorldEditor editor, Random rand, DungeonLevel level, Cardinal dir, Coord pos) {
     int x = pos.getX();
     int z = pos.getZ();
 

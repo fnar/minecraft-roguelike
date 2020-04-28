@@ -16,7 +16,7 @@ public enum LevelGenerator {
   CLASSIC,
   MST;
 
-  public static ILevelGenerator getGenerator(IWorldEditor editor, Random rand, LevelGenerator type, IDungeonLevel level) {
+  public static ILevelGenerator getGenerator(IWorldEditor editor, Random rand, LevelGenerator type, DungeonLevel level) {
     switch (type) {
       case CLASSIC:
         return new LevelGeneratorClassic(rand, level.getSettings());

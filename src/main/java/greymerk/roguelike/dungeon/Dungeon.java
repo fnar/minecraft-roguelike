@@ -65,7 +65,7 @@ public class Dungeon {
   }
 
   private Coord origin;
-  private List<IDungeonLevel> levels = new ArrayList<>();
+  private List<DungeonLevel> levels = new ArrayList<>();
   private IWorldEditor editor;
 
   public Dungeon(IWorldEditor editor) {
@@ -322,7 +322,7 @@ public class Dungeon {
     return new Coord(origin);
   }
 
-  public List<IDungeonLevel> getLevels() {
+  public List<DungeonLevel> getLevels() {
     return levels;
   }
 }

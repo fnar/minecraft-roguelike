@@ -4,7 +4,7 @@ import net.minecraft.item.ItemStack;
 
 import java.util.Random;
 
-import greymerk.roguelike.dungeon.IDungeonLevel;
+import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.treasure.loot.Potion;
 import greymerk.roguelike.treasure.loot.PotionForm;
@@ -23,7 +23,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class SegmentTrap extends SegmentBase {
 
   @Override
-  protected void genWall(IWorldEditor editor, Random rand, IDungeonLevel level, Cardinal dir, ITheme theme, Coord origin) {
+  protected void genWall(IWorldEditor editor, Random rand, DungeonLevel level, Cardinal dir, ITheme theme, Coord origin) {
 
     MetaBlock plate = BlockType.get(BlockType.PRESSURE_PLATE_STONE);
     MetaBlock wire = BlockType.get(BlockType.REDSTONE_WIRE);
