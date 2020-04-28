@@ -2,7 +2,7 @@ package greymerk.roguelike.dungeon;
 
 import java.util.Random;
 
-import greymerk.roguelike.dungeon.base.IDungeonRoom;
+import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonLinker;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonLinkerTop;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
@@ -29,14 +29,14 @@ public enum LevelGenerator {
 
   public static void generateLevelLink(IWorldEditor editor, Random rand, LevelSettings settings, DungeonNode start, DungeonNode end) {
 
-    IDungeonRoom downstairs = new DungeonLinker();
+    DungeonBase downstairs = new DungeonLinker();
     downstairs.generate(editor, rand, settings, start.getPosition(), Cardinal.directions);
 
     if (end == null) {
       return;
     }
 
-    IDungeonRoom upstairs = new DungeonLinkerTop();
+    DungeonBase upstairs = new DungeonLinkerTop();
     upstairs.generate(editor, rand, settings, end.getPosition(), end.getEntrances());
 
     IStair stair = settings.getTheme().getPrimary().getStair();

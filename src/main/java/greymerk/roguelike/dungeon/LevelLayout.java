@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-import greymerk.roguelike.dungeon.base.IDungeonRoom;
+import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.worldgen.IBounded;
 
 public class LevelLayout {
@@ -76,12 +76,12 @@ public class LevelLayout {
         .anyMatch(other -> node.overlaps(size, other));
   }
 
-  public DungeonNode getBestFit(IDungeonRoom room) {
+  public DungeonNode getBestFit(DungeonBase room) {
     return getNonOverlappingConnectingNode(room)
         .orElseGet(this::getConnectingNode);
   }
 
-  private Optional<DungeonNode> getNonOverlappingConnectingNode(IDungeonRoom room) {
+  private Optional<DungeonNode> getNonOverlappingConnectingNode(DungeonBase room) {
     return getNodes().stream()
         .filter(this::isConnectingNode)
         .filter(DungeonNode::isNotYetGenerated)

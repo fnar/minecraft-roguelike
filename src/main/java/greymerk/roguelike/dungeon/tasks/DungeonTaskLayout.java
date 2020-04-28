@@ -9,7 +9,7 @@ import greymerk.roguelike.dungeon.DungeonNode;
 import greymerk.roguelike.dungeon.ILevelGenerator;
 import greymerk.roguelike.dungeon.LevelGenerator;
 import greymerk.roguelike.dungeon.LevelLayout;
-import greymerk.roguelike.dungeon.base.IDungeonRoom;
+import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.base.RoomIterator;
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
@@ -49,7 +49,7 @@ public class DungeonTaskLayout implements IDungeonTask {
 
       int count = 0;
       while (layout.hasEmptyRooms()) {
-        IDungeonRoom toGenerate = count < level.getSettings().getNumRooms()
+        DungeonBase toGenerate = count < level.getSettings().getNumRooms()
             ? roomIterator.getDungeonRoom()
             : RoomType.CORNER.newSingleRoomSetting().instantiate();
         DungeonNode node = layout.getBestFit(toGenerate);

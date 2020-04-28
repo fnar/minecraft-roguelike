@@ -10,9 +10,9 @@ import greymerk.roguelike.util.WeightedRandomizer;
 import static greymerk.roguelike.dungeon.base.RoomType.CORNER;
 import static java.util.stream.Collectors.toCollection;
 
-public class RoomIterator implements Iterator<IDungeonRoom> {
+public class RoomIterator implements Iterator<DungeonBase> {
 
-  private final LinkedList<IDungeonRoom> singleRooms;
+  private final LinkedList<DungeonBase> singleRooms;
   private final WeightedRandomizer<RoomSetting> randomRooms;
   private Random random;
 
@@ -24,7 +24,7 @@ public class RoomIterator implements Iterator<IDungeonRoom> {
     this.random = random;
   }
 
-  public IDungeonRoom getDungeonRoom() {
+  public DungeonBase getDungeonRoom() {
     if (hasNext()) {
       return next();
     } else if (randomRooms.isEmpty()) {
@@ -40,7 +40,7 @@ public class RoomIterator implements Iterator<IDungeonRoom> {
   }
 
   @Override
-  public IDungeonRoom next() {
+  public DungeonBase next() {
     return singleRooms.poll();
   }
 }

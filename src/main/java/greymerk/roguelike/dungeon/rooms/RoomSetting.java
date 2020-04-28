@@ -2,7 +2,7 @@ package greymerk.roguelike.dungeon.rooms;
 
 import java.util.List;
 
-import greymerk.roguelike.dungeon.base.IDungeonRoom;
+import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.rooms.prototype.BrickRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonAshlea;
@@ -76,7 +76,7 @@ public class RoomSetting {
     return getLevels() != null && getLevels().contains(floorLevel);
   }
 
-  public IDungeonRoom instantiate() {
+  public DungeonBase instantiate() {
     switch (roomType) {
       case ASHLEA:
         return new DungeonAshlea(this);
