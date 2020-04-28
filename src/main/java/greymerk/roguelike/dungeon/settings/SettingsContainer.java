@@ -29,7 +29,7 @@ import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
-public class SettingsContainer implements ISettingsContainer {
+public class SettingsContainer {
 
   public static final String DEFAULT_NAMESPACE = "default";
   public static final String BUILTIN_NAMESPACE = "builtin";

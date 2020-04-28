@@ -21,10 +21,10 @@ import static java.util.stream.Collectors.joining;
 
 public class SettingsResolver {
 
-  private ISettingsContainer settingsContainer;
+  private SettingsContainer settingsContainer;
 
   public SettingsResolver(
-      ISettingsContainer settingsContainer
+      SettingsContainer settingsContainer
   ) {
     this.settingsContainer = settingsContainer;
   }
