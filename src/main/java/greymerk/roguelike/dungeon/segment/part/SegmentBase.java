@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-import greymerk.roguelike.dungeon.IDungeonLevel;
+import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.dungeon.base.IDungeonRoom;
 import greymerk.roguelike.dungeon.base.SecretRoom;
 import greymerk.roguelike.dungeon.base.SecretsSetting;
@@ -18,13 +18,13 @@ import greymerk.roguelike.worldgen.IWorldEditor;
 public abstract class SegmentBase implements ISegment {
 
   @Override
-  public void generate(IWorldEditor editor, Random rand, IDungeonLevel level, Cardinal dir, ITheme theme, Coord pos) {
+  public void generate(IWorldEditor editor, Random rand, DungeonLevel level, Cardinal dir, ITheme theme, Coord pos) {
     if (!level.hasNearbyNode(pos) && isValidWall(editor, dir, pos)) {
       genWall(editor, rand, level, dir, theme, pos);
     }
   }
 
-  protected abstract void genWall(IWorldEditor editor, Random rand, IDungeonLevel level, Cardinal dir, ITheme theme, Coord pos);
+  protected abstract void genWall(IWorldEditor editor, Random rand, DungeonLevel level, Cardinal dir, ITheme theme, Coord pos);
 
   protected boolean isValidWall(IWorldEditor editor, Cardinal wallDirection, Coord pos) {
     return isValidNorthWall(wallDirection, editor, pos)

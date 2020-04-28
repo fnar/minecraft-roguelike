@@ -3,8 +3,8 @@ package greymerk.roguelike.dungeon.tasks;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.Dungeon;
+import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.dungeon.DungeonNode;
-import greymerk.roguelike.dungeon.IDungeonLevel;
 import greymerk.roguelike.dungeon.LevelLayout;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.worldgen.IWorldEditor;
@@ -17,7 +17,7 @@ public class DungeonTaskRooms implements IDungeonTask {
         .forEach(level -> generateLevel(editor, rand, level));
   }
 
-  private void generateLevel(IWorldEditor editor, Random rand, IDungeonLevel level) {
+  private void generateLevel(IWorldEditor editor, Random rand, DungeonLevel level) {
     LevelLayout layout = level.getLayout();
     DungeonNode startRoom = layout.getStart();
     DungeonNode endRoom = layout.getEnd();

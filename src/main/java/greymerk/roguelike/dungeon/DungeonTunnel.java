@@ -126,7 +126,7 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
     return start.dirTo(end);
   }
 
-  public void genSegments(IWorldEditor editor, Random rand, IDungeonLevel level) {
+  public void genSegments(IWorldEditor editor, Random rand, DungeonLevel level) {
     LevelSettings settings = level.getSettings();
     ISegmentGenerator segGen = settings.getSegments();
     for (Coord c : this) {

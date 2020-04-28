@@ -2,7 +2,7 @@ package greymerk.roguelike.dungeon.segment.part;
 
 import java.util.Random;
 
-import greymerk.roguelike.dungeon.IDungeonLevel;
+import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.Cardinal;
@@ -20,7 +20,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class SegmentLamp extends SegmentBase {
 
   @Override
-  protected void genWall(IWorldEditor editor, Random rand, IDungeonLevel level, Cardinal dir, ITheme theme, Coord origin) {
+  protected void genWall(IWorldEditor editor, Random rand, DungeonLevel level, Cardinal dir, ITheme theme, Coord origin) {
 
     IStair stair = theme.getPrimary().getStair();
     IBlockFactory wall = theme.getPrimary().getWall();
