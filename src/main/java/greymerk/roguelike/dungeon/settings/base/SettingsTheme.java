@@ -14,6 +14,7 @@ public class SettingsTheme extends DungeonSettings {
 
   public SettingsTheme() {
     super(ID);
+    setExclusive(false);
     setTowerSettings(new TowerSettings(Tower.ROGUE, Theme.TOWER));
 
     Theme[] themes = {Theme.OAK, Theme.SPRUCE, Theme.CRYPT, Theme.MOSSY, Theme.HELL};

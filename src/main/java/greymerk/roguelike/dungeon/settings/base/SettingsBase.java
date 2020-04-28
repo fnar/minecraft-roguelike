@@ -12,6 +12,7 @@ public class SettingsBase extends DungeonSettings {
 
   public SettingsBase() {
     super(ID);
+    setExclusive(false);
     setInherit(new ArrayList<>());
     getInherit().add(SettingsRooms.ID);
     getInherit().add(SettingsSecrets.ID);

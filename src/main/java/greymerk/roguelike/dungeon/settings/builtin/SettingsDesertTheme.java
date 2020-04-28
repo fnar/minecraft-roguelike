@@ -28,6 +28,7 @@ public class SettingsDesertTheme extends DungeonSettings {
 
   public SettingsDesertTheme() {
     super(ID);
+    setExclusive(true);
     getInherit().add(SettingsBase.ID);
     getSpawnCriteria().setBiomeTypes(newArrayList(SANDY));
     setTowerSettings(new TowerSettings(Tower.PYRAMID, Theme.PYRAMID));
