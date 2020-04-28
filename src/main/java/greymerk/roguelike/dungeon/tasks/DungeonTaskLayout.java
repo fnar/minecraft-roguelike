@@ -7,8 +7,8 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.DungeonNode;
 import greymerk.roguelike.dungeon.IDungeonLevel;
 import greymerk.roguelike.dungeon.ILevelGenerator;
-import greymerk.roguelike.dungeon.ILevelLayout;
 import greymerk.roguelike.dungeon.LevelGenerator;
+import greymerk.roguelike.dungeon.LevelLayout;
 import greymerk.roguelike.dungeon.base.IDungeonRoom;
 import greymerk.roguelike.dungeon.base.RoomIterator;
 import greymerk.roguelike.dungeon.base.RoomType;
@@ -35,7 +35,7 @@ public class DungeonTaskLayout implements IDungeonTask {
         e.printStackTrace();
       }
 
-      ILevelLayout layout = generator.getLayout();
+      LevelLayout layout = generator.getLayout();
       random = Dungeon.getRandom(editor, start);
       start = new Coord(layout.getEnd().getPosition());
       start.add(Cardinal.DOWN, Dungeon.VERTICAL_SPACING);
@@ -44,7 +44,7 @@ public class DungeonTaskLayout implements IDungeonTask {
 
     // assign dungeon rooms
     for (IDungeonLevel level : levels) {
-      ILevelLayout layout = level.getLayout();
+      LevelLayout layout = level.getLayout();
       RoomIterator roomIterator = new RoomIterator(level.getSettings().getRooms(), random);
 
       int count = 0;

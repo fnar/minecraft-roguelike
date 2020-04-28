@@ -8,7 +8,7 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.base.IDungeonRoom;
 import greymerk.roguelike.worldgen.IBounded;
 
-public class LevelLayout implements ILevelLayout {
+public class LevelLayout {
 
   private List<DungeonNode> nodes = new ArrayList<>();
   private List<DungeonTunnel> tunnels = new ArrayList<>();
@@ -18,7 +18,6 @@ public class LevelLayout implements ILevelLayout {
   public LevelLayout() {
   }
 
-  @Override
   public DungeonNode getStart() {
     return start;
   }
@@ -28,7 +27,6 @@ public class LevelLayout implements ILevelLayout {
     addNode(start);
   }
 
-  @Override
   public DungeonNode getEnd() {
     return end;
   }
@@ -50,12 +48,10 @@ public class LevelLayout implements ILevelLayout {
     this.tunnels.addAll(tunnels);
   }
 
-  @Override
   public List<DungeonNode> getNodes() {
     return nodes;
   }
 
-  @Override
   public List<DungeonTunnel> getTunnels() {
     return tunnels;
   }
@@ -80,7 +76,6 @@ public class LevelLayout implements ILevelLayout {
         .anyMatch(other -> node.overlaps(size, other));
   }
 
-  @Override
   public DungeonNode getBestFit(IDungeonRoom room) {
     return getNonOverlappingConnectingNode(room)
         .orElseGet(this::getConnectingNode);
@@ -110,14 +105,12 @@ public class LevelLayout implements ILevelLayout {
     return node != start && node != end;
   }
 
-  @Override
   public boolean hasEmptyRooms() {
     return nodes.stream()
         .filter(this::isConnectingNode)
         .anyMatch(DungeonNode::isNotYetGenerated);
   }
 
-  @Override
   public List<IBounded> getBoundingBoxes() {
     List<IBounded> boxes = new ArrayList<>();
     boxes.addAll(nodes);
