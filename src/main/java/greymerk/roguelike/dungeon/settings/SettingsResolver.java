@@ -4,9 +4,11 @@ import net.minecraft.client.Minecraft;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.dungeon.Dungeon;
@@ -15,13 +17,13 @@ import greymerk.roguelike.util.WeightedRandomizer;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IWorldEditor;
 
-import static java.util.Arrays.stream;
+import static java.util.Optional.empty;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.joining;
 
 public class SettingsResolver {
 
-  private SettingsContainer settingsContainer;
+  private final SettingsContainer settingsContainer;
 
   public SettingsResolver(
       SettingsContainer settingsContainer
@@ -30,7 +32,7 @@ public class SettingsResolver {
   }
 
   public DungeonSettings getAnyCustomDungeonSettings(IWorldEditor editor, Coord coord) {
-    Optional<DungeonSettings> builtin = ofNullable(getBuiltin(editor, coord));
+    Optional<DungeonSettings> builtin = chooseOneBuiltinSettingAtRandom(editor, coord);
     Optional<DungeonSettings> custom = chooseRandomCustomDungeonIfPossible(editor, coord);
     if (builtin.isPresent() || custom.isPresent()) {
       return custom.orElseGet(builtin::get);
@@ -78,40 +80,46 @@ public class SettingsResolver {
     return new DungeonSettings(processInheritance(parent), child);
   }
 
-  private DungeonSettings getBuiltin(IWorldEditor editor, Coord coord) {
+  private Optional<DungeonSettings> chooseOneBuiltinSettingAtRandom(IWorldEditor editor, Coord coord) {
     if (!RogueConfig.getBoolean(RogueConfig.SPAWNBUILTIN)) {
-      return null;
+      return empty();
     }
-    WeightedRandomizer<DungeonSettings> settingsRandomizer = newWeightedRandomizer(settingsContainer.getBuiltinSettings(), isValid(editor, coord));
+    WeightedRandomizer<DungeonSettings> settingsRandomizer = newWeightedRandomizer(getValidBuiltinSettings(editor, coord));
+
     if (settingsRandomizer.isEmpty()) {
-      return null;
+      return empty();
     }
     Random random = Dungeon.getRandom(editor, coord);
-    return processInheritance(settingsRandomizer.get(random));
+    DungeonSettings randomSetting = settingsRandomizer.get(random);
+    DungeonSettings builtin = processInheritance(randomSetting);
+    return ofNullable(builtin);
+  }
+
+  private List<DungeonSettings> getValidBuiltinSettings(IWorldEditor editor, Coord coord) {
+    return filterValid(settingsContainer.getBuiltinSettings(), editor, coord);
+  }
+
+  private List<DungeonSettings> filterValid(Collection<DungeonSettings> builtinSettings, IWorldEditor editor, Coord coord) {
+    return builtinSettings.stream()
+        .filter(isValid(editor, coord))
+        .filter(DungeonSettings::isExclusive)
+        .collect(Collectors.toList());
   }
 
   private Optional<DungeonSettings> chooseRandomCustomDungeonIfPossible(
       IWorldEditor editor,
       Coord coord
   ) {
-    WeightedRandomizer<DungeonSettings> settingsRandomizer = newWeightedRandomizer(
-        settingsContainer.getCustomSettings(),
-        DungeonSettings::isExclusive,
-        isValid(editor, coord)
-    );
+    List<DungeonSettings> validCustomSettings = filterValid(settingsContainer.getCustomSettings(), editor, coord);
+    WeightedRandomizer<DungeonSettings> settingsRandomizer = newWeightedRandomizer(validCustomSettings);
     Random random = Dungeon.getRandom(editor, coord);
     return ofNullable(settingsRandomizer.get(random))
         .map(this::processInheritance);
   }
 
-  @SafeVarargs
-  private final WeightedRandomizer<DungeonSettings> newWeightedRandomizer(
-      Collection<DungeonSettings> dungeonSettingsCollection,
-      Predicate<DungeonSettings>... predicates
-  ) {
+  private WeightedRandomizer<DungeonSettings> newWeightedRandomizer(List<DungeonSettings> dungeonSettings) {
     WeightedRandomizer<DungeonSettings> settingsRandomizer = new WeightedRandomizer<>();
-    dungeonSettingsCollection.stream()
-        .filter(stream(predicates).reduce(x -> true, Predicate::and))
+    dungeonSettings.stream()
         .map(setting -> new WeightedChoice<>(setting, setting.getSpawnCriteria().getWeight()))
         .forEach(settingsRandomizer::add);
     return settingsRandomizer;

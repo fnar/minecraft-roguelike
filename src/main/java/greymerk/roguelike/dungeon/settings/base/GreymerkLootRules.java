@@ -19,6 +19,7 @@ public class GreymerkLootRules extends DungeonSettings {
 
   public GreymerkLootRules() {
     super(ID);
+    setExclusive(false);
     setLootRules(new LootRuleManager());
     ILoot loot = Loot.getLoot();
     getLootRules().add(Treasure.STARTER, Book.get(Book.CREDITS));

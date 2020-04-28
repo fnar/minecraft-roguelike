@@ -111,11 +111,7 @@ public class SettingsContainer {
   }
 
   private boolean isBuiltIn(Map.Entry<String, Map<String, DungeonSettings>> entry) {
-    return isBuiltIn(entry.getKey());
-  }
-
-  private boolean isBuiltIn(String key) {
-    return key.equals(BUILTIN_NAMESPACE);
+    return BUILTIN_NAMESPACE.equals(entry.getKey());
   }
 
   public Collection<DungeonSettings> getCustomSettings() {

@@ -16,6 +16,7 @@ public class SettingsLootRules extends DungeonSettings {
 
   public SettingsLootRules() {
     super(ID);
+    setExclusive(false);
     getLootTables().add(new LootTableRule(newArrayList(), new ResourceLocation(LootTableList.CHESTS_SIMPLE_DUNGEON.getResourcePath()), newArrayList()));
   }
 }

@@ -30,6 +30,7 @@ public class SettingsRooms extends DungeonSettings {
 
   public SettingsRooms() {
     super(ID);
+    setExclusive(false);
     for (int i = 0; i < 5; ++i) {
 
       RoomsSetting factory;

@@ -1,7 +1,6 @@
 package greymerk.roguelike.dungeon.settings;
 
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 
@@ -21,28 +20,18 @@ public class SpawnContext {
     return BiomeDictionary.hasType(info.getBiome(), type);
   }
 
-  public Biome getBiome() {
-    return info.getBiome();
-  }
-
   public boolean includesBiome(List<ResourceLocation> biomeNames) {
     return biomeNames.contains(info.getBiome().getRegistryName());
   }
 
   public boolean includesBiomeType(List<Type> biomeTypes) {
-
-    for (BiomeDictionary.Type type : biomeTypes) {
-      if (biomeHasType(type)) {
-        return true;
-      }
-    }
-
-    return false;
+    return biomeTypes.stream().anyMatch(this::biomeHasType);
   }
 
   public int getDimension() {
     return this.info.getDimension();
   }
 
+  // todo: includesDimension
 
 }

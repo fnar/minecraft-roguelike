@@ -23,6 +23,7 @@ public class SettingsGrasslandTheme extends DungeonSettings {
   public SettingsGrasslandTheme() {
 
     super(ID);
+    setExclusive(true);
     getInherit().add(SettingsBase.ID);
     getSpawnCriteria().setBiomeTypes(newArrayList(PLAINS));
 
