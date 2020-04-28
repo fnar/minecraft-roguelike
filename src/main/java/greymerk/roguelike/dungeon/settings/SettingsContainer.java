@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 import greymerk.roguelike.dungeon.settings.base.GreymerkLootRules;
 import greymerk.roguelike.dungeon.settings.base.SettingsBase;
@@ -23,7 +24,6 @@ import greymerk.roguelike.dungeon.settings.builtin.SettingsMesaTheme;
 import greymerk.roguelike.dungeon.settings.builtin.SettingsMountainTheme;
 import greymerk.roguelike.dungeon.settings.builtin.SettingsSwampTheme;
 
-import static com.google.common.base.Predicates.not;
 import static greymerk.roguelike.dungeon.settings.DungeonSettingsParser.parseJson;
 import static java.util.Arrays.stream;
 import static java.util.stream.Collectors.joining;
@@ -120,7 +120,7 @@ public class SettingsContainer {
 
   public Collection<DungeonSettings> getCustomSettings() {
     return settingsByNamespace.entrySet().stream()
-        .filter(not(this::isBuiltIn))
+        .filter(((Predicate<Map.Entry<String, Map<String, DungeonSettings>>>) this::isBuiltIn).negate())
         .map(Map.Entry::getValue)
         .map(Map::values)
         .flatMap(Collection::stream)
