@@ -20,7 +20,7 @@ import static java.util.Collections.shuffle;
 import static java.util.stream.Collectors.toList;
 
 @EqualsAndHashCode
-public abstract class DungeonBase implements IDungeonRoom, Comparable<DungeonBase> {
+public abstract class DungeonBase implements Comparable<DungeonBase> {
 
   private RoomSetting roomSetting;
 
@@ -39,8 +39,7 @@ public abstract class DungeonBase implements IDungeonRoom, Comparable<DungeonBas
         .collect(toList());
   }
 
-  @Override
-  public abstract IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances);
+  public abstract DungeonBase generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances);
 
   protected void generateSpawner(IWorldEditor editor, Random rand, Coord spawnerLocation, int difficulty, SpawnerSettings levelSettingsSpawners, MobType... defaultMobs) {
     getSpawnerSettings(difficulty, defaultMobs, levelSettingsSpawners).generateSpawner(editor, rand, spawnerLocation, difficulty);
@@ -62,10 +61,8 @@ public abstract class DungeonBase implements IDungeonRoom, Comparable<DungeonBas
         : MobType.newSpawnerSetting(defaultMobs.length > 0 ? defaultMobs : MobType.COMMON_MOBS);
   }
 
-  @Override
   public abstract int getSize();
 
-  @Override
   public boolean validLocation(IWorldEditor editor, Cardinal dir, Coord pos) {
 
     int size = getSize();

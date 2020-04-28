@@ -2,7 +2,7 @@ package greymerk.roguelike.dungeon;
 
 import java.util.Random;
 
-import greymerk.roguelike.dungeon.base.IDungeonRoom;
+import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.worldgen.BoundingBox;
 import greymerk.roguelike.worldgen.Cardinal;
@@ -16,7 +16,7 @@ import greymerk.roguelike.worldgen.shapes.Shape;
 public class DungeonNode implements IBounded {
 
   private Coord pos;
-  private IDungeonRoom toGenerate;
+  private DungeonBase toGenerate;
   private Cardinal[] entrances;
 
   public DungeonNode(Cardinal[] entrances, Coord origin) {
@@ -24,7 +24,7 @@ public class DungeonNode implements IBounded {
     pos = new Coord(origin);
   }
 
-  public void setDungeon(IDungeonRoom toGenerate) {
+  public void setDungeon(DungeonBase toGenerate) {
     this.toGenerate = toGenerate;
   }
 
@@ -57,7 +57,7 @@ public class DungeonNode implements IBounded {
     return new Coord(pos);
   }
 
-  public IDungeonRoom getRoom() {
+  public DungeonBase getRoom() {
     return toGenerate;
   }
 

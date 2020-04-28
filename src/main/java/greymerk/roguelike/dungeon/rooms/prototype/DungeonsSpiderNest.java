@@ -5,7 +5,6 @@ import java.util.Random;
 
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
-import greymerk.roguelike.dungeon.base.IDungeonRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
@@ -37,7 +36,7 @@ public class DungeonsSpiderNest extends DungeonBase {
     dungeonWidth = 3;
   }
 
-  public IDungeonRoom generate(IWorldEditor editor, Random inRandom, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(IWorldEditor editor, Random inRandom, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     this.editor = editor;
     rand = inRandom;

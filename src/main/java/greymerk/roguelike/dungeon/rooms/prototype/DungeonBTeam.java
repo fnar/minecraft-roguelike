@@ -7,7 +7,6 @@ import java.util.Random;
 
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.dungeon.base.DungeonBase;
-import greymerk.roguelike.dungeon.base.IDungeonRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.treasure.ChestPlacementException;
@@ -47,7 +46,7 @@ public class DungeonBTeam extends DungeonBase {
   }
 
   @Override
-  public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     MetaBlock air = BlockType.get(BlockType.AIR);
     IStair stair = new MetaStair(StairType.SPRUCE);

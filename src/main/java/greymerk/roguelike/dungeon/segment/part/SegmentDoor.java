@@ -4,7 +4,7 @@ import java.util.Optional;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.DungeonLevel;
-import greymerk.roguelike.dungeon.base.IDungeonRoom;
+import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.base.SecretsSetting;
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.worldgen.Cardinal;
@@ -38,7 +38,7 @@ public class SegmentDoor extends SegmentBase {
     RectSolid.fill(editor, rand, start, end, air);
 
     SecretsSetting secrets = level.getSettings().getSecrets();
-    Optional<IDungeonRoom> secretMaybe = generateSecret(secrets, editor, rand, level.getSettings(), dir, new Coord(origin));
+    Optional<DungeonBase> secretMaybe = generateSecret(secrets, editor, rand, level.getSettings(), dir, new Coord(origin));
 
     start.add(dir, 1);
     end.add(dir, 1);

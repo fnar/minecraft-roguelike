@@ -24,15 +24,15 @@ public class SecretRoom extends DungeonBase {
     if (getRoomSetting().getCount() <= 0) {
       return false;
     }
-    IDungeonRoom prototype = createPrototype();
+    DungeonBase prototype = createPrototype();
     Coord cursor = new Coord(pos);
     cursor.add(dir, prototype.getSize() + 5);
     return prototype.validLocation(editor, dir, cursor);
   }
 
   // todo: Match the signature of DungeonBase
-  public IDungeonRoom generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord pos, Cardinal... dir) {
-    IDungeonRoom prototype = createPrototype();
+  public DungeonBase generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord pos, Cardinal... dir) {
+    DungeonBase prototype = createPrototype();
 
     int size = prototype.getSize();
 
@@ -53,7 +53,7 @@ public class SecretRoom extends DungeonBase {
     RectSolid.fill(editor, rand, pos, end, BlockType.get(BlockType.AIR));
 
     end.add(Cardinal.DOWN);
-    prototype.generate(editor, rand, settings, end, entrance);
+    prototype.generate(editor, rand, settings, end, new Cardinal[]{entrance});
     return prototype;
   }
 
@@ -62,7 +62,7 @@ public class SecretRoom extends DungeonBase {
     return createPrototype().getSize();
   }
 
-  private IDungeonRoom createPrototype() {
+  private DungeonBase createPrototype() {
     return getRoomSetting().instantiate();
   }
 
