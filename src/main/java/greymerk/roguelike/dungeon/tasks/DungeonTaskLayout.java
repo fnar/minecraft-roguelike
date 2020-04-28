@@ -5,7 +5,6 @@ import java.util.Random;
 
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.DungeonNode;
-import greymerk.roguelike.dungeon.IDungeon;
 import greymerk.roguelike.dungeon.IDungeonLevel;
 import greymerk.roguelike.dungeon.ILevelGenerator;
 import greymerk.roguelike.dungeon.ILevelLayout;
@@ -21,7 +20,7 @@ import greymerk.roguelike.worldgen.IWorldEditor;
 public class DungeonTaskLayout implements IDungeonTask {
 
   @Override
-  public void execute(IWorldEditor editor, Random random, IDungeon dungeon, ISettings settings) {
+  public void execute(IWorldEditor editor, Random random, Dungeon dungeon, ISettings settings) {
     List<IDungeonLevel> levels = dungeon.getLevels();
     Coord start = dungeon.getPosition();
 

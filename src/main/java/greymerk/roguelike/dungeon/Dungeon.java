@@ -48,7 +48,7 @@ import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.toList;
 import static java.util.stream.Collectors.toMap;
 
-public class Dungeon implements IDungeon {
+public class Dungeon {
   public static final int VERTICAL_SPACING = 10;
   public static final int TOPLEVEL = 50;
 
@@ -314,17 +314,14 @@ public class Dungeon implements IDungeon {
     return true;
   }
 
-  @Override
   public List<ITreasureChest> getChests() {
     return editor.getTreasure().getChests();
   }
 
-  @Override
   public Coord getPosition() {
     return new Coord(origin);
   }
 
-  @Override
   public List<IDungeonLevel> getLevels() {
     return levels;
   }
