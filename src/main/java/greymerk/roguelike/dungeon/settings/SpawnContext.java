@@ -10,7 +10,7 @@ import greymerk.roguelike.worldgen.IPositionInfo;
 
 public class SpawnContext {
 
-  private IPositionInfo info;
+  private final IPositionInfo info;
 
   public SpawnContext(IPositionInfo info) {
     this.info = info;
@@ -32,6 +32,8 @@ public class SpawnContext {
     return this.info.getDimension();
   }
 
-  // todo: includesDimension
+  public boolean includesDimension(List<Integer> dimensionIds) {
+    return dimensionIds.contains(info.getDimension());
+  }
 
 }
