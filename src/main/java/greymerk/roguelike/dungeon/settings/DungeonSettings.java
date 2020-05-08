@@ -15,6 +15,7 @@ import greymerk.roguelike.treasure.TreasureManager;
 import greymerk.roguelike.treasure.loot.LootRuleManager;
 import greymerk.roguelike.treasure.loot.LootTableRule;
 import greymerk.roguelike.worldgen.Coord;
+import greymerk.roguelike.worldgen.IPositionInfo;
 import greymerk.roguelike.worldgen.IWorldEditor;
 
 import static com.google.common.collect.Sets.newHashSet;
@@ -133,7 +134,8 @@ public class DungeonSettings {
   }
 
   public boolean isValid(IWorldEditor editor, Coord pos) {
-    return getSpawnCriteria().isValid(new SpawnContext(editor.getInfo(pos)));
+    IPositionInfo positionInfo = editor.getInfo(pos);
+    return getSpawnCriteria().isValid(positionInfo);
   }
 
   public LevelSettings getLevelSettings(int level) {

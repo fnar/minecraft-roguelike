@@ -4,18 +4,23 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.BiomeDictionary;
+import net.minecraft.world.biome.Biome;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import greymerk.roguelike.config.RogueConfig;
+import greymerk.roguelike.worldgen.IPositionInfo;
+
+import static net.minecraftforge.common.BiomeDictionary.Type;
+import static net.minecraftforge.common.BiomeDictionary.getBiomes;
+import static net.minecraftforge.common.BiomeDictionary.hasType;
 
 public class SpawnCriteria {
 
   private int weight;
   private final List<ResourceLocation> biomes = new ArrayList<>();
-  private List<BiomeDictionary.Type> biomeTypes = new ArrayList<>();
+  private List<Type> biomeTypes = new ArrayList<>();
   private final List<Integer> validDimensions = new ArrayList<>();
 
   public SpawnCriteria() {
@@ -40,9 +45,9 @@ public class SpawnCriteria {
   private void addBiomeTypeCriteria(JsonObject data) {
     if (data.has("biomeTypes")) {
       for (JsonElement biomeType : data.get("biomeTypes").getAsJsonArray()) {
-        BiomeDictionary.Type t = BiomeDictionary.Type.getType(biomeType.getAsString().toUpperCase());
-        if (BiomeDictionary.getBiomes(t).size() > 0) {
-          biomeTypes.add(t);
+        Type type = Type.getType(biomeType.getAsString().toUpperCase());
+        if (getBiomes(type).size() > 0) {
+          biomeTypes.add(type);
         }
       }
     }
@@ -72,26 +77,39 @@ public class SpawnCriteria {
     this.weight = weight;
   }
 
-  public void setBiomeTypes(List<BiomeDictionary.Type> biomeTypes) {
+  public void setBiomeTypes(List<Type> biomeTypes) {
     this.biomeTypes = biomeTypes;
   }
 
-  public boolean isValid(SpawnContext spawnContext) {
-    return isBiomeValid(spawnContext)
-        && isBiomeTypeValid(spawnContext)
-        && isDimensionValid(spawnContext);
+  public boolean isValid(IPositionInfo positionInfo) {
+    return isBiomeValid(positionInfo)
+        && isBiomeTypeValid(positionInfo)
+        && isDimensionValid(positionInfo);
   }
 
-  private boolean isBiomeValid(SpawnContext spawnContext) {
-    return biomes.isEmpty() || spawnContext.includesBiome(biomes);
+  private boolean isBiomeValid(IPositionInfo positionInfo) {
+    return biomes.isEmpty() || includesBiome(positionInfo);
   }
 
-  private boolean isBiomeTypeValid(SpawnContext spawnContext) {
-    return biomeTypes.isEmpty() || spawnContext.includesBiomeType(biomeTypes);
+  private boolean includesBiome(IPositionInfo positionInfo) {
+    return biomes.contains(positionInfo.getBiome().getRegistryName());
   }
 
-  private boolean isDimensionValid(SpawnContext spawnContext) {
-    return isValidDimension(spawnContext.getDimension()) && validDimensions.isEmpty() || spawnContext.includesDimension(validDimensions);
+  private boolean isBiomeTypeValid(IPositionInfo positionInfo) {
+    return biomeTypes.isEmpty() || includesBiomeType(positionInfo);
+  }
+
+  private boolean includesBiomeType(IPositionInfo positionInfo) {
+    Biome biomeHere = positionInfo.getBiome();
+    return biomeTypes.stream().anyMatch(biomeType -> hasType(biomeHere, biomeType));
+  }
+
+  private boolean isDimensionValid(IPositionInfo positionInfo) {
+    return isValidDimension(positionInfo.getDimension()) && validDimensions.isEmpty() || includesDimension(positionInfo);
+  }
+
+  private boolean includesDimension(IPositionInfo positionInfo) {
+    return validDimensions.contains(positionInfo.getDimension());
   }
 
 }

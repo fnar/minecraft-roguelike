@@ -5,26 +5,33 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
+import net.minecraft.init.Biomes;
 import net.minecraft.init.Bootstrap;
+import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import greymerk.roguelike.worldgen.IPositionInfo;
+
+import static net.minecraftforge.common.BiomeDictionary.Type.SNOWY;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SpawnCriteriaTest {
+
+  @Mock
+  private IPositionInfo mockPositionInfo;
 
   @BeforeClass
   public static void beforeClass() {
@@ -74,90 +81,82 @@ public class SpawnCriteriaTest {
 
   @Test
   public void isValid_ReturnsTrue_WhenBothBiomeCriteriaAndBiomeTypeCriteriaArePresentAndSatisfied() {
-    SpawnContext mockSpawnContext = mock(SpawnContext.class);
-    when(mockSpawnContext.includesBiome(any())).thenReturn(true);
-    when(mockSpawnContext.includesBiomeType(any())).thenReturn(true);
+    Biome biome = Biomes.ICE_MOUNTAINS;
+    BiomeDictionary.Type biomeType = SNOWY;
+    when(mockPositionInfo.getBiome()).thenReturn(biome);
 
-    JsonArray criteriaBiomes = new JsonArray();
-    criteriaBiomes.add(new JsonPrimitive("Ice Mountains"));
-
-    JsonArray criteriaBiomeTypes = new JsonArray();
-    criteriaBiomeTypes.add(new JsonPrimitive(BiomeDictionary.Type.SNOWY.toString()));
-
-    JsonObject spawnCriteriaJson = new JsonObject();
-    spawnCriteriaJson.add("biomes", criteriaBiomes);
-    spawnCriteriaJson.add("biomeTypes", criteriaBiomeTypes);
-
-    SpawnCriteria spawnCriteria = new SpawnCriteria(spawnCriteriaJson);
-
-    assertThat(spawnCriteria.isValid(mockSpawnContext)).isTrue();
+    assertThat(newSpawnCriteria(biome, biomeType).isValid(mockPositionInfo)).isTrue();
   }
 
   @Test
   public void isValid_ReturnsTrue_WhenOnlyBiomeCriteriaIsPresentAndSatisfied() {
-    SpawnContext mockSpawnContext = mock(SpawnContext.class);
-    when(mockSpawnContext.includesBiome(any())).thenReturn(true);
-    when(mockSpawnContext.includesBiomeType(any())).thenReturn(false);
+    Biome biome = Biomes.ICE_MOUNTAINS;
+    when(mockPositionInfo.getBiome()).thenReturn(biome);
 
-    JsonArray criteriaBiomes = new JsonArray();
-    criteriaBiomes.add(new JsonPrimitive("Ice Mountains"));
-
-    JsonObject spawnCriteriaJson = new JsonObject();
-    spawnCriteriaJson.add("biomes", criteriaBiomes);
-
-    SpawnCriteria spawnCriteria = new SpawnCriteria(spawnCriteriaJson);
-
-    assertThat(spawnCriteria.isValid(mockSpawnContext)).isTrue();
+    assertThat(newSpawnCriteria(biome).isValid(mockPositionInfo)).isTrue();
   }
 
   @Test
   public void isValid_ReturnsFalse_WhenOnlyBiomeCriteriaIsPresentAndIsNotSatisfied() {
-    SpawnContext mockSpawnContext = mock(SpawnContext.class);
-    when(mockSpawnContext.includesBiome(any())).thenReturn(false);
-    when(mockSpawnContext.includesBiomeType(any())).thenReturn(false);
+    when(mockPositionInfo.getBiome()).thenReturn(Biomes.BEACH);
 
-    JsonArray criteriaBiomes = new JsonArray();
-    criteriaBiomes.add(new JsonPrimitive("Ice Mountains"));
-
-    JsonObject spawnCriteriaJson = new JsonObject();
-    spawnCriteriaJson.add("biomes", criteriaBiomes);
-
-    SpawnCriteria spawnCriteria = new SpawnCriteria(spawnCriteriaJson);
-
-    assertThat(spawnCriteria.isValid(mockSpawnContext)).isFalse();
+    assertThat(newSpawnCriteria(Biomes.ICE_MOUNTAINS).isValid(mockPositionInfo)).isFalse();
   }
 
   @Test
   public void isValid_ReturnsTrue_WhenOnlyBiomeTypeCriteriaIsProvidedAndSatisfied() {
-    SpawnContext mockSpawnContext = mock(SpawnContext.class);
-    when(mockSpawnContext.includesBiome(any())).thenReturn(false);
-    when(mockSpawnContext.includesBiomeType(any())).thenReturn(true);
+    when(mockPositionInfo.getBiome()).thenReturn(Biomes.ICE_MOUNTAINS);
 
-    JsonArray criteriaBiomeTypes = new JsonArray();
-    criteriaBiomeTypes.add(new JsonPrimitive(BiomeDictionary.Type.SNOWY.toString()));
-
-    JsonObject spawnCriteriaJson = new JsonObject();
-    spawnCriteriaJson.add("biomeTypes", criteriaBiomeTypes);
-
-    SpawnCriteria spawnCriteria = new SpawnCriteria(spawnCriteriaJson);
-
-    assertThat(spawnCriteria.isValid(mockSpawnContext)).isTrue();
+    assertThat(newSpawnCriteria(SNOWY).isValid(mockPositionInfo)).isTrue();
   }
 
   @Test
   public void isValid_ReturnsFalse_WhenOnlyBiomeTypeCriteriaIsProvidedAndIsNotSatisfied() {
-    SpawnContext mockSpawnContext = mock(SpawnContext.class);
-    when(mockSpawnContext.includesBiome(any())).thenReturn(false);
-    when(mockSpawnContext.includesBiomeType(any())).thenReturn(false);
+    when(mockPositionInfo.getBiome()).thenReturn(Biomes.BEACH);
 
+    assertThat(newSpawnCriteria(SNOWY).isValid(mockPositionInfo)).isFalse();
+  }
+
+  private JsonArray newBiomeTypeCriteriaJson(BiomeDictionary.Type biomeType) {
     JsonArray criteriaBiomeTypes = new JsonArray();
-    criteriaBiomeTypes.add(new JsonPrimitive(BiomeDictionary.Type.SNOWY.toString()));
+    criteriaBiomeTypes.add(new JsonPrimitive(biomeType.toString()));
+    return criteriaBiomeTypes;
+  }
 
+  private JsonArray newBiomeCriteriaJson(Biome biome) {
+    JsonArray criteriaBiomes = new JsonArray();
+    criteriaBiomes.add(new JsonPrimitive(biome.getRegistryName().toString()));
+    return criteriaBiomes;
+  }
+
+  private JsonObject newSpawnCriteriaJson(Biome biome, BiomeDictionary.Type biomeType) {
+    JsonObject spawnCriteriaJson = new JsonObject();
+    spawnCriteriaJson.add("biomes", newBiomeCriteriaJson(biome));
+    spawnCriteriaJson.add("biomeTypes", newBiomeTypeCriteriaJson(biomeType));
+    return spawnCriteriaJson;
+  }
+
+  private JsonObject newSpawnCriteriaJson(JsonArray criteriaBiomeTypes) {
     JsonObject spawnCriteriaJson = new JsonObject();
     spawnCriteriaJson.add("biomeTypes", criteriaBiomeTypes);
+    return spawnCriteriaJson;
+  }
 
-    SpawnCriteria spawnCriteria = new SpawnCriteria(spawnCriteriaJson);
+  private SpawnCriteria newSpawnCriteria(Biome biome) {
+    return new SpawnCriteria(newSpawnCriteriaJson(biome));
+  }
 
-    assertThat(spawnCriteria.isValid(mockSpawnContext)).isFalse();
+  private JsonObject newSpawnCriteriaJson(Biome biome) {
+    JsonObject spawnCriteriaJson = new JsonObject();
+    spawnCriteriaJson.add("biomes", newBiomeCriteriaJson(biome));
+    return spawnCriteriaJson;
+  }
+
+  private SpawnCriteria newSpawnCriteria(Biome biome, BiomeDictionary.Type biomeType) {
+    return new SpawnCriteria(newSpawnCriteriaJson(biome, biomeType));
+  }
+
+  private SpawnCriteria newSpawnCriteria(BiomeDictionary.Type biomeType) {
+    return new SpawnCriteria(newSpawnCriteriaJson(newBiomeTypeCriteriaJson(biomeType)));
   }
 }
