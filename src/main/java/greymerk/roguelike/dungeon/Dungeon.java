@@ -119,9 +119,14 @@ public class Dungeon {
 
   public static boolean canSpawnInChunk(int chunkX, int chunkZ, IWorldEditor editor) {
     return RogueConfig.getBoolean(RogueConfig.DONATURALSPAWN)
-        && SpawnCriteria.isValidDimension(editor, chunkX, chunkZ)
+        && SpawnCriteria.isValidDimension(getDimension(chunkX, chunkZ, editor))
         && isVillageChunk(editor, chunkX, chunkZ)
         && isSpawnChanceHit(chunkX, chunkZ);
+  }
+
+  private static int getDimension(int chunkX, int chunkZ, IWorldEditor editor) {
+    final Coord coord = new Coord(chunkX * 16, 0, chunkZ * 16);
+    return editor.getInfo(coord).getDimension();
   }
 
   public static boolean isVillageChunk(IWorldEditor editor, int chunkX, int chunkZ) {

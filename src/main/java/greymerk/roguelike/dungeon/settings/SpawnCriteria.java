@@ -10,14 +10,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import greymerk.roguelike.config.RogueConfig;
-import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
 
 public class SpawnCriteria {
 
   private int weight;
-  private List<ResourceLocation> biomes = new ArrayList<>();
+  private final List<ResourceLocation> biomes = new ArrayList<>();
   private List<BiomeDictionary.Type> biomeTypes = new ArrayList<>();
+  private final List<Integer> validDimensions = new ArrayList<>();
 
   public SpawnCriteria() {
     this(new JsonObject());
@@ -27,19 +26,7 @@ public class SpawnCriteria {
     weight = data.has("weight") ? data.get("weight").getAsInt() : 1;
     addBiomeCriteria(data);
     addBiomeTypeCriteria(data);
-  }
-
-  public static boolean isValidDimension(IWorldEditor editor, int chunkX, int chunkZ) {
-    int dimension = getDimension(editor, chunkX, chunkZ);
-    return isValidDimension(dimension, RogueConfig.getIntList(RogueConfig.DIMENSIONWL), RogueConfig.getIntList(RogueConfig.DIMENSIONBL));
-  }
-
-  private static int getDimension(IWorldEditor editor, int chunkX, int chunkZ) {
-    return editor.getInfo(new Coord(chunkX * 16, 0, chunkZ * 16)).getDimension();
-  }
-
-  public static boolean isValidDimension(int dim, List<Integer> whiteList, List<Integer> blackList) {
-    return !blackList.contains(dim) && (whiteList.isEmpty() || whiteList.contains(dim));
+    addDimensionCriteria(data);
   }
 
   private void addBiomeCriteria(JsonObject data) {
@@ -61,8 +48,20 @@ public class SpawnCriteria {
     }
   }
 
-  private boolean isEverywhere() {
-    return biomes.isEmpty() && biomeTypes.isEmpty();
+  private void addDimensionCriteria(JsonObject data) {
+    if (data.has("dimensions")) {
+      for (JsonElement dimension : data.get("dimensions").getAsJsonArray()) {
+        validDimensions.add(dimension.getAsInt());
+      }
+    }
+  }
+
+  public static boolean isValidDimension(int dimension) {
+    return isValidDimension(dimension, RogueConfig.getIntList(RogueConfig.DIMENSIONWL), RogueConfig.getIntList(RogueConfig.DIMENSIONBL));
+  }
+
+  public static boolean isValidDimension(int dimension, List<Integer> whiteList, List<Integer> blackList) {
+    return !blackList.contains(dimension) && (whiteList.isEmpty() || whiteList.contains(dimension));
   }
 
   public int getWeight() {
@@ -78,7 +77,9 @@ public class SpawnCriteria {
   }
 
   public boolean isValid(SpawnContext spawnContext) {
-    return isEverywhere() || isBiomeValid(spawnContext) && isBiomeTypeValid(spawnContext);
+    return isBiomeValid(spawnContext)
+        && isBiomeTypeValid(spawnContext)
+        && isDimensionValid(spawnContext);
   }
 
   private boolean isBiomeValid(SpawnContext spawnContext) {
@@ -87,6 +88,10 @@ public class SpawnCriteria {
 
   private boolean isBiomeTypeValid(SpawnContext spawnContext) {
     return biomeTypes.isEmpty() || spawnContext.includesBiomeType(biomeTypes);
+  }
+
+  private boolean isDimensionValid(SpawnContext spawnContext) {
+    return isValidDimension(spawnContext.getDimension()) && validDimensions.isEmpty() || spawnContext.includesDimension(validDimensions);
   }
 
 }
