@@ -69,12 +69,12 @@ public enum Treasure {
   }
 
   private static boolean isBesideChest(IWorldEditor editor, Coord coord, Cardinal dir) {
-    Coord otherCursor = coord.newCoord(dir);
+    Coord otherCursor = coord.add(dir);
     return editor.getBlock(otherCursor).getBlock() == Blocks.CHEST;
   }
 
   private static boolean isNonSolidBlock(IWorldEditor editor, Coord coord) {
-    Coord cursor = coord.newCoord(Cardinal.DOWN);
+    Coord cursor = coord.add(Cardinal.DOWN);
     return !editor.getBlock(cursor).getMaterial().isSolid();
   }
 }
