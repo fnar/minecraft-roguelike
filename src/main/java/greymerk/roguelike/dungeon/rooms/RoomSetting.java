@@ -10,7 +10,7 @@ import greymerk.roguelike.dungeon.rooms.prototype.DungeonAvidya;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonBTeam;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonBedRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonBlaze;
-import greymerk.roguelike.dungeon.rooms.prototype.DungeonCorner;
+import greymerk.roguelike.dungeon.rooms.prototype.CornerRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonDarkHall;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonEniko;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonEtho;
@@ -91,7 +91,7 @@ public class RoomSetting {
       case CAKE:
         return new DungeonsWood(this);
       case CORNER:
-        return new DungeonCorner(this);
+        return new CornerRoom(this);
       case CREEPER:
         return new DungeonsCreeperDen(this);
       case CRYPT:
