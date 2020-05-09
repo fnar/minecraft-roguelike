@@ -88,7 +88,7 @@ public class DungeonDarkHall extends DungeonBase {
 
       start = new Coord(origin);
       start.translate(dir, 6);
-      start.translate(dir.left(), 6);
+      start.translate(dir.antiClockwise(), 6);
       end = new Coord(start);
       end.translate(Cardinal.UP, 5);
       RectSolid.fill(editor, rand, start, end, pillar);
@@ -97,16 +97,16 @@ public class DungeonDarkHall extends DungeonBase {
       start.translate(dir, 6);
       start.translate(Cardinal.UP, 6);
       end = new Coord(start);
-      start.translate(dir.left(), 6);
-      end.translate(dir.right(), 6);
+      start.translate(dir.antiClockwise(), 6);
+      end.translate(dir.clockwise(), 6);
       RectSolid.fill(editor, rand, start, end, wall);
 
       start = new Coord(origin);
       start.translate(dir, 3);
       start.translate(Cardinal.UP, 6);
       end = new Coord(start);
-      start.translate(dir.left(), 3);
-      end.translate(dir.right(), 3);
+      start.translate(dir.antiClockwise(), 3);
+      end.translate(dir.clockwise(), 3);
       RectSolid.fill(editor, rand, start, end, wall);
       start.translate(Cardinal.UP, 2);
       end.translate(Cardinal.UP, 2);
@@ -127,8 +127,8 @@ public class DungeonDarkHall extends DungeonBase {
         start.translate(Cardinal.UP, 2);
         end = new Coord(start);
         end.translate(Cardinal.UP, 3);
-        start.translate(dir.left(), 2);
-        end.translate(dir.right(), 2);
+        start.translate(dir.antiClockwise(), 2);
+        end.translate(dir.clockwise(), 2);
         RectSolid.fill(editor, rand, start, end, wall);
 
         cursor = new Coord(origin);

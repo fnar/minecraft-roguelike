@@ -86,14 +86,14 @@ public class DungeonLibrary extends DungeonBase {
 
       start = new Coord(origin);
       start.translate(dir, 4);
-      start.translate(dir.left(), 4);
+      start.translate(dir.antiClockwise(), 4);
       end = new Coord(start);
       end.translate(Cardinal.UP, 4);
       RectSolid.fill(editor, rand, start, end, settings.getTheme().getPrimary().getPillar(), true, true);
 
       start = new Coord(origin);
       start.translate(dir, 3);
-      start.translate(dir.left(), 3);
+      start.translate(dir.antiClockwise(), 3);
       start.translate(Cardinal.UP, 3);
       end = new Coord(start);
       end.translate(Cardinal.UP, 3);
@@ -101,7 +101,7 @@ public class DungeonLibrary extends DungeonBase {
 
       cursor = new Coord(end);
       cursor.translate(dir.reverse());
-      cursor.translate(dir.right());
+      cursor.translate(dir.clockwise());
       cursor.translate(Cardinal.UP);
       walls.set(editor, rand, cursor);
 
@@ -153,8 +153,8 @@ public class DungeonLibrary extends DungeonBase {
     start = new Coord(pos);
     start.translate(dir, 7);
     end = new Coord(start);
-    start.translate(dir.left());
-    end.translate(dir.right());
+    start.translate(dir.antiClockwise());
+    end.translate(dir.clockwise());
     end.translate(Cardinal.UP, 2);
 
     RectSolid.fill(editor, rand, start, end, theme.getPrimary().getWall());
@@ -188,8 +188,8 @@ public class DungeonLibrary extends DungeonBase {
     cursor.translate(dir, 5);
     start = new Coord(cursor);
     end = new Coord(cursor);
-    start.translate(dir.left(), 2);
-    end.translate(dir.right(), 2);
+    start.translate(dir.antiClockwise(), 2);
+    end.translate(dir.clockwise(), 2);
     end.translate(Cardinal.UP, 2);
     BlockType.get(BlockType.AIR).fill(editor, rand, new RectSolid(start, end));
     start.translate(dir);
@@ -217,19 +217,19 @@ public class DungeonLibrary extends DungeonBase {
     cursor.translate(dir);
     stair.setOrientation(dir.reverse(), true).set(editor, cursor);
 
-    cursor.translate(dir.left());
-    stair.setOrientation(dir.right(), true).set(editor, cursor);
+    cursor.translate(dir.antiClockwise());
+    stair.setOrientation(dir.clockwise(), true).set(editor, cursor);
 
-    cursor.translate(dir.right(), 2);
-    stair.setOrientation(dir.left(), true).set(editor, cursor);
+    cursor.translate(dir.clockwise(), 2);
+    stair.setOrientation(dir.antiClockwise(), true).set(editor, cursor);
 
     cursor.translate(Cardinal.UP);
     FlowerPot.generate(editor, rand, cursor);
 
-    cursor.translate(dir.left());
+    cursor.translate(dir.antiClockwise());
     ColorBlock.get(ColorBlock.CARPET, DyeColor.GREEN).set(editor, cursor);
 
-    cursor.translate(dir.left());
+    cursor.translate(dir.antiClockwise());
     Torch.generate(editor, Torch.WOODEN, Cardinal.UP, cursor);
   }
 
@@ -242,8 +242,8 @@ public class DungeonLibrary extends DungeonBase {
     cursor.translate(dir, 5);
     start = new Coord(cursor);
     end = new Coord(cursor);
-    start.translate(dir.left(), 2);
-    end.translate(dir.left(), 2);
+    start.translate(dir.antiClockwise(), 2);
+    end.translate(dir.antiClockwise(), 2);
     end.translate(Cardinal.UP, 2);
     BlockType.get(BlockType.AIR).fill(editor, rand, new RectSolid(start, end));
     start.translate(dir);
@@ -259,8 +259,8 @@ public class DungeonLibrary extends DungeonBase {
 
     start = new Coord(cursor);
     end = new Coord(cursor);
-    start.translate(dir.left());
-    end.translate(dir.right());
+    start.translate(dir.antiClockwise());
+    end.translate(dir.clockwise());
     RectSolid rect = new RectSolid(start, end);
     for (Coord c : rect) {
       plant(editor, rand, theme, c);

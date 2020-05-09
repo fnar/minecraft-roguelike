@@ -193,8 +193,8 @@ public class ObsidianRoom extends DungeonBase {
       Coord start = new Coord(x, y, z);
       start.translate(dir, 10);
       Coord end = new Coord(start);
-      start.translate(dir.left(), 9);
-      end.translate(dir.right(), 9);
+      start.translate(dir.antiClockwise(), 9);
+      end.translate(dir.clockwise(), 9);
 
       start.translate(Cardinal.DOWN, 4);
       end.translate(Cardinal.DOWN, 1);
@@ -209,8 +209,8 @@ public class ObsidianRoom extends DungeonBase {
       start.translate(dir, 6);
       start.translate(Cardinal.UP, 3);
       end = new Coord(start);
-      start.translate(dir.left(), 9);
-      end.translate(dir.right(), 9);
+      start.translate(dir.antiClockwise(), 9);
+      end.translate(dir.clockwise(), 9);
       RectSolid.fill(editor, rand, start, end, secondaryWall);
 
       // inner
@@ -218,8 +218,8 @@ public class ObsidianRoom extends DungeonBase {
       start.translate(dir, 2);
       start.translate(Cardinal.UP, 3);
       end = new Coord(start);
-      start.translate(dir.left(), 9);
-      end.translate(dir.right(), 9);
+      start.translate(dir.antiClockwise(), 9);
+      end.translate(dir.clockwise(), 9);
       RectSolid.fill(editor, rand, start, end, secondaryWall);
 
       // outer shell
@@ -228,8 +228,8 @@ public class ObsidianRoom extends DungeonBase {
       end = new Coord(start);
       start.translate(Cardinal.DOWN, 3);
       end.translate(Cardinal.UP, 3);
-      start.translate(dir.left(), 11);
-      end.translate(dir.right(), 11);
+      start.translate(dir.antiClockwise(), 11);
+      end.translate(dir.clockwise(), 11);
       RectSolid.fill(editor, rand, start, end, secondaryWall, false, true);
     }
 
@@ -242,8 +242,8 @@ public class ObsidianRoom extends DungeonBase {
       Coord end = new Coord(start);
       end.translate(Cardinal.DOWN, 3);
       start.translate(dir, 9);
-      start.translate(dir.left(), 1);
-      end.translate(dir.right(), 1);
+      start.translate(dir.antiClockwise(), 1);
+      end.translate(dir.clockwise(), 1);
       RectSolid.fill(editor, rand, start, end, primaryWall);
     }
 

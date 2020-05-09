@@ -169,11 +169,11 @@ public class DungeonsPit extends DungeonBase {
     start = new Coord(origin);
     start.translate(dir, 3);
     start.translate(Cardinal.DOWN);
-    start.translate(dir.left());
+    start.translate(dir.antiClockwise());
     end = new Coord(origin);
     end.translate(dir, 6);
     end.translate(Cardinal.UP, 3);
-    end.translate(dir.right());
+    end.translate(dir.clockwise());
 
     for (Coord cell : new RectHollow(start, end)) {
       if (editor.isAirBlock(cell)) {

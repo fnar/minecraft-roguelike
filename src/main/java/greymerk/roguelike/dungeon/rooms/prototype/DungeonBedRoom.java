@@ -60,8 +60,8 @@ public class DungeonBedRoom extends DungeonBase {
     start = new Coord(origin);
     end = new Coord(origin);
 
-    start.translate(dir.left(), 4);
-    end.translate(dir.right(), 4);
+    start.translate(dir.antiClockwise(), 4);
+    end.translate(dir.clockwise(), 4);
     start.translate(dir.reverse(), 4);
     end.translate(dir, 4);
     start.translate(Cardinal.DOWN);
@@ -72,8 +72,8 @@ public class DungeonBedRoom extends DungeonBase {
     start = new Coord(origin);
     start.translate(Cardinal.DOWN);
     end = new Coord(start);
-    start.translate(dir.left(), 1);
-    end.translate(dir.right(), 1);
+    start.translate(dir.antiClockwise(), 1);
+    end.translate(dir.clockwise(), 1);
     start.translate(dir.reverse(), 2);
     end.translate(dir, 2);
 
@@ -86,8 +86,8 @@ public class DungeonBedRoom extends DungeonBase {
       start = new Coord(origin);
       start.translate(o, 3);
       end = new Coord(start);
-      start.translate(o.left(), 2);
-      end.translate(o.right(), 2);
+      start.translate(o.antiClockwise(), 2);
+      end.translate(o.clockwise(), 2);
 
       RectSolid.fill(editor, rand, start, end, stair);
       start.translate(Cardinal.UP, 2);
@@ -119,13 +119,13 @@ public class DungeonBedRoom extends DungeonBase {
     for (int i = 0; i < 3; ++i) {
       start = new Coord(cursor);
       end = new Coord(cursor);
-      start.translate(dir.left(), 2);
-      end.translate(dir.right(), 2);
+      start.translate(dir.antiClockwise(), 2);
+      end.translate(dir.clockwise(), 2);
       RectSolid.fill(editor, rand, start, end, theme.getSecondary().getWall());
       cursor.translate(dir, 3);
     }
 
-    Cardinal side = rand.nextBoolean() ? dir.left() : dir.right();
+    Cardinal side = rand.nextBoolean() ? dir.antiClockwise() : dir.clockwise();
 
     cursor = new Coord(origin);
     cursor.translate(dir, 3);
@@ -166,7 +166,7 @@ public class DungeonBedRoom extends DungeonBase {
       cursor.translate(Cardinal.DOWN);
     }
 
-    side = rand.nextBoolean() ? dir.left() : dir.right();
+    side = rand.nextBoolean() ? dir.antiClockwise() : dir.clockwise();
     cursor = new Coord(origin);
     cursor.translate(dir.reverse());
     cursor.translate(side, 3);
@@ -197,8 +197,8 @@ public class DungeonBedRoom extends DungeonBase {
     end = new Coord(start);
     start.translate(dir.reverse(), 5);
     end.translate(dir, 5);
-    start.translate(dir.left(), 5);
-    end.translate(dir.right(), 5);
+    start.translate(dir.antiClockwise(), 5);
+    end.translate(dir.clockwise(), 5);
     start.translate(Cardinal.DOWN);
     end.translate(Cardinal.UP, 3);
 

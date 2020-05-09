@@ -67,8 +67,8 @@ public class DungeonBTeam extends DungeonBase {
     end = new Coord(origin);
     start.translate(dir, 5);
     end.translate(dir.reverse(), 4);
-    start.translate(dir.left(), 6);
-    end.translate(dir.right(), 6);
+    start.translate(dir.antiClockwise(), 6);
+    end.translate(dir.clockwise(), 6);
     end.translate(Cardinal.UP, 5);
     start.translate(Cardinal.DOWN);
     RectHollow.fill(editor, rand, start, end, stonebrick);
@@ -78,8 +78,8 @@ public class DungeonBTeam extends DungeonBase {
     end = new Coord(start);
     start.translate(dir, 4);
     end.translate(dir.reverse(), 3);
-    start.translate(dir.left(), 5);
-    end.translate(dir.right(), 5);
+    start.translate(dir.antiClockwise(), 5);
+    end.translate(dir.clockwise(), 5);
     RectSolid.fill(editor, rand, start, end, cobble);
 
     start = new Coord(origin);
@@ -87,8 +87,8 @@ public class DungeonBTeam extends DungeonBase {
     end = new Coord(start);
     start.translate(dir, 3);
     end.translate(dir.reverse(), 2);
-    start.translate(dir.left(), 4);
-    end.translate(dir.right(), 4);
+    start.translate(dir.antiClockwise(), 4);
+    end.translate(dir.clockwise(), 4);
     RectSolid.fill(editor, rand, start, end, cyan);
 
     start = new Coord(origin);
@@ -96,8 +96,8 @@ public class DungeonBTeam extends DungeonBase {
     end = new Coord(start);
     start.translate(dir, 2);
     end.translate(dir.reverse(), 1);
-    start.translate(dir.left(), 3);
-    end.translate(dir.right(), 3);
+    start.translate(dir.antiClockwise(), 3);
+    end.translate(dir.clockwise(), 3);
     RectSolid.fill(editor, rand, start, end, slab);
 
     cursor = new Coord(origin);
@@ -107,20 +107,20 @@ public class DungeonBTeam extends DungeonBase {
     logWall(editor, rand, dir.reverse(), cursor);
 
     cursor = new Coord(origin);
-    cursor.translate(dir.left(), 6);
-    tvWall(editor, rand, dir.left(), cursor);
+    cursor.translate(dir.antiClockwise(), 6);
+    tvWall(editor, rand, dir.antiClockwise(), cursor);
 
     cursor = new Coord(origin);
-    cursor.translate(dir.right(), 6);
-    bWall(editor, rand, dir.right(), cursor);
+    cursor.translate(dir.clockwise(), 6);
+    bWall(editor, rand, dir.clockwise(), cursor);
 
     table(editor, rand, dir, origin);
 
     start = new Coord(origin);
     start.translate(dir.reverse(), 4);
     end = new Coord(start);
-    start.translate(dir.left());
-    end.translate(dir.right());
+    start.translate(dir.antiClockwise());
+    end.translate(dir.clockwise());
     end.translate(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, cobble);
 
@@ -132,12 +132,12 @@ public class DungeonBTeam extends DungeonBase {
 
     cursor = new Coord(origin);
     cursor.translate(dir.reverse());
-    cursor.translate(dir.left(), 3);
+    cursor.translate(dir.antiClockwise(), 3);
     cursor.translate(Cardinal.UP, 5);
     log.set(editor, cursor);
     cursor.translate(dir, 3);
     log.set(editor, cursor);
-    cursor.translate(dir.right(), 6);
+    cursor.translate(dir.clockwise(), 6);
     log.set(editor, cursor);
     cursor.translate(dir.reverse(), 3);
     log.set(editor, cursor);
@@ -146,8 +146,8 @@ public class DungeonBTeam extends DungeonBase {
     start.translate(dir.reverse());
     start.translate(Cardinal.UP, 5);
     end = new Coord(start);
-    start.translate(dir.left(), 2);
-    end.translate(dir.right(), 2);
+    start.translate(dir.antiClockwise(), 2);
+    end.translate(dir.clockwise(), 2);
     stair.setOrientation(dir, true).fill(editor, rand, new RectSolid(start, end));
     start.translate(dir, 3);
     end.translate(dir, 3);
@@ -165,14 +165,14 @@ public class DungeonBTeam extends DungeonBase {
     start = new Coord(origin);
     start.translate(Cardinal.UP, 5);
     end = new Coord(start);
-    start.translate(dir.left(), 2);
-    end.translate(dir.right(), 2);
+    start.translate(dir.antiClockwise(), 2);
+    end.translate(dir.clockwise(), 2);
     end.translate(dir);
     RectSolid.fill(editor, rand, start, end, lamp);
 
     cursor = new Coord(origin);
     cursor.translate(dir, 4);
-    cursor.translate(dir.right(), 5);
+    cursor.translate(dir.clockwise(), 5);
     BlockType.get(BlockType.SHELF).set(editor, cursor);
     cursor.translate(Cardinal.UP);
     BrewingStand.generate(editor, cursor);
@@ -180,9 +180,9 @@ public class DungeonBTeam extends DungeonBase {
 
     cursor = new Coord(origin);
     cursor.translate(dir, 4);
-    cursor.translate(dir.left(), 4);
+    cursor.translate(dir.antiClockwise(), 4);
     BlockType.get(BlockType.JUKEBOX).set(editor, cursor);
-    cursor.translate(dir.left());
+    cursor.translate(dir.antiClockwise());
     try {
       ITreasureChest chest = new TreasureChest(Treasure.EMPTY);
       ITreasureChest stal = chest.generate(editor, rand, cursor, settings.getDifficulty(cursor), false);
@@ -193,7 +193,7 @@ public class DungeonBTeam extends DungeonBase {
 
     cursor = new Coord(origin);
     cursor.translate(dir.reverse(), 3);
-    cursor.translate(dir.left(), 4);
+    cursor.translate(dir.antiClockwise(), 4);
     try {
       ITreasureChest chest = new TreasureChest(Treasure.EMPTY);
       ITreasureChest bdub = chest.generate(editor, rand, cursor, settings.getDifficulty(cursor), false);
@@ -209,7 +209,7 @@ public class DungeonBTeam extends DungeonBase {
 
     cursor = new Coord(origin);
     cursor.translate(dir.reverse(), 3);
-    cursor.translate(dir.right(), 4);
+    cursor.translate(dir.clockwise(), 4);
     try {
       ITreasureChest chest = new TreasureChest(Treasure.EMPTY);
       ITreasureChest genny = chest.generate(editor, rand, cursor, settings.getDifficulty(cursor), false);
@@ -233,9 +233,9 @@ public class DungeonBTeam extends DungeonBase {
     Coord cursor;
 
     start = new Coord(origin);
-    start.translate(dir.left());
+    start.translate(dir.antiClockwise());
     end = new Coord(origin);
-    end.translate(dir.right());
+    end.translate(dir.clockwise());
     end.translate(dir);
     RectSolid.fill(editor, rand, start, end, slab);
 
@@ -302,21 +302,21 @@ public class DungeonBTeam extends DungeonBase {
     MetaBlock plank = Wood.getPlank(Wood.SPRUCE);
     BlockCheckers checkers = new BlockCheckers(
         Log.get(Wood.SPRUCE, Cardinal.UP),
-        Log.get(Wood.SPRUCE, dir.left())
+        Log.get(Wood.SPRUCE, dir.antiClockwise())
     );
 
     start = new Coord(origin);
     start.translate(Cardinal.UP);
     end = new Coord(start);
-    start.translate(dir.left(), 4);
-    end.translate(dir.right(), 4);
+    start.translate(dir.antiClockwise(), 4);
+    end.translate(dir.clockwise(), 4);
     end.translate(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, checkers);
 
     start = new Coord(origin);
     end = new Coord(start);
-    start.translate(dir.left(), 5);
-    end.translate(dir.right(), 5);
+    start.translate(dir.antiClockwise(), 5);
+    end.translate(dir.clockwise(), 5);
     RectSolid.fill(editor, rand, start, end, plank);
     start.translate(dir);
     end.translate(dir);
@@ -357,15 +357,15 @@ public class DungeonBTeam extends DungeonBase {
 
     start = new Coord(origin);
     end = new Coord(start);
-    start.translate(dir.right(), 3);
-    end.translate(dir.left(), 4);
+    start.translate(dir.clockwise(), 3);
+    end.translate(dir.antiClockwise(), 4);
     RectSolid.fill(editor, rand, start, end, plank);
 
     start = new Coord(origin);
     start.translate(Cardinal.UP);
     end = new Coord(start);
-    start.translate(dir.right(), 3);
-    end.translate(dir.left(), 4);
+    start.translate(dir.clockwise(), 3);
+    end.translate(dir.antiClockwise(), 4);
     end.translate(Cardinal.UP, 3);
     RectSolid.fill(editor, rand, start, end, bricks);
 
@@ -376,13 +376,13 @@ public class DungeonBTeam extends DungeonBase {
       if (i % 2 == 0) {
         start = new Coord(cursor);
         end = new Coord(start);
-        end.translate(dir.left(), 2);
+        end.translate(dir.antiClockwise(), 2);
         RectSolid.fill(editor, rand, start, end, b);
       } else {
         Coord c = new Coord(cursor);
-        c.translate(dir.right());
+        c.translate(dir.clockwise());
         b.set(editor, c);
-        c.translate(dir.left(), 3);
+        c.translate(dir.antiClockwise(), 3);
         b.set(editor, c);
       }
 
@@ -409,27 +409,27 @@ public class DungeonBTeam extends DungeonBase {
     start.translate(dir.reverse());
     start.translate(Cardinal.UP, 4);
     end = new Coord(start);
-    start.translate(dir.left(), 2);
-    end.translate(dir.right(), 3);
+    start.translate(dir.antiClockwise(), 2);
+    end.translate(dir.clockwise(), 3);
     RectSolid.fill(editor, rand, start, end, slab);
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.translate(dir.left(), 3);
-    end.translate(dir.right(), 4);
+    start.translate(dir.antiClockwise(), 3);
+    end.translate(dir.clockwise(), 4);
     RectSolid.fill(editor, rand, start, end, plank);
-    start.translate(dir.right(), 2);
-    end.translate(dir.left(), 2);
+    start.translate(dir.clockwise(), 2);
+    end.translate(dir.antiClockwise(), 2);
     RectSolid.fill(editor, rand, start, end, note);
     start.translate(Cardinal.UP);
     end.translate(Cardinal.UP, 3);
     RectSolid.fill(editor, rand, start, end, black);
 
     start = new Coord(origin);
-    start.translate(dir.left(), 2);
+    start.translate(dir.antiClockwise(), 2);
     start.translate(Cardinal.UP);
     end = new Coord(start);
-    end.translate(dir.left());
+    end.translate(dir.antiClockwise());
     end.translate(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, shelf);
     cursor = new Coord(start);
@@ -439,10 +439,10 @@ public class DungeonBTeam extends DungeonBase {
     bean.set(editor, cursor);
 
     start = new Coord(origin);
-    start.translate(dir.right(), 3);
+    start.translate(dir.clockwise(), 3);
     start.translate(Cardinal.UP);
     end = new Coord(start);
-    end.translate(dir.right());
+    end.translate(dir.clockwise());
     end.translate(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, shelf);
     cursor = new Coord(start);

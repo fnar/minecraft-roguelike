@@ -92,19 +92,19 @@ public class Sphere implements IShape {
       Coord toReturn = new Coord(centre);
       toReturn.translate(top ? Cardinal.UP : Cardinal.DOWN, layer);
       toReturn.translate(dir, row);
-      toReturn.translate(dir.left(), col);
+      toReturn.translate(dir.antiClockwise(), col);
       if (dir != Cardinal.NORTH || top) {
         if (dir == Cardinal.NORTH) {
           top = false;
         }
-        dir = dir.left();
+        dir = dir.antiClockwise();
         return toReturn;
       }
 
       col += 1;
 
       if (inRange(col, layer, row)) {
-        dir = dir.left();
+        dir = dir.antiClockwise();
         top = true;
         return toReturn;
       } else {
@@ -114,7 +114,7 @@ public class Sphere implements IShape {
       row += 1;
 
       if (inRange(col, layer, row)) {
-        dir = dir.left();
+        dir = dir.antiClockwise();
         top = true;
         return toReturn;
       } else {
@@ -122,7 +122,7 @@ public class Sphere implements IShape {
       }
 
       layer += 1;
-      dir = dir.left();
+      dir = dir.antiClockwise();
       top = true;
       return toReturn;
     }

@@ -40,7 +40,7 @@ public class PyramidTower implements ITower {
       cursor = new Coord(floor);
       cursor.translate(dir, 6);
       wall(editor, rand, theme, dir, cursor);
-      cursor.translate(dir.left(), 6);
+      cursor.translate(dir.antiClockwise(), 6);
       corner(editor, rand, theme, dir, cursor);
     }
 
@@ -70,8 +70,8 @@ public class PyramidTower implements ITower {
     start.translate(Cardinal.UP, 3);
     end = new Coord(start);
     end.translate(dir.reverse());
-    start.translate(dir.left());
-    end.translate(dir.right());
+    start.translate(dir.antiClockwise());
+    end.translate(dir.clockwise());
     RectSolid.fill(editor, rand, start, end, blocks);
 
     for (Cardinal o : dir.orthogonal()) {
@@ -102,8 +102,8 @@ public class PyramidTower implements ITower {
     start = new Coord(origin);
     start.translate(dir);
     end = new Coord(start);
-    start.translate(dir.left());
-    end.translate(dir.right());
+    start.translate(dir.antiClockwise());
+    end.translate(dir.clockwise());
     end.translate(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, air);
 
@@ -117,8 +117,8 @@ public class PyramidTower implements ITower {
     start.translate(dir);
     end = new Coord(start);
     end.translate(Cardinal.UP, 2);
-    start.translate(dir.left());
-    end.translate(dir.right());
+    start.translate(dir.antiClockwise());
+    end.translate(dir.clockwise());
     RectSolid.fill(editor, rand, start, end, blocks);
 
     cursor = new Coord(origin);
@@ -145,8 +145,8 @@ public class PyramidTower implements ITower {
       start = new Coord(origin);
       start.translate(dir, 3);
       end = new Coord(start);
-      start.translate(dir.left(), 3);
-      end.translate(dir.right(), 3);
+      start.translate(dir.antiClockwise(), 3);
+      end.translate(dir.clockwise(), 3);
       end.translate(Cardinal.UP, 2);
       RectSolid.fill(editor, rand, start, end, blocks);
 
@@ -162,8 +162,8 @@ public class PyramidTower implements ITower {
       start.translate(dir, 2);
       start.translate(Cardinal.UP, 3);
       end = new Coord(start);
-      start.translate(dir.left());
-      end.translate(dir.right());
+      start.translate(dir.antiClockwise());
+      end.translate(dir.clockwise());
       end.translate(dir);
       RectSolid.fill(editor, rand, start, end, blocks);
 
@@ -177,7 +177,7 @@ public class PyramidTower implements ITower {
       // corner spikes
       start = new Coord(origin);
       start.translate(dir, 3);
-      start.translate(dir.left(), 3);
+      start.translate(dir.antiClockwise(), 3);
       start.translate(Cardinal.UP, 3);
       end = new Coord(start);
       end.translate(Cardinal.UP);
@@ -185,7 +185,7 @@ public class PyramidTower implements ITower {
 
       start = new Coord(origin);
       start.translate(dir, 2);
-      start.translate(dir.left(), 2);
+      start.translate(dir.antiClockwise(), 2);
       start.translate(Cardinal.UP, 3);
       end = new Coord(start);
       end.translate(Cardinal.UP, 4);
@@ -193,7 +193,7 @@ public class PyramidTower implements ITower {
 
       start = new Coord(origin);
       start.translate(dir);
-      start.translate(dir.left());
+      start.translate(dir.antiClockwise());
       start.translate(Cardinal.UP, 4);
       end = new Coord(start);
       end.translate(Cardinal.UP, 3);
@@ -230,8 +230,8 @@ public class PyramidTower implements ITower {
     start = new Coord(pos);
     start.translate(Cardinal.UP, 4);
     end = new Coord(start);
-    start.translate(dir.left(), 5);
-    end.translate(dir.right(), 5);
+    start.translate(dir.antiClockwise(), 5);
+    end.translate(dir.clockwise(), 5);
     RectSolid.fill(editor, rand, start, end, blocks);
 
     // inner wall
@@ -240,8 +240,8 @@ public class PyramidTower implements ITower {
     end = new Coord(start);
     end.translate(dir.reverse());
     end.translate(Cardinal.UP, 2);
-    start.translate(dir.left(), 4);
-    end.translate(dir.right(), 4);
+    start.translate(dir.antiClockwise(), 4);
+    end.translate(dir.clockwise(), 4);
     RectSolid.fill(editor, rand, start, end, blocks);
 
     cursor = new Coord(pos);
@@ -289,14 +289,14 @@ public class PyramidTower implements ITower {
     Coord start;
     Coord end;
 
-    Cardinal[] faces = {dir, dir.left()};
+    Cardinal[] faces = {dir, dir.antiClockwise()};
 
     for (Cardinal face : faces) {
       start = new Coord(pos);
       start.translate(face);
       end = new Coord(start);
-      end.translate(face.left());
-      start.translate(face.right());
+      end.translate(face.antiClockwise());
+      start.translate(face.clockwise());
       end.translate(Cardinal.UP);
       RectSolid.fill(editor, rand, start, end, blocks);
 

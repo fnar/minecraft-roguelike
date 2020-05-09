@@ -95,7 +95,7 @@ public class TreeTower implements ITower {
     for (Cardinal dir : Cardinal.directions) {
       start = new Coord(origin);
       start.translate(dir, size - 1);
-      start.translate(dir.left(), size - 1);
+      start.translate(dir.antiClockwise(), size - 1);
       end = new Coord(start);
       end.translate(Cardinal.UP, size + 1);
       new RectSolid(start, end).fill(editor, rand, log);

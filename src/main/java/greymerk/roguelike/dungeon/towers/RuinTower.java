@@ -64,13 +64,13 @@ public class RuinTower implements ITower {
       start.translate(Cardinal.DOWN);
       start.translate(dir, 4);
       end = new Coord(start.getX(), origin.getY() + 10, start.getZ());
-      start.translate(dir.left(), 2);
-      end.translate(dir.right(), 2);
+      start.translate(dir.antiClockwise(), 2);
+      end.translate(dir.clockwise(), 2);
       RectSolid.fill(editor, rand, start, end, blocks, true, false);
 
       cursor = new Coord(floor);
       cursor.translate(dir, 3);
-      cursor.translate(dir.left(), 3);
+      cursor.translate(dir.antiClockwise(), 3);
       RectSolid.fill(editor, rand,
           new Coord(cursor.getX(), origin.getY() + 20, cursor.getZ()),
           new Coord(cursor.getX(), floor.getY() + 2 + rand.nextInt(4), cursor.getZ()),

@@ -80,8 +80,8 @@ public class DungeonOssuary extends DungeonBase {
         start = new Coord(cursor);
         start.translate(Cardinal.UP, 3);
         end = new Coord(start);
-        start.translate(dir.left());
-        end.translate(dir.right());
+        start.translate(dir.antiClockwise());
+        end.translate(dir.clockwise());
         end.translate(Cardinal.UP, 3);
         RectSolid.fill(editor, rand, start, end, walls);
         start.translate(Cardinal.UP);
@@ -138,10 +138,10 @@ public class DungeonOssuary extends DungeonBase {
     for (Cardinal dir : Cardinal.directions) {
       start = new Coord(origin);
       start.translate(dir, 6);
-      start.translate(dir.left(), 6);
+      start.translate(dir.antiClockwise(), 6);
       end = new Coord(start);
       end.translate(dir);
-      end.translate(dir.left());
+      end.translate(dir.antiClockwise());
       end.translate(Cardinal.UP, 6);
       RectSolid.fill(editor, rand, start, end, walls);
     }
@@ -184,7 +184,7 @@ public class DungeonOssuary extends DungeonBase {
     for (Cardinal dir : Cardinal.directions) {
       cursor = new Coord(origin);
       cursor.translate(dir, 4);
-      cursor.translate(dir.left(), 4);
+      cursor.translate(dir.antiClockwise(), 4);
       cursor.translate(Cardinal.UP, 5);
       start = new Coord(cursor);
       start.translate(Cardinal.NORTH);
@@ -200,10 +200,10 @@ public class DungeonOssuary extends DungeonBase {
         stair.setOrientation(d.reverse(), true).set(editor, c);
       }
 
-      for (Cardinal d : new Cardinal[]{dir, dir.left()}) {
+      for (Cardinal d : new Cardinal[]{dir, dir.antiClockwise()}) {
         cursor = new Coord(origin);
         cursor.translate(dir, 4);
-        cursor.translate(dir.left(), 4);
+        cursor.translate(dir.antiClockwise(), 4);
         cursor.translate(Cardinal.UP, 4);
         cursor.translate(d, 2);
         air.set(editor, cursor);
@@ -215,7 +215,7 @@ public class DungeonOssuary extends DungeonBase {
 
         start = new Coord(origin);
         start.translate(dir, 4);
-        start.translate(dir.left(), 4);
+        start.translate(dir.antiClockwise(), 4);
         start.translate(d, 3);
         end = new Coord(start);
         end.translate(Cardinal.UP, 4);
@@ -233,7 +233,7 @@ public class DungeonOssuary extends DungeonBase {
         for (Cardinal o : d.orthogonal()) {
           cursor = new Coord(origin);
           cursor.translate(dir, 4);
-          cursor.translate(dir.left(), 4);
+          cursor.translate(dir.antiClockwise(), 4);
           cursor.translate(d, 3);
           cursor.translate(o);
           walls.set(editor, rand, cursor);

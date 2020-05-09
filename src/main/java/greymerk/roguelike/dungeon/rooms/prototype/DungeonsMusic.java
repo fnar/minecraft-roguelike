@@ -92,15 +92,15 @@ public class DungeonsMusic extends DungeonBase {
 
       cursor = new Coord(origin);
       cursor.translate(dir, 5);
-      cursor.translate(dir.left(), 5);
+      cursor.translate(dir.antiClockwise(), 5);
       pillar(editor, rand, settings, cursor);
 
       start = new Coord(origin);
       start.translate(Cardinal.UP, 4);
       start.translate(dir, 3);
       end = new Coord(start);
-      start.translate(dir.left(), 3);
-      end.translate(dir.right(), 3);
+      start.translate(dir.antiClockwise(), 3);
+      end.translate(dir.clockwise(), 3);
       RectSolid.fill(editor, rand, start, end, pillar, true, true);
 
       cursor = new Coord(origin);

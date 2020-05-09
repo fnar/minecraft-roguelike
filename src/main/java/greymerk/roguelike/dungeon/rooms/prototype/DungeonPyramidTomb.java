@@ -120,7 +120,7 @@ public class DungeonPyramidTomb extends DungeonBase {
 
       start = new Coord(origin);
       start.translate(dir, 5);
-      start.translate(dir.left(), 5);
+      start.translate(dir.antiClockwise(), 5);
       end = new Coord(start);
       end.translate(Cardinal.UP, 3);
       RectSolid.fill(editor, rand, start, end, pillar, true, true);
@@ -167,8 +167,8 @@ public class DungeonPyramidTomb extends DungeonBase {
 
     Coord start = new Coord(origin);
     Coord end = new Coord(origin);
-    start.translate(dir.left(), width / 2);
-    end.translate(dir.right(), width / 2);
+    start.translate(dir.antiClockwise(), width / 2);
+    end.translate(dir.clockwise(), width / 2);
     RectSolid.fill(editor, rand, start, end, air, true, true);
     start.translate(Cardinal.UP);
     end.translate(Cardinal.UP);

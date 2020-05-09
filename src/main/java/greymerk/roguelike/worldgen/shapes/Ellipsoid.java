@@ -80,25 +80,25 @@ public class Ellipsoid implements IShape {
       Coord toReturn = new Coord(centre);
       toReturn.translate(top ? Cardinal.UP : Cardinal.DOWN, cursor.getY());
       if (dir == Cardinal.NORTH || dir == Cardinal.SOUTH) {
-        toReturn.translate(dir.left(), cursor.getX());
+        toReturn.translate(dir.antiClockwise(), cursor.getX());
         toReturn.translate(dir, cursor.getZ());
       } else {
         toReturn.translate(dir, cursor.getX());
-        toReturn.translate(dir.left(), cursor.getZ());
+        toReturn.translate(dir.antiClockwise(), cursor.getZ());
       }
 
       if (dir != Cardinal.NORTH || top) {
         if (dir == Cardinal.NORTH) {
           top = false;
         }
-        dir = dir.left();
+        dir = dir.antiClockwise();
         return toReturn;
       }
 
       cursor.translate(Cardinal.SOUTH);
 
       if (inRange(cursor)) {
-        dir = dir.left();
+        dir = dir.antiClockwise();
         top = true;
         return toReturn;
       } else {
@@ -108,7 +108,7 @@ public class Ellipsoid implements IShape {
       cursor.translate(Cardinal.EAST);
 
       if (inRange(cursor)) {
-        dir = dir.left();
+        dir = dir.antiClockwise();
         top = true;
         return toReturn;
       } else {
@@ -116,7 +116,7 @@ public class Ellipsoid implements IShape {
       }
 
       cursor.translate(Cardinal.UP);
-      dir = dir.left();
+      dir = dir.antiClockwise();
       top = true;
       return toReturn;
     }

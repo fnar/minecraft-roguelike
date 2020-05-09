@@ -122,9 +122,9 @@ public class WorldEditor implements IWorldEditor {
     Cardinal dir = Cardinal.directions[origin.getY() % 4];
     cursor = new Coord(origin);
     cursor.translate(dir);
-    stair.setOrientation(dir.left(), false).set(this, cursor);
-    cursor.translate(dir.right());
-    stair.setOrientation(dir.right(), true).set(this, cursor);
+    stair.setOrientation(dir.antiClockwise(), false).set(this, cursor);
+    cursor.translate(dir.clockwise());
+    stair.setOrientation(dir.clockwise(), true).set(this, cursor);
     cursor.translate(dir.reverse());
     stair.setOrientation(dir.reverse(), true).set(this, cursor);
   }
