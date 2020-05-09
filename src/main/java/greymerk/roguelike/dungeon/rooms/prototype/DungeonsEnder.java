@@ -36,28 +36,28 @@ public class DungeonsEnder extends DungeonBase {
     Coord end;
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(-3, 0, -3));
-    end.add(new Coord(3, 2, 3));
+    start.translate(new Coord(-3, 0, -3));
+    end.translate(new Coord(3, 2, 3));
     RectSolid.fill(editor, inRandom, start, end, air);
     for (Cardinal dir : Cardinal.directions) {
 
       Cardinal[] orth = dir.orthogonal();
 
       start = new Coord(origin);
-      start.add(dir, 4);
+      start.translate(dir, 4);
       end = new Coord(start);
-      start.add(orth[0], 4);
-      start.add(Cardinal.DOWN, 1);
-      end.add(orth[1], 4);
-      end.add(Cardinal.UP, 5);
+      start.translate(orth[0], 4);
+      start.translate(Cardinal.DOWN, 1);
+      end.translate(orth[1], 4);
+      end.translate(Cardinal.UP, 5);
       RectSolid.fill(editor, inRandom, start, end, black, false, true);
 
     }
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(-3, 2, -3));
-    end.add(new Coord(3, 10, 3));
+    start.translate(new Coord(-3, 2, -3));
+    end.translate(new Coord(3, 10, 3));
 
     int top = end.getY() - start.getY() + 1;
     for (Coord cell : new RectSolid(start, end)) {
@@ -68,16 +68,16 @@ public class DungeonsEnder extends DungeonBase {
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(-4, -1, -4));
-    end.add(new Coord(4, -1, 4));
+    start.translate(new Coord(-4, -1, -4));
+    end.translate(new Coord(4, -1, 4));
 
     BlockCheckers checkers = new BlockCheckers(black, white);
     RectSolid.fill(editor, inRandom, start, end, checkers);
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(-4, 0, -4));
-    end.add(new Coord(4, 0, 4));
+    start.translate(new Coord(-4, 0, -4));
+    end.translate(new Coord(4, 0, 4));
     if (RogueConfig.getBoolean(RogueConfig.GENEROUS)) {
       addEnderChest(editor, new RectSolid(start, end));
     }
@@ -95,12 +95,12 @@ public class DungeonsEnder extends DungeonBase {
 
       Coord cursor = new Coord(pos);
       for (Cardinal dir : Cardinal.directions) {
-        cursor.add(dir);
+        cursor.translate(dir);
         if (editor.getBlock(cursor).isOpaqueCube()) {
           EnderChest.set(editor, dir.reverse(), pos);
           return;
         }
-        cursor.add(dir.reverse());
+        cursor.translate(dir.reverse());
       }
     }
   }

@@ -47,65 +47,65 @@ public class DungeonPyramidTomb extends DungeonBase {
     start = new Coord(origin);
     end = new Coord(origin);
 
-    start.add(Cardinal.NORTH, 6);
-    start.add(Cardinal.WEST, 6);
-    end.add(Cardinal.SOUTH, 6);
-    end.add(Cardinal.EAST, 6);
-    end.add(Cardinal.UP, 2);
+    start.translate(Cardinal.NORTH, 6);
+    start.translate(Cardinal.WEST, 6);
+    end.translate(Cardinal.SOUTH, 6);
+    end.translate(Cardinal.EAST, 6);
+    end.translate(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, air, true, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
 
-    start.add(Cardinal.UP, 3);
-    start.add(Cardinal.NORTH, 4);
-    start.add(Cardinal.WEST, 4);
-    end.add(Cardinal.SOUTH, 4);
-    end.add(Cardinal.EAST, 4);
-    end.add(Cardinal.UP);
+    start.translate(Cardinal.UP, 3);
+    start.translate(Cardinal.NORTH, 4);
+    start.translate(Cardinal.WEST, 4);
+    end.translate(Cardinal.SOUTH, 4);
+    end.translate(Cardinal.EAST, 4);
+    end.translate(Cardinal.UP);
     RectSolid.fill(editor, rand, start, end, air, true, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
 
-    start.add(Cardinal.UP, 5);
-    start.add(Cardinal.NORTH, 3);
-    start.add(Cardinal.WEST, 3);
-    end.add(Cardinal.SOUTH, 3);
-    end.add(Cardinal.EAST, 3);
-    end.add(Cardinal.UP);
+    start.translate(Cardinal.UP, 5);
+    start.translate(Cardinal.NORTH, 3);
+    start.translate(Cardinal.WEST, 3);
+    end.translate(Cardinal.SOUTH, 3);
+    end.translate(Cardinal.EAST, 3);
+    end.translate(Cardinal.UP);
     RectSolid.fill(editor, rand, start, end, air, true, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
 
-    start.add(Cardinal.UP, 7);
-    start.add(Cardinal.NORTH, 2);
-    start.add(Cardinal.WEST, 2);
-    end.add(Cardinal.SOUTH, 2);
-    end.add(Cardinal.EAST, 2);
-    end.add(Cardinal.UP);
+    start.translate(Cardinal.UP, 7);
+    start.translate(Cardinal.NORTH, 2);
+    start.translate(Cardinal.WEST, 2);
+    end.translate(Cardinal.SOUTH, 2);
+    end.translate(Cardinal.EAST, 2);
+    end.translate(Cardinal.UP);
     RectSolid.fill(editor, rand, start, end, air, true, true);
 
     // outer walls
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(Cardinal.NORTH, 7);
-    start.add(Cardinal.WEST, 7);
-    end.add(Cardinal.SOUTH, 7);
-    end.add(Cardinal.EAST, 7);
-    start.add(Cardinal.DOWN);
-    end.add(Cardinal.UP, 3);
+    start.translate(Cardinal.NORTH, 7);
+    start.translate(Cardinal.WEST, 7);
+    end.translate(Cardinal.SOUTH, 7);
+    end.translate(Cardinal.EAST, 7);
+    start.translate(Cardinal.DOWN);
+    end.translate(Cardinal.UP, 3);
     RectHollow.fill(editor, rand, start, end, blocks, false, true);
 
     // floor
     start = new Coord(origin);
-    start.add(Cardinal.DOWN);
+    start.translate(Cardinal.DOWN);
     end = new Coord(start);
-    start.add(Cardinal.NORTH, 6);
-    start.add(Cardinal.WEST, 6);
-    end.add(Cardinal.SOUTH, 6);
-    end.add(Cardinal.EAST, 6);
+    start.translate(Cardinal.NORTH, 6);
+    start.translate(Cardinal.WEST, 6);
+    end.translate(Cardinal.SOUTH, 6);
+    end.translate(Cardinal.EAST, 6);
     RectSolid.fill(editor, rand, start, end, theme.getPrimary().getFloor());
 
     // pillars
@@ -114,40 +114,40 @@ public class DungeonPyramidTomb extends DungeonBase {
 
 
       cursor = new Coord(origin);
-      cursor.add(dir, 5);
-      cursor.add(Cardinal.UP, 3);
+      cursor.translate(dir, 5);
+      cursor.translate(Cardinal.UP, 3);
       ceilingTiles(editor, rand, theme, 9, dir.reverse(), cursor);
 
       start = new Coord(origin);
-      start.add(dir, 5);
-      start.add(dir.left(), 5);
+      start.translate(dir, 5);
+      start.translate(dir.left(), 5);
       end = new Coord(start);
-      end.add(Cardinal.UP, 3);
+      end.translate(Cardinal.UP, 3);
       RectSolid.fill(editor, rand, start, end, pillar, true, true);
 
       for (Cardinal o : dir.orthogonal()) {
         start = new Coord(origin);
-        start.add(dir, 5);
-        start.add(o);
+        start.translate(dir, 5);
+        start.translate(o);
         end = new Coord(start);
-        end.add(Cardinal.UP, 3);
+        end.translate(Cardinal.UP, 3);
         RectSolid.fill(editor, rand, start, end, pillar, true, true);
 
-        start.add(o, 2);
+        start.translate(o, 2);
         end = new Coord(start);
-        end.add(Cardinal.UP, 3);
+        end.translate(Cardinal.UP, 3);
         RectSolid.fill(editor, rand, start, end, pillar, true, true);
       }
     }
 
     // ceiling top
     start = new Coord(origin);
-    start.add(Cardinal.UP, 8);
+    start.translate(Cardinal.UP, 8);
     end = new Coord(start);
-    start.add(Cardinal.NORTH);
-    start.add(Cardinal.WEST);
-    end.add(Cardinal.SOUTH);
-    end.add(Cardinal.EAST);
+    start.translate(Cardinal.NORTH);
+    start.translate(Cardinal.WEST);
+    end.translate(Cardinal.SOUTH);
+    end.translate(Cardinal.EAST);
     RectSolid.fill(editor, rand, start, end, blocks, true, true);
 
     sarcophagus(editor, rand, settings, entrances[0], origin);
@@ -167,24 +167,24 @@ public class DungeonPyramidTomb extends DungeonBase {
 
     Coord start = new Coord(origin);
     Coord end = new Coord(origin);
-    start.add(dir.left(), width / 2);
-    end.add(dir.right(), width / 2);
+    start.translate(dir.left(), width / 2);
+    end.translate(dir.right(), width / 2);
     RectSolid.fill(editor, rand, start, end, air, true, true);
-    start.add(Cardinal.UP);
-    end.add(Cardinal.UP);
+    start.translate(Cardinal.UP);
+    end.translate(Cardinal.UP);
     RectSolid.fill(editor, rand, start, end, theme.getPrimary().getWall(), true, true);
 
     for (Cardinal o : dir.orthogonal()) {
       for (int i = 0; i <= width / 2; ++i) {
         if ((width / 2) % 2 == 0) {
           cursor = new Coord(origin);
-          cursor.add(o, i);
+          cursor.translate(o, i);
           if (i % 2 == 0) {
             tile(editor, rand, theme, dir, cursor);
           }
         } else {
           cursor = new Coord(origin);
-          cursor.add(o, i);
+          cursor.translate(o, i);
           if (i % 2 == 1) {
             tile(editor, rand, theme, dir, cursor);
           }
@@ -193,8 +193,8 @@ public class DungeonPyramidTomb extends DungeonBase {
     }
 
     cursor = new Coord(origin);
-    cursor.add(dir);
-    cursor.add(Cardinal.UP);
+    cursor.translate(dir);
+    cursor.translate(Cardinal.UP);
     ceilingTiles(editor, rand, theme, (width - 2), dir, cursor);
   }
 
@@ -202,7 +202,7 @@ public class DungeonPyramidTomb extends DungeonBase {
     IStair stair = theme.getPrimary().getStair();
     stair.setOrientation(dir, true).set(editor, origin);
     Coord cursor = new Coord(origin);
-    cursor.add(Cardinal.UP);
+    cursor.translate(Cardinal.UP);
     theme.getPrimary().getPillar().set(editor, rand, cursor);
   }
 
@@ -215,56 +215,56 @@ public class DungeonPyramidTomb extends DungeonBase {
 
     cursor = new Coord(origin);
     blocks.set(editor, cursor);
-    cursor.add(Cardinal.UP);
+    cursor.translate(Cardinal.UP);
     createChest(editor, rand, Dungeon.getLevel(cursor.getY()), cursor, false, ORE);
-    cursor.add(Cardinal.UP);
+    cursor.translate(Cardinal.UP);
     blocks.set(editor, cursor);
 
     for (Cardinal end : dir.orthogonal()) {
 
       cursor = new Coord(origin);
-      cursor.add(end);
+      cursor.translate(end);
       blocks.set(editor, cursor);
-      cursor.add(Cardinal.UP);
+      cursor.translate(Cardinal.UP);
       SpawnerSettings spawners = settings.getSpawners();
       generateSpawner(editor, rand, cursor, settings.getDifficulty(cursor), spawners, UNDEAD_MOBS);
-      cursor.add(Cardinal.UP);
+      cursor.translate(Cardinal.UP);
       blocks.set(editor, cursor);
 
       cursor = new Coord(origin);
-      cursor.add(end, 2);
+      cursor.translate(end, 2);
       stair.setOrientation(end, false).set(editor, cursor);
-      cursor.add(Cardinal.UP);
+      cursor.translate(Cardinal.UP);
       stair.setOrientation(end, true).set(editor, cursor);
-      cursor.add(Cardinal.UP);
+      cursor.translate(Cardinal.UP);
       stair.setOrientation(end, false).set(editor, cursor);
 
       for (Cardinal side : end.orthogonal()) {
 
         cursor = new Coord(origin);
-        cursor.add(side);
+        cursor.translate(side);
         stair.setOrientation(side, false).set(editor, cursor);
-        cursor.add(Cardinal.UP);
+        cursor.translate(Cardinal.UP);
         stair.setOrientation(side, true).set(editor, cursor);
-        cursor.add(Cardinal.UP);
+        cursor.translate(Cardinal.UP);
         stair.setOrientation(side, false).set(editor, cursor);
 
         cursor = new Coord(origin);
-        cursor.add(side);
-        cursor.add(end);
+        cursor.translate(side);
+        cursor.translate(end);
         stair.setOrientation(side, false).set(editor, cursor);
-        cursor.add(Cardinal.UP);
+        cursor.translate(Cardinal.UP);
         stair.setOrientation(side, true).set(editor, cursor);
-        cursor.add(Cardinal.UP);
+        cursor.translate(Cardinal.UP);
         stair.setOrientation(side, false).set(editor, cursor);
 
         cursor = new Coord(origin);
-        cursor.add(side);
-        cursor.add(end, 2);
+        cursor.translate(side);
+        cursor.translate(end, 2);
         stair.setOrientation(side, false).set(editor, cursor);
-        cursor.add(Cardinal.UP);
+        cursor.translate(Cardinal.UP);
         stair.setOrientation(side, true).set(editor, cursor);
-        cursor.add(Cardinal.UP);
+        cursor.translate(Cardinal.UP);
         stair.setOrientation(side, false).set(editor, cursor);
       }
     }

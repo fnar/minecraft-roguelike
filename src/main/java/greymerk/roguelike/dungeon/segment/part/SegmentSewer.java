@@ -28,22 +28,22 @@ public class SegmentSewer extends SegmentBase {
     Cardinal[] orth = dir.orthogonal();
 
     start = new Coord(origin);
-    start.add(Cardinal.UP, 2);
-    start.add(dir);
+    start.translate(Cardinal.UP, 2);
+    start.translate(dir);
     end = new Coord(start);
-    start.add(orth[0]);
-    end.add(orth[1]);
+    start.translate(orth[0]);
+    end.translate(orth[1]);
     stair.setOrientation(dir.reverse(), true);
     RectSolid.fill(editor, rand, start, end, stair);
 
     start = new Coord(origin);
-    start.add(Cardinal.DOWN);
+    start.translate(Cardinal.DOWN);
     end = new Coord(start);
-    start.add(orth[0]);
-    end.add(orth[1]);
+    start.translate(orth[0]);
+    end.translate(orth[1]);
     RectSolid.fill(editor, rand, start, end, air);
-    start.add(Cardinal.DOWN);
-    end.add(Cardinal.DOWN);
+    start.translate(Cardinal.DOWN);
+    end.translate(Cardinal.DOWN);
     RectSolid.fill(editor, rand, start, end, water);
   }
 }

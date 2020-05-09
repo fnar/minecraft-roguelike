@@ -25,45 +25,45 @@ public class CityGrounds {
     Coord end;
 
     start = new Coord(pos);
-    start.add(new Coord(Citadel.EDGE_LENGTH * -3, 10, Citadel.EDGE_LENGTH * -3));
+    start.translate(new Coord(Citadel.EDGE_LENGTH * -3, 10, Citadel.EDGE_LENGTH * -3));
     end = new Coord(pos);
-    end.add(new Coord(Citadel.EDGE_LENGTH * 3, 40, Citadel.EDGE_LENGTH * 3));
+    end.translate(new Coord(Citadel.EDGE_LENGTH * 3, 40, Citadel.EDGE_LENGTH * 3));
     RectSolid.fill(editor, rand, start, end, BlockType.get(BlockType.AIR), true, true);
 
     start = new Coord(pos);
-    start.add(new Coord(Citadel.EDGE_LENGTH * -3, 10, Citadel.EDGE_LENGTH * -3));
+    start.translate(new Coord(Citadel.EDGE_LENGTH * -3, 10, Citadel.EDGE_LENGTH * -3));
     end = new Coord(pos);
-    end.add(new Coord(Citadel.EDGE_LENGTH * 3, 20, Citadel.EDGE_LENGTH * 3));
+    end.translate(new Coord(Citadel.EDGE_LENGTH * 3, 20, Citadel.EDGE_LENGTH * 3));
     RectSolid.fill(editor, rand, start, end, theme.getPrimary().getWall(), true, true);
 
     start = new Coord(pos);
-    start.add(new Coord(Citadel.EDGE_LENGTH * -2, 20, Citadel.EDGE_LENGTH * -2));
+    start.translate(new Coord(Citadel.EDGE_LENGTH * -2, 20, Citadel.EDGE_LENGTH * -2));
     end = new Coord(pos);
-    end.add(new Coord(Citadel.EDGE_LENGTH * 2, 30, Citadel.EDGE_LENGTH * 2));
+    end.translate(new Coord(Citadel.EDGE_LENGTH * 2, 30, Citadel.EDGE_LENGTH * 2));
     RectSolid.fill(editor, rand, start, end, theme.getPrimary().getWall(), true, true);
 
     start = new Coord(pos);
-    start.add(new Coord(Citadel.EDGE_LENGTH * -1, 30, Citadel.EDGE_LENGTH * -1));
+    start.translate(new Coord(Citadel.EDGE_LENGTH * -1, 30, Citadel.EDGE_LENGTH * -1));
     end = new Coord(pos);
-    end.add(new Coord(Citadel.EDGE_LENGTH, 40, Citadel.EDGE_LENGTH));
+    end.translate(new Coord(Citadel.EDGE_LENGTH, 40, Citadel.EDGE_LENGTH));
     RectSolid.fill(editor, rand, start, end, theme.getPrimary().getWall(), true, true);
 
     Coord cursor = new Coord(pos);
-    cursor.add(Cardinal.UP, 20);
+    cursor.translate(Cardinal.UP, 20);
 
     for (Edge<MSTPoint> e : mst.getEdges()) {
       start = e.getStart().getPosition();
-      start.add(cursor);
+      start.translate(cursor);
       end = e.getEnd().getPosition();
-      end.add(cursor);
-      end.add(Cardinal.DOWN, 20);
+      end.translate(cursor);
+      end.translate(Cardinal.DOWN, 20);
       RectSolid.fill(editor, rand, start, end, theme.getPrimary().getWall(), true, true);
     }
 
     Graph<Coord> layout = mst.getGraph();
     List<Coord> towers = layout.getPoints();
     for (Coord c : towers) {
-      c.add(pos);
+      c.translate(pos);
       rand = Citadel.getRandom(editor, c.getX(), c.getZ());
       ITower tower = Tower.get(Tower.values()[rand.nextInt(Tower.values().length)]);
       tower.generate(editor, rand, Theme.values()[rand.nextInt(Theme.values().length)].getThemeBase(), new Coord(c.getX(), 50, c.getZ()));

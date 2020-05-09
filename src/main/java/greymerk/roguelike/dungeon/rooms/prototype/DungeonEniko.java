@@ -40,11 +40,11 @@ public class DungeonEniko extends DungeonBase {
 
     start = new Coord(origin);
     end = new Coord(start);
-    end.add(Cardinal.UP, 3);
+    end.translate(Cardinal.UP, 3);
     RectSolid.fill(editor, rand, start, end, pillar, true, true);
     for (Cardinal dir : Cardinal.directions) {
       cursor = new Coord(end);
-      cursor.add(dir);
+      cursor.translate(dir);
       stair.setOrientation(dir, true).set(editor, rand, cursor, true, false);
     }
   }
@@ -64,57 +64,57 @@ public class DungeonEniko extends DungeonBase {
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(6, -1, 6));
-    end.add(new Coord(-6, 4, -6));
+    start.translate(new Coord(6, -1, 6));
+    end.translate(new Coord(-6, 4, -6));
     RectHollow.fill(editor, rand, start, end, walls, false, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(6, 4, 6));
-    end.add(new Coord(-6, 5, -6));
+    start.translate(new Coord(6, 4, 6));
+    end.translate(new Coord(-6, 5, -6));
     RectSolid.fill(editor, rand, start, end, theme.getSecondary().getWall(), false, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(3, 4, 3));
-    end.add(new Coord(-3, 4, -3));
+    start.translate(new Coord(3, 4, 3));
+    end.translate(new Coord(-3, 4, -3));
     RectSolid.fill(editor, rand, start, end, air, true, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(-3, -1, -3));
-    end.add(new Coord(3, -1, 3));
+    start.translate(new Coord(-3, -1, -3));
+    end.translate(new Coord(3, -1, 3));
     RectSolid.fill(editor, rand, start, end, floor, true, true);
 
     for (Cardinal dir : Cardinal.directions) {
       cursor = new Coord(origin);
-      cursor.add(dir, 5);
+      cursor.translate(dir, 5);
       for (Cardinal o : dir.orthogonal()) {
         Coord c = new Coord(cursor);
-        c.add(o, 2);
+        c.translate(o, 2);
         pillar(editor, rand, theme, c);
 
         c = new Coord(cursor);
-        c.add(o, 3);
+        c.translate(o, 3);
         stair.setOrientation(dir.reverse(), true).set(editor, c);
-        c.add(o);
+        c.translate(o);
         stair.setOrientation(dir.reverse(), true).set(editor, c);
-        c.add(Cardinal.UP);
+        c.translate(Cardinal.UP);
         chests.add(new Coord(c));
-        c.add(o.reverse());
+        c.translate(o.reverse());
         chests.add(new Coord(c));
       }
 
-      cursor.add(dir.left(), 5);
+      cursor.translate(dir.left(), 5);
       pillar(editor, rand, theme, cursor);
 
       if (Arrays.asList(entrances).contains(dir)) {
         start = new Coord(origin);
-        start.add(Cardinal.DOWN);
+        start.translate(Cardinal.DOWN);
         end = new Coord(start);
-        start.add(dir.left());
-        end.add(dir.right());
-        end.add(dir, 6);
+        start.translate(dir.left());
+        end.translate(dir.right());
+        end.translate(dir, 6);
         RectSolid.fill(editor, rand, start, end, floor, true, true);
       }
     }

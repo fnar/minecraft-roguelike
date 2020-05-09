@@ -40,40 +40,40 @@ public class DungeonLinker extends DungeonBase {
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(-4, -1, -4));
-    end.add(new Coord(4, 9, 4));
+    start.translate(new Coord(-4, -1, -4));
+    end.translate(new Coord(4, 9, 4));
     RectHollow.fill(editor, rand, start, end, wall, false, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(-4, 9, -4));
-    end.add(new Coord(4, 9, 4));
+    start.translate(new Coord(-4, 9, -4));
+    end.translate(new Coord(4, 9, 4));
     RectSolid.fill(editor, rand, start, end, wall, true, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(-4, -1, -4));
-    end.add(new Coord(4, -1, 4));
+    start.translate(new Coord(-4, -1, -4));
+    end.translate(new Coord(4, -1, 4));
     RectSolid.fill(editor, rand, start, end, floor);
 
     for (Cardinal dir : Cardinal.directions) {
 
       start = new Coord(origin);
-      start.add(dir, 4);
+      start.translate(dir, 4);
       end = new Coord(start);
-      end.add(Cardinal.UP, 8);
-      start.add(Cardinal.DOWN);
-      start.add(dir.left(), 4);
-      end.add(dir.right(), 4);
+      end.translate(Cardinal.UP, 8);
+      start.translate(Cardinal.DOWN);
+      start.translate(dir.left(), 4);
+      end.translate(dir.right(), 4);
       RectSolid.fill(editor, rand, start, end, bars, true, false);
 
       start = new Coord(origin);
       end = new Coord(origin);
-      start.add(dir, 3);
-      start.add(dir.left(), 3);
-      end.add(dir, 4);
-      end.add(dir.left(), 4);
-      end.add(Cardinal.UP, 8);
+      start.translate(dir, 3);
+      start.translate(dir.left(), 3);
+      end.translate(dir, 4);
+      end.translate(dir.left(), 4);
+      end.translate(Cardinal.UP, 8);
       RectSolid.fill(editor, rand, start, end, pillar);
     }
 

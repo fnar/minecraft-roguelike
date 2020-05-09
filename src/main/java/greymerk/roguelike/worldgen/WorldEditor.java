@@ -112,20 +112,20 @@ public class WorldEditor implements IWorldEditor {
     Coord end;
 
     start = new Coord(origin);
-    start.add(new Coord(-1, 0, -1));
+    start.translate(new Coord(-1, 0, -1));
     end = new Coord(origin);
-    end.add(new Coord(1, 0, 1));
+    end.translate(new Coord(1, 0, 1));
 
     RectSolid.fill(this, rand, start, end, air);
     fill.set(this, rand, origin);
 
     Cardinal dir = Cardinal.directions[origin.getY() % 4];
     cursor = new Coord(origin);
-    cursor.add(dir);
+    cursor.translate(dir);
     stair.setOrientation(dir.left(), false).set(this, cursor);
-    cursor.add(dir.right());
+    cursor.translate(dir.right());
     stair.setOrientation(dir.right(), true).set(this, cursor);
-    cursor.add(dir.reverse());
+    cursor.translate(dir.reverse());
     stair.setOrientation(dir.reverse(), true).set(this, cursor);
   }
 
@@ -136,7 +136,7 @@ public class WorldEditor implements IWorldEditor {
 
     while (!getBlock(cursor).isOpaqueCube() && cursor.getY() > 1) {
       blocks.set(this, rand, cursor);
-      cursor.add(Cardinal.DOWN);
+      cursor.translate(Cardinal.DOWN);
     }
   }
 

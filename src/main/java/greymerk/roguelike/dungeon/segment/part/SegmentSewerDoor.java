@@ -36,58 +36,58 @@ public class SegmentSewerDoor extends SegmentBase {
     Cardinal[] orth = dir.orthogonal();
 
     cursor = new Coord(origin);
-    cursor.add(Cardinal.DOWN);
+    cursor.translate(Cardinal.DOWN);
     bars.set(editor, cursor);
     start = new Coord(cursor);
     end = new Coord(start);
-    start.add(orth[0]);
-    end.add(orth[1]);
+    start.translate(orth[0]);
+    end.translate(orth[1]);
     stair.setOrientation(orth[0], true).set(editor, start);
     stair.setOrientation(orth[1], true).set(editor, end);
     cursor = new Coord(origin);
-    cursor.add(Cardinal.DOWN);
+    cursor.translate(Cardinal.DOWN);
     bars.set(editor, cursor);
-    start.add(Cardinal.DOWN);
-    end.add(Cardinal.DOWN);
+    start.translate(Cardinal.DOWN);
+    end.translate(Cardinal.DOWN);
     RectSolid.fill(editor, rand, start, end, water);
 
     cursor = new Coord(origin);
-    cursor.add(Cardinal.UP, 3);
+    cursor.translate(Cardinal.UP, 3);
     bars.set(editor, cursor);
-    cursor.add(Cardinal.UP);
+    cursor.translate(Cardinal.UP);
     leaves.set(editor, rand, cursor, false, true);
-    cursor.add(dir);
+    cursor.translate(dir);
     water.set(editor, rand, cursor, false, true);
-    cursor.add(dir);
+    cursor.translate(dir);
     glowstone.set(editor, rand, cursor, false, true);
 
     cursor = new Coord(origin);
-    cursor.add(dir, 2);
+    cursor.translate(dir, 2);
     start = new Coord(cursor);
-    start.add(orth[0], 1);
+    start.translate(orth[0], 1);
     end = new Coord(cursor);
-    end.add(orth[1], 1);
-    end.add(Cardinal.UP, 2);
+    end.translate(orth[1], 1);
+    end.translate(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, air);
 
     SecretsSetting secrets = level.getSettings().getSecrets();
     Optional<DungeonBase> room = generateSecret(secrets, editor, rand, level.getSettings(), dir, new Coord(origin));
 
-    start.add(dir, 1);
-    end.add(dir, 1);
+    start.translate(dir, 1);
+    end.translate(dir, 1);
     RectSolid.fill(editor, rand, start, end, theme.getSecondary().getWall(), false, true);
 
-    cursor.add(Cardinal.UP, 2);
+    cursor.translate(Cardinal.UP, 2);
     for (Cardinal d : orth) {
       Coord c = new Coord(cursor);
-      c.add(d, 1);
+      c.translate(d, 1);
       stair.setOrientation(d.reverse(), true);
       stair.set(editor, rand, c);
     }
 
     if (room.isPresent()) {
       cursor = new Coord(origin);
-      cursor.add(dir, 3);
+      cursor.translate(dir, 3);
       theme.getSecondary().getDoor().generate(editor, cursor, dir.reverse());
     }
   }

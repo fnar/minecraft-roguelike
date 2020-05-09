@@ -33,18 +33,18 @@ public class SegmentCave extends SegmentBase {
     Coord end;
 
     start = new Coord(cursor);
-    start.add(Cardinal.UP, 2);
-    start.add(dir);
+    start.translate(Cardinal.UP, 2);
+    start.translate(dir);
     end = new Coord(start);
-    start.add(orth[0]);
-    end.add(orth[1]);
+    start.translate(orth[0]);
+    end.translate(orth[1]);
     RectSolid.fill(editor, rand, start, end, fill);
-    start.add(dir);
-    end.add(dir);
+    start.translate(dir);
+    end.translate(dir);
     RectSolid.fill(editor, rand, start, end, fill);
-    start.add(Cardinal.DOWN);
+    start.translate(Cardinal.DOWN);
     RectSolid.fill(editor, rand, start, end, fill);
-    start.add(Cardinal.DOWN);
+    start.translate(Cardinal.DOWN);
     RectSolid.fill(editor, rand, start, end, fill);
 
   }

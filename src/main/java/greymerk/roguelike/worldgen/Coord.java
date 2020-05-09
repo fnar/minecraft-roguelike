@@ -66,14 +66,10 @@ public class Coord {
   }
 
   public Coord newCoord(Cardinal dir) {
-    return new Coord(this).add(dir, 1);
+    return new Coord(this).translate(dir, 1);
   }
 
-  public Coord newCoord(Cardinal dir, int amount) {
-    return new Coord(this).add(dir, amount);
-  }
-
-  public Coord add(Cardinal dir, int amount) {
+  public Coord translate(Cardinal dir, int amount) {
     switch (dir) {
       case EAST:
         x += amount;
@@ -97,23 +93,28 @@ public class Coord {
     return this;
   }
 
-  public Coord add(Coord other) {
-    x += other.x;
-    y += other.y;
-    z += other.z;
+  public Coord translate(int x, int y, int z) {
+    this.x += x;
+    this.y += y;
+    this.z += z;
     return this;
   }
 
-  public Coord add(Cardinal dir) {
-    add(dir, 1);
+  public Coord translate(Coord other) {
+    return translate(other.x, other.y, other.z);
+  }
+
+  public Coord translate(Cardinal dir) {
+    translate(dir, 1);
     return this;
   }
 
   public Coord sub(Coord other) {
-    x -= other.x;
-    y -= other.y;
-    z -= other.z;
-    return this;
+    return sub(other.x, other.y, other.z);
+  }
+
+  private Coord sub(int x, int y, int z) {
+    return translate(-x, -y, -z);
   }
 
   public double distance(Coord other) {

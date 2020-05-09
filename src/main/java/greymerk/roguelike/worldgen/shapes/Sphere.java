@@ -90,9 +90,9 @@ public class Sphere implements IShape {
     @Override
     public Coord next() {
       Coord toReturn = new Coord(centre);
-      toReturn.add(top ? Cardinal.UP : Cardinal.DOWN, layer);
-      toReturn.add(dir, row);
-      toReturn.add(dir.left(), col);
+      toReturn.translate(top ? Cardinal.UP : Cardinal.DOWN, layer);
+      toReturn.translate(dir, row);
+      toReturn.translate(dir.left(), col);
       if (dir != Cardinal.NORTH || top) {
         if (dir == Cardinal.NORTH) {
           top = false;

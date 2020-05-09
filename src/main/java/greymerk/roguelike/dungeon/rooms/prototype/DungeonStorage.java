@@ -30,15 +30,15 @@ public class DungeonStorage extends DungeonBase {
     IStair step = theme.getSecondary().getStair();
     for (Cardinal dir : Cardinal.directions) {
       step.setOrientation(dir, true);
-      cursor.add(dir, 1);
+      cursor.translate(dir, 1);
       step.set(editor, rand, cursor, true, false);
-      cursor.add(dir.reverse(), 1);
+      cursor.translate(dir.reverse(), 1);
     }
   }
 
   private static void pillar(IWorldEditor editor, Random rand, Coord base, ITheme theme, int height) {
     Coord top = new Coord(base);
-    top.add(Cardinal.UP, height);
+    top.translate(Cardinal.UP, height);
     RectSolid.fill(editor, rand, base, top, theme.getSecondary().getPillar());
   }
 
@@ -69,79 +69,79 @@ public class DungeonStorage extends DungeonBase {
       for (Cardinal orth : dir.orthogonal()) {
 
         cursor = new Coord(x, y, z);
-        cursor.add(Cardinal.UP, 3);
-        cursor.add(dir, 2);
-        cursor.add(orth, 2);
+        cursor.translate(Cardinal.UP, 3);
+        cursor.translate(dir, 2);
+        cursor.translate(orth, 2);
         pillarTop(editor, rand, theme, cursor);
-        cursor.add(dir, 3);
-        cursor.add(orth, 3);
+        cursor.translate(dir, 3);
+        cursor.translate(orth, 3);
         pillarTop(editor, rand, theme, cursor);
         start = new Coord(cursor);
 
-        cursor.add(Cardinal.DOWN, 1);
-        cursor.add(dir, 1);
+        cursor.translate(Cardinal.DOWN, 1);
+        cursor.translate(dir, 1);
         pillarTop(editor, rand, theme, cursor);
 
         end = new Coord(cursor);
-        end.add(Cardinal.DOWN, 3);
-        end.add(dir, 1);
-        end.add(orth, 1);
+        end.translate(Cardinal.DOWN, 3);
+        end.translate(dir, 1);
+        end.translate(orth, 1);
         RectSolid.fill(editor, rand, start, end, blocks);
 
         cursor = new Coord(x, y, z);
-        cursor.add(dir, 2);
-        cursor.add(orth, 2);
+        cursor.translate(dir, 2);
+        cursor.translate(orth, 2);
         pillar(editor, rand, cursor, theme, 4);
-        cursor.add(dir, 4);
+        cursor.translate(dir, 4);
         pillar(editor, rand, cursor, theme, 3);
 
 
-        cursor.add(Cardinal.UP, 2);
+        cursor.translate(Cardinal.UP, 2);
         pillarTop(editor, rand, theme, cursor);
 
-        cursor.add(Cardinal.UP, 1);
-        cursor.add(dir.reverse(), 1);
+        cursor.translate(Cardinal.UP, 1);
+        cursor.translate(dir.reverse(), 1);
         pillarTop(editor, rand, theme, cursor);
 
-        cursor.add(dir.reverse(), 3);
+        cursor.translate(dir.reverse(), 3);
         pillarTop(editor, rand, theme, cursor);
 
         start = new Coord(x, y, z);
-        start.add(dir, 6);
-        start.add(Cardinal.UP, 3);
+        start.translate(dir, 6);
+        start.translate(Cardinal.UP, 3);
         end = new Coord(start);
-        end.add(orth, 5);
+        end.translate(orth, 5);
         RectSolid.fill(editor, rand, start, end, blocks);
-        start.add(dir, 1);
-        end.add(dir, 1);
-        end.add(Cardinal.DOWN, 3);
+        start.translate(dir, 1);
+        end.translate(dir, 1);
+        end.translate(Cardinal.DOWN, 3);
         RectSolid.fill(editor, rand, start, end, blocks, false, true);
 
         cursor = new Coord(x, y, z);
-        cursor.add(dir, 6);
-        cursor.add(orth, 3);
+        cursor.translate(dir, 6);
+        cursor.translate(orth, 3);
         IStair step = theme.getSecondary().getStair();
         step.setOrientation(dir.reverse(), true);
         step.set(editor, cursor);
-        cursor.add(orth, 1);
+        cursor.translate(orth, 1);
         step.set(editor, cursor);
-        cursor.add(Cardinal.UP, 1);
+        cursor.translate(Cardinal.UP, 1);
         chestSpaces.add(new Coord(cursor));
-        cursor.add(orth.reverse(), 1);
+        cursor.translate(orth.reverse(), 1);
         chestSpaces.add(new Coord(cursor));
 
         start = new Coord(x, y, z);
-        start.add(Cardinal.DOWN, 1);
-        start.add(dir, 3);
-        start.add(orth, 3);
+        start.translate(Cardinal.DOWN, 1);
+        start.translate(dir, 3);
+        start.translate(orth, 3);
         end = new Coord(start);
-        end.add(dir, 3);
-        end.add(orth, 1);
+        end.translate(dir, 3);
+        end.translate(orth, 1);
         RectSolid.fill(editor, rand, start, end, theme.getSecondary().getFloor());
 
         cursor = new Coord(x, y, z);
-        cursor.add(dir, 5);
-        cursor.add(orth, 5);
+        cursor.translate(dir, 5);
+        cursor.translate(orth, 5);
         pillar(editor, rand, cursor, theme, 4);
 
       }

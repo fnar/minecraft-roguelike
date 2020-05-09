@@ -28,32 +28,32 @@ public class SegmentFireArch extends SegmentBase {
     Cardinal[] orths = dir.orthogonal();
 
     start = new Coord(origin);
-    start.add(dir, 3);
+    start.translate(dir, 3);
     end = new Coord(start);
-    start.add(orths[0]);
-    end.add(orths[0]);
-    end.add(Cardinal.UP, 2);
-    end.add(dir);
+    start.translate(orths[0]);
+    end.translate(orths[0]);
+    end.translate(Cardinal.UP, 2);
+    end.translate(dir);
     RectSolid.fill(editor, rand, start, end, walls);
     cursor = new Coord(origin);
-    cursor.add(dir, 2);
+    cursor.translate(dir, 2);
     stair.setOrientation(dir.reverse(), false).set(editor, cursor);
-    cursor.add(Cardinal.UP, 2);
+    cursor.translate(Cardinal.UP, 2);
     stair.setOrientation(dir.reverse(), true).set(editor, cursor);
-    cursor.add(Cardinal.DOWN, 2);
-    cursor.add(dir);
+    cursor.translate(Cardinal.DOWN, 2);
+    cursor.translate(dir);
     BlockType.get(BlockType.NETHERRACK).set(editor, cursor);
-    cursor.add(Cardinal.UP);
+    cursor.translate(Cardinal.UP);
     BlockType.get(BlockType.FIRE).set(editor, cursor);
-    cursor.add(dir.reverse());
+    cursor.translate(dir.reverse());
     BlockType.get(BlockType.IRON_BAR).set(editor, cursor);
 
     for (Cardinal orth : orths) {
 
       cursor = new Coord(origin);
-      cursor.add(dir);
-      cursor.add(orth);
-      cursor.add(Cardinal.UP, 2);
+      cursor.translate(dir);
+      cursor.translate(orth);
+      cursor.translate(Cardinal.UP, 2);
       stair.setOrientation(dir.reverse(), true).set(editor, cursor);
 
     }

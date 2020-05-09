@@ -31,13 +31,13 @@ public class TreeTower implements ITower {
     Coord end;
     Coord ground = Tower.getBaseCoord(editor, origin);
     Coord upstairs = new Coord(ground);
-    upstairs.add(Cardinal.UP, 7);
+    upstairs.translate(Cardinal.UP, 7);
 
     IBlockFactory air = BlockType.get(BlockType.AIR);
     IBlockFactory log = Log.get(WOOD_TYPE, Cardinal.UP);
 
     start = new Coord(ground);
-    start.add(Cardinal.DOWN, 10);
+    start.translate(Cardinal.DOWN, 10);
 
     // generate the tree
     Branch tree = new Branch(rand, start);
@@ -46,9 +46,9 @@ public class TreeTower implements ITower {
 
 
     start = new Coord(ground);
-    start.add(new Coord(-3, -3, -3));
+    start.translate(new Coord(-3, -3, -3));
     end = new Coord(ground);
-    end.add(new Coord(3, 3, 3));
+    end.translate(new Coord(3, 3, 3));
     RectSolid.fill(editor, rand, start, end, log);
 
     carveRoom(editor, rand, ground);
@@ -57,17 +57,17 @@ public class TreeTower implements ITower {
     Cardinal dir = Cardinal.directions[rand.nextInt(Cardinal.directions.length)];
     start = new Coord(ground);
     end = new Coord(ground);
-    end.add(Cardinal.UP);
-    end.add(dir, 8);
+    end.translate(Cardinal.UP);
+    end.translate(dir, 8);
     RectSolid.fill(editor, rand, start, end, air);
 
     start = new Coord(ground);
     end = new Coord(ground);
-    end.add(new Coord(8, 8, 8));
+    end.translate(new Coord(8, 8, 8));
     new Sphere(start, end).fill(editor, rand, log, false, true);
 
     start = new Coord(upstairs);
-    start.add(Cardinal.DOWN);
+    start.translate(Cardinal.DOWN);
     for (Coord p : new RectSolid(start, origin)) {
       editor.spiralStairStep(rand, p, theme.getPrimary().getStair(), theme.getPrimary().getPillar());
     }
@@ -81,30 +81,30 @@ public class TreeTower implements ITower {
     int size = 4;
 
     start = new Coord(origin);
-    start.add(new Coord(-(size - 1), 0, -(size - 1)));
+    start.translate(new Coord(-(size - 1), 0, -(size - 1)));
     end = new Coord(origin);
-    end.add(new Coord(size - 1, 2, size - 1));
+    end.translate(new Coord(size - 1, 2, size - 1));
     air.fill(editor, rand, new RectSolid(start, end));
 
     start = new Coord(origin);
     end = new Coord(start);
-    start.add(Cardinal.UP, 2);
-    end.add(new Coord(size - 1, size - 1, size - 1));
+    start.translate(Cardinal.UP, 2);
+    end.translate(new Coord(size - 1, size - 1, size - 1));
     new Sphere(start, end).fill(editor, rand, air);
 
     for (Cardinal dir : Cardinal.directions) {
       start = new Coord(origin);
-      start.add(dir, size - 1);
-      start.add(dir.left(), size - 1);
+      start.translate(dir, size - 1);
+      start.translate(dir.left(), size - 1);
       end = new Coord(start);
-      end.add(Cardinal.UP, size + 1);
+      end.translate(Cardinal.UP, size + 1);
       new RectSolid(start, end).fill(editor, rand, log);
     }
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(-(size - 1), -1, -(size - 1)));
-    end.add(new Coord(size - 1, -1, size - 1));
+    start.translate(new Coord(-(size - 1), -1, -(size - 1)));
+    end.translate(new Coord(size - 1, -1, size - 1));
     new RectSolid(start, end).fill(editor, rand, log);
   }
 
@@ -186,7 +186,7 @@ public class TreeTower implements ITower {
         for (Coord pos : new Line(start, end)) {
           Coord s = new Coord(pos);
           Coord e = new Coord(s);
-          e.add(new Coord((int) thickness, (int) thickness, (int) thickness));
+          e.translate(new Coord((int) thickness, (int) thickness, (int) thickness));
           shape.addShape(new Sphere(s, e));
         }
         shape.fill(editor, rand, log);
@@ -216,7 +216,7 @@ public class TreeTower implements ITower {
       Coord e = new Coord(s);
       final int size = 2;
       final int noise = 2;
-      e.add(new Coord(size + rand.nextInt(noise), size + rand.nextInt(noise), size + rand.nextInt(noise)));
+      e.translate(new Coord(size + rand.nextInt(noise), size + rand.nextInt(noise), size + rand.nextInt(noise)));
       leaves.addShape(new Sphere(s, e));
     }
 
@@ -229,7 +229,7 @@ public class TreeTower implements ITower {
       );
 
       end = new Coord(start);
-      end.add(offset);
+      end.translate(offset);
       return end;
     }
   }

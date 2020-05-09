@@ -31,12 +31,12 @@ public class SegmentTomb extends SegmentBase {
 
     Cardinal[] orth = dir.orthogonal();
     start = new Coord(pos);
-    start.add(dir, 3);
+    start.translate(dir, 3);
     end = new Coord(start);
-    start.add(orth[0]);
-    end.add(orth[1]);
-    end.add(Cardinal.UP, 3);
-    end.add(dir, 3);
+    start.translate(orth[0]);
+    end.translate(orth[1]);
+    end.translate(Cardinal.UP, 3);
+    end.translate(dir, 3);
     List<Coord> box = new RectHollow(start, end).get();
 
     // make sure the box is solid wall
@@ -51,13 +51,13 @@ public class SegmentTomb extends SegmentBase {
       return;
     }
     cursor = new Coord(pos);
-    cursor.add(Cardinal.UP);
-    cursor.add(dir, 4);
+    cursor.translate(Cardinal.UP);
+    cursor.translate(dir, 4);
     SpawnerSettings spawners = level.getSpawners().isEmpty()
         ? MobType.newSpawnerSetting(MobType.UNDEAD_MOBS)
         : level.getSpawners();
     spawners.generateSpawner(editor, rand, cursor, level.getDifficulty(cursor));
-    cursor.add(dir);
+    cursor.translate(dir);
     createChest(editor, rand, Dungeon.getLevel(cursor.getY()), cursor, false, COMMON_TREASURES);
   }
 
@@ -73,22 +73,22 @@ public class SegmentTomb extends SegmentBase {
 
     Cardinal[] orth = dir.orthogonal();
 
-    cursor.add(dir, 2);
+    cursor.translate(dir, 2);
     start = new Coord(cursor);
-    start.add(orth[0], 1);
+    start.translate(orth[0], 1);
     end = new Coord(cursor);
-    end.add(orth[1], 1);
-    end.add(Cardinal.UP, 2);
+    end.translate(orth[1], 1);
+    end.translate(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, air);
 
-    start.add(dir, 1);
-    end.add(dir, 1);
+    start.translate(dir, 1);
+    end.translate(dir, 1);
     RectSolid.fill(editor, rand, start, end, theme.getSecondary().getWall(), false, true);
 
-    cursor.add(Cardinal.UP, 2);
+    cursor.translate(Cardinal.UP, 2);
     for (Cardinal d : orth) {
       Coord c = new Coord(cursor);
-      c.add(d, 1);
+      c.translate(d, 1);
       stair.setOrientation(d.reverse(), true);
       stair.set(editor, rand, c);
     }
@@ -96,8 +96,8 @@ public class SegmentTomb extends SegmentBase {
     tomb(editor, rand, level.getSettings(), theme, dir, new Coord(origin));
 
     cursor = new Coord(origin);
-    cursor.add(Cardinal.UP);
-    cursor.add(dir, 3);
+    cursor.translate(Cardinal.UP);
+    cursor.translate(dir, 3);
     BlockType.get(BlockType.QUARTZ).set(editor, cursor);
 
   }

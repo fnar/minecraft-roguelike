@@ -19,8 +19,8 @@ public class WireframeFilter implements IFilter {
     Coord start = box.getStart();
     Coord end = box.getEnd();
 
-    start.add(Cardinal.UP, 100);
-    end.add(Cardinal.UP, 100);
+    start.translate(Cardinal.UP, 100);
+    end.translate(Cardinal.UP, 100);
 
     IShape shape = new RectWireframe(start, end);
     IBlockFactory block = BlockType.get(BlockType.SEA_LANTERN);

@@ -28,28 +28,28 @@ public class SegmentPlant extends SegmentBase {
 
     Cardinal[] orth = dir.orthogonal();
 
-    cursor.add(dir, 2);
+    cursor.translate(dir, 2);
     start = new Coord(cursor);
-    start.add(orth[0], 1);
+    start.translate(orth[0], 1);
     end = new Coord(cursor);
-    end.add(orth[1], 1);
-    end.add(Cardinal.UP, 2);
+    end.translate(orth[1], 1);
+    end.translate(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, air);
 
-    start.add(dir, 1);
-    end.add(dir, 1);
+    start.translate(dir, 1);
+    end.translate(dir, 1);
     RectSolid.fill(editor, rand, start, end, theme.getSecondary().getWall(), false, true);
 
-    cursor.add(Cardinal.UP, 2);
+    cursor.translate(Cardinal.UP, 2);
     for (Cardinal d : orth) {
       Coord c = new Coord(cursor);
-      c.add(d, 1);
+      c.translate(d, 1);
       stair.setOrientation(d.reverse(), true);
       stair.set(editor, c);
     }
 
     cursor = new Coord(origin);
-    cursor.add(dir, 2);
+    cursor.translate(dir, 2);
     plant(editor, rand, theme, cursor);
 
   }
@@ -60,12 +60,12 @@ public class SegmentPlant extends SegmentBase {
 
     for (Cardinal dir : Cardinal.directions) {
       cursor = new Coord(origin);
-      cursor.add(dir);
+      cursor.translate(dir);
       Trapdoor.get(Trapdoor.OAK, dir.reverse(), true, true).set(editor, rand, cursor, true, false);
     }
 
     cursor = new Coord(origin);
-    cursor.add(Cardinal.UP);
+    cursor.translate(Cardinal.UP);
     TallPlant[] plants = new TallPlant[]{TallPlant.FERN, TallPlant.ROSE, TallPlant.PEONY};
     TallPlant.generate(editor, plants[rand.nextInt(plants.length)], cursor);
   }

@@ -40,51 +40,51 @@ public class DungeonLinkerTop extends DungeonBase {
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(-4, -1, -4));
-    end.add(new Coord(4, 5, 4));
+    start.translate(new Coord(-4, -1, -4));
+    end.translate(new Coord(4, 5, 4));
     RectHollow.fill(editor, rand, start, end, wall, false, true);
 
     cursor = new Coord(origin);
-    cursor.add(Cardinal.UP, 5);
+    cursor.translate(Cardinal.UP, 5);
     settings.getTheme().getPrimary().getLightBlock().set(editor, rand, cursor);
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(-4, -1, -4));
-    end.add(new Coord(4, -1, 4));
+    start.translate(new Coord(-4, -1, -4));
+    end.translate(new Coord(4, -1, 4));
     RectSolid.fill(editor, rand, start, end, floor, true, true);
 
     for (Cardinal dir : Cardinal.directions) {
 
       start = new Coord(origin);
       end = new Coord(origin);
-      start.add(dir, 3);
-      start.add(dir.left(), 3);
-      end.add(dir, 4);
-      end.add(dir.left(), 4);
-      end.add(Cardinal.UP, 4);
+      start.translate(dir, 3);
+      start.translate(dir.left(), 3);
+      end.translate(dir, 4);
+      end.translate(dir.left(), 4);
+      end.translate(Cardinal.UP, 4);
       RectSolid.fill(editor, rand, start, end, pillar, true, true);
 
       start = new Coord(origin);
-      start.add(dir, 3);
-      start.add(dir.left(), 2);
-      start.add(Cardinal.UP, 4);
+      start.translate(dir, 3);
+      start.translate(dir.left(), 2);
+      start.translate(Cardinal.UP, 4);
       end = new Coord(start);
-      end.add(dir.right(), 4);
+      end.translate(dir.right(), 4);
       RectSolid.fill(editor, rand, start, end, wall, true, true);
-      start.add(dir.reverse());
-      end.add(dir.reverse());
+      start.translate(dir.reverse());
+      end.translate(dir.reverse());
       RectSolid.fill(editor, rand, start, end, stair.setOrientation(dir.reverse(), true), true, true);
 
       for (Cardinal o : dir.orthogonal()) {
         cursor = new Coord(origin);
-        cursor.add(dir, 3);
-        cursor.add(Cardinal.UP, 2);
-        cursor.add(o, 2);
+        cursor.translate(dir, 3);
+        cursor.translate(Cardinal.UP, 2);
+        cursor.translate(o, 2);
         stair.setOrientation(o.reverse(), true).set(editor, cursor);
-        cursor.add(Cardinal.UP);
+        cursor.translate(Cardinal.UP);
         wall.set(editor, rand, cursor);
-        cursor.add(o.reverse());
+        cursor.translate(o.reverse());
         stair.setOrientation(o.reverse(), true).set(editor, cursor);
       }
     }

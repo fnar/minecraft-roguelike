@@ -48,26 +48,26 @@ public class DungeonsMusic extends DungeonBase {
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(-6, -1, -6));
-    end.add(new Coord(6, 5, 6));
+    start.translate(new Coord(-6, -1, -6));
+    end.translate(new Coord(6, 5, 6));
     RectHollow.fill(editor, rand, start, end, wall, false, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(-6, 4, -6));
-    end.add(new Coord(6, 5, 6));
+    start.translate(new Coord(-6, 4, -6));
+    end.translate(new Coord(6, 5, 6));
     RectSolid.fill(editor, rand, start, end, panel, true, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(-3, 4, -3));
-    end.add(new Coord(3, 4, 3));
+    start.translate(new Coord(-3, 4, -3));
+    end.translate(new Coord(3, 4, 3));
     RectSolid.fill(editor, rand, start, end, air);
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(-3, -1, -3));
-    end.add(new Coord(3, -1, 3));
+    start.translate(new Coord(-3, -1, -3));
+    end.translate(new Coord(3, -1, 3));
     RectSolid.fill(editor, rand, start, end, floor, true, true);
 
     List<DyeColor> colors = Arrays.asList(DyeColor.values());
@@ -75,8 +75,8 @@ public class DungeonsMusic extends DungeonBase {
     for (int i = 2; i >= 0; --i) {
       start = new Coord(origin);
       end = new Coord(origin);
-      start.add(new Coord(-i - 1, 0, -i - 1));
-      end.add(new Coord(i + 1, 0, i + 1));
+      start.translate(new Coord(-i - 1, 0, -i - 1));
+      end.translate(new Coord(i + 1, 0, i + 1));
       MetaBlock carpet = ColorBlock.get(ColorBlock.CARPET, colors.get(i));
       RectSolid.fill(editor, rand, start, end, carpet);
     }
@@ -84,69 +84,69 @@ public class DungeonsMusic extends DungeonBase {
     for (Cardinal dir : Cardinal.directions) {
 
       cursor = new Coord(origin);
-      cursor.add(dir, 5);
-      cursor.add(Cardinal.UP, 3);
+      cursor.translate(dir, 5);
+      cursor.translate(Cardinal.UP, 3);
       panel.set(editor, rand, cursor);
-      cursor.add(dir.reverse());
+      cursor.translate(dir.reverse());
       stair.setOrientation(dir.reverse(), true).set(editor, cursor);
 
       cursor = new Coord(origin);
-      cursor.add(dir, 5);
-      cursor.add(dir.left(), 5);
+      cursor.translate(dir, 5);
+      cursor.translate(dir.left(), 5);
       pillar(editor, rand, settings, cursor);
 
       start = new Coord(origin);
-      start.add(Cardinal.UP, 4);
-      start.add(dir, 3);
+      start.translate(Cardinal.UP, 4);
+      start.translate(dir, 3);
       end = new Coord(start);
-      start.add(dir.left(), 3);
-      end.add(dir.right(), 3);
+      start.translate(dir.left(), 3);
+      end.translate(dir.right(), 3);
       RectSolid.fill(editor, rand, start, end, pillar, true, true);
 
       cursor = new Coord(origin);
-      cursor.add(Cardinal.UP, 4);
-      cursor.add(dir);
+      cursor.translate(Cardinal.UP, 4);
+      cursor.translate(dir);
       stair.setOrientation(dir, true).set(editor, cursor);
-      cursor.add(dir);
+      cursor.translate(dir);
       stair.setOrientation(dir.reverse(), true).set(editor, cursor);
 
       for (Cardinal o : dir.orthogonal()) {
         cursor = new Coord(origin);
-        cursor.add(dir, 5);
-        cursor.add(o, 2);
+        cursor.translate(dir, 5);
+        cursor.translate(o, 2);
         pillar(editor, rand, settings, cursor);
 
         cursor = new Coord(origin);
-        cursor.add(dir, 4);
-        cursor.add(Cardinal.UP, 3);
-        cursor.add(o);
+        cursor.translate(dir, 4);
+        cursor.translate(Cardinal.UP, 3);
+        cursor.translate(o);
         stair.setOrientation(dir.reverse(), true).set(editor, cursor);
 
         cursor = new Coord(origin);
-        cursor.add(dir, 5);
-        cursor.add(o, 3);
-        cursor.add(Cardinal.UP);
+        cursor.translate(dir, 5);
+        cursor.translate(o, 3);
+        cursor.translate(Cardinal.UP);
         chests.add(new Coord(cursor));
-        cursor.add(o);
+        cursor.translate(o);
         chests.add(new Coord(cursor));
 
         cursor = new Coord(origin);
-        cursor.add(dir, 5);
-        cursor.add(o, 3);
+        cursor.translate(dir, 5);
+        cursor.translate(o, 3);
         stair.setOrientation(dir.reverse(), true).set(editor, cursor);
-        cursor.add(o);
+        cursor.translate(o);
         stair.setOrientation(dir.reverse(), true).set(editor, cursor);
-        cursor.add(Cardinal.UP, 2);
+        cursor.translate(Cardinal.UP, 2);
         stair.setOrientation(o.reverse(), true).set(editor, cursor);
-        cursor.add(o.reverse());
+        cursor.translate(o.reverse());
         stair.setOrientation(o, true).set(editor, cursor);
-        cursor.add(Cardinal.UP);
+        cursor.translate(Cardinal.UP);
         panel.set(editor, rand, cursor);
-        cursor.add(o);
+        cursor.translate(o);
         panel.set(editor, rand, cursor);
-        cursor.add(dir.reverse());
+        cursor.translate(dir.reverse());
         stair.setOrientation(dir.reverse(), true).set(editor, cursor);
-        cursor.add(o.reverse());
+        cursor.translate(o.reverse());
         stair.setOrientation(dir.reverse(), true).set(editor, cursor);
 
       }
@@ -155,7 +155,7 @@ public class DungeonsMusic extends DungeonBase {
     BlockType.get(BlockType.JUKEBOX).set(editor, origin);
 
     cursor = new Coord(origin);
-    cursor.add(Cardinal.UP, 4);
+    cursor.translate(Cardinal.UP, 4);
     BlockType.get(BlockType.GLOWSTONE).set(editor, cursor);
 
     List<Coord> chestLocations = chooseRandomLocations(rand, 1, chests);
@@ -176,13 +176,13 @@ public class DungeonsMusic extends DungeonBase {
 
     start = new Coord(origin);
     end = new Coord(start);
-    end.add(Cardinal.UP, 2);
+    end.translate(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, pillar);
     for (Cardinal dir : Cardinal.directions) {
       cursor = new Coord(end);
-      cursor.add(dir);
+      cursor.translate(dir);
       stair.setOrientation(dir, true).set(editor, rand, cursor, true, false);
-      cursor.add(Cardinal.UP);
+      cursor.translate(Cardinal.UP);
       panel.set(editor, rand, cursor);
     }
   }

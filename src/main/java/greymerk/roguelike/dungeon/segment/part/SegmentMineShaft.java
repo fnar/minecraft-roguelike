@@ -28,31 +28,31 @@ public class SegmentMineShaft extends SegmentBase {
     Coord end;
 
     start = new Coord(cursor);
-    start.add(dir, 2);
+    start.translate(dir, 2);
     end = new Coord(start);
-    start.add(orth[0]);
-    end.add(orth[1]);
-    end.add(Cardinal.UP, 3);
+    start.translate(orth[0]);
+    end.translate(orth[1]);
+    end.translate(Cardinal.UP, 3);
     RectSolid.fill(editor, rand, start, end, air);
 
-    cursor.add(Cardinal.UP, 3);
-    cursor.add(orth[0]);
+    cursor.translate(Cardinal.UP, 3);
+    cursor.translate(orth[0]);
     RectSolid.fill(editor, rand, start, end, air);
 
     start = new Coord(origin);
-    start.add(dir, 2);
+    start.translate(dir, 2);
     end = new Coord(start);
-    end.add(Cardinal.UP, 3);
+    end.translate(Cardinal.UP, 3);
     RectSolid.fill(editor, rand, start, end, wall);
     start = new Coord(end);
     cursor = new Coord(end);
-    start.add(orth[0]);
-    end.add(orth[1]);
+    start.translate(orth[0]);
+    end.translate(orth[1]);
     RectSolid.fill(editor, rand, start, end, wall);
 
     start = new Coord(cursor);
     end = new Coord(cursor);
-    end.add(dir.reverse(), 2);
+    end.translate(dir.reverse(), 2);
     RectSolid.fill(editor, rand, start, end, wall);
   }
 }

@@ -34,32 +34,32 @@ public abstract class SegmentBase implements ISegment {
   }
 
   private boolean isValidNorthWall(Cardinal wallDirection, IWorldEditor editor, Coord pos) {
-    Coord northWest = new Coord(-1, 1, -2).add(pos);
-    Coord northEast = new Coord(1, 1, -2).add(pos);
+    Coord northWest = new Coord(-1, 1, -2).translate(pos);
+    Coord northEast = new Coord(1, 1, -2).translate(pos);
     return wallDirection == Cardinal.NORTH
         && !editor.isAirBlock(northWest)
         && !editor.isAirBlock(northEast);
   }
 
   private boolean isValidSouthWall(Cardinal wallDirection, IWorldEditor editor, Coord pos) {
-    Coord southWest = new Coord(-1, 1, 2).add(pos);
-    Coord southEast = new Coord(1, 1, 2).add(pos);
+    Coord southWest = new Coord(-1, 1, 2).translate(pos);
+    Coord southEast = new Coord(1, 1, 2).translate(pos);
     return wallDirection == Cardinal.SOUTH
         && !editor.isAirBlock(southWest)
         && !editor.isAirBlock(southEast);
   }
 
   private boolean isValidEastWall(Cardinal wallDirection, IWorldEditor editor, Coord pos) {
-    Coord northWest = new Coord(2, 1, -1).add(pos);
-    Coord southEast = new Coord(2, 1, 1).add(pos);
+    Coord northWest = new Coord(2, 1, -1).translate(pos);
+    Coord southEast = new Coord(2, 1, 1).translate(pos);
     return wallDirection == Cardinal.EAST
         && !editor.isAirBlock(northWest)
         && !editor.isAirBlock(southEast);
   }
 
   private boolean isValidWestWall(Cardinal wallDirection, IWorldEditor editor, Coord pos) {
-    Coord northWest = new Coord(-2, 1, -1).add(pos);
-    Coord southWest = new Coord(-2, 1, 1).add(pos);
+    Coord northWest = new Coord(-2, 1, -1).translate(pos);
+    Coord southWest = new Coord(-2, 1, 1).translate(pos);
     return wallDirection == Cardinal.WEST
         && !editor.isAirBlock(northWest)
         && !editor.isAirBlock(southWest);

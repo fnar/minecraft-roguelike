@@ -27,24 +27,24 @@ public class SegmentFirePlace extends SegmentBase {
 
     Cardinal[] orth = dir.orthogonal();
 
-    cursor.add(dir, 2);
+    cursor.translate(dir, 2);
     start = new Coord(cursor);
-    start.add(orth[0], 1);
+    start.translate(orth[0], 1);
     end = new Coord(cursor);
-    end.add(orth[1], 1);
-    end.add(Cardinal.UP, 2);
+    end.translate(orth[1], 1);
+    end.translate(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, air);
 
     // front wall
-    start.add(dir, 1);
-    end.add(dir, 1);
+    start.translate(dir, 1);
+    end.translate(dir, 1);
     RectSolid.fill(editor, rand, start, end, theme.getPrimary().getWall(), false, true);
 
     // stairs
-    cursor.add(Cardinal.UP, 2);
+    cursor.translate(Cardinal.UP, 2);
     for (Cardinal d : orth) {
       Coord c = new Coord(cursor);
-      c.add(d, 1);
+      c.translate(d, 1);
       stair.setOrientation(d.reverse(), true);
       stair.set(editor, c);
     }
@@ -52,23 +52,23 @@ public class SegmentFirePlace extends SegmentBase {
     stair = theme.getPrimary().getStair();
 
     cursor = new Coord(origin);
-    cursor.add(dir, 3);
+    cursor.translate(dir, 3);
     stair.setOrientation(dir.reverse(), false);
     stair.set(editor, cursor);
-    cursor.add(Cardinal.UP);
+    cursor.translate(Cardinal.UP);
     BlockType.get(BlockType.IRON_BAR).set(editor, cursor);
-    cursor.add(Cardinal.UP);
+    cursor.translate(Cardinal.UP);
     stair.setOrientation(dir.reverse(), true);
     stair.set(editor, cursor);
 
     start = new Coord(origin);
-    start.add(dir, 4);
+    start.translate(dir, 4);
     end = new Coord(start);
-    start.add(Cardinal.DOWN);
-    start.add(orth[0]);
-    end.add(Cardinal.UP, 3);
-    end.add(orth[1]);
-    end.add(dir, 2);
+    start.translate(Cardinal.DOWN);
+    start.translate(orth[0]);
+    end.translate(Cardinal.UP, 3);
+    end.translate(orth[1]);
+    end.translate(dir, 2);
     for (Coord c : new RectHollow(start, end)) {
       if (!editor.getBlock(c).getMaterial().isSolid()) {
         return;
@@ -78,9 +78,9 @@ public class SegmentFirePlace extends SegmentBase {
     RectSolid.fill(editor, rand, start, end, theme.getPrimary().getWall());
 
     cursor = new Coord(origin);
-    cursor.add(dir, 4);
+    cursor.translate(dir, 4);
     BlockType.get(BlockType.NETHERRACK).set(editor, cursor);
-    cursor.add(Cardinal.UP);
+    cursor.translate(Cardinal.UP);
     BlockType.get(BlockType.FIRE).set(editor, cursor);
   }
 }

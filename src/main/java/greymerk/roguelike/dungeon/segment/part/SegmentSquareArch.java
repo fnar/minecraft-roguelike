@@ -24,23 +24,23 @@ public class SegmentSquareArch extends SegmentBase {
     IBlockFactory pillar = level.getSettings().getTheme().getPrimary().getPillar();
 
     start = new Coord(origin);
-    start.add(dir, 2);
+    start.translate(dir, 2);
     end = new Coord(start);
-    end.add(Cardinal.UP, 2);
+    end.translate(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, air);
 
     start = new Coord(origin);
-    start.add(dir, 3);
+    start.translate(dir, 3);
     end = new Coord(start);
-    end.add(Cardinal.UP, 2);
+    end.translate(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, pillar);
 
     for (Cardinal orth : dir.orthogonal()) {
       start = new Coord(origin);
-      start.add(orth, 1);
-      start.add(dir, 2);
+      start.translate(orth, 1);
+      start.translate(dir, 2);
       end = new Coord(start);
-      end.add(Cardinal.UP, 2);
+      end.translate(Cardinal.UP, 2);
       RectSolid.fill(editor, rand, start, end, pillar);
     }
   }

@@ -83,7 +83,7 @@ public class RectWireframe implements IShape {
 
       if (cursor.getZ() == c2.getZ() && cursor.getX() == c2.getX()) {
         cursor = new Coord(c1.getX(), cursor.getY(), c1.getZ());
-        cursor.add(Cardinal.UP);
+        cursor.translate(Cardinal.UP);
         return toReturn;
       }
 
@@ -91,12 +91,12 @@ public class RectWireframe implements IShape {
 
         if (cursor.getX() == c2.getX()) {
           cursor = new Coord(c1.getX(), cursor.getY(), cursor.getZ());
-          cursor.add(Cardinal.SOUTH);
+          cursor.translate(Cardinal.SOUTH);
           return toReturn;
         }
 
         if (cursor.getZ() == c1.getZ() || cursor.getZ() == c2.getZ()) {
-          cursor.add(Cardinal.EAST);
+          cursor.translate(Cardinal.EAST);
           return toReturn;
         }
 

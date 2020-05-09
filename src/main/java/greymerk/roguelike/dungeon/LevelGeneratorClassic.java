@@ -117,13 +117,13 @@ public class LevelGeneratorClassic implements ILevelGenerator {
       }
 
       if (hasNearbyNode(nodes, end, settings.getScatter())) {
-        end.add(dir);
+        end.translate(dir);
       } else {
         if (rand.nextInt(extend) == 0) {
           spawnNode(nodes, this);
           done = true;
         } else {
-          end.add(dir);
+          end.translate(dir);
           extend--;
         }
       }

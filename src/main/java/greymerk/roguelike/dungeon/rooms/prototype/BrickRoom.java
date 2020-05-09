@@ -58,9 +58,9 @@ public class BrickRoom extends DungeonBase {
 
 
     cursor = new Coord(x, y, z);
-    cursor.add(UP, 5);
+    cursor.translate(UP, 5);
     air.set(editor, cursor);
-    cursor.add(UP, 1);
+    cursor.translate(UP, 1);
     blocks.set(editor, rand, cursor);
 
     // Chests
@@ -70,67 +70,67 @@ public class BrickRoom extends DungeonBase {
 
       // top
       cursor = new Coord(x, y, z);
-      cursor.add(dir, 1);
-      cursor.add(UP, 5);
+      cursor.translate(dir, 1);
+      cursor.translate(UP, 5);
       stair.setOrientation(dir.reverse(), true);
       stair.set(editor, rand, cursor, false, true);
-      cursor.add(dir.left(), 1);
+      cursor.translate(dir.left(), 1);
       blocks.set(editor, rand, cursor, false, true);
 
       cursor = new Coord(x, y, z);
-      cursor.add(dir, 2);
-      cursor.add(UP, 4);
+      cursor.translate(dir, 2);
+      cursor.translate(UP, 4);
       air.set(editor, cursor);
-      cursor.add(UP, 1);
+      cursor.translate(UP, 1);
       blocks.set(editor, rand, cursor, false, true);
 
       // pillar
       cursor = new Coord(x, y, z);
-      cursor.add(dir, 3);
-      cursor.add(dir.left(), 3);
+      cursor.translate(dir, 3);
+      cursor.translate(dir.left(), 3);
       start = new Coord(cursor);
-      cursor.add(UP, 2);
+      cursor.translate(UP, 2);
       end = new Coord(cursor);
       RectSolid.fill(editor, rand, start, end, pillar, true, true);
-      cursor.add(UP, 1);
+      cursor.translate(UP, 1);
       blocks.set(editor, rand, cursor);
 
       // pillar stairs
       for (Cardinal orth : dir.orthogonal()) {
         cursor = new Coord(x, y, z);
-        cursor.add(dir, 3);
-        cursor.add(orth, 2);
-        cursor.add(UP, 3);
+        cursor.translate(dir, 3);
+        cursor.translate(orth, 2);
+        cursor.translate(UP, 3);
         stair.setOrientation(orth.reverse(), true);
         stair.set(editor, rand, cursor);
       }
 
       // layer above pillars
       cursor = new Coord(x, y, z);
-      cursor.add(dir, 2);
-      cursor.add(dir.left(), 2);
-      cursor.add(UP, 4);
+      cursor.translate(dir, 2);
+      cursor.translate(dir.left(), 2);
+      cursor.translate(UP, 4);
       blocks.set(editor, rand, cursor, false, true);
 
       for (Cardinal orth : dir.orthogonal()) {
         cursor = new Coord(x, y, z);
-        cursor.add(UP, 4);
-        cursor.add(dir, 2);
-        cursor.add(orth, 1);
+        cursor.translate(UP, 4);
+        cursor.translate(dir, 2);
+        cursor.translate(orth, 1);
         stair.setOrientation(orth.reverse(), true);
         stair.set(editor, rand, cursor, false, true);
       }
 
       cursor = new Coord(x, y, z);
-      cursor.add(dir, 1);
-      cursor.add(dir.left(), 1);
-      cursor.add(UP, 5);
+      cursor.translate(dir, 1);
+      cursor.translate(dir.left(), 1);
+      cursor.translate(UP, 5);
       blocks.set(editor, rand, cursor, false, true);
 
       for (Cardinal orth : dir.orthogonal()) {
         cursor = new Coord(x, y, z);
-        cursor.add(dir, 3);
-        cursor.add(orth, 2);
+        cursor.translate(dir, 3);
+        cursor.translate(orth, 2);
         potentialChestLocations.add(cursor);
       }
     }

@@ -29,32 +29,32 @@ public class SegmentDoor extends SegmentBase {
 
     Cardinal[] orth = dir.orthogonal();
 
-    cursor.add(dir, 2);
+    cursor.translate(dir, 2);
     start = new Coord(cursor);
-    start.add(orth[0], 1);
+    start.translate(orth[0], 1);
     end = new Coord(cursor);
-    end.add(orth[1], 1);
-    end.add(Cardinal.UP, 2);
+    end.translate(orth[1], 1);
+    end.translate(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, air);
 
     SecretsSetting secrets = level.getSettings().getSecrets();
     Optional<DungeonBase> secretMaybe = generateSecret(secrets, editor, rand, level.getSettings(), dir, new Coord(origin));
 
-    start.add(dir, 1);
-    end.add(dir, 1);
+    start.translate(dir, 1);
+    end.translate(dir, 1);
     RectSolid.fill(editor, rand, start, end, theme.getSecondary().getWall(), false, true);
 
-    cursor.add(Cardinal.UP, 2);
+    cursor.translate(Cardinal.UP, 2);
     for (Cardinal d : orth) {
       Coord c = new Coord(cursor);
-      c.add(d, 1);
+      c.translate(d, 1);
       stair.setOrientation(d.reverse(), true);
       stair.set(editor, rand, c);
     }
 
     if (secretMaybe.isPresent()) {
       cursor = new Coord(origin);
-      cursor.add(dir, 3);
+      cursor.translate(dir, 3);
       theme.getSecondary().getDoor().generate(editor, cursor, dir.reverse());
     }
   }

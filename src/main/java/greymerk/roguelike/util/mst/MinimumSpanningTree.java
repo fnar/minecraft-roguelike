@@ -35,13 +35,13 @@ public class MinimumSpanningTree {
     for (int i = 0; i < size; ++i) {
 
       Coord temp = new Coord(origin);
-      temp.add(Cardinal.NORTH, offset);
-      temp.add(Cardinal.WEST, offset);
-      temp.add(Cardinal.SOUTH, edgeLength * i);
+      temp.translate(Cardinal.NORTH, offset);
+      temp.translate(Cardinal.WEST, offset);
+      temp.translate(Cardinal.SOUTH, edgeLength * i);
 
       for (int j = 0; j < size; ++j) {
         points.add(new MSTPoint(new Coord(temp), rand));
-        temp.add(Cardinal.EAST, edgeLength);
+        temp.translate(Cardinal.EAST, edgeLength);
       }
     }
 
@@ -102,9 +102,9 @@ public class MinimumSpanningTree {
     for (Edge<MSTPoint> e : this.mstEdges) {
 
       Coord start = e.getStart().getPosition();
-      start.add(pos);
+      start.translate(pos);
       Coord end = e.getEnd().getPosition();
-      end.add(pos);
+      end.translate(pos);
 
       RectHollow.fill(editor, rand, start, end, blocks);
     }

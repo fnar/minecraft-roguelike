@@ -31,9 +31,9 @@ public class DungeonAvidya extends DungeonBase {
     IStair step = new MetaStair(StairType.QUARTZ);
     for (Cardinal dir : Cardinal.directions) {
       step.setOrientation(dir, true);
-      cursor.add(dir, 1);
+      cursor.translate(dir, 1);
       step.set(editor, rand, cursor, true, false);
-      cursor.add(dir.reverse(), 1);
+      cursor.translate(dir.reverse(), 1);
     }
   }
 
@@ -70,50 +70,50 @@ public class DungeonAvidya extends DungeonBase {
     // yang
     MetaBlock quartz = Quartz.get(Quartz.SMOOTH);
     Coord start = new Coord(x, y, z);
-    start.add(Cardinal.DOWN, 2);
-    start.add(Cardinal.WEST, 5);
+    start.translate(Cardinal.DOWN, 2);
+    start.translate(Cardinal.WEST, 5);
     Coord end = new Coord(start);
-    start.add(Cardinal.NORTH, 2);
-    end.add(Cardinal.SOUTH, 2);
+    start.translate(Cardinal.NORTH, 2);
+    end.translate(Cardinal.SOUTH, 2);
     RectSolid.fill(editor, rand, start, end, yang);
 
-    start.add(Cardinal.EAST, 1);
-    end.add(Cardinal.EAST, 1);
-    start.add(Cardinal.NORTH, 2);
-    end.add(Cardinal.SOUTH, 2);
+    start.translate(Cardinal.EAST, 1);
+    end.translate(Cardinal.EAST, 1);
+    start.translate(Cardinal.NORTH, 2);
+    end.translate(Cardinal.SOUTH, 2);
     RectSolid.fill(editor, rand, start, end, yang);
 
-    start.add(Cardinal.EAST, 1);
-    end.add(Cardinal.EAST, 1);
-    end.add(Cardinal.NORTH, 3);
+    start.translate(Cardinal.EAST, 1);
+    end.translate(Cardinal.EAST, 1);
+    end.translate(Cardinal.NORTH, 3);
     RectSolid.fill(editor, rand, start, end, yang);
 
-    start.add(Cardinal.EAST, 1);
-    end.add(Cardinal.EAST, 1);
-    start.add(Cardinal.NORTH, 1);
-    end.add(Cardinal.NORTH, 1);
+    start.translate(Cardinal.EAST, 1);
+    end.translate(Cardinal.EAST, 1);
+    start.translate(Cardinal.NORTH, 1);
+    end.translate(Cardinal.NORTH, 1);
     RectSolid.fill(editor, rand, start, end, yang);
 
-    start.add(Cardinal.EAST, 1);
-    end.add(Cardinal.EAST, 3);
-    end.add(Cardinal.NORTH, 1);
+    start.translate(Cardinal.EAST, 1);
+    end.translate(Cardinal.EAST, 3);
+    end.translate(Cardinal.NORTH, 1);
     RectSolid.fill(editor, rand, start, end, yang);
 
-    start.add(Cardinal.EAST, 3);
-    end.add(Cardinal.EAST, 1);
-    start.add(Cardinal.SOUTH, 1);
-    end.add(Cardinal.NORTH, 1);
+    start.translate(Cardinal.EAST, 3);
+    end.translate(Cardinal.EAST, 1);
+    start.translate(Cardinal.SOUTH, 1);
+    end.translate(Cardinal.NORTH, 1);
     RectSolid.fill(editor, rand, start, end, yang);
 
-    start.add(Cardinal.WEST, 3);
-    end.add(Cardinal.WEST, 2);
-    end.add(Cardinal.NORTH, 1);
+    start.translate(Cardinal.WEST, 3);
+    end.translate(Cardinal.WEST, 2);
+    end.translate(Cardinal.NORTH, 1);
     RectSolid.fill(editor, rand, start, end, yang);
 
-    start.add(Cardinal.EAST, 1);
-    end.add(Cardinal.EAST, 1);
-    start.add(Cardinal.SOUTH, 7);
-    end.add(Cardinal.SOUTH, 7);
+    start.translate(Cardinal.EAST, 1);
+    end.translate(Cardinal.EAST, 1);
+    start.translate(Cardinal.SOUTH, 7);
+    end.translate(Cardinal.SOUTH, 7);
     RectSolid.fill(editor, rand, start, end, yang);
 
 
@@ -122,149 +122,149 @@ public class DungeonAvidya extends DungeonBase {
 
         // upper trim
         start = new Coord(x, y, z);
-        start.add(dir, 8);
-        start.add(Cardinal.UP, 4);
+        start.translate(dir, 8);
+        start.translate(Cardinal.UP, 4);
         end = new Coord(start);
-        end.add(orth, 8);
+        end.translate(orth, 8);
         RectSolid.fill(editor, rand, start, end, whiteClay);
-        start.add(Cardinal.DOWN, 5);
-        end.add(Cardinal.DOWN, 5);
+        start.translate(Cardinal.DOWN, 5);
+        end.translate(Cardinal.DOWN, 5);
         RectSolid.fill(editor, rand, start, end, BlockType.get(BlockType.STONE_BRICK));
 
         start = new Coord(x, y, z);
-        start.add(dir, 7);
-        start.add(Cardinal.UP, 5);
+        start.translate(dir, 7);
+        start.translate(Cardinal.UP, 5);
         end = new Coord(start);
-        end.add(orth, 7);
+        end.translate(orth, 7);
         RectSolid.fill(editor, rand, start, end, whiteClay);
 
         // ceiling details
         start = new Coord(x, y, z);
-        start.add(dir, 4);
-        start.add(Cardinal.UP, 5);
+        start.translate(dir, 4);
+        start.translate(Cardinal.UP, 5);
         end = new Coord(start);
-        end.add(orth, 2);
+        end.translate(orth, 2);
         RectSolid.fill(editor, rand, start, end, quartz);
 
         Coord cursor = new Coord(end);
-        cursor.add(dir, 1);
+        cursor.translate(dir, 1);
         quartz.set(editor, rand, cursor);
         cursor = new Coord(end);
-        cursor.add(dir.reverse(), 1);
-        cursor.add(orth, 1);
+        cursor.translate(dir.reverse(), 1);
+        cursor.translate(orth, 1);
         quartz.set(editor, rand, cursor);
         pillarTop(editor, rand, cursor);
 
         // pillars
         start = new Coord(x, y, z);
-        start.add(Cardinal.DOWN, 1);
-        start.add(dir, 8);
-        start.add(orth, 2);
+        start.translate(Cardinal.DOWN, 1);
+        start.translate(dir, 8);
+        start.translate(orth, 2);
         end = new Coord(start);
-        end.add(Cardinal.UP, 4);
+        end.translate(Cardinal.UP, 4);
         RectSolid.fill(editor, rand, start, end, pillarQuartz);
-        start.add(orth, 4);
-        end.add(orth, 4);
+        start.translate(orth, 4);
+        end.translate(orth, 4);
         RectSolid.fill(editor, rand, start, end, pillarQuartz);
 
         // pillar tops
         cursor = new Coord(x, y, z);
-        cursor.add(dir, 8);
-        cursor.add(orth, 2);
-        cursor.add(Cardinal.UP, 3);
+        cursor.translate(dir, 8);
+        cursor.translate(orth, 2);
+        cursor.translate(Cardinal.UP, 3);
         Coord cursor2 = new Coord(cursor);
         pillarTop(editor, rand, cursor);
-        cursor2.add(orth, 4);
+        cursor2.translate(orth, 4);
         pillarTop(editor, rand, cursor2);
-        cursor2.add(dir.reverse(), 1);
-        cursor2.add(Cardinal.UP, 1);
+        cursor2.translate(dir.reverse(), 1);
+        cursor2.translate(Cardinal.UP, 1);
         quartz.set(editor, cursor2);
-        cursor2.add(dir.reverse(), 1);
-        cursor2.add(Cardinal.UP, 1);
+        cursor2.translate(dir.reverse(), 1);
+        cursor2.translate(Cardinal.UP, 1);
         whiteClay.set(editor, cursor2);
-        cursor.add(dir.reverse(), 1);
-        cursor.add(Cardinal.UP, 1);
+        cursor.translate(dir.reverse(), 1);
+        cursor.translate(Cardinal.UP, 1);
         pillarTop(editor, rand, cursor);
-        cursor.add(dir.reverse(), 1);
-        cursor.add(Cardinal.UP, 1);
+        cursor.translate(dir.reverse(), 1);
+        cursor.translate(Cardinal.UP, 1);
         pillarTop(editor, rand, cursor);
 
         // outer wall shell
         start = new Coord(x, y, z);
-        start.add(dir, 9);
+        start.translate(dir, 9);
         end = new Coord(start);
-        end.add(orth, 9);
-        end.add(Cardinal.UP, 3);
+        end.translate(orth, 9);
+        end.translate(Cardinal.UP, 3);
         RectSolid.fill(editor, rand, start, end, whiteClay, false, true);
 
         // floor outer step circle
         cursor = new Coord(x, y, z);
-        cursor.add(dir, 7);
-        cursor.add(Cardinal.DOWN, 1);
+        cursor.translate(dir, 7);
+        cursor.translate(Cardinal.DOWN, 1);
         IStair step = new MetaStair(StairType.STONEBRICK);
         step.setOrientation(dir.reverse(), false);
         step.set(editor, cursor);
 
-        cursor.add(orth, 1);
+        cursor.translate(orth, 1);
         step.set(editor, cursor);
 
-        cursor.add(orth, 1);
+        cursor.translate(orth, 1);
         step.set(editor, cursor);
 
         step.setOrientation(orth.reverse(), false);
-        cursor.add(orth, 1);
+        cursor.translate(orth, 1);
         step.set(editor, cursor);
 
-        cursor.add(dir.reverse(), 1);
+        cursor.translate(dir.reverse(), 1);
         step.set(editor, cursor);
 
         step.setOrientation(dir.reverse(), false);
-        cursor.add(orth, 1);
+        cursor.translate(orth, 1);
         step.set(editor, cursor);
 
         step.setOrientation(orth.reverse(), false);
-        cursor.add(orth, 1);
+        cursor.translate(orth, 1);
         step.set(editor, cursor);
 
-        cursor.add(dir.reverse(), 1);
+        cursor.translate(dir.reverse(), 1);
         step.set(editor, cursor);
 
         // perimeter decor
         cursor = new Coord(x, y, z);
-        cursor.add(Cardinal.DOWN, 1);
-        cursor.add(dir, 8);
-        cursor.add(orth, 3);
+        cursor.translate(Cardinal.DOWN, 1);
+        cursor.translate(dir, 8);
+        cursor.translate(orth, 3);
         BlockType.get(BlockType.GRASS).set(editor, cursor);
         MetaBlock leaves = Leaves.get(Wood.OAK, false);
 
         leaves.set(editor, cursor);
-        cursor.add(orth, 1);
+        cursor.translate(orth, 1);
         BlockType.get(BlockType.GRASS).set(editor, cursor);
         leaves.set(editor, cursor);
-        cursor.add(orth, 1);
+        cursor.translate(orth, 1);
         BlockType.get(BlockType.GRASS).set(editor, cursor);
         leaves.set(editor, cursor);
-        cursor.add(dir.reverse(), 1);
+        cursor.translate(dir.reverse(), 1);
         BlockType.get(BlockType.COBBLESTONE).set(editor, cursor);
-        cursor.add(orth.reverse(), 1);
+        cursor.translate(orth.reverse(), 1);
         glowstone.set(editor, cursor);
-        cursor.add(orth, 2);
+        cursor.translate(orth, 2);
         air.set(editor, cursor);
-        cursor.add(Cardinal.DOWN, 1);
+        cursor.translate(Cardinal.DOWN, 1);
         glowstone.set(editor, cursor);
-        cursor.add(Cardinal.UP, 1);
-        cursor.add(dir.reverse(), 1);
+        cursor.translate(Cardinal.UP, 1);
+        cursor.translate(dir.reverse(), 1);
         BlockType.get(BlockType.COBBLESTONE).set(editor, cursor);
-        cursor.add(dir, 1);
-        cursor.add(orth, 1);
+        cursor.translate(dir, 1);
+        cursor.translate(orth, 1);
         BlockType.get(BlockType.COBBLESTONE).set(editor, cursor);
-        cursor.add(dir, 1);
+        cursor.translate(dir, 1);
         BlockType.get(BlockType.COBBLESTONE).set(editor, cursor);
-        cursor.add(orth, 1);
+        cursor.translate(orth, 1);
         BlockType.get(BlockType.COBBLESTONE).set(editor, cursor);
-        cursor.add(Cardinal.UP, 1);
+        cursor.translate(Cardinal.UP, 1);
         BlockType.get(BlockType.COBBLESTONE).set(editor, cursor);
-        cursor.add(Cardinal.UP, 3);
+        cursor.translate(Cardinal.UP, 3);
         BlockType.get(BlockType.WATER_FLOWING).set(editor, cursor);
       }
     }

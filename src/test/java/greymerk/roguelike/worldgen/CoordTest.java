@@ -9,54 +9,54 @@ public class CoordTest {
   @Test
   public void addNothing() {
     Coord test = new Coord(0, 0, 0);
-    test.add(new Coord(0, 0, 0));
+    test.translate(new Coord(0, 0, 0));
     assertThat(test.equals(new Coord(0, 0, 0))).isTrue();
 
     test = new Coord(-10, 10, -10);
-    test.add(new Coord(0, 0, 0));
+    test.translate(new Coord(0, 0, 0));
     assertThat(test.equals(new Coord(-10, 10, -10))).isTrue();
   }
 
   @Test
   public void addDirection() {
     Coord test = new Coord(0, 0, 0);
-    test.add(Cardinal.NORTH);
+    test.translate(Cardinal.NORTH);
     assertThat(test.equals(new Coord(0, 0, -1))).isTrue();
 
     test = new Coord(0, 0, 0);
-    test.add(Cardinal.SOUTH);
+    test.translate(Cardinal.SOUTH);
     assertThat(test.equals(new Coord(0, 0, 1))).isTrue();
 
     test = new Coord(0, 0, 0);
-    test.add(Cardinal.WEST);
+    test.translate(Cardinal.WEST);
     assertThat(test.equals(new Coord(-1, 0, 0))).isTrue();
 
     test = new Coord(0, 0, 0);
-    test.add(Cardinal.EAST);
+    test.translate(Cardinal.EAST);
     assertThat(test.equals(new Coord(1, 0, 0))).isTrue();
 
     test = new Coord(0, 0, 0);
-    test.add(Cardinal.DOWN);
+    test.translate(Cardinal.DOWN);
     assertThat(test.equals(new Coord(0, -1, 0))).isTrue();
 
     test = new Coord(0, 0, 0);
-    test.add(Cardinal.UP);
+    test.translate(Cardinal.UP);
     assertThat(test.equals(new Coord(0, 1, 0))).isTrue();
 
     test = new Coord(0, 0, 0);
-    test.add(Cardinal.NORTH, 5);
+    test.translate(Cardinal.NORTH, 5);
     assertThat(test.equals(new Coord(0, 0, -5))).isTrue();
 
     test = new Coord(0, 0, 0);
-    test.add(Cardinal.SOUTH, 5);
+    test.translate(Cardinal.SOUTH, 5);
     assertThat(test.equals(new Coord(0, 0, 5))).isTrue();
 
     test = new Coord(0, 0, 0);
-    test.add(Cardinal.NORTH, -5);
+    test.translate(Cardinal.NORTH, -5);
     assertThat(test.equals(new Coord(0, 0, 5))).isTrue();
 
     test = new Coord(0, 0, 0);
-    test.add(Cardinal.SOUTH, -5);
+    test.translate(Cardinal.SOUTH, -5);
     assertThat(test.equals(new Coord(0, 0, -5))).isTrue();
   }
 
@@ -65,11 +65,11 @@ public class CoordTest {
     Coord test;
 
     test = new Coord(0, 0, 0);
-    test.add(new Coord(5, 5, 5));
+    test.translate(new Coord(5, 5, 5));
     assertThat(test.equals(new Coord(5, 5, 5))).isTrue();
 
     test = new Coord(-10, 0, 0);
-    test.add(new Coord(100, 0, 0));
+    test.translate(new Coord(100, 0, 0));
     assertThat(test.equals(new Coord(90, 0, 0))).isTrue();
 
   }
@@ -92,19 +92,19 @@ public class CoordTest {
     Coord one = new Coord(0, 0, 0);
 
     Coord two = new Coord(one);
-    two.add(Cardinal.NORTH);
+    two.translate(Cardinal.NORTH);
     assert (one.dirTo(two) == Cardinal.NORTH);
 
     two = new Coord(one);
-    two.add(Cardinal.SOUTH);
+    two.translate(Cardinal.SOUTH);
     assert (one.dirTo(two) == Cardinal.SOUTH);
 
     two = new Coord(one);
-    two.add(Cardinal.WEST);
+    two.translate(Cardinal.WEST);
     assert (one.dirTo(two) == Cardinal.WEST);
 
     two = new Coord(one);
-    two.add(Cardinal.EAST);
+    two.translate(Cardinal.EAST);
     assert (one.dirTo(two) == Cardinal.EAST);
   }
 

@@ -23,7 +23,7 @@ public class Vine {
     MetaBlock vine = BlockType.get(BlockType.VINE);
     for (Cardinal dir : Cardinal.directions) {
       Coord c = new Coord(origin);
-      c.add(dir);
+      c.translate(dir);
       if (editor.canPlace(vine, c, dir)) {
         setOrientation(vine, dir).set(editor, c);
         return;

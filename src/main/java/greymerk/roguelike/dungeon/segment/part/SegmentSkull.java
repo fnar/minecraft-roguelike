@@ -30,43 +30,43 @@ public class SegmentSkull extends SegmentBase {
     Cardinal[] orth = dir.orthogonal();
 
     start = new Coord(origin);
-    start.add(dir, 2);
+    start.translate(dir, 2);
     end = new Coord(start);
-    start.add(orth[0], 1);
-    end.add(orth[1], 1);
-    end.add(Cardinal.UP, 2);
+    start.translate(orth[0], 1);
+    end.translate(orth[1], 1);
+    end.translate(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, air);
-    start.add(dir, 1);
-    end.add(dir, 1);
+    start.translate(dir, 1);
+    end.translate(dir, 1);
     RectSolid.fill(editor, rand, start, end, theme.getSecondary().getWall());
 
     for (Cardinal d : orth) {
       cursor = new Coord(origin);
-      cursor.add(Cardinal.UP, 2);
-      cursor.add(dir, 2);
-      cursor.add(d, 1);
+      cursor.translate(Cardinal.UP, 2);
+      cursor.translate(dir, 2);
+      cursor.translate(d, 1);
       stair.set(editor, cursor);
 
       cursor = new Coord(origin);
-      cursor.add(dir, 2);
-      cursor.add(d, 1);
+      cursor.translate(dir, 2);
+      cursor.translate(d, 1);
       stair.setOrientation(d.reverse(), false);
       stair.set(editor, cursor);
     }
 
     cursor = new Coord(origin);
-    cursor.add(Cardinal.UP, 1);
-    cursor.add(dir, 3);
+    cursor.translate(Cardinal.UP, 1);
+    cursor.translate(dir, 3);
     air.set(editor, cursor);
-    cursor.add(Cardinal.UP, 1);
+    cursor.translate(Cardinal.UP, 1);
     stair.setOrientation(dir.reverse(), true);
     stair.set(editor, cursor);
 
 
     Coord shelf = new Coord(origin);
-    shelf.add(dir, 3);
+    shelf.translate(dir, 3);
     Coord below = new Coord(shelf);
-    shelf.add(Cardinal.UP, 1);
+    shelf.translate(Cardinal.UP, 1);
 
     if (editor.isAirBlock(below)) {
       return;
