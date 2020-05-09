@@ -78,11 +78,11 @@ public class CoordTest {
   public void sub() {
     Coord test;
     test = new Coord(0, 0, 0);
-    test.sub(new Coord(5, 5, 5));
+    test.translate(new Coord(-5, -5, -5));
     assertThat(test.equals(new Coord(-5, -5, -5))).isTrue();
 
     test = new Coord(100, 0, 0);
-    test.sub(new Coord(10, 0, 0));
+    test.translate(new Coord(-10, 0, 0));
     assertThat(test.equals(new Coord(90, 0, 0))).isTrue();
 
   }

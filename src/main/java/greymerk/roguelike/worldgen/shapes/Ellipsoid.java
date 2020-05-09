@@ -62,7 +62,7 @@ public class Ellipsoid implements IShape {
       Coord s = new Coord(centre);
       Coord e = new Coord(end);
 
-      diff = e.sub(s);
+      diff = e.translate(-s.getX(), -s.getY(), -s.getZ());
       diff = new Coord(Math.abs(diff.getX()), Math.abs(diff.getY()), Math.abs(diff.getZ()));
 
       cursor = new Coord(0, 0, 0);

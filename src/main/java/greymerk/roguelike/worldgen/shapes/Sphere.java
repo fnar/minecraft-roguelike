@@ -68,7 +68,7 @@ public class Sphere implements IShape {
       Coord e = new Coord(end);
 
       Coord.correct(s, e);
-      Coord diff = e.sub(s);
+      Coord diff = e.translate(-s.getX(), -s.getY(), -s.getZ());
 
       int radius = diff.getX();
       radius = max(radius, diff.getY());

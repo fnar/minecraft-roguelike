@@ -67,7 +67,7 @@ public class RectPyramid implements IShape {
       dir = Cardinal.NORTH;
 
       diff = new Coord(e);
-      diff.sub(s);
+      diff.translate(-s.getX(), -s.getY(), -s.getZ());
 
       double hx = Math.sqrt(Math.pow(diff.getX(), 2) + Math.pow(diff.getY(), 2));
       thetaX = Math.acos((double) diff.getY() / hx);
