@@ -15,11 +15,11 @@ import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
-public class DungeonCorner extends DungeonBase {
+public class CornerRoom extends DungeonBase {
 
   public static final MetaBlock AIR = BlockType.get(BlockType.AIR);
 
-  public DungeonCorner(RoomSetting roomSetting) {
+  public CornerRoom(RoomSetting roomSetting) {
     super(roomSetting);
   }
 

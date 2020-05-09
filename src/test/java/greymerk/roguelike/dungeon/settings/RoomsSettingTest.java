@@ -12,7 +12,7 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.RoomIterator;
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
-import greymerk.roguelike.dungeon.rooms.prototype.DungeonCorner;
+import greymerk.roguelike.dungeon.rooms.prototype.CornerRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsPit;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsWood;
 
@@ -111,7 +111,7 @@ public class RoomsSettingTest {
     Dungeon.settingsResolver = new SettingsResolver(new SettingsContainer());
     Random random = new Random();
     RoomsSetting rooms = new RoomsSetting();
-    assertThat(new RoomIterator(rooms, random).getDungeonRoom()).isInstanceOf(DungeonCorner.class);
+    assertThat(new RoomIterator(rooms, random).getDungeonRoom()).isInstanceOf(CornerRoom.class);
 
     rooms = new RoomsSetting();
     rooms.add(RoomType.CAKE.newSingleRoomSetting());
@@ -119,7 +119,7 @@ public class RoomsSettingTest {
     RoomIterator roomIterator = new RoomIterator(rooms, random);
     assertThat(roomIterator.getDungeonRoom()).isInstanceOf(DungeonsWood.class);
     assertThat(roomIterator.getDungeonRoom()).isInstanceOf(DungeonsWood.class);
-    assertThat(roomIterator.getDungeonRoom()).isInstanceOf(DungeonCorner.class);
+    assertThat(roomIterator.getDungeonRoom()).isInstanceOf(CornerRoom.class);
 
     rooms = new RoomsSetting();
     rooms.add(RoomType.PIT.newSingleRoomSetting());
