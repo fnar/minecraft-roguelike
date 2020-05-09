@@ -76,7 +76,7 @@ public class DungeonPyramidSpawner extends DungeonBase {
       // pillar
       cursor = new Coord(x, y, z);
       cursor.translate(dir, 3);
-      cursor.translate(dir.left(), 3);
+      cursor.translate(dir.antiClockwise(), 3);
       start = new Coord(cursor);
       cursor.translate(Cardinal.UP, 3);
       end = new Coord(cursor);
@@ -88,12 +88,12 @@ public class DungeonPyramidSpawner extends DungeonBase {
       cursor.translate(Cardinal.UP, 4);
       cursor.translate(dir, 2);
       blocks.set(editor, rand, cursor);
-      cursor.translate(dir.left(), 2);
+      cursor.translate(dir.antiClockwise(), 2);
       blocks.set(editor, rand, cursor);
 
       cursor = new Coord(x, y, z);
       cursor.translate(Cardinal.UP, 5);
-      cursor.translate(dir.left());
+      cursor.translate(dir.antiClockwise());
       air.set(editor, cursor);
       cursor.translate(Cardinal.UP);
       air.set(editor, cursor);

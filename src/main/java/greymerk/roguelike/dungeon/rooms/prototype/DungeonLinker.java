@@ -63,16 +63,16 @@ public class DungeonLinker extends DungeonBase {
       end = new Coord(start);
       end.translate(Cardinal.UP, 8);
       start.translate(Cardinal.DOWN);
-      start.translate(dir.left(), 4);
-      end.translate(dir.right(), 4);
+      start.translate(dir.antiClockwise(), 4);
+      end.translate(dir.clockwise(), 4);
       RectSolid.fill(editor, rand, start, end, bars, true, false);
 
       start = new Coord(origin);
       end = new Coord(origin);
       start.translate(dir, 3);
-      start.translate(dir.left(), 3);
+      start.translate(dir.antiClockwise(), 3);
       end.translate(dir, 4);
-      end.translate(dir.left(), 4);
+      end.translate(dir.antiClockwise(), 4);
       end.translate(Cardinal.UP, 8);
       RectSolid.fill(editor, rand, start, end, pillar);
     }

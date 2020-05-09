@@ -74,7 +74,7 @@ public class BrickRoom extends DungeonBase {
       cursor.translate(UP, 5);
       stair.setOrientation(dir.reverse(), true);
       stair.set(editor, rand, cursor, false, true);
-      cursor.translate(dir.left(), 1);
+      cursor.translate(dir.antiClockwise(), 1);
       blocks.set(editor, rand, cursor, false, true);
 
       cursor = new Coord(x, y, z);
@@ -87,7 +87,7 @@ public class BrickRoom extends DungeonBase {
       // pillar
       cursor = new Coord(x, y, z);
       cursor.translate(dir, 3);
-      cursor.translate(dir.left(), 3);
+      cursor.translate(dir.antiClockwise(), 3);
       start = new Coord(cursor);
       cursor.translate(UP, 2);
       end = new Coord(cursor);
@@ -108,7 +108,7 @@ public class BrickRoom extends DungeonBase {
       // layer above pillars
       cursor = new Coord(x, y, z);
       cursor.translate(dir, 2);
-      cursor.translate(dir.left(), 2);
+      cursor.translate(dir.antiClockwise(), 2);
       cursor.translate(UP, 4);
       blocks.set(editor, rand, cursor, false, true);
 
@@ -123,7 +123,7 @@ public class BrickRoom extends DungeonBase {
 
       cursor = new Coord(x, y, z);
       cursor.translate(dir, 1);
-      cursor.translate(dir.left(), 1);
+      cursor.translate(dir.antiClockwise(), 1);
       cursor.translate(UP, 5);
       blocks.set(editor, rand, cursor, false, true);
 

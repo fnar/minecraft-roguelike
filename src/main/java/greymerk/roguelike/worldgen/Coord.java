@@ -4,6 +4,13 @@ import net.minecraft.util.math.BlockPos;
 
 import java.util.Objects;
 
+import static greymerk.roguelike.worldgen.Cardinal.DOWN;
+import static greymerk.roguelike.worldgen.Cardinal.EAST;
+import static greymerk.roguelike.worldgen.Cardinal.NORTH;
+import static greymerk.roguelike.worldgen.Cardinal.SOUTH;
+import static greymerk.roguelike.worldgen.Cardinal.UP;
+import static greymerk.roguelike.worldgen.Cardinal.WEST;
+
 public class Coord {
 
   private int x;
@@ -65,33 +72,33 @@ public class Coord {
     return z;
   }
 
+  public Coord copy() {
+    return new Coord(this);
+  }
+
   public Coord add(Cardinal dir) {
     return new Coord(this).translate(dir, 1);
   }
 
   public Coord translate(Cardinal dir, int amount) {
     switch (dir) {
-      case EAST:
-        x += amount;
-        return this;
-      case WEST:
-        x -= amount;
-        return this;
       case UP:
-        y += amount;
-        return this;
+        return up(amount);
       case DOWN:
-        y -= amount;
-        return this;
+        return down(amount);
       case NORTH:
-        z -= amount;
-        return this;
+        return north(amount);
+      case EAST:
+        return east(amount);
       case SOUTH:
-        z += amount;
+        return south(amount);
+      case WEST:
+        return west(amount);
+      default:
         return this;
     }
-    return this;
   }
+
 
   public Coord translate(int x, int y, int z) {
     this.x += x;
@@ -106,6 +113,36 @@ public class Coord {
 
   public Coord translate(Cardinal dir) {
     translate(dir, 1);
+    return this;
+  }
+
+  public Coord up(int amount) {
+    this.y += amount;
+    return this;
+  }
+
+  public Coord down(int amount) {
+    this.y -= amount;
+    return this;
+  }
+
+  public Coord north(int amount) {
+    this.z -= amount;
+    return this;
+  }
+
+  public Coord east(int amount) {
+    this.x += amount;
+    return this;
+  }
+
+  public Coord south(int amount) {
+    this.z += amount;
+    return this;
+  }
+
+  public Coord west(int amount) {
+    this.x -= amount;
     return this;
   }
 
@@ -132,7 +169,7 @@ public class Coord {
     if (
         Math.abs(ydiff) > Math.abs(xdiff)
             && Math.abs(ydiff) > Math.abs(zdiff)) {
-      return Cardinal.UP;
+      return UP;
     }
 
 

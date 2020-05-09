@@ -49,9 +49,9 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
 
     s = new Coord(start);
     e = new Coord(end);
-    s.translate(dir.left(), 3);
+    s.translate(dir.antiClockwise(), 3);
     s.translate(Cardinal.UP, 3);
-    e.translate(dir.right(), 3);
+    e.translate(dir.clockwise(), 3);
     e.translate(Cardinal.DOWN, 3);
     RectSolid.fill(editor, rand, s, e, theme.getPrimary().getWall());
   }
@@ -145,9 +145,9 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
     Cardinal dir = getDirection();
     s = new Coord(start);
     e = new Coord(end);
-    s.translate(dir.left(), 2);
+    s.translate(dir.antiClockwise(), 2);
     s.translate(Cardinal.UP, 3);
-    e.translate(dir.right(), 2);
+    e.translate(dir.clockwise(), 2);
     e.translate(Cardinal.DOWN, 1);
     return new BoundingBox(s, e);
   }

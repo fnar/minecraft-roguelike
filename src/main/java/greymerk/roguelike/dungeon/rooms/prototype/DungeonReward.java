@@ -153,7 +153,7 @@ public class DungeonReward extends DungeonBase {
 
       }
 
-      Cardinal o = dir.left();
+      Cardinal o = dir.antiClockwise();
 
       start = new Coord(x, y, z);
       start.translate(dir, 6);

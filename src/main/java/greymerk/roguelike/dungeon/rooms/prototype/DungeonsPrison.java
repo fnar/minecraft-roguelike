@@ -44,7 +44,7 @@ public class DungeonsPrison extends DungeonBase {
     for (Cardinal dir : Cardinal.directions) {
       cursor = new Coord(origin);
       cursor.translate(dir, 3);
-      cursor.translate(dir.left(), 3);
+      cursor.translate(dir.antiClockwise(), 3);
       pillar(editor, rand, settings, cursor, 4);
     }
 
@@ -52,10 +52,10 @@ public class DungeonsPrison extends DungeonBase {
       List<Cardinal> doors = new ArrayList<>();
 
       if (Arrays.asList(entrances).contains(dir)) {
-        doors.add(dir.right());
+        doors.add(dir.clockwise());
       }
 
-      if (Arrays.asList(entrances).contains(dir.left())) {
+      if (Arrays.asList(entrances).contains(dir.antiClockwise())) {
         doors.add(dir.reverse());
       }
 
@@ -65,7 +65,7 @@ public class DungeonsPrison extends DungeonBase {
 
       cursor = new Coord(origin);
       cursor.translate(dir, 6);
-      cursor.translate(dir.left(), 6);
+      cursor.translate(dir.antiClockwise(), 6);
 
       cell(editor, rand, settings, cursor, doors, rand.nextBoolean());
     }
@@ -122,7 +122,7 @@ public class DungeonsPrison extends DungeonBase {
     for (Cardinal dir : Cardinal.directions) {
       cursor = new Coord(origin);
       cursor.translate(dir, 3);
-      cursor.translate(dir.left(), 3);
+      cursor.translate(dir.antiClockwise(), 3);
       pillar(editor, rand, settings, cursor, 4);
     }
 
@@ -208,8 +208,8 @@ public class DungeonsPrison extends DungeonBase {
     end = new Coord(start);
     start.translate(dir);
     end.translate(dir.reverse(), 3);
-    start.translate(dir.left());
-    end.translate(dir.right());
+    start.translate(dir.antiClockwise());
+    end.translate(dir.clockwise());
     end.translate(Cardinal.UP);
     RectSolid.fill(editor, rand, start, end, air, true, true);
 
@@ -223,8 +223,8 @@ public class DungeonsPrison extends DungeonBase {
     start = new Coord(origin);
     start.translate(Cardinal.UP, 4);
     end = new Coord(start);
-    start.translate(dir.left());
-    end.translate(dir.right());
+    start.translate(dir.antiClockwise());
+    end.translate(dir.clockwise());
     start.translate(dir.reverse(), 3);
     end.translate(dir, 2);
 
@@ -234,16 +234,16 @@ public class DungeonsPrison extends DungeonBase {
       start = new Coord(cursor);
       start.translate(d, 2);
       end = new Coord(start);
-      start.translate(d.left(), 3);
-      end.translate(d.right(), 3);
+      start.translate(d.antiClockwise(), 3);
+      end.translate(d.clockwise(), 3);
       stair.setOrientation(d.reverse(), true).fill(editor, rand, new RectSolid(start, end));
 
       cursor.translate(Cardinal.UP, 1);
       start = new Coord(cursor);
       start.translate(d);
       end = new Coord(start);
-      start.translate(d.left(), 3);
-      end.translate(d.right(), 3);
+      start.translate(d.antiClockwise(), 3);
+      end.translate(d.clockwise(), 3);
       stair.setOrientation(d.reverse(), true).fill(editor, rand, new RectSolid(start, end));
     }
 
@@ -253,8 +253,8 @@ public class DungeonsPrison extends DungeonBase {
     start = new Coord(cursor);
     start.translate(dir, 2);
     end = new Coord(start);
-    start.translate(dir.left(), 2);
-    end.translate(dir.right(), 2);
+    start.translate(dir.antiClockwise(), 2);
+    end.translate(dir.clockwise(), 2);
     stair.setOrientation(dir.reverse(), true).fill(editor, rand, new RectSolid(start, end));
 
     cursor.translate(Cardinal.UP, 1);
@@ -262,8 +262,8 @@ public class DungeonsPrison extends DungeonBase {
     start = new Coord(cursor);
     start.translate(dir, 1);
     end = new Coord(start);
-    start.translate(dir.left(), 1);
-    end.translate(dir.right(), 1);
+    start.translate(dir.antiClockwise(), 1);
+    end.translate(dir.clockwise(), 1);
     stair.setOrientation(dir.reverse(), true).fill(editor, rand, new RectSolid(start, end));
   }
 
@@ -324,8 +324,8 @@ public class DungeonsPrison extends DungeonBase {
       cursor.translate(dir, 2);
       start = new Coord(cursor);
       end = new Coord(cursor);
-      start.translate(dir.left());
-      end.translate(dir.right());
+      start.translate(dir.antiClockwise());
+      end.translate(dir.clockwise());
       end.translate(Cardinal.UP, 2);
       RectSolid.fill(editor, rand, start, end, bar);
 

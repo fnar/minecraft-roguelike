@@ -53,7 +53,7 @@ public enum Cardinal {
     }
   }
 
-  public Cardinal left() {
+  public Cardinal antiClockwise() {
     switch (this) {
       case NORTH:
         return WEST;
@@ -68,7 +68,7 @@ public enum Cardinal {
     }
   }
 
-  public Cardinal right() {
+  public Cardinal clockwise() {
     switch (this) {
       case NORTH:
         return EAST;

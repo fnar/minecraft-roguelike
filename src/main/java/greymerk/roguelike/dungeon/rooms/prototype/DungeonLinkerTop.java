@@ -59,18 +59,18 @@ public class DungeonLinkerTop extends DungeonBase {
       start = new Coord(origin);
       end = new Coord(origin);
       start.translate(dir, 3);
-      start.translate(dir.left(), 3);
+      start.translate(dir.antiClockwise(), 3);
       end.translate(dir, 4);
-      end.translate(dir.left(), 4);
+      end.translate(dir.antiClockwise(), 4);
       end.translate(Cardinal.UP, 4);
       RectSolid.fill(editor, rand, start, end, pillar, true, true);
 
       start = new Coord(origin);
       start.translate(dir, 3);
-      start.translate(dir.left(), 2);
+      start.translate(dir.antiClockwise(), 2);
       start.translate(Cardinal.UP, 4);
       end = new Coord(start);
-      end.translate(dir.right(), 4);
+      end.translate(dir.clockwise(), 4);
       RectSolid.fill(editor, rand, start, end, wall, true, true);
       start.translate(dir.reverse());
       end.translate(dir.reverse());

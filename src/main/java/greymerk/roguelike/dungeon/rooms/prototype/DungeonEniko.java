@@ -105,15 +105,15 @@ public class DungeonEniko extends DungeonBase {
         chests.add(new Coord(c));
       }
 
-      cursor.translate(dir.left(), 5);
+      cursor.translate(dir.antiClockwise(), 5);
       pillar(editor, rand, theme, cursor);
 
       if (Arrays.asList(entrances).contains(dir)) {
         start = new Coord(origin);
         start.translate(Cardinal.DOWN);
         end = new Coord(start);
-        start.translate(dir.left());
-        end.translate(dir.right());
+        start.translate(dir.antiClockwise());
+        end.translate(dir.clockwise());
         end.translate(dir, 6);
         RectSolid.fill(editor, rand, start, end, floor, true, true);
       }

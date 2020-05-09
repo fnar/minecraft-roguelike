@@ -97,29 +97,29 @@ public class FortressRoom extends DungeonBase {
       start.translate(UP, 5);
       start.translate(dir, 4);
       end = new Coord(start);
-      start.translate(dir.left(), 6);
-      end.translate(dir.right(), 6);
+      start.translate(dir.antiClockwise(), 6);
+      end.translate(dir.clockwise(), 6);
       RectSolid.fill(editor, rand, start, end, wall);
 
       start = new Coord(origin);
       start.translate(UP, 5);
       start.translate(dir, 6);
       end = new Coord(start);
-      start.translate(dir.left(), 6);
-      end.translate(dir.right(), 6);
+      start.translate(dir.antiClockwise(), 6);
+      end.translate(dir.clockwise(), 6);
       RectSolid.fill(editor, rand, start, end, wall);
 
       start = new Coord(origin);
       start.translate(DOWN);
       start.translate(dir, 4);
       end = new Coord(start);
-      start.translate(dir.left(), 2);
-      end.translate(dir.right(), 2);
+      start.translate(dir.antiClockwise(), 2);
+      end.translate(dir.clockwise(), 2);
       stair.setOrientation(dir.reverse(), false).fill(editor, rand, new RectSolid(start, end));
 
       cursor = new Coord(origin);
       cursor.translate(dir, 4);
-      cursor.translate(dir.left(), 4);
+      cursor.translate(dir.antiClockwise(), 4);
       supportPillar(editor, rand, levelSettings, cursor);
 
       for (Cardinal o : dir.orthogonal()) {

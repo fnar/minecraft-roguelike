@@ -56,9 +56,9 @@ public class DungeonsEnchant extends DungeonBase {
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(dir.reverse(), 2);
-    start.translate(dir.left(), 4);
+    start.translate(dir.antiClockwise(), 4);
     end.translate(dir, 2);
-    end.translate(dir.right(), 4);
+    end.translate(dir.clockwise(), 4);
     end.translate(Cardinal.UP, 3);
     RectSolid.fill(editor, rand, start, end, air);
 
@@ -66,8 +66,8 @@ public class DungeonsEnchant extends DungeonBase {
     start.translate(dir.reverse(), 2);
     end = new Coord(start);
     end.translate(dir.reverse());
-    start.translate(dir.left(), 2);
-    end.translate(dir.right(), 2);
+    start.translate(dir.antiClockwise(), 2);
+    end.translate(dir.clockwise(), 2);
     end.translate(Cardinal.UP, 3);
     RectSolid.fill(editor, rand, start, end, air);
 
@@ -75,15 +75,15 @@ public class DungeonsEnchant extends DungeonBase {
     start.translate(Cardinal.UP, 4);
     end = new Coord(start);
     end.translate(dir, 3);
-    start.translate(dir.left(), 3);
-    end.translate(dir.right(), 3);
+    start.translate(dir.antiClockwise(), 3);
+    end.translate(dir.clockwise(), 3);
     RectSolid.fill(editor, rand, start, end, wall);
 
     start = new Coord(origin);
     start.translate(Cardinal.DOWN);
     end = new Coord(start);
-    start.translate(dir.left(), 4);
-    end.translate(dir.right(), 4);
+    start.translate(dir.antiClockwise(), 4);
+    end.translate(dir.clockwise(), 4);
     start.translate(dir.reverse(), 2);
     end.translate(dir, 2);
     theme.getPrimary().getFloor().fill(editor, rand, new RectSolid(start, end));
@@ -92,8 +92,8 @@ public class DungeonsEnchant extends DungeonBase {
     start.translate(dir.reverse(), 4);
     end = new Coord(start);
     end.translate(Cardinal.UP, 3);
-    start.translate(dir.left());
-    end.translate(dir.right());
+    start.translate(dir.antiClockwise());
+    end.translate(dir.clockwise());
     RectSolid.fill(editor, rand, start, end, wall, false, true);
 
     cursor = new Coord(origin);
@@ -101,7 +101,7 @@ public class DungeonsEnchant extends DungeonBase {
     for (Cardinal d : Cardinal.directions) {
       start = new Coord(cursor);
       start.translate(d, 2);
-      start.translate(d.left(), 2);
+      start.translate(d.antiClockwise(), 2);
       end = new Coord(start);
       end.translate(Cardinal.UP, 3);
       RectSolid.fill(editor, rand, start, end, pillar);
@@ -113,8 +113,8 @@ public class DungeonsEnchant extends DungeonBase {
       start = new Coord(cursor);
       start.translate(d, 3);
       end = new Coord(start);
-      start.translate(d.left());
-      end.translate(d.right());
+      start.translate(d.antiClockwise());
+      end.translate(d.clockwise());
       end.translate(Cardinal.UP, 2);
       RectSolid.fill(editor, rand, start, end, panel);
 
@@ -122,8 +122,8 @@ public class DungeonsEnchant extends DungeonBase {
       start.translate(d, 2);
       start.translate(Cardinal.UP, 3);
       end = new Coord(start);
-      start.translate(d.left());
-      end.translate(d.right());
+      start.translate(d.antiClockwise());
+      end.translate(d.clockwise());
       stair.setOrientation(d.reverse(), true).fill(editor, rand, new RectSolid(start, end));
       start.translate(d.reverse());
       start.translate(Cardinal.UP);
@@ -185,7 +185,7 @@ public class DungeonsEnchant extends DungeonBase {
       cursor.translate(Cardinal.UP, 5);
       cursor.translate(d);
       stair.setOrientation(d.reverse(), true).set(editor, cursor);
-      cursor.translate(d.left());
+      cursor.translate(d.antiClockwise());
       wall.set(editor, rand, cursor);
 
     }
@@ -195,8 +195,8 @@ public class DungeonsEnchant extends DungeonBase {
     end = new Coord(start);
     start.translate(dir, 3);
     end.translate(dir, 7);
-    start.translate(dir.left(), 2);
-    end.translate(dir.right(), 2);
+    start.translate(dir.antiClockwise(), 2);
+    end.translate(dir.clockwise(), 2);
     RectSolid.fill(editor, rand, start, end, panel);
 
     for (Cardinal o : dir.orthogonal()) {
@@ -227,8 +227,8 @@ public class DungeonsEnchant extends DungeonBase {
       start = new Coord(origin);
       start.translate(o, 4);
       end = new Coord(start);
-      start.translate(o.left());
-      end.translate(o.right());
+      start.translate(o.antiClockwise());
+      end.translate(o.clockwise());
       stair.setOrientation(o.reverse(), true).fill(editor, rand, new RectSolid(start, end));
       start.translate(Cardinal.UP, 3);
       end.translate(Cardinal.UP, 3);
@@ -251,8 +251,8 @@ public class DungeonsEnchant extends DungeonBase {
       start = new Coord(origin);
       start.translate(o, 5);
       end = new Coord(start);
-      start.translate(o.left());
-      end.translate(o.right());
+      start.translate(o.antiClockwise());
+      end.translate(o.clockwise());
       start.translate(Cardinal.UP);
       end.translate(Cardinal.UP, 2);
       RectSolid.fill(editor, rand, start, end, panel);
@@ -285,8 +285,8 @@ public class DungeonsEnchant extends DungeonBase {
       start.translate(Cardinal.UP);
       start.translate(o, 4);
       end = new Coord(start);
-      start.translate(o.left());
-      end.translate(o.right());
+      start.translate(o.antiClockwise());
+      end.translate(o.clockwise());
       chests.addAll(new RectSolid(start, end).get());
     }
 
@@ -316,8 +316,8 @@ public class DungeonsEnchant extends DungeonBase {
     end = new Coord(start);
     start.translate(dir.reverse(), 4);
     end.translate(dir, 8);
-    start.translate(dir.left(), 5);
-    end.translate(dir.right(), 5);
+    start.translate(dir.antiClockwise(), 5);
+    end.translate(dir.clockwise(), 5);
     start.translate(Cardinal.DOWN);
     end.translate(Cardinal.UP, 2);
 
