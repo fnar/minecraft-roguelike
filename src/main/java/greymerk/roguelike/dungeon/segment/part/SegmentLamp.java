@@ -33,66 +33,66 @@ public class SegmentLamp extends SegmentBase {
     Cardinal[] orth = dir.orthogonal();
 
     start = new Coord(origin);
-    start.add(dir, 2);
+    start.translate(dir, 2);
     end = new Coord(start);
-    start.add(orth[0]);
-    end.add(orth[1]);
-    end.add(Cardinal.UP, 2);
+    start.translate(orth[0]);
+    end.translate(orth[1]);
+    end.translate(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, air);
 
     start = new Coord(origin);
-    start.add(Cardinal.UP, 3);
+    start.translate(Cardinal.UP, 3);
     end = new Coord(start);
-    start.add(dir);
-    start.add(orth[0]);
-    end.add(dir.reverse());
-    end.add(orth[1]);
+    start.translate(dir);
+    start.translate(orth[0]);
+    end.translate(dir.reverse());
+    end.translate(orth[1]);
     RectSolid.fill(editor, rand, start, end, air);
 
     start = new Coord(origin);
-    start.add(dir, 3);
+    start.translate(dir, 3);
     end = new Coord(start);
-    start.add(orth[0]);
-    end.add(orth[1]);
-    end.add(dir, 2);
-    end.add(Cardinal.UP, 6);
+    start.translate(orth[0]);
+    end.translate(orth[1]);
+    end.translate(dir, 2);
+    end.translate(Cardinal.UP, 6);
     RectSolid.fill(editor, rand, start, end, wall);
     start = new Coord(end);
-    start.add(Cardinal.DOWN, 2);
-    start.add(dir.reverse(), 6);
-    start.add(orth[0], 2);
+    start.translate(Cardinal.DOWN, 2);
+    start.translate(dir.reverse(), 6);
+    start.translate(orth[0], 2);
     RectSolid.fill(editor, rand, start, end, wall);
 
     for (Cardinal side : orth) {
 
       cursor = new Coord(origin);
-      cursor.add(dir, 2);
-      cursor.add(side);
+      cursor.translate(dir, 2);
+      cursor.translate(side);
       stair.setOrientation(side.reverse(), false).set(editor, cursor);
-      cursor.add(Cardinal.UP, 2);
+      cursor.translate(Cardinal.UP, 2);
       stair.setOrientation(side.reverse(), true).set(editor, cursor);
     }
 
     cursor = new Coord(origin);
-    cursor.add(Cardinal.UP, 4);
+    cursor.translate(Cardinal.UP, 4);
     overheadLight(editor, rand, theme, cursor);
 
     cursor = new Coord(origin);
-    cursor.add(Cardinal.UP);
-    cursor.add(dir, 2);
+    cursor.translate(Cardinal.UP);
+    cursor.translate(dir, 2);
 
     Coord lever = new Coord(cursor);
-    cursor.add(dir);
+    cursor.translate(dir);
     ColorBlock.get(ColorBlock.CLAY, DyeColor.ORANGE).set(editor, cursor);
     Lever.generate(editor, dir.reverse(), lever, false);
-    cursor.add(dir);
+    cursor.translate(dir);
     Torch.generate(editor, Torch.REDSTONE, dir, cursor);
-    cursor.add(Cardinal.UP, 2);
+    cursor.translate(Cardinal.UP, 2);
     Torch.generate(editor, Torch.REDSTONE, Cardinal.UP, cursor);
-    cursor.add(Cardinal.UP, 2);
+    cursor.translate(Cardinal.UP, 2);
     start = new Coord(cursor);
     end = new Coord(start);
-    end.add(dir.reverse(), 3);
+    end.translate(dir.reverse(), 3);
     MetaBlock wire = BlockType.get(BlockType.REDSTONE_WIRE);
     RectSolid.fill(editor, rand, start, end, wire);
   }
@@ -107,14 +107,14 @@ public class SegmentLamp extends SegmentBase {
 
     for (Cardinal dir : Cardinal.directions) {
       cursor = new Coord(origin);
-      cursor.add(dir);
+      cursor.translate(dir);
       stair.setOrientation(dir.reverse(), true).set(editor, cursor);
-      cursor.add(dir.orthogonal()[0]);
+      cursor.translate(dir.orthogonal()[0]);
       stair.set(editor, cursor);
     }
 
     cursor = new Coord(origin);
-    cursor.add(Cardinal.UP);
+    cursor.translate(Cardinal.UP);
     BlockType.get(BlockType.REDSTONE_LAMP).set(editor, cursor);
   }
 

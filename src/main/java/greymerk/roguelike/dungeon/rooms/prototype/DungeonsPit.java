@@ -167,13 +167,13 @@ public class DungeonsPit extends DungeonBase {
     Coord cursor;
 
     start = new Coord(origin);
-    start.add(dir, 3);
-    start.add(Cardinal.DOWN);
-    start.add(dir.left());
+    start.translate(dir, 3);
+    start.translate(Cardinal.DOWN);
+    start.translate(dir.left());
     end = new Coord(origin);
-    end.add(dir, 6);
-    end.add(Cardinal.UP, 3);
-    end.add(dir.right());
+    end.translate(dir, 6);
+    end.translate(Cardinal.UP, 3);
+    end.translate(dir.right());
 
     for (Coord cell : new RectHollow(start, end)) {
       if (editor.isAirBlock(cell)) {
@@ -183,20 +183,20 @@ public class DungeonsPit extends DungeonBase {
     }
 
     cursor = new Coord(origin);
-    cursor.add(dir, 2);
+    cursor.translate(dir, 2);
     plate.set(editor, cursor);
 
     cursor = new Coord(origin);
-    cursor.add(Cardinal.DOWN);
-    cursor.add(dir, 3);
+    cursor.translate(Cardinal.DOWN);
+    cursor.translate(dir, 3);
     Torch.generate(editor, Torch.REDSTONE, dir, cursor);
-    cursor.add(dir);
+    cursor.translate(dir);
     wire.set(editor, cursor);
-    cursor.add(Cardinal.UP);
-    cursor.add(dir);
+    cursor.translate(Cardinal.UP);
+    cursor.translate(dir);
     Torch.generate(editor, Torch.REDSTONE_UNLIT, Cardinal.UP, cursor);
-    cursor.add(dir.reverse());
-    cursor.add(Cardinal.UP);
+    cursor.translate(dir.reverse());
+    cursor.translate(Cardinal.UP);
     Piston.generate(editor, cursor, dir.reverse(), true);
   }
 

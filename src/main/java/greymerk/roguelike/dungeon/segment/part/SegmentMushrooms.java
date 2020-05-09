@@ -36,25 +36,25 @@ public class SegmentMushrooms extends SegmentBase {
 
     Cardinal[] orth = wallDirection.orthogonal();
     start = new Coord(origin);
-    start.add(wallDirection, 2);
+    start.translate(wallDirection, 2);
     end = new Coord(start);
-    start.add(orth[0], 1);
-    end.add(orth[1], 1);
-    end.add(Cardinal.UP, 1);
+    start.translate(orth[0], 1);
+    end.translate(orth[1], 1);
+    end.translate(Cardinal.UP, 1);
     RectSolid.fill(editor, rand, start, end, air);
-    start.add(Cardinal.DOWN, 1);
-    end.add(Cardinal.DOWN, 2);
+    start.translate(Cardinal.DOWN, 1);
+    end.translate(Cardinal.DOWN, 2);
 
     RectSolid.fill(editor, rand, start, end, BlockType.get(BlockType.MYCELIUM));
-    start.add(Cardinal.UP, 1);
-    end.add(Cardinal.UP, 1);
+    start.translate(Cardinal.UP, 1);
+    end.translate(Cardinal.UP, 1);
     RectSolid.fill(editor, rand, start, end, mushrooms);
 
     for (Cardinal d : orth) {
       cursor = new Coord(origin);
-      cursor.add(wallDirection, 2);
-      cursor.add(d, 1);
-      cursor.add(Cardinal.UP, 1);
+      cursor.translate(wallDirection, 2);
+      cursor.translate(d, 1);
+      cursor.translate(Cardinal.UP, 1);
       stair.setOrientation(d.reverse(), true);
       stair.set(editor, cursor);
     }

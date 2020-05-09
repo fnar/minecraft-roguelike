@@ -30,22 +30,22 @@ public class PrisonCell implements IAlcove {
     MetaBlock plate = BlockType.get(BlockType.PRESSURE_PLATE_STONE);
 
     Coord start = new Coord(origin);
-    start.add(dir, RECESSED);
+    start.translate(dir, RECESSED);
     Coord end = new Coord(start);
-    start.add(new Coord(-2, -1, -2));
-    end.add(new Coord(2, 3, 2));
+    start.translate(new Coord(-2, -1, -2));
+    end.translate(new Coord(2, 3, 2));
     RectHollow.fill(editor, rand, start, end, walls);
 
     start = new Coord(origin);
     end = new Coord(origin);
-    end.add(dir, RECESSED);
-    end.add(Cardinal.UP);
+    end.translate(dir, RECESSED);
+    end.translate(Cardinal.UP);
     RectSolid.fill(editor, rand, start, end, air);
 
     Coord cursor = new Coord(origin);
-    cursor.add(dir, RECESSED - 1);
+    cursor.translate(dir, RECESSED - 1);
     plate.set(editor, cursor);
-    cursor.add(Cardinal.DOWN);
+    cursor.translate(Cardinal.DOWN);
     if (rand.nextBoolean()) {
       SpawnerSettings spawners = settings.getSpawners().isEmpty()
           ? MobType.ZOMBIE.newSpawnerSetting()
@@ -54,7 +54,7 @@ public class PrisonCell implements IAlcove {
     }
 
     cursor = new Coord(origin);
-    cursor.add(dir, 3);
+    cursor.translate(dir, 3);
     theme.getSecondary().getDoor().generate(editor, cursor, dir.reverse());
   }
 
@@ -62,7 +62,7 @@ public class PrisonCell implements IAlcove {
   public boolean isValidLocation(IWorldEditor editor, Coord origin, Cardinal dir) {
 
     Coord centre = new Coord(origin);
-    centre.add(dir, RECESSED);
+    centre.translate(dir, RECESSED);
     int x = centre.getX();
     int y = centre.getY();
     int z = centre.getZ();

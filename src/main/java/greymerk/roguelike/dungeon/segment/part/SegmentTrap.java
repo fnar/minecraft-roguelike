@@ -39,49 +39,49 @@ public class SegmentTrap extends SegmentBase {
     Coord end;
 
     start = new Coord(origin);
-    start.add(dir, 2);
+    start.translate(dir, 2);
     end = new Coord(start);
-    start.add(orth[0]);
-    end.add(orth[1]);
-    end.add(Cardinal.UP, 2);
+    start.translate(orth[0]);
+    end.translate(orth[1]);
+    end.translate(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, vine);
-    start.add(dir);
-    end.add(dir);
+    start.translate(dir);
+    end.translate(dir);
     RectSolid.fill(editor, rand, start, end, wall);
 
     cursor = new Coord(origin);
-    cursor.add(Cardinal.UP);
-    cursor.add(dir, 3);
+    cursor.translate(Cardinal.UP);
+    cursor.translate(dir, 3);
     air.set(editor, cursor);
 
     for (Cardinal side : orth) {
       cursor = new Coord(origin);
-      cursor.add(dir, 2);
-      cursor.add(side);
+      cursor.translate(dir, 2);
+      cursor.translate(side);
       stair.setOrientation(side.reverse(), false).set(editor, cursor);
-      cursor.add(Cardinal.UP, 2);
+      cursor.translate(Cardinal.UP, 2);
       stair.setOrientation(side.reverse(), true).set(editor, cursor);
     }
 
     start = new Coord(origin);
     end = new Coord(start);
-    start.add(dir);
-    end.add(dir.reverse());
+    start.translate(dir);
+    end.translate(dir.reverse());
 
     RectSolid.fill(editor, rand, start, end, plate);
 
-    end.add(Cardinal.DOWN, 2);
+    end.translate(Cardinal.DOWN, 2);
     start = new Coord(end);
-    start.add(dir, 3);
+    start.translate(dir, 3);
 
     RectSolid.fill(editor, rand, start, end, wire);
 
     cursor = new Coord(start);
-    cursor.add(dir, 2);
+    cursor.translate(dir, 2);
     Torch.generate(editor, Torch.REDSTONE, dir, cursor);
-    cursor.add(Cardinal.UP, 2);
+    cursor.translate(Cardinal.UP, 2);
     Torch.generate(editor, Torch.REDSTONE, Cardinal.UP, cursor);
-    cursor.add(Cardinal.UP);
+    cursor.translate(Cardinal.UP);
     Dispenser.generate(editor, dir.reverse(), cursor);
 
     for (int i = 0; i < 5; i++) {

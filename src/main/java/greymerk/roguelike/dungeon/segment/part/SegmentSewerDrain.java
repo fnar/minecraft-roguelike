@@ -30,47 +30,47 @@ public class SegmentSewerDrain extends SegmentBase {
     Cardinal[] orth = dir.orthogonal();
 
     start = new Coord(origin);
-    start.add(Cardinal.DOWN);
+    start.translate(Cardinal.DOWN);
     end = new Coord(start);
-    start.add(orth[0]);
-    end.add(orth[1]);
+    start.translate(orth[0]);
+    end.translate(orth[1]);
     RectSolid.fill(editor, rand, start, end, air);
-    start.add(Cardinal.DOWN);
-    end.add(Cardinal.DOWN);
+    start.translate(Cardinal.DOWN);
+    end.translate(Cardinal.DOWN);
     RectSolid.fill(editor, rand, start, end, water, false, true);
 
     start = new Coord(origin);
-    start.add(dir, 2);
+    start.translate(dir, 2);
     end = new Coord(start);
-    start.add(orth[0]);
-    end.add(orth[1]);
-    end.add(Cardinal.UP, 2);
+    start.translate(orth[0]);
+    end.translate(orth[1]);
+    end.translate(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, air);
-    start.add(dir);
-    end.add(dir);
+    start.translate(dir);
+    end.translate(dir);
     RectSolid.fill(editor, rand, start, end, BlockType.get(BlockType.COBBLESTONE_MOSSY));
 
     for (Cardinal o : orth) {
       cursor = new Coord(origin);
-      cursor.add(dir, 2);
-      cursor.add(o);
+      cursor.translate(dir, 2);
+      cursor.translate(o);
       stair.setOrientation(o.reverse(), false).set(editor, cursor);
-      cursor.add(Cardinal.UP);
+      cursor.translate(Cardinal.UP);
       bars.set(editor, cursor);
-      cursor.add(Cardinal.UP);
+      cursor.translate(Cardinal.UP);
       stair.setOrientation(o.reverse(), true).set(editor, cursor);
     }
 
     start = new Coord(origin);
-    start.add(Cardinal.UP);
+    start.translate(Cardinal.UP);
     end = new Coord(start);
-    end.add(dir, 5);
+    end.translate(dir, 5);
     RectSolid.fill(editor, rand, start, end, air);
     water.set(editor, end);
 
     cursor = new Coord(origin);
-    cursor.add(Cardinal.DOWN);
-    cursor.add(dir);
+    cursor.translate(Cardinal.DOWN);
+    cursor.translate(dir);
     air.set(editor, cursor);
 
   }

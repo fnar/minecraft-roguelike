@@ -44,7 +44,7 @@ public enum LevelGenerator {
     Coord cursor = new Coord(start.getPosition());
     for (int i = 0; i < end.getPosition().getY() - start.getPosition().getY(); i++) {
       editor.spiralStairStep(rand, cursor, stair, settings.getTheme().getPrimary().getPillar());
-      cursor.add(Cardinal.UP);
+      cursor.translate(Cardinal.UP);
     }
   }
 }

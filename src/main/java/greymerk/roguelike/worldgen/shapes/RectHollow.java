@@ -44,8 +44,8 @@ public class RectHollow implements IShape {
     Coord innerStart = new Coord(start);
     Coord innerEnd = new Coord(end);
     Coord.correct(innerStart, innerEnd);
-    innerStart.add(new Coord(1, 1, 1));
-    innerEnd.add(new Coord(-1, -1, -1));
+    innerStart.translate(new Coord(1, 1, 1));
+    innerEnd.translate(new Coord(-1, -1, -1));
     RectSolid.fill(editor, rand, innerStart, innerEnd, BlockType.get(BlockType.AIR));
   }
 
@@ -91,13 +91,13 @@ public class RectHollow implements IShape {
 
       if (cursor.getZ() == c2.getZ() && cursor.getX() == c2.getX()) {
         cursor = new Coord(c1.getX(), cursor.getY(), c1.getZ());
-        cursor.add(Cardinal.UP);
+        cursor.translate(Cardinal.UP);
         return toReturn;
       }
 
       if (cursor.getX() == c2.getX()) {
         cursor = new Coord(c1.getX(), cursor.getY(), cursor.getZ());
-        cursor.add(Cardinal.SOUTH);
+        cursor.translate(Cardinal.SOUTH);
         return toReturn;
       }
 
@@ -108,9 +108,9 @@ public class RectHollow implements IShape {
               && cursor.getZ() != c2.getZ()
               && cursor.getX() == c1.getX()
       ) {
-        cursor.add(Cardinal.EAST, c2.getX() - c1.getX());
+        cursor.translate(Cardinal.EAST, c2.getX() - c1.getX());
       } else {
-        cursor.add(Cardinal.EAST);
+        cursor.translate(Cardinal.EAST);
       }
 
       return toReturn;

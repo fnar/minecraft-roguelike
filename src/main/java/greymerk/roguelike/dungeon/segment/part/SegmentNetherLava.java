@@ -28,43 +28,43 @@ public class SegmentNetherLava extends SegmentBase {
 
 
     cursor = new Coord(origin);
-    cursor.add(dir, 2);
+    cursor.translate(dir, 2);
     air.set(editor, cursor);
-    cursor.add(Cardinal.UP, 1);
+    cursor.translate(Cardinal.UP, 1);
     air.set(editor, cursor);
     cursor = new Coord(origin);
-    cursor.add(dir, 5);
+    cursor.translate(dir, 5);
     boolean isAir = editor.isAirBlock(cursor);
     IBlockFactory wall = theme.getSecondary().getWall();
 
     for (Cardinal orth : dir.orthogonal()) {
       start = new Coord(origin);
-      start.add(dir, 3);
+      start.translate(dir, 3);
       end = new Coord(start);
-      start.add(orth, 1);
-      start.add(Cardinal.UP, 2);
-      end.add(Cardinal.DOWN, 1);
+      start.translate(orth, 1);
+      start.translate(Cardinal.UP, 2);
+      end.translate(Cardinal.DOWN, 1);
       if (!isAir) {
         RectSolid.fill(editor, rand, start, end, air);
         lava.set(editor, start);
-        start.add(orth.reverse(), 1);
+        start.translate(orth.reverse(), 1);
         lava.set(editor, start);
       }
 
       cursor = new Coord(origin);
-      cursor.add(dir, 2);
+      cursor.translate(dir, 2);
 
       step.setOrientation(orth.reverse(), false);
-      cursor.add(orth, 1);
+      cursor.translate(orth, 1);
       step.set(editor, cursor);
 
       step.setOrientation(orth.reverse(), true);
-      cursor.add(Cardinal.UP, 1);
+      cursor.translate(Cardinal.UP, 1);
       step.set(editor, cursor);
 
-      cursor.add(Cardinal.UP, 1);
+      cursor.translate(Cardinal.UP, 1);
       wall.set(editor, rand, cursor);
-      cursor.add(orth.reverse(), 1);
+      cursor.translate(orth.reverse(), 1);
       wall.set(editor, rand, cursor);
     }
 

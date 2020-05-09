@@ -57,15 +57,15 @@ public class DungeonPyramidSpawner extends DungeonBase {
     Coord cursor;
 
     cursor = new Coord(x, y, z);
-    cursor.add(Cardinal.UP, 5);
+    cursor.translate(Cardinal.UP, 5);
     air.set(editor, cursor);
-    cursor.add(Cardinal.UP, 1);
+    cursor.translate(Cardinal.UP, 1);
     blocks.set(editor, rand, cursor);
 
     cursor = new Coord(x, y, z);
-    cursor.add(Cardinal.UP, 5);
+    cursor.translate(Cardinal.UP, 5);
     air.set(editor, cursor);
-    cursor.add(Cardinal.UP);
+    cursor.translate(Cardinal.UP);
     air.set(editor, cursor);
 
     // Chests
@@ -75,45 +75,45 @@ public class DungeonPyramidSpawner extends DungeonBase {
 
       // pillar
       cursor = new Coord(x, y, z);
-      cursor.add(dir, 3);
-      cursor.add(dir.left(), 3);
+      cursor.translate(dir, 3);
+      cursor.translate(dir.left(), 3);
       start = new Coord(cursor);
-      cursor.add(Cardinal.UP, 3);
+      cursor.translate(Cardinal.UP, 3);
       end = new Coord(cursor);
       RectSolid.fill(editor, rand, start, end, pillar);
-      cursor.add(Cardinal.UP, 1);
+      cursor.translate(Cardinal.UP, 1);
       blocks.set(editor, rand, cursor);
 
       cursor = new Coord(x, y, z);
-      cursor.add(Cardinal.UP, 4);
-      cursor.add(dir, 2);
+      cursor.translate(Cardinal.UP, 4);
+      cursor.translate(dir, 2);
       blocks.set(editor, rand, cursor);
-      cursor.add(dir.left(), 2);
+      cursor.translate(dir.left(), 2);
       blocks.set(editor, rand, cursor);
 
       cursor = new Coord(x, y, z);
-      cursor.add(Cardinal.UP, 5);
-      cursor.add(dir.left());
+      cursor.translate(Cardinal.UP, 5);
+      cursor.translate(dir.left());
       air.set(editor, cursor);
-      cursor.add(Cardinal.UP);
+      cursor.translate(Cardinal.UP);
       air.set(editor, cursor);
 
       for (Cardinal orth : dir.orthogonal()) {
 
         cursor = new Coord(x, y, z);
-        cursor.add(Cardinal.UP, 3);
-        cursor.add(orth);
-        cursor.add(dir, 3);
+        cursor.translate(Cardinal.UP, 3);
+        cursor.translate(orth);
+        cursor.translate(dir, 3);
         blocks.set(editor, rand, cursor);
 
         cursor = new Coord(x, y, z);
-        cursor.add(Cardinal.UP, 4);
-        cursor.add(dir, 2);
+        cursor.translate(Cardinal.UP, 4);
+        cursor.translate(dir, 2);
         blocks.set(editor, rand, cursor);
 
         cursor = new Coord(x, y, z);
-        cursor.add(dir, 3);
-        cursor.add(orth, 2);
+        cursor.translate(dir, 3);
+        cursor.translate(orth, 2);
         space.add(cursor);
       }
     }

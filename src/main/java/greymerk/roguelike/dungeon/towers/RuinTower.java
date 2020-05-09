@@ -47,13 +47,13 @@ public class RuinTower implements ITower {
     for (Cardinal dir : Cardinal.directions) {
       for (Cardinal orth : dir.orthogonal()) {
         cursor = new Coord(floor);
-        cursor.add(dir, 4);
-        cursor.add(orth);
+        cursor.translate(dir, 4);
+        cursor.translate(orth);
         RectSolid.fill(editor, rand,
             new Coord(cursor),
             new Coord(cursor.getX(), cursor.getY() + 1 + rand.nextInt(3), cursor.getZ()),
             blocks);
-        cursor.add(orth);
+        cursor.translate(orth);
         RectSolid.fill(editor, rand,
             new Coord(cursor),
             new Coord(cursor.getX(), cursor.getY() + 1 + rand.nextInt(2), cursor.getZ()),
@@ -61,16 +61,16 @@ public class RuinTower implements ITower {
       }
 
       start = new Coord(floor);
-      start.add(Cardinal.DOWN);
-      start.add(dir, 4);
+      start.translate(Cardinal.DOWN);
+      start.translate(dir, 4);
       end = new Coord(start.getX(), origin.getY() + 10, start.getZ());
-      start.add(dir.left(), 2);
-      end.add(dir.right(), 2);
+      start.translate(dir.left(), 2);
+      end.translate(dir.right(), 2);
       RectSolid.fill(editor, rand, start, end, blocks, true, false);
 
       cursor = new Coord(floor);
-      cursor.add(dir, 3);
-      cursor.add(dir.left(), 3);
+      cursor.translate(dir, 3);
+      cursor.translate(dir.left(), 3);
       RectSolid.fill(editor, rand,
           new Coord(cursor.getX(), origin.getY() + 20, cursor.getZ()),
           new Coord(cursor.getX(), floor.getY() + 2 + rand.nextInt(4), cursor.getZ()),

@@ -36,47 +36,53 @@ public class DungeonCorner extends DungeonBase {
     MetaBlock air = BlockType.get(BlockType.AIR);
 
     // fill air inside
-    RectSolid.fill(editor, rand, new Coord(x - 2, y, z - 2), new Coord(x + 2, y + 3, z + 2), air);
+    Coord hollowAirCorner0 = new Coord(x - 2, y, z - 2);
+    Coord hollowAirCorner1 = new Coord(x + 2, y + 3, z + 2);
+    RectSolid.fill(editor, rand, hollowAirCorner0, hollowAirCorner1, air);
 
     // shell
-    RectHollow.fill(editor, rand, new Coord(x - 3, y - 1, z - 3), new Coord(x + 3, y + 4, z + 3), blocks, false, true);
+    Coord roomShellCorner0 = new Coord(x - 3, y - 1, z - 3);
+    Coord roomShellCorner1 = new Coord(x + 3, y + 4, z + 3);
+    RectHollow.fill(editor, rand, roomShellCorner0, roomShellCorner1, blocks, false, true);
 
     // floor
-    RectSolid.fill(editor, rand, new Coord(x - 3, y - 1, z - 3), new Coord(x + 3, y - 1, z + 3), theme.getPrimary().getFloor(), false, true);
+    Coord floorCorner0 = roomShellCorner0;
+    Coord floorCorner1 = new Coord(x + 3, y - 1, z + 3);
+    RectSolid.fill(editor, rand, floorCorner0, floorCorner1, theme.getPrimary().getFloor(), false, true);
 
     Coord start;
     Coord end;
     Coord cursor;
 
     cursor = new Coord(x, y, z);
-    cursor.add(Cardinal.UP, 4);
+    cursor.translate(Cardinal.UP, 4);
     air.set(editor, cursor);
-    cursor.add(Cardinal.UP, 1);
+    cursor.translate(Cardinal.UP, 1);
     blocks.set(editor, rand, cursor);
 
     for (Cardinal dir : Cardinal.directions) {
 
       cursor = new Coord(x, y, z);
-      cursor.add(dir, 2);
-      cursor.add(dir.left(), 2);
+      cursor.translate(dir, 2);
+      cursor.translate(dir.left(), 2);
       start = new Coord(cursor);
-      cursor.add(Cardinal.UP, 2);
+      cursor.translate(Cardinal.UP, 2);
       end = new Coord(cursor);
       RectSolid.fill(editor, rand, start, end, pillar, true, true);
-      cursor.add(Cardinal.UP, 1);
+      cursor.translate(Cardinal.UP, 1);
       blocks.set(editor, rand, cursor);
 
       cursor = new Coord(x, y, z);
-      cursor.add(dir, 1);
-      cursor.add(Cardinal.UP, 4);
+      cursor.translate(dir, 1);
+      cursor.translate(Cardinal.UP, 4);
       stair.setOrientation(dir.reverse(), true);
       stair.set(editor, rand, cursor);
 
       for (Cardinal orth : dir.orthogonal()) {
         cursor = new Coord(x, y, z);
-        cursor.add(dir, 2);
-        cursor.add(orth, 1);
-        cursor.add(Cardinal.UP, 3);
+        cursor.translate(dir, 2);
+        cursor.translate(orth, 1);
+        cursor.translate(Cardinal.UP, 3);
         stair.setOrientation(orth.reverse(), true);
         stair.set(editor, rand, cursor);
       }

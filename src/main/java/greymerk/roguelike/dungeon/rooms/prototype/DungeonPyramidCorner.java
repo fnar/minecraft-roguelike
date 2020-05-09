@@ -45,24 +45,24 @@ public class DungeonPyramidCorner extends DungeonBase {
     Coord cursor;
 
     cursor = new Coord(x, y, z);
-    cursor.add(Cardinal.UP, 4);
+    cursor.translate(Cardinal.UP, 4);
     air.set(editor, cursor);
-    cursor.add(Cardinal.UP, 1);
+    cursor.translate(Cardinal.UP, 1);
     air.set(editor, cursor);
 
 
     for (Cardinal dir : Cardinal.directions) {
 
       cursor = new Coord(x, y, z);
-      cursor.add(Cardinal.UP, 4);
-      cursor.add(dir);
+      cursor.translate(Cardinal.UP, 4);
+      cursor.translate(dir);
       air.set(editor, rand, cursor);
 
       cursor = new Coord(x, y, z);
-      cursor.add(dir, 2);
-      cursor.add(dir.orthogonal()[0], 2);
+      cursor.translate(dir, 2);
+      cursor.translate(dir.orthogonal()[0], 2);
       start = new Coord(cursor);
-      cursor.add(Cardinal.UP, 2);
+      cursor.translate(Cardinal.UP, 2);
       end = new Coord(cursor);
       RectSolid.fill(editor, rand, start, end, pillar, true, true);
     }

@@ -47,44 +47,44 @@ public class FortressRoom extends DungeonBase {
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(-8, -1, -8));
-    end.add(new Coord(8, 6, 8));
+    start.translate(new Coord(-8, -1, -8));
+    end.translate(new Coord(8, 6, 8));
     RectHollow.fill(editor, rand, start, end, wall, false, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(-4, 6, -4));
-    end.add(new Coord(4, 6, 4));
+    start.translate(new Coord(-4, 6, -4));
+    end.translate(new Coord(4, 6, 4));
     RectSolid.fill(editor, rand, start, end, wall);
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(-3, 7, -3));
-    end.add(new Coord(3, 7, 3));
+    start.translate(new Coord(-3, 7, -3));
+    end.translate(new Coord(3, 7, 3));
     RectSolid.fill(editor, rand, start, end, wall);
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(-2, 7, -2));
-    end.add(new Coord(2, 7, 2));
+    start.translate(new Coord(-2, 7, -2));
+    end.translate(new Coord(2, 7, 2));
     RectSolid.fill(editor, rand, start, end, liquid);
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(-4, -1, -4));
-    end.add(new Coord(4, -3, 4));
+    start.translate(new Coord(-4, -1, -4));
+    end.translate(new Coord(4, -3, 4));
     RectSolid.fill(editor, rand, start, end, wall, false, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(-3, -2, -3));
-    end.add(new Coord(3, -2, 3));
+    start.translate(new Coord(-3, -2, -3));
+    end.translate(new Coord(3, -2, 3));
     BlockType.get(BlockType.SOUL_SAND).fill(editor, rand, new RectSolid(start, end), false, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(-3, -1, -3));
-    end.add(new Coord(3, -1, 3));
+    start.translate(new Coord(-3, -1, -3));
+    end.translate(new Coord(3, -1, 3));
     RectSolid.fill(editor, rand, start, end, netherwart, false, true);
     List<Coord> chests = (new RectSolid(start, end).get());
 
@@ -94,42 +94,42 @@ public class FortressRoom extends DungeonBase {
     for (Cardinal dir : directions) {
 
       start = new Coord(origin);
-      start.add(UP, 5);
-      start.add(dir, 4);
+      start.translate(UP, 5);
+      start.translate(dir, 4);
       end = new Coord(start);
-      start.add(dir.left(), 6);
-      end.add(dir.right(), 6);
+      start.translate(dir.left(), 6);
+      end.translate(dir.right(), 6);
       RectSolid.fill(editor, rand, start, end, wall);
 
       start = new Coord(origin);
-      start.add(UP, 5);
-      start.add(dir, 6);
+      start.translate(UP, 5);
+      start.translate(dir, 6);
       end = new Coord(start);
-      start.add(dir.left(), 6);
-      end.add(dir.right(), 6);
+      start.translate(dir.left(), 6);
+      end.translate(dir.right(), 6);
       RectSolid.fill(editor, rand, start, end, wall);
 
       start = new Coord(origin);
-      start.add(DOWN);
-      start.add(dir, 4);
+      start.translate(DOWN);
+      start.translate(dir, 4);
       end = new Coord(start);
-      start.add(dir.left(), 2);
-      end.add(dir.right(), 2);
+      start.translate(dir.left(), 2);
+      end.translate(dir.right(), 2);
       stair.setOrientation(dir.reverse(), false).fill(editor, rand, new RectSolid(start, end));
 
       cursor = new Coord(origin);
-      cursor.add(dir, 4);
-      cursor.add(dir.left(), 4);
+      cursor.translate(dir, 4);
+      cursor.translate(dir.left(), 4);
       supportPillar(editor, rand, levelSettings, cursor);
 
       for (Cardinal o : dir.orthogonal()) {
         cursor = new Coord(origin);
-        cursor.add(dir, 7);
-        cursor.add(o, 2);
+        cursor.translate(dir, 7);
+        cursor.translate(o, 2);
         pillar(editor, rand, levelSettings, cursor);
-        cursor.add(o);
-        cursor.add(o);
-        cursor.add(o);
+        cursor.translate(o);
+        cursor.translate(o);
+        cursor.translate(o);
         pillar(editor, rand, levelSettings, cursor);
       }
     }
@@ -150,20 +150,20 @@ public class FortressRoom extends DungeonBase {
 
     for (Cardinal dir : directions) {
       start = new Coord(origin);
-      start.add(dir);
+      start.translate(dir);
       end = new Coord(start);
-      end.add(UP, 5);
+      end.translate(UP, 5);
       RectSolid.fill(editor, rand, start, end, pillar);
 
       cursor = new Coord(origin);
-      cursor.add(dir, 2);
-      cursor.add(UP, 4);
+      cursor.translate(dir, 2);
+      cursor.translate(UP, 4);
       stair.setOrientation(dir, true).set(editor, cursor);
     }
 
     start = new Coord(origin);
     end = new Coord(start);
-    end.add(UP, 5);
+    end.translate(UP, 5);
     RectSolid.fill(editor, rand, start, end, lava);
     List<Coord> core = new RectSolid(start, end).get();
     Coord spawnerLocation = core.get(rand.nextInt(core.size()));
@@ -183,15 +183,15 @@ public class FortressRoom extends DungeonBase {
 
     start = new Coord(origin);
     end = new Coord(start);
-    end.add(UP, 5);
+    end.translate(UP, 5);
     RectSolid.fill(editor, rand, start, end, pillar);
 
     for (Cardinal dir : directions) {
       cursor = new Coord(origin);
-      cursor.add(UP, 4);
-      cursor.add(dir);
+      cursor.translate(UP, 4);
+      cursor.translate(dir);
       stair.setOrientation(dir, true).set(editor, rand, cursor, true, false);
-      cursor.add(UP);
+      cursor.translate(UP);
       wall.set(editor, rand, cursor);
     }
 

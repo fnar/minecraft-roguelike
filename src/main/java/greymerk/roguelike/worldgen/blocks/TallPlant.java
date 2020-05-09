@@ -25,7 +25,7 @@ public enum TallPlant {
 
     cursor = new Coord(pos);
     lower.set(editor, cursor);
-    cursor.add(Cardinal.UP);
+    cursor.translate(Cardinal.UP);
     upper.set(editor, cursor);
   }
 

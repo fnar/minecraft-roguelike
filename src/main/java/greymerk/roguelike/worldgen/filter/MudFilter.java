@@ -37,7 +37,7 @@ public class MudFilter implements IFilter {
         continue;
       }
       Coord next = new Coord(pos);
-      next.add(dir);
+      next.translate(dir);
       generate(editor, rand, next, counter - 1);
     }
 
@@ -87,7 +87,7 @@ public class MudFilter implements IFilter {
     plants.addBlock(FlowerPot.getFlower(FlowerPot.REDMUSHROOM));
 
     Coord cursor = new Coord(pos);
-    cursor.add(Cardinal.UP);
+    cursor.translate(Cardinal.UP);
     plants.set(editor, rand, cursor);
   }
 
@@ -98,24 +98,24 @@ public class MudFilter implements IFilter {
     }
 
     Coord cursor = new Coord(pos);
-    cursor.add(Cardinal.UP);
+    cursor.translate(Cardinal.UP);
     if (!editor.isAirBlock(cursor)) {
       return false;
     }
 
-    cursor.add(Cardinal.DOWN, 2);
+    cursor.translate(Cardinal.DOWN, 2);
     if (editor.isAirBlock(cursor)) {
       return false;
     }
 
-    cursor.add(Cardinal.UP);
+    cursor.translate(Cardinal.UP);
 
     for (Cardinal dir : Cardinal.values()) {
-      cursor.add(dir);
+      cursor.translate(dir);
       if (!editor.getBlock(pos).isOpaqueCube()) {
         return false;
       }
-      cursor.add(dir.reverse());
+      cursor.translate(dir.reverse());
     }
 
     return true;

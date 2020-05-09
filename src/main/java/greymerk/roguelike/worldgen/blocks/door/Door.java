@@ -35,7 +35,7 @@ public class Door implements IDoor {
     Coord cursor = new Coord(pos);
     MetaBlock doorBase = setProperties(door, false, dir, open, false);
     doorBase.set(editor, cursor);
-    cursor.add(Cardinal.UP);
+    cursor.translate(Cardinal.UP);
     MetaBlock doorTop = setProperties(door, true, dir, open, false);
     doorTop.set(editor, cursor);
   }

@@ -27,34 +27,34 @@ public class SegmentFlowers extends SegmentBase {
 
     Cardinal[] orth = dir.orthogonal();
 
-    cursor.add(dir, 2);
+    cursor.translate(dir, 2);
     start = new Coord(cursor);
-    start.add(orth[0], 1);
+    start.translate(orth[0], 1);
     end = new Coord(cursor);
-    end.add(orth[1], 1);
+    end.translate(orth[1], 1);
     RectSolid.fill(editor, rand, start, end, theme.getSecondary().getWall(), false, true);
-    start.add(dir, 1);
-    end.add(dir, 1);
-    end.add(Cardinal.UP, 2);
+    start.translate(dir, 1);
+    end.translate(dir, 1);
+    end.translate(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, theme.getSecondary().getWall(), false, true);
-    start.add(dir.reverse(), 1);
-    start.add(Cardinal.UP, 1);
-    end.add(dir.reverse(), 1);
+    start.translate(dir.reverse(), 1);
+    start.translate(Cardinal.UP, 1);
+    end.translate(dir.reverse(), 1);
     RectSolid.fill(editor, rand, start, end, air, false, true);
-    cursor.add(Cardinal.UP, 2);
+    cursor.translate(Cardinal.UP, 2);
     for (Cardinal d : orth) {
       Coord c = new Coord(cursor);
-      c.add(d, 1);
+      c.translate(d, 1);
       stair.setOrientation(d.reverse(), true);
       stair.set(editor, c);
     }
 
     start = new Coord(origin);
-    start.add(dir, 2);
-    start.add(Cardinal.UP);
+    start.translate(dir, 2);
+    start.translate(Cardinal.UP);
     end = new Coord(start);
-    start.add(orth[0]);
-    end.add(orth[1]);
+    start.translate(orth[0]);
+    end.translate(orth[1]);
     for (Coord c : new RectSolid(start, end)) {
       if (rand.nextInt(3) == 0 && editor.getBlock(c).getMaterial().isSolid()) {
         FlowerPot.generate(editor, rand, c);

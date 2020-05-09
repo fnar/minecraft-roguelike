@@ -25,33 +25,33 @@ public class SegmentWheat extends SegmentBase {
     Coord end;
 
     cursor = new Coord(origin);
-    cursor.add(Cardinal.DOWN);
-    cursor.add(dir, 3);
+    cursor.translate(Cardinal.DOWN);
+    cursor.translate(dir, 3);
     BlockType.get(BlockType.WATER_FLOWING).set(editor, cursor);
 
     Cardinal[] orth = dir.orthogonal();
     start = new Coord(origin);
-    start.add(dir, 2);
+    start.translate(dir, 2);
     end = new Coord(start);
-    start.add(orth[0]);
-    end.add(orth[1]);
-    start.add(Cardinal.UP, 2);
-    end.add(dir);
+    start.translate(orth[0]);
+    end.translate(orth[1]);
+    start.translate(Cardinal.UP, 2);
+    end.translate(dir);
     RectSolid.fill(editor, rand, start, end, theme.getSecondary().getWall());
 
     start = new Coord(origin);
-    start.add(dir, 2);
+    start.translate(dir, 2);
     end = new Coord(start);
-    start.add(orth[0], 1);
-    end.add(orth[1], 1);
-    end.add(Cardinal.UP, 1);
+    start.translate(orth[0], 1);
+    end.translate(orth[1], 1);
+    end.translate(Cardinal.UP, 1);
     RectSolid.fill(editor, rand, start, end, BlockType.get(BlockType.AIR));
-    start.add(Cardinal.DOWN, 1);
-    end.add(Cardinal.DOWN, 2);
+    start.translate(Cardinal.DOWN, 1);
+    end.translate(Cardinal.DOWN, 2);
 
     RectSolid.fill(editor, rand, start, end, BlockType.get(BlockType.FARMLAND));
-    start.add(Cardinal.UP, 1);
-    end.add(Cardinal.UP, 1);
+    start.translate(Cardinal.UP, 1);
+    end.translate(Cardinal.UP, 1);
     BlockJumble crops = new BlockJumble();
     crops.addBlock(Crops.get(Crops.WHEAT));
     crops.addBlock(Crops.get(Crops.CARROTS));
@@ -59,8 +59,8 @@ public class SegmentWheat extends SegmentBase {
     RectSolid.fill(editor, rand, start, end, crops);
 
     cursor = new Coord(origin);
-    cursor.add(dir, 3);
-    cursor.add(Cardinal.UP, 1);
+    cursor.translate(dir, 3);
+    cursor.translate(Cardinal.UP, 1);
     MetaBlock pumpkin = Crops.getPumpkin(dir.reverse(), true);
     pumpkin.set(editor, cursor);
 
@@ -68,9 +68,9 @@ public class SegmentWheat extends SegmentBase {
 
     for (Cardinal d : orth) {
       cursor = new Coord(origin);
-      cursor.add(dir, 2);
-      cursor.add(d, 1);
-      cursor.add(Cardinal.UP, 1);
+      cursor.translate(dir, 2);
+      cursor.translate(d, 1);
+      cursor.translate(Cardinal.UP, 1);
       stair.setOrientation(d.reverse(), true);
       stair.set(editor, cursor);
     }

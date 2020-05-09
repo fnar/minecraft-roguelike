@@ -25,19 +25,19 @@ public class HoleTower implements ITower {
     Coord end;
 
     start = new Coord(floor);
-    start.add(Cardinal.NORTH);
-    start.add(Cardinal.EAST);
-    start.add(Cardinal.UP, 3);
+    start.translate(Cardinal.NORTH);
+    start.translate(Cardinal.EAST);
+    start.translate(Cardinal.UP, 3);
     end = new Coord(origin);
-    end.add(Cardinal.SOUTH);
-    end.add(Cardinal.WEST);
+    end.translate(Cardinal.SOUTH);
+    end.translate(Cardinal.WEST);
 
     RectSolid.fill(editor, rand, start, end, air);
-    start.add(Cardinal.NORTH, 2);
-    start.add(Cardinal.EAST, 2);
-    end.add(Cardinal.SOUTH, 2);
-    end.add(Cardinal.WEST, 2);
-    end.add(Cardinal.UP);
+    start.translate(Cardinal.NORTH, 2);
+    start.translate(Cardinal.EAST, 2);
+    end.translate(Cardinal.SOUTH, 2);
+    end.translate(Cardinal.WEST, 2);
+    end.translate(Cardinal.UP);
 
     BlockJumble rubble = new BlockJumble();
     rubble.addBlock(blocks);

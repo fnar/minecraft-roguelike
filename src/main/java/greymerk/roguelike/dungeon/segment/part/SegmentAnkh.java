@@ -32,9 +32,9 @@ public class SegmentAnkh extends SegmentBase {
     Cardinal[] orth = dir.orthogonal();
 
     start = new Coord(pos);
-    start.add(dir, 2);
+    start.translate(dir, 2);
     end = new Coord(start);
-    end.add(Cardinal.UP, 2);
+    end.translate(Cardinal.UP, 2);
 
     RectSolid.fill(editor, rand, start, end, air);
 
@@ -42,31 +42,31 @@ public class SegmentAnkh extends SegmentBase {
     for (Cardinal o : orth) {
 
       cursor = new Coord(pos);
-      cursor.add(dir, 2);
-      cursor.add(o);
+      cursor.translate(dir, 2);
+      cursor.translate(o);
       stair.setOrientation(o.reverse(), false).set(editor, cursor);
-      cursor.add(Cardinal.UP);
+      cursor.translate(Cardinal.UP);
       stair.setOrientation(o.reverse(), false).set(editor, cursor);
-      cursor.add(Cardinal.UP);
+      cursor.translate(Cardinal.UP);
       stair.setOrientation(o.reverse(), true).set(editor, cursor);
     }
 
     start = new Coord(pos);
-    start.add(dir, 3);
+    start.translate(dir, 3);
     end = new Coord(start);
-    start.add(orth[0]);
-    end.add(orth[1]);
-    end.add(Cardinal.UP, 2);
+    start.translate(orth[0]);
+    end.translate(orth[1]);
+    end.translate(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, glass);
-    start.add(dir);
-    end.add(dir);
+    start.translate(dir);
+    end.translate(dir);
     RectSolid.fill(editor, rand, start, end, back);
 
     cursor = new Coord(pos);
-    cursor.add(dir, 3);
-    cursor.add(Cardinal.DOWN);
+    cursor.translate(dir, 3);
+    cursor.translate(Cardinal.DOWN);
     glowstone.set(editor, cursor);
-    cursor.add(Cardinal.UP, 4);
+    cursor.translate(Cardinal.UP, 4);
     glowstone.set(editor, cursor);
   }
 

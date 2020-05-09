@@ -31,45 +31,45 @@ public class SegmentSewerArch extends SegmentBase {
     Cardinal[] orth = dir.orthogonal();
 
     cursor = new Coord(origin);
-    cursor.add(Cardinal.UP, 3);
+    cursor.translate(Cardinal.UP, 3);
     mossy.set(editor, rand, cursor, false, true);
-    cursor.add(Cardinal.UP);
+    cursor.translate(Cardinal.UP);
     water.set(editor, rand, cursor, false, true);
 
     cursor = new Coord(origin);
-    cursor.add(dir, 2);
+    cursor.translate(dir, 2);
     air.set(editor, cursor);
-    cursor.add(Cardinal.UP, 1);
+    cursor.translate(Cardinal.UP, 1);
     air.set(editor, cursor);
-    cursor.add(Cardinal.UP, 1);
+    cursor.translate(Cardinal.UP, 1);
     stair.set(editor, cursor);
 
     cursor = new Coord(origin);
-    cursor.add(dir, 2);
+    cursor.translate(dir, 2);
     bars.set(editor, cursor);
-    cursor.add(Cardinal.UP);
+    cursor.translate(Cardinal.UP);
     bars.set(editor, cursor);
 
     start = new Coord(origin);
-    start.add(Cardinal.DOWN);
+    start.translate(Cardinal.DOWN);
     end = new Coord(start);
-    start.add(orth[0]);
-    end.add(orth[1]);
+    start.translate(orth[0]);
+    end.translate(orth[1]);
     RectSolid.fill(editor, rand, start, end, air);
-    start.add(Cardinal.DOWN);
-    end.add(Cardinal.DOWN);
+    start.translate(Cardinal.DOWN);
+    end.translate(Cardinal.DOWN);
     RectSolid.fill(editor, rand, start, end, water);
 
     for (Cardinal o : orth) {
       cursor = new Coord(origin);
-      cursor.add(o, 1);
-      cursor.add(dir, 2);
+      cursor.translate(o, 1);
+      cursor.translate(dir, 2);
       theme.getSecondary().getPillar().set(editor, rand, cursor);
-      cursor.add(Cardinal.UP, 1);
+      cursor.translate(Cardinal.UP, 1);
       theme.getSecondary().getPillar().set(editor, rand, cursor);
-      cursor.add(Cardinal.UP, 1);
+      cursor.translate(Cardinal.UP, 1);
       theme.getPrimary().getWall().set(editor, rand, cursor);
-      cursor.add(dir.reverse(), 1);
+      cursor.translate(dir.reverse(), 1);
       stair.set(editor, cursor);
     }
   }

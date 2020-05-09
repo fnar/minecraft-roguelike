@@ -49,62 +49,62 @@ public class HouseTower implements ITower {
     int y = dungeon.getY();
     int z = dungeon.getZ();
 
-    floor.add(Cardinal.UP);
+    floor.translate(Cardinal.UP);
 
     start = new Coord(floor);
-    start.add(Cardinal.UP, 4);
+    start.translate(Cardinal.UP, 4);
     end = new Coord(start);
-    start.add(dir.right(), 3);
-    start.add(dir, 3);
-    end.add(Cardinal.UP, 8);
-    end.add(dir.reverse(), 7);
-    end.add(dir.left(), 10);
+    start.translate(dir.right(), 3);
+    start.translate(dir, 3);
+    end.translate(Cardinal.UP, 8);
+    end.translate(dir.reverse(), 7);
+    end.translate(dir.left(), 10);
     RectSolid.fill(editor, rand, start, end, air);
 
     start = new Coord(floor);
-    start.add(dir.right(), 2);
-    start.add(Cardinal.DOWN);
+    start.translate(dir.right(), 2);
+    start.translate(Cardinal.DOWN);
     end = new Coord(floor);
-    end.add(Cardinal.UP, 3);
-    end.add(dir.left(), 8);
-    end.add(dir.reverse(), 5);
+    end.translate(Cardinal.UP, 3);
+    end.translate(dir.left(), 8);
+    end.translate(dir.reverse(), 5);
     RectSolid.fill(editor, rand, new Coord(x - 2, floor.getY() + 3, z - 2), new Coord(x + 2, y + 10, z + 2), walls);
     RectHollow.fill(editor, rand, start, end, walls);
 
     cursor = new Coord(floor);
-    cursor.add(dir.left(), 6);
-    cursor.add(dir.reverse(), 6);
+    cursor.translate(dir.left(), 6);
+    cursor.translate(dir.reverse(), 6);
     door(editor, rand, theme, dir, cursor);
 
     start = new Coord(floor);
-    start.add(Cardinal.DOWN);
-    start.add(dir.right());
-    start.add(dir.reverse());
+    start.translate(Cardinal.DOWN);
+    start.translate(dir.right());
+    start.translate(dir.reverse());
     end = new Coord(floor);
-    end.add(Cardinal.DOWN);
-    end.add(dir.reverse(), 4);
-    end.add(dir.left(), 7);
+    end.translate(Cardinal.DOWN);
+    end.translate(dir.reverse(), 4);
+    end.translate(dir.left(), 7);
     RectSolid.fill(editor, rand, start, end, mainFloor);
 
     start = new Coord(floor);
-    start.add(Cardinal.DOWN, 2);
-    start.add(dir.right(), 2);
-    start.add(dir.reverse(), 2);
+    start.translate(Cardinal.DOWN, 2);
+    start.translate(dir.right(), 2);
+    start.translate(dir.reverse(), 2);
     end = new Coord(floor.getX(), y + 10, floor.getZ());
-    end.add(dir.reverse(), 5);
-    end.add(dir.left(), 8);
+    end.translate(dir.reverse(), 5);
+    end.translate(dir.left(), 8);
     RectSolid.fill(editor, rand, start, end, walls);
 
     cursor = new Coord(floor);
-    cursor.add(dir.reverse(), 5);
-    cursor.add(dir.right(), 2);
+    cursor.translate(dir.reverse(), 5);
+    cursor.translate(dir.right(), 2);
     support(editor, rand, theme, new Cardinal[]{dir.reverse(), dir.right()}, cursor);
-    cursor.add(dir, 7);
+    cursor.translate(dir, 7);
     support(editor, rand, theme, new Cardinal[]{dir, dir.right()}, cursor);
-    cursor.add(dir.left(), 4);
+    cursor.translate(dir.left(), 4);
     support(editor, rand, theme, new Cardinal[]{dir, dir.left()}, cursor);
-    cursor.add(dir.left(), 6);
-    cursor.add(dir.reverse(), 2);
+    cursor.translate(dir.left(), 6);
+    cursor.translate(dir.reverse(), 2);
     support(editor, rand, theme, new Cardinal[]{dir, dir.left()}, cursor);
 
     upperFloor(editor, rand, theme, dir, new Coord(x, floor.getY() + 3, z));
@@ -114,7 +114,7 @@ public class HouseTower implements ITower {
     decor(editor, rand, theme, dir, floor);
 
     cursor = new Coord(floor);
-    cursor.add(Cardinal.UP, 3);
+    cursor.translate(Cardinal.UP, 3);
     for (int i = floor.getY() + 3; i >= y; --i) {
       editor.spiralStairStep(rand, new Coord(x, i, z), stair, theme.getSecondary().getPillar());
     }
@@ -131,79 +131,79 @@ public class HouseTower implements ITower {
 
     // downstairs table
     cursor = new Coord(origin);
-    cursor.add(dir.reverse(), 4);
+    cursor.translate(dir.reverse(), 4);
     stair.setOrientation(orth[1], true).set(editor, cursor);
-    cursor.add(orth[0]);
+    cursor.translate(orth[0]);
     slab.set(editor, cursor);
-    cursor.add(orth[0]);
+    cursor.translate(orth[0]);
     stair.setOrientation(orth[0], true).set(editor, cursor);
 
     cursor = new Coord(origin);
-    cursor.add(orth[0], 4);
-    cursor.add(dir.reverse());
+    cursor.translate(orth[0], 4);
+    cursor.translate(dir.reverse());
     stair.setOrientation(orth[1], true).set(editor, cursor);
-    cursor.add(orth[0]);
+    cursor.translate(orth[0]);
     slab.set(editor, cursor);
-    cursor.add(orth[0]);
+    cursor.translate(orth[0]);
     stair.setOrientation(orth[0], true).set(editor, cursor);
-    cursor.add(orth[1]);
-    cursor.add(Cardinal.UP);
+    cursor.translate(orth[1]);
+    cursor.translate(Cardinal.UP);
     Cake.get().set(editor, cursor);
 
     cursor = new Coord(origin);
-    cursor.add(orth[0], 7);
-    cursor.add(dir.reverse());
+    cursor.translate(orth[0], 7);
+    cursor.translate(dir.reverse());
     slab.set(editor, cursor);
-    cursor.add(Cardinal.UP);
+    cursor.translate(Cardinal.UP);
     Torch.generate(editor, Torch.WOODEN, Cardinal.UP, cursor);
-    cursor.add(Cardinal.DOWN);
-    cursor.add(dir.reverse());
+    cursor.translate(Cardinal.DOWN);
+    cursor.translate(dir.reverse());
     BlockType.get(BlockType.CRAFTING_TABLE).set(editor, cursor);
-    cursor.add(dir.reverse());
+    cursor.translate(dir.reverse());
     Furnace.generate(editor, true, orth[1], cursor);
 
     cursor = new Coord(origin);
-    cursor.add(Cardinal.UP, 4);
-    cursor.add(orth[1], 2);
-    cursor.add(dir.reverse(), 3);
+    cursor.translate(Cardinal.UP, 4);
+    cursor.translate(orth[1], 2);
+    cursor.translate(dir.reverse(), 3);
     stair.setOrientation(dir.reverse(), true).set(editor, cursor);
-    cursor.add(dir.reverse());
+    cursor.translate(dir.reverse());
     stair.setOrientation(dir, true).set(editor, cursor);
-    cursor.add(Cardinal.UP);
+    cursor.translate(Cardinal.UP);
     FlowerPot.generate(editor, rand, cursor);
-    cursor.add(dir);
+    cursor.translate(dir);
     FlowerPot.generate(editor, rand, cursor);
 
     cursor = new Coord(origin);
-    cursor.add(Cardinal.UP, 4);
-    cursor.add(orth[0]);
-    cursor.add(dir.reverse(), 5);
+    cursor.translate(Cardinal.UP, 4);
+    cursor.translate(orth[0]);
+    cursor.translate(dir.reverse(), 5);
     stair.setOrientation(orth[1], true).set(editor, cursor);
-    cursor.add(orth[0]);
+    cursor.translate(orth[0]);
     slab.set(editor, cursor);
-    cursor.add(orth[0]);
+    cursor.translate(orth[0]);
     stair.setOrientation(orth[0], true).set(editor, cursor);
 
     cursor = new Coord(origin);
-    cursor.add(Cardinal.UP, 4);
-    cursor.add(orth[0], 8);
+    cursor.translate(Cardinal.UP, 4);
+    cursor.translate(orth[0], 8);
     createChest(editor, rand, 0, cursor, false, STARTER);
-    cursor.add(dir.reverse());
+    cursor.translate(dir.reverse());
     BlockType.get(BlockType.SHELF).set(editor, cursor);
-    cursor.add(Cardinal.UP);
+    cursor.translate(Cardinal.UP);
     FlowerPot.generate(editor, rand, cursor);
-    cursor.add(Cardinal.DOWN);
-    cursor.add(dir.reverse());
+    cursor.translate(Cardinal.DOWN);
+    cursor.translate(dir.reverse());
     Bed.generate(editor, orth[1], cursor);
 
     cursor = new Coord(origin);
-    cursor.add(Cardinal.UP, 4);
-    cursor.add(dir.reverse());
-    cursor.add(orth[0]);
+    cursor.translate(Cardinal.UP, 4);
+    cursor.translate(dir.reverse());
+    cursor.translate(orth[0]);
     start = new Coord(cursor);
     end = new Coord(start);
-    end.add(orth[0], 5);
-    end.add(dir.reverse(), 3);
+    end.translate(orth[0], 5);
+    end.translate(dir.reverse(), 3);
     BlockStripes carpet = new BlockStripes();
     carpet.addBlock(ColorBlock.get(ColorBlock.CARPET, rand));
     carpet.addBlock(ColorBlock.get(ColorBlock.CARPET, rand));
@@ -222,65 +222,65 @@ public class HouseTower implements ITower {
     Coord end;
 
     cursor = new Coord(origin);
-    cursor.add(dir.reverse(), 5);
-    cursor.add(Cardinal.UP);
+    cursor.translate(dir.reverse(), 5);
+    cursor.translate(Cardinal.UP);
     pane.set(editor, cursor);
-    cursor.add(orth[0], 2);
+    cursor.translate(orth[0], 2);
     pane.set(editor, cursor);
 
     cursor = new Coord(origin);
-    cursor.add(Cardinal.UP);
-    cursor.add(orth[0], 8);
-    cursor.add(dir.reverse(), 2);
+    cursor.translate(Cardinal.UP);
+    cursor.translate(orth[0], 8);
+    cursor.translate(dir.reverse(), 2);
     pane.set(editor, cursor);
-    cursor.add(dir.reverse(), 2);
+    cursor.translate(dir.reverse(), 2);
     pane.set(editor, cursor);
 
     // upstairs
     cursor = new Coord(origin);
-    cursor.add(Cardinal.UP, 5);
-    cursor.add(orth[0]);
-    cursor.add(dir, 3);
+    cursor.translate(Cardinal.UP, 5);
+    cursor.translate(orth[0]);
+    cursor.translate(dir, 3);
     pane.set(editor, cursor);
-    cursor.add(orth[1], 2);
+    cursor.translate(orth[1], 2);
     pane.set(editor, cursor);
-    cursor.add(dir.reverse(), 2);
-    cursor.add(orth[1], 2);
+    cursor.translate(dir.reverse(), 2);
+    cursor.translate(orth[1], 2);
     pane.set(editor, cursor);
-    cursor.add(dir.reverse());
+    cursor.translate(dir.reverse());
     pane.set(editor, cursor);
-    cursor.add(dir.reverse(), 3);
+    cursor.translate(dir.reverse(), 3);
     pane.set(editor, cursor);
-    cursor.add(dir.reverse());
+    cursor.translate(dir.reverse());
     pane.set(editor, cursor);
 
     cursor = new Coord(origin);
-    cursor.add(Cardinal.UP, 5);
-    cursor.add(orth[0], 9);
-    cursor.add(dir.reverse());
+    cursor.translate(Cardinal.UP, 5);
+    cursor.translate(orth[0], 9);
+    cursor.translate(dir.reverse());
     pane.set(editor, cursor);
-    cursor.add(dir.reverse());
+    cursor.translate(dir.reverse());
     pane.set(editor, cursor);
-    cursor.add(dir.reverse(), 2);
+    cursor.translate(dir.reverse(), 2);
     pane.set(editor, cursor);
-    cursor.add(dir.reverse());
+    cursor.translate(dir.reverse());
     pane.set(editor, cursor);
-    cursor.add(Cardinal.UP, 2);
-    cursor.add(dir);
+    cursor.translate(Cardinal.UP, 2);
+    cursor.translate(dir);
     start = new Coord(cursor);
     end = new Coord(start);
-    end.add(Cardinal.UP);
-    end.add(dir, 2);
+    end.translate(Cardinal.UP);
+    end.translate(dir, 2);
     RectSolid.fill(editor, rand, start, end, pane);
 
     cursor = new Coord(origin);
-    cursor.add(Cardinal.UP, 4);
-    cursor.add(orth[0], 5);
-    cursor.add(dir.reverse(), 7);
+    cursor.translate(Cardinal.UP, 4);
+    cursor.translate(orth[0], 5);
+    cursor.translate(dir.reverse(), 7);
     start = new Coord(cursor);
     end = new Coord(start);
-    end.add(orth[0], 2);
-    end.add(Cardinal.UP);
+    end.translate(orth[0], 2);
+    end.translate(Cardinal.UP);
     RectSolid.fill(editor, rand, start, end, pane);
   }
 
@@ -292,151 +292,151 @@ public class HouseTower implements ITower {
     Coord end;
 
     cursor = new Coord(origin);
-    cursor.add(dir.right(), 4);
-    cursor.add(dir, 4);
-    cursor.add(Cardinal.UP, 2);
+    cursor.translate(dir.right(), 4);
+    cursor.translate(dir, 4);
+    cursor.translate(Cardinal.UP, 2);
     start = new Coord(cursor);
     end = new Coord(cursor);
-    end.add(dir.reverse(), 10);
+    end.translate(dir.reverse(), 10);
     stair.setOrientation(dir.right(), false).fill(editor, rand, new RectSolid(start, end));
-    start.add(dir.left());
-    end.add(dir.left());
+    start.translate(dir.left());
+    end.translate(dir.left());
     stair.setOrientation(dir.left(), true).fill(editor, rand, new RectSolid(start, end));
-    start.add(Cardinal.UP);
-    end.add(Cardinal.UP);
+    start.translate(Cardinal.UP);
+    end.translate(Cardinal.UP);
     stair.setOrientation(dir.right(), false).fill(editor, rand, new RectSolid(start, end));
-    start.add(dir.left());
-    end.add(dir.left());
+    start.translate(dir.left());
+    end.translate(dir.left());
     stair.setOrientation(dir.left(), true).fill(editor, rand, new RectSolid(start, end));
-    start.add(Cardinal.UP);
-    end.add(Cardinal.UP);
+    start.translate(Cardinal.UP);
+    end.translate(Cardinal.UP);
     stair.setOrientation(dir.right(), false).fill(editor, rand, new RectSolid(start, end));
-    start.add(dir.left());
-    end.add(dir.left());
-    end.add(dir);
+    start.translate(dir.left());
+    end.translate(dir.left());
+    end.translate(dir);
     stair.setOrientation(dir.left(), true).fill(editor, rand, new RectSolid(start, end));
-    start.add(Cardinal.UP);
-    end.add(Cardinal.UP);
+    start.translate(Cardinal.UP);
+    end.translate(Cardinal.UP);
     stair.setOrientation(dir.right(), false).fill(editor, rand, new RectSolid(start, end));
 
-    start.add(dir.left());
-    end.add(dir.left());
+    start.translate(dir.left());
+    end.translate(dir.left());
     RectSolid.fill(editor, rand, start, end, walls);
 
     cursor = new Coord(origin);
-    cursor.add(dir.reverse(), 3);
-    cursor.add(Cardinal.UP, 5);
+    cursor.translate(dir.reverse(), 3);
+    cursor.translate(Cardinal.UP, 5);
     stair.setOrientation(dir.left(), true).set(editor, cursor);
-    cursor.add(dir);
+    cursor.translate(dir);
     stair.setOrientation(dir.left(), true).set(editor, cursor);
-    cursor.add(Cardinal.DOWN);
-    cursor.add(dir.left());
-    cursor.add(dir);
+    cursor.translate(Cardinal.DOWN);
+    cursor.translate(dir.left());
+    cursor.translate(dir);
     stair.setOrientation(dir.right(), true).set(editor, cursor);
-    cursor.add(Cardinal.DOWN);
-    cursor.add(dir.left());
-    cursor.add(dir);
+    cursor.translate(Cardinal.DOWN);
+    cursor.translate(dir.left());
+    cursor.translate(dir);
     stair.setOrientation(dir.right(), true).set(editor, cursor);
 
-    start.add(dir.left());
-    end.add(dir.left());
-    end.add(dir, 5);
+    start.translate(dir.left());
+    end.translate(dir.left());
+    end.translate(dir, 5);
     stair.setOrientation(dir.left(), false).fill(editor, rand, new RectSolid(start, end));
-    start.add(Cardinal.DOWN);
-    end.add(Cardinal.DOWN);
+    start.translate(Cardinal.DOWN);
+    end.translate(Cardinal.DOWN);
     stair.setOrientation(dir.right(), true).fill(editor, rand, new RectSolid(start, end));
-    start.add(dir.left());
-    end.add(dir.left());
-    end.add(dir);
+    start.translate(dir.left());
+    end.translate(dir.left());
+    end.translate(dir);
     stair.setOrientation(dir.left(), false).fill(editor, rand, new RectSolid(start, end));
-    start.add(Cardinal.DOWN);
-    end.add(Cardinal.DOWN);
+    start.translate(Cardinal.DOWN);
+    end.translate(Cardinal.DOWN);
     stair.setOrientation(dir.right(), true).fill(editor, rand, new RectSolid(start, end));
-    start.add(dir.left());
-    end.add(dir.left());
-    end.add(dir);
+    start.translate(dir.left());
+    end.translate(dir.left());
+    end.translate(dir);
     stair.setOrientation(dir.left(), false).fill(editor, rand, new RectSolid(start, end));
 
     cursor = new Coord(origin);
-    cursor.add(Cardinal.UP, 2);
-    cursor.add(dir, 2);
-    cursor.add(dir.left(), 10);
+    cursor.translate(Cardinal.UP, 2);
+    cursor.translate(dir, 2);
+    cursor.translate(dir.left(), 10);
     start = new Coord(cursor);
     end = new Coord(cursor);
-    end.add(dir.right(), 6);
+    end.translate(dir.right(), 6);
     stair.setOrientation(dir, false).fill(editor, rand, new RectSolid(start, end));
-    start.add(dir.reverse());
-    end.add(dir.reverse());
+    start.translate(dir.reverse());
+    end.translate(dir.reverse());
     stair.setOrientation(dir.reverse(), true).fill(editor, rand, new RectSolid(start, end));
-    start.add(Cardinal.UP);
-    end.add(Cardinal.UP);
-    end.add(dir.right());
+    start.translate(Cardinal.UP);
+    end.translate(Cardinal.UP);
+    end.translate(dir.right());
     stair.setOrientation(dir, false).fill(editor, rand, new RectSolid(start, end));
-    start.add(dir.reverse());
-    end.add(dir.reverse());
+    start.translate(dir.reverse());
+    end.translate(dir.reverse());
     stair.setOrientation(dir.reverse(), true).fill(editor, rand, new RectSolid(start, end));
-    start.add(Cardinal.UP);
-    end.add(Cardinal.UP);
-    end.add(dir.right());
+    start.translate(Cardinal.UP);
+    end.translate(Cardinal.UP);
+    end.translate(dir.right());
     stair.setOrientation(dir, false).fill(editor, rand, new RectSolid(start, end));
-    start.add(dir.reverse());
-    end.add(dir.reverse());
+    start.translate(dir.reverse());
+    end.translate(dir.reverse());
     stair.setOrientation(dir.reverse(), true).fill(editor, rand, new RectSolid(start, end));
-    start.add(Cardinal.UP);
-    end.add(Cardinal.UP);
-    end.add(dir.right());
+    start.translate(Cardinal.UP);
+    end.translate(Cardinal.UP);
+    end.translate(dir.right());
     stair.setOrientation(dir, false).fill(editor, rand, new RectSolid(start, end));
-    start.add(dir.reverse());
-    end.add(dir.reverse());
+    start.translate(dir.reverse());
+    end.translate(dir.reverse());
     stair.setOrientation(dir.reverse(), true).fill(editor, rand, new RectSolid(start, end));
-    start.add(Cardinal.UP);
-    end.add(Cardinal.UP);
+    start.translate(Cardinal.UP);
+    end.translate(Cardinal.UP);
     stair.setOrientation(dir, false).fill(editor, rand, new RectSolid(start, end));
 
-    start.add(dir.reverse());
-    end.add(dir.reverse());
+    start.translate(dir.reverse());
+    end.translate(dir.reverse());
     RectSolid.fill(editor, rand, start, end, walls);
 
     start = new Coord(end);
-    end.add(dir.reverse(), 2);
-    start.add(dir.right());
-    end.add(dir.right());
-    start.add(dir);
-    end.add(dir);
+    end.translate(dir.reverse(), 2);
+    start.translate(dir.right());
+    end.translate(dir.right());
+    start.translate(dir);
+    end.translate(dir);
     stair.setOrientation(dir.right(), false).fill(editor, rand, new RectSolid(start, end));
 
-    cursor.add(dir.reverse(), 10);
+    cursor.translate(dir.reverse(), 10);
     start = new Coord(cursor);
     end = new Coord(cursor);
-    end.add(dir.right(), 7);
+    end.translate(dir.right(), 7);
     stair.setOrientation(dir.reverse(), false).fill(editor, rand, new RectSolid(start, end));
-    start.add(dir);
-    end.add(dir);
+    start.translate(dir);
+    end.translate(dir);
     stair.setOrientation(dir, true).fill(editor, rand, new RectSolid(start, end));
-    start.add(Cardinal.UP);
-    end.add(Cardinal.UP);
-    end.add(dir.right(), 5);
+    start.translate(Cardinal.UP);
+    end.translate(Cardinal.UP);
+    end.translate(dir.right(), 5);
     stair.setOrientation(dir.reverse(), false).fill(editor, rand, new RectSolid(start, end));
-    start.add(dir);
-    end.add(dir);
+    start.translate(dir);
+    end.translate(dir);
     stair.setOrientation(dir, true).fill(editor, rand, new RectSolid(start, end));
-    end.add(dir.left());
-    start.add(Cardinal.UP);
-    end.add(Cardinal.UP);
+    end.translate(dir.left());
+    start.translate(Cardinal.UP);
+    end.translate(Cardinal.UP);
     stair.setOrientation(dir.reverse(), false).fill(editor, rand, new RectSolid(start, end));
-    start.add(dir);
-    end.add(dir);
+    start.translate(dir);
+    end.translate(dir);
     stair.setOrientation(dir, true).fill(editor, rand, new RectSolid(start, end));
-    end.add(dir.left());
-    start.add(Cardinal.UP);
-    end.add(Cardinal.UP);
+    end.translate(dir.left());
+    start.translate(Cardinal.UP);
+    end.translate(Cardinal.UP);
     stair.setOrientation(dir.reverse(), false).fill(editor, rand, new RectSolid(start, end));
-    start.add(dir);
-    end.add(dir);
+    start.translate(dir);
+    end.translate(dir);
     stair.setOrientation(dir, true).fill(editor, rand, new RectSolid(start, end));
-    end.add(dir.left());
-    start.add(Cardinal.UP);
-    end.add(Cardinal.UP);
+    end.translate(dir.left());
+    start.translate(Cardinal.UP);
+    end.translate(Cardinal.UP);
     stair.setOrientation(dir.reverse(), false).fill(editor, rand, new RectSolid(start, end));
   }
 
@@ -447,19 +447,19 @@ public class HouseTower implements ITower {
     Coord end;
 
     start = new Coord(origin);
-    start.add(orth[1], 3);
-    start.add(dir, 3);
+    start.translate(orth[1], 3);
+    start.translate(dir, 3);
     end = new Coord(origin);
-    end.add(orth[0], 3);
-    end.add(dir.reverse(), 6);
+    end.translate(orth[0], 3);
+    end.translate(dir.reverse(), 6);
     RectSolid.fill(editor, rand, start, end, floor);
 
     start = new Coord(origin);
-    start.add(orth[0], 3);
-    start.add(dir);
+    start.translate(orth[0], 3);
+    start.translate(dir);
     end = new Coord(origin);
-    end.add(dir.reverse(), 7);
-    end.add(orth[0], 9);
+    end.translate(dir.reverse(), 7);
+    end.translate(orth[0], 9);
     RectSolid.fill(editor, rand, start, end, floor);
   }
 
@@ -471,92 +471,92 @@ public class HouseTower implements ITower {
     Coord end;
 
     start = new Coord(origin);
-    start.add(orth[1], 3);
-    start.add(dir, 2);
+    start.translate(orth[1], 3);
+    start.translate(dir, 2);
     end = new Coord(start);
-    end.add(dir.reverse(), 7);
-    end.add(Cardinal.UP, 2);
+    end.translate(dir.reverse(), 7);
+    end.translate(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, walls);
 
     start = new Coord(origin);
-    start.add(orth[1], 2);
-    start.add(dir, 3);
+    start.translate(orth[1], 2);
+    start.translate(dir, 3);
     end = new Coord(start);
-    end.add(orth[0], 4);
-    end.add(Cardinal.UP, 3);
+    end.translate(orth[0], 4);
+    end.translate(Cardinal.UP, 3);
     RectSolid.fill(editor, rand, start, end, walls);
-    end.add(Cardinal.UP);
-    end.add(orth[1]);
+    end.translate(Cardinal.UP);
+    end.translate(orth[1]);
     start = new Coord(end);
-    start.add(orth[1], 2);
+    start.translate(orth[1], 2);
     RectSolid.fill(editor, rand, start, end, walls);
 
     start = new Coord(origin);
-    start.add(orth[0], 3);
-    start.add(dir, 2);
+    start.translate(orth[0], 3);
+    start.translate(dir, 2);
     end = new Coord(start);
-    end.add(Cardinal.UP, 2);
+    end.translate(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, walls);
 
     start = new Coord(origin);
-    start.add(orth[0], 4);
-    start.add(dir);
+    start.translate(orth[0], 4);
+    start.translate(dir);
     end = new Coord(start);
-    end.add(orth[0], 4);
-    end.add(Cardinal.UP, 2);
+    end.translate(orth[0], 4);
+    end.translate(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, walls);
 
     start = new Coord(origin);
-    start.add(orth[0], 9);
+    start.translate(orth[0], 9);
     end = new Coord(start);
-    end.add(dir.reverse(), 6);
-    end.add(Cardinal.UP, 3);
+    end.translate(dir.reverse(), 6);
+    end.translate(Cardinal.UP, 3);
     RectSolid.fill(editor, rand, start, end, walls);
-    end.add(Cardinal.UP);
-    end.add(dir);
+    end.translate(Cardinal.UP);
+    end.translate(dir);
     start = new Coord(end);
-    start.add(dir, 4);
+    start.translate(dir, 4);
     RectSolid.fill(editor, rand, start, end, walls);
-    end.add(Cardinal.UP);
-    end.add(dir);
+    end.translate(Cardinal.UP);
+    end.translate(dir);
     start = new Coord(end);
-    start.add(dir, 2);
+    start.translate(dir, 2);
     RectSolid.fill(editor, rand, start, end, walls);
 
 
     start = new Coord(origin);
-    start.add(dir.reverse(), 7);
-    start.add(orth[0], 4);
+    start.translate(dir.reverse(), 7);
+    start.translate(orth[0], 4);
     end = new Coord(start);
-    end.add(orth[0], 4);
-    end.add(Cardinal.UP, 2);
+    end.translate(orth[0], 4);
+    end.translate(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, walls);
 
     start = new Coord(origin);
-    start.add(dir.reverse(), 6);
-    start.add(orth[1], 2);
+    start.translate(dir.reverse(), 6);
+    start.translate(orth[1], 2);
     end = new Coord(start);
-    end.add(orth[0], 4);
-    end.add(Cardinal.UP, 3);
+    end.translate(orth[0], 4);
+    end.translate(Cardinal.UP, 3);
     RectSolid.fill(editor, rand, start, end, walls);
 
     cursor = new Coord(origin);
-    cursor.add(orth[1], 3);
-    cursor.add(dir, 3);
+    cursor.translate(orth[1], 3);
+    cursor.translate(dir, 3);
     pillar(editor, rand, theme, 3, cursor);
-    cursor.add(orth[0], 6);
+    cursor.translate(orth[0], 6);
     pillar(editor, rand, theme, 3, cursor);
-    cursor.add(dir.reverse(), 2);
+    cursor.translate(dir.reverse(), 2);
     pillar(editor, rand, theme, 3, cursor);
-    cursor.add(orth[0], 6);
+    cursor.translate(orth[0], 6);
     pillar(editor, rand, theme, 3, cursor);
-    cursor.add(dir.reverse(), 8);
+    cursor.translate(dir.reverse(), 8);
     pillar(editor, rand, theme, 3, cursor);
-    cursor.add(orth[1], 6);
+    cursor.translate(orth[1], 6);
     pillar(editor, rand, theme, 3, cursor);
-    cursor.add(dir);
+    cursor.translate(dir);
     pillar(editor, rand, theme, 3, cursor);
-    cursor.add(orth[1], 6);
+    cursor.translate(orth[1], 6);
     pillar(editor, rand, theme, 3, cursor);
   }
 
@@ -564,7 +564,7 @@ public class HouseTower implements ITower {
     IBlockFactory pillar = theme.getPrimary().getPillar();
     Coord end;
     end = new Coord(start);
-    end.add(Cardinal.UP, height - 1);
+    end.translate(Cardinal.UP, height - 1);
     RectSolid.fill(editor, rand, start, end, pillar);
   }
 
@@ -577,20 +577,20 @@ public class HouseTower implements ITower {
 
     start = new Coord(origin);
     end = new Coord(origin);
-    end.add(Cardinal.UP, 2);
+    end.translate(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, pillar);
     cursor = new Coord(origin);
-    cursor.add(Cardinal.DOWN);
+    cursor.translate(Cardinal.DOWN);
     editor.fillDown(rand, cursor, pillar);
 
     for (Cardinal dir : dirs) {
       cursor = new Coord(origin);
-      cursor.add(Cardinal.UP, 2);
-      cursor.add(dir);
+      cursor.translate(Cardinal.UP, 2);
+      cursor.translate(dir);
       stair.setOrientation(dir, true).set(editor, cursor);
       for (Cardinal o : dir.orthogonal()) {
         Coord c = new Coord(cursor);
-        c.add(o);
+        c.translate(o);
         stair.setOrientation(o, true).set(editor, rand, c, true, false);
       }
     }
@@ -610,38 +610,38 @@ public class HouseTower implements ITower {
     Cardinal[] orth = dir.orthogonal();
 
     start = new Coord(origin);
-    start.add(dir.reverse());
+    start.translate(dir.reverse());
     end = new Coord(start);
-    start.add(orth[0]);
-    end.add(orth[1]);
-    end.add(dir.reverse(), 2);
-    end.add(Cardinal.UP, 6);
+    start.translate(orth[0]);
+    end.translate(orth[1]);
+    end.translate(dir.reverse(), 2);
+    end.translate(Cardinal.UP, 6);
     RectSolid.fill(editor, rand, start, end, air);
 
     start = new Coord(origin);
     end = new Coord(start);
-    start.add(Cardinal.DOWN);
-    start.add(orth[0]);
-    end.add(Cardinal.UP, 2);
-    end.add(orth[1]);
+    start.translate(Cardinal.DOWN);
+    start.translate(orth[0]);
+    end.translate(Cardinal.UP, 2);
+    end.translate(orth[1]);
     RectSolid.fill(editor, rand, start, end, floor);
 
     start = new Coord(origin);
-    start.add(Cardinal.DOWN);
+    start.translate(Cardinal.DOWN);
     end = new Coord(start);
-    start.add(dir.reverse());
-    end.add(dir);
-    start.add(orth[0]);
-    end.add(orth[1]);
+    start.translate(dir.reverse());
+    end.translate(dir);
+    start.translate(orth[0]);
+    end.translate(orth[1]);
     RectSolid.fill(editor, rand, start, end, floor);
 
     start = new Coord(origin);
-    start.add(Cardinal.DOWN, 2);
+    start.translate(Cardinal.DOWN, 2);
     end = new Coord(start);
-    start.add(dir.reverse());
-    end.add(dir);
-    start.add(orth[0]);
-    end.add(orth[1]);
+    start.translate(dir.reverse());
+    end.translate(dir);
+    start.translate(orth[0]);
+    end.translate(orth[1]);
     end = new Coord(end.getX(), 60, end.getZ());
     RectSolid.fill(editor, rand, start, end, floor, true, false);
 
@@ -650,38 +650,38 @@ public class HouseTower implements ITower {
     for (Cardinal o : orth) {
 
       cursor = new Coord(origin);
-      cursor.add(o, 2);
-      cursor.add(Cardinal.UP, 2);
+      cursor.translate(o, 2);
+      cursor.translate(Cardinal.UP, 2);
       editor.fillDown(rand, cursor, pillar);
 
       cursor = new Coord(end);
-      cursor.add(o);
+      cursor.translate(o);
       stair.setOrientation(o, true).set(editor, cursor);
-      cursor.add(dir.reverse());
+      cursor.translate(dir.reverse());
       stair.setOrientation(o, true).set(editor, cursor);
-      cursor.add(o.reverse());
+      cursor.translate(o.reverse());
       stair.setOrientation(dir.reverse(), true).set(editor, cursor);
-      cursor.add(o.reverse());
+      cursor.translate(o.reverse());
       stair.setOrientation(o.reverse(), true).set(editor, cursor);
     }
 
     cursor = new Coord(origin);
-    cursor.add(Cardinal.UP, 2);
-    cursor.add(orth[0], 3);
-    cursor.add(dir);
+    cursor.translate(Cardinal.UP, 2);
+    cursor.translate(orth[0], 3);
+    cursor.translate(dir);
     stair.setOrientation(dir, true).set(editor, cursor);
 
     start = new Coord(origin);
-    start.add(dir);
+    start.translate(dir);
     end = new Coord(start);
-    start.add(orth[0]);
-    end.add(orth[1]);
-    end.add(Cardinal.UP, 2);
+    start.translate(orth[0]);
+    end.translate(orth[1]);
+    end.translate(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, air);
 
     cursor = new Coord(origin);
-    cursor.add(Cardinal.DOWN);
-    cursor.add(dir.reverse(), 2);
+    cursor.translate(Cardinal.DOWN);
+    cursor.translate(dir.reverse(), 2);
     step(editor, rand, theme, dir.reverse(), cursor);
   }
 
@@ -695,8 +695,8 @@ public class HouseTower implements ITower {
     IBlockFactory blocks = theme.getPrimary().getWall();
 
     cursor = new Coord(origin);
-    cursor.add(Cardinal.DOWN);
-    cursor.add(dir);
+    cursor.translate(Cardinal.DOWN);
+    cursor.translate(dir);
     if (editor.validGroundBlock(cursor)) {
       return;
     }
@@ -708,20 +708,20 @@ public class HouseTower implements ITower {
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(orth[0]);
-    end.add(orth[1]);
+    start.translate(orth[0]);
+    end.translate(orth[1]);
     end = new Coord(end.getX(), 60, end.getZ());
     RectSolid.fill(editor, rand, start, end, blocks, true, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(orth[0]);
-    end.add(orth[1]);
+    start.translate(orth[0]);
+    end.translate(orth[1]);
     stair.setOrientation(dir, false);
     RectSolid.fill(editor, rand, start, end, stair, true, true);
 
-    origin.add(Cardinal.DOWN);
-    origin.add(dir);
+    origin.translate(Cardinal.DOWN);
+    origin.translate(dir);
     step(editor, rand, theme, dir, origin);
   }
 }

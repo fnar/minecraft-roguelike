@@ -28,7 +28,7 @@ public class Bed {
       ColorBlock.get(ColorBlock.WOOL, DyeColor.WHITE).set(editor, cursor);
     }
 
-    cursor.add(dir);
+    cursor.translate(dir);
     if (RogueConfig.getBoolean(RogueConfig.FURNITURE)) {
       MetaBlock foot = new MetaBlock(Blocks.BED);
       foot.withProperty(BlockBed.PART, BlockBed.EnumPartType.FOOT);

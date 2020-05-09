@@ -43,8 +43,8 @@ public class DungeonTreetho extends DungeonBase {
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(-11, -1, -11));
-    end.add(new Coord(11, 8, 11));
+    start.translate(new Coord(-11, -1, -11));
+    end.translate(new Coord(11, 8, 11));
 
     RectHollow.fill(editor, rand, start, end, wall, false, true);
 
@@ -52,15 +52,15 @@ public class DungeonTreetho extends DungeonBase {
     MetaBlock pumpkin = Crops.get(Crops.PUMPKIN);
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(-9, 8, -9));
-    end.add(new Coord(9, 8, 9));
+    start.translate(new Coord(-9, 8, -9));
+    end.translate(new Coord(9, 8, 9));
     RectSolid.fill(editor, rand, start, end, birchSlab);
-    start.add(Cardinal.UP);
-    end.add(Cardinal.UP);
+    start.translate(Cardinal.UP);
+    end.translate(Cardinal.UP);
     RectSolid.fill(editor, rand, start, end, pumpkin, true, true);
 
     cursor = new Coord(origin);
-    cursor.add(new Coord(0, 8, 0));
+    cursor.translate(new Coord(0, 8, 0));
     ceiling(editor, rand, settings, cursor);
 
     cursor = new Coord(origin);
@@ -68,7 +68,7 @@ public class DungeonTreetho extends DungeonBase {
 
     for (Cardinal o : dir.orthogonal()) {
       cursor = new Coord(origin);
-      cursor.add(o, 5);
+      cursor.translate(o, 5);
       treeFarm(editor, rand, settings, cursor, dir);
     }
 
@@ -90,31 +90,31 @@ public class DungeonTreetho extends DungeonBase {
     start = new Coord(origin);
     end = new Coord(origin);
 
-    start.add(dir.left());
-    end.add(dir.right());
+    start.translate(dir.left());
+    end.translate(dir.right());
 
-    start.add(dir.reverse(), 7);
-    end.add(dir, 7);
+    start.translate(dir.reverse(), 7);
+    end.translate(dir, 7);
 
     RectSolid.fill(editor, rand, start, end, slab, true, true);
 
     cursor = new Coord(origin);
 
-    cursor.add(dir.reverse(), 6);
+    cursor.translate(dir.reverse(), 6);
     for (int i = 0; i <= 12; ++i) {
       if (i % 2 == 0) {
         Coord p = new Coord(cursor);
         if (i % 4 == 0) {
           sapling.set(editor, p);
-          p.add(Cardinal.DOWN);
+          p.translate(Cardinal.DOWN);
           dirt.set(editor, p);
         } else {
           glass.set(editor, p);
-          p.add(Cardinal.DOWN);
+          p.translate(Cardinal.DOWN);
           light.set(editor, p);
         }
       }
-      cursor.add(dir);
+      cursor.translate(dir);
     }
 
 
@@ -129,21 +129,21 @@ public class DungeonTreetho extends DungeonBase {
 
     for (Cardinal dir : Cardinal.directions) {
       Coord start = new Coord(origin);
-      start.add(dir, 9);
+      start.translate(dir, 9);
       Coord end = new Coord(start);
 
-      start.add(dir.left(), 9);
-      end.add(dir.right(), 9);
+      start.translate(dir.left(), 9);
+      end.translate(dir.right(), 9);
 
       RectSolid.fill(editor, rand, start, end, fill, true, true);
 
       Coord cursor = new Coord(origin);
-      cursor.add(Cardinal.DOWN);
-      cursor.add(dir, 10);
-      cursor.add(dir.left(), 10);
+      cursor.translate(Cardinal.DOWN);
+      cursor.translate(dir, 10);
+      cursor.translate(dir.left(), 10);
       for (int i = 0; i < 5; ++i) {
         pillar(editor, rand, settings, cursor);
-        cursor.add(dir.right(), 4);
+        cursor.translate(dir.right(), 4);
       }
     }
 
@@ -160,7 +160,7 @@ public class DungeonTreetho extends DungeonBase {
 
     for (Cardinal dir : Cardinal.directions) {
       cursor = new Coord(origin);
-      cursor.add(dir);
+      cursor.translate(dir);
       if (editor.isAirBlock(cursor)) {
         stair.setOrientation(dir, true).set(editor, cursor);
       }

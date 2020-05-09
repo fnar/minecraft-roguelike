@@ -15,7 +15,7 @@ public class MSTPoint {
   public MSTPoint(Coord pos, Random rand) {
     this.position = new Coord(pos);
     this.adjusted = new Coord(pos);
-    this.adjusted.add(Cardinal.directions[rand.nextInt(Cardinal.directions.length)]);
+    this.adjusted.translate(Cardinal.directions[rand.nextInt(Cardinal.directions.length)]);
 
     this.rank = 0;
     this.parent = this;

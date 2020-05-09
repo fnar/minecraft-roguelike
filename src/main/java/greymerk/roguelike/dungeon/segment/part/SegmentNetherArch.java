@@ -28,16 +28,16 @@ public class SegmentNetherArch extends SegmentBase {
 
     for (Cardinal orth : dir.orthogonal()) {
       cursor = new Coord(origin);
-      cursor.add(dir, 1);
-      cursor.add(orth, 1);
-      cursor.add(Cardinal.UP, 2);
+      cursor.translate(dir, 1);
+      cursor.translate(orth, 1);
+      cursor.translate(Cardinal.UP, 2);
       step.set(editor, cursor);
 
       cursor = new Coord(origin);
-      cursor.add(dir, 2);
-      cursor.add(orth, 1);
+      cursor.translate(dir, 2);
+      cursor.translate(orth, 1);
       pillar.set(editor, rand, cursor);
-      cursor.add(Cardinal.UP, 1);
+      cursor.translate(Cardinal.UP, 1);
       pillar.set(editor, rand, cursor);
     }
 
@@ -45,15 +45,15 @@ public class SegmentNetherArch extends SegmentBase {
     MetaBlock lava = BlockType.get(BlockType.LAVA_FLOWING);
 
     cursor = new Coord(origin);
-    cursor.add(dir, 2);
+    cursor.translate(dir, 2);
     fence.set(editor, rand, cursor);
-    cursor.add(Cardinal.UP, 1);
+    cursor.translate(Cardinal.UP, 1);
     fence.set(editor, rand, cursor);
 
     if (hasLava) {
-      cursor.add(dir, 1);
+      cursor.translate(dir, 1);
       lava.set(editor, cursor);
-      cursor.add(Cardinal.DOWN, 1);
+      cursor.translate(Cardinal.DOWN, 1);
       lava.set(editor, cursor);
     }
   }

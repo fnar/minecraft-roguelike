@@ -26,16 +26,16 @@ public class SilverfishNest implements IAlcove {
 
     Coord corridor = new Coord(origin);
     Coord centre = new Coord(origin);
-    centre.add(dir, RECESSED);
+    centre.translate(dir, RECESSED);
 
     nest(editor, rand, centre.getX(), centre.getY(), centre.getZ());
 
     Coord start = new Coord(corridor);
-    start.add(Cardinal.UP);
+    start.translate(Cardinal.UP);
 
     Coord end = new Coord(centre);
-    end.add(Cardinal.UP);
-    end.add(dir.reverse(), 1);
+    end.translate(Cardinal.UP);
+    end.translate(dir.reverse(), 1);
 
     RectSolid.fill(editor, rand, start, end, BlockType.get(BlockType.AIR));
     SpawnerSettings spawners = settings.getSpawners().isEmpty()
@@ -48,7 +48,7 @@ public class SilverfishNest implements IAlcove {
   public boolean isValidLocation(IWorldEditor editor, Coord origin, Cardinal dir) {
 
     Coord centre = new Coord(origin);
-    centre.add(dir, RECESSED);
+    centre.translate(dir, RECESSED);
     int x = centre.getX();
     int y = centre.getY();
     int z = centre.getZ();

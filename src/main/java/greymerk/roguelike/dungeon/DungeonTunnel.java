@@ -49,10 +49,10 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
 
     s = new Coord(start);
     e = new Coord(end);
-    s.add(dir.left(), 3);
-    s.add(Cardinal.UP, 3);
-    e.add(dir.right(), 3);
-    e.add(Cardinal.DOWN, 3);
+    s.translate(dir.left(), 3);
+    s.translate(Cardinal.UP, 3);
+    e.translate(dir.right(), 3);
+    e.translate(Cardinal.DOWN, 3);
     RectSolid.fill(editor, rand, s, e, theme.getPrimary().getWall());
   }
 
@@ -70,30 +70,30 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
     bridgeBlocks.addBlock(air);
 
     s = new Coord(start);
-    s.add(Cardinal.NORTH);
-    s.add(Cardinal.EAST);
+    s.translate(Cardinal.NORTH);
+    s.translate(Cardinal.EAST);
     e = new Coord(end);
-    e.add(Cardinal.SOUTH);
-    e.add(Cardinal.WEST);
-    e.add(Cardinal.UP, 2);
+    e.translate(Cardinal.SOUTH);
+    e.translate(Cardinal.WEST);
+    e.translate(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, s, e, air);
 
-    s.add(Cardinal.NORTH);
-    s.add(Cardinal.EAST);
-    s.add(Cardinal.DOWN);
-    e.add(Cardinal.SOUTH);
-    e.add(Cardinal.WEST);
-    e.add(Cardinal.UP);
+    s.translate(Cardinal.NORTH);
+    s.translate(Cardinal.EAST);
+    s.translate(Cardinal.DOWN);
+    e.translate(Cardinal.SOUTH);
+    e.translate(Cardinal.WEST);
+    e.translate(Cardinal.UP);
     RectHollow.fill(editor, rand, s, e, wallBlocks, false, true);
 
     s = new Coord(start);
-    s.add(Cardinal.NORTH);
-    s.add(Cardinal.EAST);
-    s.add(Cardinal.DOWN);
+    s.translate(Cardinal.NORTH);
+    s.translate(Cardinal.EAST);
+    s.translate(Cardinal.DOWN);
     e = new Coord(end);
-    e.add(Cardinal.SOUTH);
-    e.add(Cardinal.WEST);
-    e.add(Cardinal.DOWN);
+    e.translate(Cardinal.SOUTH);
+    e.translate(Cardinal.WEST);
+    e.translate(Cardinal.DOWN);
     RectSolid.fill(editor, rand, s, e, floor, false, true);
     RectSolid.fill(editor, rand, s, e, bridgeBlocks, true, false);
 
@@ -101,15 +101,15 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
 
     // end of the tunnel;
     Coord location = new Coord(end);
-    location.add(dir, 1);
+    location.translate(dir, 1);
 
     Coord start = new Coord(location);
     Cardinal[] orth = dir.orthogonal();
-    start.add(orth[0], 2);
-    start.add(Cardinal.UP, 2);
+    start.translate(orth[0], 2);
+    start.translate(Cardinal.UP, 2);
     Coord end = new Coord(location);
-    end.add(orth[1], 2);
-    end.add(Cardinal.DOWN, 2);
+    end.translate(orth[1], 2);
+    end.translate(Cardinal.DOWN, 2);
 
     RectSolid.fill(editor, rand, start, end, wallBlocks, false, true);
 
@@ -145,10 +145,10 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
     Cardinal dir = getDirection();
     s = new Coord(start);
     e = new Coord(end);
-    s.add(dir.left(), 2);
-    s.add(Cardinal.UP, 3);
-    e.add(dir.right(), 2);
-    e.add(Cardinal.DOWN, 1);
+    s.translate(dir.left(), 2);
+    s.translate(Cardinal.UP, 3);
+    e.translate(dir.right(), 2);
+    e.translate(Cardinal.DOWN, 1);
     return new BoundingBox(s, e);
   }
 

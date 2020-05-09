@@ -51,26 +51,26 @@ public class DungeonsCreeperDen extends DungeonBase {
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(-4, -4, -4));
-    end.add(new Coord(4, 5, 4));
+    start.translate(new Coord(-4, -4, -4));
+    end.translate(new Coord(4, 5, 4));
     RectHollow.fill(editor, random, start, end, mossy, false, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(-3, -1, -3));
-    end.add(new Coord(3, -1, 3));
+    start.translate(new Coord(-3, -1, -3));
+    end.translate(new Coord(3, -1, 3));
     RectSolid.fill(editor, random, start, end, floor, true, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(-3, -3, -3));
-    end.add(new Coord(3, -2, 3));
+    start.translate(new Coord(-3, -3, -3));
+    end.translate(new Coord(3, -2, 3));
     RectSolid.fill(editor, random, start, end, subfloor, true, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
-    start.add(new Coord(-3, 0, -3));
-    end.add(new Coord(3, 0, 3));
+    start.translate(new Coord(-3, 0, -3));
+    end.translate(new Coord(3, 0, 3));
 
     List<Coord> chestSpaces = new RectSolid(start, end).get();
     chooseRandomLocations(random, 3, chestSpaces).stream()
@@ -86,7 +86,7 @@ public class DungeonsCreeperDen extends DungeonBase {
 
   private void spawnTntBeneath(IWorldEditor editor, Coord coord) {
     Coord cursor = new Coord(coord);
-    cursor.add(Cardinal.DOWN, 2);
+    cursor.translate(Cardinal.DOWN, 2);
     TNT_META_BLOCK.set(editor, cursor);
   }
 
