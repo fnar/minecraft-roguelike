@@ -109,14 +109,6 @@ public class Coord {
     return this;
   }
 
-  public Coord sub(Coord other) {
-    return sub(other.x, other.y, other.z);
-  }
-
-  private Coord sub(int x, int y, int z) {
-    return translate(-x, -y, -z);
-  }
-
   public double distance(Coord other) {
     double side1 = Math.abs(getX() - other.getX());
     double side2 = Math.abs(getZ() - other.getZ());
