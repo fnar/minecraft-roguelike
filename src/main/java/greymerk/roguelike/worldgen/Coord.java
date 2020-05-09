@@ -65,7 +65,7 @@ public class Coord {
     return z;
   }
 
-  public Coord newCoord(Cardinal dir) {
+  public Coord add(Cardinal dir) {
     return new Coord(this).translate(dir, 1);
   }
 
@@ -107,6 +107,14 @@ public class Coord {
   public Coord translate(Cardinal dir) {
     translate(dir, 1);
     return this;
+  }
+
+  public Coord add(Coord other) {
+    return new Coord(this).translate(other);
+  }
+
+  public Coord add(int x, int y, int z) {
+    return new Coord(this).translate(x, y, z);
   }
 
   public double distance(Coord other) {
