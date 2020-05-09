@@ -18,7 +18,7 @@ import static java.util.Optional.ofNullable;
 
 class BlockSetParser {
 
-  public static BlockSet parseBlockSet(JsonObject json, IBlockSet baseBlockSet) throws Exception {
+  public static BlockSet parseBlockSet(JsonObject json, BlockSet baseBlockSet) throws Exception {
     return new BlockSet(
         parseFloor(json).orElse(baseBlockSet.getFloor()),
         parseWalls(json).orElse(baseBlockSet.getWall()),

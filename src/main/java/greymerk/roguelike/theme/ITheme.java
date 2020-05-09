@@ -2,8 +2,8 @@ package greymerk.roguelike.theme;
 
 public interface ITheme {
 
-  IBlockSet getPrimary();
+  BlockSet getPrimary();
 
-  IBlockSet getSecondary();
+  BlockSet getSecondary();
 
 }

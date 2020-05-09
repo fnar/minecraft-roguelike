@@ -13,7 +13,7 @@ import org.junit.Test;
 import java.util.Random;
 
 import greymerk.roguelike.config.RogueConfig;
-import greymerk.roguelike.theme.IBlockSet;
+import greymerk.roguelike.theme.BlockSet;
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.treasure.MockChest;
 import greymerk.roguelike.treasure.Treasure;
@@ -89,7 +89,7 @@ public class DungeonSettingsTest {
 
     LevelSettings level = setting.getLevelSettings(0);
     ITheme t = level.getTheme();
-    IBlockSet bs = t.getPrimary();
+    BlockSet bs = t.getPrimary();
     IBlockFactory f = bs.getFloor();
     assert (f.equals(BlockType.get(BlockType.DIRT)));
 

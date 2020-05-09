@@ -72,8 +72,8 @@ public class ThemeTest {
 
   @Test
   public void themesInheritFromTheirParents() {
-    IBlockSet dirtBlockSet = new BlockSet(BlockType.get(BlockType.DIRT), null, null);
-    IBlockSet grassBlockSet = new BlockSet(BlockType.get(BlockType.GRASS), null, null);
+    BlockSet dirtBlockSet = new BlockSet(BlockType.get(BlockType.DIRT), null, null);
+    BlockSet grassBlockSet = new BlockSet(BlockType.get(BlockType.GRASS), null, null);
 
     ITheme parent = new ThemeBase(dirtBlockSet, null);
     ITheme child = new ThemeBase(null, grassBlockSet);
@@ -85,8 +85,8 @@ public class ThemeTest {
 
   @Test
   public void themesInheritTheirSecondaryBlockSetFromTheirPrimaryIfTheirSecondaryBlockSetIsAbsent() {
-    IBlockSet dirtBlockSet = new BlockSet(BlockType.get(BlockType.DIRT), null, null);
-    IBlockSet grassBlockSet = new BlockSet(BlockType.get(BlockType.GRASS), null, null);
+    BlockSet dirtBlockSet = new BlockSet(BlockType.get(BlockType.DIRT), null, null);
+    BlockSet grassBlockSet = new BlockSet(BlockType.get(BlockType.GRASS), null, null);
 
     ITheme parent = new ThemeBase(dirtBlockSet, null);
     ITheme child = new ThemeBase(grassBlockSet, null);
@@ -98,7 +98,7 @@ public class ThemeTest {
 
   @Test
   public void themesInheritTheirPrimaryBlockSetFromTheirParentIfAbsent() {
-    IBlockSet dirtBlockSet = new BlockSet(BlockType.get(BlockType.DIRT), null, null);
+    BlockSet dirtBlockSet = new BlockSet(BlockType.get(BlockType.DIRT), null, null);
 
     ITheme parent = new ThemeBase(dirtBlockSet, null);
     ITheme child = new ThemeBase(null, null);
@@ -109,7 +109,7 @@ public class ThemeTest {
 
   @Test
   public void themesInheritTheirSecondaryBlockSetFromTheirParentIfAbsent() {
-    IBlockSet dirtBlockSet = new BlockSet(BlockType.get(BlockType.DIRT), null, null);
+    BlockSet dirtBlockSet = new BlockSet(BlockType.get(BlockType.DIRT), null, null);
 
     ITheme parent = new ThemeBase(null, dirtBlockSet);
     ITheme child = new ThemeBase(null, null);
@@ -120,7 +120,7 @@ public class ThemeTest {
 
   @Test
   public void themesInheritTheirSecondaryBlockSetFromTheirParentsPrimaryIfTheParentHasNoSecondary() {
-    IBlockSet dirtBlockSet = new BlockSet(BlockType.get(BlockType.DIRT), null, null);
+    BlockSet dirtBlockSet = new BlockSet(BlockType.get(BlockType.DIRT), null, null);
 
     ITheme parent = new ThemeBase(dirtBlockSet, null);
     ITheme child = new ThemeBase(null, null);
