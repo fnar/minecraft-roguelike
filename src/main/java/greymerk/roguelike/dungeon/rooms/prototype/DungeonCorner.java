@@ -9,7 +9,6 @@ import greymerk.roguelike.theme.BlockSet;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
-import greymerk.roguelike.worldgen.IStair;
 import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
 import greymerk.roguelike.worldgen.blocks.BlockType;
@@ -18,82 +17,77 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class DungeonCorner extends DungeonBase {
 
+  public static final MetaBlock AIR = BlockType.get(BlockType.AIR);
+
   public DungeonCorner(RoomSetting roomSetting) {
     super(roomSetting);
   }
 
   @Override
   public DungeonBase generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
-
     BlockSet primary = settings.getTheme().getPrimary();
-    IStair stair = primary.getStair();
-    IBlockFactory wall = primary.getWall();
-    IBlockFactory pillar = primary.getPillar();
+    createHollowCenter(editor, rand, origin);
+    createShell(editor, rand, origin, primary.getWall());
+    fillFloor(editor, rand, origin, primary.getFloor());
+    createCornerWalls(editor, rand, origin, primary);
+    createCeiling(editor, rand, origin, primary);
+    return this;
+  }
 
-    int x = origin.getX();
-    int y = origin.getY();
-    int z = origin.getZ();
-    ITheme theme = settings.getTheme();
-
-    IStair stair = theme.getPrimary().getStair();
-    IBlockFactory blocks = theme.getPrimary().getWall();
-    IBlockFactory pillar = theme.getPrimary().getPillar();
-    MetaBlock air = BlockType.get(BlockType.AIR);
-
-    // fill air inside
-    Coord hollowAirCorner0 = new Coord(x - 2, y, z - 2);
-    Coord hollowAirCorner1 = new Coord(x + 2, y + 3, z + 2);
-    RectSolid.fill(editor, rand, hollowAirCorner0, hollowAirCorner1, air);
-
-    // shell
-    Coord roomShellCorner0 = new Coord(x - 3, y - 1, z - 3);
-    Coord roomShellCorner1 = new Coord(x + 3, y + 4, z + 3);
-    RectHollow.fill(editor, rand, roomShellCorner0, roomShellCorner1, blocks, false, true);
-
-    // floor
-    Coord floorCorner0 = roomShellCorner0;
-    Coord floorCorner1 = new Coord(x + 3, y - 1, z + 3);
-    RectSolid.fill(editor, rand, floorCorner0, floorCorner1, theme.getPrimary().getFloor(), false, true);
-
-    Coord start;
-    Coord end;
-    Coord cursor;
-
-    cursor = new Coord(x, y, z);
-    cursor.translate(Cardinal.UP, 4);
-    air.set(editor, cursor);
-    cursor.translate(Cardinal.UP, 1);
-    blocks.set(editor, rand, cursor);
-
+  private void createCornerWalls(IWorldEditor editor, Random rand, Coord origin, BlockSet primary) {
     for (Cardinal dir : Cardinal.directions) {
+      Coord cursor = origin.copy()
+          .translate(dir, 2)
+          .translate(dir.antiClockwise(), 2);
 
-      cursor = new Coord(x, y, z);
-      cursor.translate(dir, 2);
-      cursor.translate(dir.left(), 2);
-      start = new Coord(cursor);
-      cursor.translate(Cardinal.UP, 2);
-      end = new Coord(cursor);
-      RectSolid.fill(editor, rand, start, end, pillar, true, true);
-      cursor.translate(Cardinal.UP, 1);
-      blocks.set(editor, rand, cursor);
+      Coord pillarStart = cursor.copy();
+      Coord pillarEnd = cursor.copy().up(2);
+      RectSolid.fill(editor, rand, pillarStart, pillarEnd, primary.getPillar(), true, true);
 
-      cursor = new Coord(x, y, z);
-      cursor.translate(dir, 1);
-      cursor.translate(Cardinal.UP, 4);
-      stair.setOrientation(dir.reverse(), true);
-      stair.set(editor, rand, cursor);
+      Coord pillarTop = cursor.copy().up(1);
+      primary.getWall().set(editor, rand, pillarTop);
+    }
+  }
 
-      for (Cardinal orth : dir.orthogonal()) {
-        cursor = new Coord(x, y, z);
-        cursor.translate(dir, 2);
-        cursor.translate(orth, 1);
-        cursor.translate(Cardinal.UP, 3);
-        stair.setOrientation(orth.reverse(), true);
-        stair.set(editor, rand, cursor);
+  private void createCeiling(IWorldEditor editor, Random rand, Coord origin, BlockSet primary) {
+    AIR.set(editor, origin.copy().up(4));
+
+    primary.getWall().set(editor, rand, origin.copy().up(5));
+
+    for (Cardinal dir: Cardinal.directions) {
+      Coord ceiling = origin.copy()
+          .translate(dir, 1)
+          .up(4);
+      primary.getStair().setOrientation(dir.reverse(), true);
+      primary.getStair().set(editor, rand, ceiling);
+
+      for (Cardinal orthogonal : dir.orthogonal()) {
+        Coord decorativeCeiling = origin.copy()
+            .translate(dir, 2)
+            .translate(orthogonal, 1)
+            .up(3);
+        primary.getStair().setOrientation(orthogonal.reverse(), true);
+        primary.getStair().set(editor, rand, decorativeCeiling);
       }
     }
+  }
 
-    return this;
+  private void createHollowCenter(IWorldEditor editor, Random rand, Coord origin) {
+    Coord hollowAirCorner0 = origin.add(-2, 0, -2);
+    Coord hollowAirCorner1 = origin.add(2, 3, 2);
+    RectSolid.fill(editor, rand, hollowAirCorner0, hollowAirCorner1, AIR);
+  }
+
+  private void createShell(IWorldEditor editor, Random rand, Coord origin, IBlockFactory blocks) {
+    Coord roomShellCorner0 = origin.add(-3, -1, -3);
+    Coord roomShellCorner1 = origin.add(3, 4, 3);
+    RectHollow.fill(editor, rand, roomShellCorner0, roomShellCorner1, blocks, false, true);
+  }
+
+  private void fillFloor(IWorldEditor editor, Random rand, Coord origin, IBlockFactory floor) {
+    Coord floorCorner0 = origin.add(-3, -1, -3);
+    Coord floorCorner1 = origin.add(3, -1, 3);
+    RectSolid.fill(editor, rand, floorCorner0, floorCorner1, floor, false, true);
   }
 
   public int getSize() {
