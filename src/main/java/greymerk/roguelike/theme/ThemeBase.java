@@ -4,24 +4,24 @@ import java.util.Optional;
 
 public class ThemeBase implements ITheme {
 
-  protected IBlockSet primary;
-  protected IBlockSet secondary;
+  protected BlockSet primary;
+  protected BlockSet secondary;
 
   public ThemeBase() {
   }
 
-  public ThemeBase(IBlockSet primary, IBlockSet secondary) {
+  public ThemeBase(BlockSet primary, BlockSet secondary) {
     this.primary = primary;
     this.secondary = secondary;
   }
 
   @Override
-  public IBlockSet getPrimary() {
+  public BlockSet getPrimary() {
     return primary;
   }
 
   @Override
-  public IBlockSet getSecondary() {
+  public BlockSet getSecondary() {
     return Optional.ofNullable(secondary).orElse(getPrimary());
   }
 

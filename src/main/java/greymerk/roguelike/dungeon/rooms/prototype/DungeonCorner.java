@@ -5,7 +5,7 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.BlockSet;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
@@ -24,6 +24,11 @@ public class DungeonCorner extends DungeonBase {
 
   @Override
   public DungeonBase generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+
+    BlockSet primary = settings.getTheme().getPrimary();
+    IStair stair = primary.getStair();
+    IBlockFactory wall = primary.getWall();
+    IBlockFactory pillar = primary.getPillar();
 
     int x = origin.getX();
     int y = origin.getY();

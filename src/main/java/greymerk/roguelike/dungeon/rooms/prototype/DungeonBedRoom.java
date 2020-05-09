@@ -149,7 +149,7 @@ public class DungeonBedRoom extends DungeonBase {
     cursor.translate(dir);
     cursor.translate(side, 3);
 
-    createChest(editor, rand, Dungeon.getLevel(cursor.getY()), cursor.newCoord(Cardinal.UP), false, STARTER);
+    createChest(editor, rand, Dungeon.getLevel(cursor.getY()), cursor.add(Cardinal.UP), false, STARTER);
 
     cursor.translate(side.reverse(), 6);
     if (rand.nextBoolean()) {

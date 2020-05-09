@@ -62,21 +62,21 @@ public enum Theme {
         getSecondaryBlockSet(parent, child));
   }
 
-  private static IBlockSet getPrimaryBlockSet(ITheme parent, ITheme child) {
+  private static BlockSet getPrimaryBlockSet(ITheme parent, ITheme child) {
     return inherit(
         parent.getPrimary(),
         child.getPrimary());
   }
 
-  private static IBlockSet getSecondaryBlockSet(ITheme parent, ITheme child) {
+  private static BlockSet getSecondaryBlockSet(ITheme parent, ITheme child) {
     return inherit(
         parent.getSecondary(),
         child.getSecondary());
   }
 
-  private static IBlockSet inherit(
-      IBlockSet parentBlockSet,
-      IBlockSet childBlockSet
+  private static BlockSet inherit(
+      BlockSet parentBlockSet,
+      BlockSet childBlockSet
   ) {
     if (parentBlockSet == null && childBlockSet == null) {
       return new BlockSet();

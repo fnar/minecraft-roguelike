@@ -18,32 +18,32 @@ public class ThemeParser {
         ? get(json.get(THEME_BASE_KEY).getAsString()).getThemeBase()
         : null;
 
-    IBlockSet primaryBlockSet = ofNullable(parsePrimaryBlockSet(json, themeBase))
+    BlockSet primaryBlockSet = ofNullable(parsePrimaryBlockSet(json, themeBase))
         .orElse(ofNullable(themeBase).map(ThemeBase::getPrimary)
             .orElse(null));
 
 
-    IBlockSet secondaryBlockSet = ofNullable(parseSecondaryBlockSet(json, themeBase))
+    BlockSet secondaryBlockSet = ofNullable(parseSecondaryBlockSet(json, themeBase))
         .orElse(ofNullable(themeBase).map(ThemeBase::getSecondary)
             .orElse(null));
 
     return new ThemeBase(primaryBlockSet, secondaryBlockSet);
   }
 
-  private static IBlockSet parsePrimaryBlockSet(JsonObject json, ThemeBase base) throws Exception {
+  private static BlockSet parsePrimaryBlockSet(JsonObject json, ThemeBase base) throws Exception {
     return parseBlockSet(json, base, PRIMARY_KEY, ITheme::getPrimary);
   }
 
-  private static IBlockSet parseSecondaryBlockSet(JsonObject json, ThemeBase base) throws Exception {
+  private static BlockSet parseSecondaryBlockSet(JsonObject json, ThemeBase base) throws Exception {
     return parseBlockSet(json, base, SECONDARY_KEY, ITheme::getSecondary);
   }
 
-  private static IBlockSet parseBlockSet(JsonObject json, ITheme baseTheme, String key, Function<ITheme, IBlockSet> getBlockSetFunction) throws Exception {
+  private static BlockSet parseBlockSet(JsonObject json, ITheme baseTheme, String key, Function<ITheme, BlockSet> getBlockSetFunction) throws Exception {
     if (!json.has(key)) {
       return null;
     } else {
       JsonObject data = json.get(key).getAsJsonObject();
-      IBlockSet baseBlockSet = ofNullable(baseTheme).map(getBlockSetFunction).orElse(getEmptyBlockSet());
+      BlockSet baseBlockSet = ofNullable(baseTheme).map(getBlockSetFunction).orElse(getEmptyBlockSet());
       return BlockSetParser.parseBlockSet(data, baseBlockSet);
     }
   }

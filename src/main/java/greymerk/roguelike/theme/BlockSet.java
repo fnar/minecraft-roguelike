@@ -12,7 +12,7 @@ import greymerk.roguelike.worldgen.blocks.door.IDoor;
 
 import static java.util.Optional.ofNullable;
 
-public class BlockSet implements IBlockSet {
+public class BlockSet {
 
   public static final Door OAK_DOOR = new Door(DoorType.OAK);
   public static final MetaBlock GLOWSTONE_LIGHT = BlockType.get(BlockType.GLOWSTONE);
@@ -96,37 +96,30 @@ public class BlockSet implements IBlockSet {
     );
   }
 
-  @Override
   public IBlockFactory getWall() {
     return walls;
   }
 
-  @Override
   public IStair getStair() {
     return stair;
   }
 
-  @Override
   public IBlockFactory getPillar() {
     return ofNullable(pillar).orElse(getWall());
   }
 
-  @Override
   public IBlockFactory getFloor() {
     return ofNullable(floor).orElse(getWall());
   }
 
-  @Override
   public IDoor getDoor() {
     return door;
   }
 
-  @Override
   public IBlockFactory getLightBlock() {
     return lightBlock;
   }
 
-  @Override
   public IBlockFactory getLiquid() {
     return liquid;
   }
