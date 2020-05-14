@@ -1,5 +1,8 @@
 package greymerk.roguelike.dungeon.settings.base;
 
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.storage.loot.LootTableList;
+
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
@@ -9,9 +12,12 @@ import greymerk.roguelike.treasure.loot.Equipment;
 import greymerk.roguelike.treasure.loot.ILoot;
 import greymerk.roguelike.treasure.loot.Loot;
 import greymerk.roguelike.treasure.loot.LootRuleManager;
+import greymerk.roguelike.treasure.loot.LootTableRule;
 import greymerk.roguelike.treasure.loot.Quality;
 import greymerk.roguelike.treasure.loot.provider.ItemEnchBook;
 import greymerk.roguelike.treasure.loot.provider.ItemSpecialty;
+
+import static com.google.common.collect.Lists.newArrayList;
 
 public class SettingsLootRules extends DungeonSettings {
 
@@ -24,6 +30,12 @@ public class SettingsLootRules extends DungeonSettings {
     ILoot loot = Loot.getLoot();
 
     addStarterLoot(loot);
+
+    getLootTables().add(new LootTableRule(newArrayList(0), new ResourceLocation(LootTableList.CHESTS_SIMPLE_DUNGEON.getResourcePath()), newArrayList(Treasure.REWARD)));
+    getLootTables().add(new LootTableRule(newArrayList(1), new ResourceLocation(LootTableList.CHESTS_DESERT_PYRAMID.getResourcePath()), newArrayList(Treasure.REWARD)));
+    getLootTables().add(new LootTableRule(newArrayList(2), new ResourceLocation(LootTableList.CHESTS_JUNGLE_TEMPLE.getResourcePath()), newArrayList(Treasure.REWARD)));
+    getLootTables().add(new LootTableRule(newArrayList(3), new ResourceLocation(LootTableList.CHESTS_NETHER_BRIDGE.getResourcePath()), newArrayList(Treasure.REWARD)));
+    getLootTables().add(new LootTableRule(newArrayList(4), new ResourceLocation(LootTableList.CHESTS_END_CITY_TREASURE.getResourcePath()), newArrayList(Treasure.REWARD)));
 
     for (int i = 0; i < 5; ++i) {
       getLootRules().add(Treasure.ARMOUR, loot.get(Loot.POTION, i), i, true, 1);
