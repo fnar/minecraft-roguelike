@@ -7,10 +7,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
-import greymerk.roguelike.dungeon.settings.base.GreymerkLootRules;
+import greymerk.roguelike.dungeon.settings.base.SettingsLootRules;
 import greymerk.roguelike.dungeon.settings.base.SettingsBase;
 import greymerk.roguelike.dungeon.settings.base.SettingsLayout;
-import greymerk.roguelike.dungeon.settings.base.SettingsLootRules;
 import greymerk.roguelike.dungeon.settings.base.SettingsRooms;
 import greymerk.roguelike.dungeon.settings.base.SettingsSecrets;
 import greymerk.roguelike.dungeon.settings.base.SettingsSegments;
@@ -33,7 +32,6 @@ public class SettingsContainer {
 
   public static final String DEFAULT_NAMESPACE = "default";
   public static final String BUILTIN_NAMESPACE = "builtin";
-  public static final String GREYMERK_NAMESPACE = "greymerk";
 
   private Map<String, Map<String, DungeonSettings>> settingsByNamespace = new HashMap<>();
 
@@ -45,7 +43,6 @@ public class SettingsContainer {
         new SettingsLayout(),
         new SettingsTheme(),
         new SettingsLootRules(),
-        new GreymerkLootRules(),
         new SettingsBase(),
 
         new SettingsDesertTheme(),
