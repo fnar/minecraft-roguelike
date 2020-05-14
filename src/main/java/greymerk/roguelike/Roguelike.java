@@ -19,8 +19,8 @@ import greymerk.roguelike.command.CommandRoguelike;
 public class Roguelike {
 
   // TODO: change version number
-  public static final String version = "2.1.2";
-  public static final String date = "Apr 27 2020";
+  public static final String version = "2.1.3";
+  public static final String date = "2020/5/13";
   // The instance of your mod that Forge uses.
   @Instance("roguelike")
   public static Roguelike instance;
