@@ -29,8 +29,8 @@ public enum Treasure {
   EMPTY,
   BREWING;
 
-  public static final Treasure[] COMMON_TREASURES = {ARMOUR, TOOLS, WEAPONS};
-  public static final Treasure[] RARE_TREASURES = {ARMOUR, ENCHANTING, POTIONS, ORE, TOOLS, WEAPONS};
+  public static final Treasure[] COMMON_TREASURES = {ARMOUR, BLOCKS, EMPTY, FOOD, REWARD, SUPPLIES, TOOLS, WEAPONS};
+  public static final Treasure[] RARE_TREASURES = {ARMOUR, ENCHANTING, POTIONS, ORE, REWARD, TOOLS, WEAPONS};
 
   public static final Treasure[] SUPPLIES_TREASURES = {BLOCKS, SUPPLIES};
 
