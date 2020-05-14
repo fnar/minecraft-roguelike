@@ -31,11 +31,7 @@ public class SettingsLootRules extends DungeonSettings {
 
     addStarterLoot(loot);
 
-    getLootTables().add(new LootTableRule(newArrayList(0), new ResourceLocation(LootTableList.CHESTS_SIMPLE_DUNGEON.getResourcePath()), newArrayList(Treasure.REWARD)));
-    getLootTables().add(new LootTableRule(newArrayList(1), new ResourceLocation(LootTableList.CHESTS_DESERT_PYRAMID.getResourcePath()), newArrayList(Treasure.REWARD)));
-    getLootTables().add(new LootTableRule(newArrayList(2), new ResourceLocation(LootTableList.CHESTS_JUNGLE_TEMPLE.getResourcePath()), newArrayList(Treasure.REWARD)));
-    getLootTables().add(new LootTableRule(newArrayList(3), new ResourceLocation(LootTableList.CHESTS_NETHER_BRIDGE.getResourcePath()), newArrayList(Treasure.REWARD)));
-    getLootTables().add(new LootTableRule(newArrayList(4), new ResourceLocation(LootTableList.CHESTS_END_CITY_TREASURE.getResourcePath()), newArrayList(Treasure.REWARD)));
+    addRewardLoot();
 
     for (int i = 0; i < 5; ++i) {
       getLootRules().add(Treasure.ARMOUR, loot.get(Loot.POTION, i), i, true, 1);
@@ -64,6 +60,18 @@ public class SettingsLootRules extends DungeonSettings {
       getLootRules().add(null, new ItemSpecialty(0, i, Quality.get(i)), i, false, 3);
       getLootRules().add(null, new ItemEnchBook(0, i), i, false, i * 2 + 5);
     }
+  }
+
+  private void addRewardLoot() {
+    useLootTableForLevel(LootTableList.CHESTS_SIMPLE_DUNGEON, 0);
+    useLootTableForLevel(LootTableList.CHESTS_DESERT_PYRAMID, 1);
+    useLootTableForLevel(LootTableList.CHESTS_JUNGLE_TEMPLE, 2);
+    useLootTableForLevel(LootTableList.CHESTS_NETHER_BRIDGE, 3);
+    useLootTableForLevel(LootTableList.CHESTS_END_CITY_TREASURE, 4);
+  }
+
+  private void useLootTableForLevel(ResourceLocation chestsSimpleDungeon, int level) {
+    getLootTables().add(new LootTableRule(newArrayList(level), new ResourceLocation(chestsSimpleDungeon.getResourcePath()), newArrayList(Treasure.REWARD)));
   }
 
   private void addStarterLoot(ILoot loot) {
