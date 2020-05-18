@@ -10,20 +10,32 @@ import greymerk.roguelike.util.WeightedRandomizer;
 
 public enum Quality {
 
-  WOOD("Hand-carved"),
-  STONE("Stonecut"),
-  IRON("Tempered"),
-  GOLD("Gilded"),
-  DIAMOND("Crystal");
+  WOOD("Hand-carved", "leather", "wooden"),
+  STONE("Stonecut", "chainmail", "stone"),
+  IRON("Tempered", "iron", "iron"),
+  GOLD("Gilded", "golden", "golden"),
+  DIAMOND("Crystal", "diamond", "diamond");
 
-  private Quality(String descriptor) {
+  Quality(String descriptor, String armorName, String toolName) {
     this.descriptor = descriptor;
+    this.armorName = armorName;
+    this.toolName = toolName;
   }
 
   private String descriptor;
+  private String armorName;
+  private String toolName;
 
   public String getDescriptor() {
     return descriptor;
+  }
+
+  public String getArmorName() {
+    return armorName;
+  }
+
+  public String getToolName() {
+    return toolName;
   }
 
   private static Map<Integer, IWeighted<Quality>> armourQuality;
