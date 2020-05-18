@@ -9,15 +9,18 @@ import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.treasure.loot.Equipment;
 
 import static greymerk.roguelike.treasure.loot.Equipment.AXE;
+import static greymerk.roguelike.treasure.loot.Equipment.BOW;
 import static greymerk.roguelike.treasure.loot.Equipment.CHEST;
 import static greymerk.roguelike.treasure.loot.Equipment.FEET;
 import static greymerk.roguelike.treasure.loot.Equipment.HELMET;
 import static greymerk.roguelike.treasure.loot.Equipment.LEGS;
 import static greymerk.roguelike.treasure.loot.Equipment.PICK;
 import static greymerk.roguelike.treasure.loot.Equipment.SHOVEL;
+import static greymerk.roguelike.treasure.loot.Equipment.SWORD;
 import static greymerk.roguelike.treasure.loot.Equipment.getName;
 import static greymerk.roguelike.treasure.loot.Quality.getArmourQuality;
 import static greymerk.roguelike.treasure.loot.Quality.getToolQuality;
+import static greymerk.roguelike.treasure.loot.Quality.getWeaponQuality;
 import static greymerk.roguelike.worldgen.spawners.MobType.SKELETON;
 import static greymerk.roguelike.worldgen.spawners.MobType.ZOMBIE;
 import static java.util.stream.IntStream.range;
@@ -39,23 +42,13 @@ public class SpawnPotential {
   public NBTTagList getSpawnPotentials(Random random, int level) {
     NBTTagList potentials = new NBTTagList();
     if (ZOMBIE.getName().equals(name)) {
-      range(0, 24).forEach(i -> potentials.appendTag(createZombieSpawnPotentialNbt(random, level)));
+      range(0, 24).forEach(i -> potentials.appendTag(buildSpawnPotentialNbt(createEquippedEntityNbt(random, level))));
     } else if (SKELETON.getName().equals(name)) {
-      range(0, 12).forEach(i -> potentials.appendTag(createSkeletonSpawnPotentialNbt(random, level)));
+      range(0, 12).forEach(i -> potentials.appendTag(buildSpawnPotentialNbt(createEquippedEntityNbt(random, level))));
     } else {
       potentials.appendTag(createSpawnPotentialNbt(level));
     }
     return potentials;
-  }
-
-  private NBTTagCompound createZombieSpawnPotentialNbt(Random random, int level) {
-    NBTTagCompound zombieEntityNbt = createZombieEntityNbt(random, level);
-    return buildSpawnPotentialNbt(zombieEntityNbt);
-  }
-
-  private NBTTagCompound createSkeletonSpawnPotentialNbt(Random random, int level) {
-    NBTTagCompound skeletonEntityNbt = createSkeletonEntityNbt(random, level);
-    return buildSpawnPotentialNbt(skeletonEntityNbt);
   }
 
   private NBTTagCompound createSpawnPotentialNbt(int level) {
@@ -63,16 +56,9 @@ public class SpawnPotential {
     return buildSpawnPotentialNbt(entityNbt);
   }
 
-  private NBTTagCompound createZombieEntityNbt(Random random, int level) {
+  private NBTTagCompound createEquippedEntityNbt(Random random, int level) {
     NBTTagCompound entityNbt = createEntityNbt(level);
     equipHands(entityNbt, random, level);
-    equipArmour(entityNbt, random, level);
-    return entityNbt;
-  }
-
-  private NBTTagCompound createSkeletonEntityNbt(Random random, int level) {
-    NBTTagCompound entityNbt = createEntityNbt(level);
-    equipHands(entityNbt, "minecraft:bow", null);
     equipArmour(entityNbt, random, level);
     return entityNbt;
   }
@@ -85,17 +71,31 @@ public class SpawnPotential {
   }
 
   private void equipHands(NBTTagCompound entityNbt, Random random, int level) {
-    String mainHand = getName(chooseRandomTool(random), getToolQuality(random, level));
+    String mainHand = getMainhand(random, level);
     String offHand = "minecraft:shield";
     equipHands(entityNbt, mainHand, offHand);
   }
 
+  private String getMainhand(Random random, int level) {
+    return random.nextBoolean()
+        ? random.nextBoolean()
+        ? getName(chooseRandomWeapon(random), getWeaponQuality(random, level))
+        : getName(chooseRandomTool(random), getToolQuality(random, level))
+        : null;
+  }
+
+  private Equipment chooseRandomWeapon(Random random) {
+    return random.nextBoolean()
+        ? SWORD
+        : BOW;
+  }
+
   private Equipment chooseRandomTool(Random random) {
     return random.nextBoolean()
+        ? random.nextBoolean()
         ? PICK
-        : random.nextBoolean()
-            ? AXE
-            : SHOVEL;
+        : SHOVEL
+        : AXE;
   }
 
   private NBTTagCompound buildSpawnPotentialNbt(NBTTagCompound entityNbt) {
