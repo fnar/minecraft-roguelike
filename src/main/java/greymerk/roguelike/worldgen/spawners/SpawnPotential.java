@@ -20,8 +20,6 @@ import static greymerk.roguelike.treasure.loot.Equipment.SWORD;
 import static greymerk.roguelike.treasure.loot.Quality.getArmourQuality;
 import static greymerk.roguelike.treasure.loot.Quality.getToolQuality;
 import static greymerk.roguelike.treasure.loot.Quality.getWeaponQuality;
-import static greymerk.roguelike.worldgen.spawners.MobType.SKELETON;
-import static greymerk.roguelike.worldgen.spawners.MobType.ZOMBIE;
 import static java.util.stream.IntStream.range;
 
 public class SpawnPotential {
@@ -40,9 +38,7 @@ public class SpawnPotential {
 
   public NBTTagList getSpawnPotentials(Random random, int level) {
     NBTTagList potentials = new NBTTagList();
-    if (ZOMBIE.getName().equals(name)) {
-      range(0, 24).forEach(i -> potentials.appendTag(buildSpawnPotentialNbt(createEquippedEntityNbt(random, level))));
-    } else if (SKELETON.getName().equals(name)) {
+    if (equip) {
       range(0, 12).forEach(i -> potentials.appendTag(buildSpawnPotentialNbt(createEquippedEntityNbt(random, level))));
     } else {
       potentials.appendTag(createSpawnPotentialNbt(level));
