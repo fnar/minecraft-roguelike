@@ -48,7 +48,7 @@ public class SegmentSewerDrain extends SegmentBase {
     RectSolid.fill(editor, rand, start, end, air);
     start.translate(dir);
     end.translate(dir);
-    RectSolid.fill(editor, rand, start, end, BlockType.get(BlockType.COBBLESTONE_MOSSY));
+    RectSolid.fill(editor, rand, start, end, theme.getPrimary().getWall());
 
     for (Cardinal o : orth) {
       cursor = new Coord(origin);
