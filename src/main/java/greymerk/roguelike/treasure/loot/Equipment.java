@@ -3,101 +3,32 @@ package greymerk.roguelike.treasure.loot;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
-import java.util.Arrays;
-
 public enum Equipment {
 
-  SWORD,
-  BOW,
-  HELMET,
-  CHEST,
-  LEGS,
-  FEET,
-  PICK,
-  AXE,
-  SHOVEL;
+  SWORD("sword", false),
+  BOW("minecraft:bow", false),
+  HELMET("helmet", true),
+  CHEST("chestplate", true),
+  LEGS("leggings", true),
+  FEET("boots", true),
+  PICK("pickaxe", false),
+  AXE("axe", false),
+  SHOVEL("shovel", false),
+  ;
 
-  public static Equipment[] armour = new Equipment[]{HELMET, CHEST, LEGS, FEET};
+  Equipment(String name, boolean isArmor) {
+    this.name = name;
+    this.isArmor = isArmor;
+  }
 
-  public static String getName(Equipment type, Quality quality) {
+  private String name;
+  private boolean isArmor;
 
-    String qualityName;
-    String itemName;
-
-    switch (type) {
-      case SWORD:
-        itemName = "sword";
-        break;
-      case BOW:
-        return "minecraft:bow";
-      case HELMET:
-        itemName = "helmet";
-        break;
-      case CHEST:
-        itemName = "chestplate";
-        break;
-      case LEGS:
-        itemName = "leggings";
-        break;
-      case FEET:
-        itemName = "boots";
-        break;
-      case PICK:
-        itemName = "pickaxe";
-        break;
-      case AXE:
-        itemName = "axe";
-        break;
-      case SHOVEL:
-        itemName = "shovel";
-        break;
-      default:
-        return "minecraft:stick";
-    }
-
-    if (Arrays.asList(Equipment.armour).contains(type)) {
-      switch (quality) {
-        case WOOD:
-          qualityName = "leather";
-          break;
-        case STONE:
-          qualityName = "chainmail";
-          break;
-        case IRON:
-          qualityName = "iron";
-          break;
-        case GOLD:
-          qualityName = "golden";
-          break;
-        case DIAMOND:
-          qualityName = "diamond";
-          break;
-        default:
-          return "minecraft:stick";
-      }
-    } else {
-      switch (quality) {
-        case WOOD:
-          qualityName = "wooden";
-          break;
-        case STONE:
-          qualityName = "stone";
-          break;
-        case IRON:
-          qualityName = "iron";
-          break;
-        case GOLD:
-          qualityName = "golden";
-          break;
-        case DIAMOND:
-          qualityName = "diamond";
-          break;
-        default:
-          return "minecraft:stick";
-      }
-    }
-
-    return "minecraft:" + qualityName + "_" + itemName;
+  public static String getName(Equipment equipment, Quality quality) {
+    String qualityName = equipment.isArmor
+        ? quality.getArmorName()
+        : quality.getToolName();
+    return "minecraft:" + qualityName + "_" + equipment.name;
   }
 
   public static ItemStack get(Equipment type, Quality quality) {
