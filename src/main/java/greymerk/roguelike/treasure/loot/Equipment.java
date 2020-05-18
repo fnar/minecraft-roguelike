@@ -24,11 +24,11 @@ public enum Equipment {
   private String name;
   private boolean isArmor;
 
-  public static String getName(Equipment equipment, Quality quality) {
-    String qualityName = equipment.isArmor
+  public String getMinecraftName(Quality quality) {
+    String qualityName = isArmor
         ? quality.getArmorName()
         : quality.getToolName();
-    return "minecraft:" + qualityName + "_" + equipment.name;
+    return "minecraft:" + qualityName + "_" + name;
   }
 
   public static ItemStack get(Equipment type, Quality quality) {
