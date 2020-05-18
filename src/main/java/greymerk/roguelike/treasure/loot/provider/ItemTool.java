@@ -49,9 +49,9 @@ public class ItemTool extends ItemBase {
     }
   }
 
-  public static ItemStack getTool(Random rand, int level, Quality quality, Equipment type, boolean enchant) {
-    ItemStack tool = Equipment.get(type, quality == null ? Quality.get(level) : quality);
-    return enchant ? Enchant.enchantItem(rand, tool, Enchant.getLevel(rand, level)) : tool;
+  public static ItemStack getTool(Random rand, int level, Quality quality, Equipment toolEquipment, boolean enchant) {
+    ItemStack toolItem = toolEquipment.get(quality == null ? Quality.get(level) : quality);
+    return enchant ? Enchant.enchantItem(rand, toolItem, Enchant.getLevel(rand, level)) : toolItem;
   }
 
   public static ItemStack getRandom(Random rand, int level, boolean enchant) {

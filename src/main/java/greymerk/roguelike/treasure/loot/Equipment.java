@@ -1,28 +1,55 @@
 package greymerk.roguelike.treasure.loot;
 
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public enum Equipment {
+import static net.minecraft.init.Items.*;
 
-  SWORD("sword", false),
-  BOW("minecraft:bow", false),
-  HELMET("helmet", true),
-  CHEST("chestplate", true),
-  LEGS("leggings", true),
-  FEET("boots", true),
-  PICK("pickaxe", false),
-  AXE("axe", false),
-  SHOVEL("shovel", false),
+public enum Equipment {
+  SWORD("sword", false, WOODEN_SWORD, STONE_SWORD, IRON_SWORD, GOLDEN_SWORD, DIAMOND_SWORD),
+  BOW("minecraft:bow", false, Items.BOW, Items.BOW, Items.BOW, Items.BOW, Items.BOW),
+  HELMET("helmet", true, LEATHER_HELMET, CHAINMAIL_HELMET, IRON_HELMET, GOLDEN_HELMET, DIAMOND_HELMET),
+  CHEST("chestplate", true, LEATHER_CHESTPLATE, CHAINMAIL_CHESTPLATE, IRON_CHESTPLATE, GOLDEN_CHESTPLATE, DIAMOND_CHESTPLATE),
+  LEGS("leggings", true, LEATHER_LEGGINGS, CHAINMAIL_LEGGINGS, IRON_LEGGINGS, GOLDEN_LEGGINGS, DIAMOND_LEGGINGS),
+  FEET("boots", true, LEATHER_BOOTS, CHAINMAIL_BOOTS, IRON_BOOTS, GOLDEN_BOOTS, DIAMOND_BOOTS),
+  PICK("pickaxe", false, WOODEN_PICKAXE, STONE_PICKAXE, IRON_PICKAXE, GOLDEN_PICKAXE, DIAMOND_PICKAXE),
+  AXE("axe", false, WOODEN_AXE, STONE_AXE, IRON_AXE, GOLDEN_AXE, DIAMOND_AXE),
+  SHOVEL("shovel", false, WOODEN_SHOVEL, STONE_SHOVEL, IRON_SHOVEL, GOLDEN_SHOVEL, DIAMOND_SHOVEL),
   ;
 
-  Equipment(String name, boolean isArmor) {
+  Equipment(String name, boolean isArmor, Item wood, Item stone, Item iron, Item gold, Item diamond) {
     this.name = name;
     this.isArmor = isArmor;
+    this.wood = wood;
+    this.stone = stone;
+    this.iron = iron;
+    this.gold = gold;
+    this.diamond = diamond;
   }
 
   private String name;
   private boolean isArmor;
+  private Item wood;
+  private Item stone;
+  private Item iron;
+  private Item gold;
+  private Item diamond;
+
+  public ItemStack get(Quality quality) {
+    return new ItemStack(getItem(quality));
+  }
+
+  private Item getItem(Quality quality) {
+    switch (quality) {
+      case WOOD: return wood;
+      case STONE: return stone;
+      case IRON: return iron;
+      case GOLD: return gold;
+      case DIAMOND: return diamond;
+      default: return STICK;
+    }
+  }
 
   public String getMinecraftName(Quality quality) {
     String qualityName = isArmor
@@ -31,124 +58,4 @@ public enum Equipment {
     return "minecraft:" + qualityName + "_" + name;
   }
 
-  public static ItemStack get(Equipment type, Quality quality) {
-    switch (type) {
-      case SWORD:
-        switch (quality) {
-          case WOOD:
-            return new ItemStack(Items.WOODEN_SWORD);
-          case STONE:
-            return new ItemStack(Items.STONE_SWORD);
-          case IRON:
-            return new ItemStack(Items.IRON_SWORD);
-          case GOLD:
-            return new ItemStack(Items.GOLDEN_SWORD);
-          case DIAMOND:
-            return new ItemStack(Items.DIAMOND_SWORD);
-          default:
-        }
-      case BOW:
-        return new ItemStack(Items.BOW);
-      case HELMET:
-        switch (quality) {
-          case WOOD:
-            return new ItemStack(Items.LEATHER_HELMET);
-          case STONE:
-            return new ItemStack(Items.CHAINMAIL_HELMET);
-          case IRON:
-            return new ItemStack(Items.IRON_HELMET);
-          case GOLD:
-            return new ItemStack(Items.GOLDEN_HELMET);
-          case DIAMOND:
-            return new ItemStack(Items.DIAMOND_HELMET);
-          default:
-        }
-      case CHEST:
-        switch (quality) {
-          case WOOD:
-            return new ItemStack(Items.LEATHER_CHESTPLATE);
-          case STONE:
-            return new ItemStack(Items.CHAINMAIL_CHESTPLATE);
-          case IRON:
-            return new ItemStack(Items.IRON_CHESTPLATE);
-          case GOLD:
-            return new ItemStack(Items.GOLDEN_CHESTPLATE);
-          case DIAMOND:
-            return new ItemStack(Items.DIAMOND_CHESTPLATE);
-          default:
-        }
-      case LEGS:
-        switch (quality) {
-          case WOOD:
-            return new ItemStack(Items.LEATHER_LEGGINGS);
-          case STONE:
-            return new ItemStack(Items.CHAINMAIL_LEGGINGS);
-          case IRON:
-            return new ItemStack(Items.IRON_LEGGINGS);
-          case GOLD:
-            return new ItemStack(Items.GOLDEN_LEGGINGS);
-          case DIAMOND:
-            return new ItemStack(Items.DIAMOND_LEGGINGS);
-          default:
-        }
-      case FEET:
-        switch (quality) {
-          case WOOD:
-            return new ItemStack(Items.LEATHER_BOOTS);
-          case STONE:
-            return new ItemStack(Items.CHAINMAIL_BOOTS);
-          case IRON:
-            return new ItemStack(Items.IRON_BOOTS);
-          case GOLD:
-            return new ItemStack(Items.GOLDEN_BOOTS);
-          case DIAMOND:
-            return new ItemStack(Items.DIAMOND_BOOTS);
-          default:
-        }
-      case PICK:
-        switch (quality) {
-          case WOOD:
-            return new ItemStack(Items.WOODEN_PICKAXE);
-          case STONE:
-            return new ItemStack(Items.STONE_PICKAXE);
-          case IRON:
-            return new ItemStack(Items.IRON_PICKAXE);
-          case GOLD:
-            return new ItemStack(Items.GOLDEN_PICKAXE);
-          case DIAMOND:
-            return new ItemStack(Items.DIAMOND_PICKAXE);
-          default:
-        }
-      case AXE:
-        switch (quality) {
-          case WOOD:
-            return new ItemStack(Items.WOODEN_AXE);
-          case STONE:
-            return new ItemStack(Items.STONE_AXE);
-          case IRON:
-            return new ItemStack(Items.IRON_AXE);
-          case GOLD:
-            return new ItemStack(Items.GOLDEN_AXE);
-          case DIAMOND:
-            return new ItemStack(Items.DIAMOND_AXE);
-          default:
-        }
-      case SHOVEL:
-        switch (quality) {
-          case WOOD:
-            return new ItemStack(Items.WOODEN_SHOVEL);
-          case STONE:
-            return new ItemStack(Items.STONE_SHOVEL);
-          case IRON:
-            return new ItemStack(Items.IRON_SHOVEL);
-          case GOLD:
-            return new ItemStack(Items.GOLDEN_SHOVEL);
-          case DIAMOND:
-            return new ItemStack(Items.DIAMOND_SHOVEL);
-          default:
-        }
-      default:
-        return new ItemStack(Items.STICK);
-    }
-  }
 }

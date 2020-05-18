@@ -15,7 +15,7 @@ import greymerk.roguelike.treasure.loot.Slot;
 
 public class ItemArmour extends ItemBase {
 
-  private Equipment type;
+  private Equipment equipment;
   private boolean enchant;
   private Quality quality;
 
@@ -34,7 +34,7 @@ public class ItemArmour extends ItemBase {
 
     if (data.has("equipment")) {
       try {
-        this.type = Equipment.valueOf(data.get("equipment").getAsString().toUpperCase());
+        this.equipment = Equipment.valueOf(data.get("equipment").getAsString().toUpperCase());
       } catch (Exception e) {
         throw new Exception("No such Equipment as: " + data.get("equipment").getAsString());
       }
@@ -51,9 +51,9 @@ public class ItemArmour extends ItemBase {
     }
   }
 
-  public static ItemStack get(Random rand, int level, Quality quality, Equipment type, boolean enchant) {
-    ItemStack tool = Equipment.get(type, quality == null ? Quality.get(level) : quality);
-    return enchant ? Enchant.enchantItem(rand, tool, Enchant.getLevel(rand, level)) : tool;
+  public static ItemStack get(Random rand, int level, Quality quality, Equipment armorEquipment, boolean enchant) {
+    ItemStack armorItem = armorEquipment.get(quality == null ? Quality.get(level) : quality);
+    return enchant ? Enchant.enchantItem(rand, armorItem, Enchant.getLevel(rand, level)) : armorItem;
   }
 
   public static ItemStack getRandom(Random rand, int level, boolean enchant) {
@@ -191,8 +191,8 @@ public class ItemArmour extends ItemBase {
 
   @Override
   public ItemStack getLootItem(Random rand, int level) {
-    if (type != null || quality != null) {
-      return get(rand, level, quality, type, enchant);
+    if (equipment != null || quality != null) {
+      return get(rand, level, quality, equipment, enchant);
     }
     return getRandom(rand, level, true);
   }
