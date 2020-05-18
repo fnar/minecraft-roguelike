@@ -17,7 +17,6 @@ import static greymerk.roguelike.treasure.loot.Equipment.LEGS;
 import static greymerk.roguelike.treasure.loot.Equipment.PICK;
 import static greymerk.roguelike.treasure.loot.Equipment.SHOVEL;
 import static greymerk.roguelike.treasure.loot.Equipment.SWORD;
-import static greymerk.roguelike.treasure.loot.Equipment.getName;
 import static greymerk.roguelike.treasure.loot.Quality.getArmourQuality;
 import static greymerk.roguelike.treasure.loot.Quality.getToolQuality;
 import static greymerk.roguelike.treasure.loot.Quality.getWeaponQuality;
@@ -79,8 +78,8 @@ public class SpawnPotential {
   private String getMainhand(Random random, int level) {
     return random.nextBoolean()
         ? random.nextBoolean()
-        ? getName(chooseRandomWeapon(random), getWeaponQuality(random, level))
-        : getName(chooseRandomTool(random), getToolQuality(random, level))
+        ? chooseRandomWeapon(random).getMinecraftName(getWeaponQuality(random, level))
+        : chooseRandomTool(random).getMinecraftName(getToolQuality(random, level))
         : null;
   }
 
@@ -114,10 +113,10 @@ public class SpawnPotential {
 
   private void equipArmour(NBTTagCompound entityNbt, Random rand, int level) {
     NBTTagList armour = new NBTTagList();
-    armour.appendTag(getItem(getName(FEET, getArmourQuality(rand, level))));
-    armour.appendTag(getItem(getName(LEGS, getArmourQuality(rand, level))));
-    armour.appendTag(getItem(getName(CHEST, getArmourQuality(rand, level))));
-    armour.appendTag(getItem(getName(HELMET, getArmourQuality(rand, level))));
+    armour.appendTag(getItem(FEET.getMinecraftName(getArmourQuality(rand, level))));
+    armour.appendTag(getItem(LEGS.getMinecraftName(getArmourQuality(rand, level))));
+    armour.appendTag(getItem(CHEST.getMinecraftName(getArmourQuality(rand, level))));
+    armour.appendTag(getItem(HELMET.getMinecraftName(getArmourQuality(rand, level))));
     entityNbt.setTag("ArmorItems", armour);
   }
 
