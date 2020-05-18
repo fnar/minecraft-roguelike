@@ -70,17 +70,17 @@ public class SpawnPotential {
   }
 
   private void equipHands(NBTTagCompound entityNbt, Random random, int level) {
-    String mainHand = getMainhand(random, level);
-    String offHand = "minecraft:shield";
-    equipHands(entityNbt, mainHand, offHand);
+    equipHands(entityNbt,
+        getMainhand(random, level),
+        getOffHand(random));
   }
 
   private String getMainhand(Random random, int level) {
     return random.nextBoolean()
-        ? random.nextBoolean()
         ? chooseRandomWeapon(random).getMinecraftName(getWeaponQuality(random, level))
-        : chooseRandomTool(random).getMinecraftName(getToolQuality(random, level))
-        : null;
+        : random.nextBoolean()
+            ? chooseRandomTool(random).getMinecraftName(getToolQuality(random, level))
+            : null;
   }
 
   private Equipment chooseRandomWeapon(Random random) {
@@ -95,6 +95,12 @@ public class SpawnPotential {
         ? PICK
         : SHOVEL
         : AXE;
+  }
+
+  private String getOffHand(Random random) {
+    return random.nextBoolean()
+        ? "minecraft:shield"
+        : null;
   }
 
   private NBTTagCompound buildSpawnPotentialNbt(NBTTagCompound entityNbt) {
@@ -113,10 +119,10 @@ public class SpawnPotential {
 
   private void equipArmour(NBTTagCompound entityNbt, Random rand, int level) {
     NBTTagList armour = new NBTTagList();
-    armour.appendTag(getItem(FEET.getMinecraftName(getArmourQuality(rand, level))));
-    armour.appendTag(getItem(LEGS.getMinecraftName(getArmourQuality(rand, level))));
-    armour.appendTag(getItem(CHEST.getMinecraftName(getArmourQuality(rand, level))));
     armour.appendTag(getItem(HELMET.getMinecraftName(getArmourQuality(rand, level))));
+    armour.appendTag(getItem(CHEST.getMinecraftName(getArmourQuality(rand, level))));
+    armour.appendTag(getItem(LEGS.getMinecraftName(getArmourQuality(rand, level))));
+    armour.appendTag(getItem(FEET.getMinecraftName(getArmourQuality(rand, level))));
     entityNbt.setTag("ArmorItems", armour);
   }
 
