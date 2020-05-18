@@ -115,10 +115,11 @@ public class SpawnPotential {
 
   private void equipArmour(NBTTagCompound entityNbt, Random rand, int level) {
     NBTTagList armour = new NBTTagList();
-    armour.appendTag(getItem(HELMET.getMinecraftName(getArmourQuality(rand, level))));
-    armour.appendTag(getItem(CHEST.getMinecraftName(getArmourQuality(rand, level))));
-    armour.appendTag(getItem(LEGS.getMinecraftName(getArmourQuality(rand, level))));
+    // Turns out this order is important.
     armour.appendTag(getItem(FEET.getMinecraftName(getArmourQuality(rand, level))));
+    armour.appendTag(getItem(LEGS.getMinecraftName(getArmourQuality(rand, level))));
+    armour.appendTag(getItem(CHEST.getMinecraftName(getArmourQuality(rand, level))));
+    armour.appendTag(getItem(HELMET.getMinecraftName(getArmourQuality(rand, level))));
     entityNbt.setTag("ArmorItems", armour);
   }
 
