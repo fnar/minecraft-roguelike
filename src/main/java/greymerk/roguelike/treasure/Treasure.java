@@ -27,10 +27,12 @@ public enum Treasure {
   MUSIC,
   REWARD,
   EMPTY,
-  BREWING;
+  BREWING,
+  VANILLA
+  ;
 
-  public static final Treasure[] COMMON_TREASURES = {ARMOUR, BLOCKS, EMPTY, FOOD, REWARD, SUPPLIES, TOOLS, WEAPONS};
-  public static final Treasure[] RARE_TREASURES = {ARMOUR, ENCHANTING, POTIONS, ORE, REWARD, TOOLS, WEAPONS};
+  public static final Treasure[] COMMON_TREASURES = {ARMOUR, BLOCKS, EMPTY, FOOD, SUPPLIES, TOOLS, VANILLA, WEAPONS};
+  public static final Treasure[] RARE_TREASURES = {ARMOUR, ENCHANTING, POTIONS, ORE, REWARD, TOOLS, VANILLA, WEAPONS};
 
   public static final Treasure[] SUPPLIES_TREASURES = {BLOCKS, SUPPLIES};
 

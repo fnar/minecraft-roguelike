@@ -3,6 +3,7 @@ package greymerk.roguelike.treasure.loot.provider;
 import com.google.gson.JsonObject;
 
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import java.util.Random;
@@ -65,28 +66,27 @@ public class ItemSpecialty extends ItemBase {
     return getRandomItem(type, rand, Quality.get(rand, level, type));
   }
 
-  public static ItemStack getRandomItem(Equipment type, Random rand, Quality quality) {
+  public static ItemStack getRandomItem(Equipment type, Random random, Quality quality) {
 
     switch (type) {
-
       case SWORD:
-        return getSword(rand, quality);
+        return getSword(random, quality);
       case BOW:
-        return getBow(rand, quality);
+        return getBow(random, quality);
       case HELMET:
-        return getHelmet(rand, quality);
+        return getHelmet(random, quality);
       case CHEST:
-        return getChest(rand, quality);
+        return getChest(random, quality);
       case LEGS:
-        return getLegs(rand, quality);
+        return getLegs(random, quality);
       case FEET:
-        return getBoots(rand, quality);
+        return getBoots(random, quality);
       case PICK:
-        return getPick(rand, quality);
+        return getPick(random, quality);
       case AXE:
-        return getAxe(rand, quality);
+        return getAxe(random, quality);
       case SHOVEL:
-        return getShovel(rand, quality);
+        return getShovel(random, quality);
       default:
         return null;
     }
@@ -120,173 +120,232 @@ public class ItemSpecialty extends ItemBase {
     }
   }
 
-  private static ItemStack getShovel(Random rand, Quality quality) {
-    ItemStack item;
-    if (quality == Quality.DIAMOND) {
-      item = new ItemStack(Items.DIAMOND_SHOVEL);
-      item.addEnchantment(Enchant.getEnchant(Enchant.EFFICIENCY), 3 + rand.nextInt(3));
-      item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), getUnbreakingLevel(quality, rand));
-      Loot.setItemName(item, "Soul Spade");
-      return item;
-    } else {
-      item = new ItemStack(Items.IRON_SHOVEL);
-      item.addEnchantment(Enchant.getEnchant(Enchant.EFFICIENCY), 1 + rand.nextInt(2));
-      item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), getUnbreakingLevel(quality, rand));
-      Loot.setItemName(item, "Grave Spade");
-      return item;
+  private static ItemStack getShovel(Random random, Quality quality) {
+    String name = quality.getDescriptor() + " Spade";
+    switch (quality) {
+      case DIAMOND:
+        return enchantAndRenameTool(Items.DIAMOND_SHOVEL, name, random);
+      case GOLD:
+        return enchantAndRenameTool(Items.GOLDEN_SHOVEL, name, random);
+      case IRON:
+        return enchantAndRenameTool(Items.IRON_SHOVEL, "Grave Spade", random);
+      case STONE:
+        return enchantAndRenameTool(Items.STONE_SHOVEL, name, random);
+      case WOOD:
+      default:
+        return enchantAndRenameTool(Items.WOODEN_SHOVEL, name, random);
     }
   }
 
-  private static ItemStack getAxe(Random rand, Quality quality) {
-
-    ItemStack item;
-    if (quality == Quality.DIAMOND) {
-      item = new ItemStack(Items.DIAMOND_AXE);
-      item.addEnchantment(Enchant.getEnchant(Enchant.EFFICIENCY), 3 + rand.nextInt(3));
-      item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), getUnbreakingLevel(quality, rand));
-      Loot.setItemName(item, "Crystal Head Axe");
-      return item;
-    } else {
-      item = new ItemStack(Items.IRON_AXE);
-      item.addEnchantment(Enchant.getEnchant(Enchant.EFFICIENCY), 1 + rand.nextInt(2));
-      item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), getUnbreakingLevel(quality, rand));
-      Loot.setItemName(item, "Woodland Hatchet");
-      return item;
+  private static ItemStack getAxe(Random random, Quality quality) {
+    String name = quality.getDescriptor() + " Axe";
+    switch (quality) {
+      case DIAMOND:
+        return enchantAndRenameTool(Items.DIAMOND_AXE, name, random);
+      case GOLD:
+        return enchantAndRenameTool(Items.GOLDEN_AXE, name, random);
+      case IRON:
+        return enchantAndRenameTool(Items.IRON_AXE, "Woodland Hatchet", random);
+      case STONE:
+        return enchantAndRenameTool(Items.STONE_AXE, name, random);
+      case WOOD:
+      default:
+        return enchantAndRenameTool(Items.WOODEN_AXE, name, random);
     }
   }
 
-  private static ItemStack getPick(Random rand, Quality quality) {
-
-    ItemStack item;
-
-    if (quality == Quality.DIAMOND) {
-      item = new ItemStack(Items.DIAMOND_PICKAXE);
-      item.addEnchantment(Enchant.getEnchant(Enchant.EFFICIENCY), 3 + rand.nextInt(3));
-      item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), getUnbreakingLevel(quality, rand));
-      if (rand.nextInt(10) == 0) {
-        item.addEnchantment(Enchant.getEnchant(Enchant.SILKTOUCH), 1);
-        Loot.setItemName(item, "Crystal Pick of Precision");
-        return item;
-      }
-      if (rand.nextInt(10) == 0) {
-        item.addEnchantment(Enchant.getEnchant(Enchant.FORTUNE), 2 + rand.nextInt(2));
-        Loot.setItemName(item, "Crystal Pick of Prospecting");
-        return item;
-      }
-
-      if (rand.nextInt(5) == 0) {
-        item.addEnchantment(Enchant.getEnchant(Enchant.MENDING), 1);
-      }
-
-      Loot.setItemName(item, "Crystal Pick");
-      return item;
-    } else {
-      item = new ItemStack(Items.IRON_PICKAXE);
-      item.addEnchantment(Enchant.getEnchant(Enchant.EFFICIENCY), 1 + rand.nextInt(2));
-      item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), getUnbreakingLevel(quality, rand));
-      if (rand.nextInt(10) == 0) {
-        item.addEnchantment(Enchant.getEnchant(Enchant.SILKTOUCH), 1);
-        Loot.setItemName(item, "Case Hardened Pick of Precision");
-        return item;
-      }
-      if (rand.nextInt(10) == 0) {
-        item.addEnchantment(Enchant.getEnchant(Enchant.FORTUNE), 1 + rand.nextInt(3));
-        Loot.setItemName(item, "Case Hardened Pick of Prospecting");
-        return item;
-      }
-
-      if (rand.nextInt(5) == 0) {
-        item.addEnchantment(Enchant.getEnchant(Enchant.MENDING), 1);
-      }
-
-      Loot.setItemName(item, "Case Hardened Pick");
-      return item;
+  private static ItemStack getPick(Random random, Quality quality) {
+    String name = quality.getDescriptor() + " Pick";
+    switch (quality) {
+      case DIAMOND:
+        return enchantAndRenameTool(Items.DIAMOND_PICKAXE, name, random);
+      case GOLD:
+        return enchantAndRenameTool(Items.GOLDEN_PICKAXE, name, random);
+      case IRON:
+        return enchantAndRenameTool(Items.IRON_PICKAXE, name, random);
+      case STONE:
+        return enchantAndRenameTool(Items.STONE_PICKAXE, name, random);
+      case WOOD:
+      default:
+        return enchantAndRenameTool(Items.WOODEN_PICKAXE, name, random);
     }
-
-
   }
 
-  private static ItemStack getSword(Random rand, Quality quality) {
-
-    ItemStack item;
-    if (quality == Quality.DIAMOND) {
-      item = new ItemStack(Items.DIAMOND_SWORD);
-      item.addEnchantment(Enchant.getEnchant(Enchant.SHARPNESS), 3 + rand.nextInt(3));
-      if (rand.nextInt(10) == 0) {
-        item.addEnchantment(Enchant.getEnchant(Enchant.LOOTING), 2 + rand.nextInt(2));
-        item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), getUnbreakingLevel(quality, rand));
-        Loot.setItemName(item, "Eldritch Blade of Plundering");
-        Loot.setItemLore(item, "The loot taker", TextFormat.DARKGREEN);
-        return item;
-      }
-      if (rand.nextInt(10) == 0) {
-        item.addEnchantment(Enchant.getEnchant(Enchant.FIREASPECT), 2 + rand.nextInt(2));
-        item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), getUnbreakingLevel(quality, rand));
-        Loot.setItemName(item, "Eldritch Blade of the Inferno");
-        Loot.setItemLore(item, "From the fiery depths", TextFormat.DARKGREEN);
-        return item;
-      }
-      item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), quality == Quality.DIAMOND ? 3 : 1 + rand.nextInt(2));
-      item.addEnchantment(Enchant.getEnchant(Enchant.MENDING), 1);
-      Loot.setItemName(item, "Eldritch Blade");
-      Loot.setItemLore(item, "Rune Etched", TextFormat.DARKGREEN);
-      return item;
-    } else {
-      item = new ItemStack(Items.IRON_SWORD);
-      if (rand.nextBoolean()) {
-        item.addEnchantment(Enchant.getEnchant(Enchant.SHARPNESS), 1);
-      }
-      item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), 3);
-      item.addEnchantment(Enchant.getEnchant(Enchant.MENDING), 1);
-      Loot.setItemName(item, "Tempered Blade");
-      Loot.setItemLore(item, "Highly Durable", TextFormat.DARKGREEN);
-      return item;
-    }
-
+  private static ItemStack enchantAndRenameTool(Item tool, String name, Random random) {
+    ItemStack itemStack = new ItemStack(tool);
+    name = rollToolEnchantments(itemStack, name, random);
+    name = rollGeneralEnchantments(itemStack, name, random);
+    Loot.setItemName(itemStack, name);
+    return itemStack;
   }
 
-  private static ItemStack getBow(Random rand, Quality quality) {
+  private static String rollToolEnchantments(ItemStack itemStack, String name, Random random) {
+    name = rollEfficiency(itemStack, name, random);
+    name = rollSilkTouch(itemStack, name, random);
+    name = rollFortune(itemStack, name, random);
+    return name;
+  }
 
+  private static String rollEfficiency(ItemStack itemStack, String name, Random random) {
+    int efficiencyLevel = 1 + random.nextInt(3);
+    itemStack.addEnchantment(Enchant.getEnchant(Enchant.EFFICIENCY), efficiencyLevel);
+    return efficiencyLevel >= 3 ? "Mastercraft " + name : name;
+  }
+
+  private static String rollFortune(ItemStack item, String name, Random random) {
+    if (random.nextInt(10) != 0) {
+      return name;
+    }
+    item.addEnchantment(Enchant.getEnchant(Enchant.FORTUNE), 1 + random.nextInt(3));
+    return name + " of Prospecting";
+  }
+
+  private static String rollSilkTouch(ItemStack item, String name, Random random) {
+    if (random.nextInt(10) == 0) {
+      item.addEnchantment(Enchant.getEnchant(Enchant.SILKTOUCH), 1);
+      name = "Precision " + name;
+    }
+    return name;
+  }
+
+  private static String rollUnbreaking(ItemStack itemStack, String name, Random random) {
+    int unbreakingLevel = 1 + random.nextInt(3);
+    itemStack.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), unbreakingLevel);
+    return unbreakingLevel >= 3 ? "Reinforced " + name : name;
+  }
+
+  private static String rollGeneralEnchantments(ItemStack itemStack, String name, Random random) {
+    name = rollUnbreaking(itemStack, name, random);
+    name = rollMending(itemStack, name, random);
+    return name;
+  }
+
+  private static String rollMending(ItemStack item, String name, Random random) {
+    if (random.nextInt(10) != 0) {
+      return name;
+    }
+    item.addEnchantment(Enchant.getEnchant(Enchant.MENDING), 1);
+    return "Prideful " + name;
+  }
+
+  private static ItemStack getSword(Random random, Quality quality) {
+    String name = quality.getDescriptor() + " Blade";
+    switch (quality) {
+      default:
+      case WOOD:
+        return enchantAndRenameSword(Items.WOODEN_SWORD, name, random);
+      case STONE:
+        return enchantAndRenameSword(Items.STONE_SWORD, name, random);
+      case IRON:
+        return enchantAndRenameSword(Items.IRON_SWORD, name, random);
+      case GOLD:
+        return enchantAndRenameSword(Items.GOLDEN_SWORD, name, random);
+      case DIAMOND:
+        return enchantAndRenameSword(Items.DIAMOND_SWORD, name, random);
+    }
+  }
+
+  private static ItemStack enchantAndRenameSword(Item sword, String name, Random random) {
+    ItemStack itemStack = new ItemStack(sword);
+    name = rollSwordEnchantments(itemStack, name, random);
+    name = rollGeneralEnchantments(itemStack, name, random);
+    Loot.setItemName(itemStack, name);
+    return itemStack;
+  }
+
+  private static String rollSwordEnchantments(ItemStack item, String name, Random random) {
+    name = rollSharpness(item, name, random);
+    name = rollLooting(item, name, random);
+    name = rollFiery(item, name, random);
+    return name;
+  }
+
+  private static String rollSharpness(ItemStack item, String name, Random random) {
+    if (random.nextBoolean()) {
+      return name;
+    }
+    int sharpnessLevel = random.nextInt(6);
+    item.addEnchantment(Enchant.getEnchant(Enchant.SHARPNESS), sharpnessLevel);
+    return name;
+  }
+
+  private static String rollLooting(ItemStack item, String name, Random random) {
+    if (random.nextBoolean()) {
+      return name;
+    }
+    int lootingLevel = 1;
+    lootingLevel += random.nextInt(3);
+    item.addEnchantment(Enchant.getEnchant(Enchant.LOOTING), lootingLevel);
+    if (lootingLevel < 3) {
+      return "Burglar's " + name;
+    }
+    Loot.setItemLore(item, "Once belonged to a king of thieves who secretly lived in a desert.", TextFormat.DARKGREEN);
+    return "Bandit King's " + name;
+  }
+
+  private static String rollFiery(ItemStack item, String name, Random random) {
+    if (random.nextBoolean()) {
+      return name;
+    }
+    int fieryLevel = random.nextInt(4);
+    item.addEnchantment(Enchant.getEnchant(Enchant.FIREASPECT), fieryLevel);
+    Loot.setItemLore(item, "From the fiery depths", TextFormat.DARKGREEN);
+    return name + " of the Inferno";
+  }
+
+  private static ItemStack getBow(Random random, Quality quality) {
+    String name;
     ItemStack item = new ItemStack(Items.BOW);
-
+    item.addEnchantment(Enchant.getEnchant(Enchant.POWER), random.nextInt(4));
     switch (quality) {
       case WOOD:
       case STONE:
-        item.addEnchantment(Enchant.getEnchant(Enchant.POWER), 1 + rand.nextInt(3));
-        item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), 1);
-        Loot.setItemName(item, "Yew Longbow");
+        name = "Yew Longbow";
+        name = rollUnbreaking(item, name, random);
         Loot.setItemLore(item, "Superior craftsmanship", TextFormat.DARKGREEN);
+        Loot.setItemName(item, name);
         return item;
+      default:
       case IRON:
-        item.addEnchantment(Enchant.getEnchant(Enchant.POWER), 1 + rand.nextInt(3));
-        item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), 1 + rand.nextInt(3));
-        Loot.setItemName(item, "Laminated Bow");
+        name = "Laminated Bow";
+        name = rollUnbreaking(item, name, random);
+        Loot.setItemName(item, name);
         Loot.setItemLore(item, "Highly polished", TextFormat.DARKGREEN);
         return item;
       case GOLD:
-        item.addEnchantment(Enchant.getEnchant(Enchant.POWER), 3 + rand.nextInt(3));
-        if (rand.nextBoolean()) {
+        if (random.nextBoolean()) {
           item.addEnchantment(Enchant.getEnchant(Enchant.INFINITY), 1);
+          name = "Elven Bow";
+          name = rollUnbreaking(item, name, random);
+          Loot.setItemName(item, name);
+          Loot.setItemLore(item, "Beautifully crafted", TextFormat.DARKGREEN);
+          return item;
         }
-        item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), 1 + rand.nextInt(3));
-        Loot.setItemName(item, "Recurve Bow");
-        Loot.setItemLore(item, "Beautifully crafted", TextFormat.DARKGREEN);
+
+        if (random.nextBoolean()) {
+          item.addEnchantment(Enchant.getEnchant(Enchant.MENDING), 1);
+          name = "Faerie Bow";
+          name = rollUnbreaking(item, name, random);
+          Loot.setItemName(item, name);
+          Loot.setItemLore(item, "Beautifully crafted", TextFormat.DARKGREEN);
+          return item;
+        }
+        name = "Recurve Bow";
+        name = rollUnbreaking(item, name, random);
+        Loot.setItemName(item, name);
+        Loot.setItemLore(item, "Curves outward toward the target", TextFormat.DARKGREEN);
         return item;
       case DIAMOND:
-        item.addEnchantment(Enchant.getEnchant(Enchant.POWER), 3 + rand.nextInt(3));
         item.addEnchantment(Enchant.getEnchant(Enchant.FLAME), 1);
-        item.addEnchantment(Enchant.getEnchant(Enchant.INFINITY), 1);
-        item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), getUnbreakingLevel(quality, rand));
-        item.addEnchantment(Enchant.getEnchant(Enchant.MENDING), 1);
-        Loot.setItemName(item, "Eldritch Bow");
+        name = "Eldritch Bow";
+        name = rollUnbreaking(item, name, random);
+        Loot.setItemName(item, name);
         Loot.setItemLore(item, "Warm to the touch", TextFormat.DARKGREEN);
         return item;
-      default:
-        return null;
     }
   }
 
-  private static ItemStack getHelmet(Random rand, Quality quality) {
+  private static ItemStack getHelmet(Random random, Quality quality) {
     ItemStack item;
 
     String canonical = "";
@@ -294,17 +353,20 @@ public class ItemSpecialty extends ItemBase {
     switch (quality) {
       case WOOD:
         item = new ItemStack(Items.LEATHER_HELMET);
-        ItemArmour.dyeArmor(item, rand.nextInt(256), rand.nextInt(255), rand.nextInt(255));
-        canonical = "Bonnet";
+        ItemArmour.dyeArmor(item, random.nextInt(256), random.nextInt(255), random.nextInt(255));
+        canonical = "Skullcap";
         break;
       case STONE:
         item = new ItemStack(Items.CHAINMAIL_HELMET);
         canonical = "Coif";
         break;
       case IRON:
-      case GOLD:
         item = new ItemStack(Items.IRON_HELMET);
         canonical = "Sallet";
+        break;
+      case GOLD:
+        item = new ItemStack(Items.GOLDEN_HELMET);
+        canonical = "Crown";
         break;
       case DIAMOND:
         item = new ItemStack(Items.DIAMOND_HELMET);
@@ -317,31 +379,31 @@ public class ItemSpecialty extends ItemBase {
 
     String suffix = "";
 
-    if (rand.nextInt(20) == 0) {
-      item.addEnchantment(Enchant.getEnchant(Enchant.PROTECTION), getProtectionLevel(quality, rand));
+    if (random.nextInt(20) == 0) {
+      item.addEnchantment(Enchant.getEnchant(Enchant.PROTECTION), getProtectionLevel(quality, random));
       item.addEnchantment(Enchant.getEnchant(Enchant.RESPIRATION), 3);
       item.addEnchantment(Enchant.getEnchant(Enchant.AQUAAFFINITY), 1);
       suffix = "of Diving";
-    } else if (rand.nextInt(3) == 0) {
-      item.addEnchantment(Enchant.getEnchant(Enchant.PROJECTILEPROTECTION), getProtectionLevel(quality, rand));
+    } else if (random.nextInt(3) == 0) {
+      item.addEnchantment(Enchant.getEnchant(Enchant.PROJECTILEPROTECTION), getProtectionLevel(quality, random));
       suffix = "of Deflection";
     } else {
-      item.addEnchantment(Enchant.getEnchant(Enchant.PROTECTION), getProtectionLevel(quality, rand));
+      item.addEnchantment(Enchant.getEnchant(Enchant.PROTECTION), getProtectionLevel(quality, random));
       suffix = "of Defense";
     }
 
-    item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), getUnbreakingLevel(quality, rand));
+    return commonArmorThingy(random, quality, item, canonical, suffix);
+  }
 
-    if (rand.nextInt(10) == 0) {
-      item.addEnchantment(Enchant.getEnchant(Enchant.MENDING), 1);
-    }
-
+  private static ItemStack commonArmorThingy(Random random, Quality quality, ItemStack item, String canonical, String suffix) {
     String name = getArmourPrefix(quality) + " " + canonical + " " + suffix;
+    name = rollUnbreaking(item, name, random);
+    name = rollMending(item, name, random);
     Loot.setItemName(item, name);
     return item;
   }
 
-  private static ItemStack getBoots(Random rand, Quality quality) {
+  private static ItemStack getBoots(Random random, Quality quality) {
     ItemStack item;
 
     String canonical = "";
@@ -349,7 +411,7 @@ public class ItemSpecialty extends ItemBase {
     switch (quality) {
       case WOOD:
         item = new ItemStack(Items.LEATHER_BOOTS);
-        ItemArmour.dyeArmor(item, rand.nextInt(256), rand.nextInt(255), rand.nextInt(255));
+        ItemArmour.dyeArmor(item, random.nextInt(256), random.nextInt(255), random.nextInt(255));
         canonical = "Shoes";
         break;
       case STONE:
@@ -372,33 +434,25 @@ public class ItemSpecialty extends ItemBase {
 
     String suffix = "";
 
-    if (rand.nextInt(10) == 0) {
-      item.addEnchantment(Enchant.getEnchant(Enchant.BLASTPROTECTION), getProtectionLevel(quality, rand));
+    if (random.nextInt(10) == 0) {
+      item.addEnchantment(Enchant.getEnchant(Enchant.BLASTPROTECTION), getProtectionLevel(quality, random));
       suffix = "of Warding";
-    } else if (rand.nextInt(5) == 0) {
-      item.addEnchantment(Enchant.getEnchant(Enchant.PROTECTION), getProtectionLevel(quality, rand));
-      item.addEnchantment(Enchant.getEnchant(Enchant.FEATHERFALLING), quality == Quality.DIAMOND ? 4 : 1 + rand.nextInt(3));
+    } else if (random.nextInt(5) == 0) {
+      item.addEnchantment(Enchant.getEnchant(Enchant.PROTECTION), getProtectionLevel(quality, random));
+      item.addEnchantment(Enchant.getEnchant(Enchant.FEATHERFALLING), quality == Quality.DIAMOND ? 4 : 1 + random.nextInt(3));
       suffix = "of Lightness";
-    } else if (rand.nextInt(3) == 0) {
-      item.addEnchantment(Enchant.getEnchant(Enchant.PROJECTILEPROTECTION), getProtectionLevel(quality, rand));
+    } else if (random.nextInt(3) == 0) {
+      item.addEnchantment(Enchant.getEnchant(Enchant.PROJECTILEPROTECTION), getProtectionLevel(quality, random));
       suffix = "of Deflection";
     } else {
-      item.addEnchantment(Enchant.getEnchant(Enchant.PROTECTION), getProtectionLevel(quality, rand));
+      item.addEnchantment(Enchant.getEnchant(Enchant.PROTECTION), getProtectionLevel(quality, random));
       suffix = "of Defense";
     }
 
-    item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), getUnbreakingLevel(quality, rand));
-
-    if (rand.nextInt(10) == 0) {
-      item.addEnchantment(Enchant.getEnchant(Enchant.MENDING), 1);
-    }
-
-    String name = getArmourPrefix(quality) + " " + canonical + " " + suffix;
-    Loot.setItemName(item, name);
-    return item;
+    return commonArmorThingy(random, quality, item, canonical, suffix);
   }
 
-  private static ItemStack getLegs(Random rand, Quality quality) {
+  private static ItemStack getLegs(Random random, Quality quality) {
     ItemStack item;
 
     String canonical = "";
@@ -406,7 +460,7 @@ public class ItemSpecialty extends ItemBase {
     switch (quality) {
       case WOOD:
         item = new ItemStack(Items.LEATHER_LEGGINGS);
-        ItemArmour.dyeArmor(item, rand.nextInt(256), rand.nextInt(255), rand.nextInt(255));
+        ItemArmour.dyeArmor(item, random.nextInt(256), random.nextInt(255), random.nextInt(255));
         canonical = "Pantaloons";
         break;
       case STONE:
@@ -428,32 +482,24 @@ public class ItemSpecialty extends ItemBase {
 
     String suffix = "";
 
-    if (rand.nextInt(10) == 0) {
-      item.addEnchantment(Enchant.getEnchant(Enchant.FIREPROTECTION), getProtectionLevel(quality, rand));
+    if (random.nextInt(10) == 0) {
+      item.addEnchantment(Enchant.getEnchant(Enchant.FIREPROTECTION), getProtectionLevel(quality, random));
       suffix = "of Warding";
-    } else if (rand.nextInt(10) == 0) {
-      item.addEnchantment(Enchant.getEnchant(Enchant.BLASTPROTECTION), getProtectionLevel(quality, rand));
+    } else if (random.nextInt(10) == 0) {
+      item.addEnchantment(Enchant.getEnchant(Enchant.BLASTPROTECTION), getProtectionLevel(quality, random));
       suffix = "of Integrity";
-    } else if (rand.nextInt(3) == 0) {
-      item.addEnchantment(Enchant.getEnchant(Enchant.PROJECTILEPROTECTION), getProtectionLevel(quality, rand));
+    } else if (random.nextInt(3) == 0) {
+      item.addEnchantment(Enchant.getEnchant(Enchant.PROJECTILEPROTECTION), getProtectionLevel(quality, random));
       suffix = "of Deflection";
     } else {
-      item.addEnchantment(Enchant.getEnchant(Enchant.PROTECTION), getProtectionLevel(quality, rand));
+      item.addEnchantment(Enchant.getEnchant(Enchant.PROTECTION), getProtectionLevel(quality, random));
       suffix = "of Defense";
     }
 
-    item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), getUnbreakingLevel(quality, rand));
-
-    if (rand.nextInt(10) == 0) {
-      item.addEnchantment(Enchant.getEnchant(Enchant.MENDING), 1);
-    }
-
-    String name = getArmourPrefix(quality) + " " + canonical + " " + suffix;
-    Loot.setItemName(item, name);
-    return item;
+    return commonArmorThingy(random, quality, item, canonical, suffix);
   }
 
-  private static ItemStack getChest(Random rand, Quality quality) {
+  private static ItemStack getChest(Random random, Quality quality) {
     ItemStack item;
 
     String canonical = "";
@@ -461,7 +507,7 @@ public class ItemSpecialty extends ItemBase {
     switch (quality) {
       case WOOD:
         item = new ItemStack(Items.LEATHER_CHESTPLATE);
-        ItemArmour.dyeArmor(item, rand.nextInt(256), rand.nextInt(255), rand.nextInt(255));
+        ItemArmour.dyeArmor(item, random.nextInt(256), random.nextInt(255), random.nextInt(255));
         canonical = "Tunic";
         break;
       case STONE:
@@ -484,33 +530,21 @@ public class ItemSpecialty extends ItemBase {
 
     String suffix = "";
 
-    if (rand.nextInt(10) == 0) {
-      item.addEnchantment(Enchant.getEnchant(Enchant.FIREPROTECTION), getProtectionLevel(quality, rand));
+    if (random.nextInt(10) == 0) {
+      item.addEnchantment(Enchant.getEnchant(Enchant.FIREPROTECTION), getProtectionLevel(quality, random));
       suffix = "of Flamewarding";
-    } else if (rand.nextInt(10) == 0) {
-      item.addEnchantment(Enchant.getEnchant(Enchant.BLASTPROTECTION), getProtectionLevel(quality, rand));
+    } else if (random.nextInt(10) == 0) {
+      item.addEnchantment(Enchant.getEnchant(Enchant.BLASTPROTECTION), getProtectionLevel(quality, random));
       suffix = "of Integrity";
-    } else if (rand.nextInt(3) == 0) {
-      item.addEnchantment(Enchant.getEnchant(Enchant.PROJECTILEPROTECTION), getProtectionLevel(quality, rand));
+    } else if (random.nextInt(3) == 0) {
+      item.addEnchantment(Enchant.getEnchant(Enchant.PROJECTILEPROTECTION), getProtectionLevel(quality, random));
       suffix = "of Deflection";
     } else {
-      item.addEnchantment(Enchant.getEnchant(Enchant.PROTECTION), getProtectionLevel(quality, rand));
+      item.addEnchantment(Enchant.getEnchant(Enchant.PROTECTION), getProtectionLevel(quality, random));
       suffix = "of Defense";
     }
 
-    item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), getUnbreakingLevel(quality, rand));
-
-    if (rand.nextInt(10) == 0) {
-      item.addEnchantment(Enchant.getEnchant(Enchant.MENDING), 1);
-    }
-
-    String name = getArmourPrefix(quality) + " " + canonical + " " + suffix;
-    Loot.setItemName(item, name);
-    return item;
-  }
-
-  private static int getUnbreakingLevel(Quality quality, Random rand) {
-    return quality == Quality.DIAMOND ? 3 : 1 + rand.nextInt(2);
+    return commonArmorThingy(random, quality, item, canonical, suffix);
   }
 
   private static int getProtectionLevel(Quality quality, Random rand) {
@@ -541,7 +575,6 @@ public class ItemSpecialty extends ItemBase {
   }
 
   private static String getArmourPrefix(Quality quality) {
-
     switch (quality) {
       case WOOD:
         return "Surplus";
