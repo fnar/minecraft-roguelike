@@ -15,26 +15,26 @@ public class ProfileSkeleton implements IMonsterProfile {
 
 
     if (level == 3 && rand.nextInt(40) == 0) {
-      MonsterProfile.get(MonsterProfile.POISONARCHER).addEquipment(world, rand, level, mob);
+      MonsterProfile.POISONARCHER.getMonsterProfile().addEquipment(world, rand, level, mob);
       return;
     }
 
     if (level > 1 && rand.nextInt(50) == 0) {
-      MonsterProfile.get(MonsterProfile.MAGICARCHER).addEquipment(world, rand, level, mob);
+      MonsterProfile.MAGICARCHER.getMonsterProfile().addEquipment(world, rand, level, mob);
       return;
     }
 
     if (level > 1 && rand.nextInt(10) == 0) {
-      MonsterProfile.get(MonsterProfile.WITHER).addEquipment(world, rand, level, mob);
+      MonsterProfile.WITHER.getMonsterProfile().addEquipment(world, rand, level, mob);
       return;
     }
 
     if (level > 0 && rand.nextInt(20) == 0) {
-      MonsterProfile.get(MonsterProfile.SWORDSMAN).addEquipment(world, rand, level, mob);
+      MonsterProfile.SWORDSMAN.getMonsterProfile().addEquipment(world, rand, level, mob);
       return;
     }
 
-    MonsterProfile.get(MonsterProfile.ARCHER).addEquipment(world, rand, level, mob);
+    MonsterProfile.ARCHER.getMonsterProfile().addEquipment(world, rand, level, mob);
   }
 
 }
