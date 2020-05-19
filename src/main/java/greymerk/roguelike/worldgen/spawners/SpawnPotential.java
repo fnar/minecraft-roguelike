@@ -2,6 +2,7 @@ package greymerk.roguelike.worldgen.spawners;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.potion.Potion;
 
 import java.util.Random;
 
@@ -80,9 +81,9 @@ public class SpawnPotential {
   }
 
   private Equipment chooseRandomWeapon(Random random) {
-    return random.nextBoolean()
-        ? SWORD
-        : BOW;
+    return random.nextInt(5) == 0
+        ? BOW
+        : SWORD;
   }
 
   private Equipment chooseRandomTool(Random random) {
@@ -136,21 +137,31 @@ public class SpawnPotential {
   private void setRoguelikeNbtData(int level, String type, NBTTagCompound entityNbt) {
     entityNbt.setString("id", type);
 
-    if (!(RogueConfig.getBoolean(RogueConfig.ROGUESPAWNERS)
-        && equip)) {
-      return;
+    if (areRoguelikeSpawnersEnabled()) {
+      tagEntityAsFromRoguelikeSpawner(level, entityNbt);
     }
+  }
 
+  private boolean areRoguelikeSpawnersEnabled() {
+    return RogueConfig.getBoolean(RogueConfig.ROGUESPAWNERS) && equip;
+  }
+
+  private void tagEntityAsFromRoguelikeSpawner(int level, NBTTagCompound entityNbt) {
+    // This tags the entity as a "roguelike" entity, by giving the entity mining fatigue.
+    // Later, a check for mining fatigue determines if it should equip this entity.
+    NBTTagList activeEffects = new NBTTagList();
+    activeEffects.appendTag(getMiningFatigueBuff(level));
+    entityNbt.setTag("ActiveEffects", activeEffects);
+  }
+
+  private NBTTagCompound getMiningFatigueBuff(int level) {
     NBTTagCompound buff = new NBTTagCompound();
-    buff.setByte("Id", (byte) 4);
+    int miningFatigueEffectId = 4;
+    buff.setByte("Id", (byte) miningFatigueEffectId);
     buff.setByte("Amplifier", (byte) level);
     buff.setInteger("Duration", 10);
     buff.setByte("Ambient", (byte) 0);
-
-    NBTTagList activeEffects = new NBTTagList();
-    activeEffects.appendTag(buff);
-
-    entityNbt.setTag("ActiveEffects", activeEffects);
+    return buff;
   }
 
 }
