@@ -16,12 +16,13 @@ public class ProfileArcher implements IMonsterProfile {
 
   @Override
   public void addEquipment(World world, Random rand, int level, IEntity mob) {
+    boolean hasEnchantedBow = Enchant.canEnchant(world.getDifficulty(), rand, level) && rand.nextInt(10) == 0;
+    mob.setSlot(EntityEquipmentSlot.MAINHAND, ItemWeapon.getBow(rand, level, hasEnchantedBow));
 
-    if (Enchant.canEnchant(world.getDifficulty(), rand, level) && rand.nextInt(10) == 0) {
+    boolean hasPoisonTippedArrows = Enchant.canEnchant(world.getDifficulty(), rand, level) && rand.nextInt(10) == 0;
+    if (hasPoisonTippedArrows) {
       mob.setSlot(EntityEquipmentSlot.OFFHAND, TippedArrow.getHarmful(rand, 1));
     }
-
-    mob.setSlot(EntityEquipmentSlot.MAINHAND, ItemWeapon.getBow(rand, level, Enchant.canEnchant(world.getDifficulty(), rand, level)));
     MonsterProfile.get(MonsterProfile.TALLMOB).addEquipment(world, rand, level, mob);
   }
 
