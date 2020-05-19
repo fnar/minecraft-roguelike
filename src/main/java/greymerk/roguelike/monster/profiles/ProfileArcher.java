@@ -23,7 +23,7 @@ public class ProfileArcher implements IMonsterProfile {
     if (hasPoisonTippedArrows) {
       mob.setSlot(EntityEquipmentSlot.OFFHAND, TippedArrow.getHarmful(rand, 1));
     }
-    MonsterProfile.get(MonsterProfile.TALLMOB).addEquipment(world, rand, level, mob);
+    MonsterProfile.TALLMOB.getMonsterProfile().addEquipment(world, rand, level, mob);
   }
 
 }

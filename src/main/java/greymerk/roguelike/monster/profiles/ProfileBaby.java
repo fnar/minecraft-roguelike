@@ -19,7 +19,7 @@ public class ProfileBaby implements IMonsterProfile {
     mob.setChild(true);
 
     if (rand.nextBoolean()) {
-      MonsterProfile.get(MonsterProfile.VILLAGER).addEquipment(world, rand, level, mob);
+      MonsterProfile.VILLAGER.getMonsterProfile().addEquipment(world, rand, level, mob);
     }
 
     ItemStack weapon = ItemTool.getRandom(rand, level, Enchant.canEnchant(world.getDifficulty(), rand, level));
