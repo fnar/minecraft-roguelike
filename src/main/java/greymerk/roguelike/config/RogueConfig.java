@@ -1,6 +1,8 @@
 package greymerk.roguelike.config;
 
 
+import com.google.common.collect.Lists;
+
 import net.minecraft.util.Tuple;
 
 import java.io.File;
@@ -10,22 +12,43 @@ import java.util.List;
 
 public enum RogueConfig {
 
-  DONATURALSPAWN,
-  SPAWNFREQUENCY,
-  GENEROUS,
-  MOBDROPS,
-  DIMENSIONWL,
-  DIMENSIONBL,
-  PRECIOUSBLOCKS,
-  LOOTING,
-  UPPERLIMIT,
-  LOWERLIMIT,
-  ROGUESPAWNERS,
-  ENCASE,
-  FURNITURE,
-  RANDOM,
-  SPAWNBUILTIN,
-  SPAWNCHANCE;
+  DIMENSIONBL("dimensionBL", false, 0, 0.0, Lists.newArrayList()),
+  DIMENSIONWL("dimensionWL", false, 0, 0.0, Lists.newArrayList(0)),
+  DONATURALSPAWN("doNaturalSpawn", true, 0, 0.0, null),
+  ENCASE("encase", false, 0, 0.0, null),
+  FURNITURE("furniture", true, 0, 0.0, null),
+  GENEROUS("generous", true, 0, 0.0, null),
+  LOOTING("looting", false, 0, 0.085D, null),
+  LOWERLIMIT("lowerLimit", false, 60, 0.0, null),
+  MOBDROPS("mobDrops", false, 0, 0.0, null),
+  PRECIOUSBLOCKS("preciousBlocks", true, 0, 0.0, null),
+  RANDOM("random", false, 0, 0.0, null),
+  ROGUESPAWNERS("rogueSpawners", true, 0, 0.0, null),
+  SPAWNBUILTIN("doBuiltinSpawn", true, 0, 0.0, null),
+  SPAWNCHANCE("spawnChance", false, 0, 1.0, null),
+  SPAWNFREQUENCY("spawnFrequency", false, 10, 0.0, null),
+  UPPERLIMIT("upperLimit", false, 100, 0.0, null),
+  ;
+
+  RogueConfig(
+      String name,
+      Boolean defaultBoolean,
+      Integer defaultInt,
+      Double defaultDouble,
+      List<Integer> defaultIntList
+  ) {
+    this.name = name;
+    this.defaultBoolean = defaultBoolean;
+    this.defaultInt = defaultInt;
+    this.defaultDouble = defaultDouble;
+    this.defaultIntList = defaultIntList;
+  }
+
+  private final String name;
+  private final Boolean defaultBoolean;
+  private final Integer defaultInt;
+  private final Double defaultDouble;
+  private final List<Integer> defaultIntList;
 
   public static final String configDirName = "config/roguelike_dungeons";
   public static final String configFileName = "roguelike.cfg";
@@ -33,188 +56,106 @@ public enum RogueConfig {
   public static boolean testing = false;
   private static ConfigFile instance = null;
 
-  public static String getName(RogueConfig option) {
-    switch (option) {
-      case DONATURALSPAWN:
-        return "doNaturalSpawn";
-      case SPAWNFREQUENCY:
-        return "spawnFrequency";
-      case SPAWNCHANCE:
-        return "spawnChance";
-      case GENEROUS:
-        return "generous";
-      case DIMENSIONWL:
-        return "dimensionWL";
-      case DIMENSIONBL:
-        return "dimensionBL";
-      case PRECIOUSBLOCKS:
-        return "preciousBlocks";
-      case LOOTING:
-        return "looting";
-      case UPPERLIMIT:
-        return "upperLimit";
-      case LOWERLIMIT:
-        return "lowerLimit";
-      case ROGUESPAWNERS:
-        return "rogueSpawners";
-      case ENCASE:
-        return "encase";
-      case FURNITURE:
-        return "furniture";
-      case RANDOM:
-        return "random";
-      case SPAWNBUILTIN:
-        return "doBuiltinSpawn";
-      default:
-        return null;
-    }
-  }
-
-  public static Tuple<String, ?> getDefault(RogueConfig option) {
-    switch (option) {
-      case DONATURALSPAWN:
-        return new Tuple<>(getName(option), true);
-      case SPAWNCHANCE:
-        return new Tuple<>(getName(option), 1.0);
-      case SPAWNFREQUENCY:
-        return new Tuple<>(getName(option), 10);
-      case GENEROUS:
-        return new Tuple<>(getName(option), true);
-      case DIMENSIONWL:
-        List<Integer> bl = new ArrayList<>();
-        bl.add(0);
-        return new Tuple<>(getName(option), bl);
-      case DIMENSIONBL:
-        return new Tuple<String, List<Integer>>(getName(option), new ArrayList<>());
-      case PRECIOUSBLOCKS:
-        return new Tuple<>(getName(option), true);
-      case LOOTING:
-        return new Tuple<>(getName(option), 0.085D);
-      case UPPERLIMIT:
-        return new Tuple<>(getName(option), 100);
-      case LOWERLIMIT:
-        return new Tuple<>(getName(option), 60);
-      case ROGUESPAWNERS:
-        return new Tuple<>(getName(option), true);
-      case ENCASE:
-        return new Tuple<>(getName(option), false);
-      case FURNITURE:
-        return new Tuple<>(getName(option), true);
-      case RANDOM:
-        return new Tuple<>(getName(option), false);
-      case SPAWNBUILTIN:
-        return new Tuple<>(getName(option), true);
-      default:
-        return null;
-    }
-  }
-
   @SuppressWarnings("unchecked")
   private static void setDefaults() {
-    if (!instance.ContainsKey(getName(DONATURALSPAWN))) {
-      setBoolean(DONATURALSPAWN, (Boolean) getDefault(DONATURALSPAWN).getSecond());
+    if (!instance.ContainsKey(DONATURALSPAWN.name)) {
+      setBoolean(DONATURALSPAWN, DONATURALSPAWN.defaultBoolean);
     }
-    if (!instance.ContainsKey(getName(SPAWNFREQUENCY))) {
-      setInt(SPAWNFREQUENCY, (Integer) getDefault(SPAWNFREQUENCY).getSecond());
+    if (!instance.ContainsKey(SPAWNFREQUENCY.name)) {
+      setInt(SPAWNFREQUENCY, SPAWNFREQUENCY.defaultInt);
     }
-    if (!instance.ContainsKey(getName(SPAWNCHANCE))) {
-      setDouble(SPAWNCHANCE, (Double) getDefault(SPAWNCHANCE).getSecond());
+    if (!instance.ContainsKey(SPAWNCHANCE.name)) {
+      setDouble(SPAWNCHANCE, SPAWNCHANCE.defaultDouble);
     }
-    if (!instance.ContainsKey(getName(GENEROUS))) {
-      setBoolean(GENEROUS, (Boolean) getDefault(GENEROUS).getSecond());
+    if (!instance.ContainsKey(GENEROUS.name)) {
+      setBoolean(GENEROUS, GENEROUS.defaultBoolean);
     }
-    if (!instance.ContainsKey(getName(DIMENSIONWL))) {
-      setIntList(DIMENSIONWL, (List<Integer>) getDefault(DIMENSIONWL).getSecond());
+    if (!instance.ContainsKey(DIMENSIONWL.name)) {
+      setIntList(DIMENSIONWL, DIMENSIONWL.defaultIntList);
     }
-    if (!instance.ContainsKey(getName(DIMENSIONBL))) {
-      setIntList(DIMENSIONBL, (List<Integer>) getDefault(DIMENSIONBL).getSecond());
+    if (!instance.ContainsKey(DIMENSIONBL.name)) {
+      setIntList(DIMENSIONBL, DIMENSIONBL.defaultIntList);
     }
-    if (!instance.ContainsKey(getName(PRECIOUSBLOCKS))) {
-      setBoolean(PRECIOUSBLOCKS, (Boolean) getDefault(PRECIOUSBLOCKS).getSecond());
+    if (!instance.ContainsKey(PRECIOUSBLOCKS.name)) {
+      setBoolean(PRECIOUSBLOCKS, PRECIOUSBLOCKS.defaultBoolean);
     }
-    if (!instance.ContainsKey(getName(LOOTING))) {
-      setDouble(LOOTING, (Double) getDefault(LOOTING).getSecond());
+    if (!instance.ContainsKey(LOOTING.name)) {
+      setDouble(LOOTING, LOOTING.defaultDouble);
     }
-    if (!instance.ContainsKey(getName(UPPERLIMIT))) {
-      setInt(UPPERLIMIT, (Integer) getDefault(UPPERLIMIT).getSecond());
+    if (!instance.ContainsKey(UPPERLIMIT.name)) {
+      setInt(UPPERLIMIT, UPPERLIMIT.defaultInt);
     }
-    if (!instance.ContainsKey(getName(LOWERLIMIT))) {
-      setInt(LOWERLIMIT, (Integer) getDefault(LOWERLIMIT).getSecond());
+    if (!instance.ContainsKey(LOWERLIMIT.name)) {
+      setInt(LOWERLIMIT, LOWERLIMIT.defaultInt);
     }
-    if (!instance.ContainsKey(getName(ROGUESPAWNERS))) {
-      setBoolean(ROGUESPAWNERS, (Boolean) getDefault(ROGUESPAWNERS).getSecond());
+    if (!instance.ContainsKey(ROGUESPAWNERS.name)) {
+      setBoolean(ROGUESPAWNERS, ROGUESPAWNERS.defaultBoolean);
     }
-    if (!instance.ContainsKey(getName(ENCASE))) {
-      setBoolean(ENCASE, (Boolean) getDefault(ENCASE).getSecond());
+    if (!instance.ContainsKey(ENCASE.name)) {
+      setBoolean(ENCASE, ENCASE.defaultBoolean);
     }
-    if (!instance.ContainsKey(getName(FURNITURE))) {
-      setBoolean(FURNITURE, (Boolean) getDefault(FURNITURE).getSecond());
+    if (!instance.ContainsKey(FURNITURE.name)) {
+      setBoolean(FURNITURE, FURNITURE.defaultBoolean);
     }
-    if (!instance.ContainsKey(getName(RANDOM))) {
-      setBoolean(RANDOM, (Boolean) getDefault(RANDOM).getSecond());
+    if (!instance.ContainsKey(RANDOM.name)) {
+      setBoolean(RANDOM, RANDOM.defaultBoolean);
     }
-    if (!instance.ContainsKey(getName(SPAWNBUILTIN))) {
-      setBoolean(SPAWNBUILTIN, (Boolean) getDefault(SPAWNBUILTIN).getSecond());
+    if (!instance.ContainsKey(SPAWNBUILTIN.name)) {
+      setBoolean(SPAWNBUILTIN, SPAWNBUILTIN.defaultBoolean);
     }
   }
 
   public static double getDouble(RogueConfig option) {
     if (testing) {
-      return (Double) getDefault(option).getSecond();
+      return option.defaultDouble;
     }
     reload(false);
-    Tuple<String, ?> def = getDefault(option);
-    return instance.GetDouble(getName(option), (Double) def.getSecond());
+    return instance.GetDouble(option.name, option.defaultDouble);
   }
 
   public static void setDouble(RogueConfig option, double value) {
     reload(false);
-    instance.Set(getName(option), value);
+    instance.Set(option.name, value);
   }
 
   public static boolean getBoolean(RogueConfig option) {
     if (testing) {
-      return (Boolean) getDefault(option).getSecond();
+      return option.defaultBoolean;
     }
     reload(false);
-    Tuple<String, ?> def = getDefault(option);
-    return instance.GetBoolean(getName(option), (Boolean) def.getSecond());
+    return instance.GetBoolean(option.name, option.defaultBoolean);
   }
 
   public static void setBoolean(RogueConfig option, Boolean value) {
     reload(false);
-    instance.Set(getName(option), value);
+    instance.Set(option.name, value);
   }
 
   public static int getInt(RogueConfig option) {
     if (testing) {
-      return (Integer) getDefault(option).getSecond();
+      return option.defaultInt;
     }
     reload(false);
-    Tuple<String, ?> def = getDefault(option);
-    return instance.GetInteger(def.getFirst(), (Integer) def.getSecond());
+    return instance.GetInteger(option.name, option.defaultInt);
   }
 
   public static void setInt(RogueConfig option, int value) {
     reload(false);
-    Tuple<String, ?> def = getDefault(option);
-    instance.Set(def.getFirst(), value);
+    instance.Set(option.name, value);
   }
 
   @SuppressWarnings("unchecked")
   public static List<Integer> getIntList(RogueConfig option) {
     if (testing) {
-      return (ArrayList<Integer>) getDefault(option).getSecond();
+      return option.defaultIntList;
     }
     reload(false);
-    Tuple<String, ?> def = getDefault(option);
-    return instance.GetListInteger(def.getFirst(), (ArrayList<Integer>) def.getSecond());
+    return instance.GetListInteger(option.name, option.defaultIntList);
   }
 
   public static void setIntList(RogueConfig option, List<Integer> value) {
     reload(false);
-    Tuple<String, ?> def = getDefault(option);
-    instance.Set(def.getFirst(), value);
+    instance.Set(option.name, value);
   }
 
   private static void init() {
@@ -260,4 +201,5 @@ public enum RogueConfig {
       init();
     }
   }
+
 }
