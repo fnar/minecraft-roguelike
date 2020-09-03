@@ -37,6 +37,9 @@ public class SpawnCriteria {
   private void addBiomeCriteria(JsonObject data) {
     if (data.has("biomes")) {
       for (JsonElement biome : data.get("biomes").getAsJsonArray()) {
+        if (biome.isJsonNull()) {
+          continue;
+        }
         biomes.add(new ResourceLocation(biome.getAsString()));
       }
     }
@@ -45,6 +48,9 @@ public class SpawnCriteria {
   private void addBiomeTypeCriteria(JsonObject data) {
     if (data.has("biomeTypes")) {
       for (JsonElement biomeType : data.get("biomeTypes").getAsJsonArray()) {
+        if (biomeType.isJsonNull()) {
+          continue;
+        }
         Type type = Type.getType(biomeType.getAsString().toUpperCase());
         if (getBiomes(type).size() > 0) {
           biomeTypes.add(type);
@@ -56,6 +62,9 @@ public class SpawnCriteria {
   private void addDimensionCriteria(JsonObject data) {
     if (data.has("dimensions")) {
       for (JsonElement dimension : data.get("dimensions").getAsJsonArray()) {
+        if (dimension.isJsonNull()) {
+          continue;
+        }
         validDimensions.add(dimension.getAsInt());
       }
     }

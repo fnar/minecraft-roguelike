@@ -28,6 +28,9 @@ public class LootRuleManager {
     this.rules = new ArrayList<>();
     JsonArray arr = e.getAsJsonArray();
     for (JsonElement ruleElement : arr) {
+      if (ruleElement.isJsonNull()) {
+        continue;
+      }
 
       JsonObject rule = ruleElement.getAsJsonObject();
 
@@ -39,6 +42,9 @@ public class LootRuleManager {
       JsonArray data = rule.get("loot").getAsJsonArray();
       WeightedRandomizer<ItemStack> items = new WeightedRandomizer<>(1);
       for (JsonElement item : data) {
+        if (item.isJsonNull()) {
+          continue;
+        }
         items.add(parseProvider(item.getAsJsonObject()));
       }
 
@@ -47,6 +53,9 @@ public class LootRuleManager {
       if (levelElement.isJsonArray()) {
         JsonArray levelArray = levelElement.getAsJsonArray();
         for (JsonElement lvl : levelArray) {
+          if (lvl.isJsonNull()) {
+            continue;
+          }
           levels.add(lvl.getAsInt());
         }
       } else {
@@ -99,8 +108,11 @@ public class LootRuleManager {
 
     JsonArray data = lootItem.get("data").getAsJsonArray();
     WeightedRandomizer<ItemStack> items = new WeightedRandomizer<>(weight);
-    for (JsonElement e : data) {
-      items.add(parseProvider(e.getAsJsonObject()));
+    for (JsonElement jsonElement : data) {
+      if (jsonElement.isJsonNull()) {
+        continue;
+      }
+      items.add(parseProvider(jsonElement.getAsJsonObject()));
     }
 
     return items;

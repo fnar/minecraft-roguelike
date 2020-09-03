@@ -26,17 +26,48 @@ public class DungeonSettingsParser {
 
   public static DungeonSettings parseJson(String content) throws Exception {
     try {
-      return parseDungeonSettings((JsonObject) new JsonParser().parse(content));
-    } catch (JsonSyntaxException e) {
-      Throwable cause = e.getCause();
-      throw new Exception(cause.getMessage());
+      JsonParser jsonParser = new JsonParser();
+      JsonObject parse;
+      try {
+        parse = (JsonObject) jsonParser.parse(content);
+      } catch (JsonSyntaxException e) {
+        Throwable cause = e.getCause();
+        throw new Exception(cause.getMessage());
+      }
+      return parseDungeonSettings(parse);
     } catch (Exception e) {
-      throw new Exception("An unknown error occurred while parsing json");
+      throw new Exception("An unknown error occurred while parsing json: " + e.getClass().toString() + " " + e.getMessage());
     }
   }
 
   public static DungeonSettings parseDungeonSettings(JsonObject root) throws Exception {
     DungeonSettings dungeonSettings = new DungeonSettings();
+    // set up level settings objects
+    for (int i = 0; i < DungeonSettings.getMaxNumLevels(); ++i) {
+      LevelSettings setting = new LevelSettings();
+      dungeonSettings.getLevels().put(i, setting);
+    }
+
+    parseId(root, dungeonSettings);
+    parseExclusive(root, dungeonSettings);
+    parseCriteria(root, dungeonSettings);
+    parseTower(root, dungeonSettings);
+    parseLootRules(root, dungeonSettings);
+    parseOverrides(root, dungeonSettings);
+    parseInherit(root, dungeonSettings);
+    parseLootTables(root, dungeonSettings);
+    parseRoomCount(root, dungeonSettings);
+    parseScatter(root, dungeonSettings);
+    parseLayouts(root, dungeonSettings);
+    parseSpawners(root, dungeonSettings);
+    parseRooms(root, dungeonSettings);
+    parseThemes(root, dungeonSettings);
+    parseSegments(root, dungeonSettings);
+    parseFilters(root, dungeonSettings);
+    return dungeonSettings;
+  }
+
+  private static void parseId(JsonObject root, DungeonSettings dungeonSettings) throws Exception {
     if (!root.has("name")) {
       throw new Exception("Setting missing name");
     }
@@ -48,72 +79,94 @@ public class DungeonSettingsParser {
     } else {
       dungeonSettings.setId(new SettingIdentifier(root.get("name").getAsString()));
     }
+  }
 
+  private static void parseExclusive(JsonObject root, DungeonSettings dungeonSettings) {
     if (root.has("exclusive")) {
       dungeonSettings.setExclusive(root.get("exclusive").getAsBoolean());
     }
+  }
+
+  private static void parseCriteria(JsonObject root, DungeonSettings dungeonSettings) {
     if (root.has("criteria")) {
       dungeonSettings.setSpawnCriteria(new SpawnCriteria(root.get("criteria").getAsJsonObject()));
     }
+  }
+
+  private static void parseTower(JsonObject root, DungeonSettings dungeonSettings) throws Exception {
     if (root.has("tower")) {
       dungeonSettings.setTowerSettings(new TowerSettings(root.get("tower")));
     }
+  }
+
+  private static void parseLootRules(JsonObject root, DungeonSettings dungeonSettings) throws Exception {
     if (root.has("loot_rules")) {
       dungeonSettings.setLootRules(new LootRuleManager(root.get("loot_rules")));
     }
+  }
 
+  private static void parseOverrides(JsonObject root, DungeonSettings dungeonSettings) {
     if (root.has("overrides")) {
       JsonArray overrides = root.get("overrides").getAsJsonArray();
-      for (JsonElement e : overrides) {
-        String type = e.getAsString();
-        dungeonSettings.getOverrides().add(SettingsType.valueOf(type));
+      for (JsonElement jsonElement : overrides) {
+        if (jsonElement.isJsonNull()) {
+          continue;
+        }
+        dungeonSettings.getOverrides().add(SettingsType.valueOf(jsonElement.getAsString()));
       }
     }
+  }
 
+  private static void parseInherit(JsonObject root, DungeonSettings dungeonSettings) {
     if (root.has("inherit")) {
       JsonArray inherit = root.get("inherit").getAsJsonArray();
-      for (JsonElement e : inherit) {
-        dungeonSettings.getInherit().add(new SettingIdentifier(e.getAsString()));
+      for (JsonElement jsonElement : inherit) {
+        if (jsonElement.isJsonNull()) {
+          continue;
+        }
+        dungeonSettings.getInherit().add(new SettingIdentifier(jsonElement.getAsString()));
       }
     }
+  }
 
-    // set up level settings objects
-    for (int i = 0; i < DungeonSettings.getMaxNumLevels(); ++i) {
-      LevelSettings setting = new LevelSettings();
-      dungeonSettings.getLevels().put(i, setting);
-    }
-
+  private static void parseLootTables(JsonObject root, DungeonSettings dungeonSettings) throws Exception {
     if (root.has("loot_tables")) {
-      JsonArray arr = root.get("loot_tables").getAsJsonArray();
-      for (JsonElement e : arr) {
-        dungeonSettings.getLootTables().add(new LootTableRule(e.getAsJsonObject()));
+      JsonArray lootTables = root.get("loot_tables").getAsJsonArray();
+      for (JsonElement jsonElement : lootTables) {
+        if (jsonElement.isJsonNull()) {
+          continue;
+        }
+        dungeonSettings.getLootTables().add(new LootTableRule(jsonElement.getAsJsonObject()));
       }
     }
+  }
 
+  private static void parseRoomCount(JsonObject root, DungeonSettings dungeonSettings) {
     if (root.has("num_rooms")) {
       JsonArray arr = root.get("num_rooms").getAsJsonArray();
       for (int i = 0; i < arr.size(); ++i) {
-        JsonElement e = arr.get(i);
+        JsonElement jsonElement = arr.get(i);
+        if (jsonElement.isJsonNull()) {
+          continue;
+        }
         LevelSettings setting = dungeonSettings.getLevels().get(i);
-        setting.setNumRooms(e.getAsInt());
+        setting.setNumRooms(jsonElement.getAsInt());
       }
     }
+  }
 
+  private static void parseScatter(JsonObject root, DungeonSettings dungeonSettings) {
     if (root.has("scatter")) {
       JsonArray arr = root.get("scatter").getAsJsonArray();
       for (int i = 0; i < arr.size(); ++i) {
-        JsonElement e = arr.get(i);
+        JsonElement jsonElement = arr.get(i);
+        if (jsonElement.isJsonNull()) {
+          continue;
+        }
         LevelSettings setting = dungeonSettings.getLevels().get(i);
-        setting.setScatter(e.getAsInt());
+        setting.setScatter(jsonElement.getAsInt());
       }
     }
-    parseLayouts(root, dungeonSettings);
-    parseSpawners(root, dungeonSettings);
-    parseRooms(root, dungeonSettings);
-    parseThemes(root, dungeonSettings);
-    parseSegments(root, dungeonSettings);
-    parseFilters(root, dungeonSettings);
-    return dungeonSettings;
   }
 
   private static void parseLayouts(JsonObject root, DungeonSettings dungeonSettings) {
@@ -121,8 +174,11 @@ public class DungeonSettingsParser {
       return;
     }
     JsonArray layouts = root.get("layouts").getAsJsonArray();
-    for (JsonElement e : layouts) {
-      JsonObject layout = e.getAsJsonObject();
+    for (JsonElement jsonElement : layouts) {
+      if (jsonElement.isJsonNull()) {
+        continue;
+      }
+      JsonObject layout = jsonElement.getAsJsonObject();
       if (layout.has("level")) {
         List<Integer> levels = LevelsParser.parseLevelsIfPresent(layout);
         for (Integer level : levels) {
@@ -153,6 +209,9 @@ public class DungeonSettingsParser {
       RoomsSetting roomsSetting = new RoomsSetting();
       SecretsSetting secretsSetting = new SecretsSetting();
       for (JsonElement roomSettingElement : roomArray) {
+        if (roomSettingElement.isJsonNull()) {
+          continue;
+        }
         JsonObject roomSettingJson = roomSettingElement.getAsJsonObject();
         RoomSetting roomSetting = RoomSettingParser.parse(roomSettingJson);
         if (roomSetting.isOnFloorLevel(floorLevel)) {
@@ -175,8 +234,11 @@ public class DungeonSettingsParser {
       return;
     }
     JsonArray arr = root.get("themes").getAsJsonArray();
-    for (JsonElement e : arr) {
-      JsonObject entry = e.getAsJsonObject();
+    for (JsonElement jsonElement : arr) {
+      if (jsonElement.isJsonNull()) {
+        continue;
+      }
+      JsonObject entry = jsonElement.getAsJsonObject();
       List<Integer> lvls = LevelsParser.parseLevelsIfPresent(entry);
       if (lvls == null) {
         continue;
@@ -200,8 +262,11 @@ public class DungeonSettingsParser {
     for (int lvl : dungeonSettings.getLevels().keySet()) {
       boolean hasEntry = false;
       SegmentGenerator segments = new SegmentGenerator();
-      for (JsonElement e : arr) {
-        JsonObject entry = e.getAsJsonObject();
+      for (JsonElement jsonElement : arr) {
+        if (jsonElement.isJsonNull()) {
+          continue;
+        }
+        JsonObject entry = jsonElement.getAsJsonObject();
         List<Integer> lvls = LevelsParser.parseLevelsIfPresent(entry);
         if (!lvls.contains(lvl)) {
           continue;
@@ -223,6 +288,9 @@ public class DungeonSettingsParser {
     }
     JsonArray spawnersJson = root.get("spawners").getAsJsonArray();
     for (JsonElement spawnerJsonElement : spawnersJson) {
+      if (spawnerJsonElement.isJsonNull()) {
+        continue;
+      }
       JsonObject spawnerJson = spawnerJsonElement.getAsJsonObject();
       List<Integer> lvls = LevelsParser.parseLevelsIfPresent(spawnerJson);
       for (int i : lvls) {
@@ -238,8 +306,11 @@ public class DungeonSettingsParser {
       return;
     }
     JsonArray arr = root.get("filters").getAsJsonArray();
-    for (JsonElement e : arr) {
-      JsonObject entry = e.getAsJsonObject();
+    for (JsonElement jsonElement : arr) {
+      if (jsonElement.isJsonNull()) {
+        continue;
+      }
+      JsonObject entry = jsonElement.getAsJsonObject();
       List<Integer> lvls = LevelsParser.parseLevelsIfPresent(entry);
       for (int i : lvls) {
         if (dungeonSettings.getLevels().containsKey(i)) {
@@ -256,6 +327,9 @@ public class DungeonSettingsParser {
   private static List<RoomSetting> parseRoomSettings(JsonArray roomArray) throws Exception {
     List<RoomSetting> roomSettings = Lists.newArrayList();
     for (JsonElement roomSettingElement : roomArray) {
+      if (roomSettingElement.isJsonNull()) {
+        continue;
+      }
       JsonObject roomSettingJson = roomSettingElement.getAsJsonObject();
       roomSettings.add(RoomSettingParser.parse(roomSettingJson));
     }

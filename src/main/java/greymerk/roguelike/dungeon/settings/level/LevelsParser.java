@@ -25,6 +25,9 @@ public class LevelsParser {
     JsonArray levelsArray = levelJson.getAsJsonArray();
     List<Integer> levels = new ArrayList<>();
     for (JsonElement jsonElement : levelsArray) {
+      if (jsonElement.isJsonNull()) {
+        continue;
+      }
       levels.add(jsonElement.getAsInt());
     }
     return levels;

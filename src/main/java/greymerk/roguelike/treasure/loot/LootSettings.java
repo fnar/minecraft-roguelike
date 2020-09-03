@@ -58,8 +58,11 @@ public class LootSettings {
           WeightedRandomizer<ItemStack> items = new WeightedRandomizer<>(0);
           JsonArray lootList = providerData.getAsJsonArray();
 
-          for (JsonElement e : lootList) {
-            items.add(parseProvider(e.getAsJsonObject()));
+          for (JsonElement jsonElement : lootList) {
+            if (jsonElement.isJsonNull()) {
+              continue;
+            }
+            items.add(parseProvider(jsonElement.getAsJsonObject()));
           }
 
           loot.put(type, items);
@@ -85,8 +88,11 @@ public class LootSettings {
 
     WeightedRandomizer<ItemStack> items = new WeightedRandomizer<>(weight);
 
-    for (JsonElement e : lootList) {
-      items.add(parseProvider(e.getAsJsonObject()));
+    for (JsonElement jsonElement : lootList) {
+      if (jsonElement.isJsonNull()) {
+        continue;
+      }
+      items.add(parseProvider(jsonElement.getAsJsonObject()));
     }
 
     return items;
