@@ -18,9 +18,8 @@ import greymerk.roguelike.command.CommandRoguelike;
 @Mod(modid = "roguelike", name = "Roguelike Dungeons -- Fnar Edition", version = Roguelike.version, acceptableRemoteVersions = "*")
 public class Roguelike {
 
-  // TODO: change version number
-  public static final String version = "2.1.3";
-  public static final String date = "2020/5/13";
+  public static final String version = "2.1.4";
+  public static final String date = "2020/9/02";
   // The instance of your mod that Forge uses.
   @Instance("roguelike")
   public static Roguelike instance;
