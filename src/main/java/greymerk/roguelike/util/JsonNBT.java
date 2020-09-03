@@ -50,8 +50,11 @@ public enum JsonNBT {
   public static NBTTagList jsonToList(JsonObject data) {
     NBTTagList toReturn = new NBTTagList();
     JsonNBT type = JsonNBT.valueOf(data.get("type").getAsString());
-    for (JsonElement e : data.get("value").getAsJsonArray()) {
-      append(toReturn, type, e);
+    for (JsonElement jsonElement : data.get("value").getAsJsonArray()) {
+      if (jsonElement.isJsonNull()) {
+        continue;
+      }
+      append(toReturn, type, jsonElement);
     }
 
     return toReturn;
@@ -147,8 +150,11 @@ public enum JsonNBT {
     byte[] bytes = new byte[arr.size()];
 
     int i = 0;
-    for (JsonElement e : arr) {
-      bytes[i] = e.getAsByte();
+    for (JsonElement jsonElement : arr) {
+      if (jsonElement.isJsonNull()) {
+        continue;
+      }
+      bytes[i] = jsonElement.getAsByte();
       i++;
     }
 
@@ -161,8 +167,11 @@ public enum JsonNBT {
     int[] ints = new int[arr.size()];
 
     int i = 0;
-    for (JsonElement e : arr) {
-      ints[i] = e.getAsInt();
+    for (JsonElement jsonElement : arr) {
+      if (jsonElement.isJsonNull()) {
+        continue;
+      }
+      ints[i] = jsonElement.getAsInt();
       i++;
     }
 

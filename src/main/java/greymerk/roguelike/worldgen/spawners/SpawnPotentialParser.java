@@ -14,6 +14,9 @@ class SpawnPotentialParser {
   public static List<SpawnPotential> parse(JsonElement data) throws Exception {
     List<SpawnPotential> spawnPotentials = Lists.newArrayList();
     for (JsonElement spawnPotentialJson : data.getAsJsonArray()) {
+      if (spawnPotentialJson.isJsonNull()) {
+        continue;
+      }
       SpawnPotential spawnPotential = parse(spawnPotentialJson.getAsJsonObject());
       spawnPotentials.add(spawnPotential);
     }

@@ -42,8 +42,11 @@ public class SegmentGenerator implements ISegmentGenerator {
 
     segments = new WeightedRandomizer<>();
     JsonArray segmentList = json.get("segments").getAsJsonArray();
-    for (JsonElement e : segmentList) {
-      JsonObject segData = e.getAsJsonObject();
+    for (JsonElement jsonElement : segmentList) {
+      if (jsonElement.isJsonNull()) {
+        continue;
+      }
+      JsonObject segData = jsonElement.getAsJsonObject();
       add(segData);
     }
   }

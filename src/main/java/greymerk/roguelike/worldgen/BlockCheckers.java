@@ -28,8 +28,11 @@ public class BlockCheckers extends BlockBase {
     JsonArray arr = (JsonArray) json;
     List<IBlockFactory> blocks = new ArrayList<>();
 
-    for (JsonElement entry : arr) {
-      blocks.add(BlockProvider.create(entry.getAsJsonObject()));
+    for (JsonElement jsonElement : arr) {
+      if (jsonElement.isJsonNull()) {
+        continue;
+      }
+      blocks.add(BlockProvider.create(jsonElement.getAsJsonObject()));
     }
 
     this.fillOne = blocks.get(0);

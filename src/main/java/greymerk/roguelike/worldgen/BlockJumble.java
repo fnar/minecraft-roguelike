@@ -17,8 +17,11 @@ public class BlockJumble extends BlockBase {
 
   public BlockJumble(JsonElement data) throws Exception {
     this();
-    for (JsonElement entry : (JsonArray) data) {
-      this.addBlock(BlockProvider.create(entry.getAsJsonObject()));
+    for (JsonElement jsonElement : (JsonArray) data) {
+      if (jsonElement.isJsonNull()) {
+        continue;
+      }
+      this.addBlock(BlockProvider.create(jsonElement.getAsJsonObject()));
     }
   }
 

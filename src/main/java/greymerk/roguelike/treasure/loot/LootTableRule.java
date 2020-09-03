@@ -74,8 +74,11 @@ public class LootTableRule {
     if (!level.isJsonArray()) {
       levels.add(level.getAsInt());
     } else {
-      for (JsonElement i : level.getAsJsonArray()) {
-        levels.add(i.getAsInt());
+      for (JsonElement jsonElement : level.getAsJsonArray()) {
+        if (jsonElement.isJsonNull()) {
+          continue;
+        }
+        levels.add(jsonElement.getAsInt());
       }
     }
     return levels;
@@ -99,6 +102,9 @@ public class LootTableRule {
       type.add(Treasure.valueOf(typeElement.getAsString()));
     } else {
       for (JsonElement treasure : typeElement.getAsJsonArray()) {
+        if (treasure.isJsonNull()) {
+          continue;
+        }
         type.add(Treasure.valueOf(treasure.getAsString()));
       }
     }
