@@ -17,14 +17,13 @@ public class MockChest extends TreasureChest {
   TileEntityChest chest;
 
   public MockChest(Treasure type, int level) {
-    super(type);
+    super(type, level, false);
     this.type = type;
-    this.level = level;
     this.chest = new TileEntityChest();
     this.inv = new Inventory(new Random(), chest);
   }
 
-  public MockChest generate(IWorldEditor editor, Random rand, Coord pos, int level, boolean trapped) {
+  public MockChest generate(IWorldEditor editor, Random rand, Coord pos) {
     return this;
   }
 

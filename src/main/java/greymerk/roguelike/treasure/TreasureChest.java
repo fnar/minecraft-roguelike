@@ -22,18 +22,21 @@ public class TreasureChest {
   private long seed;
   private TileEntityChest chest;
   private int level;
+  private final boolean isTrapped;
 
-  public TreasureChest(Treasure type) {
+  public TreasureChest(
+      Treasure type,
+      int level,
+      boolean isTrapped
+  ) {
     this.type = type;
-    this.level = 0;
+    this.level = level;
+    this.isTrapped = isTrapped;
   }
 
-  public TreasureChest generate(IWorldEditor editor, Random rand, Coord pos, int level, boolean trapped) throws ChestPlacementException {
-
+  public TreasureChest generate(IWorldEditor editor, Random rand, Coord pos) throws ChestPlacementException {
     this.rand = rand;
-    this.level = level;
-
-    MetaBlock chestType = new MetaBlock(trapped ? Blocks.TRAPPED_CHEST : Blocks.CHEST);
+    MetaBlock chestType = new MetaBlock(isTrapped ? Blocks.TRAPPED_CHEST : Blocks.CHEST);
 
     boolean success = chestType.set(editor, pos);
 
