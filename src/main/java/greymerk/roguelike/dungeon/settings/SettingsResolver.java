@@ -32,12 +32,9 @@ public class SettingsResolver {
   }
 
   public DungeonSettings getAnyCustomDungeonSettings(IWorldEditor editor, Coord coord) {
-    Optional<DungeonSettings> builtin = chooseOneBuiltinSettingAtRandom(editor, coord);
-    Optional<DungeonSettings> custom = chooseRandomCustomDungeonIfPossible(editor, coord);
-    if (builtin.isPresent() || custom.isPresent()) {
-      return custom.orElseGet(builtin::get);
-    }
-    return null;
+    return chooseRandomCustomDungeonIfPossible(editor, coord)
+        .orElseGet(() -> chooseOneBuiltinSettingAtRandom(editor, coord)
+            .orElse(null));
   }
 
   public DungeonSettings getByName(String name) {
