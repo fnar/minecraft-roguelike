@@ -20,13 +20,12 @@ class MockChest extends TreasureChest {
   Map<Integer, ItemStack> loot;
 
   public MockChest(Treasure type, int level) {
-    super(type);
+    super(type, level, false);
     this.type = type;
-    this.level = level;
     loot = new HashMap<>();
   }
 
-  public MockChest generate(IWorldEditor editor, Random rand, Coord pos, int level, boolean trapped) {
+  public MockChest generate(IWorldEditor editor, Random rand, Coord pos) {
     return this;
   }
 
