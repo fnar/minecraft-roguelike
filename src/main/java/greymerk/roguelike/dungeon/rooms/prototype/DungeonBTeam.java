@@ -10,7 +10,6 @@ import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.treasure.ChestPlacementException;
-import greymerk.roguelike.treasure.ITreasureChest;
 import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.loot.Loot;
@@ -184,8 +183,8 @@ public class DungeonBTeam extends DungeonBase {
     BlockType.get(BlockType.JUKEBOX).set(editor, cursor);
     cursor.translate(dir.antiClockwise());
     try {
-      ITreasureChest chest = new TreasureChest(Treasure.EMPTY);
-      ITreasureChest stal = chest.generate(editor, rand, cursor, settings.getDifficulty(cursor), false);
+      TreasureChest chest = new TreasureChest(Treasure.EMPTY);
+      TreasureChest stal = chest.generate(editor, rand, cursor, settings.getDifficulty(cursor), false);
       stal.setSlot(stal.getSize() / 2, Record.getRecord(Record.STAL));
     } catch (ChestPlacementException cpe) {
       // do nothing
@@ -195,8 +194,8 @@ public class DungeonBTeam extends DungeonBase {
     cursor.translate(dir.reverse(), 3);
     cursor.translate(dir.antiClockwise(), 4);
     try {
-      ITreasureChest chest = new TreasureChest(Treasure.EMPTY);
-      ITreasureChest bdub = chest.generate(editor, rand, cursor, settings.getDifficulty(cursor), false);
+      TreasureChest chest = new TreasureChest(Treasure.EMPTY);
+      TreasureChest bdub = chest.generate(editor, rand, cursor, settings.getDifficulty(cursor), false);
       bdub.setSlot((bdub.getSize() / 2) - 2, ItemNovelty.getItem(ItemNovelty.BDOUBLEO));
       ItemStack shirt = new ItemStack(Items.LEATHER_CHESTPLATE);
       Loot.setItemName(shirt, "Pink Sweater", null);
@@ -211,8 +210,8 @@ public class DungeonBTeam extends DungeonBase {
     cursor.translate(dir.reverse(), 3);
     cursor.translate(dir.clockwise(), 4);
     try {
-      ITreasureChest chest = new TreasureChest(Treasure.EMPTY);
-      ITreasureChest genny = chest.generate(editor, rand, cursor, settings.getDifficulty(cursor), false);
+      TreasureChest chest = new TreasureChest(Treasure.EMPTY);
+      TreasureChest genny = chest.generate(editor, rand, cursor, settings.getDifficulty(cursor), false);
       genny.setSlot(genny.getSize() / 2, ItemNovelty.getItem(ItemNovelty.GENERIKB));
     } catch (ChestPlacementException cpe) {
       // do nothing

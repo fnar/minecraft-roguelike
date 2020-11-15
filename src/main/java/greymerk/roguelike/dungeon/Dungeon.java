@@ -31,7 +31,7 @@ import greymerk.roguelike.dungeon.settings.SettingsRandom;
 import greymerk.roguelike.dungeon.settings.SettingsResolver;
 import greymerk.roguelike.dungeon.settings.SpawnCriteria;
 import greymerk.roguelike.dungeon.tasks.DungeonTaskRegistry;
-import greymerk.roguelike.treasure.ITreasureChest;
+import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IWorldEditor;
@@ -319,7 +319,7 @@ public class Dungeon {
     return true;
   }
 
-  public List<ITreasureChest> getChests() {
+  public List<TreasureChest> getChests() {
     return editor.getTreasure().getChests();
   }
 

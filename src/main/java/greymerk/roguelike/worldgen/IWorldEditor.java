@@ -6,7 +6,7 @@ import net.minecraft.tileentity.TileEntity;
 import java.util.Map;
 import java.util.Random;
 
-import greymerk.roguelike.treasure.ITreasureChest;
+import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.TreasureManager;
 
 public interface IWorldEditor {
@@ -37,7 +37,7 @@ public interface IWorldEditor {
 
   TreasureManager getTreasure();
 
-  void addChest(ITreasureChest chest);
+  void addChest(TreasureChest chest);
 
   IPositionInfo getInfo(Coord pos);
 

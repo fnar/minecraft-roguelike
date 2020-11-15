@@ -8,8 +8,8 @@ import net.minecraft.util.ResourceLocation;
 import java.util.ArrayList;
 import java.util.List;
 
-import greymerk.roguelike.treasure.ITreasureChest;
 import greymerk.roguelike.treasure.Treasure;
+import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.TreasureManager;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -117,7 +117,7 @@ public class LootTableRule {
         .forEach(chest -> chest.setLootTable(table));
   }
 
-  private List<ITreasureChest> getMatching(TreasureManager treasure) {
+  private List<TreasureChest> getMatching(TreasureManager treasure) {
     return treasure.getChests().stream()
         .filter(chest -> levels.isEmpty() || levels.contains(chest.getLevel()))
         .filter(chest -> types.isEmpty() || types.contains(chest.getType()))
