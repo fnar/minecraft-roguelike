@@ -319,10 +319,6 @@ public class Dungeon {
     return true;
   }
 
-  public List<TreasureChest> getChests() {
-    return editor.getTreasure().getChests();
-  }
-
   public Coord getPosition() {
     return new Coord(origin);
   }
