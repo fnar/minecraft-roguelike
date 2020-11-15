@@ -24,10 +24,10 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class WorldEditor {
 
-  private static List<Material> invalid;
-  World world;
-  private Map<Block, Integer> stats;
-  private TreasureManager chests;
+  private static final List<Material> invalid;
+  private final World world;
+  private final Map<Block, Integer> stats = new HashMap<>();
+  private final TreasureManager chests = new TreasureManager();
 
   static {
     invalid = new ArrayList<>();
@@ -43,8 +43,6 @@ public class WorldEditor {
 
   public WorldEditor(World world) {
     this.world = world;
-    stats = new HashMap<>();
-    chests = new TreasureManager();
   }
 
   private boolean setBlock(Coord pos, MetaBlock block, int flags, boolean fillAir, boolean replaceSolid) {
