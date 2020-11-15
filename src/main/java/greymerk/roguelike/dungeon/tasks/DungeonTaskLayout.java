@@ -15,12 +15,12 @@ import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 public class DungeonTaskLayout implements IDungeonTask {
 
   @Override
-  public void execute(IWorldEditor editor, Random random, Dungeon dungeon, DungeonSettings settings) {
+  public void execute(WorldEditor editor, Random random, Dungeon dungeon, DungeonSettings settings) {
     List<DungeonLevel> levels = dungeon.getLevels();
     Coord start = dungeon.getPosition();
 

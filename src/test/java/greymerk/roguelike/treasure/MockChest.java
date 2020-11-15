@@ -7,7 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import java.util.Random;
 
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 public class MockChest extends TreasureChest {
 
@@ -23,7 +23,7 @@ public class MockChest extends TreasureChest {
     this.inv = new Inventory(new Random(), chest);
   }
 
-  public MockChest generate(IWorldEditor editor, Random rand, Coord pos) {
+  public MockChest generate(WorldEditor editor, Random rand, Coord pos) {
     return this;
   }
 

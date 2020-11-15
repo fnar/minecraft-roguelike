@@ -16,7 +16,7 @@ import greymerk.roguelike.treasure.loot.LootRuleManager;
 import greymerk.roguelike.treasure.loot.LootTableRule;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IPositionInfo;
-import greymerk.roguelike.worldgen.IWorldEditor;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 import static com.google.common.collect.Sets.newHashSet;
 import static greymerk.roguelike.dungeon.settings.SettingsContainer.DEFAULT_NAMESPACE;
@@ -133,7 +133,7 @@ public class DungeonSettings {
     this.spawnCriteria = spawnCriteria;
   }
 
-  public boolean isValid(IWorldEditor editor, Coord pos) {
+  public boolean isValid(WorldEditor editor, Coord pos) {
     IPositionInfo positionInfo = editor.getInfo(pos);
     return getSpawnCriteria().isValid(positionInfo);
   }

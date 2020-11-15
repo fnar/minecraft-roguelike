@@ -11,9 +11,9 @@ import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
 import greymerk.roguelike.worldgen.IStair;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
 import greymerk.roguelike.worldgen.MetaStair;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.blocks.StairType;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
@@ -31,7 +31,7 @@ public class DungeonPyramidTomb extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
 
     ITheme theme = settings.getTheme();
@@ -155,7 +155,7 @@ public class DungeonPyramidTomb extends DungeonBase {
     return this;
   }
 
-  private void ceilingTiles(IWorldEditor editor, Random rand, ITheme theme, int width, Cardinal dir, Coord origin) {
+  private void ceilingTiles(WorldEditor editor, Random rand, ITheme theme, int width, Cardinal dir, Coord origin) {
 
     if (width < 1) {
       return;
@@ -198,7 +198,7 @@ public class DungeonPyramidTomb extends DungeonBase {
     ceilingTiles(editor, rand, theme, (width - 2), dir, cursor);
   }
 
-  private void tile(IWorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord origin) {
+  private void tile(WorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord origin) {
     IStair stair = theme.getPrimary().getStair();
     stair.setOrientation(dir, true).set(editor, origin);
     Coord cursor = new Coord(origin);
@@ -207,7 +207,7 @@ public class DungeonPyramidTomb extends DungeonBase {
   }
 
 
-  private void sarcophagus(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord origin) {
+  private void sarcophagus(WorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord origin) {
     IStair stair = new MetaStair(StairType.QUARTZ);
     MetaBlock blocks = BlockType.get(BlockType.QUARTZ);
 

@@ -9,8 +9,8 @@ import greymerk.roguelike.worldgen.BlockWeightedRandom;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.blocks.Leaves;
 import greymerk.roguelike.worldgen.blocks.Log;
@@ -25,7 +25,7 @@ public class TreeTower implements ITower {
   public static final Wood WOOD_TYPE = Wood.OAK;
 
   @Override
-  public void generate(IWorldEditor editor, Random rand, ITheme theme, Coord origin) {
+  public void generate(WorldEditor editor, Random rand, ITheme theme, Coord origin) {
 
     Coord start;
     Coord end;
@@ -73,7 +73,7 @@ public class TreeTower implements ITower {
     }
   }
 
-  private void carveRoom(IWorldEditor editor, Random rand, Coord origin) {
+  private void carveRoom(WorldEditor editor, Random rand, Coord origin) {
     Coord start;
     Coord end;
     IBlockFactory air = BlockType.get(BlockType.AIR);
@@ -173,7 +173,7 @@ public class TreeTower implements ITower {
       }
     }
 
-    public void genWood(IWorldEditor editor, Random rand) {
+    public void genWood(WorldEditor editor, Random rand) {
       MetaBlock log = Log.get(WOOD_TYPE, start.dirTo(end));
       for (Branch b : branches) {
         b.genWood(editor, rand);
@@ -193,7 +193,7 @@ public class TreeTower implements ITower {
       }
     }
 
-    public void genLeaves(IWorldEditor editor, Random rand) {
+    public void genLeaves(WorldEditor editor, Random rand) {
       MultiShape leafShape = new MultiShape();
       getLeafShape(leafShape, rand);
 

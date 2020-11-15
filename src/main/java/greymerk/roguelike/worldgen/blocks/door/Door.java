@@ -7,8 +7,8 @@ import net.minecraft.block.state.IBlockState;
 
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 public class Door implements IDoor {
 
@@ -26,12 +26,12 @@ public class Door implements IDoor {
     block = new MetaBlock(e);
   }
 
-  public static void generate(IWorldEditor editor, Coord pos, Cardinal dir, DoorType type) {
+  public static void generate(WorldEditor editor, Coord pos, Cardinal dir, DoorType type) {
     MetaBlock door = DoorType.get(type);
     generate(editor, door, pos, dir, false);
   }
 
-  public static void generate(IWorldEditor editor, MetaBlock door, Coord pos, Cardinal dir, boolean open) {
+  public static void generate(WorldEditor editor, MetaBlock door, Coord pos, Cardinal dir, boolean open) {
     Coord cursor = new Coord(pos);
     MetaBlock doorBase = setProperties(door, false, dir, open, false);
     doorBase.set(editor, cursor);
@@ -52,12 +52,12 @@ public class Door implements IDoor {
   }
 
   @Override
-  public void generate(IWorldEditor editor, Coord pos, Cardinal dir) {
+  public void generate(WorldEditor editor, Coord pos, Cardinal dir) {
     Door.generate(editor, block, pos, dir, false);
   }
 
   @Override
-  public void generate(IWorldEditor editor, Coord pos, Cardinal dir, boolean open) {
+  public void generate(WorldEditor editor, Coord pos, Cardinal dir, boolean open) {
     Door.generate(editor, block, pos, dir, open);
   }
 

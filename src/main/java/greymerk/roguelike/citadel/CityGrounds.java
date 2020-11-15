@@ -13,13 +13,13 @@ import greymerk.roguelike.util.mst.MSTPoint;
 import greymerk.roguelike.util.mst.MinimumSpanningTree;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class CityGrounds {
 
-  public static void generate(IWorldEditor editor, Random rand, MinimumSpanningTree mst, ITheme theme, Coord pos) {
+  public static void generate(WorldEditor editor, Random rand, MinimumSpanningTree mst, ITheme theme, Coord pos) {
 
     Coord start;
     Coord end;

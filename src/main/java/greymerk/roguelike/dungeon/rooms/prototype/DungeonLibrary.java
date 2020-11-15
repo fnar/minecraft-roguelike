@@ -12,9 +12,9 @@ import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
 import greymerk.roguelike.worldgen.IStair;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
 import greymerk.roguelike.worldgen.MetaStair;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.blocks.ColorBlock;
 import greymerk.roguelike.worldgen.blocks.FlowerPot;
@@ -33,7 +33,7 @@ public class DungeonLibrary extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     int x = origin.getX();
     int y = origin.getY();
@@ -146,7 +146,7 @@ public class DungeonLibrary extends DungeonBase {
     return this;
   }
 
-  private void door(IWorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord pos) {
+  private void door(WorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord pos) {
     Coord start;
     Coord end;
 
@@ -177,7 +177,7 @@ public class DungeonLibrary extends DungeonBase {
     }
   }
 
-  private void desk(IWorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord pos) {
+  private void desk(WorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord pos) {
 
     Coord cursor;
     Coord start;
@@ -233,7 +233,7 @@ public class DungeonLibrary extends DungeonBase {
     Torch.generate(editor, Torch.WOODEN, Cardinal.UP, cursor);
   }
 
-  private void plants(IWorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord origin) {
+  private void plants(WorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord origin) {
     Coord cursor;
     Coord start;
     Coord end;
@@ -267,7 +267,7 @@ public class DungeonLibrary extends DungeonBase {
     }
   }
 
-  private void plant(IWorldEditor editor, Random rand, ITheme theme, Coord origin) {
+  private void plant(WorldEditor editor, Random rand, ITheme theme, Coord origin) {
     Coord cursor;
     BlockType.get(BlockType.DIRT_PODZOL).set(editor, origin);
 

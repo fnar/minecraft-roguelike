@@ -4,10 +4,10 @@ import java.util.Random;
 
 import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 public interface ITower {
 
-  void generate(IWorldEditor editor, Random rand, ITheme theme, Coord origin);
+  void generate(WorldEditor editor, Random rand, ITheme theme, Coord origin);
 
 }

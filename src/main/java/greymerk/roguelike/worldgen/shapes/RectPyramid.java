@@ -8,7 +8,7 @@ import java.util.Random;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
-import greymerk.roguelike.worldgen.IWorldEditor;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 public class RectPyramid implements IShape {
 
@@ -27,12 +27,12 @@ public class RectPyramid implements IShape {
   }
 
   @Override
-  public void fill(IWorldEditor editor, Random rand, IBlockFactory block) {
+  public void fill(WorldEditor editor, Random rand, IBlockFactory block) {
     fill(editor, rand, block, true, true);
   }
 
   @Override
-  public void fill(IWorldEditor editor, Random rand, IBlockFactory block, boolean fillAir, boolean replaceSolid) {
+  public void fill(WorldEditor editor, Random rand, IBlockFactory block, boolean fillAir, boolean replaceSolid) {
     for (Coord pos : this) {
       block.set(editor, rand, pos, fillAir, replaceSolid);
     }

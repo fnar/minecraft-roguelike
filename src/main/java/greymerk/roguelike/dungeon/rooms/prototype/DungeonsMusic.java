@@ -15,8 +15,8 @@ import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
 import greymerk.roguelike.worldgen.IStair;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.blocks.ColorBlock;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
@@ -31,7 +31,7 @@ public class DungeonsMusic extends DungeonBase {
     super(roomSetting);
   }
 
-  public DungeonBase generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
     ITheme theme = settings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();
     IStair stair = theme.getSecondary().getStair();
@@ -164,7 +164,7 @@ public class DungeonsMusic extends DungeonBase {
     return this;
   }
 
-  private void pillar(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin) {
+  private void pillar(WorldEditor editor, Random rand, LevelSettings settings, Coord origin) {
     ITheme theme = settings.getTheme();
     IStair stair = theme.getSecondary().getStair();
     IBlockFactory panel = theme.getSecondary().getWall();

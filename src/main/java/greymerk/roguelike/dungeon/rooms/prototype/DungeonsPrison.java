@@ -12,8 +12,8 @@ import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
 import greymerk.roguelike.worldgen.IStair;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
@@ -29,7 +29,7 @@ public class DungeonsPrison extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     Coord cursor;
 
@@ -73,7 +73,7 @@ public class DungeonsPrison extends DungeonBase {
     return this;
   }
 
-  public void largeRoom(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin) {
+  public void largeRoom(WorldEditor editor, Random rand, LevelSettings settings, Coord origin) {
     Coord start;
     Coord end;
     Coord cursor;
@@ -155,7 +155,7 @@ public class DungeonsPrison extends DungeonBase {
     }
   }
 
-  private void sideRoom(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal dir) {
+  private void sideRoom(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal dir) {
 
     Coord start;
     Coord end;
@@ -267,7 +267,7 @@ public class DungeonsPrison extends DungeonBase {
     stair.setOrientation(dir.reverse(), true).fill(editor, rand, new RectSolid(start, end));
   }
 
-  private void pillar(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, int height) {
+  private void pillar(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, int height) {
     Coord cursor;
     IBlockFactory pillar = settings.getTheme().getPrimary().getPillar();
     IStair stair = settings.getTheme().getPrimary().getStair();
@@ -283,7 +283,7 @@ public class DungeonsPrison extends DungeonBase {
     }
   }
 
-  private void cell(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances, boolean occupied) {
+  private void cell(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances, boolean occupied) {
 
     Coord start;
     Coord end;

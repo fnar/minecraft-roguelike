@@ -8,8 +8,8 @@ import greymerk.roguelike.worldgen.BlockWeightedRandom;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IStair;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.blocks.FlowerPot;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
@@ -20,7 +20,7 @@ public class SegmentMushrooms extends SegmentBase {
 
 
   @Override
-  protected void genWall(IWorldEditor editor, Random rand, DungeonLevel level, Cardinal wallDirection, ITheme theme, Coord origin) {
+  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Cardinal wallDirection, ITheme theme, Coord origin) {
 
     IStair stair = theme.getSecondary().getStair();
     MetaBlock air = BlockType.get(BlockType.AIR);

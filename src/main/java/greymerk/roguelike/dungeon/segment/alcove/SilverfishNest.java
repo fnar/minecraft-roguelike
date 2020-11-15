@@ -9,7 +9,7 @@ import greymerk.roguelike.worldgen.BlockWeightedRandom;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
-import greymerk.roguelike.worldgen.IWorldEditor;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.blocks.SilverfishBlock;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
@@ -22,7 +22,7 @@ public class SilverfishNest implements IAlcove {
   private static int RECESSED = 6;
 
   @Override
-  public void generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal dir) {
+  public void generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal dir) {
 
     Coord corridor = new Coord(origin);
     Coord centre = new Coord(origin);
@@ -45,7 +45,7 @@ public class SilverfishNest implements IAlcove {
   }
 
   @Override
-  public boolean isValidLocation(IWorldEditor editor, Coord origin, Cardinal dir) {
+  public boolean isValidLocation(WorldEditor editor, Coord origin, Cardinal dir) {
 
     Coord centre = new Coord(origin);
     centre.translate(dir, RECESSED);
@@ -64,7 +64,7 @@ public class SilverfishNest implements IAlcove {
     return true;
   }
 
-  private void nest(IWorldEditor editor, Random rand, int x, int y, int z) {
+  private void nest(WorldEditor editor, Random rand, int x, int y, int z) {
     BlockWeightedRandom fish = new BlockWeightedRandom();
     IBlockFactory egg = SilverfishBlock.getJumble();
     fish.addBlock(egg, 20);

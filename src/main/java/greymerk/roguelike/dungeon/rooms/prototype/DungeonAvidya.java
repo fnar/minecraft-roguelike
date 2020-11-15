@@ -9,9 +9,9 @@ import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IStair;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
 import greymerk.roguelike.worldgen.MetaStair;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.blocks.ColorBlock;
 import greymerk.roguelike.worldgen.blocks.Leaves;
@@ -27,7 +27,7 @@ public class DungeonAvidya extends DungeonBase {
     super(roomSetting);
   }
 
-  private static void pillarTop(IWorldEditor editor, Random rand, Coord cursor) {
+  private static void pillarTop(WorldEditor editor, Random rand, Coord cursor) {
     IStair step = new MetaStair(StairType.QUARTZ);
     for (Cardinal dir : Cardinal.directions) {
       step.setOrientation(dir, true);
@@ -38,7 +38,7 @@ public class DungeonAvidya extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     int x = origin.getX();
     int y = origin.getY();
@@ -277,7 +277,7 @@ public class DungeonAvidya extends DungeonBase {
     return 10;
   }
 
-  public boolean validLocation(IWorldEditor editor, Cardinal dir, int x, int y, int z) {
+  public boolean validLocation(WorldEditor editor, Cardinal dir, int x, int y, int z) {
     for (Coord pos : new RectHollow(new Coord(x - 10, y - 2, z - 10), new Coord(x + 10, y + 5, z + 10))) {
       if (!editor.getBlock(pos).getMaterial().isSolid()) {
         return false;

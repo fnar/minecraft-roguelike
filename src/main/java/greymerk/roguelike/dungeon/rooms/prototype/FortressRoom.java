@@ -12,8 +12,8 @@ import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
 import greymerk.roguelike.worldgen.IStair;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.blocks.Crops;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
@@ -31,7 +31,7 @@ public class FortressRoom extends DungeonBase {
     super(roomSetting);
   }
 
-  public DungeonBase generate(IWorldEditor editor, Random rand, LevelSettings levelSettings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings levelSettings, Coord origin, Cardinal[] entrances) {
     ITheme theme = levelSettings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();
     IStair stair = theme.getPrimary().getStair();
@@ -137,7 +137,7 @@ public class FortressRoom extends DungeonBase {
     return this;
   }
 
-  private void supportPillar(IWorldEditor editor, Random rand, LevelSettings levelSettings, Coord origin) {
+  private void supportPillar(WorldEditor editor, Random rand, LevelSettings levelSettings, Coord origin) {
 
     ITheme theme = levelSettings.getTheme();
     IBlockFactory pillar = theme.getPrimary().getPillar();
@@ -171,7 +171,7 @@ public class FortressRoom extends DungeonBase {
     generateSpawner(editor, rand, spawnerLocation, difficulty, levelSettings.getSpawners());
   }
 
-  private void pillar(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin) {
+  private void pillar(WorldEditor editor, Random rand, LevelSettings settings, Coord origin) {
     ITheme theme = settings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();
     IBlockFactory pillar = theme.getPrimary().getPillar();

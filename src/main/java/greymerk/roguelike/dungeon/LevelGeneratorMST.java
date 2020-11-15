@@ -10,11 +10,11 @@ import greymerk.roguelike.util.graph.Graph;
 import greymerk.roguelike.util.mst.MinimumSpanningTree;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 public class LevelGeneratorMST implements ILevelGenerator {
 
-  IWorldEditor editor;
+  WorldEditor editor;
   Random rand;
   LevelSettings settings;
   private LevelLayout layout;
@@ -22,7 +22,7 @@ public class LevelGeneratorMST implements ILevelGenerator {
   private int scatter;
 
 
-  public LevelGeneratorMST(IWorldEditor editor, Random rand, LevelSettings settings) {
+  public LevelGeneratorMST(WorldEditor editor, Random rand, LevelSettings settings) {
     this.editor = editor;
     this.rand = rand;
     this.settings = settings;

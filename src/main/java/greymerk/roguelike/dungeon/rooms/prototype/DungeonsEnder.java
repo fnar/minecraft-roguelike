@@ -9,8 +9,8 @@ import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.BlockCheckers;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.blocks.EnderChest;
 import greymerk.roguelike.worldgen.blocks.Quartz;
@@ -26,7 +26,7 @@ public class DungeonsEnder extends DungeonBase {
     super(roomSetting);
   }
 
-  public DungeonBase generate(IWorldEditor editor, Random inRandom, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random inRandom, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     MetaBlock black = BlockType.get(BlockType.OBSIDIAN);
     MetaBlock white = Quartz.get(Quartz.SMOOTH);
@@ -87,7 +87,7 @@ public class DungeonsEnder extends DungeonBase {
     return this;
   }
 
-  private void addEnderChest(IWorldEditor editor, IShape area) {
+  private void addEnderChest(WorldEditor editor, IShape area) {
     for (Coord pos : area) {
       if (!editor.isAirBlock(pos)) {
         continue;

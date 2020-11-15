@@ -14,8 +14,8 @@ import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.util.TextFormat;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.blocks.ColorBlock;
 import greymerk.roguelike.worldgen.redstone.Comparator;
@@ -35,7 +35,7 @@ public class DungeonFirework extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     int x = origin.getX();
     int y = origin.getY();
@@ -163,7 +163,7 @@ public class DungeonFirework extends DungeonBase {
   }
 
 
-  private void launcher(IWorldEditor editor, Random rand, Cardinal dir, Coord pos) {
+  private void launcher(WorldEditor editor, Random rand, Cardinal dir, Coord pos) {
     Coord cursor = new Coord(pos);
     BlockType.get(BlockType.REDSTONE_WIRE).set(editor, cursor);
     cursor.translate(dir.reverse());
@@ -267,7 +267,7 @@ public class DungeonFirework extends DungeonBase {
   }
 
   @Override
-  public boolean validLocation(IWorldEditor editor, Cardinal dir, Coord pos) {
+  public boolean validLocation(WorldEditor editor, Cardinal dir, Coord pos) {
     Coord start;
     Coord end;
 

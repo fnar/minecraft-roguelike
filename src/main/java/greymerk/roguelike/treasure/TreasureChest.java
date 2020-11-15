@@ -9,8 +9,8 @@ import java.util.Objects;
 import java.util.Random;
 
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 import static java.lang.Math.*;
 
@@ -34,7 +34,7 @@ public class TreasureChest {
     this.isTrapped = isTrapped;
   }
 
-  public TreasureChest generate(IWorldEditor editor, Random rand, Coord pos) throws ChestPlacementException {
+  public TreasureChest generate(WorldEditor editor, Random rand, Coord pos) throws ChestPlacementException {
     this.rand = rand;
     MetaBlock chestType = new MetaBlock(isTrapped ? Blocks.TRAPPED_CHEST : Blocks.CHEST);
 

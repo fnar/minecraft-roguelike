@@ -9,8 +9,8 @@ import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
 import greymerk.roguelike.worldgen.IStair;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.Bed;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.blocks.Cake;
@@ -30,7 +30,7 @@ import static greymerk.roguelike.treasure.Treasure.createChest;
 public class HouseTower implements ITower {
 
   @Override
-  public void generate(IWorldEditor editor, Random rand, ITheme theme, Coord dungeon) {
+  public void generate(WorldEditor editor, Random rand, ITheme theme, Coord dungeon) {
 
     Coord floor = Tower.getBaseCoord(editor, dungeon);
 
@@ -120,7 +120,7 @@ public class HouseTower implements ITower {
     }
   }
 
-  private void decor(IWorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord origin) {
+  private void decor(WorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord origin) {
 
     IStair stair = Stair.get(StairType.OAK);
     MetaBlock slab = Slab.get(Slab.OAK, true, false, false);
@@ -214,7 +214,7 @@ public class HouseTower implements ITower {
   }
 
 
-  private void windows(IWorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord origin) {
+  private void windows(WorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord origin) {
     MetaBlock pane = ColorBlock.get(ColorBlock.PANE, DyeColor.LIGHT_GRAY);
     Cardinal[] orth = dir.orthogonal();
     Coord cursor;
@@ -284,7 +284,7 @@ public class HouseTower implements ITower {
     RectSolid.fill(editor, rand, start, end, pane);
   }
 
-  private void roof(IWorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord origin) {
+  private void roof(WorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord origin) {
     IBlockFactory walls = theme.getSecondary().getWall();
     IStair stair = theme.getSecondary().getStair();
     Coord cursor;
@@ -440,7 +440,7 @@ public class HouseTower implements ITower {
     stair.setOrientation(dir.reverse(), false).fill(editor, rand, new RectSolid(start, end));
   }
 
-  private void upperFloor(IWorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord origin) {
+  private void upperFloor(WorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord origin) {
     IBlockFactory floor = theme.getPrimary().getFloor();
     Cardinal[] orth = dir.orthogonal();
     Coord start;
@@ -463,7 +463,7 @@ public class HouseTower implements ITower {
     RectSolid.fill(editor, rand, start, end, floor);
   }
 
-  private void upperWalls(IWorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord origin) {
+  private void upperWalls(WorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord origin) {
     IBlockFactory walls = theme.getPrimary().getWall();
     Cardinal[] orth = dir.orthogonal();
     Coord cursor;
@@ -560,7 +560,7 @@ public class HouseTower implements ITower {
     pillar(editor, rand, theme, 3, cursor);
   }
 
-  private void pillar(IWorldEditor editor, Random rand, ITheme theme, int height, Coord start) {
+  private void pillar(WorldEditor editor, Random rand, ITheme theme, int height, Coord start) {
     IBlockFactory pillar = theme.getPrimary().getPillar();
     Coord end;
     end = new Coord(start);
@@ -568,7 +568,7 @@ public class HouseTower implements ITower {
     RectSolid.fill(editor, rand, start, end, pillar);
   }
 
-  private void support(IWorldEditor editor, Random rand, ITheme theme, Cardinal[] dirs, Coord origin) {
+  private void support(WorldEditor editor, Random rand, ITheme theme, Cardinal[] dirs, Coord origin) {
     IBlockFactory pillar = theme.getPrimary().getPillar();
     IStair stair = theme.getPrimary().getStair();
     Coord cursor;
@@ -597,7 +597,7 @@ public class HouseTower implements ITower {
 
   }
 
-  private void door(IWorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord origin) {
+  private void door(WorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord origin) {
 
     IBlockFactory floor = theme.getPrimary().getFloor();
     IBlockFactory pillar = theme.getPrimary().getPillar();
@@ -685,7 +685,7 @@ public class HouseTower implements ITower {
     step(editor, rand, theme, dir.reverse(), cursor);
   }
 
-  private void step(IWorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord origin) {
+  private void step(WorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord origin) {
 
     Coord start;
     Coord end;

@@ -4,7 +4,7 @@ import java.util.Random;
 
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.filter.Filter;
 import greymerk.roguelike.worldgen.filter.IFilter;
 
@@ -45,12 +45,12 @@ public class DungeonLevel {
     return generator.getLayout();
   }
 
-  public void encase(IWorldEditor editor, Random rand) {
+  public void encase(WorldEditor editor, Random rand) {
     encaseNodes(editor, rand);
     encaseTunnels(editor, rand);
   }
 
-  private void encaseNodes(IWorldEditor editor, Random rand) {
+  private void encaseNodes(WorldEditor editor, Random rand) {
     DungeonNode start = generator.getLayout().getStart();
     DungeonNode end = generator.getLayout().getEnd();
 
@@ -59,19 +59,19 @@ public class DungeonLevel {
         .forEach(node -> node.encase(editor, rand, settings.getTheme()));
   }
 
-  private void encaseTunnels(IWorldEditor editor, Random rand) {
+  private void encaseTunnels(WorldEditor editor, Random rand) {
     generator.getLayout()
         .getTunnels()
         .forEach(t -> t.encase(editor, rand, settings.getTheme()));
   }
 
-  public void applyFilters(IWorldEditor editor, Random rand) {
+  public void applyFilters(WorldEditor editor, Random rand) {
     settings.getFilters().stream()
         .map(Filter::get)
         .forEach(filter -> filter(editor, rand, filter));
   }
 
-  public void filter(IWorldEditor editor, Random rand, IFilter filter) {
+  public void filter(WorldEditor editor, Random rand, IFilter filter) {
     generator.getLayout()
         .getBoundingBoxes()
         .forEach(box -> filter.apply(editor, rand, settings.getTheme(), box));

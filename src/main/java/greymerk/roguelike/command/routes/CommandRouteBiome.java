@@ -13,7 +13,7 @@ import greymerk.roguelike.command.ICommandContext;
 import greymerk.roguelike.command.MessageType;
 import greymerk.roguelike.util.ArgumentParser;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 import static java.util.stream.Collectors.joining;
 
@@ -24,7 +24,7 @@ public class CommandRouteBiome extends CommandRouteBase {
 
     ArgumentParser ap = new ArgumentParser(args);
 
-    IWorldEditor editor = context.createEditor();
+    WorldEditor editor = context.createEditor();
     Coord pos;
     if (!ap.hasEntry(0)) {
       pos = context.getPos();

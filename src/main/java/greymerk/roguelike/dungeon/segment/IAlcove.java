@@ -5,12 +5,12 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 public interface IAlcove {
 
-  void generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord pos, Cardinal dir);
+  void generate(WorldEditor editor, Random rand, LevelSettings settings, Coord pos, Cardinal dir);
 
-  boolean isValidLocation(IWorldEditor editor, Coord pos, Cardinal dir);
+  boolean isValidLocation(WorldEditor editor, Coord pos, Cardinal dir);
 
 }

@@ -8,8 +8,8 @@ import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
@@ -22,7 +22,7 @@ public class PrisonCell implements IAlcove {
   private ITheme theme;
 
   @Override
-  public void generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal dir) {
+  public void generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal dir) {
 
     theme = settings.getTheme();
     IBlockFactory walls = theme.getPrimary().getWall();
@@ -59,7 +59,7 @@ public class PrisonCell implements IAlcove {
   }
 
   @Override
-  public boolean isValidLocation(IWorldEditor editor, Coord origin, Cardinal dir) {
+  public boolean isValidLocation(WorldEditor editor, Coord origin, Cardinal dir) {
 
     Coord centre = new Coord(origin);
     centre.translate(dir, RECESSED);

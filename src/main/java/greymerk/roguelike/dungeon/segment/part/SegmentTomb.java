@@ -10,8 +10,8 @@ import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IStair;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
@@ -23,7 +23,7 @@ import static greymerk.roguelike.treasure.Treasure.createChest;
 
 public class SegmentTomb extends SegmentBase {
 
-  private static void tomb(IWorldEditor editor, Random rand, LevelSettings level, ITheme theme, Cardinal dir, Coord pos) {
+  private static void tomb(WorldEditor editor, Random rand, LevelSettings level, ITheme theme, Cardinal dir, Coord pos) {
 
     Coord cursor;
     Coord start;
@@ -62,7 +62,7 @@ public class SegmentTomb extends SegmentBase {
   }
 
   @Override
-  protected void genWall(IWorldEditor editor, Random rand, DungeonLevel level, Cardinal dir, ITheme theme, Coord origin) {
+  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Cardinal dir, ITheme theme, Coord origin) {
 
     MetaBlock air = BlockType.get(BlockType.AIR);
     IStair stair = theme.getPrimary().getStair();

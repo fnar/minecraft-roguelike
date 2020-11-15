@@ -23,9 +23,9 @@ import greymerk.roguelike.worldgen.BlockJumble;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IStair;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
 import greymerk.roguelike.worldgen.MetaStair;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.blocks.BrewingStand;
 import greymerk.roguelike.worldgen.blocks.ColorBlock;
@@ -45,7 +45,7 @@ public class DungeonBTeam extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     MetaBlock air = BlockType.get(BlockType.AIR);
     IStair stair = new MetaStair(StairType.SPRUCE);
@@ -222,7 +222,7 @@ public class DungeonBTeam extends DungeonBase {
     return this;
   }
 
-  private void table(IWorldEditor editor, Random rand, Cardinal dir, Coord origin) {
+  private void table(WorldEditor editor, Random rand, Cardinal dir, Coord origin) {
 
     IStair stair = new MetaStair(StairType.SPRUCE);
     IStair chair = new MetaStair(StairType.NETHERBRICK);
@@ -263,7 +263,7 @@ public class DungeonBTeam extends DungeonBase {
     }
   }
 
-  private void lamp(IWorldEditor editor, Random rand, Cardinal dir, Coord origin) {
+  private void lamp(WorldEditor editor, Random rand, Cardinal dir, Coord origin) {
     MetaBlock fence = BlockType.get(BlockType.FENCE);
     MetaBlock plank = Wood.getPlank(Wood.SPRUCE);
 
@@ -292,7 +292,7 @@ public class DungeonBTeam extends DungeonBase {
     plank.set(editor, cursor);
   }
 
-  private void logWall(IWorldEditor editor, Random rand, Cardinal dir, Coord origin) {
+  private void logWall(WorldEditor editor, Random rand, Cardinal dir, Coord origin) {
 
     Coord start;
     Coord end;
@@ -341,7 +341,7 @@ public class DungeonBTeam extends DungeonBase {
 
   }
 
-  private void bWall(IWorldEditor editor, Random rand, Cardinal dir, Coord origin) {
+  private void bWall(WorldEditor editor, Random rand, Cardinal dir, Coord origin) {
     BlockJumble bricks = new BlockJumble();
     bricks.addBlock(BlockType.get(BlockType.STONE_BRICK));
     bricks.addBlock(BlockType.get(BlockType.STONE_BRICK_CRACKED));
@@ -391,7 +391,7 @@ public class DungeonBTeam extends DungeonBase {
 
   }
 
-  private void tvWall(IWorldEditor editor, Random rand, Cardinal dir, Coord origin) {
+  private void tvWall(WorldEditor editor, Random rand, Cardinal dir, Coord origin) {
 
     Coord start;
     Coord end;
@@ -457,7 +457,7 @@ public class DungeonBTeam extends DungeonBase {
     return 8;
   }
 
-  public boolean validLocation(IWorldEditor editor, Cardinal dir, int x, int y, int z) {
+  public boolean validLocation(WorldEditor editor, Cardinal dir, int x, int y, int z) {
 
     for (Coord pos : new RectHollow(new Coord(x - 7, y - 2, z - 7), new Coord(x + 7, y + 5, z + 7))) {
       MetaBlock b = editor.getBlock(pos);

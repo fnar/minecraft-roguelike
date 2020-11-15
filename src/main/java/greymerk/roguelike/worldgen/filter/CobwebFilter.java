@@ -6,14 +6,14 @@ import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBounded;
-import greymerk.roguelike.worldgen.IWorldEditor;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.Shape;
 
 public class CobwebFilter implements IFilter {
 
   @Override
-  public void apply(IWorldEditor editor, Random rand, ITheme theme, IBounded box) {
+  public void apply(WorldEditor editor, Random rand, ITheme theme, IBounded box) {
     for (Coord pos : box.getShape(Shape.RECTSOLID)) {
       if (rand.nextInt(60) != 0) {
         continue;
@@ -29,7 +29,7 @@ public class CobwebFilter implements IFilter {
     }
   }
 
-  private boolean validLocation(IWorldEditor editor, Coord pos) {
+  private boolean validLocation(WorldEditor editor, Coord pos) {
     for (Cardinal dir : Cardinal.values()) {
       Coord cursor = new Coord(pos);
       cursor.translate(dir);
@@ -40,7 +40,7 @@ public class CobwebFilter implements IFilter {
     return false;
   }
 
-  private void generate(IWorldEditor editor, Random rand, Coord pos, int count) {
+  private void generate(WorldEditor editor, Random rand, Coord pos, int count) {
     if (!editor.isAirBlock(pos)) {
       return;
     }

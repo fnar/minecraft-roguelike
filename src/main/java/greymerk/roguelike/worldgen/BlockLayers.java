@@ -30,7 +30,7 @@ public class BlockLayers extends BlockBase {
   }
 
   @Override
-  public boolean set(IWorldEditor editor, Random rand, Coord pos, boolean fillAir, boolean replaceSolid) {
+  public boolean set(WorldEditor editor, Random rand, Coord pos, boolean fillAir, boolean replaceSolid) {
     IBlockFactory block = this.blocks.get(pos.getY() % this.blocks.size());
     return block.set(editor, rand, pos, fillAir, replaceSolid);
   }

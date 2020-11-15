@@ -15,8 +15,8 @@ import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
 import greymerk.roguelike.worldgen.IBounded;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.IShape;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
@@ -42,7 +42,7 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
     return tunnel.iterator();
   }
 
-  public void encase(IWorldEditor editor, Random rand, ITheme theme) {
+  public void encase(WorldEditor editor, Random rand, ITheme theme) {
     Coord s;
     Coord e;
     Cardinal dir = getDirection();
@@ -56,7 +56,7 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
     RectSolid.fill(editor, rand, s, e, theme.getPrimary().getWall());
   }
 
-  public void construct(IWorldEditor editor, Random rand, LevelSettings settings) {
+  public void construct(WorldEditor editor, Random rand, LevelSettings settings) {
 
     MetaBlock air = BlockType.get(BlockType.AIR);
 
@@ -126,7 +126,7 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
     return start.dirTo(end);
   }
 
-  public void genSegments(IWorldEditor editor, Random rand, DungeonLevel level) {
+  public void genSegments(WorldEditor editor, Random rand, DungeonLevel level) {
     LevelSettings settings = level.getSettings();
     ISegmentGenerator segGen = settings.getSegments();
     for (Coord c : this) {

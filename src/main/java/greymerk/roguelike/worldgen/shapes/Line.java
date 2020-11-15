@@ -7,7 +7,7 @@ import java.util.Random;
 
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
-import greymerk.roguelike.worldgen.IWorldEditor;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 public class Line implements IShape {
 
@@ -20,12 +20,12 @@ public class Line implements IShape {
   }
 
   @Override
-  public void fill(IWorldEditor editor, Random rand, IBlockFactory block) {
+  public void fill(WorldEditor editor, Random rand, IBlockFactory block) {
     this.fill(editor, rand, block, true, true);
   }
 
   @Override
-  public void fill(IWorldEditor editor, Random rand, IBlockFactory block, boolean fillAir, boolean replaceSolid) {
+  public void fill(WorldEditor editor, Random rand, IBlockFactory block, boolean fillAir, boolean replaceSolid) {
     for (Coord c : this) {
       block.set(editor, rand, c, fillAir, replaceSolid);
     }

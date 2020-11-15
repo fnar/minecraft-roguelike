@@ -10,8 +10,8 @@ import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
 import greymerk.roguelike.worldgen.IStair;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.blocks.Skull;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
@@ -24,7 +24,7 @@ public class DungeonOssuary extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
     ITheme theme = settings.getTheme();
     IBlockFactory walls = theme.getPrimary().getWall();
     IStair stair = theme.getPrimary().getStair();
@@ -255,7 +255,7 @@ public class DungeonOssuary extends DungeonBase {
     return this;
   }
 
-  private void skull(IWorldEditor editor, Random rand, Cardinal dir, Coord origin) {
+  private void skull(WorldEditor editor, Random rand, Cardinal dir, Coord origin) {
     if (rand.nextInt(3) == 0) {
       return;
     }

@@ -9,23 +9,23 @@ import net.minecraft.tileentity.TileEntityFurnace;
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 public class Furnace {
 
   public static final int FUEL_SLOT = 1;
   public static final int OUTPUT_SLOT = 2;
 
-  public static void generate(IWorldEditor editor, Cardinal dir, Coord pos) {
+  public static void generate(WorldEditor editor, Cardinal dir, Coord pos) {
     generate(editor, null, false, dir, pos);
   }
 
-  public static void generate(IWorldEditor editor, boolean lit, Cardinal dir, Coord pos) {
+  public static void generate(WorldEditor editor, boolean lit, Cardinal dir, Coord pos) {
     generate(editor, null, lit, dir, pos);
   }
 
-  public static void generate(IWorldEditor editor, ItemStack fuel, boolean lit, Cardinal dir, Coord pos) {
+  public static void generate(WorldEditor editor, ItemStack fuel, boolean lit, Cardinal dir, Coord pos) {
 
     if (!RogueConfig.getBoolean(RogueConfig.FURNITURE)) {
       return;

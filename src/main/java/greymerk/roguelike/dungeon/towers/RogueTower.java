@@ -7,8 +7,8 @@ import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
 import greymerk.roguelike.worldgen.IStair;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.redstone.Torch;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
@@ -16,7 +16,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class RogueTower implements ITower {
 
-  public void generate(IWorldEditor editor, Random rand, ITheme theme, Coord dungeon) {
+  public void generate(WorldEditor editor, Random rand, ITheme theme, Coord dungeon) {
 
 
     int x = dungeon.getX();
@@ -227,7 +227,7 @@ public class RogueTower implements ITower {
   }
 
 
-  private void addCrenellation(IWorldEditor editor, Random rand, Coord cursor, IBlockFactory blocks) {
+  private void addCrenellation(WorldEditor editor, Random rand, Coord cursor, IBlockFactory blocks) {
 
     blocks.set(editor, rand, cursor);
 

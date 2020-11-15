@@ -14,8 +14,8 @@ import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
 import greymerk.roguelike.worldgen.IStair;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.blocks.Furnace;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
@@ -32,7 +32,7 @@ public class DungeonMess extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     ITheme theme = settings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();
@@ -124,7 +124,7 @@ public class DungeonMess extends DungeonBase {
     return this;
   }
 
-  private void supplyCorner(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal[] entrances, Coord origin) {
+  private void supplyCorner(WorldEditor editor, Random rand, LevelSettings settings, Cardinal[] entrances, Coord origin) {
     ITheme theme = settings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();
     IBlockFactory pillar = theme.getPrimary().getPillar();
@@ -208,7 +208,7 @@ public class DungeonMess extends DungeonBase {
     }
   }
 
-  private void corner(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal[] entrances, Coord origin) {
+  private void corner(WorldEditor editor, Random rand, LevelSettings settings, Cardinal[] entrances, Coord origin) {
     ITheme theme = settings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();
     IBlockFactory pillar = theme.getPrimary().getPillar();
@@ -291,7 +291,7 @@ public class DungeonMess extends DungeonBase {
     }
   }
 
-  private void doorway(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord origin) {
+  private void doorway(WorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord origin) {
     ITheme theme = settings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();
     IBlockFactory panel = theme.getSecondary().getWall();
@@ -346,7 +346,7 @@ public class DungeonMess extends DungeonBase {
 
   }
 
-  private void fireplace(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord origin) {
+  private void fireplace(WorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord origin) {
     ITheme theme = settings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();
     IStair stair = theme.getPrimary().getStair();
@@ -419,7 +419,7 @@ public class DungeonMess extends DungeonBase {
     }
   }
 
-  private void supplies(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord origin) {
+  private void supplies(WorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord origin) {
     ITheme theme = settings.getTheme();
     IStair stair = theme.getPrimary().getStair();
     Coord cursor;
@@ -449,7 +449,7 @@ public class DungeonMess extends DungeonBase {
 
   }
 
-  private void sideTable(IWorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord origin) {
+  private void sideTable(WorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord origin) {
     ITheme theme = settings.getTheme();
     IStair table = theme.getSecondary().getStair();
     Coord cursor = new Coord(origin);

@@ -6,7 +6,7 @@ import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import lombok.EqualsAndHashCode;
@@ -20,7 +20,7 @@ public class SecretRoom extends DungeonBase {
     super(roomSetting);
   }
 
-  public boolean isValid(IWorldEditor editor, Cardinal dir, Coord pos) {
+  public boolean isValid(WorldEditor editor, Cardinal dir, Coord pos) {
     if (getRoomSetting().getCount() <= 0) {
       return false;
     }
@@ -31,7 +31,7 @@ public class SecretRoom extends DungeonBase {
   }
 
   // todo: Match the signature of DungeonBase
-  public DungeonBase generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord pos, Cardinal... dir) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord pos, Cardinal... dir) {
     DungeonBase prototype = createPrototype();
 
     int size = prototype.getSize();

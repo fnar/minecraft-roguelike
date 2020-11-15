@@ -8,12 +8,12 @@ import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 public class Bed {
 
-  public static void generate(IWorldEditor editor, Cardinal dir, Coord pos, DyeColor color) {
+  public static void generate(WorldEditor editor, Cardinal dir, Coord pos, DyeColor color) {
     Coord cursor = new Coord(pos);
 
 
@@ -41,7 +41,7 @@ public class Bed {
     }
   }
 
-  public static void generate(IWorldEditor editor, Cardinal dir, Coord pos) {
+  public static void generate(WorldEditor editor, Cardinal dir, Coord pos) {
     generate(editor, dir, pos, DyeColor.RED);
   }
 }

@@ -7,14 +7,14 @@ import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
 import greymerk.roguelike.worldgen.IStair;
-import greymerk.roguelike.worldgen.IWorldEditor;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class RuinTower implements ITower {
 
   @Override
-  public void generate(IWorldEditor editor, Random rand, ITheme theme, Coord origin) {
+  public void generate(WorldEditor editor, Random rand, ITheme theme, Coord origin) {
 
     IBlockFactory air = BlockType.get(BlockType.AIR);
     IBlockFactory blocks = theme.getPrimary().getWall();
