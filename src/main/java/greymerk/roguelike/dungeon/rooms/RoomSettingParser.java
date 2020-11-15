@@ -12,6 +12,7 @@ public class RoomSettingParser {
   public static final String ROOM_FREQUENCY = "frequency";
   public static final String COUNT_KEY = "count";
   public static final String WEIGHT_KEY = "weight";
+  public static final String SPAWNER_KEY = "spawnerId";
 
   public static RoomSetting parse(JsonObject roomSettingJson) {
     return new RoomSetting(
@@ -49,8 +50,8 @@ public class RoomSettingParser {
   }
 
   private static String parseSpawnerId(JsonObject roomSettingJson) {
-    return roomSettingJson.has("spawnerId")
-        ? roomSettingJson.get("spawnerId").getAsString()
+    return roomSettingJson.has(SPAWNER_KEY)
+        ? roomSettingJson.get(SPAWNER_KEY).getAsString()
         : null;
   }
 }
