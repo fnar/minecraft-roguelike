@@ -66,11 +66,26 @@ public enum RoomType {
   }
 
   public RoomSetting newRandomRoomSetting(int weight) {
-    return new RoomSetting(this, null, Frequency.RANDOM, weight, 1, Lists.newArrayList(0, 1, 2, 3, 4));
+    return new RoomSetting(
+        this,
+        null,
+        Frequency.RANDOM,
+        weight,
+        1,
+        Lists.newArrayList(0, 1, 2, 3, 4),
+        null
+    );
   }
 
   public RoomSetting newSingleRoomSetting() {
-    return new RoomSetting(this, null, Frequency.SINGLE, 1, 1, Lists.newArrayList(0, 1, 2, 3, 4));
+    return new RoomSetting(
+        this,
+        null,
+        Frequency.SINGLE,
+        1,
+        1,
+        Lists.newArrayList(0, 1, 2, 3, 4),
+        null);
   }
 
   public static RoomType getRandomIntersection(Random random) {

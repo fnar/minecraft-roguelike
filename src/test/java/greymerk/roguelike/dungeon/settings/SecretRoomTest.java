@@ -31,6 +31,14 @@ public class SecretRoomTest {
   }
 
   private RoomSetting newRoomSetting(RoomType type, int count) {
-    return new RoomSetting(type, null, Frequency.SINGLE, 0, count, Collections.emptyList());
+    return new RoomSetting(
+        type,
+        null,
+        Frequency.SINGLE,
+        0,
+        count,
+        Collections.emptyList(),
+        null
+    );
   }
 }

@@ -59,6 +59,7 @@ public class RoomSetting {
   private int weight;
   private int count;
   private List<Integer> levels;
+  private String treasureType;
 
   public boolean isRandom() {
     return frequency.isRandom();
