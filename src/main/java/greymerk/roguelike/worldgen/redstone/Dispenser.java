@@ -8,12 +8,12 @@ import net.minecraft.tileentity.TileEntityDispenser;
 
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 public class Dispenser {
 
-  public static boolean generate(IWorldEditor editor, Cardinal dir, Coord pos) {
+  public static boolean generate(WorldEditor editor, Cardinal dir, Coord pos) {
 
     MetaBlock container = new MetaBlock(Blocks.DISPENSER);
     container.withProperty(BlockDispenser.FACING, dir.getFacing());
@@ -21,7 +21,7 @@ public class Dispenser {
     return true;
   }
 
-  public static void add(IWorldEditor editor, Coord pos, int slot, ItemStack item) {
+  public static void add(WorldEditor editor, Coord pos, int slot, ItemStack item) {
 
     TileEntity te = editor.getTileEntity(pos);
     if (te == null) {

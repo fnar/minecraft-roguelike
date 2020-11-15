@@ -9,8 +9,8 @@ import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
 import greymerk.roguelike.worldgen.IStair;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.blocks.Leaves;
 import greymerk.roguelike.worldgen.blocks.Log;
@@ -22,7 +22,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class JungleTower implements ITower {
 
   @Override
-  public void generate(IWorldEditor editor, Random rand, ITheme theme, Coord dungeon) {
+  public void generate(WorldEditor editor, Random rand, ITheme theme, Coord dungeon) {
 
     Coord origin = Tower.getBaseCoord(editor, dungeon);
     origin.translate(Cardinal.UP);
@@ -364,7 +364,7 @@ public class JungleTower implements ITower {
     decorate(editor, rand, theme, origin);
   }
 
-  private void decorate(IWorldEditor editor, Random rand, ITheme theme, Coord origin) {
+  private void decorate(WorldEditor editor, Random rand, ITheme theme, Coord origin) {
     List<Coord> spots = new ArrayList<Coord>();
     for (Cardinal dir : Cardinal.directions) {
       Coord cursor = new Coord(origin);
@@ -447,7 +447,7 @@ public class JungleTower implements ITower {
     Vine.fill(editor, start, end);
   }
 
-  private void tree(IWorldEditor editor, Random rand, ITheme theme, Coord origin) {
+  private void tree(WorldEditor editor, Random rand, ITheme theme, Coord origin) {
 
     MetaBlock leaves = Leaves.get(Wood.JUNGLE, false);
 
@@ -480,7 +480,7 @@ public class JungleTower implements ITower {
     leaves.set(editor, cursor);
   }
 
-  public void leafSpill(IWorldEditor editor, Random rand, ITheme theme, Coord origin, int count) {
+  public void leafSpill(WorldEditor editor, Random rand, ITheme theme, Coord origin, int count) {
     if (count < 0) {
       return;
     }
@@ -511,7 +511,7 @@ public class JungleTower implements ITower {
     }
   }
 
-  private void pillar(IWorldEditor editor, Random rand, ITheme theme, Coord origin) {
+  private void pillar(WorldEditor editor, Random rand, ITheme theme, Coord origin) {
 
     IBlockFactory pillar = theme.getPrimary().getPillar();
     IStair stair = theme.getPrimary().getStair();

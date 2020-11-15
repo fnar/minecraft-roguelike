@@ -7,7 +7,7 @@ import greymerk.roguelike.worldgen.BlockJumble;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBounded;
-import greymerk.roguelike.worldgen.IWorldEditor;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.blocks.FlowerPot;
 import greymerk.roguelike.worldgen.shapes.Shape;
@@ -15,7 +15,7 @@ import greymerk.roguelike.worldgen.shapes.Shape;
 public class MudFilter implements IFilter {
 
   @Override
-  public void apply(IWorldEditor editor, Random rand, ITheme theme, IBounded box) {
+  public void apply(WorldEditor editor, Random rand, ITheme theme, IBounded box) {
     for (Coord pos : box.getShape(Shape.RECTSOLID)) {
       if (rand.nextInt(40) != 0) {
         continue;
@@ -27,7 +27,7 @@ public class MudFilter implements IFilter {
     }
   }
 
-  private void generate(IWorldEditor editor, Random rand, Coord pos, int counter) {
+  private void generate(WorldEditor editor, Random rand, Coord pos, int counter) {
     if (counter <= 0) {
       return;
     }
@@ -91,7 +91,7 @@ public class MudFilter implements IFilter {
     plants.set(editor, rand, cursor);
   }
 
-  private boolean validLocation(IWorldEditor editor, Random rand, Coord pos) {
+  private boolean validLocation(WorldEditor editor, Random rand, Coord pos) {
 
     if (!editor.getBlock(pos).isOpaqueCube()) {
       return false;

@@ -4,19 +4,19 @@ import net.minecraft.block.BlockVine;
 
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class Vine {
 
-  public static void fill(IWorldEditor editor, Coord start, Coord end) {
+  public static void fill(WorldEditor editor, Coord start, Coord end) {
     for (Coord cursor : new RectSolid(start, end)) {
       set(editor, cursor);
     }
   }
 
-  public static void set(IWorldEditor editor, Coord origin) {
+  public static void set(WorldEditor editor, Coord origin) {
     if (!editor.isAirBlock(origin)) {
       return;
     }

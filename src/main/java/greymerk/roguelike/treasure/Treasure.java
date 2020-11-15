@@ -9,7 +9,7 @@ import java.util.Random;
 
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 public enum Treasure {
 
@@ -36,12 +36,12 @@ public enum Treasure {
 
   public static final Treasure[] SUPPLIES_TREASURES = {BLOCKS, SUPPLIES};
 
-  public static void createChests(IWorldEditor editor, Random random, int level, List<Coord> chestLocations, boolean isTrapped, Treasure... types) {
+  public static void createChests(WorldEditor editor, Random random, int level, List<Coord> chestLocations, boolean isTrapped, Treasure... types) {
     chestLocations.forEach(chestLocation ->
         createChest(editor, random, level, chestLocation, isTrapped, types));
   }
 
-  public static void createChest(IWorldEditor editor, Random random, int level, Coord chestLocation, boolean isTrapped, Treasure... treasures) {
+  public static void createChest(WorldEditor editor, Random random, int level, Coord chestLocation, boolean isTrapped, Treasure... treasures) {
     if (isValidChestSpace(editor, chestLocation)) {
       Treasure type = chooseRandomType(random, treasures);
       safeGenerate(editor, random, level, chestLocation, isTrapped, type);
@@ -52,7 +52,7 @@ public enum Treasure {
     return treasures[random.nextInt(treasures.length)];
   }
 
-  private static void safeGenerate(IWorldEditor editor, Random random, int level, Coord chestLocation, boolean isTrapped, Treasure type) {
+  private static void safeGenerate(WorldEditor editor, Random random, int level, Coord chestLocation, boolean isTrapped, Treasure type) {
     try {
       TreasureChest chest = new TreasureChest(type, level, isTrapped);
       chest.generate(editor, random, chestLocation);
@@ -60,22 +60,22 @@ public enum Treasure {
     }
   }
 
-  private static boolean isValidChestSpace(IWorldEditor editor, Coord coord) {
+  private static boolean isValidChestSpace(WorldEditor editor, Coord coord) {
     return editor.isAirBlock(coord)
         && !isNonSolidBlock(editor, coord)
         && isNotNextToChest(editor, coord);
   }
 
-  private static boolean isNotNextToChest(IWorldEditor editor, Coord coord) {
+  private static boolean isNotNextToChest(WorldEditor editor, Coord coord) {
     return Arrays.stream(Cardinal.directions).noneMatch(dir -> isBesideChest(editor, coord, dir));
   }
 
-  private static boolean isBesideChest(IWorldEditor editor, Coord coord, Cardinal dir) {
+  private static boolean isBesideChest(WorldEditor editor, Coord coord, Cardinal dir) {
     Coord otherCursor = coord.add(dir);
     return editor.getBlock(otherCursor).getBlock() == Blocks.CHEST;
   }
 
-  private static boolean isNonSolidBlock(IWorldEditor editor, Coord coord) {
+  private static boolean isNonSolidBlock(WorldEditor editor, Coord coord) {
     Coord cursor = coord.add(Cardinal.DOWN);
     return !editor.getBlock(cursor).getMaterial().isSolid();
   }

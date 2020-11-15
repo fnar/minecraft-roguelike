@@ -7,12 +7,12 @@ import java.util.Random;
 
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 public class Comparator {
 
-  public static void generate(IWorldEditor world, Random rand, Cardinal dir, boolean subtraction, Coord pos) {
+  public static void generate(WorldEditor world, Random rand, Cardinal dir, boolean subtraction, Coord pos) {
 
     MetaBlock comparator = new MetaBlock(Blocks.UNPOWERED_COMPARATOR);
     comparator.withProperty(BlockRedstoneComparator.FACING, dir.getFacing());

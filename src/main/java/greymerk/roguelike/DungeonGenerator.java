@@ -8,14 +8,13 @@ import net.minecraftforge.fml.common.IWorldGenerator;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.Dungeon;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.WorldEditor;
 
 public class DungeonGenerator implements IWorldGenerator {
 
   @Override
   public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
-    IWorldEditor editor = new WorldEditor(world);
+    WorldEditor editor = new WorldEditor(world);
     Dungeon dungeon = new Dungeon(editor);
     dungeon.spawnInChunk(random, chunkX, chunkZ);
   }

@@ -12,8 +12,8 @@ import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
 import greymerk.roguelike.worldgen.IStair;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
@@ -26,7 +26,7 @@ public class DungeonStorage extends DungeonBase {
     super(roomSetting);
   }
 
-  private static void pillarTop(IWorldEditor editor, Random rand, ITheme theme, Coord cursor) {
+  private static void pillarTop(WorldEditor editor, Random rand, ITheme theme, Coord cursor) {
     IStair step = theme.getSecondary().getStair();
     for (Cardinal dir : Cardinal.directions) {
       step.setOrientation(dir, true);
@@ -36,14 +36,14 @@ public class DungeonStorage extends DungeonBase {
     }
   }
 
-  private static void pillar(IWorldEditor editor, Random rand, Coord base, ITheme theme, int height) {
+  private static void pillar(WorldEditor editor, Random rand, Coord base, ITheme theme, int height) {
     Coord top = new Coord(base);
     top.translate(Cardinal.UP, height);
     RectSolid.fill(editor, rand, base, top, theme.getSecondary().getPillar());
   }
 
   @Override
-  public DungeonBase generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     int x = origin.getX();
     int y = origin.getY();

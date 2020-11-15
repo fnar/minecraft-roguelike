@@ -8,7 +8,7 @@ import java.util.Random;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
-import greymerk.roguelike.worldgen.IWorldEditor;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 
 public class RectHollow implements IShape {
@@ -21,22 +21,22 @@ public class RectHollow implements IShape {
     this.end = end;
   }
 
-  public static void fill(IWorldEditor editor, Random rand, Coord start, Coord end, IBlockFactory block) {
+  public static void fill(WorldEditor editor, Random rand, Coord start, Coord end, IBlockFactory block) {
     fill(editor, rand, start, end, block, true, true);
   }
 
-  public static void fill(IWorldEditor editor, Random rand, Coord start, Coord end, IBlockFactory block, boolean fillAir, boolean replaceSolid) {
+  public static void fill(WorldEditor editor, Random rand, Coord start, Coord end, IBlockFactory block, boolean fillAir, boolean replaceSolid) {
     RectHollow rect = new RectHollow(start, end);
     rect.fill(editor, rand, block, fillAir, replaceSolid);
   }
 
   @Override
-  public void fill(IWorldEditor editor, Random rand, IBlockFactory block) {
+  public void fill(WorldEditor editor, Random rand, IBlockFactory block) {
     fill(editor, rand, block, true, true);
   }
 
   @Override
-  public void fill(IWorldEditor editor, Random rand, IBlockFactory block, boolean fillAir, boolean replaceSolid) {
+  public void fill(WorldEditor editor, Random rand, IBlockFactory block, boolean fillAir, boolean replaceSolid) {
     for (Coord c : this) {
       block.set(editor, rand, c, fillAir, replaceSolid);
     }

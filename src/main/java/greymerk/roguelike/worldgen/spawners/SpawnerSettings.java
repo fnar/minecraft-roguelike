@@ -9,7 +9,7 @@ import java.util.Random;
 import greymerk.roguelike.util.WeightedChoice;
 import greymerk.roguelike.util.WeightedRandomizer;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 
 public class SpawnerSettings {
@@ -28,7 +28,7 @@ public class SpawnerSettings {
     spawners.merge(other.spawners);
   }
 
-  public void generateSpawner(IWorldEditor editor, Random rand, Coord cursor, int difficulty) {
+  public void generateSpawner(WorldEditor editor, Random rand, Coord cursor, int difficulty) {
     try {
       spawners.get(rand).generate(editor, rand, cursor, difficulty);
     } catch (Exception e) {

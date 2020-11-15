@@ -11,8 +11,8 @@ import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
 import greymerk.roguelike.worldgen.IStair;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
@@ -23,7 +23,7 @@ public class DungeonsSlime extends DungeonBase {
     super(roomSetting);
   }
 
-  public DungeonBase generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
     ITheme theme = settings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();
     MetaBlock bars = BlockType.get(BlockType.IRON_BAR);
@@ -110,7 +110,7 @@ public class DungeonsSlime extends DungeonBase {
     return this;
   }
 
-  private void corner(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin) {
+  private void corner(WorldEditor editor, Random rand, LevelSettings settings, Coord origin) {
     ITheme theme = settings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();
     IBlockFactory pillar = theme.getPrimary().getPillar();

@@ -13,8 +13,8 @@ import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
 import greymerk.roguelike.worldgen.IStair;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
@@ -30,7 +30,7 @@ public class DungeonEniko extends DungeonBase {
     super(roomSetting);
   }
 
-  private static void pillar(IWorldEditor editor, Random rand, ITheme theme, Coord origin) {
+  private static void pillar(WorldEditor editor, Random rand, ITheme theme, Coord origin) {
 
     IStair stair = theme.getPrimary().getStair();
     IBlockFactory pillar = theme.getPrimary().getPillar();
@@ -50,7 +50,7 @@ public class DungeonEniko extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     ITheme theme = settings.getTheme();
     MetaBlock air = BlockType.get(BlockType.AIR);

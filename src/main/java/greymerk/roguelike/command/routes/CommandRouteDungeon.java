@@ -16,7 +16,7 @@ import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.dungeon.settings.SettingsRandom;
 import greymerk.roguelike.util.ArgumentParser;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 public class CommandRouteDungeon extends CommandRouteBase {
 
@@ -47,7 +47,7 @@ public class CommandRouteDungeon extends CommandRouteBase {
 
     try {
       Coord pos = getLocation(context, args);
-      IWorldEditor editor = context.createEditor();
+      WorldEditor editor = context.createEditor();
       DungeonSettings dungeonSettings = chooseDungeonSettings(settingName, pos, editor);
       generateDungeon(context, pos, editor, dungeonSettings);
     } catch (Exception e) {
@@ -55,7 +55,7 @@ public class CommandRouteDungeon extends CommandRouteBase {
     }
   }
 
-  private DungeonSettings chooseDungeonSettings(String settingName, Coord pos, IWorldEditor editor) throws Exception {
+  private DungeonSettings chooseDungeonSettings(String settingName, Coord pos, WorldEditor editor) throws Exception {
     if (settingName == null) {
       return resolveAnyCustomDungeonSettings(pos, editor);
     } else if (settingName.equals("random")) {
@@ -65,13 +65,13 @@ public class CommandRouteDungeon extends CommandRouteBase {
     }
   }
 
-  private DungeonSettings resolveAnyCustomDungeonSettings(Coord pos, IWorldEditor editor) throws Exception {
+  private DungeonSettings resolveAnyCustomDungeonSettings(Coord pos, WorldEditor editor) throws Exception {
     DungeonSettings dungeonSettings = Dungeon.settingsResolver.getAnyCustomDungeonSettings(editor, pos);
     return Optional.ofNullable(dungeonSettings)
         .orElseThrow(() -> new NoValidLocationException(pos));
   }
 
-  private DungeonSettings resolveRandomDungeon(Coord pos, IWorldEditor editor) throws Exception {
+  private DungeonSettings resolveRandomDungeon(Coord pos, WorldEditor editor) throws Exception {
     Dungeon.initResolver();
     return new SettingsRandom(Dungeon.getRandom(editor, pos));
   }
@@ -83,7 +83,7 @@ public class CommandRouteDungeon extends CommandRouteBase {
         .orElseThrow(() -> new SettingNameNotFoundException(settingName));
   }
 
-  private void generateDungeon(ICommandContext context, Coord coord, IWorldEditor editor, DungeonSettings dungeonSettings) {
+  private void generateDungeon(ICommandContext context, Coord coord, WorldEditor editor, DungeonSettings dungeonSettings) {
     Dungeon dungeon = new Dungeon(editor);
     dungeon.generate(dungeonSettings, coord);
     context.sendMessage("Success: Dungeon generated at " + coord.toString(), MessageType.SUCCESS);

@@ -7,12 +7,12 @@ import java.util.Arrays;
 
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 public class Hopper {
 
-  public static void generate(IWorldEditor editor, Cardinal dir, Coord pos) {
+  public static void generate(WorldEditor editor, Cardinal dir, Coord pos) {
     MetaBlock hopper = new MetaBlock(Blocks.HOPPER);
     if (Arrays.asList(Cardinal.directions).contains(dir)) {
       hopper.withProperty(BlockHopper.FACING, dir.reverse().getFacing());

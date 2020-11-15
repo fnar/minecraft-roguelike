@@ -40,7 +40,7 @@ public class BlockCheckers extends BlockBase {
   }
 
   @Override
-  public boolean set(IWorldEditor editor, Random rand, Coord origin, boolean fillAir, boolean replaceSolid) {
+  public boolean set(WorldEditor editor, Random rand, Coord origin, boolean fillAir, boolean replaceSolid) {
 
     int x = origin.getX() - this.offset.getX();
     int y = origin.getY() - this.offset.getY();

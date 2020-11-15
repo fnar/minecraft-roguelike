@@ -34,8 +34,8 @@ import greymerk.roguelike.dungeon.tasks.DungeonTaskRegistry;
 import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.VanillaStructure;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -66,9 +66,9 @@ public class Dungeon {
 
   private Coord origin;
   private List<DungeonLevel> levels = new ArrayList<>();
-  private IWorldEditor editor;
+  private WorldEditor editor;
 
-  public Dungeon(IWorldEditor editor) {
+  public Dungeon(WorldEditor editor) {
     this.editor = editor;
   }
 
@@ -117,19 +117,19 @@ public class Dungeon {
     }
   }
 
-  public static boolean canSpawnInChunk(int chunkX, int chunkZ, IWorldEditor editor) {
+  public static boolean canSpawnInChunk(int chunkX, int chunkZ, WorldEditor editor) {
     return RogueConfig.getBoolean(RogueConfig.DONATURALSPAWN)
         && SpawnCriteria.isValidDimension(getDimension(chunkX, chunkZ, editor))
         && isVillageChunk(editor, chunkX, chunkZ)
         && isSpawnChanceHit(chunkX, chunkZ);
   }
 
-  private static int getDimension(int chunkX, int chunkZ, IWorldEditor editor) {
+  private static int getDimension(int chunkX, int chunkZ, WorldEditor editor) {
     final Coord coord = new Coord(chunkX * 16, 0, chunkZ * 16);
     return editor.getInfo(coord).getDimension();
   }
 
-  public static boolean isVillageChunk(IWorldEditor editor, int chunkX, int chunkZ) {
+  public static boolean isVillageChunk(WorldEditor editor, int chunkX, int chunkZ) {
     int frequency = RogueConfig.getInt(RogueConfig.SPAWNFREQUENCY);
     int min = 8 * frequency / 10;
     int max = 32 * frequency / 10;
@@ -182,7 +182,7 @@ public class Dungeon {
     return new Coord(x + xOffset, 0, z + zOffset);
   }
 
-  public static Random getRandom(IWorldEditor editor, Coord pos) {
+  public static Random getRandom(WorldEditor editor, Coord pos) {
     return new Random(Objects.hash(editor.getSeed(), pos));
   }
 

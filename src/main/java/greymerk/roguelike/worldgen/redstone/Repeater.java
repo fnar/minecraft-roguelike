@@ -7,16 +7,16 @@ import java.util.Random;
 
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 public class Repeater {
 
-  public static void generate(IWorldEditor editor, Random rand, Cardinal dir, int delay, Coord pos) {
+  public static void generate(WorldEditor editor, Random rand, Cardinal dir, int delay, Coord pos) {
     generate(editor, rand, dir, delay, false, pos);
   }
 
-  public static void generate(IWorldEditor editor, Random rand, Cardinal dir, int delay, boolean powered, Coord pos) {
+  public static void generate(WorldEditor editor, Random rand, Cardinal dir, int delay, boolean powered, Coord pos) {
 
     MetaBlock repeater = powered ? new MetaBlock(Blocks.POWERED_REPEATER) : new MetaBlock(Blocks.UNPOWERED_REPEATER);
     repeater.withProperty(BlockRedstoneRepeater.FACING, dir.getFacing());

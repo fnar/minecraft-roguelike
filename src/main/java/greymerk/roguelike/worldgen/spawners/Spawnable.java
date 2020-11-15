@@ -13,8 +13,8 @@ import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 public class Spawnable {
 
@@ -24,7 +24,7 @@ public class Spawnable {
     potentials.addAll(spawnPotentials);
   }
 
-  public void generate(IWorldEditor editor, Random random, Coord cursor, int level) {
+  public void generate(WorldEditor editor, Random random, Coord cursor, int level) {
     Coord pos = new Coord(cursor);
     editor.setBlock(pos, new MetaBlock(Blocks.MOB_SPAWNER.getDefaultState()), true, true);
 

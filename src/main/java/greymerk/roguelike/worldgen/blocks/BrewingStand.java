@@ -6,8 +6,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityBrewingStand;
 
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 public enum BrewingStand {
 
@@ -23,12 +23,12 @@ public enum BrewingStand {
     this.id = id;
   }
 
-  public static boolean generate(IWorldEditor editor, Coord pos) {
+  public static boolean generate(WorldEditor editor, Coord pos) {
     MetaBlock stand = new MetaBlock(Blocks.BREWING_STAND);
     return stand.set(editor, pos);
   }
 
-  public static TileEntityBrewingStand get(IWorldEditor editor, Coord pos) {
+  public static TileEntityBrewingStand get(WorldEditor editor, Coord pos) {
     MetaBlock stand = editor.getBlock(pos);
     if (stand.getBlock() != Blocks.BREWING_STAND) {
       return null;
@@ -43,7 +43,7 @@ public enum BrewingStand {
     return (TileEntityBrewingStand) tileEntity;
   }
 
-  public static boolean add(IWorldEditor editor, Coord pos, BrewingStand slot, ItemStack item) {
+  public static boolean add(WorldEditor editor, Coord pos, BrewingStand slot, ItemStack item) {
     TileEntityBrewingStand stand = get(editor, pos);
     if (stand == null) {
       return false;

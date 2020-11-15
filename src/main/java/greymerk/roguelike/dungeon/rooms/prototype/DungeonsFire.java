@@ -10,7 +10,7 @@ import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
 import greymerk.roguelike.worldgen.IStair;
-import greymerk.roguelike.worldgen.IWorldEditor;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
@@ -22,7 +22,7 @@ public class DungeonsFire extends DungeonBase {
     super(roomSetting);
   }
 
-  public static void genFire(IWorldEditor editor, Random rand, ITheme theme, Coord origin) {
+  public static void genFire(WorldEditor editor, Random rand, ITheme theme, Coord origin) {
 
     IBlockFactory wall = theme.getPrimary().getWall();
     IBlockFactory pillar = theme.getPrimary().getPillar();
@@ -99,7 +99,7 @@ public class DungeonsFire extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     ITheme theme = settings.getTheme();
 

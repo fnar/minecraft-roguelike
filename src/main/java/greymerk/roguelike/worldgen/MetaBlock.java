@@ -10,7 +10,6 @@ import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.BlockStateBase;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -71,12 +70,12 @@ public class MetaBlock extends BlockBase implements IBlockState {
     flag = json.has("flag") ? json.get("flag").getAsInt() : 2;
   }
 
-  public boolean set(IWorldEditor editor, Coord pos) {
+  public boolean set(WorldEditor editor, Coord pos) {
     return editor.setBlock(pos, this, true, true);
   }
 
   @Override
-  public boolean set(IWorldEditor editor, Random rand, Coord pos, boolean fillAir, boolean replaceSolid) {
+  public boolean set(WorldEditor editor, Random rand, Coord pos, boolean fillAir, boolean replaceSolid) {
     return editor.setBlock(pos, this, fillAir, replaceSolid);
   }
 

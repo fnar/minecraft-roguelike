@@ -9,8 +9,8 @@ import java.util.Random;
 
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 public enum Skull {
 
@@ -20,7 +20,7 @@ public enum Skull {
   STEVE,
   CREEPER;
 
-  public static void set(IWorldEditor editor, Random rand, int x, int y, int z, Cardinal dir, Skull type) {
+  public static void set(WorldEditor editor, Random rand, int x, int y, int z, Cardinal dir, Skull type) {
 
     MetaBlock skullBlock = new MetaBlock(Blocks.SKULL);
 
@@ -49,7 +49,7 @@ public enum Skull {
     setRotation(rand, skull, dir);
   }
 
-  public static void set(IWorldEditor editor, Random rand, Coord cursor, Cardinal dir, Skull type) {
+  public static void set(WorldEditor editor, Random rand, Coord cursor, Cardinal dir, Skull type) {
     int x = cursor.getX();
     int y = cursor.getY();
     int z = cursor.getZ();

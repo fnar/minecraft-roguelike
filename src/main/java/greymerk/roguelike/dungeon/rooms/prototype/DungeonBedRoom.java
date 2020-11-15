@@ -14,7 +14,7 @@ import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IStair;
-import greymerk.roguelike.worldgen.IWorldEditor;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.Bed;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.blocks.FlowerPot;
@@ -34,7 +34,7 @@ public class DungeonBedRoom extends DungeonBase {
     super(roomSetting);
   }
 
-  public void pillar(IWorldEditor editor, Random rand, Cardinal dir, ITheme theme, final Coord base) {
+  public void pillar(WorldEditor editor, Random rand, Cardinal dir, ITheme theme, final Coord base) {
     Coord start = new Coord(base);
     Coord end = new Coord(base);
 
@@ -47,7 +47,7 @@ public class DungeonBedRoom extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(IWorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     ITheme theme = settings.getTheme();
 
@@ -189,7 +189,7 @@ public class DungeonBedRoom extends DungeonBase {
   }
 
   @Override
-  public boolean validLocation(IWorldEditor editor, Cardinal dir, Coord pos) {
+  public boolean validLocation(WorldEditor editor, Cardinal dir, Coord pos) {
     Coord start;
     Coord end;
 

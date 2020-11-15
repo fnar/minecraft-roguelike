@@ -5,7 +5,7 @@ import java.util.Random;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 public enum Tower {
 
@@ -73,7 +73,7 @@ public enum Tower {
     }
   }
 
-  public static Coord getBaseCoord(IWorldEditor editor, Coord pos) {
+  public static Coord getBaseCoord(WorldEditor editor, Coord pos) {
 
     Coord cursor = new Coord(pos.getX(), 128, pos.getZ());
 

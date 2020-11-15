@@ -15,7 +15,7 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.util.WeightedChoice;
 import greymerk.roguelike.util.WeightedRandomizer;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 import static java.util.Optional.empty;
 import static java.util.Optional.ofNullable;
@@ -31,7 +31,7 @@ public class SettingsResolver {
     this.settingsContainer = settingsContainer;
   }
 
-  public DungeonSettings getAnyCustomDungeonSettings(IWorldEditor editor, Coord coord) {
+  public DungeonSettings getAnyCustomDungeonSettings(WorldEditor editor, Coord coord) {
     return chooseRandomCustomDungeonIfPossible(editor, coord)
         .orElseGet(() -> chooseOneBuiltinSettingAtRandom(editor, coord)
             .orElse(null));
@@ -77,7 +77,7 @@ public class SettingsResolver {
     return new DungeonSettings(processInheritance(parent), child);
   }
 
-  private Optional<DungeonSettings> chooseOneBuiltinSettingAtRandom(IWorldEditor editor, Coord coord) {
+  private Optional<DungeonSettings> chooseOneBuiltinSettingAtRandom(WorldEditor editor, Coord coord) {
     if (!RogueConfig.getBoolean(RogueConfig.SPAWNBUILTIN)) {
       return empty();
     }
@@ -92,11 +92,11 @@ public class SettingsResolver {
     return ofNullable(builtin);
   }
 
-  private List<DungeonSettings> getValidBuiltinSettings(IWorldEditor editor, Coord coord) {
+  private List<DungeonSettings> getValidBuiltinSettings(WorldEditor editor, Coord coord) {
     return filterValid(settingsContainer.getBuiltinSettings(), editor, coord);
   }
 
-  private List<DungeonSettings> filterValid(Collection<DungeonSettings> builtinSettings, IWorldEditor editor, Coord coord) {
+  private List<DungeonSettings> filterValid(Collection<DungeonSettings> builtinSettings, WorldEditor editor, Coord coord) {
     return builtinSettings.stream()
         .filter(isValid(editor, coord))
         .filter(DungeonSettings::isExclusive)
@@ -104,7 +104,7 @@ public class SettingsResolver {
   }
 
   private Optional<DungeonSettings> chooseRandomCustomDungeonIfPossible(
-      IWorldEditor editor,
+      WorldEditor editor,
       Coord coord
   ) {
     List<DungeonSettings> validCustomSettings = filterValid(settingsContainer.getCustomSettings(), editor, coord);
@@ -122,7 +122,7 @@ public class SettingsResolver {
     return settingsRandomizer;
   }
 
-  private Predicate<DungeonSettings> isValid(IWorldEditor editor, Coord pos) {
+  private Predicate<DungeonSettings> isValid(WorldEditor editor, Coord pos) {
     return setting -> setting.isValid(editor, pos);
   }
 

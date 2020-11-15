@@ -10,8 +10,8 @@ import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.MetaBlock;
+import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
@@ -29,7 +29,7 @@ public class DungeonsCreeperDen extends DungeonBase {
     super(roomSetting);
   }
 
-  public DungeonBase generate(IWorldEditor editor, Random random, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random random, LevelSettings settings, Coord origin, Cardinal[] entrances) {
 
     ITheme theme = settings.getTheme();
 
@@ -84,7 +84,7 @@ public class DungeonsCreeperDen extends DungeonBase {
     return this;
   }
 
-  private void spawnTntBeneath(IWorldEditor editor, Coord coord) {
+  private void spawnTntBeneath(WorldEditor editor, Coord coord) {
     Coord cursor = new Coord(coord);
     cursor.translate(Cardinal.DOWN, 2);
     TNT_META_BLOCK.set(editor, cursor);

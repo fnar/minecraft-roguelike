@@ -10,7 +10,6 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.IWorldEditor;
 import greymerk.roguelike.worldgen.WorldEditor;
 
 public class CommandContext implements ICommandContext {
@@ -29,7 +28,7 @@ public class CommandContext implements ICommandContext {
     sender.sendMessage(text);
   }
 
-  public IWorldEditor createEditor() {
+  public WorldEditor createEditor() {
     World world = sender.getEntityWorld();
     return new WorldEditor(world);
   }

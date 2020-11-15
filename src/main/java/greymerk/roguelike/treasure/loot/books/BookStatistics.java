@@ -7,13 +7,13 @@ import java.util.List;
 import java.util.Map;
 
 import greymerk.roguelike.treasure.loot.BookBase;
-import greymerk.roguelike.worldgen.IWorldEditor;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 import static org.apache.commons.lang3.StringUtils.abbreviate;
 
 public class BookStatistics extends BookBase {
 
-  public BookStatistics(IWorldEditor editor) {
+  public BookStatistics(WorldEditor editor) {
     super("greymerk", "Statistics");
 
     for (String page : getPages(editor)) {
@@ -21,7 +21,7 @@ public class BookStatistics extends BookBase {
     }
   }
 
-  private List<String> getPages(IWorldEditor editor) {
+  private List<String> getPages(WorldEditor editor) {
     List<String> pages = new ArrayList<>();
     Map<Block, Integer> stats = editor.getStats();
 
