@@ -14,7 +14,7 @@ import greymerk.roguelike.worldgen.MetaBlock;
 
 import static java.lang.Math.*;
 
-public class TreasureChest implements ITreasureChest {
+public class TreasureChest {
 
   protected Inventory inventory;
   protected Treasure type;
@@ -28,7 +28,7 @@ public class TreasureChest implements ITreasureChest {
     this.level = 0;
   }
 
-  public ITreasureChest generate(IWorldEditor editor, Random rand, Coord pos, int level, boolean trapped) throws ChestPlacementException {
+  public TreasureChest generate(IWorldEditor editor, Random rand, Coord pos, int level, boolean trapped) throws ChestPlacementException {
 
     this.rand = rand;
     this.level = level;
@@ -49,38 +49,43 @@ public class TreasureChest implements ITreasureChest {
     return this;
   }
 
-  @Override
   public boolean setSlot(int slot, ItemStack item) {
     return this.inventory.setInventorySlot(slot, item);
   }
 
-  @Override
   public boolean setRandomEmptySlot(ItemStack item) {
     return this.inventory.setRandomEmptySlot(item);
   }
 
-  @Override
   public boolean isEmptySlot(int slot) {
     return this.inventory.isEmptySlot(slot);
   }
 
-  @Override
   public Treasure getType() {
     return this.type;
   }
 
-  @Override
   public int getSize() {
     return this.inventory.getInventorySize();
   }
 
-  @Override
   public int getLevel() {
     return max(0, min(level, 4));
   }
 
-  @Override
   public void setLootTable(ResourceLocation table) {
     this.chest.setLootTable(table, seed);
+  }
+
+  public boolean isOnLevel(int level) {
+    return getLevel() == level;
+  }
+
+  public boolean isType(Treasure type) {
+    return getType() == type;
+  }
+
+  public boolean isNotEmpty() {
+    return !isType(Treasure.EMPTY);
   }
 }

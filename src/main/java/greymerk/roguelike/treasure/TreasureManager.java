@@ -13,9 +13,9 @@ import static java.util.stream.Collectors.*;
 
 public class TreasureManager {
 
-  List<ITreasureChest> chests = new ArrayList<>();
+  List<TreasureChest> chests = new ArrayList<>();
 
-  public void add(ITreasureChest toAdd) {
+  public void add(TreasureChest toAdd) {
     this.chests.add(toAdd);
   }
 
@@ -31,7 +31,7 @@ public class TreasureManager {
     addItemToAll(rand, this.getChests(type), item, amount);
   }
 
-  private void addItemToAll(Random rand, List<ITreasureChest> chests, IWeighted<ItemStack> item, int amount) {
+  private void addItemToAll(Random rand, List<TreasureChest> chests, IWeighted<ItemStack> item, int amount) {
     chests.forEach(chest ->
         IntStream.range(0, amount)
             .mapToObj(i -> item.get(rand))
@@ -51,7 +51,7 @@ public class TreasureManager {
     this.addItem(rand, getChests(type, level), item, amount);
   }
 
-  private void addItem(Random rand, List<ITreasureChest> chests, IWeighted<ItemStack> item, int amount) {
+  private void addItem(Random rand, List<TreasureChest> chests, IWeighted<ItemStack> item, int amount) {
     if (chests.isEmpty()) {
       return;
     }
@@ -61,29 +61,29 @@ public class TreasureManager {
         .forEach(chest -> chest.setRandomEmptySlot(item.get(rand)));
   }
 
-  public List<ITreasureChest> getChests(Treasure type, int level) {
+  public List<TreasureChest> getChests(Treasure type, int level) {
     return this.chests.stream()
         .filter(chest -> chest.isType(type))
         .filter(chest -> chest.isOnLevel(level))
         .collect(toList());
   }
 
-  public List<ITreasureChest> getChests(Treasure type) {
+  public List<TreasureChest> getChests(Treasure type) {
     return this.chests.stream()
         .filter(chest -> chest.isType(type))
         .collect(toList());
   }
 
-  public List<ITreasureChest> getChests(int level) {
+  public List<TreasureChest> getChests(int level) {
     return this.chests.stream()
-        .filter(ITreasureChest::isNotEmpty)
+        .filter(TreasureChest::isNotEmpty)
         .filter(chest -> chest.isOnLevel(level))
         .collect(toList());
   }
 
-  public List<ITreasureChest> getChests() {
+  public List<TreasureChest> getChests() {
     return this.chests.stream()
-        .filter(ITreasureChest::isNotEmpty)
+        .filter(TreasureChest::isNotEmpty)
         .collect(toList());
   }
 }

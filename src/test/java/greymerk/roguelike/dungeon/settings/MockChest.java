@@ -1,27 +1,29 @@
-package greymerk.roguelike.treasure;
+package greymerk.roguelike.dungeon.settings;
 
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.ResourceLocation;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
+import greymerk.roguelike.treasure.Treasure;
+import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IWorldEditor;
 
-public class MockChest extends TreasureChest {
+// todo: there's already a mockChest. How similar are they?
+class MockChest extends TreasureChest {
 
   Treasure type;
   int level;
-  Inventory inv;
-  TileEntityChest chest;
+  Map<Integer, ItemStack> loot;
 
   public MockChest(Treasure type, int level) {
     super(type);
     this.type = type;
     this.level = level;
-    this.chest = new TileEntityChest();
-    this.inv = new Inventory(new Random(), chest);
+    loot = new HashMap<>();
   }
 
   public MockChest generate(IWorldEditor editor, Random rand, Coord pos, int level, boolean trapped) {
@@ -29,59 +31,56 @@ public class MockChest extends TreasureChest {
   }
 
   public boolean setSlot(int slot, ItemStack item) {
-    return super.setSlot(slot, item);
+    loot.put(slot, item);
+    return true;
   }
 
   public boolean setRandomEmptySlot(ItemStack item) {
-    return this.inv.setRandomEmptySlot(item);
-  }
-
-  public boolean isEmptySlot(int slot) {
-    return this.inv.isEmptySlot(slot);
-  }
-
-  public Treasure getType() {
-    return this.type;
-  }
-
-  public int getSize() {
-    return this.inv.getInventorySize();
-  }
-
-  public int getLevel() {
-    return this.level;
-  }
-
-  public boolean contains(ItemStack item) {
-
-    for (int i = 0; i < 27; ++i) {
-      ItemStack slot = chest.getStackInSlot(i);
-      if (sameItem(item, slot)) {
-        return true;
+    for (int i = 0; i < getSize(); ++i) {
+      if (!isEmptySlot(i)) {
+        continue;
       }
+      setSlot(i, item);
+      return true;
     }
 
     return false;
   }
 
-  private boolean sameItem(ItemStack item, ItemStack other) {
-    if (item == other) {
-      return true;
+  public boolean isEmptySlot(int slot) {
+    return !loot.containsKey(slot);
+  }
+
+  public Treasure getType() {
+    return type;
+  }
+
+  public int getSize() {
+    return 27;
+  }
+
+  public int getLevel() {
+    return level;
+  }
+
+  public int count(ItemStack type) {
+    int count = 0;
+
+    for (int i = 0; i < getSize(); ++i) {
+      if (!loot.containsKey(i)) {
+        continue;
+      }
+      ItemStack item = loot.get(i);
+      if (item.getItem() != type.getItem()) {
+        continue;
+      }
+      count += item.getCount();
     }
-    if (item != null && other == null) {
-      return false;
-    }
-    if (item == null) {
-      return false;
-    }
-    if (item.getItem() != other.getItem()) {
-      return false;
-    }
-    return item.getItemDamage() == other.getItemDamage();
+
+    return count;
   }
 
   public void setLootTable(ResourceLocation table) {
-
   }
 
   public boolean isOnLevel(int level) {

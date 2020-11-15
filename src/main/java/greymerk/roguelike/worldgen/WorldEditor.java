@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import greymerk.roguelike.treasure.ITreasureChest;
+import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.TreasureManager;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
@@ -172,7 +172,7 @@ public class WorldEditor implements IWorldEditor {
   }
 
   @Override
-  public void addChest(ITreasureChest toAdd) {
+  public void addChest(TreasureChest toAdd) {
     chests.add(toAdd);
   }
 
