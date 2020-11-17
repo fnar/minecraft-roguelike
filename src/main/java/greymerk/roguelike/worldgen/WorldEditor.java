@@ -20,6 +20,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import greymerk.roguelike.treasure.ChestPlacementException;
+import greymerk.roguelike.treasure.Inventory;
 import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.TreasureManager;
@@ -218,10 +219,9 @@ public class WorldEditor {
     TreasureChest treasureChest = new TreasureChest(
         treasureType,
         level,
-        isTrapped,
-        random,
         tileEntityChest,
-        seed
+        seed,
+        new Inventory(random, tileEntityChest)
     );
     treasureManager.add(treasureChest);
     return treasureChest;

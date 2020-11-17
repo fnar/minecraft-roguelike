@@ -4,34 +4,27 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.ResourceLocation;
 
-import java.util.Random;
-
 import static java.lang.Math.*;
 
 public class TreasureChest {
 
-  public Inventory inventory;
-  public Treasure type;
-  public Random random;
-  public long seed;
-  public TileEntityChest tileEntityChest;
-  public int level;
-  public final boolean isTrapped;
+  private final Inventory inventory;
+  private final Treasure type;
+  private final long seed;
+  private final TileEntityChest tileEntityChest;
+  private final int level;
 
   public TreasureChest(
       Treasure type,
       int level,
-      boolean isTrapped,
-      Random random,
       TileEntityChest tileEntityChest,
-      int seed
+      int seed,
+      Inventory inventory
   ) {
     this.type = type;
     this.level = level;
-    this.isTrapped = isTrapped;
-    this.random = random;
     this.tileEntityChest = tileEntityChest;
-    this.inventory = new Inventory(random, this.tileEntityChest);
+    this.inventory = inventory;
     this.seed = seed;
   }
 
