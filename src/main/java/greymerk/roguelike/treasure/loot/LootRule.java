@@ -12,12 +12,12 @@ public class LootRule {
 
   int level;
   int amount;
-  private Treasure type;
-  private IWeighted<ItemStack> item;
-  private boolean toEach;
+  private final Treasure treasureType;
+  private final IWeighted<ItemStack> item;
+  private final boolean toEach;
 
-  public LootRule(Treasure type, IWeighted<ItemStack> item, int level, boolean toEach, int amount) {
-    this.type = type;
+  public LootRule(Treasure treasureType, IWeighted<ItemStack> item, int level, boolean toEach, int amount) {
+    this.treasureType = treasureType;
     this.item = item;
     this.level = level;
     this.toEach = toEach;
@@ -25,25 +25,25 @@ public class LootRule {
   }
 
 
-  public void process(Random rand, TreasureManager treasure) {
-    if (toEach && type != null) {
-      treasure.addItemToAll(rand, type, level, item, amount);
+  public void process(Random rand, TreasureManager treasureManager) {
+    if (toEach && treasureType != null) {
+      treasureManager.addItemToAll(rand, treasureType, level, item, amount);
     }
-    if (toEach && type == null) {
-      treasure.addItemToAll(rand, level, item, amount);
+    if (toEach && treasureType == null) {
+      treasureManager.addItemToAll(rand, level, item, amount);
     }
-    if (!toEach && type != null) {
-      treasure.addItem(rand, type, level, item, amount);
+    if (!toEach && treasureType != null) {
+      treasureManager.addItem(rand, treasureType, level, item, amount);
     }
-    if (!toEach && type == null) {
-      treasure.addItem(rand, level, item, amount);
+    if (!toEach && treasureType == null) {
+      treasureManager.addItem(rand, level, item, amount);
     }
   }
 
   @Override
   public String toString() {
 
-    String type = this.type != null ? this.type.toString() : "NONE";
+    String type = this.treasureType != null ? this.treasureType.toString() : "NONE";
     int level = this.level;
     int amount = this.amount;
 
