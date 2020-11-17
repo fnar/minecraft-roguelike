@@ -23,10 +23,6 @@ public class MockChest extends TreasureChest {
     this.inv = new Inventory(new Random(), chest);
   }
 
-  public MockChest generate(WorldEditor worldEditor, Random rand, Coord pos) {
-    return this;
-  }
-
   public boolean setSlot(int slot, ItemStack item) {
     return super.setSlot(slot, item);
   }
