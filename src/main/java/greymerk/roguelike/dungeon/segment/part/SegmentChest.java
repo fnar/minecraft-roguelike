@@ -13,8 +13,6 @@ import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
-import static greymerk.roguelike.treasure.Treasure.COMMON_TREASURES;
-import static greymerk.roguelike.treasure.Treasure.createChest;
 import static greymerk.roguelike.worldgen.Cardinal.UP;
 
 public class SegmentChest extends SegmentBase {
@@ -77,7 +75,7 @@ public class SegmentChest extends SegmentBase {
     }
 
     boolean isTrapped = rand.nextInt(20) == 0;
-    createChest(editor, rand, Dungeon.getLevel(origin.getY()), shelf, isTrapped, COMMON_TREASURES);
+    editor.treasureChestEditor.createChest(rand, Dungeon.getLevel(origin.getY()), shelf, isTrapped);
     if (isTrapped) {
       BlockType.get(BlockType.TNT).set(editor, new Coord(shelf.getX(), shelf.getY() - 2, shelf.getZ()));
       if (rand.nextBoolean()) {

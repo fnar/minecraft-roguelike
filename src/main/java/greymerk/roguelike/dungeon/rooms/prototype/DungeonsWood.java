@@ -21,7 +21,6 @@ import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 import static greymerk.roguelike.treasure.Treasure.FOOD;
-import static greymerk.roguelike.treasure.Treasure.createChests;
 
 public class DungeonsWood extends DungeonBase {
 
@@ -71,7 +70,7 @@ public class DungeonsWood extends DungeonBase {
     spaces.add(new Coord(x + WIDTH, y, z + LENGTH - 1));
 
     List<Coord> chestLocations = chooseRandomLocations(rand, 1, spaces);
-    createChests(editor, rand, Dungeon.getLevel(y), chestLocations, false, FOOD);
+    editor.treasureChestEditor.createChests(rand, Dungeon.getLevel(y), chestLocations, false, FOOD);
     return this;
   }
 

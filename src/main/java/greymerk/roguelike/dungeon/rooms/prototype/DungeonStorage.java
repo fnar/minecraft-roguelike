@@ -18,7 +18,6 @@ import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 import static greymerk.roguelike.treasure.Treasure.SUPPLIES_TREASURES;
-import static greymerk.roguelike.treasure.Treasure.createChests;
 
 public class DungeonStorage extends DungeonBase {
 
@@ -148,7 +147,7 @@ public class DungeonStorage extends DungeonBase {
     }
 
     List<Coord> chestLocations = chooseRandomLocations(rand, 2, chestSpaces);
-    createChests(editor, rand, settings.getDifficulty(origin), chestLocations, false, SUPPLIES_TREASURES);
+    editor.treasureChestEditor.createChests(rand, settings.getDifficulty(origin), chestLocations, false, SUPPLIES_TREASURES);
     return this;
   }
 

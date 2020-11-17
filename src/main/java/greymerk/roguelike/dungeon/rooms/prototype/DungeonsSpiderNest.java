@@ -17,7 +17,6 @@ import greymerk.roguelike.worldgen.spawners.MobType;
 import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 import static greymerk.roguelike.treasure.Treasure.COMMON_TREASURES;
-import static greymerk.roguelike.treasure.Treasure.createChests;
 
 public class DungeonsSpiderNest extends DungeonBase {
   WorldEditor editor;
@@ -86,7 +85,7 @@ public class DungeonsSpiderNest extends DungeonBase {
         new Coord(originX + dungeonLength, originY + 1, originZ + dungeonWidth)
     ).get();
     List<Coord> chestLocations = chooseRandomLocations(rand, 1 + rand.nextInt(3), spaces);
-    createChests(editor, rand, Dungeon.getLevel(originY), chestLocations, false, COMMON_TREASURES);
+    editor.treasureChestEditor.createChests(rand, Dungeon.getLevel(originY), chestLocations, false, COMMON_TREASURES);
     return this;
   }
 

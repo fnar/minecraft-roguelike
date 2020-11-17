@@ -14,8 +14,6 @@ import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
-import static greymerk.roguelike.treasure.Treasure.REWARD;
-import static greymerk.roguelike.treasure.Treasure.createChest;
 
 public class DungeonReward extends DungeonBase {
 
@@ -183,7 +181,7 @@ public class DungeonReward extends DungeonBase {
 
     cursor = new Coord(x, y, z);
     cursor.translate(Cardinal.UP);
-    createChest(editor, rand, settings.getDifficulty(cursor), cursor, false, REWARD);
+    editor.treasureChestEditor.createChest(rand, settings.getDifficulty(cursor), cursor, false);
     return this;
   }
 

@@ -8,7 +8,6 @@ import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
-import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
@@ -25,9 +24,6 @@ import greymerk.roguelike.worldgen.redstone.Hopper;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
-import static greymerk.roguelike.treasure.Treasure.EMPTY;
-import static greymerk.roguelike.treasure.Treasure.SMITH;
-import static greymerk.roguelike.treasure.Treasure.createChest;
 
 public class DungeonsSmithy extends DungeonBase {
 
@@ -294,16 +290,16 @@ public class DungeonsSmithy extends DungeonBase {
   }
 
   private void smelter(WorldEditor editor, Random rand, Cardinal dir, Coord origin) {
-    Treasure.createChest(editor, rand, 1, origin, false, EMPTY);
+    editor.treasureChestEditor.createChest(rand, 1, origin, false);
 
     Coord cursor;
     cursor = new Coord(origin);
     cursor.translate(dir, 2);
     cursor.translate(Cardinal.UP, 2);
-    Treasure.createChest(editor, rand, 1, cursor, false, EMPTY);
+    editor.treasureChestEditor.createChest(rand, 1, cursor, false);
     cursor.translate(Cardinal.UP);
     cursor.translate(dir.reverse());
-    Treasure.createChest(editor, rand, 1, cursor, false, EMPTY);
+    editor.treasureChestEditor.createChest(rand, 1, cursor, false);
 
     cursor = new Coord(origin);
     cursor.translate(Cardinal.UP);
@@ -476,7 +472,7 @@ public class DungeonsSmithy extends DungeonBase {
     stair.setOrientation(dir.clockwise(), true);
     RectSolid.fill(editor, rand, start, end, stair);
     cursor.translate(Cardinal.UP);
-    createChest(editor, rand, Dungeon.getLevel(cursor.getY()), cursor, false, SMITH);
+    editor.treasureChestEditor.createChest(rand, Dungeon.getLevel(cursor.getY()), cursor, false);
     cursor = new Coord(origin);
   }
 
