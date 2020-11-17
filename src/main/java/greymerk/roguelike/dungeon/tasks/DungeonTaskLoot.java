@@ -14,8 +14,8 @@ public class DungeonTaskLoot implements IDungeonTask {
 
   @Override
   public void execute(WorldEditor editor, Random rand, Dungeon dungeon, DungeonSettings settings) {
-    TreasureManager treasure = editor.getTreasure();
-    settings.processLoot(rand, treasure);
-    treasure.addItem(rand, Treasure.STARTER, new WeightedChoice<>(new BookStatistics(editor).get(), 0), 1);
+    TreasureManager treasureManager = editor.getTreasureManager();
+    settings.processLoot(rand, treasureManager);
+    treasureManager.addItem(rand, Treasure.STARTER, new WeightedChoice<>(new BookStatistics(editor).get(), 0), 1);
   }
 }
