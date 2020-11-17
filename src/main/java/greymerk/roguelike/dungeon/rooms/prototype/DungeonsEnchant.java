@@ -21,7 +21,6 @@ import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 import static greymerk.roguelike.treasure.Treasure.ENCHANTING;
-import static greymerk.roguelike.treasure.Treasure.createChests;
 
 public class DungeonsEnchant extends DungeonBase {
 
@@ -302,7 +301,7 @@ public class DungeonsEnchant extends DungeonBase {
     BlockType.get(BlockType.ENCHANTING_TABLE).set(editor, cursor);
 
     List<Coord> chestLocations = chooseRandomLocations(rand, 1, chests);
-    createChests(editor, rand, settings.getDifficulty(origin), chestLocations, false, ENCHANTING);
+    editor.treasureChestEditor.createChests(rand, settings.getDifficulty(origin), chestLocations, false, ENCHANTING);
 
     return this;
   }

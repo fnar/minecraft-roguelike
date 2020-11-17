@@ -20,7 +20,6 @@ import greymerk.roguelike.worldgen.redstone.Torch;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 
 import static greymerk.roguelike.treasure.Treasure.COMMON_TREASURES;
-import static greymerk.roguelike.treasure.Treasure.createChests;
 
 public class DungeonsPit extends DungeonBase {
   WorldEditor editor;
@@ -72,7 +71,7 @@ public class DungeonsPit extends DungeonBase {
     spaces.add(new Coord(originX + 2, originY, originZ + 2));
 
     List<Coord> chestLocations = chooseRandomLocations(inRandom, 1, spaces);
-    createChests(editor, inRandom, Dungeon.getLevel(originY), chestLocations, false, COMMON_TREASURES);
+    editor.treasureChestEditor.createChests(inRandom, Dungeon.getLevel(originY), chestLocations, false, COMMON_TREASURES);
 
     return this;
   }

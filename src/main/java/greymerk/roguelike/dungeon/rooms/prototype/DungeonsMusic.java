@@ -23,7 +23,6 @@ import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 import static greymerk.roguelike.treasure.Treasure.MUSIC;
-import static greymerk.roguelike.treasure.Treasure.createChests;
 
 public class DungeonsMusic extends DungeonBase {
 
@@ -159,7 +158,7 @@ public class DungeonsMusic extends DungeonBase {
     BlockType.get(BlockType.GLOWSTONE).set(editor, cursor);
 
     List<Coord> chestLocations = chooseRandomLocations(rand, 1, chests);
-    createChests(editor, rand, settings.getDifficulty(origin), chestLocations, false, MUSIC);
+    editor.treasureChestEditor.createChests(rand, settings.getDifficulty(origin), chestLocations, false, MUSIC);
 
     return this;
   }

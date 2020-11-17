@@ -5,7 +5,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -19,10 +18,7 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import greymerk.roguelike.treasure.ChestPlacementException;
-import greymerk.roguelike.treasure.Inventory;
-import greymerk.roguelike.treasure.Treasure;
-import greymerk.roguelike.treasure.TreasureChest;
+import greymerk.roguelike.TreasureChestEditor;
 import greymerk.roguelike.treasure.TreasureManager;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
@@ -32,7 +28,7 @@ public class WorldEditor {
   private static final List<Material> invalid;
   private final World world;
   private final Map<Block, Integer> stats = new HashMap<>();
-  private final TreasureManager treasureManager = new TreasureManager();
+  public final TreasureChestEditor treasureChestEditor;
 
   static {
     invalid = new ArrayList<>();
@@ -48,6 +44,12 @@ public class WorldEditor {
 
   public WorldEditor(World world) {
     this.world = world;
+    treasureChestEditor = new TreasureChestEditor(this, new TreasureManager());
+  }
+
+  public boolean isNonSolidBlock(Coord coord) {
+    Coord cursor = coord.add(Cardinal.DOWN);
+    return !getBlock(cursor).getMaterial().isSolid();
   }
 
   public Random getRandom(Coord pos) {
@@ -167,10 +169,6 @@ public class WorldEditor {
     return stats;
   }
 
-  public TreasureManager getTreasureManager() {
-    return treasureManager;
-  }
-
   public boolean canPlace(MetaBlock block, Coord pos, Cardinal dir) {
     if (!isAirBlock(pos)) {
       return false;
@@ -209,26 +207,9 @@ public class WorldEditor {
         .collect(Collectors.joining());
   }
 
-  public TreasureChest generateTreasureChest(Random random, Coord pos, boolean isTrapped, Treasure treasureType, int level) throws ChestPlacementException {
-    MetaBlock chestType = new MetaBlock(isTrapped ? Blocks.TRAPPED_CHEST : Blocks.CHEST);
-
-    boolean success = chestType.set(this, pos);
-
-    if (!success) {
-      throw new ChestPlacementException("Failed to place chest in world");
-    }
-
-    TileEntityChest tileEntityChest = (TileEntityChest) getTileEntity(pos);
-    int seed = Objects.hash(pos.hashCode(), getSeed());
-    TreasureChest treasureChest = new TreasureChest(
-        treasureType,
-        level,
-        tileEntityChest,
-        seed,
-        new Inventory(random, tileEntityChest)
-    );
-    treasureManager.add(treasureChest);
-    return treasureChest;
+  public TreasureChestEditor getTreasureChestEditor() {
+    return treasureChestEditor;
   }
+
 }
 

@@ -19,8 +19,6 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.MobType;
 import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
-import static greymerk.roguelike.treasure.Treasure.COMMON_TREASURES;
-import static greymerk.roguelike.treasure.Treasure.createChest;
 
 public class DungeonsCrypt extends DungeonBase {
 
@@ -384,7 +382,7 @@ public class DungeonsCrypt extends DungeonBase {
     generateSpawner(editor, rand, cursor, settings.getDifficulty(cursor), spawners, MobType.UNDEAD_MOBS);
 
     cursor.translate(dir);
-    createChest(editor, rand, settings.getDifficulty(cursor), cursor, false, COMMON_TREASURES);
+    editor.treasureChestEditor.createChest(rand, settings.getDifficulty(cursor), cursor, false);
   }
 
   public int getSize() {

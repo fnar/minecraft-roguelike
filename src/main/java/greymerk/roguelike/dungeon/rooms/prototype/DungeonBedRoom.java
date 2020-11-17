@@ -24,9 +24,6 @@ import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import lombok.EqualsAndHashCode;
 
-import static greymerk.roguelike.treasure.Treasure.STARTER;
-import static greymerk.roguelike.treasure.Treasure.createChest;
-
 @EqualsAndHashCode
 public class DungeonBedRoom extends DungeonBase {
 
@@ -149,7 +146,7 @@ public class DungeonBedRoom extends DungeonBase {
     cursor.translate(dir);
     cursor.translate(side, 3);
 
-    createChest(editor, rand, Dungeon.getLevel(cursor.getY()), cursor.add(Cardinal.UP), false, STARTER);
+    editor.treasureChestEditor.createChest(rand, Dungeon.getLevel(cursor.getY()), cursor.add(Cardinal.UP), false);
 
     cursor.translate(side.reverse(), 6);
     if (rand.nextBoolean()) {

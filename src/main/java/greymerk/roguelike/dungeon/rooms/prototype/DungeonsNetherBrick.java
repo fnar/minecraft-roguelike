@@ -20,7 +20,6 @@ import greymerk.roguelike.worldgen.spawners.MobType;
 import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 import static greymerk.roguelike.treasure.Treasure.COMMON_TREASURES;
-import static greymerk.roguelike.treasure.Treasure.createChests;
 
 public class DungeonsNetherBrick extends DungeonBase {
 
@@ -59,7 +58,7 @@ public class DungeonsNetherBrick extends DungeonBase {
     RectSolid.fill(editor, rand, new Coord(x - length, y + height, z - width), new Coord(x + length, y + height, z + width), ceiling);
 
     List<Coord> chestLocations = chooseRandomLocations(rand, 1, new RectSolid(new Coord(x - length, y, z - width), new Coord(x + length, y, z + width)).get());
-    createChests(editor, rand, Dungeon.getLevel(y), chestLocations, false, COMMON_TREASURES);
+    editor.treasureChestEditor.createChests(rand, Dungeon.getLevel(y), chestLocations, false, COMMON_TREASURES);
 
     final Coord cursor = new Coord(x - length - 1, y + rand.nextInt(2), z - width - 1);
     SpawnerSettings spawners3 = settings.getSpawners();
