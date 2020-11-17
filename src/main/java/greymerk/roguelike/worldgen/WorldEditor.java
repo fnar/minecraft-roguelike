@@ -205,7 +205,7 @@ public class WorldEditor {
         .collect(Collectors.joining());
   }
 
-  public TreasureChest generate(Random random, Coord pos, boolean isTrapped, Treasure treasureType, int level) throws ChestPlacementException {
+  public TreasureChest generateTreasureChest(Random random, Coord pos, boolean isTrapped, Treasure treasureType, int level) throws ChestPlacementException {
     MetaBlock chestType = new MetaBlock(isTrapped ? Blocks.TRAPPED_CHEST : Blocks.CHEST);
 
     boolean success = chestType.set(this, pos);
