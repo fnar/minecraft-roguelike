@@ -31,7 +31,7 @@ public class WorldEditor {
   private static final List<Material> invalid;
   private final World world;
   private final Map<Block, Integer> stats = new HashMap<>();
-  private final TreasureManager chests = new TreasureManager();
+  private final TreasureManager treasureManager = new TreasureManager();
 
   static {
     invalid = new ArrayList<>();
@@ -162,8 +162,8 @@ public class WorldEditor {
     return stats;
   }
 
-  public TreasureManager getTreasure() {
-    return chests;
+  public TreasureManager getTreasureManager() {
+    return treasureManager;
   }
 
   public boolean canPlace(MetaBlock block, Coord pos, Cardinal dir) {
@@ -223,7 +223,7 @@ public class WorldEditor {
         tileEntityChest,
         seed
     );
-    chests.add(treasureChest);
+    treasureManager.add(treasureChest);
     return treasureChest;
   }
 }
