@@ -11,7 +11,6 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import greymerk.roguelike.config.RogueConfig;
-import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.util.WeightedChoice;
 import greymerk.roguelike.util.WeightedRandomizer;
 import greymerk.roguelike.worldgen.Coord;
@@ -86,7 +85,7 @@ public class SettingsResolver {
     if (settingsRandomizer.isEmpty()) {
       return empty();
     }
-    Random random = Dungeon.getRandom(editor, coord);
+    Random random = editor.getRandom(coord);
     DungeonSettings randomSetting = settingsRandomizer.get(random);
     DungeonSettings builtin = processInheritance(randomSetting);
     return ofNullable(builtin);
@@ -109,7 +108,7 @@ public class SettingsResolver {
   ) {
     List<DungeonSettings> validCustomSettings = filterValid(settingsContainer.getCustomSettings(), editor, coord);
     WeightedRandomizer<DungeonSettings> settingsRandomizer = newWeightedRandomizer(validCustomSettings);
-    Random random = Dungeon.getRandom(editor, coord);
+    Random random = editor.getRandom(coord);
     return ofNullable(settingsRandomizer.get(random))
         .map(this::processInheritance);
   }

@@ -73,7 +73,7 @@ public class CommandRouteDungeon extends CommandRouteBase {
 
   private DungeonSettings resolveRandomDungeon(Coord pos, WorldEditor editor) throws Exception {
     Dungeon.initResolver();
-    return new SettingsRandom(Dungeon.getRandom(editor, pos));
+    return new SettingsRandom(editor.getRandom(pos));
   }
 
   private DungeonSettings resolveNamedDungeonSettings(String settingName) throws Exception {
