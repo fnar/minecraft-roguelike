@@ -17,7 +17,7 @@ class MockChest extends TreasureChest {
   Map<Integer, ItemStack> loot;
 
   public MockChest(Treasure type, int level) {
-    super(type, level, false);
+    super(type, level, false, null, null, 0);
     this.type = type;
     loot = new HashMap<>();
   }

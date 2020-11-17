@@ -6,9 +6,6 @@ import net.minecraft.util.ResourceLocation;
 
 import java.util.Random;
 
-import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.WorldEditor;
-
 public class MockChest extends TreasureChest {
 
   Treasure type;
@@ -17,7 +14,7 @@ public class MockChest extends TreasureChest {
   TileEntityChest chest;
 
   public MockChest(Treasure type, int level) {
-    super(type, level, false);
+    super(type, level, false, null, null, 0);
     this.type = type;
     this.chest = new TileEntityChest();
     this.inv = new Inventory(new Random(), chest);

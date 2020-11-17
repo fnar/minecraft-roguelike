@@ -5,6 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -14,9 +15,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import greymerk.roguelike.treasure.ChestPlacementException;
+import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.TreasureManager;
 import greymerk.roguelike.worldgen.blocks.BlockType;
@@ -158,10 +162,6 @@ public class WorldEditor {
     return stats;
   }
 
-  public void addChest(TreasureChest toAdd) {
-    chests.add(toAdd);
-  }
-
   public TreasureManager getTreasure() {
     return chests;
   }
@@ -202,6 +202,29 @@ public class WorldEditor {
     return stats.entrySet().stream()
         .map(pair -> pair.getKey().getLocalizedName() + ": " + pair.getValue() + "\n")
         .collect(Collectors.joining());
+  }
+
+  public TreasureChest generate(Random random, Coord pos, boolean isTrapped, Treasure treasureType, int level) throws ChestPlacementException {
+    MetaBlock chestType = new MetaBlock(isTrapped ? Blocks.TRAPPED_CHEST : Blocks.CHEST);
+
+    boolean success = chestType.set(this, pos);
+
+    if (!success) {
+      throw new ChestPlacementException("Failed to place chest in world");
+    }
+
+    TileEntityChest tileEntityChest = (TileEntityChest) getTileEntity(pos);
+    int seed = Objects.hash(pos.hashCode(), getSeed());
+    TreasureChest treasureChest = new TreasureChest(
+        treasureType,
+        level,
+        isTrapped,
+        random,
+        tileEntityChest,
+        seed
+    );
+    chests.add(treasureChest);
+    return treasureChest;
   }
 }
 

@@ -183,9 +183,9 @@ public class DungeonBTeam extends DungeonBase {
     BlockType.get(BlockType.JUKEBOX).set(editor, cursor);
     cursor.translate(dir.antiClockwise());
     int level = settings.getDifficulty(cursor);
+    Treasure treasureType = Treasure.EMPTY;
     try {
-      TreasureChest chest = new TreasureChest(Treasure.EMPTY, level, false);
-      TreasureChest stal = chest.generate(editor, rand, cursor);
+      TreasureChest stal = editor.generate(rand, cursor, false, treasureType, level);
       stal.setSlot(stal.getSize() / 2, Record.getRecord(Record.STAL));
     } catch (ChestPlacementException cpe) {
       // do nothing
@@ -195,8 +195,7 @@ public class DungeonBTeam extends DungeonBase {
     cursor.translate(dir.reverse(), 3);
     cursor.translate(dir.antiClockwise(), 4);
     try {
-      TreasureChest chest = new TreasureChest(Treasure.EMPTY, level, false);
-      TreasureChest bdub = chest.generate(editor, rand, cursor);
+      TreasureChest bdub = editor.generate(rand, cursor, false, treasureType, level);
       bdub.setSlot((bdub.getSize() / 2) - 2, ItemNovelty.getItem(ItemNovelty.BDOUBLEO));
       ItemStack shirt = new ItemStack(Items.LEATHER_CHESTPLATE);
       Loot.setItemName(shirt, "Pink Sweater", null);
@@ -211,8 +210,7 @@ public class DungeonBTeam extends DungeonBase {
     cursor.translate(dir.reverse(), 3);
     cursor.translate(dir.clockwise(), 4);
     try {
-      TreasureChest chest = new TreasureChest(Treasure.EMPTY, level, false);
-      TreasureChest genny = chest.generate(editor, rand, cursor);
+      TreasureChest genny = editor.generate(rand, cursor, false, treasureType, level);
       genny.setSlot(genny.getSize() / 2, ItemNovelty.getItem(ItemNovelty.GENERIKB));
     } catch (ChestPlacementException cpe) {
       // do nothing

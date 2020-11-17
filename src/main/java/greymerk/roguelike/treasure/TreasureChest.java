@@ -1,55 +1,38 @@
 package greymerk.roguelike.treasure;
 
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.ResourceLocation;
 
-import java.util.Objects;
 import java.util.Random;
-
-import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.MetaBlock;
-import greymerk.roguelike.worldgen.WorldEditor;
 
 import static java.lang.Math.*;
 
 public class TreasureChest {
 
-  protected Inventory inventory;
-  protected Treasure type;
-  protected Random rand;
-  private long seed;
-  private TileEntityChest chest;
-  private int level;
-  private final boolean isTrapped;
+  public Inventory inventory;
+  public Treasure type;
+  public Random random;
+  public long seed;
+  public TileEntityChest tileEntityChest;
+  public int level;
+  public final boolean isTrapped;
 
   public TreasureChest(
       Treasure type,
       int level,
-      boolean isTrapped
+      boolean isTrapped,
+      Random random,
+      TileEntityChest tileEntityChest,
+      int seed
   ) {
     this.type = type;
     this.level = level;
     this.isTrapped = isTrapped;
-  }
-
-  public TreasureChest generate(WorldEditor worldEditor, Random rand, Coord pos) throws ChestPlacementException {
-    this.rand = rand;
-    MetaBlock chestType = new MetaBlock(isTrapped ? Blocks.TRAPPED_CHEST : Blocks.CHEST);
-
-    boolean success = chestType.set(worldEditor, pos);
-
-    if (!success) {
-      throw new ChestPlacementException("Failed to place chest in world");
-    }
-
-    this.chest = (TileEntityChest) worldEditor.getTileEntity(pos);
-    this.inventory = new Inventory(rand, chest);
-    this.seed = Objects.hash(pos.hashCode(), worldEditor.getSeed());
-
-    worldEditor.addChest(this);
-    return this;
+    this.random = random;
+    this.tileEntityChest = tileEntityChest;
+    this.inventory = new Inventory(random, this.tileEntityChest);
+    this.seed = seed;
   }
 
   public boolean setSlot(int slot, ItemStack item) {
@@ -77,7 +60,7 @@ public class TreasureChest {
   }
 
   public void setLootTable(ResourceLocation table) {
-    this.chest.setLootTable(table, seed);
+    this.tileEntityChest.setLootTable(table, seed);
   }
 
   public boolean isOnLevel(int level) {
