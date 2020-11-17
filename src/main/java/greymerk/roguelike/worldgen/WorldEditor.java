@@ -50,6 +50,10 @@ public class WorldEditor {
     this.world = world;
   }
 
+  public Random getRandom(Coord pos) {
+    return new Random(Objects.hash(getSeed(), pos));
+  }
+
   private boolean setBlock(Coord pos, MetaBlock block, int flags, boolean fillAir, boolean replaceSolid) {
 
     MetaBlock currentBlock = getBlock(pos);

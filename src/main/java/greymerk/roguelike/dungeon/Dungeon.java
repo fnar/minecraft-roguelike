@@ -31,7 +31,6 @@ import greymerk.roguelike.dungeon.settings.SettingsRandom;
 import greymerk.roguelike.dungeon.settings.SettingsResolver;
 import greymerk.roguelike.dungeon.settings.SpawnCriteria;
 import greymerk.roguelike.dungeon.tasks.DungeonTaskRegistry;
-import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.VanillaStructure;
@@ -182,10 +181,6 @@ public class Dungeon {
     return new Coord(x + xOffset, 0, z + zOffset);
   }
 
-  public static Random getRandom(WorldEditor editor, Coord pos) {
-    return new Random(Objects.hash(editor.getSeed(), pos));
-  }
-
   private Optional<Coord> selectLocation(Random rand, int x, int z) {
     return IntStream.range(0, 50)
         .mapToObj(i -> getNearbyCoord(rand, x, z, 40, 100))
@@ -201,7 +196,7 @@ public class Dungeon {
 
   public void generate(DungeonSettings dungeonSettings, Coord coord) {
     try {
-      Random random = getRandom(editor, coord);
+      Random random = editor.getRandom(coord);
 
       origin = new Coord(coord.getX(), TOPLEVEL, coord.getZ());
       Coord start = getPosition();
@@ -233,7 +228,7 @@ public class Dungeon {
 
   private Optional<DungeonSettings> getDungeonSettingsMaybe(Coord coord) {
     if (RogueConfig.getBoolean(RogueConfig.RANDOM)) {
-      return Optional.of(new SettingsRandom(getRandom(editor, coord)));
+      return Optional.of(new SettingsRandom(editor.getRandom(coord)));
     } else if (settingsResolver != null) {
       return Optional.ofNullable(settingsResolver.getAnyCustomDungeonSettings(editor, coord));
     } else {
