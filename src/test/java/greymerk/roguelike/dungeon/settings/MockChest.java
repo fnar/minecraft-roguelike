@@ -5,12 +5,9 @@ import net.minecraft.util.ResourceLocation;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.treasure.TreasureChest;
-import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.WorldEditor;
 
 // todo: there's already a mockChest. How similar are they?
 class MockChest extends TreasureChest {
@@ -23,10 +20,6 @@ class MockChest extends TreasureChest {
     super(type, level, false);
     this.type = type;
     loot = new HashMap<>();
-  }
-
-  public MockChest generate(WorldEditor worldEditor, Random rand, Coord pos) {
-    return this;
   }
 
   public boolean setSlot(int slot, ItemStack item) {
