@@ -54,7 +54,7 @@ public enum Treasure {
 
   private static void safeGenerate(WorldEditor editor, Random random, int level, Coord chestLocation, boolean isTrapped, Treasure type) {
     try {
-      editor.generate(random, chestLocation, isTrapped, type, level);
+      editor.generateTreasureChest(random, chestLocation, isTrapped, type, level);
     } catch (ChestPlacementException ignored) {
     }
   }
