@@ -19,18 +19,18 @@ public class LootTableRule {
 
   List<Integer> levels = newArrayList();
   private ResourceLocation table;
-  private List<Treasure> types = newArrayList();
+  private List<Treasure> treasureTypes = newArrayList();
 
   public LootTableRule() { }
 
   public LootTableRule(
       List<Integer> levels,
       ResourceLocation table,
-      List<Treasure> types
+      List<Treasure> treasureTypes
   ) {
     this.levels = levels;
     this.table = table;
-    this.types = types;
+    this.treasureTypes = treasureTypes;
   }
 
   public LootTableRule(JsonObject json) throws Exception {
@@ -62,7 +62,7 @@ public class LootTableRule {
   }
 
   public void addTreasureType(Treasure type) {
-    this.types.add(type);
+    this.treasureTypes.add(type);
   }
 
   private static List<Integer> parseLevels(JsonObject json) {
@@ -113,14 +113,14 @@ public class LootTableRule {
 
   public void process(TreasureManager treasure) {
     getMatching(treasure).stream()
-        .filter(chest -> chest.getType() != Treasure.EMPTY)
+        .filter(TreasureChest::isNotEmpty)
         .forEach(chest -> chest.setLootTable(table));
   }
 
   private List<TreasureChest> getMatching(TreasureManager treasure) {
     return treasure.getChests().stream()
         .filter(chest -> levels.isEmpty() || levels.contains(chest.getLevel()))
-        .filter(chest -> types.isEmpty() || types.contains(chest.getType()))
+        .filter(chest -> treasureTypes.isEmpty() || treasureTypes.contains(chest.getType()))
         .collect(toList());
   }
 

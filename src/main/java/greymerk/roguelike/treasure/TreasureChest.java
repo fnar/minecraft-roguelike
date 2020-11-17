@@ -34,21 +34,21 @@ public class TreasureChest {
     this.isTrapped = isTrapped;
   }
 
-  public TreasureChest generate(WorldEditor editor, Random rand, Coord pos) throws ChestPlacementException {
+  public TreasureChest generate(WorldEditor worldEditor, Random rand, Coord pos) throws ChestPlacementException {
     this.rand = rand;
     MetaBlock chestType = new MetaBlock(isTrapped ? Blocks.TRAPPED_CHEST : Blocks.CHEST);
 
-    boolean success = chestType.set(editor, pos);
+    boolean success = chestType.set(worldEditor, pos);
 
     if (!success) {
       throw new ChestPlacementException("Failed to place chest in world");
     }
 
-    this.chest = (TileEntityChest) editor.getTileEntity(pos);
+    this.chest = (TileEntityChest) worldEditor.getTileEntity(pos);
     this.inventory = new Inventory(rand, chest);
-    this.seed = Objects.hash(pos.hashCode(), editor.getSeed());
+    this.seed = Objects.hash(pos.hashCode(), worldEditor.getSeed());
 
-    editor.addChest(this);
+    worldEditor.addChest(this);
     return this;
   }
 
@@ -89,6 +89,10 @@ public class TreasureChest {
   }
 
   public boolean isNotEmpty() {
-    return !isType(Treasure.EMPTY);
+    return !isEmpty();
+  }
+
+  private boolean isEmpty() {
+    return isType(Treasure.EMPTY);
   }
 }

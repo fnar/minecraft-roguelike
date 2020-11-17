@@ -27,17 +27,12 @@ public class TreasureManager {
     addItemToAll(rand, this.getChests(level), item, amount);
   }
 
-  public void addItemToAll(Random rand, Treasure type, IWeighted<ItemStack> item, int amount) {
-    addItemToAll(rand, this.getChests(type), item, amount);
-  }
-
   private void addItemToAll(Random rand, List<TreasureChest> chests, IWeighted<ItemStack> item, int amount) {
     chests.forEach(chest ->
         IntStream.range(0, amount)
             .mapToObj(i -> item.get(rand))
             .forEach(chest::setRandomEmptySlot));
   }
-
 
   public void addItem(Random rand, int level, IWeighted<ItemStack> item, int amount) {
     this.addItem(rand, getChests(level), item, amount);
@@ -63,8 +58,8 @@ public class TreasureManager {
 
   public List<TreasureChest> getChests(Treasure type, int level) {
     return this.chests.stream()
-        .filter(chest -> chest.isType(type))
         .filter(chest -> chest.isOnLevel(level))
+        .filter(chest -> chest.isType(type))
         .collect(toList());
   }
 

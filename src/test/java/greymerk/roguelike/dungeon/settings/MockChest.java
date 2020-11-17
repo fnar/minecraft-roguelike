@@ -25,7 +25,7 @@ class MockChest extends TreasureChest {
     loot = new HashMap<>();
   }
 
-  public MockChest generate(WorldEditor editor, Random rand, Coord pos) {
+  public MockChest generate(WorldEditor worldEditor, Random rand, Coord pos) {
     return this;
   }
 
