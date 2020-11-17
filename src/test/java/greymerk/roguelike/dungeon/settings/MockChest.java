@@ -6,6 +6,7 @@ import net.minecraft.util.ResourceLocation;
 import java.util.HashMap;
 import java.util.Map;
 
+import greymerk.roguelike.treasure.Inventory;
 import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.treasure.TreasureChest;
 
@@ -17,7 +18,7 @@ class MockChest extends TreasureChest {
   Map<Integer, ItemStack> loot;
 
   public MockChest(Treasure type, int level) {
-    super(type, level, false, null, null, 0);
+    super(type, level, null, 0, new Inventory(null, null));
     this.type = type;
     loot = new HashMap<>();
   }

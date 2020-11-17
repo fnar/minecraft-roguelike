@@ -14,7 +14,7 @@ public class MockChest extends TreasureChest {
   TileEntityChest chest;
 
   public MockChest(Treasure type, int level) {
-    super(type, level, false, null, null, 0);
+    super(type, level, null, 0, new Inventory(null, null));
     this.type = type;
     this.chest = new TileEntityChest();
     this.inv = new Inventory(new Random(), chest);
