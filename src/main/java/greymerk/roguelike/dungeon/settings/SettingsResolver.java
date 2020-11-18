@@ -85,7 +85,7 @@ public class SettingsResolver {
     if (settingsRandomizer.isEmpty()) {
       return empty();
     }
-    Random random = editor.getRandom(coord);
+    Random random = editor.getRandom();
     DungeonSettings randomSetting = settingsRandomizer.get(random);
     DungeonSettings builtin = processInheritance(randomSetting);
     return ofNullable(builtin);
@@ -108,7 +108,7 @@ public class SettingsResolver {
   ) {
     List<DungeonSettings> validCustomSettings = filterValid(settingsContainer.getCustomSettings(), editor, coord);
     WeightedRandomizer<DungeonSettings> settingsRandomizer = newWeightedRandomizer(validCustomSettings);
-    Random random = editor.getRandom(coord);
+    Random random = editor.getRandom();
     return ofNullable(settingsRandomizer.get(random))
         .map(this::processInheritance);
   }

@@ -15,7 +15,7 @@ public class DungeonTaskTower implements IDungeonTask {
     Coord pos = dungeon.getPosition();
 
     Tower tower = settings.getTower().getTower();
-    Random r = editor.getRandom(pos);
+    Random r = editor.getRandom();
     Tower.get(tower).generate(editor, r, settings.getTower().getTheme(), pos);
 
 
