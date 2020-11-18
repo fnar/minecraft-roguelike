@@ -20,6 +20,7 @@ import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
+import static greymerk.roguelike.treasure.Treasure.ORE;
 import static greymerk.roguelike.worldgen.spawners.MobType.UNDEAD_MOBS;
 
 public class DungeonPyramidTomb extends DungeonBase {
@@ -214,7 +215,7 @@ public class DungeonPyramidTomb extends DungeonBase {
     cursor = new Coord(origin);
     blocks.set(editor, cursor);
     cursor.translate(Cardinal.UP);
-    editor.treasureChestEditor.createChest(rand, Dungeon.getLevel(cursor.getY()), cursor, false);
+    editor.treasureChestEditor.createChest(rand, Dungeon.getLevel(cursor.getY()), cursor, false, ORE);
     cursor.translate(Cardinal.UP);
     blocks.set(editor, cursor);
 

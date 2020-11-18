@@ -30,6 +30,7 @@ import greymerk.roguelike.worldgen.redstone.Torch;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
+import static greymerk.roguelike.treasure.Treasure.BREWING;
 
 
 public class DungeonLab extends DungeonBase {
@@ -268,7 +269,7 @@ public class DungeonLab extends DungeonBase {
       BrewingStand.generate(editor, bs);
       BrewingStand.add(editor, bs, BrewingStand.FUEL, new ItemStack(Items.BLAZE_POWDER));
     }
-    editor.treasureChestEditor.createChest(rand, Dungeon.getLevel(y), new Coord(x, y + 1, z + 4), false);
+    editor.treasureChestEditor.createChest(rand, Dungeon.getLevel(y), new Coord(x, y + 1, z + 4), false, BREWING);
   }
 
   public int getSize() {
