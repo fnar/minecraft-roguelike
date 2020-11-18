@@ -19,7 +19,6 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import greymerk.roguelike.TreasureChestEditor;
-import greymerk.roguelike.treasure.TreasureManager;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
@@ -44,7 +43,7 @@ public class WorldEditor {
 
   public WorldEditor(World world) {
     this.world = world;
-    treasureChestEditor = new TreasureChestEditor(this, new TreasureManager());
+    treasureChestEditor = new TreasureChestEditor(this);
   }
 
   public boolean isNonSolidBlock(Coord coord) {
