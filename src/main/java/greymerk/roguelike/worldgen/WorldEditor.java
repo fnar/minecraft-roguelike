@@ -45,8 +45,8 @@ public class WorldEditor {
 
   public WorldEditor(World world) {
     this.world = world;
-    treasureChestEditor = new TreasureChestEditor(this);
     random = new Random(Objects.hash(getSeed()));
+    treasureChestEditor = new TreasureChestEditor(this, random);
   }
 
   public boolean isNonSolidBlock(Coord coord) {

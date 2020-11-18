@@ -106,7 +106,7 @@ public class DungeonSettingsTest {
     DungeonSettings merge = new DungeonSettings(base, other);
     LootRuleManager rules = merge.getLootRules();
 
-    TreasureManager treasure = new TreasureManager();
+    TreasureManager treasure = new TreasureManager(new Random());
     MockChest chest = new MockChest(Treasure.STARTER, 0);
     treasure.add(chest);
 
@@ -129,7 +129,7 @@ public class DungeonSettingsTest {
     DungeonSettings merge = new DungeonSettings(base, other);
     LootRuleManager rules = merge.getLootRules();
 
-    TreasureManager treasure = new TreasureManager();
+    TreasureManager treasure = new TreasureManager(new Random());
     MockChest chest = new MockChest(Treasure.STARTER, 0);
     treasure.add(chest);
 

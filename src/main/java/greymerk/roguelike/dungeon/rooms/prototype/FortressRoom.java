@@ -88,7 +88,7 @@ public class FortressRoom extends DungeonBase {
     List<Coord> chests = (new RectSolid(start, end).get());
 
     List<Coord> chestLocations = chooseRandomLocations(rand, rand.nextInt(3) + 1, chests);
-    editor.treasureChestEditor.createChests(rand, levelSettings.getDifficulty(origin), chestLocations, false, RARE_TREASURES);
+    editor.treasureChestEditor.createChests(levelSettings.getDifficulty(origin), chestLocations, false, RARE_TREASURES);
 
     for (Cardinal dir : directions) {
 

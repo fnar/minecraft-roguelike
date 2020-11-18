@@ -27,24 +27,24 @@ public class TreasureManagerTest {
     WeightedRandomizer<ItemStack> loot = new WeightedRandomizer<ItemStack>();
     loot.add(stick);
 
-    TreasureManager treasure = new TreasureManager();
+    TreasureManager treasure = new TreasureManager(new Random());
     MockChest toAdd = new MockChest(Treasure.ARMOUR, 0);
     treasure.add(toAdd);
-    treasure.addItem(rand, Treasure.ARMOUR, 0, loot, 1);
+    treasure.addItem(Treasure.ARMOUR, 0, loot, 1);
 
-    treasure.addItem(rand, Treasure.ARMOUR, 1, loot, 1);
+    treasure.addItem(Treasure.ARMOUR, 1, loot, 1);
 
-    treasure.addItem(rand, Treasure.WEAPONS, 0, loot, 1);
+    treasure.addItem(Treasure.WEAPONS, 0, loot, 1);
 
-    treasure.addItem(rand, Treasure.WEAPONS, 1, loot, 1);
+    treasure.addItem(Treasure.WEAPONS, 1, loot, 1);
 
-    treasure.addItem(rand, Treasure.ARMOUR, loot, 1);
+    treasure.addItem(Treasure.ARMOUR, loot, 1);
 
-    treasure.addItem(rand, Treasure.WEAPONS, loot, 1);
+    treasure.addItem(Treasure.WEAPONS, loot, 1);
 
-    treasure.addItem(rand, 0, loot, 1);
+    treasure.addItem(0, loot, 1);
 
-    treasure.addItem(rand, 1, loot, 1);
+    treasure.addItem(1, loot, 1);
 
   }
 }

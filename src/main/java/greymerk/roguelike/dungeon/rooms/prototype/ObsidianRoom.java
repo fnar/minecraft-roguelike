@@ -313,7 +313,7 @@ public class ObsidianRoom extends DungeonBase {
         chestPos.translate(orth, 2);
         chestPos.translate(Cardinal.DOWN, 3);
 
-        editor.treasureChestEditor.createChest(rand, Dungeon.getLevel(chestPos.getY()), chestPos, false, RARE_TREASURES);
+        editor.treasureChestEditor.createChest(Dungeon.getLevel(chestPos.getY()), chestPos, false, RARE_TREASURES);
       }
     }
 

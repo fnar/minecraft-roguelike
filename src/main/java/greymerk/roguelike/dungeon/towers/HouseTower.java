@@ -187,7 +187,7 @@ public class HouseTower implements ITower {
     cursor = new Coord(origin);
     cursor.translate(Cardinal.UP, 4);
     cursor.translate(orth[0], 8);
-    editor.treasureChestEditor.createChest(rand, 0, cursor, false, STARTER);
+    editor.treasureChestEditor.createChest(0, cursor, false, STARTER);
     cursor.translate(dir.reverse());
     BlockType.get(BlockType.SHELF).set(editor, cursor);
     cursor.translate(Cardinal.UP);

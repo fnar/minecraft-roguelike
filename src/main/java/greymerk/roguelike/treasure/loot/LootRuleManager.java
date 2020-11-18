@@ -92,7 +92,7 @@ public class LootRuleManager {
   }
 
   public void process(Random rand, TreasureManager treasure) {
-    this.rules.forEach(rule -> rule.process(rand, treasure));
+    this.rules.forEach(rule -> rule.process(treasure));
   }
 
   private IWeighted<ItemStack> parseProvider(JsonObject lootItem) throws Exception {

@@ -136,7 +136,7 @@ public class BrickRoom extends DungeonBase {
 
     List<Coord> chestLocations = chooseRandomLocations(rand, 1, potentialChestLocations);
     int level = Dungeon.getLevel(origin.getY());
-    editor.treasureChestEditor.createChests(rand, level, chestLocations, false, COMMON_TREASURES);
+    editor.treasureChestEditor.createChests(level, chestLocations, false, COMMON_TREASURES);
 
     Coord spawnerLocation = new Coord(x, y, z);
     generateSpawner(editor, rand, spawnerLocation, Dungeon.getLevel(origin.getY()), settings.getSpawners());

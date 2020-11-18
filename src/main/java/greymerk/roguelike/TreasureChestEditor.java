@@ -21,36 +21,39 @@ import greymerk.roguelike.worldgen.WorldEditor;
 public class TreasureChestEditor {
 
   private WorldEditor worldEditor;
-  private TreasureManager treasureManager = new TreasureManager();
+  private TreasureManager treasureManager;
+  private Random random;
 
-  public TreasureChestEditor(WorldEditor worldEditor) {
+  public TreasureChestEditor(WorldEditor worldEditor, Random random) {
     this.worldEditor = worldEditor;
+    this.random = random;
+    treasureManager = new TreasureManager(random);
   }
 
   public TreasureManager getTreasureManager() {
     return treasureManager;
   }
 
-  public void createChests(Random random, int level, List<Coord> chestLocations, boolean isTrapped, Treasure... treasures) {
+  public void createChests(int level, List<Coord> chestLocations, boolean isTrapped, Treasure... treasures) {
     chestLocations.forEach(chestLocation ->
-        createChest(random, level, chestLocation, isTrapped, treasures));
+        createChest(level, chestLocation, isTrapped, treasures));
   }
 
-  public void createChest(Random random, int level, Coord chestLocation, boolean isTrapped, Treasure... treasures) {
+  public void createChest(int level, Coord chestLocation, boolean isTrapped, Treasure... treasures) {
     if (isValidChestSpace(chestLocation, worldEditor)) {
-      Treasure type = Treasure.chooseRandomType(random, treasures);
-      safeGenerate(random, level, chestLocation, isTrapped, type);
+      Treasure type = Treasure.chooseRandomType(this.random, treasures);
+      safeGenerate(level, chestLocation, isTrapped, type);
     }
   }
 
-  private void safeGenerate(Random random, int level, Coord chestLocation, boolean isTrapped, Treasure treasure) {
+  private void safeGenerate(int level, Coord chestLocation, boolean isTrapped, Treasure treasure) {
     try {
-      generateTreasureChest(random, chestLocation, isTrapped, treasure, level);
+      generateTreasureChest(chestLocation, isTrapped, treasure, level);
     } catch (ChestPlacementException ignored) {
     }
   }
 
-  public TreasureChest generateTreasureChest(Random random, Coord pos, boolean isTrapped, Treasure treasure, int level) throws ChestPlacementException {
+  public TreasureChest generateTreasureChest(Coord pos, boolean isTrapped, Treasure treasure, int level) throws ChestPlacementException {
     MetaBlock chestType = new MetaBlock(isTrapped ? Blocks.TRAPPED_CHEST : Blocks.CHEST);
 
     boolean success = chestType.set(worldEditor, pos);
@@ -66,7 +69,7 @@ public class TreasureChestEditor {
         level,
         tileEntityChest,
         seed,
-        new Inventory(random, tileEntityChest)
+        new Inventory(this.random, tileEntityChest)
     );
     getTreasureManager().add(treasureChest);
 

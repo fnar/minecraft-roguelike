@@ -35,7 +35,7 @@ public class SettingsResolverTest {
     RogueConfig.testing = true;
 
     settingsContainer = new SettingsContainer();
-    treasureManager = new TreasureManager();
+    treasureManager = new TreasureManager(new Random());
 
     settingsResolver = new SettingsResolver(settingsContainer);
   }

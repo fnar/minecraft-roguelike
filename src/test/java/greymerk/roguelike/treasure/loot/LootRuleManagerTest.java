@@ -25,7 +25,7 @@ public class LootRuleManagerTest {
   public void testAdd() {
     LootRuleManager manager = new LootRuleManager();
     manager.add(Treasure.STARTER, new WeightedChoice<>(new ItemStack(Items.SHEARS), 1), 0, true, 1);
-    TreasureManager treasure = new TreasureManager();
+    TreasureManager treasure = new TreasureManager(new Random());
 
     MockChest chest = new MockChest(Treasure.STARTER, 0);
     treasure.add(chest);
@@ -48,7 +48,7 @@ public class LootRuleManagerTest {
 
     base.add(other);
 
-    TreasureManager treasure = new TreasureManager();
+    TreasureManager treasure = new TreasureManager(new Random());
     MockChest chest = new MockChest(Treasure.STARTER, 0);
     treasure.add(chest);
 

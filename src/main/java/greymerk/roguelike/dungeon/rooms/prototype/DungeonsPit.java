@@ -71,7 +71,7 @@ public class DungeonsPit extends DungeonBase {
     spaces.add(new Coord(originX + 2, originY, originZ + 2));
 
     List<Coord> chestLocations = chooseRandomLocations(inRandom, 1, spaces);
-    editor.treasureChestEditor.createChests(inRandom, Dungeon.getLevel(originY), chestLocations, false, COMMON_TREASURES);
+    editor.treasureChestEditor.createChests(Dungeon.getLevel(originY), chestLocations, false, COMMON_TREASURES);
 
     return this;
   }
