@@ -71,7 +71,7 @@ public class TreasureChestEditor {
         seed,
         new Inventory(this.random, tileEntityChest)
     );
-    getTreasureManager().add(treasureChest);
+    getTreasureManager().addChest(treasureChest);
 
     return treasureChest;
   }

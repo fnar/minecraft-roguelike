@@ -20,16 +20,16 @@ public class TreasureManager {
     this.random = random;
   }
 
-  public void add(TreasureChest toAdd) {
+  public void addChest(TreasureChest toAdd) {
     this.chests.add(toAdd);
   }
 
   public void addItemToAll(Treasure type, int level, IWeighted<ItemStack> item, int amount) {
-    addItemToAll(this.getChests(type, level), item, amount);
+    addItemToAll(this.findChests(type, level), item, amount);
   }
 
   public void addItemToAll(int level, IWeighted<ItemStack> item, int amount) {
-    addItemToAll(this.getChests(level), item, amount);
+    addItemToAll(this.findChests(level), item, amount);
   }
 
   private void addItemToAll(List<TreasureChest> chests, IWeighted<ItemStack> item, int amount) {
@@ -40,15 +40,15 @@ public class TreasureManager {
   }
 
   public void addItem(int level, IWeighted<ItemStack> item, int amount) {
-    this.addItem(getChests(level), item, amount);
+    this.addItem(findChests(level), item, amount);
   }
 
   public void addItem(Treasure type, IWeighted<ItemStack> item, int amount) {
-    this.addItem(getChests(type), item, amount);
+    this.addItem(findChests(type), item, amount);
   }
 
   public void addItem(Treasure type, int level, IWeighted<ItemStack> item, int amount) {
-    this.addItem(getChests(type, level), item, amount);
+    this.addItem(findChests(type, level), item, amount);
   }
 
   private void addItem(List<TreasureChest> chests, IWeighted<ItemStack> item, int amount) {
@@ -61,27 +61,27 @@ public class TreasureManager {
         .forEach(chest -> chest.setRandomEmptySlot(item.get(this.random)));
   }
 
-  public List<TreasureChest> getChests(Treasure type, int level) {
+  public List<TreasureChest> findChests(Treasure type, int level) {
     return this.chests.stream()
         .filter(chest -> chest.isOnLevel(level))
         .filter(chest -> chest.isType(type))
         .collect(toList());
   }
 
-  public List<TreasureChest> getChests(Treasure type) {
+  public List<TreasureChest> findChests(Treasure type) {
     return this.chests.stream()
         .filter(chest -> chest.isType(type))
         .collect(toList());
   }
 
-  public List<TreasureChest> getChests(int level) {
+  public List<TreasureChest> findChests(int level) {
     return this.chests.stream()
         .filter(TreasureChest::isNotEmpty)
         .filter(chest -> chest.isOnLevel(level))
         .collect(toList());
   }
 
-  public List<TreasureChest> getChests() {
+  public List<TreasureChest> findChests() {
     return this.chests.stream()
         .filter(TreasureChest::isNotEmpty)
         .collect(toList());
