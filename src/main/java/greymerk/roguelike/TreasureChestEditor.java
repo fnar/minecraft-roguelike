@@ -21,11 +21,10 @@ import greymerk.roguelike.worldgen.WorldEditor;
 public class TreasureChestEditor {
 
   private WorldEditor worldEditor;
-  private TreasureManager treasureManager;
+  private TreasureManager treasureManager = new TreasureManager();
 
-  public TreasureChestEditor(WorldEditor worldEditor, TreasureManager treasureManager) {
+  public TreasureChestEditor(WorldEditor worldEditor) {
     this.worldEditor = worldEditor;
-    this.treasureManager = treasureManager;
   }
 
   public TreasureManager getTreasureManager() {
