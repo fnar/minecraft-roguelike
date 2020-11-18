@@ -21,6 +21,8 @@ import greymerk.roguelike.worldgen.blocks.Furnace;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
+import static greymerk.roguelike.treasure.Treasure.FOOD;
+
 
 public class DungeonMess extends DungeonBase {
 
@@ -150,7 +152,7 @@ public class DungeonMess extends DungeonBase {
     cursor.translate(entrances[0], 2);
     cursor.translate(Cardinal.UP);
 
-    editor.treasureChestEditor.createChest(rand, settings.getDifficulty(cursor), cursor, false);
+    editor.treasureChestEditor.createChest(rand, settings.getDifficulty(cursor), cursor, false, FOOD);
 
     cursor = new Coord(origin);
     cursor.translate(entrances[0], 5);
@@ -426,7 +428,7 @@ public class DungeonMess extends DungeonBase {
     cursor.translate(dir, 7);
     stair.setOrientation(dir.reverse(), true).set(editor, cursor);
     cursor.translate(Cardinal.UP);
-    editor.treasureChestEditor.createChest(rand, settings.getDifficulty(origin), cursor, false);
+    editor.treasureChestEditor.createChest(rand, settings.getDifficulty(origin), cursor, false, FOOD);
     cursor.translate(dir.antiClockwise());
     Furnace.generate(editor, dir, cursor);
     cursor.translate(dir.clockwise(), 2);

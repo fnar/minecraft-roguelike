@@ -24,6 +24,8 @@ import greymerk.roguelike.worldgen.redstone.Torch;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
+import static greymerk.roguelike.treasure.Treasure.STARTER;
+
 
 public class HouseTower implements ITower {
 
@@ -185,7 +187,7 @@ public class HouseTower implements ITower {
     cursor = new Coord(origin);
     cursor.translate(Cardinal.UP, 4);
     cursor.translate(orth[0], 8);
-    editor.treasureChestEditor.createChest(rand, 0, cursor, false);
+    editor.treasureChestEditor.createChest(rand, 0, cursor, false, STARTER);
     cursor.translate(dir.reverse());
     BlockType.get(BlockType.SHELF).set(editor, cursor);
     cursor.translate(Cardinal.UP);

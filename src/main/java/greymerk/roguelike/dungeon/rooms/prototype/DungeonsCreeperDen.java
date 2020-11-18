@@ -18,6 +18,8 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.MobType;
 import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
+import static greymerk.roguelike.treasure.Treasure.ORE;
+
 
 public class DungeonsCreeperDen extends DungeonBase {
 
@@ -72,7 +74,7 @@ public class DungeonsCreeperDen extends DungeonBase {
 
     List<Coord> chestSpaces = new RectSolid(start, end).get();
     chooseRandomLocations(random, 3, chestSpaces).stream()
-        .peek(chestSpace -> editor.treasureChestEditor.createChest(random, settings.getDifficulty(chestSpace), chestSpace, true))
+        .peek(chestSpace -> editor.treasureChestEditor.createChest(random, settings.getDifficulty(chestSpace), chestSpace, true, ORE))
         .forEach(chestSpace -> spawnTntBeneath(editor, chestSpace));
 
     final Coord cursor = new Coord(origin);

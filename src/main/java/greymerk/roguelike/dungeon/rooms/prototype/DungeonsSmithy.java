@@ -24,6 +24,9 @@ import greymerk.roguelike.worldgen.redstone.Hopper;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
+import static greymerk.roguelike.treasure.Treasure.EMPTY;
+import static greymerk.roguelike.treasure.Treasure.SMITH;
+
 
 public class DungeonsSmithy extends DungeonBase {
 
@@ -290,16 +293,16 @@ public class DungeonsSmithy extends DungeonBase {
   }
 
   private void smelter(WorldEditor editor, Random rand, Cardinal dir, Coord origin) {
-    editor.treasureChestEditor.createChest(rand, 1, origin, false);
+    editor.treasureChestEditor.createChest(rand, 1, origin, false, EMPTY);
 
     Coord cursor;
     cursor = new Coord(origin);
     cursor.translate(dir, 2);
     cursor.translate(Cardinal.UP, 2);
-    editor.treasureChestEditor.createChest(rand, 1, cursor, false);
+    editor.treasureChestEditor.createChest(rand, 1, cursor, false, EMPTY);
     cursor.translate(Cardinal.UP);
     cursor.translate(dir.reverse());
-    editor.treasureChestEditor.createChest(rand, 1, cursor, false);
+    editor.treasureChestEditor.createChest(rand, 1, cursor, false, EMPTY);
 
     cursor = new Coord(origin);
     cursor.translate(Cardinal.UP);
@@ -472,7 +475,7 @@ public class DungeonsSmithy extends DungeonBase {
     stair.setOrientation(dir.clockwise(), true);
     RectSolid.fill(editor, rand, start, end, stair);
     cursor.translate(Cardinal.UP);
-    editor.treasureChestEditor.createChest(rand, Dungeon.getLevel(cursor.getY()), cursor, false);
+    editor.treasureChestEditor.createChest(rand, Dungeon.getLevel(cursor.getY()), cursor, false, SMITH);
     cursor = new Coord(origin);
   }
 
