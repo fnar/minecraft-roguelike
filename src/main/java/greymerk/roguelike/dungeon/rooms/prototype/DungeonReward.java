@@ -183,7 +183,7 @@ public class DungeonReward extends DungeonBase {
 
     cursor = new Coord(x, y, z);
     cursor.translate(Cardinal.UP);
-    editor.treasureChestEditor.createChest(rand, settings.getDifficulty(cursor), cursor, false, REWARD);
+    editor.treasureChestEditor.createChest(settings.getDifficulty(cursor), cursor, false, REWARD);
     return this;
   }
 

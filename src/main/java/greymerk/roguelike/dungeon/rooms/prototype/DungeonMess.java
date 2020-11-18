@@ -115,7 +115,7 @@ public class DungeonMess extends DungeonBase {
       case 2:
         fireplace(editor, rand, settings, nonDoors.get(1), origin);
       case 1:
-        supplies(editor, rand, settings, nonDoors.get(0), origin);
+        supplies(editor, settings, nonDoors.get(0), origin);
       default:
     }
 
@@ -152,7 +152,7 @@ public class DungeonMess extends DungeonBase {
     cursor.translate(entrances[0], 2);
     cursor.translate(Cardinal.UP);
 
-    editor.treasureChestEditor.createChest(rand, settings.getDifficulty(cursor), cursor, false, FOOD);
+    editor.treasureChestEditor.createChest(settings.getDifficulty(cursor), cursor, false, FOOD);
 
     cursor = new Coord(origin);
     cursor.translate(entrances[0], 5);
@@ -418,7 +418,7 @@ public class DungeonMess extends DungeonBase {
     }
   }
 
-  private void supplies(WorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord origin) {
+  private void supplies(WorldEditor editor, LevelSettings settings, Cardinal dir, Coord origin) {
     ITheme theme = settings.getTheme();
     IStair stair = theme.getPrimary().getStair();
     Coord cursor;
@@ -428,7 +428,7 @@ public class DungeonMess extends DungeonBase {
     cursor.translate(dir, 7);
     stair.setOrientation(dir.reverse(), true).set(editor, cursor);
     cursor.translate(Cardinal.UP);
-    editor.treasureChestEditor.createChest(rand, settings.getDifficulty(origin), cursor, false, FOOD);
+    editor.treasureChestEditor.createChest(settings.getDifficulty(origin), cursor, false, FOOD);
     cursor.translate(dir.antiClockwise());
     Furnace.generate(editor, dir, cursor);
     cursor.translate(dir.clockwise(), 2);

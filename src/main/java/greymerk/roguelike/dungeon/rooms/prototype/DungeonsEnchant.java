@@ -301,7 +301,7 @@ public class DungeonsEnchant extends DungeonBase {
     BlockType.get(BlockType.ENCHANTING_TABLE).set(editor, cursor);
 
     List<Coord> chestLocations = chooseRandomLocations(rand, 1, chests);
-    editor.treasureChestEditor.createChests(rand, settings.getDifficulty(origin), chestLocations, false, ENCHANTING);
+    editor.treasureChestEditor.createChests(settings.getDifficulty(origin), chestLocations, false, ENCHANTING);
 
     return this;
   }

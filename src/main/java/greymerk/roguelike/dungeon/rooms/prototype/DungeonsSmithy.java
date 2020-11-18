@@ -283,7 +283,7 @@ public class DungeonsSmithy extends DungeonBase {
       cursor = new Coord(origin);
       cursor.translate(dir, 3);
       cursor.translate(o);
-      smelter(editor, rand, dir, cursor);
+      smelter(editor, dir, cursor);
 
       cursor.translate(o, 2);
       wall.set(editor, rand, cursor);
@@ -292,17 +292,17 @@ public class DungeonsSmithy extends DungeonBase {
     }
   }
 
-  private void smelter(WorldEditor editor, Random rand, Cardinal dir, Coord origin) {
-    editor.treasureChestEditor.createChest(rand, 1, origin, false, EMPTY);
+  private void smelter(WorldEditor editor, Cardinal dir, Coord origin) {
+    editor.treasureChestEditor.createChest(1, origin, false, EMPTY);
 
     Coord cursor;
     cursor = new Coord(origin);
     cursor.translate(dir, 2);
     cursor.translate(Cardinal.UP, 2);
-    editor.treasureChestEditor.createChest(rand, 1, cursor, false, EMPTY);
+    editor.treasureChestEditor.createChest(1, cursor, false, EMPTY);
     cursor.translate(Cardinal.UP);
     cursor.translate(dir.reverse());
-    editor.treasureChestEditor.createChest(rand, 1, cursor, false, EMPTY);
+    editor.treasureChestEditor.createChest(1, cursor, false, EMPTY);
 
     cursor = new Coord(origin);
     cursor.translate(Cardinal.UP);
@@ -475,7 +475,7 @@ public class DungeonsSmithy extends DungeonBase {
     stair.setOrientation(dir.clockwise(), true);
     RectSolid.fill(editor, rand, start, end, stair);
     cursor.translate(Cardinal.UP);
-    editor.treasureChestEditor.createChest(rand, Dungeon.getLevel(cursor.getY()), cursor, false, SMITH);
+    editor.treasureChestEditor.createChest(Dungeon.getLevel(cursor.getY()), cursor, false, SMITH);
     cursor = new Coord(origin);
   }
 

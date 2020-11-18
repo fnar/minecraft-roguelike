@@ -10,7 +10,6 @@ import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
-import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -149,7 +148,7 @@ public class DungeonBedRoom extends DungeonBase {
     cursor.translate(dir);
     cursor.translate(side, 3);
 
-    editor.treasureChestEditor.createChest(rand, Dungeon.getLevel(cursor.getY()), cursor.add(Cardinal.UP), false, STARTER);
+    editor.treasureChestEditor.createChest(Dungeon.getLevel(cursor.getY()), cursor.add(Cardinal.UP), false, STARTER);
 
     cursor.translate(side.reverse(), 6);
     if (rand.nextBoolean()) {

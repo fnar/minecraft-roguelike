@@ -269,7 +269,7 @@ public class DungeonLab extends DungeonBase {
       BrewingStand.generate(editor, bs);
       BrewingStand.add(editor, bs, BrewingStand.FUEL, new ItemStack(Items.BLAZE_POWDER));
     }
-    editor.treasureChestEditor.createChest(rand, Dungeon.getLevel(y), new Coord(x, y + 1, z + 4), false, BREWING);
+    editor.treasureChestEditor.createChest(Dungeon.getLevel(y), new Coord(x, y + 1, z + 4), false, BREWING);
   }
 
   public int getSize() {

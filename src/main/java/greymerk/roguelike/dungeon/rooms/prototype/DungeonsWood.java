@@ -70,7 +70,7 @@ public class DungeonsWood extends DungeonBase {
     spaces.add(new Coord(x + WIDTH, y, z + LENGTH - 1));
 
     List<Coord> chestLocations = chooseRandomLocations(rand, 1, spaces);
-    editor.treasureChestEditor.createChests(rand, Dungeon.getLevel(y), chestLocations, false, FOOD);
+    editor.treasureChestEditor.createChests(Dungeon.getLevel(y), chestLocations, false, FOOD);
     return this;
   }
 

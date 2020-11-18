@@ -2,8 +2,6 @@ package greymerk.roguelike.treasure.loot;
 
 import net.minecraft.item.ItemStack;
 
-import java.util.Random;
-
 import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.treasure.TreasureManager;
 import greymerk.roguelike.util.IWeighted;
@@ -25,18 +23,18 @@ public class LootRule {
   }
 
 
-  public void process(Random rand, TreasureManager treasureManager) {
+  public void process(TreasureManager treasureManager) {
     if (toEach && treasureType != null) {
-      treasureManager.addItemToAll(rand, treasureType, level, item, amount);
+      treasureManager.addItemToAll(treasureType, level, item, amount);
     }
     if (toEach && treasureType == null) {
-      treasureManager.addItemToAll(rand, level, item, amount);
+      treasureManager.addItemToAll(level, item, amount);
     }
     if (!toEach && treasureType != null) {
-      treasureManager.addItem(rand, treasureType, level, item, amount);
+      treasureManager.addItem(treasureType, level, item, amount);
     }
     if (!toEach && treasureType == null) {
-      treasureManager.addItem(rand, level, item, amount);
+      treasureManager.addItem(level, item, amount);
     }
   }
 

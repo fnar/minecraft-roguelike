@@ -118,7 +118,7 @@ public class DungeonPyramidSpawner extends DungeonBase {
     }
 
     List<Coord> chestLocations = chooseRandomLocations(rand, 1, space);
-    editor.treasureChestEditor.createChests(rand, Dungeon.getLevel(origin.getY()), chestLocations, false, COMMON_TREASURES);
+    editor.treasureChestEditor.createChests(Dungeon.getLevel(origin.getY()), chestLocations, false, COMMON_TREASURES);
     final Coord cursor1 = new Coord(x, y, z);
     SpawnerSettings spawners = settings.getSpawners();
     generateSpawner(editor, rand, cursor1, settings.getDifficulty(cursor1), spawners, COMMON_MOBS);
