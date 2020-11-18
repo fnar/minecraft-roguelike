@@ -36,7 +36,7 @@ public class DungeonTaskLayout implements IDungeonTask {
       }
 
       LevelLayout layout = generator.getLayout();
-      random = editor.getRandom(start);
+      random = editor.getRandom();
       start = new Coord(layout.getEnd().getPosition());
       start.translate(Cardinal.DOWN, Dungeon.VERTICAL_SPACING);
     }

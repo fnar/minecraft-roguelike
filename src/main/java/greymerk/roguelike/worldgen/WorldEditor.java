@@ -41,9 +41,12 @@ public class WorldEditor {
     invalid.add(Material.PLANTS);
   }
 
+  private Random random;
+
   public WorldEditor(World world) {
     this.world = world;
     treasureChestEditor = new TreasureChestEditor(this);
+    random = new Random(Objects.hash(getSeed()));
   }
 
   public boolean isNonSolidBlock(Coord coord) {
@@ -51,8 +54,8 @@ public class WorldEditor {
     return !getBlock(cursor).getMaterial().isSolid();
   }
 
-  public Random getRandom(Coord pos) {
-    return new Random(Objects.hash(getSeed(), pos));
+  public Random getRandom() {
+    return random;
   }
 
   private boolean setBlock(Coord pos, MetaBlock block, int flags, boolean fillAir, boolean replaceSolid) {
