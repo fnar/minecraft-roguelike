@@ -108,7 +108,7 @@ public class DungeonSettingsTest {
 
     TreasureManager treasure = new TreasureManager(new Random());
     MockChest chest = new MockChest(Treasure.STARTER, 0);
-    treasure.add(chest);
+    treasure.addChest(chest);
 
     rules.process(new Random(), treasure);
 
@@ -131,7 +131,7 @@ public class DungeonSettingsTest {
 
     TreasureManager treasure = new TreasureManager(new Random());
     MockChest chest = new MockChest(Treasure.STARTER, 0);
-    treasure.add(chest);
+    treasure.addChest(chest);
 
     rules.process(new Random(), treasure);
 

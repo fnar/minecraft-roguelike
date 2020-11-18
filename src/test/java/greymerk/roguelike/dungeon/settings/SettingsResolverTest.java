@@ -56,7 +56,7 @@ public class SettingsResolverTest {
     DungeonSettings assembled = settingsResolver.processInheritance(main);
 
     MockChest chest = new MockChest(REWARD, 0);
-    treasureManager.add(chest);
+    treasureManager.addChest(chest);
 
     assertEquals(0, chest.count(stick));
     assembled.getLootRules().process(new Random(), treasureManager);
@@ -83,7 +83,7 @@ public class SettingsResolverTest {
     DungeonSettings assembled = settingsResolver.processInheritance(main);
 
     MockChest chest = new MockChest(REWARD, 0);
-    treasureManager.add(chest);
+    treasureManager.addChest(chest);
 
     assertEquals(0, chest.count(stick));
     assertEquals(0, chest.count(diamond));
@@ -119,7 +119,7 @@ public class SettingsResolverTest {
     DungeonSettings assembled = settingsResolver.processInheritance(main);
 
     MockChest chest = new MockChest(REWARD, 0);
-    treasureManager.add(chest);
+    treasureManager.addChest(chest);
 
     assertEquals(0, chest.count(stick));
     assertEquals(0, chest.count(coal));
@@ -150,7 +150,7 @@ public class SettingsResolverTest {
     DungeonSettings actual = settingsResolver.processInheritance(child);
 
     MockChest chest = new MockChest(REWARD, 0);
-    treasureManager.add(chest);
+    treasureManager.addChest(chest);
     actual.getLootRules().process(new Random(), treasureManager);
 
     assertEquals(1, chest.count(coal));
@@ -178,7 +178,7 @@ public class SettingsResolverTest {
     assertThat(actual.getLootTables()).contains(rewardDungeonLootTable);
 
     MockChest chest = new MockChest(REWARD, 0);
-    treasureManager.add(chest);
+    treasureManager.addChest(chest);
     actual.getLootRules().process(new Random(), treasureManager);
 
     assertEquals(1, chest.count(coal));

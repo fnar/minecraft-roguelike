@@ -28,7 +28,7 @@ public class LootRuleManagerTest {
     TreasureManager treasure = new TreasureManager(new Random());
 
     MockChest chest = new MockChest(Treasure.STARTER, 0);
-    treasure.add(chest);
+    treasure.addChest(chest);
 
     manager.process(new Random(), treasure);
 
@@ -50,7 +50,7 @@ public class LootRuleManagerTest {
 
     TreasureManager treasure = new TreasureManager(new Random());
     MockChest chest = new MockChest(Treasure.STARTER, 0);
-    treasure.add(chest);
+    treasure.addChest(chest);
 
     base.process(new Random(), treasure);
 

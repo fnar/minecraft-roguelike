@@ -118,7 +118,7 @@ public class LootTableRule {
   }
 
   private List<TreasureChest> getMatching(TreasureManager treasure) {
-    return treasure.getChests().stream()
+    return treasure.findChests().stream()
         .filter(chest -> levels.isEmpty() || levels.contains(chest.getLevel()))
         .filter(chest -> treasureTypes.isEmpty() || treasureTypes.contains(chest.getType()))
         .collect(toList());

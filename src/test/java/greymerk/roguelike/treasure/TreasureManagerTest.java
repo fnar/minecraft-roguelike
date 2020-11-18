@@ -29,7 +29,7 @@ public class TreasureManagerTest {
 
     TreasureManager treasure = new TreasureManager(new Random());
     MockChest toAdd = new MockChest(Treasure.ARMOUR, 0);
-    treasure.add(toAdd);
+    treasure.addChest(toAdd);
     treasure.addItem(Treasure.ARMOUR, 0, loot, 1);
 
     treasure.addItem(Treasure.ARMOUR, 1, loot, 1);
