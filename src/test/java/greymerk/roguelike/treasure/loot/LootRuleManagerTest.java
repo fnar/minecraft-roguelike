@@ -30,7 +30,7 @@ public class LootRuleManagerTest {
     MockChest chest = new MockChest(Treasure.STARTER, 0);
     treasure.addChest(chest);
 
-    manager.process(new Random(), treasure);
+    manager.process(treasure);
 
     assert (!chest.contains(new ItemStack(Items.APPLE)));
     assert (chest.contains(new ItemStack(Items.SHEARS)));
@@ -52,7 +52,7 @@ public class LootRuleManagerTest {
     MockChest chest = new MockChest(Treasure.STARTER, 0);
     treasure.addChest(chest);
 
-    base.process(new Random(), treasure);
+    base.process(treasure);
 
     assert (chest.contains(new ItemStack(Items.APPLE)));
     assert (chest.contains(new ItemStack(Items.SHEARS)));

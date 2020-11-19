@@ -110,7 +110,7 @@ public class DungeonSettingsTest {
     MockChest chest = new MockChest(Treasure.STARTER, 0);
     treasure.addChest(chest);
 
-    rules.process(new Random(), treasure);
+    rules.process(treasure);
 
     assert (chest.contains(new ItemStack(Items.APPLE)));
     assert (chest.contains(new ItemStack(Items.SHEARS)));
@@ -133,7 +133,7 @@ public class DungeonSettingsTest {
     MockChest chest = new MockChest(Treasure.STARTER, 0);
     treasure.addChest(chest);
 
-    rules.process(new Random(), treasure);
+    rules.process(treasure);
 
     assert (!chest.contains(new ItemStack(Items.SHEARS)));
     assert (chest.contains(new ItemStack(Items.APPLE)));

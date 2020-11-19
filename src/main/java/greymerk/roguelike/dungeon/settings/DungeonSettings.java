@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.Set;
 import java.util.stream.IntStream;
 
@@ -162,8 +161,8 @@ public class DungeonSettings {
     return exclusive;
   }
 
-  public void processLoot(Random rand, TreasureManager treasure) {
-    getLootRules().process(rand, treasure);
+  public void processLoot(TreasureManager treasure) {
+    getLootRules().process(treasure);
     getLootTables().forEach(table -> table.process(treasure));
   }
 

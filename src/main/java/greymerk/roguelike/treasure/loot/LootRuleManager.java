@@ -91,7 +91,7 @@ public class LootRuleManager {
     this.rules.addAll(other.rules);
   }
 
-  public void process(Random rand, TreasureManager treasure) {
+  public void process(TreasureManager treasure) {
     this.rules.forEach(rule -> rule.process(treasure));
   }
 
