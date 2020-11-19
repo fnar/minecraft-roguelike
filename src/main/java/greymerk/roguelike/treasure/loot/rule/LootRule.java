@@ -2,7 +2,7 @@ package greymerk.roguelike.treasure.loot.rule;
 
 import greymerk.roguelike.treasure.TreasureManager;
 
-public interface ILootRule {
+public interface LootRule {
   void process(TreasureManager treasureManager);
 
 }

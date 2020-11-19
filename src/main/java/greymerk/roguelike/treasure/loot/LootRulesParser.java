@@ -11,7 +11,7 @@ import java.util.List;
 
 import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.treasure.loot.rule.ForEachLootRule;
-import greymerk.roguelike.treasure.loot.rule.ILootRule;
+import greymerk.roguelike.treasure.loot.rule.LootRule;
 import greymerk.roguelike.treasure.loot.rule.SingleUseLootRule;
 import greymerk.roguelike.treasure.loot.rule.TypedForEachLootRule;
 import greymerk.roguelike.treasure.loot.rule.TypedSingleUseLootRule;
@@ -20,8 +20,8 @@ import greymerk.roguelike.util.WeightedRandomizer;
 
 public class LootRulesParser {
 
-  public List<ILootRule> parseLootRules(JsonElement jsonElement) throws Exception {
-    List<ILootRule> lootRules = new ArrayList<>();
+  public List<LootRule> parseLootRules(JsonElement jsonElement) throws Exception {
+    List<LootRule> lootRules = new ArrayList<>();
     for (JsonElement ruleElement : jsonElement.getAsJsonArray()) {
       if (ruleElement.isJsonNull()) {
         continue;
@@ -67,7 +67,7 @@ public class LootRulesParser {
     return lootRules;
   }
 
-  private ILootRule newLootRule(Treasure type, WeightedRandomizer<ItemStack> items, boolean each, int amount, int level) {
+  private LootRule newLootRule(Treasure type, WeightedRandomizer<ItemStack> items, boolean each, int amount, int level) {
     if (each && type != null) {
       return new TypedForEachLootRule(type, items, level, amount);
     } else if (each) {
