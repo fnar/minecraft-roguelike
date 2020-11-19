@@ -1,4 +1,4 @@
-package greymerk.roguelike.treasure.loot;
+package greymerk.roguelike.treasure.loot.rule;
 
 import net.minecraft.item.ItemStack;
 

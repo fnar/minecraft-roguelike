@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import greymerk.roguelike.treasure.TreasureManager;
+import greymerk.roguelike.treasure.loot.rule.LootRule;
 
 public class LootRuleManager {
 

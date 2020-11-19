@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import greymerk.roguelike.treasure.Treasure;
+import greymerk.roguelike.treasure.loot.rule.LootRule;
 import greymerk.roguelike.util.IWeighted;
 import greymerk.roguelike.util.WeightedRandomizer;
 

@@ -10,7 +10,7 @@ import java.util.Random;
 
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.treasure.TreasureManager;
-import greymerk.roguelike.treasure.loot.LootRule;
+import greymerk.roguelike.treasure.loot.rule.LootRule;
 import greymerk.roguelike.treasure.loot.LootTableRule;
 import greymerk.roguelike.util.WeightedChoice;
 import greymerk.roguelike.worldgen.blocks.BlockType;

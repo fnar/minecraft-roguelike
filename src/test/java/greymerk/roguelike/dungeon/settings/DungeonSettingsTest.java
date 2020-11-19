@@ -18,7 +18,7 @@ import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.treasure.MockChest;
 import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.treasure.TreasureManager;
-import greymerk.roguelike.treasure.loot.LootRule;
+import greymerk.roguelike.treasure.loot.rule.LootRule;
 import greymerk.roguelike.treasure.loot.LootRuleManager;
 import greymerk.roguelike.util.WeightedChoice;
 import greymerk.roguelike.worldgen.IBlockFactory;
