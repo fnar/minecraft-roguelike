@@ -12,6 +12,7 @@ import java.util.Random;
 import greymerk.roguelike.treasure.MockChest;
 import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.treasure.TreasureManager;
+import greymerk.roguelike.treasure.loot.rule.LootRule;
 import greymerk.roguelike.util.WeightedChoice;
 
 public class LootRuleManagerTest {

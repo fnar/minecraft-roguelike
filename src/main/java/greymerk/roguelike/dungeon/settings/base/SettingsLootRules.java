@@ -11,7 +11,7 @@ import greymerk.roguelike.treasure.loot.Book;
 import greymerk.roguelike.treasure.loot.Equipment;
 import greymerk.roguelike.treasure.loot.ILoot;
 import greymerk.roguelike.treasure.loot.Loot;
-import greymerk.roguelike.treasure.loot.LootRule;
+import greymerk.roguelike.treasure.loot.rule.LootRule;
 import greymerk.roguelike.treasure.loot.LootRuleManager;
 import greymerk.roguelike.treasure.loot.LootTableRule;
 import greymerk.roguelike.treasure.loot.Quality;
