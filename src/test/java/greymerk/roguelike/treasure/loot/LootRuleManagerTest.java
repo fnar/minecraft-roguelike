@@ -24,7 +24,7 @@ public class LootRuleManagerTest {
   @Test
   public void testAdd() {
     LootRuleManager manager = new LootRuleManager();
-    manager.add(Treasure.STARTER, new WeightedChoice<>(new ItemStack(Items.SHEARS), 1), 0, true, 1);
+    manager.add(new LootRule(Treasure.STARTER, new WeightedChoice<>(new ItemStack(Items.SHEARS), 1), 0, true, 1));
     TreasureManager treasure = new TreasureManager(new Random());
 
     MockChest chest = new MockChest(Treasure.STARTER, 0);
@@ -41,10 +41,10 @@ public class LootRuleManagerTest {
   public void testMerge() {
 
     LootRuleManager base = new LootRuleManager();
-    base.add(Treasure.STARTER, new WeightedChoice<>(new ItemStack(Items.SHEARS), 1), 0, true, 1);
+    base.add(new LootRule(Treasure.STARTER, new WeightedChoice<>(new ItemStack(Items.SHEARS), 1), 0, true, 1));
 
     LootRuleManager other = new LootRuleManager();
-    other.add(Treasure.STARTER, new WeightedChoice<>(new ItemStack(Items.APPLE), 1), 0, true, 1);
+    other.add(new LootRule(Treasure.STARTER, new WeightedChoice<>(new ItemStack(Items.APPLE), 1), 0, true, 1));
 
     base.merge(other);
 

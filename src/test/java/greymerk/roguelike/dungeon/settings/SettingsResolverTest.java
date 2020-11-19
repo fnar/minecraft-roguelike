@@ -10,6 +10,7 @@ import java.util.Random;
 
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.treasure.TreasureManager;
+import greymerk.roguelike.treasure.loot.LootRule;
 import greymerk.roguelike.treasure.loot.LootTableRule;
 import greymerk.roguelike.util.WeightedChoice;
 import greymerk.roguelike.worldgen.blocks.BlockType;
@@ -51,7 +52,7 @@ public class SettingsResolverTest {
 
     ItemStack stick = new ItemStack(STICK);
 
-    toInherit.getLootRules().add(REWARD, new WeightedChoice<>(stick, 1), 0, true, 1);
+    toInherit.getLootRules().add(new LootRule(REWARD, new WeightedChoice<>(stick, 1), 0, true, 1));
 
     DungeonSettings assembled = settingsResolver.processInheritance(main);
 
@@ -77,8 +78,8 @@ public class SettingsResolverTest {
     ItemStack stick = new ItemStack(STICK);
     ItemStack diamond = new ItemStack(DIAMOND);
 
-    child.getLootRules().add(REWARD, stick);
-    grandchild.getLootRules().add(REWARD, diamond);
+    child.getLootRules().add(new LootRule(REWARD, new WeightedChoice<>(stick, 1), 0, true, 1));
+    grandchild.getLootRules().add(new LootRule(REWARD, new WeightedChoice<>(diamond, 1), 0, true, 1));
 
     DungeonSettings assembled = settingsResolver.processInheritance(main);
 
@@ -112,9 +113,9 @@ public class SettingsResolverTest {
     ItemStack coal = new ItemStack(COAL);
     ItemStack diamond = new ItemStack(DIAMOND);
 
-    child.getLootRules().add(REWARD, stick);
-    sibling.getLootRules().add(REWARD, coal);
-    grandchild.getLootRules().add(REWARD, diamond);
+    child.getLootRules().add(new LootRule(REWARD, new WeightedChoice<>(stick, 1), 0, true, 1));
+    sibling.getLootRules().add(new LootRule(REWARD, new WeightedChoice<>(coal, 1), 0, true, 1));
+    grandchild.getLootRules().add(new LootRule(REWARD, new WeightedChoice<>(diamond, 1), 0, true, 1));
 
     DungeonSettings assembled = settingsResolver.processInheritance(main);
 
@@ -139,11 +140,11 @@ public class SettingsResolverTest {
     ItemStack coal = new ItemStack(COAL);
 
     DungeonSettings parent = new DungeonSettings("parent");
-    parent.getLootRules().add(REWARD, stick);
+    parent.getLootRules().add(new LootRule(REWARD, new WeightedChoice<>(stick, 1), 0, true, 1));
     settingsContainer.put(parent);
 
     DungeonSettings child = new DungeonSettings("child");
-    child.getLootRules().add(REWARD, coal);
+    child.getLootRules().add(new LootRule(REWARD, new WeightedChoice<>(coal, 1), 0, true, 1));
     child.getInherits().add(parent.getId());
     settingsContainer.put(child);
 
@@ -165,11 +166,11 @@ public class SettingsResolverTest {
     DungeonSettings parent = new DungeonSettings("parent");
     LootTableRule rewardDungeonLootTable = newLootTableRule(0, "minecraft:dungeon", REWARD);
     parent.getLootTables().add(rewardDungeonLootTable);
-    parent.getLootRules().add(REWARD, stick);
+    parent.getLootRules().add(new LootRule(REWARD, new WeightedChoice<>(stick, 1), 0, true, 1));
     settingsContainer.put(parent);
 
     DungeonSettings child = new DungeonSettings("child");
-    child.getLootRules().add(REWARD, coal);
+    child.getLootRules().add(new LootRule(REWARD, new WeightedChoice<>(coal, 1), 0, true, 1));
     child.getInherits().add(parent.getId());
     settingsContainer.put(child);
 
