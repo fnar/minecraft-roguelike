@@ -1,15 +1,18 @@
 package greymerk.roguelike.treasure;
 
+import com.google.common.base.Predicates;
+
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Predicate;
 import java.util.stream.IntStream;
 
 import greymerk.roguelike.util.IWeighted;
 
-import static java.util.stream.Collectors.*;
+import static java.util.stream.Collectors.toList;
 
 public class TreasureManager {
 
@@ -25,11 +28,11 @@ public class TreasureManager {
   }
 
   public void addItemToAll(Treasure type, int level, IWeighted<ItemStack> item, int amount) {
-    addItemToAll(this.findChests(type, level), item, amount);
+    addItemToAll(this.findChests(ofTypeOnLevel(type, level)), item, amount);
   }
 
   public void addItemToAll(int level, IWeighted<ItemStack> item, int amount) {
-    addItemToAll(this.findChests(level), item, amount);
+    addItemToAll(findChests(onLevel(level)), item, amount);
   }
 
   private void addItemToAll(List<TreasureChest> chests, IWeighted<ItemStack> item, int amount) {
@@ -40,15 +43,15 @@ public class TreasureManager {
   }
 
   public void addItem(int level, IWeighted<ItemStack> item, int amount) {
-    this.addItem(findChests(level), item, amount);
+    this.addItem(findChests(onLevel(level)), item, amount);
   }
 
   public void addItem(Treasure type, IWeighted<ItemStack> item, int amount) {
-    this.addItem(findChests(type), item, amount);
+    this.addItem(findChests(ofType(type)), item, amount);
   }
 
   public void addItem(Treasure type, int level, IWeighted<ItemStack> item, int amount) {
-    this.addItem(findChests(type, level), item, amount);
+    this.addItem(findChests(ofTypeOnLevel(type, level)), item, amount);
   }
 
   private void addItem(List<TreasureChest> chests, IWeighted<ItemStack> item, int amount) {
@@ -61,29 +64,25 @@ public class TreasureManager {
         .forEach(chest -> chest.setRandomEmptySlot(item.get(this.random)));
   }
 
-  public List<TreasureChest> findChests(Treasure type, int level) {
+  public List<TreasureChest> findChests(Predicate<TreasureChest> predicate) {
     return this.chests.stream()
-        .filter(chest -> chest.isOnLevel(level))
-        .filter(chest -> chest.isType(type))
+        .filter(predicate)
         .collect(toList());
   }
 
-  private List<TreasureChest> findChests(Treasure type) {
-    return this.chests.stream()
-        .filter(chest -> chest.isType(type))
-        .collect(toList());
+  public Predicate<TreasureChest> ofType(Treasure type) {
+    return chest -> chest.isType(type);
   }
 
-  private List<TreasureChest> findChests(int level) {
-    return this.chests.stream()
-        .filter(TreasureChest::isNotEmpty)
-        .filter(chest -> chest.isOnLevel(level))
-        .collect(toList());
+  public Predicate<TreasureChest> ofTypeOnLevel(Treasure type, int level) {
+    return Predicates.and(
+        chest -> chest.isOnLevel(level),
+        chest -> chest.isType(type));
   }
 
-  public List<TreasureChest> findChests() {
-    return this.chests.stream()
-        .filter(TreasureChest::isNotEmpty)
-        .collect(toList());
+  public Predicate<TreasureChest> onLevel(int level) {
+    return Predicates.and(
+        TreasureChest::isNotEmpty,
+        chest -> chest.isOnLevel(level));
   }
 }
