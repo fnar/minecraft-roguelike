@@ -18,8 +18,8 @@ import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.treasure.MockChest;
 import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.treasure.TreasureManager;
-import greymerk.roguelike.treasure.loot.rule.LootRule;
 import greymerk.roguelike.treasure.loot.LootRuleManager;
+import greymerk.roguelike.treasure.loot.rule.TypedForEachLootRule;
 import greymerk.roguelike.util.WeightedChoice;
 import greymerk.roguelike.worldgen.IBlockFactory;
 import greymerk.roguelike.worldgen.blocks.BlockType;
@@ -99,10 +99,10 @@ public class DungeonSettingsTest {
   @Test
   public void testLootSettingsMerge() {
     DungeonSettings base = new DungeonSettings();
-    base.getLootRules().add(new LootRule(Treasure.STARTER, new WeightedChoice<>(new ItemStack(Items.SHEARS), 1), 0, true, 1));
+    base.getLootRules().add(new TypedForEachLootRule(Treasure.STARTER, new WeightedChoice<>(new ItemStack(Items.SHEARS), 1), 0, 1));
 
     DungeonSettings other = new DungeonSettings();
-    other.getLootRules().add(new LootRule(Treasure.STARTER, new WeightedChoice<>(new ItemStack(Items.APPLE), 1), 0, true, 1));
+    other.getLootRules().add(new TypedForEachLootRule(Treasure.STARTER, new WeightedChoice<>(new ItemStack(Items.APPLE), 1), 0, 1));
 
     DungeonSettings merge = new DungeonSettings(base, other);
     LootRuleManager rules = merge.getLootRules();
@@ -121,11 +121,11 @@ public class DungeonSettingsTest {
   @Test
   public void testLootSettingsOverride() {
     DungeonSettings base = new DungeonSettings();
-    base.getLootRules().add(new LootRule(Treasure.STARTER, new WeightedChoice<>(new ItemStack(Items.SHEARS), 1), 0, true, 1));
+    base.getLootRules().add(new TypedForEachLootRule(Treasure.STARTER, new WeightedChoice<>(new ItemStack(Items.SHEARS), 1), 0, 1));
 
     DungeonSettings other = new DungeonSettings();
     other.getOverrides().add(SettingsType.LOOTRULES);
-    other.getLootRules().add(new LootRule(Treasure.STARTER, new WeightedChoice<>(new ItemStack(Items.APPLE), 1), 0, true, 1));
+    other.getLootRules().add(new TypedForEachLootRule(Treasure.STARTER, new WeightedChoice<>(new ItemStack(Items.APPLE), 1), 0, 1));
 
     DungeonSettings merge = new DungeonSettings(base, other);
     LootRuleManager rules = merge.getLootRules();

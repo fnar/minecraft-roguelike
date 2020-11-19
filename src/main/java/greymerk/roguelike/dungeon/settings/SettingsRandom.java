@@ -14,11 +14,13 @@ import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.treasure.loot.Equipment;
 import greymerk.roguelike.treasure.loot.ILoot;
 import greymerk.roguelike.treasure.loot.Loot;
-import greymerk.roguelike.treasure.loot.rule.LootRule;
+import greymerk.roguelike.treasure.loot.rule.ForEachLootRule;
+import greymerk.roguelike.treasure.loot.rule.SingleUseLootRule;
 import greymerk.roguelike.treasure.loot.LootRuleManager;
 import greymerk.roguelike.treasure.loot.Quality;
 import greymerk.roguelike.treasure.loot.provider.ItemEnchBook;
 import greymerk.roguelike.treasure.loot.provider.ItemSpecialty;
+import greymerk.roguelike.treasure.loot.rule.TypedForEachLootRule;
 
 import static greymerk.roguelike.theme.Theme.randomTheme;
 
@@ -37,36 +39,36 @@ public class SettingsRandom extends DungeonSettings {
 
     setLootRules(new LootRuleManager());
     ILoot loot = Loot.getLoot();
-    getLootRules().add(new LootRule(Treasure.STARTER, loot.get(Loot.WEAPON, 0), 0, true, 2));
-    getLootRules().add(new LootRule(Treasure.STARTER, loot.get(Loot.FOOD, 0), 0, true, 2));
-    getLootRules().add(new LootRule(Treasure.STARTER, loot.get(Loot.TOOL, 0), 0, true, 2));
-    getLootRules().add(new LootRule(Treasure.STARTER, loot.get(Loot.SUPPLY, 0), 0, true, 2));
-    getLootRules().add(new LootRule(Treasure.STARTER, new ItemSpecialty(0, 0, Equipment.LEGS, Quality.WOOD), 0, true, 2));
+    getLootRules().add(new TypedForEachLootRule(Treasure.STARTER, loot.get(Loot.WEAPON, 0), 0, 2));
+    getLootRules().add(new TypedForEachLootRule(Treasure.STARTER, loot.get(Loot.FOOD, 0), 0, 2));
+    getLootRules().add(new TypedForEachLootRule(Treasure.STARTER, loot.get(Loot.TOOL, 0), 0, 2));
+    getLootRules().add(new TypedForEachLootRule(Treasure.STARTER, loot.get(Loot.SUPPLY, 0), 0, 2));
+    getLootRules().add(new TypedForEachLootRule(Treasure.STARTER, new ItemSpecialty(0, 0, Equipment.LEGS, Quality.WOOD), 0, 2));
     for (int i = 0; i < 5; ++i) {
-      getLootRules().add(new LootRule(Treasure.ARMOUR, loot.get(Loot.POTION, i), i, true, 1));
-      getLootRules().add(new LootRule(Treasure.ARMOUR, loot.get(Loot.ARMOUR, i), i, true, 1));
-      getLootRules().add(new LootRule(Treasure.ARMOUR, loot.get(Loot.FOOD, i), i, true, 1));
-      getLootRules().add(new LootRule(Treasure.WEAPONS, loot.get(Loot.POTION, i), i, true, 1));
-      getLootRules().add(new LootRule(Treasure.WEAPONS, loot.get(Loot.WEAPON, i), i, true, 1));
-      getLootRules().add(new LootRule(Treasure.WEAPONS, loot.get(Loot.FOOD, i), i, true, 1));
-      getLootRules().add(new LootRule(Treasure.BLOCKS, loot.get(Loot.BLOCK, i), i, true, 6));
-      getLootRules().add(new LootRule(Treasure.WEAPONS, loot.get(Loot.FOOD, i), i, true, 1));
-      getLootRules().add(new LootRule(Treasure.ENCHANTING, loot.get(Loot.ENCHANTBONUS, i), i, true, 2));
-      getLootRules().add(new LootRule(Treasure.ENCHANTING, loot.get(Loot.ENCHANTBOOK, i), i, true, 1));
-      getLootRules().add(new LootRule(Treasure.FOOD, loot.get(Loot.FOOD, i), i, true, 8));
-      getLootRules().add(new LootRule(Treasure.ORE, loot.get(Loot.ORE, i), i, true, 5));
-      getLootRules().add(new LootRule(Treasure.POTIONS, loot.get(Loot.POTION, i), i, true, 6));
-      getLootRules().add(new LootRule(Treasure.TOOLS, loot.get(Loot.ORE, i), i, true, 1));
-      getLootRules().add(new LootRule(Treasure.TOOLS, loot.get(Loot.TOOL, i), i, true, 1));
-      getLootRules().add(new LootRule(Treasure.TOOLS, loot.get(Loot.BLOCK, i), i, true, 1));
-      getLootRules().add(new LootRule(Treasure.SUPPLIES, loot.get(Loot.SUPPLY, i), i, true, 6));
-      getLootRules().add(new LootRule(Treasure.SMITH, loot.get(Loot.ORE, i), i, true, 6));
-      getLootRules().add(new LootRule(Treasure.SMITH, loot.get(Loot.SMITHY, i), i, true, 1));
-      getLootRules().add(new LootRule(Treasure.MUSIC, loot.get(Loot.MUSIC, i), i, true, 1));
-      getLootRules().add(new LootRule(Treasure.REWARD, loot.get(Loot.REWARD, i), i, true, 1));
-      getLootRules().add(new LootRule(null, loot.get(Loot.JUNK, i), i, true, 6));
-      getLootRules().add(new LootRule(null, new ItemSpecialty(0, i, Quality.get(i)), i, false, 3));
-      getLootRules().add(new LootRule(null, new ItemEnchBook(0, i), i, false, i * 2 + 5));
+      getLootRules().add(new TypedForEachLootRule(Treasure.ARMOUR, loot.get(Loot.POTION, i), i, 1));
+      getLootRules().add(new TypedForEachLootRule(Treasure.ARMOUR, loot.get(Loot.ARMOUR, i), i, 1));
+      getLootRules().add(new TypedForEachLootRule(Treasure.ARMOUR, loot.get(Loot.FOOD, i), i, 1));
+      getLootRules().add(new TypedForEachLootRule(Treasure.WEAPONS, loot.get(Loot.POTION, i), i, 1));
+      getLootRules().add(new TypedForEachLootRule(Treasure.WEAPONS, loot.get(Loot.WEAPON, i), i, 1));
+      getLootRules().add(new TypedForEachLootRule(Treasure.WEAPONS, loot.get(Loot.FOOD, i), i, 1));
+      getLootRules().add(new TypedForEachLootRule(Treasure.BLOCKS, loot.get(Loot.BLOCK, i), i, 6));
+      getLootRules().add(new TypedForEachLootRule(Treasure.WEAPONS, loot.get(Loot.FOOD, i), i, 1));
+      getLootRules().add(new TypedForEachLootRule(Treasure.ENCHANTING, loot.get(Loot.ENCHANTBONUS, i), i, 2));
+      getLootRules().add(new TypedForEachLootRule(Treasure.ENCHANTING, loot.get(Loot.ENCHANTBOOK, i), i, 1));
+      getLootRules().add(new TypedForEachLootRule(Treasure.FOOD, loot.get(Loot.FOOD, i), i, 8));
+      getLootRules().add(new TypedForEachLootRule(Treasure.ORE, loot.get(Loot.ORE, i), i, 5));
+      getLootRules().add(new TypedForEachLootRule(Treasure.POTIONS, loot.get(Loot.POTION, i), i, 6));
+      getLootRules().add(new TypedForEachLootRule(Treasure.TOOLS, loot.get(Loot.ORE, i), i, 1));
+      getLootRules().add(new TypedForEachLootRule(Treasure.TOOLS, loot.get(Loot.TOOL, i), i, 1));
+      getLootRules().add(new TypedForEachLootRule(Treasure.TOOLS, loot.get(Loot.BLOCK, i), i, 1));
+      getLootRules().add(new TypedForEachLootRule(Treasure.SUPPLIES, loot.get(Loot.SUPPLY, i), i, 6));
+      getLootRules().add(new TypedForEachLootRule(Treasure.SMITH, loot.get(Loot.ORE, i), i, 6));
+      getLootRules().add(new TypedForEachLootRule(Treasure.SMITH, loot.get(Loot.SMITHY, i), i, 1));
+      getLootRules().add(new TypedForEachLootRule(Treasure.MUSIC, loot.get(Loot.MUSIC, i), i, 1));
+      getLootRules().add(new TypedForEachLootRule(Treasure.REWARD, loot.get(Loot.REWARD, i), i, 1));
+      getLootRules().add(new ForEachLootRule(loot.get(Loot.JUNK, i), i, 6));
+      getLootRules().add(new SingleUseLootRule(new ItemSpecialty(0, i, Quality.get(i)), i, 3));
+      getLootRules().add(new SingleUseLootRule(new ItemEnchBook(0, i), i, i * 2 + 5));
     }
   }
 

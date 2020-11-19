@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import greymerk.roguelike.treasure.TreasureManager;
-import greymerk.roguelike.treasure.loot.rule.LootRule;
+import greymerk.roguelike.treasure.loot.rule.ILootRule;
 
 public class LootRuleManager {
 
-  private List<LootRule> rules = new ArrayList<>();
+  private List<ILootRule> rules = new ArrayList<>();
 
   public void merge(LootRuleManager other) {
     if (other == null) {
@@ -17,11 +17,11 @@ public class LootRuleManager {
     addAll(other.rules);
   }
 
-  public void add(LootRule toAdd) {
+  public void add(ILootRule toAdd) {
     this.rules.add(toAdd);
   }
 
-  public void addAll(List<LootRule> rules) {
+  public void addAll(List<ILootRule> rules) {
     this.rules.addAll(rules);
   }
 

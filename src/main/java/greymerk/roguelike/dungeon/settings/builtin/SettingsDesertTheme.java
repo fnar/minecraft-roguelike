@@ -16,7 +16,7 @@ import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.settings.base.SettingsBase;
 import greymerk.roguelike.dungeon.towers.Tower;
 import greymerk.roguelike.theme.Theme;
-import greymerk.roguelike.treasure.loot.rule.LootRule;
+import greymerk.roguelike.treasure.loot.rule.SingleUseLootRule;
 import greymerk.roguelike.treasure.loot.LootRuleManager;
 import greymerk.roguelike.treasure.loot.WeightedRandomLoot;
 
@@ -35,7 +35,7 @@ public class SettingsDesertTheme extends DungeonSettings {
     setTowerSettings(new TowerSettings(Tower.PYRAMID, Theme.PYRAMID));
     setLootRules(new LootRuleManager());
     for (int i = 0; i < 5; ++i) {
-      getLootRules().add(new LootRule(null, new WeightedRandomLoot(Items.GOLD_INGOT, 0, 1, 1 + i, 1), i, false, 6));
+      getLootRules().add(new SingleUseLootRule(new WeightedRandomLoot(Items.GOLD_INGOT, 0, 1, 1 + i, 1), i, 6));
     }
 
     Theme[] themes = {Theme.PYRAMID, Theme.SANDSTONE, Theme.SANDSTONERED, Theme.ENDER, Theme.NETHER};

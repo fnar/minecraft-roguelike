@@ -14,7 +14,8 @@ import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.settings.base.SettingsBase;
 import greymerk.roguelike.theme.Theme;
-import greymerk.roguelike.treasure.loot.rule.LootRule;
+import greymerk.roguelike.treasure.loot.rule.ForEachLootRule;
+import greymerk.roguelike.treasure.loot.rule.SingleUseLootRule;
 import greymerk.roguelike.treasure.loot.LootRuleManager;
 import greymerk.roguelike.treasure.loot.WeightedRandomLoot;
 import greymerk.roguelike.util.WeightedRandomizer;
@@ -50,8 +51,8 @@ public class SettingsSwampTheme extends DungeonSettings {
     brewing.add(new WeightedRandomLoot(Items.SUGAR, 0, 1, 3, 1));
     setLootRules(new LootRuleManager());
     for (int i = 0; i < 5; ++i) {
-      getLootRules().add(new LootRule(null, brewing, i, true, 2));
-      getLootRules().add(new LootRule(null, new WeightedRandomLoot(Items.SLIME_BALL, 0, 1, 1 + i, 1), i, false, 4 + i * 3));
+      getLootRules().add(new ForEachLootRule(brewing, i, 2));
+      getLootRules().add(new SingleUseLootRule(new WeightedRandomLoot(Items.SLIME_BALL, 0, 1, 1 + i, 1), i, 4 + i * 3));
     }
     for (int i = 0; i < 5; ++i) {
 
