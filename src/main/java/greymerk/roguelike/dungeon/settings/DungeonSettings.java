@@ -52,10 +52,10 @@ public class DungeonSettings {
 
     setLootRules(new LootRuleManager());
     if (!getOverrides().contains(SettingsType.LOOTRULES)) {
-      getLootRules().add(parent.getLootRules());
+      getLootRules().merge(parent.getLootRules());
       getLootTables().addAll(parent.getLootTables());
     }
-    getLootRules().add(child.getLootRules());
+    getLootRules().merge(child.getLootRules());
     getLootTables().addAll(child.getLootTables());
     getInherit().addAll(child.getInherit());
 
