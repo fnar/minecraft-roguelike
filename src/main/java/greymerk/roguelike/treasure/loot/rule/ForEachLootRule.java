@@ -5,7 +5,7 @@ import net.minecraft.item.ItemStack;
 import greymerk.roguelike.treasure.TreasureManager;
 import greymerk.roguelike.util.IWeighted;
 
-public class ForEachLootRule implements ILootRule {
+public class ForEachLootRule implements LootRule {
 
   private final IWeighted<ItemStack> item;
   private final int level;

@@ -2,11 +2,10 @@ package greymerk.roguelike.treasure.loot.rule;
 
 import net.minecraft.item.ItemStack;
 
-import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.treasure.TreasureManager;
 import greymerk.roguelike.util.IWeighted;
 
-public class SingleUseLootRule implements ILootRule {
+public class SingleUseLootRule implements LootRule {
 
   int level;
   int amount;

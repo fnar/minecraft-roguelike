@@ -6,7 +6,7 @@ import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.treasure.TreasureManager;
 import greymerk.roguelike.util.IWeighted;
 
-public class TypedSingleUseLootRule implements ILootRule {
+public class TypedSingleUseLootRule implements LootRule {
   private final Treasure treasureType;
   private final IWeighted<ItemStack> item;
   private final int level;
