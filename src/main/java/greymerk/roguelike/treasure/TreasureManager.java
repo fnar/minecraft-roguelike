@@ -68,13 +68,13 @@ public class TreasureManager {
         .collect(toList());
   }
 
-  public List<TreasureChest> findChests(Treasure type) {
+  private List<TreasureChest> findChests(Treasure type) {
     return this.chests.stream()
         .filter(chest -> chest.isType(type))
         .collect(toList());
   }
 
-  public List<TreasureChest> findChests(int level) {
+  private List<TreasureChest> findChests(int level) {
     return this.chests.stream()
         .filter(TreasureChest::isNotEmpty)
         .filter(chest -> chest.isOnLevel(level))

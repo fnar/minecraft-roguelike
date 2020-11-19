@@ -59,7 +59,7 @@ public class SettingsResolverTest {
     treasureManager.addChest(chest);
 
     assertEquals(0, chest.count(stick));
-    assembled.getLootRules().process(new Random(), treasureManager);
+    assembled.getLootRules().process(treasureManager);
     assertEquals(1, chest.count(stick));
   }
 
@@ -88,7 +88,7 @@ public class SettingsResolverTest {
     assertEquals(0, chest.count(stick));
     assertEquals(0, chest.count(diamond));
 
-    assembled.getLootRules().process(new Random(), treasureManager);
+    assembled.getLootRules().process(treasureManager);
 
     assertEquals(1, chest.count(stick));
     assertEquals(0, chest.count(new ItemStack(BOAT)));
@@ -125,7 +125,7 @@ public class SettingsResolverTest {
     assertEquals(0, chest.count(coal));
     assertEquals(0, chest.count(diamond));
 
-    assembled.getLootRules().process(new Random(), treasureManager);
+    assembled.getLootRules().process(treasureManager);
 
     assertEquals(0, chest.count(new ItemStack(BOAT)));
     assertEquals(1, chest.count(coal));
@@ -151,7 +151,7 @@ public class SettingsResolverTest {
 
     MockChest chest = new MockChest(REWARD, 0);
     treasureManager.addChest(chest);
-    actual.getLootRules().process(new Random(), treasureManager);
+    actual.getLootRules().process(treasureManager);
 
     assertEquals(1, chest.count(coal));
     assertEquals(1, chest.count(stick));
@@ -179,7 +179,7 @@ public class SettingsResolverTest {
 
     MockChest chest = new MockChest(REWARD, 0);
     treasureManager.addChest(chest);
-    actual.getLootRules().process(new Random(), treasureManager);
+    actual.getLootRules().process(treasureManager);
 
     assertEquals(1, chest.count(coal));
     assertEquals(1, chest.count(stick));
