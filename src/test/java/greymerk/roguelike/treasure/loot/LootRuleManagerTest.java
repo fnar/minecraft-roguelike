@@ -46,7 +46,7 @@ public class LootRuleManagerTest {
     LootRuleManager other = new LootRuleManager();
     other.add(Treasure.STARTER, new WeightedChoice<>(new ItemStack(Items.APPLE), 1), 0, true, 1);
 
-    base.add(other);
+    base.merge(other);
 
     TreasureManager treasure = new TreasureManager(new Random());
     MockChest chest = new MockChest(Treasure.STARTER, 0);
