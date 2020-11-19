@@ -12,9 +12,9 @@ import greymerk.roguelike.worldgen.WorldEditor;
 public class DungeonTaskRooms implements IDungeonTask {
 
   @Override
-  public void execute(WorldEditor editor, Random rand, Dungeon dungeon, DungeonSettings settings) {
+  public void execute(WorldEditor editor, Random random, Dungeon dungeon, DungeonSettings settings) {
     dungeon.getLevels()
-        .forEach(level -> generateLevel(editor, rand, level));
+        .forEach(level -> generateLevel(editor, random, level));
   }
 
   private void generateLevel(WorldEditor editor, Random rand, DungeonLevel level) {

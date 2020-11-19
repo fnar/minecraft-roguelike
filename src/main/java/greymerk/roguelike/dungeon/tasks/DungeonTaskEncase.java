@@ -13,14 +13,14 @@ import greymerk.roguelike.worldgen.filter.Filter;
 public class DungeonTaskEncase implements IDungeonTask {
 
   @Override
-  public void execute(WorldEditor editor, Random rand, Dungeon dungeon, DungeonSettings settings) {
+  public void execute(WorldEditor editor, Random random, Dungeon dungeon, DungeonSettings settings) {
 
     List<DungeonLevel> levels = dungeon.getLevels();
 
     // encase
     if (RogueConfig.getBoolean(RogueConfig.ENCASE)) {
       for (DungeonLevel level : levels) {
-        level.filter(editor, rand, Filter.get(Filter.ENCASE));
+        level.filter(editor, random, Filter.get(Filter.ENCASE));
       }
     }
   }

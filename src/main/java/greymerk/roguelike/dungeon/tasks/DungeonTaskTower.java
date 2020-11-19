@@ -11,7 +11,7 @@ import greymerk.roguelike.worldgen.WorldEditor;
 public class DungeonTaskTower implements IDungeonTask {
 
   @Override
-  public void execute(WorldEditor editor, Random rand, Dungeon dungeon, DungeonSettings settings) {
+  public void execute(WorldEditor editor, Random random, Dungeon dungeon, DungeonSettings settings) {
     Coord pos = dungeon.getPosition();
 
     Tower tower = settings.getTower().getTower();

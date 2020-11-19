@@ -13,7 +13,7 @@ import greymerk.roguelike.worldgen.WorldEditor;
 public class DungeonTaskLinks implements IDungeonTask {
 
   @Override
-  public void execute(WorldEditor editor, Random rand, Dungeon dungeon, DungeonSettings settings) {
+  public void execute(WorldEditor editor, Random random, Dungeon dungeon, DungeonSettings settings) {
 
     List<DungeonLevel> levels = dungeon.getLevels();
 
@@ -22,7 +22,7 @@ public class DungeonTaskLinks implements IDungeonTask {
     for (DungeonLevel level : levels) {
       DungeonNode upper = previous == null ? null : previous.getLayout().getEnd();
       DungeonNode lower = level.getLayout().getStart();
-      LevelGenerator.generateLevelLink(editor, rand, level.getSettings(), lower, upper);
+      LevelGenerator.generateLevelLink(editor, random, level.getSettings(), lower, upper);
       previous = level;
     }
 
