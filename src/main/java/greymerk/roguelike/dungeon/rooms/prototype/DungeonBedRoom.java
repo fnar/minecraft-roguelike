@@ -3,6 +3,7 @@ package greymerk.roguelike.dungeon.rooms.prototype;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
+import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.Dungeon;
@@ -45,7 +46,7 @@ public class DungeonBedRoom extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
 
     ITheme theme = settings.getTheme();
 
@@ -53,7 +54,7 @@ public class DungeonBedRoom extends DungeonBase {
     Coord start;
     Coord end;
 
-    Cardinal dir = entrances[0];
+    Cardinal dir = entrances.get(0);
 
     start = new Coord(origin);
     end = new Coord(origin);

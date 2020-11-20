@@ -37,7 +37,7 @@ public class HouseTower implements ITower {
     IStair stair = theme.getPrimary().getStair();
     MetaBlock air = BlockType.get(BlockType.AIR);
 
-    Cardinal dir = Cardinal.directions[(floor.getY() + 2) % 4];
+    Cardinal dir = Cardinal.DIRECTIONS.get((floor.getY() + 2) % 4);
 
     Coord cursor;
     Coord start;

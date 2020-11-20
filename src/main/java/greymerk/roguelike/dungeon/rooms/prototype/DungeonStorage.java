@@ -26,7 +26,7 @@ public class DungeonStorage extends DungeonBase {
 
   private static void pillarTop(WorldEditor editor, Random rand, ITheme theme, Coord cursor) {
     IStair step = theme.getSecondary().getStair();
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       step.setOrientation(dir, true);
       cursor.translate(dir, 1);
       step.set(editor, rand, cursor, true, false);
@@ -41,7 +41,7 @@ public class DungeonStorage extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
 
     int x = origin.getX();
     int y = origin.getY();
@@ -63,7 +63,7 @@ public class DungeonStorage extends DungeonBase {
     RectSolid.fill(editor, rand, new Coord(x - 6, y - 1, z - 6), new Coord(x + 6, y - 1, z + 6), blocks);
     RectSolid.fill(editor, rand, new Coord(x - 5, y + 4, z - 5), new Coord(x + 5, y + 4, z + 5), blocks);
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       for (Cardinal orth : dir.orthogonal()) {
 
         cursor = new Coord(x, y, z);

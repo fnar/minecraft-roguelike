@@ -39,7 +39,7 @@ public abstract class DungeonBase implements Comparable<DungeonBase> {
         .collect(toList());
   }
 
-  public abstract DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances);
+  public abstract DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances);
 
   protected void generateSpawner(WorldEditor editor, Random rand, Coord spawnerLocation, int difficulty, SpawnerSettings levelSettingsSpawners, MobType... defaultMobs) {
     getSpawnerSettings(difficulty, defaultMobs, levelSettingsSpawners).generateSpawner(editor, rand, spawnerLocation, difficulty);

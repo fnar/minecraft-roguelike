@@ -41,7 +41,7 @@ public class DungeonEniko extends DungeonBase {
     end = new Coord(start);
     end.translate(Cardinal.UP, 3);
     RectSolid.fill(editor, rand, start, end, pillar, true, true);
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(end);
       cursor.translate(dir);
       stair.setOrientation(dir, true).set(editor, rand, cursor, true, false);
@@ -49,7 +49,7 @@ public class DungeonEniko extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
 
     ITheme theme = settings.getTheme();
     MetaBlock air = BlockType.get(BlockType.AIR);
@@ -85,7 +85,7 @@ public class DungeonEniko extends DungeonBase {
     end.translate(new Coord(3, -1, 3));
     RectSolid.fill(editor, rand, start, end, floor, true, true);
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(origin);
       cursor.translate(dir, 5);
       for (Cardinal o : dir.orthogonal()) {
@@ -107,7 +107,7 @@ public class DungeonEniko extends DungeonBase {
       cursor.translate(dir.antiClockwise(), 5);
       pillar(editor, rand, theme, cursor);
 
-      if (Arrays.asList(entrances).contains(dir)) {
+      if (entrances.contains(dir)) {
         start = new Coord(origin);
         start.translate(Cardinal.DOWN);
         end = new Coord(start);

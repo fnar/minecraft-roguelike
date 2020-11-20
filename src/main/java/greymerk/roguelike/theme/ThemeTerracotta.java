@@ -14,7 +14,7 @@ public class ThemeTerracotta extends ThemeBase {
   public ThemeTerracotta() {
 
     BlockJumble blocks = new BlockJumble();
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       blocks.addBlock(Terracotta.get(DyeColor.MAGENTA, dir));
     }
 

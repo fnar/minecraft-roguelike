@@ -21,7 +21,7 @@ import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 import static greymerk.roguelike.worldgen.Cardinal.UP;
-import static greymerk.roguelike.worldgen.Cardinal.directions;
+import static greymerk.roguelike.worldgen.Cardinal.DIRECTIONS;
 
 public class BrickRoom extends DungeonBase {
 
@@ -29,7 +29,7 @@ public class BrickRoom extends DungeonBase {
     super(roomSetting);
   }
 
-  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
 
     int x = origin.getX();
     int y = origin.getY();
@@ -65,7 +65,7 @@ public class BrickRoom extends DungeonBase {
     // Chests
     List<Coord> potentialChestLocations = new ArrayList<>();
 
-    for (Cardinal dir : directions) {
+    for (Cardinal dir : DIRECTIONS) {
 
       // top
       cursor = new Coord(x, y, z);

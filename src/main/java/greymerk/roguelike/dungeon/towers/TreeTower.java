@@ -54,7 +54,7 @@ public class TreeTower implements ITower {
     carveRoom(editor, rand, ground);
     carveRoom(editor, rand, upstairs);
 
-    Cardinal dir = Cardinal.directions[rand.nextInt(Cardinal.directions.length)];
+    Cardinal dir = Cardinal.randomDirection(rand);
     start = new Coord(ground);
     end = new Coord(ground);
     end.translate(Cardinal.UP);
@@ -92,7 +92,7 @@ public class TreeTower implements ITower {
     end.translate(new Coord(size - 1, size - 1, size - 1));
     new Sphere(start, end).fill(editor, rand, air);
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       start = new Coord(origin);
       start.translate(dir, size - 1);
       start.translate(dir.antiClockwise(), size - 1);

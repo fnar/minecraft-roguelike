@@ -12,13 +12,13 @@ public class LevelGeneratorClassic implements ILevelGenerator {
 
   private static final int MIN_ROOMS = 6;
 
-  private Random rand;
+  private Random random;
   private LevelLayout layout;
   private LevelSettings settings;
   private Coord start;
 
-  public LevelGeneratorClassic(Random rand, LevelSettings settings) {
-    this.rand = rand;
+  public LevelGeneratorClassic(Random random, LevelSettings settings) {
+    this.random = random;
     layout = new LevelLayout();
     this.settings = settings;
   }
@@ -26,7 +26,7 @@ public class LevelGeneratorClassic implements ILevelGenerator {
   public void generate(Coord start) {
     this.start = start;
     List<Node> gNodes = new ArrayList<>();
-    Node startNode = new Node(Cardinal.directions[rand.nextInt(Cardinal.directions.length)], start);
+    Node startNode = new Node(Cardinal.randomDirection(random), start);
     gNodes.add(startNode);
 
     while (!isDone(gNodes)) {
@@ -48,7 +48,7 @@ public class LevelGeneratorClassic implements ILevelGenerator {
       layout.addTunnels(n.createTunnels());
     }
 
-    layout.setStartEnd(rand, startDungeonNode);
+    layout.setStartEnd(random, startDungeonNode);
   }
 
   public void update(List<Node> nodes) {
@@ -119,7 +119,7 @@ public class LevelGeneratorClassic implements ILevelGenerator {
       if (hasNearbyNode(nodes, end, settings.getScatter())) {
         end.translate(dir);
       } else {
-        if (rand.nextInt(extend) == 0) {
+        if (random.nextInt(extend) == 0) {
           spawnNode(nodes, this);
           done = true;
         } else {
@@ -166,7 +166,7 @@ public class LevelGeneratorClassic implements ILevelGenerator {
         return;
       }
 
-      for (Cardinal dir : Cardinal.directions) {
+      for (Cardinal dir : Cardinal.DIRECTIONS) {
 
         if (dir.equals(direction.reverse())) {
           continue;
@@ -195,11 +195,11 @@ public class LevelGeneratorClassic implements ILevelGenerator {
       return new Coord(pos);
     }
 
-    public Cardinal[] getEntrances() {
-      List<Cardinal> cardinal = new ArrayList<>();
-      cardinal.add(direction.reverse());
-      tunnelers.stream().map(tunneler -> tunneler.dir).forEach(cardinal::add);
-      return cardinal.toArray(new Cardinal[0]);
+    public List<Cardinal> getEntrances() {
+      List<Cardinal> entrances = new ArrayList<>();
+      entrances.add(direction.reverse());
+      tunnelers.stream().map(tunneler -> tunneler.dir).forEach(entrances::add);
+      return entrances;
     }
 
     public List<DungeonTunnel> createTunnels() {

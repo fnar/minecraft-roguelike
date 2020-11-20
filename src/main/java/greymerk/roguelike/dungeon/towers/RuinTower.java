@@ -44,7 +44,7 @@ public class RuinTower implements ITower {
       editor.spiralStairStep(rand, new Coord(origin.getX(), i, origin.getZ()), stair, theme.getPrimary().getPillar());
     }
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       for (Cardinal orth : dir.orthogonal()) {
         cursor = new Coord(floor);
         cursor.translate(dir, 4);

@@ -1,6 +1,7 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
@@ -33,7 +34,7 @@ public class DungeonLibrary extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
 
     int x = origin.getX();
     int y = origin.getY();
@@ -71,9 +72,9 @@ public class DungeonLibrary extends DungeonBase {
     RectSolid.fill(editor, rand, start, end, settings.getTheme().getPrimary().getPillar(), true, true);
 
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
 
-      if (Arrays.asList(entrances).contains(dir)) {
+      if (entrances.contains(dir)) {
         door(editor, rand, settings.getTheme(), dir, origin);
       } else {
         if (rand.nextBoolean()) {
@@ -271,7 +272,7 @@ public class DungeonLibrary extends DungeonBase {
     Coord cursor;
     BlockType.get(BlockType.DIRT_PODZOL).set(editor, origin);
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(origin);
       cursor.translate(dir);
       Trapdoor.get(Trapdoor.OAK, dir.reverse(), true, true).set(editor, rand, cursor, true, false);

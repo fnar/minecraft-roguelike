@@ -15,7 +15,7 @@ import greymerk.roguelike.worldgen.WorldEditor;
 public class EnderChest {
   public static void set(WorldEditor editor, Cardinal dir, Coord pos) {
 
-    EnumFacing facing = Arrays.asList(Cardinal.directions).contains(dir)
+    EnumFacing facing = Arrays.asList(Cardinal.DIRECTIONS).contains(dir)
         ? dir.reverse().getFacing()
         : Cardinal.SOUTH.getFacing();
 

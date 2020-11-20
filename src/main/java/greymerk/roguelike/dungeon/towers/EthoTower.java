@@ -48,7 +48,7 @@ public class EthoTower implements ITower {
 
     RectHollow.fill(editor, rand, start, end, primary, true, true);
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
 
       Cardinal[] orth = dir.orthogonal();
       start = new Coord(floor);
@@ -131,7 +131,7 @@ public class EthoTower implements ITower {
 
     Cardinal front = Cardinal.NORTH;
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(floor);
       cursor.translate(dir, 6);
       if (editor.isAirBlock(cursor)) {
@@ -140,7 +140,7 @@ public class EthoTower implements ITower {
       }
     }
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
 
       if (dir == front) {
 

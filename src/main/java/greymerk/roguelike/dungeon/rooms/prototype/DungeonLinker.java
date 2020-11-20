@@ -1,5 +1,6 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
+import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
@@ -26,7 +27,7 @@ public class DungeonLinker extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
 
     ITheme theme = settings.getTheme();
 
@@ -56,7 +57,7 @@ public class DungeonLinker extends DungeonBase {
     end.translate(new Coord(4, -1, 4));
     RectSolid.fill(editor, rand, start, end, floor);
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
 
       start = new Coord(origin);
       start.translate(dir, 4);

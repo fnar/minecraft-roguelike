@@ -28,7 +28,7 @@ public class DungeonPyramidSpawner extends DungeonBase {
     super(roomSetting);
   }
 
-  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
 
     int x = origin.getX();
     int y = origin.getY();
@@ -70,7 +70,7 @@ public class DungeonPyramidSpawner extends DungeonBase {
     // Chests
     List<Coord> space = new ArrayList<>();
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
 
       // pillar
       cursor = new Coord(x, y, z);

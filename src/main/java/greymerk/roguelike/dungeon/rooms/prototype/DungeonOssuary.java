@@ -1,5 +1,6 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
+import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
@@ -24,7 +25,7 @@ public class DungeonOssuary extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
     ITheme theme = settings.getTheme();
     IBlockFactory walls = theme.getPrimary().getWall();
     IStair stair = theme.getPrimary().getStair();
@@ -45,7 +46,7 @@ public class DungeonOssuary extends DungeonBase {
     RectHollow.fill(editor, rand, start, end, walls, false, true);
 
     // entrance arches
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(origin);
       cursor.translate(dir, 7);
       for (Cardinal o : dir.orthogonal()) {
@@ -115,7 +116,7 @@ public class DungeonOssuary extends DungeonBase {
       stair.setOrientation(dir.reverse(), true).set(editor, c);
     }
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(origin);
       cursor.translate(dir, 4);
       cursor.translate(Cardinal.UP, 5);
@@ -127,7 +128,7 @@ public class DungeonOssuary extends DungeonBase {
       end.translate(Cardinal.WEST);
       RectSolid.fill(editor, rand, start, end, walls);
       air.set(editor, cursor);
-      for (Cardinal d : Cardinal.directions) {
+      for (Cardinal d : Cardinal.DIRECTIONS) {
         Coord c = new Coord(cursor);
         c.translate(d);
         stair.setOrientation(d.reverse(), true).set(editor, c);
@@ -135,7 +136,7 @@ public class DungeonOssuary extends DungeonBase {
     }
 
     // corner pillars
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       start = new Coord(origin);
       start.translate(dir, 6);
       start.translate(dir.antiClockwise(), 6);
@@ -160,13 +161,13 @@ public class DungeonOssuary extends DungeonBase {
     end.translate(Cardinal.DOWN);
     RectSolid.fill(editor, rand, start, end, air);
     air.set(editor, cursor);
-    for (Cardinal d : Cardinal.directions) {
+    for (Cardinal d : Cardinal.DIRECTIONS) {
       Coord c = new Coord(cursor);
       c.translate(d);
       stair.setOrientation(d.reverse(), true).set(editor, c);
     }
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       Cardinal[] orth = dir.orthogonal();
       cursor = new Coord(origin);
       cursor.translate(Cardinal.UP, 5);
@@ -181,7 +182,7 @@ public class DungeonOssuary extends DungeonBase {
       walls.set(editor, rand, cursor);
     }
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(origin);
       cursor.translate(dir, 4);
       cursor.translate(dir.antiClockwise(), 4);
@@ -194,7 +195,7 @@ public class DungeonOssuary extends DungeonBase {
       end.translate(Cardinal.WEST);
       RectSolid.fill(editor, rand, start, end, walls);
       air.set(editor, cursor);
-      for (Cardinal d : Cardinal.directions) {
+      for (Cardinal d : Cardinal.DIRECTIONS) {
         Coord c = new Coord(cursor);
         c.translate(d);
         stair.setOrientation(d.reverse(), true).set(editor, c);

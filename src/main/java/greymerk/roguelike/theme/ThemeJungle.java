@@ -29,7 +29,7 @@ public class ThemeJungle extends ThemeBase {
     MetaBlock pillar2 = Log.getLog(Wood.JUNGLE);
 
     BlockJumble stairJumble = new BlockJumble();
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       MetaStair s = new MetaStair(StairType.STONEBRICK);
       s.setOrientation(dir, false);
       stairJumble.addBlock(s);

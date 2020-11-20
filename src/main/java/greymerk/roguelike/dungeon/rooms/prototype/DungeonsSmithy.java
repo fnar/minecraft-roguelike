@@ -1,5 +1,6 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
+import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.config.RogueConfig;
@@ -31,13 +32,13 @@ public class DungeonsSmithy extends DungeonBase {
     super(roomSetting);
   }
 
-  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
 
     ITheme theme = settings.getTheme();
 
     Coord cursor;
 
-    Cardinal dir = entrances[0];
+    Cardinal dir = entrances.get(0);
 
     clearBoxes(editor, rand, theme, dir, origin);
 
@@ -486,7 +487,7 @@ public class DungeonsSmithy extends DungeonBase {
 
     BlockType.get(BlockType.AIR).set(editor, origin);
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(origin);
       cursor.translate(dir);
       stair.setOrientation(dir.reverse(), true).set(editor, cursor);

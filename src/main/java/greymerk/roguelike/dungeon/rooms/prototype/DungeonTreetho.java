@@ -1,5 +1,6 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
+import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
@@ -30,11 +31,11 @@ public class DungeonTreetho extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
 
     ITheme theme = settings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();
-    Cardinal dir = entrances[0];
+    Cardinal dir = entrances.get(0);
 
 
     Coord cursor;
@@ -127,7 +128,7 @@ public class DungeonTreetho extends DungeonBase {
     MinimumSpanningTree tree = new MinimumSpanningTree(rand, 7, 3);
     tree.generate(editor, rand, fill, origin);
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       Coord start = new Coord(origin);
       start.translate(dir, 9);
       Coord end = new Coord(start);
@@ -158,7 +159,7 @@ public class DungeonTreetho extends DungeonBase {
     Coord cursor = new Coord(origin);
     editor.fillDown(rand, cursor, pillar);
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(origin);
       cursor.translate(dir);
       if (editor.isAirBlock(cursor)) {

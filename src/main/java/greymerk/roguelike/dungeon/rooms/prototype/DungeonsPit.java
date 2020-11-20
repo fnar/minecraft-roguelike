@@ -41,7 +41,7 @@ public class DungeonsPit extends DungeonBase {
     dungeonWidth = 2;
   }
 
-  public DungeonBase generate(WorldEditor editor, Random inRandom, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random inRandom, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
 
     ITheme theme = settings.getTheme();
 
@@ -59,7 +59,7 @@ public class DungeonsPit extends DungeonBase {
     buildPit();
 
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       setTrap(editor, rand, settings, dir, origin);
     }
 

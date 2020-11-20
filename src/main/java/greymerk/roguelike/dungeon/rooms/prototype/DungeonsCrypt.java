@@ -26,7 +26,7 @@ public class DungeonsCrypt extends DungeonBase {
     super(roomSetting);
   }
 
-  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
 
     ITheme theme = settings.getTheme();
     MetaBlock air = BlockType.get(BlockType.AIR);
@@ -56,7 +56,7 @@ public class DungeonsCrypt extends DungeonBase {
     end.translate(new Coord(9, 6, 9));
     RectSolid.fill(editor, rand, start, end, walls, false, true);
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
 
       List<?> doorways = Arrays.asList(entrances);
 
@@ -337,7 +337,7 @@ public class DungeonsCrypt extends DungeonBase {
     end.translate(Cardinal.UP, 4);
     RectSolid.fill(editor, rand, start, end, walls);
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(end);
       cursor.translate(dir);
       stair.setOrientation(dir, true);

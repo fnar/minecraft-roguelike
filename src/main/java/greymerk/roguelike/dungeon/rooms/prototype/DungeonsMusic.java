@@ -29,7 +29,7 @@ public class DungeonsMusic extends DungeonBase {
     super(roomSetting);
   }
 
-  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
     ITheme theme = settings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();
     IStair stair = theme.getSecondary().getStair();
@@ -79,7 +79,7 @@ public class DungeonsMusic extends DungeonBase {
       RectSolid.fill(editor, rand, start, end, carpet);
     }
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
 
       cursor = new Coord(origin);
       cursor.translate(dir, 5);
@@ -176,7 +176,7 @@ public class DungeonsMusic extends DungeonBase {
     end = new Coord(start);
     end.translate(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, pillar);
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(end);
       cursor.translate(dir);
       stair.setOrientation(dir, true).set(editor, rand, cursor, true, false);

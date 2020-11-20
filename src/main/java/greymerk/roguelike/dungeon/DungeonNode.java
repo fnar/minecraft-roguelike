@@ -1,5 +1,6 @@
 package greymerk.roguelike.dungeon;
 
+import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
@@ -17,9 +18,9 @@ public class DungeonNode implements IBounded {
 
   private Coord pos;
   private DungeonBase toGenerate;
-  private Cardinal[] entrances;
+  private List<Cardinal> entrances;
 
-  public DungeonNode(Cardinal[] entrances, Coord origin) {
+  public DungeonNode(List<Cardinal> entrances, Coord origin) {
     this.entrances = entrances;
     pos = new Coord(origin);
   }
@@ -49,7 +50,7 @@ public class DungeonNode implements IBounded {
     RectSolid.fill(editor, rand, s, e, theme.getPrimary().getWall());
   }
 
-  public Cardinal[] getEntrances() {
+  public List<Cardinal> getEntrances() {
     return entrances;
   }
 
