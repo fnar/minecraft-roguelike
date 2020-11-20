@@ -7,6 +7,7 @@ import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -17,9 +18,6 @@ import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.MobType;
 import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
-
-import static greymerk.roguelike.treasure.Treasure.ORE;
-
 
 public class DungeonsCreeperDen extends DungeonBase {
 
@@ -74,7 +72,7 @@ public class DungeonsCreeperDen extends DungeonBase {
 
     List<Coord> chestSpaces = new RectSolid(start, end).get();
     chooseRandomLocations(random, 3, chestSpaces).stream()
-        .peek(chestSpace -> editor.treasureChestEditor.createChest(settings.getDifficulty(chestSpace), chestSpace, true, ORE))
+        .peek(chestSpace -> editor.treasureChestEditor.createChest(settings.getDifficulty(chestSpace), chestSpace, true, getRoomSetting().getChestType().orElse(ChestType.ORE)))
         .forEach(chestSpace -> spawnTntBeneath(editor, chestSpace));
 
     final Coord cursor = new Coord(origin);

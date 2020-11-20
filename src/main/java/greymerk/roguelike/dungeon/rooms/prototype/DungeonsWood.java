@@ -8,6 +8,7 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
@@ -19,8 +20,6 @@ import greymerk.roguelike.worldgen.blocks.Log;
 import greymerk.roguelike.worldgen.blocks.Wood;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
-
-import static greymerk.roguelike.treasure.Treasure.FOOD;
 
 public class DungeonsWood extends DungeonBase {
 
@@ -70,7 +69,7 @@ public class DungeonsWood extends DungeonBase {
     spaces.add(new Coord(x + WIDTH, y, z + LENGTH - 1));
 
     List<Coord> chestLocations = chooseRandomLocations(rand, 1, spaces);
-    editor.treasureChestEditor.createChests(Dungeon.getLevel(y), chestLocations, false, FOOD);
+    editor.treasureChestEditor.createChests(Dungeon.getLevel(y), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.FOOD));
     return this;
   }
 

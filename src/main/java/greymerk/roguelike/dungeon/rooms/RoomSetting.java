@@ -1,16 +1,17 @@
 package greymerk.roguelike.dungeon.rooms;
 
 import java.util.List;
+import java.util.Optional;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.rooms.prototype.BrickRoom;
+import greymerk.roguelike.dungeon.rooms.prototype.CornerRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonAshlea;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonAvidya;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonBTeam;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonBedRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonBlaze;
-import greymerk.roguelike.dungeon.rooms.prototype.CornerRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonDarkHall;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonEniko;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonEtho;
@@ -42,14 +43,13 @@ import greymerk.roguelike.dungeon.rooms.prototype.DungeonsSpiderNest;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsWood;
 import greymerk.roguelike.dungeon.rooms.prototype.FortressRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.ObsidianRoom;
-import lombok.AllArgsConstructor;
+import greymerk.roguelike.treasure.loot.ChestType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
 @ToString
 @EqualsAndHashCode
-@AllArgsConstructor
 @Getter
 public class RoomSetting {
 
@@ -59,7 +59,17 @@ public class RoomSetting {
   private int weight;
   private int count;
   private List<Integer> levels;
-  private String treasureType;
+  private Optional<ChestType> chestType;
+
+  public RoomSetting(RoomType roomType, String spawnerId, Frequency frequency, int weight, int count, List<Integer> levels, Optional<ChestType> chestType) {
+    this.roomType = roomType;
+    this.spawnerId = spawnerId;
+    this.frequency = frequency;
+    this.weight = weight;
+    this.count = count;
+    this.levels = levels;
+    this.chestType = chestType;
+  }
 
   public boolean isRandom() {
     return frequency.isRandom();

@@ -3,6 +3,7 @@ package greymerk.roguelike.dungeon.settings;
 import org.junit.Test;
 
 import java.util.Collections;
+import java.util.Optional;
 
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.SecretRoom;
@@ -38,7 +39,7 @@ public class SecretRoomTest {
         0,
         count,
         Collections.emptyList(),
-        null
+        Optional.empty()
     );
   }
 }

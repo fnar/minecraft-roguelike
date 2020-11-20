@@ -7,6 +7,7 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -15,8 +16,6 @@ import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.MobType;
 import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
-
-import static greymerk.roguelike.treasure.Treasure.COMMON_TREASURES;
 
 public class DungeonsSpiderNest extends DungeonBase {
   WorldEditor editor;
@@ -85,7 +84,7 @@ public class DungeonsSpiderNest extends DungeonBase {
         new Coord(originX + dungeonLength, originY + 1, originZ + dungeonWidth)
     ).get();
     List<Coord> chestLocations = chooseRandomLocations(rand, 1 + rand.nextInt(3), spaces);
-    editor.treasureChestEditor.createChests(Dungeon.getLevel(originY), chestLocations, false, COMMON_TREASURES);
+    editor.treasureChestEditor.createChests(Dungeon.getLevel(originY), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(rand, ChestType.COMMON_TREASURES)));
     return this;
   }
 

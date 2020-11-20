@@ -11,6 +11,7 @@ import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -29,9 +30,6 @@ import greymerk.roguelike.worldgen.blocks.StairType;
 import greymerk.roguelike.worldgen.redstone.Torch;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
-
-import static greymerk.roguelike.treasure.Treasure.BREWING;
-
 
 public class DungeonLab extends DungeonBase {
 
@@ -269,7 +267,7 @@ public class DungeonLab extends DungeonBase {
       BrewingStand.generate(editor, bs);
       BrewingStand.add(editor, bs, BrewingStand.FUEL, new ItemStack(Items.BLAZE_POWDER));
     }
-    editor.treasureChestEditor.createChest(Dungeon.getLevel(y), new Coord(x, y + 1, z + 4), false, BREWING);
+    editor.treasureChestEditor.createChest(Dungeon.getLevel(y), new Coord(x, y + 1, z + 4), false, getRoomSetting().getChestType().orElse(ChestType.BREWING));
   }
 
   public int getSize() {

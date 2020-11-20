@@ -9,7 +9,6 @@ import net.minecraft.util.ResourceLocation;
 import java.util.ArrayList;
 import java.util.List;
 
-import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.TreasureManager;
 
@@ -19,18 +18,18 @@ public class LootTableRule {
 
   List<Integer> levels = newArrayList();
   private ResourceLocation table;
-  private List<Treasure> treasureTypes = newArrayList();
+  private List<ChestType> chestTypes = newArrayList();
 
   public LootTableRule() { }
 
   public LootTableRule(
       List<Integer> levels,
       ResourceLocation table,
-      List<Treasure> treasureTypes
+      List<ChestType> chestTypes
   ) {
     this.levels = levels;
     this.table = table;
-    this.treasureTypes = treasureTypes;
+    this.chestTypes = chestTypes;
   }
 
   public LootTableRule(JsonObject json) throws Exception {
@@ -44,12 +43,12 @@ public class LootTableRule {
   public static LootTableRule newLootTableRule(
       int level,
       String table,
-      Treasure treasure
+      ChestType chestType
   ) {
     LootTableRule lootTableRule = new LootTableRule();
     lootTableRule.addLevel(level);
     lootTableRule.setTable(table);
-    lootTableRule.addTreasureType(treasure);
+    lootTableRule.addChestType(chestType);
     return lootTableRule;
   }
 
@@ -61,8 +60,8 @@ public class LootTableRule {
     this.table = new ResourceLocation(table);
   }
 
-  public void addTreasureType(Treasure type) {
-    this.treasureTypes.add(type);
+  public void addChestType(ChestType chestType) {
+    this.chestTypes.add(chestType);
   }
 
   private static List<Integer> parseLevels(JsonObject json) {
@@ -92,20 +91,20 @@ public class LootTableRule {
     return new ResourceLocation(json.get("table").getAsString());
   }
 
-  private static List<Treasure> parseType(JsonObject json) {
-    List<Treasure> type = newArrayList();
+  private static List<ChestType> parseType(JsonObject json) {
+    List<ChestType> type = newArrayList();
     if (!json.has("type")) {
       return type;
     }
     JsonElement typeElement = json.get("type");
     if (!typeElement.isJsonArray()) {
-      type.add(Treasure.valueOf(typeElement.getAsString()));
+      type.add(new ChestType(typeElement.getAsString()));
     } else {
       for (JsonElement treasure : typeElement.getAsJsonArray()) {
         if (treasure.isJsonNull()) {
           continue;
         }
-        type.add(Treasure.valueOf(treasure.getAsString()));
+        type.add(new ChestType(treasure.getAsString()));
       }
     }
     return type;
@@ -122,11 +121,11 @@ public class LootTableRule {
         Predicates.and(
             TreasureChest::isNotEmpty,
             this::isChestLevel,
-            this::isTreasureType));
+            this::isChestType));
   }
 
-  private boolean isTreasureType(TreasureChest chest) {
-    return treasureTypes.isEmpty() || treasureTypes.contains(chest.getType());
+  private boolean isChestType(TreasureChest chest) {
+    return chestTypes.isEmpty() || chestTypes.contains(chest.getType());
   }
 
   private boolean isChestLevel(TreasureChest chest) {

@@ -9,6 +9,7 @@ import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
@@ -18,8 +19,6 @@ import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.redstone.Piston;
 import greymerk.roguelike.worldgen.redstone.Torch;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
-
-import static greymerk.roguelike.treasure.Treasure.COMMON_TREASURES;
 
 public class DungeonsPit extends DungeonBase {
   WorldEditor editor;
@@ -71,7 +70,7 @@ public class DungeonsPit extends DungeonBase {
     spaces.add(new Coord(originX + 2, originY, originZ + 2));
 
     List<Coord> chestLocations = chooseRandomLocations(inRandom, 1, spaces);
-    editor.treasureChestEditor.createChests(Dungeon.getLevel(originY), chestLocations, false, COMMON_TREASURES);
+    editor.treasureChestEditor.createChests(Dungeon.getLevel(originY), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(rand, ChestType.COMMON_TREASURES)));
 
     return this;
   }

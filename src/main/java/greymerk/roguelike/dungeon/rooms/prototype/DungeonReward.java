@@ -6,6 +6,7 @@ import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IStair;
@@ -13,9 +14,6 @@ import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
-
-import static greymerk.roguelike.treasure.Treasure.REWARD;
-
 
 public class DungeonReward extends DungeonBase {
 
@@ -183,7 +181,7 @@ public class DungeonReward extends DungeonBase {
 
     cursor = new Coord(x, y, z);
     cursor.translate(Cardinal.UP);
-    editor.treasureChestEditor.createChest(settings.getDifficulty(cursor), cursor, false, REWARD);
+    editor.treasureChestEditor.createChest(settings.getDifficulty(cursor), cursor, false, getRoomSetting().getChestType().orElse(ChestType.REWARD));
     return this;
   }
 

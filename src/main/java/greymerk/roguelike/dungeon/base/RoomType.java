@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 
@@ -73,7 +74,7 @@ public enum RoomType {
         weight,
         1,
         Lists.newArrayList(0, 1, 2, 3, 4),
-        null
+        Optional.empty()
     );
   }
 
@@ -85,7 +86,7 @@ public enum RoomType {
         1,
         1,
         Lists.newArrayList(0, 1, 2, 3, 4),
-        null);
+        Optional.empty());
   }
 
   public static RoomType getRandomIntersection(Random random) {

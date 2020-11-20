@@ -8,6 +8,7 @@ import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
@@ -18,9 +19,6 @@ import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.MobType;
 import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
-
-import static greymerk.roguelike.treasure.Treasure.COMMON_TREASURES;
-
 
 public class DungeonsCrypt extends DungeonBase {
 
@@ -384,7 +382,7 @@ public class DungeonsCrypt extends DungeonBase {
     generateSpawner(editor, rand, cursor, settings.getDifficulty(cursor), spawners, MobType.UNDEAD_MOBS);
 
     cursor.translate(dir);
-    editor.treasureChestEditor.createChest(settings.getDifficulty(cursor), cursor, false, COMMON_TREASURES);
+    editor.treasureChestEditor.createChest(settings.getDifficulty(cursor), cursor, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(rand, ChestType.COMMON_TREASURES)));
   }
 
   public int getSize() {

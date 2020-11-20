@@ -8,6 +8,7 @@ import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
@@ -23,10 +24,6 @@ import greymerk.roguelike.worldgen.blocks.StairType;
 import greymerk.roguelike.worldgen.redstone.Hopper;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
-
-import static greymerk.roguelike.treasure.Treasure.EMPTY;
-import static greymerk.roguelike.treasure.Treasure.SMITH;
-
 
 public class DungeonsSmithy extends DungeonBase {
 
@@ -293,16 +290,16 @@ public class DungeonsSmithy extends DungeonBase {
   }
 
   private void smelter(WorldEditor editor, Cardinal dir, Coord origin) {
-    editor.treasureChestEditor.createChest(1, origin, false, EMPTY);
+    editor.treasureChestEditor.createChest(1, origin, false, ChestType.EMPTY);
 
     Coord cursor;
     cursor = new Coord(origin);
     cursor.translate(dir, 2);
     cursor.translate(Cardinal.UP, 2);
-    editor.treasureChestEditor.createChest(1, cursor, false, EMPTY);
+    editor.treasureChestEditor.createChest(1, cursor, false, ChestType.EMPTY);
     cursor.translate(Cardinal.UP);
     cursor.translate(dir.reverse());
-    editor.treasureChestEditor.createChest(1, cursor, false, EMPTY);
+    editor.treasureChestEditor.createChest(1, cursor, false, ChestType.EMPTY);
 
     cursor = new Coord(origin);
     cursor.translate(Cardinal.UP);
@@ -475,7 +472,7 @@ public class DungeonsSmithy extends DungeonBase {
     stair.setOrientation(dir.clockwise(), true);
     RectSolid.fill(editor, rand, start, end, stair);
     cursor.translate(Cardinal.UP);
-    editor.treasureChestEditor.createChest(Dungeon.getLevel(cursor.getY()), cursor, false, SMITH);
+    editor.treasureChestEditor.createChest(Dungeon.getLevel(cursor.getY()), cursor, false, getRoomSetting().getChestType().orElse(ChestType.SMITH));
     cursor = new Coord(origin);
   }
 

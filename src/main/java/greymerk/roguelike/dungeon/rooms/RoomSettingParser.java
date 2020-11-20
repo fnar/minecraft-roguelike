@@ -3,7 +3,10 @@ package greymerk.roguelike.dungeon.rooms;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import java.util.Optional;
+
 import greymerk.roguelike.dungeon.base.RoomType;
+import greymerk.roguelike.treasure.loot.ChestType;
 
 import static greymerk.roguelike.dungeon.settings.level.LevelsParser.parseLevelsIfPresent;
 
@@ -14,7 +17,7 @@ public class RoomSettingParser {
   public static final String COUNT_KEY = "count";
   public static final String WEIGHT_KEY = "weight";
   public static final String SPAWNER_KEY = "spawnerId";
-  public static final String TREASURE_TYPE_KEY = "treasureType";
+  public static final String CHEST_TYPE_KEY = "chestType";
 
   public static RoomSetting parse(JsonObject roomSettingJson) {
     return new RoomSetting(
@@ -24,7 +27,7 @@ public class RoomSettingParser {
         parseWeight(roomSettingJson),
         parseCount(roomSettingJson),
         parseLevelsIfPresent(roomSettingJson),
-        parseTreasureType(roomSettingJson)
+        parseChestType(roomSettingJson)
     );
   }
 
@@ -59,14 +62,14 @@ public class RoomSettingParser {
         : null;
   }
 
-  private static String parseTreasureType(JsonObject roomSettingJson) {
-    if (!roomSettingJson.has(TREASURE_TYPE_KEY)) {
-      return null;
+  private static Optional<ChestType> parseChestType(JsonObject roomSettingJson) {
+    if (!roomSettingJson.has(CHEST_TYPE_KEY)) {
+      return Optional.empty();
     }
-    JsonElement treasureTypeValue = roomSettingJson.get(TREASURE_TYPE_KEY);
+    JsonElement treasureTypeValue = roomSettingJson.get(CHEST_TYPE_KEY);
     if (treasureTypeValue.isJsonNull()) {
-      return null;
+      return Optional.empty();
     }
-    return treasureTypeValue.getAsString();
+    return Optional.of(new ChestType(treasureTypeValue.getAsString()));
   }
 }

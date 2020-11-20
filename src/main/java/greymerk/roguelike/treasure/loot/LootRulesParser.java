@@ -8,8 +8,8 @@ import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
-import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.treasure.loot.rule.ForEachLootRule;
 import greymerk.roguelike.treasure.loot.rule.LootRule;
 import greymerk.roguelike.treasure.loot.rule.SingleUseLootRule;
@@ -29,11 +29,16 @@ public class LootRulesParser {
 
       JsonObject rule = ruleElement.getAsJsonObject();
 
-      Treasure type = rule.has("type") ? Treasure.valueOf(rule.get("type").getAsString()) : null;
-
       if (!rule.has("loot")) {
         continue;
       }
+
+      Optional<ChestType> chestType = rule.has("type")
+          ? Optional.of(new ChestType(rule.get("type").getAsString()))
+          : rule.has("chestType")
+              ? Optional.of(new ChestType(rule.get("chestType").getAsString()))
+              : Optional.empty();
+
       JsonArray data = rule.get("loot").getAsJsonArray();
       WeightedRandomizer<ItemStack> items = new WeightedRandomizer<>(1);
       for (JsonElement item : data) {
@@ -61,19 +66,19 @@ public class LootRulesParser {
       int amount = rule.get("quantity").getAsInt();
 
       for (int level : levels) {
-        lootRules.add(newLootRule(type, items, each, amount, level));
+        lootRules.add(newLootRule(items, amount, level, each, chestType));
       }
     }
     return lootRules;
   }
 
-  private LootRule newLootRule(Treasure type, WeightedRandomizer<ItemStack> items, boolean each, int amount, int level) {
-    if (each && type != null) {
-      return new TypedForEachLootRule(type, items, level, amount);
+  private LootRule newLootRule(WeightedRandomizer<ItemStack> items, int amount, int level, boolean each, Optional<ChestType> chestType) {
+    if (each && chestType.isPresent()) {
+      return new TypedForEachLootRule(chestType.get(), items, level, amount);
     } else if (each) {
       return new ForEachLootRule(items, level, amount);
-    } else if (type != null) {
-      return new TypedSingleUseLootRule(type, items, level, amount);
+    } else if (chestType.isPresent()) {
+      return new TypedSingleUseLootRule(chestType.get(), items, level, amount);
     } else {
       return new SingleUseLootRule(items, level, amount);
     }
