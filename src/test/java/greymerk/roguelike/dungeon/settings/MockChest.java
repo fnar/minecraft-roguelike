@@ -7,19 +7,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 import greymerk.roguelike.treasure.Inventory;
-import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.treasure.TreasureChest;
+import greymerk.roguelike.treasure.loot.ChestType;
 
 // todo: there's already a mockChest. How similar are they?
 class MockChest extends TreasureChest {
 
-  Treasure type;
-  int level;
   Map<Integer, ItemStack> loot;
 
-  public MockChest(Treasure type, int level) {
+  public MockChest(ChestType type, int level) {
     super(type, level, null, 0, new Inventory(null, null));
-    this.type = type;
     loot = new HashMap<>();
   }
 
@@ -44,16 +41,8 @@ class MockChest extends TreasureChest {
     return !loot.containsKey(slot);
   }
 
-  public Treasure getType() {
-    return type;
-  }
-
   public int getSize() {
     return 27;
-  }
-
-  public int getLevel() {
-    return level;
   }
 
   public int count(ItemStack type) {
@@ -76,15 +65,4 @@ class MockChest extends TreasureChest {
   public void setLootTable(ResourceLocation table) {
   }
 
-  public boolean isOnLevel(int level) {
-    return getLevel() == level;
-  }
-
-  public boolean isType(Treasure type) {
-    return getType() == type;
-  }
-
-  public boolean isNotEmpty() {
-    return !isType(Treasure.EMPTY);
-  }
 }

@@ -9,6 +9,7 @@ import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
@@ -19,7 +20,6 @@ import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
-import static greymerk.roguelike.treasure.Treasure.COMMON_TREASURES;
 import static greymerk.roguelike.worldgen.Cardinal.UP;
 import static greymerk.roguelike.worldgen.Cardinal.directions;
 
@@ -136,7 +136,7 @@ public class BrickRoom extends DungeonBase {
 
     List<Coord> chestLocations = chooseRandomLocations(rand, 1, potentialChestLocations);
     int level = Dungeon.getLevel(origin.getY());
-    editor.treasureChestEditor.createChests(level, chestLocations, false, COMMON_TREASURES);
+    editor.treasureChestEditor.createChests(level, chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(rand, ChestType.COMMON_TREASURES)));
 
     Coord spawnerLocation = new Coord(x, y, z);
     generateSpawner(editor, rand, spawnerLocation, Dungeon.getLevel(origin.getY()), settings.getSpawners());

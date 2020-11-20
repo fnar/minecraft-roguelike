@@ -10,7 +10,6 @@ import org.junit.Test;
 import java.util.Random;
 
 import greymerk.roguelike.treasure.MockChest;
-import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.treasure.TreasureManager;
 import greymerk.roguelike.treasure.loot.rule.TypedForEachLootRule;
 import greymerk.roguelike.util.WeightedChoice;
@@ -25,10 +24,10 @@ public class LootRuleManagerTest {
   @Test
   public void testAdd() {
     LootRuleManager manager = new LootRuleManager();
-    manager.add(new TypedForEachLootRule(Treasure.STARTER, new WeightedChoice<>(new ItemStack(Items.SHEARS), 1), 0, 1));
+    manager.add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(new ItemStack(Items.SHEARS), 1), 0, 1));
     TreasureManager treasure = new TreasureManager(new Random());
 
-    MockChest chest = new MockChest(Treasure.STARTER, 0);
+    MockChest chest = new MockChest(ChestType.STARTER, 0);
     treasure.addChest(chest);
 
     manager.process(treasure);
@@ -42,15 +41,15 @@ public class LootRuleManagerTest {
   public void testMerge() {
 
     LootRuleManager base = new LootRuleManager();
-    base.add(new TypedForEachLootRule(Treasure.STARTER, new WeightedChoice<>(new ItemStack(Items.SHEARS), 1), 0, 1));
+    base.add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(new ItemStack(Items.SHEARS), 1), 0, 1));
 
     LootRuleManager other = new LootRuleManager();
-    other.add(new TypedForEachLootRule(Treasure.STARTER, new WeightedChoice<>(new ItemStack(Items.APPLE), 1), 0, 1));
+    other.add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(new ItemStack(Items.APPLE), 1), 0, 1));
 
     base.merge(other);
 
     TreasureManager treasure = new TreasureManager(new Random());
-    MockChest chest = new MockChest(Treasure.STARTER, 0);
+    MockChest chest = new MockChest(ChestType.STARTER, 0);
     treasure.addChest(chest);
 
     base.process(treasure);

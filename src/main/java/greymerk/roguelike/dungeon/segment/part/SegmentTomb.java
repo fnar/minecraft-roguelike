@@ -7,6 +7,7 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IStair;
@@ -17,9 +18,6 @@ import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.MobType;
 import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
-
-import static greymerk.roguelike.treasure.Treasure.COMMON_TREASURES;
-
 
 public class SegmentTomb extends SegmentBase {
 
@@ -58,7 +56,7 @@ public class SegmentTomb extends SegmentBase {
         : level.getSpawners();
     spawners.generateSpawner(editor, rand, cursor, level.getDifficulty(cursor));
     cursor.translate(dir);
-    editor.treasureChestEditor.createChest(Dungeon.getLevel(cursor.getY()), cursor, false, COMMON_TREASURES);
+    editor.treasureChestEditor.createChest(Dungeon.getLevel(cursor.getY()), cursor, false, ChestType.chooseRandomType(rand, ChestType.COMMON_TREASURES));
   }
 
   @Override

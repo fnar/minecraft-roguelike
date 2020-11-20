@@ -5,6 +5,8 @@ import com.google.gson.JsonParser;
 
 import org.junit.Test;
 
+import greymerk.roguelike.treasure.loot.ChestType;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class RoomSettingParserTest {
@@ -28,9 +30,9 @@ public class RoomSettingParserTest {
   public void parse_parsesTheTreasureChestType_WithAValidValue() {
     String roomSettingJson = "{\n" +
         "  \"type\": \"FORTRESS\",\n" +
-        "  \"treasureType\": \"ARMOUR\"\n" +
+        "  \"chestType\": \"ARMOUR\"\n" +
         "}";
-    assertThat(parseRoomSetting(roomSettingJson).getTreasureType()).isEqualTo("ARMOUR");
+    assertThat(parseRoomSetting(roomSettingJson).getChestType().get()).isEqualTo(new ChestType("ARMOUR"));
   }
 
   @Test
@@ -38,15 +40,15 @@ public class RoomSettingParserTest {
     String roomSettingJson = "{\n" +
         "  \"type\": \"FORTRESS\"\n" +
         "}";
-    assertThat(parseRoomSetting(roomSettingJson).getTreasureType()).isNull();
+    assertThat(parseRoomSetting(roomSettingJson).getChestType()).isEmpty();
   }
 
   @Test
   public void parse_parseTheTreasureChestTypeAsNull_WhenNull() {
     String roomSettingJson = "{\n" +
         "  \"type\": \"FORTRESS\",\n" +
-        "  \"treasureType\": null\n" +
+        "  \"chestType\": null\n" +
         "}";
-    assertThat(parseRoomSetting(roomSettingJson).getTreasureType()).isNull();
+    assertThat(parseRoomSetting(roomSettingJson).getChestType()).isEmpty();
   }
 }

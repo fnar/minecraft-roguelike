@@ -7,6 +7,7 @@ import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -19,7 +20,6 @@ import greymerk.roguelike.worldgen.blocks.Crops;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
-import static greymerk.roguelike.treasure.Treasure.RARE_TREASURES;
 import static greymerk.roguelike.worldgen.Cardinal.DOWN;
 import static greymerk.roguelike.worldgen.Cardinal.UP;
 import static greymerk.roguelike.worldgen.Cardinal.directions;
@@ -88,7 +88,7 @@ public class FortressRoom extends DungeonBase {
     List<Coord> chests = (new RectSolid(start, end).get());
 
     List<Coord> chestLocations = chooseRandomLocations(rand, rand.nextInt(3) + 1, chests);
-    editor.treasureChestEditor.createChests(levelSettings.getDifficulty(origin), chestLocations, false, RARE_TREASURES);
+    editor.treasureChestEditor.createChests(levelSettings.getDifficulty(origin), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(rand, ChestType.RARE_TREASURES)));
 
     for (Cardinal dir : directions) {
 

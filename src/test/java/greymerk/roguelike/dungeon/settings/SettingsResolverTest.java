@@ -10,12 +10,12 @@ import java.util.Random;
 
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.treasure.TreasureManager;
+import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.treasure.loot.LootTableRule;
 import greymerk.roguelike.treasure.loot.rule.TypedForEachLootRule;
 import greymerk.roguelike.util.WeightedChoice;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 
-import static greymerk.roguelike.treasure.Treasure.REWARD;
 import static greymerk.roguelike.treasure.loot.LootTableRule.newLootTableRule;
 import static net.minecraft.init.Items.BOAT;
 import static net.minecraft.init.Items.COAL;
@@ -52,11 +52,11 @@ public class SettingsResolverTest {
 
     ItemStack stick = new ItemStack(STICK);
 
-    toInherit.getLootRules().add(new TypedForEachLootRule(REWARD, new WeightedChoice<>(stick, 1), 0, 1));
+    toInherit.getLootRules().add(new TypedForEachLootRule(ChestType.REWARD, new WeightedChoice<>(stick, 1), 0, 1));
 
     DungeonSettings assembled = settingsResolver.processInheritance(main);
 
-    MockChest chest = new MockChest(REWARD, 0);
+    MockChest chest = new MockChest(ChestType.REWARD, 0);
     treasureManager.addChest(chest);
 
     assertEquals(0, chest.count(stick));
@@ -78,12 +78,12 @@ public class SettingsResolverTest {
     ItemStack stick = new ItemStack(STICK);
     ItemStack diamond = new ItemStack(DIAMOND);
 
-    child.getLootRules().add(new TypedForEachLootRule(REWARD, new WeightedChoice<>(stick, 1), 0, 1));
-    grandchild.getLootRules().add(new TypedForEachLootRule(REWARD, new WeightedChoice<>(diamond, 1), 0, 1));
+    child.getLootRules().add(new TypedForEachLootRule(ChestType.REWARD, new WeightedChoice<>(stick, 1), 0, 1));
+    grandchild.getLootRules().add(new TypedForEachLootRule(ChestType.REWARD, new WeightedChoice<>(diamond, 1), 0, 1));
 
     DungeonSettings assembled = settingsResolver.processInheritance(main);
 
-    MockChest chest = new MockChest(REWARD, 0);
+    MockChest chest = new MockChest(ChestType.REWARD, 0);
     treasureManager.addChest(chest);
 
     assertEquals(0, chest.count(stick));
@@ -113,13 +113,13 @@ public class SettingsResolverTest {
     ItemStack coal = new ItemStack(COAL);
     ItemStack diamond = new ItemStack(DIAMOND);
 
-    child.getLootRules().add(new TypedForEachLootRule(REWARD, new WeightedChoice<>(stick, 1), 0, 1));
-    sibling.getLootRules().add(new TypedForEachLootRule(REWARD, new WeightedChoice<>(coal, 1), 0, 1));
-    grandchild.getLootRules().add(new TypedForEachLootRule(REWARD, new WeightedChoice<>(diamond, 1), 0, 1));
+    child.getLootRules().add(new TypedForEachLootRule(ChestType.REWARD, new WeightedChoice<>(stick, 1), 0, 1));
+    sibling.getLootRules().add(new TypedForEachLootRule(ChestType.REWARD, new WeightedChoice<>(coal, 1), 0, 1));
+    grandchild.getLootRules().add(new TypedForEachLootRule(ChestType.REWARD, new WeightedChoice<>(diamond, 1), 0, 1));
 
     DungeonSettings assembled = settingsResolver.processInheritance(main);
 
-    MockChest chest = new MockChest(REWARD, 0);
+    MockChest chest = new MockChest(ChestType.REWARD, 0);
     treasureManager.addChest(chest);
 
     assertEquals(0, chest.count(stick));
@@ -140,17 +140,17 @@ public class SettingsResolverTest {
     ItemStack coal = new ItemStack(COAL);
 
     DungeonSettings parent = new DungeonSettings("parent");
-    parent.getLootRules().add(new TypedForEachLootRule(REWARD, new WeightedChoice<>(stick, 1), 0, 1));
+    parent.getLootRules().add(new TypedForEachLootRule(ChestType.REWARD, new WeightedChoice<>(stick, 1), 0, 1));
     settingsContainer.put(parent);
 
     DungeonSettings child = new DungeonSettings("child");
-    child.getLootRules().add(new TypedForEachLootRule(REWARD, new WeightedChoice<>(coal, 1), 0, 1));
+    child.getLootRules().add(new TypedForEachLootRule(ChestType.REWARD, new WeightedChoice<>(coal, 1), 0, 1));
     child.getInherits().add(parent.getId());
     settingsContainer.put(child);
 
     DungeonSettings actual = settingsResolver.processInheritance(child);
 
-    MockChest chest = new MockChest(REWARD, 0);
+    MockChest chest = new MockChest(ChestType.REWARD, 0);
     treasureManager.addChest(chest);
     actual.getLootRules().process(treasureManager);
 
@@ -164,13 +164,13 @@ public class SettingsResolverTest {
     ItemStack coal = new ItemStack(COAL);
 
     DungeonSettings parent = new DungeonSettings("parent");
-    LootTableRule rewardDungeonLootTable = newLootTableRule(0, "minecraft:dungeon", REWARD);
+    LootTableRule rewardDungeonLootTable = newLootTableRule(0, "minecraft:dungeon", ChestType.REWARD);
     parent.getLootTables().add(rewardDungeonLootTable);
-    parent.getLootRules().add(new TypedForEachLootRule(REWARD, new WeightedChoice<>(stick, 1), 0, 1));
+    parent.getLootRules().add(new TypedForEachLootRule(ChestType.REWARD, new WeightedChoice<>(stick, 1), 0, 1));
     settingsContainer.put(parent);
 
     DungeonSettings child = new DungeonSettings("child");
-    child.getLootRules().add(new TypedForEachLootRule(REWARD, new WeightedChoice<>(coal, 1), 0, 1));
+    child.getLootRules().add(new TypedForEachLootRule(ChestType.REWARD, new WeightedChoice<>(coal, 1), 0, 1));
     child.getInherits().add(parent.getId());
     settingsContainer.put(child);
 
@@ -178,7 +178,7 @@ public class SettingsResolverTest {
 
     assertThat(actual.getLootTables()).contains(rewardDungeonLootTable);
 
-    MockChest chest = new MockChest(REWARD, 0);
+    MockChest chest = new MockChest(ChestType.REWARD, 0);
     treasureManager.addChest(chest);
     actual.getLootRules().process(treasureManager);
 

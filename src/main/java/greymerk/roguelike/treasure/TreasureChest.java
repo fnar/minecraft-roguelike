@@ -4,24 +4,27 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.ResourceLocation;
 
-import static java.lang.Math.*;
+import greymerk.roguelike.treasure.loot.ChestType;
+
+import static java.lang.Math.max;
+import static java.lang.Math.min;
 
 public class TreasureChest {
 
   private final Inventory inventory;
-  private final Treasure type;
+  private ChestType chestType;
   private final long seed;
   private final TileEntityChest tileEntityChest;
   private final int level;
 
   public TreasureChest(
-      Treasure type,
+      ChestType chestType,
       int level,
       TileEntityChest tileEntityChest,
       int seed,
       Inventory inventory
   ) {
-    this.type = type;
+    this.chestType = chestType;
     this.level = level;
     this.tileEntityChest = tileEntityChest;
     this.inventory = inventory;
@@ -40,8 +43,8 @@ public class TreasureChest {
     return this.inventory.isEmptySlot(slot);
   }
 
-  public Treasure getType() {
-    return this.type;
+  public ChestType getType() {
+    return chestType;
   }
 
   public int getSize() {
@@ -60,8 +63,8 @@ public class TreasureChest {
     return getLevel() == level;
   }
 
-  public boolean isType(Treasure type) {
-    return getType() == type;
+  public boolean isType(ChestType chestType) {
+    return getType().equals(chestType);
   }
 
   public boolean isNotEmpty() {
@@ -69,6 +72,6 @@ public class TreasureChest {
   }
 
   private boolean isEmpty() {
-    return isType(Treasure.EMPTY);
+    return chestType == null || isType(ChestType.EMPTY);
   }
 }

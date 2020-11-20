@@ -4,8 +4,8 @@ import java.util.Random;
 
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
-import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.treasure.TreasureManager;
+import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.treasure.loot.books.BookStatistics;
 import greymerk.roguelike.util.WeightedChoice;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -18,6 +18,6 @@ public class DungeonTaskLoot implements IDungeonTask {
   public void execute(WorldEditor editor, Random random, Dungeon dungeon, DungeonSettings settings) {
     TreasureManager treasureManager = editor.treasureChestEditor.getTreasureManager();
     settings.processLoot(treasureManager);
-    treasureManager.addItem(ofType(Treasure.STARTER), new WeightedChoice<>(new BookStatistics(editor).get(), 0), 1);
+    treasureManager.addItem(ofType(ChestType.STARTER), new WeightedChoice<>(new BookStatistics(editor).get(), 0), 1);
   }
 }

@@ -10,6 +10,7 @@ import java.util.Random;
 import java.util.function.Predicate;
 import java.util.stream.IntStream;
 
+import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.util.IWeighted;
 
 import static java.util.stream.Collectors.toList;
@@ -55,14 +56,14 @@ public class TreasureManager {
         .collect(toList());
   }
 
-  public static Predicate<TreasureChest> ofType(Treasure type) {
-    return chest -> chest.isType(type);
+  public static Predicate<TreasureChest> ofType(ChestType chestType) {
+    return chest -> chest.isType(chestType);
   }
 
-  public static Predicate<TreasureChest> ofTypeOnLevel(Treasure type, int level) {
+  public static Predicate<TreasureChest> ofTypeOnLevel(ChestType chestType, int level) {
     return Predicates.and(
         chest -> chest.isOnLevel(level),
-        chest -> chest.isType(type));
+        chest -> chest.isType(chestType));
   }
 
   public static Predicate<TreasureChest> onLevel(int level) {

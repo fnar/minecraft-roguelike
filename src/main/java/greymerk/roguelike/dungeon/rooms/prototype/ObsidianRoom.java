@@ -8,6 +8,7 @@ import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockJumble;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -18,9 +19,6 @@ import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.blocks.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
-
-import static greymerk.roguelike.treasure.Treasure.RARE_TREASURES;
-
 
 public class ObsidianRoom extends DungeonBase {
 
@@ -313,7 +311,7 @@ public class ObsidianRoom extends DungeonBase {
         chestPos.translate(orth, 2);
         chestPos.translate(Cardinal.DOWN, 3);
 
-        editor.treasureChestEditor.createChest(Dungeon.getLevel(chestPos.getY()), chestPos, false, RARE_TREASURES);
+        editor.treasureChestEditor.createChest(Dungeon.getLevel(chestPos.getY()), chestPos, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(rand, ChestType.RARE_TREASURES)));
       }
     }
 

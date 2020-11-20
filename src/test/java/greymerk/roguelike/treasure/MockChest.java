@@ -6,16 +6,15 @@ import net.minecraft.util.ResourceLocation;
 
 import java.util.Random;
 
+import greymerk.roguelike.treasure.loot.ChestType;
+
 public class MockChest extends TreasureChest {
 
-  Treasure type;
-  int level;
   Inventory inv;
   TileEntityChest chest;
 
-  public MockChest(Treasure type, int level) {
-    super(type, level, null, 0, new Inventory(null, null));
-    this.type = type;
+  public MockChest(ChestType chestType, int level) {
+    super(chestType, level, null, 0, new Inventory(null, null));
     this.chest = new TileEntityChest();
     this.inv = new Inventory(new Random(), chest);
   }
@@ -32,16 +31,8 @@ public class MockChest extends TreasureChest {
     return this.inv.isEmptySlot(slot);
   }
 
-  public Treasure getType() {
-    return this.type;
-  }
-
   public int getSize() {
     return this.inv.getInventorySize();
-  }
-
-  public int getLevel() {
-    return this.level;
   }
 
   public boolean contains(ItemStack item) {
@@ -76,15 +67,4 @@ public class MockChest extends TreasureChest {
 
   }
 
-  public boolean isOnLevel(int level) {
-    return getLevel() == level;
-  }
-
-  public boolean isType(Treasure type) {
-    return getType() == type;
-  }
-
-  public boolean isNotEmpty() {
-    return !isType(Treasure.EMPTY);
-  }
 }
