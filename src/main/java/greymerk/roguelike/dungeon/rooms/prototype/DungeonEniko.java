@@ -59,7 +59,7 @@ public class DungeonEniko extends DungeonBase {
     Coord start;
     Coord end;
     Coord cursor;
-    List<Coord> chests = new ArrayList<Coord>();
+    List<Coord> chests = new ArrayList<>();
 
     start = new Coord(origin);
     end = new Coord(origin);

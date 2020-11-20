@@ -63,7 +63,7 @@ public class DungeonsPit extends DungeonBase {
       setTrap(editor, rand, settings, dir, origin);
     }
 
-    List<Coord> spaces = new ArrayList<Coord>();
+    List<Coord> spaces = new ArrayList<>();
     spaces.add(new Coord(originX - 2, originY, originZ - 2));
     spaces.add(new Coord(originX - 2, originY, originZ + 2));
     spaces.add(new Coord(originX + 2, originY, originZ - 2));
@@ -130,7 +130,7 @@ public class DungeonsPit extends DungeonBase {
             continue;
           }
 
-          if (y < 0 + rand.nextInt(5) && editor.getBlock(new Coord(x, y, z)).getBlock() == BlockType.get(BlockType.BEDROCK).getBlock()) {
+          if (y < rand.nextInt(5) && editor.getBlock(new Coord(x, y, z)).getBlock() == BlockType.get(BlockType.BEDROCK).getBlock()) {
             continue;
           }
 

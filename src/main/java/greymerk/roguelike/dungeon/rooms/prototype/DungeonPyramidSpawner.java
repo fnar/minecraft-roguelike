@@ -68,7 +68,7 @@ public class DungeonPyramidSpawner extends DungeonBase {
     air.set(editor, cursor);
 
     // Chests
-    List<Coord> space = new ArrayList<Coord>();
+    List<Coord> space = new ArrayList<>();
 
     for (Cardinal dir : Cardinal.directions) {
 

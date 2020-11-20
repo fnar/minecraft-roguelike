@@ -38,7 +38,7 @@ public class DungeonsEnchant extends DungeonBase {
     MetaBlock air = BlockType.get(BlockType.AIR);
     IStair stair = theme.getPrimary().getStair();
 
-    List<Coord> chests = new ArrayList<Coord>();
+    List<Coord> chests = new ArrayList<>();
 
     Coord start;
     Coord end;
