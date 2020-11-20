@@ -1,0 +1,11 @@
+{
+  "name": "loot_rules:generic",
+  "loot_rules": [
+    {
+      "level": 0, "type": "FOO", "each": true, "quantity": 1,
+      "loot": [
+        {"data": {"type": "tool", "level": 2}, "weight": 1}
+      ]
+    }
+  ]
+}

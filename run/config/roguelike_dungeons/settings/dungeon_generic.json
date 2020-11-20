@@ -1,5 +1,6 @@
 {
   "name": "dungeon:generic",
+  "exclusive": true,
   "inherit": [
     "layout:size_small",
     "segments:generic",
