@@ -5,6 +5,8 @@ import net.minecraft.item.ItemStack;
 import greymerk.roguelike.treasure.TreasureManager;
 import greymerk.roguelike.util.IWeighted;
 
+import static greymerk.roguelike.treasure.TreasureManager.onLevel;
+
 public class SingleUseLootRule implements LootRule {
 
   int level;
@@ -18,6 +20,6 @@ public class SingleUseLootRule implements LootRule {
   }
 
   public void process(TreasureManager treasureManager) {
-    treasureManager.addItem(level, item, amount);
+    treasureManager.addItem(onLevel(level), item, amount);
   }
 }

@@ -10,12 +10,14 @@ import greymerk.roguelike.treasure.loot.books.BookStatistics;
 import greymerk.roguelike.util.WeightedChoice;
 import greymerk.roguelike.worldgen.WorldEditor;
 
+import static greymerk.roguelike.treasure.TreasureManager.ofType;
+
 public class DungeonTaskLoot implements IDungeonTask {
 
   @Override
   public void execute(WorldEditor editor, Random random, Dungeon dungeon, DungeonSettings settings) {
     TreasureManager treasureManager = editor.treasureChestEditor.getTreasureManager();
     settings.processLoot(treasureManager);
-    treasureManager.addItem(Treasure.STARTER, new WeightedChoice<>(new BookStatistics(editor).get(), 0), 1);
+    treasureManager.addItem(ofType(Treasure.STARTER), new WeightedChoice<>(new BookStatistics(editor).get(), 0), 1);
   }
 }
