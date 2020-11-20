@@ -9,13 +9,14 @@ public class BookStarter extends BookBase {
     super("greymerk", "Roguelike Dungeons");
 
     this.addPage(
-        "Roguelike Dungeons v" + Roguelike.version + "\n"
-            + Roguelike.date + "\n\n"
-            + "Credits\n\n"
-            + "Original Author: Greymerk\n\n"
-            + "Bits: Drainedsoul\n\n"
-            + "Ideas: Eniko @enichan"
-            + "Fnar Edition Enhancements: Fnar"
+        "Roguelike Dungeons\n" +
+            "v" + Roguelike.version + " (" + Roguelike.date + ")\n\n" +
+            "Thank you for playing <3\n\n" +
+            "    - Credits - \n" +
+            "Author: @Greymerk\n" +
+            "Bits: Drainedsoul\n" +
+            "Ideas: Eniko @enichan\n" +
+            "Contributions: Fnar\n"
     );
   }
 }
