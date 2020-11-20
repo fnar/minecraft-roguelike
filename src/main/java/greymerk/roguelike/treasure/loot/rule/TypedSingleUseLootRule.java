@@ -6,6 +6,8 @@ import greymerk.roguelike.treasure.Treasure;
 import greymerk.roguelike.treasure.TreasureManager;
 import greymerk.roguelike.util.IWeighted;
 
+import static greymerk.roguelike.treasure.TreasureManager.ofTypeOnLevel;
+
 public class TypedSingleUseLootRule implements LootRule {
   private final Treasure treasureType;
   private final IWeighted<ItemStack> item;
@@ -21,6 +23,6 @@ public class TypedSingleUseLootRule implements LootRule {
 
   @Override
   public void process(TreasureManager treasureManager) {
-    treasureManager.addItem(treasureType, level, item, amount);
+    treasureManager.addItem(ofTypeOnLevel(treasureType, level), item, amount);
   }
 }

@@ -12,6 +12,10 @@ import java.util.Random;
 import greymerk.roguelike.util.WeightedChoice;
 import greymerk.roguelike.util.WeightedRandomizer;
 
+import static greymerk.roguelike.treasure.TreasureManager.ofType;
+import static greymerk.roguelike.treasure.TreasureManager.ofTypeOnLevel;
+import static greymerk.roguelike.treasure.TreasureManager.onLevel;
+
 public class TreasureManagerTest {
 
   @Before
@@ -21,30 +25,20 @@ public class TreasureManagerTest {
 
   @Test
   public void addItem() {
-
-    Random rand = new Random();
-    WeightedChoice<ItemStack> stick = new WeightedChoice<ItemStack>(new ItemStack(Items.STICK), 1);
-    WeightedRandomizer<ItemStack> loot = new WeightedRandomizer<ItemStack>();
+    WeightedChoice<ItemStack> stick = new WeightedChoice<>(new ItemStack(Items.STICK), 1);
+    WeightedRandomizer<ItemStack> loot = new WeightedRandomizer<>();
     loot.add(stick);
 
     TreasureManager treasure = new TreasureManager(new Random());
     MockChest toAdd = new MockChest(Treasure.ARMOUR, 0);
     treasure.addChest(toAdd);
-    treasure.addItem(Treasure.ARMOUR, 0, loot, 1);
-
-    treasure.addItem(Treasure.ARMOUR, 1, loot, 1);
-
-    treasure.addItem(Treasure.WEAPONS, 0, loot, 1);
-
-    treasure.addItem(Treasure.WEAPONS, 1, loot, 1);
-
-    treasure.addItem(Treasure.ARMOUR, loot, 1);
-
-    treasure.addItem(Treasure.WEAPONS, loot, 1);
-
-    treasure.addItem(0, loot, 1);
-
-    treasure.addItem(1, loot, 1);
-
+    treasure.addItem(ofTypeOnLevel(Treasure.ARMOUR, 0), loot, 1);
+    treasure.addItem(ofTypeOnLevel(Treasure.ARMOUR, 1), loot, 1);
+    treasure.addItem(ofTypeOnLevel(Treasure.WEAPONS, 0), loot, 1);
+    treasure.addItem(ofTypeOnLevel(Treasure.WEAPONS, 1), loot, 1);
+    treasure.addItem(ofType(Treasure.ARMOUR), loot, 1);
+    treasure.addItem(ofType(Treasure.WEAPONS), loot, 1);
+    treasure.addItem(onLevel(0), loot, 1);
+    treasure.addItem(onLevel(1), loot, 1);
   }
 }
