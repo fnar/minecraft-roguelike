@@ -53,7 +53,7 @@ public class DungeonsSpiderNest extends DungeonBase {
           int x = Math.abs(blockX - originX);
           int z = Math.abs(blockZ - originZ);
 
-          int clearHeight = x > z ? x : z;
+          int clearHeight = Math.max(x, z);
 
           if (blockY == originY) {
             webs.set(editor, inRandom, new Coord(blockX, blockY, blockZ));

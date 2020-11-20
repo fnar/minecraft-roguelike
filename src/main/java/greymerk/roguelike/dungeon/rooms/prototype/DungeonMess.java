@@ -98,7 +98,7 @@ public class DungeonMess extends DungeonBase {
       stair.setOrientation(dir.reverse(), true).set(editor, cursor);
     }
 
-    List<Cardinal> nonDoors = new ArrayList<Cardinal>();
+    List<Cardinal> nonDoors = new ArrayList<>();
     for (Cardinal dir : Cardinal.directions) {
       if (!Arrays.asList(entrances).contains(dir)) {
         nonDoors.add(dir);
