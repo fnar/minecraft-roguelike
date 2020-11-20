@@ -31,11 +31,11 @@ public class LevelSettings {
 
   private static final int NUM_ROOMS = 12;
   private static final int LEVEL_RANGE = 80;
-  private static final int SCATTER = 12;
+  private static final int MINIMUM_SCATTER = 12;
 
   private int numRooms = NUM_ROOMS;
   private int range = LEVEL_RANGE;
-  private int scatter = SCATTER;
+  private int scatter = MINIMUM_SCATTER;
   private int levelDifficulty = -1;
   private RoomsSetting rooms = new RoomsSetting();
   private SecretsSetting secrets = new SecretsSetting();
@@ -75,9 +75,8 @@ public class LevelSettings {
         && child.range != LEVEL_RANGE
         ? child.range : parent.range;
 
-    scatter = child.scatter != parent.scatter
-        && child.scatter != SCATTER
-        ? child.scatter : parent.scatter;
+    setScatter(child.scatter != parent.scatter && child.scatter != MINIMUM_SCATTER
+        ? child.scatter : parent.scatter);
 
     levelDifficulty = (parent.levelDifficulty != child.levelDifficulty
         && child.levelDifficulty != -1) || parent.levelDifficulty == -1
@@ -147,7 +146,7 @@ public class LevelSettings {
   }
 
   public void setScatter(int scatter) {
-    this.scatter = scatter;
+    this.scatter = Math.max(MINIMUM_SCATTER, scatter);
   }
 
   public int getNumRooms() {
