@@ -30,7 +30,7 @@ public enum LevelGenerator {
   public static void generateLevelLink(WorldEditor editor, Random rand, LevelSettings settings, DungeonNode start, DungeonNode end) {
 
     DungeonBase downstairs = new DungeonLinker();
-    downstairs.generate(editor, rand, settings, start.getPosition(), Cardinal.directions);
+    downstairs.generate(editor, rand, settings, start.getPosition(), Cardinal.DIRECTIONS);
 
     if (end == null) {
       return;

@@ -41,7 +41,7 @@ public class EniTower implements ITower {
     Coord end;
     Coord cursor;
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       for (Cardinal orth : dir.orthogonal()) {
 
         start = new Coord(floor);
@@ -275,7 +275,7 @@ public class EniTower implements ITower {
     RectSolid.fill(editor, rand, start, end, blocks);
 
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
 
       // lower windows
       cursor = new Coord(floor);
@@ -370,7 +370,7 @@ public class EniTower implements ITower {
     }
 
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(floor);
       cursor.translate(Cardinal.UP);
       cursor.translate(dir, 6);

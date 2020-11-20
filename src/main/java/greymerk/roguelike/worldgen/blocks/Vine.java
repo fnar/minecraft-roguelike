@@ -21,7 +21,7 @@ public class Vine {
       return;
     }
     MetaBlock vine = BlockType.get(BlockType.VINE);
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       Coord c = new Coord(origin);
       c.translate(dir);
       if (editor.canPlace(vine, c, dir)) {

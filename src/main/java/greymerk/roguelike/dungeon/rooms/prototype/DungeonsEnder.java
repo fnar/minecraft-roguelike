@@ -1,5 +1,6 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
+import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.config.RogueConfig;
@@ -26,7 +27,7 @@ public class DungeonsEnder extends DungeonBase {
     super(roomSetting);
   }
 
-  public DungeonBase generate(WorldEditor editor, Random inRandom, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random inRandom, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
 
     MetaBlock black = BlockType.get(BlockType.OBSIDIAN);
     MetaBlock white = Quartz.get(Quartz.SMOOTH);
@@ -39,7 +40,7 @@ public class DungeonsEnder extends DungeonBase {
     start.translate(new Coord(-3, 0, -3));
     end.translate(new Coord(3, 2, 3));
     RectSolid.fill(editor, inRandom, start, end, air);
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
 
       Cardinal[] orth = dir.orthogonal();
 
@@ -94,7 +95,7 @@ public class DungeonsEnder extends DungeonBase {
       }
 
       Coord cursor = new Coord(pos);
-      for (Cardinal dir : Cardinal.directions) {
+      for (Cardinal dir : Cardinal.DIRECTIONS) {
         cursor.translate(dir);
         if (editor.getBlock(cursor).isOpaqueCube()) {
           EnderChest.set(editor, dir.reverse(), pos);

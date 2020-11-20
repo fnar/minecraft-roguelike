@@ -125,7 +125,7 @@ public class WorldEditor {
     RectSolid.fill(this, rand, start, end, air);
     fill.set(this, rand, origin);
 
-    Cardinal dir = Cardinal.directions[origin.getY() % 4];
+    Cardinal dir = Cardinal.DIRECTIONS.get(origin.getY() % 4);
     cursor = new Coord(origin);
     cursor.translate(dir);
     stair.setOrientation(dir.antiClockwise(), false).set(this, cursor);

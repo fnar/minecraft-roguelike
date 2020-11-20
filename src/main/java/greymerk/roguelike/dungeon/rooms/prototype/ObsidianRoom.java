@@ -1,6 +1,7 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.Dungeon;
@@ -27,7 +28,7 @@ public class ObsidianRoom extends DungeonBase {
   }
 
   private static void outerPillars(WorldEditor editor, Random rand, ITheme theme, int x, int y, int z) {
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       for (Cardinal orth : dir.orthogonal()) {
         Coord pillarLocation = new Coord(x, y, z);
         pillarLocation.translate(dir, 10);
@@ -69,7 +70,7 @@ public class ObsidianRoom extends DungeonBase {
 
     IBlockFactory secondaryWall = theme.getSecondary().getPillar();
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       for (Cardinal orth : dir.orthogonal()) {
         Coord pillar = new Coord(x, y, z);
         pillar.translate(dir, 2);
@@ -117,7 +118,7 @@ public class ObsidianRoom extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
 
     int x = origin.getX();
     int y = origin.getY();
@@ -146,7 +147,7 @@ public class ObsidianRoom extends DungeonBase {
     RectSolid.fill(editor, rand, new Coord(x - 10, y - 4, z - 10), new Coord(x + 10, y - 4, z + 10), secondaryWall);
 
     // ceiling holes
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       for (Cardinal orth : dir.orthogonal()) {
         Coord start = new Coord(x, y, z);
         start.translate(Cardinal.UP, 3);
@@ -185,7 +186,7 @@ public class ObsidianRoom extends DungeonBase {
 
 
     // ceiling trims and outer walls
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
 
       // outer wall trim
       Coord start = new Coord(x, y, z);
@@ -234,7 +235,7 @@ public class ObsidianRoom extends DungeonBase {
     outerPillars(editor, rand, theme, x, y, z);
 
     // upper mid floor
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       Coord start = new Coord(x, y, z);
       start.translate(Cardinal.DOWN, 1);
       Coord end = new Coord(start);
@@ -246,7 +247,7 @@ public class ObsidianRoom extends DungeonBase {
     }
 
     // mid outer floors
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       for (Cardinal orth : dir.orthogonal()) {
         Coord start = new Coord(x, y, z);
         Coord end = new Coord(start);
@@ -297,7 +298,7 @@ public class ObsidianRoom extends DungeonBase {
     }
 
     // chests areas
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       for (Cardinal orth : dir.orthogonal()) {
         Coord cursor = new Coord(x, y, z);
         cursor.translate(Cardinal.DOWN, 2);

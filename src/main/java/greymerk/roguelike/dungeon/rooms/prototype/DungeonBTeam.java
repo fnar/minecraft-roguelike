@@ -3,6 +3,7 @@ package greymerk.roguelike.dungeon.rooms.prototype;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
+import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.config.RogueConfig;
@@ -45,7 +46,7 @@ public class DungeonBTeam extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
 
     MetaBlock air = BlockType.get(BlockType.AIR);
     IStair stair = new MetaStair(StairType.SPRUCE);
@@ -56,7 +57,7 @@ public class DungeonBTeam extends DungeonBase {
     MetaBlock cobble = BlockType.get(BlockType.COBBLESTONE);
     MetaBlock lamp = BlockType.get(BlockType.REDSTONE_LAMP);
 
-    Cardinal dir = entrances[0];
+    Cardinal dir = entrances.get(0);
 
     Coord start;
     Coord end;
@@ -273,7 +274,7 @@ public class DungeonBTeam extends DungeonBase {
     fence.set(editor, cursor);
     cursor.translate(Cardinal.UP);
     BlockType.get(BlockType.GLOWSTONE).set(editor, cursor);
-    for (Cardinal d : Cardinal.directions) {
+    for (Cardinal d : Cardinal.DIRECTIONS) {
       if (d == dir.reverse()) {
         continue;
       }

@@ -1,5 +1,8 @@
 package greymerk.roguelike.dungeon.base;
 
+import com.google.common.collect.Lists;
+
+import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
@@ -31,14 +34,14 @@ public class SecretRoom extends DungeonBase {
   }
 
   // todo: Match the signature of DungeonBase
-  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord pos, Cardinal... dir) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord pos, List<Cardinal> entrances) {
     DungeonBase prototype = createPrototype();
 
     int size = prototype.getSize();
 
     Coord start = new Coord(pos);
     Coord end = new Coord(pos);
-    Cardinal entrance = dir[0];
+    Cardinal entrance = entrances.get(0);
     start.translate(entrance.orthogonal()[0]);
     start.translate(Cardinal.DOWN);
     start.translate(entrance, 2);
@@ -53,7 +56,7 @@ public class SecretRoom extends DungeonBase {
     RectSolid.fill(editor, rand, pos, end, BlockType.get(BlockType.AIR));
 
     end.translate(Cardinal.DOWN);
-    prototype.generate(editor, rand, settings, end, new Cardinal[]{entrance});
+    prototype.generate(editor, rand, settings, end, Lists.newArrayList(entrance));
     return prototype;
   }
 

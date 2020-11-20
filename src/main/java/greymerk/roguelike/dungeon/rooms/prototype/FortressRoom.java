@@ -22,7 +22,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 import static greymerk.roguelike.worldgen.Cardinal.DOWN;
 import static greymerk.roguelike.worldgen.Cardinal.UP;
-import static greymerk.roguelike.worldgen.Cardinal.directions;
+import static greymerk.roguelike.worldgen.Cardinal.DIRECTIONS;
 
 public class FortressRoom extends DungeonBase {
 
@@ -30,7 +30,7 @@ public class FortressRoom extends DungeonBase {
     super(roomSetting);
   }
 
-  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings levelSettings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings levelSettings, Coord origin, List<Cardinal> entrances) {
     ITheme theme = levelSettings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();
     IStair stair = theme.getPrimary().getStair();
@@ -90,7 +90,7 @@ public class FortressRoom extends DungeonBase {
     List<Coord> chestLocations = chooseRandomLocations(rand, rand.nextInt(3) + 1, chests);
     editor.treasureChestEditor.createChests(levelSettings.getDifficulty(origin), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(rand, ChestType.RARE_TREASURES)));
 
-    for (Cardinal dir : directions) {
+    for (Cardinal dir : DIRECTIONS) {
 
       start = new Coord(origin);
       start.translate(UP, 5);
@@ -147,7 +147,7 @@ public class FortressRoom extends DungeonBase {
     Coord end;
     Coord cursor;
 
-    for (Cardinal dir : directions) {
+    for (Cardinal dir : DIRECTIONS) {
       start = new Coord(origin);
       start.translate(dir);
       end = new Coord(start);
@@ -185,7 +185,7 @@ public class FortressRoom extends DungeonBase {
     end.translate(UP, 5);
     RectSolid.fill(editor, rand, start, end, pillar);
 
-    for (Cardinal dir : directions) {
+    for (Cardinal dir : DIRECTIONS) {
       cursor = new Coord(origin);
       cursor.translate(UP, 4);
       cursor.translate(dir);

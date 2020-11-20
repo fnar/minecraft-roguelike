@@ -34,7 +34,7 @@ public class DungeonsSpiderNest extends DungeonBase {
     dungeonWidth = 3;
   }
 
-  public DungeonBase generate(WorldEditor editor, Random inRandom, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random inRandom, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
 
     this.editor = editor;
     rand = inRandom;

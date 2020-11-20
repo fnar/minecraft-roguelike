@@ -32,7 +32,7 @@ public class MudFilter implements IFilter {
       return;
     }
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       if (rand.nextBoolean()) {
         continue;
       }

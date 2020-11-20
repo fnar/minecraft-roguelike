@@ -1,5 +1,6 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
+import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
@@ -29,7 +30,7 @@ public class DungeonAvidya extends DungeonBase {
 
   private static void pillarTop(WorldEditor editor, Random rand, Coord cursor) {
     IStair step = new MetaStair(StairType.QUARTZ);
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       step.setOrientation(dir, true);
       cursor.translate(dir, 1);
       step.set(editor, rand, cursor, true, false);
@@ -38,7 +39,7 @@ public class DungeonAvidya extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
 
     int x = origin.getX();
     int y = origin.getY();
@@ -117,7 +118,7 @@ public class DungeonAvidya extends DungeonBase {
     RectSolid.fill(editor, rand, start, end, yang);
 
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       for (Cardinal orth : dir.orthogonal()) {
 
         // upper trim

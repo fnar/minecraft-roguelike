@@ -105,7 +105,7 @@ public class SegmentLamp extends SegmentBase {
 
     BlockType.get(BlockType.AIR).set(editor, origin);
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(origin);
       cursor.translate(dir);
       stair.setOrientation(dir.reverse(), true).set(editor, cursor);

@@ -29,7 +29,7 @@ public class DungeonMess extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
 
     ITheme theme = settings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();
@@ -58,7 +58,7 @@ public class DungeonMess extends DungeonBase {
     cursor.translate(Cardinal.UP, 4);
     BlockType.get(BlockType.GLOWSTONE).set(editor, cursor);
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       start = new Coord(origin);
       start.translate(dir, 3);
       start.translate(dir.antiClockwise(), 3);
@@ -66,7 +66,7 @@ public class DungeonMess extends DungeonBase {
       end.translate(Cardinal.UP, 3);
       RectSolid.fill(editor, rand, start, end, pillar, true, true);
 
-      for (Cardinal d : Cardinal.directions) {
+      for (Cardinal d : Cardinal.DIRECTIONS) {
         cursor = new Coord(end);
         cursor.translate(d);
         stair.setOrientation(d, true).set(editor, cursor);
@@ -82,7 +82,7 @@ public class DungeonMess extends DungeonBase {
 
 
       Cardinal[] corner = new Cardinal[]{dir, dir.antiClockwise()};
-      if (entrances.length == 4 && dir == entrances[0]) {
+      if (entrances.size() == 4 && dir == entrances.get(0)) {
         supplyCorner(editor, rand, settings, corner, origin);
       } else {
         corner(editor, rand, settings, corner, origin);
@@ -99,8 +99,8 @@ public class DungeonMess extends DungeonBase {
     }
 
     List<Cardinal> nonDoors = new ArrayList<>();
-    for (Cardinal dir : Cardinal.directions) {
-      if (!Arrays.asList(entrances).contains(dir)) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
+      if (!entrances.contains(dir)) {
         nonDoors.add(dir);
       }
     }

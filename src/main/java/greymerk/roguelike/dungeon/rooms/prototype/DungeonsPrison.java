@@ -29,7 +29,7 @@ public class DungeonsPrison extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
 
     Coord cursor;
 
@@ -41,17 +41,17 @@ public class DungeonsPrison extends DungeonBase {
       sideRoom(editor, rand, settings, cursor, dir);
     }
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(origin);
       cursor.translate(dir, 3);
       cursor.translate(dir.antiClockwise(), 3);
       pillar(editor, rand, settings, cursor, 4);
     }
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       List<Cardinal> doors = new ArrayList<>();
 
-      if (Arrays.asList(entrances).contains(dir)) {
+      if (entrances.contains(dir)) {
         doors.add(dir.clockwise());
       }
 
@@ -119,7 +119,7 @@ public class DungeonsPrison extends DungeonBase {
     end.translate(Cardinal.UP, 5);
     settings.getTheme().getPrimary().getWall().fill(editor, rand, new RectHollow(start, end), false, true);
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(origin);
       cursor.translate(dir, 3);
       cursor.translate(dir.antiClockwise(), 3);
@@ -136,7 +136,7 @@ public class DungeonsPrison extends DungeonBase {
     RectSolid.fill(editor, rand, start, end, air);
 
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(origin);
       cursor.translate(Cardinal.UP, 5);
       cursor.translate(dir, 2);
@@ -277,7 +277,7 @@ public class DungeonsPrison extends DungeonBase {
     editor.fillDown(rand, new Coord(cursor), pillar);
     cursor.translate(Cardinal.UP);
     pillar.set(editor, rand, cursor);
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor.translate(dir);
       stair.setOrientation(dir, true).set(editor, rand, cursor, true, false);
     }

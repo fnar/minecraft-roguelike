@@ -83,7 +83,7 @@ public class TreasureChestEditor {
   }
 
   private boolean isNotNextToChest(Coord coord, WorldEditor worldEditor) {
-    return Arrays.stream(Cardinal.directions).noneMatch(dir -> isBesideChest(coord, dir, worldEditor));
+    return Cardinal.DIRECTIONS.stream().noneMatch(dir -> isBesideChest(coord, dir, worldEditor));
   }
 
   private boolean isBesideChest(Coord coord, Cardinal dir, WorldEditor worldEditor) {

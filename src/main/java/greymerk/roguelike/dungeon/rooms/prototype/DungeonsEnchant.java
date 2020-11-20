@@ -28,8 +28,8 @@ public class DungeonsEnchant extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
-    Cardinal dir = entrances[0];
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
+    Cardinal dir = entrances.get(0);
 
     ITheme theme = settings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();
@@ -96,7 +96,7 @@ public class DungeonsEnchant extends DungeonBase {
 
     cursor = new Coord(origin);
     cursor.translate(dir, 5);
-    for (Cardinal d : Cardinal.directions) {
+    for (Cardinal d : Cardinal.DIRECTIONS) {
       start = new Coord(cursor);
       start.translate(d, 2);
       start.translate(d.antiClockwise(), 2);
@@ -150,7 +150,7 @@ public class DungeonsEnchant extends DungeonBase {
     cursor.translate(Cardinal.UP);
     wall.set(editor, rand, cursor);
 
-    for (Cardinal d : Cardinal.directions) {
+    for (Cardinal d : Cardinal.DIRECTIONS) {
 
       start = new Coord(origin);
       start.translate(Cardinal.UP, 4);

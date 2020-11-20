@@ -1,5 +1,6 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
+import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.Dungeon;
@@ -30,7 +31,7 @@ public class DungeonPyramidTomb extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
 
 
     ITheme theme = settings.getTheme();
@@ -109,7 +110,7 @@ public class DungeonPyramidTomb extends DungeonBase {
 
     // pillars
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
 
 
       cursor = new Coord(origin);
@@ -149,7 +150,7 @@ public class DungeonPyramidTomb extends DungeonBase {
     end.translate(Cardinal.EAST);
     RectSolid.fill(editor, rand, start, end, blocks, true, true);
 
-    sarcophagus(editor, rand, settings, entrances[0], origin);
+    sarcophagus(editor, rand, settings, entrances.get(0), origin);
 
     return this;
   }

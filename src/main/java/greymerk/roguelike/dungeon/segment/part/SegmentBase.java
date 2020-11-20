@@ -1,5 +1,7 @@
 package greymerk.roguelike.dungeon.segment.part;
 
+import com.google.common.collect.Lists;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -71,7 +73,7 @@ public abstract class SegmentBase implements ISegment {
         .filter(secretRoom -> secretRoom.isValid(editor, dir, pos))
         .findFirst();
     first.ifPresent(secretRooms::remove);
-    return first.map(secretRoom -> secretRoom.generate(editor, rand, settings, pos, dir));
+    return first.map(secretRoom -> secretRoom.generate(editor, rand, settings, pos, Lists.newArrayList(dir)));
   }
 
 }

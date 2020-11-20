@@ -58,7 +58,7 @@ public class SegmentPlant extends SegmentBase {
     Coord cursor;
     BlockType.get(BlockType.DIRT_PODZOL).set(editor, origin);
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(origin);
       cursor.translate(dir);
       Trapdoor.get(Trapdoor.OAK, dir.reverse(), true, true).set(editor, rand, cursor, true, false);

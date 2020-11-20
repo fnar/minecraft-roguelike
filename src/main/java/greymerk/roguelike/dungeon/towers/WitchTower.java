@@ -45,7 +45,7 @@ public class WitchTower implements ITower {
 
     RectHollow.fill(editor, rand, start, end, blocks);
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
 
       Cardinal[] orth = dir.orthogonal();
 
@@ -94,7 +94,7 @@ public class WitchTower implements ITower {
 
     RectHollow.fill(editor, rand, start, end, blocks);
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
 
       Cardinal[] orth = dir.orthogonal();
 
@@ -160,7 +160,7 @@ public class WitchTower implements ITower {
 
     RectHollow.fill(editor, rand, start, end, blocks);
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
 
       Cardinal[] orth = dir.orthogonal();
 
@@ -285,7 +285,7 @@ public class WitchTower implements ITower {
     end.translate(Cardinal.UP, 2);
     RectHollow.fill(editor, rand, start, end, blocks);
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
 
       Cardinal[] orth = dir.orthogonal();
 
@@ -333,7 +333,7 @@ public class WitchTower implements ITower {
 
     }
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(main);
       cursor.translate(dir, 4);
       if (editor.isAirBlock(cursor)) {

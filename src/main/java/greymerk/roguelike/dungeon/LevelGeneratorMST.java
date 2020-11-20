@@ -2,7 +2,9 @@ package greymerk.roguelike.dungeon;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.util.graph.Edge;
@@ -37,49 +39,45 @@ public class LevelGeneratorMST implements ILevelGenerator {
     Graph<Coord> layout = mst.getGraph();
     List<Edge<Coord>> edges = layout.getEdges();
     List<Coord> vertices = layout.getPoints();
-    List<Edge<Coord>> used = new ArrayList<Edge<Coord>>();
 
-    for (Coord c : vertices) {
-      for (Edge<Coord> e : edges) {
-        if (used.contains(e)) {
-          continue;
-        }
-        Coord[] ends = new Coord[]{e.getStart(), e.getEnd()};
-        for (Coord p : ends) {
-          if (p.equals(c)) {
-            Coord tStart = ends[0];
-            Coord tEnd = ends[1];
-            this.layout.addTunnel(new DungeonTunnel(tStart, tEnd));
-            used.add(e);
-          }
-        }
-      }
-    }
+    addTunnels(edges, vertices);
 
     DungeonNode startDungeonNode = null;
 
-    for (Coord c : vertices) {
-      List<Cardinal> entrances = new ArrayList<Cardinal>();
-      for (DungeonTunnel tunnel : this.layout.getTunnels()) {
-        Coord[] ends = tunnel.getEnds();
-        if (ends[0].equals(c)) {
-          entrances.add(ends[0].dirTo(ends[1]));
-        } else if (ends[1].equals(c)) {
-          entrances.add(ends[1].dirTo(ends[0]));
-        }
-      }
-
-      Cardinal[] ents = new Cardinal[entrances.size()];
-      DungeonNode toAdd = new DungeonNode(entrances.toArray(ents), c);
+    for (Coord vertex : vertices) {
+      DungeonNode toAdd = new DungeonNode(findEntrances(vertex), vertex);
       this.layout.addNode(toAdd);
 
-      if (c.equals(start)) {
+      if (vertex.equals(start)) {
         startDungeonNode = toAdd;
       }
     }
 
     this.layout.setStartEnd(rand, startDungeonNode);
 
+  }
+
+  private List<Cardinal> findEntrances(Coord vertex) {
+    return this.layout.getTunnels().stream()
+        .map(tunnel -> tunnel.getEntrance(vertex))
+        .filter(Optional::isPresent)
+        .map(Optional::get)
+        .collect(Collectors.toList());
+  }
+
+  private void addTunnels(List<Edge<Coord>> edges, List<Coord> vertices) {
+    List<Edge<Coord>> used = new ArrayList<>();
+    for (Coord vertex : vertices) {
+      for (Edge<Coord> edge : edges) {
+        if (used.contains(edge)) {
+          continue;
+        }
+        if (vertex.equals(edge.getStart()) || vertex.equals(edge.getEnd())) {
+          this.layout.addTunnel(new DungeonTunnel(edge.getStart(), edge.getEnd()));
+          used.add(edge);
+        }
+      }
+    }
   }
 
   @Override

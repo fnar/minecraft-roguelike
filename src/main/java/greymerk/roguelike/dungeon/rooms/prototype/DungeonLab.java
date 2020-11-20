@@ -3,6 +3,7 @@ package greymerk.roguelike.dungeon.rooms.prototype;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
+import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.config.RogueConfig;
@@ -197,7 +198,7 @@ public class DungeonLab extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
 
     int x = origin.getX();
     int y = origin.getY();

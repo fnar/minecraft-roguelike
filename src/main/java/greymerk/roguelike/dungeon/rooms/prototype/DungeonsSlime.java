@@ -1,6 +1,6 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
-import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
@@ -23,7 +23,7 @@ public class DungeonsSlime extends DungeonBase {
     super(roomSetting);
   }
 
-  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
     ITheme theme = settings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();
     MetaBlock bars = BlockType.get(BlockType.IRON_BAR);
@@ -41,7 +41,7 @@ public class DungeonsSlime extends DungeonBase {
     end.translate(new Coord(8, 5, 8));
     RectHollow.fill(editor, rand, start, end, wall, false, true);
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(origin);
       cursor.translate(dir, 5);
       cursor.translate(dir.antiClockwise(), 5);
@@ -61,8 +61,8 @@ public class DungeonsSlime extends DungeonBase {
     }
 
 
-    for (Cardinal dir : Cardinal.directions) {
-      if (!Arrays.asList(entrances).contains(dir)) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
+      if (!entrances.contains(dir)) {
         start = new Coord(origin);
         start.translate(dir, 4);
         end = new Coord(start);
@@ -135,7 +135,7 @@ public class DungeonsSlime extends DungeonBase {
     end.translate(new Coord(1, -2, 1));
     RectSolid.fill(editor, rand, start, end, wall);
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       start = new Coord(origin);
       start.translate(dir, 2);
       start.translate(dir.antiClockwise(), 2);
@@ -143,7 +143,7 @@ public class DungeonsSlime extends DungeonBase {
       end.translate(Cardinal.UP, 3);
       RectSolid.fill(editor, rand, start, end, pillar);
 
-      for (Cardinal d : Cardinal.directions) {
+      for (Cardinal d : Cardinal.DIRECTIONS) {
         cursor = new Coord(end);
         cursor.translate(d);
         stair.setOrientation(d, true).set(editor, rand, cursor, true, false);

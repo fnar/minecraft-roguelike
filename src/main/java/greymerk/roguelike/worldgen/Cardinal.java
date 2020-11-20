@@ -1,7 +1,12 @@
 package greymerk.roguelike.worldgen;
 
+import com.google.common.collect.Lists;
+
 import net.minecraft.block.BlockLever.EnumOrientation;
 import net.minecraft.util.EnumFacing;
+
+import java.util.List;
+import java.util.Random;
 
 
 public enum Cardinal {
@@ -25,6 +30,10 @@ public enum Cardinal {
     this.orientation = orientation;
   }
 
+  public static Cardinal randomDirection(Random random) {
+    return DIRECTIONS.get(random.nextInt(DIRECTIONS.size()));
+  }
+
   public EnumFacing getFacing() {
     return facing;
   }
@@ -33,7 +42,7 @@ public enum Cardinal {
     return orientation;
   }
 
-  public static Cardinal[] directions = {NORTH, EAST, SOUTH, WEST};
+  public static List<Cardinal> DIRECTIONS = Lists.newArrayList(NORTH, EAST, SOUTH, WEST);
 
   public Cardinal reverse() {
     switch (this) {

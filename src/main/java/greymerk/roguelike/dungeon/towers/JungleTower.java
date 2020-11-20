@@ -36,7 +36,7 @@ public class JungleTower implements ITower {
     Coord cursor;
 
     // lower pillars
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
 
       cursor = new Coord(origin);
       cursor.translate(Cardinal.UP, 3);
@@ -102,7 +102,7 @@ public class JungleTower implements ITower {
     }
 
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(origin);
       cursor.translate(Cardinal.UP, 4);
       cursor.translate(dir, 7);
@@ -170,7 +170,7 @@ public class JungleTower implements ITower {
     }
 
     // level 2 grass patches
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       for (Cardinal o : dir.orthogonal()) {
         start = new Coord(origin);
         start.translate(Cardinal.UP, 6);
@@ -187,7 +187,7 @@ public class JungleTower implements ITower {
     }
 
     // second floor pillars
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(origin);
       cursor.translate(Cardinal.UP, 9);
       cursor.translate(dir, 5);
@@ -243,7 +243,7 @@ public class JungleTower implements ITower {
 
     }
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       start = new Coord(origin);
       start.translate(Cardinal.UP, 10);
       start.translate(dir, 5);
@@ -281,7 +281,7 @@ public class JungleTower implements ITower {
       grass.fill(editor, rand, new RectSolid(start, end));
     }
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(origin);
       cursor.translate(Cardinal.UP, 12);
       cursor.translate(dir, 2);
@@ -298,7 +298,7 @@ public class JungleTower implements ITower {
       walls.set(editor, rand, cursor);
     }
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(origin);
       cursor.translate(dir, 2);
       cursor.translate(dir.antiClockwise(), 2);
@@ -366,7 +366,7 @@ public class JungleTower implements ITower {
 
   private void decorate(WorldEditor editor, Random rand, ITheme theme, Coord origin) {
     List<Coord> spots = new ArrayList<Coord>();
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       Coord cursor = new Coord(origin);
       cursor.translate(Cardinal.UP, 6);
       cursor.translate(dir, 7);
@@ -453,7 +453,7 @@ public class JungleTower implements ITower {
 
     Coord cursor = new Coord(origin);
     Log.getLog(Wood.JUNGLE).set(editor, cursor);
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       Coord c = new Coord(cursor);
       c.translate(dir);
       leafSpill(editor, rand, theme, c, rand.nextInt(6));
@@ -461,7 +461,7 @@ public class JungleTower implements ITower {
     if (rand.nextBoolean()) {
       cursor.translate(Cardinal.UP);
       Log.getLog(Wood.JUNGLE).set(editor, cursor);
-      for (Cardinal dir : Cardinal.directions) {
+      for (Cardinal dir : Cardinal.DIRECTIONS) {
         Coord c = new Coord(cursor);
         c.translate(dir);
         leaves.set(editor, rand, c, true, false);
@@ -470,7 +470,7 @@ public class JungleTower implements ITower {
     if (rand.nextInt(3) == 0) {
       cursor.translate(Cardinal.UP);
       Log.getLog(Wood.JUNGLE).set(editor, cursor);
-      for (Cardinal dir : Cardinal.directions) {
+      for (Cardinal dir : Cardinal.DIRECTIONS) {
         Coord c = new Coord(cursor);
         c.translate(dir);
         leaves.set(editor, rand, c, true, false);
@@ -496,7 +496,7 @@ public class JungleTower implements ITower {
       return;
     }
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(origin);
       cursor.translate(dir);
       if (editor.getBlock(cursor).getMaterial().isOpaque()) {
@@ -519,7 +519,7 @@ public class JungleTower implements ITower {
 
     editor.fillDown(rand, new Coord(origin), pillar);
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(origin);
       cursor.translate(dir);
       stair.setOrientation(dir, true).set(editor, cursor);

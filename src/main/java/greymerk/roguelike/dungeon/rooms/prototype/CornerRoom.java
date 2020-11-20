@@ -1,5 +1,6 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
+import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
@@ -24,7 +25,7 @@ public class CornerRoom extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
     BlockSet primary = settings.getTheme().getPrimary();
     createHollowCenter(editor, rand, origin);
     createShell(editor, rand, origin, primary.getWall());
@@ -35,7 +36,7 @@ public class CornerRoom extends DungeonBase {
   }
 
   private void createCornerWalls(WorldEditor editor, Random rand, Coord origin, BlockSet primary) {
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       Coord cursor = origin.copy()
           .translate(dir, 2)
           .translate(dir.antiClockwise(), 2);
@@ -54,7 +55,7 @@ public class CornerRoom extends DungeonBase {
 
     primary.getWall().set(editor, rand, origin.copy().up(5));
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       Coord ceiling = origin.copy()
           .translate(dir, 1)
           .up(4);

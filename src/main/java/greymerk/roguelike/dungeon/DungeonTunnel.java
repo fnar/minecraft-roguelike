@@ -3,6 +3,7 @@ package greymerk.roguelike.dungeon;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.segment.ISegment;
@@ -174,5 +175,17 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
   @Override
   public Coord getEnd() {
     return getBoundingBox().getEnd();
+  }
+
+  Optional<Cardinal> getEntrance(Coord vertex) {
+    Coord start = getStart();
+    Coord end = getEnd();
+    if (vertex.equals(start)) {
+      return Optional.of(start.dirTo(end));
+    } else if (vertex.equals(end)) {
+      return Optional.of(end.dirTo(start));
+    } else {
+      return Optional.empty();
+    }
   }
 }

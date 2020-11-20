@@ -1,5 +1,6 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
+import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
@@ -38,7 +39,7 @@ public class DungeonBlaze extends DungeonBase {
     end.translate(Cardinal.UP, 2);
     RectSolid.fill(editor, rand, start, end, BlockType.get(BlockType.LAVA_STILL));
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
 
       start = new Coord(origin);
       start.translate(dir);
@@ -99,7 +100,7 @@ public class DungeonBlaze extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, Random random, LevelSettings levelSettings, Coord origin, Cardinal[] entrances) {
+  public DungeonBase generate(WorldEditor editor, Random random, LevelSettings levelSettings, Coord origin, List<Cardinal> entrances) {
 
     ITheme theme = levelSettings.getTheme();
 
@@ -131,7 +132,7 @@ public class DungeonBlaze extends DungeonBase {
     end.translate(Cardinal.EAST, 8);
     RectSolid.fill(editor, random, start, end, theme.getPrimary().getFloor(), false, true);
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       for (Cardinal orth : dir.orthogonal()) {
         start = new Coord(origin);
         start.translate(dir, 7);

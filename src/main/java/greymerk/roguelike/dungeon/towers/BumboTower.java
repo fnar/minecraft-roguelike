@@ -21,7 +21,7 @@ public class BumboTower implements ITower {
 
     Coord ground = Tower.getBaseCoord(editor, origin);
 
-    Cardinal dir = Cardinal.directions[rand.nextInt(Cardinal.directions.length)];
+    Cardinal dir = Cardinal.randomDirection(rand);
 
     stem(editor, rand, theme, ground, dir);
 
@@ -174,7 +174,7 @@ public class BumboTower implements ITower {
     end.translate(new Coord(2, 8, 2));
     RectSolid.fill(editor, rand, start, end, yellow);
 
-    for (Cardinal dir : Cardinal.directions) {
+    for (Cardinal dir : Cardinal.DIRECTIONS) {
       start = new Coord(origin);
       start.translate(dir, 3);
       end = new Coord(start);
@@ -335,7 +335,7 @@ public class BumboTower implements ITower {
     end.translate(Cardinal.UP, 5);
     RectSolid.fill(editor, rand, start, end, air);
 
-    for (Cardinal d : Cardinal.directions) {
+    for (Cardinal d : Cardinal.DIRECTIONS) {
       start = new Coord(origin);
       start.translate(Cardinal.UP, 5);
       start.translate(d, 3);
