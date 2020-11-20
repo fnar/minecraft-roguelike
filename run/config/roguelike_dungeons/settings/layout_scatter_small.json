@@ -1,10 +1,4 @@
 {
   "name": "layout:scatter_small",
-  "scatter": [
-    25,
-    25,
-    25,
-    25,
-    25
-  ]
+  "scatter": [12, 12, 12, 12, 12]
 }

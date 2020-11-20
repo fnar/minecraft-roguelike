@@ -1,12 +1,11 @@
 {
   "name": "rooms:generic",
   "overrides": ["ROOMS"],
-  "rooms": [{"level": [2], "frequency": "single", "type": "PRISON", "count": 3},
-    {"level": [4], "frequency": "single", "type": "FORTRESS", "count": 3},
-    {"level": [4], "frequency": "single", "type": "OBSIDIAN", "count": 1},
-    {"level": [4], "frequency": "single", "type": "DARKHALL", "count": 1},
-
+  "rooms": [
+    {"level": [0, 1, 2, 3, 4], "frequency": "single", "type": "BRICK", "count": 5},
+    {"level": [0, 1, 2, 3, 4], "frequency": "single", "type": "BRICK", "count": 5, "spawnerId": "spawners:blaze"},
     {"level": [0, 1, 2, 3, 4], "frequency": "single", "type": "REWARD", "count": 1},
+
     {"level": [0, 1, 2, 3, 4], "frequency": "random", "type": "CORNER", "weight": 10},
     {"level": [0, 1, 2, 3, 4], "frequency": "random", "type": "DARKHALL", "weight": 10},
     {"level": [0, 1, 2, 3, 4], "frequency": "random", "type": "FIRE", "weight": 5},
@@ -14,14 +13,17 @@
     {"level": [0, 1, 2, 3, 4], "frequency": "random", "type": "LAB", "weight": 5},
     {"level": [0, 1, 2, 3, 4], "frequency": "random", "type": "LIBRARY", "weight": 5},
     {"level": [0, 1, 2, 3, 4], "frequency": "random", "type": "STORAGE", "weight": 5},
+    {"level": [0, 1, 2, 3, 4], "frequency": "random", "type": "NETHER", "weight": 15},
+    {"level": [0, 1, 2, 3, 4], "frequency": "random", "type": "FORTRESS", "weight": 5},
 
     {"level": [1, 2, 3], "frequency": "random", "type": "PRISON", "weight": 10},
     {"level": [2, 3, 4], "frequency": "random", "type": "OBSIDIAN", "weight": 10},
 
-    {"level": [0, 1, 2, 3, 4], "frequency": "single", "type": "BRICK", "count": 5},
-    {"level": [0, 1, 2, 3, 4], "frequency": "single", "type": "BRICK", "count": 5, "spawnerId": "spawners:blaze"},
-    {"level": [0, 1, 2, 3, 4], "frequency": "random", "type": "NETHER", "weight": 15},
-    {"level": [0, 1, 2, 3, 4], "frequency": "random", "type": "FORTRESS", "weight": 5},
+    {"level": [2], "frequency": "single", "type": "PRISON", "count": 3},
+
+    {"level": [4], "frequency": "single", "type": "FORTRESS", "count": 3},
+    {"level": [4], "frequency": "single", "type": "OBSIDIAN", "count": 1},
+    {"level": [4], "frequency": "single", "type": "DARKHALL", "count": 1},
 
     {"level": [0, 1, 2, 3, 4], "frequency": "secret", "type": "REWARD", "count": 1},
     {"level": [0, 1], "frequency": "secret", "type": "MUSIC", "count": 10},
