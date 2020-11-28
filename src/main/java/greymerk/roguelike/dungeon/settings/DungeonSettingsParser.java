@@ -8,6 +8,7 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
 import java.util.List;
+import java.util.Map;
 
 import greymerk.roguelike.dungeon.LevelGenerator;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
@@ -232,27 +233,28 @@ public class DungeonSettingsParser {
     }
   }
 
-  private static void parseThemes(JsonObject root, DungeonSettings dungeonSettings) throws Exception {
-    if (!root.has("themes")) {
+  private static void parseThemes(JsonObject rootJsonObject, DungeonSettings dungeonSettings) throws Exception {
+    if (!rootJsonObject.has("themes")) {
       return;
     }
-    JsonArray arr = root.get("themes").getAsJsonArray();
-    for (JsonElement jsonElement : arr) {
-      if (jsonElement.isJsonNull()) {
+    JsonArray themesJsonArray = rootJsonObject.get("themes").getAsJsonArray();
+    for (JsonElement themeJsonElement : themesJsonArray) {
+      if (themeJsonElement.isJsonNull()) {
         continue;
       }
-      JsonObject entry = jsonElement.getAsJsonObject();
-      List<Integer> lvls = LevelsParser.parseLevelsIfPresent(entry);
-      if (lvls == null) {
+      JsonObject themeJsonObject = themeJsonElement.getAsJsonObject();
+      List<Integer> levels = LevelsParser.parseLevelsIfPresent(themeJsonObject);
+      if (levels == null) {
         continue;
       }
 
-      for (int i : lvls) {
-        if (dungeonSettings.getLevels().containsKey(i)) {
-          LevelSettings settings = dungeonSettings.getLevels().get(i);
-          ITheme theme = ThemeParser.parse(entry);
-          settings.setTheme(theme);
+      for (int level : levels) {
+        if (!dungeonSettings.getLevels().containsKey(level)) {
+          continue;
         }
+        LevelSettings settings = dungeonSettings.getLevels().get(level);
+        ITheme theme = ThemeParser.parse(themeJsonObject);
+        settings.setTheme(theme);
       }
     }
   }
