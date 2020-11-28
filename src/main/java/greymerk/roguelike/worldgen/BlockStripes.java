@@ -15,7 +15,7 @@ public class BlockStripes extends BlockBase {
     blocks = new ArrayList<>();
   }
 
-  public BlockStripes(JsonElement data) throws Exception {
+  public BlockStripes(JsonElement data) {
     this();
     for (JsonElement jsonElement : (JsonArray) data) {
       if (jsonElement.isJsonNull()) {

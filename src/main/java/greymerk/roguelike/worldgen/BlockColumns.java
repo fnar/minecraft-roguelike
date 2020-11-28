@@ -15,7 +15,7 @@ public class BlockColumns extends BlockBase {
     blocks = new ArrayList<>();
   }
 
-  public BlockColumns(JsonElement data) throws Exception {
+  public BlockColumns(JsonElement data) {
     this();
     for (JsonElement jsonElement : (JsonArray) data) {
       if (jsonElement.isJsonNull()) {
