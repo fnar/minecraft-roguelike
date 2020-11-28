@@ -22,7 +22,7 @@ public class Door implements IDoor {
     block = DoorType.get(type);
   }
 
-  public Door(JsonElement e) throws Exception {
+  public Door(JsonElement e) {
     block = new MetaBlock(e);
   }
 

@@ -3,6 +3,8 @@ package greymerk.roguelike.worldgen;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import greymerk.roguelike.dungeon.settings.DungeonSettingParseException;
+
 public enum BlockProvider {
 
   METABLOCK,
@@ -13,7 +15,7 @@ public enum BlockProvider {
   LAYERS,
   COLUMNS;
 
-  public static IBlockFactory create(JsonObject block) throws Exception {
+  public static IBlockFactory create(JsonObject block) throws DungeonSettingParseException {
 
     BlockProvider type;
 

@@ -233,11 +233,18 @@ public class DungeonSettingsParser {
     }
   }
 
-  private static void parseThemes(JsonObject rootJsonObject, DungeonSettings dungeonSettings) throws Exception {
+  private static void parseThemes(JsonObject rootJsonObject, DungeonSettings dungeonSettings) throws DungeonSettingParseException {
     if (!rootJsonObject.has("themes")) {
       return;
     }
-    JsonArray themesJsonArray = rootJsonObject.get("themes").getAsJsonArray();
+    JsonElement themesJsonElement = rootJsonObject.get("themes");
+    if (themesJsonElement.isJsonObject()) {
+      throw new DungeonSettingParseException("Expected themes to be list of themes but instead found a single object.");
+    }
+    if (!themesJsonElement.isJsonArray()) {
+      throw new DungeonSettingParseException("Expected themes to be list of themes but it wasn't.");
+    }
+    JsonArray themesJsonArray = themesJsonElement.getAsJsonArray();
     for (JsonElement themeJsonElement : themesJsonArray) {
       if (themeJsonElement.isJsonNull()) {
         continue;

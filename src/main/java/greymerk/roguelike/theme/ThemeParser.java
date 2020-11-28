@@ -5,6 +5,8 @@ import com.google.gson.JsonObject;
 import java.util.Arrays;
 import java.util.function.Function;
 
+import greymerk.roguelike.dungeon.settings.DungeonSettingParseException;
+
 import static java.util.Optional.ofNullable;
 
 public class ThemeParser {
@@ -13,7 +15,7 @@ public class ThemeParser {
   public static final String PRIMARY_KEY = "primary";
   public static final String SECONDARY_KEY = "secondary";
 
-  public static ITheme parse(JsonObject json) throws Exception {
+  public static ITheme parse(JsonObject json) throws DungeonSettingParseException {
     ThemeBase themeBase = json.has(THEME_BASE_KEY)
         ? get(json.get(THEME_BASE_KEY).getAsString()).getThemeBase()
         : null;
@@ -30,15 +32,15 @@ public class ThemeParser {
     return new ThemeBase(primaryBlockSet, secondaryBlockSet);
   }
 
-  private static BlockSet parsePrimaryBlockSet(JsonObject json, ThemeBase base) throws Exception {
+  private static BlockSet parsePrimaryBlockSet(JsonObject json, ThemeBase base) throws DungeonSettingParseException {
     return parseBlockSet(json, base, PRIMARY_KEY, ITheme::getPrimary);
   }
 
-  private static BlockSet parseSecondaryBlockSet(JsonObject json, ThemeBase base) throws Exception {
+  private static BlockSet parseSecondaryBlockSet(JsonObject json, ThemeBase base) throws DungeonSettingParseException {
     return parseBlockSet(json, base, SECONDARY_KEY, ITheme::getSecondary);
   }
 
-  private static BlockSet parseBlockSet(JsonObject json, ITheme baseTheme, String key, Function<ITheme, BlockSet> getBlockSetFunction) throws Exception {
+  private static BlockSet parseBlockSet(JsonObject json, ITheme baseTheme, String key, Function<ITheme, BlockSet> getBlockSetFunction) throws DungeonSettingParseException {
     if (!json.has(key)) {
       return null;
     } else {
@@ -59,9 +61,9 @@ public class ThemeParser {
         null);
   }
 
-  public static Theme get(String name) throws Exception {
+  public static Theme get(String name) throws DungeonSettingParseException {
     if (!contains(name.toUpperCase())) {
-      throw new Exception("No such theme: " + name);
+      throw new DungeonSettingParseException("No such theme: " + name);
     }
     return Theme.valueOf(name.toUpperCase());
   }

@@ -15,7 +15,7 @@ public class BlockJumble extends BlockBase {
     blocks = new ArrayList<>();
   }
 
-  public BlockJumble(JsonElement data) throws Exception {
+  public BlockJumble(JsonElement data) {
     this();
     for (JsonElement jsonElement : (JsonArray) data) {
       if (jsonElement.isJsonNull()) {

@@ -24,7 +24,7 @@ public class BlockCheckers extends BlockBase {
     this(fillOne, fillTwo, new Coord(0, 0, 0));
   }
 
-  public BlockCheckers(JsonElement json) throws Exception {
+  public BlockCheckers(JsonElement json) {
     JsonArray arr = (JsonArray) json;
     List<IBlockFactory> blocks = new ArrayList<>();
 

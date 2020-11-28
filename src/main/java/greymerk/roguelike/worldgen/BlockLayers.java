@@ -15,7 +15,7 @@ public class BlockLayers extends BlockBase {
     blocks = new ArrayList<>();
   }
 
-  public BlockLayers(JsonElement data) throws Exception {
+  public BlockLayers(JsonElement data) {
     this();
     for (JsonElement jsonElement : (JsonArray) data) {
       if (jsonElement.isJsonNull()) {

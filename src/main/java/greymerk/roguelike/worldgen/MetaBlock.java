@@ -30,6 +30,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
+import greymerk.roguelike.dungeon.settings.DungeonSettingParseException;
+
 public class MetaBlock extends BlockBase implements IBlockState {
 
   private IBlockState state;
@@ -57,12 +59,12 @@ public class MetaBlock extends BlockBase implements IBlockState {
   }
 
   @SuppressWarnings("deprecation")
-  public MetaBlock(JsonElement e) throws Exception {
+  public MetaBlock(JsonElement e) throws DungeonSettingParseException {
     JsonObject json = (JsonObject) e;
     String name = json.get("name").getAsString();
     ResourceLocation location = new ResourceLocation(name);
     if (!Block.REGISTRY.containsKey(location)) {
-      throw new Exception("No such block: " + name);
+      throw new DungeonSettingParseException("No such block: " + name);
     }
     Block block = Block.REGISTRY.getObject(location);
     int meta = json.has("meta") ? json.get("meta").getAsInt() : 0;
