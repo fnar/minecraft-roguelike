@@ -2,7 +2,7 @@ package greymerk.roguelike.dungeon.towers;
 
 import java.util.Random;
 
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
@@ -19,7 +19,7 @@ public class EniTower implements ITower {
   }
 
   @Override
-  public void generate(WorldEditor editor, Random rand, ITheme theme, Coord dungeon) {
+  public void generate(WorldEditor editor, Random rand, ThemeBase theme, Coord dungeon) {
 
     MetaBlock air = BlockType.get(BlockType.AIR);
 

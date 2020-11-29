@@ -6,7 +6,7 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
@@ -26,7 +26,7 @@ public class DungeonOssuary extends DungeonBase {
 
   @Override
   public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
-    ITheme theme = settings.getTheme();
+    ThemeBase theme = settings.getTheme();
     IBlockFactory walls = theme.getPrimary().getWall();
     IStair stair = theme.getPrimary().getStair();
     MetaBlock air = BlockType.get(BlockType.AIR);

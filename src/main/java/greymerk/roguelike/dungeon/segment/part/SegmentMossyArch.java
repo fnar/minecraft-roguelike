@@ -3,7 +3,7 @@ package greymerk.roguelike.dungeon.segment.part;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.DungeonLevel;
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IStair;
@@ -18,7 +18,7 @@ public class SegmentMossyArch extends SegmentBase {
   private boolean spawnHoleSet = false;
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Cardinal wallDirection, ITheme theme, Coord origin) {
+  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Cardinal wallDirection, ThemeBase theme, Coord origin) {
 
     IStair stair = theme.getSecondary().getStair();
     stair.setOrientation(wallDirection.reverse(), true);

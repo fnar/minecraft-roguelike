@@ -8,7 +8,7 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -34,7 +34,7 @@ public class DungeonPyramidSpawner extends DungeonBase {
     int y = origin.getY();
     int z = origin.getZ();
 
-    ITheme theme = settings.getTheme();
+    ThemeBase theme = settings.getTheme();
 
     IBlockFactory blocks = theme.getPrimary().getWall();
     IBlockFactory pillar = theme.getPrimary().getPillar();

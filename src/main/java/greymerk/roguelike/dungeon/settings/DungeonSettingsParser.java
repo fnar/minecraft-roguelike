@@ -8,7 +8,6 @@ import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
 import java.util.List;
-import java.util.Map;
 
 import greymerk.roguelike.dungeon.LevelGenerator;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
@@ -17,7 +16,7 @@ import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.rooms.RoomSettingParser;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
 import greymerk.roguelike.dungeon.settings.level.LevelsParser;
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.theme.ThemeParser;
 import greymerk.roguelike.treasure.loot.LootRuleManager;
 import greymerk.roguelike.treasure.loot.LootRulesParser;
@@ -260,7 +259,7 @@ public class DungeonSettingsParser {
           continue;
         }
         LevelSettings settings = dungeonSettings.getLevels().get(level);
-        ITheme theme = ThemeParser.parse(themeJsonObject);
+        ThemeBase theme = ThemeParser.parse(themeJsonObject);
         settings.setTheme(theme);
       }
     }

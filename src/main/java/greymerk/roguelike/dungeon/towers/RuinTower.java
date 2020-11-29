@@ -2,7 +2,7 @@ package greymerk.roguelike.dungeon.towers;
 
 import java.util.Random;
 
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
@@ -14,7 +14,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class RuinTower implements ITower {
 
   @Override
-  public void generate(WorldEditor editor, Random rand, ITheme theme, Coord origin) {
+  public void generate(WorldEditor editor, Random rand, ThemeBase theme, Coord origin) {
 
     IBlockFactory air = BlockType.get(BlockType.AIR);
     IBlockFactory blocks = theme.getPrimary().getWall();

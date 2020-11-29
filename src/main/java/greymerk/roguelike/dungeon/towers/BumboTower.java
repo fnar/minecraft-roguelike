@@ -2,7 +2,7 @@ package greymerk.roguelike.dungeon.towers;
 
 import java.util.Random;
 
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.BlockCheckers;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -16,7 +16,7 @@ public class BumboTower implements ITower {
 
 
   @Override
-  public void generate(WorldEditor editor, Random rand, ITheme theme, Coord origin) {
+  public void generate(WorldEditor editor, Random rand, ThemeBase theme, Coord origin) {
 
 
     Coord ground = Tower.getBaseCoord(editor, origin);
@@ -53,7 +53,7 @@ public class BumboTower implements ITower {
     }
   }
 
-  private void stem(WorldEditor editor, Random rand, ITheme theme, Coord origin, Cardinal dir) {
+  private void stem(WorldEditor editor, Random rand, ThemeBase theme, Coord origin, Cardinal dir) {
     IBlockFactory green = theme.getPrimary().getWall();
 
     Coord start;
@@ -89,7 +89,7 @@ public class BumboTower implements ITower {
 
   }
 
-  private void arm(WorldEditor editor, Random rand, ITheme theme, Coord origin, Cardinal dir) {
+  private void arm(WorldEditor editor, Random rand, ThemeBase theme, Coord origin, Cardinal dir) {
     IBlockFactory green = theme.getPrimary().getWall();
 
     Coord start;
@@ -156,7 +156,7 @@ public class BumboTower implements ITower {
     RectSolid.fill(editor, rand, start, end, green);
   }
 
-  private void hat(WorldEditor editor, Random rand, ITheme theme, Coord origin) {
+  private void hat(WorldEditor editor, Random rand, ThemeBase theme, Coord origin) {
     IBlockFactory yellow = theme.getSecondary().getWall();
     IBlockFactory red = theme.getSecondary().getFloor();
 
@@ -237,7 +237,7 @@ public class BumboTower implements ITower {
     }
   }
 
-  private void face(WorldEditor editor, Random rand, ITheme theme, Coord origin, Cardinal dir) {
+  private void face(WorldEditor editor, Random rand, ThemeBase theme, Coord origin, Cardinal dir) {
     IBlockFactory black = theme.getSecondary().getPillar();
     IBlockFactory white = theme.getPrimary().getPillar();
     IBlockFactory moustache = theme.getPrimary().getFloor();
@@ -319,7 +319,7 @@ public class BumboTower implements ITower {
     }
   }
 
-  private void rooms(WorldEditor editor, Random rand, ITheme theme, Coord origin, Cardinal dir) {
+  private void rooms(WorldEditor editor, Random rand, ThemeBase theme, Coord origin, Cardinal dir) {
     MetaBlock air = BlockType.get(BlockType.AIR);
 
     Coord start;

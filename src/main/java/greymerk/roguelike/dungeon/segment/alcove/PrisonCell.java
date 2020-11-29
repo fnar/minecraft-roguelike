@@ -4,7 +4,7 @@ import java.util.Random;
 
 import greymerk.roguelike.dungeon.segment.IAlcove;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
@@ -19,7 +19,7 @@ import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 public class PrisonCell implements IAlcove {
 
   private static int RECESSED = 5;
-  private ITheme theme;
+  private ThemeBase theme;
 
   @Override
   public void generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal dir) {

@@ -2,7 +2,7 @@ package greymerk.roguelike.dungeon.towers;
 
 import java.util.Random;
 
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
@@ -15,7 +15,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class EthoTower implements ITower {
 
   @Override
-  public void generate(WorldEditor editor, Random rand, ITheme theme, Coord dungeon) {
+  public void generate(WorldEditor editor, Random rand, ThemeBase theme, Coord dungeon) {
 
     IBlockFactory primary = theme.getPrimary().getWall();
     IBlockFactory pillar = theme.getSecondary().getPillar();
@@ -217,7 +217,7 @@ public class EthoTower implements ITower {
     }
   }
 
-  private void step(WorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord origin) {
+  private void step(WorldEditor editor, Random rand, ThemeBase theme, Cardinal dir, Coord origin) {
 
     if (editor.getBlock(origin).isOpaqueCube()) {
       return;

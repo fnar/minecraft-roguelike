@@ -2,7 +2,7 @@ package greymerk.roguelike.dungeon.towers;
 
 import java.util.Random;
 
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -18,7 +18,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class BunkerTower implements ITower {
 
   @Override
-  public void generate(WorldEditor editor, Random rand, ITheme theme, Coord dungeon) {
+  public void generate(WorldEditor editor, Random rand, ThemeBase theme, Coord dungeon) {
 
     Coord origin = Tower.getBaseCoord(editor, dungeon);
     origin.translate(Cardinal.UP);

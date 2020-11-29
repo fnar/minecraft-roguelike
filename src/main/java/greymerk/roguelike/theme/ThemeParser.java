@@ -15,7 +15,7 @@ public class ThemeParser {
   public static final String PRIMARY_KEY = "primary";
   public static final String SECONDARY_KEY = "secondary";
 
-  public static ITheme parse(JsonObject json) throws DungeonSettingParseException {
+  public static ThemeBase parse(JsonObject json) throws DungeonSettingParseException {
     ThemeBase themeBase = json.has(THEME_BASE_KEY)
         ? get(json.get(THEME_BASE_KEY).getAsString()).getThemeBase()
         : null;
@@ -33,14 +33,14 @@ public class ThemeParser {
   }
 
   private static BlockSet parsePrimaryBlockSet(JsonObject json, ThemeBase base) throws DungeonSettingParseException {
-    return parseBlockSet(json, base, PRIMARY_KEY, ITheme::getPrimary);
+    return parseBlockSet(json, base, PRIMARY_KEY, ThemeBase::getPrimary);
   }
 
   private static BlockSet parseSecondaryBlockSet(JsonObject json, ThemeBase base) throws DungeonSettingParseException {
-    return parseBlockSet(json, base, SECONDARY_KEY, ITheme::getSecondary);
+    return parseBlockSet(json, base, SECONDARY_KEY, ThemeBase::getSecondary);
   }
 
-  private static BlockSet parseBlockSet(JsonObject json, ITheme baseTheme, String key, Function<ITheme, BlockSet> getBlockSetFunction) throws DungeonSettingParseException {
+  private static BlockSet parseBlockSet(JsonObject json, ThemeBase baseTheme, String key, Function<ThemeBase, BlockSet> getBlockSetFunction) throws DungeonSettingParseException {
     if (!json.has(key)) {
       return null;
     } else {

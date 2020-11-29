@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.BoundingBox;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -37,7 +37,7 @@ public class DungeonNode implements IBounded {
     return toGenerate.getSize();
   }
 
-  public void encase(WorldEditor editor, Random rand, ITheme theme) {
+  public void encase(WorldEditor editor, Random rand, ThemeBase theme) {
     int size = getSize();
     Coord s = new Coord(getPosition());
     Coord e = new Coord(s);

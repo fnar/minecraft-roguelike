@@ -8,7 +8,7 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -43,7 +43,7 @@ public class DungeonsPit extends DungeonBase {
 
   public DungeonBase generate(WorldEditor editor, Random inRandom, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
 
-    ITheme theme = settings.getTheme();
+    ThemeBase theme = settings.getTheme();
 
     this.editor = editor;
     rand = inRandom;
@@ -156,7 +156,7 @@ public class DungeonsPit extends DungeonBase {
   }
 
   private void setTrap(WorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord origin) {
-    ITheme theme = settings.getTheme();
+    ThemeBase theme = settings.getTheme();
     IBlockFactory walls = theme.getPrimary().getWall();
     MetaBlock plate = BlockType.get(BlockType.PRESSURE_PLATE_STONE);
     MetaBlock wire = BlockType.get(BlockType.REDSTONE_WIRE);

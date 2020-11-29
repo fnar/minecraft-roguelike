@@ -2,7 +2,7 @@ package greymerk.roguelike.worldgen.filter;
 
 import java.util.Random;
 
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
@@ -15,7 +15,7 @@ import greymerk.roguelike.worldgen.shapes.RectWireframe;
 public class WireframeFilter implements IFilter {
 
   @Override
-  public void apply(WorldEditor editor, Random rand, ITheme theme, IBounded box) {
+  public void apply(WorldEditor editor, Random rand, ThemeBase theme, IBounded box) {
     Coord start = box.getStart();
     Coord end = box.getEnd();
 

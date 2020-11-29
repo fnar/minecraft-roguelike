@@ -6,7 +6,7 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
 import greymerk.roguelike.worldgen.Cardinal;
@@ -29,7 +29,7 @@ public class DungeonsCreeperDen extends DungeonBase {
 
   public DungeonBase generate(WorldEditor editor, Random random, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
 
-    ITheme theme = settings.getTheme();
+    ThemeBase theme = settings.getTheme();
 
     Coord start;
     Coord end;

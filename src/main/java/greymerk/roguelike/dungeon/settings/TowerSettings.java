@@ -4,15 +4,15 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import greymerk.roguelike.dungeon.towers.Tower;
-import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.theme.Theme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.theme.ThemeParser;
 import greymerk.roguelike.theme.ThemeTower;
 
 public class TowerSettings {
 
   private Tower tower;
-  private ITheme theme;
+  private ThemeBase theme;
 
   public TowerSettings(Tower tower, Theme theme) {
     this.tower = tower;
@@ -59,7 +59,7 @@ public class TowerSettings {
     return tower;
   }
 
-  public ITheme getTheme() {
+  public ThemeBase getTheme() {
     if (theme == null) {
       return new ThemeTower();
     }

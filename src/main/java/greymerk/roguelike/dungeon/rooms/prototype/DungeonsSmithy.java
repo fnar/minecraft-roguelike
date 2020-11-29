@@ -8,7 +8,7 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -34,7 +34,7 @@ public class DungeonsSmithy extends DungeonBase {
 
   public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
 
-    ITheme theme = settings.getTheme();
+    ThemeBase theme = settings.getTheme();
 
     Coord cursor;
 
@@ -65,7 +65,7 @@ public class DungeonsSmithy extends DungeonBase {
 
   private void sideRoom(WorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord origin) {
 
-    ITheme theme = settings.getTheme();
+    ThemeBase theme = settings.getTheme();
 
     Coord cursor;
     Coord start;
@@ -117,7 +117,7 @@ public class DungeonsSmithy extends DungeonBase {
     overheadLight(editor, settings, cursor);
   }
 
-  private void clearBoxes(WorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord origin) {
+  private void clearBoxes(WorldEditor editor, Random rand, ThemeBase theme, Cardinal dir, Coord origin) {
 
     IBlockFactory wall = theme.getPrimary().getWall();
 
@@ -176,7 +176,7 @@ public class DungeonsSmithy extends DungeonBase {
 
   private void mainRoom(WorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord origin) {
 
-    ITheme theme = settings.getTheme();
+    ThemeBase theme = settings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();
     Coord cursor;
     Coord start;
@@ -215,7 +215,7 @@ public class DungeonsSmithy extends DungeonBase {
 
   }
 
-  private void mainPillar(WorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord origin) {
+  private void mainPillar(WorldEditor editor, Random rand, ThemeBase theme, Cardinal dir, Coord origin) {
     IBlockFactory wall = theme.getPrimary().getWall();
     IBlockFactory pillar = theme.getPrimary().getPillar();
     IStair stair = theme.getPrimary().getStair();
@@ -257,7 +257,7 @@ public class DungeonsSmithy extends DungeonBase {
 
   private void smelterSide(WorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord origin) {
 
-    ITheme theme = settings.getTheme();
+    ThemeBase theme = settings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();
 
     Coord cursor;
@@ -431,7 +431,7 @@ public class DungeonsSmithy extends DungeonBase {
 
   private void anvilRoom(WorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord origin) {
 
-    ITheme theme = settings.getTheme();
+    ThemeBase theme = settings.getTheme();
     IStair stair = theme.getPrimary().getStair();
     IBlockFactory wall = theme.getPrimary().getWall();
 
@@ -480,7 +480,7 @@ public class DungeonsSmithy extends DungeonBase {
 
   private void overheadLight(WorldEditor editor, LevelSettings settings, Coord origin) {
 
-    ITheme theme = settings.getTheme();
+    ThemeBase theme = settings.getTheme();
     IStair stair = theme.getPrimary().getStair();
 
     Coord cursor;

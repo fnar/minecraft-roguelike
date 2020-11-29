@@ -3,7 +3,7 @@ package greymerk.roguelike.dungeon.segment.part;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.DungeonLevel;
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.BlockJumble;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -18,7 +18,7 @@ public class SegmentWheat extends SegmentBase {
 
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Cardinal dir, ITheme theme, Coord origin) {
+  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Cardinal dir, ThemeBase theme, Coord origin) {
 
     Coord cursor;
     Coord start;

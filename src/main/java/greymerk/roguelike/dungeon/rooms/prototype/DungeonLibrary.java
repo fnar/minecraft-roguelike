@@ -1,13 +1,12 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -147,7 +146,7 @@ public class DungeonLibrary extends DungeonBase {
     return this;
   }
 
-  private void door(WorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord pos) {
+  private void door(WorldEditor editor, Random rand, ThemeBase theme, Cardinal dir, Coord pos) {
     Coord start;
     Coord end;
 
@@ -178,7 +177,7 @@ public class DungeonLibrary extends DungeonBase {
     }
   }
 
-  private void desk(WorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord pos) {
+  private void desk(WorldEditor editor, Random rand, ThemeBase theme, Cardinal dir, Coord pos) {
 
     Coord cursor;
     Coord start;
@@ -234,7 +233,7 @@ public class DungeonLibrary extends DungeonBase {
     Torch.generate(editor, Torch.WOODEN, Cardinal.UP, cursor);
   }
 
-  private void plants(WorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord origin) {
+  private void plants(WorldEditor editor, Random rand, ThemeBase theme, Cardinal dir, Coord origin) {
     Coord cursor;
     Coord start;
     Coord end;
@@ -268,7 +267,7 @@ public class DungeonLibrary extends DungeonBase {
     }
   }
 
-  private void plant(WorldEditor editor, Random rand, ITheme theme, Coord origin) {
+  private void plant(WorldEditor editor, Random rand, ThemeBase theme, Coord origin) {
     Coord cursor;
     BlockType.get(BlockType.DIRT_PODZOL).set(editor, origin);
 

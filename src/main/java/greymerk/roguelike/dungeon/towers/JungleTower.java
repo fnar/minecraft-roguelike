@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
@@ -22,7 +22,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class JungleTower implements ITower {
 
   @Override
-  public void generate(WorldEditor editor, Random rand, ITheme theme, Coord dungeon) {
+  public void generate(WorldEditor editor, Random rand, ThemeBase theme, Coord dungeon) {
 
     Coord origin = Tower.getBaseCoord(editor, dungeon);
     origin.translate(Cardinal.UP);
@@ -364,7 +364,7 @@ public class JungleTower implements ITower {
     decorate(editor, rand, theme, origin);
   }
 
-  private void decorate(WorldEditor editor, Random rand, ITheme theme, Coord origin) {
+  private void decorate(WorldEditor editor, Random rand, ThemeBase theme, Coord origin) {
     List<Coord> spots = new ArrayList<Coord>();
     for (Cardinal dir : Cardinal.DIRECTIONS) {
       Coord cursor = new Coord(origin);
@@ -447,7 +447,7 @@ public class JungleTower implements ITower {
     Vine.fill(editor, start, end);
   }
 
-  private void tree(WorldEditor editor, Random rand, ITheme theme, Coord origin) {
+  private void tree(WorldEditor editor, Random rand, ThemeBase theme, Coord origin) {
 
     MetaBlock leaves = Leaves.get(Wood.JUNGLE, false);
 
@@ -480,7 +480,7 @@ public class JungleTower implements ITower {
     leaves.set(editor, cursor);
   }
 
-  public void leafSpill(WorldEditor editor, Random rand, ITheme theme, Coord origin, int count) {
+  public void leafSpill(WorldEditor editor, Random rand, ThemeBase theme, Coord origin, int count) {
     if (count < 0) {
       return;
     }
@@ -511,7 +511,7 @@ public class JungleTower implements ITower {
     }
   }
 
-  private void pillar(WorldEditor editor, Random rand, ITheme theme, Coord origin) {
+  private void pillar(WorldEditor editor, Random rand, ThemeBase theme, Coord origin) {
 
     IBlockFactory pillar = theme.getPrimary().getPillar();
     IStair stair = theme.getPrimary().getStair();

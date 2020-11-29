@@ -56,19 +56,19 @@ public enum Theme {
     return themeBase;
   }
 
-  public static ITheme inherit(ITheme parent, ITheme child) {
+  public static ThemeBase inherit(ThemeBase parent, ThemeBase child) {
     return new ThemeBase(
         getPrimaryBlockSet(parent, child),
         getSecondaryBlockSet(parent, child));
   }
 
-  private static BlockSet getPrimaryBlockSet(ITheme parent, ITheme child) {
+  private static BlockSet getPrimaryBlockSet(ThemeBase parent, ThemeBase child) {
     return inherit(
         parent.getPrimary(),
         child.getPrimary());
   }
 
-  private static BlockSet getSecondaryBlockSet(ITheme parent, ITheme child) {
+  private static BlockSet getSecondaryBlockSet(ThemeBase parent, ThemeBase child) {
     return inherit(
         parent.getSecondary(),
         child.getSecondary());

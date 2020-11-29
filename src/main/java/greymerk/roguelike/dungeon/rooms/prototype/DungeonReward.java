@@ -6,7 +6,7 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -28,7 +28,7 @@ public class DungeonReward extends DungeonBase {
     int x = origin.getX();
     int y = origin.getY();
     int z = origin.getZ();
-    ITheme theme = settings.getTheme();
+    ThemeBase theme = settings.getTheme();
 
     RectSolid.fill(editor, rand, new Coord(x - 7, y, z - 7), new Coord(x + 7, y + 5, z + 7), BlockType.get(BlockType.AIR));
     RectHollow.fill(editor, rand, new Coord(x - 8, y - 1, z - 8), new Coord(x + 8, y + 6, z + 8), theme.getPrimary().getWall(), false, true);

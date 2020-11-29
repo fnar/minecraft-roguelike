@@ -7,7 +7,7 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.Cardinal;
@@ -31,7 +31,7 @@ public class DungeonsEnchant extends DungeonBase {
   public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
     Cardinal dir = entrances.get(0);
 
-    ITheme theme = settings.getTheme();
+    ThemeBase theme = settings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();
     IBlockFactory pillar = theme.getPrimary().getPillar();
     MetaBlock panel = ColorBlock.get(ColorBlock.CLAY, DyeColor.PURPLE);
