@@ -116,7 +116,7 @@ public class LevelSettings {
     if (overrides.contains(THEMES) || !parentTheme.isPresent()) {
       return childTheme.get();
     }
-    return Theme.inherit(parentTheme.get(), childTheme.get());
+    return ThemeBase.inherit(parentTheme.get(), childTheme.get());
   }
 
   private void init(LevelSettings toCopy) {
