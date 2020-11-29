@@ -2,45 +2,48 @@ package greymerk.roguelike.command.routes;
 
 import java.util.List;
 
+import greymerk.roguelike.command.CommandContext;
 import greymerk.roguelike.command.CommandRouteBase;
-import greymerk.roguelike.command.ICommandContext;
-import greymerk.roguelike.command.MessageType;
 import greymerk.roguelike.dungeon.Dungeon;
+import greymerk.roguelike.dungeon.settings.SettingsResolver;
 import greymerk.roguelike.util.ArgumentParser;
 
 public class CommandRouteSettings extends CommandRouteBase {
 
   @Override
-  public void execute(ICommandContext context, List<String> args) {
+  public void execute(CommandContext context, List<String> args) {
     ArgumentParser ap = new ArgumentParser(args);
 
     if (!ap.hasEntry(0)) {
-      context.sendMessage("Usage: roguelike settings [reload | list]", MessageType.INFO);
+      context.sendInfo("Usage: roguelike settings [reload | list]");
       return;
     }
     if (ap.match(0, "reload")) {
       try {
         Dungeon.initResolver();
-        context.sendMessage("Success: Settings Reloaded", MessageType.SUCCESS);
-      } catch (Exception e) {
-        if (e.getMessage() == null) {
-          context.sendMessage("Failure: Uncaught Exception", MessageType.ERROR);
+        context.sendSuccess("Settings Reloaded");
+      } catch (Exception exception) {
+        if (exception.getMessage() == null) {
+          context.sendFailure("Uncaught Exception");
         } else {
-          context.sendMessage("Failure: " + e.getMessage(), MessageType.ERROR);
+          context.sendFailure(exception);
         }
       }
       return;
     }
-    if (ap.match(0, "list")) {
-      if (ap.hasEntry(1)) {
-        String namespace = ap.get(1);
-        context.sendMessage(Dungeon.settingsResolver.toString(namespace), MessageType.SUCCESS);
-        return;
-      }
-      context.sendMessage(Dungeon.settingsResolver.toString(), MessageType.SUCCESS);
-      return;
-    }
 
-    return;
+    if (ap.match(0, "list")) {
+      try {
+        SettingsResolver settingsResolver = SettingsResolver.initSettingsResolver();
+        if (ap.hasEntry(1)) {
+          String namespace = ap.get(1);
+          context.sendSuccess(settingsResolver.toString(namespace));
+          return;
+        }
+        context.sendSuccess(settingsResolver.toString());
+      } catch (Exception exception) {
+        context.sendFailure(exception);
+      }
+    }
   }
 }

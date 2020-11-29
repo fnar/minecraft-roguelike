@@ -6,21 +6,21 @@ import net.minecraft.command.NumberInvalidException;
 import java.util.List;
 import java.util.Optional;
 
+import greymerk.roguelike.command.CommandContext;
 import greymerk.roguelike.command.CommandRouteBase;
-import greymerk.roguelike.command.ICommandContext;
-import greymerk.roguelike.command.MessageType;
 import greymerk.roguelike.command.routes.exception.NoValidLocationException;
 import greymerk.roguelike.command.routes.exception.SettingNameNotFoundException;
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.dungeon.settings.SettingsRandom;
+import greymerk.roguelike.dungeon.settings.SettingsResolver;
 import greymerk.roguelike.util.ArgumentParser;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 
 public class CommandRouteDungeon extends CommandRouteBase {
 
-  public static Coord getLocation(ICommandContext context, List<String> args) throws NumberInvalidException {
+  public static Coord getLocation(CommandContext context, List<String> args) throws NumberInvalidException {
     ArgumentParser argumentParser = new ArgumentParser(args);
     if (argumentParser.match(0, "here") || argumentParser.match(0, "nearby")) {
       Coord coord = context.getPos();
@@ -31,16 +31,16 @@ public class CommandRouteDungeon extends CommandRouteBase {
       int z = CommandBase.parseInt(argumentParser.get(1));
       return new Coord(x, 0, z);
     } catch (NumberInvalidException e) {
-      context.sendMessage("Failure: Invalid Coords: X Z", MessageType.ERROR);
+      context.sendFailure("Invalid Coords: X Z");
       throw (e);
     }
   }
 
   @Override
-  public void execute(ICommandContext context, List<String> args) {
+  public void execute(CommandContext context, List<String> args) {
     ArgumentParser argumentParser = new ArgumentParser(args);
     if (!argumentParser.hasEntry(0)) {
-      context.sendMessage("Usage: roguelike dungeon {X Z | here} [setting]", MessageType.INFO);
+      context.sendInfo("Usage: roguelike dungeon {X Z | here} [setting]");
       return;
     }
     String settingName = getSettingName(argumentParser);
@@ -51,7 +51,7 @@ public class CommandRouteDungeon extends CommandRouteBase {
       DungeonSettings dungeonSettings = chooseDungeonSettings(settingName, pos, editor);
       generateDungeon(context, pos, editor, dungeonSettings);
     } catch (Exception e) {
-      context.sendMessage("Failure: " + e.getMessage(), MessageType.ERROR);
+      context.sendFailure(e);
     }
   }
 
@@ -66,7 +66,8 @@ public class CommandRouteDungeon extends CommandRouteBase {
   }
 
   private DungeonSettings resolveAnyCustomDungeonSettings(Coord pos, WorldEditor editor) throws Exception {
-    DungeonSettings dungeonSettings = Dungeon.settingsResolver.getAnyCustomDungeonSettings(editor, pos);
+    SettingsResolver settingsResolver = SettingsResolver.initSettingsResolver();
+    DungeonSettings dungeonSettings = settingsResolver.getAnyCustomDungeonSettings(editor, pos);
     return Optional.ofNullable(dungeonSettings)
         .orElseThrow(() -> new NoValidLocationException(pos));
   }
@@ -78,15 +79,15 @@ public class CommandRouteDungeon extends CommandRouteBase {
 
   private DungeonSettings resolveNamedDungeonSettings(String settingName) throws Exception {
     Dungeon.initResolver();
-    DungeonSettings dungeonSettings = Dungeon.settingsResolver.getByName(settingName);
+    DungeonSettings dungeonSettings = SettingsResolver.initSettingsResolver().getByName(settingName);
     return Optional.ofNullable(dungeonSettings)
         .orElseThrow(() -> new SettingNameNotFoundException(settingName));
   }
 
-  private void generateDungeon(ICommandContext context, Coord coord, WorldEditor editor, DungeonSettings dungeonSettings) {
+  private void generateDungeon(CommandContext context, Coord coord, WorldEditor editor, DungeonSettings dungeonSettings) {
     Dungeon dungeon = new Dungeon(editor);
     dungeon.generate(dungeonSettings, coord);
-    context.sendMessage("Success: Dungeon generated at " + coord.toString(), MessageType.SUCCESS);
+    context.sendSuccess("Dungeon generated at " + coord.toString());
   }
 
   private String getSettingName(ArgumentParser argumentParser) {

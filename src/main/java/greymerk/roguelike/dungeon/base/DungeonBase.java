@@ -3,10 +3,10 @@ package greymerk.roguelike.dungeon.base;
 import java.util.List;
 import java.util.Random;
 
-import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.dungeon.settings.SettingsResolver;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.MetaBlock;
@@ -48,7 +48,14 @@ public abstract class DungeonBase implements Comparable<DungeonBase> {
   private SpawnerSettings getSpawnerSettings(int difficulty, MobType[] defaultMobs, SpawnerSettings levelSettingsSpawners) {
     String spawnerId = roomSetting.getSpawnerId();
     if (spawnerId != null) {
-      DungeonSettings dungeonSettings = Dungeon.settingsResolver.getByName(spawnerId);
+
+      // todo: lift
+      DungeonSettings dungeonSettings = null;
+      try {
+        dungeonSettings = SettingsResolver.initSettingsResolver().getByName(spawnerId);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
       if (dungeonSettings != null) {
         SpawnerSettings dungeonSettingsSpawners = dungeonSettings.getLevelSettings(difficulty).getSpawners();
         if (!dungeonSettingsSpawners.isEmpty()) {

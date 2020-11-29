@@ -1,23 +1,14 @@
 package greymerk.roguelike.dungeon;
 
-import com.google.common.base.Charsets;
-import com.google.common.collect.Lists;
-import com.google.common.io.Files;
-
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.common.BiomeDictionary.Type;
 
-import org.apache.commons.io.FilenameUtils;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
@@ -26,7 +17,6 @@ import java.util.stream.IntStream;
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.dungeon.settings.SettingIdentifier;
-import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.SettingsRandom;
 import greymerk.roguelike.dungeon.settings.SettingsResolver;
 import greymerk.roguelike.dungeon.settings.SpawnCriteria;
@@ -37,21 +27,16 @@ import greymerk.roguelike.worldgen.VanillaStructure;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static java.lang.Math.PI;
 import static java.lang.Math.cos;
 import static java.lang.Math.max;
 import static java.lang.Math.sin;
-import static java.util.Collections.emptyList;
 import static java.util.Optional.ofNullable;
-import static java.util.stream.Collectors.toList;
-import static java.util.stream.Collectors.toMap;
 
 public class Dungeon {
   public static final int VERTICAL_SPACING = 10;
   public static final int TOPLEVEL = 50;
 
-  private static final String SETTINGS_DIRECTORY = RogueConfig.configDirName + "/settings";
   public static SettingsResolver settingsResolver;
 
   static {
@@ -72,48 +57,8 @@ public class Dungeon {
   }
 
   public static void initResolver() throws Exception {
-    File settingsDirectory = new File(SETTINGS_DIRECTORY);
-
-    if (settingsDirectory.exists() && !settingsDirectory.isDirectory()) {
-      throw new Exception("Settings directory is a file");
-    }
-
-    if (!settingsDirectory.exists()) {
-      settingsDirectory.mkdir();
-    }
-
-    Map<String, String> fileByName = collectSettingsFiles(settingsDirectory);
-    SettingsContainer settings = new SettingsContainer();
-    settings.put(fileByName);
-    settingsResolver = new SettingsResolver(settings);
-  }
-
-  private static Map<String, String> collectSettingsFiles(File settingsDirectory) {
-    List<File> files = listFilesRecursively(settingsDirectory);
-    return mapContentByFilename(files);
-  }
-
-  private static List<File> listFilesRecursively(File settingsDirectory) {
-    File[] files = settingsDirectory.listFiles();
-    return ofNullable(files).isPresent()
-        ? newArrayList(files).stream()
-        .flatMap(file -> file.isDirectory() ? listFilesRecursively(file).stream() : Lists.newArrayList(file).stream())
-        .filter(file -> FilenameUtils.getExtension(file.getName()).equals("json"))
-        .collect(toList())
-        : emptyList();
-  }
-
-  private static Map<String, String> mapContentByFilename(List<File> files) {
-    return files.stream()
-        .collect(toMap(File::getName, Dungeon::getFileContent));
-  }
-
-  private static String getFileContent(File file) {
-    try {
-      return Files.toString(file, Charsets.UTF_8);
-    } catch (IOException e) {
-      throw new RuntimeException("Error reading file : " + file.getName());
-    }
+    SettingsResolver settingsResolver = SettingsResolver.initSettingsResolver();
+    Dungeon.settingsResolver = settingsResolver;
   }
 
   public static boolean canSpawnInChunk(int chunkX, int chunkZ, WorldEditor editor) {

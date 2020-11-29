@@ -5,9 +5,8 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import greymerk.roguelike.command.CommandContext;
 import greymerk.roguelike.command.CommandRouteBase;
-import greymerk.roguelike.command.ICommandContext;
-import greymerk.roguelike.command.MessageType;
 import greymerk.roguelike.dungeon.towers.ITower;
 import greymerk.roguelike.dungeon.towers.Tower;
 import greymerk.roguelike.util.ArgumentParser;
@@ -18,7 +17,7 @@ import greymerk.roguelike.worldgen.WorldEditor;
 public class CommandRouteTower extends CommandRouteBase {
 
   @Override
-  public void execute(ICommandContext context, List<String> args) {
+  public void execute(CommandContext context, List<String> args) {
     ArgumentParser ap = new ArgumentParser(args);
 
     if (!ap.hasEntry(0)) {
@@ -26,7 +25,7 @@ public class CommandRouteTower extends CommandRouteBase {
           .stream()
           .map(String::toLowerCase)
           .collect(Collectors.toList());
-      context.sendMessage("Tower types: " + StringUtils.join(towers, " "), MessageType.INFO);
+      context.sendInfo("Tower types: " + StringUtils.join(towers, " "));
 
       return;
     }
@@ -35,7 +34,7 @@ public class CommandRouteTower extends CommandRouteBase {
     try {
       type = Tower.get(towerName.toUpperCase());
     } catch (Exception e) {
-      context.sendMessage("Failure: No such tower type: " + towerName, MessageType.ERROR);
+      context.sendFailure("No such tower type: " + towerName);
       return;
     }
 
@@ -44,7 +43,7 @@ public class CommandRouteTower extends CommandRouteBase {
 
     WorldEditor editor = context.createEditor();
     tower.generate(editor, editor.getRandom(), Tower.getDefaultTheme(type).getThemeBase(), here);
-    context.sendMessage("Success: " + towerName + " Tower generated at " + here.toString(), MessageType.SUCCESS);
+    context.sendSuccess(towerName + " Tower generated at " + here.toString());
 
     return;
   }
