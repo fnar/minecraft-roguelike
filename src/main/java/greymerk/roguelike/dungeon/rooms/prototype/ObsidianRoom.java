@@ -8,7 +8,7 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockJumble;
 import greymerk.roguelike.worldgen.Cardinal;
@@ -27,7 +27,7 @@ public class ObsidianRoom extends DungeonBase {
     super(roomSetting);
   }
 
-  private static void outerPillars(WorldEditor editor, Random rand, ITheme theme, int x, int y, int z) {
+  private static void outerPillars(WorldEditor editor, Random rand, ThemeBase theme, int x, int y, int z) {
     for (Cardinal dir : Cardinal.DIRECTIONS) {
       for (Cardinal orth : dir.orthogonal()) {
         Coord pillarLocation = new Coord(x, y, z);
@@ -45,7 +45,7 @@ public class ObsidianRoom extends DungeonBase {
     }
   }
 
-  private static void outerPillar(WorldEditor editor, Random rand, ITheme theme, Coord pillarLocation, Cardinal dir) {
+  private static void outerPillar(WorldEditor editor, Random rand, ThemeBase theme, Coord pillarLocation, Cardinal dir) {
 
     IBlockFactory secondaryWall = theme.getSecondary().getPillar();
 
@@ -66,7 +66,7 @@ public class ObsidianRoom extends DungeonBase {
     }
   }
 
-  private static void innerPillars(WorldEditor editor, Random rand, ITheme theme, int x, int y, int z) {
+  private static void innerPillars(WorldEditor editor, Random rand, ThemeBase theme, int x, int y, int z) {
 
     IBlockFactory secondaryWall = theme.getSecondary().getPillar();
 
@@ -104,7 +104,7 @@ public class ObsidianRoom extends DungeonBase {
     }
   }
 
-  private static void liquidWindow(WorldEditor editor, Coord cursor, Cardinal orth, ITheme theme, Random random) {
+  private static void liquidWindow(WorldEditor editor, Coord cursor, Cardinal orth, ThemeBase theme, Random random) {
     IBlockFactory liquid = theme.getPrimary().getLiquid();
     RectSolid.fill(editor, random, cursor, cursor, liquid);
     cursor.translate(Cardinal.DOWN, 1);
@@ -123,7 +123,7 @@ public class ObsidianRoom extends DungeonBase {
     int x = origin.getX();
     int y = origin.getY();
     int z = origin.getZ();
-    ITheme theme = settings.getTheme();
+    ThemeBase theme = settings.getTheme();
 
     HashSet<Coord> spawners = new HashSet<>();
     MetaBlock air = BlockType.get(BlockType.AIR);

@@ -2,7 +2,7 @@ package greymerk.roguelike.dungeon.towers;
 
 import java.util.Random;
 
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
@@ -15,7 +15,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class PyramidTower implements ITower {
 
   @Override
-  public void generate(WorldEditor editor, Random rand, ITheme theme, Coord dungeon) {
+  public void generate(WorldEditor editor, Random rand, ThemeBase theme, Coord dungeon) {
 
     Coord floor = Tower.getBaseCoord(editor, dungeon);
     floor.translate(Cardinal.UP);
@@ -58,7 +58,7 @@ public class PyramidTower implements ITower {
 
   }
 
-  private void entrance(WorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord origin) {
+  private void entrance(WorldEditor editor, Random rand, ThemeBase theme, Cardinal dir, Coord origin) {
 
     IBlockFactory blocks = theme.getPrimary().getWall();
     MetaBlock air = BlockType.get(BlockType.AIR);
@@ -132,7 +132,7 @@ public class PyramidTower implements ITower {
     blocks.set(editor, rand, cursor);
   }
 
-  private void spire(WorldEditor editor, Random rand, ITheme theme, Coord origin) {
+  private void spire(WorldEditor editor, Random rand, ThemeBase theme, Coord origin) {
     IBlockFactory blocks = theme.getPrimary().getWall();
     MetaBlock air = BlockType.get(BlockType.AIR);
     Coord cursor;
@@ -219,7 +219,7 @@ public class PyramidTower implements ITower {
 
   }
 
-  private void wall(WorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord pos) {
+  private void wall(WorldEditor editor, Random rand, ThemeBase theme, Cardinal dir, Coord pos) {
     IBlockFactory blocks = theme.getPrimary().getWall();
     MetaBlock air = BlockType.get(BlockType.AIR);
     Coord cursor;
@@ -282,7 +282,7 @@ public class PyramidTower implements ITower {
     }
   }
 
-  private void corner(WorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord pos) {
+  private void corner(WorldEditor editor, Random rand, ThemeBase theme, Cardinal dir, Coord pos) {
 
     IBlockFactory blocks = theme.getPrimary().getWall();
     Coord cursor;

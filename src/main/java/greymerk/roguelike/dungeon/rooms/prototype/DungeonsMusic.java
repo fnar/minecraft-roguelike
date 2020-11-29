@@ -9,7 +9,7 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.Cardinal;
@@ -30,7 +30,7 @@ public class DungeonsMusic extends DungeonBase {
   }
 
   public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
-    ITheme theme = settings.getTheme();
+    ThemeBase theme = settings.getTheme();
     IBlockFactory wall = theme.getPrimary().getWall();
     IStair stair = theme.getSecondary().getStair();
     IBlockFactory panel = theme.getSecondary().getWall();
@@ -163,7 +163,7 @@ public class DungeonsMusic extends DungeonBase {
   }
 
   private void pillar(WorldEditor editor, Random rand, LevelSettings settings, Coord origin) {
-    ITheme theme = settings.getTheme();
+    ThemeBase theme = settings.getTheme();
     IStair stair = theme.getSecondary().getStair();
     IBlockFactory panel = theme.getSecondary().getWall();
     IBlockFactory pillar = theme.getSecondary().getPillar();

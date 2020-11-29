@@ -7,7 +7,7 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -34,7 +34,7 @@ public class DungeonPyramidTomb extends DungeonBase {
   public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
 
 
-    ITheme theme = settings.getTheme();
+    ThemeBase theme = settings.getTheme();
     IBlockFactory pillar = theme.getPrimary().getPillar();
     IBlockFactory blocks = theme.getPrimary().getWall();
     MetaBlock air = BlockType.get(BlockType.AIR);
@@ -155,7 +155,7 @@ public class DungeonPyramidTomb extends DungeonBase {
     return this;
   }
 
-  private void ceilingTiles(WorldEditor editor, Random rand, ITheme theme, int width, Cardinal dir, Coord origin) {
+  private void ceilingTiles(WorldEditor editor, Random rand, ThemeBase theme, int width, Cardinal dir, Coord origin) {
 
     if (width < 1) {
       return;
@@ -198,7 +198,7 @@ public class DungeonPyramidTomb extends DungeonBase {
     ceilingTiles(editor, rand, theme, (width - 2), dir, cursor);
   }
 
-  private void tile(WorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord origin) {
+  private void tile(WorldEditor editor, Random rand, ThemeBase theme, Cardinal dir, Coord origin) {
     IStair stair = theme.getPrimary().getStair();
     stair.setOrientation(dir, true).set(editor, origin);
     Coord cursor = new Coord(origin);

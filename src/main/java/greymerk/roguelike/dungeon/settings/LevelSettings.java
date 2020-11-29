@@ -14,8 +14,8 @@ import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.base.SecretsSetting;
 import greymerk.roguelike.dungeon.segment.ISegmentGenerator;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
-import greymerk.roguelike.theme.ITheme;
 import greymerk.roguelike.theme.Theme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.filter.Filter;
 import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
@@ -39,7 +39,7 @@ public class LevelSettings {
   private int levelDifficulty = -1;
   private RoomsSetting rooms = new RoomsSetting();
   private SecretsSetting secrets = new SecretsSetting();
-  private ITheme theme;
+  private ThemeBase theme;
   private SegmentGenerator segments;
   private SpawnerSettings spawners = new SpawnerSettings();
   private LevelGenerator generator;
@@ -107,9 +107,9 @@ public class LevelSettings {
     filters.addAll(child.filters);
   }
 
-  private ITheme inherit(LevelSettings parent, LevelSettings child, Set<SettingsType> overrides) {
-    Optional<ITheme> parentTheme = ofNullable(parent.theme);
-    Optional<ITheme> childTheme = ofNullable(child.theme);
+  private ThemeBase inherit(LevelSettings parent, LevelSettings child, Set<SettingsType> overrides) {
+    Optional<ThemeBase> parentTheme = ofNullable(parent.theme);
+    Optional<ThemeBase> childTheme = ofNullable(child.theme);
     if (!childTheme.isPresent()) {
       return parentTheme.orElse(null);
     }
@@ -194,13 +194,13 @@ public class LevelSettings {
     this.segments = segments;
   }
 
-  public ITheme getTheme() {
+  public ThemeBase getTheme() {
     // return theme;
     // todo: not rely on this class to provide default as it's an inverted dependency
     return theme != null ? theme : Theme.STONE.getThemeBase();
   }
 
-  public void setTheme(ITheme theme) {
+  public void setTheme(ThemeBase theme) {
     this.theme = theme;
   }
 

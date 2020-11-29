@@ -1,13 +1,12 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBlockFactory;
@@ -27,7 +26,7 @@ public class DungeonDarkHall extends DungeonBase {
   @Override
   public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
 
-    ITheme theme = settings.getTheme();
+    ThemeBase theme = settings.getTheme();
 
     IBlockFactory outerWall = theme.getPrimary().getWall();
     IBlockFactory wall = theme.getSecondary().getWall();
@@ -187,7 +186,7 @@ public class DungeonDarkHall extends DungeonBase {
 
   private void pillar(WorldEditor editor, Random rand, LevelSettings settings, Cardinal dir, Coord origin) {
 
-    ITheme theme = settings.getTheme();
+    ThemeBase theme = settings.getTheme();
 
     IBlockFactory wall = theme.getSecondary().getWall();
     IBlockFactory pillar = theme.getSecondary().getPillar();

@@ -2,7 +2,7 @@ package greymerk.roguelike.dungeon.towers;
 
 import java.util.Random;
 
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -18,7 +18,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class WitchTower implements ITower {
 
   @Override
-  public void generate(WorldEditor editor, Random rand, ITheme theme, Coord origin) {
+  public void generate(WorldEditor editor, Random rand, ThemeBase theme, Coord origin) {
 
     IBlockFactory blocks = theme.getPrimary().getWall();
     IBlockFactory pillar = theme.getPrimary().getPillar();
@@ -358,7 +358,7 @@ public class WitchTower implements ITower {
 
   }
 
-  private void window(WorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord origin) {
+  private void window(WorldEditor editor, Random rand, ThemeBase theme, Cardinal dir, Coord origin) {
 
     Coord cursor;
 
@@ -379,7 +379,7 @@ public class WitchTower implements ITower {
     }
   }
 
-  private void step(WorldEditor editor, Random rand, ITheme theme, Cardinal dir, Coord origin) {
+  private void step(WorldEditor editor, Random rand, ThemeBase theme, Cardinal dir, Coord origin) {
 
     if (editor.getBlock(origin).isOpaqueCube()) {
       return;

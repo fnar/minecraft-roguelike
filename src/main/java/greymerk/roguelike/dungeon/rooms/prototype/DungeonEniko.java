@@ -1,14 +1,13 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -29,7 +28,7 @@ public class DungeonEniko extends DungeonBase {
     super(roomSetting);
   }
 
-  private static void pillar(WorldEditor editor, Random rand, ITheme theme, Coord origin) {
+  private static void pillar(WorldEditor editor, Random rand, ThemeBase theme, Coord origin) {
 
     IStair stair = theme.getPrimary().getStair();
     IBlockFactory pillar = theme.getPrimary().getPillar();
@@ -51,7 +50,7 @@ public class DungeonEniko extends DungeonBase {
   @Override
   public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
 
-    ITheme theme = settings.getTheme();
+    ThemeBase theme = settings.getTheme();
     MetaBlock air = BlockType.get(BlockType.AIR);
     IStair stair = theme.getPrimary().getStair();
     IBlockFactory walls = theme.getPrimary().getWall();

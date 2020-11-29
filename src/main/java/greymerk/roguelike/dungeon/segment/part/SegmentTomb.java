@@ -6,7 +6,7 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -21,7 +21,7 @@ import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 public class SegmentTomb extends SegmentBase {
 
-  private static void tomb(WorldEditor editor, Random rand, LevelSettings level, ITheme theme, Cardinal dir, Coord pos) {
+  private static void tomb(WorldEditor editor, Random rand, LevelSettings level, ThemeBase theme, Cardinal dir, Coord pos) {
 
     Coord cursor;
     Coord start;
@@ -60,7 +60,7 @@ public class SegmentTomb extends SegmentBase {
   }
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Cardinal dir, ITheme theme, Coord origin) {
+  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Cardinal dir, ThemeBase theme, Coord origin) {
 
     MetaBlock air = BlockType.get(BlockType.AIR);
     IStair stair = theme.getPrimary().getStair();

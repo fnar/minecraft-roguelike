@@ -14,7 +14,7 @@ import java.util.Random;
 
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.theme.BlockSet;
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.treasure.MockChest;
 import greymerk.roguelike.treasure.TreasureManager;
 import greymerk.roguelike.treasure.loot.ChestType;
@@ -89,7 +89,7 @@ public class DungeonSettingsTest {
     setting = DungeonSettingsParser.parseDungeonSettings(json);
 
     LevelSettings level = setting.getLevelSettings(0);
-    ITheme t = level.getTheme();
+    ThemeBase t = level.getTheme();
     BlockSet bs = t.getPrimary();
     IBlockFactory f = bs.getFloor();
     assert (f.equals(BlockType.get(BlockType.DIRT)));

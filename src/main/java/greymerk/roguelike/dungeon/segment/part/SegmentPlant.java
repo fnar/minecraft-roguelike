@@ -3,7 +3,7 @@ package greymerk.roguelike.dungeon.segment.part;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.DungeonLevel;
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IStair;
@@ -17,7 +17,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class SegmentPlant extends SegmentBase {
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Cardinal dir, ITheme theme, Coord origin) {
+  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Cardinal dir, ThemeBase theme, Coord origin) {
 
     MetaBlock air = BlockType.get(BlockType.AIR);
     IStair stair = theme.getSecondary().getStair();
@@ -54,7 +54,7 @@ public class SegmentPlant extends SegmentBase {
 
   }
 
-  private void plant(WorldEditor editor, Random rand, ITheme theme, Coord origin) {
+  private void plant(WorldEditor editor, Random rand, ThemeBase theme, Coord origin) {
     Coord cursor;
     BlockType.get(BlockType.DIRT_PODZOL).set(editor, origin);
 

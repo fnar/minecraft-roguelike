@@ -3,7 +3,7 @@ package greymerk.roguelike.dungeon.segment.part;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.DungeonLevel;
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -20,7 +20,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class SegmentLamp extends SegmentBase {
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Cardinal dir, ITheme theme, Coord origin) {
+  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Cardinal dir, ThemeBase theme, Coord origin) {
 
     IStair stair = theme.getPrimary().getStair();
     IBlockFactory wall = theme.getPrimary().getWall();
@@ -97,7 +97,7 @@ public class SegmentLamp extends SegmentBase {
     RectSolid.fill(editor, rand, start, end, wire);
   }
 
-  private void overheadLight(WorldEditor editor, Random rand, ITheme theme, Coord origin) {
+  private void overheadLight(WorldEditor editor, Random rand, ThemeBase theme, Coord origin) {
 
     IStair stair = theme.getPrimary().getStair();
 

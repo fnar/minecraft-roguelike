@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.DungeonLevel;
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.util.WeightedChoice;
 import greymerk.roguelike.util.WeightedRandomizer;
 import greymerk.roguelike.worldgen.Cardinal;
@@ -131,7 +131,7 @@ public class SegmentGenerator implements ISegmentGenerator {
     return null;
   }
 
-  private void addSupport(WorldEditor editor, Random rand, ITheme theme, int x, int y, int z) {
+  private void addSupport(WorldEditor editor, Random rand, ThemeBase theme, int x, int y, int z) {
     if (!editor.isAirBlock(new Coord(x, y - 2, z))) {
       return;
     }

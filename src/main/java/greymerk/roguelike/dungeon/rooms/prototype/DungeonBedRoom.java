@@ -10,7 +10,7 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.Cardinal;
@@ -33,7 +33,7 @@ public class DungeonBedRoom extends DungeonBase {
     super(roomSetting);
   }
 
-  public void pillar(WorldEditor editor, Random rand, Cardinal dir, ITheme theme, final Coord base) {
+  public void pillar(WorldEditor editor, Random rand, Cardinal dir, ThemeBase theme, final Coord base) {
     Coord start = new Coord(base);
     Coord end = new Coord(base);
 
@@ -48,7 +48,7 @@ public class DungeonBedRoom extends DungeonBase {
   @Override
   public DungeonBase generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
 
-    ITheme theme = settings.getTheme();
+    ThemeBase theme = settings.getTheme();
 
     Coord cursor;
     Coord start;
@@ -178,7 +178,7 @@ public class DungeonBedRoom extends DungeonBase {
     return this;
   }
 
-  private static IStair getStairs(ITheme theme) {
+  private static IStair getStairs(ThemeBase theme) {
     return theme.getSecondary().getStair();
   }
 

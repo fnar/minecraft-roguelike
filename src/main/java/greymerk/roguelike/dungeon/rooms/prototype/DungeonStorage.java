@@ -7,7 +7,7 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ITheme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -24,7 +24,7 @@ public class DungeonStorage extends DungeonBase {
     super(roomSetting);
   }
 
-  private static void pillarTop(WorldEditor editor, Random rand, ITheme theme, Coord cursor) {
+  private static void pillarTop(WorldEditor editor, Random rand, ThemeBase theme, Coord cursor) {
     IStair step = theme.getSecondary().getStair();
     for (Cardinal dir : Cardinal.DIRECTIONS) {
       step.setOrientation(dir, true);
@@ -34,7 +34,7 @@ public class DungeonStorage extends DungeonBase {
     }
   }
 
-  private static void pillar(WorldEditor editor, Random rand, Coord base, ITheme theme, int height) {
+  private static void pillar(WorldEditor editor, Random rand, Coord base, ThemeBase theme, int height) {
     Coord top = new Coord(base);
     top.translate(Cardinal.UP, height);
     RectSolid.fill(editor, rand, base, top, theme.getSecondary().getPillar());
@@ -46,7 +46,7 @@ public class DungeonStorage extends DungeonBase {
     int x = origin.getX();
     int y = origin.getY();
     int z = origin.getZ();
-    ITheme theme = settings.getTheme();
+    ThemeBase theme = settings.getTheme();
 
     List<Coord> chestSpaces = new ArrayList<>();
     MetaBlock air = BlockType.get(BlockType.AIR);
