@@ -1,10 +1,19 @@
 package greymerk.roguelike.dungeon.settings;
 
+import com.google.common.base.Charsets;
+import com.google.common.collect.Lists;
+import com.google.common.io.Files;
+
 import net.minecraft.client.Minecraft;
 
+import org.apache.commons.io.FilenameUtils;
+
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 import java.util.function.Predicate;
@@ -16,9 +25,13 @@ import greymerk.roguelike.util.WeightedRandomizer;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 
+import static com.google.common.collect.Lists.newArrayList;
+import static java.util.Collections.emptyList;
 import static java.util.Optional.empty;
 import static java.util.Optional.ofNullable;
 import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
+import static java.util.stream.Collectors.toMap;
 
 public class SettingsResolver {
 
@@ -28,6 +41,51 @@ public class SettingsResolver {
       SettingsContainer settingsContainer
   ) {
     this.settingsContainer = settingsContainer;
+  }
+
+  public static SettingsResolver initSettingsResolver() throws Exception {
+    File settingsDirectoryFile = new File(RogueConfig.configDirName + "/settings");
+
+    if (settingsDirectoryFile.exists() && !settingsDirectoryFile.isDirectory()) {
+      throw new Exception("Settings directory is a file");
+    }
+
+    if (!settingsDirectoryFile.exists()) {
+      settingsDirectoryFile.mkdir();
+    }
+
+    Map<String, String> fileByName = collectSettingsFiles(settingsDirectoryFile);
+    SettingsContainer settings = new SettingsContainer();
+    settings.put(fileByName);
+    return new SettingsResolver(settings);
+  }
+
+  private static Map<String, String> collectSettingsFiles(File settingsDirectory) {
+    List<File> files = listFilesRecursively(settingsDirectory);
+    return mapContentByFilename(files);
+  }
+
+  private static List<File> listFilesRecursively(File settingsDirectory) {
+    File[] files = settingsDirectory.listFiles();
+    return ofNullable(files).isPresent()
+        ? newArrayList(files).stream()
+        .flatMap(file -> file.isDirectory() ? listFilesRecursively(file).stream() : Lists.newArrayList(file).stream())
+        .filter(file -> FilenameUtils.getExtension(file.getName()).equals("json"))
+        .collect(toList())
+        : emptyList();
+  }
+
+  private static Map<String, String> mapContentByFilename(List<File> files) {
+    return files.stream()
+        .collect(toMap(File::getName, SettingsResolver::getFileContent));
+  }
+
+  private static String getFileContent(File file) {
+    try {
+      return Files.toString(file, Charsets.UTF_8);
+    } catch (IOException e) {
+      throw new RuntimeException("Error reading file : " + file.getName());
+    }
   }
 
   public DungeonSettings getAnyCustomDungeonSettings(WorldEditor editor, Coord coord) {

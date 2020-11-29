@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 
-public class CommandContext implements ICommandContext {
+public class CommandContext {
 
   MinecraftServer server;
   ICommandSender sender;
@@ -20,6 +20,26 @@ public class CommandContext implements ICommandContext {
   public CommandContext(MinecraftServer server, ICommandSender sender) {
     this.server = server;
     this.sender = sender;
+  }
+
+  public void sendFailure(Exception e) {
+    sendFailure(e.getMessage());
+  }
+
+  public void sendFailure(String message) {
+    sendMessage("Failure: " + message, MessageType.ERROR);
+  }
+
+  public void sendInfo(String message) {
+    sendMessage(message, MessageType.INFO);
+  }
+
+  public void sendSpecial(String message) {
+    sendMessage(message, MessageType.SPECIAL);
+  }
+
+  public void sendSuccess(String message) {
+    sendMessage("Success: " + message, MessageType.SUCCESS);
   }
 
   public void sendMessage(String message, MessageType type) {

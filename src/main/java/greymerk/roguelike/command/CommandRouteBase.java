@@ -22,7 +22,7 @@ public abstract class CommandRouteBase implements ICommandRouter {
   }
 
   @Override
-  public void execute(ICommandContext context, List<String> args) {
+  public void execute(CommandContext context, List<String> args) {
     if (args.size() > 0) {
       if (this.routes.containsKey(args.get(0))) {
         List<String> tail = new ArrayList<>(args);

@@ -8,9 +8,8 @@ import net.minecraftforge.common.BiomeDictionary;
 import java.util.List;
 import java.util.Set;
 
+import greymerk.roguelike.command.CommandContext;
 import greymerk.roguelike.command.CommandRouteBase;
-import greymerk.roguelike.command.ICommandContext;
-import greymerk.roguelike.command.MessageType;
 import greymerk.roguelike.util.ArgumentParser;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -20,7 +19,7 @@ import static java.util.stream.Collectors.joining;
 public class CommandRouteBiome extends CommandRouteBase {
 
   @Override
-  public void execute(ICommandContext context, List<String> args) {
+  public void execute(CommandContext context, List<String> args) {
 
     ArgumentParser ap = new ArgumentParser(args);
 
@@ -35,22 +34,22 @@ public class CommandRouteBiome extends CommandRouteBase {
         x = CommandBase.parseInt(ap.get(0));
         z = CommandBase.parseInt(ap.get(1));
       } catch (NumberInvalidException e) {
-        context.sendMessage("Failure: Invalid Coords: X Z", MessageType.ERROR);
+        context.sendFailure("Invalid Coords: X Z");
         return;
       }
       pos = new Coord(x, 0, z);
     }
 
-    context.sendMessage("Biome Information for " + pos.toString(), MessageType.SPECIAL);
+    context.sendSpecial("Biome Information for " + pos.toString());
 
     Biome biome = editor.getInfo(pos).getBiome();
-    context.sendMessage(biome.getBiomeName(), MessageType.SPECIAL);
+    context.sendSpecial(biome.getBiomeName());
 
     Set<BiomeDictionary.Type> biomeTypes = BiomeDictionary.getTypes(biome);
     String types = biomeTypes.stream()
         .map(type -> type.getName() + " ")
         .collect(joining());
 
-    context.sendMessage(types, MessageType.SPECIAL);
+    context.sendSpecial(types);
   }
 }
