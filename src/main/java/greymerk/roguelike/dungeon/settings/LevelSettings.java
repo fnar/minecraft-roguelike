@@ -108,15 +108,21 @@ public class LevelSettings {
   }
 
   private ThemeBase inherit(LevelSettings parent, LevelSettings child, Set<SettingsType> overrides) {
-    Optional<ThemeBase> parentTheme = ofNullable(parent.theme);
-    Optional<ThemeBase> childTheme = ofNullable(child.theme);
-    if (!childTheme.isPresent()) {
-      return parentTheme.orElse(null);
+    boolean isChildThemeAbsent = child.theme == null;
+    boolean isParentThemeAbsent = parent.theme == null;
+    if (isChildThemeAbsent && isParentThemeAbsent) {
+      return null;
     }
-    if (overrides.contains(THEMES) || !parentTheme.isPresent()) {
-      return childTheme.get();
+    if (isChildThemeAbsent) {
+      return parent.theme;
     }
-    return ThemeBase.inherit(parentTheme.get(), childTheme.get());
+    if (isParentThemeAbsent) {
+      return child.theme;
+    }
+    if (overrides.contains(THEMES)) {
+      return child.theme;
+    }
+    return ThemeBase.inherit(parent.theme, child.theme);
   }
 
   private void init(LevelSettings toCopy) {
