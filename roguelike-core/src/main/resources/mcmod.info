@@ -1,0 +1,17 @@
+[
+{
+	"modid" : "roguelike",
+	"name" : "Roguelike Dungeons",
+	"description" : "Adds randomized dungeons to the world",
+	"version" : "${version}",
+	"mcversion": "${mcversion}",
+	"url" : "github.com/srwaggon/minecraft-roguelike",
+	"credits": "",
+	"logoFile": "",
+	"updateUrl": "",
+	"authorList" : ["Greymerk", "Fnar"],
+	"parent": "",
+	"screenshots": [],
+	"dependencies": []
+}
+]
