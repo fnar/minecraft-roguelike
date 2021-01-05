@@ -46,7 +46,7 @@ public class DungeonsFire extends DungeonBase {
       start.translate(dir.antiClockwise());
       end = new Coord(start);
       end.translate(Cardinal.UP, 2);
-      RectSolid.fill(editor, start, end, pillar, true, false);
+      RectSolid.newRect(start, end).fill(editor, pillar, true, false);
 
       cursor = new Coord(origin);
       cursor.translate(dir);
@@ -83,7 +83,7 @@ public class DungeonsFire extends DungeonBase {
       start.translate(dir.antiClockwise(), 2);
       end.translate(dir.clockwise(), 2);
       stair.setUpsideDown(true).setFacing(dir);
-      RectSolid.fill(editor, start, end, stair, true, false);
+      RectSolid.newRect(start, end).fill(editor, stair, true, false);
     }
 
     start = new Coord(origin);
@@ -95,7 +95,7 @@ public class DungeonsFire extends DungeonBase {
     end.translate(Cardinal.SOUTH, 2);
     end.translate(Cardinal.EAST, 2);
 
-    RectSolid.fill(editor, start, end, wall, true, false);
+    RectSolid.newRect(start, end).fill(editor, wall, true, false);
 
   }
 
@@ -131,7 +131,7 @@ public class DungeonsFire extends DungeonBase {
     start.translate(Cardinal.WEST, 8);
     end.translate(Cardinal.SOUTH, 8);
     end.translate(Cardinal.EAST, 8);
-    RectSolid.fill(editor, start, end, theme.getPrimary().getFloor(), false, true);
+    RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getFloor(), false, true);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
       for (Cardinal orth : dir.orthogonals()) {
@@ -140,7 +140,7 @@ public class DungeonsFire extends DungeonBase {
         start.translate(orth, 2);
         end = new Coord(start);
         end.translate(Cardinal.UP, 6);
-        RectSolid.fill(editor, start, end, pillar);
+        RectSolid.newRect(start, end).fill(editor, pillar);
 
         cursor = new Coord(origin);
         cursor.translate(dir, 8);
@@ -156,7 +156,7 @@ public class DungeonsFire extends DungeonBase {
         start.translate(Cardinal.UP);
         end = new Coord(start);
         end.translate(Cardinal.UP, 3);
-        RectSolid.fill(editor, start, end, pillar);
+        RectSolid.newRect(start, end).fill(editor, pillar);
 
         cursor.translate(dir.reverse());
         cursor.translate(orth);
@@ -166,7 +166,7 @@ public class DungeonsFire extends DungeonBase {
         start.translate(Cardinal.UP);
         end = new Coord(start);
         end.translate(Cardinal.UP, 3);
-        RectSolid.fill(editor, start, end, pillar);
+        RectSolid.newRect(start, end).fill(editor, pillar);
 
         cursor.translate(dir);
         cursor.translate(orth);
@@ -176,7 +176,7 @@ public class DungeonsFire extends DungeonBase {
         start.translate(Cardinal.UP);
         end = new Coord(start);
         end.translate(Cardinal.UP, 3);
-        RectSolid.fill(editor, start, end, pillar);
+        RectSolid.newRect(start, end).fill(editor, pillar);
 
       }
 
@@ -192,14 +192,14 @@ public class DungeonsFire extends DungeonBase {
       start = new Coord(cursor);
       end = new Coord(cursor);
       end.translate(dir, 6);
-      RectSolid.fill(editor, start, end, wall);
+      RectSolid.newRect(start, end).fill(editor, wall);
       cursor.translate(dir.antiClockwise());
       wall.stroke(editor, cursor);
 
       start = new Coord(end);
       end.translate(Cardinal.UP, 2);
       end.translate(dir.reverse());
-      RectSolid.fill(editor, start, end, wall);
+      RectSolid.newRect(start, end).fill(editor, wall);
 
       stair.setUpsideDown(true).setFacing(dir.reverse());
 
@@ -207,21 +207,21 @@ public class DungeonsFire extends DungeonBase {
       start = new Coord(cursor);
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir.clockwise(), 3);
-      RectSolid.fill(editor, start, end, wall, true, false);
+      RectSolid.newRect(start, end).fill(editor, wall, true, false);
 
       start = new Coord(cursor);
       start.translate(Cardinal.DOWN);
       end = new Coord(start);
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir.clockwise(), 3);
-      RectSolid.fill(editor, start, end, stair, true, false);
+      RectSolid.newRect(start, end).fill(editor, stair, true, false);
 
       start = new Coord(cursor);
       start.translate(dir.reverse());
       end = new Coord(start);
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir.clockwise(), 3);
-      RectSolid.fill(editor, start, end, stair, true, false);
+      RectSolid.newRect(start, end).fill(editor, stair, true, false);
     }
 
 

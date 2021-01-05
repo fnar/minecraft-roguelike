@@ -2,6 +2,7 @@ package greymerk.roguelike.dungeon.rooms.prototype;
 
 import com.github.srwaggon.roguelike.worldgen.SingleBlockBrush;
 import com.github.srwaggon.roguelike.worldgen.block.BlockType;
+import com.github.srwaggon.roguelike.worldgen.block.normal.Quartz;
 import com.github.srwaggon.roguelike.worldgen.block.normal.StairsBlock;
 import com.github.srwaggon.roguelike.worldgen.block.normal.Wood;
 
@@ -15,7 +16,6 @@ import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
-import com.github.srwaggon.roguelike.worldgen.block.normal.Quartz;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 import static com.github.srwaggon.roguelike.worldgen.block.normal.ColoredBlock.stainedHardenedClay;
@@ -49,13 +49,13 @@ public class DungeonAvidya extends DungeonBase {
     BlockBrush glowstone = BlockType.GLOWSTONE.getBrush();
 
     // clear space
-    RectSolid.fill(editor, new Coord(x - 8, y, z - 8), new Coord(x + 8, y + 5, z + 8), SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(x - 8, y, z - 8), new Coord(x + 8, y + 5, z + 8)).fill(editor, SingleBlockBrush.AIR);
 
     // roof
-    RectSolid.fill(editor, new Coord(x - 6, y + 6, z - 6), new Coord(x + 6, y + 6, z + 6), redClay, true, true);
-    RectSolid.fill(editor, new Coord(x - 3, y + 6, z - 3), new Coord(x + 3, y + 6, z + 3), glowstone);
+    RectSolid.newRect(new Coord(x - 6, y + 6, z - 6), new Coord(x + 6, y + 6, z + 6)).fill(editor, redClay, true, true);
+    RectSolid.newRect(new Coord(x - 3, y + 6, z - 3), new Coord(x + 3, y + 6, z + 3)).fill(editor, glowstone);
 
-    RectSolid.fill(editor, new Coord(x - 7, y - 1, z - 7), new Coord(x + 7, y - 1, z + 7), SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(x - 7, y - 1, z - 7), new Coord(x + 7, y - 1, z + 7)).fill(editor, SingleBlockBrush.AIR);
 
 
     // floor
@@ -63,7 +63,7 @@ public class DungeonAvidya extends DungeonBase {
     BlockBrush yang = stainedHardenedClay().setColor(DyeColor.WHITE);
 
     // ying
-    RectSolid.fill(editor, new Coord(x - 8, y - 2, z - 8), new Coord(x + 8, y - 2, z + 8), ying);
+    RectSolid.newRect(new Coord(x - 8, y - 2, z - 8), new Coord(x + 8, y - 2, z + 8)).fill(editor, ying);
 
     // yang
     BlockBrush quartz = Quartz.SMOOTH.getBrush();
@@ -73,46 +73,46 @@ public class DungeonAvidya extends DungeonBase {
     Coord end = new Coord(start);
     start.translate(Cardinal.NORTH, 2);
     end.translate(Cardinal.SOUTH, 2);
-    RectSolid.fill(editor, start, end, yang);
+    RectSolid.newRect(start, end).fill(editor, yang);
 
     start.translate(Cardinal.EAST, 1);
     end.translate(Cardinal.EAST, 1);
     start.translate(Cardinal.NORTH, 2);
     end.translate(Cardinal.SOUTH, 2);
-    RectSolid.fill(editor, start, end, yang);
+    RectSolid.newRect(start, end).fill(editor, yang);
 
     start.translate(Cardinal.EAST, 1);
     end.translate(Cardinal.EAST, 1);
     end.translate(Cardinal.NORTH, 3);
-    RectSolid.fill(editor, start, end, yang);
+    RectSolid.newRect(start, end).fill(editor, yang);
 
     start.translate(Cardinal.EAST, 1);
     end.translate(Cardinal.EAST, 1);
     start.translate(Cardinal.NORTH, 1);
     end.translate(Cardinal.NORTH, 1);
-    RectSolid.fill(editor, start, end, yang);
+    RectSolid.newRect(start, end).fill(editor, yang);
 
     start.translate(Cardinal.EAST, 1);
     end.translate(Cardinal.EAST, 3);
     end.translate(Cardinal.NORTH, 1);
-    RectSolid.fill(editor, start, end, yang);
+    RectSolid.newRect(start, end).fill(editor, yang);
 
     start.translate(Cardinal.EAST, 3);
     end.translate(Cardinal.EAST, 1);
     start.translate(Cardinal.SOUTH, 1);
     end.translate(Cardinal.NORTH, 1);
-    RectSolid.fill(editor, start, end, yang);
+    RectSolid.newRect(start, end).fill(editor, yang);
 
     start.translate(Cardinal.WEST, 3);
     end.translate(Cardinal.WEST, 2);
     end.translate(Cardinal.NORTH, 1);
-    RectSolid.fill(editor, start, end, yang);
+    RectSolid.newRect(start, end).fill(editor, yang);
 
     start.translate(Cardinal.EAST, 1);
     end.translate(Cardinal.EAST, 1);
     start.translate(Cardinal.SOUTH, 7);
     end.translate(Cardinal.SOUTH, 7);
-    RectSolid.fill(editor, start, end, yang);
+    RectSolid.newRect(start, end).fill(editor, yang);
 
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
@@ -124,17 +124,17 @@ public class DungeonAvidya extends DungeonBase {
         start.translate(Cardinal.UP, 4);
         end = new Coord(start);
         end.translate(orthogonals, 8);
-        RectSolid.fill(editor, start, end, whiteClay);
+        RectSolid.newRect(start, end).fill(editor, whiteClay);
         start.translate(Cardinal.DOWN, 5);
         end.translate(Cardinal.DOWN, 5);
-        RectSolid.fill(editor, start, end, BlockType.STONE_BRICK.getBrush());
+        RectSolid.newRect(start, end).fill(editor, BlockType.STONE_BRICK.getBrush());
 
         start = new Coord(x, y, z);
         start.translate(dir, 7);
         start.translate(Cardinal.UP, 5);
         end = new Coord(start);
         end.translate(orthogonals, 7);
-        RectSolid.fill(editor, start, end, whiteClay);
+        RectSolid.newRect(start, end).fill(editor, whiteClay);
 
         // ceiling details
         start = new Coord(x, y, z);
@@ -142,7 +142,7 @@ public class DungeonAvidya extends DungeonBase {
         start.translate(Cardinal.UP, 5);
         end = new Coord(start);
         end.translate(orthogonals, 2);
-        RectSolid.fill(editor, start, end, quartz);
+        RectSolid.newRect(start, end).fill(editor, quartz);
 
         Coord cursor = new Coord(end);
         cursor.translate(dir, 1);
@@ -160,10 +160,10 @@ public class DungeonAvidya extends DungeonBase {
         start.translate(orthogonals, 2);
         end = new Coord(start);
         end.translate(Cardinal.UP, 4);
-        RectSolid.fill(editor, start, end, pillarQuartz);
+        RectSolid.newRect(start, end).fill(editor, pillarQuartz);
         start.translate(orthogonals, 4);
         end.translate(orthogonals, 4);
-        RectSolid.fill(editor, start, end, pillarQuartz);
+        RectSolid.newRect(start, end).fill(editor, pillarQuartz);
 
         // pillar tops
         cursor = new Coord(x, y, z);
@@ -193,7 +193,7 @@ public class DungeonAvidya extends DungeonBase {
         end = new Coord(start);
         end.translate(orthogonals, 9);
         end.translate(Cardinal.UP, 3);
-        RectSolid.fill(editor, start, end, whiteClay, false, true);
+        RectSolid.newRect(start, end).fill(editor, whiteClay, false, true);
 
         // floor outer step circle
         cursor = new Coord(x, y, z);

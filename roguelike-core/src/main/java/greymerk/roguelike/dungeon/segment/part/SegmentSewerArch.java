@@ -2,7 +2,6 @@ package greymerk.roguelike.dungeon.segment.part;
 
 import com.github.srwaggon.roguelike.worldgen.SingleBlockBrush;
 import com.github.srwaggon.roguelike.worldgen.block.BlockType;
-import com.github.srwaggon.roguelike.worldgen.block.normal.StairsBlock;
 
 import java.util.Random;
 
@@ -19,8 +18,7 @@ public class SegmentSewerArch extends SegmentBase {
   @Override
   protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Cardinal dir, ThemeBase theme, Coord origin) {
 
-    StairsBlock stair = theme.getSecondary().getStair();
-    stair.setUpsideDown(true).setFacing(dir.reverse());
+    BlockBrush stair = theme.getSecondary().getStair().setUpsideDown(true).setFacing(dir.reverse());
     BlockBrush water = BlockType.WATER_FLOWING.getBrush();
     BlockBrush bars = BlockType.IRON_BAR.getBrush();
     BlockBrush mossy = BlockType.COBBLESTONE_MOSSY.getBrush();
@@ -56,10 +54,10 @@ public class SegmentSewerArch extends SegmentBase {
     end = new Coord(start);
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
     start.translate(Cardinal.DOWN);
     end.translate(Cardinal.DOWN);
-    RectSolid.fill(editor, start, end, water);
+    RectSolid.newRect(start, end).fill(editor, water);
 
     for (Cardinal o : orthogonals) {
       cursor = new Coord(origin);

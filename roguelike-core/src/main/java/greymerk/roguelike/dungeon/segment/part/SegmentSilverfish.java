@@ -33,12 +33,12 @@ public class SegmentSilverfish extends SegmentBase {
     end = new Coord(cursor);
     end.translate(orthogonals[1], 1);
     end.translate(Cardinal.UP, 2);
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     // front wall
     start.translate(dir, 1);
     end.translate(dir, 1);
-    RectSolid.fill(editor, start, end, theme.getPrimary().getWall(), false, true);
+    RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall(), false, true);
 
     // stairs
     cursor.translate(Cardinal.UP, 2);

@@ -78,12 +78,12 @@ public class DungeonsSmithy extends DungeonBase {
       start.translate(dir.reverse(), 2);
       end.translate(side, 3);
       end.translate(dir, 2);
-      RectSolid.fill(editor, start, end, wall);
+      RectSolid.newRect(start, end).fill(editor, wall);
 
       start.translate(dir);
       end = new Coord(start);
       end.translate(dir, 2);
-      RectSolid.fill(editor, start, end, stair.setUpsideDown(true).setFacing(side.reverse()));
+      RectSolid.newRect(start, end).fill(editor, stair.setUpsideDown(true).setFacing(side.reverse()));
 
       for (Cardinal o : side.orthogonals()) {
         start = new Coord(origin);
@@ -91,7 +91,7 @@ public class DungeonsSmithy extends DungeonBase {
         start.translate(o, 2);
         end = new Coord(start);
         end.translate(Cardinal.UP, 2);
-        RectSolid.fill(editor, start, end, pillar);
+        RectSolid.newRect(start, end).fill(editor, pillar);
 
         cursor = new Coord(end);
         cursor.translate(side.reverse());
@@ -183,10 +183,10 @@ public class DungeonsSmithy extends DungeonBase {
     start.translate(dir.antiClockwise(), 5);
     end.translate(dir.clockwise(), 5);
     end.translate(Cardinal.UP);
-    RectSolid.fill(editor, start, end, wall);
+    RectSolid.newRect(start, end).fill(editor, wall);
     start.translate(dir.reverse(), 6);
     end.translate(dir.reverse(), 6);
-    RectSolid.fill(editor, start, end, wall);
+    RectSolid.newRect(start, end).fill(editor, wall);
 
     for (Cardinal side : dir.orthogonals()) {
       for (Cardinal o : side.orthogonals()) {
@@ -219,7 +219,7 @@ public class DungeonsSmithy extends DungeonBase {
     start = new Coord(origin);
     end = new Coord(origin);
     end.translate(Cardinal.UP, 3);
-    RectSolid.fill(editor, start, end, pillar);
+    RectSolid.newRect(start, end).fill(editor, pillar);
     cursor = new Coord(end);
     cursor.translate(dir.antiClockwise());
     stair.setUpsideDown(true).setFacing(dir.antiClockwise()).stroke(editor, cursor);
@@ -238,7 +238,7 @@ public class DungeonsSmithy extends DungeonBase {
     start = new Coord(cursor);
     end = new Coord(cursor);
     end.translate(dir, 2);
-    RectSolid.fill(editor, start, end, wall);
+    RectSolid.newRect(start, end).fill(editor, wall);
     cursor = new Coord(end);
     cursor.translate(dir.antiClockwise());
     stair.setUpsideDown(true).setFacing(dir.antiClockwise()).stroke(editor, cursor);
@@ -262,10 +262,10 @@ public class DungeonsSmithy extends DungeonBase {
     end = new Coord(start);
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
-    RectSolid.fill(editor, start, end, wall);
+    RectSolid.newRect(start, end).fill(editor, wall);
     start.translate(dir.reverse());
     end.translate(dir.reverse());
-    RectSolid.fill(editor, start, end, theme.getPrimary().getStair().setUpsideDown(false).setFacing(dir.reverse()));
+    RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getStair().setUpsideDown(false).setFacing(dir.reverse()));
 
 
     for (Cardinal o : dir.orthogonals()) {
@@ -331,13 +331,13 @@ public class DungeonsSmithy extends DungeonBase {
     end.translate(dir, 2);
     end.translate(Cardinal.UP, 5);
 
-    RectSolid.fill(editor, start, end, brick);
+    RectSolid.newRect(start, end).fill(editor, brick);
 
     start = new Coord(origin);
     start.translate(dir, 5);
     end = new Coord(start);
     end.translate(Cardinal.UP, 5);
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
     cursor = new Coord(origin);
     cursor.translate(Cardinal.UP);
     cursor.translate(dir, 4);
@@ -406,10 +406,10 @@ public class DungeonsSmithy extends DungeonBase {
     end = new Coord(start);
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
-    RectSolid.fill(editor, start, end, netherrack);
+    RectSolid.newRect(start, end).fill(editor, netherrack);
     start.translate(Cardinal.UP);
     end.translate(Cardinal.UP);
-    RectSolid.fill(editor, start, end, fire);
+    RectSolid.newRect(start, end).fill(editor, fire);
 
     cursor = new Coord(origin);
     cursor.translate(dir, 3);
@@ -441,7 +441,7 @@ public class DungeonsSmithy extends DungeonBase {
     start.translate(dir, 2);
     end.translate(dir.reverse(), 2);
     stair.setUpsideDown(false).setFacing(dir.antiClockwise());
-    RectSolid.fill(editor, start, end, stair);
+    RectSolid.newRect(start, end).fill(editor, stair);
 
     cursor = new Coord(origin);
     cursor.translate(dir.clockwise(), 3);
@@ -458,7 +458,7 @@ public class DungeonsSmithy extends DungeonBase {
     start.translate(dir);
     end.translate(dir.reverse());
     stair.setUpsideDown(true).setFacing(dir.clockwise());
-    RectSolid.fill(editor, start, end, stair);
+    RectSolid.newRect(start, end).fill(editor, stair);
     cursor.translate(Cardinal.UP);
     editor.getTreasureChestEditor().createChest(Dungeon.getLevel(cursor.getY()), cursor, false, getRoomSetting().getChestType().orElse(ChestType.SMITH));
   }

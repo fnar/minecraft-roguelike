@@ -55,19 +55,19 @@ public class DungeonsMusic extends DungeonBase {
     end = new Coord(origin);
     start.translate(new Coord(-6, 4, -6));
     end.translate(new Coord(6, 5, 6));
-    RectSolid.fill(editor, start, end, panel, true, true);
+    RectSolid.newRect(start, end).fill(editor, panel, true, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(new Coord(-3, 4, -3));
     end.translate(new Coord(3, 4, 3));
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(new Coord(-3, -1, -3));
     end.translate(new Coord(3, -1, 3));
-    RectSolid.fill(editor, start, end, floor, true, true);
+    RectSolid.newRect(start, end).fill(editor, floor, true, true);
 
     for (int i = 2; i >= 0; --i) {
       start = new Coord(origin);
@@ -75,7 +75,7 @@ public class DungeonsMusic extends DungeonBase {
       start.translate(new Coord(-i - 1, 0, -i - 1));
       end.translate(new Coord(i + 1, 0, i + 1));
       BlockBrush carpet = carpet().setColor(DyeColor.chooseRandom(rand));
-      RectSolid.fill(editor, start, end, carpet);
+      RectSolid.newRect(start, end).fill(editor, carpet);
     }
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
@@ -98,7 +98,7 @@ public class DungeonsMusic extends DungeonBase {
       end = new Coord(start);
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir.clockwise(), 3);
-      RectSolid.fill(editor, start, end, pillar, true, true);
+      RectSolid.newRect(start, end).fill(editor, pillar, true, true);
 
       cursor = new Coord(origin);
       cursor.translate(Cardinal.UP, 4);
@@ -174,7 +174,7 @@ public class DungeonsMusic extends DungeonBase {
     start = new Coord(origin);
     end = new Coord(start);
     end.translate(Cardinal.UP, 2);
-    RectSolid.fill(editor, start, end, pillar);
+    RectSolid.newRect(start, end).fill(editor, pillar);
     for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(end);
       cursor.translate(dir);

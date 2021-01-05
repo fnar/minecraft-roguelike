@@ -43,14 +43,14 @@ public class DungeonsWood extends DungeonBase {
     BlockBrush glowstone = settings.getTheme().getPrimary().getLightBlock();
 
 
-    RectSolid.fill(editor, new Coord(x - WIDTH, y, z - LENGTH), new Coord(x + WIDTH, y + HEIGHT, z + LENGTH), SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(x - WIDTH, y, z - LENGTH), new Coord(x + WIDTH, y + HEIGHT, z + LENGTH)).fill(editor, SingleBlockBrush.AIR);
     RectHollow.fill(editor, new Coord(x - WIDTH - 1, y - 1, z - LENGTH - 1), new Coord(x + WIDTH + 1, y + HEIGHT + 1, z + LENGTH + 1), planks, false, true);
 
     // log beams
-    RectSolid.fill(editor, new Coord(x - WIDTH, y, z - LENGTH), new Coord(x - WIDTH, y + HEIGHT, z - LENGTH), pillar);
-    RectSolid.fill(editor, new Coord(x - WIDTH, y, z + LENGTH), new Coord(x - WIDTH, y + HEIGHT, z + LENGTH), pillar);
-    RectSolid.fill(editor, new Coord(x + WIDTH, y, z - LENGTH), new Coord(x + WIDTH, y + HEIGHT, z - LENGTH), pillar);
-    RectSolid.fill(editor, new Coord(x + WIDTH, y, z + LENGTH), new Coord(x + WIDTH, y + HEIGHT, z + LENGTH), pillar);
+    RectSolid.newRect(new Coord(x - WIDTH, y, z - LENGTH), new Coord(x - WIDTH, y + HEIGHT, z - LENGTH)).fill(editor, pillar);
+    RectSolid.newRect(new Coord(x - WIDTH, y, z + LENGTH), new Coord(x - WIDTH, y + HEIGHT, z + LENGTH)).fill(editor, pillar);
+    RectSolid.newRect(new Coord(x + WIDTH, y, z - LENGTH), new Coord(x + WIDTH, y + HEIGHT, z - LENGTH)).fill(editor, pillar);
+    RectSolid.newRect(new Coord(x + WIDTH, y, z + LENGTH), new Coord(x + WIDTH, y + HEIGHT, z + LENGTH)).fill(editor, pillar);
 
     // glowstone
     glowstone.stroke(editor, new Coord(x - WIDTH + 1, y - 1, z - LENGTH + 1));

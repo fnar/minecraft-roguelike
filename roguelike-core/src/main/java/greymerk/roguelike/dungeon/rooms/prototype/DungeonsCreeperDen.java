@@ -56,13 +56,13 @@ public class DungeonsCreeperDen extends DungeonBase {
     end = new Coord(origin);
     start.translate(new Coord(-3, -1, -3));
     end.translate(new Coord(3, -1, 3));
-    RectSolid.fill(editor, start, end, floor, true, true);
+    RectSolid.newRect(start, end).fill(editor, floor, true, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(new Coord(-3, -3, -3));
     end.translate(new Coord(3, -2, 3));
-    RectSolid.fill(editor, start, end, subfloor, true, true);
+    RectSolid.newRect(start, end).fill(editor, subfloor, true, true);
 
     start = new Coord(origin);
     end = new Coord(origin);

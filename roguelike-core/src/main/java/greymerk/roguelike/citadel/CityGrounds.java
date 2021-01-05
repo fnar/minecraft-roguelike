@@ -29,25 +29,25 @@ public class CityGrounds {
     start.translate(new Coord(Citadel.EDGE_LENGTH * -3, 10, Citadel.EDGE_LENGTH * -3));
     end = new Coord(pos);
     end.translate(new Coord(Citadel.EDGE_LENGTH * 3, 40, Citadel.EDGE_LENGTH * 3));
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR, true, true);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR, true, true);
 
     start = new Coord(pos);
     start.translate(new Coord(Citadel.EDGE_LENGTH * -3, 10, Citadel.EDGE_LENGTH * -3));
     end = new Coord(pos);
     end.translate(new Coord(Citadel.EDGE_LENGTH * 3, 20, Citadel.EDGE_LENGTH * 3));
-    RectSolid.fill(editor, start, end, theme.getPrimary().getWall(), true, true);
+    RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall(), true, true);
 
     start = new Coord(pos);
     start.translate(new Coord(Citadel.EDGE_LENGTH * -2, 20, Citadel.EDGE_LENGTH * -2));
     end = new Coord(pos);
     end.translate(new Coord(Citadel.EDGE_LENGTH * 2, 30, Citadel.EDGE_LENGTH * 2));
-    RectSolid.fill(editor, start, end, theme.getPrimary().getWall(), true, true);
+    RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall(), true, true);
 
     start = new Coord(pos);
     start.translate(new Coord(Citadel.EDGE_LENGTH * -1, 30, Citadel.EDGE_LENGTH * -1));
     end = new Coord(pos);
     end.translate(new Coord(Citadel.EDGE_LENGTH, 40, Citadel.EDGE_LENGTH));
-    RectSolid.fill(editor, start, end, theme.getPrimary().getWall(), true, true);
+    RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall(), true, true);
 
     Coord cursor = new Coord(pos);
     cursor.translate(Cardinal.UP, 20);
@@ -58,7 +58,7 @@ public class CityGrounds {
       end = e.getEnd().getPosition();
       end.translate(cursor);
       end.translate(Cardinal.DOWN, 20);
-      RectSolid.fill(editor, start, end, theme.getPrimary().getWall(), true, true);
+      RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall(), true, true);
     }
 
     Graph<Coord> layout = mst.getGraph();

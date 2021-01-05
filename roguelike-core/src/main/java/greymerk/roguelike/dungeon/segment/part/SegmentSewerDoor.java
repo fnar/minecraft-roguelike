@@ -49,7 +49,7 @@ public class SegmentSewerDoor extends SegmentBase {
     bars.stroke(editor, cursor);
     start.translate(Cardinal.DOWN);
     end.translate(Cardinal.DOWN);
-    RectSolid.fill(editor, start, end, water);
+    RectSolid.newRect(start, end).fill(editor, water);
 
     cursor = new Coord(origin);
     cursor.translate(Cardinal.UP, 3);
@@ -68,14 +68,14 @@ public class SegmentSewerDoor extends SegmentBase {
     end = new Coord(cursor);
     end.translate(orthogonal[1], 1);
     end.translate(Cardinal.UP, 2);
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     SecretsSetting secrets = level.getSettings().getSecrets();
     Optional<DungeonBase> room = generateSecret(secrets, editor, level.getSettings(), dir, new Coord(origin));
 
     start.translate(dir, 1);
     end.translate(dir, 1);
-    RectSolid.fill(editor, start, end, theme.getSecondary().getWall(), false, true);
+    RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall(), false, true);
 
     cursor.translate(Cardinal.UP, 2);
     for (Cardinal d : orthogonal) {

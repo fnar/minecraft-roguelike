@@ -29,10 +29,10 @@ public class EniTower implements ITower {
     int x = dungeon.getX();
     int z = dungeon.getZ();
 
-    RectSolid.fill(editor, new Coord(x - 4, floor.getY(), z - 4), new Coord(x + 4, floor.getY() + 3, z + 4), SingleBlockBrush.AIR);
-    RectSolid.fill(editor, new Coord(x - 3, floor.getY() + 4, z - 3), new Coord(x + 3, floor.getY() + 12, z + 3), SingleBlockBrush.AIR);
-    RectSolid.fill(editor, new Coord(x - 2, floor.getY() + 13, z - 2), new Coord(x + 2, floor.getY() + 21, z + 2), SingleBlockBrush.AIR);
-    RectSolid.fill(editor, new Coord(x - 3, floor.getY() + 22, z - 3), new Coord(x + 3, floor.getY() + 28, z + 3), SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(x - 4, floor.getY(), z - 4), new Coord(x + 4, floor.getY() + 3, z + 4)).fill(editor, SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(x - 3, floor.getY() + 4, z - 3), new Coord(x + 3, floor.getY() + 12, z + 3)).fill(editor, SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(x - 2, floor.getY() + 13, z - 2), new Coord(x + 2, floor.getY() + 21, z + 2)).fill(editor, SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(x - 3, floor.getY() + 22, z - 3), new Coord(x + 3, floor.getY() + 28, z + 3)).fill(editor, SingleBlockBrush.AIR);
 
     Coord start;
     Coord end;
@@ -45,7 +45,7 @@ public class EniTower implements ITower {
         end = new Coord(start);
         end.translate(dir, 4);
         end.translate(orthogonals, 2);
-        RectSolid.fill(editor, start, end, blocks);
+        RectSolid.newRect(start, end).fill(editor, blocks);
 
         start = new Coord(floor);
         start.translate(dir, 5);
@@ -53,7 +53,7 @@ public class EniTower implements ITower {
         start.translate(orthogonals);
         end.translate(orthogonals.reverse());
         end.translate(Cardinal.UP, 2);
-        RectSolid.fill(editor, start, end, blocks);
+        RectSolid.newRect(start, end).fill(editor, blocks);
 
         start = new Coord(floor);
         start.translate(dir, 4);
@@ -61,14 +61,14 @@ public class EniTower implements ITower {
         end = new Coord(start);
         end.translate(orthogonals);
         end.translate(Cardinal.UP, 3);
-        RectSolid.fill(editor, start, end, blocks);
+        RectSolid.newRect(start, end).fill(editor, blocks);
 
         start = new Coord(floor);
         start.translate(dir, 3);
         start.translate(orthogonals, 3);
         end = new Coord(start);
         end.translate(Cardinal.UP, 3);
-        RectSolid.fill(editor, start, end, blocks);
+        RectSolid.newRect(start, end).fill(editor, blocks);
 
         cursor = new Coord(floor);
         cursor.translate(dir, 5);
@@ -97,7 +97,7 @@ public class EniTower implements ITower {
         start.translate(orthogonals);
         end.translate(orthogonals.reverse());
         end.translate(Cardinal.UP, 8);
-        RectSolid.fill(editor, start, end, blocks);
+        RectSolid.newRect(start, end).fill(editor, blocks);
 
         start = new Coord(floor);
         start.translate(Cardinal.UP, 4);
@@ -106,7 +106,7 @@ public class EniTower implements ITower {
         end = new Coord(start);
         end.translate(orthogonals);
         end.translate(Cardinal.UP, 8);
-        RectSolid.fill(editor, start, end, blocks);
+        RectSolid.newRect(start, end).fill(editor, blocks);
 
         cursor = new Coord(floor);
         cursor.translate(Cardinal.UP, 13);
@@ -127,7 +127,7 @@ public class EniTower implements ITower {
         start.translate(orthogonals);
         end.translate(orthogonals.reverse());
         end.translate(Cardinal.UP, 8);
-        RectSolid.fill(editor, start, end, blocks);
+        RectSolid.newRect(start, end).fill(editor, blocks);
 
         start = new Coord(floor);
         start.translate(Cardinal.UP, 13);
@@ -135,7 +135,7 @@ public class EniTower implements ITower {
         start.translate(orthogonals, 2);
         end = new Coord(start);
         end.translate(Cardinal.UP, 8);
-        RectSolid.fill(editor, start, end, blocks);
+        RectSolid.newRect(start, end).fill(editor, blocks);
 
         // section 4
 
@@ -146,7 +146,7 @@ public class EniTower implements ITower {
         start.translate(orthogonals, 2);
         end.translate(orthogonals.reverse(), 2);
         end.translate(Cardinal.UP, 6);
-        RectSolid.fill(editor, start, end, blocks, true, false);
+        RectSolid.newRect(start, end).fill(editor, blocks, true, false);
 
         start = new Coord(floor);
         start.translate(Cardinal.UP, 22);
@@ -154,14 +154,14 @@ public class EniTower implements ITower {
         start.translate(orthogonals, 2);
         end = new Coord(start);
         end.translate(Cardinal.UP, 6);
-        RectSolid.fill(editor, start, end, blocks);
+        RectSolid.newRect(start, end).fill(editor, blocks);
 
         start = new Coord(floor);
         start.translate(Cardinal.UP, 22);
         end = new Coord(start);
         end.translate(dir, 3);
         end.translate(orthogonals, 2);
-        RectSolid.fill(editor, start, end, blocks);
+        RectSolid.newRect(start, end).fill(editor, blocks);
 
         cursor = new Coord(floor);
         cursor.translate(Cardinal.UP, 20);
@@ -181,20 +181,20 @@ public class EniTower implements ITower {
         start.translate(dir, 3);
         end = new Coord(start);
         end.translate(dir, 2);
-        RectSolid.fill(editor, start, end, theme.getSecondary().getWall());
+        RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall());
         start.translate(orthogonals);
         end.translate(orthogonals);
-        RectSolid.fill(editor, start, end, roof.setUpsideDown(false).setFacing(orthogonals));
-        start.translate(orthogonals);
-        end.translate(orthogonals);
-        start.translate(Cardinal.DOWN);
-        end.translate(Cardinal.DOWN);
-        RectSolid.fill(editor, start, end, roof.setUpsideDown(false).setFacing(orthogonals));
+        RectSolid.newRect(start, end).fill(editor, roof.setUpsideDown(false).setFacing(orthogonals));
         start.translate(orthogonals);
         end.translate(orthogonals);
         start.translate(Cardinal.DOWN);
         end.translate(Cardinal.DOWN);
-        RectSolid.fill(editor, start, end, roof.setUpsideDown(false).setFacing(orthogonals));
+        RectSolid.newRect(start, end).fill(editor, roof.setUpsideDown(false).setFacing(orthogonals));
+        start.translate(orthogonals);
+        end.translate(orthogonals);
+        start.translate(Cardinal.DOWN);
+        end.translate(Cardinal.DOWN);
+        RectSolid.newRect(start, end).fill(editor, roof.setUpsideDown(false).setFacing(orthogonals));
         cursor = new Coord(end);
         cursor.translate(orthogonals.reverse());
         roof.setUpsideDown(true).setFacing(orthogonals.reverse()).stroke(editor, cursor);
@@ -215,7 +215,7 @@ public class EniTower implements ITower {
         end.translate(dir, 2);
         end.translate(orthogonals.reverse());
         end.translate(Cardinal.UP, 3);
-        RectSolid.fill(editor, start, end, blocks);
+        RectSolid.newRect(start, end).fill(editor, blocks);
 
 
         cursor = new Coord(floor);
@@ -263,13 +263,13 @@ public class EniTower implements ITower {
     end.translate(Cardinal.SOUTH, 3);
     end.translate(Cardinal.WEST, 3);
 
-    RectSolid.fill(editor, start, end, blocks);
+    RectSolid.newRect(start, end).fill(editor, blocks);
     start.translate(Cardinal.UP, 3);
     end.translate(Cardinal.UP, 3);
-    RectSolid.fill(editor, start, end, blocks);
+    RectSolid.newRect(start, end).fill(editor, blocks);
     start.translate(Cardinal.UP, 3);
     end.translate(Cardinal.UP, 3);
-    RectSolid.fill(editor, start, end, blocks);
+    RectSolid.newRect(start, end).fill(editor, blocks);
 
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
@@ -294,7 +294,7 @@ public class EniTower implements ITower {
       start.translate(dir.antiClockwise());
       end = new Coord(cursor);
       end.translate(dir.clockwise());
-      RectSolid.fill(editor, start, end, blocks);
+      RectSolid.newRect(start, end).fill(editor, blocks);
 
       // slit windows
       cursor = new Coord(floor);
@@ -343,15 +343,15 @@ public class EniTower implements ITower {
       start.translate(dir.antiClockwise());
       end = new Coord(cursor);
       end.translate(dir.clockwise());
-      RectSolid.fill(editor, start, end, blocks);
+      RectSolid.newRect(start, end).fill(editor, blocks);
       start.translate(dir.reverse());
       end.translate(dir.reverse());
       start.translate(Cardinal.UP);
       end.translate(Cardinal.UP);
-      RectSolid.fill(editor, start, end, blocks);
+      RectSolid.newRect(start, end).fill(editor, blocks);
       start.translate(Cardinal.UP);
       end.translate(Cardinal.UP);
-      RectSolid.fill(editor, start, end, blocks);
+      RectSolid.newRect(start, end).fill(editor, blocks);
 
       cursor.translate(dir.reverse());
       cursor.translate(dir.antiClockwise(), 2);
@@ -360,7 +360,7 @@ public class EniTower implements ITower {
 
     start = new Coord(x - 4, 60, z - 4);
     end = new Coord(x + 4, floor.getY(), z + 4);
-    RectSolid.fill(editor, start, end, blocks);
+    RectSolid.newRect(start, end).fill(editor, blocks);
 
     for (int i = (floor.getY() + 22); i >= 50; --i) {
       editor.spiralStairStep(rand, new Coord(x, i, z), stair, theme.getPrimary().getPillar());
@@ -381,7 +381,7 @@ public class EniTower implements ITower {
         end = new Coord(start);
         end.translate(Cardinal.UP);
         end.translate(dir, 3);
-        RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+        RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
         break;
       }
     }

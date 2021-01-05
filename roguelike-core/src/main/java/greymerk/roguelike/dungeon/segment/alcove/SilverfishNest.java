@@ -39,7 +39,7 @@ public class SilverfishNest implements IAlcove {
     end.translate(Cardinal.UP);
     end.translate(dir.reverse(), 1);
 
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
     SpawnerSettings spawners = settings.getSpawners().isEmpty()
         ? MobType.SILVERFISH.newSpawnerSetting()
         : settings.getSpawners();

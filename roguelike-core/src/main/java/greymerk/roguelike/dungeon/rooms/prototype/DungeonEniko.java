@@ -37,7 +37,7 @@ public class DungeonEniko extends DungeonBase {
     start = new Coord(origin);
     end = new Coord(start);
     end.translate(Cardinal.UP, 3);
-    RectSolid.fill(editor, start, end, pillar, true, true);
+    RectSolid.newRect(start, end).fill(editor, pillar);
     for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(end);
       cursor.translate(dir);
@@ -67,19 +67,19 @@ public class DungeonEniko extends DungeonBase {
     end = new Coord(origin);
     start.translate(new Coord(6, 4, 6));
     end.translate(new Coord(-6, 5, -6));
-    RectSolid.fill(editor, start, end, theme.getSecondary().getWall(), false, true);
+    RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall(), false, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(new Coord(3, 4, 3));
     end.translate(new Coord(-3, 4, -3));
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR, true, true);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(new Coord(-3, -1, -3));
     end.translate(new Coord(3, -1, 3));
-    RectSolid.fill(editor, start, end, floor, true, true);
+    RectSolid.newRect(start, end).fill(editor, floor);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(origin);
@@ -110,7 +110,7 @@ public class DungeonEniko extends DungeonBase {
         start.translate(dir.antiClockwise());
         end.translate(dir.clockwise());
         end.translate(dir, 6);
-        RectSolid.fill(editor, start, end, floor, true, true);
+        RectSolid.newRect(start, end).fill(editor, floor);
       }
     }
 

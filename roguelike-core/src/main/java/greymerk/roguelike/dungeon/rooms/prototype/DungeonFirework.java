@@ -63,15 +63,15 @@ public class DungeonFirework extends DungeonBase {
     start.translate(dir.reverse(), 3);
     end.translate(dir, 7);
     end.translate(Cardinal.UP);
-    RectSolid.fill(editor, start, end, breadboard);
+    RectSolid.newRect(start, end).fill(editor, breadboard);
 
     start.translate(dir.clockwise(), 2);
     end.translate(dir.clockwise(), 2);
-    RectSolid.fill(editor, start, end, breadboard, true, true);
+    RectSolid.newRect(start, end).fill(editor, breadboard);
 
     start.translate(dir.clockwise(), 2);
     end.translate(dir.clockwise(), 2);
-    RectSolid.fill(editor, start, end, breadboard, true, true);
+    RectSolid.newRect(start, end).fill(editor, breadboard);
 
     cursor = new Coord(x, y, z);
     cursor.translate(dir.antiClockwise(), 2);
@@ -94,7 +94,7 @@ public class DungeonFirework extends DungeonBase {
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
     end.translate(dir, 2);
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR, true, true);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     cursor = new Coord(x, y, z);
     cursor.translate(dir, 2);
@@ -121,7 +121,7 @@ public class DungeonFirework extends DungeonBase {
     end.translate(dir.antiClockwise(), 5);
     end.translate(dir.reverse(), 5);
     end.translate(Cardinal.DOWN, 2);
-    RectSolid.fill(editor, start, end, BlockType.COBBLESTONE.getBrush(), true, true);
+    RectSolid.newRect(start, end).fill(editor, BlockType.COBBLESTONE.getBrush());
 
     cursor = new Coord(x, y, z);
     cursor.translate(dir.reverse(), 3);
@@ -243,10 +243,10 @@ public class DungeonFirework extends DungeonBase {
 
     cursor.translate(Cardinal.UP);
     BlockBrush cob = BlockType.COBBLESTONE.getBrush();
-    RectSolid.fill(editor, start, end, cob, true, true);
+    RectSolid.newRect(start, end).fill(editor, cob);
     start.translate(dir.reverse(), 2);
     end.translate(dir.reverse(), 2);
-    RectSolid.fill(editor, start, end, cob, true, true);
+    RectSolid.newRect(start, end).fill(editor, cob);
     start.translate(dir);
     end.translate(dir);
     Coord above = new Coord(end);
@@ -258,10 +258,10 @@ public class DungeonFirework extends DungeonBase {
     }
     start.translate(dir.antiClockwise());
     end.translate(dir.antiClockwise());
-    RectSolid.fill(editor, start, end, cob, true, true);
+    RectSolid.newRect(start, end).fill(editor, cob);
     start.translate(dir.clockwise(), 2);
     end.translate(dir.clockwise(), 2);
-    RectSolid.fill(editor, start, end, cob, true, true);
+    RectSolid.newRect(start, end).fill(editor, cob);
   }
 
 

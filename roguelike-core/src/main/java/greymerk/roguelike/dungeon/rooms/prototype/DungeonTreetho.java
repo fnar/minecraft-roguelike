@@ -53,10 +53,10 @@ public class DungeonTreetho extends DungeonBase {
     end = new Coord(origin);
     start.translate(new Coord(-9, 8, -9));
     end.translate(new Coord(9, 8, 9));
-    RectSolid.fill(editor, start, end, birchSlab);
+    RectSolid.newRect(start, end).fill(editor, birchSlab);
     start.translate(Cardinal.UP);
     end.translate(Cardinal.UP);
-    RectSolid.fill(editor, start, end, pumpkin, true, true);
+    RectSolid.newRect(start, end).fill(editor, pumpkin, true, true);
 
     cursor = new Coord(origin);
     cursor.translate(new Coord(0, 8, 0));
@@ -95,7 +95,7 @@ public class DungeonTreetho extends DungeonBase {
     start.translate(dir.reverse(), 7);
     end.translate(dir, 7);
 
-    RectSolid.fill(editor, start, end, slab, true, true);
+    RectSolid.newRect(start, end).fill(editor, slab, true, true);
 
     cursor = new Coord(origin);
 
@@ -132,7 +132,7 @@ public class DungeonTreetho extends DungeonBase {
       start.translate(dir.antiClockwise(), 9);
       end.translate(dir.clockwise(), 9);
 
-      RectSolid.fill(editor, start, end, fill, true, true);
+      RectSolid.newRect(start, end).fill(editor, fill, true, true);
 
       Coord cursor = new Coord(origin);
       cursor.translate(Cardinal.DOWN);

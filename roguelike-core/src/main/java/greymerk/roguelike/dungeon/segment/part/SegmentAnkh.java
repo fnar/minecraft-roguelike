@@ -37,7 +37,7 @@ public class SegmentAnkh extends SegmentBase {
     end = new Coord(start);
     end.translate(Cardinal.UP, 2);
 
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
 
     for (Cardinal o : orthogonals) {
@@ -58,10 +58,10 @@ public class SegmentAnkh extends SegmentBase {
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
     end.translate(Cardinal.UP, 2);
-    RectSolid.fill(editor, start, end, glass);
+    RectSolid.newRect(start, end).fill(editor, glass);
     start.translate(dir);
     end.translate(dir);
-    RectSolid.fill(editor, start, end, back);
+    RectSolid.newRect(start, end).fill(editor, back);
 
     cursor = new Coord(pos);
     cursor.translate(dir, 3);

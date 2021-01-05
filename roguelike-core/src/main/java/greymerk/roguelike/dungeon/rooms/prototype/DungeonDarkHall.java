@@ -70,7 +70,7 @@ public class DungeonDarkHall extends DungeonBase {
     start.translate(Cardinal.DOWN);
     end.translate(Cardinal.DOWN);
 
-    RectSolid.fill(editor, start, end, theme.getPrimary().getFloor(), false, true);
+    RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getFloor(), false, true);
 
     for (Cardinal dir : entrances) {
       Cardinal[] orthogonal = dir.orthogonals();
@@ -79,7 +79,7 @@ public class DungeonDarkHall extends DungeonBase {
       end = new Coord(origin);
       end.translate(orthogonal[1]);
       end.translate(dir, 7);
-      RectSolid.fill(editor, start, end, theme.getSecondary().getFloor(), false, true);
+      RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getFloor(), false, true);
     }
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
@@ -89,7 +89,7 @@ public class DungeonDarkHall extends DungeonBase {
       start.translate(dir.antiClockwise(), 6);
       end = new Coord(start);
       end.translate(Cardinal.UP, 5);
-      RectSolid.fill(editor, start, end, pillar);
+      RectSolid.newRect(start, end).fill(editor, pillar);
 
       start = new Coord(origin);
       start.translate(dir, 6);
@@ -97,7 +97,7 @@ public class DungeonDarkHall extends DungeonBase {
       end = new Coord(start);
       start.translate(dir.antiClockwise(), 6);
       end.translate(dir.clockwise(), 6);
-      RectSolid.fill(editor, start, end, wall);
+      RectSolid.newRect(start, end).fill(editor, wall);
 
       start = new Coord(origin);
       start.translate(dir, 3);
@@ -105,10 +105,10 @@ public class DungeonDarkHall extends DungeonBase {
       end = new Coord(start);
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir.clockwise(), 3);
-      RectSolid.fill(editor, start, end, wall);
+      RectSolid.newRect(start, end).fill(editor, wall);
       start.translate(Cardinal.UP, 2);
       end.translate(Cardinal.UP, 2);
-      RectSolid.fill(editor, start, end, wall);
+      RectSolid.newRect(start, end).fill(editor, wall);
 
       start = new Coord(origin);
       start.translate(dir, 3);
@@ -117,7 +117,7 @@ public class DungeonDarkHall extends DungeonBase {
       start.translate(Cardinal.UP);
       end = new Coord(start);
       end.translate(dir.reverse(), 3);
-      RectSolid.fill(editor, start, end, wall);
+      RectSolid.newRect(start, end).fill(editor, wall);
 
       if (entrances.contains(dir)) {
         start = new Coord(origin);
@@ -127,7 +127,7 @@ public class DungeonDarkHall extends DungeonBase {
         end.translate(Cardinal.UP, 3);
         start.translate(dir.antiClockwise(), 2);
         end.translate(dir.clockwise(), 2);
-        RectSolid.fill(editor, start, end, wall);
+        RectSolid.newRect(start, end).fill(editor, wall);
 
         cursor = new Coord(origin);
         cursor.translate(dir, 7);
@@ -164,7 +164,7 @@ public class DungeonDarkHall extends DungeonBase {
       start.translate(Cardinal.UP, 6);
       end = new Coord(start);
       end.translate(dir.reverse(), 2);
-      RectSolid.fill(editor, start, end, wall);
+      RectSolid.newRect(start, end).fill(editor, wall);
 
       for (Cardinal o : dir.orthogonals()) {
         cursor = new Coord(origin);
@@ -175,7 +175,7 @@ public class DungeonDarkHall extends DungeonBase {
         start.translate(Cardinal.UP, 6);
         end = new Coord(start);
         end.translate(dir.reverse(), 6);
-        RectSolid.fill(editor, start, end, wall);
+        RectSolid.newRect(start, end).fill(editor, wall);
       }
     }
 
@@ -197,7 +197,7 @@ public class DungeonDarkHall extends DungeonBase {
     start = new Coord(origin);
     end = new Coord(start);
     end.translate(Cardinal.UP, 5);
-    RectSolid.fill(editor, start, end, pillar);
+    RectSolid.newRect(start, end).fill(editor, pillar);
 
     cursor = new Coord(origin);
     cursor.translate(Cardinal.UP, 3);

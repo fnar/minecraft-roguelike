@@ -33,11 +33,11 @@ public class DungeonPyramidCorner extends DungeonBase {
     BlockBrush pillar = theme.getPrimary().getPillar();
 
     RectHollow.fill(editor, new Coord(x - 3, y - 1, z - 3), new Coord(x + 3, y + 3, z + 3), blocks, false, true);
-    RectSolid.fill(editor, new Coord(x - 2, y + 3, z - 2), new Coord(x + 2, y + 5, z + 2), blocks, false, true);
-    RectSolid.fill(editor, new Coord(x - 1, y + 3, z - 1), new Coord(x + 1, y + 3, z + 1), SingleBlockBrush.AIR, true, true);
+    RectSolid.newRect(new Coord(x - 2, y + 3, z - 2), new Coord(x + 2, y + 5, z + 2)).fill(editor, blocks, false, true);
+    RectSolid.newRect(new Coord(x - 1, y + 3, z - 1), new Coord(x + 1, y + 3, z + 1)).fill(editor, SingleBlockBrush.AIR, true, true);
 
     // floor
-    RectSolid.fill(editor, new Coord(x - 3, y - 1, z - 3), new Coord(x + 3, y - 1, z + 3), theme.getPrimary().getFloor(), false, true);
+    RectSolid.newRect(new Coord(x - 3, y - 1, z - 3), new Coord(x + 3, y - 1, z + 3)).fill(editor, theme.getPrimary().getFloor(), false, true);
 
     Coord start;
     Coord end;
@@ -63,7 +63,7 @@ public class DungeonPyramidCorner extends DungeonBase {
       start = new Coord(cursor);
       cursor.translate(Cardinal.UP, 2);
       end = new Coord(cursor);
-      RectSolid.fill(editor, start, end, pillar, true, true);
+      RectSolid.newRect(start, end).fill(editor, pillar, true, true);
     }
 
     return this;

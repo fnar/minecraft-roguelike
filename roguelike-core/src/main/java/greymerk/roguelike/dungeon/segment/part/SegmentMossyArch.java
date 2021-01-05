@@ -58,7 +58,7 @@ public class SegmentMossyArch extends SegmentBase {
     VineBlock.vine().stroke(editor, cursor);
 
     if (!spawnHoleSet) {
-      RectSolid.fill(editor, new Coord(0, 2, 0).translate(origin), new Coord(0, 5, 0).translate(origin), SingleBlockBrush.AIR);
+      RectSolid.newRect(new Coord(0, 2, 0).translate(origin), new Coord(0, 5, 0).translate(origin)).fill(editor, SingleBlockBrush.AIR);
       final Coord translate = new Coord(0, 3, 0).translate(origin);
       final Coord translate1 = new Coord(0, 5, 0).translate(origin);
       VineBlock.vine().fill(editor, new RectSolid(translate, translate1));

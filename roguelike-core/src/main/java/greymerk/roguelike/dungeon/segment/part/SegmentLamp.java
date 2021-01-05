@@ -39,7 +39,7 @@ public class SegmentLamp extends SegmentBase {
     start.translate(orthogonal[0]);
     end.translate(orthogonal[1]);
     end.translate(Cardinal.UP, 2);
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     start = new Coord(origin);
     start.translate(Cardinal.UP, 3);
@@ -48,7 +48,7 @@ public class SegmentLamp extends SegmentBase {
     start.translate(orthogonal[0]);
     end.translate(dir.reverse());
     end.translate(orthogonal[1]);
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     start = new Coord(origin);
     start.translate(dir, 3);
@@ -57,12 +57,12 @@ public class SegmentLamp extends SegmentBase {
     end.translate(orthogonal[1]);
     end.translate(dir, 2);
     end.translate(Cardinal.UP, 6);
-    RectSolid.fill(editor, start, end, wall);
+    RectSolid.newRect(start, end).fill(editor, wall);
     start = new Coord(end);
     start.translate(Cardinal.DOWN, 2);
     start.translate(dir.reverse(), 6);
     start.translate(orthogonal[0], 2);
-    RectSolid.fill(editor, start, end, wall);
+    RectSolid.newRect(start, end).fill(editor, wall);
 
     for (Cardinal side : orthogonal) {
 
@@ -96,7 +96,7 @@ public class SegmentLamp extends SegmentBase {
     end = new Coord(start);
     end.translate(dir.reverse(), 3);
     BlockBrush wire = BlockType.REDSTONE_WIRE.getBrush();
-    RectSolid.fill(editor, start, end, wire);
+    RectSolid.newRect(start, end).fill(editor, wire);
   }
 
   private void overheadLight(WorldEditor editor, ThemeBase theme, Coord origin) {

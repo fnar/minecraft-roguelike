@@ -35,10 +35,10 @@ public class SegmentSewerDrain extends SegmentBase {
     end = new Coord(start);
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
     start.translate(Cardinal.DOWN);
     end.translate(Cardinal.DOWN);
-    RectSolid.fill(editor, start, end, water, false, true);
+    RectSolid.newRect(start, end).fill(editor, water, false, true);
 
     start = new Coord(origin);
     start.translate(dir, 2);
@@ -46,10 +46,10 @@ public class SegmentSewerDrain extends SegmentBase {
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
     end.translate(Cardinal.UP, 2);
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
     start.translate(dir);
     end.translate(dir);
-    RectSolid.fill(editor, start, end, theme.getPrimary().getWall());
+    RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall());
 
     for (Cardinal o : orthogonals) {
       cursor = new Coord(origin);
@@ -66,7 +66,7 @@ public class SegmentSewerDrain extends SegmentBase {
     start.translate(Cardinal.UP);
     end = new Coord(start);
     end.translate(dir, 5);
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
     water.stroke(editor, end);
 
     cursor = new Coord(origin);

@@ -38,7 +38,7 @@ public class DungeonBedRoom extends DungeonBase {
     Coord end = new Coord(base);
 
     end.translate(Cardinal.UP, 2);
-    RectSolid.fill(editor, start, end, theme.getSecondary().getPillar());
+    RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getPillar());
     StairsBlock stair = theme.getSecondary().getStair();
     stair.setUpsideDown(true).setFacing(dir.reverse());
     end.translate(dir.reverse());
@@ -76,7 +76,7 @@ public class DungeonBedRoom extends DungeonBase {
     start.translate(dir.reverse(), 2);
     end.translate(dir, 2);
 
-    RectSolid.fill(editor, start, end, theme.getSecondary().getWall());
+    RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall());
 
     for (Cardinal o : dir.orthogonals()) {
       StairsBlock stair = theme.getSecondary().getStair();
@@ -88,16 +88,16 @@ public class DungeonBedRoom extends DungeonBase {
       start.translate(o.antiClockwise(), 2);
       end.translate(o.clockwise(), 2);
 
-      RectSolid.fill(editor, start, end, stair);
+      RectSolid.newRect(start, end).fill(editor, stair);
       start.translate(Cardinal.UP, 2);
       end.translate(Cardinal.UP, 2);
-      RectSolid.fill(editor, start, end, stair);
+      RectSolid.newRect(start, end).fill(editor, stair);
       start.translate(Cardinal.UP);
       end.translate(Cardinal.UP);
-      RectSolid.fill(editor, start, end, theme.getPrimary().getWall());
+      RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall());
       start.translate(o.reverse());
       end.translate(o.reverse());
-      RectSolid.fill(editor, start, end, stair, true, true);
+      RectSolid.newRect(start, end).fill(editor, stair);
     }
 
     for (Cardinal o : dir.orthogonals()) {
@@ -120,7 +120,7 @@ public class DungeonBedRoom extends DungeonBase {
       end = new Coord(cursor);
       start.translate(dir.antiClockwise(), 2);
       end.translate(dir.clockwise(), 2);
-      RectSolid.fill(editor, start, end, theme.getSecondary().getWall());
+      RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall());
       cursor.translate(dir, 3);
     }
 

@@ -1,5 +1,7 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
+import com.github.srwaggon.roguelike.worldgen.block.BlockType;
+
 import java.util.List;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
@@ -10,7 +12,6 @@ import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
-import com.github.srwaggon.roguelike.worldgen.block.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
@@ -47,13 +48,13 @@ public class DungeonLinker extends DungeonBase {
     end = new Coord(origin);
     start.translate(new Coord(-4, 9, -4));
     end.translate(new Coord(4, 9, 4));
-    RectSolid.fill(editor, start, end, wall, true, true);
+    RectSolid.newRect(start, end).fill(editor, wall);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(new Coord(-4, -1, -4));
     end.translate(new Coord(4, -1, 4));
-    RectSolid.fill(editor, start, end, floor);
+    RectSolid.newRect(start, end).fill(editor, floor);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
 
@@ -64,7 +65,7 @@ public class DungeonLinker extends DungeonBase {
       start.translate(Cardinal.DOWN);
       start.translate(dir.antiClockwise(), 4);
       end.translate(dir.clockwise(), 4);
-      RectSolid.fill(editor, start, end, bars, true, false);
+      RectSolid.newRect(start, end).fill(editor, bars, true, false);
 
       start = new Coord(origin);
       end = new Coord(origin);
@@ -73,7 +74,7 @@ public class DungeonLinker extends DungeonBase {
       end.translate(dir, 4);
       end.translate(dir.antiClockwise(), 4);
       end.translate(Cardinal.UP, 8);
-      RectSolid.fill(editor, start, end, pillar);
+      RectSolid.newRect(start, end).fill(editor, pillar);
     }
 
 

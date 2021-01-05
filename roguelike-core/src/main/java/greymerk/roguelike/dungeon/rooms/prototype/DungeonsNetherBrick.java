@@ -45,18 +45,18 @@ public class DungeonsNetherBrick extends DungeonBase {
 
 
     BlockBrush floor = theme.getPrimary().getFloor();
-    RectSolid.fill(editor, new Coord(x - length - 1, y - 1, z - width - 1), new Coord(x + length + 1, y - 1, z + width + 1), floor);
+    RectSolid.newRect(new Coord(x - length - 1, y - 1, z - width - 1), new Coord(x + length + 1, y - 1, z + width + 1)).fill(editor, floor);
 
     // liquid crap under the floor
     BlockWeightedRandom subFloor = new BlockWeightedRandom();
     subFloor.addBlock(theme.getPrimary().getLiquid(), 8);
     subFloor.addBlock(BlockType.OBSIDIAN.getBrush(), 3);
-    RectSolid.fill(editor, new Coord(x - length, y - 5, z - width), new Coord(x + length, y - 2, z + width), subFloor);
+    RectSolid.newRect(new Coord(x - length, y - 5, z - width), new Coord(x + length, y - 2, z + width)).fill(editor, subFloor);
 
     BlockWeightedRandom ceiling = new BlockWeightedRandom();
     ceiling.addBlock(BlockType.FENCE_NETHER_BRICK.getBrush(), 10);
     ceiling.addBlock(SingleBlockBrush.AIR, 5);
-    RectSolid.fill(editor, new Coord(x - length, y + height, z - width), new Coord(x + length, y + height, z + width), ceiling);
+    RectSolid.newRect(new Coord(x - length, y + height, z - width), new Coord(x + length, y + height, z + width)).fill(editor, ceiling);
 
     List<Coord> chestLocations = chooseRandomLocations(random, 1, new RectSolid(new Coord(x - length, y, z - width), new Coord(x + length, y, z + width)).get());
     editor.getTreasureChestEditor().createChests(Dungeon.getLevel(y), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(random, ChestType.COMMON_TREASURES)));

@@ -50,7 +50,7 @@ public class DungeonMess extends DungeonBase {
     start.translate(-2, 5, -2);
     end = new Coord(origin);
     end.translate(2, 5, 2);
-    RectSolid.fill(editor, start, end, panel, false, true);
+    RectSolid.newRect(start, end).fill(editor, panel, false, true);
 
     cursor = new Coord(origin);
     cursor.translate(Cardinal.UP, 4);
@@ -62,7 +62,7 @@ public class DungeonMess extends DungeonBase {
       start.translate(dir.antiClockwise(), 3);
       end = new Coord(start);
       end.translate(Cardinal.UP, 3);
-      RectSolid.fill(editor, start, end, pillar, true, true);
+      RectSolid.newRect(start, end).fill(editor, pillar, true, true);
 
       for (Cardinal d : Cardinal.DIRECTIONS) {
         cursor = new Coord(end);
@@ -76,7 +76,7 @@ public class DungeonMess extends DungeonBase {
       end = new Coord(start);
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir.clockwise(), 3);
-      RectSolid.fill(editor, start, end, wall, true, true);
+      RectSolid.newRect(start, end).fill(editor, wall, true, true);
 
 
       Cardinal[] corner = new Cardinal[]{dir, dir.antiClockwise()};
@@ -134,13 +134,13 @@ public class DungeonMess extends DungeonBase {
     start.translate(entrances[1], 7);
     end = new Coord(start);
     end.translate(Cardinal.UP, 4);
-    RectSolid.fill(editor, start, end, wall, true, true);
+    RectSolid.newRect(start, end).fill(editor, wall, true, true);
 
     start = new Coord(origin);
     start.translate(entrances[0], 4);
     start.translate(entrances[1], 4);
     start.translate(Cardinal.UP, 4);
-    RectSolid.fill(editor, start, end, panel, true, true);
+    RectSolid.newRect(start, end).fill(editor, panel, true, true);
 
     cursor = new Coord(origin);
     cursor.translate(entrances[0], 5);
@@ -164,7 +164,7 @@ public class DungeonMess extends DungeonBase {
       start = new Coord(cursor);
       end = new Coord(cursor);
       end.translate(Cardinal.UP, 3);
-      RectSolid.fill(editor, start, end, pillar, true, true);
+      RectSolid.newRect(start, end).fill(editor, pillar, true, true);
       cursor.translate(Cardinal.UP, 3);
       cursor.translate(dir.reverse());
       wall.stroke(editor, cursor);
@@ -178,7 +178,7 @@ public class DungeonMess extends DungeonBase {
       start = new Coord(cursor);
       end = new Coord(cursor);
       end.translate(dir, 3);
-      RectSolid.fill(editor, start, end, wall, true, true);
+      RectSolid.newRect(start, end).fill(editor, wall, true, true);
 
       cursor = new Coord(origin);
       cursor.translate(entrances[0], 5);
@@ -195,11 +195,11 @@ public class DungeonMess extends DungeonBase {
       stair.setUpsideDown(true).setFacing(dir.antiClockwise()).stroke(editor, end);
       start.translate(Cardinal.UP);
       end.translate(Cardinal.UP);
-      RectSolid.fill(editor, start, end, wall, true, true);
+      RectSolid.newRect(start, end).fill(editor, wall, true, true);
       start.translate(dir);
       end.translate(dir);
       end.translate(Cardinal.DOWN, 3);
-      RectSolid.fill(editor, start, end, panel, false, true);
+      RectSolid.newRect(start, end).fill(editor, panel, false, true);
     }
   }
 
@@ -219,13 +219,13 @@ public class DungeonMess extends DungeonBase {
     start.translate(entrances[1], 7);
     end = new Coord(start);
     end.translate(Cardinal.UP, 4);
-    RectSolid.fill(editor, start, end, wall, true, true);
+    RectSolid.newRect(start, end).fill(editor, wall, true, true);
 
     start = new Coord(origin);
     start.translate(entrances[0], 4);
     start.translate(entrances[1], 4);
     start.translate(Cardinal.UP, 4);
-    RectSolid.fill(editor, start, end, panel, true, true);
+    RectSolid.newRect(start, end).fill(editor, panel, true, true);
 
     cursor = new Coord(origin);
     cursor.translate(entrances[0], 4);
@@ -247,7 +247,7 @@ public class DungeonMess extends DungeonBase {
       start = new Coord(cursor);
       end = new Coord(cursor);
       end.translate(Cardinal.UP, 3);
-      RectSolid.fill(editor, start, end, pillar, true, true);
+      RectSolid.newRect(start, end).fill(editor, pillar, true, true);
       cursor.translate(Cardinal.UP, 3);
       cursor.translate(dir.reverse());
       wall.stroke(editor, cursor);
@@ -261,7 +261,7 @@ public class DungeonMess extends DungeonBase {
       start = new Coord(cursor);
       end = new Coord(cursor);
       end.translate(dir, 3);
-      RectSolid.fill(editor, start, end, wall, true, true);
+      RectSolid.newRect(start, end).fill(editor, wall, true, true);
 
       cursor = new Coord(origin);
       cursor.translate(entrances[0], 5);
@@ -278,11 +278,11 @@ public class DungeonMess extends DungeonBase {
       stair.setUpsideDown(true).setFacing(dir.antiClockwise()).stroke(editor, end);
       start.translate(Cardinal.UP);
       end.translate(Cardinal.UP);
-      RectSolid.fill(editor, start, end, wall, true, true);
+      RectSolid.newRect(start, end).fill(editor, wall, true, true);
       start.translate(dir);
       end.translate(dir);
       end.translate(Cardinal.DOWN, 3);
-      RectSolid.fill(editor, start, end, panel, false, true);
+      RectSolid.newRect(start, end).fill(editor, panel, false, true);
     }
   }
 
@@ -302,7 +302,7 @@ public class DungeonMess extends DungeonBase {
     end.translate(Cardinal.UP);
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
-    RectSolid.fill(editor, start, end, wall, true, true);
+    RectSolid.newRect(start, end).fill(editor, wall, true, true);
 
     for (Cardinal o : dir.orthogonals()) {
       cursor = new Coord(origin);
@@ -336,7 +336,7 @@ public class DungeonMess extends DungeonBase {
     end.translate(dir);
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
-    RectSolid.fill(editor, start, end, panel, false, true);
+    RectSolid.newRect(start, end).fill(editor, panel, false, true);
 
 
   }
@@ -359,7 +359,7 @@ public class DungeonMess extends DungeonBase {
     end.translate(dir.clockwise(), 2);
     end.translate(Cardinal.UP, 2);
     end.translate(dir);
-    RectSolid.fill(editor, start, end, wall, true, true);
+    RectSolid.newRect(start, end).fill(editor, wall, true, true);
 
     start = new Coord(origin);
     start.translate(dir, 7);
@@ -367,7 +367,7 @@ public class DungeonMess extends DungeonBase {
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
     end.translate(Cardinal.UP);
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     cursor = new Coord(origin);
     cursor.translate(dir, 6);

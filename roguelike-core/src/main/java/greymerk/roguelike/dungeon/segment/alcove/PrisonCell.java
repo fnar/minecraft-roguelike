@@ -40,7 +40,7 @@ public class PrisonCell implements IAlcove {
     end = new Coord(origin);
     end.translate(dir, RECESSED);
     end.translate(Cardinal.UP);
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     Coord cursor = new Coord(origin);
     cursor.translate(dir, RECESSED - 1);

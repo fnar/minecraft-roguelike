@@ -40,7 +40,7 @@ public class CornerRoom extends DungeonBase {
 
       Coord pillarStart = cursor.copy();
       Coord pillarEnd = cursor.copy().up(2);
-      RectSolid.fill(editor, pillarStart, pillarEnd, primary.getPillar(), true, true);
+      RectSolid.newRect(pillarStart, pillarEnd).fill(editor, primary.getPillar(), true, true);
 
       Coord pillarTop = cursor.copy().up(1);
       primary.getWall().stroke(editor, pillarTop);
@@ -73,7 +73,7 @@ public class CornerRoom extends DungeonBase {
   private void createHollowCenter(WorldEditor editor, Coord origin) {
     Coord hollowAirCorner0 = origin.add(-2, 0, -2);
     Coord hollowAirCorner1 = origin.add(2, 3, 2);
-    RectSolid.fill(editor, hollowAirCorner0, hollowAirCorner1, SingleBlockBrush.AIR);
+    RectSolid.newRect(hollowAirCorner0, hollowAirCorner1).fill(editor, SingleBlockBrush.AIR);
   }
 
   private void createShell(WorldEditor editor, Coord origin, BlockBrush blocks) {
@@ -85,7 +85,7 @@ public class CornerRoom extends DungeonBase {
   private void fillFloor(WorldEditor editor, Coord origin, BlockBrush floor) {
     Coord floorCorner0 = origin.add(-3, -1, -3);
     Coord floorCorner1 = origin.add(3, -1, 3);
-    RectSolid.fill(editor, floorCorner0, floorCorner1, floor, false, true);
+    RectSolid.newRect(floorCorner0, floorCorner1).fill(editor, floor, false, true);
   }
 
   public int getSize() {

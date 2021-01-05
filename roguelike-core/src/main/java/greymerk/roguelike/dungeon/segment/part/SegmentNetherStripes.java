@@ -55,7 +55,7 @@ public class SegmentNetherStripes extends SegmentBase {
       start.translate(Cardinal.UP, 3);
       end.translate(Cardinal.DOWN, 2);
       if (isLava && !isAir) {
-        RectSolid.fill(editor, start, end, BlockType.LAVA_FLOWING.getBrush(), false, true);
+        RectSolid.newRect(start, end).fill(editor, BlockType.LAVA_FLOWING.getBrush(), false, true);
       }
 
       stair.setUpsideDown(true).setFacing(orthogonal.reverse());

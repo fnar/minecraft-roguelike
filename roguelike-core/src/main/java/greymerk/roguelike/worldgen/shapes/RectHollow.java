@@ -39,7 +39,7 @@ public class RectHollow implements IShape {
     Coord.correct(innerStart, innerEnd);
     innerStart.translate(new Coord(1, 1, 1));
     innerEnd.translate(new Coord(-1, -1, -1));
-    RectSolid.fill(editor, innerStart, innerEnd, SingleBlockBrush.AIR);
+    RectSolid.newRect(innerStart, innerEnd).fill(editor, SingleBlockBrush.AIR);
   }
 
   @Override

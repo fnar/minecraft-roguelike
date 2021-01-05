@@ -53,7 +53,7 @@ public class DungeonLinkerTop extends DungeonBase {
     end = new Coord(origin);
     start.translate(new Coord(-4, -1, -4));
     end.translate(new Coord(4, -1, 4));
-    RectSolid.fill(editor, start, end, floor, true, true);
+    RectSolid.newRect(start, end).fill(editor, floor, true, true);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
 
@@ -64,7 +64,7 @@ public class DungeonLinkerTop extends DungeonBase {
       end.translate(dir, 4);
       end.translate(dir.antiClockwise(), 4);
       end.translate(Cardinal.UP, 4);
-      RectSolid.fill(editor, start, end, pillar, true, true);
+      RectSolid.newRect(start, end).fill(editor, pillar, true, true);
 
       start = new Coord(origin);
       start.translate(dir, 3);
@@ -72,10 +72,10 @@ public class DungeonLinkerTop extends DungeonBase {
       start.translate(Cardinal.UP, 4);
       end = new Coord(start);
       end.translate(dir.clockwise(), 4);
-      RectSolid.fill(editor, start, end, wall, true, true);
+      RectSolid.newRect(start, end).fill(editor, wall, true, true);
       start.translate(dir.reverse());
       end.translate(dir.reverse());
-      RectSolid.fill(editor, start, end, stair.setUpsideDown(true).setFacing(dir.reverse()), true, true);
+      RectSolid.newRect(start, end).fill(editor, stair.setUpsideDown(true).setFacing(dir.reverse()), true, true);
 
       for (Cardinal o : dir.orthogonals()) {
         cursor = new Coord(origin);

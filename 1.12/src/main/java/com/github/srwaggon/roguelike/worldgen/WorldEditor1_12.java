@@ -229,7 +229,7 @@ public class WorldEditor1_12 implements WorldEditor {
     end = new Coord(origin);
     end.translate(new Coord(1, 0, 1));
 
-    RectSolid.fill(this, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(this, SingleBlockBrush.AIR);
     fill.stroke(this, origin);
 
     Cardinal dir = Cardinal.DIRECTIONS.get(origin.getY() % 4);

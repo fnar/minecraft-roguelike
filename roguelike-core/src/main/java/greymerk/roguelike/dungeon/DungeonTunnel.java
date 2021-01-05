@@ -54,7 +54,7 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
     s.translate(Cardinal.UP, 3);
     e.translate(dir.clockwise(), 3);
     e.translate(Cardinal.DOWN, 3);
-    RectSolid.fill(editor, s, e, theme.getPrimary().getWall());
+    RectSolid.newRect(s, e).fill(editor, theme.getPrimary().getWall());
   }
 
   public void construct(WorldEditor editor, LevelSettings settings) {
@@ -75,7 +75,7 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
     e.translate(Cardinal.SOUTH);
     e.translate(Cardinal.WEST);
     e.translate(Cardinal.UP, 2);
-    RectSolid.fill(editor, s, e, SingleBlockBrush.AIR);
+    RectSolid.newRect(s, e).fill(editor, SingleBlockBrush.AIR);
 
     s.translate(Cardinal.NORTH);
     s.translate(Cardinal.EAST);
@@ -93,8 +93,8 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
     e.translate(Cardinal.SOUTH);
     e.translate(Cardinal.WEST);
     e.translate(Cardinal.DOWN);
-    RectSolid.fill(editor, s, e, floor, false, true);
-    RectSolid.fill(editor, s, e, bridgeBlocks, true, false);
+    RectSolid.newRect(s, e).fill(editor, floor, false, true);
+    RectSolid.newRect(s, e).fill(editor, bridgeBlocks, true, false);
 
     Cardinal dir = getDirection();
 
@@ -110,7 +110,7 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
     end.translate(orth[1], 2);
     end.translate(Cardinal.DOWN, 2);
 
-    RectSolid.fill(editor, start, end, wallBlocks, false, true);
+    RectSolid.newRect(start, end).fill(editor, wallBlocks, false, true);
 
   }
 

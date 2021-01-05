@@ -52,10 +52,10 @@ public class DungeonsSlime extends DungeonBase {
       end = new Coord(start);
       start.translate(dir.antiClockwise(), 8);
       end.translate(dir.clockwise(), 8);
-      RectSolid.fill(editor, start, end, wall);
+      RectSolid.newRect(start, end).fill(editor, wall);
       start.translate(dir, 4);
       end.translate(dir, 4);
-      RectSolid.fill(editor, start, end, wall);
+      RectSolid.newRect(start, end).fill(editor, wall);
 
     }
 
@@ -68,20 +68,20 @@ public class DungeonsSlime extends DungeonBase {
         end.translate(dir, 2);
         start.translate(dir.antiClockwise(), 3);
         end.translate(dir.clockwise(), 3);
-        RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+        RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
         start.translate(Cardinal.DOWN);
         end.translate(Cardinal.DOWN);
-        RectSolid.fill(editor, start, end, liquid);
+        RectSolid.newRect(start, end).fill(editor, liquid);
         start.translate(Cardinal.DOWN);
         end.translate(Cardinal.DOWN);
-        RectSolid.fill(editor, start, end, wall);
+        RectSolid.newRect(start, end).fill(editor, wall);
 
         start = new Coord(origin);
         start.translate(dir, 3);
         end = new Coord(start);
         start.translate(dir.antiClockwise(), 2);
         end.translate(dir.clockwise(), 2);
-        RectSolid.fill(editor, start, end, bars);
+        RectSolid.newRect(start, end).fill(editor, bars);
 
         cursor = new Coord(origin);
         cursor.translate(dir, 7);
@@ -126,13 +126,13 @@ public class DungeonsSlime extends DungeonBase {
     end = new Coord(origin);
     start.translate(new Coord(-1, -1, -1));
     end.translate(new Coord(1, -1, 1));
-    RectSolid.fill(editor, start, end, water);
+    RectSolid.newRect(start, end).fill(editor, water);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(new Coord(-1, -2, -1));
     end.translate(new Coord(1, -2, 1));
-    RectSolid.fill(editor, start, end, wall);
+    RectSolid.newRect(start, end).fill(editor, wall);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
       start = new Coord(origin);
@@ -140,7 +140,7 @@ public class DungeonsSlime extends DungeonBase {
       start.translate(dir.antiClockwise(), 2);
       end = new Coord(start);
       end.translate(Cardinal.UP, 3);
-      RectSolid.fill(editor, start, end, pillar);
+      RectSolid.newRect(start, end).fill(editor, pillar);
 
       for (Cardinal d : Cardinal.DIRECTIONS) {
         cursor = new Coord(end);
@@ -153,7 +153,7 @@ public class DungeonsSlime extends DungeonBase {
       end = new Coord(start);
       start.translate(dir.antiClockwise());
       end.translate(dir.clockwise());
-      RectSolid.fill(editor, start, end, bars);
+      RectSolid.newRect(start, end).fill(editor, bars);
 
     }
   }

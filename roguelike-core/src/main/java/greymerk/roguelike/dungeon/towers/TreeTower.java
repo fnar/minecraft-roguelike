@@ -46,7 +46,7 @@ public class TreeTower implements ITower {
     start.translate(new Coord(-3, -3, -3));
     end = new Coord(ground);
     end.translate(new Coord(3, 3, 3));
-    RectSolid.fill(editor, start, end, log);
+    RectSolid.newRect(start, end).fill(editor, log);
 
     carveRoom(editor, ground);
     carveRoom(editor, upstairs);
@@ -56,7 +56,7 @@ public class TreeTower implements ITower {
     end = new Coord(ground);
     end.translate(Cardinal.UP);
     end.translate(dir, 8);
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     start = new Coord(ground);
     end = new Coord(ground);

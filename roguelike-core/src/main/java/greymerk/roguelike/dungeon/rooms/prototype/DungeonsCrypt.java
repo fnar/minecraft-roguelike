@@ -41,19 +41,19 @@ public class DungeonsCrypt extends DungeonBase {
     end = new Coord(origin);
     start.translate(new Coord(-3, 0, -3));
     end.translate(new Coord(3, 4, 3));
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(new Coord(-9, -1, -9));
     end.translate(new Coord(9, -1, 9));
-    RectSolid.fill(editor, start, end, floor);
+    RectSolid.newRect(start, end).fill(editor, floor);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(new Coord(-9, 5, -9));
     end.translate(new Coord(9, 6, 9));
-    RectSolid.fill(editor, start, end, walls, false, true);
+    RectSolid.newRect(start, end).fill(editor, walls, false, true);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
 
@@ -64,7 +64,7 @@ public class DungeonsCrypt extends DungeonBase {
         end.translate(dir.antiClockwise(), 5);
         end.translate(dir, 5);
         end.translate(Cardinal.UP, 4);
-        RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+        RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
       }
 
       if (entrances.contains(dir)) {
@@ -76,7 +76,7 @@ public class DungeonsCrypt extends DungeonBase {
         end.translate(dir, 8);
         end.translate(dir.clockwise(), 2);
         end.translate(Cardinal.UP, 4);
-        RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+        RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
         for (Cardinal o : dir.orthogonals()) {
           if (entrances.contains(o)) {
@@ -96,7 +96,7 @@ public class DungeonsCrypt extends DungeonBase {
             end.translate(dir, 8);
             end.translate(o, 8);
             end.translate(Cardinal.UP, 4);
-            RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+            RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
             cursor = new Coord(origin);
             cursor.translate(dir, 6);
@@ -125,7 +125,7 @@ public class DungeonsCrypt extends DungeonBase {
       start.translate(dir.antiClockwise(), 2);
       end.translate(dir.clockwise(), 2);
       stair.setUpsideDown(true).setFacing(dir.reverse());
-      RectSolid.fill(editor, start, end, stair, true, false);
+      RectSolid.newRect(start, end).fill(editor, stair, true, false);
     }
 
     return this;
@@ -148,7 +148,7 @@ public class DungeonsCrypt extends DungeonBase {
     end = new Coord(start);
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
-    RectSolid.fill(editor, start, end, walls);
+    RectSolid.newRect(start, end).fill(editor, walls);
 
     cursor = new Coord(origin);
     cursor.translate(dir, 5);
@@ -163,7 +163,7 @@ public class DungeonsCrypt extends DungeonBase {
       end = new Coord(start);
       end.translate(dir, 4);
       end.translate(Cardinal.UP, 4);
-      RectSolid.fill(editor, start, end, walls);
+      RectSolid.newRect(start, end).fill(editor, walls);
 
       cursor = new Coord(origin);
       cursor.translate(Cardinal.DOWN);
@@ -177,7 +177,7 @@ public class DungeonsCrypt extends DungeonBase {
       end = new Coord(start);
       end.translate(dir, 3);
       stair.setUpsideDown(true).setFacing(o.reverse());
-      RectSolid.fill(editor, start, end, stair);
+      RectSolid.newRect(start, end).fill(editor, stair);
     }
 
     cursor = new Coord(origin);
@@ -206,15 +206,15 @@ public class DungeonsCrypt extends DungeonBase {
       end = new Coord(cursor);
       end.translate(dir, 3);
       stair.setUpsideDown(false).setFacing(o);
-      RectSolid.fill(editor, start, end, stair);
+      RectSolid.newRect(start, end).fill(editor, stair);
       start.translate(Cardinal.UP);
       end.translate(Cardinal.UP);
       stair.setUpsideDown(true).setFacing(o);
-      RectSolid.fill(editor, start, end, stair);
+      RectSolid.newRect(start, end).fill(editor, stair);
       start.translate(Cardinal.UP);
       end.translate(Cardinal.UP);
       stair.setUpsideDown(false).setFacing(o);
-      RectSolid.fill(editor, start, end, stair);
+      RectSolid.newRect(start, end).fill(editor, stair);
     }
 
   }
@@ -238,7 +238,7 @@ public class DungeonsCrypt extends DungeonBase {
     end.translate(dir.clockwise());
     end.translate(dir, 3);
 
-    RectSolid.fill(editor, start, end, walls);
+    RectSolid.newRect(start, end).fill(editor, walls);
 
     cursor = new Coord(origin);
     cursor.translate(dir.reverse());
@@ -265,7 +265,7 @@ public class DungeonsCrypt extends DungeonBase {
       end = new Coord(start);
       end.translate(dir, 7);
       stair.setUpsideDown(true).setFacing(o);
-      RectSolid.fill(editor, start, end, stair, true, false);
+      RectSolid.newRect(start, end).fill(editor, stair, true, false);
     }
 
     start = new Coord(origin);
@@ -275,7 +275,7 @@ public class DungeonsCrypt extends DungeonBase {
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
     stair.setUpsideDown(true).setFacing(dir.reverse());
-    RectSolid.fill(editor, start, end, stair);
+    RectSolid.newRect(start, end).fill(editor, stair);
 
     tomb(editor, rand, settings, origin, dir);
   }
@@ -295,7 +295,7 @@ public class DungeonsCrypt extends DungeonBase {
     end.translate(dir.clockwise(), 3);
     end.translate(dir, 4);
     end.translate(Cardinal.UP, 4);
-    RectSolid.fill(editor, start, end, walls);
+    RectSolid.newRect(start, end).fill(editor, walls);
 
     cursor = new Coord(origin);
     cursor.translate(Cardinal.UP);
@@ -330,7 +330,7 @@ public class DungeonsCrypt extends DungeonBase {
     start = new Coord(origin);
     end = new Coord(origin);
     end.translate(Cardinal.UP, 4);
-    RectSolid.fill(editor, start, end, walls);
+    RectSolid.newRect(start, end).fill(editor, walls);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(end);
@@ -358,7 +358,7 @@ public class DungeonsCrypt extends DungeonBase {
 
     cursor = new Coord(origin);
     cursor.translate(dir, 2);
-    RectSolid.fill(editor, origin, cursor, SingleBlockBrush.AIR);
+    RectSolid.newRect(origin, cursor).fill(editor, SingleBlockBrush.AIR);
 
     if (rand.nextInt(4) == 0) {
       return;

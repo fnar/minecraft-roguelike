@@ -33,16 +33,16 @@ public class RogueTower implements ITower {
     int main = floor.getY() + 4;
     int roof = floor.getY() + 9;
 
-    RectSolid.fill(editor, new Coord(x - 3, ground, z - 3), new Coord(x + 3, floor.getY() + 12, z + 3), SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(x - 3, ground, z - 3), new Coord(x + 3, floor.getY() + 12, z + 3)).fill(editor, SingleBlockBrush.AIR);
 
-    RectSolid.fill(editor, new Coord(x - 2, y + 10, z - 2), new Coord(x + 2, floor.getY() - 1, z + 2), blocks, false, true);
+    RectSolid.newRect(new Coord(x - 2, y + 10, z - 2), new Coord(x + 2, floor.getY() - 1, z + 2)).fill(editor, blocks, false, true);
 
     Coord start;
     Coord end;
     Coord cursor;
 
-    RectSolid.fill(editor, new Coord(x - 3, main, z - 3), new Coord(x + 3, main, z + 3), theme.getSecondary().getWall(), true, true);
-    RectSolid.fill(editor, new Coord(x - 3, roof, z - 3), new Coord(x + 3, roof, z + 3), blocks);
+    RectSolid.newRect(new Coord(x - 3, main, z - 3), new Coord(x + 3, main, z + 3)).fill(editor, theme.getSecondary().getWall(), true, true);
+    RectSolid.newRect(new Coord(x - 3, roof, z - 3), new Coord(x + 3, roof, z + 3)).fill(editor, blocks);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
       for (Cardinal orthogonals : dir.orthogonals()) {
@@ -53,11 +53,11 @@ public class RogueTower implements ITower {
         end = new Coord(start);
         end.translate(dir, 3);
         end.translate(orthogonals, 1);
-        RectSolid.fill(editor, start, end, blocks, true, true);
+        RectSolid.newRect(start, end).fill(editor, blocks, true, true);
         start.translate(orthogonals, 2);
         end.translate(dir.reverse(), 2);
         end.translate(orthogonals, 2);
-        RectSolid.fill(editor, start, end, blocks, true, true);
+        RectSolid.newRect(start, end).fill(editor, blocks, true, true);
 
         cursor = new Coord(floor);
         cursor.translate(dir, 5);
@@ -66,11 +66,11 @@ public class RogueTower implements ITower {
         end = new Coord(cursor);
         end.translate(dir.reverse(), 1);
         end.translate(Cardinal.UP, 2);
-        RectSolid.fill(editor, start, end, blocks);
+        RectSolid.newRect(start, end).fill(editor, blocks);
         start = new Coord(end);
         start.translate(dir, 1);
         start.translate(orthogonals.reverse(), 1);
-        RectSolid.fill(editor, start, end, blocks);
+        RectSolid.newRect(start, end).fill(editor, blocks);
         cursor.translate(Cardinal.UP, 2);
         stair.setUpsideDown(false).setFacing(orthogonals);
         stair.stroke(editor, cursor);
@@ -80,21 +80,21 @@ public class RogueTower implements ITower {
         end = new Coord(start);
         end.translate(Cardinal.UP, 9);
         end.translate(orthogonals, 2);
-        RectSolid.fill(editor, start, end, blocks);
+        RectSolid.newRect(start, end).fill(editor, blocks);
 
         start = new Coord(floor);
         start.translate(dir, 3);
         start.translate(orthogonals, 3);
         end = new Coord(start);
         end.translate(Cardinal.UP, 9);
-        RectSolid.fill(editor, start, end, blocks);
+        RectSolid.newRect(start, end).fill(editor, blocks);
 
         start = new Coord(floor);
         start.translate(dir, 4);
         end = new Coord(start);
         end.translate(dir, 1);
         end.translate(Cardinal.UP, 1);
-        RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+        RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
         cursor = new Coord(floor);
         cursor.translate(dir, 3);
@@ -116,7 +116,7 @@ public class RogueTower implements ITower {
         start.translate(Cardinal.UP, 1);
         end = new Coord(start);
         end.translate(Cardinal.UP, 4);
-        RectSolid.fill(editor, start, end, blocks, true, true);
+        RectSolid.newRect(start, end).fill(editor, blocks, true, true);
 
         start = new Coord(floor);
         start.translate(dir, 5);
@@ -142,7 +142,7 @@ public class RogueTower implements ITower {
         end = new Coord(start);
         end.translate(orthogonals, 1);
         end.translate(Cardinal.UP, 1);
-        RectSolid.fill(editor, start, end, blocks, true, true);
+        RectSolid.newRect(start, end).fill(editor, blocks, true, true);
 
         cursor = new Coord(end);
         cursor.translate(orthogonals, 1);
@@ -208,14 +208,14 @@ public class RogueTower implements ITower {
         start.translate(orthogonals.reverse(), 2);
         end.translate(orthogonals, 2);
 
-        RectSolid.fill(editor, start, end, blocks, true, true);
+        RectSolid.newRect(start, end).fill(editor, blocks, true, true);
         start = new Coord(x, ground, z);
         start.translate(dir, 3);
         start.translate(orthogonals, 3);
         end = new Coord(x, 60, z);
         end.translate(dir, 3);
         end.translate(orthogonals, 3);
-        RectSolid.fill(editor, start, end, blocks, true, true);
+        RectSolid.newRect(start, end).fill(editor, blocks, true, true);
 
       }
     }

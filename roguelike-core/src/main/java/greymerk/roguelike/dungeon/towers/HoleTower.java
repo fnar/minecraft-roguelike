@@ -33,7 +33,7 @@ public class HoleTower implements ITower {
     end.translate(Cardinal.SOUTH);
     end.translate(Cardinal.WEST);
 
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
     start.translate(Cardinal.NORTH, 2);
     start.translate(Cardinal.EAST, 2);
     end.translate(Cardinal.SOUTH, 2);
@@ -47,7 +47,7 @@ public class HoleTower implements ITower {
     rubble.addBlock(BlockType.DIRT_COARSE.getBrush());
     rubble.addBlock(BlockType.STONE_SMOOTH.getBrush());
 
-    RectSolid.fill(editor, start, end, rubble, false, true);
+    RectSolid.newRect(start, end).fill(editor, rubble, false, true);
     VineBlock.vine().fill(editor, new RectSolid(start, end));
   }
 
