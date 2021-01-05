@@ -3,30 +3,22 @@ package greymerk.roguelike.worldgen.shapes;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Random;
 
-import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.WorldEditor;
 
 public class RectWireframe implements IShape {
 
-  private Coord start;
-  private Coord end;
+  private final Coord start;
+  private final Coord end;
 
   public RectWireframe(Coord start, Coord end) {
     this.start = start;
     this.end = end;
   }
 
-  public static void fill(WorldEditor editor, Random rand, Coord start, Coord end, BlockBrush block) {
-    fill(editor, rand, start, end, block, true, true);
-  }
-
-  public static void fill(WorldEditor editor, Random rand, Coord start, Coord end, BlockBrush block, boolean fillAir, boolean replaceSolid) {
-    RectWireframe rect = new RectWireframe(start, end);
-    rect.fill(editor, block, fillAir, replaceSolid);
+  public static RectWireframe newRect(Coord start, Coord end) {
+    return new RectWireframe(start, end);
   }
 
   @Override
