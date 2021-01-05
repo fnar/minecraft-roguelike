@@ -49,7 +49,7 @@ public class DungeonReward extends DungeonBase {
         start = new Coord(cursor);
         end = new Coord(start);
         end.translate(Cardinal.UP, 5);
-        RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall(), true, true);
+        RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall());
         cursor.translate(dir.reverse());
         stair.setUpsideDown(false).setFacing(dir.reverse()).stroke(editor, cursor);
         cursor.translate(Cardinal.UP, 2);
@@ -58,14 +58,14 @@ public class DungeonReward extends DungeonBase {
         start = new Coord(cursor);
         end = new Coord(start);
         end.translate(Cardinal.UP, 2);
-        RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall(), true, true);
+        RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall());
         cursor.translate(dir.reverse());
         stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
         cursor.translate(Cardinal.UP);
         start = new Coord(cursor);
         end = new Coord(start);
         end.translate(Cardinal.UP);
-        RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall(), true, true);
+        RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall());
         cursor.translate(Cardinal.UP);
         cursor.translate(dir.reverse());
         stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
@@ -76,15 +76,15 @@ public class DungeonReward extends DungeonBase {
         end = new Coord(start);
         end.translate(Cardinal.UP, 2);
         end.translate(orthogonal);
-        RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall(), true, true);
+        RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall());
         start.translate(dir.reverse());
         start.translate(Cardinal.UP);
         end.translate(dir.reverse());
-        RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall(), true, true);
+        RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall());
         start.translate(dir.reverse());
         start.translate(Cardinal.UP);
         end.translate(dir.reverse());
-        RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall(), true, true);
+        RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall());
 
         cursor = new Coord(x, y, z);
         cursor.translate(dir, 8);
@@ -138,10 +138,10 @@ public class DungeonReward extends DungeonBase {
         cursor.translate(Cardinal.UP);
         end = new Coord(cursor);
         end.translate(orthogonal.reverse(), 2);
-        RectSolid.newRect(cursor, end).fill(editor, stair.setUpsideDown(true).setFacing(dir.reverse()), true, true);
+        RectSolid.newRect(cursor, end).fill(editor, stair.setUpsideDown(true).setFacing(dir.reverse()));
         cursor.translate(Cardinal.UP);
         end.translate(Cardinal.UP);
-        RectSolid.newRect(cursor, end).fill(editor, theme.getPrimary().getWall(), true, true);
+        RectSolid.newRect(cursor, end).fill(editor, theme.getPrimary().getWall());
         end.translate(dir.reverse());
         stair.setUpsideDown(true).setFacing(orthogonal).stroke(editor, cursor);
 

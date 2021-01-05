@@ -52,7 +52,7 @@ public class DungeonAvidya extends DungeonBase {
     RectSolid.newRect(new Coord(x - 8, y, z - 8), new Coord(x + 8, y + 5, z + 8)).fill(editor, SingleBlockBrush.AIR);
 
     // roof
-    RectSolid.newRect(new Coord(x - 6, y + 6, z - 6), new Coord(x + 6, y + 6, z + 6)).fill(editor, redClay, true, true);
+    RectSolid.newRect(new Coord(x - 6, y + 6, z - 6), new Coord(x + 6, y + 6, z + 6)).fill(editor, redClay);
     RectSolid.newRect(new Coord(x - 3, y + 6, z - 3), new Coord(x + 3, y + 6, z + 3)).fill(editor, glowstone);
 
     RectSolid.newRect(new Coord(x - 7, y - 1, z - 7), new Coord(x + 7, y - 1, z + 7)).fill(editor, SingleBlockBrush.AIR);

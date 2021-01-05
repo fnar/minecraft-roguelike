@@ -1,7 +1,8 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
-import com.github.srwaggon.roguelike.worldgen.block.normal.ColoredBlock;
+import com.github.srwaggon.roguelike.worldgen.block.BlockType;
 import com.github.srwaggon.roguelike.worldgen.block.decorative.PumpkinBlock;
+import com.github.srwaggon.roguelike.worldgen.block.normal.ColoredBlock;
 import com.github.srwaggon.roguelike.worldgen.block.normal.SlabBlock;
 import com.github.srwaggon.roguelike.worldgen.block.normal.StairsBlock;
 
@@ -17,7 +18,6 @@ import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
-import com.github.srwaggon.roguelike.worldgen.block.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
@@ -56,7 +56,7 @@ public class DungeonTreetho extends DungeonBase {
     RectSolid.newRect(start, end).fill(editor, birchSlab);
     start.translate(Cardinal.UP);
     end.translate(Cardinal.UP);
-    RectSolid.newRect(start, end).fill(editor, pumpkin, true, true);
+    RectSolid.newRect(start, end).fill(editor, pumpkin);
 
     cursor = new Coord(origin);
     cursor.translate(new Coord(0, 8, 0));
@@ -95,7 +95,7 @@ public class DungeonTreetho extends DungeonBase {
     start.translate(dir.reverse(), 7);
     end.translate(dir, 7);
 
-    RectSolid.newRect(start, end).fill(editor, slab, true, true);
+    RectSolid.newRect(start, end).fill(editor, slab);
 
     cursor = new Coord(origin);
 
@@ -132,7 +132,7 @@ public class DungeonTreetho extends DungeonBase {
       start.translate(dir.antiClockwise(), 9);
       end.translate(dir.clockwise(), 9);
 
-      RectSolid.newRect(start, end).fill(editor, fill, true, true);
+      RectSolid.newRect(start, end).fill(editor, fill);
 
       Coord cursor = new Coord(origin);
       cursor.translate(Cardinal.DOWN);

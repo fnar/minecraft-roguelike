@@ -31,11 +31,11 @@ public class PyramidTower implements ITower {
 
     start = new Coord(x - 8, floor.getY() - 1, z - 8);
     end = new Coord(x + 8, y + 10, z + 8);
-    RectSolid.newRect(start, end).fill(editor, blocks, true, true);
+    RectSolid.newRect(start, end).fill(editor, blocks);
 
     start = new Coord(x - 6, floor.getY() - 1, z - 6);
     end = new Coord(x + 6, floor.getY() + 3, z + 6);
-    RectHollow.newRect(start, end).fill(editor, blocks, true, true);
+    RectHollow.newRect(start, end).fill(editor, blocks);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(floor);

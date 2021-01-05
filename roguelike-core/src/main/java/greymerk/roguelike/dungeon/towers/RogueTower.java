@@ -41,7 +41,7 @@ public class RogueTower implements ITower {
     Coord end;
     Coord cursor;
 
-    RectSolid.newRect(new Coord(x - 3, main, z - 3), new Coord(x + 3, main, z + 3)).fill(editor, theme.getSecondary().getWall(), true, true);
+    RectSolid.newRect(new Coord(x - 3, main, z - 3), new Coord(x + 3, main, z + 3)).fill(editor, theme.getSecondary().getWall());
     RectSolid.newRect(new Coord(x - 3, roof, z - 3), new Coord(x + 3, roof, z + 3)).fill(editor, blocks);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
@@ -53,11 +53,11 @@ public class RogueTower implements ITower {
         end = new Coord(start);
         end.translate(dir, 3);
         end.translate(orthogonals, 1);
-        RectSolid.newRect(start, end).fill(editor, blocks, true, true);
+        RectSolid.newRect(start, end).fill(editor, blocks);
         start.translate(orthogonals, 2);
         end.translate(dir.reverse(), 2);
         end.translate(orthogonals, 2);
-        RectSolid.newRect(start, end).fill(editor, blocks, true, true);
+        RectSolid.newRect(start, end).fill(editor, blocks);
 
         cursor = new Coord(floor);
         cursor.translate(dir, 5);
@@ -116,7 +116,7 @@ public class RogueTower implements ITower {
         start.translate(Cardinal.UP, 1);
         end = new Coord(start);
         end.translate(Cardinal.UP, 4);
-        RectSolid.newRect(start, end).fill(editor, blocks, true, true);
+        RectSolid.newRect(start, end).fill(editor, blocks);
 
         start = new Coord(floor);
         start.translate(dir, 5);
@@ -142,7 +142,7 @@ public class RogueTower implements ITower {
         end = new Coord(start);
         end.translate(orthogonals, 1);
         end.translate(Cardinal.UP, 1);
-        RectSolid.newRect(start, end).fill(editor, blocks, true, true);
+        RectSolid.newRect(start, end).fill(editor, blocks);
 
         cursor = new Coord(end);
         cursor.translate(orthogonals, 1);
@@ -208,14 +208,14 @@ public class RogueTower implements ITower {
         start.translate(orthogonals.reverse(), 2);
         end.translate(orthogonals, 2);
 
-        RectSolid.newRect(start, end).fill(editor, blocks, true, true);
+        RectSolid.newRect(start, end).fill(editor, blocks);
         start = new Coord(x, ground, z);
         start.translate(dir, 3);
         start.translate(orthogonals, 3);
         end = new Coord(x, 60, z);
         end.translate(dir, 3);
         end.translate(orthogonals, 3);
-        RectSolid.newRect(start, end).fill(editor, blocks, true, true);
+        RectSolid.newRect(start, end).fill(editor, blocks);
 
       }
     }

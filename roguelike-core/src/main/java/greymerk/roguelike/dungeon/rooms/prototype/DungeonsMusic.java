@@ -55,7 +55,7 @@ public class DungeonsMusic extends DungeonBase {
     end = new Coord(origin);
     start.translate(new Coord(-6, 4, -6));
     end.translate(new Coord(6, 5, 6));
-    RectSolid.newRect(start, end).fill(editor, panel, true, true);
+    RectSolid.newRect(start, end).fill(editor, panel);
 
     start = new Coord(origin);
     end = new Coord(origin);
@@ -67,7 +67,7 @@ public class DungeonsMusic extends DungeonBase {
     end = new Coord(origin);
     start.translate(new Coord(-3, -1, -3));
     end.translate(new Coord(3, -1, 3));
-    RectSolid.newRect(start, end).fill(editor, floor, true, true);
+    RectSolid.newRect(start, end).fill(editor, floor);
 
     for (int i = 2; i >= 0; --i) {
       start = new Coord(origin);
@@ -98,7 +98,7 @@ public class DungeonsMusic extends DungeonBase {
       end = new Coord(start);
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir.clockwise(), 3);
-      RectSolid.newRect(start, end).fill(editor, pillar, true, true);
+      RectSolid.newRect(start, end).fill(editor, pillar);
 
       cursor = new Coord(origin);
       cursor.translate(Cardinal.UP, 4);

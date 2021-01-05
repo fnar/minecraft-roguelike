@@ -1,5 +1,7 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
+import com.github.srwaggon.roguelike.worldgen.block.BlockType;
+
 import java.util.List;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
@@ -12,7 +14,6 @@ import greymerk.roguelike.worldgen.BlockWeightedRandom;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
-import com.github.srwaggon.roguelike.worldgen.block.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.MobType;
@@ -56,13 +57,13 @@ public class DungeonsCreeperDen extends DungeonBase {
     end = new Coord(origin);
     start.translate(new Coord(-3, -1, -3));
     end.translate(new Coord(3, -1, 3));
-    RectSolid.newRect(start, end).fill(editor, floor, true, true);
+    RectSolid.newRect(start, end).fill(editor, floor);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(new Coord(-3, -3, -3));
     end.translate(new Coord(3, -2, 3));
-    RectSolid.newRect(start, end).fill(editor, subfloor, true, true);
+    RectSolid.newRect(start, end).fill(editor, subfloor);
 
     start = new Coord(origin);
     end = new Coord(origin);

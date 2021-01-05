@@ -2,6 +2,8 @@ package greymerk.roguelike.worldgen.spawners;
 
 import com.google.common.collect.Lists;
 
+import com.github.srwaggon.roguelike.worldgen.block.BlockType;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.MobSpawnerBaseLogic;
@@ -13,7 +15,6 @@ import java.util.Random;
 
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
-import com.github.srwaggon.roguelike.worldgen.block.BlockType;
 
 public class Spawnable {
 
@@ -26,7 +27,7 @@ public class Spawnable {
   public void generate(WorldEditor editor, Coord cursor, int level) {
     Coord pos = new Coord(cursor);
 
-    BlockType.MOB_SPAWNER.getBrush().stroke(editor, pos, true, true);
+    BlockType.MOB_SPAWNER.getBrush().stroke(editor, pos);
 
     TileEntity tileentity = editor.getTileEntity(pos);
     if (!(tileentity instanceof TileEntityMobSpawner)) {

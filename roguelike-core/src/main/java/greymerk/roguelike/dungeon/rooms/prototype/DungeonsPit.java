@@ -140,7 +140,7 @@ public class DungeonsPit extends DungeonBase {
               || z == originZ - 2
               || z == originZ + 2) {
 
-            blocks.stroke(editor, pos, true, true);
+            blocks.stroke(editor, pos);
             continue;
           }
 

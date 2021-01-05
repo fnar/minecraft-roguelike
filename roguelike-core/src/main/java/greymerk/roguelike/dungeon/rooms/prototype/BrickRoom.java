@@ -89,7 +89,7 @@ public class BrickRoom extends DungeonBase {
       start = new Coord(cursor);
       cursor.translate(UP, 2);
       end = new Coord(cursor);
-      RectSolid.newRect(start, end).fill(editor, pillar, true, true);
+      RectSolid.newRect(start, end).fill(editor, pillar);
       cursor.translate(UP, 1);
       blocks.stroke(editor, cursor);
 
