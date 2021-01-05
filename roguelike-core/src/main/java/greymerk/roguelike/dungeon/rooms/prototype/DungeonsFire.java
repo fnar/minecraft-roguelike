@@ -122,7 +122,7 @@ public class DungeonsFire extends DungeonBase {
     end.translate(Cardinal.EAST, 8);
     end.translate(Cardinal.UP, 7);
 
-    RectHollow.fill(editor, start, end, wall, false, true);
+    RectHollow.newRect(start, end).fill(editor, wall, false, true);
 
     start = new Coord(origin);
     start.translate(Cardinal.DOWN);

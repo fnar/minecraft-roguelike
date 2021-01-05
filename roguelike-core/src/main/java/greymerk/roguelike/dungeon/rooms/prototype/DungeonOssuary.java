@@ -41,7 +41,7 @@ public class DungeonOssuary extends DungeonBase {
     end.translate(Cardinal.SOUTH, 8);
     end.translate(Cardinal.WEST, 8);
     end.translate(Cardinal.UP, 6);
-    RectHollow.fill(editor, start, end, walls, false, true);
+    RectHollow.newRect(start, end).fill(editor, walls, false, true);
 
     // entrance arches
     for (Cardinal dir : Cardinal.DIRECTIONS) {

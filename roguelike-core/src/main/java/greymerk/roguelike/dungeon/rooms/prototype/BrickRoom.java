@@ -46,7 +46,7 @@ public class BrickRoom extends DungeonBase {
     RectSolid.newRect(new Coord(x - 1, y + 4, z - 1), new Coord(x + 1, y + 4, z + 1)).fill(editor, SingleBlockBrush.AIR);
 
     // shell
-    RectHollow.fill(editor, new Coord(x - 4, y - 1, z - 4), new Coord(x + 4, y + 4, z + 4), blocks, false, true);
+    RectHollow.newRect(new Coord(x - 4, y - 1, z - 4), new Coord(x + 4, y + 4, z + 4)).fill(editor, blocks, false, true);
 
     RectSolid.newRect(new Coord(x - 4, y - 1, z - 4), new Coord(x + 4, y - 1, z + 4)).fill(editor, theme.getPrimary().getFloor(), false, true);
 

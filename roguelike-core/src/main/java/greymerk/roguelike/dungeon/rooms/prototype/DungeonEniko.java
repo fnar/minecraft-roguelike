@@ -61,7 +61,7 @@ public class DungeonEniko extends DungeonBase {
     end = new Coord(origin);
     start.translate(new Coord(6, -1, 6));
     end.translate(new Coord(-6, 4, -6));
-    RectHollow.fill(editor, start, end, walls, false, true);
+    RectHollow.newRect(start, end).fill(editor, walls, false, true);
 
     start = new Coord(origin);
     end = new Coord(origin);

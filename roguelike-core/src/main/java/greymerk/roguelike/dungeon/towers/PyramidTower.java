@@ -35,7 +35,7 @@ public class PyramidTower implements ITower {
 
     start = new Coord(x - 6, floor.getY() - 1, z - 6);
     end = new Coord(x + 6, floor.getY() + 3, z + 6);
-    RectHollow.fill(editor, start, end, blocks, true, true);
+    RectHollow.newRect(start, end).fill(editor, blocks, true, true);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(floor);

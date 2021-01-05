@@ -32,7 +32,7 @@ public class DungeonPyramidCorner extends DungeonBase {
     BlockBrush blocks = theme.getPrimary().getWall();
     BlockBrush pillar = theme.getPrimary().getPillar();
 
-    RectHollow.fill(editor, new Coord(x - 3, y - 1, z - 3), new Coord(x + 3, y + 3, z + 3), blocks, false, true);
+    RectHollow.newRect(new Coord(x - 3, y - 1, z - 3), new Coord(x + 3, y + 3, z + 3)).fill(editor, blocks, false, true);
     RectSolid.newRect(new Coord(x - 2, y + 3, z - 2), new Coord(x + 2, y + 5, z + 2)).fill(editor, blocks, false, true);
     RectSolid.newRect(new Coord(x - 1, y + 3, z - 1), new Coord(x + 1, y + 3, z + 1)).fill(editor, SingleBlockBrush.AIR, true, true);
 

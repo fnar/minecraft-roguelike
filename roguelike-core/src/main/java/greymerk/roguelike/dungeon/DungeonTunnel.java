@@ -83,7 +83,7 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
     e.translate(Cardinal.SOUTH);
     e.translate(Cardinal.WEST);
     e.translate(Cardinal.UP);
-    RectHollow.fill(editor, s, e, wallBlocks, false, true);
+    RectHollow.newRect(s, e).fill(editor, wallBlocks, false, true);
 
     s = new Coord(start);
     s.translate(Cardinal.NORTH);

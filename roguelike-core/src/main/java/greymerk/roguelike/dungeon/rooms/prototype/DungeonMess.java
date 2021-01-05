@@ -44,7 +44,7 @@ public class DungeonMess extends DungeonBase {
     start.translate(-8, -1, -8);
     end = new Coord(origin);
     end.translate(8, 5, 8);
-    RectHollow.fill(editor, start, end, wall, false, true);
+    RectHollow.newRect(start, end).fill(editor, wall, false, true);
 
     start = new Coord(origin);
     start.translate(-2, 5, -2);

@@ -55,7 +55,7 @@ public class DungeonFirework extends DungeonBase {
     end.translate(dir.clockwise(), 4);
     start.translate(Cardinal.DOWN);
     end.translate(Cardinal.UP, 3);
-    RectHollow.fill(editor, start, end, stainedHardenedClay().setColor(DyeColor.ORANGE), false, true);
+    RectHollow.newRect(start, end).fill(editor, stainedHardenedClay().setColor(DyeColor.ORANGE), false, true);
 
     start = new Coord(x, y, z);
     start.translate(dir.antiClockwise(), 2);

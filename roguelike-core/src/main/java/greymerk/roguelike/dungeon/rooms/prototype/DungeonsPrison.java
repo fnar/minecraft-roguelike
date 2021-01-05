@@ -305,7 +305,7 @@ public class DungeonsPrison extends DungeonBase {
     end.translate(Cardinal.SOUTH, 2);
     end.translate(Cardinal.EAST, 2);
     end.translate(Cardinal.UP, 4);
-    RectHollow.fill(editor, start, end, wall, false, true);
+    RectHollow.newRect(start, end).fill(editor, wall, false, true);
 
     BlockBrush floor = settings.getTheme().getPrimary().getFloor();
     start = new Coord(origin);

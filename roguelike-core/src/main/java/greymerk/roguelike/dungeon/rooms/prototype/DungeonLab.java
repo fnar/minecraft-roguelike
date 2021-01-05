@@ -66,7 +66,7 @@ public class DungeonLab extends DungeonBase {
     SingleBlockBrush.AIR.stroke(editor, new Coord(x + 4, y + 4, z + 3));
     SingleBlockBrush.AIR.stroke(editor, new Coord(x + 4, y + 4, z + 4));
 
-    RectHollow.fill(editor, new Coord(x + 1, y + 4, z + 1), new Coord(x + 4, y + 8, z + 4), cobble, false, true);
+    RectHollow.newRect(new Coord(x + 1, y + 4, z + 1), new Coord(x + 4, y + 8, z + 4)).fill(editor, cobble, false, true);
     RectSolid.newRect(new Coord(x + 2, y + 8, z + 2), new Coord(x + 3, y + 8, z + 3)).fill(editor, SingleBlockBrush.AIR);
   }
 
@@ -221,7 +221,7 @@ public class DungeonLab extends DungeonBase {
     RectSolid.newRect(new Coord(x - 1, y + 4, z + 3), new Coord(x + 1, y + 4, z + 5)).fill(editor, SingleBlockBrush.AIR);
 
     // shell
-    RectHollow.fill(editor, new Coord(x - 8, y - 1, z - 8), new Coord(x + 8, y + 4, z + 8), blocks, false, true);
+    RectHollow.newRect(new Coord(x - 8, y - 1, z - 8), new Coord(x + 8, y + 4, z + 8)).fill(editor, blocks, false, true);
     RectSolid.newRect(new Coord(x - 8, y - 1, z - 8), new Coord(x + 8, y - 1, z + 8)).fill(editor, theme.getPrimary().getFloor(), false, true);
 
 

@@ -71,7 +71,7 @@ public class SilverfishNest implements IAlcove {
     BlockBrush egg = InfestedBlock.getJumble();
     fish.addBlock(egg, 20);
     fish.addBlock(BlockType.SOUL_SAND.getBrush(), 5);
-    RectHollow.fill(editor, new Coord(x - 2, y, z - 2), new Coord(x + 2, y + 3, z + 2), fish);
+    RectHollow.newRect(new Coord(x - 2, y, z - 2), new Coord(x + 2, y + 3, z + 2)).fill(editor, fish);
 
     fish.stroke(editor, new Coord(x - 1, y + 2, z));
     fish.stroke(editor, new Coord(x + 1, y + 2, z));

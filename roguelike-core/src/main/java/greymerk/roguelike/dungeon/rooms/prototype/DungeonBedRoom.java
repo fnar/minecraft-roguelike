@@ -66,7 +66,7 @@ public class DungeonBedRoom extends DungeonBase {
     start.translate(Cardinal.DOWN);
     end.translate(Cardinal.UP, 4);
 
-    RectHollow.fill(editor, start, end, theme.getPrimary().getWall(), false, true);
+    RectHollow.newRect(start, end).fill(editor, theme.getPrimary().getWall(), false, true);
 
     start = new Coord(origin);
     start.translate(Cardinal.DOWN);

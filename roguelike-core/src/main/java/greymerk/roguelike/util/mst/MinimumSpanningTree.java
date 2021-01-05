@@ -106,7 +106,7 @@ public class MinimumSpanningTree {
       Coord end = e.getEnd().getPosition();
       end.translate(pos);
 
-      RectHollow.fill(editor, start, end, blocks);
+      RectHollow.newRect(start, end).fill(editor, blocks);
     }
   }
 

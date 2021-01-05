@@ -45,7 +45,7 @@ public class DungeonTreetho extends DungeonBase {
     start.translate(new Coord(-11, -1, -11));
     end.translate(new Coord(11, 8, 11));
 
-    RectHollow.fill(editor, start, end, wall, false, true);
+    RectHollow.newRect(start, end).fill(editor, wall, false, true);
 
     BlockBrush birchSlab = SlabBlock.birch().setTop(true).setFullBlock(false).setSeamless(false);
     BlockBrush pumpkin = PumpkinBlock.jackOLantern();

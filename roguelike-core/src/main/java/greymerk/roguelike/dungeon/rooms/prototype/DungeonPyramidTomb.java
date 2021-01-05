@@ -93,7 +93,7 @@ public class DungeonPyramidTomb extends DungeonBase {
     end.translate(Cardinal.EAST, 7);
     start.translate(Cardinal.DOWN);
     end.translate(Cardinal.UP, 3);
-    RectHollow.fill(editor, start, end, blocks, false, true);
+    RectHollow.newRect(start, end).fill(editor, blocks, false, true);
 
     // floor
     start = new Coord(origin);

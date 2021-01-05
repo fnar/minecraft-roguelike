@@ -45,7 +45,7 @@ public class SegmentTomb extends SegmentBase {
       }
     }
 
-    RectHollow.fill(editor, start, end, theme.getPrimary().getWall());
+    RectHollow.newRect(start, end).fill(editor, theme.getPrimary().getWall());
     if (!(rand.nextInt(3) == 0)) {
       return;
     }

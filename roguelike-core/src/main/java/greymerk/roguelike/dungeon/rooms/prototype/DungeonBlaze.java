@@ -120,7 +120,7 @@ public class DungeonBlaze extends DungeonBase {
     end.translate(Cardinal.SOUTH, 8);
     end.translate(Cardinal.EAST, 8);
     end.translate(Cardinal.UP, 7);
-    RectHollow.fill(editor, start, end, wall, false, true);
+    RectHollow.newRect(start, end).fill(editor, wall, false, true);
 
     start = new Coord(origin);
     start.translate(Cardinal.DOWN);
@@ -229,7 +229,7 @@ public class DungeonBlaze extends DungeonBase {
     end.translate(Cardinal.SOUTH, 4);
     end.translate(Cardinal.WEST, 4);
     end.translate(Cardinal.DOWN, 4);
-    RectHollow.fill(editor, start, end, wall, false, true);
+    RectHollow.newRect(start, end).fill(editor, wall, false, true);
 
     start = new Coord(origin);
     start.translate(Cardinal.DOWN, 2);

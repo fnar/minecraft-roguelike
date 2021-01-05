@@ -43,7 +43,7 @@ public class DungeonLinkerTop extends DungeonBase {
     end = new Coord(origin);
     start.translate(new Coord(-4, -1, -4));
     end.translate(new Coord(4, 5, 4));
-    RectHollow.fill(editor, start, end, wall, false, true);
+    RectHollow.newRect(start, end).fill(editor, wall, false, true);
 
     cursor = new Coord(origin);
     cursor.translate(Cardinal.UP, 5);

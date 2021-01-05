@@ -21,13 +21,8 @@ public class RectHollow implements IShape {
     this.end = end;
   }
 
-  public static void fill(WorldEditor editor, Coord start, Coord end, BlockBrush block) {
-    fill(editor, start, end, block, true, true);
-  }
-
-  public static void fill(WorldEditor editor, Coord start, Coord end, BlockBrush block, boolean fillAir, boolean replaceSolid) {
-    RectHollow rect = new RectHollow(start, end);
-    rect.fill(editor, block, fillAir, replaceSolid);
+  public static RectHollow newRect(Coord start, Coord end) {
+    return new RectHollow(start, end);
   }
 
   @Override
