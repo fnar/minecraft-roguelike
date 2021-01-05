@@ -704,14 +704,14 @@ public class HouseTower implements ITower {
     start.translate(orth[0]);
     end.translate(orth[1]);
     end = new Coord(end.getX(), 60, end.getZ());
-    RectSolid.newRect(start, end).fill(editor, blocks, true, true);
+    RectSolid.newRect(start, end).fill(editor, blocks);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(orth[0]);
     end.translate(orth[1]);
     stair.setUpsideDown(false).setFacing(dir);
-    RectSolid.newRect(start, end).fill(editor, stair, true, true);
+    RectSolid.newRect(start, end).fill(editor, stair);
 
     origin.translate(Cardinal.DOWN);
     origin.translate(dir);

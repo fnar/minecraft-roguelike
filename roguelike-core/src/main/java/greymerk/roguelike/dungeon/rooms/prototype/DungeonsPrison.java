@@ -210,7 +210,7 @@ public class DungeonsPrison extends DungeonBase {
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
     end.translate(Cardinal.UP);
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR, true, true);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     for (Cardinal d : dir.orthogonals()) {
       cursor = new Coord(origin);

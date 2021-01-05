@@ -40,7 +40,7 @@ public class BunkerTower implements ITower {
     end.translate(Cardinal.SOUTH, 5);
     end.translate(Cardinal.WEST, 5);
     end.translate(Cardinal.UP, 4);
-    RectHollow.newRect(start, end).fill(editor, walls, true, true);
+    RectHollow.newRect(start, end).fill(editor, walls);
 
     start = new Coord(origin.getX(), dungeon.getY() + 10, origin.getZ());
     end = new Coord(origin);
@@ -49,7 +49,7 @@ public class BunkerTower implements ITower {
     start.translate(Cardinal.EAST, 5);
     end.translate(Cardinal.SOUTH, 5);
     end.translate(Cardinal.WEST, 5);
-    RectSolid.newRect(start, end).fill(editor, walls, true, true);
+    RectSolid.newRect(start, end).fill(editor, walls);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
       start = new Coord(origin);
@@ -59,15 +59,15 @@ public class BunkerTower implements ITower {
       end.translate(dir.clockwise());
       start = new Coord(start.getX(), dungeon.getY() + 10, start.getZ());
       end.translate(Cardinal.UP, 3);
-      RectSolid.newRect(start, end).fill(editor, walls, true, true);
+      RectSolid.newRect(start, end).fill(editor, walls);
       end.translate(Cardinal.DOWN);
       end.translate(dir);
       start.translate(dir);
-      RectSolid.newRect(start, end).fill(editor, walls, true, true);
+      RectSolid.newRect(start, end).fill(editor, walls);
       end.translate(Cardinal.DOWN);
       end.translate(dir);
       start.translate(dir);
-      RectSolid.newRect(start, end).fill(editor, walls, true, true);
+      RectSolid.newRect(start, end).fill(editor, walls);
     }
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
@@ -81,13 +81,13 @@ public class BunkerTower implements ITower {
       end.translate(dir, 6);
       end.translate(dir.antiClockwise(), 6);
       end.translate(Cardinal.UP, 2);
-      RectSolid.newRect(start, end).fill(editor, walls, true, true);
+      RectSolid.newRect(start, end).fill(editor, walls);
       start.translate(dir);
       start.translate(dir.antiClockwise());
       end.translate(Cardinal.DOWN);
       end.translate(dir);
       end.translate(dir.antiClockwise());
-      RectSolid.newRect(start, end).fill(editor, walls, true, true);
+      RectSolid.newRect(start, end).fill(editor, walls);
 
 
       for (Cardinal o : dir.orthogonals()) {
@@ -99,7 +99,7 @@ public class BunkerTower implements ITower {
         end.translate(o, 5);
         end.translate(Cardinal.UP, 2);
         end.translate(o, 2);
-        RectSolid.newRect(start, end).fill(editor, walls, true, true);
+        RectSolid.newRect(start, end).fill(editor, walls);
       }
     }
 

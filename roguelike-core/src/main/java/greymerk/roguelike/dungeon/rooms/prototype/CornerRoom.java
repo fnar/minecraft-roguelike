@@ -40,7 +40,7 @@ public class CornerRoom extends DungeonBase {
 
       Coord pillarStart = cursor.copy();
       Coord pillarEnd = cursor.copy().up(2);
-      RectSolid.newRect(pillarStart, pillarEnd).fill(editor, primary.getPillar(), true, true);
+      RectSolid.newRect(pillarStart, pillarEnd).fill(editor, primary.getPillar());
 
       Coord pillarTop = cursor.copy().up(1);
       primary.getWall().stroke(editor, pillarTop);
