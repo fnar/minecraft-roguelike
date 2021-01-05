@@ -34,7 +34,7 @@ public class PrisonCell implements IAlcove {
     Coord end = new Coord(start);
     start.translate(new Coord(-2, -1, -2));
     end.translate(new Coord(2, 3, 2));
-    RectHollow.fill(editor, start, end, walls);
+    RectHollow.newRect(start, end).fill(editor, walls);
 
     start = new Coord(origin);
     end = new Coord(origin);

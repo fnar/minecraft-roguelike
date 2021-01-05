@@ -43,7 +43,7 @@ public class DungeonPyramidSpawner extends DungeonBase {
 
 
     // shell
-    RectHollow.fill(editor, new Coord(x - 4, y - 1, z - 4), new Coord(x + 4, y + 4, z + 4), blocks, false, true);
+    RectHollow.newRect(new Coord(x - 4, y - 1, z - 4), new Coord(x + 4, y + 4, z + 4)).fill(editor, blocks, false, true);
     RectSolid.newRect(new Coord(x - 3, y + 4, z - 3), new Coord(x + 3, y + 6, z + 3)).fill(editor, blocks, false, true);
     RectSolid.newRect(new Coord(x - 2, y + 4, z - 2), new Coord(x + 2, y + 4, z + 2)).fill(editor, SingleBlockBrush.AIR);
 

@@ -43,7 +43,7 @@ public class WitchTower implements ITower {
     end.translate(Cardinal.EAST, 3);
     end.translate(Cardinal.UP, 3);
 
-    RectHollow.fill(editor, start, end, blocks);
+    RectHollow.newRect(start, end).fill(editor, blocks);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
 
@@ -92,7 +92,7 @@ public class WitchTower implements ITower {
     end.translate(Cardinal.EAST, 4);
     end.translate(Cardinal.UP, 6);
 
-    RectHollow.fill(editor, start, end, blocks);
+    RectHollow.newRect(start, end).fill(editor, blocks);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
 
@@ -158,7 +158,7 @@ public class WitchTower implements ITower {
     end.translate(Cardinal.EAST, 3);
     end.translate(Cardinal.UP, 4);
 
-    RectHollow.fill(editor, start, end, blocks);
+    RectHollow.newRect(start, end).fill(editor, blocks);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
 
@@ -268,7 +268,7 @@ public class WitchTower implements ITower {
     end.translate(Cardinal.EAST, 2);
     end.translate(Cardinal.UP, 3);
 
-    RectHollow.fill(editor, start, end, blocks);
+    RectHollow.newRect(start, end).fill(editor, blocks);
 
     start = new Coord(attic);
     start.translate(Cardinal.UP, 4);
@@ -277,13 +277,13 @@ public class WitchTower implements ITower {
     start.translate(Cardinal.WEST);
     end.translate(Cardinal.SOUTH);
     end.translate(Cardinal.EAST);
-    RectHollow.fill(editor, start, end, blocks);
+    RectHollow.newRect(start, end).fill(editor, blocks);
 
     start = new Coord(attic);
     start.translate(Cardinal.UP, 5);
     end = new Coord(start);
     end.translate(Cardinal.UP, 2);
-    RectHollow.fill(editor, start, end, blocks);
+    RectHollow.newRect(start, end).fill(editor, blocks);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
 

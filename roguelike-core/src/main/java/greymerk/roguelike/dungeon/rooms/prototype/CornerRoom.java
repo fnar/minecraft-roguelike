@@ -79,7 +79,7 @@ public class CornerRoom extends DungeonBase {
   private void createShell(WorldEditor editor, Coord origin, BlockBrush blocks) {
     Coord roomShellCorner0 = origin.add(-3, -1, -3);
     Coord roomShellCorner1 = origin.add(3, 4, 3);
-    RectHollow.fill(editor, roomShellCorner0, roomShellCorner1, blocks, false, true);
+    RectHollow.newRect(roomShellCorner0, roomShellCorner1).fill(editor, blocks, false, true);
   }
 
   private void fillFloor(WorldEditor editor, Coord origin, BlockBrush floor) {

@@ -46,7 +46,7 @@ public class DungeonDarkHall extends DungeonBase {
     start.translate(Cardinal.DOWN);
     end.translate(Cardinal.UP, 7);
 
-    RectHollow.fill(editor, start, end, outerWall, false, true);
+    RectHollow.newRect(start, end).fill(editor, outerWall, false, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
@@ -58,7 +58,7 @@ public class DungeonDarkHall extends DungeonBase {
     start.translate(Cardinal.UP, 6);
     end.translate(Cardinal.UP, 9);
 
-    RectHollow.fill(editor, start, end, outerWall, false, true);
+    RectHollow.newRect(start, end).fill(editor, outerWall, false, true);
 
     start = new Coord(origin);
     end = new Coord(origin);

@@ -71,7 +71,7 @@ public class DungeonBTeam extends DungeonBase {
     end.translate(dir.clockwise(), 6);
     end.translate(Cardinal.UP, 5);
     start.translate(Cardinal.DOWN);
-    RectHollow.fill(editor, start, end, stonebrick);
+    RectHollow.newRect(start, end).fill(editor, stonebrick);
 
     start = new Coord(origin);
     start.translate(Cardinal.DOWN);

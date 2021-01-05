@@ -38,7 +38,7 @@ public class DungeonsSlime extends DungeonBase {
     end = new Coord(origin);
     start.translate(new Coord(-8, -1, -8));
     end.translate(new Coord(8, 5, 8));
-    RectHollow.fill(editor, start, end, wall, false, true);
+    RectHollow.newRect(start, end).fill(editor, wall, false, true);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(origin);

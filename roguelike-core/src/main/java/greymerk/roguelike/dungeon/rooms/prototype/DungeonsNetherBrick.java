@@ -41,7 +41,7 @@ public class DungeonsNetherBrick extends DungeonBase {
     int width = 2 + random.nextInt(3);
 
     BlockBrush walls = theme.getPrimary().getWall();
-    RectHollow.fill(editor, new Coord(x - length - 1, y - 1, z - width - 1), new Coord(x + length + 1, y + height + 1, z + width + 1), walls, false, true);
+    RectHollow.newRect(new Coord(x - length - 1, y - 1, z - width - 1), new Coord(x + length + 1, y + height + 1, z + width + 1)).fill(editor, walls, false, true);
 
 
     BlockBrush floor = theme.getPrimary().getFloor();

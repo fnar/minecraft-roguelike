@@ -40,7 +40,7 @@ public class BunkerTower implements ITower {
     end.translate(Cardinal.SOUTH, 5);
     end.translate(Cardinal.WEST, 5);
     end.translate(Cardinal.UP, 4);
-    RectHollow.fill(editor, start, end, walls, true, true);
+    RectHollow.newRect(start, end).fill(editor, walls, true, true);
 
     start = new Coord(origin.getX(), dungeon.getY() + 10, origin.getZ());
     end = new Coord(origin);

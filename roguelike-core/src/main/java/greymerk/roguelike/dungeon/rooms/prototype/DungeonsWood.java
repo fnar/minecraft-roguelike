@@ -44,7 +44,7 @@ public class DungeonsWood extends DungeonBase {
 
 
     RectSolid.newRect(new Coord(x - WIDTH, y, z - LENGTH), new Coord(x + WIDTH, y + HEIGHT, z + LENGTH)).fill(editor, SingleBlockBrush.AIR);
-    RectHollow.fill(editor, new Coord(x - WIDTH - 1, y - 1, z - LENGTH - 1), new Coord(x + WIDTH + 1, y + HEIGHT + 1, z + LENGTH + 1), planks, false, true);
+    RectHollow.newRect(new Coord(x - WIDTH - 1, y - 1, z - LENGTH - 1), new Coord(x + WIDTH + 1, y + HEIGHT + 1, z + LENGTH + 1)).fill(editor, planks, false, true);
 
     // log beams
     RectSolid.newRect(new Coord(x - WIDTH, y, z - LENGTH), new Coord(x - WIDTH, y + HEIGHT, z - LENGTH)).fill(editor, pillar);

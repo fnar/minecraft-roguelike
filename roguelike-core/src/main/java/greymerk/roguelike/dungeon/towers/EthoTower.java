@@ -47,7 +47,7 @@ public class EthoTower implements ITower {
     end.translate(Cardinal.EAST);
     end.translate(Cardinal.UP);
 
-    RectHollow.fill(editor, start, end, primary, true, true);
+    RectHollow.newRect(start, end).fill(editor, primary, true, true);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
 

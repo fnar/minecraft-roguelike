@@ -134,7 +134,7 @@ public class DungeonsSmithy extends DungeonBase {
     end.translate(dir.reverse(), 3);
     end.translate(dir.clockwise(), 4);
 
-    RectHollow.fill(editor, start, end, wall);
+    RectHollow.newRect(start, end).fill(editor, wall);
 
     // entrance
     cursor = new Coord(origin);
@@ -150,7 +150,7 @@ public class DungeonsSmithy extends DungeonBase {
     end.translate(dir.reverse(), 3);
     end.translate(dir.clockwise(), 4);
 
-    RectHollow.fill(editor, start, end, wall);
+    RectHollow.newRect(start, end).fill(editor, wall);
 
     // middle
 
@@ -164,7 +164,7 @@ public class DungeonsSmithy extends DungeonBase {
     end.translate(dir.clockwise(), 6);
     end.translate(dir, 4);
 
-    RectHollow.fill(editor, start, end, wall, false, true);
+    RectHollow.newRect(start, end).fill(editor, wall, false, true);
 
   }
 

@@ -49,7 +49,7 @@ public class DungeonsMusic extends DungeonBase {
     end = new Coord(origin);
     start.translate(new Coord(-6, -1, -6));
     end.translate(new Coord(6, 5, 6));
-    RectHollow.fill(editor, start, end, wall, false, true);
+    RectHollow.newRect(start, end).fill(editor, wall, false, true);
 
     start = new Coord(origin);
     end = new Coord(origin);

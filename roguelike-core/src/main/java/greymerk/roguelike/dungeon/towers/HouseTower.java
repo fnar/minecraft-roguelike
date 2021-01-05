@@ -65,7 +65,7 @@ public class HouseTower implements ITower {
     end.translate(dir.antiClockwise(), 8);
     end.translate(dir.reverse(), 5);
     RectSolid.newRect(new Coord(x - 2, floor.getY() + 3, z - 2), new Coord(x + 2, y + 10, z + 2)).fill(editor, walls);
-    RectHollow.fill(editor, start, end, walls);
+    RectHollow.newRect(start, end).fill(editor, walls);
 
     cursor = new Coord(floor);
     cursor.translate(dir.antiClockwise(), 6);
