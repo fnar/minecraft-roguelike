@@ -33,14 +33,14 @@ public class SegmentDoor extends SegmentBase {
     end = new Coord(cursor);
     end.translate(orthogonal[1], 1);
     end.translate(Cardinal.UP, 2);
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     SecretsSetting secrets = level.getSettings().getSecrets();
     Optional<DungeonBase> secretMaybe = generateSecret(secrets, editor, level.getSettings(), dir, new Coord(origin));
 
     start.translate(dir, 1);
     end.translate(dir, 1);
-    RectSolid.fill(editor, start, end, theme.getSecondary().getWall(), false, true);
+    RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall(), false, true);
 
     cursor.translate(Cardinal.UP, 2);
     for (Cardinal d : orthogonal) {

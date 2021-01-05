@@ -53,7 +53,7 @@ public class DungeonOssuary extends DungeonBase {
         end = new Coord(start);
         end.translate(Cardinal.UP, 5);
         end.translate(dir.reverse());
-        RectSolid.fill(editor, start, end, walls);
+        RectSolid.newRect(start, end).fill(editor, walls);
 
         start = new Coord(cursor);
         start.translate(o, 2);
@@ -61,19 +61,19 @@ public class DungeonOssuary extends DungeonBase {
         start.translate(dir.reverse(), 2);
         end = new Coord(start);
         end.translate(Cardinal.UP, 3);
-        RectSolid.fill(editor, start, end, walls);
+        RectSolid.newRect(start, end).fill(editor, walls);
         stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, start);
 
         start.translate(dir.reverse());
         start.translate(Cardinal.UP);
         end.translate(dir.reverse());
-        RectSolid.fill(editor, start, end, walls);
+        RectSolid.newRect(start, end).fill(editor, walls);
         stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, start);
 
         start.translate(dir.reverse());
         start.translate(Cardinal.UP);
         end.translate(dir.reverse());
-        RectSolid.fill(editor, start, end, walls);
+        RectSolid.newRect(start, end).fill(editor, walls);
         stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, start);
 
         start = new Coord(cursor);
@@ -82,15 +82,15 @@ public class DungeonOssuary extends DungeonBase {
         start.translate(dir.antiClockwise());
         end.translate(dir.clockwise());
         end.translate(Cardinal.UP, 3);
-        RectSolid.fill(editor, start, end, walls);
+        RectSolid.newRect(start, end).fill(editor, walls);
         start.translate(Cardinal.UP);
         start.translate(dir.reverse());
         end.translate(dir.reverse());
-        RectSolid.fill(editor, start, end, walls);
+        RectSolid.newRect(start, end).fill(editor, walls);
         start.translate(Cardinal.UP);
         start.translate(dir.reverse());
         end.translate(dir.reverse());
-        RectSolid.fill(editor, start, end, walls);
+        RectSolid.newRect(start, end).fill(editor, walls);
 
         Coord c = new Coord(cursor);
         c.translate(o);
@@ -124,7 +124,7 @@ public class DungeonOssuary extends DungeonBase {
       end = new Coord(cursor);
       end.translate(Cardinal.SOUTH);
       end.translate(Cardinal.WEST);
-      RectSolid.fill(editor, start, end, walls);
+      RectSolid.newRect(start, end).fill(editor, walls);
       SingleBlockBrush.AIR.stroke(editor, cursor);
       for (Cardinal d : Cardinal.DIRECTIONS) {
         Coord c = new Coord(cursor);
@@ -142,7 +142,7 @@ public class DungeonOssuary extends DungeonBase {
       end.translate(dir);
       end.translate(dir.antiClockwise());
       end.translate(Cardinal.UP, 6);
-      RectSolid.fill(editor, start, end, walls);
+      RectSolid.newRect(start, end).fill(editor, walls);
     }
 
     // central ceiling
@@ -154,10 +154,10 @@ public class DungeonOssuary extends DungeonBase {
     end = new Coord(cursor);
     end.translate(Cardinal.SOUTH, 2);
     end.translate(Cardinal.WEST, 2);
-    RectSolid.fill(editor, start, end, walls);
+    RectSolid.newRect(start, end).fill(editor, walls);
     start.translate(Cardinal.DOWN);
     end.translate(Cardinal.DOWN);
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
     SingleBlockBrush.AIR.stroke(editor, cursor);
     for (Cardinal d : Cardinal.DIRECTIONS) {
       Coord c = new Coord(cursor);
@@ -191,7 +191,7 @@ public class DungeonOssuary extends DungeonBase {
       end = new Coord(cursor);
       end.translate(Cardinal.SOUTH);
       end.translate(Cardinal.WEST);
-      RectSolid.fill(editor, start, end, walls);
+      RectSolid.newRect(start, end).fill(editor, walls);
       SingleBlockBrush.AIR.stroke(editor, cursor);
       for (Cardinal d : Cardinal.DIRECTIONS) {
         Coord c = new Coord(cursor);
@@ -218,16 +218,16 @@ public class DungeonOssuary extends DungeonBase {
         start.translate(d, 3);
         end = new Coord(start);
         end.translate(Cardinal.UP, 4);
-        RectSolid.fill(editor, start, end, walls);
+        RectSolid.newRect(start, end).fill(editor, walls);
         start = new Coord(end);
         start.translate(d.orthogonals()[0]);
         end.translate(d.orthogonals()[1]);
         end.translate(Cardinal.UP, 2);
-        RectSolid.fill(editor, start, end, walls);
+        RectSolid.newRect(start, end).fill(editor, walls);
         start.translate(d.reverse());
         end.translate(d.reverse());
         start.translate(Cardinal.UP);
-        RectSolid.fill(editor, start, end, walls);
+        RectSolid.newRect(start, end).fill(editor, walls);
 
         for (Cardinal o : d.orthogonals()) {
           cursor = new Coord(origin);

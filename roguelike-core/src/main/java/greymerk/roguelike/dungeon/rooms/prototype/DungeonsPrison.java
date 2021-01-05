@@ -89,7 +89,7 @@ public class DungeonsPrison extends DungeonBase {
     start.translate(Cardinal.EAST, 3);
     end.translate(Cardinal.SOUTH, 3);
     end.translate(Cardinal.WEST, 3);
-    RectSolid.fill(editor, start, end, wall, false, true);
+    RectSolid.newRect(start, end).fill(editor, wall, false, true);
 
     BlockBrush floor = settings.getTheme().getPrimary().getFloor();
     start = new Coord(origin);
@@ -99,7 +99,7 @@ public class DungeonsPrison extends DungeonBase {
     start.translate(Cardinal.EAST, 3);
     end.translate(Cardinal.SOUTH, 3);
     end.translate(Cardinal.WEST, 3);
-    RectSolid.fill(editor, start, end, floor, false, true);
+    RectSolid.newRect(start, end).fill(editor, floor, false, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
@@ -108,7 +108,7 @@ public class DungeonsPrison extends DungeonBase {
     end.translate(Cardinal.SOUTH, 3);
     end.translate(Cardinal.EAST, 3);
     end.translate(Cardinal.UP, 4);
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     start = new Coord(origin);
     end = new Coord(origin);
@@ -133,7 +133,7 @@ public class DungeonsPrison extends DungeonBase {
     start.translate(Cardinal.EAST);
     end.translate(Cardinal.SOUTH);
     end.translate(Cardinal.WEST);
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
@@ -172,7 +172,7 @@ public class DungeonsPrison extends DungeonBase {
     start.translate(Cardinal.EAST, 3);
     end.translate(Cardinal.SOUTH, 3);
     end.translate(Cardinal.WEST, 3);
-    RectSolid.fill(editor, start, end, wall, false, true);
+    RectSolid.newRect(start, end).fill(editor, wall, false, true);
 
     BlockBrush floor = settings.getTheme().getPrimary().getFloor();
     start = new Coord(origin);
@@ -182,7 +182,7 @@ public class DungeonsPrison extends DungeonBase {
     start.translate(Cardinal.EAST, 3);
     end.translate(Cardinal.SOUTH, 3);
     end.translate(Cardinal.WEST, 3);
-    RectSolid.fill(editor, start, end, floor, false, true);
+    RectSolid.newRect(start, end).fill(editor, floor, false, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
@@ -191,7 +191,7 @@ public class DungeonsPrison extends DungeonBase {
     end.translate(Cardinal.SOUTH, 3);
     end.translate(Cardinal.EAST, 3);
     end.translate(Cardinal.UP, height);
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     start = new Coord(origin);
     end = new Coord(origin);
@@ -210,7 +210,7 @@ public class DungeonsPrison extends DungeonBase {
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
     end.translate(Cardinal.UP);
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR, true, true);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR, true, true);
 
     for (Cardinal d : dir.orthogonals()) {
       cursor = new Coord(origin);
@@ -315,7 +315,7 @@ public class DungeonsPrison extends DungeonBase {
     start.translate(Cardinal.EAST, 1);
     end.translate(Cardinal.SOUTH, 1);
     end.translate(Cardinal.WEST, 1);
-    RectSolid.fill(editor, start, end, floor, false, true);
+    RectSolid.newRect(start, end).fill(editor, floor, false, true);
 
     for (Cardinal dir : entrances) {
       cursor = new Coord(origin);
@@ -325,7 +325,7 @@ public class DungeonsPrison extends DungeonBase {
       start.translate(dir.antiClockwise());
       end.translate(dir.clockwise());
       end.translate(Cardinal.UP, 2);
-      RectSolid.fill(editor, start, end, bar);
+      RectSolid.newRect(start, end).fill(editor, bar);
 
       if (rand.nextBoolean()) {
         SingleBlockBrush.AIR.stroke(editor, cursor);

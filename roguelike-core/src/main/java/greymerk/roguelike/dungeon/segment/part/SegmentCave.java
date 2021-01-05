@@ -35,14 +35,14 @@ public class SegmentCave extends SegmentBase {
     end = new Coord(start);
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
-    RectSolid.fill(editor, start, end, fill);
+    RectSolid.newRect(start, end).fill(editor, fill);
     start.translate(dir);
     end.translate(dir);
-    RectSolid.fill(editor, start, end, fill);
+    RectSolid.newRect(start, end).fill(editor, fill);
     start.translate(Cardinal.DOWN);
-    RectSolid.fill(editor, start, end, fill);
+    RectSolid.newRect(start, end).fill(editor, fill);
     start.translate(Cardinal.DOWN);
-    RectSolid.fill(editor, start, end, fill);
+    RectSolid.newRect(start, end).fill(editor, fill);
 
   }
 }

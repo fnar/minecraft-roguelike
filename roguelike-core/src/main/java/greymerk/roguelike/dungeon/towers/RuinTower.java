@@ -25,20 +25,11 @@ public class RuinTower implements ITower {
     Coord start;
     Coord end;
 
-    RectSolid.fill(editor,
-        new Coord(origin.getX() - 4, floor.getY() + 1, origin.getZ() - 4),
-        new Coord(origin.getX() + 4, floor.getY() + 3, origin.getZ() + 4),
-        SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(origin.getX() - 4, floor.getY() + 1, origin.getZ() - 4), new Coord(origin.getX() + 4, floor.getY() + 3, origin.getZ() + 4)).fill(editor, SingleBlockBrush.AIR);
 
-    RectSolid.fill(editor,
-        new Coord(origin.getX() - 3, floor.getY() - 5, origin.getZ() - 3),
-        new Coord(origin.getX() + 3, floor.getY(), origin.getZ() + 3),
-        blocks);
+    RectSolid.newRect(new Coord(origin.getX() - 3, floor.getY() - 5, origin.getZ() - 3), new Coord(origin.getX() + 3, floor.getY(), origin.getZ() + 3)).fill(editor, blocks);
 
-    RectSolid.fill(editor,
-        new Coord(origin.getX() - 2, origin.getY() + 10, origin.getZ() - 2),
-        new Coord(origin.getX() + 2, floor.getY() - 1, origin.getZ() + 2),
-        blocks, false, true);
+    RectSolid.newRect(new Coord(origin.getX() - 2, origin.getY() + 10, origin.getZ() - 2), new Coord(origin.getX() + 2, floor.getY() - 1, origin.getZ() + 2)).fill(editor, blocks, false, true);
 
     for (int i = floor.getY(); i >= origin.getY(); --i) {
       editor.spiralStairStep(rand, new Coord(origin.getX(), i, origin.getZ()), stair, theme.getPrimary().getPillar());
@@ -49,15 +40,9 @@ public class RuinTower implements ITower {
         cursor = new Coord(floor);
         cursor.translate(dir, 4);
         cursor.translate(orthogonals);
-        RectSolid.fill(editor,
-            new Coord(cursor),
-            new Coord(cursor.getX(), cursor.getY() + 1 + rand.nextInt(3), cursor.getZ()),
-            blocks);
+        RectSolid.newRect(new Coord(cursor), new Coord(cursor.getX(), cursor.getY() + 1 + rand.nextInt(3), cursor.getZ())).fill(editor, blocks);
         cursor.translate(orthogonals);
-        RectSolid.fill(editor,
-            new Coord(cursor),
-            new Coord(cursor.getX(), cursor.getY() + 1 + rand.nextInt(2), cursor.getZ()),
-            blocks);
+        RectSolid.newRect(new Coord(cursor), new Coord(cursor.getX(), cursor.getY() + 1 + rand.nextInt(2), cursor.getZ())).fill(editor, blocks);
       }
 
       start = new Coord(floor);
@@ -66,15 +51,12 @@ public class RuinTower implements ITower {
       end = new Coord(start.getX(), origin.getY() + 10, start.getZ());
       start.translate(dir.antiClockwise(), 2);
       end.translate(dir.clockwise(), 2);
-      RectSolid.fill(editor, start, end, blocks, true, false);
+      RectSolid.newRect(start, end).fill(editor, blocks, true, false);
 
       cursor = new Coord(floor);
       cursor.translate(dir, 3);
       cursor.translate(dir.antiClockwise(), 3);
-      RectSolid.fill(editor,
-          new Coord(cursor.getX(), origin.getY() + 20, cursor.getZ()),
-          new Coord(cursor.getX(), floor.getY() + 2 + rand.nextInt(4), cursor.getZ()),
-          blocks, true, false);
+      RectSolid.newRect(new Coord(cursor.getX(), origin.getY() + 20, cursor.getZ()), new Coord(cursor.getX(), floor.getY() + 2 + rand.nextInt(4), cursor.getZ())).fill(editor, blocks, true, false);
     }
   }
 }

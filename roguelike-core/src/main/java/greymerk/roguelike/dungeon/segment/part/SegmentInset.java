@@ -31,10 +31,10 @@ public class SegmentInset extends SegmentBase {
     start.translate(orthogonals[0], 1);
     end.translate(orthogonals[1], 1);
     end.translate(Cardinal.UP, 2);
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
     start.translate(dir, 1);
     end.translate(dir, 1);
-    RectSolid.fill(editor, start, end, theme.getSecondary().getWall());
+    RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall());
 
     for (Cardinal d : orthogonals) {
       cursor = new Coord(origin);

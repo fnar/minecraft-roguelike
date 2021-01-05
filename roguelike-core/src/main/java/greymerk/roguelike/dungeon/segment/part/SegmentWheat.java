@@ -39,7 +39,7 @@ public class SegmentWheat extends SegmentBase {
     end.translate(orthogonals[1]);
     start.translate(Cardinal.UP, 2);
     end.translate(dir);
-    RectSolid.fill(editor, start, end, theme.getSecondary().getWall());
+    RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall());
 
     start = new Coord(origin);
     start.translate(dir, 2);
@@ -47,18 +47,18 @@ public class SegmentWheat extends SegmentBase {
     start.translate(orthogonals[0], 1);
     end.translate(orthogonals[1], 1);
     end.translate(Cardinal.UP, 1);
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
     start.translate(Cardinal.DOWN, 1);
     end.translate(Cardinal.DOWN, 2);
 
-    RectSolid.fill(editor, start, end, BlockType.FARMLAND.getBrush());
+    RectSolid.newRect(start, end).fill(editor, BlockType.FARMLAND.getBrush());
     start.translate(Cardinal.UP, 1);
     end.translate(Cardinal.UP, 1);
     BlockJumble crops = new BlockJumble();
     crops.addBlock(Crop.WHEAT.getBrush());
     crops.addBlock(Crop.CARROTS.getBrush());
     crops.addBlock(Crop.POTATOES.getBrush());
-    RectSolid.fill(editor, start, end, crops);
+    RectSolid.newRect(start, end).fill(editor, crops);
 
     cursor = new Coord(origin);
     cursor.translate(dir, 3);

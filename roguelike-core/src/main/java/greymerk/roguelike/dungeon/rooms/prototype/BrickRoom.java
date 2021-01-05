@@ -42,13 +42,13 @@ public class BrickRoom extends DungeonBase {
     BlockBrush pillar = theme.getPrimary().getPillar();
 
     // fill air inside
-    RectSolid.fill(editor, new Coord(x - 3, y, z - 3), new Coord(x + 3, y + 3, z + 3), SingleBlockBrush.AIR);
-    RectSolid.fill(editor, new Coord(x - 1, y + 4, z - 1), new Coord(x + 1, y + 4, z + 1), SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(x - 3, y, z - 3), new Coord(x + 3, y + 3, z + 3)).fill(editor, SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(x - 1, y + 4, z - 1), new Coord(x + 1, y + 4, z + 1)).fill(editor, SingleBlockBrush.AIR);
 
     // shell
     RectHollow.fill(editor, new Coord(x - 4, y - 1, z - 4), new Coord(x + 4, y + 4, z + 4), blocks, false, true);
 
-    RectSolid.fill(editor, new Coord(x - 4, y - 1, z - 4), new Coord(x + 4, y - 1, z + 4), theme.getPrimary().getFloor(), false, true);
+    RectSolid.newRect(new Coord(x - 4, y - 1, z - 4), new Coord(x + 4, y - 1, z + 4)).fill(editor, theme.getPrimary().getFloor(), false, true);
 
     Coord start;
     Coord end;
@@ -89,7 +89,7 @@ public class BrickRoom extends DungeonBase {
       start = new Coord(cursor);
       cursor.translate(UP, 2);
       end = new Coord(cursor);
-      RectSolid.fill(editor, start, end, pillar, true, true);
+      RectSolid.newRect(start, end).fill(editor, pillar, true, true);
       cursor.translate(UP, 1);
       blocks.stroke(editor, cursor);
 

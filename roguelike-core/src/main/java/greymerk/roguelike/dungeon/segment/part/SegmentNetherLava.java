@@ -45,7 +45,7 @@ public class SegmentNetherLava extends SegmentBase {
       start.translate(Cardinal.UP, 2);
       end.translate(Cardinal.DOWN, 1);
       if (!isAir) {
-        RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+        RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
         lava.stroke(editor, start);
         start.translate(orthogonals.reverse(), 1);
         lava.stroke(editor, start);

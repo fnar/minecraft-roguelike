@@ -50,12 +50,12 @@ public class DungeonLab extends DungeonBase {
     pillar(editor, theme, x + 5, y, z + 5);
 
     // tile floor
-    RectSolid.fill(editor, new Coord(x, y - 1, z), new Coord(x + 5, y - 1, z + 5), cyan);
-    RectSolid.fill(editor, new Coord(x + 1, y - 1, z + 2), new Coord(x + 4, y - 1, z + 3), doubleSlab);
-    RectSolid.fill(editor, new Coord(x + 2, y - 1, z + 1), new Coord(x + 3, y - 1, z + 4), doubleSlab);
+    RectSolid.newRect(new Coord(x, y - 1, z), new Coord(x + 5, y - 1, z + 5)).fill(editor, cyan);
+    RectSolid.newRect(new Coord(x + 1, y - 1, z + 2), new Coord(x + 4, y - 1, z + 3)).fill(editor, doubleSlab);
+    RectSolid.newRect(new Coord(x + 2, y - 1, z + 1), new Coord(x + 3, y - 1, z + 4)).fill(editor, doubleSlab);
 
     // ceiling dome
-    RectSolid.fill(editor, new Coord(x + 2, y + 4, z + 2), new Coord(x + 3, y + 8, z + 3), SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(x + 2, y + 4, z + 2), new Coord(x + 3, y + 8, z + 3)).fill(editor, SingleBlockBrush.AIR);
     SingleBlockBrush.AIR.stroke(editor, new Coord(x + 3, y + 4, z + 1));
     SingleBlockBrush.AIR.stroke(editor, new Coord(x + 4, y + 4, z + 1));
     SingleBlockBrush.AIR.stroke(editor, new Coord(x + 3, y + 4, z + 4));
@@ -67,7 +67,7 @@ public class DungeonLab extends DungeonBase {
     SingleBlockBrush.AIR.stroke(editor, new Coord(x + 4, y + 4, z + 4));
 
     RectHollow.fill(editor, new Coord(x + 1, y + 4, z + 1), new Coord(x + 4, y + 8, z + 4), cobble, false, true);
-    RectSolid.fill(editor, new Coord(x + 2, y + 8, z + 2), new Coord(x + 3, y + 8, z + 3), SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(x + 2, y + 8, z + 2), new Coord(x + 3, y + 8, z + 3)).fill(editor, SingleBlockBrush.AIR);
   }
 
   // fountains
@@ -80,19 +80,19 @@ public class DungeonLab extends DungeonBase {
 
     corner(editor, theme, x, y, z);
 
-    RectSolid.fill(editor, new Coord(x + 1, y, z + 5), new Coord(x + 4, y, z + 5), stone);
+    RectSolid.newRect(new Coord(x + 1, y, z + 5), new Coord(x + 4, y, z + 5)).fill(editor, stone);
     stair.setUpsideDown(false).setFacing(Cardinal.WEST).stroke(editor, new Coord(x + 1, y + 1, z + 5));
     water.stroke(editor, new Coord(x + 2, y + 1, z + 5));
     slab.stroke(editor, new Coord(x + 2, y + 2, z + 5));
     stair.setUpsideDown(false).setFacing(Cardinal.EAST).stroke(editor, new Coord(x + 3, y + 1, z + 5));
 
-    RectSolid.fill(editor, new Coord(x + 5, y, z + 1), new Coord(x + 5, y, z + 4), stone);
+    RectSolid.newRect(new Coord(x + 5, y, z + 1), new Coord(x + 5, y, z + 4)).fill(editor, stone);
     stair.setUpsideDown(false).setFacing(Cardinal.NORTH).stroke(editor, new Coord(x + 5, y + 1, z + 1));
     water.stroke(editor, new Coord(x + 5, y + 1, z + 2));
     slab.stroke(editor, new Coord(x + 5, y + 2, z + 2));
     stair.setUpsideDown(false).setFacing(Cardinal.SOUTH).stroke(editor, new Coord(x + 5, y + 1, z + 3));
 
-    RectSolid.fill(editor, new Coord(x + 3, y, z + 3), new Coord(x + 4, y, z + 4), stone);
+    RectSolid.newRect(new Coord(x + 3, y, z + 3), new Coord(x + 4, y, z + 4)).fill(editor, stone);
     TorchBlock.torch().setFacing(Cardinal.UP).stroke(editor, new Coord(x + 3, y + 1, z + 3));
 
     stair.setUpsideDown(false).setFacing(Cardinal.NORTH).stroke(editor, new Coord(x + 4, y, z + 1));
@@ -213,16 +213,16 @@ public class DungeonLab extends DungeonBase {
 
     BlockBrush roof = theme.getSecondary().getWall();
     // Wood upper Roof
-    RectSolid.fill(editor, new Coord(x - 6, y + 5, z - 6), new Coord(x + 6, y + 5, z + 6), roof);
-    RectSolid.fill(editor, new Coord(x - 1, y + 4, z - 1), new Coord(x + 1, y + 4, z + 1), SingleBlockBrush.AIR);
-    RectSolid.fill(editor, new Coord(x - 5, y + 4, z - 1), new Coord(x - 3, y + 4, z + 1), SingleBlockBrush.AIR);
-    RectSolid.fill(editor, new Coord(x + 3, y + 4, z - 1), new Coord(x + 5, y + 4, z + 1), SingleBlockBrush.AIR);
-    RectSolid.fill(editor, new Coord(x - 1, y + 4, z - 5), new Coord(x + 1, y + 4, z - 3), SingleBlockBrush.AIR);
-    RectSolid.fill(editor, new Coord(x - 1, y + 4, z + 3), new Coord(x + 1, y + 4, z + 5), SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(x - 6, y + 5, z - 6), new Coord(x + 6, y + 5, z + 6)).fill(editor, roof);
+    RectSolid.newRect(new Coord(x - 1, y + 4, z - 1), new Coord(x + 1, y + 4, z + 1)).fill(editor, SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(x - 5, y + 4, z - 1), new Coord(x - 3, y + 4, z + 1)).fill(editor, SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(x + 3, y + 4, z - 1), new Coord(x + 5, y + 4, z + 1)).fill(editor, SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(x - 1, y + 4, z - 5), new Coord(x + 1, y + 4, z - 3)).fill(editor, SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(x - 1, y + 4, z + 3), new Coord(x + 1, y + 4, z + 5)).fill(editor, SingleBlockBrush.AIR);
 
     // shell
     RectHollow.fill(editor, new Coord(x - 8, y - 1, z - 8), new Coord(x + 8, y + 4, z + 8), blocks, false, true);
-    RectSolid.fill(editor, new Coord(x - 8, y - 1, z - 8), new Coord(x + 8, y - 1, z + 8), theme.getPrimary().getFloor(), false, true);
+    RectSolid.newRect(new Coord(x - 8, y - 1, z - 8), new Coord(x + 8, y - 1, z + 8)).fill(editor, theme.getPrimary().getFloor(), false, true);
 
 
     // corner rooms
@@ -232,22 +232,22 @@ public class DungeonLab extends DungeonBase {
     northEast(editor, theme, x + 2, y, z - 7);
 
     // outer walls
-    RectSolid.fill(editor, new Coord(x - 8, y, z - 7), new Coord(x - 8, y + 3, z - 7), blocks);
-    RectSolid.fill(editor, new Coord(x + 8, y, z - 7), new Coord(x + 8, y + 3, z - 7), blocks);
-    RectSolid.fill(editor, new Coord(x + 8, y, z - 7), new Coord(x + 8, y + 3, z - 7), blocks);
+    RectSolid.newRect(new Coord(x - 8, y, z - 7), new Coord(x - 8, y + 3, z - 7)).fill(editor, blocks);
+    RectSolid.newRect(new Coord(x + 8, y, z - 7), new Coord(x + 8, y + 3, z - 7)).fill(editor, blocks);
+    RectSolid.newRect(new Coord(x + 8, y, z - 7), new Coord(x + 8, y + 3, z - 7)).fill(editor, blocks);
 
     BlockBrush backWalls = theme.getSecondary().getWall();
 
     // wall planks
-    RectSolid.fill(editor, new Coord(x - 8, y + 1, z - 6), new Coord(x - 8, y + 3, z - 3), backWalls);
-    RectSolid.fill(editor, new Coord(x - 8, y + 1, z + 3), new Coord(x - 8, y + 3, z + 6), backWalls);
-    RectSolid.fill(editor, new Coord(x + 8, y + 1, z - 6), new Coord(x + 8, y + 3, z - 3), backWalls);
-    RectSolid.fill(editor, new Coord(x + 8, y + 1, z + 3), new Coord(x + 8, y + 3, z + 6), backWalls);
+    RectSolid.newRect(new Coord(x - 8, y + 1, z - 6), new Coord(x - 8, y + 3, z - 3)).fill(editor, backWalls);
+    RectSolid.newRect(new Coord(x - 8, y + 1, z + 3), new Coord(x - 8, y + 3, z + 6)).fill(editor, backWalls);
+    RectSolid.newRect(new Coord(x + 8, y + 1, z - 6), new Coord(x + 8, y + 3, z - 3)).fill(editor, backWalls);
+    RectSolid.newRect(new Coord(x + 8, y + 1, z + 3), new Coord(x + 8, y + 3, z + 6)).fill(editor, backWalls);
 
-    RectSolid.fill(editor, new Coord(x - 6, y + 1, z - 8), new Coord(x - 3, y + 3, z - 8), backWalls);
-    RectSolid.fill(editor, new Coord(x + 3, y + 1, z - 8), new Coord(x + 6, y + 3, z - 8), backWalls);
-    RectSolid.fill(editor, new Coord(x - 6, y + 1, z + 8), new Coord(x - 3, y + 3, z + 8), backWalls);
-    RectSolid.fill(editor, new Coord(x + 3, y + 1, z + 8), new Coord(x + 6, y + 3, z + 8), backWalls);
+    RectSolid.newRect(new Coord(x - 6, y + 1, z - 8), new Coord(x - 3, y + 3, z - 8)).fill(editor, backWalls);
+    RectSolid.newRect(new Coord(x + 3, y + 1, z - 8), new Coord(x + 6, y + 3, z - 8)).fill(editor, backWalls);
+    RectSolid.newRect(new Coord(x - 6, y + 1, z + 8), new Coord(x - 3, y + 3, z + 8)).fill(editor, backWalls);
+    RectSolid.newRect(new Coord(x + 3, y + 1, z + 8), new Coord(x + 6, y + 3, z + 8)).fill(editor, backWalls);
 
     return this;
   }
@@ -258,9 +258,9 @@ public class DungeonLab extends DungeonBase {
 
     StairsBlock stair = theme.getSecondary().getStair();
     stair.setUpsideDown(true).setFacing(Cardinal.NORTH);
-    RectSolid.fill(editor, new Coord(x + 1, y, z + 5), new Coord(x + 4, y, z + 5), stair);
+    RectSolid.newRect(new Coord(x + 1, y, z + 5), new Coord(x + 4, y, z + 5)).fill(editor, stair);
     stair.setUpsideDown(true).setFacing(Cardinal.EAST);
-    RectSolid.fill(editor, new Coord(x, y, z + 1), new Coord(x, y, z + 4), stair);
+    RectSolid.newRect(new Coord(x, y, z + 1), new Coord(x, y, z + 4)).fill(editor, stair);
 
     if (RogueConfig.getBoolean(RogueConfig.GENEROUS)) {
       Coord bs = new Coord(x + 1, y + 1, z + 5);

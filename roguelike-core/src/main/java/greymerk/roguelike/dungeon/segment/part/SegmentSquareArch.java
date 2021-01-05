@@ -26,13 +26,13 @@ public class SegmentSquareArch extends SegmentBase {
     start.translate(dir, 2);
     end = new Coord(start);
     end.translate(Cardinal.UP, 2);
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     start = new Coord(origin);
     start.translate(dir, 3);
     end = new Coord(start);
     end.translate(Cardinal.UP, 2);
-    RectSolid.fill(editor, start, end, pillar);
+    RectSolid.newRect(start, end).fill(editor, pillar);
 
     for (Cardinal orthogonals : dir.orthogonals()) {
       start = new Coord(origin);
@@ -40,7 +40,7 @@ public class SegmentSquareArch extends SegmentBase {
       start.translate(dir, 2);
       end = new Coord(start);
       end.translate(Cardinal.UP, 2);
-      RectSolid.fill(editor, start, end, pillar);
+      RectSolid.newRect(start, end).fill(editor, pillar);
     }
   }
 }

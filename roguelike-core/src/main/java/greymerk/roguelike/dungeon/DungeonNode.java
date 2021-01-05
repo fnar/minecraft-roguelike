@@ -46,7 +46,7 @@ public class DungeonNode implements IBounded {
     e.translate(Cardinal.SOUTH, size);
     e.translate(Cardinal.EAST, size);
     e.translate(Cardinal.UP, 8);
-    RectSolid.fill(editor, s, e, theme.getPrimary().getWall());
+    RectSolid.newRect(s, e).fill(editor, theme.getPrimary().getWall());
   }
 
   public List<Cardinal> getEntrances() {

@@ -6,10 +6,8 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.WorldEditor;
 
 public class RectSolid implements IShape {
 
@@ -21,14 +19,8 @@ public class RectSolid implements IShape {
     this.end = end;
   }
 
-  // todo: inline?
-  public static void fill(WorldEditor editor, Coord start, Coord end, BlockBrush block) {
-    fill(editor, start, end, block, true, true);
-  }
-
-  // todo: inline?
-  public static void fill(WorldEditor editor, Coord start, Coord end, BlockBrush block, boolean fillAir, boolean replaceSolid) {
-    block.fill(editor, new RectSolid(start, end), fillAir, replaceSolid);
+  public static RectSolid newRect(Coord start, Coord end) {
+    return new RectSolid(start, end);
   }
 
   @Override

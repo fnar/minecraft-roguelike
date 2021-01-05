@@ -37,14 +37,14 @@ public class SegmentMushrooms extends SegmentBase {
     start.translate(orthogonals[0], 1);
     end.translate(orthogonals[1], 1);
     end.translate(Cardinal.UP, 1);
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
     start.translate(Cardinal.DOWN, 1);
     end.translate(Cardinal.DOWN, 2);
 
-    RectSolid.fill(editor, start, end, BlockType.MYCELIUM.getBrush());
+    RectSolid.newRect(start, end).fill(editor, BlockType.MYCELIUM.getBrush());
     start.translate(Cardinal.UP, 1);
     end.translate(Cardinal.UP, 1);
-    RectSolid.fill(editor, start, end, mushrooms);
+    RectSolid.newRect(start, end).fill(editor, mushrooms);
 
     for (Cardinal d : orthogonals) {
       cursor = new Coord(origin);

@@ -35,7 +35,7 @@ public class SegmentFireArch extends SegmentBase {
     end.translate(orthogonals[0]);
     end.translate(Cardinal.UP, 2);
     end.translate(dir);
-    RectSolid.fill(editor, start, end, walls);
+    RectSolid.newRect(start, end).fill(editor, walls);
     cursor = new Coord(origin);
     cursor.translate(dir, 2);
     stair.setUpsideDown(false).setFacing(dir.reverse()).stroke(editor, cursor);

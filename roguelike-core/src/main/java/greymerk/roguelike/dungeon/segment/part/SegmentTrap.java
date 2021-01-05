@@ -48,10 +48,10 @@ public class SegmentTrap extends SegmentBase {
     start.translate(orth[0]);
     end.translate(orth[1]);
     end.translate(Cardinal.UP, 2);
-    RectSolid.fill(editor, start, end, vine);
+    RectSolid.newRect(start, end).fill(editor, vine);
     start.translate(dir);
     end.translate(dir);
-    RectSolid.fill(editor, start, end, wall);
+    RectSolid.newRect(start, end).fill(editor, wall);
 
     cursor = new Coord(origin);
     cursor.translate(Cardinal.UP);
@@ -72,13 +72,13 @@ public class SegmentTrap extends SegmentBase {
     start.translate(dir);
     end.translate(dir.reverse());
 
-    RectSolid.fill(editor, start, end, plate);
+    RectSolid.newRect(start, end).fill(editor, plate);
 
     end.translate(Cardinal.DOWN, 2);
     start = new Coord(end);
     start.translate(dir, 3);
 
-    RectSolid.fill(editor, start, end, wire);
+    RectSolid.newRect(start, end).fill(editor, wire);
 
     cursor = new Coord(start);
     cursor.translate(dir, 2);

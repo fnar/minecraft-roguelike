@@ -54,25 +54,25 @@ public class FortressRoom extends DungeonBase {
     end = new Coord(origin);
     start.translate(new Coord(-4, 6, -4));
     end.translate(new Coord(4, 6, 4));
-    RectSolid.fill(editor, start, end, wall);
+    RectSolid.newRect(start, end).fill(editor, wall);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(new Coord(-3, 7, -3));
     end.translate(new Coord(3, 7, 3));
-    RectSolid.fill(editor, start, end, wall);
+    RectSolid.newRect(start, end).fill(editor, wall);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(new Coord(-2, 7, -2));
     end.translate(new Coord(2, 7, 2));
-    RectSolid.fill(editor, start, end, liquid);
+    RectSolid.newRect(start, end).fill(editor, liquid);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(new Coord(-4, -1, -4));
     end.translate(new Coord(4, -3, 4));
-    RectSolid.fill(editor, start, end, wall, false, true);
+    RectSolid.newRect(start, end).fill(editor, wall, false, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
@@ -84,7 +84,7 @@ public class FortressRoom extends DungeonBase {
     end = new Coord(origin);
     start.translate(new Coord(-3, -1, -3));
     end.translate(new Coord(3, -1, 3));
-    RectSolid.fill(editor, start, end, netherwart, false, true);
+    RectSolid.newRect(start, end).fill(editor, netherwart, false, true);
     List<Coord> chests = (new RectSolid(start, end).get());
 
     List<Coord> chestLocations = chooseRandomLocations(editor.getRandom(), editor.getRandom().nextInt(3) + 1, chests);
@@ -98,7 +98,7 @@ public class FortressRoom extends DungeonBase {
       end = new Coord(start);
       start.translate(dir.antiClockwise(), 6);
       end.translate(dir.clockwise(), 6);
-      RectSolid.fill(editor, start, end, wall);
+      RectSolid.newRect(start, end).fill(editor, wall);
 
       start = new Coord(origin);
       start.translate(UP, 5);
@@ -106,7 +106,7 @@ public class FortressRoom extends DungeonBase {
       end = new Coord(start);
       start.translate(dir.antiClockwise(), 6);
       end.translate(dir.clockwise(), 6);
-      RectSolid.fill(editor, start, end, wall);
+      RectSolid.newRect(start, end).fill(editor, wall);
 
       start = new Coord(origin);
       start.translate(DOWN);
@@ -152,7 +152,7 @@ public class FortressRoom extends DungeonBase {
       start.translate(dir);
       end = new Coord(start);
       end.translate(UP, 5);
-      RectSolid.fill(editor, start, end, pillar);
+      RectSolid.newRect(start, end).fill(editor, pillar);
 
       cursor = new Coord(origin);
       cursor.translate(dir, 2);
@@ -163,7 +163,7 @@ public class FortressRoom extends DungeonBase {
     start = new Coord(origin);
     end = new Coord(start);
     end.translate(UP, 5);
-    RectSolid.fill(editor, start, end, lava);
+    RectSolid.newRect(start, end).fill(editor, lava);
     List<Coord> core = new RectSolid(start, end).get();
     Coord spawnerLocation = core.get(rand.nextInt(core.size()));
     int difficulty = levelSettings.getDifficulty(spawnerLocation);
@@ -183,7 +183,7 @@ public class FortressRoom extends DungeonBase {
     start = new Coord(origin);
     end = new Coord(start);
     end.translate(UP, 5);
-    RectSolid.fill(editor, start, end, pillar);
+    RectSolid.newRect(start, end).fill(editor, pillar);
 
     for (Cardinal dir : DIRECTIONS) {
       cursor = new Coord(origin);

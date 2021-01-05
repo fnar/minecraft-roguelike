@@ -37,7 +37,7 @@ public class DungeonStorage extends DungeonBase {
   private static void pillar(WorldEditor editor, Coord base, ThemeBase theme, int height) {
     Coord top = new Coord(base);
     top.translate(Cardinal.UP, height);
-    RectSolid.fill(editor, base, top, theme.getSecondary().getPillar());
+    RectSolid.newRect(base, top).fill(editor, theme.getSecondary().getPillar());
   }
 
   @Override
@@ -53,7 +53,7 @@ public class DungeonStorage extends DungeonBase {
     List<Coord> chestSpaces = new ArrayList<>();
 
     // space
-    RectSolid.fill(editor, new Coord(x - 6, y, z - 6), new Coord(x + 6, y + 3, z + 6), SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(x - 6, y, z - 6), new Coord(x + 6, y + 3, z + 6)).fill(editor, SingleBlockBrush.AIR);
 
     Coord cursor;
     Coord start;
@@ -61,8 +61,8 @@ public class DungeonStorage extends DungeonBase {
 
     BlockBrush blocks = theme.getPrimary().getWall();
 
-    RectSolid.fill(editor, new Coord(x - 6, y - 1, z - 6), new Coord(x + 6, y - 1, z + 6), blocks);
-    RectSolid.fill(editor, new Coord(x - 5, y + 4, z - 5), new Coord(x + 5, y + 4, z + 5), blocks);
+    RectSolid.newRect(new Coord(x - 6, y - 1, z - 6), new Coord(x + 6, y - 1, z + 6)).fill(editor, blocks);
+    RectSolid.newRect(new Coord(x - 5, y + 4, z - 5), new Coord(x + 5, y + 4, z + 5)).fill(editor, blocks);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
       for (Cardinal orthogonals : dir.orthogonals()) {
@@ -85,7 +85,7 @@ public class DungeonStorage extends DungeonBase {
         end.translate(Cardinal.DOWN, 3);
         end.translate(dir, 1);
         end.translate(orthogonals, 1);
-        RectSolid.fill(editor, start, end, blocks);
+        RectSolid.newRect(start, end).fill(editor, blocks);
 
         cursor = new Coord(x, y, z);
         cursor.translate(dir, 2);
@@ -110,11 +110,11 @@ public class DungeonStorage extends DungeonBase {
         start.translate(Cardinal.UP, 3);
         end = new Coord(start);
         end.translate(orthogonals, 5);
-        RectSolid.fill(editor, start, end, blocks);
+        RectSolid.newRect(start, end).fill(editor, blocks);
         start.translate(dir, 1);
         end.translate(dir, 1);
         end.translate(Cardinal.DOWN, 3);
-        RectSolid.fill(editor, start, end, blocks, false, true);
+        RectSolid.newRect(start, end).fill(editor, blocks, false, true);
 
         cursor = new Coord(x, y, z);
         cursor.translate(dir, 6);
@@ -136,7 +136,7 @@ public class DungeonStorage extends DungeonBase {
         end = new Coord(start);
         end.translate(dir, 3);
         end.translate(orthogonals, 1);
-        RectSolid.fill(editor, start, end, theme.getSecondary().getFloor());
+        RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getFloor());
 
         cursor = new Coord(x, y, z);
         cursor.translate(dir, 5);

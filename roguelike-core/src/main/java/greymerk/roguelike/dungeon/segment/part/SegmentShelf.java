@@ -30,15 +30,15 @@ public class SegmentShelf extends SegmentBase {
     start.translate(orthogonals[0], 1);
     end = new Coord(cursor);
     end.translate(orthogonals[1], 1);
-    RectSolid.fill(editor, start, end, theme.getSecondary().getWall(), false, true);
+    RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall(), false, true);
     start.translate(dir, 1);
     end.translate(dir, 1);
     end.translate(Cardinal.UP, 2);
-    RectSolid.fill(editor, start, end, theme.getSecondary().getWall(), false, true);
+    RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall(), false, true);
     start.translate(dir.reverse(), 1);
     start.translate(Cardinal.UP, 1);
     end.translate(dir.reverse(), 1);
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR, false, true);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR, false, true);
     cursor.translate(Cardinal.UP, 2);
     for (Cardinal d : orthogonals) {
       Coord c = new Coord(cursor);

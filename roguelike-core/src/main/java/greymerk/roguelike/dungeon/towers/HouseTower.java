@@ -55,7 +55,7 @@ public class HouseTower implements ITower {
     end.translate(Cardinal.UP, 8);
     end.translate(dir.reverse(), 7);
     end.translate(dir.antiClockwise(), 10);
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     start = new Coord(floor);
     start.translate(dir.clockwise(), 2);
@@ -64,7 +64,7 @@ public class HouseTower implements ITower {
     end.translate(Cardinal.UP, 3);
     end.translate(dir.antiClockwise(), 8);
     end.translate(dir.reverse(), 5);
-    RectSolid.fill(editor, new Coord(x - 2, floor.getY() + 3, z - 2), new Coord(x + 2, y + 10, z + 2), walls);
+    RectSolid.newRect(new Coord(x - 2, floor.getY() + 3, z - 2), new Coord(x + 2, y + 10, z + 2)).fill(editor, walls);
     RectHollow.fill(editor, start, end, walls);
 
     cursor = new Coord(floor);
@@ -80,7 +80,7 @@ public class HouseTower implements ITower {
     end.translate(Cardinal.DOWN);
     end.translate(dir.reverse(), 4);
     end.translate(dir.antiClockwise(), 7);
-    RectSolid.fill(editor, start, end, mainFloor);
+    RectSolid.newRect(start, end).fill(editor, mainFloor);
 
     start = new Coord(floor);
     start.translate(Cardinal.DOWN, 2);
@@ -89,7 +89,7 @@ public class HouseTower implements ITower {
     end = new Coord(floor.getX(), y + 10, floor.getZ());
     end.translate(dir.reverse(), 5);
     end.translate(dir.antiClockwise(), 8);
-    RectSolid.fill(editor, start, end, walls);
+    RectSolid.newRect(start, end).fill(editor, walls);
 
     cursor = new Coord(floor);
     cursor.translate(dir.reverse(), 5);
@@ -204,7 +204,7 @@ public class HouseTower implements ITower {
     carpet.addBlock(carpet().setColor(DyeColor.chooseRandom(rand)));
     carpet.addBlock(carpet().setColor(DyeColor.chooseRandom(rand)));
     carpet.addBlock(carpet().setColor(DyeColor.chooseRandom(rand)));
-    RectSolid.fill(editor, start, end, carpet);
+    RectSolid.newRect(start, end).fill(editor, carpet);
   }
 
 
@@ -265,7 +265,7 @@ public class HouseTower implements ITower {
     end = new Coord(start);
     end.translate(Cardinal.UP);
     end.translate(dir, 2);
-    RectSolid.fill(editor, start, end, pane);
+    RectSolid.newRect(start, end).fill(editor, pane);
 
     cursor = new Coord(origin);
     cursor.translate(Cardinal.UP, 4);
@@ -275,7 +275,7 @@ public class HouseTower implements ITower {
     end = new Coord(start);
     end.translate(orth[0], 2);
     end.translate(Cardinal.UP);
-    RectSolid.fill(editor, start, end, pane);
+    RectSolid.newRect(start, end).fill(editor, pane);
   }
 
   private void roof(WorldEditor editor, ThemeBase theme, Cardinal dir, Coord origin) {
@@ -315,7 +315,7 @@ public class HouseTower implements ITower {
 
     start.translate(dir.antiClockwise());
     end.translate(dir.antiClockwise());
-    RectSolid.fill(editor, start, end, walls);
+    RectSolid.newRect(start, end).fill(editor, walls);
 
     cursor = new Coord(origin);
     cursor.translate(dir.reverse(), 3);
@@ -389,7 +389,7 @@ public class HouseTower implements ITower {
 
     start.translate(dir.reverse());
     end.translate(dir.reverse());
-    RectSolid.fill(editor, start, end, walls);
+    RectSolid.newRect(start, end).fill(editor, walls);
 
     start = new Coord(end);
     end.translate(dir.reverse(), 2);
@@ -446,7 +446,7 @@ public class HouseTower implements ITower {
     end = new Coord(origin);
     end.translate(orth[0], 3);
     end.translate(dir.reverse(), 6);
-    RectSolid.fill(editor, start, end, floor);
+    RectSolid.newRect(start, end).fill(editor, floor);
 
     start = new Coord(origin);
     start.translate(orth[0], 3);
@@ -454,7 +454,7 @@ public class HouseTower implements ITower {
     end = new Coord(origin);
     end.translate(dir.reverse(), 7);
     end.translate(orth[0], 9);
-    RectSolid.fill(editor, start, end, floor);
+    RectSolid.newRect(start, end).fill(editor, floor);
   }
 
   private void upperWalls(WorldEditor editor, ThemeBase theme, Cardinal dir, Coord origin) {
@@ -470,7 +470,7 @@ public class HouseTower implements ITower {
     end = new Coord(start);
     end.translate(dir.reverse(), 7);
     end.translate(Cardinal.UP, 2);
-    RectSolid.fill(editor, start, end, walls);
+    RectSolid.newRect(start, end).fill(editor, walls);
 
     start = new Coord(origin);
     start.translate(orth[1], 2);
@@ -478,19 +478,19 @@ public class HouseTower implements ITower {
     end = new Coord(start);
     end.translate(orth[0], 4);
     end.translate(Cardinal.UP, 3);
-    RectSolid.fill(editor, start, end, walls);
+    RectSolid.newRect(start, end).fill(editor, walls);
     end.translate(Cardinal.UP);
     end.translate(orth[1]);
     start = new Coord(end);
     start.translate(orth[1], 2);
-    RectSolid.fill(editor, start, end, walls);
+    RectSolid.newRect(start, end).fill(editor, walls);
 
     start = new Coord(origin);
     start.translate(orth[0], 3);
     start.translate(dir, 2);
     end = new Coord(start);
     end.translate(Cardinal.UP, 2);
-    RectSolid.fill(editor, start, end, walls);
+    RectSolid.newRect(start, end).fill(editor, walls);
 
     start = new Coord(origin);
     start.translate(orth[0], 4);
@@ -498,24 +498,24 @@ public class HouseTower implements ITower {
     end = new Coord(start);
     end.translate(orth[0], 4);
     end.translate(Cardinal.UP, 2);
-    RectSolid.fill(editor, start, end, walls);
+    RectSolid.newRect(start, end).fill(editor, walls);
 
     start = new Coord(origin);
     start.translate(orth[0], 9);
     end = new Coord(start);
     end.translate(dir.reverse(), 6);
     end.translate(Cardinal.UP, 3);
-    RectSolid.fill(editor, start, end, walls);
+    RectSolid.newRect(start, end).fill(editor, walls);
     end.translate(Cardinal.UP);
     end.translate(dir);
     start = new Coord(end);
     start.translate(dir, 4);
-    RectSolid.fill(editor, start, end, walls);
+    RectSolid.newRect(start, end).fill(editor, walls);
     end.translate(Cardinal.UP);
     end.translate(dir);
     start = new Coord(end);
     start.translate(dir, 2);
-    RectSolid.fill(editor, start, end, walls);
+    RectSolid.newRect(start, end).fill(editor, walls);
 
 
     start = new Coord(origin);
@@ -524,7 +524,7 @@ public class HouseTower implements ITower {
     end = new Coord(start);
     end.translate(orth[0], 4);
     end.translate(Cardinal.UP, 2);
-    RectSolid.fill(editor, start, end, walls);
+    RectSolid.newRect(start, end).fill(editor, walls);
 
     start = new Coord(origin);
     start.translate(dir.reverse(), 6);
@@ -532,7 +532,7 @@ public class HouseTower implements ITower {
     end = new Coord(start);
     end.translate(orth[0], 4);
     end.translate(Cardinal.UP, 3);
-    RectSolid.fill(editor, start, end, walls);
+    RectSolid.newRect(start, end).fill(editor, walls);
 
     cursor = new Coord(origin);
     cursor.translate(orth[1], 3);
@@ -559,7 +559,7 @@ public class HouseTower implements ITower {
     Coord end;
     end = new Coord(start);
     end.translate(Cardinal.UP, height - 1);
-    RectSolid.fill(editor, start, end, pillar);
+    RectSolid.newRect(start, end).fill(editor, pillar);
   }
 
   private void support(WorldEditor editor, ThemeBase theme, Cardinal[] dirs, Coord origin) {
@@ -572,7 +572,7 @@ public class HouseTower implements ITower {
     start = new Coord(origin);
     end = new Coord(origin);
     end.translate(Cardinal.UP, 2);
-    RectSolid.fill(editor, start, end, pillar);
+    RectSolid.newRect(start, end).fill(editor, pillar);
     cursor = new Coord(origin);
     cursor.translate(Cardinal.DOWN);
     editor.fillDown(cursor, pillar);
@@ -609,7 +609,7 @@ public class HouseTower implements ITower {
     end.translate(orth[1]);
     end.translate(dir.reverse(), 2);
     end.translate(Cardinal.UP, 6);
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     start = new Coord(origin);
     end = new Coord(start);
@@ -617,7 +617,7 @@ public class HouseTower implements ITower {
     start.translate(orth[0]);
     end.translate(Cardinal.UP, 2);
     end.translate(orth[1]);
-    RectSolid.fill(editor, start, end, floor);
+    RectSolid.newRect(start, end).fill(editor, floor);
 
     start = new Coord(origin);
     start.translate(Cardinal.DOWN);
@@ -626,7 +626,7 @@ public class HouseTower implements ITower {
     end.translate(dir);
     start.translate(orth[0]);
     end.translate(orth[1]);
-    RectSolid.fill(editor, start, end, floor);
+    RectSolid.newRect(start, end).fill(editor, floor);
 
     start = new Coord(origin);
     start.translate(Cardinal.DOWN, 2);
@@ -636,7 +636,7 @@ public class HouseTower implements ITower {
     start.translate(orth[0]);
     end.translate(orth[1]);
     end = new Coord(end.getX(), 60, end.getZ());
-    RectSolid.fill(editor, start, end, floor, true, false);
+    RectSolid.newRect(start, end).fill(editor, floor, true, false);
 
     theme.getPrimary().getDoor().setFacing(dir.reverse()).stroke(editor, origin);
 
@@ -670,7 +670,7 @@ public class HouseTower implements ITower {
     start.translate(orth[0]);
     end.translate(orth[1]);
     end.translate(Cardinal.UP, 2);
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     cursor = new Coord(origin);
     cursor.translate(Cardinal.DOWN);
@@ -704,14 +704,14 @@ public class HouseTower implements ITower {
     start.translate(orth[0]);
     end.translate(orth[1]);
     end = new Coord(end.getX(), 60, end.getZ());
-    RectSolid.fill(editor, start, end, blocks, true, true);
+    RectSolid.newRect(start, end).fill(editor, blocks, true, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(orth[0]);
     end.translate(orth[1]);
     stair.setUpsideDown(false).setFacing(dir);
-    RectSolid.fill(editor, start, end, stair, true, true);
+    RectSolid.newRect(start, end).fill(editor, stair, true, true);
 
     origin.translate(Cardinal.DOWN);
     origin.translate(dir);

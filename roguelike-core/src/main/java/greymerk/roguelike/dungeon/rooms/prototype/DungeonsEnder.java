@@ -38,7 +38,7 @@ public class DungeonsEnder extends DungeonBase {
     end = new Coord(origin);
     start.translate(new Coord(-3, 0, -3));
     end.translate(new Coord(3, 2, 3));
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
     for (Cardinal dir : Cardinal.DIRECTIONS) {
 
       Cardinal[] orthogonals = dir.orthogonals();
@@ -50,7 +50,7 @@ public class DungeonsEnder extends DungeonBase {
       start.translate(Cardinal.DOWN, 1);
       end.translate(orthogonals[1], 4);
       end.translate(Cardinal.UP, 5);
-      RectSolid.fill(editor, start, end, black, false, true);
+      RectSolid.newRect(start, end).fill(editor, black, false, true);
 
     }
 
@@ -72,7 +72,7 @@ public class DungeonsEnder extends DungeonBase {
     end.translate(new Coord(4, -1, 4));
 
     BlockCheckers checkers = new BlockCheckers(black, white);
-    RectSolid.fill(editor, start, end, checkers);
+    RectSolid.newRect(start, end).fill(editor, checkers);
 
     start = new Coord(origin);
     end = new Coord(origin);

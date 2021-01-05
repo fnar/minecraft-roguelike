@@ -36,18 +36,18 @@ public class SegmentJungle extends SegmentBase {
     start.translate(orthogonals[0], 1);
     end.translate(orthogonals[1], 1);
     end.translate(Cardinal.UP, 1);
-    RectSolid.fill(editor, start, end, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
     start.translate(Cardinal.DOWN, 1);
     end.translate(Cardinal.DOWN, 2);
 
     if (rand.nextInt(5) == 0) {
-      RectSolid.fill(editor, start, end, BlockType.WATER_FLOWING.getBrush());
+      RectSolid.newRect(start, end).fill(editor, BlockType.WATER_FLOWING.getBrush());
     } else {
-      RectSolid.fill(editor, start, end, BlockType.GRASS.getBrush());
+      RectSolid.newRect(start, end).fill(editor, BlockType.GRASS.getBrush());
       start.translate(Cardinal.UP, 1);
       end.translate(Cardinal.UP, 1);
       if (rand.nextBoolean()) {
-        RectSolid.fill(editor, start, end, leaves);
+        RectSolid.newRect(start, end).fill(editor, leaves);
       }
     }
 
