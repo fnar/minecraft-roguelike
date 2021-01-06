@@ -47,7 +47,7 @@ public class SegmentGeneratorBase implements ISegmentGenerator {
       if (seg == null) {
         return segs;
       }
-      seg.generate(editor, rand, level, orth, level.getSettings().getTheme(), new Coord(pos));
+      seg.generate(editor, rand, level, orth, level.getSettings().getTheme(), pos.copy());
       segs.add(seg);
     }
 

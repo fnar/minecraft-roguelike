@@ -84,7 +84,7 @@ public class ObsidianRoom extends DungeonBase {
         start.translate(Cardinal.DOWN, 1);
         start.translate(orthogonal, 2);
         start.translate(dir, 2);
-        Coord end = new Coord(start);
+        Coord end = start.copy();
         end.translate(dir, 5);
         RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getPillar());
 
@@ -94,7 +94,7 @@ public class ObsidianRoom extends DungeonBase {
         start.translate(orthogonal, 5);
         secondaryWall.stroke(editor, start);
         start.translate(Cardinal.DOWN, 1);
-        end = new Coord(start);
+        end = start.copy();
         end.translate(dir.reverse(), 1);
         end.translate(orthogonal, 1);
         end.translate(Cardinal.DOWN, 1);
@@ -151,7 +151,7 @@ public class ObsidianRoom extends DungeonBase {
         start.translate(Cardinal.UP, 3);
         start.translate(dir, 3);
         start.translate(orthogonal, 3);
-        Coord end = new Coord(start);
+        Coord end = start.copy();
         end.translate(Cardinal.UP, 2);
         end.translate(dir, 2);
         end.translate(orthogonal, 2);
@@ -160,7 +160,7 @@ public class ObsidianRoom extends DungeonBase {
         start = new Coord(x, y, z);
         start.translate(dir, 3);
         start.translate(Cardinal.UP, 3);
-        end = new Coord(start);
+        end = start.copy();
         end.translate(dir, 2);
         start.translate(orthogonal, 1);
         end.translate(Cardinal.UP, 2);
@@ -169,9 +169,9 @@ public class ObsidianRoom extends DungeonBase {
         Coord cursor = new Coord(x, y, z);
         cursor.translate(Cardinal.UP, 4);
         cursor.translate(dir, 4);
-        spawnerLocations.add(new Coord(cursor));
+        spawnerLocations.add(cursor.copy());
         cursor.translate(orthogonal, 4);
-        spawnerLocations.add(new Coord(cursor));
+        spawnerLocations.add(cursor.copy());
 
         cursor = new Coord(x, y, z);
         cursor.translate(Cardinal.UP, 5);
@@ -189,7 +189,7 @@ public class ObsidianRoom extends DungeonBase {
       // outer wall trim
       Coord start = new Coord(x, y, z);
       start.translate(dir, 10);
-      Coord end = new Coord(start);
+      Coord end = start.copy();
       start.translate(dir.antiClockwise(), 9);
       end.translate(dir.clockwise(), 9);
 
@@ -205,7 +205,7 @@ public class ObsidianRoom extends DungeonBase {
       start = new Coord(x, y, z);
       start.translate(dir, 6);
       start.translate(Cardinal.UP, 3);
-      end = new Coord(start);
+      end = start.copy();
       start.translate(dir.antiClockwise(), 9);
       end.translate(dir.clockwise(), 9);
       RectSolid.newRect(start, end).fill(worldEditor, secondaryWall);
@@ -214,7 +214,7 @@ public class ObsidianRoom extends DungeonBase {
       start = new Coord(x, y, z);
       start.translate(dir, 2);
       start.translate(Cardinal.UP, 3);
-      end = new Coord(start);
+      end = start.copy();
       start.translate(dir.antiClockwise(), 9);
       end.translate(dir.clockwise(), 9);
       RectSolid.newRect(start, end).fill(worldEditor, secondaryWall);
@@ -222,7 +222,7 @@ public class ObsidianRoom extends DungeonBase {
       // outer shell
       start = new Coord(x, y, z);
       start.translate(dir, 11);
-      end = new Coord(start);
+      end = start.copy();
       start.translate(Cardinal.DOWN, 3);
       end.translate(Cardinal.UP, 3);
       start.translate(dir.antiClockwise(), 11);
@@ -236,7 +236,7 @@ public class ObsidianRoom extends DungeonBase {
     for (Cardinal dir : Cardinal.DIRECTIONS) {
       Coord start = new Coord(x, y, z);
       start.translate(Cardinal.DOWN, 1);
-      Coord end = new Coord(start);
+      Coord end = start.copy();
       end.translate(Cardinal.DOWN, 3);
       start.translate(dir, 9);
       start.translate(dir.antiClockwise(), 1);
@@ -248,7 +248,7 @@ public class ObsidianRoom extends DungeonBase {
     for (Cardinal dir : Cardinal.DIRECTIONS) {
       for (Cardinal orthogonal : dir.orthogonals()) {
         Coord start = new Coord(x, y, z);
-        Coord end = new Coord(start);
+        Coord end = start.copy();
         start.translate(dir, 9);
         start.translate(orthogonal, 2);
         start.translate(Cardinal.DOWN, 3);
@@ -301,9 +301,9 @@ public class ObsidianRoom extends DungeonBase {
         Coord cursor = new Coord(x, y, z);
         cursor.translate(Cardinal.DOWN, 2);
         cursor.translate(dir, 3);
-        liquidWindow(worldEditor, new Coord(cursor), orthogonal, theme);
+        liquidWindow(worldEditor, cursor.copy(), orthogonal, theme);
         cursor.translate(dir, 2);
-        liquidWindow(worldEditor, new Coord(cursor), orthogonal, theme);
+        liquidWindow(worldEditor, cursor.copy(), orthogonal, theme);
 
         Coord chestPos = new Coord(x, y, z);
         chestPos.translate(dir, 4);
@@ -325,8 +325,8 @@ public class ObsidianRoom extends DungeonBase {
     crap.addBlock(BlockType.SOUL_SAND.getBrush());
     crap.addBlock(BlockType.OBSIDIAN.getBrush());
 
-    Coord start = new Coord(origin);
-    Coord end = new Coord(start);
+    Coord start = origin.copy();
+    Coord end = start.copy();
     start.translate(Cardinal.DOWN, 5);
     end.translate(Cardinal.DOWN, 8);
     start.translate(Cardinal.NORTH, 6);

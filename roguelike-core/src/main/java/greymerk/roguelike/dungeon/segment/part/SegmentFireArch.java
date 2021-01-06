@@ -28,15 +28,15 @@ public class SegmentFireArch extends SegmentBase {
 
     Cardinal[] orthogonals = dir.orthogonals();
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(dir, 3);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(orthogonals[0]);
     end.translate(orthogonals[0]);
     end.translate(Cardinal.UP, 2);
     end.translate(dir);
     RectSolid.newRect(start, end).fill(editor, walls);
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(dir, 2);
     stair.setUpsideDown(false).setFacing(dir.reverse()).stroke(editor, cursor);
     cursor.translate(Cardinal.UP, 2);
@@ -51,7 +51,7 @@ public class SegmentFireArch extends SegmentBase {
 
     for (Cardinal orthogonal : orthogonals) {
 
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(dir);
       cursor.translate(orthogonal);
       cursor.translate(Cardinal.UP, 2);

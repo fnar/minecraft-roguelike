@@ -31,7 +31,7 @@ public class CobwebFilter implements IFilter {
 
   private boolean validLocation(WorldEditor editor, Coord pos) {
     for (Cardinal dir : Cardinal.values()) {
-      Coord cursor = new Coord(pos);
+      Coord cursor = pos.copy();
       cursor.translate(dir);
       if (!editor.isAirBlock(cursor)) {
         return true;
@@ -52,7 +52,7 @@ public class CobwebFilter implements IFilter {
 
     for (int i = 0; i < 2; ++i) {
       Cardinal dir = Cardinal.values()[rand.nextInt(Cardinal.values().length)];
-      Coord cursor = new Coord(pos);
+      Coord cursor = pos.copy();
       cursor.translate(dir);
       generate(editor, rand, cursor, count - 1);
     }

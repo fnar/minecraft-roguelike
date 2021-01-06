@@ -35,23 +35,23 @@ public class SegmentSewerDoor extends SegmentBase {
 
     Cardinal[] orthogonal = dir.orthogonals();
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(Cardinal.DOWN);
     bars.stroke(editor, cursor);
-    start = new Coord(cursor);
-    end = new Coord(start);
+    start = cursor.copy();
+    end = start.copy();
     start.translate(orthogonal[0]);
     end.translate(orthogonal[1]);
     stair.setUpsideDown(true).setFacing(orthogonal[0]).stroke(editor, start);
     stair.setUpsideDown(true).setFacing(orthogonal[1]).stroke(editor, end);
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(Cardinal.DOWN);
     bars.stroke(editor, cursor);
     start.translate(Cardinal.DOWN);
     end.translate(Cardinal.DOWN);
     RectSolid.newRect(start, end).fill(editor, water);
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(Cardinal.UP, 3);
     bars.stroke(editor, cursor);
     cursor.translate(Cardinal.UP);
@@ -61,17 +61,17 @@ public class SegmentSewerDoor extends SegmentBase {
     cursor.translate(dir);
     glowstone.stroke(editor, cursor, false, true);
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(dir, 2);
-    start = new Coord(cursor);
+    start = cursor.copy();
     start.translate(orthogonal[0], 1);
-    end = new Coord(cursor);
+    end = cursor.copy();
     end.translate(orthogonal[1], 1);
     end.translate(Cardinal.UP, 2);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     SecretsSetting secrets = level.getSettings().getSecrets();
-    Optional<DungeonBase> room = generateSecret(secrets, editor, level.getSettings(), dir, new Coord(origin));
+    Optional<DungeonBase> room = generateSecret(secrets, editor, level.getSettings(), dir, origin.copy());
 
     start.translate(dir, 1);
     end.translate(dir, 1);
@@ -79,14 +79,14 @@ public class SegmentSewerDoor extends SegmentBase {
 
     cursor.translate(Cardinal.UP, 2);
     for (Cardinal d : orthogonal) {
-      Coord c = new Coord(cursor);
+      Coord c = cursor.copy();
       c.translate(d, 1);
       stair.setUpsideDown(true).setFacing(d.reverse());
       stair.stroke(editor, c);
     }
 
     if (room.isPresent()) {
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(dir, 3);
       theme.getSecondary().getDoor().setFacing(dir.reverse()).stroke(editor, cursor);
     }

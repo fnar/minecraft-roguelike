@@ -28,9 +28,9 @@ public class SegmentSkull extends SegmentBase {
 
     Cardinal[] orthogonals = dir.orthogonals();
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(dir, 2);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(orthogonals[0], 1);
     end.translate(orthogonals[1], 1);
     end.translate(Cardinal.UP, 2);
@@ -40,20 +40,20 @@ public class SegmentSkull extends SegmentBase {
     RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall());
 
     for (Cardinal d : orthogonals) {
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(Cardinal.UP, 2);
       cursor.translate(dir, 2);
       cursor.translate(d, 1);
       stair.stroke(editor, cursor);
 
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(dir, 2);
       cursor.translate(d, 1);
       stair.setUpsideDown(false).setFacing(d.reverse());
       stair.stroke(editor, cursor);
     }
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(Cardinal.UP, 1);
     cursor.translate(dir, 3);
     SingleBlockBrush.AIR.stroke(editor, cursor);
@@ -62,9 +62,9 @@ public class SegmentSkull extends SegmentBase {
     stair.stroke(editor, cursor);
 
 
-    Coord shelf = new Coord(origin);
+    Coord shelf = origin.copy();
     shelf.translate(dir, 3);
-    Coord below = new Coord(shelf);
+    Coord below = shelf.copy();
     shelf.translate(Cardinal.UP, 1);
 
     if (editor.isAirBlock(below)) {

@@ -73,9 +73,9 @@ public class DungeonPyramidSpawner extends DungeonBase {
       cursor = new Coord(x, y, z);
       cursor.translate(dir, 3);
       cursor.translate(dir.antiClockwise(), 3);
-      start = new Coord(cursor);
+      start = cursor.copy();
       cursor.translate(Cardinal.UP, 3);
-      end = new Coord(cursor);
+      end = cursor.copy();
       RectSolid.newRect(start, end).fill(worldEditor, pillar);
       cursor.translate(Cardinal.UP, 1);
       blocks.stroke(worldEditor, cursor);

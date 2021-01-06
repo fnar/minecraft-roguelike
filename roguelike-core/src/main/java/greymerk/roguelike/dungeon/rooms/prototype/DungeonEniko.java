@@ -34,12 +34,12 @@ public class DungeonEniko extends DungeonBase {
     Coord end;
     Coord cursor;
 
-    start = new Coord(origin);
-    end = new Coord(start);
+    start = origin.copy();
+    end = start.copy();
     end.translate(Cardinal.UP, 3);
     RectSolid.newRect(start, end).fill(editor, pillar);
     for (Cardinal dir : Cardinal.DIRECTIONS) {
-      cursor = new Coord(end);
+      cursor = end.copy();
       cursor.translate(dir);
       stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor, true, false);
     }
@@ -57,56 +57,56 @@ public class DungeonEniko extends DungeonBase {
     Coord cursor;
     List<Coord> chests = new ArrayList<>();
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(new Coord(6, -1, 6));
     end.translate(new Coord(-6, 4, -6));
     RectHollow.newRect(start, end).fill(worldEditor, walls, false, true);
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(new Coord(6, 4, 6));
     end.translate(new Coord(-6, 5, -6));
     RectSolid.newRect(start, end).fill(worldEditor, theme.getSecondary().getWall(), false, true);
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(new Coord(3, 4, 3));
     end.translate(new Coord(-3, 4, -3));
     RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(new Coord(-3, -1, -3));
     end.translate(new Coord(3, -1, 3));
     RectSolid.newRect(start, end).fill(worldEditor, floor);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(dir, 5);
       for (Cardinal o : dir.orthogonals()) {
-        Coord c = new Coord(cursor);
+        Coord c = cursor.copy();
         c.translate(o, 2);
         pillar(worldEditor, theme, c);
 
-        c = new Coord(cursor);
+        c = cursor.copy();
         c.translate(o, 3);
         stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
         c.translate(o);
         stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
         c.translate(Cardinal.UP);
-        chests.add(new Coord(c));
+        chests.add(c.copy());
         c.translate(o.reverse());
-        chests.add(new Coord(c));
+        chests.add(c.copy());
       }
 
       cursor.translate(dir.antiClockwise(), 5);
       pillar(worldEditor, theme, cursor);
 
       if (entrances.contains(dir)) {
-        start = new Coord(origin);
+        start = origin.copy();
         start.translate(Cardinal.DOWN);
-        end = new Coord(start);
+        end = start.copy();
         start.translate(dir.antiClockwise());
         end.translate(dir.clockwise());
         end.translate(dir, 6);

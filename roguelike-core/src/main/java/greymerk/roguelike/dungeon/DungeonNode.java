@@ -21,7 +21,7 @@ public class DungeonNode implements IBounded {
 
   public DungeonNode(List<Cardinal> entrances, Coord origin) {
     this.entrances = entrances;
-    pos = new Coord(origin);
+    pos = origin.copy();
   }
 
   public void setDungeon(DungeonBase toGenerate) {
@@ -38,8 +38,8 @@ public class DungeonNode implements IBounded {
 
   public void encase(WorldEditor editor, ThemeBase theme) {
     int size = getSize();
-    Coord s = new Coord(getPosition());
-    Coord e = new Coord(s);
+    Coord s = getPosition().copy();
+    Coord e = s.copy();
     s.translate(Cardinal.NORTH, size);
     s.translate(Cardinal.WEST, size);
     s.translate(Cardinal.DOWN, 3);
@@ -54,7 +54,7 @@ public class DungeonNode implements IBounded {
   }
 
   public Coord getPosition() {
-    return new Coord(pos);
+    return pos.copy();
   }
 
   public DungeonBase getRoom() {
@@ -62,8 +62,8 @@ public class DungeonNode implements IBounded {
   }
 
   public BoundingBox getBoundingBox(int size) {
-    Coord start = new Coord(pos);
-    Coord end = new Coord(pos);
+    Coord start = pos.copy();
+    Coord end = pos.copy();
 
     start.translate(Cardinal.NORTH, size);
     start.translate(Cardinal.WEST, size);

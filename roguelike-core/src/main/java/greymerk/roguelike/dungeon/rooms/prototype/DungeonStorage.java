@@ -35,7 +35,7 @@ public class DungeonStorage extends DungeonBase {
   }
 
   private static void pillar(WorldEditor editor, Coord base, ThemeBase theme, int height) {
-    Coord top = new Coord(base);
+    Coord top = base.copy();
     top.translate(Cardinal.UP, height);
     RectSolid.newRect(base, top).fill(editor, theme.getSecondary().getPillar());
   }
@@ -75,13 +75,13 @@ public class DungeonStorage extends DungeonBase {
         cursor.translate(dir, 3);
         cursor.translate(orthogonals, 3);
         pillarTop(worldEditor, theme, cursor);
-        start = new Coord(cursor);
+        start = cursor.copy();
 
         cursor.translate(Cardinal.DOWN, 1);
         cursor.translate(dir, 1);
         pillarTop(worldEditor, theme, cursor);
 
-        end = new Coord(cursor);
+        end = cursor.copy();
         end.translate(Cardinal.DOWN, 3);
         end.translate(dir, 1);
         end.translate(orthogonals, 1);
@@ -108,7 +108,7 @@ public class DungeonStorage extends DungeonBase {
         start = new Coord(x, y, z);
         start.translate(dir, 6);
         start.translate(Cardinal.UP, 3);
-        end = new Coord(start);
+        end = start.copy();
         end.translate(orthogonals, 5);
         RectSolid.newRect(start, end).fill(worldEditor, blocks);
         start.translate(dir, 1);
@@ -125,15 +125,15 @@ public class DungeonStorage extends DungeonBase {
         cursor.translate(orthogonals, 1);
         stair.stroke(worldEditor, cursor);
         cursor.translate(Cardinal.UP, 1);
-        chestSpaces.add(new Coord(cursor));
+        chestSpaces.add(cursor.copy());
         cursor.translate(orthogonals.reverse(), 1);
-        chestSpaces.add(new Coord(cursor));
+        chestSpaces.add(cursor.copy());
 
         start = new Coord(x, y, z);
         start.translate(Cardinal.DOWN, 1);
         start.translate(dir, 3);
         start.translate(orthogonals, 3);
-        end = new Coord(start);
+        end = start.copy();
         end.translate(dir, 3);
         end.translate(orthogonals, 1);
         RectSolid.newRect(start, end).fill(worldEditor, theme.getSecondary().getFloor());

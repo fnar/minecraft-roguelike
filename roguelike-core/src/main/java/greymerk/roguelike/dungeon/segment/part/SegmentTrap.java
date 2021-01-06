@@ -42,9 +42,9 @@ public class SegmentTrap extends SegmentBase {
     Coord start;
     Coord end;
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(dir, 2);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(orth[0]);
     end.translate(orth[1]);
     end.translate(Cardinal.UP, 2);
@@ -53,13 +53,13 @@ public class SegmentTrap extends SegmentBase {
     end.translate(dir);
     RectSolid.newRect(start, end).fill(editor, wall);
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(Cardinal.UP);
     cursor.translate(dir, 3);
     SingleBlockBrush.AIR.stroke(editor, cursor);
 
     for (Cardinal side : orth) {
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(dir, 2);
       cursor.translate(side);
       stair.setUpsideDown(false).setFacing(side.reverse()).stroke(editor, cursor);
@@ -67,20 +67,20 @@ public class SegmentTrap extends SegmentBase {
       stair.setUpsideDown(true).setFacing(side.reverse()).stroke(editor, cursor);
     }
 
-    start = new Coord(origin);
-    end = new Coord(start);
+    start = origin.copy();
+    end = start.copy();
     start.translate(dir);
     end.translate(dir.reverse());
 
     RectSolid.newRect(start, end).fill(editor, plate);
 
     end.translate(Cardinal.DOWN, 2);
-    start = new Coord(end);
+    start = end.copy();
     start.translate(dir, 3);
 
     RectSolid.newRect(start, end).fill(editor, wire);
 
-    cursor = new Coord(start);
+    cursor = start.copy();
     cursor.translate(dir, 2);
     TorchBlock.redstone().setFacing(dir).stroke(editor, cursor);
     cursor.translate(Cardinal.UP, 2);

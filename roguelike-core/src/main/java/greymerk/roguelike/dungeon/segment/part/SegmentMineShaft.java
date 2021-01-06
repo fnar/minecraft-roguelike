@@ -21,13 +21,13 @@ public class SegmentMineShaft extends SegmentBase {
 
     Cardinal[] orthogonal = dir.orthogonals();
 
-    Coord cursor = new Coord(origin);
+    Coord cursor = origin.copy();
     Coord start;
     Coord end;
 
-    start = new Coord(cursor);
+    start = cursor.copy();
     start.translate(dir, 2);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(orthogonal[0]);
     end.translate(orthogonal[1]);
     end.translate(Cardinal.UP, 3);
@@ -37,19 +37,19 @@ public class SegmentMineShaft extends SegmentBase {
     cursor.translate(orthogonal[0]);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(dir, 2);
-    end = new Coord(start);
+    end = start.copy();
     end.translate(Cardinal.UP, 3);
     RectSolid.newRect(start, end).fill(editor, wall);
-    start = new Coord(end);
-    cursor = new Coord(end);
+    start = end.copy();
+    cursor = end.copy();
     start.translate(orthogonal[0]);
     end.translate(orthogonal[1]);
     RectSolid.newRect(start, end).fill(editor, wall);
 
-    start = new Coord(cursor);
-    end = new Coord(cursor);
+    start = cursor.copy();
+    end = cursor.copy();
     end.translate(dir.reverse(), 2);
     RectSolid.newRect(start, end).fill(editor, wall);
   }

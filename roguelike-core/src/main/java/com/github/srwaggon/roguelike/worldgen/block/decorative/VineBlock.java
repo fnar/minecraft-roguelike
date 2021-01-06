@@ -28,7 +28,7 @@ public class VineBlock extends SingleBlockBrush {
       if (dir == Cardinal.DOWN) {
         return false;
       }
-      Coord c = new Coord(origin);
+      Coord c = origin.copy();
       if (editor.canPlace(this, c, dir)) {
         setFacing(dir);
         super.stroke(editor, origin, fillAir, replaceSolid);

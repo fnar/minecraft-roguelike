@@ -234,8 +234,8 @@ public class Dungeon {
   }
 
   private boolean isFreeOverhead(Coord cursor) {
-    Coord start = new Coord(cursor).translate(new Coord(-4, 4, -4));
-    Coord end = new Coord(cursor).translate(new Coord(4, 4, 4));
+    Coord start = cursor.copy().translate(new Coord(-4, 4, -4));
+    Coord end = cursor.copy().translate(new Coord(4, 4, 4));
 
     for (Coord c : new RectSolid(start, end)) {
       if (editor.validGroundBlock(c)) {
@@ -246,8 +246,8 @@ public class Dungeon {
   }
 
   private boolean isSolidBelow(Coord cursor) {
-    Coord start1 = new Coord(cursor).translate(new Coord(-4, -3, -4));
-    Coord end1 = new Coord(cursor).translate(new Coord(4, -3, 4));
+    Coord start1 = cursor.copy().translate(new Coord(-4, -3, -4));
+    Coord end1 = cursor.copy().translate(new Coord(4, -3, 4));
     int airCount = 0;
     for (Coord c : new RectSolid(start1, end1)) {
       if (!editor.validGroundBlock(c)) {
@@ -261,7 +261,7 @@ public class Dungeon {
   }
 
   public Coord getPosition() {
-    return new Coord(origin);
+    return origin.copy();
   }
 
   public List<DungeonLevel> getLevels() {

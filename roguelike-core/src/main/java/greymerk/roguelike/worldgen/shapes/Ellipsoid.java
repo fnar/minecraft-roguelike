@@ -15,8 +15,8 @@ public class Ellipsoid implements IShape {
   private Coord end;
 
   public Ellipsoid(Coord start, Coord end) {
-    this.start = new Coord(start);
-    this.end = new Coord(end);
+    this.start = start.copy();
+    this.end = end.copy();
   }
 
   @Nonnull
@@ -45,9 +45,9 @@ public class Ellipsoid implements IShape {
 
 
     public EllipsoidIterator(Coord centre, Coord end) {
-      this.centre = new Coord(centre);
-      Coord s = new Coord(centre);
-      Coord e = new Coord(end);
+      this.centre = centre.copy();
+      Coord s = centre.copy();
+      Coord e = end.copy();
 
       diff = e.translate(-s.getX(), -s.getY(), -s.getZ());
       diff = new Coord(Math.abs(diff.getX()), Math.abs(diff.getY()), Math.abs(diff.getZ()));
@@ -64,7 +64,7 @@ public class Ellipsoid implements IShape {
 
     @Override
     public Coord next() {
-      Coord toReturn = new Coord(centre);
+      Coord toReturn = centre.copy();
       toReturn.translate(top ? Cardinal.UP : Cardinal.DOWN, cursor.getY());
       if (dir == Cardinal.NORTH || dir == Cardinal.SOUTH) {
         toReturn.translate(dir.antiClockwise(), cursor.getX());

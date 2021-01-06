@@ -53,7 +53,7 @@ public class TallPlantBlock extends SingleBlockBrush {
   public boolean stroke(WorldEditor editor, Coord pos, boolean fillAir, boolean replaceSolid) {
     boolean isSuccess = super.stroke(editor, pos, fillAir, replaceSolid);
     if (!isTop()) {
-      isSuccess = isSuccess && getTop().stroke(editor, new Coord(pos).up(1), fillAir, replaceSolid);
+      isSuccess = isSuccess && getTop().stroke(editor, pos.copy().up(1), fillAir, replaceSolid);
     }
     return isSuccess;
   }

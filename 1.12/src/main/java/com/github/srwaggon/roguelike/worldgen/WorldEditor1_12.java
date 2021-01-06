@@ -224,16 +224,16 @@ public class WorldEditor1_12 implements WorldEditor {
     Coord start;
     Coord end;
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(new Coord(-1, 0, -1));
-    end = new Coord(origin);
+    end = origin.copy();
     end.translate(new Coord(1, 0, 1));
 
     RectSolid.newRect(start, end).fill(this, SingleBlockBrush.AIR);
     fill.stroke(this, origin);
 
     Cardinal dir = Cardinal.DIRECTIONS.get(origin.getY() % 4);
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(dir);
     stair.setUpsideDown(false).setFacing(dir.antiClockwise()).stroke(this, cursor);
     cursor.translate(dir.clockwise());
@@ -245,7 +245,7 @@ public class WorldEditor1_12 implements WorldEditor {
   @Override
   public void fillDown(Coord origin, BlockBrush blocks) {
 
-    Coord cursor = new Coord(origin);
+    Coord cursor = origin.copy();
 
     while (!isOpaqueCubeBlock(cursor) && cursor.getY() > 1) {
       blocks.stroke(this, cursor);

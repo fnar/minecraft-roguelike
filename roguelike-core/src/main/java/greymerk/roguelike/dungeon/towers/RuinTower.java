@@ -37,15 +37,15 @@ public class RuinTower implements ITower {
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
       for (Cardinal orthogonals : dir.orthogonals()) {
-        cursor = new Coord(floor);
+        cursor = floor.copy();
         cursor.translate(dir, 4);
         cursor.translate(orthogonals);
-        RectSolid.newRect(new Coord(cursor), new Coord(cursor.getX(), cursor.getY() + 1 + rand.nextInt(3), cursor.getZ())).fill(editor, blocks);
+        RectSolid.newRect(cursor.copy(), new Coord(cursor.getX(), cursor.getY() + 1 + rand.nextInt(3), cursor.getZ())).fill(editor, blocks);
         cursor.translate(orthogonals);
-        RectSolid.newRect(new Coord(cursor), new Coord(cursor.getX(), cursor.getY() + 1 + rand.nextInt(2), cursor.getZ())).fill(editor, blocks);
+        RectSolid.newRect(cursor.copy(), new Coord(cursor.getX(), cursor.getY() + 1 + rand.nextInt(2), cursor.getZ())).fill(editor, blocks);
       }
 
-      start = new Coord(floor);
+      start = floor.copy();
       start.translate(Cardinal.DOWN);
       start.translate(dir, 4);
       end = new Coord(start.getX(), origin.getY() + 10, start.getZ());
@@ -53,7 +53,7 @@ public class RuinTower implements ITower {
       end.translate(dir.clockwise(), 2);
       RectSolid.newRect(start, end).fill(editor, blocks, true, false);
 
-      cursor = new Coord(floor);
+      cursor = floor.copy();
       cursor.translate(dir, 3);
       cursor.translate(dir.antiClockwise(), 3);
       RectSolid.newRect(new Coord(cursor.getX(), origin.getY() + 20, cursor.getZ()), new Coord(cursor.getX(), floor.getY() + 2 + rand.nextInt(4), cursor.getZ())).fill(editor, blocks, true, false);

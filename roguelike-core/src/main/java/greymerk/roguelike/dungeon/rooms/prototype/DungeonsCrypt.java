@@ -36,20 +36,20 @@ public class DungeonsCrypt extends DungeonBase {
     Coord start;
     Coord end;
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(new Coord(-3, 0, -3));
     end.translate(new Coord(3, 4, 3));
     RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(new Coord(-9, -1, -9));
     end.translate(new Coord(9, -1, 9));
     RectSolid.newRect(start, end).fill(worldEditor, floor);
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(new Coord(-9, 5, -9));
     end.translate(new Coord(9, 6, 9));
     RectSolid.newRect(start, end).fill(worldEditor, walls, false, true);
@@ -57,8 +57,8 @@ public class DungeonsCrypt extends DungeonBase {
     for (Cardinal dir : Cardinal.DIRECTIONS) {
 
       if (entrances.contains(dir) && entrances.contains(dir.antiClockwise())) {
-        start = new Coord(origin);
-        end = new Coord(origin);
+        start = origin.copy();
+        end = origin.copy();
         start.translate(dir, 3);
         end.translate(dir.antiClockwise(), 5);
         end.translate(dir, 5);
@@ -68,8 +68,8 @@ public class DungeonsCrypt extends DungeonBase {
 
       if (entrances.contains(dir)) {
         // doorway air
-        start = new Coord(origin);
-        end = new Coord(origin);
+        start = origin.copy();
+        end = origin.copy();
         start.translate(dir, 3);
         start.translate(dir.antiClockwise(), 2);
         end.translate(dir, 8);
@@ -80,7 +80,7 @@ public class DungeonsCrypt extends DungeonBase {
         for (Cardinal o : dir.orthogonals()) {
           if (entrances.contains(o)) {
 
-            cursor = new Coord(origin);
+            cursor = origin.copy();
             cursor.translate(dir, 7);
             cursor.translate(o, 3);
             cursor.translate(Cardinal.UP);
@@ -88,8 +88,8 @@ public class DungeonsCrypt extends DungeonBase {
             crypt(worldEditor, rand, levelSettings, cursor, o);
           } else {
 
-            start = new Coord(origin);
-            end = new Coord(origin);
+            start = origin.copy();
+            end = origin.copy();
             start.translate(dir, 4);
             start.translate(o, 3);
             end.translate(dir, 8);
@@ -97,7 +97,7 @@ public class DungeonsCrypt extends DungeonBase {
             end.translate(Cardinal.UP, 4);
             RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
 
-            cursor = new Coord(origin);
+            cursor = origin.copy();
             cursor.translate(dir, 6);
             cursor.translate(o, 3);
             cursor.translate(Cardinal.UP);
@@ -107,20 +107,20 @@ public class DungeonsCrypt extends DungeonBase {
         }
 
       } else {
-        cursor = new Coord(origin);
+        cursor = origin.copy();
         cursor.translate(dir, 4);
         mausoleumWall(worldEditor, rand, levelSettings, cursor, dir);
       }
 
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(dir, 3);
       cursor.translate(dir.antiClockwise(), 3);
       pillar(worldEditor, levelSettings, cursor);
 
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(dir, 8);
       start.translate(Cardinal.UP, 4);
-      end = new Coord(start);
+      end = start.copy();
       start.translate(dir.antiClockwise(), 2);
       end.translate(dir.clockwise(), 2);
       stair.setUpsideDown(true).setFacing(dir.reverse());
@@ -141,45 +141,45 @@ public class DungeonsCrypt extends DungeonBase {
     Coord start;
     Coord end;
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(Cardinal.DOWN);
     start.translate(dir, 5);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
     RectSolid.newRect(start, end).fill(editor, walls);
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(dir, 5);
     cursor.translate(Cardinal.UP, 3);
     stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
 
     for (Cardinal o : dir.orthogonals()) {
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(Cardinal.DOWN);
       start.translate(dir);
       start.translate(o, 3);
-      end = new Coord(start);
+      end = start.copy();
       end.translate(dir, 4);
       end.translate(Cardinal.UP, 4);
       RectSolid.newRect(start, end).fill(editor, walls);
 
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(Cardinal.DOWN);
       cursor.translate(dir, 5);
       cursor.translate(o, 2);
       pillar(editor, settings, cursor);
 
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(Cardinal.UP, 3);
       start.translate(o, 2);
-      end = new Coord(start);
+      end = start.copy();
       end.translate(dir, 3);
       stair.setUpsideDown(true).setFacing(o.reverse());
       RectSolid.newRect(start, end).fill(editor, stair);
     }
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     tomb(editor, rand, settings, cursor, dir);
 
     cursor.translate(Cardinal.UP);
@@ -198,11 +198,11 @@ public class DungeonsCrypt extends DungeonBase {
     stair.setUpsideDown(false).setFacing(dir).stroke(editor, cursor);
 
     for (Cardinal o : dir.orthogonals()) {
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(Cardinal.DOWN);
       cursor.translate(o);
-      start = new Coord(cursor);
-      end = new Coord(cursor);
+      start = cursor.copy();
+      end = cursor.copy();
       end.translate(dir, 3);
       stair.setUpsideDown(false).setFacing(o);
       RectSolid.newRect(start, end).fill(editor, stair);
@@ -229,17 +229,17 @@ public class DungeonsCrypt extends DungeonBase {
     Coord start;
     Coord end;
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(Cardinal.DOWN);
     start.translate(dir.antiClockwise());
-    end = new Coord(origin);
+    end = origin.copy();
     end.translate(Cardinal.UP, 3);
     end.translate(dir.clockwise());
     end.translate(dir, 3);
 
     RectSolid.newRect(start, end).fill(editor, walls);
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(dir.reverse());
     cursor.translate(Cardinal.UP, 2);
     stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
@@ -247,7 +247,7 @@ public class DungeonsCrypt extends DungeonBase {
     walls.stroke(editor, cursor);
 
     for (Cardinal o : dir.orthogonals()) {
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(dir.reverse());
       cursor.translate(Cardinal.UP);
       cursor.translate(o);
@@ -257,20 +257,20 @@ public class DungeonsCrypt extends DungeonBase {
       cursor.translate(Cardinal.UP);
       walls.stroke(editor, cursor);
 
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(Cardinal.UP, 3);
       start.translate(dir.reverse(), 2);
       start.translate(o, 2);
-      end = new Coord(start);
+      end = start.copy();
       end.translate(dir, 7);
       stair.setUpsideDown(true).setFacing(o);
       RectSolid.newRect(start, end).fill(editor, stair, true, false);
     }
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(Cardinal.UP, 3);
     start.translate(dir.reverse(), 2);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
     stair.setUpsideDown(true).setFacing(dir.reverse());
@@ -288,15 +288,15 @@ public class DungeonsCrypt extends DungeonBase {
     Coord start;
     Coord end;
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(dir.antiClockwise(), 3);
     end.translate(dir.clockwise(), 3);
     end.translate(dir, 4);
     end.translate(Cardinal.UP, 4);
     RectSolid.newRect(start, end).fill(editor, walls);
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(Cardinal.UP);
     tomb(editor, rand, settings, cursor, dir);
 
@@ -304,7 +304,7 @@ public class DungeonsCrypt extends DungeonBase {
     tomb(editor, rand, settings, cursor, dir);
 
     for (Cardinal o : dir.orthogonals()) {
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(Cardinal.UP);
       cursor.translate(o, 2);
       tomb(editor, rand, settings, cursor, dir);
@@ -326,13 +326,13 @@ public class DungeonsCrypt extends DungeonBase {
     Coord start;
     Coord end;
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     end.translate(Cardinal.UP, 4);
     RectSolid.newRect(start, end).fill(editor, walls);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
-      cursor = new Coord(end);
+      cursor = end.copy();
       cursor.translate(dir);
       stair.setUpsideDown(true).setFacing(dir);
       stair.stroke(editor, cursor, true, false);
@@ -347,7 +347,7 @@ public class DungeonsCrypt extends DungeonBase {
     StairsBlock stair = theme.getPrimary().getStair();
     BlockBrush tombStone = BlockType.QUARTZ.getBrush();
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(dir, 2);
     cursor.translate(Cardinal.UP);
     stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
@@ -355,7 +355,7 @@ public class DungeonsCrypt extends DungeonBase {
     cursor.translate(dir.reverse());
     stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor);
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(dir, 2);
     RectSolid.newRect(origin, cursor).fill(editor, SingleBlockBrush.AIR);
 
@@ -363,7 +363,7 @@ public class DungeonsCrypt extends DungeonBase {
       return;
     }
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     tombStone.stroke(editor, cursor);
 
     if (rand.nextInt(5) != 0) {

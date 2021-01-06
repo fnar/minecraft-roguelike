@@ -35,7 +35,7 @@ public class LevelGeneratorMST implements ILevelGenerator {
 
   @Override
   public void generate(Coord start) {
-    MinimumSpanningTree mst = new MinimumSpanningTree(rand, length, scatter, new Coord(start));
+    MinimumSpanningTree mst = new MinimumSpanningTree(rand, length, scatter, start.copy());
     Graph<Coord> layout = mst.getGraph();
     List<Edge<Coord>> edges = layout.getEdges();
     List<Coord> vertices = layout.getPoints();

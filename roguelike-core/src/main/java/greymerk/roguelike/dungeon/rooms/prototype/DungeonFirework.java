@@ -48,7 +48,7 @@ public class DungeonFirework extends DungeonBase {
 
     Cardinal dir = entrances.get(0);
     start = new Coord(x, y, z);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(dir.reverse(), 9);
     end.translate(dir, 9);
     start.translate(dir.antiClockwise(), 4);
@@ -59,7 +59,7 @@ public class DungeonFirework extends DungeonBase {
 
     start = new Coord(x, y, z);
     start.translate(dir.antiClockwise(), 2);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(dir.reverse(), 3);
     end.translate(dir, 7);
     end.translate(Cardinal.UP);
@@ -90,7 +90,7 @@ public class DungeonFirework extends DungeonBase {
 
     start = new Coord(x, y, z);
     start.translate(dir, 4);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
     end.translate(dir, 2);
@@ -117,7 +117,7 @@ public class DungeonFirework extends DungeonBase {
     start.translate(Cardinal.DOWN, 2);
     start.translate(dir.clockwise());
     start.translate(dir.reverse(), 2);
-    end = new Coord(start);
+    end = start.copy();
     end.translate(dir.antiClockwise(), 5);
     end.translate(dir.reverse(), 5);
     end.translate(Cardinal.DOWN, 2);
@@ -168,7 +168,7 @@ public class DungeonFirework extends DungeonBase {
 
 
   private void launcher(WorldEditor editor, Cardinal dir, Coord pos) {
-    Coord cursor = new Coord(pos);
+    Coord cursor = pos.copy();
     BlockType.REDSTONE_WIRE.getBrush().stroke(editor, cursor);
     cursor.translate(dir.reverse());
     BlockType.REDSTONE_WIRE.getBrush().stroke(editor, cursor);
@@ -210,12 +210,12 @@ public class DungeonFirework extends DungeonBase {
       return;
     }
 
-    Coord start = new Coord(cursor);
+    Coord start = cursor.copy();
     start.translate(Cardinal.UP);
 
 
     start.translate(dir);
-    Coord end = new Coord(start);
+    Coord end = start.copy();
 
     BlockBrush breadboard = stainedHardenedClay().setColor(DyeColor.GREEN);
 
@@ -249,7 +249,7 @@ public class DungeonFirework extends DungeonBase {
     RectSolid.newRect(start, end).fill(editor, cob);
     start.translate(dir);
     end.translate(dir);
-    Coord above = new Coord(end);
+    Coord above = end.copy();
     above.translate(Cardinal.UP, 10);
     for (Coord c : new RectSolid(cursor, above)) {
       if (editor.isSolidBlock(c)) {
@@ -275,8 +275,8 @@ public class DungeonFirework extends DungeonBase {
     Coord start;
     Coord end;
 
-    start = new Coord(pos);
-    end = new Coord(start);
+    start = pos.copy();
+    end = start.copy();
     start.translate(dir.reverse(), 9);
     end.translate(dir, 9);
     Cardinal[] orthogonal = dir.orthogonals();

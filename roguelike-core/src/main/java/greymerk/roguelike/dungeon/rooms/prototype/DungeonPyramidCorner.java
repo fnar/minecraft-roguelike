@@ -60,9 +60,9 @@ public class DungeonPyramidCorner extends DungeonBase {
       cursor = new Coord(x, y, z);
       cursor.translate(dir, 2);
       cursor.translate(dir.orthogonals()[0], 2);
-      start = new Coord(cursor);
+      start = cursor.copy();
       cursor.translate(Cardinal.UP, 2);
-      end = new Coord(cursor);
+      end = cursor.copy();
       RectSolid.newRect(start, end).fill(worldEditor, pillar);
     }
 

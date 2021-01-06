@@ -28,12 +28,12 @@ public class TreeTower implements ITower {
     Coord start;
     Coord end;
     Coord ground = Tower.getBaseCoord(editor, origin);
-    Coord upstairs = new Coord(ground);
+    Coord upstairs = ground.copy();
     upstairs.translate(Cardinal.UP, 7);
 
     BlockBrush log = WOOD_TYPE.getLog();
 
-    start = new Coord(ground);
+    start = ground.copy();
     start.translate(Cardinal.DOWN, 10);
 
     // generate the tree
@@ -42,9 +42,9 @@ public class TreeTower implements ITower {
     tree.genLeaves(editor, rand);
 
 
-    start = new Coord(ground);
+    start = ground.copy();
     start.translate(new Coord(-3, -3, -3));
-    end = new Coord(ground);
+    end = ground.copy();
     end.translate(new Coord(3, 3, 3));
     RectSolid.newRect(start, end).fill(editor, log);
 
@@ -52,18 +52,18 @@ public class TreeTower implements ITower {
     carveRoom(editor, upstairs);
 
     Cardinal dir = Cardinal.randomDirection(rand);
-    start = new Coord(ground);
-    end = new Coord(ground);
+    start = ground.copy();
+    end = ground.copy();
     end.translate(Cardinal.UP);
     end.translate(dir, 8);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
-    start = new Coord(ground);
-    end = new Coord(ground);
+    start = ground.copy();
+    end = ground.copy();
     end.translate(new Coord(8, 8, 8));
     new Sphere(start, end).fill(editor, log, false, true);
 
-    start = new Coord(upstairs);
+    start = upstairs.copy();
     start.translate(Cardinal.DOWN);
     for (Coord p : new RectSolid(start, origin)) {
       editor.spiralStairStep(rand, p, theme.getPrimary().getStair(), theme.getPrimary().getPillar());
@@ -76,29 +76,29 @@ public class TreeTower implements ITower {
     BlockBrush log = WOOD_TYPE.getLog();
     int size = 4;
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(new Coord(-(size - 1), 0, -(size - 1)));
-    end = new Coord(origin);
+    end = origin.copy();
     end.translate(new Coord(size - 1, 2, size - 1));
     SingleBlockBrush.AIR.fill(editor, new RectSolid(start, end));
 
-    start = new Coord(origin);
-    end = new Coord(start);
+    start = origin.copy();
+    end = start.copy();
     start.translate(Cardinal.UP, 2);
     end.translate(new Coord(size - 1, size - 1, size - 1));
     new Sphere(start, end).fill(editor, SingleBlockBrush.AIR);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(dir, size - 1);
       start.translate(dir.antiClockwise(), size - 1);
-      end = new Coord(start);
+      end = start.copy();
       end.translate(Cardinal.UP, size + 1);
       new RectSolid(start, end).fill(editor, log);
     }
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(new Coord(-(size - 1), -1, -(size - 1)));
     end.translate(new Coord(size - 1, -1, size - 1));
     new RectSolid(start, end).fill(editor, log);
@@ -112,7 +112,7 @@ public class TreeTower implements ITower {
     double thickness;
 
     public Branch(Random rand, Coord start) {
-      this.start = new Coord(start);
+      this.start = start.copy();
       branches = new ArrayList<>();
       int counter = 7;
       double length = 12;
@@ -128,7 +128,7 @@ public class TreeTower implements ITower {
         branches.add(
             new Branch(
                 rand,
-                new Coord(end),
+                end.copy(),
                 counter,
                 length,
                 thickness,
@@ -143,7 +143,7 @@ public class TreeTower implements ITower {
 
     public Branch(Random rand, Coord start, int counter, double length, double thickness, int density, double noise, double pitch, double yaw) {
 
-      this.start = new Coord(start);
+      this.start = start.copy();
       this.thickness = thickness < 1 ? 1 : thickness;
       branches = new ArrayList<>();
       end = getEnd(start, length, pitch, yaw);
@@ -156,7 +156,7 @@ public class TreeTower implements ITower {
         branches.add(
             new Branch(
                 rand,
-                new Coord(end),
+                end.copy(),
                 counter - (rand.nextInt(2) + 1),
                 length < 1 ? 1 : length * 0.88,
                 thickness * 0.72,
@@ -180,8 +180,8 @@ public class TreeTower implements ITower {
       } else if (thickness > 1) {
         MultiShape shape = new MultiShape();
         for (Coord pos : new Line(start, end)) {
-          Coord s = new Coord(pos);
-          Coord e = new Coord(s);
+          Coord s = pos.copy();
+          Coord e = s.copy();
           e.translate(new Coord((int) thickness, (int) thickness, (int) thickness));
           shape.addShape(new Sphere(s, e));
         }
@@ -208,8 +208,8 @@ public class TreeTower implements ITower {
         return;
       }
 
-      Coord s = new Coord(end);
-      Coord e = new Coord(s);
+      Coord s = end.copy();
+      Coord e = s.copy();
       final int size = 2;
       final int noise = 2;
       e.translate(new Coord(size + rand.nextInt(noise), size + rand.nextInt(noise), size + rand.nextInt(noise)));
@@ -223,7 +223,7 @@ public class TreeTower implements ITower {
           (int) (Math.sin(pitch) * Math.cos(yaw) * length)
       );
 
-      Coord end = new Coord(start);
+      Coord end = start.copy();
       end.translate(offset);
       return end;
     }

@@ -21,22 +21,22 @@ public class SegmentDoor extends SegmentBase {
   protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Cardinal dir, ThemeBase theme, Coord origin) {
     StairsBlock stair = theme.getSecondary().getStair();
 
-    Coord cursor = new Coord(origin);
+    Coord cursor = origin.copy();
     Coord start;
     Coord end;
 
     Cardinal[] orthogonal = dir.orthogonals();
 
     cursor.translate(dir, 2);
-    start = new Coord(cursor);
+    start = cursor.copy();
     start.translate(orthogonal[0], 1);
-    end = new Coord(cursor);
+    end = cursor.copy();
     end.translate(orthogonal[1], 1);
     end.translate(Cardinal.UP, 2);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     SecretsSetting secrets = level.getSettings().getSecrets();
-    Optional<DungeonBase> secretMaybe = generateSecret(secrets, editor, level.getSettings(), dir, new Coord(origin));
+    Optional<DungeonBase> secretMaybe = generateSecret(secrets, editor, level.getSettings(), dir, origin.copy());
 
     start.translate(dir, 1);
     end.translate(dir, 1);
@@ -44,14 +44,14 @@ public class SegmentDoor extends SegmentBase {
 
     cursor.translate(Cardinal.UP, 2);
     for (Cardinal d : orthogonal) {
-      Coord c = new Coord(cursor);
+      Coord c = cursor.copy();
       c.translate(d, 1);
       stair.setUpsideDown(true).setFacing(d.reverse());
       stair.stroke(editor, c);
     }
 
     if (secretMaybe.isPresent()) {
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(dir, 3);
       theme.getSecondary().getDoor().setFacing(dir.reverse()).stroke(editor, cursor);
     }

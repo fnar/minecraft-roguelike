@@ -96,7 +96,7 @@ public class SegmentGenerator implements ISegmentGenerator {
       if (segment == null) {
         return segments;
       }
-      segment.generate(editor, rand, level, cardinal, level.getSettings().getTheme(), new Coord(pos));
+      segment.generate(editor, rand, level, cardinal, level.getSettings().getTheme(), pos.copy());
       segments.add(segment);
     }
 

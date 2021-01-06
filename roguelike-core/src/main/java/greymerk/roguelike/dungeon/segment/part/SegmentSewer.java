@@ -28,18 +28,18 @@ public class SegmentSewer extends SegmentBase {
 
     Cardinal[] orthogonals = dir.orthogonals();
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(Cardinal.UP, 2);
     start.translate(dir);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
     stair.setUpsideDown(true).setFacing(dir.reverse());
     RectSolid.newRect(start, end).fill(editor, stair);
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(Cardinal.DOWN);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);

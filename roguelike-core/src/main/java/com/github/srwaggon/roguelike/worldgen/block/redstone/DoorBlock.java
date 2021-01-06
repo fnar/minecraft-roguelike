@@ -93,7 +93,7 @@ public class DoorBlock extends SingleBlockBrush {
   public boolean stroke(WorldEditor worldEditor, Coord pos, boolean fillAir, boolean replaceSolid) {
     worldEditor.setBlock(pos, this, fillAir, replaceSolid);
     if (!isTop()) {
-      Coord above = new Coord(pos).translate(Cardinal.UP);
+      Coord above = pos.copy().translate(Cardinal.UP);
       worldEditor.setBlock(above, getTop(), fillAir, replaceSolid);
     }
     return true;

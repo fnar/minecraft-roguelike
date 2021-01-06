@@ -27,13 +27,13 @@ public class SegmentNetherArch extends SegmentBase {
     boolean hasLava = rand.nextInt(5) == 0;
 
     for (Cardinal orthogonals : dir.orthogonals()) {
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(dir, 1);
       cursor.translate(orthogonals, 1);
       cursor.translate(Cardinal.UP, 2);
       stair.stroke(editor, cursor);
 
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(dir, 2);
       cursor.translate(orthogonals, 1);
       pillar.stroke(editor, cursor);
@@ -44,7 +44,7 @@ public class SegmentNetherArch extends SegmentBase {
     BlockBrush fence = BlockType.FENCE_NETHER_BRICK.getBrush();
     BlockBrush lava = BlockType.LAVA_FLOWING.getBrush();
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(dir, 2);
     fence.stroke(editor, cursor);
     cursor.translate(Cardinal.UP, 1);

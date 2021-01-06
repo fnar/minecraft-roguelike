@@ -30,9 +30,9 @@ public class SegmentSewerDrain extends SegmentBase {
 
     Cardinal[] orthogonals = dir.orthogonals();
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(Cardinal.DOWN);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
@@ -40,9 +40,9 @@ public class SegmentSewerDrain extends SegmentBase {
     end.translate(Cardinal.DOWN);
     RectSolid.newRect(start, end).fill(editor, water, false, true);
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(dir, 2);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
     end.translate(Cardinal.UP, 2);
@@ -52,7 +52,7 @@ public class SegmentSewerDrain extends SegmentBase {
     RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall());
 
     for (Cardinal o : orthogonals) {
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(dir, 2);
       cursor.translate(o);
       stair.setUpsideDown(false).setFacing(o.reverse()).stroke(editor, cursor);
@@ -62,14 +62,14 @@ public class SegmentSewerDrain extends SegmentBase {
       stair.setUpsideDown(true).setFacing(o.reverse()).stroke(editor, cursor);
     }
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(Cardinal.UP);
-    end = new Coord(start);
+    end = start.copy();
     end.translate(dir, 5);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
     water.stroke(editor, end);
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(Cardinal.DOWN);
     cursor.translate(dir);
     SingleBlockBrush.AIR.stroke(editor, cursor);

@@ -20,16 +20,16 @@ public class SegmentFirePlace extends SegmentBase {
   protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Cardinal dir, ThemeBase theme, Coord origin) {
     StairsBlock stair = theme.getSecondary().getStair();
 
-    Coord cursor = new Coord(origin);
+    Coord cursor = origin.copy();
     Coord start;
     Coord end;
 
     Cardinal[] orthogonals = dir.orthogonals();
 
     cursor.translate(dir, 2);
-    start = new Coord(cursor);
+    start = cursor.copy();
     start.translate(orthogonals[0], 1);
-    end = new Coord(cursor);
+    end = cursor.copy();
     end.translate(orthogonals[1], 1);
     end.translate(Cardinal.UP, 2);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
@@ -42,7 +42,7 @@ public class SegmentFirePlace extends SegmentBase {
     // stairs
     cursor.translate(Cardinal.UP, 2);
     for (Cardinal d : orthogonals) {
-      Coord c = new Coord(cursor);
+      Coord c = cursor.copy();
       c.translate(d, 1);
       stair.setUpsideDown(true).setFacing(d.reverse());
       stair.stroke(editor, c);
@@ -50,7 +50,7 @@ public class SegmentFirePlace extends SegmentBase {
 
     stair = theme.getPrimary().getStair();
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(dir, 3);
     stair.setUpsideDown(false).setFacing(dir.reverse());
     stair.stroke(editor, cursor);
@@ -60,9 +60,9 @@ public class SegmentFirePlace extends SegmentBase {
     stair.setUpsideDown(true).setFacing(dir.reverse());
     stair.stroke(editor, cursor);
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(dir, 4);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(Cardinal.DOWN);
     start.translate(orthogonals[0]);
     end.translate(Cardinal.UP, 3);
@@ -76,7 +76,7 @@ public class SegmentFirePlace extends SegmentBase {
 
     RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall());
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(dir, 4);
     BlockType.NETHERRACK.getBrush().stroke(editor, cursor);
     cursor.translate(Cardinal.UP);

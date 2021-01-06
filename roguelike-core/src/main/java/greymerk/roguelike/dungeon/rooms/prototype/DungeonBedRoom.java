@@ -34,8 +34,8 @@ public class DungeonBedRoom extends DungeonBase {
   }
 
   public void pillar(WorldEditor editor, Cardinal dir, ThemeBase theme, final Coord base) {
-    Coord start = new Coord(base);
-    Coord end = new Coord(base);
+    Coord start = base.copy();
+    Coord end = base.copy();
 
     end.translate(Cardinal.UP, 2);
     RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getPillar());
@@ -56,8 +56,8 @@ public class DungeonBedRoom extends DungeonBase {
 
     Cardinal dir = entrances.get(0);
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
 
     start.translate(dir.antiClockwise(), 4);
     end.translate(dir.clockwise(), 4);
@@ -68,9 +68,9 @@ public class DungeonBedRoom extends DungeonBase {
 
     RectHollow.newRect(start, end).fill(worldEditor, theme.getPrimary().getWall(), false, true);
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(Cardinal.DOWN);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(dir.antiClockwise(), 1);
     end.translate(dir.clockwise(), 1);
     start.translate(dir.reverse(), 2);
@@ -82,9 +82,9 @@ public class DungeonBedRoom extends DungeonBase {
       StairsBlock stair = theme.getSecondary().getStair();
       stair.setUpsideDown(true).setFacing(o.reverse());
 
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(o, 3);
-      end = new Coord(start);
+      end = start.copy();
       start.translate(o.antiClockwise(), 2);
       end.translate(o.clockwise(), 2);
 
@@ -101,23 +101,23 @@ public class DungeonBedRoom extends DungeonBase {
     }
 
     for (Cardinal o : dir.orthogonals()) {
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(o, 3);
       pillar(worldEditor, o, theme, cursor);
       for (Cardinal p : o.orthogonals()) {
-        Coord c = new Coord(cursor);
+        Coord c = cursor.copy();
         c.translate(p, 3);
         pillar(worldEditor, o, theme, c);
       }
     }
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(Cardinal.UP, 3);
     cursor.translate(dir.reverse(), 3);
 
     for (int i = 0; i < 3; ++i) {
-      start = new Coord(cursor);
-      end = new Coord(cursor);
+      start = cursor.copy();
+      end = cursor.copy();
       start.translate(dir.antiClockwise(), 2);
       end.translate(dir.clockwise(), 2);
       RectSolid.newRect(start, end).fill(worldEditor, theme.getSecondary().getWall());
@@ -126,7 +126,7 @@ public class DungeonBedRoom extends DungeonBase {
 
     Cardinal side = rand.nextBoolean() ? dir.antiClockwise() : dir.clockwise();
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(dir, 3);
     BedBlock.bed().setColor(DyeColor.chooseRandom(worldEditor.getRandom())).setFacing(dir.reverse()).stroke(worldEditor, cursor);
     cursor.translate(side, 2);
@@ -142,7 +142,7 @@ public class DungeonBedRoom extends DungeonBase {
     TorchBlock.torch().setFacing(Cardinal.UP).stroke(worldEditor, cursor);
 
     side = dir.orthogonals()[rand.nextBoolean() ? 1 : 0];
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(dir);
     cursor.translate(side, 3);
 
@@ -164,7 +164,7 @@ public class DungeonBedRoom extends DungeonBase {
     }
 
     side = rand.nextBoolean() ? dir.antiClockwise() : dir.clockwise();
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(dir.reverse());
     cursor.translate(side, 3);
     if (rand.nextBoolean()) {
@@ -185,8 +185,8 @@ public class DungeonBedRoom extends DungeonBase {
     Coord start;
     Coord end;
 
-    start = new Coord(pos);
-    end = new Coord(start);
+    start = pos.copy();
+    end = start.copy();
     start.translate(dir.reverse(), 5);
     end.translate(dir, 5);
     start.translate(dir.antiClockwise(), 5);

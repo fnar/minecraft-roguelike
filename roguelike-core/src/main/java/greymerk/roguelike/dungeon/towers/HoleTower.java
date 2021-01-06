@@ -25,11 +25,11 @@ public class HoleTower implements ITower {
     Coord start;
     Coord end;
 
-    start = new Coord(floor);
+    start = floor.copy();
     start.translate(Cardinal.NORTH);
     start.translate(Cardinal.EAST);
     start.translate(Cardinal.UP, 3);
-    end = new Coord(origin);
+    end = origin.copy();
     end.translate(Cardinal.SOUTH);
     end.translate(Cardinal.WEST);
 

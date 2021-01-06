@@ -23,14 +23,14 @@ public enum TallPlant {
     placePlanter(editor, origin);
     chooseRandom(editor.getRandom()).getBrush()
         .setFacing(dir)
-        .stroke(editor, new Coord(origin).up(1));
+        .stroke(editor, origin.copy().up(1));
   }
 
   public static void placePlanter(WorldEditor editor, Coord origin) {
     BlockType.DIRT_PODZOL.getBrush().stroke(editor, origin);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
-      Coord cursor = new Coord(origin).translate(dir);
+      Coord cursor = origin.copy().translate(dir);
       TrapdoorBlock.wood()
           .setFlushWithTop()
           .setOpen()

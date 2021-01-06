@@ -17,9 +17,7 @@ public class Coord {
   }
 
   public Coord(Coord toClone) {
-    x = toClone.x;
-    y = toClone.y;
-    z = toClone.z;
+    this(toClone.x, toClone.y, toClone.z);
   }
 
   // Arranges two coords so that the they create a positive cube.
@@ -64,7 +62,7 @@ public class Coord {
   }
 
   public Coord add(Cardinal dir) {
-    return new Coord(this).translate(dir, 1);
+    return copy().translate(dir, 1);
   }
 
   public Coord translate(Cardinal dir, int amount) {
@@ -134,11 +132,11 @@ public class Coord {
   }
 
   public Coord add(Coord other) {
-    return new Coord(this).translate(other);
+    return copy().translate(other);
   }
 
   public Coord add(int x, int y, int z) {
-    return new Coord(this).translate(x, y, z);
+    return copy().translate(x, y, z);
   }
 
   public double distance(Coord other) {

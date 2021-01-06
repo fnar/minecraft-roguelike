@@ -56,7 +56,7 @@ public class BedBlock extends SingleBlockBrush {
   @Override
   public boolean stroke(WorldEditor editor, Coord pos, boolean fillAir, boolean replaceSolid) {
 
-    Coord cursor = new Coord(pos);
+    Coord cursor = pos.copy();
 
     if (!RogueConfig.getBoolean(RogueConfig.FURNITURE)) {
       wool().setColor(DyeColor.WHITE).stroke(editor, cursor);

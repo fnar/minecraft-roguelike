@@ -26,24 +26,24 @@ public class SegmentWheat extends SegmentBase {
     Coord start;
     Coord end;
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(Cardinal.DOWN);
     cursor.translate(dir, 3);
     BlockType.WATER_FLOWING.getBrush().stroke(editor, cursor);
 
     Cardinal[] orthogonals = dir.orthogonals();
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(dir, 2);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
     start.translate(Cardinal.UP, 2);
     end.translate(dir);
     RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall());
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(dir, 2);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(orthogonals[0], 1);
     end.translate(orthogonals[1], 1);
     end.translate(Cardinal.UP, 1);
@@ -60,7 +60,7 @@ public class SegmentWheat extends SegmentBase {
     crops.addBlock(Crop.POTATOES.getBrush());
     RectSolid.newRect(start, end).fill(editor, crops);
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(dir, 3);
     cursor.translate(Cardinal.UP, 1);
     PumpkinBlock.jackOLantern().setFacing(dir.reverse()).stroke(editor, cursor);
@@ -68,7 +68,7 @@ public class SegmentWheat extends SegmentBase {
     StairsBlock stair = theme.getSecondary().getStair();
 
     for (Cardinal d : orthogonals) {
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(dir, 2);
       cursor.translate(d, 1);
       cursor.translate(Cardinal.UP, 1);
