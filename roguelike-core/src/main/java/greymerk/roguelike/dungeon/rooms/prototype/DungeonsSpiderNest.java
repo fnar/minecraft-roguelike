@@ -4,7 +4,6 @@ import com.github.srwaggon.roguelike.worldgen.SingleBlockBrush;
 import com.github.srwaggon.roguelike.worldgen.block.BlockType;
 
 import java.util.List;
-import java.util.Random;
 
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
@@ -20,7 +19,6 @@ import greymerk.roguelike.worldgen.spawners.MobType;
 import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 public class DungeonsSpiderNest extends DungeonBase {
-  Random rand;
   int originX;
   int originY;
   int originZ;
@@ -37,7 +35,6 @@ public class DungeonsSpiderNest extends DungeonBase {
 
   public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
 
-    rand = editor.getRandom();
     originX = origin.getX();
     originY = origin.getY();
     originZ = origin.getZ();
@@ -65,12 +62,11 @@ public class DungeonsSpiderNest extends DungeonBase {
             continue;
           }
 
-          if (rand.nextInt(clearHeight) == 0) {
+          if (editor.getRandom().nextInt(clearHeight) == 0) {
             webs.stroke(editor, new Coord(blockX, blockY, blockZ));
-          } else if (rand.nextInt(5) == 0) {
+          } else if (editor.getRandom().nextInt(5) == 0) {
             BlockType.GRAVEL.getBrush().stroke(editor, new Coord(blockX, blockY, blockZ));
           }
-
         }
       }
     }
@@ -83,8 +79,8 @@ public class DungeonsSpiderNest extends DungeonBase {
         new Coord(originX - dungeonLength, originY - 1, originZ - dungeonWidth),
         new Coord(originX + dungeonLength, originY + 1, originZ + dungeonWidth)
     ).get();
-    List<Coord> chestLocations = chooseRandomLocations(rand, 1 + rand.nextInt(3), spaces);
-    editor.getTreasureChestEditor().createChests(Dungeon.getLevel(originY), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(rand, ChestType.COMMON_TREASURES)));
+    List<Coord> chestLocations = chooseRandomLocations(editor.getRandom(), 1 + editor.getRandom().nextInt(3), spaces);
+    editor.getTreasureChestEditor().createChests(Dungeon.getLevel(originY), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(editor.getRandom(), ChestType.COMMON_TREASURES)));
     return this;
   }
 
