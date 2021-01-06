@@ -32,7 +32,7 @@ public class DungeonPyramidTomb extends DungeonBase {
   public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
 
 
-    ThemeBase theme = settings.getTheme();
+    ThemeBase theme = levelSettings.getTheme();
     BlockBrush pillar = theme.getPrimary().getPillar();
     BlockBrush blocks = theme.getPrimary().getWall();
 
@@ -49,7 +49,7 @@ public class DungeonPyramidTomb extends DungeonBase {
     end.translate(Cardinal.SOUTH, 6);
     end.translate(Cardinal.EAST, 6);
     end.translate(Cardinal.UP, 2);
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
 
     start = new Coord(origin);
     end = new Coord(origin);
@@ -60,7 +60,7 @@ public class DungeonPyramidTomb extends DungeonBase {
     end.translate(Cardinal.SOUTH, 4);
     end.translate(Cardinal.EAST, 4);
     end.translate(Cardinal.UP);
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
 
     start = new Coord(origin);
     end = new Coord(origin);
@@ -71,7 +71,7 @@ public class DungeonPyramidTomb extends DungeonBase {
     end.translate(Cardinal.SOUTH, 3);
     end.translate(Cardinal.EAST, 3);
     end.translate(Cardinal.UP);
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
 
     start = new Coord(origin);
     end = new Coord(origin);
@@ -82,7 +82,7 @@ public class DungeonPyramidTomb extends DungeonBase {
     end.translate(Cardinal.SOUTH, 2);
     end.translate(Cardinal.EAST, 2);
     end.translate(Cardinal.UP);
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
 
     // outer walls
     start = new Coord(origin);
@@ -93,7 +93,7 @@ public class DungeonPyramidTomb extends DungeonBase {
     end.translate(Cardinal.EAST, 7);
     start.translate(Cardinal.DOWN);
     end.translate(Cardinal.UP, 3);
-    RectHollow.newRect(start, end).fill(editor, blocks, false, true);
+    RectHollow.newRect(start, end).fill(worldEditor, blocks, false, true);
 
     // floor
     start = new Coord(origin);
@@ -103,7 +103,7 @@ public class DungeonPyramidTomb extends DungeonBase {
     start.translate(Cardinal.WEST, 6);
     end.translate(Cardinal.SOUTH, 6);
     end.translate(Cardinal.EAST, 6);
-    RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getFloor());
+    RectSolid.newRect(start, end).fill(worldEditor, theme.getPrimary().getFloor());
 
     // pillars
 
@@ -113,14 +113,14 @@ public class DungeonPyramidTomb extends DungeonBase {
       cursor = new Coord(origin);
       cursor.translate(dir, 5);
       cursor.translate(Cardinal.UP, 3);
-      ceilingTiles(editor, theme, 9, dir.reverse(), cursor);
+      ceilingTiles(worldEditor, theme, 9, dir.reverse(), cursor);
 
       start = new Coord(origin);
       start.translate(dir, 5);
       start.translate(dir.antiClockwise(), 5);
       end = new Coord(start);
       end.translate(Cardinal.UP, 3);
-      RectSolid.newRect(start, end).fill(editor, pillar);
+      RectSolid.newRect(start, end).fill(worldEditor, pillar);
 
       for (Cardinal o : dir.orthogonals()) {
         start = new Coord(origin);
@@ -128,12 +128,12 @@ public class DungeonPyramidTomb extends DungeonBase {
         start.translate(o);
         end = new Coord(start);
         end.translate(Cardinal.UP, 3);
-        RectSolid.newRect(start, end).fill(editor, pillar);
+        RectSolid.newRect(start, end).fill(worldEditor, pillar);
 
         start.translate(o, 2);
         end = new Coord(start);
         end.translate(Cardinal.UP, 3);
-        RectSolid.newRect(start, end).fill(editor, pillar);
+        RectSolid.newRect(start, end).fill(worldEditor, pillar);
       }
     }
 
@@ -145,9 +145,9 @@ public class DungeonPyramidTomb extends DungeonBase {
     start.translate(Cardinal.WEST);
     end.translate(Cardinal.SOUTH);
     end.translate(Cardinal.EAST);
-    RectSolid.newRect(start, end).fill(editor, blocks);
+    RectSolid.newRect(start, end).fill(worldEditor, blocks);
 
-    sarcophagus(editor, settings, entrances.get(0), origin);
+    sarcophagus(worldEditor, levelSettings, entrances.get(0), origin);
 
     return this;
   }

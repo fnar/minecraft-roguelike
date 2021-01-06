@@ -29,7 +29,7 @@ public class DungeonsCreeperDen extends DungeonBase {
 
   public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
 
-    ThemeBase theme = settings.getTheme();
+    ThemeBase theme = levelSettings.getTheme();
 
     Coord start;
     Coord end;
@@ -51,19 +51,19 @@ public class DungeonsCreeperDen extends DungeonBase {
     end = new Coord(origin);
     start.translate(new Coord(-4, -4, -4));
     end.translate(new Coord(4, 5, 4));
-    RectHollow.newRect(start, end).fill(editor, mossy, false, true);
+    RectHollow.newRect(start, end).fill(worldEditor, mossy, false, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(new Coord(-3, -1, -3));
     end.translate(new Coord(3, -1, 3));
-    RectSolid.newRect(start, end).fill(editor, floor);
+    RectSolid.newRect(start, end).fill(worldEditor, floor);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(new Coord(-3, -3, -3));
     end.translate(new Coord(3, -2, 3));
-    RectSolid.newRect(start, end).fill(editor, subfloor);
+    RectSolid.newRect(start, end).fill(worldEditor, subfloor);
 
     start = new Coord(origin);
     end = new Coord(origin);
@@ -71,13 +71,13 @@ public class DungeonsCreeperDen extends DungeonBase {
     end.translate(new Coord(3, 0, 3));
 
     List<Coord> chestSpaces = new RectSolid(start, end).get();
-    chooseRandomLocations(editor.getRandom(), 3, chestSpaces).stream()
-        .peek(chestSpace -> editor.getTreasureChestEditor().createChest(settings.getDifficulty(chestSpace), chestSpace, true, getRoomSetting().getChestType().orElse(ChestType.ORE)))
-        .forEach(chestSpace -> spawnTntBeneath(editor, chestSpace));
+    chooseRandomLocations(worldEditor.getRandom(), 3, chestSpaces).stream()
+        .peek(chestSpace -> worldEditor.getTreasureChestEditor().createChest(levelSettings.getDifficulty(chestSpace), chestSpace, true, getRoomSetting().getChestType().orElse(ChestType.ORE)))
+        .forEach(chestSpace -> spawnTntBeneath(worldEditor, chestSpace));
 
     final Coord cursor = new Coord(origin);
-    SpawnerSettings spawners = settings.getSpawners();
-    generateSpawner(editor, cursor, settings.getDifficulty(cursor), spawners, MobType.CREEPER);
+    SpawnerSettings spawners = levelSettings.getSpawners();
+    generateSpawner(worldEditor, cursor, levelSettings.getDifficulty(cursor), spawners, MobType.CREEPER);
 
     return this;
   }

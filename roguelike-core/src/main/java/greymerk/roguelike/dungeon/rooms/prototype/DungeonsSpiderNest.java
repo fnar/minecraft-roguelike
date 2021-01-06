@@ -53,7 +53,7 @@ public class DungeonsSpiderNest extends DungeonBase {
           int clearHeight = Math.max(x, z);
 
           if (blockY == originY) {
-            webs.stroke(editor, new Coord(blockX, blockY, blockZ));
+            webs.stroke(worldEditor, new Coord(blockX, blockY, blockZ));
           }
           if (clearHeight < 1) {
             clearHeight = 1;
@@ -62,25 +62,25 @@ public class DungeonsSpiderNest extends DungeonBase {
             continue;
           }
 
-          if (editor.getRandom().nextInt(clearHeight) == 0) {
-            webs.stroke(editor, new Coord(blockX, blockY, blockZ));
-          } else if (editor.getRandom().nextInt(5) == 0) {
-            BlockType.GRAVEL.getBrush().stroke(editor, new Coord(blockX, blockY, blockZ));
+          if (worldEditor.getRandom().nextInt(clearHeight) == 0) {
+            webs.stroke(worldEditor, new Coord(blockX, blockY, blockZ));
+          } else if (worldEditor.getRandom().nextInt(5) == 0) {
+            BlockType.GRAVEL.getBrush().stroke(worldEditor, new Coord(blockX, blockY, blockZ));
           }
         }
       }
     }
 
     final Coord cursor = new Coord(originX, originY, originZ);
-    SpawnerSettings spawners = settings.getSpawners();
-    generateSpawner(editor, cursor, settings.getDifficulty(cursor), spawners, MobType.CAVESPIDER);
+    SpawnerSettings spawners = levelSettings.getSpawners();
+    generateSpawner(worldEditor, cursor, levelSettings.getDifficulty(cursor), spawners, MobType.CAVESPIDER);
 
     List<Coord> spaces = new RectSolid(
         new Coord(originX - dungeonLength, originY - 1, originZ - dungeonWidth),
         new Coord(originX + dungeonLength, originY + 1, originZ + dungeonWidth)
     ).get();
-    List<Coord> chestLocations = chooseRandomLocations(editor.getRandom(), 1 + editor.getRandom().nextInt(3), spaces);
-    editor.getTreasureChestEditor().createChests(Dungeon.getLevel(originY), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(editor.getRandom(), ChestType.COMMON_TREASURES)));
+    List<Coord> chestLocations = chooseRandomLocations(worldEditor.getRandom(), 1 + worldEditor.getRandom().nextInt(3), spaces);
+    worldEditor.getTreasureChestEditor().createChests(Dungeon.getLevel(originY), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(worldEditor.getRandom(), ChestType.COMMON_TREASURES)));
     return this;
   }
 

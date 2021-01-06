@@ -24,7 +24,7 @@ public class DungeonLinker extends DungeonBase {
   @Override
   public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
 
-    ThemeBase theme = settings.getTheme();
+    ThemeBase theme = levelSettings.getTheme();
 
     BlockBrush pillar = theme.getPrimary().getPillar();
     BlockBrush wall = theme.getPrimary().getWall();
@@ -38,19 +38,19 @@ public class DungeonLinker extends DungeonBase {
     end = new Coord(origin);
     start.translate(new Coord(-4, -1, -4));
     end.translate(new Coord(4, 9, 4));
-    RectHollow.newRect(start, end).fill(editor, wall, false, true);
+    RectHollow.newRect(start, end).fill(worldEditor, wall, false, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(new Coord(-4, 9, -4));
     end.translate(new Coord(4, 9, 4));
-    RectSolid.newRect(start, end).fill(editor, wall);
+    RectSolid.newRect(start, end).fill(worldEditor, wall);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(new Coord(-4, -1, -4));
     end.translate(new Coord(4, -1, 4));
-    RectSolid.newRect(start, end).fill(editor, floor);
+    RectSolid.newRect(start, end).fill(worldEditor, floor);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
 
@@ -61,7 +61,7 @@ public class DungeonLinker extends DungeonBase {
       start.translate(Cardinal.DOWN);
       start.translate(dir.antiClockwise(), 4);
       end.translate(dir.clockwise(), 4);
-      RectSolid.newRect(start, end).fill(editor, bars, true, false);
+      RectSolid.newRect(start, end).fill(worldEditor, bars, true, false);
 
       start = new Coord(origin);
       end = new Coord(origin);
@@ -70,7 +70,7 @@ public class DungeonLinker extends DungeonBase {
       end.translate(dir, 4);
       end.translate(dir.antiClockwise(), 4);
       end.translate(Cardinal.UP, 8);
-      RectSolid.newRect(start, end).fill(editor, pillar);
+      RectSolid.newRect(start, end).fill(worldEditor, pillar);
     }
 
 

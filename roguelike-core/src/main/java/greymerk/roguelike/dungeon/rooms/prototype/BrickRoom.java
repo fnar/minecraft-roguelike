@@ -35,20 +35,20 @@ public class BrickRoom extends DungeonBase {
     int y = origin.getY();
     int z = origin.getZ();
 
-    ThemeBase theme = settings.getTheme();
+    ThemeBase theme = levelSettings.getTheme();
 
     StairsBlock stair = theme.getPrimary().getStair();
     BlockBrush blocks = theme.getPrimary().getWall();
     BlockBrush pillar = theme.getPrimary().getPillar();
 
     // fill air inside
-    RectSolid.newRect(new Coord(x - 3, y, z - 3), new Coord(x + 3, y + 3, z + 3)).fill(editor, SingleBlockBrush.AIR);
-    RectSolid.newRect(new Coord(x - 1, y + 4, z - 1), new Coord(x + 1, y + 4, z + 1)).fill(editor, SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(x - 3, y, z - 3), new Coord(x + 3, y + 3, z + 3)).fill(worldEditor, SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(x - 1, y + 4, z - 1), new Coord(x + 1, y + 4, z + 1)).fill(worldEditor, SingleBlockBrush.AIR);
 
     // shell
-    RectHollow.newRect(new Coord(x - 4, y - 1, z - 4), new Coord(x + 4, y + 4, z + 4)).fill(editor, blocks, false, true);
+    RectHollow.newRect(new Coord(x - 4, y - 1, z - 4), new Coord(x + 4, y + 4, z + 4)).fill(worldEditor, blocks, false, true);
 
-    RectSolid.newRect(new Coord(x - 4, y - 1, z - 4), new Coord(x + 4, y - 1, z + 4)).fill(editor, theme.getPrimary().getFloor(), false, true);
+    RectSolid.newRect(new Coord(x - 4, y - 1, z - 4), new Coord(x + 4, y - 1, z + 4)).fill(worldEditor, theme.getPrimary().getFloor(), false, true);
 
     Coord start;
     Coord end;
@@ -57,9 +57,9 @@ public class BrickRoom extends DungeonBase {
 
     cursor = new Coord(x, y, z);
     cursor.translate(UP, 5);
-    SingleBlockBrush.AIR.stroke(editor, cursor);
+    SingleBlockBrush.AIR.stroke(worldEditor, cursor);
     cursor.translate(UP, 1);
-    blocks.stroke(editor, cursor);
+    blocks.stroke(worldEditor, cursor);
 
     // Chests
     List<Coord> potentialChestLocations = new ArrayList<>();
@@ -71,16 +71,16 @@ public class BrickRoom extends DungeonBase {
       cursor.translate(dir, 1);
       cursor.translate(UP, 5);
       stair.setUpsideDown(true).setFacing(dir.reverse());
-      stair.stroke(editor, cursor, false, true);
+      stair.stroke(worldEditor, cursor, false, true);
       cursor.translate(dir.antiClockwise(), 1);
-      blocks.stroke(editor, cursor, false, true);
+      blocks.stroke(worldEditor, cursor, false, true);
 
       cursor = new Coord(x, y, z);
       cursor.translate(dir, 2);
       cursor.translate(UP, 4);
-      SingleBlockBrush.AIR.stroke(editor, cursor);
+      SingleBlockBrush.AIR.stroke(worldEditor, cursor);
       cursor.translate(UP, 1);
-      blocks.stroke(editor, cursor, false, true);
+      blocks.stroke(worldEditor, cursor, false, true);
 
       // pillar
       cursor = new Coord(x, y, z);
@@ -89,9 +89,9 @@ public class BrickRoom extends DungeonBase {
       start = new Coord(cursor);
       cursor.translate(UP, 2);
       end = new Coord(cursor);
-      RectSolid.newRect(start, end).fill(editor, pillar);
+      RectSolid.newRect(start, end).fill(worldEditor, pillar);
       cursor.translate(UP, 1);
-      blocks.stroke(editor, cursor);
+      blocks.stroke(worldEditor, cursor);
 
       // pillar stairs
       for (Cardinal orthogonals : dir.orthogonals()) {
@@ -100,7 +100,7 @@ public class BrickRoom extends DungeonBase {
         cursor.translate(orthogonals, 2);
         cursor.translate(UP, 3);
         stair.setUpsideDown(true).setFacing(orthogonals.reverse());
-        stair.stroke(editor, cursor);
+        stair.stroke(worldEditor, cursor);
       }
 
       // layer above pillars
@@ -108,7 +108,7 @@ public class BrickRoom extends DungeonBase {
       cursor.translate(dir, 2);
       cursor.translate(dir.antiClockwise(), 2);
       cursor.translate(UP, 4);
-      blocks.stroke(editor, cursor, false, true);
+      blocks.stroke(worldEditor, cursor, false, true);
 
       for (Cardinal orthogonals : dir.orthogonals()) {
         cursor = new Coord(x, y, z);
@@ -116,14 +116,14 @@ public class BrickRoom extends DungeonBase {
         cursor.translate(dir, 2);
         cursor.translate(orthogonals, 1);
         stair.setUpsideDown(true).setFacing(orthogonals.reverse());
-        stair.stroke(editor, cursor, false, true);
+        stair.stroke(worldEditor, cursor, false, true);
       }
 
       cursor = new Coord(x, y, z);
       cursor.translate(dir, 1);
       cursor.translate(dir.antiClockwise(), 1);
       cursor.translate(UP, 5);
-      blocks.stroke(editor, cursor, false, true);
+      blocks.stroke(worldEditor, cursor, false, true);
 
       for (Cardinal orthogonals : dir.orthogonals()) {
         cursor = new Coord(x, y, z);
@@ -133,13 +133,13 @@ public class BrickRoom extends DungeonBase {
       }
     }
 
-    Random random = editor.getRandom();
+    Random random = worldEditor.getRandom();
     List<Coord> chestLocations = chooseRandomLocations(random, 1, potentialChestLocations);
     int level = Dungeon.getLevel(origin.getY());
-    editor.getTreasureChestEditor().createChests(level, chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(random, ChestType.COMMON_TREASURES)));
+    worldEditor.getTreasureChestEditor().createChests(level, chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(random, ChestType.COMMON_TREASURES)));
 
     Coord spawnerLocation = new Coord(x, y, z);
-    generateSpawner(editor, spawnerLocation, Dungeon.getLevel(origin.getY()), settings.getSpawners());
+    generateSpawner(worldEditor, spawnerLocation, Dungeon.getLevel(origin.getY()), levelSettings.getSpawners());
     return this;
   }
 

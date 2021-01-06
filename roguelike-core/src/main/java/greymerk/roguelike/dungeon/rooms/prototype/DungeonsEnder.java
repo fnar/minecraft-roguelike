@@ -28,7 +28,7 @@ public class DungeonsEnder extends DungeonBase {
   }
 
   public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
-    Random rand = editor.getRandom();
+    Random rand = worldEditor.getRandom();
     BlockBrush black = BlockType.OBSIDIAN.getBrush();
     BlockBrush white = Quartz.SMOOTH.getBrush();
 
@@ -38,7 +38,7 @@ public class DungeonsEnder extends DungeonBase {
     end = new Coord(origin);
     start.translate(new Coord(-3, 0, -3));
     end.translate(new Coord(3, 2, 3));
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
     for (Cardinal dir : Cardinal.DIRECTIONS) {
 
       Cardinal[] orthogonals = dir.orthogonals();
@@ -50,7 +50,7 @@ public class DungeonsEnder extends DungeonBase {
       start.translate(Cardinal.DOWN, 1);
       end.translate(orthogonals[1], 4);
       end.translate(Cardinal.UP, 5);
-      RectSolid.newRect(start, end).fill(editor, black, false, true);
+      RectSolid.newRect(start, end).fill(worldEditor, black, false, true);
 
     }
 
@@ -62,8 +62,8 @@ public class DungeonsEnder extends DungeonBase {
     int top = end.getY() - start.getY() + 1;
     for (Coord cell : new RectSolid(start, end)) {
       boolean dissolve = rand.nextInt((cell.getY() - start.getY()) + 1) < 2;
-      ((BlockBrush) SingleBlockBrush.AIR).stroke(editor, cell, false, dissolve);
-      black.stroke(editor, cell, false, rand.nextInt(top - (cell.getY() - start.getY())) == 0 && !dissolve);
+      ((BlockBrush) SingleBlockBrush.AIR).stroke(worldEditor, cell, false, dissolve);
+      black.stroke(worldEditor, cell, false, rand.nextInt(top - (cell.getY() - start.getY())) == 0 && !dissolve);
     }
 
     start = new Coord(origin);
@@ -72,17 +72,17 @@ public class DungeonsEnder extends DungeonBase {
     end.translate(new Coord(4, -1, 4));
 
     BlockCheckers checkers = new BlockCheckers(black, white);
-    RectSolid.newRect(start, end).fill(editor, checkers);
+    RectSolid.newRect(start, end).fill(worldEditor, checkers);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(new Coord(-4, 0, -4));
     end.translate(new Coord(4, 0, 4));
     if (RogueConfig.getBoolean(RogueConfig.GENEROUS)) {
-      addEnderChest(editor, new RectSolid(start, end));
+      addEnderChest(worldEditor, new RectSolid(start, end));
     }
-    SpawnerSettings spawners = settings.getSpawners();
-    generateSpawner(editor, origin, settings.getDifficulty(origin), spawners, MobType.ENDERMAN);
+    SpawnerSettings spawners = levelSettings.getSpawners();
+    generateSpawner(worldEditor, origin, levelSettings.getDifficulty(origin), spawners, MobType.ENDERMAN);
 
     return this;
   }

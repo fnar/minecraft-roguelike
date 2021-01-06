@@ -32,7 +32,7 @@ public class FortressRoom extends DungeonBase {
   }
 
   public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
-    ThemeBase theme = settings.getTheme();
+    ThemeBase theme = levelSettings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();
     StairsBlock stair = theme.getPrimary().getStair();
     BlockBrush liquid = theme.getPrimary().getLiquid();
@@ -48,47 +48,47 @@ public class FortressRoom extends DungeonBase {
     end = new Coord(origin);
     start.translate(new Coord(-8, -1, -8));
     end.translate(new Coord(8, 6, 8));
-    RectHollow.newRect(start, end).fill(editor, wall, false, true);
+    RectHollow.newRect(start, end).fill(worldEditor, wall, false, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(new Coord(-4, 6, -4));
     end.translate(new Coord(4, 6, 4));
-    RectSolid.newRect(start, end).fill(editor, wall);
+    RectSolid.newRect(start, end).fill(worldEditor, wall);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(new Coord(-3, 7, -3));
     end.translate(new Coord(3, 7, 3));
-    RectSolid.newRect(start, end).fill(editor, wall);
+    RectSolid.newRect(start, end).fill(worldEditor, wall);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(new Coord(-2, 7, -2));
     end.translate(new Coord(2, 7, 2));
-    RectSolid.newRect(start, end).fill(editor, liquid);
+    RectSolid.newRect(start, end).fill(worldEditor, liquid);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(new Coord(-4, -1, -4));
     end.translate(new Coord(4, -3, 4));
-    RectSolid.newRect(start, end).fill(editor, wall, false, true);
+    RectSolid.newRect(start, end).fill(worldEditor, wall, false, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(new Coord(-3, -2, -3));
     end.translate(new Coord(3, -2, 3));
-    BlockType.SOUL_SAND.getBrush().fill(editor, new RectSolid(start, end), false, true);
+    BlockType.SOUL_SAND.getBrush().fill(worldEditor, new RectSolid(start, end), false, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(new Coord(-3, -1, -3));
     end.translate(new Coord(3, -1, 3));
-    RectSolid.newRect(start, end).fill(editor, netherwart, false, true);
+    RectSolid.newRect(start, end).fill(worldEditor, netherwart, false, true);
     List<Coord> chests = (new RectSolid(start, end).get());
 
-    List<Coord> chestLocations = chooseRandomLocations(editor.getRandom(), editor.getRandom().nextInt(3) + 1, chests);
-    editor.getTreasureChestEditor().createChests(settings.getDifficulty(origin), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(editor.getRandom(), ChestType.RARE_TREASURES)));
+    List<Coord> chestLocations = chooseRandomLocations(worldEditor.getRandom(), worldEditor.getRandom().nextInt(3) + 1, chests);
+    worldEditor.getTreasureChestEditor().createChests(levelSettings.getDifficulty(origin), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(worldEditor.getRandom(), ChestType.RARE_TREASURES)));
 
     for (Cardinal dir : DIRECTIONS) {
 
@@ -98,7 +98,7 @@ public class FortressRoom extends DungeonBase {
       end = new Coord(start);
       start.translate(dir.antiClockwise(), 6);
       end.translate(dir.clockwise(), 6);
-      RectSolid.newRect(start, end).fill(editor, wall);
+      RectSolid.newRect(start, end).fill(worldEditor, wall);
 
       start = new Coord(origin);
       start.translate(UP, 5);
@@ -106,7 +106,7 @@ public class FortressRoom extends DungeonBase {
       end = new Coord(start);
       start.translate(dir.antiClockwise(), 6);
       end.translate(dir.clockwise(), 6);
-      RectSolid.newRect(start, end).fill(editor, wall);
+      RectSolid.newRect(start, end).fill(worldEditor, wall);
 
       start = new Coord(origin);
       start.translate(DOWN);
@@ -114,22 +114,22 @@ public class FortressRoom extends DungeonBase {
       end = new Coord(start);
       start.translate(dir.antiClockwise(), 2);
       end.translate(dir.clockwise(), 2);
-      stair.setUpsideDown(false).setFacing(dir.reverse()).fill(editor, new RectSolid(start, end));
+      stair.setUpsideDown(false).setFacing(dir.reverse()).fill(worldEditor, new RectSolid(start, end));
 
       cursor = new Coord(origin);
       cursor.translate(dir, 4);
       cursor.translate(dir.antiClockwise(), 4);
-      supportPillar(editor, editor.getRandom(), settings, cursor);
+      supportPillar(worldEditor, worldEditor.getRandom(), levelSettings, cursor);
 
       for (Cardinal o : dir.orthogonals()) {
         cursor = new Coord(origin);
         cursor.translate(dir, 7);
         cursor.translate(o, 2);
-        pillar(editor, settings, cursor);
+        pillar(worldEditor, levelSettings, cursor);
         cursor.translate(o);
         cursor.translate(o);
         cursor.translate(o);
-        pillar(editor, settings, cursor);
+        pillar(worldEditor, levelSettings, cursor);
       }
     }
 

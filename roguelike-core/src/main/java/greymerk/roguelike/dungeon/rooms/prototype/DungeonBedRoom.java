@@ -47,8 +47,8 @@ public class DungeonBedRoom extends DungeonBase {
 
   @Override
   public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
-    Random rand = editor.getRandom();
-    ThemeBase theme = settings.getTheme();
+    Random rand = worldEditor.getRandom();
+    ThemeBase theme = levelSettings.getTheme();
 
     Coord cursor;
     Coord start;
@@ -66,7 +66,7 @@ public class DungeonBedRoom extends DungeonBase {
     start.translate(Cardinal.DOWN);
     end.translate(Cardinal.UP, 4);
 
-    RectHollow.newRect(start, end).fill(editor, theme.getPrimary().getWall(), false, true);
+    RectHollow.newRect(start, end).fill(worldEditor, theme.getPrimary().getWall(), false, true);
 
     start = new Coord(origin);
     start.translate(Cardinal.DOWN);
@@ -76,7 +76,7 @@ public class DungeonBedRoom extends DungeonBase {
     start.translate(dir.reverse(), 2);
     end.translate(dir, 2);
 
-    RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall());
+    RectSolid.newRect(start, end).fill(worldEditor, theme.getSecondary().getWall());
 
     for (Cardinal o : dir.orthogonals()) {
       StairsBlock stair = theme.getSecondary().getStair();
@@ -88,26 +88,26 @@ public class DungeonBedRoom extends DungeonBase {
       start.translate(o.antiClockwise(), 2);
       end.translate(o.clockwise(), 2);
 
-      RectSolid.newRect(start, end).fill(editor, stair);
+      RectSolid.newRect(start, end).fill(worldEditor, stair);
       start.translate(Cardinal.UP, 2);
       end.translate(Cardinal.UP, 2);
-      RectSolid.newRect(start, end).fill(editor, stair);
+      RectSolid.newRect(start, end).fill(worldEditor, stair);
       start.translate(Cardinal.UP);
       end.translate(Cardinal.UP);
-      RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall());
+      RectSolid.newRect(start, end).fill(worldEditor, theme.getPrimary().getWall());
       start.translate(o.reverse());
       end.translate(o.reverse());
-      RectSolid.newRect(start, end).fill(editor, stair);
+      RectSolid.newRect(start, end).fill(worldEditor, stair);
     }
 
     for (Cardinal o : dir.orthogonals()) {
       cursor = new Coord(origin);
       cursor.translate(o, 3);
-      pillar(editor, o, theme, cursor);
+      pillar(worldEditor, o, theme, cursor);
       for (Cardinal p : o.orthogonals()) {
         Coord c = new Coord(cursor);
         c.translate(p, 3);
-        pillar(editor, o, theme, c);
+        pillar(worldEditor, o, theme, c);
       }
     }
 
@@ -120,7 +120,7 @@ public class DungeonBedRoom extends DungeonBase {
       end = new Coord(cursor);
       start.translate(dir.antiClockwise(), 2);
       end.translate(dir.clockwise(), 2);
-      RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall());
+      RectSolid.newRect(start, end).fill(worldEditor, theme.getSecondary().getWall());
       cursor.translate(dir, 3);
     }
 
@@ -128,38 +128,38 @@ public class DungeonBedRoom extends DungeonBase {
 
     cursor = new Coord(origin);
     cursor.translate(dir, 3);
-    BedBlock.bed().setColor(DyeColor.chooseRandom(editor.getRandom())).setFacing(dir.reverse()).stroke(editor, cursor);
+    BedBlock.bed().setColor(DyeColor.chooseRandom(worldEditor.getRandom())).setFacing(dir.reverse()).stroke(worldEditor, cursor);
     cursor.translate(side, 2);
-    BlockType.BOOKSHELF.getBrush().stroke(editor, cursor);
+    BlockType.BOOKSHELF.getBrush().stroke(worldEditor, cursor);
     cursor.translate(Cardinal.UP);
-    FlowerPotBlock.flowerPot().withRandomContent(editor.getRandom()).stroke(editor, cursor);
+    FlowerPotBlock.flowerPot().withRandomContent(worldEditor.getRandom()).stroke(worldEditor, cursor);
     cursor.translate(side.reverse(), 3);
     cursor.translate(Cardinal.DOWN);
     StairsBlock stair = theme.getSecondary().getStair();
     stair.setUpsideDown(true).setFacing(dir.reverse());
-    stair.stroke(editor, cursor);
+    stair.stroke(worldEditor, cursor);
     cursor.translate(Cardinal.UP);
-    TorchBlock.torch().setFacing(Cardinal.UP).stroke(editor, cursor);
+    TorchBlock.torch().setFacing(Cardinal.UP).stroke(worldEditor, cursor);
 
     side = dir.orthogonals()[rand.nextBoolean() ? 1 : 0];
     cursor = new Coord(origin);
     cursor.translate(dir);
     cursor.translate(side, 3);
 
-    editor.getTreasureChestEditor().createChest(Dungeon.getLevel(cursor.getY()), cursor.add(Cardinal.UP), false, getRoomSetting().getChestType().orElse(ChestType.STARTER));
+    worldEditor.getTreasureChestEditor().createChest(Dungeon.getLevel(cursor.getY()), cursor.add(Cardinal.UP), false, getRoomSetting().getChestType().orElse(ChestType.STARTER));
 
     cursor.translate(side.reverse(), 6);
     if (rand.nextBoolean()) {
       cursor.translate(Cardinal.UP);
-      TorchBlock.torch().setFacing(Cardinal.UP).stroke(editor, cursor);
+      TorchBlock.torch().setFacing(Cardinal.UP).stroke(worldEditor, cursor);
       cursor.translate(Cardinal.DOWN);
       cursor.translate(dir);
-      BlockType.CRAFTING_TABLE.getBrush().stroke(editor, cursor);
+      BlockType.CRAFTING_TABLE.getBrush().stroke(worldEditor, cursor);
     } else {
-      BlockType.CRAFTING_TABLE.getBrush().stroke(editor, cursor);
+      BlockType.CRAFTING_TABLE.getBrush().stroke(worldEditor, cursor);
       cursor.translate(dir);
       cursor.translate(Cardinal.UP);
-      TorchBlock.torch().setFacing(Cardinal.UP).stroke(editor, cursor);
+      TorchBlock.torch().setFacing(Cardinal.UP).stroke(worldEditor, cursor);
       cursor.translate(Cardinal.DOWN);
     }
 
@@ -170,8 +170,8 @@ public class DungeonBedRoom extends DungeonBase {
     if (rand.nextBoolean()) {
       cursor.translate(dir.reverse());
     }
-    BlockType.FURNACE.getBrush().setFacing(side.reverse()).stroke(editor, cursor);
-    editor.setItem(cursor, WorldEditor.FURNACE_FUEL_SLOT, new ItemStack(Items.COAL, 2 + rand.nextInt(3)));
+    BlockType.FURNACE.getBrush().setFacing(side.reverse()).stroke(worldEditor, cursor);
+    worldEditor.setItem(cursor, WorldEditor.FURNACE_FUEL_SLOT, new ItemStack(Items.COAL, 2 + rand.nextInt(3)));
     return this;
   }
 

@@ -28,7 +28,7 @@ public class DungeonsWood extends DungeonBase {
 
   @Override
   public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
-    Random random = editor.getRandom();
+    Random random = worldEditor.getRandom();
     int x = origin.getX();
     int y = origin.getY();
     int z = origin.getZ();
@@ -40,26 +40,26 @@ public class DungeonsWood extends DungeonBase {
     BlockBrush pillar = wood.getLog();
     BlockBrush planks = Wood.OAK.getPlanks();
 
-    BlockBrush glowstone = settings.getTheme().getPrimary().getLightBlock();
+    BlockBrush glowstone = levelSettings.getTheme().getPrimary().getLightBlock();
 
 
-    RectSolid.newRect(new Coord(x - WIDTH, y, z - LENGTH), new Coord(x + WIDTH, y + HEIGHT, z + LENGTH)).fill(editor, SingleBlockBrush.AIR);
-    RectHollow.newRect(new Coord(x - WIDTH - 1, y - 1, z - LENGTH - 1), new Coord(x + WIDTH + 1, y + HEIGHT + 1, z + LENGTH + 1)).fill(editor, planks, false, true);
+    RectSolid.newRect(new Coord(x - WIDTH, y, z - LENGTH), new Coord(x + WIDTH, y + HEIGHT, z + LENGTH)).fill(worldEditor, SingleBlockBrush.AIR);
+    RectHollow.newRect(new Coord(x - WIDTH - 1, y - 1, z - LENGTH - 1), new Coord(x + WIDTH + 1, y + HEIGHT + 1, z + LENGTH + 1)).fill(worldEditor, planks, false, true);
 
     // log beams
-    RectSolid.newRect(new Coord(x - WIDTH, y, z - LENGTH), new Coord(x - WIDTH, y + HEIGHT, z - LENGTH)).fill(editor, pillar);
-    RectSolid.newRect(new Coord(x - WIDTH, y, z + LENGTH), new Coord(x - WIDTH, y + HEIGHT, z + LENGTH)).fill(editor, pillar);
-    RectSolid.newRect(new Coord(x + WIDTH, y, z - LENGTH), new Coord(x + WIDTH, y + HEIGHT, z - LENGTH)).fill(editor, pillar);
-    RectSolid.newRect(new Coord(x + WIDTH, y, z + LENGTH), new Coord(x + WIDTH, y + HEIGHT, z + LENGTH)).fill(editor, pillar);
+    RectSolid.newRect(new Coord(x - WIDTH, y, z - LENGTH), new Coord(x - WIDTH, y + HEIGHT, z - LENGTH)).fill(worldEditor, pillar);
+    RectSolid.newRect(new Coord(x - WIDTH, y, z + LENGTH), new Coord(x - WIDTH, y + HEIGHT, z + LENGTH)).fill(worldEditor, pillar);
+    RectSolid.newRect(new Coord(x + WIDTH, y, z - LENGTH), new Coord(x + WIDTH, y + HEIGHT, z - LENGTH)).fill(worldEditor, pillar);
+    RectSolid.newRect(new Coord(x + WIDTH, y, z + LENGTH), new Coord(x + WIDTH, y + HEIGHT, z + LENGTH)).fill(worldEditor, pillar);
 
     // glowstone
-    glowstone.stroke(editor, new Coord(x - WIDTH + 1, y - 1, z - LENGTH + 1));
-    glowstone.stroke(editor, new Coord(x - WIDTH + 1, y - 1, z + LENGTH - 1));
-    glowstone.stroke(editor, new Coord(x + WIDTH - 1, y - 1, z - LENGTH + 1));
-    glowstone.stroke(editor, new Coord(x + WIDTH - 1, y - 1, z + LENGTH - 1));
+    glowstone.stroke(worldEditor, new Coord(x - WIDTH + 1, y - 1, z - LENGTH + 1));
+    glowstone.stroke(worldEditor, new Coord(x - WIDTH + 1, y - 1, z + LENGTH - 1));
+    glowstone.stroke(worldEditor, new Coord(x + WIDTH - 1, y - 1, z - LENGTH + 1));
+    glowstone.stroke(worldEditor, new Coord(x + WIDTH - 1, y - 1, z + LENGTH - 1));
 
-    planks.stroke(editor, new Coord(x, y, z));
-    BlockType.CAKE.getBrush().stroke(editor, new Coord(x, y + 1, z));
+    planks.stroke(worldEditor, new Coord(x, y, z));
+    BlockType.CAKE.getBrush().stroke(worldEditor, new Coord(x, y + 1, z));
 
     List<Coord> spaces = new ArrayList<>();
     spaces.add(new Coord(x - WIDTH, y, z - LENGTH + 1));
@@ -68,7 +68,7 @@ public class DungeonsWood extends DungeonBase {
     spaces.add(new Coord(x + WIDTH, y, z + LENGTH - 1));
 
     List<Coord> chestLocations = chooseRandomLocations(random, 1, spaces);
-    editor.getTreasureChestEditor().createChests(Dungeon.getLevel(y), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.FOOD));
+    worldEditor.getTreasureChestEditor().createChests(Dungeon.getLevel(y), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.FOOD));
     return this;
   }
 

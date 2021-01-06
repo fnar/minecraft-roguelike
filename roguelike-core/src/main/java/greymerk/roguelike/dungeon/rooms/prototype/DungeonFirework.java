@@ -55,7 +55,7 @@ public class DungeonFirework extends DungeonBase {
     end.translate(dir.clockwise(), 4);
     start.translate(Cardinal.DOWN);
     end.translate(Cardinal.UP, 3);
-    RectHollow.newRect(start, end).fill(editor, stainedHardenedClay().setColor(DyeColor.ORANGE), false, true);
+    RectHollow.newRect(start, end).fill(worldEditor, stainedHardenedClay().setColor(DyeColor.ORANGE), false, true);
 
     start = new Coord(x, y, z);
     start.translate(dir.antiClockwise(), 2);
@@ -63,30 +63,30 @@ public class DungeonFirework extends DungeonBase {
     start.translate(dir.reverse(), 3);
     end.translate(dir, 7);
     end.translate(Cardinal.UP);
-    RectSolid.newRect(start, end).fill(editor, breadboard);
+    RectSolid.newRect(start, end).fill(worldEditor, breadboard);
 
     start.translate(dir.clockwise(), 2);
     end.translate(dir.clockwise(), 2);
-    RectSolid.newRect(start, end).fill(editor, breadboard);
+    RectSolid.newRect(start, end).fill(worldEditor, breadboard);
 
     start.translate(dir.clockwise(), 2);
     end.translate(dir.clockwise(), 2);
-    RectSolid.newRect(start, end).fill(editor, breadboard);
+    RectSolid.newRect(start, end).fill(worldEditor, breadboard);
 
     cursor = new Coord(x, y, z);
     cursor.translate(dir.antiClockwise(), 2);
 
-    launcher(editor, dir, cursor);
+    launcher(worldEditor, dir, cursor);
     cursor.translate(dir.clockwise(), 2);
-    launcher(editor, dir, cursor);
+    launcher(worldEditor, dir, cursor);
     cursor.translate(dir.clockwise(), 2);
-    launcher(editor, dir, cursor);
+    launcher(worldEditor, dir, cursor);
     cursor.translate(dir, 6);
-    launcher(editor, dir, cursor);
+    launcher(worldEditor, dir, cursor);
     cursor.translate(dir.antiClockwise(), 2);
-    launcher(editor, dir, cursor);
+    launcher(worldEditor, dir, cursor);
     cursor.translate(dir.antiClockwise(), 2);
-    launcher(editor, dir, cursor);
+    launcher(worldEditor, dir, cursor);
 
     start = new Coord(x, y, z);
     start.translate(dir, 4);
@@ -94,22 +94,22 @@ public class DungeonFirework extends DungeonBase {
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
     end.translate(dir, 2);
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
 
     cursor = new Coord(x, y, z);
     cursor.translate(dir, 2);
-    RepeaterBlock.repeater().setFacing(dir).stroke(editor, cursor);
+    RepeaterBlock.repeater().setFacing(dir).stroke(worldEditor, cursor);
     cursor.translate(dir.antiClockwise(), 2);
-    RepeaterBlock.repeater().setFacing(dir).stroke(editor, cursor);
+    RepeaterBlock.repeater().setFacing(dir).stroke(worldEditor, cursor);
     cursor.translate(dir.clockwise(), 4);
-    RepeaterBlock.repeater().setFacing(dir).stroke(editor, cursor);
+    RepeaterBlock.repeater().setFacing(dir).stroke(worldEditor, cursor);
 
     cursor = new Coord(x, y, z);
     cursor.translate(dir.reverse(), 3);
     cursor.translate(dir.antiClockwise());
-    RepeaterBlock.repeater().setFacing(dir.antiClockwise()).stroke(editor, cursor);
+    RepeaterBlock.repeater().setFacing(dir.antiClockwise()).stroke(worldEditor, cursor);
     cursor.translate(dir.clockwise(), 2);
-    RepeaterBlock.repeater().setFacing(dir.clockwise()).stroke(editor, cursor);
+    RepeaterBlock.repeater().setFacing(dir.clockwise()).stroke(worldEditor, cursor);
 
     BlockBrush wire = BlockType.REDSTONE_WIRE.getBrush();
 
@@ -121,47 +121,47 @@ public class DungeonFirework extends DungeonBase {
     end.translate(dir.antiClockwise(), 5);
     end.translate(dir.reverse(), 5);
     end.translate(Cardinal.DOWN, 2);
-    RectSolid.newRect(start, end).fill(editor, BlockType.COBBLESTONE.getBrush());
+    RectSolid.newRect(start, end).fill(worldEditor, BlockType.COBBLESTONE.getBrush());
 
     cursor = new Coord(x, y, z);
     cursor.translate(dir.reverse(), 3);
     cursor.translate(Cardinal.DOWN);
-    TorchBlock.redstone().setFacing(Cardinal.UP).stroke(editor, cursor);
+    TorchBlock.redstone().setFacing(Cardinal.UP).stroke(worldEditor, cursor);
     cursor.translate(Cardinal.DOWN);
-    breadboard.stroke(editor, cursor);
+    breadboard.stroke(worldEditor, cursor);
     cursor.translate(dir.antiClockwise());
-    TorchBlock.redstone().setFacing(dir.antiClockwise()).stroke(editor, cursor);
+    TorchBlock.redstone().setFacing(dir.antiClockwise()).stroke(worldEditor, cursor);
     cursor.translate(dir.antiClockwise());
-    wire.stroke(editor, cursor);
+    wire.stroke(worldEditor, cursor);
     cursor.translate(dir.reverse());
-    wire.stroke(editor, cursor);
+    wire.stroke(worldEditor, cursor);
     cursor.translate(dir.reverse());
-    wire.stroke(editor, cursor);
+    wire.stroke(worldEditor, cursor);
     cursor.translate(dir.clockwise());
-    wire.stroke(editor, cursor);
+    wire.stroke(worldEditor, cursor);
     cursor.translate(dir.clockwise());
-    wire.stroke(editor, cursor);
+    wire.stroke(worldEditor, cursor);
     cursor.translate(dir);
     RepeaterBlock.repeater()
         .setDelay(RepeaterBlock.Delay.FOUR)
         .setPowered(true)
         .setFacing(dir)
-        .stroke(editor, cursor);
+        .stroke(worldEditor, cursor);
     cursor.translate(Cardinal.UP);
     cursor.translate(dir.reverse());
-    stainedHardenedClay().setColor(DyeColor.RED).stroke(editor, cursor);
+    stainedHardenedClay().setColor(DyeColor.RED).stroke(worldEditor, cursor);
     cursor.translate(Cardinal.UP);
-    LeverBlock.lever().setActive(true).setFacing(Cardinal.UP).stroke(editor, cursor);
+    LeverBlock.lever().setActive(true).setFacing(Cardinal.UP).stroke(worldEditor, cursor);
 
     BlockBrush glowstone = BlockType.GLOWSTONE.getBrush();
     cursor = new Coord(x, y, z);
     cursor.translate(dir.reverse(), 5);
     cursor.translate(Cardinal.UP, 3);
-    glowstone.stroke(editor, cursor);
+    glowstone.stroke(worldEditor, cursor);
     cursor.translate(dir, 4);
-    glowstone.stroke(editor, cursor);
+    glowstone.stroke(worldEditor, cursor);
     cursor.translate(dir, 6);
-    glowstone.stroke(editor, cursor);
+    glowstone.stroke(worldEditor, cursor);
 
     return this;
   }

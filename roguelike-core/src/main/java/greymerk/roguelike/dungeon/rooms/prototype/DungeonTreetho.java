@@ -31,7 +31,7 @@ public class DungeonTreetho extends DungeonBase {
   @Override
   public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
 
-    ThemeBase theme = settings.getTheme();
+    ThemeBase theme = levelSettings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();
     Cardinal dir = entrances.get(0);
 
@@ -45,7 +45,7 @@ public class DungeonTreetho extends DungeonBase {
     start.translate(new Coord(-11, -1, -11));
     end.translate(new Coord(11, 8, 11));
 
-    RectHollow.newRect(start, end).fill(editor, wall, false, true);
+    RectHollow.newRect(start, end).fill(worldEditor, wall, false, true);
 
     BlockBrush birchSlab = SlabBlock.birch().setTop(true).setFullBlock(false).setSeamless(false);
     BlockBrush pumpkin = PumpkinBlock.jackOLantern();
@@ -53,22 +53,22 @@ public class DungeonTreetho extends DungeonBase {
     end = new Coord(origin);
     start.translate(new Coord(-9, 8, -9));
     end.translate(new Coord(9, 8, 9));
-    RectSolid.newRect(start, end).fill(editor, birchSlab);
+    RectSolid.newRect(start, end).fill(worldEditor, birchSlab);
     start.translate(Cardinal.UP);
     end.translate(Cardinal.UP);
-    RectSolid.newRect(start, end).fill(editor, pumpkin);
+    RectSolid.newRect(start, end).fill(worldEditor, pumpkin);
 
     cursor = new Coord(origin);
     cursor.translate(new Coord(0, 8, 0));
-    ceiling(editor, settings, cursor);
+    ceiling(worldEditor, levelSettings, cursor);
 
     cursor = new Coord(origin);
-    treeFarm(editor, cursor, dir);
+    treeFarm(worldEditor, cursor, dir);
 
     for (Cardinal o : dir.orthogonals()) {
       cursor = new Coord(origin);
       cursor.translate(o, 5);
-      treeFarm(editor, cursor, dir);
+      treeFarm(worldEditor, cursor, dir);
     }
 
 

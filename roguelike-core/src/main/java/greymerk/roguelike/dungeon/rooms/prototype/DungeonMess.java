@@ -29,7 +29,7 @@ public class DungeonMess extends DungeonBase {
   @Override
   public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
 
-    ThemeBase theme = settings.getTheme();
+    ThemeBase theme = levelSettings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();
     BlockBrush panel = theme.getSecondary().getWall();
     BlockBrush pillar = theme.getPrimary().getPillar();
@@ -44,17 +44,17 @@ public class DungeonMess extends DungeonBase {
     start.translate(-8, -1, -8);
     end = new Coord(origin);
     end.translate(8, 5, 8);
-    RectHollow.newRect(start, end).fill(editor, wall, false, true);
+    RectHollow.newRect(start, end).fill(worldEditor, wall, false, true);
 
     start = new Coord(origin);
     start.translate(-2, 5, -2);
     end = new Coord(origin);
     end.translate(2, 5, 2);
-    RectSolid.newRect(start, end).fill(editor, panel, false, true);
+    RectSolid.newRect(start, end).fill(worldEditor, panel, false, true);
 
     cursor = new Coord(origin);
     cursor.translate(Cardinal.UP, 4);
-    BlockType.GLOWSTONE.getBrush().stroke(editor, cursor);
+    BlockType.GLOWSTONE.getBrush().stroke(worldEditor, cursor);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
       start = new Coord(origin);
@@ -62,12 +62,12 @@ public class DungeonMess extends DungeonBase {
       start.translate(dir.antiClockwise(), 3);
       end = new Coord(start);
       end.translate(Cardinal.UP, 3);
-      RectSolid.newRect(start, end).fill(editor, pillar);
+      RectSolid.newRect(start, end).fill(worldEditor, pillar);
 
       for (Cardinal d : Cardinal.DIRECTIONS) {
         cursor = new Coord(end);
         cursor.translate(d);
-        stair.setUpsideDown(true).setFacing(d).stroke(editor, cursor);
+        stair.setUpsideDown(true).setFacing(d).stroke(worldEditor, cursor);
       }
 
       start = new Coord(origin);
@@ -76,24 +76,24 @@ public class DungeonMess extends DungeonBase {
       end = new Coord(start);
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir.clockwise(), 3);
-      RectSolid.newRect(start, end).fill(editor, wall);
+      RectSolid.newRect(start, end).fill(worldEditor, wall);
 
 
       Cardinal[] corner = new Cardinal[]{dir, dir.antiClockwise()};
       if (entrances.size() == 4 && dir == entrances.get(0)) {
-        supplyCorner(editor, settings, corner, origin);
+        supplyCorner(worldEditor, levelSettings, corner, origin);
       } else {
-        corner(editor, settings, corner, origin);
+        corner(worldEditor, levelSettings, corner, origin);
       }
 
-      doorway(editor, settings, dir, origin);
+      doorway(worldEditor, levelSettings, dir, origin);
 
       cursor = new Coord(origin);
       cursor.translate(Cardinal.UP, 4);
       cursor.translate(dir);
-      stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor);
+      stair.setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
       cursor.translate(dir);
-      stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
+      stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
     }
 
     List<Cardinal> nonDoors = new ArrayList<>();
@@ -107,11 +107,11 @@ public class DungeonMess extends DungeonBase {
 
     switch (nonDoors.size()) {
       case 3:
-        sideTable(editor, settings, nonDoors.get(2), origin);
+        sideTable(worldEditor, levelSettings, nonDoors.get(2), origin);
       case 2:
-        fireplace(editor, settings, nonDoors.get(1), origin);
+        fireplace(worldEditor, levelSettings, nonDoors.get(1), origin);
       case 1:
-        supplies(editor, settings, nonDoors.get(0), origin);
+        supplies(worldEditor, levelSettings, nonDoors.get(0), origin);
       default:
     }
 

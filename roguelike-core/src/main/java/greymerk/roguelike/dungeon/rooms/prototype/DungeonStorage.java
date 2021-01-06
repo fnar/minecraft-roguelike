@@ -43,17 +43,17 @@ public class DungeonStorage extends DungeonBase {
   @Override
   public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
 
-    Random rand = editor.getRandom();
+    Random rand = worldEditor.getRandom();
 
     int x = origin.getX();
     int y = origin.getY();
     int z = origin.getZ();
-    ThemeBase theme = settings.getTheme();
+    ThemeBase theme = levelSettings.getTheme();
 
     List<Coord> chestSpaces = new ArrayList<>();
 
     // space
-    RectSolid.newRect(new Coord(x - 6, y, z - 6), new Coord(x + 6, y + 3, z + 6)).fill(editor, SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(x - 6, y, z - 6), new Coord(x + 6, y + 3, z + 6)).fill(worldEditor, SingleBlockBrush.AIR);
 
     Coord cursor;
     Coord start;
@@ -61,8 +61,8 @@ public class DungeonStorage extends DungeonBase {
 
     BlockBrush blocks = theme.getPrimary().getWall();
 
-    RectSolid.newRect(new Coord(x - 6, y - 1, z - 6), new Coord(x + 6, y - 1, z + 6)).fill(editor, blocks);
-    RectSolid.newRect(new Coord(x - 5, y + 4, z - 5), new Coord(x + 5, y + 4, z + 5)).fill(editor, blocks);
+    RectSolid.newRect(new Coord(x - 6, y - 1, z - 6), new Coord(x + 6, y - 1, z + 6)).fill(worldEditor, blocks);
+    RectSolid.newRect(new Coord(x - 5, y + 4, z - 5), new Coord(x + 5, y + 4, z + 5)).fill(worldEditor, blocks);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
       for (Cardinal orthogonals : dir.orthogonals()) {
@@ -71,59 +71,59 @@ public class DungeonStorage extends DungeonBase {
         cursor.translate(Cardinal.UP, 3);
         cursor.translate(dir, 2);
         cursor.translate(orthogonals, 2);
-        pillarTop(editor, theme, cursor);
+        pillarTop(worldEditor, theme, cursor);
         cursor.translate(dir, 3);
         cursor.translate(orthogonals, 3);
-        pillarTop(editor, theme, cursor);
+        pillarTop(worldEditor, theme, cursor);
         start = new Coord(cursor);
 
         cursor.translate(Cardinal.DOWN, 1);
         cursor.translate(dir, 1);
-        pillarTop(editor, theme, cursor);
+        pillarTop(worldEditor, theme, cursor);
 
         end = new Coord(cursor);
         end.translate(Cardinal.DOWN, 3);
         end.translate(dir, 1);
         end.translate(orthogonals, 1);
-        RectSolid.newRect(start, end).fill(editor, blocks);
+        RectSolid.newRect(start, end).fill(worldEditor, blocks);
 
         cursor = new Coord(x, y, z);
         cursor.translate(dir, 2);
         cursor.translate(orthogonals, 2);
-        pillar(editor, cursor, theme, 4);
+        pillar(worldEditor, cursor, theme, 4);
         cursor.translate(dir, 4);
-        pillar(editor, cursor, theme, 3);
+        pillar(worldEditor, cursor, theme, 3);
 
 
         cursor.translate(Cardinal.UP, 2);
-        pillarTop(editor, theme, cursor);
+        pillarTop(worldEditor, theme, cursor);
 
         cursor.translate(Cardinal.UP, 1);
         cursor.translate(dir.reverse(), 1);
-        pillarTop(editor, theme, cursor);
+        pillarTop(worldEditor, theme, cursor);
 
         cursor.translate(dir.reverse(), 3);
-        pillarTop(editor, theme, cursor);
+        pillarTop(worldEditor, theme, cursor);
 
         start = new Coord(x, y, z);
         start.translate(dir, 6);
         start.translate(Cardinal.UP, 3);
         end = new Coord(start);
         end.translate(orthogonals, 5);
-        RectSolid.newRect(start, end).fill(editor, blocks);
+        RectSolid.newRect(start, end).fill(worldEditor, blocks);
         start.translate(dir, 1);
         end.translate(dir, 1);
         end.translate(Cardinal.DOWN, 3);
-        RectSolid.newRect(start, end).fill(editor, blocks, false, true);
+        RectSolid.newRect(start, end).fill(worldEditor, blocks, false, true);
 
         cursor = new Coord(x, y, z);
         cursor.translate(dir, 6);
         cursor.translate(orthogonals, 3);
         StairsBlock stair = theme.getSecondary().getStair();
         stair.setUpsideDown(true).setFacing(dir.reverse());
-        stair.stroke(editor, cursor);
+        stair.stroke(worldEditor, cursor);
         cursor.translate(orthogonals, 1);
-        stair.stroke(editor, cursor);
+        stair.stroke(worldEditor, cursor);
         cursor.translate(Cardinal.UP, 1);
         chestSpaces.add(new Coord(cursor));
         cursor.translate(orthogonals.reverse(), 1);
@@ -136,18 +136,18 @@ public class DungeonStorage extends DungeonBase {
         end = new Coord(start);
         end.translate(dir, 3);
         end.translate(orthogonals, 1);
-        RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getFloor());
+        RectSolid.newRect(start, end).fill(worldEditor, theme.getSecondary().getFloor());
 
         cursor = new Coord(x, y, z);
         cursor.translate(dir, 5);
         cursor.translate(orthogonals, 5);
-        pillar(editor, cursor, theme, 4);
+        pillar(worldEditor, cursor, theme, 4);
 
       }
     }
 
     List<Coord> chestLocations = chooseRandomLocations(rand, 2, chestSpaces);
-    editor.getTreasureChestEditor().createChests(settings.getDifficulty(origin), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(rand, ChestType.SUPPLIES_TREASURES)));
+    worldEditor.getTreasureChestEditor().createChests(levelSettings.getDifficulty(origin), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(rand, ChestType.SUPPLIES_TREASURES)));
     return this;
   }
 

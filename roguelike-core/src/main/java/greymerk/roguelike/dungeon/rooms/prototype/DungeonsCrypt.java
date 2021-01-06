@@ -27,8 +27,8 @@ public class DungeonsCrypt extends DungeonBase {
   }
 
   public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
-    Random rand = editor.getRandom();
-    ThemeBase theme = settings.getTheme();
+    Random rand = worldEditor.getRandom();
+    ThemeBase theme = levelSettings.getTheme();
     StairsBlock stair = theme.getPrimary().getStair();
     BlockBrush walls = theme.getPrimary().getWall();
     BlockBrush floor = theme.getPrimary().getFloor();
@@ -41,19 +41,19 @@ public class DungeonsCrypt extends DungeonBase {
     end = new Coord(origin);
     start.translate(new Coord(-3, 0, -3));
     end.translate(new Coord(3, 4, 3));
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(new Coord(-9, -1, -9));
     end.translate(new Coord(9, -1, 9));
-    RectSolid.newRect(start, end).fill(editor, floor);
+    RectSolid.newRect(start, end).fill(worldEditor, floor);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(new Coord(-9, 5, -9));
     end.translate(new Coord(9, 6, 9));
-    RectSolid.newRect(start, end).fill(editor, walls, false, true);
+    RectSolid.newRect(start, end).fill(worldEditor, walls, false, true);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
 
@@ -64,7 +64,7 @@ public class DungeonsCrypt extends DungeonBase {
         end.translate(dir.antiClockwise(), 5);
         end.translate(dir, 5);
         end.translate(Cardinal.UP, 4);
-        RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+        RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
       }
 
       if (entrances.contains(dir)) {
@@ -76,7 +76,7 @@ public class DungeonsCrypt extends DungeonBase {
         end.translate(dir, 8);
         end.translate(dir.clockwise(), 2);
         end.translate(Cardinal.UP, 4);
-        RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+        RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
 
         for (Cardinal o : dir.orthogonals()) {
           if (entrances.contains(o)) {
@@ -86,7 +86,7 @@ public class DungeonsCrypt extends DungeonBase {
             cursor.translate(o, 3);
             cursor.translate(Cardinal.UP);
 
-            crypt(editor, rand, settings, cursor, o);
+            crypt(worldEditor, rand, levelSettings, cursor, o);
           } else {
 
             start = new Coord(origin);
@@ -96,27 +96,27 @@ public class DungeonsCrypt extends DungeonBase {
             end.translate(dir, 8);
             end.translate(o, 8);
             end.translate(Cardinal.UP, 4);
-            RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+            RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
 
             cursor = new Coord(origin);
             cursor.translate(dir, 6);
             cursor.translate(o, 3);
             cursor.translate(Cardinal.UP);
 
-            sarcophagus(editor, rand, settings, cursor, o);
+            sarcophagus(worldEditor, rand, levelSettings, cursor, o);
           }
         }
 
       } else {
         cursor = new Coord(origin);
         cursor.translate(dir, 4);
-        mausoleumWall(editor, rand, settings, cursor, dir);
+        mausoleumWall(worldEditor, rand, levelSettings, cursor, dir);
       }
 
       cursor = new Coord(origin);
       cursor.translate(dir, 3);
       cursor.translate(dir.antiClockwise(), 3);
-      pillar(editor, settings, cursor);
+      pillar(worldEditor, levelSettings, cursor);
 
       start = new Coord(origin);
       start.translate(dir, 8);
@@ -125,7 +125,7 @@ public class DungeonsCrypt extends DungeonBase {
       start.translate(dir.antiClockwise(), 2);
       end.translate(dir.clockwise(), 2);
       stair.setUpsideDown(true).setFacing(dir.reverse());
-      RectSolid.newRect(start, end).fill(editor, stair, true, false);
+      RectSolid.newRect(start, end).fill(worldEditor, stair, true, false);
     }
 
     return this;
