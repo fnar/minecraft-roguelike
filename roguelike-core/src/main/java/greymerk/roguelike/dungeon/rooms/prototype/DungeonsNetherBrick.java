@@ -20,7 +20,6 @@ import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.MobType;
-import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 public class DungeonsNetherBrick extends DungeonBase {
 
@@ -58,21 +57,17 @@ public class DungeonsNetherBrick extends DungeonBase {
     ceiling.addBlock(SingleBlockBrush.AIR, 5);
     RectSolid.newRect(new Coord(x - length, y + height, z - width), new Coord(x + length, y + height, z + width)).fill(worldEditor, ceiling);
 
-    List<Coord> chestLocations = chooseRandomLocations(random, 1, new RectSolid(new Coord(x - length, y, z - width), new Coord(x + length, y, z + width)).get());
+    List<Coord> chestLocations = chooseRandomLocations(1, new RectSolid(new Coord(x - length, y, z - width), new Coord(x + length, y, z + width)).get());
     worldEditor.getTreasureChestEditor().createChests(Dungeon.getLevel(y), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(random, ChestType.COMMON_TREASURES)));
 
     final Coord cursor = new Coord(x - length - 1, y + random.nextInt(2), z - width - 1);
-    SpawnerSettings spawners3 = levelSettings.getSpawners();
-    generateSpawner(worldEditor, cursor, levelSettings.getDifficulty(cursor), spawners3, MobType.COMMON_MOBS);
+    generateSpawner(cursor, MobType.COMMON_MOBS);
     final Coord cursor1 = new Coord(x - length - 1, y + random.nextInt(2), z + width + 1);
-    SpawnerSettings spawners2 = levelSettings.getSpawners();
-    generateSpawner(worldEditor, cursor1, levelSettings.getDifficulty(cursor1), spawners2, MobType.COMMON_MOBS);
+    generateSpawner(cursor1, MobType.COMMON_MOBS);
     final Coord cursor2 = new Coord(x + length + 1, y + random.nextInt(2), z - width - 1);
-    SpawnerSettings spawners1 = levelSettings.getSpawners();
-    generateSpawner(worldEditor, cursor2, levelSettings.getDifficulty(cursor2), spawners1, MobType.COMMON_MOBS);
+    generateSpawner(cursor2, MobType.COMMON_MOBS);
     final Coord cursor3 = new Coord(x + length + 1, y + random.nextInt(2), z + width + 1);
-    SpawnerSettings spawners = levelSettings.getSpawners();
-    generateSpawner(worldEditor, cursor3, levelSettings.getDifficulty(cursor3), spawners, MobType.COMMON_MOBS);
+    generateSpawner(cursor3, MobType.COMMON_MOBS);
 
     return this;
   }

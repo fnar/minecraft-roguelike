@@ -1,7 +1,6 @@
 package greymerk.roguelike.dungeon.base;
 
 import java.util.List;
-import java.util.Random;
 
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
@@ -31,8 +30,8 @@ public abstract class DungeonBase implements Comparable<DungeonBase> {
     this.worldEditor = worldEditor;
   }
 
-  public static List<Coord> chooseRandomLocations(Random random, int limit, List<Coord> spaces) {
-    shuffle(spaces, random);
+  public List<Coord> chooseRandomLocations(int limit, List<Coord> spaces) {
+    shuffle(spaces, worldEditor.getRandom());
 
     return spaces.stream()
         .limit(limit)
@@ -41,8 +40,9 @@ public abstract class DungeonBase implements Comparable<DungeonBase> {
 
   public abstract DungeonBase generate(Coord origin, List<Cardinal> entrances);
 
-  protected void generateSpawner(WorldEditor editor, Coord spawnerLocation, int difficulty, SpawnerSettings levelSettingsSpawners, MobType... defaultMobs) {
-    getSpawnerSettings(difficulty, defaultMobs, levelSettingsSpawners).generateSpawner(editor, spawnerLocation, difficulty);
+  protected void generateSpawner(Coord spawnerLocation, MobType... defaultMobs) {
+    int difficulty = levelSettings.getDifficulty(spawnerLocation);
+    getSpawnerSettings(difficulty, defaultMobs, levelSettings.getSpawners()).generateSpawner(worldEditor, spawnerLocation, difficulty);
   }
 
   private SpawnerSettings getSpawnerSettings(int difficulty, MobType[] defaultMobs, SpawnerSettings levelSettingsSpawners) {

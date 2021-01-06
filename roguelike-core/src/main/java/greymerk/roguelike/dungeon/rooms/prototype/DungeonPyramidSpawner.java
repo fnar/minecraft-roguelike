@@ -17,7 +17,6 @@ import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
-import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 import static greymerk.roguelike.worldgen.spawners.MobType.COMMON_MOBS;
 
@@ -115,11 +114,10 @@ public class DungeonPyramidSpawner extends DungeonBase {
       }
     }
 
-    List<Coord> chestLocations = chooseRandomLocations(worldEditor.getRandom(), 1, space);
+    List<Coord> chestLocations = chooseRandomLocations(1, space);
     worldEditor.getTreasureChestEditor().createChests(Dungeon.getLevel(origin.getY()), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(worldEditor.getRandom(), ChestType.COMMON_TREASURES)));
     final Coord cursor1 = new Coord(x, y, z);
-    SpawnerSettings spawners = levelSettings.getSpawners();
-    generateSpawner(worldEditor, cursor1, levelSettings.getDifficulty(cursor1), spawners, COMMON_MOBS);
+    generateSpawner(cursor1, COMMON_MOBS);
     return this;
   }
 

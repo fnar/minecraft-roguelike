@@ -114,8 +114,8 @@ public class DungeonEniko extends DungeonBase {
       }
     }
 
-    generateSpawner(worldEditor, origin, levelSettings.getDifficulty(origin), levelSettings.getSpawners(), COMMON_MOBS);
-    List<Coord> chestLocations = chooseRandomLocations(worldEditor.getRandom(), 1, chests);
+    generateSpawner(origin, COMMON_MOBS);
+    List<Coord> chestLocations = chooseRandomLocations(1, chests);
     worldEditor.getTreasureChestEditor().createChests(levelSettings.getDifficulty(origin), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(worldEditor.getRandom(), ChestType.COMMON_TREASURES)));
 
     return this;

@@ -19,7 +19,6 @@ import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.IShape;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.MobType;
-import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 public class DungeonsEnder extends DungeonBase {
 
@@ -81,8 +80,7 @@ public class DungeonsEnder extends DungeonBase {
     if (RogueConfig.getBoolean(RogueConfig.GENEROUS)) {
       addEnderChest(worldEditor, new RectSolid(start, end));
     }
-    SpawnerSettings spawners = levelSettings.getSpawners();
-    generateSpawner(worldEditor, origin, levelSettings.getDifficulty(origin), spawners, MobType.ENDERMAN);
+    generateSpawner(origin, MobType.ENDERMAN);
 
     return this;
   }
