@@ -15,7 +15,7 @@ import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockJumble;
 import greymerk.roguelike.worldgen.BoundingBox;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBounded;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -46,14 +46,14 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
   public void encase(WorldEditor editor, ThemeBase theme) {
     Coord s;
     Coord e;
-    Cardinal dir = getDirection();
+    Direction dir = getDirection();
 
     s = start.copy();
     e = end.copy();
     s.translate(dir.antiClockwise(), 3);
-    s.translate(Cardinal.UP, 3);
+    s.translate(Direction.UP, 3);
     e.translate(dir.clockwise(), 3);
-    e.translate(Cardinal.DOWN, 3);
+    e.translate(Direction.DOWN, 3);
     RectSolid.newRect(s, e).fill(editor, theme.getPrimary().getWall());
   }
 
@@ -69,46 +69,46 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
     bridgeBlocks.addBlock(SingleBlockBrush.AIR);
 
     s = start.copy();
-    s.translate(Cardinal.NORTH);
-    s.translate(Cardinal.EAST);
+    s.translate(Direction.NORTH);
+    s.translate(Direction.EAST);
     e = end.copy();
-    e.translate(Cardinal.SOUTH);
-    e.translate(Cardinal.WEST);
-    e.translate(Cardinal.UP, 2);
+    e.translate(Direction.SOUTH);
+    e.translate(Direction.WEST);
+    e.translate(Direction.UP, 2);
     RectSolid.newRect(s, e).fill(editor, SingleBlockBrush.AIR);
 
-    s.translate(Cardinal.NORTH);
-    s.translate(Cardinal.EAST);
-    s.translate(Cardinal.DOWN);
-    e.translate(Cardinal.SOUTH);
-    e.translate(Cardinal.WEST);
-    e.translate(Cardinal.UP);
+    s.translate(Direction.NORTH);
+    s.translate(Direction.EAST);
+    s.translate(Direction.DOWN);
+    e.translate(Direction.SOUTH);
+    e.translate(Direction.WEST);
+    e.translate(Direction.UP);
     RectHollow.newRect(s, e).fill(editor, wallBlocks, false, true);
 
     s = start.copy();
-    s.translate(Cardinal.NORTH);
-    s.translate(Cardinal.EAST);
-    s.translate(Cardinal.DOWN);
+    s.translate(Direction.NORTH);
+    s.translate(Direction.EAST);
+    s.translate(Direction.DOWN);
     e = end.copy();
-    e.translate(Cardinal.SOUTH);
-    e.translate(Cardinal.WEST);
-    e.translate(Cardinal.DOWN);
+    e.translate(Direction.SOUTH);
+    e.translate(Direction.WEST);
+    e.translate(Direction.DOWN);
     RectSolid.newRect(s, e).fill(editor, floor, false, true);
     RectSolid.newRect(s, e).fill(editor, bridgeBlocks, true, false);
 
-    Cardinal dir = getDirection();
+    Direction dir = getDirection();
 
     // end of the tunnel;
     Coord location = end.copy();
     location.translate(dir, 1);
 
     Coord start = location.copy();
-    Cardinal[] orth = dir.orthogonals();
+    Direction[] orth = dir.orthogonals();
     start.translate(orth[0], 2);
-    start.translate(Cardinal.UP, 2);
+    start.translate(Direction.UP, 2);
     Coord end = location.copy();
     end.translate(orth[1], 2);
-    end.translate(Cardinal.DOWN, 2);
+    end.translate(Direction.DOWN, 2);
 
     RectSolid.newRect(start, end).fill(editor, wallBlocks, false, true);
 
@@ -121,7 +121,7 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
     return toReturn;
   }
 
-  public Cardinal getDirection() {
+  public Direction getDirection() {
     return start.dirTo(end);
   }
 
@@ -141,13 +141,13 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
   public BoundingBox getBoundingBox() {
     Coord s;
     Coord e;
-    Cardinal dir = getDirection();
+    Direction dir = getDirection();
     s = start.copy();
     e = end.copy();
     s.translate(dir.antiClockwise(), 2);
-    s.translate(Cardinal.UP, 3);
+    s.translate(Direction.UP, 3);
     e.translate(dir.clockwise(), 2);
-    e.translate(Cardinal.DOWN, 1);
+    e.translate(Direction.DOWN, 1);
     return new BoundingBox(s, e);
   }
 
@@ -175,7 +175,7 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
     return getBoundingBox().getEnd();
   }
 
-  Optional<Cardinal> getEntrance(Coord vertex) {
+  Optional<Direction> getEntrance(Coord vertex) {
     Coord start = getStart();
     Coord end = getEnd();
     if (vertex.equals(start)) {

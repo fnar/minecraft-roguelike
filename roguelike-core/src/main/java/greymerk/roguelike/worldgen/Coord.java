@@ -2,7 +2,7 @@ package greymerk.roguelike.worldgen;
 
 import java.util.Objects;
 
-import static greymerk.roguelike.worldgen.Cardinal.UP;
+import static greymerk.roguelike.worldgen.Direction.UP;
 
 public class Coord {
 
@@ -61,11 +61,11 @@ public class Coord {
     return new Coord(this);
   }
 
-  public Coord add(Cardinal dir) {
+  public Coord add(Direction dir) {
     return copy().translate(dir, 1);
   }
 
-  public Coord translate(Cardinal dir, int amount) {
+  public Coord translate(Direction dir, int amount) {
     switch (dir) {
       case UP:
         return up(amount);
@@ -96,7 +96,7 @@ public class Coord {
     return translate(other.x, other.y, other.z);
   }
 
-  public Coord translate(Cardinal dir) {
+  public Coord translate(Direction dir) {
     translate(dir, 1);
     return this;
   }
@@ -146,7 +146,7 @@ public class Coord {
     return Math.sqrt((side1 * side1) + (side2 * side2));
   }
 
-  public Cardinal dirTo(Coord other) {
+  public Direction dirTo(Coord other) {
     int xdiff = other.x - x;
     int ydiff = other.y - y;
     int zdiff = other.z - z;
@@ -160,15 +160,15 @@ public class Coord {
 
     if (Math.abs(xdiff) < Math.abs(zdiff)) {
       if (zdiff < 0) {
-        return Cardinal.NORTH;
+        return Direction.NORTH;
       } else {
-        return Cardinal.SOUTH;
+        return Direction.SOUTH;
       }
     } else {
       if (xdiff < 0) {
-        return Cardinal.WEST;
+        return Direction.WEST;
       } else {
-        return Cardinal.EAST;
+        return Direction.EAST;
       }
     }
   }

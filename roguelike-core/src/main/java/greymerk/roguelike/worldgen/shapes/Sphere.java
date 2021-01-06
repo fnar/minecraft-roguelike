@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 
 import static java.lang.Math.max;
@@ -46,7 +46,7 @@ public class Sphere implements IShape {
     private int row;
     private int col;
 
-    private Cardinal dir;
+    private Direction dir;
     private boolean top;
 
     public SphereIterator(Coord centre, Coord end) {
@@ -66,7 +66,7 @@ public class Sphere implements IShape {
       row = 0;
       col = 0;
       top = true;
-      dir = Cardinal.NORTH;
+      dir = Direction.NORTH;
     }
 
     @Override
@@ -77,11 +77,11 @@ public class Sphere implements IShape {
     @Override
     public Coord next() {
       Coord toReturn = centre.copy();
-      toReturn.translate(top ? Cardinal.UP : Cardinal.DOWN, layer);
+      toReturn.translate(top ? Direction.UP : Direction.DOWN, layer);
       toReturn.translate(dir, row);
       toReturn.translate(dir.antiClockwise(), col);
-      if (dir != Cardinal.NORTH || top) {
-        if (dir == Cardinal.NORTH) {
+      if (dir != Direction.NORTH || top) {
+        if (dir == Direction.NORTH) {
           top = false;
         }
         dir = dir.antiClockwise();

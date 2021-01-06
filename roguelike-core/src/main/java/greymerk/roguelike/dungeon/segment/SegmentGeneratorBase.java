@@ -10,7 +10,7 @@ import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.util.WeightedChoice;
 import greymerk.roguelike.util.WeightedRandomizer;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 
@@ -34,7 +34,7 @@ public class SegmentGeneratorBase implements ISegmentGenerator {
   }
 
   @Override
-  public List<ISegment> genSegment(WorldEditor editor, Random rand, DungeonLevel level, Cardinal dir, Coord pos) {
+  public List<ISegment> genSegment(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Coord pos) {
 
     int x = pos.getX();
     int y = pos.getY();
@@ -42,7 +42,7 @@ public class SegmentGeneratorBase implements ISegmentGenerator {
 
     List<ISegment> segs = new ArrayList<>();
 
-    for (Cardinal orth : dir.orthogonals()) {
+    for (Direction orth : dir.orthogonals()) {
       ISegment seg = pickSegment(editor, rand, level, dir, pos);
       if (seg == null) {
         return segs;
@@ -57,18 +57,18 @@ public class SegmentGeneratorBase implements ISegmentGenerator {
     return segs;
   }
 
-  private ISegment pickSegment(WorldEditor editor, Random rand, DungeonLevel level, Cardinal dir, Coord pos) {
+  private ISegment pickSegment(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Coord pos) {
     int x = pos.getX();
     int z = pos.getZ();
 
-    if ((dir == Cardinal.NORTH || dir == Cardinal.SOUTH) && z % 3 == 0) {
+    if ((dir == Direction.NORTH || dir == Direction.SOUTH) && z % 3 == 0) {
       if (z % 6 == 0) {
         return Segment.getSegment(arch);
       }
       return Segment.getSegment(segments.get(rand));
     }
 
-    if ((dir == Cardinal.WEST || dir == Cardinal.EAST) && x % 3 == 0) {
+    if ((dir == Direction.WEST || dir == Direction.EAST) && x % 3 == 0) {
       if (x % 6 == 0) {
         return Segment.getSegment(arch);
       }
@@ -86,16 +86,16 @@ public class SegmentGeneratorBase implements ISegmentGenerator {
     editor.fillDown(new Coord(x, y - 2, z), theme.getPrimary().getPillar());
 
     StairsBlock stair = theme.getPrimary().getStair();
-    stair.setUpsideDown(true).setFacing(Cardinal.WEST);
+    stair.setUpsideDown(true).setFacing(Direction.WEST);
     stair.stroke(editor, new Coord(x - 1, y - 2, z));
 
-    stair.setUpsideDown(true).setFacing(Cardinal.EAST);
+    stair.setUpsideDown(true).setFacing(Direction.EAST);
     stair.stroke(editor, new Coord(x + 1, y - 2, z));
 
-    stair.setUpsideDown(true).setFacing(Cardinal.SOUTH);
+    stair.setUpsideDown(true).setFacing(Direction.SOUTH);
     stair.stroke(editor, new Coord(x, y - 2, z + 1));
 
-    stair.setUpsideDown(true).setFacing(Cardinal.NORTH);
+    stair.setUpsideDown(true).setFacing(Direction.NORTH);
     stair.stroke(editor, new Coord(x, y - 2, z - 1));
   }
 }

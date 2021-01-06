@@ -11,7 +11,7 @@ import greymerk.roguelike.dungeon.segment.IAlcove;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
@@ -24,7 +24,7 @@ public class SilverfishNest implements IAlcove {
   private static int RECESSED = 6;
 
   @Override
-  public void generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal dir) {
+  public void generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Direction dir) {
 
     Coord corridor = origin.copy();
     Coord centre = origin.copy();
@@ -33,10 +33,10 @@ public class SilverfishNest implements IAlcove {
     nest(editor, rand, centre.getX(), centre.getY(), centre.getZ());
 
     Coord start = corridor.copy();
-    start.translate(Cardinal.UP);
+    start.translate(Direction.UP);
 
     Coord end = centre.copy();
-    end.translate(Cardinal.UP);
+    end.translate(Direction.UP);
     end.translate(dir.reverse(), 1);
 
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
@@ -47,7 +47,7 @@ public class SilverfishNest implements IAlcove {
   }
 
   @Override
-  public boolean isValidLocation(WorldEditor editor, Coord origin, Cardinal dir) {
+  public boolean isValidLocation(WorldEditor editor, Coord origin, Direction dir) {
 
     Coord centre = origin.copy();
     centre.translate(dir, RECESSED);

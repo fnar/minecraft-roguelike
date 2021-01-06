@@ -9,7 +9,7 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
@@ -17,7 +17,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class SegmentMushrooms extends SegmentBase {
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Cardinal wallDirection, ThemeBase theme, Coord origin) {
+  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction wallDirection, ThemeBase theme, Coord origin) {
 
     StairsBlock stair = theme.getSecondary().getStair();
 
@@ -30,27 +30,27 @@ public class SegmentMushrooms extends SegmentBase {
     Coord start;
     Coord end;
 
-    Cardinal[] orthogonals = wallDirection.orthogonals();
+    Direction[] orthogonals = wallDirection.orthogonals();
     start = origin.copy();
     start.translate(wallDirection, 2);
     end = start.copy();
     start.translate(orthogonals[0], 1);
     end.translate(orthogonals[1], 1);
-    end.translate(Cardinal.UP, 1);
+    end.translate(Direction.UP, 1);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
-    start.translate(Cardinal.DOWN, 1);
-    end.translate(Cardinal.DOWN, 2);
+    start.translate(Direction.DOWN, 1);
+    end.translate(Direction.DOWN, 2);
 
     RectSolid.newRect(start, end).fill(editor, BlockType.MYCELIUM.getBrush());
-    start.translate(Cardinal.UP, 1);
-    end.translate(Cardinal.UP, 1);
+    start.translate(Direction.UP, 1);
+    end.translate(Direction.UP, 1);
     RectSolid.newRect(start, end).fill(editor, mushrooms);
 
-    for (Cardinal d : orthogonals) {
+    for (Direction d : orthogonals) {
       cursor = origin.copy();
       cursor.translate(wallDirection, 2);
       cursor.translate(d, 1);
-      cursor.translate(Cardinal.UP, 1);
+      cursor.translate(Direction.UP, 1);
       stair.setUpsideDown(true).setFacing(d.reverse());
       stair.stroke(editor, cursor);
     }

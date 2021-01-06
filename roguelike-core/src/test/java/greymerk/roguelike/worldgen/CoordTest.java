@@ -20,43 +20,43 @@ public class CoordTest {
   @Test
   public void addDirection() {
     Coord test = new Coord(0, 0, 0);
-    test.translate(Cardinal.NORTH);
+    test.translate(Direction.NORTH);
     assertThat(test.equals(new Coord(0, 0, -1))).isTrue();
 
     test = new Coord(0, 0, 0);
-    test.translate(Cardinal.SOUTH);
+    test.translate(Direction.SOUTH);
     assertThat(test.equals(new Coord(0, 0, 1))).isTrue();
 
     test = new Coord(0, 0, 0);
-    test.translate(Cardinal.WEST);
+    test.translate(Direction.WEST);
     assertThat(test.equals(new Coord(-1, 0, 0))).isTrue();
 
     test = new Coord(0, 0, 0);
-    test.translate(Cardinal.EAST);
+    test.translate(Direction.EAST);
     assertThat(test.equals(new Coord(1, 0, 0))).isTrue();
 
     test = new Coord(0, 0, 0);
-    test.translate(Cardinal.DOWN);
+    test.translate(Direction.DOWN);
     assertThat(test.equals(new Coord(0, -1, 0))).isTrue();
 
     test = new Coord(0, 0, 0);
-    test.translate(Cardinal.UP);
+    test.translate(Direction.UP);
     assertThat(test.equals(new Coord(0, 1, 0))).isTrue();
 
     test = new Coord(0, 0, 0);
-    test.translate(Cardinal.NORTH, 5);
+    test.translate(Direction.NORTH, 5);
     assertThat(test.equals(new Coord(0, 0, -5))).isTrue();
 
     test = new Coord(0, 0, 0);
-    test.translate(Cardinal.SOUTH, 5);
+    test.translate(Direction.SOUTH, 5);
     assertThat(test.equals(new Coord(0, 0, 5))).isTrue();
 
     test = new Coord(0, 0, 0);
-    test.translate(Cardinal.NORTH, -5);
+    test.translate(Direction.NORTH, -5);
     assertThat(test.equals(new Coord(0, 0, 5))).isTrue();
 
     test = new Coord(0, 0, 0);
-    test.translate(Cardinal.SOUTH, -5);
+    test.translate(Direction.SOUTH, -5);
     assertThat(test.equals(new Coord(0, 0, -5))).isTrue();
   }
 
@@ -92,20 +92,20 @@ public class CoordTest {
     Coord one = new Coord(0, 0, 0);
 
     Coord two = new Coord(one);
-    two.translate(Cardinal.NORTH);
-    assert (one.dirTo(two) == Cardinal.NORTH);
+    two.translate(Direction.NORTH);
+    assert (one.dirTo(two) == Direction.NORTH);
 
     two = new Coord(one);
-    two.translate(Cardinal.SOUTH);
-    assert (one.dirTo(two) == Cardinal.SOUTH);
+    two.translate(Direction.SOUTH);
+    assert (one.dirTo(two) == Direction.SOUTH);
 
     two = new Coord(one);
-    two.translate(Cardinal.WEST);
-    assert (one.dirTo(two) == Cardinal.WEST);
+    two.translate(Direction.WEST);
+    assert (one.dirTo(two) == Direction.WEST);
 
     two = new Coord(one);
-    two.translate(Cardinal.EAST);
-    assert (one.dirTo(two) == Cardinal.EAST);
+    two.translate(Direction.EAST);
+    assert (one.dirTo(two) == Direction.EAST);
   }
 
 }

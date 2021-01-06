@@ -7,7 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 
@@ -79,13 +79,13 @@ public class RectHollow implements IShape {
 
       if (cursor.getZ() == c2.getZ() && cursor.getX() == c2.getX()) {
         cursor = new Coord(c1.getX(), cursor.getY(), c1.getZ());
-        cursor.translate(Cardinal.UP);
+        cursor.translate(Direction.UP);
         return toReturn;
       }
 
       if (cursor.getX() == c2.getX()) {
         cursor = new Coord(c1.getX(), cursor.getY(), cursor.getZ());
-        cursor.translate(Cardinal.SOUTH);
+        cursor.translate(Direction.SOUTH);
         return toReturn;
       }
 
@@ -96,9 +96,9 @@ public class RectHollow implements IShape {
               && cursor.getZ() != c2.getZ()
               && cursor.getX() == c1.getX()
       ) {
-        cursor.translate(Cardinal.EAST, c2.getX() - c1.getX());
+        cursor.translate(Direction.EAST, c2.getX() - c1.getX());
       } else {
-        cursor.translate(Cardinal.EAST);
+        cursor.translate(Direction.EAST);
       }
 
       return toReturn;

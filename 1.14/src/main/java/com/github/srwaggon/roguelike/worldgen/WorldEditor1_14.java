@@ -24,7 +24,7 @@ import java.util.Random;
 import greymerk.roguelike.TreasureChestEditor;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.PositionInfo;
 import greymerk.roguelike.worldgen.VanillaStructure;
@@ -142,7 +142,7 @@ public class WorldEditor1_14 implements WorldEditor {
   }
 
   @Override
-  public boolean canPlace(SingleBlockBrush block, Coord pos, Cardinal dir) {
+  public boolean canPlace(SingleBlockBrush block, Coord pos, Direction dir) {
     return false;
   }
 
@@ -177,7 +177,7 @@ public class WorldEditor1_14 implements WorldEditor {
   }
 
   @Override
-  public void setSkull(WorldEditor editor, Coord cursor, Cardinal dir, Skull type) {
+  public void setSkull(WorldEditor editor, Coord cursor, Direction dir, Skull type) {
 
   }
 }

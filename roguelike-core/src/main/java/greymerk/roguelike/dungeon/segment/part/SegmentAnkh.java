@@ -11,7 +11,7 @@ import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
@@ -19,7 +19,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class SegmentAnkh extends SegmentBase {
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Cardinal dir, ThemeBase theme, Coord pos) {
+  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, ThemeBase theme, Coord pos) {
     Coord start;
     Coord end;
     Coord cursor;
@@ -30,25 +30,25 @@ public class SegmentAnkh extends SegmentBase {
     BlockBrush back = ColoredBlock.stainedHardenedClay().setColor(color);
     BlockBrush glowstone = BlockType.GLOWSTONE.getBrush();
 
-    Cardinal[] orthogonals = dir.orthogonals();
+    Direction[] orthogonals = dir.orthogonals();
 
     start = pos.copy();
     start.translate(dir, 2);
     end = start.copy();
-    end.translate(Cardinal.UP, 2);
+    end.translate(Direction.UP, 2);
 
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
 
-    for (Cardinal o : orthogonals) {
+    for (Direction o : orthogonals) {
 
       cursor = pos.copy();
       cursor.translate(dir, 2);
       cursor.translate(o);
       stair.setUpsideDown(false).setFacing(o.reverse()).stroke(editor, cursor);
-      cursor.translate(Cardinal.UP);
+      cursor.translate(Direction.UP);
       stair.setUpsideDown(false).setFacing(o.reverse()).stroke(editor, cursor);
-      cursor.translate(Cardinal.UP);
+      cursor.translate(Direction.UP);
       stair.setUpsideDown(true).setFacing(o.reverse()).stroke(editor, cursor);
     }
 
@@ -57,7 +57,7 @@ public class SegmentAnkh extends SegmentBase {
     end = start.copy();
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
-    end.translate(Cardinal.UP, 2);
+    end.translate(Direction.UP, 2);
     RectSolid.newRect(start, end).fill(editor, glass);
     start.translate(dir);
     end.translate(dir);
@@ -65,9 +65,9 @@ public class SegmentAnkh extends SegmentBase {
 
     cursor = pos.copy();
     cursor.translate(dir, 3);
-    cursor.translate(Cardinal.DOWN);
+    cursor.translate(Direction.DOWN);
     glowstone.stroke(editor, cursor);
-    cursor.translate(Cardinal.UP, 4);
+    cursor.translate(Direction.UP, 4);
     glowstone.stroke(editor, cursor);
   }
 

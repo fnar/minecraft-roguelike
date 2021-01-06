@@ -12,7 +12,7 @@ import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
@@ -26,7 +26,7 @@ public class DungeonPyramidSpawner extends DungeonBase {
     super(roomSetting, levelSettings, worldEditor);
   }
 
-  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Direction> entrances) {
 
     int x = origin.getX();
     int y = origin.getY();
@@ -53,57 +53,57 @@ public class DungeonPyramidSpawner extends DungeonBase {
     Coord cursor;
 
     cursor = new Coord(x, y, z);
-    cursor.translate(Cardinal.UP, 5);
+    cursor.translate(Direction.UP, 5);
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
-    cursor.translate(Cardinal.UP, 1);
+    cursor.translate(Direction.UP, 1);
     blocks.stroke(worldEditor, cursor);
 
     cursor = new Coord(x, y, z);
-    cursor.translate(Cardinal.UP, 5);
+    cursor.translate(Direction.UP, 5);
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
-    cursor.translate(Cardinal.UP);
+    cursor.translate(Direction.UP);
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
 
     // Chests
     List<Coord> space = new ArrayList<>();
 
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
+    for (Direction dir : Direction.CARDINAL) {
 
       // pillar
       cursor = new Coord(x, y, z);
       cursor.translate(dir, 3);
       cursor.translate(dir.antiClockwise(), 3);
       start = cursor.copy();
-      cursor.translate(Cardinal.UP, 3);
+      cursor.translate(Direction.UP, 3);
       end = cursor.copy();
       RectSolid.newRect(start, end).fill(worldEditor, pillar);
-      cursor.translate(Cardinal.UP, 1);
+      cursor.translate(Direction.UP, 1);
       blocks.stroke(worldEditor, cursor);
 
       cursor = new Coord(x, y, z);
-      cursor.translate(Cardinal.UP, 4);
+      cursor.translate(Direction.UP, 4);
       cursor.translate(dir, 2);
       blocks.stroke(worldEditor, cursor);
       cursor.translate(dir.antiClockwise(), 2);
       blocks.stroke(worldEditor, cursor);
 
       cursor = new Coord(x, y, z);
-      cursor.translate(Cardinal.UP, 5);
+      cursor.translate(Direction.UP, 5);
       cursor.translate(dir.antiClockwise());
       SingleBlockBrush.AIR.stroke(worldEditor, cursor);
-      cursor.translate(Cardinal.UP);
+      cursor.translate(Direction.UP);
       SingleBlockBrush.AIR.stroke(worldEditor, cursor);
 
-      for (Cardinal orthogonals : dir.orthogonals()) {
+      for (Direction orthogonals : dir.orthogonals()) {
 
         cursor = new Coord(x, y, z);
-        cursor.translate(Cardinal.UP, 3);
+        cursor.translate(Direction.UP, 3);
         cursor.translate(orthogonals);
         cursor.translate(dir, 3);
         blocks.stroke(worldEditor, cursor);
 
         cursor = new Coord(x, y, z);
-        cursor.translate(Cardinal.UP, 4);
+        cursor.translate(Direction.UP, 4);
         cursor.translate(dir, 2);
         blocks.stroke(worldEditor, cursor);
 

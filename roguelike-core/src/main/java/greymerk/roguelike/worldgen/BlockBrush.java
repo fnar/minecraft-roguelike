@@ -18,6 +18,6 @@ public interface BlockBrush {
     shape.fill(editor, this, fillAir, replaceSolid);
   }
 
-  default BlockBrush setFacing(Cardinal direction) { return this; }
+  default BlockBrush setFacing(Direction direction) { return this; }
 
 }

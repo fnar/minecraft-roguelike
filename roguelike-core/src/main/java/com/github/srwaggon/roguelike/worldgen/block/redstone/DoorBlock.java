@@ -7,7 +7,7 @@ import com.github.srwaggon.roguelike.worldgen.block.BlockType;
 import com.github.srwaggon.roguelike.worldgen.block.Material;
 
 import greymerk.roguelike.dungeon.settings.DungeonSettingParseException;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import lombok.Getter;
@@ -93,7 +93,7 @@ public class DoorBlock extends SingleBlockBrush {
   public boolean stroke(WorldEditor worldEditor, Coord pos, boolean fillAir, boolean replaceSolid) {
     worldEditor.setBlock(pos, this, fillAir, replaceSolid);
     if (!isTop()) {
-      Coord above = pos.copy().translate(Cardinal.UP);
+      Coord above = pos.copy().translate(Direction.UP);
       worldEditor.setBlock(above, getTop(), fillAir, replaceSolid);
     }
     return true;

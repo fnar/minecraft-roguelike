@@ -14,7 +14,7 @@ import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.util.WeightedChoice;
 import greymerk.roguelike.util.WeightedRandomizer;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 
@@ -83,7 +83,7 @@ public class SegmentGenerator implements ISegmentGenerator {
   }
 
   @Override
-  public List<ISegment> genSegment(WorldEditor editor, Random rand, DungeonLevel level, Cardinal dir, Coord pos) {
+  public List<ISegment> genSegment(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Coord pos) {
 
     int x = pos.getX();
     int y = pos.getY();
@@ -91,12 +91,12 @@ public class SegmentGenerator implements ISegmentGenerator {
 
     List<ISegment> segments = new ArrayList<>();
 
-    for (Cardinal cardinal : dir.orthogonals()) {
+    for (Direction direction : dir.orthogonals()) {
       ISegment segment = pickSegment(rand, dir, pos);
       if (segment == null) {
         return segments;
       }
-      segment.generate(editor, rand, level, cardinal, level.getSettings().getTheme(), pos.copy());
+      segment.generate(editor, rand, level, direction, level.getSettings().getTheme(), pos.copy());
       segments.add(segment);
     }
 
@@ -107,11 +107,11 @@ public class SegmentGenerator implements ISegmentGenerator {
     return segments;
   }
 
-  private ISegment pickSegment(Random rand, Cardinal dir, Coord pos) {
+  private ISegment pickSegment(Random rand, Direction dir, Coord pos) {
     int x = pos.getX();
     int z = pos.getZ();
 
-    if ((dir == Cardinal.NORTH || dir == Cardinal.SOUTH) && z % 3 == 0) {
+    if ((dir == Direction.NORTH || dir == Direction.SOUTH) && z % 3 == 0) {
       if (z % 6 == 0) {
         return Segment.getSegment(arch);
       }
@@ -120,7 +120,7 @@ public class SegmentGenerator implements ISegmentGenerator {
           : Segment.getSegment(segments.get(rand));
     }
 
-    if ((dir == Cardinal.WEST || dir == Cardinal.EAST) && x % 3 == 0) {
+    if ((dir == Direction.WEST || dir == Direction.EAST) && x % 3 == 0) {
       if (x % 6 == 0) {
         return Segment.getSegment(arch);
       }
@@ -140,16 +140,16 @@ public class SegmentGenerator implements ISegmentGenerator {
     editor.fillDown(new Coord(x, y - 2, z), theme.getPrimary().getPillar());
 
     StairsBlock stair = theme.getPrimary().getStair();
-    stair.setUpsideDown(true).setFacing(Cardinal.WEST)
+    stair.setUpsideDown(true).setFacing(Direction.WEST)
         .stroke(editor, new Coord(x - 1, y - 2, z));
 
-    stair.setUpsideDown(true).setFacing(Cardinal.EAST)
+    stair.setUpsideDown(true).setFacing(Direction.EAST)
         .stroke(editor, new Coord(x + 1, y - 2, z));
 
-    stair.setUpsideDown(true).setFacing(Cardinal.SOUTH)
+    stair.setUpsideDown(true).setFacing(Direction.SOUTH)
         .stroke(editor, new Coord(x, y - 2, z + 1));
 
-    stair.setUpsideDown(true).setFacing(Cardinal.NORTH)
+    stair.setUpsideDown(true).setFacing(Direction.NORTH)
         .stroke(editor, new Coord(x, y - 2, z - 1));
   }
 }

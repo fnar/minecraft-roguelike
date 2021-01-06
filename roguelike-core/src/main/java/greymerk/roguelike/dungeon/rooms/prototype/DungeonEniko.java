@@ -12,7 +12,7 @@ import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
@@ -36,9 +36,9 @@ public class DungeonEniko extends DungeonBase {
 
     start = origin.copy();
     end = start.copy();
-    end.translate(Cardinal.UP, 3);
+    end.translate(Direction.UP, 3);
     RectSolid.newRect(start, end).fill(editor, pillar);
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
+    for (Direction dir : Direction.CARDINAL) {
       cursor = end.copy();
       cursor.translate(dir);
       stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor, true, false);
@@ -46,7 +46,7 @@ public class DungeonEniko extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Direction> entrances) {
 
     ThemeBase theme = levelSettings.getTheme();
     StairsBlock stair = theme.getPrimary().getStair();
@@ -81,10 +81,10 @@ public class DungeonEniko extends DungeonBase {
     end.translate(new Coord(3, -1, 3));
     RectSolid.newRect(start, end).fill(worldEditor, floor);
 
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
+    for (Direction dir : Direction.CARDINAL) {
       cursor = origin.copy();
       cursor.translate(dir, 5);
-      for (Cardinal o : dir.orthogonals()) {
+      for (Direction o : dir.orthogonals()) {
         Coord c = cursor.copy();
         c.translate(o, 2);
         pillar(worldEditor, theme, c);
@@ -94,7 +94,7 @@ public class DungeonEniko extends DungeonBase {
         stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
         c.translate(o);
         stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
-        c.translate(Cardinal.UP);
+        c.translate(Direction.UP);
         chests.add(c.copy());
         c.translate(o.reverse());
         chests.add(c.copy());
@@ -105,7 +105,7 @@ public class DungeonEniko extends DungeonBase {
 
       if (entrances.contains(dir)) {
         start = origin.copy();
-        start.translate(Cardinal.DOWN);
+        start.translate(Direction.DOWN);
         end = start.copy();
         start.translate(dir.antiClockwise());
         end.translate(dir.clockwise());

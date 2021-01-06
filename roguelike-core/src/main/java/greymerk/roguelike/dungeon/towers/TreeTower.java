@@ -10,7 +10,7 @@ import java.util.Random;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.Line;
@@ -29,12 +29,12 @@ public class TreeTower implements ITower {
     Coord end;
     Coord ground = Tower.getBaseCoord(editor, origin);
     Coord upstairs = ground.copy();
-    upstairs.translate(Cardinal.UP, 7);
+    upstairs.translate(Direction.UP, 7);
 
     BlockBrush log = WOOD_TYPE.getLog();
 
     start = ground.copy();
-    start.translate(Cardinal.DOWN, 10);
+    start.translate(Direction.DOWN, 10);
 
     // generate the tree
     Branch tree = new Branch(rand, start);
@@ -51,10 +51,10 @@ public class TreeTower implements ITower {
     carveRoom(editor, ground);
     carveRoom(editor, upstairs);
 
-    Cardinal dir = Cardinal.randomDirection(rand);
+    Direction dir = Direction.randomDirection(rand);
     start = ground.copy();
     end = ground.copy();
-    end.translate(Cardinal.UP);
+    end.translate(Direction.UP);
     end.translate(dir, 8);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
@@ -64,7 +64,7 @@ public class TreeTower implements ITower {
     new Sphere(start, end).fill(editor, log, false, true);
 
     start = upstairs.copy();
-    start.translate(Cardinal.DOWN);
+    start.translate(Direction.DOWN);
     for (Coord p : new RectSolid(start, origin)) {
       editor.spiralStairStep(rand, p, theme.getPrimary().getStair(), theme.getPrimary().getPillar());
     }
@@ -84,16 +84,16 @@ public class TreeTower implements ITower {
 
     start = origin.copy();
     end = start.copy();
-    start.translate(Cardinal.UP, 2);
+    start.translate(Direction.UP, 2);
     end.translate(new Coord(size - 1, size - 1, size - 1));
     new Sphere(start, end).fill(editor, SingleBlockBrush.AIR);
 
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
+    for (Direction dir : Direction.CARDINAL) {
       start = origin.copy();
       start.translate(dir, size - 1);
       start.translate(dir.antiClockwise(), size - 1);
       end = start.copy();
-      end.translate(Cardinal.UP, size + 1);
+      end.translate(Direction.UP, size + 1);
       new RectSolid(start, end).fill(editor, log);
     }
 

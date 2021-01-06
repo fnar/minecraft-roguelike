@@ -19,7 +19,7 @@ import greymerk.roguelike.treasure.loot.Potion;
 import greymerk.roguelike.treasure.loot.PotionForm;
 import greymerk.roguelike.treasure.loot.TippedArrow;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.MetaBlock1_2;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -28,7 +28,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class SegmentTrap extends SegmentBase {
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Cardinal dir, ThemeBase theme, Coord origin) {
+  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, ThemeBase theme, Coord origin) {
 
     BlockBrush plate = BlockType.PRESSURE_PLATE_STONE.getBrush();
     BlockBrush wire = BlockType.REDSTONE_WIRE.getBrush();
@@ -36,7 +36,7 @@ public class SegmentTrap extends SegmentBase {
     StairsBlock stair = theme.getPrimary().getStair();
     BlockBrush wall = theme.getPrimary().getWall();
 
-    Cardinal[] orth = dir.orthogonals();
+    Direction[] orth = dir.orthogonals();
 
     Coord cursor;
     Coord start;
@@ -47,23 +47,23 @@ public class SegmentTrap extends SegmentBase {
     end = start.copy();
     start.translate(orth[0]);
     end.translate(orth[1]);
-    end.translate(Cardinal.UP, 2);
+    end.translate(Direction.UP, 2);
     RectSolid.newRect(start, end).fill(editor, vine);
     start.translate(dir);
     end.translate(dir);
     RectSolid.newRect(start, end).fill(editor, wall);
 
     cursor = origin.copy();
-    cursor.translate(Cardinal.UP);
+    cursor.translate(Direction.UP);
     cursor.translate(dir, 3);
     SingleBlockBrush.AIR.stroke(editor, cursor);
 
-    for (Cardinal side : orth) {
+    for (Direction side : orth) {
       cursor = origin.copy();
       cursor.translate(dir, 2);
       cursor.translate(side);
       stair.setUpsideDown(false).setFacing(side.reverse()).stroke(editor, cursor);
-      cursor.translate(Cardinal.UP, 2);
+      cursor.translate(Direction.UP, 2);
       stair.setUpsideDown(true).setFacing(side.reverse()).stroke(editor, cursor);
     }
 
@@ -74,7 +74,7 @@ public class SegmentTrap extends SegmentBase {
 
     RectSolid.newRect(start, end).fill(editor, plate);
 
-    end.translate(Cardinal.DOWN, 2);
+    end.translate(Direction.DOWN, 2);
     start = end.copy();
     start.translate(dir, 3);
 
@@ -83,14 +83,14 @@ public class SegmentTrap extends SegmentBase {
     cursor = start.copy();
     cursor.translate(dir, 2);
     TorchBlock.redstone().setFacing(dir).stroke(editor, cursor);
-    cursor.translate(Cardinal.UP, 2);
-    TorchBlock.redstone().setFacing(Cardinal.UP).stroke(editor, cursor);
-    cursor.translate(Cardinal.UP);
+    cursor.translate(Direction.UP, 2);
+    TorchBlock.redstone().setFacing(Direction.UP).stroke(editor, cursor);
+    cursor.translate(Direction.UP);
     placeTrap(editor, rand, dir, cursor);
   }
 
-  private void placeTrap(WorldEditor editor, Random rand, Cardinal dir, Coord cursor) {
-    Cardinal towardsCenter = dir.reverse();
+  private void placeTrap(WorldEditor editor, Random rand, Direction dir, Coord cursor) {
+    Direction towardsCenter = dir.reverse();
     BlockType.DISPENSER.getBrush().setFacing(towardsCenter).stroke(editor, cursor);
 
     for (int i = 0; i < 5; i++) {
@@ -104,7 +104,7 @@ public class SegmentTrap extends SegmentBase {
     unblockDispenser(editor, cursor, towardsCenter);
   }
 
-  private void unblockDispenser(WorldEditor editor, Coord cursor, Cardinal towardsCenter) {
+  private void unblockDispenser(WorldEditor editor, Coord cursor, Direction towardsCenter) {
     SingleBlockBrush.AIR.stroke(editor, cursor.translate(towardsCenter));
     SingleBlockBrush.AIR.stroke(editor, cursor.translate(towardsCenter));
     SingleBlockBrush.AIR.stroke(editor, cursor.translate(towardsCenter));

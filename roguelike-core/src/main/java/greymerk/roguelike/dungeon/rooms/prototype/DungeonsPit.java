@@ -15,7 +15,7 @@ import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
@@ -39,7 +39,7 @@ public class DungeonsPit extends DungeonBase {
     dungeonWidth = 2;
   }
 
-  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Direction> entrances) {
 
     ThemeBase theme = levelSettings.getTheme();
 
@@ -56,7 +56,7 @@ public class DungeonsPit extends DungeonBase {
     buildPit();
 
 
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
+    for (Direction dir : Direction.CARDINAL) {
       setTrap(worldEditor, levelSettings, dir, origin);
     }
 
@@ -153,7 +153,7 @@ public class DungeonsPit extends DungeonBase {
     }
   }
 
-  private void setTrap(WorldEditor editor, LevelSettings settings, Cardinal dir, Coord origin) {
+  private void setTrap(WorldEditor editor, LevelSettings settings, Direction dir, Coord origin) {
     ThemeBase theme = settings.getTheme();
     BlockBrush walls = theme.getPrimary().getWall();
     BlockBrush plate = BlockType.PRESSURE_PLATE_STONE.getBrush();
@@ -164,11 +164,11 @@ public class DungeonsPit extends DungeonBase {
 
     start = origin.copy();
     start.translate(dir, 3);
-    start.translate(Cardinal.DOWN);
+    start.translate(Direction.DOWN);
     start.translate(dir.antiClockwise());
     end = origin.copy();
     end.translate(dir, 6);
-    end.translate(Cardinal.UP, 3);
+    end.translate(Direction.UP, 3);
     end.translate(dir.clockwise());
 
     for (Coord cell : new RectHollow(start, end)) {
@@ -183,16 +183,16 @@ public class DungeonsPit extends DungeonBase {
     plate.stroke(editor, cursor);
 
     cursor = origin.copy();
-    cursor.translate(Cardinal.DOWN);
+    cursor.translate(Direction.DOWN);
     cursor.translate(dir, 3);
     TorchBlock.redstone().setFacing(dir).stroke(editor, cursor);
     cursor.translate(dir);
     wire.stroke(editor, cursor);
-    cursor.translate(Cardinal.UP);
+    cursor.translate(Direction.UP);
     cursor.translate(dir);
-    TorchBlock.redstone().extinguish().setFacing(Cardinal.UP).stroke(editor, cursor);
+    TorchBlock.redstone().extinguish().setFacing(Direction.UP).stroke(editor, cursor);
     cursor.translate(dir.reverse());
-    cursor.translate(Cardinal.UP);
+    cursor.translate(Direction.UP);
     BlockType.STICKY_PISTON.getBrush().setFacing(dir).stroke(editor, cursor);
   }
 

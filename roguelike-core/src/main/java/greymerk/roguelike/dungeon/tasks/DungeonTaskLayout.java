@@ -14,7 +14,7 @@ import greymerk.roguelike.dungeon.base.RoomIterator;
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 
@@ -39,7 +39,7 @@ public class DungeonTaskLayout implements IDungeonTask {
       LevelLayout layout = generator.getLayout();
       random = editor.getRandom();
       start = layout.getEnd().getPosition().copy();
-      start.translate(Cardinal.DOWN, Dungeon.VERTICAL_SPACING);
+      start.translate(Direction.DOWN, Dungeon.VERTICAL_SPACING);
     }
 
 

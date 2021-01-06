@@ -4,7 +4,7 @@ import java.util.Random;
 
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBounded;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -19,8 +19,8 @@ public class WireframeFilter implements IFilter {
     Coord start = box.getStart();
     Coord end = box.getEnd();
 
-    start.translate(Cardinal.UP, 100);
-    end.translate(Cardinal.UP, 100);
+    start.translate(Direction.UP, 100);
+    end.translate(Direction.UP, 100);
 
     IShape shape = new RectWireframe(start, end);
     BlockBrush block = BlockType.SEA_LANTERN.getBrush();

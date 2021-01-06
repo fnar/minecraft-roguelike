@@ -12,7 +12,7 @@ import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.TreasureManager;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import com.github.srwaggon.roguelike.worldgen.block.BlockType;
@@ -77,12 +77,12 @@ public class TreasureChestEditor {
 
   private boolean isValidChestSpace(Coord coord, WorldEditor worldEditor) {
     return worldEditor.isAirBlock(coord)
-        && worldEditor.isSolidBlock(coord.add(Cardinal.DOWN))
+        && worldEditor.isSolidBlock(coord.add(Direction.DOWN))
         && worldEditor.getTreasureChestEditor().isNotNextToChest(coord, worldEditor);
   }
 
   private boolean isNotNextToChest(Coord coord, WorldEditor worldEditor) {
-    return Cardinal.DIRECTIONS.stream().noneMatch(dir ->
+    return Direction.CARDINAL.stream().noneMatch(dir ->
         worldEditor.isBlockOfTypeAt(BlockType.CHEST, coord.add(dir)));
   }
 

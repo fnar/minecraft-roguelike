@@ -15,7 +15,7 @@ import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.util.mst.MinimumSpanningTree;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
@@ -29,11 +29,11 @@ public class DungeonTreetho extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Direction> entrances) {
 
     ThemeBase theme = levelSettings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();
-    Cardinal dir = entrances.get(0);
+    Direction dir = entrances.get(0);
 
 
     Coord cursor;
@@ -54,8 +54,8 @@ public class DungeonTreetho extends DungeonBase {
     start.translate(new Coord(-9, 8, -9));
     end.translate(new Coord(9, 8, 9));
     RectSolid.newRect(start, end).fill(worldEditor, birchSlab);
-    start.translate(Cardinal.UP);
-    end.translate(Cardinal.UP);
+    start.translate(Direction.UP);
+    end.translate(Direction.UP);
     RectSolid.newRect(start, end).fill(worldEditor, pumpkin);
 
     cursor = origin.copy();
@@ -65,7 +65,7 @@ public class DungeonTreetho extends DungeonBase {
     cursor = origin.copy();
     treeFarm(worldEditor, cursor, dir);
 
-    for (Cardinal o : dir.orthogonals()) {
+    for (Direction o : dir.orthogonals()) {
       cursor = origin.copy();
       cursor.translate(o, 5);
       treeFarm(worldEditor, cursor, dir);
@@ -75,7 +75,7 @@ public class DungeonTreetho extends DungeonBase {
     return this;
   }
 
-  private void treeFarm(WorldEditor editor, Coord origin, Cardinal dir) {
+  private void treeFarm(WorldEditor editor, Coord origin, Direction dir) {
     Coord cursor;
     Coord start;
     Coord end;
@@ -105,11 +105,11 @@ public class DungeonTreetho extends DungeonBase {
         Coord p = cursor.copy();
         if (i % 4 == 0) {
           sapling.stroke(editor, p);
-          p.translate(Cardinal.DOWN);
+          p.translate(Direction.DOWN);
           dirt.stroke(editor, p);
         } else {
           glass.stroke(editor, p);
-          p.translate(Cardinal.DOWN);
+          p.translate(Direction.DOWN);
           light.stroke(editor, p);
         }
       }
@@ -124,7 +124,7 @@ public class DungeonTreetho extends DungeonBase {
     MinimumSpanningTree tree = new MinimumSpanningTree(editor.getRandom(), 7, 3);
     tree.generate(editor, fill, origin);
 
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
+    for (Direction dir : Direction.CARDINAL) {
       Coord start = origin.copy();
       start.translate(dir, 9);
       Coord end = start.copy();
@@ -135,7 +135,7 @@ public class DungeonTreetho extends DungeonBase {
       RectSolid.newRect(start, end).fill(editor, fill);
 
       Coord cursor = origin.copy();
-      cursor.translate(Cardinal.DOWN);
+      cursor.translate(Direction.DOWN);
       cursor.translate(dir, 10);
       cursor.translate(dir.antiClockwise(), 10);
       for (int i = 0; i < 5; ++i) {
@@ -155,7 +155,7 @@ public class DungeonTreetho extends DungeonBase {
     Coord cursor = origin.copy();
     editor.fillDown(cursor, pillar);
 
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
+    for (Direction dir : Direction.CARDINAL) {
       cursor = origin.copy();
       cursor.translate(dir);
       if (editor.isAirBlock(cursor)) {

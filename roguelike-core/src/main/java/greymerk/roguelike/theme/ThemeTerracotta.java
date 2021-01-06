@@ -7,14 +7,14 @@ import com.github.srwaggon.roguelike.worldgen.block.normal.StairsBlock;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockJumble;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 
 public class ThemeTerracotta extends ThemeBase {
 
   public ThemeTerracotta() {
 
     BlockJumble blocks = new BlockJumble();
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
+    for (Direction dir : Direction.CARDINAL) {
       blocks.addBlock(ColoredBlock.terracotta().setColor(DyeColor.MAGENTA).setFacing(dir));
     }
 

@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 
 public class RectSolid implements IShape {
@@ -66,17 +66,17 @@ public class RectSolid implements IShape {
 
       if (cursor.getZ() == c2.getZ() && cursor.getX() == c2.getX()) {
         cursor = new Coord(c1.getX(), cursor.getY(), c1.getZ());
-        cursor.translate(Cardinal.UP);
+        cursor.translate(Direction.UP);
         return toReturn;
       }
 
       if (cursor.getX() == c2.getX()) {
         cursor = new Coord(c1.getX(), cursor.getY(), cursor.getZ());
-        cursor.translate(Cardinal.SOUTH);
+        cursor.translate(Direction.SOUTH);
         return toReturn;
       }
 
-      cursor.translate(Cardinal.EAST);
+      cursor.translate(Direction.EAST);
       return toReturn;
 
     }

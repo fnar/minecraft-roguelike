@@ -10,7 +10,7 @@ import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
@@ -36,31 +36,31 @@ public class DungeonsFire extends DungeonBase {
 
     cursor = origin.copy();
     BlockType.NETHERRACK.getBrush().stroke(editor, cursor);
-    cursor.translate(Cardinal.UP);
+    cursor.translate(Direction.UP);
     BlockType.FIRE.getBrush().stroke(editor, cursor);
 
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
+    for (Direction dir : Direction.CARDINAL) {
 
       start = origin.copy();
       start.translate(dir);
       start.translate(dir.antiClockwise());
       end = start.copy();
-      end.translate(Cardinal.UP, 2);
+      end.translate(Direction.UP, 2);
       RectSolid.newRect(start, end).fill(editor, pillar, true, false);
 
       cursor = origin.copy();
       cursor.translate(dir);
       stair.setUpsideDown(false).setFacing(dir).stroke(editor, cursor, true, false);
-      cursor.translate(Cardinal.UP);
+      cursor.translate(Direction.UP);
       BlockType.IRON_BAR.getBrush().stroke(editor, cursor);
-      cursor.translate(Cardinal.UP);
+      cursor.translate(Direction.UP);
       stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor, true, false);
 
       cursor = origin.copy();
-      cursor.translate(Cardinal.UP, 6);
+      cursor.translate(Direction.UP, 6);
       cursor.translate(dir, 3);
 
-      for (Cardinal o : dir.orthogonals()) {
+      for (Direction o : dir.orthogonals()) {
         Coord c = cursor.copy();
         c.translate(o, 2);
         stair.setUpsideDown(true).setFacing(dir).stroke(editor, c, true, false);
@@ -69,7 +69,7 @@ public class DungeonsFire extends DungeonBase {
       }
 
       cursor = origin.copy();
-      cursor.translate(Cardinal.UP);
+      cursor.translate(Direction.UP);
       cursor.translate(dir, 2);
 
       if (!editor.isAirBlock(cursor)) {
@@ -77,7 +77,7 @@ public class DungeonsFire extends DungeonBase {
       }
 
       start = origin.copy();
-      start.translate(Cardinal.UP, 3);
+      start.translate(Direction.UP, 3);
       start.translate(dir, 2);
       end = start.copy();
       start.translate(dir.antiClockwise(), 2);
@@ -87,20 +87,20 @@ public class DungeonsFire extends DungeonBase {
     }
 
     start = origin.copy();
-    start.translate(Cardinal.UP, 3);
-    start.translate(Cardinal.NORTH, 2);
-    start.translate(Cardinal.WEST, 2);
+    start.translate(Direction.UP, 3);
+    start.translate(Direction.NORTH, 2);
+    start.translate(Direction.WEST, 2);
     end = origin.copy();
-    end.translate(Cardinal.UP, 7);
-    end.translate(Cardinal.SOUTH, 2);
-    end.translate(Cardinal.EAST, 2);
+    end.translate(Direction.UP, 7);
+    end.translate(Direction.SOUTH, 2);
+    end.translate(Direction.EAST, 2);
 
     RectSolid.newRect(start, end).fill(editor, wall, true, false);
 
   }
 
   @Override
-  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Direction> entrances) {
 
     ThemeBase theme = levelSettings.getTheme();
 
@@ -114,48 +114,48 @@ public class DungeonsFire extends DungeonBase {
 
     start = origin.copy();
     end = origin.copy();
-    start.translate(Cardinal.NORTH, 8);
-    start.translate(Cardinal.WEST, 8);
-    start.translate(Cardinal.DOWN);
+    start.translate(Direction.NORTH, 8);
+    start.translate(Direction.WEST, 8);
+    start.translate(Direction.DOWN);
     end = origin.copy();
-    end.translate(Cardinal.SOUTH, 8);
-    end.translate(Cardinal.EAST, 8);
-    end.translate(Cardinal.UP, 7);
+    end.translate(Direction.SOUTH, 8);
+    end.translate(Direction.EAST, 8);
+    end.translate(Direction.UP, 7);
 
     RectHollow.newRect(start, end).fill(worldEditor, wall, false, true);
 
     start = origin.copy();
-    start.translate(Cardinal.DOWN);
+    start.translate(Direction.DOWN);
     end = start.copy();
-    start.translate(Cardinal.NORTH, 8);
-    start.translate(Cardinal.WEST, 8);
-    end.translate(Cardinal.SOUTH, 8);
-    end.translate(Cardinal.EAST, 8);
+    start.translate(Direction.NORTH, 8);
+    start.translate(Direction.WEST, 8);
+    end.translate(Direction.SOUTH, 8);
+    end.translate(Direction.EAST, 8);
     RectSolid.newRect(start, end).fill(worldEditor, theme.getPrimary().getFloor(), false, true);
 
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
-      for (Cardinal orth : dir.orthogonals()) {
+    for (Direction dir : Direction.CARDINAL) {
+      for (Direction orth : dir.orthogonals()) {
         start = origin.copy();
         start.translate(dir, 7);
         start.translate(orth, 2);
         end = start.copy();
-        end.translate(Cardinal.UP, 6);
+        end.translate(Direction.UP, 6);
         RectSolid.newRect(start, end).fill(worldEditor, pillar);
 
         cursor = origin.copy();
         cursor.translate(dir, 8);
         cursor.translate(orth);
-        cursor.translate(Cardinal.UP, 2);
+        cursor.translate(Direction.UP, 2);
         stair.setUpsideDown(true).setFacing(orth.reverse()).stroke(worldEditor, cursor, true, false);
 
         cursor.translate(dir.reverse());
-        cursor.translate(Cardinal.UP);
+        cursor.translate(Direction.UP);
         stair.setUpsideDown(true).setFacing(orth.reverse()).stroke(worldEditor, cursor);
 
         start = cursor.copy();
-        start.translate(Cardinal.UP);
+        start.translate(Direction.UP);
         end = start.copy();
-        end.translate(Cardinal.UP, 3);
+        end.translate(Direction.UP, 3);
         RectSolid.newRect(start, end).fill(worldEditor, pillar);
 
         cursor.translate(dir.reverse());
@@ -163,9 +163,9 @@ public class DungeonsFire extends DungeonBase {
         stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
 
         start = cursor.copy();
-        start.translate(Cardinal.UP);
+        start.translate(Direction.UP);
         end = start.copy();
-        end.translate(Cardinal.UP, 3);
+        end.translate(Direction.UP, 3);
         RectSolid.newRect(start, end).fill(worldEditor, pillar);
 
         cursor.translate(dir);
@@ -173,9 +173,9 @@ public class DungeonsFire extends DungeonBase {
         stair.setUpsideDown(true).setFacing(orth).stroke(worldEditor, cursor);
 
         start = cursor.copy();
-        start.translate(Cardinal.UP);
+        start.translate(Direction.UP);
         end = start.copy();
-        end.translate(Cardinal.UP, 3);
+        end.translate(Direction.UP, 3);
         RectSolid.newRect(start, end).fill(worldEditor, pillar);
 
       }
@@ -187,7 +187,7 @@ public class DungeonsFire extends DungeonBase {
       genFire(worldEditor, theme, cursor);
 
       cursor = origin.copy();
-      cursor.translate(Cardinal.UP, 4);
+      cursor.translate(Direction.UP, 4);
       cursor.translate(dir);
       start = cursor.copy();
       end = cursor.copy();
@@ -197,7 +197,7 @@ public class DungeonsFire extends DungeonBase {
       wall.stroke(worldEditor, cursor);
 
       start = end.copy();
-      end.translate(Cardinal.UP, 2);
+      end.translate(Direction.UP, 2);
       end.translate(dir.reverse());
       RectSolid.newRect(start, end).fill(worldEditor, wall);
 
@@ -210,7 +210,7 @@ public class DungeonsFire extends DungeonBase {
       RectSolid.newRect(start, end).fill(worldEditor, wall, true, false);
 
       start = cursor.copy();
-      start.translate(Cardinal.DOWN);
+      start.translate(Direction.DOWN);
       end = start.copy();
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir.clockwise(), 3);

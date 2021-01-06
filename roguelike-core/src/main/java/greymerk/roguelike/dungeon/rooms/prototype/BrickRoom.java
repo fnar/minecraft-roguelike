@@ -14,14 +14,14 @@ import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
-import static greymerk.roguelike.worldgen.Cardinal.DIRECTIONS;
-import static greymerk.roguelike.worldgen.Cardinal.UP;
+import static greymerk.roguelike.worldgen.Direction.CARDINAL;
+import static greymerk.roguelike.worldgen.Direction.UP;
 
 public class BrickRoom extends DungeonBase {
 
@@ -29,7 +29,7 @@ public class BrickRoom extends DungeonBase {
     super(roomSetting, levelSettings, worldEditor);
   }
 
-  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Direction> entrances) {
 
     int x = origin.getX();
     int y = origin.getY();
@@ -64,7 +64,7 @@ public class BrickRoom extends DungeonBase {
     // Chests
     List<Coord> potentialChestLocations = new ArrayList<>();
 
-    for (Cardinal dir : DIRECTIONS) {
+    for (Direction dir : CARDINAL) {
 
       // top
       cursor = new Coord(x, y, z);
@@ -94,7 +94,7 @@ public class BrickRoom extends DungeonBase {
       blocks.stroke(worldEditor, cursor);
 
       // pillar stairs
-      for (Cardinal orthogonals : dir.orthogonals()) {
+      for (Direction orthogonals : dir.orthogonals()) {
         cursor = new Coord(x, y, z);
         cursor.translate(dir, 3);
         cursor.translate(orthogonals, 2);
@@ -110,7 +110,7 @@ public class BrickRoom extends DungeonBase {
       cursor.translate(UP, 4);
       blocks.stroke(worldEditor, cursor, false, true);
 
-      for (Cardinal orthogonals : dir.orthogonals()) {
+      for (Direction orthogonals : dir.orthogonals()) {
         cursor = new Coord(x, y, z);
         cursor.translate(UP, 4);
         cursor.translate(dir, 2);
@@ -125,7 +125,7 @@ public class BrickRoom extends DungeonBase {
       cursor.translate(UP, 5);
       blocks.stroke(worldEditor, cursor, false, true);
 
-      for (Cardinal orthogonals : dir.orthogonals()) {
+      for (Direction orthogonals : dir.orthogonals()) {
         cursor = origin.copy();
         cursor.translate(dir, 3);
         cursor.translate(orthogonals, 2);

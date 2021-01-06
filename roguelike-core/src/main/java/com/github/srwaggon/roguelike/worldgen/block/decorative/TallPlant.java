@@ -5,7 +5,7 @@ import com.github.srwaggon.roguelike.worldgen.block.redstone.TrapdoorBlock;
 
 import java.util.Random;
 
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 
@@ -19,7 +19,7 @@ public enum TallPlant {
   PEONY,
   ;
 
-  public static void placePlant(WorldEditor editor, Coord origin, Cardinal dir) {
+  public static void placePlant(WorldEditor editor, Coord origin, Direction dir) {
     placePlanter(editor, origin);
     chooseRandom(editor.getRandom()).getBrush()
         .setFacing(dir)
@@ -29,7 +29,7 @@ public enum TallPlant {
   public static void placePlanter(WorldEditor editor, Coord origin) {
     BlockType.DIRT_PODZOL.getBrush().stroke(editor, origin);
 
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
+    for (Direction dir : Direction.CARDINAL) {
       Coord cursor = origin.copy().translate(dir);
       TrapdoorBlock.wood()
           .setFlushWithTop()

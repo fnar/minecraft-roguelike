@@ -3,7 +3,7 @@ package greymerk.roguelike.dungeon.towers;
 import java.util.Random;
 
 import greymerk.roguelike.theme.Theme;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 
@@ -80,10 +80,10 @@ public enum Tower {
       if (editor.validGroundBlock(cursor)) {
         break;
       }
-      cursor.translate(Cardinal.DOWN);
+      cursor.translate(Direction.DOWN);
     }
 
-    cursor.translate(Cardinal.UP);
+    cursor.translate(Direction.UP);
 
     int yOffset = cursor.getY() - pos.getY();
 
