@@ -74,7 +74,7 @@ public abstract class SegmentBase implements ISegment {
     List<RoomSetting> secretRoomSettings = secretsSetting.getSecretRoomSettings();
     Optional<Pair<RoomSetting, SecretRoom>> first = secretRoomSettings.stream()
         .map(roomSetting -> new Pair<>(roomSetting, new SecretRoom(roomSetting, levelSettings, worldEditor)))
-        .filter(pair -> pair.getValue().isValid(worldEditor, dir, pos))
+        .filter(pair -> pair.getValue().validLocation(worldEditor, dir, pos))
         .findFirst();
     first.ifPresent(pair -> secretRoomSettings.remove(pair.getKey()));
     return first.map(pair -> pair.getValue().generate(pos, Lists.newArrayList(dir)));

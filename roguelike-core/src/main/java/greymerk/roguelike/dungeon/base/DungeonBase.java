@@ -21,12 +21,9 @@ import static java.util.stream.Collectors.toList;
 @EqualsAndHashCode
 public abstract class DungeonBase implements Comparable<DungeonBase> {
 
-  private RoomSetting roomSetting;
-  protected LevelSettings levelSettings;
-  protected WorldEditor worldEditor;
-
-  public DungeonBase() {
-  }
+  private final RoomSetting roomSetting;
+  protected final LevelSettings levelSettings;
+  protected final WorldEditor worldEditor;
 
   public DungeonBase(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     this.roomSetting = roomSetting;
