@@ -22,11 +22,11 @@ import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 public class DungeonsCrypt extends DungeonBase {
 
-  public DungeonsCrypt(RoomSetting roomSetting) {
-    super(roomSetting);
+  public DungeonsCrypt(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
   }
 
-  public DungeonBase generate(WorldEditor editor, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
     Random rand = editor.getRandom();
     ThemeBase theme = settings.getTheme();
     StairsBlock stair = theme.getPrimary().getStair();

@@ -25,11 +25,11 @@ import static greymerk.roguelike.worldgen.Cardinal.UP;
 
 public class BrickRoom extends DungeonBase {
 
-  public BrickRoom(RoomSetting roomSetting) {
-    super(roomSetting);
+  public BrickRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
   }
 
-  public DungeonBase generate(WorldEditor editor, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
 
     int x = origin.getX();
     int y = origin.getY();

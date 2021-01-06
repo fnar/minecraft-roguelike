@@ -2,6 +2,8 @@ package greymerk.roguelike.dungeon.segment.part;
 
 import com.google.common.collect.Lists;
 
+import com.github.srwaggon.roguelike.worldgen.util.Pair;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -10,6 +12,7 @@ import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.base.SecretRoom;
 import greymerk.roguelike.dungeon.base.SecretsSetting;
+import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.segment.ISegment;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ThemeBase;
@@ -67,13 +70,14 @@ public abstract class SegmentBase implements ISegment {
         && !editor.isAirBlock(southWest);
   }
 
-  public Optional<DungeonBase> generateSecret(SecretsSetting secretsSetting, WorldEditor editor, LevelSettings settings, Cardinal dir, Coord pos) {
-    List<SecretRoom> secretRooms = secretsSetting.getSecretRooms();
-    Optional<SecretRoom> first = secretRooms.stream()
-        .filter(secretRoom -> secretRoom.isValid(editor, dir, pos))
+  public Optional<DungeonBase> generateSecret(SecretsSetting secretsSetting, WorldEditor worldEditor, LevelSettings levelSettings, Cardinal dir, Coord pos) {
+    List<RoomSetting> secretRoomSettings = secretsSetting.getSecretRoomSettings();
+    Optional<Pair<RoomSetting, SecretRoom>> first = secretRoomSettings.stream()
+        .map(roomSetting -> new Pair<>(roomSetting, new SecretRoom(roomSetting, levelSettings, worldEditor)))
+        .filter(pair -> pair.getValue().isValid(worldEditor, dir, pos))
         .findFirst();
-    first.ifPresent(secretRooms::remove);
-    return first.map(secretRoom -> secretRoom.generate(editor, settings, pos, Lists.newArrayList(dir)));
+    first.ifPresent(pair -> secretRoomSettings.remove(pair.getKey()));
+    return first.map(pair -> pair.getValue().generate(pos, Lists.newArrayList(dir)));
   }
 
 }

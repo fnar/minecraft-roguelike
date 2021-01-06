@@ -22,8 +22,8 @@ import static com.github.srwaggon.roguelike.worldgen.block.normal.ColoredBlock.s
 
 public class DungeonAvidya extends DungeonBase {
 
-  public DungeonAvidya(RoomSetting roomSetting) {
-    super(roomSetting);
+  public DungeonAvidya(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
   }
 
   private static void pillarTop(WorldEditor editor, Coord cursor) {
@@ -37,7 +37,7 @@ public class DungeonAvidya extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
 
     int x = origin.getX();
     int y = origin.getY();

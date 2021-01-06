@@ -21,7 +21,6 @@ import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 
 public class DungeonsPit extends DungeonBase {
-  WorldEditor editor;
   Random rand;
   int originX;
   int originY;
@@ -33,18 +32,17 @@ public class DungeonsPit extends DungeonBase {
   int numChests;
   BlockBrush blocks;
 
-  public DungeonsPit(RoomSetting roomSetting) {
-    super(roomSetting);
+  public DungeonsPit(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
     dungeonHeight = 3;
     dungeonLength = 2;
     dungeonWidth = 2;
   }
 
-  public DungeonBase generate(WorldEditor editor, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
 
     ThemeBase theme = settings.getTheme();
 
-    this.editor = editor;
     rand = editor.getRandom();
     originX = origin.getX();
     originY = origin.getY();

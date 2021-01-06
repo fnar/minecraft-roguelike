@@ -17,16 +17,12 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class DungeonLinkerTop extends DungeonBase {
 
-  public DungeonLinkerTop() {
-
-  }
-
-  public DungeonLinkerTop(RoomSetting roomSetting) {
-    super(roomSetting);
+  public DungeonLinkerTop(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
 
     ThemeBase theme = settings.getTheme();
 

@@ -2,6 +2,7 @@ package greymerk.roguelike.dungeon.rooms.prototype;
 
 import com.github.srwaggon.roguelike.worldgen.SingleBlockBrush;
 import com.github.srwaggon.roguelike.worldgen.block.BlockType;
+import com.github.srwaggon.roguelike.worldgen.block.normal.Quartz;
 
 import java.util.List;
 import java.util.Random;
@@ -15,7 +16,6 @@ import greymerk.roguelike.worldgen.BlockCheckers;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
-import com.github.srwaggon.roguelike.worldgen.block.normal.Quartz;
 import greymerk.roguelike.worldgen.shapes.IShape;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.MobType;
@@ -23,11 +23,11 @@ import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 public class DungeonsEnder extends DungeonBase {
 
-  public DungeonsEnder(RoomSetting roomSetting) {
-    super(roomSetting);
+  public DungeonsEnder(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
   }
 
-  public DungeonBase generate(WorldEditor editor, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
     Random rand = editor.getRandom();
     BlockBrush black = BlockType.OBSIDIAN.getBrush();
     BlockBrush white = Quartz.SMOOTH.getBrush();

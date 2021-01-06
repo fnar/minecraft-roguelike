@@ -23,8 +23,8 @@ import static greymerk.roguelike.worldgen.spawners.MobType.COMMON_MOBS;
 
 public class DungeonEniko extends DungeonBase {
 
-  public DungeonEniko(RoomSetting roomSetting) {
-    super(roomSetting);
+  public DungeonEniko(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
   }
 
   private static void pillar(WorldEditor editor, ThemeBase theme, Coord origin) {
@@ -46,7 +46,7 @@ public class DungeonEniko extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
 
     ThemeBase theme = settings.getTheme();
     StairsBlock stair = theme.getPrimary().getStair();

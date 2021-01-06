@@ -24,11 +24,11 @@ import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 public class DungeonsNetherBrick extends DungeonBase {
 
-  public DungeonsNetherBrick(RoomSetting roomSetting) {
-    super(roomSetting);
+  public DungeonsNetherBrick(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
   }
 
-  public DungeonBase generate(WorldEditor editor, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
     Random random = editor.getRandom();
 
     int x = origin.getX();

@@ -22,12 +22,12 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class DungeonsWood extends DungeonBase {
 
-  public DungeonsWood(RoomSetting roomSetting) {
-    super(roomSetting);
+  public DungeonsWood(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
     Random random = editor.getRandom();
     int x = origin.getX();
     int y = origin.getY();

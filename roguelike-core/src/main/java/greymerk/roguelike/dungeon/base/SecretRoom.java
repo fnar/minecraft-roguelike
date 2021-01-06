@@ -19,8 +19,8 @@ import lombok.ToString;
 @ToString
 public class SecretRoom extends DungeonBase {
 
-  public SecretRoom(RoomSetting roomSetting) {
-    super(roomSetting);
+  public SecretRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
   }
 
   public boolean isValid(WorldEditor editor, Cardinal dir, Coord pos) {
@@ -33,8 +33,8 @@ public class SecretRoom extends DungeonBase {
     return prototype.validLocation(editor, dir, cursor);
   }
 
-  // todo: Match the signature of DungeonBase
-  public DungeonBase generate(WorldEditor editor, LevelSettings settings, Coord pos, List<Cardinal> entrances) {
+  @Override
+  public DungeonBase generate(Coord pos, List<Cardinal> entrances) {
     DungeonBase prototype = createPrototype();
 
     int size = prototype.getSize();
@@ -56,7 +56,7 @@ public class SecretRoom extends DungeonBase {
     RectSolid.newRect(pos, end).fill(editor, SingleBlockBrush.AIR);
 
     end.translate(Cardinal.DOWN);
-    prototype.generate(editor, settings, end, Lists.newArrayList(entrance));
+    prototype.generate(end, Lists.newArrayList(entrance));
     return prototype;
   }
 
@@ -66,7 +66,7 @@ public class SecretRoom extends DungeonBase {
   }
 
   private DungeonBase createPrototype() {
-    return getRoomSetting().instantiate();
+    return getRoomSetting().instantiate(settings, editor);
   }
 
 }

@@ -22,12 +22,16 @@ import static java.util.stream.Collectors.toList;
 public abstract class DungeonBase implements Comparable<DungeonBase> {
 
   private RoomSetting roomSetting;
+  protected LevelSettings settings;
+  protected WorldEditor editor;
 
   public DungeonBase() {
   }
 
-  public DungeonBase(RoomSetting roomSetting) {
+  public DungeonBase(RoomSetting roomSetting, LevelSettings settings, WorldEditor editor) {
     this.roomSetting = roomSetting;
+    this.settings = settings;
+    this.editor = editor;
   }
 
   public static List<Coord> chooseRandomLocations(Random random, int limit, List<Coord> spaces) {
@@ -38,7 +42,7 @@ public abstract class DungeonBase implements Comparable<DungeonBase> {
         .collect(toList());
   }
 
-  public abstract DungeonBase generate(WorldEditor editor, LevelSettings settings, Coord origin, List<Cardinal> entrances);
+  public abstract DungeonBase generate(Coord origin, List<Cardinal> entrances);
 
   protected void generateSpawner(WorldEditor editor, Coord spawnerLocation, int difficulty, SpawnerSettings levelSettingsSpawners, MobType... defaultMobs) {
     getSpawnerSettings(difficulty, defaultMobs, levelSettingsSpawners).generateSpawner(editor, spawnerLocation, difficulty);

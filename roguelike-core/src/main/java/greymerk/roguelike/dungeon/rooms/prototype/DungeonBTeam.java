@@ -42,12 +42,12 @@ import static com.github.srwaggon.roguelike.worldgen.block.normal.ColoredBlock.s
 
 public class DungeonBTeam extends DungeonBase {
 
-  public DungeonBTeam(RoomSetting roomSetting) {
-    super(roomSetting);
+  public DungeonBTeam(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
 
     StairsBlock stair = StairsBlock.spruce();
     BlockBrush log = Wood.OAK.getLog();

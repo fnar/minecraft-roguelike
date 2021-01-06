@@ -17,12 +17,12 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class DungeonPyramidCorner extends DungeonBase {
 
-  public DungeonPyramidCorner(RoomSetting roomSetting) {
-    super(roomSetting);
+  public DungeonPyramidCorner(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
 
     int x = origin.getX();
     int y = origin.getY();

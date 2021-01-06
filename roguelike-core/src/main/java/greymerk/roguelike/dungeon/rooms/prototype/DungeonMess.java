@@ -22,12 +22,12 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class DungeonMess extends DungeonBase {
 
-  public DungeonMess(RoomSetting roomSetting) {
-    super(roomSetting);
+  public DungeonMess(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
 
     ThemeBase theme = settings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();

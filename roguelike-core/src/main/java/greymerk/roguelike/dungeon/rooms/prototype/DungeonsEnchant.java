@@ -25,12 +25,12 @@ import static com.github.srwaggon.roguelike.worldgen.block.normal.ColoredBlock.s
 
 public class DungeonsEnchant extends DungeonBase {
 
-  public DungeonsEnchant(RoomSetting roomSetting) {
-    super(roomSetting);
+  public DungeonsEnchant(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
     Cardinal dir = entrances.get(0);
     Random rand = editor.getRandom();
     ThemeBase theme = settings.getTheme();

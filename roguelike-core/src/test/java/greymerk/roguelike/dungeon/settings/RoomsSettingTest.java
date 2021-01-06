@@ -15,8 +15,11 @@ import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.rooms.prototype.CornerRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsPit;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsWood;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class RoomsSettingTest {
 
@@ -109,20 +112,28 @@ public class RoomsSettingTest {
   @Test
   public void testGetSingle() {
     Dungeon.settingsResolver = new SettingsResolver(new SettingsContainer());
-    Random random = new Random();
-    RoomsSetting rooms = new RoomsSetting();
-    assertThat(new RoomIterator(rooms, random).getDungeonRoom()).isInstanceOf(CornerRoom.class);
+    WorldEditor editor = mock(WorldEditor.class);
+    when(editor.getRandom()).thenReturn(new Random());
 
-    rooms = new RoomsSetting();
-    rooms.add(RoomType.CAKE.newSingleRoomSetting());
-    rooms.add(RoomType.CAKE.newSingleRoomSetting());
-    RoomIterator roomIterator = new RoomIterator(rooms, random);
+    RoomsSetting roomSettings = new RoomsSetting();
+    LevelSettings levelSettings = new LevelSettings();
+    levelSettings.setRooms(roomSettings);
+    assertThat(new RoomIterator(levelSettings, editor).getDungeonRoom()).isInstanceOf(CornerRoom.class);
+
+    roomSettings = new RoomsSetting();
+    roomSettings.add(RoomType.CAKE.newSingleRoomSetting());
+    roomSettings.add(RoomType.CAKE.newSingleRoomSetting());
+    levelSettings = new LevelSettings();
+    levelSettings.setRooms(roomSettings);
+    RoomIterator roomIterator = new RoomIterator(levelSettings, editor);
     assertThat(roomIterator.getDungeonRoom()).isInstanceOf(DungeonsWood.class);
     assertThat(roomIterator.getDungeonRoom()).isInstanceOf(DungeonsWood.class);
     assertThat(roomIterator.getDungeonRoom()).isInstanceOf(CornerRoom.class);
 
-    rooms = new RoomsSetting();
-    rooms.add(RoomType.PIT.newSingleRoomSetting());
-    assertThat(new RoomIterator(rooms, random).getDungeonRoom()).isInstanceOf(DungeonsPit.class);
+    roomSettings = new RoomsSetting();
+    roomSettings.add(RoomType.PIT.newSingleRoomSetting());
+    levelSettings = new LevelSettings();
+    levelSettings.setRooms(roomSettings);
+    assertThat(new RoomIterator(levelSettings, editor).getDungeonRoom()).isInstanceOf(DungeonsPit.class);
   }
 }

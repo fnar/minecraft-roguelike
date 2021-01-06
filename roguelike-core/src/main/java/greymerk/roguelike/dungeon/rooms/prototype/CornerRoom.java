@@ -17,12 +17,12 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class CornerRoom extends DungeonBase {
 
-  public CornerRoom(RoomSetting roomSetting) {
-    super(roomSetting);
+  public CornerRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
     BlockSet primary = settings.getTheme().getPrimary();
     createHollowCenter(editor, origin);
     createShell(editor, origin, primary.getWall());

@@ -20,8 +20,8 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class DungeonStorage extends DungeonBase {
 
-  public DungeonStorage(RoomSetting roomSetting) {
-    super(roomSetting);
+  public DungeonStorage(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
   }
 
   private static void pillarTop(WorldEditor editor, ThemeBase theme, Coord cursor) {
@@ -41,7 +41,7 @@ public class DungeonStorage extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
 
     Random rand = editor.getRandom();
 
