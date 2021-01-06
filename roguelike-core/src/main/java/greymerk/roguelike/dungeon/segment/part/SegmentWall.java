@@ -23,22 +23,22 @@ public class SegmentWall extends SegmentBase {
 
     StairsBlock stair = theme.getSecondary().getStair();
 
-    Coord cursor = new Coord(origin);
+    Coord cursor = origin.copy();
     Coord start;
     Coord end;
 
     Cardinal[] orthogonals = dir.orthogonals();
 
     cursor.translate(dir, 2);
-    start = new Coord(cursor);
+    start = cursor.copy();
     start.translate(orthogonals[0], 1);
-    end = new Coord(cursor);
+    end = cursor.copy();
     end.translate(orthogonals[1], 1);
     end.translate(Cardinal.UP, 2);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     SecretsSetting secrets = level.getSettings().getSecrets();
-    Optional<DungeonBase> room = generateSecret(secrets, editor, level.getSettings(), dir, new Coord(origin));
+    Optional<DungeonBase> room = generateSecret(secrets, editor, level.getSettings(), dir, origin.copy());
 
     start.translate(dir, 1);
     end.translate(dir, 1);
@@ -46,14 +46,14 @@ public class SegmentWall extends SegmentBase {
 
     cursor.translate(Cardinal.UP, 2);
     for (Cardinal d : orthogonals) {
-      Coord c = new Coord(cursor);
+      Coord c = cursor.copy();
       c.translate(d, 1);
       stair.setUpsideDown(true).setFacing(d.reverse());
       stair.stroke(editor, c);
     }
 
     if (room.isPresent()) {
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       BlockBrush wall = theme.getPrimary().getWall();
       cursor.translate(dir, 3);
       wall.stroke(editor, cursor);

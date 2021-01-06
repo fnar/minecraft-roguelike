@@ -9,8 +9,8 @@ public class BoundingBox implements IBounded {
   private Coord end;
 
   public BoundingBox(Coord start, Coord end) {
-    this.start = new Coord(start);
-    this.end = new Coord(end);
+    this.start = start.copy();
+    this.end = end.copy();
 
     Coord.correct(this.start, this.end);
   }
@@ -44,11 +44,11 @@ public class BoundingBox implements IBounded {
 
   @Override
   public Coord getStart() {
-    return new Coord(start);
+    return start.copy();
   }
 
   @Override
   public Coord getEnd() {
-    return new Coord(end);
+    return end.copy();
   }
 }

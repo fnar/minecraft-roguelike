@@ -40,8 +40,8 @@ public class DungeonTreetho extends DungeonBase {
     Coord start;
     Coord end;
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(new Coord(-11, -1, -11));
     end.translate(new Coord(11, 8, 11));
 
@@ -49,8 +49,8 @@ public class DungeonTreetho extends DungeonBase {
 
     BlockBrush birchSlab = SlabBlock.birch().setTop(true).setFullBlock(false).setSeamless(false);
     BlockBrush pumpkin = PumpkinBlock.jackOLantern();
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(new Coord(-9, 8, -9));
     end.translate(new Coord(9, 8, 9));
     RectSolid.newRect(start, end).fill(worldEditor, birchSlab);
@@ -58,15 +58,15 @@ public class DungeonTreetho extends DungeonBase {
     end.translate(Cardinal.UP);
     RectSolid.newRect(start, end).fill(worldEditor, pumpkin);
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(new Coord(0, 8, 0));
     ceiling(worldEditor, levelSettings, cursor);
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     treeFarm(worldEditor, cursor, dir);
 
     for (Cardinal o : dir.orthogonals()) {
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(o, 5);
       treeFarm(worldEditor, cursor, dir);
     }
@@ -86,8 +86,8 @@ public class DungeonTreetho extends DungeonBase {
     BlockBrush glass = ColoredBlock.stainedGlass().setColor(DyeColor.YELLOW);
     BlockBrush dirt = BlockType.DIRT.getBrush();
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
 
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
@@ -97,12 +97,12 @@ public class DungeonTreetho extends DungeonBase {
 
     RectSolid.newRect(start, end).fill(editor, slab);
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
 
     cursor.translate(dir.reverse(), 6);
     for (int i = 0; i <= 12; ++i) {
       if (i % 2 == 0) {
-        Coord p = new Coord(cursor);
+        Coord p = cursor.copy();
         if (i % 4 == 0) {
           sapling.stroke(editor, p);
           p.translate(Cardinal.DOWN);
@@ -125,16 +125,16 @@ public class DungeonTreetho extends DungeonBase {
     tree.generate(editor, fill, origin);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
-      Coord start = new Coord(origin);
+      Coord start = origin.copy();
       start.translate(dir, 9);
-      Coord end = new Coord(start);
+      Coord end = start.copy();
 
       start.translate(dir.antiClockwise(), 9);
       end.translate(dir.clockwise(), 9);
 
       RectSolid.newRect(start, end).fill(editor, fill);
 
-      Coord cursor = new Coord(origin);
+      Coord cursor = origin.copy();
       cursor.translate(Cardinal.DOWN);
       cursor.translate(dir, 10);
       cursor.translate(dir.antiClockwise(), 10);
@@ -152,11 +152,11 @@ public class DungeonTreetho extends DungeonBase {
     BlockBrush pillar = theme.getPrimary().getPillar();
     StairsBlock stair = theme.getPrimary().getStair();
 
-    Coord cursor = new Coord(origin);
+    Coord cursor = origin.copy();
     editor.fillDown(cursor, pillar);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(dir);
       if (editor.isAirBlock(cursor)) {
         stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor);

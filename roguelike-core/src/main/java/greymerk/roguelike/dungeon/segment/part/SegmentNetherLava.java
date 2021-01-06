@@ -27,20 +27,20 @@ public class SegmentNetherLava extends SegmentBase {
     Coord cursor;
 
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(dir, 2);
     SingleBlockBrush.AIR.stroke(editor, cursor);
     cursor.translate(Cardinal.UP, 1);
     SingleBlockBrush.AIR.stroke(editor, cursor);
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(dir, 5);
     boolean isAir = editor.isAirBlock(cursor);
     BlockBrush wall = theme.getSecondary().getWall();
 
     for (Cardinal orthogonals : dir.orthogonals()) {
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(dir, 3);
-      end = new Coord(start);
+      end = start.copy();
       start.translate(orthogonals, 1);
       start.translate(Cardinal.UP, 2);
       end.translate(Cardinal.DOWN, 1);
@@ -51,7 +51,7 @@ public class SegmentNetherLava extends SegmentBase {
         lava.stroke(editor, start);
       }
 
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(dir, 2);
 
       stair.setUpsideDown(false).setFacing(orthogonals.reverse());

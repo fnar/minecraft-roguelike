@@ -48,8 +48,8 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
     Coord e;
     Cardinal dir = getDirection();
 
-    s = new Coord(start);
-    e = new Coord(end);
+    s = start.copy();
+    e = end.copy();
     s.translate(dir.antiClockwise(), 3);
     s.translate(Cardinal.UP, 3);
     e.translate(dir.clockwise(), 3);
@@ -68,10 +68,10 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
     bridgeBlocks.addBlock(floor);
     bridgeBlocks.addBlock(SingleBlockBrush.AIR);
 
-    s = new Coord(start);
+    s = start.copy();
     s.translate(Cardinal.NORTH);
     s.translate(Cardinal.EAST);
-    e = new Coord(end);
+    e = end.copy();
     e.translate(Cardinal.SOUTH);
     e.translate(Cardinal.WEST);
     e.translate(Cardinal.UP, 2);
@@ -85,11 +85,11 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
     e.translate(Cardinal.UP);
     RectHollow.newRect(s, e).fill(editor, wallBlocks, false, true);
 
-    s = new Coord(start);
+    s = start.copy();
     s.translate(Cardinal.NORTH);
     s.translate(Cardinal.EAST);
     s.translate(Cardinal.DOWN);
-    e = new Coord(end);
+    e = end.copy();
     e.translate(Cardinal.SOUTH);
     e.translate(Cardinal.WEST);
     e.translate(Cardinal.DOWN);
@@ -99,14 +99,14 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
     Cardinal dir = getDirection();
 
     // end of the tunnel;
-    Coord location = new Coord(end);
+    Coord location = end.copy();
     location.translate(dir, 1);
 
-    Coord start = new Coord(location);
+    Coord start = location.copy();
     Cardinal[] orth = dir.orthogonals();
     start.translate(orth[0], 2);
     start.translate(Cardinal.UP, 2);
-    Coord end = new Coord(location);
+    Coord end = location.copy();
     end.translate(orth[1], 2);
     end.translate(Cardinal.DOWN, 2);
 
@@ -116,8 +116,8 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
 
   public Coord[] getEnds() {
     Coord[] toReturn = new Coord[2];
-    toReturn[0] = new Coord(start);
-    toReturn[1] = new Coord(end);
+    toReturn[0] = start.copy();
+    toReturn[1] = end.copy();
     return toReturn;
   }
 
@@ -142,8 +142,8 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
     Coord s;
     Coord e;
     Cardinal dir = getDirection();
-    s = new Coord(start);
-    e = new Coord(end);
+    s = start.copy();
+    e = end.copy();
     s.translate(dir.antiClockwise(), 2);
     s.translate(Cardinal.UP, 3);
     e.translate(dir.clockwise(), 2);

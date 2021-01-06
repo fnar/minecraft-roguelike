@@ -31,9 +31,9 @@ public class SegmentMushrooms extends SegmentBase {
     Coord end;
 
     Cardinal[] orthogonals = wallDirection.orthogonals();
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(wallDirection, 2);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(orthogonals[0], 1);
     end.translate(orthogonals[1], 1);
     end.translate(Cardinal.UP, 1);
@@ -47,7 +47,7 @@ public class SegmentMushrooms extends SegmentBase {
     RectSolid.newRect(start, end).fill(editor, mushrooms);
 
     for (Cardinal d : orthogonals) {
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(wallDirection, 2);
       cursor.translate(d, 1);
       cursor.translate(Cardinal.UP, 1);

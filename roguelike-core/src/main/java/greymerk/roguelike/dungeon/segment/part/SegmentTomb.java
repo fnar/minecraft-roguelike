@@ -29,9 +29,9 @@ public class SegmentTomb extends SegmentBase {
     Coord end;
 
     Cardinal[] orthogonals = dir.orthogonals();
-    start = new Coord(pos);
+    start = pos.copy();
     start.translate(dir, 3);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
     end.translate(Cardinal.UP, 3);
@@ -49,7 +49,7 @@ public class SegmentTomb extends SegmentBase {
     if (!(rand.nextInt(3) == 0)) {
       return;
     }
-    cursor = new Coord(pos);
+    cursor = pos.copy();
     cursor.translate(Cardinal.UP);
     cursor.translate(dir, 4);
     SpawnerSettings spawners = level.getSpawners().isEmpty()
@@ -65,16 +65,16 @@ public class SegmentTomb extends SegmentBase {
 
     StairsBlock stair = theme.getPrimary().getStair();
 
-    Coord cursor = new Coord(origin);
+    Coord cursor = origin.copy();
     Coord start;
     Coord end;
 
     Cardinal[] orthogonals = dir.orthogonals();
 
     cursor.translate(dir, 2);
-    start = new Coord(cursor);
+    start = cursor.copy();
     start.translate(orthogonals[0], 1);
-    end = new Coord(cursor);
+    end = cursor.copy();
     end.translate(orthogonals[1], 1);
     end.translate(Cardinal.UP, 2);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
@@ -85,15 +85,15 @@ public class SegmentTomb extends SegmentBase {
 
     cursor.translate(Cardinal.UP, 2);
     for (Cardinal d : orthogonals) {
-      Coord c = new Coord(cursor);
+      Coord c = cursor.copy();
       c.translate(d, 1);
       stair.setUpsideDown(true).setFacing(d.reverse());
       stair.stroke(editor, c);
     }
 
-    tomb(editor, rand, level.getSettings(), theme, dir, new Coord(origin));
+    tomb(editor, rand, level.getSettings(), theme, dir, origin.copy());
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(Cardinal.UP);
     cursor.translate(dir, 3);
     BlockType.QUARTZ.getBrush().stroke(editor, cursor);

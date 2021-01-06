@@ -27,19 +27,19 @@ public class SegmentNetherStripes extends SegmentBase {
     Coord end;
     Coord cursor;
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(dir, 2);
     SingleBlockBrush.AIR.stroke(editor, cursor);
     cursor.translate(Cardinal.UP, 1);
     SingleBlockBrush.AIR.stroke(editor, cursor);
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(dir, 5);
     boolean isAir = editor.isAirBlock(cursor);
     boolean isLava = rand.nextInt(5) == 0;
 
 
     BlockBrush slab = SlabBlock.netherBrick();
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(dir, 2);
     slab.stroke(editor, cursor);
     cursor.translate(Cardinal.UP, 1);
@@ -48,9 +48,9 @@ public class SegmentNetherStripes extends SegmentBase {
     slab.stroke(editor, cursor);
 
     for (Cardinal orthogonal : dir.orthogonals()) {
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(dir, 3);
-      end = new Coord(start);
+      end = start.copy();
       start.translate(orthogonal, 1);
       start.translate(Cardinal.UP, 3);
       end.translate(Cardinal.DOWN, 2);
@@ -59,7 +59,7 @@ public class SegmentNetherStripes extends SegmentBase {
       }
 
       stair.setUpsideDown(true).setFacing(orthogonal.reverse());
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(dir, 2);
       cursor.translate(orthogonal, 1);
       stair.stroke(editor, cursor);

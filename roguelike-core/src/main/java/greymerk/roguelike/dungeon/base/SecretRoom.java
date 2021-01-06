@@ -31,7 +31,7 @@ public class SecretRoom extends DungeonBase {
     if (getRoomSetting().getCount() <= 0) {
       return false;
     }
-    Coord cursor = new Coord(pos);
+    Coord cursor = pos.copy();
     cursor.translate(dir, prototype.getSize() + 5);
     return prototype.validLocation(editor, dir, cursor);
   }
@@ -40,8 +40,8 @@ public class SecretRoom extends DungeonBase {
   public DungeonBase generate(Coord pos, List<Cardinal> entrances) {
     int size = prototype.getSize();
 
-    Coord start = new Coord(pos);
-    Coord end = new Coord(pos);
+    Coord start = pos.copy();
+    Coord end = pos.copy();
     Cardinal entrance = entrances.get(0);
     start.translate(entrance.orthogonals()[0]);
     start.translate(Cardinal.DOWN);
@@ -51,7 +51,7 @@ public class SecretRoom extends DungeonBase {
     end.translate(Cardinal.UP, 2);
     RectSolid.newRect(start, end).fill(worldEditor, levelSettings.getTheme().getPrimary().getWall(), false, true);
 
-    end = new Coord(pos);
+    end = pos.copy();
     end.translate(entrance, size + 5);
     end.translate(Cardinal.UP);
     RectSolid.newRect(pos, end).fill(worldEditor, SingleBlockBrush.AIR);

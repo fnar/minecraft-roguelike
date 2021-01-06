@@ -25,8 +25,8 @@ public class EthoTower implements ITower {
 
     Coord floor = Tower.getBaseCoord(editor, dungeon);
 
-    Coord start = new Coord(floor);
-    Coord end = new Coord(start);
+    Coord start = floor.copy();
+    Coord end = start.copy();
     Coord cursor;
 
     int x = dungeon.getX();
@@ -52,19 +52,19 @@ public class EthoTower implements ITower {
     for (Cardinal dir : Cardinal.DIRECTIONS) {
 
       Cardinal[] orthogonals = dir.orthogonals();
-      start = new Coord(floor);
+      start = floor.copy();
       start.translate(dir, 3);
       start.translate(orthogonals[0], 3);
-      end = new Coord(start);
+      end = start.copy();
       end.translate(Cardinal.UP, 6);
 
       RectSolid.newRect(start, end).fill(editor, pillar);
 
       for (Cardinal o : orthogonals) {
-        start = new Coord(floor);
+        start = floor.copy();
         start.translate(dir, 5);
         start.translate(o, 4);
-        end = new Coord(start);
+        end = start.copy();
         end.translate(Cardinal.UP, 4);
         start.translate(Cardinal.DOWN, 10);
         RectSolid.newRect(start, end).fill(editor, pillar);
@@ -76,7 +76,7 @@ public class EthoTower implements ITower {
         end.translate(o.reverse());
         stair.setUpsideDown(false).setFacing(o.reverse()).stroke(editor, end);
         end.translate(o.reverse());
-        start = new Coord(end);
+        start = end.copy();
         start.translate(o.reverse(), 2);
         RectSolid.newRect(start, end).fill(editor, stair.setUpsideDown(false).setFacing(dir));
 
@@ -87,22 +87,22 @@ public class EthoTower implements ITower {
         RectSolid.newRect(start, end).fill(editor, stair.setUpsideDown(false).setFacing(dir));
         stair.setUpsideDown(false).setFacing(o.reverse()).stroke(editor, end);
 
-        start = new Coord(floor);
+        start = floor.copy();
         start.translate(dir, 3);
         start.translate(Cardinal.UP, 4);
-        end = new Coord(start);
+        end = start.copy();
         end.translate(o, 2);
         RectSolid.newRect(start, end).fill(editor, stair.setUpsideDown(true).setFacing(dir.reverse()));
         start.translate(dir.reverse());
         start.translate(Cardinal.UP);
-        end = new Coord(start);
+        end = start.copy();
         end.translate(o, 2);
         RectSolid.newRect(start, end).fill(editor, stair.setUpsideDown(true).setFacing(dir.reverse()));
         start.translate(Cardinal.UP);
         end.translate(Cardinal.UP);
         RectSolid.newRect(start, end).fill(editor, pillar);
-        cursor = new Coord(end);
-        start = new Coord(end);
+        cursor = end.copy();
+        start = end.copy();
         start.translate(Cardinal.UP, 3);
         RectSolid.newRect(start, end).fill(editor, pillar);
         cursor.translate(o.reverse());
@@ -111,10 +111,10 @@ public class EthoTower implements ITower {
         cursor.translate(Cardinal.UP, 2);
         stair.setUpsideDown(true).setFacing(o.reverse()).stroke(editor, cursor);
         start.translate(Cardinal.UP);
-        end = new Coord(start);
+        end = start.copy();
         end.translate(o.reverse(), 2);
         RectSolid.newRect(start, end).fill(editor, stair.setUpsideDown(false).setFacing(dir));
-        cursor = new Coord(end);
+        cursor = end.copy();
         cursor.translate(dir.reverse());
         stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
         cursor.translate(o);
@@ -133,7 +133,7 @@ public class EthoTower implements ITower {
     Cardinal front = Cardinal.NORTH;
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
-      cursor = new Coord(floor);
+      cursor = floor.copy();
       cursor.translate(dir, 6);
       if (editor.isAirBlock(cursor)) {
         front = dir;
@@ -146,7 +146,7 @@ public class EthoTower implements ITower {
       if (dir == front) {
 
         for (Cardinal o : dir.orthogonals()) {
-          cursor = new Coord(floor);
+          cursor = floor.copy();
           cursor.translate(dir, 5);
           cursor.translate(o, 2);
           primary.stroke(editor, cursor);
@@ -179,16 +179,16 @@ public class EthoTower implements ITower {
 
         // carve doorway
         Cardinal[] orthogonals = dir.orthogonals();
-        cursor = new Coord(floor);
+        cursor = floor.copy();
         cursor.translate(dir, 4);
-        start = new Coord(cursor);
-        end = new Coord(start);
+        start = cursor.copy();
+        end = start.copy();
         start.translate(orthogonals[0]);
         end.translate(Cardinal.UP, 2);
         end.translate(orthogonals[1]);
         RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
-        cursor = new Coord(floor);
+        cursor = floor.copy();
         cursor.translate(dir, 6);
         cursor.translate(Cardinal.DOWN);
         step(editor, theme, dir, cursor);
@@ -198,10 +198,10 @@ public class EthoTower implements ITower {
 
 
       for (Cardinal o : dir.orthogonals()) {
-        start = new Coord(floor);
+        start = floor.copy();
         start.translate(Cardinal.UP, 4);
         start.translate(dir, 5);
-        end = new Coord(start);
+        end = start.copy();
         start.translate(o, 2);
         RectSolid.newRect(start, end).fill(editor, stair.setUpsideDown(false).setFacing(dir));
         start.translate(o);
@@ -232,15 +232,15 @@ public class EthoTower implements ITower {
 
     Cardinal[] orthogonals = dir.orthogonals();
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
     end = new Coord(end.getX(), 60, end.getZ());
     RectSolid.newRect(start, end).fill(editor, blocks);
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
     stair.setUpsideDown(false).setFacing(dir);

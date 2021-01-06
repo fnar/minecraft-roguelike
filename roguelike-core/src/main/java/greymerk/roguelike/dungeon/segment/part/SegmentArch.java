@@ -19,7 +19,7 @@ public class SegmentArch extends SegmentBase {
     StairsBlock stair = theme.getSecondary().getStair();
     stair.setUpsideDown(true).setFacing(dir.reverse());
 
-    Coord cursor = new Coord(origin);
+    Coord cursor = origin.copy();
     cursor.translate(dir, 2);
     SingleBlockBrush.AIR.stroke(editor, cursor);
     cursor.translate(Cardinal.UP, 1);
@@ -28,7 +28,7 @@ public class SegmentArch extends SegmentBase {
     stair.stroke(editor, cursor);
 
     for (Cardinal orthogonals : dir.orthogonals()) {
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(orthogonals, 1);
       cursor.translate(dir, 2);
       theme.getSecondary().getPillar().stroke(editor, cursor);

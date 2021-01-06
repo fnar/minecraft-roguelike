@@ -40,8 +40,8 @@ public class DungeonPyramidTomb extends DungeonBase {
     Coord end;
     Coord cursor;
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
 
     start.translate(Cardinal.NORTH, 6);
     start.translate(Cardinal.WEST, 6);
@@ -50,8 +50,8 @@ public class DungeonPyramidTomb extends DungeonBase {
     end.translate(Cardinal.UP, 2);
     RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
 
     start.translate(Cardinal.UP, 3);
     start.translate(Cardinal.NORTH, 4);
@@ -61,8 +61,8 @@ public class DungeonPyramidTomb extends DungeonBase {
     end.translate(Cardinal.UP);
     RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
 
     start.translate(Cardinal.UP, 5);
     start.translate(Cardinal.NORTH, 3);
@@ -72,8 +72,8 @@ public class DungeonPyramidTomb extends DungeonBase {
     end.translate(Cardinal.UP);
     RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
 
     start.translate(Cardinal.UP, 7);
     start.translate(Cardinal.NORTH, 2);
@@ -84,8 +84,8 @@ public class DungeonPyramidTomb extends DungeonBase {
     RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
 
     // outer walls
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(Cardinal.NORTH, 7);
     start.translate(Cardinal.WEST, 7);
     end.translate(Cardinal.SOUTH, 7);
@@ -95,9 +95,9 @@ public class DungeonPyramidTomb extends DungeonBase {
     RectHollow.newRect(start, end).fill(worldEditor, blocks, false, true);
 
     // floor
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(Cardinal.DOWN);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(Cardinal.NORTH, 6);
     start.translate(Cardinal.WEST, 6);
     end.translate(Cardinal.SOUTH, 6);
@@ -109,37 +109,37 @@ public class DungeonPyramidTomb extends DungeonBase {
     for (Cardinal dir : Cardinal.DIRECTIONS) {
 
 
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(dir, 5);
       cursor.translate(Cardinal.UP, 3);
       ceilingTiles(worldEditor, theme, 9, dir.reverse(), cursor);
 
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(dir, 5);
       start.translate(dir.antiClockwise(), 5);
-      end = new Coord(start);
+      end = start.copy();
       end.translate(Cardinal.UP, 3);
       RectSolid.newRect(start, end).fill(worldEditor, pillar);
 
       for (Cardinal o : dir.orthogonals()) {
-        start = new Coord(origin);
+        start = origin.copy();
         start.translate(dir, 5);
         start.translate(o);
-        end = new Coord(start);
+        end = start.copy();
         end.translate(Cardinal.UP, 3);
         RectSolid.newRect(start, end).fill(worldEditor, pillar);
 
         start.translate(o, 2);
-        end = new Coord(start);
+        end = start.copy();
         end.translate(Cardinal.UP, 3);
         RectSolid.newRect(start, end).fill(worldEditor, pillar);
       }
     }
 
     // ceiling top
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(Cardinal.UP, 8);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(Cardinal.NORTH);
     start.translate(Cardinal.WEST);
     end.translate(Cardinal.SOUTH);
@@ -159,8 +159,8 @@ public class DungeonPyramidTomb extends DungeonBase {
 
     Coord cursor;
 
-    Coord start = new Coord(origin);
-    Coord end = new Coord(origin);
+    Coord start = origin.copy();
+    Coord end = origin.copy();
     start.translate(dir.antiClockwise(), width / 2);
     end.translate(dir.clockwise(), width / 2);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
@@ -171,13 +171,13 @@ public class DungeonPyramidTomb extends DungeonBase {
     for (Cardinal o : dir.orthogonals()) {
       for (int i = 0; i <= width / 2; ++i) {
         if ((width / 2) % 2 == 0) {
-          cursor = new Coord(origin);
+          cursor = origin.copy();
           cursor.translate(o, i);
           if (i % 2 == 0) {
             tile(editor, theme, dir, cursor);
           }
         } else {
-          cursor = new Coord(origin);
+          cursor = origin.copy();
           cursor.translate(o, i);
           if (i % 2 == 1) {
             tile(editor, theme, dir, cursor);
@@ -186,7 +186,7 @@ public class DungeonPyramidTomb extends DungeonBase {
       }
     }
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(dir);
     cursor.translate(Cardinal.UP);
     ceilingTiles(editor, theme, (width - 2), dir, cursor);
@@ -195,7 +195,7 @@ public class DungeonPyramidTomb extends DungeonBase {
   private void tile(WorldEditor editor, ThemeBase theme, Cardinal dir, Coord origin) {
     StairsBlock stair = theme.getPrimary().getStair();
     stair.setUpsideDown(true).setFacing(dir).stroke(editor, origin);
-    Coord cursor = new Coord(origin);
+    Coord cursor = origin.copy();
     cursor.translate(Cardinal.UP);
     theme.getPrimary().getPillar().stroke(editor, cursor);
   }
@@ -205,7 +205,7 @@ public class DungeonPyramidTomb extends DungeonBase {
     StairsBlock stair = StairsBlock.quartz();
     BlockBrush blocks = BlockType.QUARTZ.getBrush();
 
-    Coord cursor = new Coord(origin);
+    Coord cursor = origin.copy();
 
     blocks.stroke(editor, cursor);
     cursor.translate(Cardinal.UP);
@@ -215,7 +215,7 @@ public class DungeonPyramidTomb extends DungeonBase {
 
     for (Cardinal end : dir.orthogonals()) {
 
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(end);
       blocks.stroke(editor, cursor);
       cursor.translate(Cardinal.UP);
@@ -223,7 +223,7 @@ public class DungeonPyramidTomb extends DungeonBase {
       cursor.translate(Cardinal.UP);
       blocks.stroke(editor, cursor);
 
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(end, 2);
       stair.setUpsideDown(false).setFacing(end).stroke(editor, cursor);
       cursor.translate(Cardinal.UP);
@@ -233,7 +233,7 @@ public class DungeonPyramidTomb extends DungeonBase {
 
       for (Cardinal side : end.orthogonals()) {
 
-        cursor = new Coord(origin);
+        cursor = origin.copy();
         cursor.translate(side);
         stair.setUpsideDown(false).setFacing(side).stroke(editor, cursor);
         cursor.translate(Cardinal.UP);
@@ -241,7 +241,7 @@ public class DungeonPyramidTomb extends DungeonBase {
         cursor.translate(Cardinal.UP);
         stair.setUpsideDown(false).setFacing(side).stroke(editor, cursor);
 
-        cursor = new Coord(origin);
+        cursor = origin.copy();
         cursor.translate(side);
         cursor.translate(end);
         stair.setUpsideDown(false).setFacing(side).stroke(editor, cursor);
@@ -250,7 +250,7 @@ public class DungeonPyramidTomb extends DungeonBase {
         cursor.translate(Cardinal.UP);
         stair.setUpsideDown(false).setFacing(side).stroke(editor, cursor);
 
-        cursor = new Coord(origin);
+        cursor = origin.copy();
         cursor.translate(side);
         cursor.translate(end, 2);
         stair.setUpsideDown(false).setFacing(side).stroke(editor, cursor);

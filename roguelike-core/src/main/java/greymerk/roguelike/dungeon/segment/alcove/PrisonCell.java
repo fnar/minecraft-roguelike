@@ -29,20 +29,20 @@ public class PrisonCell implements IAlcove {
     BlockBrush walls = theme.getPrimary().getWall();
     BlockBrush plate = BlockType.PRESSURE_PLATE_STONE.getBrush();
 
-    Coord start = new Coord(origin);
+    Coord start = origin.copy();
     start.translate(dir, RECESSED);
-    Coord end = new Coord(start);
+    Coord end = start.copy();
     start.translate(new Coord(-2, -1, -2));
     end.translate(new Coord(2, 3, 2));
     RectHollow.newRect(start, end).fill(editor, walls);
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     end.translate(dir, RECESSED);
     end.translate(Cardinal.UP);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
-    Coord cursor = new Coord(origin);
+    Coord cursor = origin.copy();
     cursor.translate(dir, RECESSED - 1);
     plate.stroke(editor, cursor);
     cursor.translate(Cardinal.DOWN);
@@ -53,7 +53,7 @@ public class PrisonCell implements IAlcove {
       spawners.generateSpawner(editor, cursor, settings.getDifficulty(cursor));
     }
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(dir, 3);
     theme.getSecondary().getDoor().setFacing(dir.reverse()).stroke(editor, cursor);
   }
@@ -61,7 +61,7 @@ public class PrisonCell implements IAlcove {
   @Override
   public boolean isValidLocation(WorldEditor editor, Coord origin, Cardinal dir) {
 
-    Coord centre = new Coord(origin);
+    Coord centre = origin.copy();
     centre.translate(dir, RECESSED);
     int x = centre.getX();
     int y = centre.getY();

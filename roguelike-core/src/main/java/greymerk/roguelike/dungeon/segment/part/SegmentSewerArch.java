@@ -29,13 +29,13 @@ public class SegmentSewerArch extends SegmentBase {
 
     Cardinal[] orthogonals = dir.orthogonals();
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(Cardinal.UP, 3);
     mossy.stroke(editor, cursor, false, true);
     cursor.translate(Cardinal.UP);
     water.stroke(editor, cursor, false, true);
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(dir, 2);
     SingleBlockBrush.AIR.stroke(editor, cursor);
     cursor.translate(Cardinal.UP, 1);
@@ -43,15 +43,15 @@ public class SegmentSewerArch extends SegmentBase {
     cursor.translate(Cardinal.UP, 1);
     stair.stroke(editor, cursor);
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(dir, 2);
     bars.stroke(editor, cursor);
     cursor.translate(Cardinal.UP);
     bars.stroke(editor, cursor);
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(Cardinal.DOWN);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
@@ -60,7 +60,7 @@ public class SegmentSewerArch extends SegmentBase {
     RectSolid.newRect(start, end).fill(editor, water);
 
     for (Cardinal o : orthogonals) {
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(o, 1);
       cursor.translate(dir, 2);
       theme.getSecondary().getPillar().stroke(editor, cursor);

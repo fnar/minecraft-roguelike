@@ -26,16 +26,16 @@ public class SilverfishNest implements IAlcove {
   @Override
   public void generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal dir) {
 
-    Coord corridor = new Coord(origin);
-    Coord centre = new Coord(origin);
+    Coord corridor = origin.copy();
+    Coord centre = origin.copy();
     centre.translate(dir, RECESSED);
 
     nest(editor, rand, centre.getX(), centre.getY(), centre.getZ());
 
-    Coord start = new Coord(corridor);
+    Coord start = corridor.copy();
     start.translate(Cardinal.UP);
 
-    Coord end = new Coord(centre);
+    Coord end = centre.copy();
     end.translate(Cardinal.UP);
     end.translate(dir.reverse(), 1);
 
@@ -49,7 +49,7 @@ public class SilverfishNest implements IAlcove {
   @Override
   public boolean isValidLocation(WorldEditor editor, Coord origin, Cardinal dir) {
 
-    Coord centre = new Coord(origin);
+    Coord centre = origin.copy();
     centre.translate(dir, RECESSED);
     int x = centre.getX();
     int y = centre.getY();

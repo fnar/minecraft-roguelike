@@ -45,33 +45,33 @@ public class DungeonsMusic extends DungeonBase {
 
     List<Coord> chests = new ArrayList<>();
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(new Coord(-6, -1, -6));
     end.translate(new Coord(6, 5, 6));
     RectHollow.newRect(start, end).fill(worldEditor, wall, false, true);
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(new Coord(-6, 4, -6));
     end.translate(new Coord(6, 5, 6));
     RectSolid.newRect(start, end).fill(worldEditor, panel);
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(new Coord(-3, 4, -3));
     end.translate(new Coord(3, 4, 3));
     RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(new Coord(-3, -1, -3));
     end.translate(new Coord(3, -1, 3));
     RectSolid.newRect(start, end).fill(worldEditor, floor);
 
     for (int i = 2; i >= 0; --i) {
-      start = new Coord(origin);
-      end = new Coord(origin);
+      start = origin.copy();
+      end = origin.copy();
       start.translate(new Coord(-i - 1, 0, -i - 1));
       end.translate(new Coord(i + 1, 0, i + 1));
       BlockBrush carpet = carpet().setColor(DyeColor.chooseRandom(rand));
@@ -80,27 +80,27 @@ public class DungeonsMusic extends DungeonBase {
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
 
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(dir, 5);
       cursor.translate(Cardinal.UP, 3);
       panel.stroke(worldEditor, cursor);
       cursor.translate(dir.reverse());
       stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
 
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(dir, 5);
       cursor.translate(dir.antiClockwise(), 5);
       pillar(worldEditor, levelSettings, cursor);
 
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(Cardinal.UP, 4);
       start.translate(dir, 3);
-      end = new Coord(start);
+      end = start.copy();
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir.clockwise(), 3);
       RectSolid.newRect(start, end).fill(worldEditor, pillar);
 
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(Cardinal.UP, 4);
       cursor.translate(dir);
       stair.setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
@@ -108,26 +108,26 @@ public class DungeonsMusic extends DungeonBase {
       stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
 
       for (Cardinal o : dir.orthogonals()) {
-        cursor = new Coord(origin);
+        cursor = origin.copy();
         cursor.translate(dir, 5);
         cursor.translate(o, 2);
         pillar(worldEditor, levelSettings, cursor);
 
-        cursor = new Coord(origin);
+        cursor = origin.copy();
         cursor.translate(dir, 4);
         cursor.translate(Cardinal.UP, 3);
         cursor.translate(o);
         stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
 
-        cursor = new Coord(origin);
+        cursor = origin.copy();
         cursor.translate(dir, 5);
         cursor.translate(o, 3);
         cursor.translate(Cardinal.UP);
-        chests.add(new Coord(cursor));
+        chests.add(cursor.copy());
         cursor.translate(o);
-        chests.add(new Coord(cursor));
+        chests.add(cursor.copy());
 
-        cursor = new Coord(origin);
+        cursor = origin.copy();
         cursor.translate(dir, 5);
         cursor.translate(o, 3);
         stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
@@ -151,7 +151,7 @@ public class DungeonsMusic extends DungeonBase {
 
     BlockType.JUKEBOX.getBrush().stroke(worldEditor, origin);
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(Cardinal.UP, 4);
     BlockType.GLOWSTONE.getBrush().stroke(worldEditor, cursor);
 
@@ -171,12 +171,12 @@ public class DungeonsMusic extends DungeonBase {
     Coord end;
     Coord cursor;
 
-    start = new Coord(origin);
-    end = new Coord(start);
+    start = origin.copy();
+    end = start.copy();
     end.translate(Cardinal.UP, 2);
     RectSolid.newRect(start, end).fill(editor, pillar);
     for (Cardinal dir : Cardinal.DIRECTIONS) {
-      cursor = new Coord(end);
+      cursor = end.copy();
       cursor.translate(dir);
       stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor, true, false);
       cursor.translate(Cardinal.UP);

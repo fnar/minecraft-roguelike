@@ -19,16 +19,16 @@ public class SegmentFlowers extends SegmentBase {
   protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Cardinal dir, ThemeBase theme, Coord origin) {
     StairsBlock stair = theme.getSecondary().getStair();
 
-    Coord cursor = new Coord(origin);
+    Coord cursor = origin.copy();
     Coord start;
     Coord end;
 
     Cardinal[] orthogonals = dir.orthogonals();
 
     cursor.translate(dir, 2);
-    start = new Coord(cursor);
+    start = cursor.copy();
     start.translate(orthogonals[0], 1);
-    end = new Coord(cursor);
+    end = cursor.copy();
     end.translate(orthogonals[1], 1);
     RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall(), false, true);
     start.translate(dir, 1);
@@ -41,16 +41,16 @@ public class SegmentFlowers extends SegmentBase {
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR, false, true);
     cursor.translate(Cardinal.UP, 2);
     for (Cardinal d : orthogonals) {
-      Coord c = new Coord(cursor);
+      Coord c = cursor.copy();
       c.translate(d, 1);
       stair.setUpsideDown(true).setFacing(d.reverse());
       stair.stroke(editor, c);
     }
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(dir, 2);
     start.translate(Cardinal.UP);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
     for (Coord c : new RectSolid(start, end)) {

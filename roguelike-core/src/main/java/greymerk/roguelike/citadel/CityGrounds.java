@@ -25,31 +25,31 @@ public class CityGrounds {
     Coord start;
     Coord end;
 
-    start = new Coord(pos);
+    start = pos.copy();
     start.translate(new Coord(Citadel.EDGE_LENGTH * -3, 10, Citadel.EDGE_LENGTH * -3));
-    end = new Coord(pos);
+    end = pos.copy();
     end.translate(new Coord(Citadel.EDGE_LENGTH * 3, 40, Citadel.EDGE_LENGTH * 3));
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
-    start = new Coord(pos);
+    start = pos.copy();
     start.translate(new Coord(Citadel.EDGE_LENGTH * -3, 10, Citadel.EDGE_LENGTH * -3));
-    end = new Coord(pos);
+    end = pos.copy();
     end.translate(new Coord(Citadel.EDGE_LENGTH * 3, 20, Citadel.EDGE_LENGTH * 3));
     RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall());
 
-    start = new Coord(pos);
+    start = pos.copy();
     start.translate(new Coord(Citadel.EDGE_LENGTH * -2, 20, Citadel.EDGE_LENGTH * -2));
-    end = new Coord(pos);
+    end = pos.copy();
     end.translate(new Coord(Citadel.EDGE_LENGTH * 2, 30, Citadel.EDGE_LENGTH * 2));
     RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall());
 
-    start = new Coord(pos);
+    start = pos.copy();
     start.translate(new Coord(Citadel.EDGE_LENGTH * -1, 30, Citadel.EDGE_LENGTH * -1));
-    end = new Coord(pos);
+    end = pos.copy();
     end.translate(new Coord(Citadel.EDGE_LENGTH, 40, Citadel.EDGE_LENGTH));
     RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall());
 
-    Coord cursor = new Coord(pos);
+    Coord cursor = pos.copy();
     cursor.translate(Cardinal.UP, 20);
 
     for (Edge<MSTPoint> e : mst.getEdges()) {

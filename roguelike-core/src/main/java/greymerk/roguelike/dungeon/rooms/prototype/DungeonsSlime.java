@@ -34,22 +34,22 @@ public class DungeonsSlime extends DungeonBase {
     Coord end;
     Coord cursor;
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(new Coord(-8, -1, -8));
     end.translate(new Coord(8, 5, 8));
     RectHollow.newRect(start, end).fill(worldEditor, wall, false, true);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(dir, 5);
       cursor.translate(dir.antiClockwise(), 5);
       corner(worldEditor, levelSettings, cursor);
 
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(Cardinal.UP, 4);
       start.translate(dir, 3);
-      end = new Coord(start);
+      end = start.copy();
       start.translate(dir.antiClockwise(), 8);
       end.translate(dir.clockwise(), 8);
       RectSolid.newRect(start, end).fill(worldEditor, wall);
@@ -62,9 +62,9 @@ public class DungeonsSlime extends DungeonBase {
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
       if (!entrances.contains(dir)) {
-        start = new Coord(origin);
+        start = origin.copy();
         start.translate(dir, 4);
-        end = new Coord(start);
+        end = start.copy();
         end.translate(dir, 2);
         start.translate(dir.antiClockwise(), 3);
         end.translate(dir.clockwise(), 3);
@@ -76,14 +76,14 @@ public class DungeonsSlime extends DungeonBase {
         end.translate(Cardinal.DOWN);
         RectSolid.newRect(start, end).fill(worldEditor, wall);
 
-        start = new Coord(origin);
+        start = origin.copy();
         start.translate(dir, 3);
-        end = new Coord(start);
+        end = start.copy();
         start.translate(dir.antiClockwise(), 2);
         end.translate(dir.clockwise(), 2);
         RectSolid.newRect(start, end).fill(worldEditor, bars);
 
-        cursor = new Coord(origin);
+        cursor = origin.copy();
         cursor.translate(dir, 7);
         wall.stroke(worldEditor, cursor);
         cursor.translate(Cardinal.UP, 2);
@@ -92,7 +92,7 @@ public class DungeonsSlime extends DungeonBase {
         cursor.translate(dir);
         liquid.stroke(worldEditor, cursor);
         for (Cardinal o : dir.orthogonals()) {
-          cursor = new Coord(origin);
+          cursor = origin.copy();
           cursor.translate(dir, 7);
           cursor.translate(o);
           stair.setUpsideDown(true).setFacing(o).stroke(worldEditor, cursor);
@@ -122,35 +122,35 @@ public class DungeonsSlime extends DungeonBase {
     Coord end;
     Coord cursor;
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(new Coord(-1, -1, -1));
     end.translate(new Coord(1, -1, 1));
     RectSolid.newRect(start, end).fill(editor, water);
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(new Coord(-1, -2, -1));
     end.translate(new Coord(1, -2, 1));
     RectSolid.newRect(start, end).fill(editor, wall);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(dir, 2);
       start.translate(dir.antiClockwise(), 2);
-      end = new Coord(start);
+      end = start.copy();
       end.translate(Cardinal.UP, 3);
       RectSolid.newRect(start, end).fill(editor, pillar);
 
       for (Cardinal d : Cardinal.DIRECTIONS) {
-        cursor = new Coord(end);
+        cursor = end.copy();
         cursor.translate(d);
         stair.setUpsideDown(true).setFacing(d).stroke(editor, cursor, true, false);
       }
 
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(dir, 2);
-      end = new Coord(start);
+      end = start.copy();
       start.translate(dir.antiClockwise());
       end.translate(dir.clockwise());
       RectSolid.newRect(start, end).fill(editor, bars);

@@ -33,32 +33,32 @@ public class SegmentLamp extends SegmentBase {
 
     Cardinal[] orthogonal = dir.orthogonals();
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(dir, 2);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(orthogonal[0]);
     end.translate(orthogonal[1]);
     end.translate(Cardinal.UP, 2);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(Cardinal.UP, 3);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(dir);
     start.translate(orthogonal[0]);
     end.translate(dir.reverse());
     end.translate(orthogonal[1]);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(dir, 3);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(orthogonal[0]);
     end.translate(orthogonal[1]);
     end.translate(dir, 2);
     end.translate(Cardinal.UP, 6);
     RectSolid.newRect(start, end).fill(editor, wall);
-    start = new Coord(end);
+    start = end.copy();
     start.translate(Cardinal.DOWN, 2);
     start.translate(dir.reverse(), 6);
     start.translate(orthogonal[0], 2);
@@ -66,7 +66,7 @@ public class SegmentLamp extends SegmentBase {
 
     for (Cardinal side : orthogonal) {
 
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(dir, 2);
       cursor.translate(side);
       stair.setUpsideDown(false).setFacing(side.reverse()).stroke(editor, cursor);
@@ -74,15 +74,15 @@ public class SegmentLamp extends SegmentBase {
       stair.setUpsideDown(true).setFacing(side.reverse()).stroke(editor, cursor);
     }
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(Cardinal.UP, 4);
     overheadLight(editor, theme, cursor);
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(Cardinal.UP);
     cursor.translate(dir, 2);
 
-    Coord lever = new Coord(cursor);
+    Coord lever = cursor.copy();
     cursor.translate(dir);
     stainedHardenedClay().setColor(DyeColor.ORANGE).stroke(editor, cursor);
     LeverBlock.lever().setActive(false).setFacing(dir.reverse()).stroke(editor, lever);
@@ -92,8 +92,8 @@ public class SegmentLamp extends SegmentBase {
     cursor.translate(Cardinal.UP, 2);
     TorchBlock.redstone().setFacing(Cardinal.UP).stroke(editor, cursor);
     cursor.translate(Cardinal.UP, 2);
-    start = new Coord(cursor);
-    end = new Coord(start);
+    start = cursor.copy();
+    end = start.copy();
     end.translate(dir.reverse(), 3);
     BlockBrush wire = BlockType.REDSTONE_WIRE.getBrush();
     RectSolid.newRect(start, end).fill(editor, wire);
@@ -108,14 +108,14 @@ public class SegmentLamp extends SegmentBase {
     SingleBlockBrush.AIR.stroke(editor, origin);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(dir);
       stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
       cursor.translate(dir.orthogonals()[0]);
       stair.stroke(editor, cursor);
     }
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(Cardinal.UP);
     BlockType.REDSTONE_LAMP.getBrush().stroke(editor, cursor);
   }

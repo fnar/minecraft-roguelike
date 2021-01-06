@@ -36,13 +36,13 @@ public class DungeonsPrison extends DungeonBase {
     largeRoom(worldEditor, levelSettings, origin);
 
     for (Cardinal dir : entrances) {
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(dir, 6);
       sideRoom(worldEditor, levelSettings, cursor, dir);
     }
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(dir, 3);
       cursor.translate(dir.antiClockwise(), 3);
       pillar(worldEditor, levelSettings, cursor, 4);
@@ -63,7 +63,7 @@ public class DungeonsPrison extends DungeonBase {
         continue;
       }
 
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(dir, 6);
       cursor.translate(dir.antiClockwise(), 6);
 
@@ -81,9 +81,9 @@ public class DungeonsPrison extends DungeonBase {
     StairsBlock stair = settings.getTheme().getPrimary().getStair();
 
     BlockBrush wall = settings.getTheme().getPrimary().getWall();
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(Cardinal.UP, 6);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(Cardinal.NORTH, 3);
     start.translate(Cardinal.EAST, 3);
     end.translate(Cardinal.SOUTH, 3);
@@ -91,17 +91,17 @@ public class DungeonsPrison extends DungeonBase {
     RectSolid.newRect(start, end).fill(editor, wall, false, true);
 
     BlockBrush floor = settings.getTheme().getPrimary().getFloor();
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(Cardinal.DOWN);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(Cardinal.NORTH, 3);
     start.translate(Cardinal.EAST, 3);
     end.translate(Cardinal.SOUTH, 3);
     end.translate(Cardinal.WEST, 3);
     RectSolid.newRect(start, end).fill(editor, floor, false, true);
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(Cardinal.NORTH, 3);
     start.translate(Cardinal.WEST, 3);
     end.translate(Cardinal.SOUTH, 3);
@@ -109,8 +109,8 @@ public class DungeonsPrison extends DungeonBase {
     end.translate(Cardinal.UP, 4);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(Cardinal.NORTH, 4);
     start.translate(Cardinal.WEST, 4);
     end.translate(Cardinal.SOUTH, 4);
@@ -119,15 +119,15 @@ public class DungeonsPrison extends DungeonBase {
     settings.getTheme().getPrimary().getWall().fill(editor, new RectHollow(start, end), false, true);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(dir, 3);
       cursor.translate(dir.antiClockwise(), 3);
       pillar(editor, settings, cursor, 4);
     }
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(Cardinal.UP, 5);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(Cardinal.NORTH);
     start.translate(Cardinal.EAST);
     end.translate(Cardinal.SOUTH);
@@ -136,17 +136,17 @@ public class DungeonsPrison extends DungeonBase {
 
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(Cardinal.UP, 5);
       cursor.translate(dir, 2);
       SingleBlockBrush.AIR.stroke(editor, cursor);
       for (Cardinal o : dir.orthogonals()) {
-        Coord c = new Coord(cursor);
+        Coord c = cursor.copy();
         c.translate(o);
         stair.setUpsideDown(true).setFacing(o.reverse()).stroke(editor, c);
       }
 
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(Cardinal.UP, 6);
       SingleBlockBrush.AIR.stroke(editor, cursor);
       cursor.translate(dir, 1);
@@ -164,9 +164,9 @@ public class DungeonsPrison extends DungeonBase {
     int height = 3;
 
     BlockBrush wall = settings.getTheme().getPrimary().getWall();
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(Cardinal.UP, 6);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(Cardinal.NORTH, 3);
     start.translate(Cardinal.EAST, 3);
     end.translate(Cardinal.SOUTH, 3);
@@ -174,17 +174,17 @@ public class DungeonsPrison extends DungeonBase {
     RectSolid.newRect(start, end).fill(editor, wall, false, true);
 
     BlockBrush floor = settings.getTheme().getPrimary().getFloor();
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(Cardinal.DOWN);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(Cardinal.NORTH, 3);
     start.translate(Cardinal.EAST, 3);
     end.translate(Cardinal.SOUTH, 3);
     end.translate(Cardinal.WEST, 3);
     RectSolid.newRect(start, end).fill(editor, floor, false, true);
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(Cardinal.NORTH, 3);
     start.translate(Cardinal.WEST, 3);
     end.translate(Cardinal.SOUTH, 3);
@@ -192,8 +192,8 @@ public class DungeonsPrison extends DungeonBase {
     end.translate(Cardinal.UP, height);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(Cardinal.NORTH, 4);
     start.translate(Cardinal.WEST, 4);
     end.translate(Cardinal.SOUTH, 4);
@@ -201,9 +201,9 @@ public class DungeonsPrison extends DungeonBase {
     end.translate(Cardinal.UP, height + 1);
     settings.getTheme().getPrimary().getWall().fill(editor, new RectHollow(start, end), false, true);
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(Cardinal.UP, 4);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(dir);
     end.translate(dir.reverse(), 3);
     start.translate(dir.antiClockwise());
@@ -212,54 +212,54 @@ public class DungeonsPrison extends DungeonBase {
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     for (Cardinal d : dir.orthogonals()) {
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(d, 3);
       cursor.translate(dir, 3);
       pillar(editor, settings, cursor, height);
     }
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(Cardinal.UP, 4);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
     start.translate(dir.reverse(), 3);
     end.translate(dir, 2);
 
     for (Cardinal d : dir.orthogonals()) {
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(Cardinal.UP, 4);
-      start = new Coord(cursor);
+      start = cursor.copy();
       start.translate(d, 2);
-      end = new Coord(start);
+      end = start.copy();
       start.translate(d.antiClockwise(), 3);
       end.translate(d.clockwise(), 3);
       stair.setUpsideDown(true).setFacing(d.reverse()).fill(editor, new RectSolid(start, end));
 
       cursor.translate(Cardinal.UP, 1);
-      start = new Coord(cursor);
+      start = cursor.copy();
       start.translate(d);
-      end = new Coord(start);
+      end = start.copy();
       start.translate(d.antiClockwise(), 3);
       end.translate(d.clockwise(), 3);
       stair.setUpsideDown(true).setFacing(d.reverse()).fill(editor, new RectSolid(start, end));
     }
 
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(Cardinal.UP, 4);
-    start = new Coord(cursor);
+    start = cursor.copy();
     start.translate(dir, 2);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
     stair.setUpsideDown(true).setFacing(dir.reverse()).fill(editor, new RectSolid(start, end));
 
     cursor.translate(Cardinal.UP, 1);
     SingleBlockBrush.AIR.stroke(editor, cursor);
-    start = new Coord(cursor);
+    start = cursor.copy();
     start.translate(dir, 1);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(dir.antiClockwise(), 1);
     end.translate(dir.clockwise(), 1);
     stair.setUpsideDown(true).setFacing(dir.reverse()).fill(editor, new RectSolid(start, end));
@@ -270,9 +270,9 @@ public class DungeonsPrison extends DungeonBase {
     BlockBrush pillar = settings.getTheme().getPrimary().getPillar();
     StairsBlock stair = settings.getTheme().getPrimary().getStair();
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(Cardinal.UP, height - 1);
-    editor.fillDown(new Coord(cursor), pillar);
+    editor.fillDown(cursor.copy(), pillar);
     cursor.translate(Cardinal.UP);
     pillar.stroke(editor, cursor);
     for (Cardinal dir : Cardinal.DIRECTIONS) {
@@ -287,7 +287,7 @@ public class DungeonsPrison extends DungeonBase {
     Coord end;
     Coord cursor;
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(Cardinal.DOWN);
     if (editor.isAirBlock(cursor)) {
       return;
@@ -296,8 +296,8 @@ public class DungeonsPrison extends DungeonBase {
     BlockBrush wall = settings.getTheme().getPrimary().getWall();
     BlockBrush bar = BlockType.IRON_BAR.getBrush();
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(Cardinal.DOWN);
     start.translate(Cardinal.NORTH, 2);
     start.translate(Cardinal.WEST, 2);
@@ -307,9 +307,9 @@ public class DungeonsPrison extends DungeonBase {
     RectHollow.newRect(start, end).fill(editor, wall, false, true);
 
     BlockBrush floor = settings.getTheme().getPrimary().getFloor();
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(Cardinal.DOWN);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(Cardinal.NORTH, 1);
     start.translate(Cardinal.EAST, 1);
     end.translate(Cardinal.SOUTH, 1);
@@ -317,10 +317,10 @@ public class DungeonsPrison extends DungeonBase {
     RectSolid.newRect(start, end).fill(editor, floor, false, true);
 
     for (Cardinal dir : entrances) {
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(dir, 2);
-      start = new Coord(cursor);
-      end = new Coord(cursor);
+      start = cursor.copy();
+      end = cursor.copy();
       start.translate(dir.antiClockwise());
       end.translate(dir.clockwise());
       end.translate(Cardinal.UP, 2);

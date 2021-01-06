@@ -17,8 +17,8 @@ public class Sphere implements IShape {
   private final Coord end;
 
   public Sphere(Coord start, Coord end) {
-    this.start = new Coord(start);
-    this.end = new Coord(end);
+    this.start = start.copy();
+    this.end = end.copy();
   }
 
   @Nonnull
@@ -50,9 +50,9 @@ public class Sphere implements IShape {
     private boolean top;
 
     public SphereIterator(Coord centre, Coord end) {
-      this.centre = new Coord(centre);
-      Coord s = new Coord(centre);
-      Coord e = new Coord(end);
+      this.centre = centre.copy();
+      Coord s = centre.copy();
+      Coord e = end.copy();
 
       Coord.correct(s, e);
       Coord diff = e.translate(-s.getX(), -s.getY(), -s.getZ());
@@ -76,7 +76,7 @@ public class Sphere implements IShape {
 
     @Override
     public Coord next() {
-      Coord toReturn = new Coord(centre);
+      Coord toReturn = centre.copy();
       toReturn.translate(top ? Cardinal.UP : Cardinal.DOWN, layer);
       toReturn.translate(dir, row);
       toReturn.translate(dir.antiClockwise(), col);

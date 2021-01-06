@@ -70,7 +70,7 @@ public class DungeonAvidya extends DungeonBase {
     Coord start = new Coord(x, y, z);
     start.translate(Cardinal.DOWN, 2);
     start.translate(Cardinal.WEST, 5);
-    Coord end = new Coord(start);
+    Coord end = start.copy();
     start.translate(Cardinal.NORTH, 2);
     end.translate(Cardinal.SOUTH, 2);
     RectSolid.newRect(start, end).fill(worldEditor, yang);
@@ -122,7 +122,7 @@ public class DungeonAvidya extends DungeonBase {
         start = new Coord(x, y, z);
         start.translate(dir, 8);
         start.translate(Cardinal.UP, 4);
-        end = new Coord(start);
+        end = start.copy();
         end.translate(orthogonals, 8);
         RectSolid.newRect(start, end).fill(worldEditor, whiteClay);
         start.translate(Cardinal.DOWN, 5);
@@ -132,7 +132,7 @@ public class DungeonAvidya extends DungeonBase {
         start = new Coord(x, y, z);
         start.translate(dir, 7);
         start.translate(Cardinal.UP, 5);
-        end = new Coord(start);
+        end = start.copy();
         end.translate(orthogonals, 7);
         RectSolid.newRect(start, end).fill(worldEditor, whiteClay);
 
@@ -140,14 +140,14 @@ public class DungeonAvidya extends DungeonBase {
         start = new Coord(x, y, z);
         start.translate(dir, 4);
         start.translate(Cardinal.UP, 5);
-        end = new Coord(start);
+        end = start.copy();
         end.translate(orthogonals, 2);
         RectSolid.newRect(start, end).fill(worldEditor, quartz);
 
-        Coord cursor = new Coord(end);
+        Coord cursor = end.copy();
         cursor.translate(dir, 1);
         quartz.stroke(worldEditor, cursor);
-        cursor = new Coord(end);
+        cursor = end.copy();
         cursor.translate(dir.reverse(), 1);
         cursor.translate(orthogonals, 1);
         quartz.stroke(worldEditor, cursor);
@@ -158,7 +158,7 @@ public class DungeonAvidya extends DungeonBase {
         start.translate(Cardinal.DOWN, 1);
         start.translate(dir, 8);
         start.translate(orthogonals, 2);
-        end = new Coord(start);
+        end = start.copy();
         end.translate(Cardinal.UP, 4);
         RectSolid.newRect(start, end).fill(worldEditor, pillarQuartz);
         start.translate(orthogonals, 4);
@@ -170,7 +170,7 @@ public class DungeonAvidya extends DungeonBase {
         cursor.translate(dir, 8);
         cursor.translate(orthogonals, 2);
         cursor.translate(Cardinal.UP, 3);
-        Coord cursor2 = new Coord(cursor);
+        Coord cursor2 = cursor.copy();
         pillarTop(worldEditor, cursor);
         cursor2.translate(orthogonals, 4);
         pillarTop(worldEditor, cursor2);
@@ -190,7 +190,7 @@ public class DungeonAvidya extends DungeonBase {
         // outer wall shell
         start = new Coord(x, y, z);
         start.translate(dir, 9);
-        end = new Coord(start);
+        end = start.copy();
         end.translate(orthogonals, 9);
         end.translate(Cardinal.UP, 3);
         RectSolid.newRect(start, end).fill(worldEditor, whiteClay, false, true);

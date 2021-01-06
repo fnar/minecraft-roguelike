@@ -32,9 +32,9 @@ public class SegmentAnkh extends SegmentBase {
 
     Cardinal[] orthogonals = dir.orthogonals();
 
-    start = new Coord(pos);
+    start = pos.copy();
     start.translate(dir, 2);
-    end = new Coord(start);
+    end = start.copy();
     end.translate(Cardinal.UP, 2);
 
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
@@ -42,7 +42,7 @@ public class SegmentAnkh extends SegmentBase {
 
     for (Cardinal o : orthogonals) {
 
-      cursor = new Coord(pos);
+      cursor = pos.copy();
       cursor.translate(dir, 2);
       cursor.translate(o);
       stair.setUpsideDown(false).setFacing(o.reverse()).stroke(editor, cursor);
@@ -52,9 +52,9 @@ public class SegmentAnkh extends SegmentBase {
       stair.setUpsideDown(true).setFacing(o.reverse()).stroke(editor, cursor);
     }
 
-    start = new Coord(pos);
+    start = pos.copy();
     start.translate(dir, 3);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
     end.translate(Cardinal.UP, 2);
@@ -63,7 +63,7 @@ public class SegmentAnkh extends SegmentBase {
     end.translate(dir);
     RectSolid.newRect(start, end).fill(editor, back);
 
-    cursor = new Coord(pos);
+    cursor = pos.copy();
     cursor.translate(dir, 3);
     cursor.translate(Cardinal.DOWN);
     glowstone.stroke(editor, cursor);

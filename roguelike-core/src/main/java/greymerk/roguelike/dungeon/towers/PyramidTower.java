@@ -38,7 +38,7 @@ public class PyramidTower implements ITower {
     RectHollow.newRect(start, end).fill(editor, blocks);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
-      cursor = new Coord(floor);
+      cursor = floor.copy();
       cursor.translate(dir, 6);
       wall(editor, theme, dir, cursor);
       cursor.translate(dir.antiClockwise(), 6);
@@ -46,11 +46,11 @@ public class PyramidTower implements ITower {
     }
 
     // todo: Should the Entrance always be to the East?
-    cursor = new Coord(floor);
+    cursor = floor.copy();
     cursor.translate(Cardinal.EAST, 6);
     entrance(editor, theme, Cardinal.EAST, cursor);
 
-    cursor = new Coord(floor);
+    cursor = floor.copy();
     cursor.translate(Cardinal.UP, 4);
     spire(editor, theme, cursor);
 
@@ -67,24 +67,24 @@ public class PyramidTower implements ITower {
     Coord start;
     Coord end;
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(Cardinal.UP, 3);
-    end = new Coord(start);
+    end = start.copy();
     end.translate(dir.reverse());
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
     RectSolid.newRect(start, end).fill(editor, blocks);
 
     for (Cardinal o : dir.orthogonals()) {
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(dir);
       start.translate(o, 2);
-      end = new Coord(start);
+      end = start.copy();
       end.translate(dir.reverse());
       end.translate(Cardinal.UP, 3);
       RectSolid.newRect(start, end).fill(editor, blocks);
 
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(dir, 2);
       cursor.translate(o, 2);
       blocks.stroke(editor, cursor);
@@ -93,36 +93,36 @@ public class PyramidTower implements ITower {
     }
 
     // door
-    start = new Coord(origin);
-    end = new Coord(start);
+    start = origin.copy();
+    end = start.copy();
     start.translate(dir.reverse());
     end.translate(dir);
     end.translate(Cardinal.UP);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(dir);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
     end.translate(Cardinal.UP, 2);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(Cardinal.UP, 2);
     blocks.stroke(editor, cursor);
 
     // door cap
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(Cardinal.UP, 3);
     start.translate(dir);
-    end = new Coord(start);
+    end = start.copy();
     end.translate(Cardinal.UP, 2);
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
     RectSolid.newRect(start, end).fill(editor, blocks);
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(dir);
     cursor.translate(Cardinal.UP, 4);
     BlockType.LAPIS_BLOCK.getBrush().stroke(editor, cursor);
@@ -142,78 +142,78 @@ public class PyramidTower implements ITower {
     for (Cardinal dir : Cardinal.DIRECTIONS) {
 
       // outer wall
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(dir, 3);
-      end = new Coord(start);
+      end = start.copy();
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir.clockwise(), 3);
       end.translate(Cardinal.UP, 2);
       RectSolid.newRect(start, end).fill(editor, blocks);
 
       // doors
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(dir, 3);
       SingleBlockBrush.AIR.stroke(editor, cursor);
       cursor.translate(Cardinal.UP);
       SingleBlockBrush.AIR.stroke(editor, cursor);
 
       // wall cap
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(dir, 2);
       start.translate(Cardinal.UP, 3);
-      end = new Coord(start);
+      end = start.copy();
       start.translate(dir.antiClockwise());
       end.translate(dir.clockwise());
       end.translate(dir);
       RectSolid.newRect(start, end).fill(editor, blocks);
 
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(dir);
       start.translate(Cardinal.UP, 4);
-      end = new Coord(start);
+      end = start.copy();
       end.translate(dir, 2);
       RectSolid.newRect(start, end).fill(editor, blocks);
 
       // corner spikes
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(dir, 3);
       start.translate(dir.antiClockwise(), 3);
       start.translate(Cardinal.UP, 3);
-      end = new Coord(start);
+      end = start.copy();
       end.translate(Cardinal.UP);
       RectSolid.newRect(start, end).fill(editor, blocks);
 
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(dir, 2);
       start.translate(dir.antiClockwise(), 2);
       start.translate(Cardinal.UP, 3);
-      end = new Coord(start);
+      end = start.copy();
       end.translate(Cardinal.UP, 4);
       RectSolid.newRect(start, end).fill(editor, blocks);
 
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(dir);
       start.translate(dir.antiClockwise());
       start.translate(Cardinal.UP, 4);
-      end = new Coord(start);
+      end = start.copy();
       end.translate(Cardinal.UP, 3);
       RectSolid.newRect(start, end).fill(editor, blocks);
 
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(dir);
       start.translate(Cardinal.UP, 7);
-      end = new Coord(start);
+      end = start.copy();
       end.translate(Cardinal.UP, 2);
       RectSolid.newRect(start, end).fill(editor, blocks);
     }
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(Cardinal.UP, 7);
-    end = new Coord(start);
+    end = start.copy();
     end.translate(Cardinal.UP, 6);
     RectSolid.newRect(start, end).fill(editor, blocks);
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(Cardinal.UP, 7);
     BlockType.GLOWSTONE.getBrush().stroke(editor, cursor);
 
@@ -226,44 +226,44 @@ public class PyramidTower implements ITower {
     Coord end;
 
     // upper wall lip
-    start = new Coord(pos);
+    start = pos.copy();
     start.translate(Cardinal.UP, 4);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(dir.antiClockwise(), 5);
     end.translate(dir.clockwise(), 5);
     RectSolid.newRect(start, end).fill(editor, blocks);
 
     // inner wall
-    start = new Coord(pos);
+    start = pos.copy();
     start.translate(dir.reverse());
-    end = new Coord(start);
+    end = start.copy();
     end.translate(dir.reverse());
     end.translate(Cardinal.UP, 2);
     start.translate(dir.antiClockwise(), 4);
     end.translate(dir.clockwise(), 4);
     RectSolid.newRect(start, end).fill(editor, blocks);
 
-    cursor = new Coord(pos);
+    cursor = pos.copy();
     cursor.translate(dir.reverse(), 2);
     SingleBlockBrush.AIR.stroke(editor, cursor);
     cursor.translate(Cardinal.UP);
     SingleBlockBrush.AIR.stroke(editor, cursor);
 
     for (Cardinal o : dir.orthogonals()) {
-      Coord c2 = new Coord(pos);
+      Coord c2 = pos.copy();
       for (int i = 0; i < 5; ++i) {
         if (i % 2 == 0) {
-          cursor = new Coord(c2);
+          cursor = c2.copy();
           cursor.translate(Cardinal.UP, 5);
           blocks.stroke(editor, cursor);
 
-          start = new Coord(c2);
+          start = c2.copy();
           start.translate(Cardinal.UP);
-          end = new Coord(start);
+          end = start.copy();
           end.translate(Cardinal.UP, 2);
           RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
         } else {
-          cursor = new Coord(c2);
+          cursor = c2.copy();
           cursor.translate(dir);
           blocks.stroke(editor, cursor);
           cursor.translate(Cardinal.UP);
@@ -272,7 +272,7 @@ public class PyramidTower implements ITower {
         c2.translate(o);
       }
 
-      cursor = new Coord(pos);
+      cursor = pos.copy();
       cursor.translate(dir.reverse(), 2);
       cursor.translate(o, 2);
       SingleBlockBrush.AIR.stroke(editor, cursor);
@@ -291,21 +291,21 @@ public class PyramidTower implements ITower {
     Cardinal[] faces = {dir, dir.antiClockwise()};
 
     for (Cardinal face : faces) {
-      start = new Coord(pos);
+      start = pos.copy();
       start.translate(face);
-      end = new Coord(start);
+      end = start.copy();
       end.translate(face.antiClockwise());
       start.translate(face.clockwise());
       end.translate(Cardinal.UP);
       RectSolid.newRect(start, end).fill(editor, blocks);
 
-      cursor = new Coord(pos);
+      cursor = pos.copy();
       cursor.translate(face, 2);
       blocks.stroke(editor, cursor);
       cursor.translate(Cardinal.UP);
       blocks.stroke(editor, cursor);
 
-      cursor = new Coord(pos);
+      cursor = pos.copy();
       cursor.translate(face);
       cursor.translate(Cardinal.UP, 2);
       blocks.stroke(editor, cursor);
@@ -313,9 +313,9 @@ public class PyramidTower implements ITower {
       blocks.stroke(editor, cursor);
     }
 
-    start = new Coord(pos);
+    start = pos.copy();
     start.translate(Cardinal.UP, 4);
-    end = new Coord(start);
+    end = start.copy();
     end.translate(Cardinal.UP, 2);
     RectSolid.newRect(start, end).fill(editor, blocks);
   }

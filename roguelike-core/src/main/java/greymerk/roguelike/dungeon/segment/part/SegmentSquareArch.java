@@ -22,23 +22,23 @@ public class SegmentSquareArch extends SegmentBase {
 
     BlockBrush pillar = level.getSettings().getTheme().getPrimary().getPillar();
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(dir, 2);
-    end = new Coord(start);
+    end = start.copy();
     end.translate(Cardinal.UP, 2);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(dir, 3);
-    end = new Coord(start);
+    end = start.copy();
     end.translate(Cardinal.UP, 2);
     RectSolid.newRect(start, end).fill(editor, pillar);
 
     for (Cardinal orthogonals : dir.orthogonals()) {
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(orthogonals, 1);
       start.translate(dir, 2);
-      end = new Coord(start);
+      end = start.copy();
       end.translate(Cardinal.UP, 2);
       RectSolid.newRect(start, end).fill(editor, pillar);
     }

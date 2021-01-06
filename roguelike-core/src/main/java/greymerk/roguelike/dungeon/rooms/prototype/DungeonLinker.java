@@ -34,37 +34,37 @@ public class DungeonLinker extends DungeonBase {
     Coord start;
     Coord end;
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(new Coord(-4, -1, -4));
     end.translate(new Coord(4, 9, 4));
     RectHollow.newRect(start, end).fill(worldEditor, wall, false, true);
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(new Coord(-4, 9, -4));
     end.translate(new Coord(4, 9, 4));
     RectSolid.newRect(start, end).fill(worldEditor, wall);
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(new Coord(-4, -1, -4));
     end.translate(new Coord(4, -1, 4));
     RectSolid.newRect(start, end).fill(worldEditor, floor);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
 
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(dir, 4);
-      end = new Coord(start);
+      end = start.copy();
       end.translate(Cardinal.UP, 8);
       start.translate(Cardinal.DOWN);
       start.translate(dir.antiClockwise(), 4);
       end.translate(dir.clockwise(), 4);
       RectSolid.newRect(start, end).fill(worldEditor, bars, true, false);
 
-      start = new Coord(origin);
-      end = new Coord(origin);
+      start = origin.copy();
+      end = origin.copy();
       start.translate(dir, 3);
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir, 4);

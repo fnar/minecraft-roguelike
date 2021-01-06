@@ -36,8 +36,8 @@ public class DungeonDarkHall extends DungeonBase {
     Coord start;
     Coord end;
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
 
     start.translate(Cardinal.NORTH, 7);
     start.translate(Cardinal.WEST, 7);
@@ -48,8 +48,8 @@ public class DungeonDarkHall extends DungeonBase {
 
     RectHollow.newRect(start, end).fill(worldEditor, outerWall, false, true);
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
 
     start.translate(Cardinal.NORTH, 4);
     start.translate(Cardinal.WEST, 4);
@@ -60,8 +60,8 @@ public class DungeonDarkHall extends DungeonBase {
 
     RectHollow.newRect(start, end).fill(worldEditor, outerWall, false, true);
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
 
     start.translate(Cardinal.NORTH, 6);
     start.translate(Cardinal.WEST, 6);
@@ -74,9 +74,9 @@ public class DungeonDarkHall extends DungeonBase {
 
     for (Cardinal dir : entrances) {
       Cardinal[] orthogonal = dir.orthogonals();
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(orthogonal[0]);
-      end = new Coord(origin);
+      end = origin.copy();
       end.translate(orthogonal[1]);
       end.translate(dir, 7);
       RectSolid.newRect(start, end).fill(worldEditor, theme.getSecondary().getFloor(), false, true);
@@ -84,25 +84,25 @@ public class DungeonDarkHall extends DungeonBase {
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
 
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(dir, 6);
       start.translate(dir.antiClockwise(), 6);
-      end = new Coord(start);
+      end = start.copy();
       end.translate(Cardinal.UP, 5);
       RectSolid.newRect(start, end).fill(worldEditor, pillar);
 
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(dir, 6);
       start.translate(Cardinal.UP, 6);
-      end = new Coord(start);
+      end = start.copy();
       start.translate(dir.antiClockwise(), 6);
       end.translate(dir.clockwise(), 6);
       RectSolid.newRect(start, end).fill(worldEditor, wall);
 
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(dir, 3);
       start.translate(Cardinal.UP, 6);
-      end = new Coord(start);
+      end = start.copy();
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir.clockwise(), 3);
       RectSolid.newRect(start, end).fill(worldEditor, wall);
@@ -110,43 +110,43 @@ public class DungeonDarkHall extends DungeonBase {
       end.translate(Cardinal.UP, 2);
       RectSolid.newRect(start, end).fill(worldEditor, wall);
 
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(dir, 3);
       start.translate(Cardinal.UP, 7);
       pillar.stroke(worldEditor, start);
       start.translate(Cardinal.UP);
-      end = new Coord(start);
+      end = start.copy();
       end.translate(dir.reverse(), 3);
       RectSolid.newRect(start, end).fill(worldEditor, wall);
 
       if (entrances.contains(dir)) {
-        start = new Coord(origin);
+        start = origin.copy();
         start.translate(dir, 7);
         start.translate(Cardinal.UP, 2);
-        end = new Coord(start);
+        end = start.copy();
         end.translate(Cardinal.UP, 3);
         start.translate(dir.antiClockwise(), 2);
         end.translate(dir.clockwise(), 2);
         RectSolid.newRect(start, end).fill(worldEditor, wall);
 
-        cursor = new Coord(origin);
+        cursor = origin.copy();
         cursor.translate(dir, 7);
         cursor.translate(Cardinal.UP, 2);
         SingleBlockBrush.AIR.stroke(worldEditor, cursor);
 
         for (Cardinal o : dir.orthogonals()) {
-          cursor = new Coord(origin);
+          cursor = origin.copy();
           cursor.translate(dir, 7);
           cursor.translate(Cardinal.UP, 2);
           cursor.translate(o);
           stair.setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
 
-          cursor = new Coord(origin);
+          cursor = origin.copy();
           cursor.translate(dir, 6);
           cursor.translate(o, 3);
           pillar(worldEditor, levelSettings, o.reverse(), cursor);
 
-          cursor = new Coord(origin);
+          cursor = origin.copy();
           cursor.translate(dir, 7);
           cursor.translate(o, 2);
           pillar.stroke(worldEditor, cursor);
@@ -154,26 +154,26 @@ public class DungeonDarkHall extends DungeonBase {
           pillar.stroke(worldEditor, cursor);
         }
       } else {
-        cursor = new Coord(origin);
+        cursor = origin.copy();
         cursor.translate(dir, 6);
         pillar(worldEditor, levelSettings, dir.reverse(), cursor);
       }
 
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(dir, 6);
       start.translate(Cardinal.UP, 6);
-      end = new Coord(start);
+      end = start.copy();
       end.translate(dir.reverse(), 2);
       RectSolid.newRect(start, end).fill(worldEditor, wall);
 
       for (Cardinal o : dir.orthogonals()) {
-        cursor = new Coord(origin);
+        cursor = origin.copy();
         cursor.translate(dir, 6);
         cursor.translate(o, 3);
         pillar(worldEditor, levelSettings, dir.reverse(), cursor);
-        start = new Coord(cursor);
+        start = cursor.copy();
         start.translate(Cardinal.UP, 6);
-        end = new Coord(start);
+        end = start.copy();
         end.translate(dir.reverse(), 6);
         RectSolid.newRect(start, end).fill(worldEditor, wall);
       }
@@ -194,12 +194,12 @@ public class DungeonDarkHall extends DungeonBase {
     Coord start;
     Coord end;
 
-    start = new Coord(origin);
-    end = new Coord(start);
+    start = origin.copy();
+    end = start.copy();
     end.translate(Cardinal.UP, 5);
     RectSolid.newRect(start, end).fill(editor, pillar);
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(Cardinal.UP, 3);
     cursor.translate(dir);
     stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor);

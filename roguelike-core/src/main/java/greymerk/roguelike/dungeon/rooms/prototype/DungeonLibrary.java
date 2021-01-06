@@ -57,14 +57,14 @@ public class DungeonLibrary extends DungeonBase {
 
     RectSolid.newRect(new Coord(x - 5, y - 1, z - 5), new Coord(x + 5, y - 1, z + 5)).fill(worldEditor, levelSettings.getTheme().getPrimary().getFloor());
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(Cardinal.UP, 5);
     BlockType.REDSTONE_BLOCK.getBrush().stroke(worldEditor, start);
     start.translate(Cardinal.DOWN);
     BlockType.REDSTONE_LAMP_LIT.getBrush().stroke(worldEditor, start);
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(Cardinal.UP, 6);
-    end = new Coord(start);
+    end = start.copy();
     end.translate(Cardinal.UP);
     RectSolid.newRect(start, end).fill(worldEditor, levelSettings.getTheme().getPrimary().getPillar());
 
@@ -82,29 +82,29 @@ public class DungeonLibrary extends DungeonBase {
 
       }
 
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(dir, 4);
       start.translate(dir.antiClockwise(), 4);
-      end = new Coord(start);
+      end = start.copy();
       end.translate(Cardinal.UP, 4);
       RectSolid.newRect(start, end).fill(worldEditor, levelSettings.getTheme().getPrimary().getPillar());
 
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(dir, 3);
       start.translate(dir.antiClockwise(), 3);
       start.translate(Cardinal.UP, 3);
-      end = new Coord(start);
+      end = start.copy();
       end.translate(Cardinal.UP, 3);
       RectSolid.newRect(start, end).fill(worldEditor, levelSettings.getTheme().getPrimary().getPillar());
 
-      cursor = new Coord(end);
+      cursor = end.copy();
       cursor.translate(dir.reverse());
       cursor.translate(dir.clockwise());
       cursor.translate(Cardinal.UP);
       walls.stroke(worldEditor, cursor);
 
       for (Cardinal o : dir.orthogonals()) {
-        cursor = new Coord(origin);
+        cursor = origin.copy();
         cursor.translate(dir, 4);
         cursor.translate(o, 3);
         cursor.translate(Cardinal.UP, 2);
@@ -120,15 +120,15 @@ public class DungeonLibrary extends DungeonBase {
       }
 
       // Light fixture related stuff
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(Cardinal.UP, 4);
       cursor.translate(dir);
       stair.setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
       cursor.translate(dir, 2);
       stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
       cursor.translate(Cardinal.UP);
-      start = new Coord(cursor);
-      end = new Coord(cursor);
+      start = cursor.copy();
+      end = cursor.copy();
       start.translate(dir.reverse(), 2);
       RectSolid.newRect(start, end).fill(worldEditor, walls);
       cursor.translate(Cardinal.UP);
@@ -148,22 +148,22 @@ public class DungeonLibrary extends DungeonBase {
     Coord start;
     Coord end;
 
-    start = new Coord(pos);
+    start = pos.copy();
     start.translate(dir, 7);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
     end.translate(Cardinal.UP, 2);
 
     RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall());
 
-    Coord cursor = new Coord(pos);
+    Coord cursor = pos.copy();
     cursor.translate(dir, 7);
     theme.getPrimary().getDoor().setFacing(dir).stroke(editor, cursor);
 
     for (Cardinal o : dir.orthogonals()) {
 
-      cursor = new Coord(pos);
+      cursor = pos.copy();
       cursor.translate(dir, 5);
       cursor.translate(o);
       cursor.translate(Cardinal.UP, 2);
@@ -182,10 +182,10 @@ public class DungeonLibrary extends DungeonBase {
     Coord end;
     BlockBrush shelf = BlockType.BOOKSHELF.getBrush();
 
-    cursor = new Coord(pos);
+    cursor = pos.copy();
     cursor.translate(dir, 5);
-    start = new Coord(cursor);
-    end = new Coord(cursor);
+    start = cursor.copy();
+    end = cursor.copy();
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
     end.translate(Cardinal.UP, 2);
@@ -195,7 +195,7 @@ public class DungeonLibrary extends DungeonBase {
     theme.getPrimary().getWall().fill(editor, new RectSolid(start, end), false, true);
 
     for (Cardinal o : dir.orthogonals()) {
-      Coord c = new Coord(cursor);
+      Coord c = cursor.copy();
       c.translate(o, 2);
       c.translate(Cardinal.UP, 2);
       theme.getPrimary().getStair().setUpsideDown(true).setFacing(o.reverse()).stroke(editor, c);
@@ -206,7 +206,7 @@ public class DungeonLibrary extends DungeonBase {
       shelf.stroke(editor, c);
     }
 
-    cursor = new Coord(pos);
+    cursor = pos.copy();
     cursor.translate(dir, 4);
 
     StairsBlock stair = StairsBlock.oak();
@@ -233,10 +233,10 @@ public class DungeonLibrary extends DungeonBase {
 
   private void plants(WorldEditor editor, ThemeBase theme, Cardinal dir, Coord origin) {
 
-    Coord cursor = new Coord(origin);
+    Coord cursor = origin.copy();
     cursor.translate(dir, 5);
-    Coord start = new Coord(cursor);
-    Coord end = new Coord(cursor);
+    Coord start = cursor.copy();
+    Coord end = cursor.copy();
 
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
@@ -248,14 +248,14 @@ public class DungeonLibrary extends DungeonBase {
     theme.getPrimary().getWall().fill(editor, new RectSolid(start, end), false, true);
 
     for (Cardinal o : dir.orthogonals()) {
-      Coord c = new Coord(cursor);
+      Coord c = cursor.copy();
       c.translate(o, 2);
       c.translate(Cardinal.UP, 2);
       theme.getPrimary().getStair().setUpsideDown(true).setFacing(o.reverse()).stroke(editor, c);
     }
 
-    start = new Coord(cursor).translate(dir.antiClockwise());
-    end = new Coord(cursor).translate(dir.clockwise());
+    start = cursor.copy().translate(dir.antiClockwise());
+    end = cursor.copy().translate(dir.clockwise());
     RectSolid rect = new RectSolid(start, end);
     for (Coord c : rect) {
       TallPlant.placePlant(editor, c, dir.reverse());

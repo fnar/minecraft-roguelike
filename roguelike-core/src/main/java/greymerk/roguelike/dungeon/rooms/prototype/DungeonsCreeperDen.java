@@ -46,26 +46,26 @@ public class DungeonsCreeperDen extends DungeonBase {
     subfloor.addBlock(floor, 3);
     subfloor.addBlock(TNT_META_BLOCK, 1);
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(new Coord(-4, -4, -4));
     end.translate(new Coord(4, 5, 4));
     RectHollow.newRect(start, end).fill(worldEditor, mossy, false, true);
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(new Coord(-3, -1, -3));
     end.translate(new Coord(3, -1, 3));
     RectSolid.newRect(start, end).fill(worldEditor, floor);
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(new Coord(-3, -3, -3));
     end.translate(new Coord(3, -2, 3));
     RectSolid.newRect(start, end).fill(worldEditor, subfloor);
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(new Coord(-3, 0, -3));
     end.translate(new Coord(3, 0, 3));
 
@@ -74,14 +74,14 @@ public class DungeonsCreeperDen extends DungeonBase {
         .peek(chestSpace -> worldEditor.getTreasureChestEditor().createChest(levelSettings.getDifficulty(chestSpace), chestSpace, true, getRoomSetting().getChestType().orElse(ChestType.ORE)))
         .forEach(chestSpace -> spawnTntBeneath(worldEditor, chestSpace));
 
-    final Coord cursor = new Coord(origin);
+    final Coord cursor = origin.copy();
     generateSpawner(cursor, MobType.CREEPER);
 
     return this;
   }
 
   private void spawnTntBeneath(WorldEditor editor, Coord coord) {
-    Coord cursor = new Coord(coord);
+    Coord cursor = coord.copy();
     cursor.translate(Cardinal.DOWN, 2);
     TNT_META_BLOCK.stroke(editor, cursor);
   }

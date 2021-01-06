@@ -35,26 +35,26 @@ public class DungeonLinkerTop extends DungeonBase {
     Coord end;
     Coord cursor;
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(new Coord(-4, -1, -4));
     end.translate(new Coord(4, 5, 4));
     RectHollow.newRect(start, end).fill(worldEditor, wall, false, true);
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(Cardinal.UP, 5);
     levelSettings.getTheme().getPrimary().getLightBlock().stroke(worldEditor, cursor);
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(new Coord(-4, -1, -4));
     end.translate(new Coord(4, -1, 4));
     RectSolid.newRect(start, end).fill(worldEditor, floor);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
 
-      start = new Coord(origin);
-      end = new Coord(origin);
+      start = origin.copy();
+      end = origin.copy();
       start.translate(dir, 3);
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir, 4);
@@ -62,11 +62,11 @@ public class DungeonLinkerTop extends DungeonBase {
       end.translate(Cardinal.UP, 4);
       RectSolid.newRect(start, end).fill(worldEditor, pillar);
 
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(dir, 3);
       start.translate(dir.antiClockwise(), 2);
       start.translate(Cardinal.UP, 4);
-      end = new Coord(start);
+      end = start.copy();
       end.translate(dir.clockwise(), 4);
       RectSolid.newRect(start, end).fill(worldEditor, wall);
       start.translate(dir.reverse());
@@ -74,7 +74,7 @@ public class DungeonLinkerTop extends DungeonBase {
       RectSolid.newRect(start, end).fill(worldEditor, stair.setUpsideDown(true).setFacing(dir.reverse()));
 
       for (Cardinal o : dir.orthogonals()) {
-        cursor = new Coord(origin);
+        cursor = origin.copy();
         cursor.translate(dir, 3);
         cursor.translate(Cardinal.UP, 2);
         cursor.translate(o, 2);

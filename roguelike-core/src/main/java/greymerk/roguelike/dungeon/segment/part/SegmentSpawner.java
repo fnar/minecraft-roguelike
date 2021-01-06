@@ -29,9 +29,9 @@ public class SegmentSpawner extends SegmentBase {
 
     Cardinal[] orthogonals = dir.orthogonals();
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(dir, 2);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(orthogonals[0], 1);
     end.translate(orthogonals[1], 1);
     end.translate(Cardinal.UP, 2);
@@ -41,21 +41,21 @@ public class SegmentSpawner extends SegmentBase {
     RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall());
 
     for (Cardinal d : orthogonals) {
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(Cardinal.UP, 2);
       cursor.translate(dir, 2);
       cursor.translate(d, 1);
       stair.setUpsideDown(true).setFacing(dir.reverse());
       stair.stroke(editor, cursor);
 
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(dir, 2);
       cursor.translate(d, 1);
       stair.setUpsideDown(false).setFacing(d.reverse());
       stair.stroke(editor, cursor);
     }
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(Cardinal.UP, 1);
     cursor.translate(dir, 3);
     SingleBlockBrush.AIR.stroke(editor, cursor);
@@ -63,7 +63,7 @@ public class SegmentSpawner extends SegmentBase {
     stair.setUpsideDown(true).setFacing(dir.reverse());
     stair.stroke(editor, cursor);
 
-    Coord shelf = new Coord(origin);
+    Coord shelf = origin.copy();
     shelf.translate(dir, 3);
     shelf.translate(Cardinal.UP, 1);
 

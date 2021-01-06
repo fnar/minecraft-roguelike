@@ -106,8 +106,8 @@ public class LevelGeneratorClassic implements ILevelGenerator {
     public Tunneler(Cardinal dir, Coord start) {
       done = false;
       this.dir = dir;
-      this.start = new Coord(start);
-      end = new Coord(start);
+      this.start = start.copy();
+      end = start.copy();
       extend = settings.getScatter() * 2;
     }
 
@@ -138,11 +138,11 @@ public class LevelGeneratorClassic implements ILevelGenerator {
     }
 
     public Coord getPosition() {
-      return new Coord(end);
+      return end.copy();
     }
 
     public DungeonTunnel createTunnel() {
-      return new DungeonTunnel(new Coord(start), new Coord(end));
+      return new DungeonTunnel(start.copy(), end.copy());
     }
   }
 
@@ -172,7 +172,7 @@ public class LevelGeneratorClassic implements ILevelGenerator {
           continue;
         }
 
-        tunnelers.add(new Tunneler(dir, new Coord(pos)));
+        tunnelers.add(new Tunneler(dir, pos.copy()));
       }
     }
 
@@ -192,7 +192,7 @@ public class LevelGeneratorClassic implements ILevelGenerator {
     }
 
     public Coord getPos() {
-      return new Coord(pos);
+      return pos.copy();
     }
 
     public List<Cardinal> getEntrances() {

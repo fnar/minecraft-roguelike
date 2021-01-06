@@ -162,11 +162,11 @@ public class DungeonsPit extends DungeonBase {
     Coord end;
     Coord cursor;
 
-    start = new Coord(origin);
+    start = origin.copy();
     start.translate(dir, 3);
     start.translate(Cardinal.DOWN);
     start.translate(dir.antiClockwise());
-    end = new Coord(origin);
+    end = origin.copy();
     end.translate(dir, 6);
     end.translate(Cardinal.UP, 3);
     end.translate(dir.clockwise());
@@ -178,11 +178,11 @@ public class DungeonsPit extends DungeonBase {
       walls.stroke(editor, cell);
     }
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(dir, 2);
     plate.stroke(editor, cursor);
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(Cardinal.DOWN);
     cursor.translate(dir, 3);
     TorchBlock.redstone().setFacing(dir).stroke(editor, cursor);

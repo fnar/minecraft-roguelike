@@ -33,8 +33,8 @@ public class DungeonsEnder extends DungeonBase {
 
     Coord start;
     Coord end;
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(new Coord(-3, 0, -3));
     end.translate(new Coord(3, 2, 3));
     RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
@@ -42,9 +42,9 @@ public class DungeonsEnder extends DungeonBase {
 
       Cardinal[] orthogonals = dir.orthogonals();
 
-      start = new Coord(origin);
+      start = origin.copy();
       start.translate(dir, 4);
-      end = new Coord(start);
+      end = start.copy();
       start.translate(orthogonals[0], 4);
       start.translate(Cardinal.DOWN, 1);
       end.translate(orthogonals[1], 4);
@@ -53,8 +53,8 @@ public class DungeonsEnder extends DungeonBase {
 
     }
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(new Coord(-3, 2, -3));
     end.translate(new Coord(3, 10, 3));
 
@@ -65,16 +65,16 @@ public class DungeonsEnder extends DungeonBase {
       black.stroke(worldEditor, cell, false, rand.nextInt(top - (cell.getY() - start.getY())) == 0 && !dissolve);
     }
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(new Coord(-4, -1, -4));
     end.translate(new Coord(4, -1, 4));
 
     BlockCheckers checkers = new BlockCheckers(black, white);
     RectSolid.newRect(start, end).fill(worldEditor, checkers);
 
-    start = new Coord(origin);
-    end = new Coord(origin);
+    start = origin.copy();
+    end = origin.copy();
     start.translate(new Coord(-4, 0, -4));
     end.translate(new Coord(4, 0, 4));
     if (RogueConfig.getBoolean(RogueConfig.GENEROUS)) {
@@ -91,7 +91,7 @@ public class DungeonsEnder extends DungeonBase {
         continue;
       }
 
-      Coord cursor = new Coord(pos);
+      Coord cursor = pos.copy();
       for (Cardinal dir : Cardinal.DIRECTIONS) {
         cursor.translate(dir);
         if (editor.isOpaqueCubeBlock(cursor)) {

@@ -24,16 +24,16 @@ public class SegmentNetherWart extends SegmentBase {
 
     Coord cursor;
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(dir, 2);
     SingleBlockBrush.AIR.stroke(editor, cursor);
     cursor.translate(Cardinal.UP, 1);
     SingleBlockBrush.AIR.stroke(editor, cursor);
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(dir, 5);
 
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(dir, 3);
     BlockType.FENCE_NETHER_BRICK.getBrush().stroke(editor, cursor);
     cursor.translate(Cardinal.UP, 1);
@@ -41,7 +41,7 @@ public class SegmentNetherWart extends SegmentBase {
 
     for (Cardinal orthogonals : dir.orthogonals()) {
       stair.setUpsideDown(true).setFacing(orthogonals.reverse());
-      cursor = new Coord(origin);
+      cursor = origin.copy();
       cursor.translate(dir, 2);
       cursor.translate(orthogonals, 1);
       cursor.translate(Cardinal.UP, 1);

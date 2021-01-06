@@ -36,7 +36,7 @@ public class MudFilter implements IFilter {
       if (rand.nextBoolean()) {
         continue;
       }
-      Coord next = new Coord(pos);
+      Coord next = pos.copy();
       next.translate(dir);
       generate(editor, rand, next, counter - 1);
     }
@@ -86,7 +86,7 @@ public class MudFilter implements IFilter {
     plants.addBlock(BlockType.BROWN_MUSHROOM.getBrush());
     plants.addBlock(BlockType.RED_MUSHROOM.getBrush());
 
-    Coord cursor = new Coord(pos);
+    Coord cursor = pos.copy();
     cursor.translate(Cardinal.UP);
     plants.stroke(editor, cursor);
   }
@@ -97,7 +97,7 @@ public class MudFilter implements IFilter {
       return false;
     }
 
-    Coord cursor = new Coord(pos);
+    Coord cursor = pos.copy();
     cursor.translate(Cardinal.UP);
     if (!editor.isAirBlock(cursor)) {
       return false;

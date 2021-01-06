@@ -21,16 +21,16 @@ public class SegmentSilverfish extends SegmentBase {
 
     StairsBlock stair = theme.getSecondary().getStair();
 
-    Coord cursor = new Coord(origin);
+    Coord cursor = origin.copy();
     Coord start;
     Coord end;
 
     Cardinal[] orthogonals = dir.orthogonals();
 
     cursor.translate(dir, 2);
-    start = new Coord(cursor);
+    start = cursor.copy();
     start.translate(orthogonals[0], 1);
-    end = new Coord(cursor);
+    end = cursor.copy();
     end.translate(orthogonals[1], 1);
     end.translate(Cardinal.UP, 2);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
@@ -43,7 +43,7 @@ public class SegmentSilverfish extends SegmentBase {
     // stairs
     cursor.translate(Cardinal.UP, 2);
     for (Cardinal d : orthogonals) {
-      Coord c = new Coord(cursor);
+      Coord c = cursor.copy();
       c.translate(d, 1);
       stair.setUpsideDown(true).setFacing(d.reverse());
       stair.stroke(editor, c);
@@ -51,7 +51,7 @@ public class SegmentSilverfish extends SegmentBase {
 
     stair = theme.getPrimary().getStair();
 
-    cursor = new Coord(origin);
+    cursor = origin.copy();
     cursor.translate(dir, 3);
     stair.setUpsideDown(false).setFacing(dir.reverse());
     stair.stroke(editor, cursor);
@@ -62,8 +62,8 @@ public class SegmentSilverfish extends SegmentBase {
     stair.stroke(editor, cursor);
 
     IAlcove nest = new SilverfishNest();
-    if (nest.isValidLocation(editor, new Coord(origin), dir)) {
-      nest.generate(editor, rand, level.getSettings(), new Coord(origin), dir);
+    if (nest.isValidLocation(editor, origin.copy(), dir)) {
+      nest.generate(editor, rand, level.getSettings(), origin.copy(), dir);
     }
   }
 }

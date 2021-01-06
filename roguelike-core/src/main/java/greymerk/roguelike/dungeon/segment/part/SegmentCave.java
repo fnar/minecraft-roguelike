@@ -25,14 +25,14 @@ public class SegmentCave extends SegmentBase {
 
     Cardinal[] orthogonals = dir.orthogonals();
 
-    Coord cursor = new Coord(origin);
+    Coord cursor = origin.copy();
     Coord start;
     Coord end;
 
-    start = new Coord(cursor);
+    start = cursor.copy();
     start.translate(Cardinal.UP, 2);
     start.translate(dir);
-    end = new Coord(start);
+    end = start.copy();
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
     RectSolid.newRect(start, end).fill(editor, fill);
