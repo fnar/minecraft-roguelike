@@ -33,21 +33,21 @@ public class DungeonPyramidSpawner extends DungeonBase {
     int y = origin.getY();
     int z = origin.getZ();
 
-    ThemeBase theme = settings.getTheme();
+    ThemeBase theme = levelSettings.getTheme();
 
     BlockBrush blocks = theme.getPrimary().getWall();
     BlockBrush pillar = theme.getPrimary().getPillar();
 
     // fill air inside
-    RectSolid.newRect(new Coord(x - 3, y, z - 3), new Coord(x + 3, y + 3, z + 3)).fill(editor, SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(x - 3, y, z - 3), new Coord(x + 3, y + 3, z + 3)).fill(worldEditor, SingleBlockBrush.AIR);
 
 
     // shell
-    RectHollow.newRect(new Coord(x - 4, y - 1, z - 4), new Coord(x + 4, y + 4, z + 4)).fill(editor, blocks, false, true);
-    RectSolid.newRect(new Coord(x - 3, y + 4, z - 3), new Coord(x + 3, y + 6, z + 3)).fill(editor, blocks, false, true);
-    RectSolid.newRect(new Coord(x - 2, y + 4, z - 2), new Coord(x + 2, y + 4, z + 2)).fill(editor, SingleBlockBrush.AIR);
+    RectHollow.newRect(new Coord(x - 4, y - 1, z - 4), new Coord(x + 4, y + 4, z + 4)).fill(worldEditor, blocks, false, true);
+    RectSolid.newRect(new Coord(x - 3, y + 4, z - 3), new Coord(x + 3, y + 6, z + 3)).fill(worldEditor, blocks, false, true);
+    RectSolid.newRect(new Coord(x - 2, y + 4, z - 2), new Coord(x + 2, y + 4, z + 2)).fill(worldEditor, SingleBlockBrush.AIR);
 
-    RectSolid.newRect(new Coord(x - 4, y - 1, z - 4), new Coord(x + 4, y - 1, z + 4)).fill(editor, theme.getPrimary().getFloor(), false, true);
+    RectSolid.newRect(new Coord(x - 4, y - 1, z - 4), new Coord(x + 4, y - 1, z + 4)).fill(worldEditor, theme.getPrimary().getFloor(), false, true);
 
     Coord start;
     Coord end;
@@ -55,15 +55,15 @@ public class DungeonPyramidSpawner extends DungeonBase {
 
     cursor = new Coord(x, y, z);
     cursor.translate(Cardinal.UP, 5);
-    SingleBlockBrush.AIR.stroke(editor, cursor);
+    SingleBlockBrush.AIR.stroke(worldEditor, cursor);
     cursor.translate(Cardinal.UP, 1);
-    blocks.stroke(editor, cursor);
+    blocks.stroke(worldEditor, cursor);
 
     cursor = new Coord(x, y, z);
     cursor.translate(Cardinal.UP, 5);
-    SingleBlockBrush.AIR.stroke(editor, cursor);
+    SingleBlockBrush.AIR.stroke(worldEditor, cursor);
     cursor.translate(Cardinal.UP);
-    SingleBlockBrush.AIR.stroke(editor, cursor);
+    SingleBlockBrush.AIR.stroke(worldEditor, cursor);
 
     // Chests
     List<Coord> space = new ArrayList<>();
@@ -77,23 +77,23 @@ public class DungeonPyramidSpawner extends DungeonBase {
       start = new Coord(cursor);
       cursor.translate(Cardinal.UP, 3);
       end = new Coord(cursor);
-      RectSolid.newRect(start, end).fill(editor, pillar);
+      RectSolid.newRect(start, end).fill(worldEditor, pillar);
       cursor.translate(Cardinal.UP, 1);
-      blocks.stroke(editor, cursor);
+      blocks.stroke(worldEditor, cursor);
 
       cursor = new Coord(x, y, z);
       cursor.translate(Cardinal.UP, 4);
       cursor.translate(dir, 2);
-      blocks.stroke(editor, cursor);
+      blocks.stroke(worldEditor, cursor);
       cursor.translate(dir.antiClockwise(), 2);
-      blocks.stroke(editor, cursor);
+      blocks.stroke(worldEditor, cursor);
 
       cursor = new Coord(x, y, z);
       cursor.translate(Cardinal.UP, 5);
       cursor.translate(dir.antiClockwise());
-      SingleBlockBrush.AIR.stroke(editor, cursor);
+      SingleBlockBrush.AIR.stroke(worldEditor, cursor);
       cursor.translate(Cardinal.UP);
-      SingleBlockBrush.AIR.stroke(editor, cursor);
+      SingleBlockBrush.AIR.stroke(worldEditor, cursor);
 
       for (Cardinal orthogonals : dir.orthogonals()) {
 
@@ -101,12 +101,12 @@ public class DungeonPyramidSpawner extends DungeonBase {
         cursor.translate(Cardinal.UP, 3);
         cursor.translate(orthogonals);
         cursor.translate(dir, 3);
-        blocks.stroke(editor, cursor);
+        blocks.stroke(worldEditor, cursor);
 
         cursor = new Coord(x, y, z);
         cursor.translate(Cardinal.UP, 4);
         cursor.translate(dir, 2);
-        blocks.stroke(editor, cursor);
+        blocks.stroke(worldEditor, cursor);
 
         cursor = new Coord(x, y, z);
         cursor.translate(dir, 3);
@@ -115,11 +115,11 @@ public class DungeonPyramidSpawner extends DungeonBase {
       }
     }
 
-    List<Coord> chestLocations = chooseRandomLocations(editor.getRandom(), 1, space);
-    editor.getTreasureChestEditor().createChests(Dungeon.getLevel(origin.getY()), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(editor.getRandom(), ChestType.COMMON_TREASURES)));
+    List<Coord> chestLocations = chooseRandomLocations(worldEditor.getRandom(), 1, space);
+    worldEditor.getTreasureChestEditor().createChests(Dungeon.getLevel(origin.getY()), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(worldEditor.getRandom(), ChestType.COMMON_TREASURES)));
     final Coord cursor1 = new Coord(x, y, z);
-    SpawnerSettings spawners = settings.getSpawners();
-    generateSpawner(editor, cursor1, settings.getDifficulty(cursor1), spawners, COMMON_MOBS);
+    SpawnerSettings spawners = levelSettings.getSpawners();
+    generateSpawner(worldEditor, cursor1, levelSettings.getDifficulty(cursor1), spawners, COMMON_MOBS);
     return this;
   }
 

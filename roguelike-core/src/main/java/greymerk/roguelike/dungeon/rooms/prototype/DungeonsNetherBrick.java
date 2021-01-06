@@ -29,50 +29,50 @@ public class DungeonsNetherBrick extends DungeonBase {
   }
 
   public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
-    Random random = editor.getRandom();
+    Random random = worldEditor.getRandom();
 
     int x = origin.getX();
     int y = origin.getY();
     int z = origin.getZ();
-    ThemeBase theme = settings.getTheme();
+    ThemeBase theme = levelSettings.getTheme();
 
     int height = 3;
     int length = 2 + random.nextInt(3);
     int width = 2 + random.nextInt(3);
 
     BlockBrush walls = theme.getPrimary().getWall();
-    RectHollow.newRect(new Coord(x - length - 1, y - 1, z - width - 1), new Coord(x + length + 1, y + height + 1, z + width + 1)).fill(editor, walls, false, true);
+    RectHollow.newRect(new Coord(x - length - 1, y - 1, z - width - 1), new Coord(x + length + 1, y + height + 1, z + width + 1)).fill(worldEditor, walls, false, true);
 
 
     BlockBrush floor = theme.getPrimary().getFloor();
-    RectSolid.newRect(new Coord(x - length - 1, y - 1, z - width - 1), new Coord(x + length + 1, y - 1, z + width + 1)).fill(editor, floor);
+    RectSolid.newRect(new Coord(x - length - 1, y - 1, z - width - 1), new Coord(x + length + 1, y - 1, z + width + 1)).fill(worldEditor, floor);
 
     // liquid crap under the floor
     BlockWeightedRandom subFloor = new BlockWeightedRandom();
     subFloor.addBlock(theme.getPrimary().getLiquid(), 8);
     subFloor.addBlock(BlockType.OBSIDIAN.getBrush(), 3);
-    RectSolid.newRect(new Coord(x - length, y - 5, z - width), new Coord(x + length, y - 2, z + width)).fill(editor, subFloor);
+    RectSolid.newRect(new Coord(x - length, y - 5, z - width), new Coord(x + length, y - 2, z + width)).fill(worldEditor, subFloor);
 
     BlockWeightedRandom ceiling = new BlockWeightedRandom();
     ceiling.addBlock(BlockType.FENCE_NETHER_BRICK.getBrush(), 10);
     ceiling.addBlock(SingleBlockBrush.AIR, 5);
-    RectSolid.newRect(new Coord(x - length, y + height, z - width), new Coord(x + length, y + height, z + width)).fill(editor, ceiling);
+    RectSolid.newRect(new Coord(x - length, y + height, z - width), new Coord(x + length, y + height, z + width)).fill(worldEditor, ceiling);
 
     List<Coord> chestLocations = chooseRandomLocations(random, 1, new RectSolid(new Coord(x - length, y, z - width), new Coord(x + length, y, z + width)).get());
-    editor.getTreasureChestEditor().createChests(Dungeon.getLevel(y), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(random, ChestType.COMMON_TREASURES)));
+    worldEditor.getTreasureChestEditor().createChests(Dungeon.getLevel(y), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(random, ChestType.COMMON_TREASURES)));
 
     final Coord cursor = new Coord(x - length - 1, y + random.nextInt(2), z - width - 1);
-    SpawnerSettings spawners3 = settings.getSpawners();
-    generateSpawner(editor, cursor, settings.getDifficulty(cursor), spawners3, MobType.COMMON_MOBS);
+    SpawnerSettings spawners3 = levelSettings.getSpawners();
+    generateSpawner(worldEditor, cursor, levelSettings.getDifficulty(cursor), spawners3, MobType.COMMON_MOBS);
     final Coord cursor1 = new Coord(x - length - 1, y + random.nextInt(2), z + width + 1);
-    SpawnerSettings spawners2 = settings.getSpawners();
-    generateSpawner(editor, cursor1, settings.getDifficulty(cursor1), spawners2, MobType.COMMON_MOBS);
+    SpawnerSettings spawners2 = levelSettings.getSpawners();
+    generateSpawner(worldEditor, cursor1, levelSettings.getDifficulty(cursor1), spawners2, MobType.COMMON_MOBS);
     final Coord cursor2 = new Coord(x + length + 1, y + random.nextInt(2), z - width - 1);
-    SpawnerSettings spawners1 = settings.getSpawners();
-    generateSpawner(editor, cursor2, settings.getDifficulty(cursor2), spawners1, MobType.COMMON_MOBS);
+    SpawnerSettings spawners1 = levelSettings.getSpawners();
+    generateSpawner(worldEditor, cursor2, levelSettings.getDifficulty(cursor2), spawners1, MobType.COMMON_MOBS);
     final Coord cursor3 = new Coord(x + length + 1, y + random.nextInt(2), z + width + 1);
-    SpawnerSettings spawners = settings.getSpawners();
-    generateSpawner(editor, cursor3, settings.getDifficulty(cursor3), spawners, MobType.COMMON_MOBS);
+    SpawnerSettings spawners = levelSettings.getSpawners();
+    generateSpawner(worldEditor, cursor3, levelSettings.getDifficulty(cursor3), spawners, MobType.COMMON_MOBS);
 
     return this;
   }

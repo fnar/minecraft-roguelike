@@ -33,20 +33,20 @@ public class DungeonsPrison extends DungeonBase {
 
     Coord cursor;
 
-    Random rand = editor.getRandom();
-    largeRoom(editor, settings, origin);
+    Random rand = worldEditor.getRandom();
+    largeRoom(worldEditor, levelSettings, origin);
 
     for (Cardinal dir : entrances) {
       cursor = new Coord(origin);
       cursor.translate(dir, 6);
-      sideRoom(editor, settings, cursor, dir);
+      sideRoom(worldEditor, levelSettings, cursor, dir);
     }
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(origin);
       cursor.translate(dir, 3);
       cursor.translate(dir.antiClockwise(), 3);
-      pillar(editor, settings, cursor, 4);
+      pillar(worldEditor, levelSettings, cursor, 4);
     }
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
@@ -68,7 +68,7 @@ public class DungeonsPrison extends DungeonBase {
       cursor.translate(dir, 6);
       cursor.translate(dir.antiClockwise(), 6);
 
-      cell(editor, rand, settings, cursor, doors, rand.nextBoolean());
+      cell(worldEditor, rand, levelSettings, cursor, doors, rand.nextBoolean());
     }
 
     return this;

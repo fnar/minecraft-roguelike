@@ -41,9 +41,9 @@ public class DungeonsPit extends DungeonBase {
 
   public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
 
-    ThemeBase theme = settings.getTheme();
+    ThemeBase theme = levelSettings.getTheme();
 
-    rand = editor.getRandom();
+    rand = worldEditor.getRandom();
     originX = origin.getX();
     originY = origin.getY();
     originZ = origin.getZ();
@@ -57,7 +57,7 @@ public class DungeonsPit extends DungeonBase {
 
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
-      setTrap(editor, settings, dir, origin);
+      setTrap(worldEditor, levelSettings, dir, origin);
     }
 
     List<Coord> spaces = new ArrayList<>();
@@ -67,7 +67,7 @@ public class DungeonsPit extends DungeonBase {
     spaces.add(new Coord(originX + 2, originY, originZ + 2));
 
     List<Coord> chestLocations = chooseRandomLocations(rand, 1, spaces);
-    editor.getTreasureChestEditor().createChests(Dungeon.getLevel(originY), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(rand, ChestType.COMMON_TREASURES)));
+    worldEditor.getTreasureChestEditor().createChests(Dungeon.getLevel(originY), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(rand, ChestType.COMMON_TREASURES)));
 
     return this;
   }
@@ -81,19 +81,19 @@ public class DungeonsPit extends DungeonBase {
               || blockX == originX + dungeonLength + 1
               || blockZ == originZ + dungeonWidth + 1) {
 
-            if (blockY >= 0 && !editor.isSolidBlock(new Coord(blockX, blockY - 1, blockZ))) {
-              SingleBlockBrush.AIR.stroke(editor, new Coord(blockX, blockY, blockZ));
+            if (blockY >= 0 && !worldEditor.isSolidBlock(new Coord(blockX, blockY - 1, blockZ))) {
+              SingleBlockBrush.AIR.stroke(worldEditor, new Coord(blockX, blockY, blockZ));
               continue;
             }
 
-            if (!editor.isSolidBlock(new Coord(blockX, blockY, blockZ))) {
+            if (!worldEditor.isSolidBlock(new Coord(blockX, blockY, blockZ))) {
               continue;
             }
 
-            blocks.stroke(editor, new Coord(blockX, blockY, blockZ));
+            blocks.stroke(worldEditor, new Coord(blockX, blockY, blockZ));
 
           } else {
-            SingleBlockBrush.AIR.stroke(editor, new Coord(blockX, blockY, blockZ));
+            SingleBlockBrush.AIR.stroke(worldEditor, new Coord(blockX, blockY, blockZ));
           }
         }
       }
@@ -104,7 +104,7 @@ public class DungeonsPit extends DungeonBase {
 
     for (int blockX = originX - dungeonLength - 1; blockX <= originX + dungeonLength + 1; blockX++) {
       for (int blockZ = originZ - dungeonWidth - 1; blockZ <= originZ + dungeonWidth + 1; blockZ++) {
-        blocks.stroke(editor, new Coord(blockX, originY - 1, blockZ));
+        blocks.stroke(worldEditor, new Coord(blockX, originY - 1, blockZ));
       }
     }
   }
@@ -112,7 +112,7 @@ public class DungeonsPit extends DungeonBase {
   protected void buildRoof() {
     for (int blockX = originX - dungeonLength - 1; blockX <= originX + dungeonLength + 1; blockX++) {
       for (int blockZ = originZ - dungeonWidth - 1; blockZ <= originZ + dungeonWidth + 1; blockZ++) {
-        blocks.stroke(editor, new Coord(blockX, dungeonHeight + 1, blockZ));
+        blocks.stroke(worldEditor, new Coord(blockX, dungeonHeight + 1, blockZ));
       }
     }
   }
@@ -125,11 +125,11 @@ public class DungeonsPit extends DungeonBase {
 
           Coord pos = new Coord(x, y, z);
 
-          if (editor.isAirBlock(pos)) {
+          if (worldEditor.isAirBlock(pos)) {
             continue;
           }
 
-          if (y < rand.nextInt(5) && editor.isBlockOfTypeAt(BlockType.BEDROCK, pos)) {
+          if (y < rand.nextInt(5) && worldEditor.isBlockOfTypeAt(BlockType.BEDROCK, pos)) {
             continue;
           }
 
@@ -138,16 +138,16 @@ public class DungeonsPit extends DungeonBase {
               || z == originZ - 2
               || z == originZ + 2) {
 
-            blocks.stroke(editor, pos);
+            blocks.stroke(worldEditor, pos);
             continue;
           }
 
           if (y < 10) {
-            BlockType.WATER_FLOWING.getBrush().stroke(editor, pos);
+            BlockType.WATER_FLOWING.getBrush().stroke(worldEditor, pos);
             continue;
           }
 
-          SingleBlockBrush.AIR.stroke(editor, pos);
+          SingleBlockBrush.AIR.stroke(worldEditor, pos);
         }
       }
     }

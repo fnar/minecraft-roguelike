@@ -24,7 +24,7 @@ public class DungeonsSlime extends DungeonBase {
   }
 
   public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
-    ThemeBase theme = settings.getTheme();
+    ThemeBase theme = levelSettings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();
     BlockBrush bars = BlockType.IRON_BAR.getBrush();
     BlockBrush liquid = theme.getPrimary().getLiquid();
@@ -38,13 +38,13 @@ public class DungeonsSlime extends DungeonBase {
     end = new Coord(origin);
     start.translate(new Coord(-8, -1, -8));
     end.translate(new Coord(8, 5, 8));
-    RectHollow.newRect(start, end).fill(editor, wall, false, true);
+    RectHollow.newRect(start, end).fill(worldEditor, wall, false, true);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(origin);
       cursor.translate(dir, 5);
       cursor.translate(dir.antiClockwise(), 5);
-      corner(editor, settings, cursor);
+      corner(worldEditor, levelSettings, cursor);
 
       start = new Coord(origin);
       start.translate(Cardinal.UP, 4);
@@ -52,10 +52,10 @@ public class DungeonsSlime extends DungeonBase {
       end = new Coord(start);
       start.translate(dir.antiClockwise(), 8);
       end.translate(dir.clockwise(), 8);
-      RectSolid.newRect(start, end).fill(editor, wall);
+      RectSolid.newRect(start, end).fill(worldEditor, wall);
       start.translate(dir, 4);
       end.translate(dir, 4);
-      RectSolid.newRect(start, end).fill(editor, wall);
+      RectSolid.newRect(start, end).fill(worldEditor, wall);
 
     }
 
@@ -68,38 +68,38 @@ public class DungeonsSlime extends DungeonBase {
         end.translate(dir, 2);
         start.translate(dir.antiClockwise(), 3);
         end.translate(dir.clockwise(), 3);
-        RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+        RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
         start.translate(Cardinal.DOWN);
         end.translate(Cardinal.DOWN);
-        RectSolid.newRect(start, end).fill(editor, liquid);
+        RectSolid.newRect(start, end).fill(worldEditor, liquid);
         start.translate(Cardinal.DOWN);
         end.translate(Cardinal.DOWN);
-        RectSolid.newRect(start, end).fill(editor, wall);
+        RectSolid.newRect(start, end).fill(worldEditor, wall);
 
         start = new Coord(origin);
         start.translate(dir, 3);
         end = new Coord(start);
         start.translate(dir.antiClockwise(), 2);
         end.translate(dir.clockwise(), 2);
-        RectSolid.newRect(start, end).fill(editor, bars);
+        RectSolid.newRect(start, end).fill(worldEditor, bars);
 
         cursor = new Coord(origin);
         cursor.translate(dir, 7);
-        wall.stroke(editor, cursor);
+        wall.stroke(worldEditor, cursor);
         cursor.translate(Cardinal.UP, 2);
-        wall.stroke(editor, cursor);
+        wall.stroke(worldEditor, cursor);
         cursor.translate(Cardinal.DOWN);
         cursor.translate(dir);
-        liquid.stroke(editor, cursor);
+        liquid.stroke(worldEditor, cursor);
         for (Cardinal o : dir.orthogonals()) {
           cursor = new Coord(origin);
           cursor.translate(dir, 7);
           cursor.translate(o);
-          stair.setUpsideDown(true).setFacing(o).stroke(editor, cursor);
+          stair.setUpsideDown(true).setFacing(o).stroke(worldEditor, cursor);
           cursor.translate(Cardinal.UP);
-          wall.stroke(editor, cursor);
+          wall.stroke(worldEditor, cursor);
           cursor.translate(Cardinal.UP);
-          stair.setUpsideDown(false).setFacing(o).stroke(editor, cursor);
+          stair.setUpsideDown(false).setFacing(o).stroke(worldEditor, cursor);
 
         }
       }

@@ -22,16 +22,16 @@ import static java.util.stream.Collectors.toList;
 public abstract class DungeonBase implements Comparable<DungeonBase> {
 
   private RoomSetting roomSetting;
-  protected LevelSettings settings;
-  protected WorldEditor editor;
+  protected LevelSettings levelSettings;
+  protected WorldEditor worldEditor;
 
   public DungeonBase() {
   }
 
-  public DungeonBase(RoomSetting roomSetting, LevelSettings settings, WorldEditor editor) {
+  public DungeonBase(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     this.roomSetting = roomSetting;
-    this.settings = settings;
-    this.editor = editor;
+    this.levelSettings = levelSettings;
+    this.worldEditor = worldEditor;
   }
 
   public static List<Coord> chooseRandomLocations(Random random, int limit, List<Coord> spaces) {

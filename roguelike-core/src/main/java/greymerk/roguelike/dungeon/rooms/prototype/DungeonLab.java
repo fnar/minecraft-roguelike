@@ -203,51 +203,51 @@ public class DungeonLab extends DungeonBase {
     int x = origin.getX();
     int y = origin.getY();
     int z = origin.getZ();
-    ThemeBase theme = settings.getTheme();
+    ThemeBase theme = levelSettings.getTheme();
 
     BlockBrush blocks = theme.getPrimary().getWall();
 
 
     // Air
-    SingleBlockBrush.AIR.fill(editor, new RectSolid(new Coord(x - 7, y, z - 7), new Coord(x + 7, y + 3, z + 7)));
+    SingleBlockBrush.AIR.fill(worldEditor, new RectSolid(new Coord(x - 7, y, z - 7), new Coord(x + 7, y + 3, z + 7)));
 
     BlockBrush roof = theme.getSecondary().getWall();
     // Wood upper Roof
-    RectSolid.newRect(new Coord(x - 6, y + 5, z - 6), new Coord(x + 6, y + 5, z + 6)).fill(editor, roof);
-    RectSolid.newRect(new Coord(x - 1, y + 4, z - 1), new Coord(x + 1, y + 4, z + 1)).fill(editor, SingleBlockBrush.AIR);
-    RectSolid.newRect(new Coord(x - 5, y + 4, z - 1), new Coord(x - 3, y + 4, z + 1)).fill(editor, SingleBlockBrush.AIR);
-    RectSolid.newRect(new Coord(x + 3, y + 4, z - 1), new Coord(x + 5, y + 4, z + 1)).fill(editor, SingleBlockBrush.AIR);
-    RectSolid.newRect(new Coord(x - 1, y + 4, z - 5), new Coord(x + 1, y + 4, z - 3)).fill(editor, SingleBlockBrush.AIR);
-    RectSolid.newRect(new Coord(x - 1, y + 4, z + 3), new Coord(x + 1, y + 4, z + 5)).fill(editor, SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(x - 6, y + 5, z - 6), new Coord(x + 6, y + 5, z + 6)).fill(worldEditor, roof);
+    RectSolid.newRect(new Coord(x - 1, y + 4, z - 1), new Coord(x + 1, y + 4, z + 1)).fill(worldEditor, SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(x - 5, y + 4, z - 1), new Coord(x - 3, y + 4, z + 1)).fill(worldEditor, SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(x + 3, y + 4, z - 1), new Coord(x + 5, y + 4, z + 1)).fill(worldEditor, SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(x - 1, y + 4, z - 5), new Coord(x + 1, y + 4, z - 3)).fill(worldEditor, SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(x - 1, y + 4, z + 3), new Coord(x + 1, y + 4, z + 5)).fill(worldEditor, SingleBlockBrush.AIR);
 
     // shell
-    RectHollow.newRect(new Coord(x - 8, y - 1, z - 8), new Coord(x + 8, y + 4, z + 8)).fill(editor, blocks, false, true);
-    RectSolid.newRect(new Coord(x - 8, y - 1, z - 8), new Coord(x + 8, y - 1, z + 8)).fill(editor, theme.getPrimary().getFloor(), false, true);
+    RectHollow.newRect(new Coord(x - 8, y - 1, z - 8), new Coord(x + 8, y + 4, z + 8)).fill(worldEditor, blocks, false, true);
+    RectSolid.newRect(new Coord(x - 8, y - 1, z - 8), new Coord(x + 8, y - 1, z + 8)).fill(worldEditor, theme.getPrimary().getFloor(), false, true);
 
 
     // corner rooms
-    southWest(editor, theme, x - 7, y, z + 2);
-    southEast(editor, theme, x + 2, y, z + 2);
-    northWest(editor, theme, x - 7, y, z - 7);
-    northEast(editor, theme, x + 2, y, z - 7);
+    southWest(worldEditor, theme, x - 7, y, z + 2);
+    southEast(worldEditor, theme, x + 2, y, z + 2);
+    northWest(worldEditor, theme, x - 7, y, z - 7);
+    northEast(worldEditor, theme, x + 2, y, z - 7);
 
     // outer walls
-    RectSolid.newRect(new Coord(x - 8, y, z - 7), new Coord(x - 8, y + 3, z - 7)).fill(editor, blocks);
-    RectSolid.newRect(new Coord(x + 8, y, z - 7), new Coord(x + 8, y + 3, z - 7)).fill(editor, blocks);
-    RectSolid.newRect(new Coord(x + 8, y, z - 7), new Coord(x + 8, y + 3, z - 7)).fill(editor, blocks);
+    RectSolid.newRect(new Coord(x - 8, y, z - 7), new Coord(x - 8, y + 3, z - 7)).fill(worldEditor, blocks);
+    RectSolid.newRect(new Coord(x + 8, y, z - 7), new Coord(x + 8, y + 3, z - 7)).fill(worldEditor, blocks);
+    RectSolid.newRect(new Coord(x + 8, y, z - 7), new Coord(x + 8, y + 3, z - 7)).fill(worldEditor, blocks);
 
     BlockBrush backWalls = theme.getSecondary().getWall();
 
     // wall planks
-    RectSolid.newRect(new Coord(x - 8, y + 1, z - 6), new Coord(x - 8, y + 3, z - 3)).fill(editor, backWalls);
-    RectSolid.newRect(new Coord(x - 8, y + 1, z + 3), new Coord(x - 8, y + 3, z + 6)).fill(editor, backWalls);
-    RectSolid.newRect(new Coord(x + 8, y + 1, z - 6), new Coord(x + 8, y + 3, z - 3)).fill(editor, backWalls);
-    RectSolid.newRect(new Coord(x + 8, y + 1, z + 3), new Coord(x + 8, y + 3, z + 6)).fill(editor, backWalls);
+    RectSolid.newRect(new Coord(x - 8, y + 1, z - 6), new Coord(x - 8, y + 3, z - 3)).fill(worldEditor, backWalls);
+    RectSolid.newRect(new Coord(x - 8, y + 1, z + 3), new Coord(x - 8, y + 3, z + 6)).fill(worldEditor, backWalls);
+    RectSolid.newRect(new Coord(x + 8, y + 1, z - 6), new Coord(x + 8, y + 3, z - 3)).fill(worldEditor, backWalls);
+    RectSolid.newRect(new Coord(x + 8, y + 1, z + 3), new Coord(x + 8, y + 3, z + 6)).fill(worldEditor, backWalls);
 
-    RectSolid.newRect(new Coord(x - 6, y + 1, z - 8), new Coord(x - 3, y + 3, z - 8)).fill(editor, backWalls);
-    RectSolid.newRect(new Coord(x + 3, y + 1, z - 8), new Coord(x + 6, y + 3, z - 8)).fill(editor, backWalls);
-    RectSolid.newRect(new Coord(x - 6, y + 1, z + 8), new Coord(x - 3, y + 3, z + 8)).fill(editor, backWalls);
-    RectSolid.newRect(new Coord(x + 3, y + 1, z + 8), new Coord(x + 6, y + 3, z + 8)).fill(editor, backWalls);
+    RectSolid.newRect(new Coord(x - 6, y + 1, z - 8), new Coord(x - 3, y + 3, z - 8)).fill(worldEditor, backWalls);
+    RectSolid.newRect(new Coord(x + 3, y + 1, z - 8), new Coord(x + 6, y + 3, z - 8)).fill(worldEditor, backWalls);
+    RectSolid.newRect(new Coord(x - 6, y + 1, z + 8), new Coord(x - 3, y + 3, z + 8)).fill(worldEditor, backWalls);
+    RectSolid.newRect(new Coord(x + 3, y + 1, z + 8), new Coord(x + 6, y + 3, z + 8)).fill(worldEditor, backWalls);
 
     return this;
   }

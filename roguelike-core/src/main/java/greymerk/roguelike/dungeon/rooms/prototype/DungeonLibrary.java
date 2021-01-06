@@ -34,50 +34,50 @@ public class DungeonLibrary extends DungeonBase {
   @Override
   public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
 
-    Random rand = editor.getRandom();
+    Random rand = worldEditor.getRandom();
     int x = origin.getX();
     int y = origin.getY();
     int z = origin.getZ();
-    BlockBrush walls = settings.getTheme().getPrimary().getWall();
+    BlockBrush walls = levelSettings.getTheme().getPrimary().getWall();
 
-    StairsBlock stair = settings.getTheme().getPrimary().getStair();
+    StairsBlock stair = levelSettings.getTheme().getPrimary().getStair();
 
     Coord cursor;
     Coord start;
     Coord end;
 
 
-    RectSolid.newRect(new Coord(x - 4, y, z - 4), new Coord(x + 4, y + 3, z + 4)).fill(editor, SingleBlockBrush.AIR);
-    RectSolid.newRect(new Coord(x - 3, y + 4, z - 3), new Coord(x + 3, y + 6, z + 3)).fill(editor, SingleBlockBrush.AIR);
-    RectSolid.newRect(new Coord(x - 2, y + 7, z - 2), new Coord(x + 2, y + 7, z + 2)).fill(editor, SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(x - 4, y, z - 4), new Coord(x + 4, y + 3, z + 4)).fill(worldEditor, SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(x - 3, y + 4, z - 3), new Coord(x + 3, y + 6, z + 3)).fill(worldEditor, SingleBlockBrush.AIR);
+    RectSolid.newRect(new Coord(x - 2, y + 7, z - 2), new Coord(x + 2, y + 7, z + 2)).fill(worldEditor, SingleBlockBrush.AIR);
 
-    RectHollow.newRect(new Coord(x - 5, y, z - 5), new Coord(x + 5, y + 4, z + 5)).fill(editor, walls, false, true);
-    RectHollow.newRect(new Coord(x - 4, y + 3, z - 4), new Coord(x + 4, y + 7, z + 4)).fill(editor, walls, false, true);
-    RectHollow.newRect(new Coord(x - 3, y + 6, z - 3), new Coord(x + 3, y + 8, z + 3)).fill(editor, walls, false, true);
+    RectHollow.newRect(new Coord(x - 5, y, z - 5), new Coord(x + 5, y + 4, z + 5)).fill(worldEditor, walls, false, true);
+    RectHollow.newRect(new Coord(x - 4, y + 3, z - 4), new Coord(x + 4, y + 7, z + 4)).fill(worldEditor, walls, false, true);
+    RectHollow.newRect(new Coord(x - 3, y + 6, z - 3), new Coord(x + 3, y + 8, z + 3)).fill(worldEditor, walls, false, true);
 
-    RectSolid.newRect(new Coord(x - 5, y - 1, z - 5), new Coord(x + 5, y - 1, z + 5)).fill(editor, settings.getTheme().getPrimary().getFloor());
+    RectSolid.newRect(new Coord(x - 5, y - 1, z - 5), new Coord(x + 5, y - 1, z + 5)).fill(worldEditor, levelSettings.getTheme().getPrimary().getFloor());
 
     start = new Coord(origin);
     start.translate(Cardinal.UP, 5);
-    BlockType.REDSTONE_BLOCK.getBrush().stroke(editor, start);
+    BlockType.REDSTONE_BLOCK.getBrush().stroke(worldEditor, start);
     start.translate(Cardinal.DOWN);
-    BlockType.REDSTONE_LAMP_LIT.getBrush().stroke(editor, start);
+    BlockType.REDSTONE_LAMP_LIT.getBrush().stroke(worldEditor, start);
     start = new Coord(origin);
     start.translate(Cardinal.UP, 6);
     end = new Coord(start);
     end.translate(Cardinal.UP);
-    RectSolid.newRect(start, end).fill(editor, settings.getTheme().getPrimary().getPillar());
+    RectSolid.newRect(start, end).fill(worldEditor, levelSettings.getTheme().getPrimary().getPillar());
 
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
 
       if (entrances.contains(dir)) {
-        door(editor, settings.getTheme(), dir, origin);
+        door(worldEditor, levelSettings.getTheme(), dir, origin);
       } else {
         if (rand.nextBoolean()) {
-          desk(editor, settings.getTheme(), dir, origin);
+          desk(worldEditor, levelSettings.getTheme(), dir, origin);
         } else {
-          plants(editor, settings.getTheme(), dir, origin);
+          plants(worldEditor, levelSettings.getTheme(), dir, origin);
         }
 
       }
@@ -87,7 +87,7 @@ public class DungeonLibrary extends DungeonBase {
       start.translate(dir.antiClockwise(), 4);
       end = new Coord(start);
       end.translate(Cardinal.UP, 4);
-      RectSolid.newRect(start, end).fill(editor, settings.getTheme().getPrimary().getPillar());
+      RectSolid.newRect(start, end).fill(worldEditor, levelSettings.getTheme().getPrimary().getPillar());
 
       start = new Coord(origin);
       start.translate(dir, 3);
@@ -95,13 +95,13 @@ public class DungeonLibrary extends DungeonBase {
       start.translate(Cardinal.UP, 3);
       end = new Coord(start);
       end.translate(Cardinal.UP, 3);
-      RectSolid.newRect(start, end).fill(editor, settings.getTheme().getPrimary().getPillar());
+      RectSolid.newRect(start, end).fill(worldEditor, levelSettings.getTheme().getPrimary().getPillar());
 
       cursor = new Coord(end);
       cursor.translate(dir.reverse());
       cursor.translate(dir.clockwise());
       cursor.translate(Cardinal.UP);
-      walls.stroke(editor, cursor);
+      walls.stroke(worldEditor, cursor);
 
       for (Cardinal o : dir.orthogonals()) {
         cursor = new Coord(origin);
@@ -109,35 +109,35 @@ public class DungeonLibrary extends DungeonBase {
         cursor.translate(o, 3);
         cursor.translate(Cardinal.UP, 2);
 
-        stair.setUpsideDown(true).setFacing(o.reverse()).stroke(editor, cursor);
+        stair.setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
         cursor.translate(Cardinal.UP);
-        walls.stroke(editor, cursor);
+        walls.stroke(worldEditor, cursor);
         cursor.translate(o.reverse());
-        stair.setUpsideDown(true).setFacing(o.reverse()).stroke(editor, cursor);
+        stair.setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
         cursor.translate(Cardinal.UP, 3);
         cursor.translate(dir.reverse());
-        stair.setUpsideDown(true).setFacing(o.reverse()).stroke(editor, cursor);
+        stair.setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
       }
 
       // Light fixture related stuff
       cursor = new Coord(origin);
       cursor.translate(Cardinal.UP, 4);
       cursor.translate(dir);
-      stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor);
+      stair.setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
       cursor.translate(dir, 2);
-      stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
+      stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
       cursor.translate(Cardinal.UP);
       start = new Coord(cursor);
       end = new Coord(cursor);
       start.translate(dir.reverse(), 2);
-      RectSolid.newRect(start, end).fill(editor, walls);
+      RectSolid.newRect(start, end).fill(worldEditor, walls);
       cursor.translate(Cardinal.UP);
-      walls.stroke(editor, cursor);
+      walls.stroke(worldEditor, cursor);
       cursor.translate(Cardinal.UP);
       cursor.translate(dir.reverse());
-      stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
+      stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
       cursor.translate(dir.reverse());
-      stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor);
+      stair.setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
     }
 
 

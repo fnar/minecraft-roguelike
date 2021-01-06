@@ -48,7 +48,7 @@ public class DungeonEniko extends DungeonBase {
   @Override
   public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
 
-    ThemeBase theme = settings.getTheme();
+    ThemeBase theme = levelSettings.getTheme();
     StairsBlock stair = theme.getPrimary().getStair();
     BlockBrush walls = theme.getPrimary().getWall();
     BlockBrush floor = theme.getPrimary().getFloor();
@@ -61,25 +61,25 @@ public class DungeonEniko extends DungeonBase {
     end = new Coord(origin);
     start.translate(new Coord(6, -1, 6));
     end.translate(new Coord(-6, 4, -6));
-    RectHollow.newRect(start, end).fill(editor, walls, false, true);
+    RectHollow.newRect(start, end).fill(worldEditor, walls, false, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(new Coord(6, 4, 6));
     end.translate(new Coord(-6, 5, -6));
-    RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall(), false, true);
+    RectSolid.newRect(start, end).fill(worldEditor, theme.getSecondary().getWall(), false, true);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(new Coord(3, 4, 3));
     end.translate(new Coord(-3, 4, -3));
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+    RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
 
     start = new Coord(origin);
     end = new Coord(origin);
     start.translate(new Coord(-3, -1, -3));
     end.translate(new Coord(3, -1, 3));
-    RectSolid.newRect(start, end).fill(editor, floor);
+    RectSolid.newRect(start, end).fill(worldEditor, floor);
 
     for (Cardinal dir : Cardinal.DIRECTIONS) {
       cursor = new Coord(origin);
@@ -87,13 +87,13 @@ public class DungeonEniko extends DungeonBase {
       for (Cardinal o : dir.orthogonals()) {
         Coord c = new Coord(cursor);
         c.translate(o, 2);
-        pillar(editor, theme, c);
+        pillar(worldEditor, theme, c);
 
         c = new Coord(cursor);
         c.translate(o, 3);
-        stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, c);
+        stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
         c.translate(o);
-        stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, c);
+        stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
         c.translate(Cardinal.UP);
         chests.add(new Coord(c));
         c.translate(o.reverse());
@@ -101,7 +101,7 @@ public class DungeonEniko extends DungeonBase {
       }
 
       cursor.translate(dir.antiClockwise(), 5);
-      pillar(editor, theme, cursor);
+      pillar(worldEditor, theme, cursor);
 
       if (entrances.contains(dir)) {
         start = new Coord(origin);
@@ -110,13 +110,13 @@ public class DungeonEniko extends DungeonBase {
         start.translate(dir.antiClockwise());
         end.translate(dir.clockwise());
         end.translate(dir, 6);
-        RectSolid.newRect(start, end).fill(editor, floor);
+        RectSolid.newRect(start, end).fill(worldEditor, floor);
       }
     }
 
-    generateSpawner(editor, origin, settings.getDifficulty(origin), settings.getSpawners(), COMMON_MOBS);
-    List<Coord> chestLocations = chooseRandomLocations(editor.getRandom(), 1, chests);
-    editor.getTreasureChestEditor().createChests(settings.getDifficulty(origin), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(editor.getRandom(), ChestType.COMMON_TREASURES)));
+    generateSpawner(worldEditor, origin, levelSettings.getDifficulty(origin), levelSettings.getSpawners(), COMMON_MOBS);
+    List<Coord> chestLocations = chooseRandomLocations(worldEditor.getRandom(), 1, chests);
+    worldEditor.getTreasureChestEditor().createChests(levelSettings.getDifficulty(origin), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(worldEditor.getRandom(), ChestType.COMMON_TREASURES)));
 
     return this;
   }

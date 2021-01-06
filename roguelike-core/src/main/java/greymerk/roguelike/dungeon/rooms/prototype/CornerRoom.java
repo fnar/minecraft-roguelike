@@ -23,12 +23,12 @@ public class CornerRoom extends DungeonBase {
 
   @Override
   public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
-    BlockSet primary = settings.getTheme().getPrimary();
-    createHollowCenter(editor, origin);
-    createShell(editor, origin, primary.getWall());
-    fillFloor(editor, origin, primary.getFloor());
-    createCornerWalls(editor, origin, primary);
-    createCeiling(editor, origin, primary);
+    BlockSet primary = levelSettings.getTheme().getPrimary();
+    createHollowCenter(worldEditor, origin);
+    createShell(worldEditor, origin, primary.getWall());
+    fillFloor(worldEditor, origin, primary.getFloor());
+    createCornerWalls(worldEditor, origin, primary);
+    createCeiling(worldEditor, origin, primary);
     return this;
   }
 

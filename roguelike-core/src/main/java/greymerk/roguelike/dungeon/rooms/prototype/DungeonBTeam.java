@@ -71,7 +71,7 @@ public class DungeonBTeam extends DungeonBase {
     end.translate(dir.clockwise(), 6);
     end.translate(Cardinal.UP, 5);
     start.translate(Cardinal.DOWN);
-    RectHollow.newRect(start, end).fill(editor, stonebrick);
+    RectHollow.newRect(start, end).fill(worldEditor, stonebrick);
 
     start = new Coord(origin);
     start.translate(Cardinal.DOWN);
@@ -80,7 +80,7 @@ public class DungeonBTeam extends DungeonBase {
     end.translate(dir.reverse(), 3);
     start.translate(dir.antiClockwise(), 5);
     end.translate(dir.clockwise(), 5);
-    RectSolid.newRect(start, end).fill(editor, cobble);
+    RectSolid.newRect(start, end).fill(worldEditor, cobble);
 
     start = new Coord(origin);
     start.translate(Cardinal.DOWN);
@@ -89,7 +89,7 @@ public class DungeonBTeam extends DungeonBase {
     end.translate(dir.reverse(), 2);
     start.translate(dir.antiClockwise(), 4);
     end.translate(dir.clockwise(), 4);
-    RectSolid.newRect(start, end).fill(editor, cyan);
+    RectSolid.newRect(start, end).fill(worldEditor, cyan);
 
     start = new Coord(origin);
     start.translate(Cardinal.DOWN);
@@ -98,23 +98,23 @@ public class DungeonBTeam extends DungeonBase {
     end.translate(dir.reverse(), 1);
     start.translate(dir.antiClockwise(), 3);
     end.translate(dir.clockwise(), 3);
-    RectSolid.newRect(start, end).fill(editor, slab);
+    RectSolid.newRect(start, end).fill(worldEditor, slab);
 
     cursor = new Coord(origin);
     cursor.translate(dir.reverse(), 4);
-    logWall(editor, dir, cursor);
+    logWall(worldEditor, dir, cursor);
     cursor.translate(dir, 9);
-    logWall(editor, dir.reverse(), cursor);
+    logWall(worldEditor, dir.reverse(), cursor);
 
     cursor = new Coord(origin);
     cursor.translate(dir.antiClockwise(), 6);
-    tvWall(editor, dir.antiClockwise(), cursor);
+    tvWall(worldEditor, dir.antiClockwise(), cursor);
 
     cursor = new Coord(origin);
     cursor.translate(dir.clockwise(), 6);
-    bWall(editor, dir.clockwise(), cursor);
+    bWall(worldEditor, dir.clockwise(), cursor);
 
-    table(editor, dir, origin);
+    table(worldEditor, dir, origin);
 
     start = new Coord(origin);
     start.translate(dir.reverse(), 4);
@@ -122,25 +122,25 @@ public class DungeonBTeam extends DungeonBase {
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
     end.translate(Cardinal.UP, 2);
-    RectSolid.newRect(start, end).fill(editor, cobble);
+    RectSolid.newRect(start, end).fill(worldEditor, cobble);
 
     cursor = new Coord(origin);
     cursor.translate(dir.reverse(), 4);
-    SingleBlockBrush.AIR.stroke(editor, cursor);
+    SingleBlockBrush.AIR.stroke(worldEditor, cursor);
     cursor.translate(Cardinal.UP);
-    SingleBlockBrush.AIR.stroke(editor, cursor);
+    SingleBlockBrush.AIR.stroke(worldEditor, cursor);
 
     cursor = new Coord(origin);
     cursor.translate(dir.reverse());
     cursor.translate(dir.antiClockwise(), 3);
     cursor.translate(Cardinal.UP, 5);
-    log.stroke(editor, cursor);
+    log.stroke(worldEditor, cursor);
     cursor.translate(dir, 3);
-    log.stroke(editor, cursor);
+    log.stroke(worldEditor, cursor);
     cursor.translate(dir.clockwise(), 6);
-    log.stroke(editor, cursor);
+    log.stroke(worldEditor, cursor);
     cursor.translate(dir.reverse(), 3);
-    log.stroke(editor, cursor);
+    log.stroke(worldEditor, cursor);
 
     start = new Coord(origin);
     start.translate(dir.reverse());
@@ -148,10 +148,10 @@ public class DungeonBTeam extends DungeonBase {
     end = new Coord(start);
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
-    stair.setUpsideDown(true).setFacing(dir).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(true).setFacing(dir).fill(worldEditor, new RectSolid(start, end));
     start.translate(dir, 3);
     end.translate(dir, 3);
-    stair.setUpsideDown(true).setFacing(dir.reverse()).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(true).setFacing(dir.reverse()).fill(worldEditor, new RectSolid(start, end));
 
     for (Cardinal d : dir.orthogonals()) {
       start = new Coord(origin);
@@ -159,7 +159,7 @@ public class DungeonBTeam extends DungeonBase {
       start.translate(d, 3);
       end = new Coord(start);
       end.translate(dir);
-      stair.setUpsideDown(true).setFacing(d.reverse()).fill(editor, new RectSolid(start, end));
+      stair.setUpsideDown(true).setFacing(d.reverse()).fill(worldEditor, new RectSolid(start, end));
     }
 
     start = new Coord(origin);
@@ -168,25 +168,25 @@ public class DungeonBTeam extends DungeonBase {
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
     end.translate(dir);
-    RectSolid.newRect(start, end).fill(editor, lamp);
+    RectSolid.newRect(start, end).fill(worldEditor, lamp);
 
     cursor = new Coord(origin);
     cursor.translate(dir, 4);
     cursor.translate(dir.clockwise(), 5);
-    BlockType.BOOKSHELF.getBrush().stroke(editor, cursor);
+    BlockType.BOOKSHELF.getBrush().stroke(worldEditor, cursor);
     cursor.translate(Cardinal.UP);
-    BlockType.BREWING_STAND.getBrush().stroke(editor, cursor);
-    editor.setItem(cursor, BrewingStand.Slot.MIDDLE, PotionMixture.getPotion(editor.getRandom(), PotionMixture.MOONSHINE));
+    BlockType.BREWING_STAND.getBrush().stroke(worldEditor, cursor);
+    worldEditor.setItem(cursor, BrewingStand.Slot.MIDDLE, PotionMixture.getPotion(worldEditor.getRandom(), PotionMixture.MOONSHINE));
 
     cursor = new Coord(origin);
     cursor.translate(dir, 4);
     cursor.translate(dir.antiClockwise(), 4);
-    BlockType.JUKEBOX.getBrush().stroke(editor, cursor);
+    BlockType.JUKEBOX.getBrush().stroke(worldEditor, cursor);
     cursor.translate(dir.antiClockwise());
-    int level = settings.getDifficulty(cursor);
+    int level = levelSettings.getDifficulty(cursor);
     ChestType chestType = ChestType.EMPTY;
     try {
-      TreasureChest stal = editor.getTreasureChestEditor().generateTreasureChest(cursor, false, chestType, level);
+      TreasureChest stal = worldEditor.getTreasureChestEditor().generateTreasureChest(cursor, false, chestType, level);
       stal.setSlot(stal.getSize() / 2, Record.getRecord(Record.STAL));
     } catch (ChestPlacementException cpe) {
       // do nothing
@@ -196,7 +196,7 @@ public class DungeonBTeam extends DungeonBase {
     cursor.translate(dir.reverse(), 3);
     cursor.translate(dir.antiClockwise(), 4);
     try {
-      TreasureChest bdub = editor.getTreasureChestEditor().generateTreasureChest(cursor, false, chestType, level);
+      TreasureChest bdub = worldEditor.getTreasureChestEditor().generateTreasureChest(cursor, false, chestType, level);
       bdub.setSlot((bdub.getSize() / 2) - 2, ItemNovelty.getItem(ItemNovelty.BDOUBLEO));
       ItemStack shirt = new ItemStack(Items.LEATHER_CHESTPLATE);
       Loot.setItemName(shirt, "Pink Sweater", null);
@@ -211,7 +211,7 @@ public class DungeonBTeam extends DungeonBase {
     cursor.translate(dir.reverse(), 3);
     cursor.translate(dir.clockwise(), 4);
     try {
-      TreasureChest genny = editor.getTreasureChestEditor().generateTreasureChest(cursor, false, chestType, level);
+      TreasureChest genny = worldEditor.getTreasureChestEditor().generateTreasureChest(cursor, false, chestType, level);
       genny.setSlot(genny.getSize() / 2, ItemNovelty.getItem(ItemNovelty.GENERIKB));
     } catch (ChestPlacementException cpe) {
       // do nothing

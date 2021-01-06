@@ -48,12 +48,12 @@ public class SecretRoom extends DungeonBase {
     end.translate(entrance.orthogonals()[1]);
     end.translate(entrance, size + 5);
     end.translate(Cardinal.UP, 2);
-    RectSolid.newRect(start, end).fill(editor, settings.getTheme().getPrimary().getWall(), false, true);
+    RectSolid.newRect(start, end).fill(worldEditor, levelSettings.getTheme().getPrimary().getWall(), false, true);
 
     end = new Coord(pos);
     end.translate(entrance, size + 5);
     end.translate(Cardinal.UP);
-    RectSolid.newRect(pos, end).fill(editor, SingleBlockBrush.AIR);
+    RectSolid.newRect(pos, end).fill(worldEditor, SingleBlockBrush.AIR);
 
     end.translate(Cardinal.DOWN);
     prototype.generate(end, Lists.newArrayList(entrance));
@@ -66,7 +66,7 @@ public class SecretRoom extends DungeonBase {
   }
 
   private DungeonBase createPrototype() {
-    return getRoomSetting().instantiate(settings, editor);
+    return getRoomSetting().instantiate(levelSettings, worldEditor);
   }
 
 }

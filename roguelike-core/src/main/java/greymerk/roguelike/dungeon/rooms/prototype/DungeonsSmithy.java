@@ -29,30 +29,30 @@ public class DungeonsSmithy extends DungeonBase {
 
   public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
 
-    ThemeBase theme = settings.getTheme();
+    ThemeBase theme = levelSettings.getTheme();
 
     Coord cursor;
 
     Cardinal dir = entrances.get(0);
 
-    clearBoxes(editor, theme, dir, origin);
+    clearBoxes(worldEditor, theme, dir, origin);
 
     cursor = new Coord(origin);
     cursor.translate(dir, 6);
-    sideRoom(editor, settings, dir, cursor);
-    anvilRoom(editor, settings, dir, cursor);
+    sideRoom(worldEditor, levelSettings, dir, cursor);
+    anvilRoom(worldEditor, levelSettings, dir, cursor);
 
     cursor = new Coord(origin);
     cursor.translate(dir.reverse(), 6);
-    sideRoom(editor, settings, dir, cursor);
+    sideRoom(worldEditor, levelSettings, dir, cursor);
 
     cursor = new Coord(origin);
     cursor.translate(dir.reverse(), 9);
-    SingleBlockBrush.AIR.stroke(editor, cursor);
+    SingleBlockBrush.AIR.stroke(worldEditor, cursor);
     cursor.translate(Cardinal.UP);
-    SingleBlockBrush.AIR.stroke(editor, cursor);
+    SingleBlockBrush.AIR.stroke(worldEditor, cursor);
 
-    mainRoom(editor, settings, dir, origin);
+    mainRoom(worldEditor, levelSettings, dir, origin);
 
     return this;
   }
