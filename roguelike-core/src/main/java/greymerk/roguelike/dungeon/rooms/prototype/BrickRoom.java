@@ -126,7 +126,7 @@ public class BrickRoom extends DungeonBase {
       blocks.stroke(worldEditor, cursor, false, true);
 
       for (Cardinal orthogonals : dir.orthogonals()) {
-        cursor = new Coord(x, y, z);
+        cursor = origin.copy();
         cursor.translate(dir, 3);
         cursor.translate(orthogonals, 2);
         potentialChestLocations.add(cursor);
@@ -134,12 +134,11 @@ public class BrickRoom extends DungeonBase {
     }
 
     Random random = worldEditor.getRandom();
-    List<Coord> chestLocations = chooseRandomLocations(random, 1, potentialChestLocations);
+    List<Coord> chestLocations = chooseRandomLocations(1, potentialChestLocations);
     int level = Dungeon.getLevel(origin.getY());
     worldEditor.getTreasureChestEditor().createChests(level, chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(random, ChestType.COMMON_TREASURES)));
 
-    Coord spawnerLocation = new Coord(x, y, z);
-    generateSpawner(worldEditor, spawnerLocation, Dungeon.getLevel(origin.getY()), levelSettings.getSpawners());
+    generateSpawner(origin);
     return this;
   }
 

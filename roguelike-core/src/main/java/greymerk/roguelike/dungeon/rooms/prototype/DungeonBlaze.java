@@ -252,8 +252,7 @@ public class DungeonBlaze extends DungeonBase {
     end.translate(Cardinal.SOUTH);
     end.translate(Cardinal.WEST);
     RectSolid.newRect(start, end).fill(worldEditor, BlockType.OBSIDIAN.getBrush());
-    int difficulty = levelSettings.getDifficulty(cursor);
-    generateSpawner(worldEditor, cursor, difficulty, levelSettings.getSpawners(), MobType.NETHER_MOBS);
+    generateSpawner(cursor, MobType.NETHER_MOBS);
 
     return this;
   }

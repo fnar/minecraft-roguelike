@@ -87,7 +87,7 @@ public class FortressRoom extends DungeonBase {
     RectSolid.newRect(start, end).fill(worldEditor, netherwart, false, true);
     List<Coord> chests = (new RectSolid(start, end).get());
 
-    List<Coord> chestLocations = chooseRandomLocations(worldEditor.getRandom(), worldEditor.getRandom().nextInt(3) + 1, chests);
+    List<Coord> chestLocations = chooseRandomLocations(worldEditor.getRandom().nextInt(3) + 1, chests);
     worldEditor.getTreasureChestEditor().createChests(levelSettings.getDifficulty(origin), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(worldEditor.getRandom(), ChestType.RARE_TREASURES)));
 
     for (Cardinal dir : DIRECTIONS) {
@@ -166,8 +166,7 @@ public class FortressRoom extends DungeonBase {
     RectSolid.newRect(start, end).fill(editor, lava);
     List<Coord> core = new RectSolid(start, end).get();
     Coord spawnerLocation = core.get(rand.nextInt(core.size()));
-    int difficulty = levelSettings.getDifficulty(spawnerLocation);
-    generateSpawner(editor, spawnerLocation, difficulty, levelSettings.getSpawners());
+    generateSpawner(spawnerLocation);
   }
 
   private void pillar(WorldEditor editor, LevelSettings settings, Coord origin) {

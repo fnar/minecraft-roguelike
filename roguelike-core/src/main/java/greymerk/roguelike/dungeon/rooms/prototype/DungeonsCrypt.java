@@ -18,7 +18,6 @@ import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.MobType;
-import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 public class DungeonsCrypt extends DungeonBase {
 
@@ -372,8 +371,7 @@ public class DungeonsCrypt extends DungeonBase {
     }
 
     cursor.translate(dir);
-    SpawnerSettings spawners = settings.getSpawners();
-    generateSpawner(editor, cursor, settings.getDifficulty(cursor), spawners, MobType.UNDEAD_MOBS);
+    generateSpawner(cursor, MobType.UNDEAD_MOBS);
 
     cursor.translate(dir);
     editor.getTreasureChestEditor().createChest(settings.getDifficulty(cursor), cursor, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(rand, ChestType.COMMON_TREASURES)));

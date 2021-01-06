@@ -16,7 +16,6 @@ import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.MobType;
-import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 public class DungeonsSpiderNest extends DungeonBase {
   int originX;
@@ -72,14 +71,13 @@ public class DungeonsSpiderNest extends DungeonBase {
     }
 
     final Coord cursor = new Coord(originX, originY, originZ);
-    SpawnerSettings spawners = levelSettings.getSpawners();
-    generateSpawner(worldEditor, cursor, levelSettings.getDifficulty(cursor), spawners, MobType.CAVESPIDER);
+    generateSpawner(cursor, MobType.CAVESPIDER);
 
     List<Coord> spaces = new RectSolid(
         new Coord(originX - dungeonLength, originY - 1, originZ - dungeonWidth),
         new Coord(originX + dungeonLength, originY + 1, originZ + dungeonWidth)
     ).get();
-    List<Coord> chestLocations = chooseRandomLocations(worldEditor.getRandom(), 1 + worldEditor.getRandom().nextInt(3), spaces);
+    List<Coord> chestLocations = chooseRandomLocations(1 + worldEditor.getRandom().nextInt(3), spaces);
     worldEditor.getTreasureChestEditor().createChests(Dungeon.getLevel(originY), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(worldEditor.getRandom(), ChestType.COMMON_TREASURES)));
     return this;
   }

@@ -18,7 +18,6 @@ import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
-import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 import static greymerk.roguelike.worldgen.spawners.MobType.UNDEAD_MOBS;
 
@@ -147,7 +146,7 @@ public class DungeonPyramidTomb extends DungeonBase {
     end.translate(Cardinal.EAST);
     RectSolid.newRect(start, end).fill(worldEditor, blocks);
 
-    sarcophagus(worldEditor, levelSettings, entrances.get(0), origin);
+    sarcophagus(worldEditor, entrances.get(0), origin);
 
     return this;
   }
@@ -202,13 +201,12 @@ public class DungeonPyramidTomb extends DungeonBase {
   }
 
 
-  private void sarcophagus(WorldEditor editor, LevelSettings settings, Cardinal dir, Coord origin) {
+  private void sarcophagus(WorldEditor editor, Cardinal dir, Coord origin) {
     StairsBlock stair = StairsBlock.quartz();
     BlockBrush blocks = BlockType.QUARTZ.getBrush();
 
-    Coord cursor;
+    Coord cursor = new Coord(origin);
 
-    cursor = new Coord(origin);
     blocks.stroke(editor, cursor);
     cursor.translate(Cardinal.UP);
     editor.getTreasureChestEditor().createChest(Dungeon.getLevel(cursor.getY()), cursor, false, ChestType.ORE);
@@ -221,8 +219,7 @@ public class DungeonPyramidTomb extends DungeonBase {
       cursor.translate(end);
       blocks.stroke(editor, cursor);
       cursor.translate(Cardinal.UP);
-      SpawnerSettings spawners = settings.getSpawners();
-      generateSpawner(editor, cursor, settings.getDifficulty(cursor), spawners, UNDEAD_MOBS);
+      generateSpawner(cursor, UNDEAD_MOBS);
       cursor.translate(Cardinal.UP);
       blocks.stroke(editor, cursor);
 

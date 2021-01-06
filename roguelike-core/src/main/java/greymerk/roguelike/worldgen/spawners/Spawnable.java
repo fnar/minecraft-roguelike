@@ -18,14 +18,14 @@ import greymerk.roguelike.worldgen.WorldEditor;
 
 public class Spawnable {
 
-  private List<SpawnPotential> potentials = Lists.newArrayList();
+  private final List<SpawnPotential> potentials = Lists.newArrayList();
 
   public Spawnable(List<SpawnPotential> spawnPotentials) {
     potentials.addAll(spawnPotentials);
   }
 
   public void generate(WorldEditor editor, Coord cursor, int level) {
-    Coord pos = new Coord(cursor);
+    Coord pos = cursor.copy();
 
     BlockType.MOB_SPAWNER.getBrush().stroke(editor, pos);
 

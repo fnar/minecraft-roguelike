@@ -317,8 +317,7 @@ public class ObsidianRoom extends DungeonBase {
     innerPillars(worldEditor, theme, x, y, z);
 
     for (Coord space : spawnerLocations) {
-      int difficulty = levelSettings.getDifficulty(space);
-      generateSpawner(worldEditor, space, difficulty, levelSettings.getSpawners());
+      generateSpawner(space);
     }
 
     BlockJumble crap = new BlockJumble();
