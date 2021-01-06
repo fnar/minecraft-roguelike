@@ -11,7 +11,7 @@ import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
@@ -23,7 +23,7 @@ public class DungeonsSlime extends DungeonBase {
     super(roomSetting, levelSettings, worldEditor);
   }
 
-  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Direction> entrances) {
     ThemeBase theme = levelSettings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();
     BlockBrush bars = BlockType.IRON_BAR.getBrush();
@@ -40,14 +40,14 @@ public class DungeonsSlime extends DungeonBase {
     end.translate(new Coord(8, 5, 8));
     RectHollow.newRect(start, end).fill(worldEditor, wall, false, true);
 
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
+    for (Direction dir : Direction.CARDINAL) {
       cursor = origin.copy();
       cursor.translate(dir, 5);
       cursor.translate(dir.antiClockwise(), 5);
       corner(worldEditor, levelSettings, cursor);
 
       start = origin.copy();
-      start.translate(Cardinal.UP, 4);
+      start.translate(Direction.UP, 4);
       start.translate(dir, 3);
       end = start.copy();
       start.translate(dir.antiClockwise(), 8);
@@ -60,7 +60,7 @@ public class DungeonsSlime extends DungeonBase {
     }
 
 
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
+    for (Direction dir : Direction.CARDINAL) {
       if (!entrances.contains(dir)) {
         start = origin.copy();
         start.translate(dir, 4);
@@ -69,11 +69,11 @@ public class DungeonsSlime extends DungeonBase {
         start.translate(dir.antiClockwise(), 3);
         end.translate(dir.clockwise(), 3);
         RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
-        start.translate(Cardinal.DOWN);
-        end.translate(Cardinal.DOWN);
+        start.translate(Direction.DOWN);
+        end.translate(Direction.DOWN);
         RectSolid.newRect(start, end).fill(worldEditor, liquid);
-        start.translate(Cardinal.DOWN);
-        end.translate(Cardinal.DOWN);
+        start.translate(Direction.DOWN);
+        end.translate(Direction.DOWN);
         RectSolid.newRect(start, end).fill(worldEditor, wall);
 
         start = origin.copy();
@@ -86,19 +86,19 @@ public class DungeonsSlime extends DungeonBase {
         cursor = origin.copy();
         cursor.translate(dir, 7);
         wall.stroke(worldEditor, cursor);
-        cursor.translate(Cardinal.UP, 2);
+        cursor.translate(Direction.UP, 2);
         wall.stroke(worldEditor, cursor);
-        cursor.translate(Cardinal.DOWN);
+        cursor.translate(Direction.DOWN);
         cursor.translate(dir);
         liquid.stroke(worldEditor, cursor);
-        for (Cardinal o : dir.orthogonals()) {
+        for (Direction o : dir.orthogonals()) {
           cursor = origin.copy();
           cursor.translate(dir, 7);
           cursor.translate(o);
           stair.setUpsideDown(true).setFacing(o).stroke(worldEditor, cursor);
-          cursor.translate(Cardinal.UP);
+          cursor.translate(Direction.UP);
           wall.stroke(worldEditor, cursor);
-          cursor.translate(Cardinal.UP);
+          cursor.translate(Direction.UP);
           stair.setUpsideDown(false).setFacing(o).stroke(worldEditor, cursor);
 
         }
@@ -134,15 +134,15 @@ public class DungeonsSlime extends DungeonBase {
     end.translate(new Coord(1, -2, 1));
     RectSolid.newRect(start, end).fill(editor, wall);
 
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
+    for (Direction dir : Direction.CARDINAL) {
       start = origin.copy();
       start.translate(dir, 2);
       start.translate(dir.antiClockwise(), 2);
       end = start.copy();
-      end.translate(Cardinal.UP, 3);
+      end.translate(Direction.UP, 3);
       RectSolid.newRect(start, end).fill(editor, pillar);
 
-      for (Cardinal d : Cardinal.DIRECTIONS) {
+      for (Direction d : Direction.CARDINAL) {
         cursor = end.copy();
         cursor.translate(d);
         stair.setUpsideDown(true).setFacing(d).stroke(editor, cursor, true, false);

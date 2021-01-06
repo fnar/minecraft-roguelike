@@ -13,7 +13,7 @@ import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockCheckers;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.IShape;
@@ -26,7 +26,7 @@ public class DungeonsEnder extends DungeonBase {
     super(roomSetting, levelSettings, worldEditor);
   }
 
-  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Direction> entrances) {
     Random rand = worldEditor.getRandom();
     BlockBrush black = BlockType.OBSIDIAN.getBrush();
     BlockBrush white = Quartz.SMOOTH.getBrush();
@@ -38,17 +38,17 @@ public class DungeonsEnder extends DungeonBase {
     start.translate(new Coord(-3, 0, -3));
     end.translate(new Coord(3, 2, 3));
     RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
+    for (Direction dir : Direction.CARDINAL) {
 
-      Cardinal[] orthogonals = dir.orthogonals();
+      Direction[] orthogonals = dir.orthogonals();
 
       start = origin.copy();
       start.translate(dir, 4);
       end = start.copy();
       start.translate(orthogonals[0], 4);
-      start.translate(Cardinal.DOWN, 1);
+      start.translate(Direction.DOWN, 1);
       end.translate(orthogonals[1], 4);
-      end.translate(Cardinal.UP, 5);
+      end.translate(Direction.UP, 5);
       RectSolid.newRect(start, end).fill(worldEditor, black, false, true);
 
     }
@@ -92,11 +92,11 @@ public class DungeonsEnder extends DungeonBase {
       }
 
       Coord cursor = pos.copy();
-      for (Cardinal dir : Cardinal.DIRECTIONS) {
+      for (Direction dir : Direction.CARDINAL) {
         cursor.translate(dir);
         if (editor.isOpaqueCubeBlock(cursor)) {
-          Cardinal dir1 = dir.reverse();
-          BlockType.ENDER_CHEST.getBrush().setFacing(Cardinal.DIRECTIONS.contains(dir1) ? dir1.reverse() : Cardinal.SOUTH).stroke(editor, pos);
+          Direction dir1 = dir.reverse();
+          BlockType.ENDER_CHEST.getBrush().setFacing(Direction.CARDINAL.contains(dir1) ? dir1.reverse() : Direction.SOUTH).stroke(editor, pos);
           return;
         }
         cursor.translate(dir.reverse());

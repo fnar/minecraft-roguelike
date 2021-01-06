@@ -23,7 +23,7 @@ import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
@@ -81,24 +81,24 @@ public class DungeonLab extends DungeonBase {
     corner(editor, theme, x, y, z);
 
     RectSolid.newRect(new Coord(x + 1, y, z + 5), new Coord(x + 4, y, z + 5)).fill(editor, stone);
-    stair.setUpsideDown(false).setFacing(Cardinal.WEST).stroke(editor, new Coord(x + 1, y + 1, z + 5));
+    stair.setUpsideDown(false).setFacing(Direction.WEST).stroke(editor, new Coord(x + 1, y + 1, z + 5));
     water.stroke(editor, new Coord(x + 2, y + 1, z + 5));
     slab.stroke(editor, new Coord(x + 2, y + 2, z + 5));
-    stair.setUpsideDown(false).setFacing(Cardinal.EAST).stroke(editor, new Coord(x + 3, y + 1, z + 5));
+    stair.setUpsideDown(false).setFacing(Direction.EAST).stroke(editor, new Coord(x + 3, y + 1, z + 5));
 
     RectSolid.newRect(new Coord(x + 5, y, z + 1), new Coord(x + 5, y, z + 4)).fill(editor, stone);
-    stair.setUpsideDown(false).setFacing(Cardinal.NORTH).stroke(editor, new Coord(x + 5, y + 1, z + 1));
+    stair.setUpsideDown(false).setFacing(Direction.NORTH).stroke(editor, new Coord(x + 5, y + 1, z + 1));
     water.stroke(editor, new Coord(x + 5, y + 1, z + 2));
     slab.stroke(editor, new Coord(x + 5, y + 2, z + 2));
-    stair.setUpsideDown(false).setFacing(Cardinal.SOUTH).stroke(editor, new Coord(x + 5, y + 1, z + 3));
+    stair.setUpsideDown(false).setFacing(Direction.SOUTH).stroke(editor, new Coord(x + 5, y + 1, z + 3));
 
     RectSolid.newRect(new Coord(x + 3, y, z + 3), new Coord(x + 4, y, z + 4)).fill(editor, stone);
-    TorchBlock.torch().setFacing(Cardinal.UP).stroke(editor, new Coord(x + 3, y + 1, z + 3));
+    TorchBlock.torch().setFacing(Direction.UP).stroke(editor, new Coord(x + 3, y + 1, z + 3));
 
-    stair.setUpsideDown(false).setFacing(Cardinal.NORTH).stroke(editor, new Coord(x + 4, y, z + 1));
-    stair.setUpsideDown(false).setFacing(Cardinal.WEST).stroke(editor, new Coord(x + 3, y, z + 2));
-    stair.setUpsideDown(false).setFacing(Cardinal.NORTH).stroke(editor, new Coord(x + 2, y, z + 3));
-    stair.setUpsideDown(false).setFacing(Cardinal.WEST).stroke(editor, new Coord(x + 1, y, z + 4));
+    stair.setUpsideDown(false).setFacing(Direction.NORTH).stroke(editor, new Coord(x + 4, y, z + 1));
+    stair.setUpsideDown(false).setFacing(Direction.WEST).stroke(editor, new Coord(x + 3, y, z + 2));
+    stair.setUpsideDown(false).setFacing(Direction.NORTH).stroke(editor, new Coord(x + 2, y, z + 3));
+    stair.setUpsideDown(false).setFacing(Direction.WEST).stroke(editor, new Coord(x + 1, y, z + 4));
 
 
   }
@@ -134,8 +134,8 @@ public class DungeonLab extends DungeonBase {
     stone.stroke(editor, new Coord(x + 1, y, z + 1));
 
     StairsBlock stair = StairsBlock.stoneBrick();
-    stair.setUpsideDown(false).setFacing(Cardinal.SOUTH).fill(editor, new RectSolid(new Coord(x + 2, y, z + 1), new Coord(x + 4, y, z + 1)));
-    stair.setUpsideDown(false).setFacing(Cardinal.EAST).fill(editor, new RectSolid(new Coord(x + 1, y, z + 2), new Coord(x + 1, y, z + 4)));
+    stair.setUpsideDown(false).setFacing(Direction.SOUTH).fill(editor, new RectSolid(new Coord(x + 2, y, z + 1), new Coord(x + 4, y, z + 1)));
+    stair.setUpsideDown(false).setFacing(Direction.EAST).fill(editor, new RectSolid(new Coord(x + 1, y, z + 2), new Coord(x + 1, y, z + 4)));
 
     redstone.stroke(editor, new Coord(x + 2, y - 1, z + 2));
     lamp.stroke(editor, new Coord(x + 3, y - 1, z + 2));
@@ -175,8 +175,8 @@ public class DungeonLab extends DungeonBase {
 
     StairsBlock stair = StairsBlock.stoneBrick();
 
-    stair.setUpsideDown(false).setFacing(Cardinal.SOUTH).fill(editor, new RectSolid(new Coord(x + 1, y, z + 1), new Coord(x + 3, y, z + 1)));
-    stair.setUpsideDown(false).setFacing(Cardinal.WEST).fill(editor, new RectSolid(new Coord(x + 4, y, z + 2), new Coord(x + 4, y, z + 4)));
+    stair.setUpsideDown(false).setFacing(Direction.SOUTH).fill(editor, new RectSolid(new Coord(x + 1, y, z + 1), new Coord(x + 3, y, z + 1)));
+    stair.setUpsideDown(false).setFacing(Direction.WEST).fill(editor, new RectSolid(new Coord(x + 4, y, z + 2), new Coord(x + 4, y, z + 4)));
 
     redstone.stroke(editor, new Coord(x + 3, y - 1, z + 2));
     lamp.stroke(editor, new Coord(x + 2, y - 1, z + 2));
@@ -190,15 +190,15 @@ public class DungeonLab extends DungeonBase {
     theme.getSecondary().getPillar().fill(editor, new RectSolid(new Coord(x, y, z), new Coord(x, y + 2, z)));
     theme.getPrimary().getWall().stroke(editor, new Coord(x, y + 3, z));
     StairsBlock stair = theme.getSecondary().getStair();
-    stair.setUpsideDown(true).setFacing(Cardinal.EAST).stroke(editor, new Coord(x + 1, y + 3, z));
-    stair.setUpsideDown(true).setFacing(Cardinal.WEST).stroke(editor, new Coord(x - 1, y + 3, z));
-    stair.setUpsideDown(true).setFacing(Cardinal.SOUTH).stroke(editor, new Coord(x, y + 3, z + 1));
-    stair.setUpsideDown(true).setFacing(Cardinal.NORTH).stroke(editor, new Coord(x, y + 3, z - 1));
+    stair.setUpsideDown(true).setFacing(Direction.EAST).stroke(editor, new Coord(x + 1, y + 3, z));
+    stair.setUpsideDown(true).setFacing(Direction.WEST).stroke(editor, new Coord(x - 1, y + 3, z));
+    stair.setUpsideDown(true).setFacing(Direction.SOUTH).stroke(editor, new Coord(x, y + 3, z + 1));
+    stair.setUpsideDown(true).setFacing(Direction.NORTH).stroke(editor, new Coord(x, y + 3, z - 1));
 
   }
 
   @Override
-  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Direction> entrances) {
 
     int x = origin.getX();
     int y = origin.getY();
@@ -257,9 +257,9 @@ public class DungeonLab extends DungeonBase {
     corner(editor, theme, x, y, z);
 
     StairsBlock stair = theme.getSecondary().getStair();
-    stair.setUpsideDown(true).setFacing(Cardinal.NORTH);
+    stair.setUpsideDown(true).setFacing(Direction.NORTH);
     RectSolid.newRect(new Coord(x + 1, y, z + 5), new Coord(x + 4, y, z + 5)).fill(editor, stair);
-    stair.setUpsideDown(true).setFacing(Cardinal.EAST);
+    stair.setUpsideDown(true).setFacing(Direction.EAST);
     RectSolid.newRect(new Coord(x, y, z + 1), new Coord(x, y, z + 4)).fill(editor, stair);
 
     if (RogueConfig.getBoolean(RogueConfig.GENEROUS)) {

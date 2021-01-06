@@ -3,7 +3,7 @@ package greymerk.roguelike.worldgen.filter;
 import java.util.Random;
 
 import greymerk.roguelike.theme.ThemeBase;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBounded;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -30,7 +30,7 @@ public class CobwebFilter implements IFilter {
   }
 
   private boolean validLocation(WorldEditor editor, Coord pos) {
-    for (Cardinal dir : Cardinal.values()) {
+    for (Direction dir : Direction.values()) {
       Coord cursor = pos.copy();
       cursor.translate(dir);
       if (!editor.isAirBlock(cursor)) {
@@ -51,7 +51,7 @@ public class CobwebFilter implements IFilter {
     BlockType.WEB.getBrush().stroke(editor, pos);
 
     for (int i = 0; i < 2; ++i) {
-      Cardinal dir = Cardinal.values()[rand.nextInt(Cardinal.values().length)];
+      Direction dir = Direction.values()[rand.nextInt(Direction.values().length)];
       Coord cursor = pos.copy();
       cursor.translate(dir);
       generate(editor, rand, cursor, count - 1);

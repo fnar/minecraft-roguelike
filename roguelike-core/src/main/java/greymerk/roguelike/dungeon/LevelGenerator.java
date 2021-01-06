@@ -7,7 +7,7 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 
@@ -30,7 +30,7 @@ public enum LevelGenerator {
   public static void generateLevelLink(WorldEditor editor, Random rand, LevelSettings settings, DungeonNode start, DungeonNode end) {
 
     DungeonBase downstairs = RoomType.LINKER.newSingleRoomSetting().instantiate(settings, editor);
-    downstairs.generate(start.getPosition(), Cardinal.DIRECTIONS);
+    downstairs.generate(start.getPosition(), Direction.CARDINAL);
 
     if (end == null) {
       return;
@@ -44,7 +44,7 @@ public enum LevelGenerator {
     Coord cursor = start.getPosition().copy();
     for (int i = 0; i < end.getPosition().getY() - start.getPosition().getY(); i++) {
       editor.spiralStairStep(rand, cursor, stair, settings.getTheme().getPrimary().getPillar());
-      cursor.translate(Cardinal.UP);
+      cursor.translate(Direction.UP);
     }
   }
 }

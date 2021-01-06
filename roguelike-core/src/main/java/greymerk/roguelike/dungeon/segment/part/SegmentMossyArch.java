@@ -9,7 +9,7 @@ import java.util.Random;
 
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.ThemeBase;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
@@ -19,7 +19,7 @@ public class SegmentMossyArch extends SegmentBase {
   private boolean spawnHoleSet = false;
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Cardinal wallDirection, ThemeBase theme, Coord origin) {
+  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction wallDirection, ThemeBase theme, Coord origin) {
 
     StairsBlock stair = theme.getSecondary().getStair();
     stair.setUpsideDown(true).setFacing(wallDirection.reverse());
@@ -29,19 +29,19 @@ public class SegmentMossyArch extends SegmentBase {
     Coord cursor = origin.copy();
     cursor.translate(wallDirection, 2);
     SingleBlockBrush.AIR.stroke(editor, cursor);
-    cursor.translate(Cardinal.UP, 1);
+    cursor.translate(Direction.UP, 1);
     SingleBlockBrush.AIR.stroke(editor, cursor);
-    cursor.translate(Cardinal.UP, 1);
+    cursor.translate(Direction.UP, 1);
     stair.stroke(editor, cursor);
 
-    for (Cardinal orthogonals : wallDirection.orthogonals()) {
+    for (Direction orthogonals : wallDirection.orthogonals()) {
       cursor = origin.copy();
       cursor.translate(orthogonals, 1);
       cursor.translate(wallDirection, 2);
       theme.getSecondary().getPillar().stroke(editor, cursor);
-      cursor.translate(Cardinal.UP, 1);
+      cursor.translate(Direction.UP, 1);
       theme.getSecondary().getPillar().stroke(editor, cursor);
-      cursor.translate(Cardinal.UP, 1);
+      cursor.translate(Direction.UP, 1);
       theme.getSecondary().getWall().stroke(editor, cursor);
       cursor.translate(wallDirection.reverse(), 1);
       stair.stroke(editor, cursor);
@@ -49,11 +49,11 @@ public class SegmentMossyArch extends SegmentBase {
 
     cursor = origin.copy();
     cursor.translate(wallDirection, 2);
-    cursor.translate(Cardinal.DOWN, 1);
+    cursor.translate(Direction.DOWN, 1);
     BlockType.WATER_FLOWING.getBrush().stroke(editor, cursor);
 
     cursor = origin.copy();
-    cursor.translate(Cardinal.UP, 3);
+    cursor.translate(Direction.UP, 3);
     cursor.translate(wallDirection, 1);
     VineBlock.vine().stroke(editor, cursor);
 

@@ -8,7 +8,7 @@ import java.util.List;
 
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
@@ -27,7 +27,7 @@ public class SecretRoom extends DungeonBase {
   }
 
   @Override
-  public boolean validLocation(WorldEditor editor, Cardinal dir, Coord pos) {
+  public boolean validLocation(WorldEditor editor, Direction dir, Coord pos) {
     if (getRoomSetting().getCount() <= 0) {
       return false;
     }
@@ -37,26 +37,26 @@ public class SecretRoom extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(Coord pos, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord pos, List<Direction> entrances) {
     int size = prototype.getSize();
 
     Coord start = pos.copy();
     Coord end = pos.copy();
-    Cardinal entrance = entrances.get(0);
+    Direction entrance = entrances.get(0);
     start.translate(entrance.orthogonals()[0]);
-    start.translate(Cardinal.DOWN);
+    start.translate(Direction.DOWN);
     start.translate(entrance, 2);
     end.translate(entrance.orthogonals()[1]);
     end.translate(entrance, size + 5);
-    end.translate(Cardinal.UP, 2);
+    end.translate(Direction.UP, 2);
     RectSolid.newRect(start, end).fill(worldEditor, levelSettings.getTheme().getPrimary().getWall(), false, true);
 
     end = pos.copy();
     end.translate(entrance, size + 5);
-    end.translate(Cardinal.UP);
+    end.translate(Direction.UP);
     RectSolid.newRect(pos, end).fill(worldEditor, SingleBlockBrush.AIR);
 
-    end.translate(Cardinal.DOWN);
+    end.translate(Direction.DOWN);
     return prototype.generate(end, Lists.newArrayList(entrance));
   }
 

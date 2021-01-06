@@ -7,7 +7,7 @@ import java.util.Random;
 
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
@@ -35,8 +35,8 @@ public class RuinTower implements ITower {
       editor.spiralStairStep(rand, new Coord(origin.getX(), i, origin.getZ()), stair, theme.getPrimary().getPillar());
     }
 
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
-      for (Cardinal orthogonals : dir.orthogonals()) {
+    for (Direction dir : Direction.CARDINAL) {
+      for (Direction orthogonals : dir.orthogonals()) {
         cursor = floor.copy();
         cursor.translate(dir, 4);
         cursor.translate(orthogonals);
@@ -46,7 +46,7 @@ public class RuinTower implements ITower {
       }
 
       start = floor.copy();
-      start.translate(Cardinal.DOWN);
+      start.translate(Direction.DOWN);
       start.translate(dir, 4);
       end = new Coord(start.getX(), origin.getY() + 10, start.getZ());
       start.translate(dir.antiClockwise(), 2);

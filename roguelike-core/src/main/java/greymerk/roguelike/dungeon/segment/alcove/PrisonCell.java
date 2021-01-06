@@ -9,7 +9,7 @@ import greymerk.roguelike.dungeon.segment.IAlcove;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
@@ -23,7 +23,7 @@ public class PrisonCell implements IAlcove {
   private ThemeBase theme;
 
   @Override
-  public void generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal dir) {
+  public void generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Direction dir) {
 
     theme = settings.getTheme();
     BlockBrush walls = theme.getPrimary().getWall();
@@ -39,13 +39,13 @@ public class PrisonCell implements IAlcove {
     start = origin.copy();
     end = origin.copy();
     end.translate(dir, RECESSED);
-    end.translate(Cardinal.UP);
+    end.translate(Direction.UP);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     Coord cursor = origin.copy();
     cursor.translate(dir, RECESSED - 1);
     plate.stroke(editor, cursor);
-    cursor.translate(Cardinal.DOWN);
+    cursor.translate(Direction.DOWN);
     if (rand.nextBoolean()) {
       SpawnerSettings spawners = settings.getSpawners().isEmpty()
           ? MobType.ZOMBIE.newSpawnerSetting()
@@ -59,7 +59,7 @@ public class PrisonCell implements IAlcove {
   }
 
   @Override
-  public boolean isValidLocation(WorldEditor editor, Coord origin, Cardinal dir) {
+  public boolean isValidLocation(WorldEditor editor, Coord origin, Direction dir) {
 
     Coord centre = origin.copy();
     centre.translate(dir, RECESSED);

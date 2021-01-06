@@ -7,7 +7,7 @@ import com.github.srwaggon.roguelike.worldgen.block.Material;
 
 import greymerk.roguelike.dungeon.settings.DungeonSettingParseException;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import lombok.Data;
@@ -22,7 +22,7 @@ public class SingleBlockBrush implements BlockBrush {
   public static final SingleBlockBrush AIR = BlockType.AIR.getBrush();
 
   private BlockType blockType;
-  private Cardinal facing = Cardinal.EAST;
+  private Direction facing = Direction.EAST;
   private JsonElement json;
   private Material material;
 
@@ -45,7 +45,7 @@ public class SingleBlockBrush implements BlockBrush {
   }
 
   @Override
-  public BlockBrush setFacing(Cardinal facing) {
+  public BlockBrush setFacing(Direction facing) {
     this.facing = facing;
     return this;
   }

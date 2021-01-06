@@ -5,7 +5,7 @@ import java.util.List;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 
@@ -16,7 +16,7 @@ public class DungeonEtho extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Direction> entrances) {
     return null;
   }
 

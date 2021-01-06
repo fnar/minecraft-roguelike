@@ -34,7 +34,7 @@ import java.util.stream.Collectors;
 import greymerk.roguelike.TreasureChestEditor;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.MetaBlock1_2;
 import greymerk.roguelike.worldgen.PositionInfo;
@@ -66,10 +66,10 @@ public class WorldEditor1_12 implements WorldEditor {
     treasureChestEditor = new TreasureChestEditor(this, random);
   }
 
-  public void setSkull(WorldEditor editor, Coord cursor, Cardinal dir, Skull type) {
+  public void setSkull(WorldEditor editor, Coord cursor, Direction dir, Skull type) {
     SingleBlockBrush skullBlock = BlockType.SKULL.getBrush();
     // Makes the skull sit flush against the block below it.
-    skullBlock.setFacing(Cardinal.UP);
+    skullBlock.setFacing(Direction.UP);
     if (!skullBlock.stroke(editor, cursor)) {
       return;
     }
@@ -91,7 +91,7 @@ public class WorldEditor1_12 implements WorldEditor {
     skull.setType(getSkullId(type));
   }
 
-  public static void setSkullRotation(Random rand, TileEntitySkull skull, Cardinal dir) {
+  public static void setSkullRotation(Random rand, TileEntitySkull skull, Direction dir) {
 
     int directionValue = getDirectionValue(dir);
 
@@ -120,7 +120,7 @@ public class WorldEditor1_12 implements WorldEditor {
     }
   }
 
-  public static int getDirectionValue(Cardinal dir) {
+  public static int getDirectionValue(Direction dir) {
     switch (dir) {
       default:
       case NORTH:
@@ -232,7 +232,7 @@ public class WorldEditor1_12 implements WorldEditor {
     RectSolid.newRect(start, end).fill(this, SingleBlockBrush.AIR);
     fill.stroke(this, origin);
 
-    Cardinal dir = Cardinal.DIRECTIONS.get(origin.getY() % 4);
+    Direction dir = Direction.CARDINAL.get(origin.getY() % 4);
     cursor = origin.copy();
     cursor.translate(dir);
     stair.setUpsideDown(false).setFacing(dir.antiClockwise()).stroke(this, cursor);
@@ -249,7 +249,7 @@ public class WorldEditor1_12 implements WorldEditor {
 
     while (!isOpaqueCubeBlock(cursor) && cursor.getY() > 1) {
       blocks.stroke(this, cursor);
-      cursor.translate(Cardinal.DOWN);
+      cursor.translate(Direction.DOWN);
     }
   }
 
@@ -277,7 +277,7 @@ public class WorldEditor1_12 implements WorldEditor {
   }
 
   @Override
-  public boolean canPlace(SingleBlockBrush block, Coord pos, Cardinal dir) {
+  public boolean canPlace(SingleBlockBrush block, Coord pos, Direction dir) {
     return isAirBlock(pos)
         && BlockMapper1_12.map(block.getBlockType()).getBlock().canPlaceBlockOnSide(world, getBlockPos(pos), dir.getFacing());
   }

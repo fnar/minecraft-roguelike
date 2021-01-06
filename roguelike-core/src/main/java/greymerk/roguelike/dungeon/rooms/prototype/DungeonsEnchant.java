@@ -15,7 +15,7 @@ import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
@@ -30,8 +30,8 @@ public class DungeonsEnchant extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
-    Cardinal dir = entrances.get(0);
+  public DungeonBase generate(Coord origin, List<Direction> entrances) {
+    Direction dir = entrances.get(0);
     Random rand = worldEditor.getRandom();
     ThemeBase theme = levelSettings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();
@@ -58,7 +58,7 @@ public class DungeonsEnchant extends DungeonBase {
     start.translate(dir.antiClockwise(), 4);
     end.translate(dir, 2);
     end.translate(dir.clockwise(), 4);
-    end.translate(Cardinal.UP, 3);
+    end.translate(Direction.UP, 3);
     RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
 
     start = origin.copy();
@@ -67,11 +67,11 @@ public class DungeonsEnchant extends DungeonBase {
     end.translate(dir.reverse());
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
-    end.translate(Cardinal.UP, 3);
+    end.translate(Direction.UP, 3);
     RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
 
     start = origin.copy();
-    start.translate(Cardinal.UP, 4);
+    start.translate(Direction.UP, 4);
     end = start.copy();
     end.translate(dir, 3);
     start.translate(dir.antiClockwise(), 3);
@@ -79,7 +79,7 @@ public class DungeonsEnchant extends DungeonBase {
     RectSolid.newRect(start, end).fill(worldEditor, wall);
 
     start = origin.copy();
-    start.translate(Cardinal.DOWN);
+    start.translate(Direction.DOWN);
     end = start.copy();
     start.translate(dir.antiClockwise(), 4);
     end.translate(dir.clockwise(), 4);
@@ -90,19 +90,19 @@ public class DungeonsEnchant extends DungeonBase {
     start = origin.copy();
     start.translate(dir.reverse(), 4);
     end = start.copy();
-    end.translate(Cardinal.UP, 3);
+    end.translate(Direction.UP, 3);
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
     RectSolid.newRect(start, end).fill(worldEditor, wall, false, true);
 
     cursor = origin.copy();
     cursor.translate(dir, 5);
-    for (Cardinal d : Cardinal.DIRECTIONS) {
+    for (Direction d : Direction.CARDINAL) {
       start = cursor.copy();
       start.translate(d, 2);
       start.translate(d.antiClockwise(), 2);
       end = start.copy();
-      end.translate(Cardinal.UP, 3);
+      end.translate(Direction.UP, 3);
       RectSolid.newRect(start, end).fill(worldEditor, pillar);
 
       if (d == dir.reverse()) {
@@ -114,30 +114,30 @@ public class DungeonsEnchant extends DungeonBase {
       end = start.copy();
       start.translate(d.antiClockwise());
       end.translate(d.clockwise());
-      end.translate(Cardinal.UP, 2);
+      end.translate(Direction.UP, 2);
       RectSolid.newRect(start, end).fill(worldEditor, panel);
 
       start = cursor.copy();
       start.translate(d, 2);
-      start.translate(Cardinal.UP, 3);
+      start.translate(Direction.UP, 3);
       end = start.copy();
       start.translate(d.antiClockwise());
       end.translate(d.clockwise());
       stair.setUpsideDown(true).setFacing(d.reverse()).fill(worldEditor, new RectSolid(start, end));
       start.translate(d.reverse());
-      start.translate(Cardinal.UP);
+      start.translate(Direction.UP);
       end.translate(d.reverse());
-      end.translate(Cardinal.UP);
+      end.translate(Direction.UP);
       stair.setUpsideDown(true).setFacing(d.reverse()).fill(worldEditor, new RectSolid(start, end));
     }
 
     cursor = origin.copy();
     cursor.translate(dir, 5);
-    cursor.translate(Cardinal.UP, 4);
+    cursor.translate(Direction.UP, 4);
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
-    cursor.translate(Cardinal.UP);
+    cursor.translate(Direction.UP);
     BlockType.GLOWSTONE.getBrush().stroke(worldEditor, cursor);
-    cursor.translate(Cardinal.DOWN);
+    cursor.translate(Direction.DOWN);
     cursor.translate(dir.reverse());
     stair.setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
     cursor.translate(dir.reverse());
@@ -146,15 +146,15 @@ public class DungeonsEnchant extends DungeonBase {
     stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
 
     cursor = origin.copy();
-    cursor.translate(Cardinal.UP, 5);
+    cursor.translate(Direction.UP, 5);
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
-    cursor.translate(Cardinal.UP);
+    cursor.translate(Direction.UP);
     wall.stroke(worldEditor, cursor);
 
-    for (Cardinal d : Cardinal.DIRECTIONS) {
+    for (Direction d : Direction.CARDINAL) {
 
       start = origin.copy();
-      start.translate(Cardinal.UP, 4);
+      start.translate(Direction.UP, 4);
       end = start.copy();
       if (d == dir) {
         end.translate(d);
@@ -164,7 +164,7 @@ public class DungeonsEnchant extends DungeonBase {
 
       RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
 
-      for (Cardinal o : d.orthogonals()) {
+      for (Direction o : d.orthogonals()) {
         Coord s = start.copy();
         s.translate(d);
         Coord e = end.copy();
@@ -176,12 +176,12 @@ public class DungeonsEnchant extends DungeonBase {
       Coord s = start.copy();
       s.translate(d);
       Coord e = end.copy();
-      s.translate(Cardinal.UP);
-      e.translate(Cardinal.UP);
+      s.translate(Direction.UP);
+      e.translate(Direction.UP);
       RectSolid.newRect(s, e).fill(worldEditor, wall);
 
       cursor = origin.copy();
-      cursor.translate(Cardinal.UP, 5);
+      cursor.translate(Direction.UP, 5);
       cursor.translate(d);
       stair.setUpsideDown(true).setFacing(d.reverse()).stroke(worldEditor, cursor);
       cursor.translate(d.antiClockwise());
@@ -190,7 +190,7 @@ public class DungeonsEnchant extends DungeonBase {
     }
 
     start = origin.copy();
-    start.translate(Cardinal.DOWN);
+    start.translate(Direction.DOWN);
     end = start.copy();
     start.translate(dir, 3);
     end.translate(dir, 7);
@@ -198,20 +198,20 @@ public class DungeonsEnchant extends DungeonBase {
     end.translate(dir.clockwise(), 2);
     RectSolid.newRect(start, end).fill(worldEditor, panel);
 
-    for (Cardinal o : dir.orthogonals()) {
+    for (Direction o : dir.orthogonals()) {
       start = origin.copy();
       start.translate(dir.reverse(), 3);
       start.translate(o, 3);
       end = start.copy();
       end.translate(dir.reverse());
-      end.translate(Cardinal.UP, 3);
+      end.translate(Direction.UP, 3);
       RectSolid.newRect(start, end).fill(worldEditor, pillar);
 
       start = origin.copy();
       start.translate(dir, 3);
       start.translate(o, 3);
       end = start.copy();
-      end.translate(Cardinal.UP, 3);
+      end.translate(Direction.UP, 3);
       RectSolid.newRect(start, end).fill(worldEditor, wall);
       cursor = end.copy();
       cursor.translate(dir.reverse());
@@ -229,21 +229,21 @@ public class DungeonsEnchant extends DungeonBase {
       start.translate(o.antiClockwise());
       end.translate(o.clockwise());
       stair.setUpsideDown(true).setFacing(o.reverse()).fill(worldEditor, new RectSolid(start, end));
-      start.translate(Cardinal.UP, 3);
-      end.translate(Cardinal.UP, 3);
+      start.translate(Direction.UP, 3);
+      end.translate(Direction.UP, 3);
       stair.setUpsideDown(true).setFacing(o.reverse()).fill(worldEditor, new RectSolid(start, end));
       start.translate(o.reverse());
-      start.translate(Cardinal.UP);
+      start.translate(Direction.UP);
       end.translate(o.reverse());
-      end.translate(Cardinal.UP);
+      end.translate(Direction.UP);
       stair.setUpsideDown(true).setFacing(o.reverse()).fill(worldEditor, new RectSolid(start, end));
 
-      for (Cardinal r : o.orthogonals()) {
+      for (Direction r : o.orthogonals()) {
         start = origin.copy();
         start.translate(o, 4);
         start.translate(r, 2);
         end = start.copy();
-        end.translate(Cardinal.UP, 3);
+        end.translate(Direction.UP, 3);
         RectSolid.newRect(start, end).fill(worldEditor, pillar);
       }
 
@@ -252,15 +252,15 @@ public class DungeonsEnchant extends DungeonBase {
       end = start.copy();
       start.translate(o.antiClockwise());
       end.translate(o.clockwise());
-      start.translate(Cardinal.UP);
-      end.translate(Cardinal.UP, 2);
+      start.translate(Direction.UP);
+      end.translate(Direction.UP, 2);
       RectSolid.newRect(start, end).fill(worldEditor, panel);
 
       start = origin.copy();
       start.translate(dir.reverse(), 3);
       start.translate(o, 2);
       end = start.copy();
-      end.translate(Cardinal.UP, 3);
+      end.translate(Direction.UP, 3);
       RectSolid.newRect(start, end).fill(worldEditor, pillar);
       cursor = end.copy();
       cursor.translate(o.reverse());
@@ -275,13 +275,13 @@ public class DungeonsEnchant extends DungeonBase {
       cursor = origin.copy();
       cursor.translate(dir.reverse(), 2);
       cursor.translate(o);
-      cursor.translate(Cardinal.UP, 4);
+      cursor.translate(Direction.UP, 4);
       wall.stroke(worldEditor, cursor);
       cursor.translate(dir);
       stair.setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
 
       start = origin.copy();
-      start.translate(Cardinal.UP);
+      start.translate(Direction.UP);
       start.translate(o, 4);
       end = start.copy();
       start.translate(o.antiClockwise());
@@ -291,7 +291,7 @@ public class DungeonsEnchant extends DungeonBase {
 
     cursor = origin.copy();
     cursor.translate(dir.reverse(), 2);
-    cursor.translate(Cardinal.UP, 4);
+    cursor.translate(Direction.UP, 4);
     stair.setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
     cursor.translate(dir.reverse());
     wall.stroke(worldEditor, cursor);
@@ -307,7 +307,7 @@ public class DungeonsEnchant extends DungeonBase {
   }
 
   @Override
-  public boolean validLocation(WorldEditor editor, Cardinal dir, Coord pos) {
+  public boolean validLocation(WorldEditor editor, Direction dir, Coord pos) {
     Coord start;
     Coord end;
 
@@ -317,8 +317,8 @@ public class DungeonsEnchant extends DungeonBase {
     end.translate(dir, 8);
     start.translate(dir.antiClockwise(), 5);
     end.translate(dir.clockwise(), 5);
-    start.translate(Cardinal.DOWN);
-    end.translate(Cardinal.UP, 2);
+    start.translate(Direction.DOWN);
+    end.translate(Direction.UP, 2);
 
     for (Coord c : new RectHollow(start, end)) {
       if (editor.isAirBlock(c)) {

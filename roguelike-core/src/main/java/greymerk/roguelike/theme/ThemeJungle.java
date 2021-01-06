@@ -7,7 +7,7 @@ import com.github.srwaggon.roguelike.worldgen.block.normal.Wood;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockJumble;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 
 public class ThemeJungle extends ThemeBase {
 
@@ -28,7 +28,7 @@ public class ThemeJungle extends ThemeBase {
     BlockBrush pillar2 = Wood.JUNGLE.getLog();
 
     BlockJumble stairJumble = new BlockJumble();
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
+    for (Direction dir : Direction.CARDINAL) {
       stairJumble.addBlock(StairsBlock.stoneBrick().setFacing(dir));
     }
 

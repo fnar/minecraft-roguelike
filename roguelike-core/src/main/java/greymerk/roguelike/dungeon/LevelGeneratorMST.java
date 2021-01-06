@@ -10,7 +10,7 @@ import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.util.graph.Edge;
 import greymerk.roguelike.util.graph.Graph;
 import greymerk.roguelike.util.mst.MinimumSpanningTree;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 
@@ -57,7 +57,7 @@ public class LevelGeneratorMST implements ILevelGenerator {
 
   }
 
-  private List<Cardinal> findEntrances(Coord vertex) {
+  private List<Direction> findEntrances(Coord vertex) {
     return this.layout.getTunnels().stream()
         .map(tunnel -> tunnel.getEntrance(vertex))
         .filter(Optional::isPresent)

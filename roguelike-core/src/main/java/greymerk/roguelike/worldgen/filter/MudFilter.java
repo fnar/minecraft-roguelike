@@ -6,7 +6,7 @@ import java.util.Random;
 
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.BlockJumble;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBounded;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -32,7 +32,7 @@ public class MudFilter implements IFilter {
       return;
     }
 
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
+    for (Direction dir : Direction.CARDINAL) {
       if (rand.nextBoolean()) {
         continue;
       }
@@ -87,7 +87,7 @@ public class MudFilter implements IFilter {
     plants.addBlock(BlockType.RED_MUSHROOM.getBrush());
 
     Coord cursor = pos.copy();
-    cursor.translate(Cardinal.UP);
+    cursor.translate(Direction.UP);
     plants.stroke(editor, cursor);
   }
 
@@ -98,19 +98,19 @@ public class MudFilter implements IFilter {
     }
 
     Coord cursor = pos.copy();
-    cursor.translate(Cardinal.UP);
+    cursor.translate(Direction.UP);
     if (!editor.isAirBlock(cursor)) {
       return false;
     }
 
-    cursor.translate(Cardinal.DOWN, 2);
+    cursor.translate(Direction.DOWN, 2);
     if (editor.isAirBlock(cursor)) {
       return false;
     }
 
-    cursor.translate(Cardinal.UP);
+    cursor.translate(Direction.UP);
 
-    for (Cardinal dir : Cardinal.values()) {
+    for (Direction dir : Direction.values()) {
       cursor.translate(dir);
       if (!editor.isOpaqueCubeBlock(pos)) {
         return false;

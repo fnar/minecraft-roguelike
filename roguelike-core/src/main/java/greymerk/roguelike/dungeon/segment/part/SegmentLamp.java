@@ -12,7 +12,7 @@ import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
@@ -22,7 +22,7 @@ import static com.github.srwaggon.roguelike.worldgen.block.normal.ColoredBlock.s
 public class SegmentLamp extends SegmentBase {
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Cardinal dir, ThemeBase theme, Coord origin) {
+  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, ThemeBase theme, Coord origin) {
 
     StairsBlock stair = theme.getPrimary().getStair();
     BlockBrush wall = theme.getPrimary().getWall();
@@ -31,18 +31,18 @@ public class SegmentLamp extends SegmentBase {
     Coord start;
     Coord end;
 
-    Cardinal[] orthogonal = dir.orthogonals();
+    Direction[] orthogonal = dir.orthogonals();
 
     start = origin.copy();
     start.translate(dir, 2);
     end = start.copy();
     start.translate(orthogonal[0]);
     end.translate(orthogonal[1]);
-    end.translate(Cardinal.UP, 2);
+    end.translate(Direction.UP, 2);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     start = origin.copy();
-    start.translate(Cardinal.UP, 3);
+    start.translate(Direction.UP, 3);
     end = start.copy();
     start.translate(dir);
     start.translate(orthogonal[0]);
@@ -56,30 +56,30 @@ public class SegmentLamp extends SegmentBase {
     start.translate(orthogonal[0]);
     end.translate(orthogonal[1]);
     end.translate(dir, 2);
-    end.translate(Cardinal.UP, 6);
+    end.translate(Direction.UP, 6);
     RectSolid.newRect(start, end).fill(editor, wall);
     start = end.copy();
-    start.translate(Cardinal.DOWN, 2);
+    start.translate(Direction.DOWN, 2);
     start.translate(dir.reverse(), 6);
     start.translate(orthogonal[0], 2);
     RectSolid.newRect(start, end).fill(editor, wall);
 
-    for (Cardinal side : orthogonal) {
+    for (Direction side : orthogonal) {
 
       cursor = origin.copy();
       cursor.translate(dir, 2);
       cursor.translate(side);
       stair.setUpsideDown(false).setFacing(side.reverse()).stroke(editor, cursor);
-      cursor.translate(Cardinal.UP, 2);
+      cursor.translate(Direction.UP, 2);
       stair.setUpsideDown(true).setFacing(side.reverse()).stroke(editor, cursor);
     }
 
     cursor = origin.copy();
-    cursor.translate(Cardinal.UP, 4);
+    cursor.translate(Direction.UP, 4);
     overheadLight(editor, theme, cursor);
 
     cursor = origin.copy();
-    cursor.translate(Cardinal.UP);
+    cursor.translate(Direction.UP);
     cursor.translate(dir, 2);
 
     Coord lever = cursor.copy();
@@ -89,9 +89,9 @@ public class SegmentLamp extends SegmentBase {
 
     cursor.translate(dir);
     TorchBlock.redstone().setFacing(dir).stroke(editor, cursor);
-    cursor.translate(Cardinal.UP, 2);
-    TorchBlock.redstone().setFacing(Cardinal.UP).stroke(editor, cursor);
-    cursor.translate(Cardinal.UP, 2);
+    cursor.translate(Direction.UP, 2);
+    TorchBlock.redstone().setFacing(Direction.UP).stroke(editor, cursor);
+    cursor.translate(Direction.UP, 2);
     start = cursor.copy();
     end = start.copy();
     end.translate(dir.reverse(), 3);
@@ -107,7 +107,7 @@ public class SegmentLamp extends SegmentBase {
 
     SingleBlockBrush.AIR.stroke(editor, origin);
 
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
+    for (Direction dir : Direction.CARDINAL) {
       cursor = origin.copy();
       cursor.translate(dir);
       stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
@@ -116,7 +116,7 @@ public class SegmentLamp extends SegmentBase {
     }
 
     cursor = origin.copy();
-    cursor.translate(Cardinal.UP);
+    cursor.translate(Direction.UP);
     BlockType.REDSTONE_LAMP.getBrush().stroke(editor, cursor);
   }
 

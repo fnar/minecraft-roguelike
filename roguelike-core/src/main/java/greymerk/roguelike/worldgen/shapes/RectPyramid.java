@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 
 public class RectPyramid implements IShape {
@@ -39,7 +39,7 @@ public class RectPyramid implements IShape {
     Coord start;
     Coord diff;
     Coord cursor;
-    Cardinal dir;
+    Direction dir;
     double thetaX;
     double thetaZ;
 
@@ -50,7 +50,7 @@ public class RectPyramid implements IShape {
       Coord.correct(s, e);
 
       cursor = new Coord(0, 0, 0);
-      dir = Cardinal.NORTH;
+      dir = Direction.NORTH;
 
       diff = e.copy();
       diff.translate(-s.getX(), -s.getY(), -s.getZ());
@@ -71,8 +71,8 @@ public class RectPyramid implements IShape {
     public Coord next() {
 
       Coord toReturn = start.copy();
-      toReturn.translate(Cardinal.UP, cursor.getY());
-      if (dir == Cardinal.NORTH || dir == Cardinal.SOUTH) {
+      toReturn.translate(Direction.UP, cursor.getY());
+      if (dir == Direction.NORTH || dir == Direction.SOUTH) {
         toReturn.translate(dir.antiClockwise(), cursor.getX());
         toReturn.translate(dir, cursor.getZ());
       } else {
@@ -80,12 +80,12 @@ public class RectPyramid implements IShape {
         toReturn.translate(dir.antiClockwise(), cursor.getZ());
       }
 
-      if (dir != Cardinal.NORTH) {
+      if (dir != Direction.NORTH) {
         dir = dir.antiClockwise();
         return toReturn;
       }
 
-      cursor.translate(Cardinal.SOUTH);
+      cursor.translate(Direction.SOUTH);
 
       if (inRange(cursor)) {
         dir = dir.antiClockwise();
@@ -95,7 +95,7 @@ public class RectPyramid implements IShape {
       cursor = new Coord(cursor.getX(), cursor.getY(), 0);
 
 
-      cursor.translate(Cardinal.EAST);
+      cursor.translate(Direction.EAST);
 
       if (inRange(cursor)) {
         dir = dir.antiClockwise();
@@ -103,7 +103,7 @@ public class RectPyramid implements IShape {
       }
 
       cursor = new Coord(0, cursor.getY(), cursor.getZ());
-      cursor.translate(Cardinal.UP);
+      cursor.translate(Direction.UP);
       dir = dir.antiClockwise();
       return toReturn;
     }

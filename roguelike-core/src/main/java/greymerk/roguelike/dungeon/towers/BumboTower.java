@@ -7,7 +7,7 @@ import java.util.Random;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockCheckers;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
@@ -18,39 +18,39 @@ public class BumboTower implements ITower {
   public void generate(WorldEditor editor, Random rand, ThemeBase theme, Coord origin) {
     Coord ground = Tower.getBaseCoord(editor, origin);
 
-    Cardinal dir = Cardinal.randomDirection(rand);
+    Direction dir = Direction.randomDirection(rand);
 
     stem(editor, theme, ground, dir);
 
     Coord pos = ground.copy();
     pos.translate(dir.clockwise(), 5);
-    pos.translate(Cardinal.UP, 9);
+    pos.translate(Direction.UP, 9);
     arm(editor, theme, pos, dir.clockwise());
 
     pos = ground.copy();
     pos.translate(dir.antiClockwise(), 5);
-    pos.translate(Cardinal.UP, 10);
+    pos.translate(Direction.UP, 10);
     arm(editor, theme, pos, dir.antiClockwise());
 
     pos = ground.copy();
-    pos.translate(Cardinal.UP, 16);
+    pos.translate(Direction.UP, 16);
     hat(editor, theme, pos);
 
     pos = ground.copy();
-    pos.translate(Cardinal.UP, 10);
+    pos.translate(Direction.UP, 10);
     pos.translate(dir, 4);
     face(editor, theme, pos, dir);
 
     rooms(editor, theme, ground);
 
     pos = ground.copy();
-    pos.translate(Cardinal.UP, 11);
+    pos.translate(Direction.UP, 11);
     for (Coord c : new RectSolid(origin, pos)) {
       editor.spiralStairStep(rand, c, theme.getPrimary().getStair(), theme.getPrimary().getWall());
     }
   }
 
-  private void stem(WorldEditor editor, ThemeBase theme, Coord origin, Cardinal dir) {
+  private void stem(WorldEditor editor, ThemeBase theme, Coord origin, Direction dir) {
     BlockBrush green = theme.getPrimary().getWall();
 
     Coord start;
@@ -62,8 +62,8 @@ public class BumboTower implements ITower {
     start.translate(dir.antiClockwise(), 3);
     end.translate(dir.reverse(), 4);
     end.translate(dir.clockwise(), 3);
-    start.translate(Cardinal.DOWN, 10);
-    end.translate(Cardinal.UP, 16);
+    start.translate(Direction.DOWN, 10);
+    end.translate(Direction.UP, 16);
 
     RectSolid.newRect(start, end).fill(editor, green);
 
@@ -73,8 +73,8 @@ public class BumboTower implements ITower {
     start.translate(dir, 3);
     end.translate(dir.antiClockwise(), 4);
     end.translate(dir.reverse(), 3);
-    start.translate(Cardinal.DOWN, 10);
-    end.translate(Cardinal.UP, 16);
+    start.translate(Direction.DOWN, 10);
+    end.translate(Direction.UP, 16);
 
     RectSolid.newRect(start, end).fill(editor, green);
 
@@ -86,7 +86,7 @@ public class BumboTower implements ITower {
 
   }
 
-  private void arm(WorldEditor editor, ThemeBase theme, Coord origin, Cardinal dir) {
+  private void arm(WorldEditor editor, ThemeBase theme, Coord origin, Direction dir) {
     BlockBrush green = theme.getPrimary().getWall();
 
     Coord start;
@@ -95,10 +95,10 @@ public class BumboTower implements ITower {
     end = origin.copy();
 
     start.translate(dir, 5);
-    start.translate(Cardinal.DOWN, 4);
+    start.translate(Direction.DOWN, 4);
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
-    end.translate(Cardinal.DOWN);
+    end.translate(Direction.DOWN);
     RectSolid.newRect(start, end).fill(editor, green);
 
     start = origin.copy();
@@ -107,7 +107,7 @@ public class BumboTower implements ITower {
     end.translate(dir, 3);
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
-    end.translate(Cardinal.UP, 2);
+    end.translate(Direction.UP, 2);
     RectSolid.newRect(start, end).fill(editor, green);
 
     start = origin.copy();
@@ -118,10 +118,10 @@ public class BumboTower implements ITower {
     RectSolid.newRect(start, end).fill(editor, green);
 
     start.translate(dir, 2);
-    end.translate(Cardinal.UP, 2);
+    end.translate(Direction.UP, 2);
     RectSolid.newRect(start, end).fill(editor, green);
 
-    start.translate(Cardinal.DOWN, 3);
+    start.translate(Direction.DOWN, 3);
     start.translate(dir, 3);
     end.translate(dir, 3);
     RectSolid.newRect(start, end).fill(editor, green);
@@ -129,14 +129,14 @@ public class BumboTower implements ITower {
     start = origin.copy();
     start.translate(dir, 6);
     end = start.copy();
-    start.translate(Cardinal.UP, 2);
-    end.translate(Cardinal.DOWN, 4);
+    start.translate(Direction.UP, 2);
+    end.translate(Direction.DOWN, 4);
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
     RectSolid.newRect(start, end).fill(editor, green);
 
     start = origin.copy();
-    start.translate(Cardinal.DOWN, 5);
+    start.translate(Direction.DOWN, 5);
     end = start.copy();
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
@@ -145,7 +145,7 @@ public class BumboTower implements ITower {
 
     start = origin.copy();
     start.translate(dir, 3);
-    start.translate(Cardinal.UP, 3);
+    start.translate(Direction.UP, 3);
     end = start.copy();
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
@@ -171,13 +171,13 @@ public class BumboTower implements ITower {
     end.translate(new Coord(2, 8, 2));
     RectSolid.newRect(start, end).fill(editor, yellow);
 
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
+    for (Direction dir : Direction.CARDINAL) {
       start = origin.copy();
       start.translate(dir, 3);
       end = start.copy();
       start.translate(dir.antiClockwise(), 2);
       end.translate(dir.clockwise(), 2);
-      end.translate(Cardinal.UP, 5);
+      end.translate(Direction.UP, 5);
       RectSolid.newRect(start, end).fill(editor, yellow);
 
       start = origin.copy();
@@ -185,17 +185,17 @@ public class BumboTower implements ITower {
       end = start.copy();
       start.translate(dir.antiClockwise(), 2);
       end.translate(dir.clockwise(), 2);
-      end.translate(Cardinal.UP, 2);
+      end.translate(Direction.UP, 2);
       RectSolid.newRect(start, end).fill(editor, yellow);
 
       start = origin.copy();
       start.translate(dir, 3);
       start.translate(dir.antiClockwise(), 3);
       end = start.copy();
-      end.translate(Cardinal.UP, 2);
+      end.translate(Direction.UP, 2);
       RectSolid.newRect(start, end).fill(editor, yellow);
 
-      for (Cardinal o : dir.orthogonals()) {
+      for (Direction o : dir.orthogonals()) {
         start = origin.copy();
         start.translate(dir, 3);
         end = start.copy();
@@ -213,18 +213,18 @@ public class BumboTower implements ITower {
       RectSolid.newRect(start, end).fill(editor, rim2);
       start.translate(dir);
       end.translate(dir);
-      start.translate(Cardinal.UP);
-      end.translate(Cardinal.UP);
+      start.translate(Direction.UP);
+      end.translate(Direction.UP);
       RectSolid.newRect(start, end).fill(editor, rim);
 
-      for (Cardinal o : dir.orthogonals()) {
+      for (Direction o : dir.orthogonals()) {
         pos = origin.copy();
         pos.translate(dir, 5);
         pos.translate(o, 5);
         rim.stroke(editor, pos);
         pos.translate(dir);
         rim.stroke(editor, pos);
-        pos.translate(Cardinal.UP);
+        pos.translate(Direction.UP);
         pos.translate(dir);
         rim2.stroke(editor, pos);
         pos.translate(dir.reverse());
@@ -234,7 +234,7 @@ public class BumboTower implements ITower {
     }
   }
 
-  private void face(WorldEditor editor, ThemeBase theme, Coord origin, Cardinal dir) {
+  private void face(WorldEditor editor, ThemeBase theme, Coord origin, Direction dir) {
     BlockBrush black = theme.getSecondary().getPillar();
     BlockBrush white = theme.getPrimary().getPillar();
     BlockBrush moustache = theme.getPrimary().getFloor();
@@ -251,17 +251,17 @@ public class BumboTower implements ITower {
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
     end.translate(dir);
-    end.translate(Cardinal.DOWN, 3);
+    end.translate(Direction.DOWN, 3);
     RectSolid.newRect(start, end).fill(editor, green);
     start.translate(dir.clockwise());
-    start.translate(Cardinal.DOWN);
+    start.translate(Direction.DOWN);
     end.translate(dir.antiClockwise());
-    end.translate(Cardinal.UP);
+    end.translate(Direction.UP);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
     pos = origin.copy();
     pos.translate(dir);
     pos.translate(dir.clockwise(), 2);
-    pos.translate(Cardinal.DOWN, 3);
+    pos.translate(Direction.DOWN, 3);
     SingleBlockBrush.AIR.stroke(editor, pos);
 
     start = origin.copy();
@@ -270,13 +270,13 @@ public class BumboTower implements ITower {
     end.translate(dir.reverse());
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
-    start.translate(Cardinal.DOWN);
-    end.translate(Cardinal.DOWN, 2);
+    start.translate(Direction.DOWN);
+    end.translate(Direction.DOWN, 2);
     RectSolid.newRect(start, end).fill(editor, black);
 
-    for (Cardinal o : dir.orthogonals()) {
+    for (Direction o : dir.orthogonals()) {
       pos = origin.copy();
-      pos.translate(Cardinal.DOWN);
+      pos.translate(Direction.DOWN);
       pos.translate(o);
       white.stroke(editor, pos);
     }
@@ -285,16 +285,16 @@ public class BumboTower implements ITower {
     pos.translate(dir, 2);
     moustache.stroke(editor, pos);
 
-    for (Cardinal o : dir.orthogonals()) {
+    for (Direction o : dir.orthogonals()) {
       start = origin.copy();
       start.translate(dir, 2);
       end = start.copy();
       end.translate(o, 2);
       start.translate(o);
-      start.translate(Cardinal.UP);
+      start.translate(Direction.UP);
       RectSolid.newRect(start, end).fill(editor, moustache);
       start.translate(o, 4);
-      start.translate(Cardinal.DOWN, 2);
+      start.translate(Direction.DOWN, 2);
       RectSolid.newRect(start, end).fill(editor, moustache);
       pos = origin.copy();
       pos.translate(dir, 2);
@@ -302,15 +302,15 @@ public class BumboTower implements ITower {
       SingleBlockBrush.AIR.stroke(editor, pos);
     }
 
-    for (Cardinal o : dir.orthogonals()) {
+    for (Direction o : dir.orthogonals()) {
       pos = origin.copy();
       pos.translate(o, 2);
       if (o == dir.clockwise()) {
-        pos.translate(Cardinal.UP);
+        pos.translate(Direction.UP);
       }
-      pos.translate(Cardinal.UP, 2);
+      pos.translate(Direction.UP, 2);
       SingleBlockBrush.AIR.stroke(editor, pos);
-      pos.translate(Cardinal.UP);
+      pos.translate(Direction.UP);
       SingleBlockBrush.AIR.stroke(editor, pos);
     }
   }
@@ -321,22 +321,22 @@ public class BumboTower implements ITower {
     Coord end;
 
     start = origin.copy();
-    start.translate(Cardinal.UP, 7);
+    start.translate(Direction.UP, 7);
     end = start.copy();
     start.translate(new Coord(-3, 0, -3));
     end.translate(new Coord(3, 3, 3));
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
-    start.translate(Cardinal.UP, 5);
-    end.translate(Cardinal.UP, 5);
+    start.translate(Direction.UP, 5);
+    end.translate(Direction.UP, 5);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
-    for (Cardinal d : Cardinal.DIRECTIONS) {
+    for (Direction d : Direction.CARDINAL) {
       start = origin.copy();
-      start.translate(Cardinal.UP, 5);
+      start.translate(Direction.UP, 5);
       start.translate(d, 3);
       start.translate(d.antiClockwise(), 3);
       end = start.copy();
-      end.translate(Cardinal.UP, 10);
+      end.translate(Direction.UP, 10);
       RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getFloor());
     }
   }

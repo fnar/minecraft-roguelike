@@ -2,7 +2,7 @@ package greymerk.roguelike.util.mst;
 
 import java.util.Random;
 
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 
 public class MSTPoint {
@@ -15,7 +15,7 @@ public class MSTPoint {
   public MSTPoint(Coord pos, Random rand) {
     this.position = pos.copy();
     this.adjusted = pos.copy();
-    this.adjusted.translate(Cardinal.randomDirection(rand));
+    this.adjusted.translate(Direction.randomDirection(rand));
 
     this.rank = 0;
     this.parent = this;

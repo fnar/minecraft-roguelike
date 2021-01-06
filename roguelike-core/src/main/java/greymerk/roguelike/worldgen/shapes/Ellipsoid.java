@@ -6,7 +6,7 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 
 public class Ellipsoid implements IShape {
@@ -40,7 +40,7 @@ public class Ellipsoid implements IShape {
     private Coord diff;
     private Coord cursor;
 
-    private Cardinal dir;
+    private Direction dir;
     private boolean top;
 
 
@@ -54,7 +54,7 @@ public class Ellipsoid implements IShape {
 
       cursor = new Coord(0, 0, 0);
       top = true;
-      dir = Cardinal.NORTH;
+      dir = Direction.NORTH;
     }
 
     @Override
@@ -65,8 +65,8 @@ public class Ellipsoid implements IShape {
     @Override
     public Coord next() {
       Coord toReturn = centre.copy();
-      toReturn.translate(top ? Cardinal.UP : Cardinal.DOWN, cursor.getY());
-      if (dir == Cardinal.NORTH || dir == Cardinal.SOUTH) {
+      toReturn.translate(top ? Direction.UP : Direction.DOWN, cursor.getY());
+      if (dir == Direction.NORTH || dir == Direction.SOUTH) {
         toReturn.translate(dir.antiClockwise(), cursor.getX());
         toReturn.translate(dir, cursor.getZ());
       } else {
@@ -74,15 +74,15 @@ public class Ellipsoid implements IShape {
         toReturn.translate(dir.antiClockwise(), cursor.getZ());
       }
 
-      if (dir != Cardinal.NORTH || top) {
-        if (dir == Cardinal.NORTH) {
+      if (dir != Direction.NORTH || top) {
+        if (dir == Direction.NORTH) {
           top = false;
         }
         dir = dir.antiClockwise();
         return toReturn;
       }
 
-      cursor.translate(Cardinal.SOUTH);
+      cursor.translate(Direction.SOUTH);
 
       if (inRange(cursor)) {
         dir = dir.antiClockwise();
@@ -92,7 +92,7 @@ public class Ellipsoid implements IShape {
         cursor = new Coord(cursor.getX(), cursor.getY(), 0);
       }
 
-      cursor.translate(Cardinal.EAST);
+      cursor.translate(Direction.EAST);
 
       if (inRange(cursor)) {
         dir = dir.antiClockwise();
@@ -102,7 +102,7 @@ public class Ellipsoid implements IShape {
         cursor = new Coord(0, cursor.getY(), cursor.getZ());
       }
 
-      cursor.translate(Cardinal.UP);
+      cursor.translate(Direction.UP);
       dir = dir.antiClockwise();
       top = true;
       return toReturn;

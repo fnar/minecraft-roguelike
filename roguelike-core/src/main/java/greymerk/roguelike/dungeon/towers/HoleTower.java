@@ -9,7 +9,7 @@ import java.util.Random;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockJumble;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
@@ -26,19 +26,19 @@ public class HoleTower implements ITower {
     Coord end;
 
     start = floor.copy();
-    start.translate(Cardinal.NORTH);
-    start.translate(Cardinal.EAST);
-    start.translate(Cardinal.UP, 3);
+    start.translate(Direction.NORTH);
+    start.translate(Direction.EAST);
+    start.translate(Direction.UP, 3);
     end = origin.copy();
-    end.translate(Cardinal.SOUTH);
-    end.translate(Cardinal.WEST);
+    end.translate(Direction.SOUTH);
+    end.translate(Direction.WEST);
 
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
-    start.translate(Cardinal.NORTH, 2);
-    start.translate(Cardinal.EAST, 2);
-    end.translate(Cardinal.SOUTH, 2);
-    end.translate(Cardinal.WEST, 2);
-    end.translate(Cardinal.UP);
+    start.translate(Direction.NORTH, 2);
+    start.translate(Direction.EAST, 2);
+    end.translate(Direction.SOUTH, 2);
+    end.translate(Direction.WEST, 2);
+    end.translate(Direction.UP);
 
     BlockJumble rubble = new BlockJumble();
     rubble.addBlock(blocks);

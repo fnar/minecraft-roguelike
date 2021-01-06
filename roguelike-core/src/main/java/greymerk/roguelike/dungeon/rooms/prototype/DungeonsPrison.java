@@ -12,7 +12,7 @@ import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
@@ -28,28 +28,28 @@ public class DungeonsPrison extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Direction> entrances) {
 
     Coord cursor;
 
     Random rand = worldEditor.getRandom();
     largeRoom(worldEditor, levelSettings, origin);
 
-    for (Cardinal dir : entrances) {
+    for (Direction dir : entrances) {
       cursor = origin.copy();
       cursor.translate(dir, 6);
       sideRoom(worldEditor, levelSettings, cursor, dir);
     }
 
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
+    for (Direction dir : Direction.CARDINAL) {
       cursor = origin.copy();
       cursor.translate(dir, 3);
       cursor.translate(dir.antiClockwise(), 3);
       pillar(worldEditor, levelSettings, cursor, 4);
     }
 
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
-      List<Cardinal> doors = new ArrayList<>();
+    for (Direction dir : Direction.CARDINAL) {
+      List<Direction> doors = new ArrayList<>();
 
       if (entrances.contains(dir)) {
         doors.add(dir.clockwise());
@@ -82,43 +82,43 @@ public class DungeonsPrison extends DungeonBase {
 
     BlockBrush wall = settings.getTheme().getPrimary().getWall();
     start = origin.copy();
-    start.translate(Cardinal.UP, 6);
+    start.translate(Direction.UP, 6);
     end = start.copy();
-    start.translate(Cardinal.NORTH, 3);
-    start.translate(Cardinal.EAST, 3);
-    end.translate(Cardinal.SOUTH, 3);
-    end.translate(Cardinal.WEST, 3);
+    start.translate(Direction.NORTH, 3);
+    start.translate(Direction.EAST, 3);
+    end.translate(Direction.SOUTH, 3);
+    end.translate(Direction.WEST, 3);
     RectSolid.newRect(start, end).fill(editor, wall, false, true);
 
     BlockBrush floor = settings.getTheme().getPrimary().getFloor();
     start = origin.copy();
-    start.translate(Cardinal.DOWN);
+    start.translate(Direction.DOWN);
     end = start.copy();
-    start.translate(Cardinal.NORTH, 3);
-    start.translate(Cardinal.EAST, 3);
-    end.translate(Cardinal.SOUTH, 3);
-    end.translate(Cardinal.WEST, 3);
+    start.translate(Direction.NORTH, 3);
+    start.translate(Direction.EAST, 3);
+    end.translate(Direction.SOUTH, 3);
+    end.translate(Direction.WEST, 3);
     RectSolid.newRect(start, end).fill(editor, floor, false, true);
 
     start = origin.copy();
     end = origin.copy();
-    start.translate(Cardinal.NORTH, 3);
-    start.translate(Cardinal.WEST, 3);
-    end.translate(Cardinal.SOUTH, 3);
-    end.translate(Cardinal.EAST, 3);
-    end.translate(Cardinal.UP, 4);
+    start.translate(Direction.NORTH, 3);
+    start.translate(Direction.WEST, 3);
+    end.translate(Direction.SOUTH, 3);
+    end.translate(Direction.EAST, 3);
+    end.translate(Direction.UP, 4);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     start = origin.copy();
     end = origin.copy();
-    start.translate(Cardinal.NORTH, 4);
-    start.translate(Cardinal.WEST, 4);
-    end.translate(Cardinal.SOUTH, 4);
-    end.translate(Cardinal.EAST, 4);
-    end.translate(Cardinal.UP, 5);
+    start.translate(Direction.NORTH, 4);
+    start.translate(Direction.WEST, 4);
+    end.translate(Direction.SOUTH, 4);
+    end.translate(Direction.EAST, 4);
+    end.translate(Direction.UP, 5);
     settings.getTheme().getPrimary().getWall().fill(editor, new RectHollow(start, end), false, true);
 
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
+    for (Direction dir : Direction.CARDINAL) {
       cursor = origin.copy();
       cursor.translate(dir, 3);
       cursor.translate(dir.antiClockwise(), 3);
@@ -126,35 +126,35 @@ public class DungeonsPrison extends DungeonBase {
     }
 
     start = origin.copy();
-    start.translate(Cardinal.UP, 5);
+    start.translate(Direction.UP, 5);
     end = start.copy();
-    start.translate(Cardinal.NORTH);
-    start.translate(Cardinal.EAST);
-    end.translate(Cardinal.SOUTH);
-    end.translate(Cardinal.WEST);
+    start.translate(Direction.NORTH);
+    start.translate(Direction.EAST);
+    end.translate(Direction.SOUTH);
+    end.translate(Direction.WEST);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
 
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
+    for (Direction dir : Direction.CARDINAL) {
       cursor = origin.copy();
-      cursor.translate(Cardinal.UP, 5);
+      cursor.translate(Direction.UP, 5);
       cursor.translate(dir, 2);
       SingleBlockBrush.AIR.stroke(editor, cursor);
-      for (Cardinal o : dir.orthogonals()) {
+      for (Direction o : dir.orthogonals()) {
         Coord c = cursor.copy();
         c.translate(o);
         stair.setUpsideDown(true).setFacing(o.reverse()).stroke(editor, c);
       }
 
       cursor = origin.copy();
-      cursor.translate(Cardinal.UP, 6);
+      cursor.translate(Direction.UP, 6);
       SingleBlockBrush.AIR.stroke(editor, cursor);
       cursor.translate(dir, 1);
       stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
     }
   }
 
-  private void sideRoom(WorldEditor editor, LevelSettings settings, Coord origin, Cardinal dir) {
+  private void sideRoom(WorldEditor editor, LevelSettings settings, Coord origin, Direction dir) {
 
     Coord start;
     Coord end;
@@ -165,53 +165,53 @@ public class DungeonsPrison extends DungeonBase {
 
     BlockBrush wall = settings.getTheme().getPrimary().getWall();
     start = origin.copy();
-    start.translate(Cardinal.UP, 6);
+    start.translate(Direction.UP, 6);
     end = start.copy();
-    start.translate(Cardinal.NORTH, 3);
-    start.translate(Cardinal.EAST, 3);
-    end.translate(Cardinal.SOUTH, 3);
-    end.translate(Cardinal.WEST, 3);
+    start.translate(Direction.NORTH, 3);
+    start.translate(Direction.EAST, 3);
+    end.translate(Direction.SOUTH, 3);
+    end.translate(Direction.WEST, 3);
     RectSolid.newRect(start, end).fill(editor, wall, false, true);
 
     BlockBrush floor = settings.getTheme().getPrimary().getFloor();
     start = origin.copy();
-    start.translate(Cardinal.DOWN);
+    start.translate(Direction.DOWN);
     end = start.copy();
-    start.translate(Cardinal.NORTH, 3);
-    start.translate(Cardinal.EAST, 3);
-    end.translate(Cardinal.SOUTH, 3);
-    end.translate(Cardinal.WEST, 3);
+    start.translate(Direction.NORTH, 3);
+    start.translate(Direction.EAST, 3);
+    end.translate(Direction.SOUTH, 3);
+    end.translate(Direction.WEST, 3);
     RectSolid.newRect(start, end).fill(editor, floor, false, true);
 
     start = origin.copy();
     end = origin.copy();
-    start.translate(Cardinal.NORTH, 3);
-    start.translate(Cardinal.WEST, 3);
-    end.translate(Cardinal.SOUTH, 3);
-    end.translate(Cardinal.EAST, 3);
-    end.translate(Cardinal.UP, height);
+    start.translate(Direction.NORTH, 3);
+    start.translate(Direction.WEST, 3);
+    end.translate(Direction.SOUTH, 3);
+    end.translate(Direction.EAST, 3);
+    end.translate(Direction.UP, height);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     start = origin.copy();
     end = origin.copy();
-    start.translate(Cardinal.NORTH, 4);
-    start.translate(Cardinal.WEST, 4);
-    end.translate(Cardinal.SOUTH, 4);
-    end.translate(Cardinal.EAST, 4);
-    end.translate(Cardinal.UP, height + 1);
+    start.translate(Direction.NORTH, 4);
+    start.translate(Direction.WEST, 4);
+    end.translate(Direction.SOUTH, 4);
+    end.translate(Direction.EAST, 4);
+    end.translate(Direction.UP, height + 1);
     settings.getTheme().getPrimary().getWall().fill(editor, new RectHollow(start, end), false, true);
 
     start = origin.copy();
-    start.translate(Cardinal.UP, 4);
+    start.translate(Direction.UP, 4);
     end = start.copy();
     start.translate(dir);
     end.translate(dir.reverse(), 3);
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
-    end.translate(Cardinal.UP);
+    end.translate(Direction.UP);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
-    for (Cardinal d : dir.orthogonals()) {
+    for (Direction d : dir.orthogonals()) {
       cursor = origin.copy();
       cursor.translate(d, 3);
       cursor.translate(dir, 3);
@@ -219,16 +219,16 @@ public class DungeonsPrison extends DungeonBase {
     }
 
     start = origin.copy();
-    start.translate(Cardinal.UP, 4);
+    start.translate(Direction.UP, 4);
     end = start.copy();
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
     start.translate(dir.reverse(), 3);
     end.translate(dir, 2);
 
-    for (Cardinal d : dir.orthogonals()) {
+    for (Direction d : dir.orthogonals()) {
       cursor = origin.copy();
-      cursor.translate(Cardinal.UP, 4);
+      cursor.translate(Direction.UP, 4);
       start = cursor.copy();
       start.translate(d, 2);
       end = start.copy();
@@ -236,7 +236,7 @@ public class DungeonsPrison extends DungeonBase {
       end.translate(d.clockwise(), 3);
       stair.setUpsideDown(true).setFacing(d.reverse()).fill(editor, new RectSolid(start, end));
 
-      cursor.translate(Cardinal.UP, 1);
+      cursor.translate(Direction.UP, 1);
       start = cursor.copy();
       start.translate(d);
       end = start.copy();
@@ -247,7 +247,7 @@ public class DungeonsPrison extends DungeonBase {
 
 
     cursor = origin.copy();
-    cursor.translate(Cardinal.UP, 4);
+    cursor.translate(Direction.UP, 4);
     start = cursor.copy();
     start.translate(dir, 2);
     end = start.copy();
@@ -255,7 +255,7 @@ public class DungeonsPrison extends DungeonBase {
     end.translate(dir.clockwise(), 2);
     stair.setUpsideDown(true).setFacing(dir.reverse()).fill(editor, new RectSolid(start, end));
 
-    cursor.translate(Cardinal.UP, 1);
+    cursor.translate(Direction.UP, 1);
     SingleBlockBrush.AIR.stroke(editor, cursor);
     start = cursor.copy();
     start.translate(dir, 1);
@@ -271,24 +271,24 @@ public class DungeonsPrison extends DungeonBase {
     StairsBlock stair = settings.getTheme().getPrimary().getStair();
 
     cursor = origin.copy();
-    cursor.translate(Cardinal.UP, height - 1);
+    cursor.translate(Direction.UP, height - 1);
     editor.fillDown(cursor.copy(), pillar);
-    cursor.translate(Cardinal.UP);
+    cursor.translate(Direction.UP);
     pillar.stroke(editor, cursor);
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
+    for (Direction dir : Direction.CARDINAL) {
       cursor.translate(dir);
       stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor, true, false);
     }
   }
 
-  private void cell(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Cardinal> entrances, boolean occupied) {
+  private void cell(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, List<Direction> entrances, boolean occupied) {
 
     Coord start;
     Coord end;
     Coord cursor;
 
     cursor = origin.copy();
-    cursor.translate(Cardinal.DOWN);
+    cursor.translate(Direction.DOWN);
     if (editor.isAirBlock(cursor)) {
       return;
     }
@@ -298,37 +298,37 @@ public class DungeonsPrison extends DungeonBase {
 
     start = origin.copy();
     end = origin.copy();
-    start.translate(Cardinal.DOWN);
-    start.translate(Cardinal.NORTH, 2);
-    start.translate(Cardinal.WEST, 2);
-    end.translate(Cardinal.SOUTH, 2);
-    end.translate(Cardinal.EAST, 2);
-    end.translate(Cardinal.UP, 4);
+    start.translate(Direction.DOWN);
+    start.translate(Direction.NORTH, 2);
+    start.translate(Direction.WEST, 2);
+    end.translate(Direction.SOUTH, 2);
+    end.translate(Direction.EAST, 2);
+    end.translate(Direction.UP, 4);
     RectHollow.newRect(start, end).fill(editor, wall, false, true);
 
     BlockBrush floor = settings.getTheme().getPrimary().getFloor();
     start = origin.copy();
-    start.translate(Cardinal.DOWN);
+    start.translate(Direction.DOWN);
     end = start.copy();
-    start.translate(Cardinal.NORTH, 1);
-    start.translate(Cardinal.EAST, 1);
-    end.translate(Cardinal.SOUTH, 1);
-    end.translate(Cardinal.WEST, 1);
+    start.translate(Direction.NORTH, 1);
+    start.translate(Direction.EAST, 1);
+    end.translate(Direction.SOUTH, 1);
+    end.translate(Direction.WEST, 1);
     RectSolid.newRect(start, end).fill(editor, floor, false, true);
 
-    for (Cardinal dir : entrances) {
+    for (Direction dir : entrances) {
       cursor = origin.copy();
       cursor.translate(dir, 2);
       start = cursor.copy();
       end = cursor.copy();
       start.translate(dir.antiClockwise());
       end.translate(dir.clockwise());
-      end.translate(Cardinal.UP, 2);
+      end.translate(Direction.UP, 2);
       RectSolid.newRect(start, end).fill(editor, bar);
 
       if (rand.nextBoolean()) {
         SingleBlockBrush.AIR.stroke(editor, cursor);
-        cursor.translate(Cardinal.UP);
+        cursor.translate(Direction.UP);
         SingleBlockBrush.AIR.stroke(editor, cursor);
       }
     }

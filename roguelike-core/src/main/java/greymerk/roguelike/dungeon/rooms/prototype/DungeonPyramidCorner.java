@@ -9,7 +9,7 @@ import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
@@ -22,7 +22,7 @@ public class DungeonPyramidCorner extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Direction> entrances) {
 
     int x = origin.getX();
     int y = origin.getY();
@@ -44,16 +44,16 @@ public class DungeonPyramidCorner extends DungeonBase {
     Coord cursor;
 
     cursor = new Coord(x, y, z);
-    cursor.translate(Cardinal.UP, 4);
+    cursor.translate(Direction.UP, 4);
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
-    cursor.translate(Cardinal.UP, 1);
+    cursor.translate(Direction.UP, 1);
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
 
 
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
+    for (Direction dir : Direction.CARDINAL) {
 
       cursor = new Coord(x, y, z);
-      cursor.translate(Cardinal.UP, 4);
+      cursor.translate(Direction.UP, 4);
       cursor.translate(dir);
       SingleBlockBrush.AIR.stroke(worldEditor, cursor);
 
@@ -61,7 +61,7 @@ public class DungeonPyramidCorner extends DungeonBase {
       cursor.translate(dir, 2);
       cursor.translate(dir.orthogonals()[0], 2);
       start = cursor.copy();
-      cursor.translate(Cardinal.UP, 2);
+      cursor.translate(Direction.UP, 2);
       end = cursor.copy();
       RectSolid.newRect(start, end).fill(worldEditor, pillar);
     }

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 
 public class LevelGeneratorClassic implements ILevelGenerator {
@@ -26,7 +26,7 @@ public class LevelGeneratorClassic implements ILevelGenerator {
   public void generate(Coord start) {
     this.start = start;
     List<Node> gNodes = new ArrayList<>();
-    Node startNode = new Node(Cardinal.randomDirection(random), start);
+    Node startNode = new Node(Direction.randomDirection(random), start);
     gNodes.add(startNode);
 
     while (!isDone(gNodes)) {
@@ -98,12 +98,12 @@ public class LevelGeneratorClassic implements ILevelGenerator {
   private class Tunneler {
 
     private boolean done;
-    private Cardinal dir;
+    private Direction dir;
     private Coord start;
     private Coord end;
     private int extend;
 
-    public Tunneler(Cardinal dir, Coord start) {
+    public Tunneler(Direction dir, Coord start) {
       done = false;
       this.dir = dir;
       this.start = start.copy();
@@ -133,7 +133,7 @@ public class LevelGeneratorClassic implements ILevelGenerator {
       return done;
     }
 
-    public Cardinal getDirection() {
+    public Direction getDirection() {
       return dir;
     }
 
@@ -149,10 +149,10 @@ public class LevelGeneratorClassic implements ILevelGenerator {
   private class Node {
 
     private List<Tunneler> tunnelers;
-    private Cardinal direction;
+    private Direction direction;
     private Coord pos;
 
-    public Node(Cardinal direction, Coord pos) {
+    public Node(Direction direction, Coord pos) {
       tunnelers = new ArrayList<>();
       this.direction = direction;
       this.pos = pos;
@@ -166,7 +166,7 @@ public class LevelGeneratorClassic implements ILevelGenerator {
         return;
       }
 
-      for (Cardinal dir : Cardinal.DIRECTIONS) {
+      for (Direction dir : Direction.CARDINAL) {
 
         if (dir.equals(direction.reverse())) {
           continue;
@@ -195,8 +195,8 @@ public class LevelGeneratorClassic implements ILevelGenerator {
       return pos.copy();
     }
 
-    public List<Cardinal> getEntrances() {
-      List<Cardinal> entrances = new ArrayList<>();
+    public List<Direction> getEntrances() {
+      List<Direction> entrances = new ArrayList<>();
       entrances.add(direction.reverse());
       tunnelers.stream().map(tunneler -> tunneler.dir).forEach(entrances::add);
       return entrances;

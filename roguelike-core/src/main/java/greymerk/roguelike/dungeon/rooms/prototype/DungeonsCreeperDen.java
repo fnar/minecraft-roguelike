@@ -11,7 +11,7 @@ import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
@@ -26,7 +26,7 @@ public class DungeonsCreeperDen extends DungeonBase {
     super(roomSetting, levelSettings, worldEditor);
   }
 
-  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Direction> entrances) {
 
     ThemeBase theme = levelSettings.getTheme();
 
@@ -82,7 +82,7 @@ public class DungeonsCreeperDen extends DungeonBase {
 
   private void spawnTntBeneath(WorldEditor editor, Coord coord) {
     Coord cursor = coord.copy();
-    cursor.translate(Cardinal.DOWN, 2);
+    cursor.translate(Direction.DOWN, 2);
     TNT_META_BLOCK.stroke(editor, cursor);
   }
 

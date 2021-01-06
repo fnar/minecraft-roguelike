@@ -5,7 +5,7 @@ import com.github.srwaggon.roguelike.worldgen.block.BlockType;
 import com.github.srwaggon.roguelike.worldgen.block.redstone.DoorBlock;
 
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 
 public enum Wood {
 
@@ -61,7 +61,7 @@ public enum Wood {
   }
 
   public BlockBrush getLog() {
-    return getLogBlockType().getBrush().setFacing(Cardinal.UP);
+    return getLogBlockType().getBrush().setFacing(Direction.UP);
   }
 
   private BlockType getFenceBlockType() {

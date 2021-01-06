@@ -72,13 +72,13 @@ import net.minecraft.util.EnumFacing;
 
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.util.DyeColor;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.MetaBlock1_2;
 
 public class BlockMapper1_12 {
 
   public static MetaBlock1_2 map(SingleBlockBrush block) {
-    Cardinal facing = block.getFacing();
+    Direction facing = block.getFacing();
 
     EnumFacing enumFacing = facing.getFacing();
 
@@ -279,19 +279,19 @@ public class BlockMapper1_12 {
             : BlockRedstoneComparator.Mode.COMPARE);
   }
 
-  private static MetaBlock1_2 getCocoaBlock(Cardinal facing) {
+  private static MetaBlock1_2 getCocoaBlock(Direction facing) {
     return new MetaBlock1_2(Blocks.COCOA)
         .withProperty(BlockCocoa.FACING, facing.reverse().getFacing())
         .withProperty(BlockCocoa.AGE, 2);
   }
 
   private static MetaBlock1_2 getLever(LeverBlock leverBlock) {
-    Cardinal dir = leverBlock.getFacing();
+    Direction dir = leverBlock.getFacing();
     return new MetaBlock1_2(Blocks.LEVER)
         .withProperty(BlockLever.POWERED, leverBlock.isActive())
-        .withProperty(BlockLever.FACING, dir == Cardinal.UP
+        .withProperty(BlockLever.FACING, dir == Direction.UP
             ? BlockLever.EnumOrientation.UP_X
-            : dir == Cardinal.DOWN
+            : dir == Direction.DOWN
                 ? BlockLever.EnumOrientation.DOWN_X
                 : dir.reverse().getOrientation());
   }
@@ -772,11 +772,11 @@ public class BlockMapper1_12 {
             ? Blocks.REDSTONE_TORCH
             : Blocks.TORCH;
 
-    Cardinal dir = torchBlock.getFacing();
+    Direction dir = torchBlock.getFacing();
 
-    EnumFacing facing = dir == Cardinal.UP
+    EnumFacing facing = dir == Direction.UP
         ? EnumFacing.UP
-        : dir == Cardinal.DOWN
+        : dir == Direction.DOWN
             ? EnumFacing.DOWN
             : dir.reverse().getFacing();
 
@@ -823,14 +823,14 @@ public class BlockMapper1_12 {
     }
   }
 
-  public static MetaBlock1_2 getLogMetaBlock(Wood type, Cardinal facing) {
+  public static MetaBlock1_2 getLogMetaBlock(Wood type, Direction facing) {
     Block minecraftLogBlock = getMinecraftLogBlock(type);
     MetaBlock1_2 log = new MetaBlock1_2(minecraftLogBlock);
     MetaBlock1_2 logWithVariants = addLogVariants(log, type);
     return addLogFacing(logWithVariants, facing);
   }
 
-  private static MetaBlock1_2 addLogFacing(MetaBlock1_2 log, Cardinal facing) {
+  private static MetaBlock1_2 addLogFacing(MetaBlock1_2 log, Direction facing) {
     switch (facing) {
       case UP:
       case DOWN:
@@ -973,13 +973,13 @@ public class BlockMapper1_12 {
     }
   }
 
-  public static MetaBlock1_2 createVine(Cardinal dir) {
+  public static MetaBlock1_2 createVine(Direction dir) {
     MetaBlock1_2 vine = new MetaBlock1_2(Blocks.VINE);
-    vine.withProperty(BlockVine.UP, dir == Cardinal.UP);
-    vine.withProperty(BlockVine.NORTH, dir == Cardinal.NORTH);
-    vine.withProperty(BlockVine.EAST, dir == Cardinal.EAST);
-    vine.withProperty(BlockVine.SOUTH, dir == Cardinal.SOUTH);
-    vine.withProperty(BlockVine.WEST, dir == Cardinal.WEST);
+    vine.withProperty(BlockVine.UP, dir == Direction.UP);
+    vine.withProperty(BlockVine.NORTH, dir == Direction.NORTH);
+    vine.withProperty(BlockVine.EAST, dir == Direction.EAST);
+    vine.withProperty(BlockVine.SOUTH, dir == Direction.SOUTH);
+    vine.withProperty(BlockVine.WEST, dir == Direction.WEST);
     return vine;
   }
 
@@ -1065,7 +1065,7 @@ public class BlockMapper1_12 {
     }
   }
 
-  public static MetaBlock1_2 getQuartz(Quartz type, Cardinal facing) {
+  public static MetaBlock1_2 getQuartz(Quartz type, Direction facing) {
     MetaBlock1_2 block = new MetaBlock1_2(Blocks.QUARTZ_BLOCK);
     switch (type) {
       case CHISELED:
@@ -1079,7 +1079,7 @@ public class BlockMapper1_12 {
     }
   }
 
-  public static MetaBlock1_2 addPillarLines(MetaBlock1_2 block, Cardinal facing) {
+  public static MetaBlock1_2 addPillarLines(MetaBlock1_2 block, Direction facing) {
     switch (facing) {
       case EAST:
       case WEST:

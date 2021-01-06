@@ -6,7 +6,7 @@ import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockStripes;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import com.github.srwaggon.roguelike.worldgen.block.BlockType;
 import com.github.srwaggon.roguelike.worldgen.block.normal.Quartz;
 
@@ -33,7 +33,7 @@ public class ThemeEniQuartz extends ThemeBase {
 
     BlockBrush quartz = BlockType.QUARTZ.getBrush();
     StairsBlock quartzStair = StairsBlock.quartz();
-    BlockBrush quartzPillar = Quartz.PILLAR.getBrush().setFacing(Cardinal.UP);
+    BlockBrush quartzPillar = Quartz.PILLAR.getBrush().setFacing(Direction.UP);
 
     this.secondary = new BlockSet(floor, quartz, quartzStair, quartzPillar);
   }

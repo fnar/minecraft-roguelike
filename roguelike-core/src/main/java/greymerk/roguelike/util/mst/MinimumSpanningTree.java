@@ -10,7 +10,7 @@ import java.util.Set;
 import greymerk.roguelike.util.graph.Edge;
 import greymerk.roguelike.util.graph.Graph;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
@@ -35,13 +35,13 @@ public class MinimumSpanningTree {
     for (int i = 0; i < size; ++i) {
 
       Coord temp = origin.copy();
-      temp.translate(Cardinal.NORTH, offset);
-      temp.translate(Cardinal.WEST, offset);
-      temp.translate(Cardinal.SOUTH, edgeLength * i);
+      temp.translate(Direction.NORTH, offset);
+      temp.translate(Direction.WEST, offset);
+      temp.translate(Direction.SOUTH, edgeLength * i);
 
       for (int j = 0; j < size; ++j) {
         points.add(new MSTPoint(temp.copy(), rand));
-        temp.translate(Cardinal.EAST, edgeLength);
+        temp.translate(Direction.EAST, edgeLength);
       }
     }
 

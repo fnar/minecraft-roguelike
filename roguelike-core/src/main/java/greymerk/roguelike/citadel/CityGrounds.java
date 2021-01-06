@@ -13,7 +13,7 @@ import greymerk.roguelike.util.graph.Edge;
 import greymerk.roguelike.util.graph.Graph;
 import greymerk.roguelike.util.mst.MSTPoint;
 import greymerk.roguelike.util.mst.MinimumSpanningTree;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
@@ -50,14 +50,14 @@ public class CityGrounds {
     RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall());
 
     Coord cursor = pos.copy();
-    cursor.translate(Cardinal.UP, 20);
+    cursor.translate(Direction.UP, 20);
 
     for (Edge<MSTPoint> e : mst.getEdges()) {
       start = e.getStart().getPosition();
       start.translate(cursor);
       end = e.getEnd().getPosition();
       end.translate(cursor);
-      end.translate(Cardinal.DOWN, 20);
+      end.translate(Direction.DOWN, 20);
       RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall());
     }
 

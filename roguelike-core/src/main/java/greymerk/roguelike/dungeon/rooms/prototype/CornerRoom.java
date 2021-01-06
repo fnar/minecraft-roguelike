@@ -9,7 +9,7 @@ import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.BlockSet;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
@@ -22,7 +22,7 @@ public class CornerRoom extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Direction> entrances) {
     BlockSet primary = levelSettings.getTheme().getPrimary();
     createHollowCenter(worldEditor, origin);
     createShell(worldEditor, origin, primary.getWall());
@@ -33,7 +33,7 @@ public class CornerRoom extends DungeonBase {
   }
 
   private void createCornerWalls(WorldEditor editor, Coord origin, BlockSet primary) {
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
+    for (Direction dir : Direction.CARDINAL) {
       Coord cursor = origin.copy()
           .translate(dir, 2)
           .translate(dir.antiClockwise(), 2);
@@ -52,14 +52,14 @@ public class CornerRoom extends DungeonBase {
 
     primary.getWall().stroke(editor, origin.copy().up(5));
 
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
+    for (Direction dir : Direction.CARDINAL) {
       Coord ceiling = origin.copy()
           .translate(dir, 1)
           .up(4);
       primary.getStair().setUpsideDown(true).setFacing(dir.reverse());
       primary.getStair().stroke(editor, ceiling);
 
-      for (Cardinal orthogonal : dir.orthogonals()) {
+      for (Direction orthogonal : dir.orthogonals()) {
         Coord decorativeCeiling = origin.copy()
             .translate(dir, 2)
             .translate(orthogonal, 1)

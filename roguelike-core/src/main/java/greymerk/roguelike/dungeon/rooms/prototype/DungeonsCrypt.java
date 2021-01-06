@@ -13,7 +13,7 @@ import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
@@ -25,7 +25,7 @@ public class DungeonsCrypt extends DungeonBase {
     super(roomSetting, levelSettings, worldEditor);
   }
 
-  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Direction> entrances) {
     Random rand = worldEditor.getRandom();
     ThemeBase theme = levelSettings.getTheme();
     StairsBlock stair = theme.getPrimary().getStair();
@@ -54,7 +54,7 @@ public class DungeonsCrypt extends DungeonBase {
     end.translate(new Coord(9, 6, 9));
     RectSolid.newRect(start, end).fill(worldEditor, walls, false, true);
 
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
+    for (Direction dir : Direction.CARDINAL) {
 
       if (entrances.contains(dir) && entrances.contains(dir.antiClockwise())) {
         start = origin.copy();
@@ -62,7 +62,7 @@ public class DungeonsCrypt extends DungeonBase {
         start.translate(dir, 3);
         end.translate(dir.antiClockwise(), 5);
         end.translate(dir, 5);
-        end.translate(Cardinal.UP, 4);
+        end.translate(Direction.UP, 4);
         RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
       }
 
@@ -74,16 +74,16 @@ public class DungeonsCrypt extends DungeonBase {
         start.translate(dir.antiClockwise(), 2);
         end.translate(dir, 8);
         end.translate(dir.clockwise(), 2);
-        end.translate(Cardinal.UP, 4);
+        end.translate(Direction.UP, 4);
         RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
 
-        for (Cardinal o : dir.orthogonals()) {
+        for (Direction o : dir.orthogonals()) {
           if (entrances.contains(o)) {
 
             cursor = origin.copy();
             cursor.translate(dir, 7);
             cursor.translate(o, 3);
-            cursor.translate(Cardinal.UP);
+            cursor.translate(Direction.UP);
 
             crypt(worldEditor, rand, levelSettings, cursor, o);
           } else {
@@ -94,13 +94,13 @@ public class DungeonsCrypt extends DungeonBase {
             start.translate(o, 3);
             end.translate(dir, 8);
             end.translate(o, 8);
-            end.translate(Cardinal.UP, 4);
+            end.translate(Direction.UP, 4);
             RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
 
             cursor = origin.copy();
             cursor.translate(dir, 6);
             cursor.translate(o, 3);
-            cursor.translate(Cardinal.UP);
+            cursor.translate(Direction.UP);
 
             sarcophagus(worldEditor, rand, levelSettings, cursor, o);
           }
@@ -119,7 +119,7 @@ public class DungeonsCrypt extends DungeonBase {
 
       start = origin.copy();
       start.translate(dir, 8);
-      start.translate(Cardinal.UP, 4);
+      start.translate(Direction.UP, 4);
       end = start.copy();
       start.translate(dir.antiClockwise(), 2);
       end.translate(dir.clockwise(), 2);
@@ -130,7 +130,7 @@ public class DungeonsCrypt extends DungeonBase {
     return this;
   }
 
-  private void sarcophagus(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal dir) {
+  private void sarcophagus(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Direction dir) {
 
     ThemeBase theme = settings.getTheme();
 
@@ -142,7 +142,7 @@ public class DungeonsCrypt extends DungeonBase {
     Coord end;
 
     start = origin.copy();
-    start.translate(Cardinal.DOWN);
+    start.translate(Direction.DOWN);
     start.translate(dir, 5);
     end = start.copy();
     start.translate(dir.antiClockwise(), 2);
@@ -151,27 +151,27 @@ public class DungeonsCrypt extends DungeonBase {
 
     cursor = origin.copy();
     cursor.translate(dir, 5);
-    cursor.translate(Cardinal.UP, 3);
+    cursor.translate(Direction.UP, 3);
     stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
 
-    for (Cardinal o : dir.orthogonals()) {
+    for (Direction o : dir.orthogonals()) {
       start = origin.copy();
-      start.translate(Cardinal.DOWN);
+      start.translate(Direction.DOWN);
       start.translate(dir);
       start.translate(o, 3);
       end = start.copy();
       end.translate(dir, 4);
-      end.translate(Cardinal.UP, 4);
+      end.translate(Direction.UP, 4);
       RectSolid.newRect(start, end).fill(editor, walls);
 
       cursor = origin.copy();
-      cursor.translate(Cardinal.DOWN);
+      cursor.translate(Direction.DOWN);
       cursor.translate(dir, 5);
       cursor.translate(o, 2);
       pillar(editor, settings, cursor);
 
       start = origin.copy();
-      start.translate(Cardinal.UP, 3);
+      start.translate(Direction.UP, 3);
       start.translate(o, 2);
       end = start.copy();
       end.translate(dir, 3);
@@ -182,9 +182,9 @@ public class DungeonsCrypt extends DungeonBase {
     cursor = origin.copy();
     tomb(editor, rand, settings, cursor, dir);
 
-    cursor.translate(Cardinal.UP);
+    cursor.translate(Direction.UP);
     stair.setUpsideDown(false).setFacing(dir.reverse()).stroke(editor, cursor);
-    cursor.translate(Cardinal.DOWN, 2);
+    cursor.translate(Direction.DOWN, 2);
     stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
     cursor.translate(dir);
     walls.stroke(editor, cursor);
@@ -192,33 +192,33 @@ public class DungeonsCrypt extends DungeonBase {
     walls.stroke(editor, cursor);
     cursor.translate(dir);
     stair.setUpsideDown(false).setFacing(dir).stroke(editor, cursor);
-    cursor.translate(Cardinal.UP);
+    cursor.translate(Direction.UP);
     stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor);
-    cursor.translate(Cardinal.UP);
+    cursor.translate(Direction.UP);
     stair.setUpsideDown(false).setFacing(dir).stroke(editor, cursor);
 
-    for (Cardinal o : dir.orthogonals()) {
+    for (Direction o : dir.orthogonals()) {
       cursor = origin.copy();
-      cursor.translate(Cardinal.DOWN);
+      cursor.translate(Direction.DOWN);
       cursor.translate(o);
       start = cursor.copy();
       end = cursor.copy();
       end.translate(dir, 3);
       stair.setUpsideDown(false).setFacing(o);
       RectSolid.newRect(start, end).fill(editor, stair);
-      start.translate(Cardinal.UP);
-      end.translate(Cardinal.UP);
+      start.translate(Direction.UP);
+      end.translate(Direction.UP);
       stair.setUpsideDown(true).setFacing(o);
       RectSolid.newRect(start, end).fill(editor, stair);
-      start.translate(Cardinal.UP);
-      end.translate(Cardinal.UP);
+      start.translate(Direction.UP);
+      end.translate(Direction.UP);
       stair.setUpsideDown(false).setFacing(o);
       RectSolid.newRect(start, end).fill(editor, stair);
     }
 
   }
 
-  private void crypt(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal dir) {
+  private void crypt(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Direction dir) {
 
     ThemeBase theme = settings.getTheme();
 
@@ -230,10 +230,10 @@ public class DungeonsCrypt extends DungeonBase {
     Coord end;
 
     start = origin.copy();
-    start.translate(Cardinal.DOWN);
+    start.translate(Direction.DOWN);
     start.translate(dir.antiClockwise());
     end = origin.copy();
-    end.translate(Cardinal.UP, 3);
+    end.translate(Direction.UP, 3);
     end.translate(dir.clockwise());
     end.translate(dir, 3);
 
@@ -241,24 +241,24 @@ public class DungeonsCrypt extends DungeonBase {
 
     cursor = origin.copy();
     cursor.translate(dir.reverse());
-    cursor.translate(Cardinal.UP, 2);
+    cursor.translate(Direction.UP, 2);
     stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
-    cursor.translate(Cardinal.UP);
+    cursor.translate(Direction.UP);
     walls.stroke(editor, cursor);
 
-    for (Cardinal o : dir.orthogonals()) {
+    for (Direction o : dir.orthogonals()) {
       cursor = origin.copy();
       cursor.translate(dir.reverse());
-      cursor.translate(Cardinal.UP);
+      cursor.translate(Direction.UP);
       cursor.translate(o);
       stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
-      cursor.translate(Cardinal.UP);
+      cursor.translate(Direction.UP);
       walls.stroke(editor, cursor);
-      cursor.translate(Cardinal.UP);
+      cursor.translate(Direction.UP);
       walls.stroke(editor, cursor);
 
       start = origin.copy();
-      start.translate(Cardinal.UP, 3);
+      start.translate(Direction.UP, 3);
       start.translate(dir.reverse(), 2);
       start.translate(o, 2);
       end = start.copy();
@@ -268,7 +268,7 @@ public class DungeonsCrypt extends DungeonBase {
     }
 
     start = origin.copy();
-    start.translate(Cardinal.UP, 3);
+    start.translate(Direction.UP, 3);
     start.translate(dir.reverse(), 2);
     end = start.copy();
     start.translate(dir.antiClockwise());
@@ -279,7 +279,7 @@ public class DungeonsCrypt extends DungeonBase {
     tomb(editor, rand, settings, origin, dir);
   }
 
-  private void mausoleumWall(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal dir) {
+  private void mausoleumWall(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Direction dir) {
 
     ThemeBase theme = settings.getTheme();
     BlockBrush walls = theme.getPrimary().getWall();
@@ -293,23 +293,23 @@ public class DungeonsCrypt extends DungeonBase {
     start.translate(dir.antiClockwise(), 3);
     end.translate(dir.clockwise(), 3);
     end.translate(dir, 4);
-    end.translate(Cardinal.UP, 4);
+    end.translate(Direction.UP, 4);
     RectSolid.newRect(start, end).fill(editor, walls);
 
     cursor = origin.copy();
-    cursor.translate(Cardinal.UP);
+    cursor.translate(Direction.UP);
     tomb(editor, rand, settings, cursor, dir);
 
-    cursor.translate(Cardinal.UP, 2);
+    cursor.translate(Direction.UP, 2);
     tomb(editor, rand, settings, cursor, dir);
 
-    for (Cardinal o : dir.orthogonals()) {
+    for (Direction o : dir.orthogonals()) {
       cursor = origin.copy();
-      cursor.translate(Cardinal.UP);
+      cursor.translate(Direction.UP);
       cursor.translate(o, 2);
       tomb(editor, rand, settings, cursor, dir);
 
-      cursor.translate(Cardinal.UP, 2);
+      cursor.translate(Direction.UP, 2);
       tomb(editor, rand, settings, cursor, dir);
     }
 
@@ -328,10 +328,10 @@ public class DungeonsCrypt extends DungeonBase {
 
     start = origin.copy();
     end = origin.copy();
-    end.translate(Cardinal.UP, 4);
+    end.translate(Direction.UP, 4);
     RectSolid.newRect(start, end).fill(editor, walls);
 
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
+    for (Direction dir : Direction.CARDINAL) {
       cursor = end.copy();
       cursor.translate(dir);
       stair.setUpsideDown(true).setFacing(dir);
@@ -339,7 +339,7 @@ public class DungeonsCrypt extends DungeonBase {
     }
   }
 
-  private void tomb(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Cardinal dir) {
+  private void tomb(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Direction dir) {
 
     ThemeBase theme = settings.getTheme();
     Coord cursor;
@@ -349,7 +349,7 @@ public class DungeonsCrypt extends DungeonBase {
 
     cursor = origin.copy();
     cursor.translate(dir, 2);
-    cursor.translate(Cardinal.UP);
+    cursor.translate(Direction.UP);
     stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
 
     cursor.translate(dir.reverse());

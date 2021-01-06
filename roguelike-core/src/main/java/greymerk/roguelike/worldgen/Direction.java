@@ -5,11 +5,12 @@ import com.google.common.collect.Lists;
 import net.minecraft.block.BlockLever.EnumOrientation;
 import net.minecraft.util.EnumFacing;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
 
-public enum Cardinal {
+public enum Direction {
 
   NORTH(EnumFacing.SOUTH, EnumOrientation.SOUTH),
   EAST(EnumFacing.WEST, EnumOrientation.WEST),
@@ -22,7 +23,7 @@ public enum Cardinal {
   private final EnumFacing facing;
   private final EnumOrientation orientation;
 
-  Cardinal(
+  Direction(
       EnumFacing facing,
       EnumOrientation orientation
   ) {
@@ -30,8 +31,8 @@ public enum Cardinal {
     this.orientation = orientation;
   }
 
-  public static Cardinal randomDirection(Random random) {
-    return DIRECTIONS.get(random.nextInt(DIRECTIONS.size()));
+  public static Direction randomDirection(Random random) {
+    return CARDINAL.get(random.nextInt(CARDINAL.size()));
   }
 
   public EnumFacing getFacing() {
@@ -42,9 +43,9 @@ public enum Cardinal {
     return orientation;
   }
 
-  public static List<Cardinal> DIRECTIONS = Lists.newArrayList(NORTH, EAST, SOUTH, WEST);
+  public static List<Direction> CARDINAL = Collections.unmodifiableList(Lists.newArrayList(NORTH, EAST, SOUTH, WEST));
 
-  public Cardinal reverse() {
+  public Direction reverse() {
     switch (this) {
       case NORTH:
         return SOUTH;
@@ -62,7 +63,7 @@ public enum Cardinal {
     }
   }
 
-  public Cardinal antiClockwise() {
+  public Direction antiClockwise() {
     switch (this) {
       case NORTH:
         return WEST;
@@ -77,7 +78,7 @@ public enum Cardinal {
     }
   }
 
-  public Cardinal clockwise() {
+  public Direction clockwise() {
     switch (this) {
       case NORTH:
         return EAST;
@@ -92,18 +93,18 @@ public enum Cardinal {
     }
   }
 
-  public Cardinal[] orthogonals() {
+  public Direction[] orthogonals() {
     switch (this) {
       case NORTH:
-        return new Cardinal[]{WEST, EAST};
+        return new Direction[]{WEST, EAST};
       case SOUTH:
-        return new Cardinal[]{EAST, WEST};
+        return new Direction[]{EAST, WEST};
       case EAST:
-        return new Cardinal[]{NORTH, SOUTH};
+        return new Direction[]{NORTH, SOUTH};
       case WEST:
-        return new Cardinal[]{SOUTH, NORTH};
+        return new Direction[]{SOUTH, NORTH};
       default:
-        return new Cardinal[]{this, this};
+        return new Direction[]{this, this};
     }
   }
 }

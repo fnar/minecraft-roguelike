@@ -6,7 +6,7 @@ import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.dungeon.settings.SettingsResolver;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
@@ -38,7 +38,7 @@ public abstract class DungeonBase implements Comparable<DungeonBase> {
         .collect(toList());
   }
 
-  public abstract DungeonBase generate(Coord origin, List<Cardinal> entrances);
+  public abstract DungeonBase generate(Coord origin, List<Direction> entrances);
 
   protected void generateSpawner(Coord spawnerLocation, MobType... defaultMobs) {
     int difficulty = levelSettings.getDifficulty(spawnerLocation);
@@ -70,7 +70,7 @@ public abstract class DungeonBase implements Comparable<DungeonBase> {
 
   public abstract int getSize();
 
-  public boolean validLocation(WorldEditor editor, Cardinal dir, Coord pos) {
+  public boolean validLocation(WorldEditor editor, Direction dir, Coord pos) {
 
     int size = getSize();
     Coord start = new Coord(pos.getX() - size, pos.getY() - 2, pos.getZ() - size);

@@ -11,7 +11,7 @@ import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.treasure.loot.ChestType;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
@@ -24,7 +24,7 @@ public class DungeonReward extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Direction> entrances) {
 
     int x = origin.getX();
     int y = origin.getY();
@@ -41,66 +41,66 @@ public class DungeonReward extends DungeonBase {
 
     StairsBlock stair = theme.getPrimary().getStair();
 
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
-      for (Cardinal orthogonal : dir.orthogonals()) {
+    for (Direction dir : Direction.CARDINAL) {
+      for (Direction orthogonal : dir.orthogonals()) {
         cursor = new Coord(x, y, z);
         cursor.translate(dir, 7);
         cursor.translate(orthogonal, 2);
         start = cursor.copy();
         end = start.copy();
-        end.translate(Cardinal.UP, 5);
+        end.translate(Direction.UP, 5);
         RectSolid.newRect(start, end).fill(worldEditor, theme.getPrimary().getWall());
         cursor.translate(dir.reverse());
         stair.setUpsideDown(false).setFacing(dir.reverse()).stroke(worldEditor, cursor);
-        cursor.translate(Cardinal.UP, 2);
+        cursor.translate(Direction.UP, 2);
         stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
-        cursor.translate(Cardinal.UP);
+        cursor.translate(Direction.UP);
         start = cursor.copy();
         end = start.copy();
-        end.translate(Cardinal.UP, 2);
+        end.translate(Direction.UP, 2);
         RectSolid.newRect(start, end).fill(worldEditor, theme.getPrimary().getWall());
         cursor.translate(dir.reverse());
         stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
-        cursor.translate(Cardinal.UP);
+        cursor.translate(Direction.UP);
         start = cursor.copy();
         end = start.copy();
-        end.translate(Cardinal.UP);
+        end.translate(Direction.UP);
         RectSolid.newRect(start, end).fill(worldEditor, theme.getPrimary().getWall());
-        cursor.translate(Cardinal.UP);
+        cursor.translate(Direction.UP);
         cursor.translate(dir.reverse());
         stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
 
         start = new Coord(x, y, z);
         start.translate(dir, 7);
-        start.translate(Cardinal.UP, 3);
+        start.translate(Direction.UP, 3);
         end = start.copy();
-        end.translate(Cardinal.UP, 2);
+        end.translate(Direction.UP, 2);
         end.translate(orthogonal);
         RectSolid.newRect(start, end).fill(worldEditor, theme.getPrimary().getWall());
         start.translate(dir.reverse());
-        start.translate(Cardinal.UP);
+        start.translate(Direction.UP);
         end.translate(dir.reverse());
         RectSolid.newRect(start, end).fill(worldEditor, theme.getPrimary().getWall());
         start.translate(dir.reverse());
-        start.translate(Cardinal.UP);
+        start.translate(Direction.UP);
         end.translate(dir.reverse());
         RectSolid.newRect(start, end).fill(worldEditor, theme.getPrimary().getWall());
 
         cursor = new Coord(x, y, z);
         cursor.translate(dir, 8);
-        cursor.translate(Cardinal.UP, 2);
+        cursor.translate(Direction.UP, 2);
         cursor.translate(orthogonal);
         stair.setUpsideDown(true).setFacing(orthogonal.reverse()).stroke(worldEditor, cursor, true, false);
         cursor.translate(dir.reverse());
         stair.setUpsideDown(true).setFacing(orthogonal.reverse()).stroke(worldEditor, cursor);
         cursor.translate(dir.reverse());
-        cursor.translate(Cardinal.UP);
+        cursor.translate(Direction.UP);
         stair.setUpsideDown(true).setFacing(orthogonal.reverse()).stroke(worldEditor, cursor);
         cursor.translate(dir.reverse());
-        cursor.translate(Cardinal.UP);
+        cursor.translate(Direction.UP);
         stair.setUpsideDown(true).setFacing(orthogonal.reverse()).stroke(worldEditor, cursor);
         cursor.translate(dir.reverse());
-        cursor.translate(Cardinal.UP);
+        cursor.translate(Direction.UP);
         stair.setUpsideDown(true).setFacing(orthogonal.reverse()).stroke(worldEditor, cursor);
         cursor.translate(dir.reverse(), 2);
         stair.setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
@@ -108,14 +108,14 @@ public class DungeonReward extends DungeonBase {
         start = new Coord(x, y, z);
         start.translate(dir, 7);
         start.translate(orthogonal, 3);
-        start.translate(Cardinal.UP, 3);
+        start.translate(Direction.UP, 3);
         end = start.copy();
-        end.translate(Cardinal.UP, 2);
+        end.translate(Direction.UP, 2);
         end.translate(orthogonal, 2);
         theme.getPrimary().getPillar().fill(worldEditor, new RectSolid(start, end));
 
         start.translate(dir.reverse());
-        start.translate(Cardinal.UP);
+        start.translate(Direction.UP);
         end.translate(dir.reverse());
         RectSolid.newRect(start, end).fill(worldEditor, theme.getPrimary().getPillar());
 
@@ -125,22 +125,22 @@ public class DungeonReward extends DungeonBase {
         stair.setUpsideDown(false).setFacing(orthogonal).stroke(worldEditor, cursor);
         cursor.translate(orthogonal, 2);
         stair.setUpsideDown(false).setFacing(orthogonal.reverse()).stroke(worldEditor, cursor);
-        cursor.translate(Cardinal.UP, 2);
+        cursor.translate(Direction.UP, 2);
         stair.setUpsideDown(true).setFacing(orthogonal.reverse()).stroke(worldEditor, cursor);
         cursor.translate(orthogonal.reverse(), 2);
         stair.setUpsideDown(true).setFacing(orthogonal).stroke(worldEditor, cursor);
         cursor.translate(dir.reverse());
-        cursor.translate(Cardinal.UP);
+        cursor.translate(Direction.UP);
         stair.setUpsideDown(true).setFacing(orthogonal).stroke(worldEditor, cursor);
         cursor.translate(orthogonal, 2);
         stair.setUpsideDown(true).setFacing(orthogonal.reverse()).stroke(worldEditor, cursor);
         cursor.translate(dir.reverse());
-        cursor.translate(Cardinal.UP);
+        cursor.translate(Direction.UP);
         end = cursor.copy();
         end.translate(orthogonal.reverse(), 2);
         RectSolid.newRect(cursor, end).fill(worldEditor, stair.setUpsideDown(true).setFacing(dir.reverse()));
-        cursor.translate(Cardinal.UP);
-        end.translate(Cardinal.UP);
+        cursor.translate(Direction.UP);
+        end.translate(Direction.UP);
         RectSolid.newRect(cursor, end).fill(worldEditor, theme.getPrimary().getWall());
         end.translate(dir.reverse());
         stair.setUpsideDown(true).setFacing(orthogonal).stroke(worldEditor, cursor);
@@ -148,12 +148,12 @@ public class DungeonReward extends DungeonBase {
         cursor = new Coord(x, y, z);
         cursor.translate(dir, 7);
         cursor.translate(orthogonal, 4);
-        cursor.translate(Cardinal.DOWN);
+        cursor.translate(Direction.DOWN);
         BlockType.GLOWSTONE.getBrush().stroke(worldEditor, cursor);
 
       }
 
-      Cardinal o = dir.antiClockwise();
+      Direction o = dir.antiClockwise();
 
       start = new Coord(x, y, z);
       start.translate(dir, 6);
@@ -161,7 +161,7 @@ public class DungeonReward extends DungeonBase {
       end = start.copy();
       end.translate(dir);
       end.translate(o);
-      end.translate(Cardinal.UP, 5);
+      end.translate(Direction.UP, 5);
       RectSolid.newRect(start, end).fill(worldEditor, theme.getPrimary().getPillar());
 
       cursor = new Coord(x, y, z);
@@ -170,7 +170,7 @@ public class DungeonReward extends DungeonBase {
       stair.setUpsideDown(false).setFacing(dir).stroke(worldEditor, cursor);
       cursor.translate(o);
       stair.setUpsideDown(false).setFacing(dir).stroke(worldEditor, cursor);
-      cursor.translate(Cardinal.UP, 4);
+      cursor.translate(Direction.UP, 4);
       stair.setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
       cursor.translate(o.reverse());
       stair.setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
@@ -178,11 +178,11 @@ public class DungeonReward extends DungeonBase {
     }
 
     cursor = new Coord(x, y, z);
-    cursor.translate(Cardinal.UP, 4);
+    cursor.translate(Direction.UP, 4);
     BlockType.GLOWSTONE.getBrush().stroke(worldEditor, cursor);
 
     cursor = new Coord(x, y, z);
-    cursor.translate(Cardinal.UP);
+    cursor.translate(Direction.UP);
     worldEditor.getTreasureChestEditor().createChest(levelSettings.getDifficulty(cursor), cursor, false, getRoomSetting().getChestType().orElse(ChestType.REWARD));
     return this;
   }

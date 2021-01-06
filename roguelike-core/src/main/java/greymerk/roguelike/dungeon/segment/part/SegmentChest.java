@@ -10,24 +10,24 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.treasure.loot.ChestType;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
-import static greymerk.roguelike.worldgen.Cardinal.UP;
+import static greymerk.roguelike.worldgen.Direction.UP;
 
 public class SegmentChest extends SegmentBase {
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Cardinal dir, ThemeBase theme, Coord origin) {
+  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, ThemeBase theme, Coord origin) {
     StairsBlock stair = theme.getSecondary().getStair();
 
     Coord cursor;
     Coord start;
     Coord end;
 
-    Cardinal[] orthogonals = dir.orthogonals();
+    Direction[] orthogonals = dir.orthogonals();
 
     start = origin.copy();
     start.translate(dir, 2);
@@ -40,7 +40,7 @@ public class SegmentChest extends SegmentBase {
     end.translate(dir, 1);
     RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall());
 
-    for (Cardinal d : orthogonals) {
+    for (Direction d : orthogonals) {
       cursor = origin.copy();
       cursor.translate(UP, 2);
       cursor.translate(dir, 2);

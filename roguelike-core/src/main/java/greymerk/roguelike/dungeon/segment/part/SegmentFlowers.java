@@ -8,7 +8,7 @@ import java.util.Random;
 
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.ThemeBase;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
@@ -16,14 +16,14 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class SegmentFlowers extends SegmentBase {
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Cardinal dir, ThemeBase theme, Coord origin) {
+  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, ThemeBase theme, Coord origin) {
     StairsBlock stair = theme.getSecondary().getStair();
 
     Coord cursor = origin.copy();
     Coord start;
     Coord end;
 
-    Cardinal[] orthogonals = dir.orthogonals();
+    Direction[] orthogonals = dir.orthogonals();
 
     cursor.translate(dir, 2);
     start = cursor.copy();
@@ -33,14 +33,14 @@ public class SegmentFlowers extends SegmentBase {
     RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall(), false, true);
     start.translate(dir, 1);
     end.translate(dir, 1);
-    end.translate(Cardinal.UP, 2);
+    end.translate(Direction.UP, 2);
     RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall(), false, true);
     start.translate(dir.reverse(), 1);
-    start.translate(Cardinal.UP, 1);
+    start.translate(Direction.UP, 1);
     end.translate(dir.reverse(), 1);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR, false, true);
-    cursor.translate(Cardinal.UP, 2);
-    for (Cardinal d : orthogonals) {
+    cursor.translate(Direction.UP, 2);
+    for (Direction d : orthogonals) {
       Coord c = cursor.copy();
       c.translate(d, 1);
       stair.setUpsideDown(true).setFacing(d.reverse());
@@ -49,7 +49,7 @@ public class SegmentFlowers extends SegmentBase {
 
     start = origin.copy();
     start.translate(dir, 2);
-    start.translate(Cardinal.UP);
+    start.translate(Direction.UP);
     end = start.copy();
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);

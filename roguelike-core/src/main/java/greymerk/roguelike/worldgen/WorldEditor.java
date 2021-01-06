@@ -53,7 +53,7 @@ public interface WorldEditor {
 
   Map<Block, Integer> getStats();
 
-  boolean canPlace(SingleBlockBrush block, Coord pos, Cardinal dir);
+  boolean canPlace(SingleBlockBrush block, Coord pos, Direction dir);
 
   PositionInfo getInfo(Coord pos);
 
@@ -67,5 +67,5 @@ public interface WorldEditor {
 
   void setFlowerPotContent(Coord pos, Plant choice);
 
-   void setSkull(WorldEditor editor, Coord cursor, Cardinal dir, Skull type);
+   void setSkull(WorldEditor editor, Coord cursor, Direction dir, Skull type);
 }

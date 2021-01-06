@@ -16,7 +16,7 @@ import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
@@ -32,7 +32,7 @@ public class DungeonLibrary extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Direction> entrances) {
 
     Random rand = worldEditor.getRandom();
     int x = origin.getX();
@@ -58,18 +58,18 @@ public class DungeonLibrary extends DungeonBase {
     RectSolid.newRect(new Coord(x - 5, y - 1, z - 5), new Coord(x + 5, y - 1, z + 5)).fill(worldEditor, levelSettings.getTheme().getPrimary().getFloor());
 
     start = origin.copy();
-    start.translate(Cardinal.UP, 5);
+    start.translate(Direction.UP, 5);
     BlockType.REDSTONE_BLOCK.getBrush().stroke(worldEditor, start);
-    start.translate(Cardinal.DOWN);
+    start.translate(Direction.DOWN);
     BlockType.REDSTONE_LAMP_LIT.getBrush().stroke(worldEditor, start);
     start = origin.copy();
-    start.translate(Cardinal.UP, 6);
+    start.translate(Direction.UP, 6);
     end = start.copy();
-    end.translate(Cardinal.UP);
+    end.translate(Direction.UP);
     RectSolid.newRect(start, end).fill(worldEditor, levelSettings.getTheme().getPrimary().getPillar());
 
 
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
+    for (Direction dir : Direction.CARDINAL) {
 
       if (entrances.contains(dir)) {
         door(worldEditor, levelSettings.getTheme(), dir, origin);
@@ -86,54 +86,54 @@ public class DungeonLibrary extends DungeonBase {
       start.translate(dir, 4);
       start.translate(dir.antiClockwise(), 4);
       end = start.copy();
-      end.translate(Cardinal.UP, 4);
+      end.translate(Direction.UP, 4);
       RectSolid.newRect(start, end).fill(worldEditor, levelSettings.getTheme().getPrimary().getPillar());
 
       start = origin.copy();
       start.translate(dir, 3);
       start.translate(dir.antiClockwise(), 3);
-      start.translate(Cardinal.UP, 3);
+      start.translate(Direction.UP, 3);
       end = start.copy();
-      end.translate(Cardinal.UP, 3);
+      end.translate(Direction.UP, 3);
       RectSolid.newRect(start, end).fill(worldEditor, levelSettings.getTheme().getPrimary().getPillar());
 
       cursor = end.copy();
       cursor.translate(dir.reverse());
       cursor.translate(dir.clockwise());
-      cursor.translate(Cardinal.UP);
+      cursor.translate(Direction.UP);
       walls.stroke(worldEditor, cursor);
 
-      for (Cardinal o : dir.orthogonals()) {
+      for (Direction o : dir.orthogonals()) {
         cursor = origin.copy();
         cursor.translate(dir, 4);
         cursor.translate(o, 3);
-        cursor.translate(Cardinal.UP, 2);
+        cursor.translate(Direction.UP, 2);
 
         stair.setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
-        cursor.translate(Cardinal.UP);
+        cursor.translate(Direction.UP);
         walls.stroke(worldEditor, cursor);
         cursor.translate(o.reverse());
         stair.setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
-        cursor.translate(Cardinal.UP, 3);
+        cursor.translate(Direction.UP, 3);
         cursor.translate(dir.reverse());
         stair.setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
       }
 
       // Light fixture related stuff
       cursor = origin.copy();
-      cursor.translate(Cardinal.UP, 4);
+      cursor.translate(Direction.UP, 4);
       cursor.translate(dir);
       stair.setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
       cursor.translate(dir, 2);
       stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
-      cursor.translate(Cardinal.UP);
+      cursor.translate(Direction.UP);
       start = cursor.copy();
       end = cursor.copy();
       start.translate(dir.reverse(), 2);
       RectSolid.newRect(start, end).fill(worldEditor, walls);
-      cursor.translate(Cardinal.UP);
+      cursor.translate(Direction.UP);
       walls.stroke(worldEditor, cursor);
-      cursor.translate(Cardinal.UP);
+      cursor.translate(Direction.UP);
       cursor.translate(dir.reverse());
       stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
       cursor.translate(dir.reverse());
@@ -144,7 +144,7 @@ public class DungeonLibrary extends DungeonBase {
     return this;
   }
 
-  private void door(WorldEditor editor, ThemeBase theme, Cardinal dir, Coord pos) {
+  private void door(WorldEditor editor, ThemeBase theme, Direction dir, Coord pos) {
     Coord start;
     Coord end;
 
@@ -153,7 +153,7 @@ public class DungeonLibrary extends DungeonBase {
     end = start.copy();
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
-    end.translate(Cardinal.UP, 2);
+    end.translate(Direction.UP, 2);
 
     RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall());
 
@@ -161,12 +161,12 @@ public class DungeonLibrary extends DungeonBase {
     cursor.translate(dir, 7);
     theme.getPrimary().getDoor().setFacing(dir).stroke(editor, cursor);
 
-    for (Cardinal o : dir.orthogonals()) {
+    for (Direction o : dir.orthogonals()) {
 
       cursor = pos.copy();
       cursor.translate(dir, 5);
       cursor.translate(o);
-      cursor.translate(Cardinal.UP, 2);
+      cursor.translate(Direction.UP, 2);
 
       StairsBlock stair = theme.getPrimary().getStair();
       stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
@@ -175,7 +175,7 @@ public class DungeonLibrary extends DungeonBase {
     }
   }
 
-  private void desk(WorldEditor editor, ThemeBase theme, Cardinal dir, Coord pos) {
+  private void desk(WorldEditor editor, ThemeBase theme, Direction dir, Coord pos) {
 
     Coord cursor;
     Coord start;
@@ -188,21 +188,21 @@ public class DungeonLibrary extends DungeonBase {
     end = cursor.copy();
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
-    end.translate(Cardinal.UP, 2);
+    end.translate(Direction.UP, 2);
     SingleBlockBrush.AIR.fill(editor, new RectSolid(start, end));
     start.translate(dir);
     end.translate(dir);
     theme.getPrimary().getWall().fill(editor, new RectSolid(start, end), false, true);
 
-    for (Cardinal o : dir.orthogonals()) {
+    for (Direction o : dir.orthogonals()) {
       Coord c = cursor.copy();
       c.translate(o, 2);
-      c.translate(Cardinal.UP, 2);
+      c.translate(Direction.UP, 2);
       theme.getPrimary().getStair().setUpsideDown(true).setFacing(o.reverse()).stroke(editor, c);
       c.translate(dir);
-      c.translate(Cardinal.DOWN);
+      c.translate(Direction.DOWN);
       shelf.stroke(editor, c);
-      c.translate(Cardinal.DOWN);
+      c.translate(Direction.DOWN);
       shelf.stroke(editor, c);
     }
 
@@ -221,17 +221,17 @@ public class DungeonLibrary extends DungeonBase {
     cursor.translate(dir.clockwise(), 2);
     stair.setUpsideDown(true).setFacing(dir.antiClockwise()).stroke(editor, cursor);
 
-    cursor.translate(Cardinal.UP);
+    cursor.translate(Direction.UP);
     FlowerPotBlock.flowerPot().withRandomContent(editor.getRandom()).stroke(editor, cursor);
 
     cursor.translate(dir.antiClockwise());
     carpet().setColor(DyeColor.GREEN).stroke(editor, cursor);
 
     cursor.translate(dir.antiClockwise());
-    TorchBlock.torch().setFacing(Cardinal.UP).stroke(editor, cursor);
+    TorchBlock.torch().setFacing(Direction.UP).stroke(editor, cursor);
   }
 
-  private void plants(WorldEditor editor, ThemeBase theme, Cardinal dir, Coord origin) {
+  private void plants(WorldEditor editor, ThemeBase theme, Direction dir, Coord origin) {
 
     Coord cursor = origin.copy();
     cursor.translate(dir, 5);
@@ -240,17 +240,17 @@ public class DungeonLibrary extends DungeonBase {
 
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
-    end.translate(Cardinal.UP, 2);
+    end.translate(Direction.UP, 2);
     SingleBlockBrush.AIR.fill(editor, new RectSolid(start, end));
 
     start.translate(dir);
     end.translate(dir).up(1);
     theme.getPrimary().getWall().fill(editor, new RectSolid(start, end), false, true);
 
-    for (Cardinal o : dir.orthogonals()) {
+    for (Direction o : dir.orthogonals()) {
       Coord c = cursor.copy();
       c.translate(o, 2);
-      c.translate(Cardinal.UP, 2);
+      c.translate(Direction.UP, 2);
       theme.getPrimary().getStair().setUpsideDown(true).setFacing(o.reverse()).stroke(editor, c);
     }
 

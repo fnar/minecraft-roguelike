@@ -9,7 +9,7 @@ import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
@@ -22,7 +22,7 @@ public class DungeonLinker extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Direction> entrances) {
 
     ThemeBase theme = levelSettings.getTheme();
 
@@ -52,13 +52,13 @@ public class DungeonLinker extends DungeonBase {
     end.translate(new Coord(4, -1, 4));
     RectSolid.newRect(start, end).fill(worldEditor, floor);
 
-    for (Cardinal dir : Cardinal.DIRECTIONS) {
+    for (Direction dir : Direction.CARDINAL) {
 
       start = origin.copy();
       start.translate(dir, 4);
       end = start.copy();
-      end.translate(Cardinal.UP, 8);
-      start.translate(Cardinal.DOWN);
+      end.translate(Direction.UP, 8);
+      start.translate(Direction.DOWN);
       start.translate(dir.antiClockwise(), 4);
       end.translate(dir.clockwise(), 4);
       RectSolid.newRect(start, end).fill(worldEditor, bars, true, false);
@@ -69,7 +69,7 @@ public class DungeonLinker extends DungeonBase {
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir, 4);
       end.translate(dir.antiClockwise(), 4);
-      end.translate(Cardinal.UP, 8);
+      end.translate(Direction.UP, 8);
       RectSolid.newRect(start, end).fill(worldEditor, pillar);
     }
 

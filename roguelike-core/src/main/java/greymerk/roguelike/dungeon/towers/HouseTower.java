@@ -15,7 +15,7 @@ import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockStripes;
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
@@ -35,7 +35,7 @@ public class HouseTower implements ITower {
     BlockBrush mainFloor = theme.getPrimary().getFloor();
     StairsBlock stair = theme.getPrimary().getStair();
 
-    Cardinal dir = Cardinal.DIRECTIONS.get((floor.getY() + 2) % 4);
+    Direction dir = Direction.CARDINAL.get((floor.getY() + 2) % 4);
 
     Coord cursor;
     Coord start;
@@ -45,23 +45,23 @@ public class HouseTower implements ITower {
     int y = dungeon.getY();
     int z = dungeon.getZ();
 
-    floor.translate(Cardinal.UP);
+    floor.translate(Direction.UP);
 
     start = floor.copy();
-    start.translate(Cardinal.UP, 4);
+    start.translate(Direction.UP, 4);
     end = start.copy();
     start.translate(dir.clockwise(), 3);
     start.translate(dir, 3);
-    end.translate(Cardinal.UP, 8);
+    end.translate(Direction.UP, 8);
     end.translate(dir.reverse(), 7);
     end.translate(dir.antiClockwise(), 10);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     start = floor.copy();
     start.translate(dir.clockwise(), 2);
-    start.translate(Cardinal.DOWN);
+    start.translate(Direction.DOWN);
     end = floor.copy();
-    end.translate(Cardinal.UP, 3);
+    end.translate(Direction.UP, 3);
     end.translate(dir.antiClockwise(), 8);
     end.translate(dir.reverse(), 5);
     RectSolid.newRect(new Coord(x - 2, floor.getY() + 3, z - 2), new Coord(x + 2, y + 10, z + 2)).fill(editor, walls);
@@ -73,17 +73,17 @@ public class HouseTower implements ITower {
     door(editor, theme, dir, cursor);
 
     start = floor.copy();
-    start.translate(Cardinal.DOWN);
+    start.translate(Direction.DOWN);
     start.translate(dir.clockwise());
     start.translate(dir.reverse());
     end = floor.copy();
-    end.translate(Cardinal.DOWN);
+    end.translate(Direction.DOWN);
     end.translate(dir.reverse(), 4);
     end.translate(dir.antiClockwise(), 7);
     RectSolid.newRect(start, end).fill(editor, mainFloor);
 
     start = floor.copy();
-    start.translate(Cardinal.DOWN, 2);
+    start.translate(Direction.DOWN, 2);
     start.translate(dir.clockwise(), 2);
     start.translate(dir.reverse(), 2);
     end = new Coord(floor.getX(), y + 10, floor.getZ());
@@ -94,14 +94,14 @@ public class HouseTower implements ITower {
     cursor = floor.copy();
     cursor.translate(dir.reverse(), 5);
     cursor.translate(dir.clockwise(), 2);
-    support(editor, theme, new Cardinal[]{dir.reverse(), dir.clockwise()}, cursor);
+    support(editor, theme, new Direction[]{dir.reverse(), dir.clockwise()}, cursor);
     cursor.translate(dir, 7);
-    support(editor, theme, new Cardinal[]{dir, dir.clockwise()}, cursor);
+    support(editor, theme, new Direction[]{dir, dir.clockwise()}, cursor);
     cursor.translate(dir.antiClockwise(), 4);
-    support(editor, theme, new Cardinal[]{dir, dir.antiClockwise()}, cursor);
+    support(editor, theme, new Direction[]{dir, dir.antiClockwise()}, cursor);
     cursor.translate(dir.antiClockwise(), 6);
     cursor.translate(dir.reverse(), 2);
-    support(editor, theme, new Cardinal[]{dir, dir.antiClockwise()}, cursor);
+    support(editor, theme, new Direction[]{dir, dir.antiClockwise()}, cursor);
 
     upperFloor(editor, theme, dir, new Coord(x, floor.getY() + 3, z));
     roof(editor, theme, dir, new Coord(x, floor.getY() + 4, z));
@@ -110,17 +110,17 @@ public class HouseTower implements ITower {
     decor(editor, rand, dir, floor);
 
     cursor = floor.copy();
-    cursor.translate(Cardinal.UP, 3);
+    cursor.translate(Direction.UP, 3);
     for (int i = floor.getY() + 3; i >= y; --i) {
       editor.spiralStairStep(rand, new Coord(x, i, z), stair, theme.getSecondary().getPillar());
     }
   }
 
-  private void decor(WorldEditor editor, Random rand, Cardinal dir, Coord origin) {
+  private void decor(WorldEditor editor, Random rand, Direction dir, Coord origin) {
 
     StairsBlock stair = StairsBlock.oak();
     BlockBrush slab = SlabBlock.oak().setTop(true).setFullBlock(false).setSeamless(false);
-    Cardinal[] orthogonals = dir.orthogonals();
+    Direction[] orthogonals = dir.orthogonals();
     Coord cursor;
     Coord start;
     Coord end;
@@ -143,35 +143,35 @@ public class HouseTower implements ITower {
     cursor.translate(orthogonals[0]);
     stair.setUpsideDown(true).setFacing(orthogonals[0]).stroke(editor, cursor);
     cursor.translate(orthogonals[1]);
-    cursor.translate(Cardinal.UP);
+    cursor.translate(Direction.UP);
     BlockType.CAKE.getBrush().stroke(editor, cursor);
 
     cursor = origin.copy();
     cursor.translate(orthogonals[0], 7);
     cursor.translate(dir.reverse());
     slab.stroke(editor, cursor);
-    cursor.translate(Cardinal.UP);
-    TorchBlock.torch().setFacing(Cardinal.UP).stroke(editor, cursor);
-    cursor.translate(Cardinal.DOWN);
+    cursor.translate(Direction.UP);
+    TorchBlock.torch().setFacing(Direction.UP).stroke(editor, cursor);
+    cursor.translate(Direction.DOWN);
     cursor.translate(dir.reverse());
     BlockType.CRAFTING_TABLE.getBrush().stroke(editor, cursor);
     cursor.translate(dir.reverse());
     BlockType.FURNACE.getBrush().setFacing(orthogonals[1]).stroke(editor, cursor);
 
     cursor = origin.copy();
-    cursor.translate(Cardinal.UP, 4);
+    cursor.translate(Direction.UP, 4);
     cursor.translate(orthogonals[1], 2);
     cursor.translate(dir.reverse(), 3);
     stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
     cursor.translate(dir.reverse());
     stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor);
-    cursor.translate(Cardinal.UP);
+    cursor.translate(Direction.UP);
     FlowerPotBlock.flowerPot().withRandomContent(editor.getRandom()).stroke(editor, cursor);
     cursor.translate(dir);
     FlowerPotBlock.flowerPot().withRandomContent(editor.getRandom()).stroke(editor, cursor);
 
     cursor = origin.copy();
-    cursor.translate(Cardinal.UP, 4);
+    cursor.translate(Direction.UP, 4);
     cursor.translate(orthogonals[0]);
     cursor.translate(dir.reverse(), 5);
     stair.setUpsideDown(true).setFacing(orthogonals[1]).stroke(editor, cursor);
@@ -181,19 +181,19 @@ public class HouseTower implements ITower {
     stair.setUpsideDown(true).setFacing(orthogonals[0]).stroke(editor, cursor);
 
     cursor = origin.copy();
-    cursor.translate(Cardinal.UP, 4);
+    cursor.translate(Direction.UP, 4);
     cursor.translate(orthogonals[0], 8);
     editor.getTreasureChestEditor().createChest(0, cursor, false, ChestType.STARTER);
     cursor.translate(dir.reverse());
     BlockType.BOOKSHELF.getBrush().stroke(editor, cursor);
-    cursor.translate(Cardinal.UP);
+    cursor.translate(Direction.UP);
     FlowerPotBlock.flowerPot().withRandomContent(editor.getRandom()).stroke(editor, cursor);
-    cursor.translate(Cardinal.DOWN);
+    cursor.translate(Direction.DOWN);
     cursor.translate(dir.reverse());
     BedBlock.bed().setColor(DyeColor.RED).setFacing(orthogonals[1]).stroke(editor, cursor);
 
     cursor = origin.copy();
-    cursor.translate(Cardinal.UP, 4);
+    cursor.translate(Direction.UP, 4);
     cursor.translate(dir.reverse());
     cursor.translate(orthogonals[0]);
     start = cursor.copy();
@@ -208,22 +208,22 @@ public class HouseTower implements ITower {
   }
 
 
-  private void windows(WorldEditor editor, Cardinal dir, Coord origin) {
+  private void windows(WorldEditor editor, Direction dir, Coord origin) {
     BlockBrush pane = stainedGlassPane().setColor(DyeColor.LIGHT_GRAY);
-    Cardinal[] orth = dir.orthogonals();
+    Direction[] orth = dir.orthogonals();
     Coord cursor;
     Coord start;
     Coord end;
 
     cursor = origin.copy();
     cursor.translate(dir.reverse(), 5);
-    cursor.translate(Cardinal.UP);
+    cursor.translate(Direction.UP);
     pane.stroke(editor, cursor);
     cursor.translate(orth[0], 2);
     pane.stroke(editor, cursor);
 
     cursor = origin.copy();
-    cursor.translate(Cardinal.UP);
+    cursor.translate(Direction.UP);
     cursor.translate(orth[0], 8);
     cursor.translate(dir.reverse(), 2);
     pane.stroke(editor, cursor);
@@ -232,7 +232,7 @@ public class HouseTower implements ITower {
 
     // upstairs
     cursor = origin.copy();
-    cursor.translate(Cardinal.UP, 5);
+    cursor.translate(Direction.UP, 5);
     cursor.translate(orth[0]);
     cursor.translate(dir, 3);
     pane.stroke(editor, cursor);
@@ -249,7 +249,7 @@ public class HouseTower implements ITower {
     pane.stroke(editor, cursor);
 
     cursor = origin.copy();
-    cursor.translate(Cardinal.UP, 5);
+    cursor.translate(Direction.UP, 5);
     cursor.translate(orth[0], 9);
     cursor.translate(dir.reverse());
     pane.stroke(editor, cursor);
@@ -259,26 +259,26 @@ public class HouseTower implements ITower {
     pane.stroke(editor, cursor);
     cursor.translate(dir.reverse());
     pane.stroke(editor, cursor);
-    cursor.translate(Cardinal.UP, 2);
+    cursor.translate(Direction.UP, 2);
     cursor.translate(dir);
     start = cursor.copy();
     end = start.copy();
-    end.translate(Cardinal.UP);
+    end.translate(Direction.UP);
     end.translate(dir, 2);
     RectSolid.newRect(start, end).fill(editor, pane);
 
     cursor = origin.copy();
-    cursor.translate(Cardinal.UP, 4);
+    cursor.translate(Direction.UP, 4);
     cursor.translate(orth[0], 5);
     cursor.translate(dir.reverse(), 7);
     start = cursor.copy();
     end = start.copy();
     end.translate(orth[0], 2);
-    end.translate(Cardinal.UP);
+    end.translate(Direction.UP);
     RectSolid.newRect(start, end).fill(editor, pane);
   }
 
-  private void roof(WorldEditor editor, ThemeBase theme, Cardinal dir, Coord origin) {
+  private void roof(WorldEditor editor, ThemeBase theme, Direction dir, Coord origin) {
     BlockBrush walls = theme.getSecondary().getWall();
     StairsBlock stair = theme.getSecondary().getStair();
     Coord cursor;
@@ -288,7 +288,7 @@ public class HouseTower implements ITower {
     cursor = origin.copy();
     cursor.translate(dir.clockwise(), 4);
     cursor.translate(dir, 4);
-    cursor.translate(Cardinal.UP, 2);
+    cursor.translate(Direction.UP, 2);
     start = cursor.copy();
     end = cursor.copy();
     end.translate(dir.reverse(), 10);
@@ -296,21 +296,21 @@ public class HouseTower implements ITower {
     start.translate(dir.antiClockwise());
     end.translate(dir.antiClockwise());
     stair.setUpsideDown(true).setFacing(dir.antiClockwise()).fill(editor, new RectSolid(start, end));
-    start.translate(Cardinal.UP);
-    end.translate(Cardinal.UP);
+    start.translate(Direction.UP);
+    end.translate(Direction.UP);
     stair.setUpsideDown(false).setFacing(dir.clockwise()).fill(editor, new RectSolid(start, end));
     start.translate(dir.antiClockwise());
     end.translate(dir.antiClockwise());
     stair.setUpsideDown(true).setFacing(dir.antiClockwise()).fill(editor, new RectSolid(start, end));
-    start.translate(Cardinal.UP);
-    end.translate(Cardinal.UP);
+    start.translate(Direction.UP);
+    end.translate(Direction.UP);
     stair.setUpsideDown(false).setFacing(dir.clockwise()).fill(editor, new RectSolid(start, end));
     start.translate(dir.antiClockwise());
     end.translate(dir.antiClockwise());
     end.translate(dir);
     stair.setUpsideDown(true).setFacing(dir.antiClockwise()).fill(editor, new RectSolid(start, end));
-    start.translate(Cardinal.UP);
-    end.translate(Cardinal.UP);
+    start.translate(Direction.UP);
+    end.translate(Direction.UP);
     stair.setUpsideDown(false).setFacing(dir.clockwise()).fill(editor, new RectSolid(start, end));
 
     start.translate(dir.antiClockwise());
@@ -319,15 +319,15 @@ public class HouseTower implements ITower {
 
     cursor = origin.copy();
     cursor.translate(dir.reverse(), 3);
-    cursor.translate(Cardinal.UP, 5);
+    cursor.translate(Direction.UP, 5);
     stair.setUpsideDown(true).setFacing(dir.antiClockwise()).stroke(editor, cursor);
     cursor.translate(dir);
     stair.setUpsideDown(true).setFacing(dir.antiClockwise()).stroke(editor, cursor);
-    cursor.translate(Cardinal.DOWN);
+    cursor.translate(Direction.DOWN);
     cursor.translate(dir.antiClockwise());
     cursor.translate(dir);
     stair.setUpsideDown(true).setFacing(dir.clockwise()).stroke(editor, cursor);
-    cursor.translate(Cardinal.DOWN);
+    cursor.translate(Direction.DOWN);
     cursor.translate(dir.antiClockwise());
     cursor.translate(dir);
     stair.setUpsideDown(true).setFacing(dir.clockwise()).stroke(editor, cursor);
@@ -336,15 +336,15 @@ public class HouseTower implements ITower {
     end.translate(dir.antiClockwise());
     end.translate(dir, 5);
     stair.setUpsideDown(false).setFacing(dir.antiClockwise()).fill(editor, new RectSolid(start, end));
-    start.translate(Cardinal.DOWN);
-    end.translate(Cardinal.DOWN);
+    start.translate(Direction.DOWN);
+    end.translate(Direction.DOWN);
     stair.setUpsideDown(true).setFacing(dir.clockwise()).fill(editor, new RectSolid(start, end));
     start.translate(dir.antiClockwise());
     end.translate(dir.antiClockwise());
     end.translate(dir);
     stair.setUpsideDown(false).setFacing(dir.antiClockwise()).fill(editor, new RectSolid(start, end));
-    start.translate(Cardinal.DOWN);
-    end.translate(Cardinal.DOWN);
+    start.translate(Direction.DOWN);
+    end.translate(Direction.DOWN);
     stair.setUpsideDown(true).setFacing(dir.clockwise()).fill(editor, new RectSolid(start, end));
     start.translate(dir.antiClockwise());
     end.translate(dir.antiClockwise());
@@ -352,7 +352,7 @@ public class HouseTower implements ITower {
     stair.setUpsideDown(false).setFacing(dir.antiClockwise()).fill(editor, new RectSolid(start, end));
 
     cursor = origin.copy();
-    cursor.translate(Cardinal.UP, 2);
+    cursor.translate(Direction.UP, 2);
     cursor.translate(dir, 2);
     cursor.translate(dir.antiClockwise(), 10);
     start = cursor.copy();
@@ -362,29 +362,29 @@ public class HouseTower implements ITower {
     start.translate(dir.reverse());
     end.translate(dir.reverse());
     stair.setUpsideDown(true).setFacing(dir.reverse()).fill(editor, new RectSolid(start, end));
-    start.translate(Cardinal.UP);
-    end.translate(Cardinal.UP);
+    start.translate(Direction.UP);
+    end.translate(Direction.UP);
     end.translate(dir.clockwise());
     stair.setUpsideDown(false).setFacing(dir).fill(editor, new RectSolid(start, end));
     start.translate(dir.reverse());
     end.translate(dir.reverse());
     stair.setUpsideDown(true).setFacing(dir.reverse()).fill(editor, new RectSolid(start, end));
-    start.translate(Cardinal.UP);
-    end.translate(Cardinal.UP);
+    start.translate(Direction.UP);
+    end.translate(Direction.UP);
     end.translate(dir.clockwise());
     stair.setUpsideDown(false).setFacing(dir).fill(editor, new RectSolid(start, end));
     start.translate(dir.reverse());
     end.translate(dir.reverse());
     stair.setUpsideDown(true).setFacing(dir.reverse()).fill(editor, new RectSolid(start, end));
-    start.translate(Cardinal.UP);
-    end.translate(Cardinal.UP);
+    start.translate(Direction.UP);
+    end.translate(Direction.UP);
     end.translate(dir.clockwise());
     stair.setUpsideDown(false).setFacing(dir).fill(editor, new RectSolid(start, end));
     start.translate(dir.reverse());
     end.translate(dir.reverse());
     stair.setUpsideDown(true).setFacing(dir.reverse()).fill(editor, new RectSolid(start, end));
-    start.translate(Cardinal.UP);
-    end.translate(Cardinal.UP);
+    start.translate(Direction.UP);
+    end.translate(Direction.UP);
     stair.setUpsideDown(false).setFacing(dir).fill(editor, new RectSolid(start, end));
 
     start.translate(dir.reverse());
@@ -407,36 +407,36 @@ public class HouseTower implements ITower {
     start.translate(dir);
     end.translate(dir);
     stair.setUpsideDown(true).setFacing(dir).fill(editor, new RectSolid(start, end));
-    start.translate(Cardinal.UP);
-    end.translate(Cardinal.UP);
+    start.translate(Direction.UP);
+    end.translate(Direction.UP);
     end.translate(dir.clockwise(), 5);
     stair.setUpsideDown(false).setFacing(dir.reverse()).fill(editor, new RectSolid(start, end));
     start.translate(dir);
     end.translate(dir);
     stair.setUpsideDown(true).setFacing(dir).fill(editor, new RectSolid(start, end));
     end.translate(dir.antiClockwise());
-    start.translate(Cardinal.UP);
-    end.translate(Cardinal.UP);
+    start.translate(Direction.UP);
+    end.translate(Direction.UP);
     stair.setUpsideDown(false).setFacing(dir.reverse()).fill(editor, new RectSolid(start, end));
     start.translate(dir);
     end.translate(dir);
     stair.setUpsideDown(true).setFacing(dir).fill(editor, new RectSolid(start, end));
     end.translate(dir.antiClockwise());
-    start.translate(Cardinal.UP);
-    end.translate(Cardinal.UP);
+    start.translate(Direction.UP);
+    end.translate(Direction.UP);
     stair.setUpsideDown(false).setFacing(dir.reverse()).fill(editor, new RectSolid(start, end));
     start.translate(dir);
     end.translate(dir);
     stair.setUpsideDown(true).setFacing(dir).fill(editor, new RectSolid(start, end));
     end.translate(dir.antiClockwise());
-    start.translate(Cardinal.UP);
-    end.translate(Cardinal.UP);
+    start.translate(Direction.UP);
+    end.translate(Direction.UP);
     stair.setUpsideDown(false).setFacing(dir.reverse()).fill(editor, new RectSolid(start, end));
   }
 
-  private void upperFloor(WorldEditor editor, ThemeBase theme, Cardinal dir, Coord origin) {
+  private void upperFloor(WorldEditor editor, ThemeBase theme, Direction dir, Coord origin) {
     BlockBrush floor = theme.getPrimary().getFloor();
-    Cardinal[] orth = dir.orthogonals();
+    Direction[] orth = dir.orthogonals();
     Coord start;
     Coord end;
 
@@ -457,9 +457,9 @@ public class HouseTower implements ITower {
     RectSolid.newRect(start, end).fill(editor, floor);
   }
 
-  private void upperWalls(WorldEditor editor, ThemeBase theme, Cardinal dir, Coord origin) {
+  private void upperWalls(WorldEditor editor, ThemeBase theme, Direction dir, Coord origin) {
     BlockBrush walls = theme.getPrimary().getWall();
-    Cardinal[] orth = dir.orthogonals();
+    Direction[] orth = dir.orthogonals();
     Coord cursor;
     Coord start;
     Coord end;
@@ -469,7 +469,7 @@ public class HouseTower implements ITower {
     start.translate(dir, 2);
     end = start.copy();
     end.translate(dir.reverse(), 7);
-    end.translate(Cardinal.UP, 2);
+    end.translate(Direction.UP, 2);
     RectSolid.newRect(start, end).fill(editor, walls);
 
     start = origin.copy();
@@ -477,9 +477,9 @@ public class HouseTower implements ITower {
     start.translate(dir, 3);
     end = start.copy();
     end.translate(orth[0], 4);
-    end.translate(Cardinal.UP, 3);
+    end.translate(Direction.UP, 3);
     RectSolid.newRect(start, end).fill(editor, walls);
-    end.translate(Cardinal.UP);
+    end.translate(Direction.UP);
     end.translate(orth[1]);
     start = end.copy();
     start.translate(orth[1], 2);
@@ -489,7 +489,7 @@ public class HouseTower implements ITower {
     start.translate(orth[0], 3);
     start.translate(dir, 2);
     end = start.copy();
-    end.translate(Cardinal.UP, 2);
+    end.translate(Direction.UP, 2);
     RectSolid.newRect(start, end).fill(editor, walls);
 
     start = origin.copy();
@@ -497,21 +497,21 @@ public class HouseTower implements ITower {
     start.translate(dir);
     end = start.copy();
     end.translate(orth[0], 4);
-    end.translate(Cardinal.UP, 2);
+    end.translate(Direction.UP, 2);
     RectSolid.newRect(start, end).fill(editor, walls);
 
     start = origin.copy();
     start.translate(orth[0], 9);
     end = start.copy();
     end.translate(dir.reverse(), 6);
-    end.translate(Cardinal.UP, 3);
+    end.translate(Direction.UP, 3);
     RectSolid.newRect(start, end).fill(editor, walls);
-    end.translate(Cardinal.UP);
+    end.translate(Direction.UP);
     end.translate(dir);
     start = end.copy();
     start.translate(dir, 4);
     RectSolid.newRect(start, end).fill(editor, walls);
-    end.translate(Cardinal.UP);
+    end.translate(Direction.UP);
     end.translate(dir);
     start = end.copy();
     start.translate(dir, 2);
@@ -523,7 +523,7 @@ public class HouseTower implements ITower {
     start.translate(orth[0], 4);
     end = start.copy();
     end.translate(orth[0], 4);
-    end.translate(Cardinal.UP, 2);
+    end.translate(Direction.UP, 2);
     RectSolid.newRect(start, end).fill(editor, walls);
 
     start = origin.copy();
@@ -531,7 +531,7 @@ public class HouseTower implements ITower {
     start.translate(orth[1], 2);
     end = start.copy();
     end.translate(orth[0], 4);
-    end.translate(Cardinal.UP, 3);
+    end.translate(Direction.UP, 3);
     RectSolid.newRect(start, end).fill(editor, walls);
 
     cursor = origin.copy();
@@ -558,11 +558,11 @@ public class HouseTower implements ITower {
     BlockBrush pillar = theme.getPrimary().getPillar();
     Coord end;
     end = start.copy();
-    end.translate(Cardinal.UP, height - 1);
+    end.translate(Direction.UP, height - 1);
     RectSolid.newRect(start, end).fill(editor, pillar);
   }
 
-  private void support(WorldEditor editor, ThemeBase theme, Cardinal[] dirs, Coord origin) {
+  private void support(WorldEditor editor, ThemeBase theme, Direction[] dirs, Coord origin) {
     BlockBrush pillar = theme.getPrimary().getPillar();
     StairsBlock stair = theme.getPrimary().getStair();
     Coord cursor;
@@ -571,18 +571,18 @@ public class HouseTower implements ITower {
 
     start = origin.copy();
     end = origin.copy();
-    end.translate(Cardinal.UP, 2);
+    end.translate(Direction.UP, 2);
     RectSolid.newRect(start, end).fill(editor, pillar);
     cursor = origin.copy();
-    cursor.translate(Cardinal.DOWN);
+    cursor.translate(Direction.DOWN);
     editor.fillDown(cursor, pillar);
 
-    for (Cardinal dir : dirs) {
+    for (Direction dir : dirs) {
       cursor = origin.copy();
-      cursor.translate(Cardinal.UP, 2);
+      cursor.translate(Direction.UP, 2);
       cursor.translate(dir);
       stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor);
-      for (Cardinal o : dir.orthogonals()) {
+      for (Direction o : dir.orthogonals()) {
         Coord c = cursor.copy();
         c.translate(o);
         stair.setUpsideDown(true).setFacing(o).stroke(editor, c, true, false);
@@ -591,7 +591,7 @@ public class HouseTower implements ITower {
 
   }
 
-  private void door(WorldEditor editor, ThemeBase theme, Cardinal dir, Coord origin) {
+  private void door(WorldEditor editor, ThemeBase theme, Direction dir, Coord origin) {
 
     BlockBrush floor = theme.getPrimary().getFloor();
     BlockBrush pillar = theme.getPrimary().getPillar();
@@ -600,7 +600,7 @@ public class HouseTower implements ITower {
     Coord start;
     Coord end;
 
-    Cardinal[] orth = dir.orthogonals();
+    Direction[] orth = dir.orthogonals();
 
     start = origin.copy();
     start.translate(dir.reverse());
@@ -608,19 +608,19 @@ public class HouseTower implements ITower {
     start.translate(orth[0]);
     end.translate(orth[1]);
     end.translate(dir.reverse(), 2);
-    end.translate(Cardinal.UP, 6);
+    end.translate(Direction.UP, 6);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     start = origin.copy();
     end = start.copy();
-    start.translate(Cardinal.DOWN);
+    start.translate(Direction.DOWN);
     start.translate(orth[0]);
-    end.translate(Cardinal.UP, 2);
+    end.translate(Direction.UP, 2);
     end.translate(orth[1]);
     RectSolid.newRect(start, end).fill(editor, floor);
 
     start = origin.copy();
-    start.translate(Cardinal.DOWN);
+    start.translate(Direction.DOWN);
     end = start.copy();
     start.translate(dir.reverse());
     end.translate(dir);
@@ -629,7 +629,7 @@ public class HouseTower implements ITower {
     RectSolid.newRect(start, end).fill(editor, floor);
 
     start = origin.copy();
-    start.translate(Cardinal.DOWN, 2);
+    start.translate(Direction.DOWN, 2);
     end = start.copy();
     start.translate(dir.reverse());
     end.translate(dir);
@@ -640,11 +640,11 @@ public class HouseTower implements ITower {
 
     theme.getPrimary().getDoor().setFacing(dir.reverse()).stroke(editor, origin);
 
-    for (Cardinal o : orth) {
+    for (Direction o : orth) {
 
       cursor = origin.copy();
       cursor.translate(o, 2);
-      cursor.translate(Cardinal.UP, 2);
+      cursor.translate(Direction.UP, 2);
       editor.fillDown(cursor, pillar);
 
       cursor = end.copy();
@@ -659,7 +659,7 @@ public class HouseTower implements ITower {
     }
 
     cursor = origin.copy();
-    cursor.translate(Cardinal.UP, 2);
+    cursor.translate(Direction.UP, 2);
     cursor.translate(orth[0], 3);
     cursor.translate(dir);
     stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor);
@@ -669,16 +669,16 @@ public class HouseTower implements ITower {
     end = start.copy();
     start.translate(orth[0]);
     end.translate(orth[1]);
-    end.translate(Cardinal.UP, 2);
+    end.translate(Direction.UP, 2);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     cursor = origin.copy();
-    cursor.translate(Cardinal.DOWN);
+    cursor.translate(Direction.DOWN);
     cursor.translate(dir.reverse(), 2);
     step(editor, theme, dir.reverse(), cursor);
   }
 
-  private void step(WorldEditor editor, ThemeBase theme, Cardinal dir, Coord origin) {
+  private void step(WorldEditor editor, ThemeBase theme, Direction dir, Coord origin) {
 
     Coord start;
     Coord end;
@@ -688,7 +688,7 @@ public class HouseTower implements ITower {
     BlockBrush blocks = theme.getPrimary().getWall();
 
     cursor = origin.copy();
-    cursor.translate(Cardinal.DOWN);
+    cursor.translate(Direction.DOWN);
     cursor.translate(dir);
     if (editor.validGroundBlock(cursor)) {
       return;
@@ -697,7 +697,7 @@ public class HouseTower implements ITower {
       return;
     }
 
-    Cardinal[] orth = dir.orthogonals();
+    Direction[] orth = dir.orthogonals();
 
     start = origin.copy();
     end = origin.copy();
@@ -713,7 +713,7 @@ public class HouseTower implements ITower {
     stair.setUpsideDown(false).setFacing(dir);
     RectSolid.newRect(start, end).fill(editor, stair);
 
-    origin.translate(Cardinal.DOWN);
+    origin.translate(Direction.DOWN);
     origin.translate(dir);
     step(editor, theme, dir, origin);
   }

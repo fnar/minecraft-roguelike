@@ -6,7 +6,7 @@ import com.github.srwaggon.roguelike.worldgen.block.BlockType;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import greymerk.roguelike.worldgen.Cardinal;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 
@@ -21,11 +21,11 @@ public class VineBlock extends SingleBlockBrush {
     if (!editor.isAirBlock(origin)) {
       return false;
     }
-    ArrayList<Cardinal> directions = new ArrayList<>(Cardinal.DIRECTIONS);
-    directions.add(Cardinal.UP);
+    ArrayList<Direction> directions = new ArrayList<>(Direction.CARDINAL);
+    directions.add(Direction.UP);
     Collections.shuffle(directions, editor.getRandom());
-    for (Cardinal dir : directions) {
-      if (dir == Cardinal.DOWN) {
+    for (Direction dir : directions) {
+      if (dir == Direction.DOWN) {
         return false;
       }
       Coord c = origin.copy();
