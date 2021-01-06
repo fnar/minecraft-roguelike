@@ -22,8 +22,8 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class ObsidianRoom extends DungeonBase {
 
-  public ObsidianRoom(RoomSetting roomSetting) {
-    super(roomSetting);
+  public ObsidianRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
   }
 
   private static void outerPillars(WorldEditor editor, ThemeBase theme, int x, int y, int z) {
@@ -117,7 +117,7 @@ public class ObsidianRoom extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
 
     int x = origin.getX();
     int y = origin.getY();

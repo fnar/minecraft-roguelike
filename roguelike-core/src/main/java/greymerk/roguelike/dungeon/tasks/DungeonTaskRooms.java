@@ -14,15 +14,15 @@ public class DungeonTaskRooms implements IDungeonTask {
   @Override
   public void execute(WorldEditor editor, Random random, Dungeon dungeon, DungeonSettings settings) {
     dungeon.getLevels()
-        .forEach(level -> generateLevel(editor, random, level));
+        .forEach(this::generateLevel);
   }
 
-  private void generateLevel(WorldEditor editor, Random rand, DungeonLevel level) {
+  private void generateLevel(DungeonLevel level) {
     LevelLayout layout = level.getLayout();
     DungeonNode startRoom = layout.getStart();
     DungeonNode endRoom = layout.getEnd();
     layout.getNodes().stream()
         .filter(node -> startRoom != node && node != endRoom)
-        .forEach(node -> node.getRoom().generate(editor, level.getSettings(), node.getPosition(), node.getEntrances()));
+        .forEach(node -> node.getRoom().generate(node.getPosition(), node.getEntrances()));
   }
 }

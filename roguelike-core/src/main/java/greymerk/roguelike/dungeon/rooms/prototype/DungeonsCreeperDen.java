@@ -23,11 +23,11 @@ public class DungeonsCreeperDen extends DungeonBase {
 
   public static final BlockBrush TNT_META_BLOCK = BlockType.TNT.getBrush();
 
-  public DungeonsCreeperDen(RoomSetting roomSetting) {
-    super(roomSetting);
+  public DungeonsCreeperDen(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
   }
 
-  public DungeonBase generate(WorldEditor editor, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
 
     ThemeBase theme = settings.getTheme();
 

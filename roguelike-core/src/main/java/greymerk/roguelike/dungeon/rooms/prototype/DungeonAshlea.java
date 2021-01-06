@@ -11,12 +11,12 @@ import greymerk.roguelike.worldgen.WorldEditor;
 
 public class DungeonAshlea extends DungeonBase {
 
-  public DungeonAshlea(RoomSetting roomSetting) {
-    super(roomSetting);
+  public DungeonAshlea(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
     return this;
   }
 

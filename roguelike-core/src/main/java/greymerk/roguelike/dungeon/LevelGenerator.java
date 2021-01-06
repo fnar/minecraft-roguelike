@@ -5,8 +5,7 @@ import com.github.srwaggon.roguelike.worldgen.block.normal.StairsBlock;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
-import greymerk.roguelike.dungeon.rooms.prototype.DungeonLinker;
-import greymerk.roguelike.dungeon.rooms.prototype.DungeonLinkerTop;
+import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
@@ -30,15 +29,15 @@ public enum LevelGenerator {
 
   public static void generateLevelLink(WorldEditor editor, Random rand, LevelSettings settings, DungeonNode start, DungeonNode end) {
 
-    DungeonBase downstairs = new DungeonLinker();
-    downstairs.generate(editor, settings, start.getPosition(), Cardinal.DIRECTIONS);
+    DungeonBase downstairs = RoomType.LINKER.newSingleRoomSetting().instantiate(settings, editor);
+    downstairs.generate(start.getPosition(), Cardinal.DIRECTIONS);
 
     if (end == null) {
       return;
     }
 
-    DungeonBase upstairs = new DungeonLinkerTop();
-    upstairs.generate(editor, settings, end.getPosition(), end.getEntrances());
+    DungeonBase upstairs = RoomType.LINKERTOP.newSingleRoomSetting().instantiate(settings, editor);
+    upstairs.generate(end.getPosition(), end.getEntrances());
 
     StairsBlock stair = settings.getTheme().getPrimary().getStair();
 

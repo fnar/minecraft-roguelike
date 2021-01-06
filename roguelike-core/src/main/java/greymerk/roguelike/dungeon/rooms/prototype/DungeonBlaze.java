@@ -20,8 +20,8 @@ import greymerk.roguelike.worldgen.spawners.MobType;
 public class DungeonBlaze extends DungeonBase {
 
 
-  public DungeonBlaze(RoomSetting roomSetting) {
-    super(roomSetting);
+  public DungeonBlaze(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
   }
 
   public static void genFire(WorldEditor editor, ThemeBase theme, Coord origin) {
@@ -100,9 +100,9 @@ public class DungeonBlaze extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, LevelSettings levelSettings, Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
 
-    ThemeBase theme = levelSettings.getTheme();
+    ThemeBase theme = settings.getTheme();
 
     BlockBrush wall = theme.getPrimary().getWall();
     StairsBlock stair = theme.getPrimary().getStair();
@@ -252,8 +252,8 @@ public class DungeonBlaze extends DungeonBase {
     end.translate(Cardinal.SOUTH);
     end.translate(Cardinal.WEST);
     RectSolid.newRect(start, end).fill(editor, BlockType.OBSIDIAN.getBrush());
-    int difficulty = levelSettings.getDifficulty(cursor);
-    generateSpawner(editor, cursor, difficulty, levelSettings.getSpawners(), MobType.NETHER_MOBS);
+    int difficulty = settings.getDifficulty(cursor);
+    generateSpawner(editor, cursor, difficulty, settings.getSpawners(), MobType.NETHER_MOBS);
 
     return this;
   }

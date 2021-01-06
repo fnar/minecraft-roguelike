@@ -1,5 +1,6 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
+import com.github.srwaggon.roguelike.worldgen.block.BlockType;
 import com.github.srwaggon.roguelike.worldgen.block.normal.StairsBlock;
 
 import java.util.List;
@@ -12,15 +13,14 @@ import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
-import com.github.srwaggon.roguelike.worldgen.block.BlockType;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class DungeonsFire extends DungeonBase {
 
 
-  public DungeonsFire(RoomSetting roomSetting) {
-    super(roomSetting);
+  public DungeonsFire(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
   }
 
   public static void genFire(WorldEditor editor, ThemeBase theme, Coord origin) {
@@ -100,7 +100,7 @@ public class DungeonsFire extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
 
     ThemeBase theme = settings.getTheme();
 

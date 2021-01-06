@@ -27,12 +27,12 @@ import static com.github.srwaggon.roguelike.worldgen.block.normal.ColoredBlock.c
 
 public class DungeonLibrary extends DungeonBase {
 
-  public DungeonLibrary(RoomSetting roomSetting) {
-    super(roomSetting);
+  public DungeonLibrary(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
 
     Random rand = editor.getRandom();
     int x = origin.getX();

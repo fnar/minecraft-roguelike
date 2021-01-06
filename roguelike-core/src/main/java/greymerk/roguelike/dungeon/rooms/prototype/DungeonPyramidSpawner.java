@@ -23,11 +23,11 @@ import static greymerk.roguelike.worldgen.spawners.MobType.COMMON_MOBS;
 
 public class DungeonPyramidSpawner extends DungeonBase {
 
-  public DungeonPyramidSpawner(RoomSetting roomSetting) {
-    super(roomSetting);
+  public DungeonPyramidSpawner(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
   }
 
-  public DungeonBase generate(WorldEditor editor, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
 
     int x = origin.getX();
     int y = origin.getY();

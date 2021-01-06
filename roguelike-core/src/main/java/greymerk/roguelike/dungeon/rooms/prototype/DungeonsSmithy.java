@@ -23,11 +23,11 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class DungeonsSmithy extends DungeonBase {
 
-  public DungeonsSmithy(RoomSetting roomSetting) {
-    super(roomSetting);
+  public DungeonsSmithy(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
   }
 
-  public DungeonBase generate(WorldEditor editor, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
 
     ThemeBase theme = settings.getTheme();
 

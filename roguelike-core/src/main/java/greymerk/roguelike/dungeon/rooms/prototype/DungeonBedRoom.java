@@ -29,8 +29,8 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = false)
 public class DungeonBedRoom extends DungeonBase {
 
-  public DungeonBedRoom(RoomSetting roomSetting) {
-    super(roomSetting);
+  public DungeonBedRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
   }
 
   public void pillar(WorldEditor editor, Cardinal dir, ThemeBase theme, final Coord base) {
@@ -46,7 +46,7 @@ public class DungeonBedRoom extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
     Random rand = editor.getRandom();
     ThemeBase theme = settings.getTheme();
 

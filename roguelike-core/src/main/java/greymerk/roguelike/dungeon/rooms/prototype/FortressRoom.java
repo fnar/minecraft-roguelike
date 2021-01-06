@@ -27,12 +27,12 @@ import static greymerk.roguelike.worldgen.Cardinal.UP;
 
 public class FortressRoom extends DungeonBase {
 
-  public FortressRoom(RoomSetting roomSetting) {
-    super(roomSetting);
+  public FortressRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
   }
 
-  public DungeonBase generate(WorldEditor editor, LevelSettings levelSettings, Coord origin, List<Cardinal> entrances) {
-    ThemeBase theme = levelSettings.getTheme();
+  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
+    ThemeBase theme = settings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();
     StairsBlock stair = theme.getPrimary().getStair();
     BlockBrush liquid = theme.getPrimary().getLiquid();
@@ -88,7 +88,7 @@ public class FortressRoom extends DungeonBase {
     List<Coord> chests = (new RectSolid(start, end).get());
 
     List<Coord> chestLocations = chooseRandomLocations(editor.getRandom(), editor.getRandom().nextInt(3) + 1, chests);
-    editor.getTreasureChestEditor().createChests(levelSettings.getDifficulty(origin), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(editor.getRandom(), ChestType.RARE_TREASURES)));
+    editor.getTreasureChestEditor().createChests(settings.getDifficulty(origin), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(editor.getRandom(), ChestType.RARE_TREASURES)));
 
     for (Cardinal dir : DIRECTIONS) {
 
@@ -119,17 +119,17 @@ public class FortressRoom extends DungeonBase {
       cursor = new Coord(origin);
       cursor.translate(dir, 4);
       cursor.translate(dir.antiClockwise(), 4);
-      supportPillar(editor, editor.getRandom(), levelSettings, cursor);
+      supportPillar(editor, editor.getRandom(), settings, cursor);
 
       for (Cardinal o : dir.orthogonals()) {
         cursor = new Coord(origin);
         cursor.translate(dir, 7);
         cursor.translate(o, 2);
-        pillar(editor, levelSettings, cursor);
+        pillar(editor, settings, cursor);
         cursor.translate(o);
         cursor.translate(o);
         cursor.translate(o);
-        pillar(editor, levelSettings, cursor);
+        pillar(editor, settings, cursor);
       }
     }
 

@@ -19,11 +19,11 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class DungeonsSlime extends DungeonBase {
 
-  public DungeonsSlime(RoomSetting roomSetting) {
-    super(roomSetting);
+  public DungeonsSlime(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
   }
 
-  public DungeonBase generate(WorldEditor editor, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
     ThemeBase theme = settings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();
     BlockBrush bars = BlockType.IRON_BAR.getBrush();

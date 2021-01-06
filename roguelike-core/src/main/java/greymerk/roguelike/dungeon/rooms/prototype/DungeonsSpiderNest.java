@@ -20,7 +20,6 @@ import greymerk.roguelike.worldgen.spawners.MobType;
 import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 public class DungeonsSpiderNest extends DungeonBase {
-  WorldEditor editor;
   Random rand;
   int originX;
   int originY;
@@ -29,16 +28,15 @@ public class DungeonsSpiderNest extends DungeonBase {
   int dungeonLength;
   int dungeonWidth;
 
-  public DungeonsSpiderNest(RoomSetting roomSetting) {
-    super(roomSetting);
+  public DungeonsSpiderNest(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
     dungeonHeight = 2;
     dungeonLength = 3;
     dungeonWidth = 3;
   }
 
-  public DungeonBase generate(WorldEditor editor, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
 
-    this.editor = editor;
     rand = editor.getRandom();
     originX = origin.getX();
     originY = origin.getY();

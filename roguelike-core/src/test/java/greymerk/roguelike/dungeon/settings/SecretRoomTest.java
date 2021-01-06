@@ -9,24 +9,28 @@ import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.SecretRoom;
 import greymerk.roguelike.dungeon.rooms.Frequency;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.mock;
 
 public class SecretRoomTest {
 
   @Test
   public void testEquals() {
-    SecretRoom test = new SecretRoom(newRoomSetting(RoomType.BEDROOM, 1));
-    SecretRoom other = new SecretRoom(newRoomSetting(RoomType.BEDROOM, 1));
+    LevelSettings levelSettings = mock(LevelSettings.class);
+    WorldEditor worldEditor = mock(WorldEditor.class);
+    SecretRoom test = new SecretRoom(newRoomSetting(RoomType.BEDROOM, 1), levelSettings, worldEditor);
+    SecretRoom other = new SecretRoom(newRoomSetting(RoomType.BEDROOM, 1), levelSettings, worldEditor);
     assertThat(test).isEqualTo(other);
 
-    SecretRoom third = new SecretRoom(newRoomSetting(RoomType.CAKE, 1));
+    SecretRoom third = new SecretRoom(newRoomSetting(RoomType.CAKE, 1), levelSettings, worldEditor);
     assertThat(test).isNotEqualTo(third);
 
-    SecretRoom twoBeds = new SecretRoom(newRoomSetting(RoomType.BEDROOM, 2));
+    SecretRoom twoBeds = new SecretRoom(newRoomSetting(RoomType.BEDROOM, 2), levelSettings, worldEditor);
     assertThat(test).isNotEqualTo(twoBeds);
 
-    SecretRoom twoCakes = new SecretRoom(newRoomSetting(RoomType.CAKE, 2));
+    SecretRoom twoCakes = new SecretRoom(newRoomSetting(RoomType.CAKE, 2), levelSettings, worldEditor);
     assertThat(twoBeds).isNotEqualTo(twoCakes);
 
   }

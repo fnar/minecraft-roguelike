@@ -13,6 +13,7 @@ import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.base.RoomIterator;
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
+import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -45,13 +46,14 @@ public class DungeonTaskLayout implements IDungeonTask {
     // assign dungeon rooms
     for (DungeonLevel level : levels) {
       LevelLayout layout = level.getLayout();
-      RoomIterator roomIterator = new RoomIterator(level.getSettings().getRooms(), random);
+      LevelSettings levelSettings = level.getSettings();
+      RoomIterator roomIterator = new RoomIterator(levelSettings, editor);
 
       int count = 0;
       while (layout.hasEmptyRooms()) {
-        DungeonBase toGenerate = count < level.getSettings().getNumRooms()
+        DungeonBase toGenerate = count < levelSettings.getNumRooms()
             ? roomIterator.getDungeonRoom()
-            : RoomType.CORNER.newSingleRoomSetting().instantiate();
+            : RoomType.CORNER.newSingleRoomSetting().instantiate(levelSettings, editor);
         DungeonNode node = layout.getBestFit(toGenerate);
         node.setDungeon(toGenerate);
         ++count;

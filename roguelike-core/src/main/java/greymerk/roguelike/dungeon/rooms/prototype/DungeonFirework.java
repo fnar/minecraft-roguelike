@@ -30,12 +30,12 @@ import static com.github.srwaggon.roguelike.worldgen.block.normal.ColoredBlock.s
 
 public class DungeonFirework extends DungeonBase {
 
-  public DungeonFirework(RoomSetting roomSetting) {
-    super(roomSetting);
+  public DungeonFirework(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
 
     int x = origin.getX();
     int y = origin.getY();

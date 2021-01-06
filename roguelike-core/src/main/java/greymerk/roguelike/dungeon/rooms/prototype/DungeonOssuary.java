@@ -1,6 +1,7 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
 import com.github.srwaggon.roguelike.worldgen.SingleBlockBrush;
+import com.github.srwaggon.roguelike.worldgen.block.decorative.Skull;
 import com.github.srwaggon.roguelike.worldgen.block.normal.StairsBlock;
 
 import java.util.List;
@@ -13,18 +14,17 @@ import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Cardinal;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
-import com.github.srwaggon.roguelike.worldgen.block.decorative.Skull;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class DungeonOssuary extends DungeonBase {
 
-  public DungeonOssuary(RoomSetting roomSetting) {
-    super(roomSetting);
+  public DungeonOssuary(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
     ThemeBase theme = settings.getTheme();
     BlockBrush walls = theme.getPrimary().getWall();
     StairsBlock stair = theme.getPrimary().getStair();

@@ -33,8 +33,8 @@ import static com.github.srwaggon.roguelike.worldgen.block.normal.ColoredBlock.s
 
 public class DungeonLab extends DungeonBase {
 
-  public DungeonLab(RoomSetting roomSetting) {
-    super(roomSetting);
+  public DungeonLab(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+    super(roomSetting, levelSettings, worldEditor);
   }
 
   private static void corner(WorldEditor editor, ThemeBase theme, int x, int y, int z) {
@@ -198,7 +198,7 @@ public class DungeonLab extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(WorldEditor editor, LevelSettings settings, Coord origin, List<Cardinal> entrances) {
+  public DungeonBase generate(Coord origin, List<Cardinal> entrances) {
 
     int x = origin.getX();
     int y = origin.getY();

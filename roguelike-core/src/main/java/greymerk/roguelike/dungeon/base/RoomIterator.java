@@ -2,10 +2,11 @@ package greymerk.roguelike.dungeon.base;
 
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Random;
 
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
+import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.util.WeightedRandomizer;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 import static greymerk.roguelike.dungeon.base.RoomType.CORNER;
 import static java.util.stream.Collectors.toCollection;
@@ -14,23 +15,25 @@ public class RoomIterator implements Iterator<DungeonBase> {
 
   private final LinkedList<DungeonBase> singleRooms;
   private final WeightedRandomizer<RoomSetting> randomRooms;
-  private Random random;
+  private final LevelSettings levelSettings;
+  private WorldEditor worldEditor;
 
-  public RoomIterator(RoomsSetting roomsSetting, Random random) {
-    singleRooms = roomsSetting.getSingleRoomSettings().stream()
-        .map(RoomSetting::instantiate)
+  public RoomIterator(LevelSettings levelSettings, WorldEditor worldEditor) {
+    singleRooms = levelSettings.getRooms().getSingleRoomSettings().stream()
+        .map(roomSetting -> roomSetting.instantiate(levelSettings, worldEditor))
         .collect(toCollection(LinkedList::new));
-    randomRooms = roomsSetting.getRandomRooms();
-    this.random = random;
+    randomRooms = levelSettings.getRooms().getRandomRooms();
+    this.levelSettings = levelSettings;
+    this.worldEditor = worldEditor;
   }
 
   public DungeonBase getDungeonRoom() {
     if (hasNext()) {
       return next();
     } else if (randomRooms.isEmpty()) {
-      return CORNER.newSingleRoomSetting().instantiate();
+      return CORNER.newSingleRoomSetting().instantiate(levelSettings, worldEditor);
     } else {
-      return randomRooms.get(random).instantiate();
+      return randomRooms.get(worldEditor.getRandom()).instantiate(levelSettings, worldEditor);
     }
   }
 

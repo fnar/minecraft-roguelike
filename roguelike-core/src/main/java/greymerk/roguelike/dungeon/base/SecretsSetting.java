@@ -16,22 +16,22 @@ import lombok.ToString;
 @ToString
 public class SecretsSetting {
 
-  private List<SecretRoom> secretRooms = Lists.newArrayList();
+  private final List<RoomSetting> secretRoomSettings = Lists.newArrayList();
 
   public SecretsSetting() {
   }
 
   public SecretsSetting(SecretsSetting toCopy) {
-    getSecretRooms().addAll(toCopy.getSecretRooms());
+    secretRoomSettings.addAll(toCopy.secretRoomSettings);
   }
 
   public SecretsSetting(SecretsSetting base, SecretsSetting other) {
     if (base != null) {
-      getSecretRooms().addAll(base.getSecretRooms());
+      secretRoomSettings.addAll(base.secretRoomSettings);
     }
 
     if (other != null) {
-      getSecretRooms().addAll(other.getSecretRooms());
+      secretRoomSettings.addAll(other.secretRoomSettings);
     }
   }
 
@@ -43,7 +43,6 @@ public class SecretsSetting {
 
   public void add(RoomSetting roomSetting) {
     IntStream.range(0, roomSetting.getCount())
-        .forEach(value -> getSecretRooms().add(new SecretRoom(roomSetting)));
+        .forEach(value -> secretRoomSettings.add(roomSetting));
   }
-
 }

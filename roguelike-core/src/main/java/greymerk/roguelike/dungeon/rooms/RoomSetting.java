@@ -43,7 +43,9 @@ import greymerk.roguelike.dungeon.rooms.prototype.DungeonsSpiderNest;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsWood;
 import greymerk.roguelike.dungeon.rooms.prototype.FortressRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.ObsidianRoom;
+import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.treasure.loot.ChestType;
+import greymerk.roguelike.worldgen.WorldEditor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
@@ -53,13 +55,13 @@ import lombok.ToString;
 @Getter
 public class RoomSetting {
 
-  private RoomType roomType;
-  private String spawnerId;
-  private Frequency frequency;
-  private int weight;
-  private int count;
-  private List<Integer> levels;
-  private Optional<ChestType> chestType;
+  private final RoomType roomType;
+  private final String spawnerId;
+  private final Frequency frequency;
+  private final int weight;
+  private final int count;
+  private final List<Integer> levels;
+  private final Optional<ChestType> chestType;
 
   public RoomSetting(RoomType roomType, String spawnerId, Frequency frequency, int weight, int count, List<Integer> levels, Optional<ChestType> chestType) {
     this.roomType = roomType;
@@ -87,85 +89,85 @@ public class RoomSetting {
     return getLevels() != null && getLevels().contains(floorLevel);
   }
 
-  public DungeonBase instantiate() {
-    switch (roomType) {
-      case ASHLEA:
-        return new DungeonAshlea(this);
-      case AVIDYA:
-        return new DungeonAvidya(this);
-      case BEDROOM:
-        return new DungeonBedRoom(this);
-      case BLAZE:
-        return new DungeonBlaze(this);
-      case BTEAM:
-        return new DungeonBTeam(this);
-      case CAKE:
-        return new DungeonsWood(this);
-      case CORNER:
-        return new CornerRoom(this);
-      case CREEPER:
-        return new DungeonsCreeperDen(this);
-      case CRYPT:
-        return new DungeonsCrypt(this);
-      case DARKHALL:
-        return new DungeonDarkHall(this);
-      case ENCHANT:
-        return new DungeonsEnchant(this);
-      case ENDER:
-        return new DungeonsEnder(this);
-      case ENIKO:
-        return new DungeonEniko(this);
-      case ETHO:
-        return new DungeonEtho(this);
-      case FIRE:
-        return new DungeonsFire(this);
-      case FIREWORK:
-        return new DungeonFirework(this);
-      case FORTRESS:
-        return new FortressRoom(this);
-      case LAB:
-        return new DungeonLab(this);
-      case LIBRARY:
-        return new DungeonLibrary(this);
-      case LINKER:
-        return new DungeonLinker(this);
-      case LINKERTOP:
-        return new DungeonLinkerTop(this);
-      case MESS:
-        return new DungeonMess(this);
-      case MUSIC:
-        return new DungeonsMusic(this);
-      case NETHER:
-        return new DungeonsNetherBrick(this);
-      case OBSIDIAN:
-        return new ObsidianRoom(this);
-      case OSSUARY:
-        return new DungeonOssuary(this);
-      case PIT:
-        return new DungeonsPit(this);
-      case PRISON:
-        return new DungeonsPrison(this);
-      case PYRAMIDCORNER:
-        return new DungeonPyramidCorner(this);
-      case PYRAMIDSPAWNER:
-        return new DungeonPyramidSpawner(this);
-      case PYRAMIDTOMB:
-        return new DungeonPyramidTomb(this);
-      case REWARD:
-        return new DungeonReward(this);
-      case SLIME:
-        return new DungeonsSlime(this);
-      case SMITH:
-        return new DungeonsSmithy(this);
-      case SPIDER:
-        return new DungeonsSpiderNest(this);
-      case STORAGE:
-        return new DungeonStorage(this);
-      case TREETHO:
-        return new DungeonTreetho(this);
-      case BRICK:
+  public DungeonBase instantiate(LevelSettings levelSettings, WorldEditor worldEditor) {
+    switch (getRoomType()) {
       default:
-        return new BrickRoom(this);
+      case BRICK:
+        return new BrickRoom(this, levelSettings, worldEditor);
+      case ASHLEA:
+        return new DungeonAshlea(this, levelSettings, worldEditor);
+      case AVIDYA:
+        return new DungeonAvidya(this, levelSettings, worldEditor);
+      case BEDROOM:
+        return new DungeonBedRoom(this, levelSettings, worldEditor);
+      case BLAZE:
+        return new DungeonBlaze(this, levelSettings, worldEditor);
+      case BTEAM:
+        return new DungeonBTeam(this, levelSettings, worldEditor);
+      case CAKE:
+        return new DungeonsWood(this, levelSettings, worldEditor);
+      case CORNER:
+        return new CornerRoom(this, levelSettings, worldEditor);
+      case CREEPER:
+        return new DungeonsCreeperDen(this, levelSettings, worldEditor);
+      case CRYPT:
+        return new DungeonsCrypt(this, levelSettings, worldEditor);
+      case DARKHALL:
+        return new DungeonDarkHall(this, levelSettings, worldEditor);
+      case ENCHANT:
+        return new DungeonsEnchant(this, levelSettings, worldEditor);
+      case ENDER:
+        return new DungeonsEnder(this, levelSettings, worldEditor);
+      case ENIKO:
+        return new DungeonEniko(this, levelSettings, worldEditor);
+      case ETHO:
+        return new DungeonEtho(this, levelSettings, worldEditor);
+      case FIRE:
+        return new DungeonsFire(this, levelSettings, worldEditor);
+      case FIREWORK:
+        return new DungeonFirework(this, levelSettings, worldEditor);
+      case FORTRESS:
+        return new FortressRoom(this, levelSettings, worldEditor);
+      case LAB:
+        return new DungeonLab(this, levelSettings, worldEditor);
+      case LIBRARY:
+        return new DungeonLibrary(this, levelSettings, worldEditor);
+      case LINKER:
+        return new DungeonLinker(this, levelSettings, worldEditor);
+      case LINKERTOP:
+        return new DungeonLinkerTop(this, levelSettings, worldEditor);
+      case MESS:
+        return new DungeonMess(this, levelSettings, worldEditor);
+      case MUSIC:
+        return new DungeonsMusic(this, levelSettings, worldEditor);
+      case NETHER:
+        return new DungeonsNetherBrick(this, levelSettings, worldEditor);
+      case OBSIDIAN:
+        return new ObsidianRoom(this, levelSettings, worldEditor);
+      case OSSUARY:
+        return new DungeonOssuary(this, levelSettings, worldEditor);
+      case PIT:
+        return new DungeonsPit(this, levelSettings, worldEditor);
+      case PRISON:
+        return new DungeonsPrison(this, levelSettings, worldEditor);
+      case PYRAMIDCORNER:
+        return new DungeonPyramidCorner(this, levelSettings, worldEditor);
+      case PYRAMIDSPAWNER:
+        return new DungeonPyramidSpawner(this, levelSettings, worldEditor);
+      case PYRAMIDTOMB:
+        return new DungeonPyramidTomb(this, levelSettings, worldEditor);
+      case REWARD:
+        return new DungeonReward(this, levelSettings, worldEditor);
+      case SLIME:
+        return new DungeonsSlime(this, levelSettings, worldEditor);
+      case SMITH:
+        return new DungeonsSmithy(this, levelSettings, worldEditor);
+      case SPIDER:
+        return new DungeonsSpiderNest(this, levelSettings, worldEditor);
+      case STORAGE:
+        return new DungeonStorage(this, levelSettings, worldEditor);
+      case TREETHO:
+        return new DungeonTreetho(this, levelSettings, worldEditor);
     }
   }
 }
