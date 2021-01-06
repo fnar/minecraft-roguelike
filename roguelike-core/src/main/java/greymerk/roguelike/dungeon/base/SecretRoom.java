@@ -19,15 +19,18 @@ import lombok.ToString;
 @ToString
 public class SecretRoom extends DungeonBase {
 
+  private final DungeonBase prototype;
+
   public SecretRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    prototype = getRoomSetting().instantiate(this.levelSettings, this.worldEditor);
   }
 
-  public boolean isValid(WorldEditor editor, Cardinal dir, Coord pos) {
+  @Override
+  public boolean validLocation(WorldEditor editor, Cardinal dir, Coord pos) {
     if (getRoomSetting().getCount() <= 0) {
       return false;
     }
-    DungeonBase prototype = createPrototype();
     Coord cursor = new Coord(pos);
     cursor.translate(dir, prototype.getSize() + 5);
     return prototype.validLocation(editor, dir, cursor);
@@ -35,8 +38,6 @@ public class SecretRoom extends DungeonBase {
 
   @Override
   public DungeonBase generate(Coord pos, List<Cardinal> entrances) {
-    DungeonBase prototype = createPrototype();
-
     int size = prototype.getSize();
 
     Coord start = new Coord(pos);
@@ -56,17 +57,12 @@ public class SecretRoom extends DungeonBase {
     RectSolid.newRect(pos, end).fill(worldEditor, SingleBlockBrush.AIR);
 
     end.translate(Cardinal.DOWN);
-    prototype.generate(end, Lists.newArrayList(entrance));
-    return prototype;
+    return prototype.generate(end, Lists.newArrayList(entrance));
   }
 
   @Override
   public int getSize() {
-    return createPrototype().getSize();
-  }
-
-  private DungeonBase createPrototype() {
-    return getRoomSetting().instantiate(levelSettings, worldEditor);
+    return prototype.getSize();
   }
 
 }
