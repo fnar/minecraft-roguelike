@@ -24,9 +24,16 @@ public enum PotionType {
   SWIFTNESS,
   FIRERESIST;
 
-  public static ItemStack getRandom(Random rand) {
-    PotionType type = PotionType.values()[rand.nextInt(PotionType.values().length)];
-    return getSpecific(rand, type);
+  public static ItemStack getRandomItemStack(Random rand) {
+    return getSpecific(rand, chooseRandom(rand));
+  }
+
+  public static PotionType chooseRandom(Random rand) {
+    return chooseRandomAmong(rand, values());
+  }
+
+  public static PotionType chooseRandomAmong(Random rand, PotionType[] potionTypes) {
+    return potionTypes[rand.nextInt(potionTypes.length)];
   }
 
   public static ItemStack getSpecific(Random rand, PotionType effect) {

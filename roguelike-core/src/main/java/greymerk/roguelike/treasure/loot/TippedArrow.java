@@ -13,8 +13,7 @@ public class TippedArrow {
   }
 
   public static ItemStack get(Random rand, int amount) {
-    PotionType type = PotionType.values()[rand.nextInt(PotionType.values().length)];
-    return get(type, amount);
+    return get(PotionType.chooseRandom(rand), amount);
   }
 
   public static ItemStack get(PotionType type) {

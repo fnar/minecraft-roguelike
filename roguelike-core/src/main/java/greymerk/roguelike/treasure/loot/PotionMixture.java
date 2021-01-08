@@ -25,13 +25,24 @@ public enum PotionMixture {
   COFFEE,
   AURA;
 
-  public static ItemStack getPotion(Random rand, PotionMixture type) {
+  public static final PotionMixture[] POTIONS = {LAUDANUM, RAGE, STAMINA, NECTAR, COFFEE, AURA};
+  public static final PotionMixture[] BOOZE = {TEQUILA, LAUDANUM, MOONSHINE, ABSINTHE, STOUT};
+
+  public static PotionMixture chooseRandom(Random random) {
+    return chooseRandomAmong(random, values());
+  }
+
+  public static PotionMixture chooseRandomAmong(Random random, PotionMixture[] potions) {
+    return potions[random.nextInt(potions.length)];
+  }
+
+  public static ItemStack getPotion(Random random, PotionMixture type) {
     ItemStack potion;
     switch (type) {
       case TEQUILA:
         potion = PotionType.getSpecific(PotionForm.REGULAR, null, false, false);
-        PotionEffect.addCustomEffect(potion, PotionEffect.STRENGTH, 3, 30 + rand.nextInt(60));
-        PotionEffect.addCustomEffect(potion, PotionEffect.FATIGUE, 1, 30 + rand.nextInt(60));
+        PotionEffect.addCustomEffect(potion, PotionEffect.STRENGTH, 3, 30 + random.nextInt(60));
+        PotionEffect.addCustomEffect(potion, PotionEffect.FATIGUE, 1, 30 + random.nextInt(60));
         Loot.setItemName(potion, "Tequila");
         ItemHideFlags.set(ItemHideFlags.EFFECTS, potion);
         setColor(potion, DyeColor.RGBToColor(255, 232, 196));
@@ -51,8 +62,8 @@ public enum PotionMixture {
       case MOONSHINE:
         potion = PotionType.getSpecific(PotionForm.REGULAR, null, false, false);
         PotionEffect.addCustomEffect(potion, PotionEffect.DAMAGE, 1, 1);
-        PotionEffect.addCustomEffect(potion, PotionEffect.BLINDNESS, 1, 30 + rand.nextInt(60));
-        PotionEffect.addCustomEffect(potion, PotionEffect.RESISTANCE, 2, 30 + rand.nextInt(30));
+        PotionEffect.addCustomEffect(potion, PotionEffect.BLINDNESS, 1, 30 + random.nextInt(60));
+        PotionEffect.addCustomEffect(potion, PotionEffect.RESISTANCE, 2, 30 + random.nextInt(30));
         Loot.setItemName(potion, "Moonshine");
         ItemHideFlags.set(ItemHideFlags.EFFECTS, potion);
         setColor(potion, DyeColor.RGBToColor(250, 240, 230));
@@ -68,11 +79,11 @@ public enum PotionMixture {
         return potion;
       case VILE:
         potion = PotionType.getSpecific(
-            rand,
-            PotionForm.values()[rand.nextInt(PotionForm.values().length)],
-            PotionType.values()[rand.nextInt(PotionType.values().length)]
+            random,
+            PotionForm.chooseRandom(random),
+            PotionType.chooseRandom(random)
         );
-        addRandomEffects(rand, potion, 2 + rand.nextInt(2));
+        addRandomEffects(random, potion, 2 + random.nextInt(2));
         Loot.setItemName(potion, "Vile Mixture");
         ItemHideFlags.set(ItemHideFlags.EFFECTS, potion);
         return potion;
@@ -142,19 +153,11 @@ public enum PotionMixture {
   }
 
   public static ItemStack getBooze(Random rand) {
-
-    final PotionMixture[] booze = {TEQUILA, LAUDANUM, MOONSHINE, ABSINTHE, STOUT};
-    List<PotionMixture> potions = Arrays.asList(booze);
-    int choice = rand.nextInt(potions.size());
-    PotionMixture type = potions.get(choice);
-    return getPotion(rand, type);
+    return getPotion(rand, chooseRandomAmong(rand, BOOZE));
   }
 
   public static ItemStack getRandom(Random rand) {
-    final PotionMixture[] potions = {LAUDANUM, RAGE, STAMINA, NECTAR, COFFEE, AURA};
-    int choice = rand.nextInt(potions.length);
-    PotionMixture type = potions[choice];
-    return getPotion(rand, type);
+    return getPotion(rand, chooseRandomAmong(rand, POTIONS));
   }
 
   public static void addRandomEffects(Random rand, ItemStack potion, int numEffects) {

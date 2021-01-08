@@ -21,7 +21,8 @@ public class ItemPotion extends ItemBase {
         PotionType.SWIFTNESS,
         PotionType.REGEN
     };
-    PotionType type = potionTypes[rand.nextInt(potionTypes.length)];
+    PotionType type = PotionType.chooseRandomAmong(rand, potionTypes);
     return PotionType.getSpecific(PotionForm.REGULAR, type, true, false);
   }
+
 }
