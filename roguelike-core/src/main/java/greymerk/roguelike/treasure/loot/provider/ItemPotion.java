@@ -4,7 +4,7 @@ import net.minecraft.item.ItemStack;
 
 import java.util.Random;
 
-import greymerk.roguelike.treasure.loot.Potion;
+import greymerk.roguelike.treasure.loot.PotionType;
 import greymerk.roguelike.treasure.loot.PotionForm;
 
 public class ItemPotion extends ItemBase {
@@ -15,13 +15,13 @@ public class ItemPotion extends ItemBase {
 
   @Override
   public ItemStack getLootItem(Random rand, int level) {
-    final Potion[] potions = new Potion[]{
-        Potion.HEALING,
-        Potion.STRENGTH,
-        Potion.SWIFTNESS,
-        Potion.REGEN
+    final PotionType[] potionTypes = new PotionType[]{
+        PotionType.HEALING,
+        PotionType.STRENGTH,
+        PotionType.SWIFTNESS,
+        PotionType.REGEN
     };
-    Potion type = potions[rand.nextInt(potions.length)];
-    return Potion.getSpecific(PotionForm.REGULAR, type, true, false);
+    PotionType type = potionTypes[rand.nextInt(potionTypes.length)];
+    return PotionType.getSpecific(PotionForm.REGULAR, type, true, false);
   }
 }

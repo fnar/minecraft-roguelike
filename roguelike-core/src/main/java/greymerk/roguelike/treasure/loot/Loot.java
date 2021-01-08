@@ -70,7 +70,7 @@ public enum Loot {
 
     switch (type) {
       case "potion":
-        return Potion.get(data, weight);
+        return PotionType.get(data, weight);
       case "mixture":
         return new ItemMixture(data, weight);
       case "weapon":
