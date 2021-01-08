@@ -4,8 +4,6 @@ import com.google.common.base.Predicates;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import net.minecraft.util.ResourceLocation;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +15,7 @@ import static com.google.common.collect.Lists.newArrayList;
 public class LootTableRule {
 
   List<Integer> levels = newArrayList();
-  private ResourceLocation table;
+  private String table;
   private List<ChestType> chestTypes = newArrayList();
 
   public LootTableRule() {
@@ -25,7 +23,7 @@ public class LootTableRule {
 
   public LootTableRule(
       List<Integer> levels,
-      ResourceLocation table,
+      String table,
       List<ChestType> chestTypes
   ) {
     this.levels = levels;
@@ -58,7 +56,7 @@ public class LootTableRule {
   }
 
   public void setTable(String table) {
-    this.table = new ResourceLocation(table);
+    this.table = table;
   }
 
   public void addChestType(ChestType chestType) {
@@ -85,11 +83,11 @@ public class LootTableRule {
 
   }
 
-  private static ResourceLocation parseTable(JsonObject json) throws Exception {
+  private static String parseTable(JsonObject json) throws Exception {
     if (!json.has("table")) {
       throw new Exception("Loot table requires a table field");
     }
-    return new ResourceLocation(json.get("table").getAsString());
+    return json.get("table").getAsString();
   }
 
   private static List<ChestType> parseType(JsonObject json) {

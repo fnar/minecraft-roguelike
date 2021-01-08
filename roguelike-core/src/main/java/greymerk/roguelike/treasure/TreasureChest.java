@@ -2,33 +2,33 @@ package greymerk.roguelike.treasure;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityChest;
-import net.minecraft.util.ResourceLocation;
 
 import greymerk.roguelike.treasure.loot.ChestType;
+import greymerk.roguelike.worldgen.Coord;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
 
 public class TreasureChest {
 
-  private final Inventory inventory;
-  private ChestType chestType;
-  private final long seed;
-  private final TileEntityChest tileEntityChest;
+  private final ChestType chestType;
   private final int level;
+  private final Inventory inventory;
+  private final Coord pos;
+  private final WorldEditor worldEditor;
 
   public TreasureChest(
       ChestType chestType,
       int level,
-      TileEntityChest tileEntityChest,
-      int seed,
-      Inventory inventory
+      Coord pos,
+      WorldEditor worldEditor
   ) {
     this.chestType = chestType;
     this.level = level;
-    this.tileEntityChest = tileEntityChest;
-    this.inventory = inventory;
-    this.seed = seed;
+    this.inventory = new Inventory(worldEditor.getRandom(), (TileEntityChest) worldEditor.getTileEntity(pos));
+    this.pos = pos;
+    this.worldEditor = worldEditor;
   }
 
   public boolean setSlot(int slot, ItemStack item) {
@@ -55,16 +55,8 @@ public class TreasureChest {
     return max(0, min(level, 4));
   }
 
-  public void setLootTable(ResourceLocation table) {
-    this.tileEntityChest.setLootTable(table, seed);
-  }
-
-  public boolean isOnLevel(int level) {
-    return getLevel() == level;
-  }
-
-  public boolean isType(ChestType chestType) {
-    return getType().equals(chestType);
+  public void setLootTable(String table) {
+    worldEditor.setLootTable(pos, table);
   }
 
   public boolean isNotEmpty() {
@@ -72,6 +64,6 @@ public class TreasureChest {
   }
 
   private boolean isEmpty() {
-    return chestType == null || isType(ChestType.EMPTY);
+    return chestType == null || getType().equals(ChestType.EMPTY);
   }
 }

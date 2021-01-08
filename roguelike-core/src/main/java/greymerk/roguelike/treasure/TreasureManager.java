@@ -57,18 +57,18 @@ public class TreasureManager {
   }
 
   public static Predicate<TreasureChest> ofType(ChestType chestType) {
-    return chest -> chest.isType(chestType);
+    return chest -> chest.getType().equals(chestType);
   }
 
   public static Predicate<TreasureChest> ofTypeOnLevel(ChestType chestType, int level) {
     return Predicates.and(
-        chest -> chest.isOnLevel(level),
-        chest -> chest.isType(chestType));
+        chest -> chest.getLevel() == level,
+        chest -> chest.getType().equals(chestType));
   }
 
   public static Predicate<TreasureChest> onLevel(int level) {
     return Predicates.and(
         TreasureChest::isNotEmpty,
-        chest -> chest.isOnLevel(level));
+        chest -> chest.getLevel() == level);
   }
 }

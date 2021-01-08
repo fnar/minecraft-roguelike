@@ -75,7 +75,7 @@ public class SettingsLootRules extends DungeonSettings {
   }
 
   private void useLootTableForLevel(ResourceLocation chestsSimpleDungeon, int level) {
-    getLootTables().add(new LootTableRule(newArrayList(level), new ResourceLocation(chestsSimpleDungeon.getResourcePath()), newArrayList(ChestType.REWARD)));
+    getLootTables().add(new LootTableRule(newArrayList(level), chestsSimpleDungeon.getResourcePath(), newArrayList(ChestType.REWARD)));
   }
 
   private void addStarterLoot(ILoot loot) {
