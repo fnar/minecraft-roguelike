@@ -6,6 +6,9 @@ import net.minecraft.item.ItemStack;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Random;
 
@@ -16,8 +19,13 @@ import greymerk.roguelike.util.WeightedRandomizer;
 import static greymerk.roguelike.treasure.TreasureManager.ofType;
 import static greymerk.roguelike.treasure.TreasureManager.ofTypeOnLevel;
 import static greymerk.roguelike.treasure.TreasureManager.onLevel;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class TreasureManagerTest {
+
+  @Mock
+  private TreasureChest mockTreasureChest;
 
   @Before
   public void setup() {
@@ -31,8 +39,10 @@ public class TreasureManagerTest {
     loot.add(stick);
 
     TreasureManager treasure = new TreasureManager(new Random());
-    MockChest toAdd = new MockChest(ChestType.ARMOUR, 0);
-    treasure.addChest(toAdd);
+    when(mockTreasureChest.getType()).thenReturn(ChestType.ARMOUR);
+    when(mockTreasureChest.getLevel()).thenReturn(0);
+
+    treasure.addChest(mockTreasureChest);
     treasure.addItem(ofTypeOnLevel(ChestType.ARMOUR, 0), loot, 1);
     treasure.addItem(ofTypeOnLevel(ChestType.ARMOUR, 1), loot, 1);
     treasure.addItem(ofTypeOnLevel(ChestType.WEAPONS, 0), loot, 1);

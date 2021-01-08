@@ -10,10 +10,10 @@ import java.util.Random;
 
 public class Inventory {
   List<Integer> shuffledSlots;
-  private TileEntityChest chest;
+  private TileEntityChest tileEntityChest;
 
-  public Inventory(Random rand, TileEntityChest chest) {
-    this.chest = chest;
+  public Inventory(Random rand, TileEntityChest tileEntityChest) {
+    this.tileEntityChest = tileEntityChest;
     this.shuffledSlots = new ArrayList<>();
     for (int i = 0; i < this.getInventorySize(); ++i) {
       shuffledSlots.add(i);
@@ -41,8 +41,7 @@ public class Inventory {
 
   public boolean isEmptySlot(int slot) {
     try {
-      ItemStack item = chest.getStackInSlot(slot);
-      return item.isEmpty();
+      return tileEntityChest.getStackInSlot(slot).isEmpty();
     } catch (NullPointerException e) {
       return false;
     }
@@ -50,7 +49,7 @@ public class Inventory {
 
   public boolean setInventorySlot(int slot, ItemStack item) {
     try {
-      chest.setInventorySlotContents(slot, item);
+      tileEntityChest.setInventorySlotContents(slot, item);
       return true;
     } catch (NullPointerException e) {
       return false;
@@ -59,12 +58,12 @@ public class Inventory {
 
   public int getInventorySize() {
 
-    if (chest == null) {
+    if (tileEntityChest == null) {
       return 0;
     }
 
     try {
-      return chest.getSizeInventory();
+      return tileEntityChest.getSizeInventory();
     } catch (NullPointerException e) {
       return 0;
     }

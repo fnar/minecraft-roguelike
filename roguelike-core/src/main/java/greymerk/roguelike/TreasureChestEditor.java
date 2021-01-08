@@ -1,21 +1,18 @@
 package greymerk.roguelike;
 
-import net.minecraft.tileentity.TileEntityChest;
+import com.github.srwaggon.roguelike.worldgen.block.BlockType;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
 import greymerk.roguelike.treasure.ChestPlacementException;
-import greymerk.roguelike.treasure.Inventory;
 import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.TreasureManager;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
-import com.github.srwaggon.roguelike.worldgen.block.BlockType;
 
 public class TreasureChestEditor {
 
@@ -61,14 +58,11 @@ public class TreasureChestEditor {
       throw new ChestPlacementException("Failed to place chest in world");
     }
 
-    TileEntityChest tileEntityChest = (TileEntityChest) worldEditor.getTileEntity(pos);
-    int seed = Objects.hash(pos.hashCode(), worldEditor.getSeed());
     TreasureChest treasureChest = new TreasureChest(
         chestType,
         level,
-        tileEntityChest,
-        seed,
-        new Inventory(this.random, tileEntityChest)
+        pos,
+        worldEditor
     );
     getTreasureManager().addChest(treasureChest);
 

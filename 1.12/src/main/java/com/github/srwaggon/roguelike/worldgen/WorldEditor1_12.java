@@ -16,9 +16,11 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityBed;
+import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntityFlowerPot;
 import net.minecraft.tileentity.TileEntityLockableLoot;
 import net.minecraft.tileentity.TileEntitySkull;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
@@ -34,8 +36,8 @@ import java.util.stream.Collectors;
 import greymerk.roguelike.TreasureChestEditor;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.MetaBlock1_2;
 import greymerk.roguelike.worldgen.PositionInfo;
 import greymerk.roguelike.worldgen.VanillaStructure;
@@ -334,7 +336,7 @@ public class WorldEditor1_12 implements WorldEditor {
     if (!(tileEntity instanceof TileEntityLockableLoot)) {
       return;
     }
-    ((TileEntityLockableLoot) tileEntity).setInventorySlotContents(slot, item);
+    ((TileEntityLockableLoot) tileEntity).setInventorySlotContents(slot, itemStack);
   }
 
   @Override
@@ -400,6 +402,11 @@ public class WorldEditor1_12 implements WorldEditor {
       default:
         return new ItemStack(Blocks.YELLOW_FLOWER);
     }
+  }
+
+  @Override
+  public void setLootTable(Coord pos, String table) {
+    ((TileEntityChest) getTileEntity(pos)).setLootTable(new ResourceLocation(table), getSeed());
   }
 }
 

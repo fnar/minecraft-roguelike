@@ -2,8 +2,9 @@ package greymerk.roguelike.worldgen;
 
 import com.github.srwaggon.roguelike.worldgen.SingleBlockBrush;
 import com.github.srwaggon.roguelike.worldgen.block.BlockType;
-import com.github.srwaggon.roguelike.worldgen.block.decorative.Plant;
 import com.github.srwaggon.roguelike.worldgen.block.Material;
+import com.github.srwaggon.roguelike.worldgen.block.decorative.Plant;
+import com.github.srwaggon.roguelike.worldgen.block.decorative.Skull;
 import com.github.srwaggon.roguelike.worldgen.block.normal.StairsBlock;
 
 import net.minecraft.block.Block;
@@ -15,7 +16,6 @@ import java.util.Random;
 
 import greymerk.roguelike.TreasureChestEditor;
 import greymerk.roguelike.util.DyeColor;
-import com.github.srwaggon.roguelike.worldgen.block.decorative.Skull;
 
 public interface WorldEditor {
 
@@ -68,4 +68,6 @@ public interface WorldEditor {
   void setFlowerPotContent(Coord pos, Plant choice);
 
    void setSkull(WorldEditor editor, Coord cursor, Direction dir, Skull type);
+
+  void setLootTable(Coord pos, String table);
 }

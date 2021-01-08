@@ -7,16 +7,24 @@ import com.github.srwaggon.roguelike.worldgen.SingleBlockBrush;
 
 import net.minecraft.init.Bootstrap;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import greymerk.roguelike.config.RogueConfig;
-import greymerk.roguelike.treasure.MockChest;
+import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.TreasureManager;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.treasure.loot.LootRuleManager;
@@ -25,13 +33,26 @@ import greymerk.roguelike.util.WeightedChoice;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class DungeonSettingsTest {
+
+  @Mock
+  private TreasureChest mockTreasureChest;
+
+  @Captor
+  private ArgumentCaptor<ItemStack> itemStackCaptor;
 
   @Before
   public void before() {
     RogueConfig.testing = true;
     Bootstrap.register();
+
+    when(mockTreasureChest.getType()).thenReturn(ChestType.STARTER);
+    when(mockTreasureChest.getLevel()).thenReturn(0);
   }
 
   @Test
@@ -99,14 +120,12 @@ public class DungeonSettingsTest {
     LootRuleManager rules = merge.getLootRules();
 
     TreasureManager treasure = new TreasureManager(new Random());
-    MockChest chest = new MockChest(ChestType.STARTER, 0);
-    treasure.addChest(chest);
+
+    treasure.addChest(mockTreasureChest);
 
     rules.process(treasure);
 
-    assert (chest.contains(new ItemStack(Items.APPLE)));
-    assert (chest.contains(new ItemStack(Items.SHEARS)));
-
+    assertChestContains(Items.SHEARS, Items.APPLE);
   }
 
   @Test
@@ -122,13 +141,17 @@ public class DungeonSettingsTest {
     LootRuleManager rules = merge.getLootRules();
 
     TreasureManager treasure = new TreasureManager(new Random());
-    MockChest chest = new MockChest(ChestType.STARTER, 0);
-    treasure.addChest(chest);
+    treasure.addChest(mockTreasureChest);
 
     rules.process(treasure);
 
-    assert (!chest.contains(new ItemStack(Items.SHEARS)));
-    assert (chest.contains(new ItemStack(Items.APPLE)));
+    assertChestContains(Items.APPLE);
+  }
 
+  public void assertChestContains(Item... items) {
+    verify(mockTreasureChest, times(items.length)).setRandomEmptySlot(itemStackCaptor.capture());
+    List<Item> capturedItems = itemStackCaptor.getAllValues().stream().map(ItemStack::getItem).collect(Collectors.toList());
+    assertThat(capturedItems.size()).isEqualTo(items.length);
+    assertThat(capturedItems).containsExactly(items);
   }
 }
