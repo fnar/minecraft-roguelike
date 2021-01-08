@@ -13,11 +13,11 @@ public class TippedArrow {
   }
 
   public static ItemStack get(Random rand, int amount) {
-    Potion type = Potion.values()[rand.nextInt(Potion.values().length)];
+    PotionType type = PotionType.values()[rand.nextInt(PotionType.values().length)];
     return get(type, amount);
   }
 
-  public static ItemStack get(Potion type) {
+  public static ItemStack get(PotionType type) {
     return get(type, 1);
   }
 
@@ -25,9 +25,9 @@ public class TippedArrow {
     return get(type, 1);
   }
 
-  public static ItemStack get(Potion type, int amount) {
+  public static ItemStack get(PotionType type, int amount) {
 
-    net.minecraft.potion.PotionType pot = Potion.getEffect(type, false, false);
+    net.minecraft.potion.PotionType pot = PotionType.getEffect(type, false, false);
     return get(pot, amount);
 
   }
@@ -48,13 +48,13 @@ public class TippedArrow {
   public static ItemStack getHarmful(Random rand, int amount) {
     switch (rand.nextInt(4)) {
       case 0:
-        return TippedArrow.get(Potion.HARM, amount);
+        return TippedArrow.get(PotionType.HARM, amount);
       case 1:
-        return TippedArrow.get(Potion.POISON, amount);
+        return TippedArrow.get(PotionType.POISON, amount);
       case 2:
-        return TippedArrow.get(Potion.SLOWNESS, amount);
+        return TippedArrow.get(PotionType.SLOWNESS, amount);
       case 3:
-        return TippedArrow.get(Potion.WEAKNESS, amount);
+        return TippedArrow.get(PotionType.WEAKNESS, amount);
       default:
         return new ItemStack(Items.ARROW, amount);
     }
