@@ -22,7 +22,7 @@ public class ChestType {
   public static ChestType BREWING = new ChestType("BREWING");
   public static ChestType VANILLA = new ChestType("VANILLA");
 
-  public static final ChestType[] COMMON_TREASURES = {ARMOUR, BLOCKS, EMPTY, FOOD, SUPPLIES, TOOLS, VANILLA, WEAPONS};
+  public static final ChestType[] COMMON_TREASURES = {ARMOUR, BLOCKS, FOOD, SUPPLIES, TOOLS, VANILLA, WEAPONS};
   public static final ChestType[] RARE_TREASURES = {ARMOUR, ENCHANTING, POTIONS, ORE, REWARD, TOOLS, VANILLA, WEAPONS};
   public static final ChestType[] SUPPLIES_TREASURES = {BLOCKS, SUPPLIES};
 
