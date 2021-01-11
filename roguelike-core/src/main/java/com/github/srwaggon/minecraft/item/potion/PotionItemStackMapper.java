@@ -1,4 +1,4 @@
-package com.github.srwaggon.minecraft.item;
+package com.github.srwaggon.minecraft.item.potion;
 
 import net.minecraft.item.ItemStack;
 

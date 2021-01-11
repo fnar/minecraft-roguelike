@@ -1,10 +1,12 @@
-package com.github.srwaggon.minecraft.item;
+package com.github.srwaggon.minecraft.item.potion;
 
 import com.google.common.collect.Lists;
 
+import com.github.srwaggon.minecraft.item.ItemType;
+import com.github.srwaggon.minecraft.item.RldItem;
+
 import java.util.List;
 
-import greymerk.roguelike.treasure.loot.PotionEffect;
 import greymerk.roguelike.treasure.loot.PotionForm;
 import greymerk.roguelike.treasure.loot.PotionType;
 
@@ -12,7 +14,7 @@ public class Potion implements RldItem {
 
   private PotionType type;
   private PotionForm form;
-  private List<PotionEffect> effects;
+  private List<EffectType> effects;
   private boolean isAmplified;
   private boolean isExtended;
 
@@ -28,7 +30,7 @@ public class Potion implements RldItem {
     this(type, form, Lists.newArrayList(), false, false);
   }
 
-  public Potion(PotionType type, PotionForm form, List<PotionEffect> effects, boolean isAmplified, boolean isExtended) {
+  public Potion(PotionType type, PotionForm form, List<EffectType> effects, boolean isAmplified, boolean isExtended) {
     this.type = type;
     this.form = form;
     this.effects = effects;
@@ -63,11 +65,11 @@ public class Potion implements RldItem {
     return this;
   }
 
-  public List<PotionEffect> getEffects() {
+  public List<EffectType> getEffects() {
     return effects;
   }
 
-  public Potion withEffects(List<PotionEffect> Effects) {
+  public Potion withEffects(List<EffectType> Effects) {
     this.effects = Effects;
     return this;
   }

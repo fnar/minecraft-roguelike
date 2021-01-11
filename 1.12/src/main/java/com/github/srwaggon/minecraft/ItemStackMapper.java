@@ -1,8 +1,8 @@
 package com.github.srwaggon.minecraft;
 
 import com.github.srwaggon.minecraft.item.BlockItem;
-import com.github.srwaggon.minecraft.item.Potion;
-import com.github.srwaggon.minecraft.item.PotionItemStackMapper;
+import com.github.srwaggon.minecraft.item.potion.Potion;
+import com.github.srwaggon.minecraft.item.potion.PotionItemStackMapper;
 import com.github.srwaggon.minecraft.item.RldItem;
 import com.github.srwaggon.minecraft.item.RldItemStack;
 
