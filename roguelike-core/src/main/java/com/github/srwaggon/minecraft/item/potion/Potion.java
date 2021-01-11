@@ -14,12 +14,12 @@ public class Potion implements RldItem {
 
   private PotionType type;
   private PotionForm form;
-  private List<EffectType> effects;
+  private final List<Effect> effects = Lists.newArrayList();
   private boolean isAmplified;
   private boolean isExtended;
 
   public Potion() {
-    this(PotionType.HEALING);
+    this(PotionType.AWKWARD);
   }
 
   public Potion(PotionType type) {
@@ -30,10 +30,10 @@ public class Potion implements RldItem {
     this(type, form, Lists.newArrayList(), false, false);
   }
 
-  public Potion(PotionType type, PotionForm form, List<EffectType> effects, boolean isAmplified, boolean isExtended) {
+  public Potion(PotionType type, PotionForm form, List<Effect> effects, boolean isAmplified, boolean isExtended) {
     this.type = type;
     this.form = form;
-    this.effects = effects;
+    this.effects.addAll(effects);
     this.isAmplified = isAmplified;
     this.isExtended = isExtended;
   }
@@ -65,12 +65,12 @@ public class Potion implements RldItem {
     return this;
   }
 
-  public List<EffectType> getEffects() {
+  public List<Effect> getEffects() {
     return effects;
   }
 
-  public Potion withEffects(List<EffectType> Effects) {
-    this.effects = Effects;
+  public Potion withEffect(Effect effects) {
+    this.effects.add(effects);
     return this;
   }
 

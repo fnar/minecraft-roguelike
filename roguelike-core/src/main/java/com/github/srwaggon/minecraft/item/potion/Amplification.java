@@ -1,5 +1,7 @@
 package com.github.srwaggon.minecraft.item.potion;
 
+import java.util.Random;
+
 public enum Amplification {
 
   UNAMPLIFIED(0),
@@ -14,5 +16,9 @@ public enum Amplification {
 
   public int getLevel() {
     return level;
+  }
+
+  public static Amplification chooseRandom(Random random) {
+    return values()[random.nextInt(values().length)];
   }
 }

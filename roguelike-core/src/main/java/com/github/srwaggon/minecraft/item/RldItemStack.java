@@ -2,19 +2,27 @@ package com.github.srwaggon.minecraft.item;
 
 
 import com.github.srwaggon.minecraft.block.BlockType;
+import com.github.srwaggon.minecraft.tag.CompoundTag;
+
+import greymerk.roguelike.treasure.loot.ItemHideFlags;
 
 public class RldItemStack {
 
   private RldItem item;
   private int count;
+  private final CompoundTag tags = new CompoundTag();
+
+  public RldItemStack(RldItem item) {
+    this(item, 1);
+  }
 
   public RldItemStack(RldItem item, int count) {
     this.item = item;
     this.count = count;
   }
 
-  public RldItemStack(RldItem item) {
-    this(item, 1);
+  public static RldItemStack forBlockType(BlockType blockType) {
+    return new RldItemStack(new BlockItem(blockType));
   }
 
   public RldItem getItem() {
@@ -33,7 +41,48 @@ public class RldItemStack {
     this.count = count;
   }
 
-  public static RldItemStack forBlockType(BlockType blockType) {
-    return new RldItemStack(new BlockItem(blockType));
+  public RldItemStack withTag(String name, CompoundTag value) {
+    tags.withTag(name, value);
+    return this;
+  }
+
+  public RldItemStack withTag(String name, int value) {
+    tags.withTag(name, value);
+    return this;
+  }
+
+  public RldItemStack withTag(String name, String value) {
+    tags.withTag(name, value);
+    return this;
+  }
+
+  public CompoundTag getTags() {
+    return tags;
+  }
+
+  public RldItemStack withDisplayName(String name) {
+    ensureCompoundTag("display").withTag("Name", name);
+    return this;
+  }
+
+  public CompoundTag ensureCompoundTag(String name) {
+    CompoundTag tag = getTags().getCompound(name);
+    if (tag != null) {
+      return tag;
+    }
+    tag = new CompoundTag();
+    withTag(name, tag);
+    return tag;
+  }
+
+  public RldItemStack withDisplayLore(String lore) {
+    return withTag("display", new CompoundTag()
+        .withTag("Lore", lore));
+  }
+
+  public RldItemStack withHideFlag(ItemHideFlags... hideFlags) {
+    ItemHideFlags.reduce(hideFlags)
+        .ifPresent(integer -> withTag("HideFlags", integer));
+    return this;
   }
 }

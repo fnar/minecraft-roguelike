@@ -175,7 +175,7 @@ public class ItemSpecialty extends ItemBase {
     ItemStack itemStack = new ItemStack(tool);
     name = rollToolEnchantments(itemStack, name, random);
     name = rollGeneralEnchantments(itemStack, name, random);
-    Loot.setItemName(itemStack, name);
+    itemStack.setStackDisplayName(name);
     return itemStack;
   }
 
@@ -249,7 +249,7 @@ public class ItemSpecialty extends ItemBase {
     ItemStack itemStack = new ItemStack(sword);
     name = rollSwordEnchantments(itemStack, name, random);
     name = rollGeneralEnchantments(itemStack, name, random);
-    Loot.setItemName(itemStack, name);
+    itemStack.setStackDisplayName(name);
     return itemStack;
   }
 
@@ -303,13 +303,13 @@ public class ItemSpecialty extends ItemBase {
         name = "Yew Longbow";
         name = rollUnbreaking(item, name, random);
         Loot.setItemLore(item, "Superior craftsmanship", TextFormat.DARKGREEN);
-        Loot.setItemName(item, name);
+        item.setStackDisplayName(name);
         return item;
       default:
       case IRON:
         name = "Laminated Bow";
         name = rollUnbreaking(item, name, random);
-        Loot.setItemName(item, name);
+        item.setStackDisplayName(name);
         Loot.setItemLore(item, "Highly polished", TextFormat.DARKGREEN);
         return item;
       case GOLD:
@@ -317,7 +317,7 @@ public class ItemSpecialty extends ItemBase {
           item.addEnchantment(Enchant.getEnchant(Enchant.INFINITY), 1);
           name = "Elven Bow";
           name = rollUnbreaking(item, name, random);
-          Loot.setItemName(item, name);
+          item.setStackDisplayName(name);
           Loot.setItemLore(item, "Beautifully crafted", TextFormat.DARKGREEN);
           return item;
         }
@@ -326,20 +326,20 @@ public class ItemSpecialty extends ItemBase {
           item.addEnchantment(Enchant.getEnchant(Enchant.MENDING), 1);
           name = "Faerie Bow";
           name = rollUnbreaking(item, name, random);
-          Loot.setItemName(item, name);
+          item.setStackDisplayName(name);
           Loot.setItemLore(item, "Beautifully crafted", TextFormat.DARKGREEN);
           return item;
         }
         name = "Recurve Bow";
         name = rollUnbreaking(item, name, random);
-        Loot.setItemName(item, name);
+        item.setStackDisplayName(name);
         Loot.setItemLore(item, "Curves outward toward the target", TextFormat.DARKGREEN);
         return item;
       case DIAMOND:
         item.addEnchantment(Enchant.getEnchant(Enchant.FLAME), 1);
         name = "Eldritch Bow";
         name = rollUnbreaking(item, name, random);
-        Loot.setItemName(item, name);
+        item.setStackDisplayName(name);
         Loot.setItemLore(item, "Warm to the touch", TextFormat.DARKGREEN);
         return item;
     }
@@ -399,7 +399,7 @@ public class ItemSpecialty extends ItemBase {
     String name = getArmourPrefix(quality) + " " + canonical + " " + suffix;
     name = rollUnbreaking(item, name, random);
     name = rollMending(item, name, random);
-    Loot.setItemName(item, name);
+    item.setStackDisplayName(name);
     return item;
   }
 

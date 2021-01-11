@@ -1,16 +1,14 @@
 package greymerk.roguelike.treasure.loot;
 
+import com.github.srwaggon.minecraft.item.potion.Amplification;
+import com.github.srwaggon.minecraft.item.potion.Effect;
 import com.github.srwaggon.minecraft.item.potion.EffectType;
+import com.github.srwaggon.minecraft.item.potion.Potion;
+import com.github.srwaggon.minecraft.item.potion.PotionItemStackMapper;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.util.DyeColor;
@@ -31,7 +29,6 @@ public enum PotionMixture {
 
   public static final PotionMixture[] POTIONS = {LAUDANUM, RAGE, STAMINA, NECTAR, COFFEE, AURA};
   public static final PotionMixture[] BOOZE = {TEQUILA, LAUDANUM, MOONSHINE, ABSINTHE, STOUT};
-  public static int TICKS_PER_SECOND = 20;
 
   public static PotionMixture chooseRandom(Random random) {
     return chooseRandomAmong(random, values());
@@ -42,119 +39,180 @@ public enum PotionMixture {
   }
 
   public static ItemStack getPotion(Random random, PotionMixture type) {
-    ItemStack potion;
     switch (type) {
       case TEQUILA:
-        potion = PotionType.getSpecific(PotionForm.REGULAR, null, false, false);
-        addCustomEffect(potion, EffectType.STRENGTH, 3, 30 + random.nextInt(60));
-        addCustomEffect(potion, EffectType.FATIGUE, 1, 30 + random.nextInt(60));
-        Loot.setItemName(potion, "Tequila");
-        ItemHideFlags.set(ItemHideFlags.EFFECTS, potion);
-        setColor(potion, DyeColor.RGBToColor(255, 232, 196));
-        return potion;
+        return getTequila(random);
       case LAUDANUM:
-        potion = PotionType.getSpecific(PotionForm.REGULAR, null, false, false);
-        addCustomEffect(potion, EffectType.REGEN, 3, 8);
-        addCustomEffect(potion, EffectType.WEAKNESS, 2, 5);
-        addCustomEffect(potion, EffectType.SLOWNESS, 2, 5);
-        addCustomEffect(potion, EffectType.FATIGUE, 2, 5);
-        addCustomEffect(potion, EffectType.NAUSEA, 1, 5);
-        Loot.setItemName(potion, "Laudanum");
-        Loot.setItemLore(potion, "A medicinal tincture.");
-        ItemHideFlags.set(ItemHideFlags.EFFECTS, potion);
-        setColor(potion, DyeColor.RGBToColor(150, 50, 0));
-        return potion;
+        return getLaudanum();
       case MOONSHINE:
-        potion = PotionType.getSpecific(PotionForm.REGULAR, null, false, false);
-        addCustomEffect(potion, EffectType.DAMAGE, 1, 1);
-        addCustomEffect(potion, EffectType.BLINDNESS, 1, 30 + random.nextInt(60));
-        addCustomEffect(potion, EffectType.RESISTANCE, 2, 30 + random.nextInt(30));
-        Loot.setItemName(potion, "Moonshine");
-        ItemHideFlags.set(ItemHideFlags.EFFECTS, potion);
-        setColor(potion, DyeColor.RGBToColor(250, 240, 230));
-        return potion;
+        return getMoonshine(random);
       case ABSINTHE:
-        potion = PotionType.getSpecific(PotionForm.REGULAR, null, false, false);
-        addCustomEffect(potion, EffectType.POISON, 1, 3);
-        addCustomEffect(potion, EffectType.NIGHT_VISION, 1, 120);
-        addCustomEffect(potion, EffectType.JUMP, 3, 120);
-        Loot.setItemName(potion, "Absinthe");
-        ItemHideFlags.set(ItemHideFlags.EFFECTS, potion);
-        setColor(potion, DyeColor.RGBToColor(200, 250, 150));
-        return potion;
+        return getAbsinthe();
       case VILE:
-        potion = PotionType.getSpecific(
-            random,
-            PotionForm.chooseRandom(random),
-            PotionType.chooseRandom(random)
-        );
-        addRandomEffects(random, potion, 2 + random.nextInt(2));
-        Loot.setItemName(potion, "Vile Mixture");
-        ItemHideFlags.set(ItemHideFlags.EFFECTS, potion);
-        return potion;
+        return getVile(random);
       case RAGE:
-        potion = PotionType.getSpecific(PotionForm.REGULAR, null, false, false);
-        addCustomEffect(potion, EffectType.STRENGTH, 3, 20);
-        addCustomEffect(potion, EffectType.BLINDNESS, 1, 10);
-        addCustomEffect(potion, EffectType.WITHER, 1, 3);
-        Loot.setItemName(potion, "Animus");
-        Loot.setItemLore(potion, "An unstable mixture.");
-        ItemHideFlags.set(ItemHideFlags.EFFECTS, potion);
-        setColor(potion, DyeColor.RGBToColor(255, 0, 0));
-        return potion;
+        return getRage();
       case STAMINA:
-        potion = PotionType.getSpecific(PotionForm.REGULAR, null, false, false);
-        addCustomEffect(potion, EffectType.SATURATION, 10, 1);
-        addCustomEffect(potion, EffectType.SPEED, 2, 120);
-        addCustomEffect(potion, EffectType.HASTE, 2, 120);
-        addCustomEffect(potion, EffectType.JUMP, 3, 120);
-        Loot.setItemName(potion, "Vitae");
-        Loot.setItemLore(potion, "Essence of life.");
-        ItemHideFlags.set(ItemHideFlags.EFFECTS, potion);
-        setColor(potion, DyeColor.RGBToColor(230, 50, 20));
-        return potion;
+        return getStamina();
       case STOUT:
-        potion = PotionType.getSpecific(PotionForm.REGULAR, null, false, false);
-        addCustomEffect(potion, EffectType.REGEN, 1, 5);
-        addCustomEffect(potion, EffectType.SATURATION, 2, 1);
-        addCustomEffect(potion, EffectType.HEALTH_BOOST, 2, 120);
-        addCustomEffect(potion, EffectType.RESISTANCE, 1, 120);
-        Loot.setItemName(potion, "Stout");
-        Loot.setItemLore(potion, "\"It's Good for You\"");
-        ItemHideFlags.set(ItemHideFlags.EFFECTS, potion);
-        setColor(potion, DyeColor.RGBToColor(50, 40, 20));
-        return potion;
+        return getStout();
       case NECTAR:
-        potion = PotionType.getSpecific(PotionForm.REGULAR, null, false, false);
-        addCustomEffect(potion, EffectType.ABSORPTION, 10, 20);
-        addCustomEffect(potion, EffectType.RESISTANCE, 3, 20);
-        addCustomEffect(potion, EffectType.HEALTH, 2, 1);
-        Loot.setItemName(potion, "Nectar");
-        Loot.setItemLore(potion, "A Floral extract.");
-        ItemHideFlags.set(ItemHideFlags.EFFECTS, potion);
-        setColor(potion, DyeColor.RGBToColor(250, 150, 250));
-        return potion;
+        return getNectar();
       case COFFEE:
-        potion = PotionType.getSpecific(PotionForm.REGULAR, null, false, false);
-        addCustomEffect(potion, EffectType.HASTE, 2, 600);
-        addCustomEffect(potion, EffectType.SPEED, 1, 600);
-        Loot.setItemName(potion, "Coffee");
-        Loot.setItemLore(potion, "A darkroast bean brew.");
-        ItemHideFlags.set(ItemHideFlags.EFFECTS, potion);
-        setColor(potion, DyeColor.RGBToColor(20, 20, 10));
-        return potion;
+        return getCoffee();
       case AURA:
-        potion = PotionType.getSpecific(PotionForm.REGULAR, null, false, false);
-        addCustomEffect(potion, EffectType.GLOWING, 1, 600);
-        Loot.setItemName(potion, "Luma");
-        Loot.setItemLore(potion, "A glowstone extract.");
-        ItemHideFlags.set(ItemHideFlags.EFFECTS, potion);
-        setColor(potion, DyeColor.RGBToColor(250, 250, 0));
-        return potion;
+        return getAura();
       default:
     }
-
     return new ItemStack(Items.GLASS_BOTTLE);
+  }
+
+  public static ItemStack getTequila(Random random) {
+    return PotionItemStackMapper.map(Potion.newPotion()
+        .withEffect(Effect.newEffect(EffectType.STRENGTH, 2, 30 + random.nextInt(60)))
+        .withEffect(Effect.newEffect(EffectType.FATIGUE, 0, 30 + random.nextInt(60)))
+        .asItemStack()
+        .withDisplayName("Tequila")
+        .withHideFlag(ItemHideFlags.EFFECTS)
+        .withTag("CustomPotionColor", DyeColor.RGBToColor(255, 232, 196)));
+  }
+
+  public static ItemStack getLaudanum() {
+    return PotionItemStackMapper.map(Potion.newPotion()
+        .withEffect(Effect.newEffect(EffectType.REGEN, 2, 8))
+        .withEffect(Effect.newEffect(EffectType.WEAKNESS, 1, 5))
+        .withEffect(Effect.newEffect(EffectType.SLOWNESS, 1, 5))
+        .withEffect(Effect.newEffect(EffectType.FATIGUE, 1, 5))
+        .withEffect(Effect.newEffect(EffectType.NAUSEA, 0, 5))
+        .asItemStack()
+        .withDisplayName("Laudanum")
+        .withDisplayLore("A medicinal tincture.")
+        .withHideFlag(ItemHideFlags.EFFECTS)
+        .withTag("CustomPotionColor", DyeColor.RGBToColor(150, 50, 0)));
+  }
+
+  public static ItemStack getMoonshine(Random random) {
+    return PotionItemStackMapper.map(
+        Potion.newPotion()
+            .withEffect(Effect.newEffect(EffectType.DAMAGE, 0, 1))
+            .withEffect(Effect.newEffect(EffectType.BLINDNESS, 0, 30 + random.nextInt(60)))
+            .withEffect(Effect.newEffect(EffectType.RESISTANCE, 1, 30 + random.nextInt(30)))
+            .asItemStack()
+            .withDisplayName("Moonshine")
+            .withHideFlag(ItemHideFlags.EFFECTS)
+            .withTag("CustomPotionColor", DyeColor.RGBToColor(250, 240, 230)));
+  }
+
+  public static ItemStack getAbsinthe() {
+    return PotionItemStackMapper.map(
+        Potion.newPotion()
+            .withEffect(Effect.newEffect(EffectType.POISON, 0, 3))
+            .withEffect(Effect.newEffect(EffectType.NIGHT_VISION, 0, 120))
+            .withEffect(Effect.newEffect(EffectType.JUMP, 2, 120))
+            .asItemStack()
+            .withDisplayName("Absinthe")
+            .withHideFlag(ItemHideFlags.EFFECTS)
+            .withTag("CustomPotionColor", DyeColor.RGBToColor(200, 250, 150)));
+  }
+
+  public static ItemStack getVile(Random random) {
+    EffectType randomEffect0 = EffectType.chooseRandom(random);
+    EffectType randomEffect1 = EffectType.chooseRandom(random);
+    return PotionItemStackMapper.map(
+        Potion.newPotion()
+            .withForm(PotionForm.chooseRandom(random))
+            .withType(PotionType.chooseRandom(random))
+            .withAmplification(random.nextBoolean())
+            .withExtension(random.nextBoolean())
+            .withEffect(Effect.newEffect()
+                .withType(randomEffect0)
+                .withAmplification(Amplification.chooseRandom(random))
+                .withDuration(getSuggestedDuration(random, randomEffect0)))
+            .withEffect(Effect.newEffect()
+                .withType(randomEffect1)
+                .withAmplification(Amplification.chooseRandom(random))
+                .withDuration(getSuggestedDuration(random, randomEffect1)))
+            .asItemStack()
+            .withDisplayName("Vile Mixture")
+            .withHideFlag(ItemHideFlags.EFFECTS)
+    );
+  }
+
+  public static ItemStack getRage() {
+    return PotionItemStackMapper.map(
+        Potion.newPotion()
+            .withEffect(Effect.newEffect(EffectType.STRENGTH, 2, 20))
+            .withEffect(Effect.newEffect(EffectType.BLINDNESS, 0, 10))
+            .withEffect(Effect.newEffect(EffectType.WITHER, 0, 3))
+            .asItemStack()
+            .withDisplayName("Animus")
+            .withDisplayLore("An unstable mixture.")
+            .withHideFlag(ItemHideFlags.EFFECTS)
+            .withTag("CustomPotionColor", DyeColor.RGBToColor(255, 0, 0)));
+  }
+
+  public static ItemStack getStamina() {
+    return PotionItemStackMapper.map(
+        Potion.newPotion()
+            .withEffect(Effect.newEffect(EffectType.SATURATION, 9, 1))
+            .withEffect(Effect.newEffect(EffectType.SPEED, 1, 120))
+            .withEffect(Effect.newEffect(EffectType.HASTE, 1, 120))
+            .withEffect(Effect.newEffect(EffectType.JUMP, 2, 120))
+            .asItemStack()
+            .withDisplayName("Vitae")
+            .withDisplayLore("Essence of life.")
+            .withHideFlag(ItemHideFlags.EFFECTS)
+            .withTag("CustomPotionColor", DyeColor.RGBToColor(230, 50, 20)));
+  }
+
+  public static ItemStack getStout() {
+    return PotionItemStackMapper.map(
+        Potion.newPotion()
+            .withEffect(Effect.newEffect(EffectType.REGEN, 0, 5))
+            .withEffect(Effect.newEffect(EffectType.SATURATION, 1, 1))
+            .withEffect(Effect.newEffect(EffectType.HEALTH_BOOST, 1, 120))
+            .withEffect(Effect.newEffect(EffectType.RESISTANCE, 0, 120))
+            .asItemStack()
+            .withDisplayName("Stout")
+            .withDisplayLore("\"It's Good for You\"")
+            .withHideFlag(ItemHideFlags.EFFECTS)
+            .withTag("CustomPotionColor", DyeColor.RGBToColor(50, 40, 20)));
+  }
+
+  public static ItemStack getNectar() {
+    return PotionItemStackMapper.map(
+        Potion.newPotion()
+            .withEffect(Effect.newEffect(EffectType.ABSORPTION, 9, 20))
+            .withEffect(Effect.newEffect(EffectType.RESISTANCE, 2, 20))
+            .withEffect(Effect.newEffect(EffectType.HEALTH, 1, 1))
+            .asItemStack()
+            .withDisplayName("Nectar")
+            .withDisplayLore("A Floral extract.")
+            .withHideFlag(ItemHideFlags.EFFECTS)
+            .withTag("CustomPotionColor", DyeColor.RGBToColor(250, 150, 250)));
+  }
+
+  public static ItemStack getCoffee() {
+    return PotionItemStackMapper.map(
+        Potion.newPotion()
+            .withEffect(Effect.newEffect(EffectType.HASTE, 1, 600))
+            .withEffect(Effect.newEffect(EffectType.SPEED, 0, 600))
+            .asItemStack()
+            .withDisplayName("Coffee")
+            .withDisplayLore("A darkroast bean brew.")
+            .withHideFlag(ItemHideFlags.EFFECTS)
+            .withTag("CustomPotionColor", DyeColor.RGBToColor(20, 20, 10)));
+  }
+
+  public static ItemStack getAura() {
+    return PotionItemStackMapper.map(
+        Potion.newPotion()
+            .withEffect(Effect.newEffect(EffectType.GLOWING, 0, 600))
+            .asItemStack()
+            .withDisplayName("Luma")
+            .withDisplayLore("A glowstone extract.")
+            .withHideFlag(ItemHideFlags.EFFECTS)
+            .withTag("CustomPotionColor", DyeColor.RGBToColor(250, 250, 0)));
   }
 
   public static ItemStack getBooze(Random rand) {
@@ -165,72 +223,28 @@ public enum PotionMixture {
     return getPotion(rand, chooseRandomAmong(rand, POTIONS));
   }
 
-  public static void addRandomEffects(Random rand, ItemStack potion, int numEffects) {
-
-    List<EffectType> effects = new ArrayList<EffectType>(Arrays.asList(EffectType.values()));
-    Collections.shuffle(effects, rand);
-
-    for (int i = 0; i < numEffects; ++i) {
-
-      EffectType type = effects.get(i);
-      int duration;
-      switch (type) {
-        case SATURATION:
-        case HEALTH:
-        case DAMAGE:
-          duration = 1;
-          break;
-        case REGEN:
-          duration = 10 + rand.nextInt(20);
-          break;
-        case HUNGER:
-          duration = 5 + rand.nextInt(10);
-          break;
-        case WITHER:
-        case POISON:
-          duration = 5 + rand.nextInt(5);
-          break;
-        default:
-          duration = 60 + rand.nextInt(120);
-      }
-
-      addCustomEffect(potion, type, rand.nextInt(3), duration);
+  public static int getSuggestedDuration(Random random, EffectType type) {
+    int duration;
+    switch (type) {
+      case SATURATION:
+      case HEALTH:
+      case DAMAGE:
+        duration = 1;
+        break;
+      case REGEN:
+        duration = 10 + random.nextInt(20);
+        break;
+      case HUNGER:
+        duration = 5 + random.nextInt(10);
+        break;
+      case WITHER:
+      case POISON:
+        duration = 5 + random.nextInt(5);
+        break;
+      default:
+        duration = 60 + random.nextInt(120);
     }
+    return duration;
   }
 
-  public static void setColor(ItemStack potion, int color) {
-    potion.getTagCompound().setInteger("CustomPotionColor", color);
-  }
-
-  private static void addCustomEffect(ItemStack potion, EffectType type, int amplifier, int duration) {
-
-    final String CUSTOM = "CustomPotionEffects";
-
-    NBTTagCompound tag = potion.getTagCompound();
-    if (tag == null) {
-      tag = new NBTTagCompound();
-      potion.setTagCompound(tag);
-    }
-
-
-    NBTTagList effects;
-    effects = tag.getTagList(CUSTOM, 10);
-    if (effects == null) {
-      effects = new NBTTagList();
-      tag.setTag(CUSTOM, effects);
-    }
-
-    NBTTagCompound toAdd = new NBTTagCompound();
-
-    toAdd.setByte("Id", (byte) type.getEffectID());
-
-    // TODO: The passed in values seem to be 0-2. Subtracting 1 is suspicious.
-    toAdd.setByte("Amplifier", (byte) (amplifier - 1));
-    toAdd.setInteger("Duration", duration * TICKS_PER_SECOND);
-    toAdd.setBoolean("Ambient", true);
-
-    effects.appendTag(toAdd);
-    tag.setTag(CUSTOM, effects);
-    potion.setTagCompound(tag);
-  }
 }

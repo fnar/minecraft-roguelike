@@ -199,7 +199,7 @@ public class DungeonBTeam extends DungeonBase {
       TreasureChest bdub = worldEditor.getTreasureChestEditor().generateTreasureChest(cursor, false, chestType, level);
       bdub.setSlot((bdub.getSize() / 2) - 2, ItemNovelty.getItem(ItemNovelty.BDOUBLEO));
       ItemStack shirt = new ItemStack(Items.LEATHER_CHESTPLATE);
-      Loot.setItemName(shirt, "Pink Sweater", null);
+      shirt.setStackDisplayName("Pink Sweater");
       Loot.setItemLore(shirt, "\"It's chinese red!\"");
       ItemArmour.dyeArmor(shirt, 250, 96, 128);
       bdub.setSlot((bdub.getSize() / 2) + 2, shirt);

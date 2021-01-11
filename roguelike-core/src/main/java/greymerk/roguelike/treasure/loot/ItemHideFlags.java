@@ -2,6 +2,8 @@ package greymerk.roguelike.treasure.loot;
 
 import net.minecraft.item.ItemStack;
 
+import java.util.Optional;
+
 import static java.util.Arrays.stream;
 import static java.util.Optional.ofNullable;
 
@@ -17,11 +19,15 @@ public enum ItemHideFlags {
   public static void set(ItemHideFlags[] flags, ItemStack item) {
     ofNullable(item.getTagCompound())
         .ifPresent(nbt ->
-            stream(flags)
-                .map(ItemHideFlags::get)
-                .reduce(Integer::sum)
+            reduce(flags)
                 .ifPresent(value ->
                     nbt.setInteger("HideFlags", value)));
+  }
+
+  public static Optional<Integer> reduce(ItemHideFlags[] flags) {
+    return stream(flags)
+        .map(ItemHideFlags::get)
+        .reduce(Integer::sum);
   }
 
   public static void set(ItemHideFlags flag, ItemStack item) {

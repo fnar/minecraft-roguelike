@@ -1,5 +1,7 @@
 package com.github.srwaggon.minecraft.item.potion;
 
+import java.util.Random;
+
 public enum EffectType {
 
   SPEED(1),
@@ -44,6 +46,10 @@ public enum EffectType {
 
   public int getEffectID() {
     return id;
+  }
+
+  public static EffectType chooseRandom(Random random) {
+    return values()[random.nextInt(values().length)];
   }
 
 }

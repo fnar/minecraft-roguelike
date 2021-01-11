@@ -180,7 +180,7 @@ public class DungeonFirework extends DungeonBase {
     BlockType.DROPPER.getBrush().setFacing(Direction.UP).stroke(editor, cursor);
     for (int i = 0; i < 8; ++i) {
       ItemStack stick = new ItemStack(Items.STICK, 1);
-      Loot.setItemName(stick, Integer.toString(i));
+      stick.setStackDisplayName(Integer.toString(i));
       Loot.setItemLore(stick, "Random logic unit", TextFormat.DARKGRAY);
       editor.setItem(cursor, i, stick);
     }

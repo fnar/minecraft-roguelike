@@ -178,16 +178,7 @@ public enum Loot {
   }
 
   public static void setItemName(ItemStack item, String name, TextFormat option) {
-
-    if (option == null) {
-      item.setStackDisplayName(name);
-      return;
-    }
-
     item.setStackDisplayName(option.apply(name));
   }
 
-  public static void setItemName(ItemStack item, String name) {
-    setItemName(item, name, null);
-  }
 }
