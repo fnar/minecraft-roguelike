@@ -1,5 +1,6 @@
 package greymerk.roguelike.worldgen;
 
+import com.github.srwaggon.roguelike.minecraft.item.RldItemStack;
 import com.github.srwaggon.roguelike.worldgen.SingleBlockBrush;
 import com.github.srwaggon.roguelike.worldgen.block.BlockType;
 import com.github.srwaggon.roguelike.worldgen.block.Material;
@@ -64,6 +65,8 @@ public interface WorldEditor {
   void setBedColorAt(Coord cursor, DyeColor color);
 
   void setItem(Coord pos, int slot, ItemStack item);
+
+  void setItem(Coord pos, int slot, RldItemStack itemStack);
 
   void setFlowerPotContent(Coord pos, Plant choice);
 

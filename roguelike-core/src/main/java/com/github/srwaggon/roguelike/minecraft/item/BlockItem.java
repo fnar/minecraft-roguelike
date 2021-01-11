@@ -2,7 +2,7 @@ package com.github.srwaggon.roguelike.minecraft.item;
 
 import com.github.srwaggon.roguelike.worldgen.block.BlockType;
 
-public class BlockItem implements Item {
+public class BlockItem implements RldItem {
 
   private BlockType blockType;
 

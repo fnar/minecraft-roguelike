@@ -1,14 +1,13 @@
 package greymerk.roguelike.dungeon.segment.part;
 
+import com.github.srwaggon.roguelike.minecraft.item.Potion;
+import com.github.srwaggon.roguelike.minecraft.item.RldItemStack;
 import com.github.srwaggon.roguelike.worldgen.SingleBlockBrush;
-import com.github.srwaggon.roguelike.worldgen.block.BlockMapper1_12;
 import com.github.srwaggon.roguelike.worldgen.block.BlockType;
-import com.github.srwaggon.roguelike.worldgen.block.normal.StairsBlock;
 import com.github.srwaggon.roguelike.worldgen.block.decorative.TorchBlock;
 import com.github.srwaggon.roguelike.worldgen.block.decorative.VineBlock;
+import com.github.srwaggon.roguelike.worldgen.block.normal.StairsBlock;
 
-import net.minecraft.block.Block;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import java.util.Random;
@@ -19,9 +18,8 @@ import greymerk.roguelike.treasure.loot.PotionType;
 import greymerk.roguelike.treasure.loot.PotionForm;
 import greymerk.roguelike.treasure.loot.TippedArrow;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.MetaBlock1_2;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
@@ -99,7 +97,7 @@ public class SegmentTrap extends SegmentBase {
       editor.setItem(cursor, rand.nextInt(9), arrows);
     }
 
-    editor.setItem(cursor, 5, getPayload(rand));
+    editor.setItem(cursor, 5, choosePayload(rand));
 
     unblockDispenser(editor, cursor, towardsCenter);
   }
@@ -110,23 +108,17 @@ public class SegmentTrap extends SegmentBase {
     SingleBlockBrush.AIR.stroke(editor, cursor.translate(towardsCenter));
   }
 
-  private ItemStack getPayload(Random rand) {
+  private RldItemStack choosePayload(Random rand) {
 
     switch (rand.nextInt(3)) {
       default:
       case 0:
-        return getItem(BlockType.TNT);
+        return BlockType.TNT.asItemStack();
       case 1:
-        return PotionType.getSpecific(PotionForm.SPLASH, PotionType.POISON, false, false);
+        return Potion.newPotion().withType(PotionType.POISON).withForm(PotionForm.SPLASH).asItemStack();
       case 2:
-        return PotionType.getSpecific(PotionForm.SPLASH, PotionType.HARM, false, false);
+        return Potion.newPotion().withType(PotionType.HARM).withForm(PotionForm.SPLASH).asItemStack();
     }
   }
 
-  private ItemStack getItem(BlockType type) {
-    MetaBlock1_2 block = BlockMapper1_12.map(type);
-    Block b = block.getBlock();
-    Item i = Item.getItemFromBlock(b);
-    return new ItemStack(i);
-  }
 }

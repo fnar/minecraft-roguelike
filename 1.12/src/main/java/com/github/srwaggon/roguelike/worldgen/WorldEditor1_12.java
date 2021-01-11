@@ -3,6 +3,7 @@ package com.github.srwaggon.roguelike.worldgen;
 
 import com.google.common.collect.Lists;
 
+import com.github.srwaggon.roguelike.minecraft.item.RldItemStack;
 import com.github.srwaggon.roguelike.worldgen.block.BlockMapper1_12;
 import com.github.srwaggon.roguelike.worldgen.block.BlockType;
 import com.github.srwaggon.roguelike.worldgen.block.decorative.Plant;
@@ -328,7 +329,12 @@ public class WorldEditor1_12 implements WorldEditor {
   }
 
   @Override
-  public void setItem(Coord pos, int slot, ItemStack item) {
+  public void setItem(Coord pos, int slot, RldItemStack itemStack) {
+    setItem(pos, slot, ItemStackMapper.map(itemStack));
+  }
+
+  @Override
+  public void setItem(Coord pos, int slot, ItemStack itemStack) {
     TileEntity tileEntity = getTileEntity(pos);
     if (tileEntity == null) {
       return;

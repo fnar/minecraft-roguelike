@@ -1,5 +1,6 @@
 package com.github.srwaggon.roguelike.worldgen.block;
 
+import com.github.srwaggon.roguelike.minecraft.item.RldItemStack;
 import com.github.srwaggon.roguelike.worldgen.SingleBlockBrush;
 
 public enum BlockType {
@@ -213,6 +214,10 @@ public enum BlockType {
 
   public SingleBlockBrush getBrush() {
     return new SingleBlockBrush(this);
+  }
+
+  public RldItemStack asItemStack() {
+    return RldItemStack.forBlockType(this);
   }
 
 }

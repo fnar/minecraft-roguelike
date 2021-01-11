@@ -34,6 +34,23 @@ public enum PotionEffect {
   LUCK(26),
   BAD_LUCK(27);
 
+  public enum Amplification {
+    UNAMPLIFIED(0),
+    LEVEL_ONE(1),
+    LEVEL_TWO(2);
+
+    private int level;
+
+    Amplification(int level) {
+      this.level = level;
+    }
+
+    public int getLevel() {
+      return level;
+    }
+  }
+
+
   public static int TICKS_PER_SECOND = 20;
 
   private int id;
