@@ -3,20 +3,32 @@ package com.github.srwaggon.minecraft.item.potion;
 public class Effect {
 
   private EffectType effectType;
-  private int duration;
   private int amplification;
+  private int duration;
 
-  public Effect(EffectType effectType, int duration, int amplification) {
-    this.effectType = effectType;
-    this.duration = duration;
-    this.amplification = amplification;
+  public Effect() {
+    this(EffectType.SPEED, 0, 0);
   }
 
-  public EffectType getEffectType() {
+  public Effect(EffectType effectType, int amplification, int duration) {
+    this.effectType = effectType;
+    this.amplification = amplification;
+    this.duration = duration;
+  }
+
+  public static Effect newEffect() {
+    return new Effect();
+  }
+
+  public static Effect newEffect(EffectType effectType, int amplification, int duration) {
+    return new Effect(effectType, amplification, duration);
+  }
+
+  public EffectType getType() {
     return effectType;
   }
 
-  public Effect withEffectType(EffectType effectType) {
+  public Effect withType(EffectType effectType) {
     this.effectType = effectType;
     return this;
   }
