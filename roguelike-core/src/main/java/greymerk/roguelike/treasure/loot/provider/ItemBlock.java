@@ -1,6 +1,7 @@
 package greymerk.roguelike.treasure.loot.provider;
 
-import com.github.srwaggon.roguelike.worldgen.block.BlockMapper1_12;
+import com.github.srwaggon.minecraft.block.BlockMapper1_12;
+import com.github.srwaggon.minecraft.block.BlockType;
 
 import net.minecraft.item.ItemStack;
 
@@ -8,7 +9,6 @@ import java.util.Random;
 
 import greymerk.roguelike.treasure.loot.WeightedRandomLoot;
 import greymerk.roguelike.util.WeightedRandomizer;
-import com.github.srwaggon.roguelike.worldgen.block.BlockType;
 
 public class ItemBlock extends ItemBase {
 

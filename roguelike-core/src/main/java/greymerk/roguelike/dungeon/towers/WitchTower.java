@@ -1,20 +1,20 @@
 package greymerk.roguelike.dungeon.towers;
 
-import com.github.srwaggon.roguelike.worldgen.SingleBlockBrush;
-import com.github.srwaggon.roguelike.worldgen.block.normal.StairsBlock;
+import com.github.srwaggon.minecraft.block.SingleBlockBrush;
+import com.github.srwaggon.minecraft.block.normal.StairsBlock;
 
 import java.util.Random;
 
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
-import static com.github.srwaggon.roguelike.worldgen.block.normal.ColoredBlock.stainedGlass;
+import static com.github.srwaggon.minecraft.block.normal.ColoredBlock.stainedGlass;
 
 public class WitchTower implements ITower {
 

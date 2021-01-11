@@ -1,12 +1,12 @@
 package greymerk.roguelike.worldgen;
 
-import com.github.srwaggon.roguelike.minecraft.item.RldItemStack;
-import com.github.srwaggon.roguelike.worldgen.SingleBlockBrush;
-import com.github.srwaggon.roguelike.worldgen.block.BlockType;
-import com.github.srwaggon.roguelike.worldgen.block.Material;
-import com.github.srwaggon.roguelike.worldgen.block.decorative.Plant;
-import com.github.srwaggon.roguelike.worldgen.block.decorative.Skull;
-import com.github.srwaggon.roguelike.worldgen.block.normal.StairsBlock;
+import com.github.srwaggon.minecraft.block.BlockType;
+import com.github.srwaggon.minecraft.block.Material;
+import com.github.srwaggon.minecraft.block.SingleBlockBrush;
+import com.github.srwaggon.minecraft.block.decorative.Plant;
+import com.github.srwaggon.minecraft.block.decorative.Skull;
+import com.github.srwaggon.minecraft.block.normal.StairsBlock;
+import com.github.srwaggon.minecraft.item.RldItemStack;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
@@ -70,7 +70,7 @@ public interface WorldEditor {
 
   void setFlowerPotContent(Coord pos, Plant choice);
 
-   void setSkull(WorldEditor editor, Coord cursor, Direction dir, Skull type);
+  void setSkull(WorldEditor editor, Coord cursor, Direction dir, Skull type);
 
   void setLootTable(Coord pos, String table);
 }

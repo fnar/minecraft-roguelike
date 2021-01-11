@@ -1,6 +1,6 @@
 package greymerk.roguelike.dungeon;
 
-import com.github.srwaggon.roguelike.worldgen.SingleBlockBrush;
+import com.github.srwaggon.minecraft.block.SingleBlockBrush;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -15,8 +15,8 @@ import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockJumble;
 import greymerk.roguelike.worldgen.BoundingBox;
-import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.IBounded;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.IShape;

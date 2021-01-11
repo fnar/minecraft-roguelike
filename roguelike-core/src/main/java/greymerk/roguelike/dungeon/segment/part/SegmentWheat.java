@@ -1,18 +1,18 @@
 package greymerk.roguelike.dungeon.segment.part;
 
-import com.github.srwaggon.roguelike.worldgen.SingleBlockBrush;
-import com.github.srwaggon.roguelike.worldgen.block.BlockType;
-import com.github.srwaggon.roguelike.worldgen.block.decorative.Crop;
-import com.github.srwaggon.roguelike.worldgen.block.decorative.PumpkinBlock;
-import com.github.srwaggon.roguelike.worldgen.block.normal.StairsBlock;
+import com.github.srwaggon.minecraft.block.BlockType;
+import com.github.srwaggon.minecraft.block.SingleBlockBrush;
+import com.github.srwaggon.minecraft.block.decorative.Crop;
+import com.github.srwaggon.minecraft.block.decorative.PumpkinBlock;
+import com.github.srwaggon.minecraft.block.normal.StairsBlock;
 
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.BlockJumble;
-import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 

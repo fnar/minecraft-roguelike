@@ -2,10 +2,12 @@ package com.github.srwaggon.roguelike.worldgen;
 
 import com.google.common.collect.Lists;
 
-import com.github.srwaggon.roguelike.worldgen.block.BlockType;
-import com.github.srwaggon.roguelike.worldgen.block.decorative.Plant;
-import com.github.srwaggon.roguelike.worldgen.block.decorative.Skull;
-import com.github.srwaggon.roguelike.worldgen.block.normal.StairsBlock;
+import com.github.srwaggon.minecraft.block.BlockType;
+import com.github.srwaggon.minecraft.block.SingleBlockBrush;
+import com.github.srwaggon.minecraft.block.decorative.Plant;
+import com.github.srwaggon.minecraft.block.decorative.Skull;
+import com.github.srwaggon.minecraft.block.normal.StairsBlock;
+import com.github.srwaggon.minecraft.item.RldItemStack;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -24,8 +26,8 @@ import java.util.Random;
 import greymerk.roguelike.TreasureChestEditor;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.PositionInfo;
 import greymerk.roguelike.worldgen.VanillaStructure;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -78,7 +80,7 @@ public class WorldEditor1_14 implements WorldEditor {
   }
 
   @Override
-  public boolean isMaterialAt(com.github.srwaggon.roguelike.worldgen.block.Material material, Coord coord) {
+  public boolean isMaterialAt(com.github.srwaggon.minecraft.block.Material material, Coord coord) {
     return false;
   }
 
@@ -172,12 +174,22 @@ public class WorldEditor1_14 implements WorldEditor {
   }
 
   @Override
+  public void setItem(Coord pos, int slot, RldItemStack itemStack) {
+
+  }
+
+  @Override
   public void setFlowerPotContent(Coord pos, Plant choice) {
 
   }
 
   @Override
   public void setSkull(WorldEditor editor, Coord cursor, Direction dir, Skull type) {
+
+  }
+
+  @Override
+  public void setLootTable(Coord pos, String table) {
 
   }
 }

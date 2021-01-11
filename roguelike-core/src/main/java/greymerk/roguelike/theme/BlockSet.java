@@ -1,10 +1,10 @@
 package greymerk.roguelike.theme;
 
-import com.github.srwaggon.roguelike.worldgen.block.redstone.DoorBlock;
-import com.github.srwaggon.roguelike.worldgen.block.normal.StairsBlock;
+import com.github.srwaggon.minecraft.block.BlockType;
+import com.github.srwaggon.minecraft.block.normal.StairsBlock;
+import com.github.srwaggon.minecraft.block.redstone.DoorBlock;
 
 import greymerk.roguelike.worldgen.BlockBrush;
-import com.github.srwaggon.roguelike.worldgen.block.BlockType;
 
 import static java.util.Optional.ofNullable;
 

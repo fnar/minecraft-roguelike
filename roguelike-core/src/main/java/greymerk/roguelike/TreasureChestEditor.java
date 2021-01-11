@@ -1,6 +1,6 @@
 package greymerk.roguelike;
 
-import com.github.srwaggon.roguelike.worldgen.block.BlockType;
+import com.github.srwaggon.minecraft.block.BlockType;
 
 import java.util.List;
 import java.util.Random;

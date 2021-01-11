@@ -1,10 +1,10 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
-import com.github.srwaggon.roguelike.worldgen.block.BlockType;
-import com.github.srwaggon.roguelike.worldgen.block.decorative.PumpkinBlock;
-import com.github.srwaggon.roguelike.worldgen.block.normal.ColoredBlock;
-import com.github.srwaggon.roguelike.worldgen.block.normal.SlabBlock;
-import com.github.srwaggon.roguelike.worldgen.block.normal.StairsBlock;
+import com.github.srwaggon.minecraft.block.BlockType;
+import com.github.srwaggon.minecraft.block.decorative.PumpkinBlock;
+import com.github.srwaggon.minecraft.block.normal.ColoredBlock;
+import com.github.srwaggon.minecraft.block.normal.SlabBlock;
+import com.github.srwaggon.minecraft.block.normal.StairsBlock;
 
 import java.util.List;
 
@@ -15,8 +15,8 @@ import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.util.mst.MinimumSpanningTree;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;

@@ -1,11 +1,11 @@
 package greymerk.roguelike.theme;
 
-import com.github.srwaggon.roguelike.worldgen.block.normal.StairsBlock;
+import com.github.srwaggon.minecraft.block.BlockType;
+import com.github.srwaggon.minecraft.block.normal.Quartz;
+import com.github.srwaggon.minecraft.block.normal.StairsBlock;
 
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Direction;
-import com.github.srwaggon.roguelike.worldgen.block.BlockType;
-import com.github.srwaggon.roguelike.worldgen.block.normal.Quartz;
 
 public class ThemeQuartz extends ThemeBase {
 

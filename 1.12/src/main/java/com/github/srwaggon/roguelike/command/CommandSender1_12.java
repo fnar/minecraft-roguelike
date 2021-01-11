@@ -1,6 +1,6 @@
 package com.github.srwaggon.roguelike.command;
 
-import com.github.srwaggon.roguelike.worldgen.WorldEditor1_12;
+import com.github.srwaggon.minecraft.WorldEditor1_12;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.Entity;

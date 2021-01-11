@@ -1,5 +1,7 @@
 package com.github.srwaggon.roguelike.worldgen;
 
+import com.github.srwaggon.minecraft.WorldEditor1_12;
+
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;

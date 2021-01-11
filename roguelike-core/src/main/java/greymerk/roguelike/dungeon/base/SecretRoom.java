@@ -2,14 +2,14 @@ package greymerk.roguelike.dungeon.base;
 
 import com.google.common.collect.Lists;
 
-import com.github.srwaggon.roguelike.worldgen.SingleBlockBrush;
+import com.github.srwaggon.minecraft.block.SingleBlockBrush;
 
 import java.util.List;
 
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import lombok.EqualsAndHashCode;

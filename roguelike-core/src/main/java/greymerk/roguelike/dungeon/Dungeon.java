@@ -1,6 +1,6 @@
 package greymerk.roguelike.dungeon;
 
-import com.github.srwaggon.roguelike.worldgen.block.Material;
+import com.github.srwaggon.minecraft.block.Material;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.biome.Biome;
@@ -22,8 +22,8 @@ import greymerk.roguelike.dungeon.settings.SettingsRandom;
 import greymerk.roguelike.dungeon.settings.SettingsResolver;
 import greymerk.roguelike.dungeon.settings.SpawnCriteria;
 import greymerk.roguelike.dungeon.tasks.DungeonTaskRegistry;
-import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.VanillaStructure;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;

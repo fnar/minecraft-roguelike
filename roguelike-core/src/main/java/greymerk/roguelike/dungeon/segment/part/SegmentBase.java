@@ -2,7 +2,7 @@ package greymerk.roguelike.dungeon.segment.part;
 
 import com.google.common.collect.Lists;
 
-import com.github.srwaggon.roguelike.worldgen.util.Pair;
+import com.github.srwaggon.util.Pair;
 
 import java.util.List;
 import java.util.Optional;
@@ -16,8 +16,8 @@ import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.segment.ISegment;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ThemeBase;
-import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 
 public abstract class SegmentBase implements ISegment {
