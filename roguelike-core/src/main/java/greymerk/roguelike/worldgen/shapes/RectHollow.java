@@ -1,14 +1,14 @@
 package greymerk.roguelike.worldgen.shapes;
 
-import com.github.srwaggon.roguelike.worldgen.SingleBlockBrush;
+import com.github.srwaggon.minecraft.block.SingleBlockBrush;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 
 public class RectHollow implements IShape {

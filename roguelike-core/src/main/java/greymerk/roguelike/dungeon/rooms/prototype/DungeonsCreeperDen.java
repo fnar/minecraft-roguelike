@@ -1,6 +1,6 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
-import com.github.srwaggon.roguelike.worldgen.block.BlockType;
+import com.github.srwaggon.minecraft.block.BlockType;
 
 import java.util.List;
 
@@ -11,8 +11,8 @@ import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
-import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;

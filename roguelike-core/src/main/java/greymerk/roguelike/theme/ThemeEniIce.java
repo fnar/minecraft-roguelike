@@ -1,16 +1,16 @@
 package greymerk.roguelike.theme;
 
-import com.github.srwaggon.roguelike.worldgen.block.normal.StairsBlock;
+import com.github.srwaggon.minecraft.block.BlockType;
+import com.github.srwaggon.minecraft.block.normal.Quartz;
+import com.github.srwaggon.minecraft.block.normal.StairsBlock;
 
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockStripes;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
 import greymerk.roguelike.worldgen.Direction;
-import com.github.srwaggon.roguelike.worldgen.block.BlockType;
-import com.github.srwaggon.roguelike.worldgen.block.normal.Quartz;
 
-import static com.github.srwaggon.roguelike.worldgen.block.normal.ColoredBlock.stainedHardenedClay;
+import static com.github.srwaggon.minecraft.block.normal.ColoredBlock.stainedHardenedClay;
 
 public class ThemeEniIce extends ThemeBase {
 

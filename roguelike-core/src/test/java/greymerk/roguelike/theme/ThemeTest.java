@@ -2,8 +2,8 @@ package greymerk.roguelike.theme;
 
 import com.google.gson.JsonObject;
 
-import com.github.srwaggon.roguelike.worldgen.SingleBlockBrush;
-import com.github.srwaggon.roguelike.worldgen.block.BlockType;
+import com.github.srwaggon.minecraft.block.BlockType;
+import com.github.srwaggon.minecraft.block.SingleBlockBrush;
 
 import net.minecraft.init.Bootstrap;
 

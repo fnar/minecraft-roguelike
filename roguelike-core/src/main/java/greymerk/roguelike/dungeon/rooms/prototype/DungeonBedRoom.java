@@ -1,10 +1,10 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
-import com.github.srwaggon.roguelike.worldgen.block.decorative.BedBlock;
-import com.github.srwaggon.roguelike.worldgen.block.BlockType;
-import com.github.srwaggon.roguelike.worldgen.block.decorative.FlowerPotBlock;
-import com.github.srwaggon.roguelike.worldgen.block.normal.StairsBlock;
-import com.github.srwaggon.roguelike.worldgen.block.decorative.TorchBlock;
+import com.github.srwaggon.minecraft.block.BlockType;
+import com.github.srwaggon.minecraft.block.decorative.BedBlock;
+import com.github.srwaggon.minecraft.block.decorative.FlowerPotBlock;
+import com.github.srwaggon.minecraft.block.decorative.TorchBlock;
+import com.github.srwaggon.minecraft.block.normal.StairsBlock;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -19,8 +19,8 @@ import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.util.DyeColor;
-import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;

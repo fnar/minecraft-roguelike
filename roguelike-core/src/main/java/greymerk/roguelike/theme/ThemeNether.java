@@ -1,12 +1,12 @@
 package greymerk.roguelike.theme;
 
-import com.github.srwaggon.roguelike.worldgen.block.redstone.DoorBlock;
-import com.github.srwaggon.roguelike.worldgen.block.normal.StairsBlock;
+import com.github.srwaggon.minecraft.block.BlockType;
+import com.github.srwaggon.minecraft.block.normal.StairsBlock;
+import com.github.srwaggon.minecraft.block.redstone.DoorBlock;
 
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
-import com.github.srwaggon.roguelike.worldgen.block.BlockType;
 
 public class ThemeNether extends ThemeBase {
 

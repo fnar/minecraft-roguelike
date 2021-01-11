@@ -1,9 +1,9 @@
 package greymerk.roguelike.theme;
 
-import com.github.srwaggon.roguelike.worldgen.block.normal.StairsBlock;
+import com.github.srwaggon.minecraft.block.BlockType;
+import com.github.srwaggon.minecraft.block.normal.StairsBlock;
 
 import greymerk.roguelike.worldgen.BlockBrush;
-import com.github.srwaggon.roguelike.worldgen.block.BlockType;
 
 public class ThemeIce extends ThemeBase {
 

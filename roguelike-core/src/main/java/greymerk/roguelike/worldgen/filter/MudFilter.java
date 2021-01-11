@@ -1,13 +1,13 @@
 package greymerk.roguelike.worldgen.filter;
 
-import com.github.srwaggon.roguelike.worldgen.block.BlockType;
+import com.github.srwaggon.minecraft.block.BlockType;
 
 import java.util.Random;
 
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.BlockJumble;
-import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.IBounded;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.Shape;

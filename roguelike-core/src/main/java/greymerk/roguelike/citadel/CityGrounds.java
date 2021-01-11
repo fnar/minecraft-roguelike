@@ -1,6 +1,6 @@
 package greymerk.roguelike.citadel;
 
-import com.github.srwaggon.roguelike.worldgen.SingleBlockBrush;
+import com.github.srwaggon.minecraft.block.SingleBlockBrush;
 
 import java.util.List;
 import java.util.Random;
@@ -13,8 +13,8 @@ import greymerk.roguelike.util.graph.Edge;
 import greymerk.roguelike.util.graph.Graph;
 import greymerk.roguelike.util.mst.MSTPoint;
 import greymerk.roguelike.util.mst.MinimumSpanningTree;
-import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 

@@ -1,13 +1,13 @@
 package greymerk.roguelike.theme;
 
-import com.github.srwaggon.roguelike.worldgen.block.normal.StairsBlock;
+import com.github.srwaggon.minecraft.block.BlockType;
+import com.github.srwaggon.minecraft.block.normal.StairsBlock;
 
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockStripes;
-import com.github.srwaggon.roguelike.worldgen.block.BlockType;
 
-import static com.github.srwaggon.roguelike.worldgen.block.normal.ColoredBlock.stainedHardenedClay;
+import static com.github.srwaggon.minecraft.block.normal.ColoredBlock.stainedHardenedClay;
 
 public class ThemeEnder extends ThemeBase {
 
