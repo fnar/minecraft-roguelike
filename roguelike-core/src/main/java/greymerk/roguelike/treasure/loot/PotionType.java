@@ -57,7 +57,7 @@ public enum PotionType {
     return new WeightedChoice<>(PotionUtils.addPotionToItemStack(item, type), weight);
   }
 
-  public static ItemStack getSpecific(PotionForm potionForm, PotionType effect, boolean upgrade, boolean extend) {
+  public static ItemStack getSpecific(PotionForm potionForm, PotionType effect, boolean isAmplified, boolean isExtended) {
 
     ItemStack potion;
 
@@ -76,8 +76,7 @@ public enum PotionType {
         break;
     }
 
-    net.minecraft.potion.PotionType data = getEffect(effect, upgrade, extend);
-
+    net.minecraft.potion.PotionType data = getEffect(effect, isAmplified, isExtended);
     return PotionUtils.addPotionToItemStack(potion, data);
   }
 
