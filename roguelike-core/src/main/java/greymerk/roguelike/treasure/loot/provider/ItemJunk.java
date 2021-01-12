@@ -33,7 +33,7 @@ public class ItemJunk extends ItemBase {
     }
 
     if (rand.nextInt(100) == 0) {
-      return PotionMixture.getRandom(rand);
+      return PotionMixture.chooseRandomPotion(rand);
     }
 
     if (level > 1 && rand.nextInt(100) == 0) {

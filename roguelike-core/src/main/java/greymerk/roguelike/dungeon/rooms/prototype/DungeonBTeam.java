@@ -176,7 +176,7 @@ public class DungeonBTeam extends DungeonBase {
     BlockType.BOOKSHELF.getBrush().stroke(worldEditor, cursor);
     cursor.translate(Direction.UP);
     BlockType.BREWING_STAND.getBrush().stroke(worldEditor, cursor);
-    worldEditor.setItem(cursor, BrewingStand.Slot.MIDDLE, PotionMixture.getPotion(worldEditor.getRandom(), PotionMixture.MOONSHINE));
+    worldEditor.setItem(cursor, BrewingStand.Slot.MIDDLE, PotionMixture.getPotionAsRldItemStack(worldEditor.getRandom(), PotionMixture.MOONSHINE));
 
     cursor = origin.copy();
     cursor.translate(dir, 4);
