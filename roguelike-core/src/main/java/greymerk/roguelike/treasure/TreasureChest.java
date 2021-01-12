@@ -3,6 +3,11 @@ package greymerk.roguelike.treasure;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityChest;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -14,7 +19,6 @@ public class TreasureChest {
 
   private final ChestType chestType;
   private final int level;
-  private final Inventory inventory;
   private final Coord pos;
   private final WorldEditor worldEditor;
 
@@ -26,21 +30,30 @@ public class TreasureChest {
   ) {
     this.chestType = chestType;
     this.level = level;
-    this.inventory = new Inventory(worldEditor.getRandom(), (TileEntityChest) worldEditor.getTileEntity(pos));
     this.pos = pos;
     this.worldEditor = worldEditor;
   }
 
-  public boolean setSlot(int slot, ItemStack item) {
-    return this.inventory.setInventorySlot(slot, item);
+  public void setSlot(int slot, ItemStack item) {
+    worldEditor.setItem(pos, slot, item);
   }
 
-  public boolean setRandomEmptySlot(ItemStack item) {
-    return this.inventory.setRandomEmptySlot(item);
+  public void setRandomEmptySlot(ItemStack item) {
+    List<Integer> slots = IntStream.range(0, getSize()).boxed().collect(Collectors.toList());
+    Collections.shuffle(slots);
+    slots.stream()
+        .mapToInt(slot -> slot)
+        .filter(this::isEmptySlot)
+        .findFirst()
+        .ifPresent(value -> setSlot(value, item));
+  }
+
+  public TileEntityChest getTileEntity() {
+    return (TileEntityChest) worldEditor.getTileEntity(pos);
   }
 
   public boolean isEmptySlot(int slot) {
-    return this.inventory.isEmptySlot(slot);
+    return getTileEntity().getStackInSlot(slot).isEmpty();
   }
 
   public ChestType getType() {
@@ -48,7 +61,7 @@ public class TreasureChest {
   }
 
   public int getSize() {
-    return this.inventory.getInventorySize();
+    return getTileEntity().getSizeInventory();
   }
 
   public int getLevel() {
