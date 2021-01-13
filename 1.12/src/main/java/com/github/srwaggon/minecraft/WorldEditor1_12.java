@@ -9,6 +9,7 @@ import com.github.srwaggon.minecraft.block.SingleBlockBrush;
 import com.github.srwaggon.minecraft.block.decorative.Plant;
 import com.github.srwaggon.minecraft.block.decorative.Skull;
 import com.github.srwaggon.minecraft.block.normal.StairsBlock;
+import com.github.srwaggon.minecraft.item.ItemMapper1_12;
 import com.github.srwaggon.minecraft.item.RldItemStack;
 
 import net.minecraft.block.Block;

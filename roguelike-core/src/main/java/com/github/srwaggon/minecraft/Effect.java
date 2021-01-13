@@ -1,4 +1,6 @@
-package com.github.srwaggon.minecraft.item.potion;
+package com.github.srwaggon.minecraft;
+
+import com.github.srwaggon.minecraft.item.Potion;
 
 public class Effect {
 
@@ -51,7 +53,7 @@ public class Effect {
     return this;
   }
 
-  public Effect withAmplification(Amplification amplification) {
+  public Effect withAmplification(Potion.Amplification amplification) {
     this.amplification = amplification.getLevel();
     return this;
   }

@@ -1,11 +1,10 @@
 package greymerk.roguelike.treasure.loot;
 
+import com.github.srwaggon.minecraft.item.ItemMapper1_12;
 import com.github.srwaggon.minecraft.item.RldItemStack;
-import com.github.srwaggon.minecraft.item.potion.Amplification;
-import com.github.srwaggon.minecraft.item.potion.Effect;
-import com.github.srwaggon.minecraft.item.potion.EffectType;
-import com.github.srwaggon.minecraft.item.potion.Potion;
-import com.github.srwaggon.minecraft.item.potion.PotionMapper1_12;
+import com.github.srwaggon.minecraft.Effect;
+import com.github.srwaggon.minecraft.EffectType;
+import com.github.srwaggon.minecraft.item.Potion;
 
 import net.minecraft.item.ItemStack;
 
@@ -47,8 +46,7 @@ public enum PotionMixture {
   }
 
   public static ItemStack getPotion(Random random, PotionMixture type) {
-    RldItemStack rldItemStack = getPotionAsRldItemStack(random, type);
-    return PotionMapper1_12.map(rldItemStack);
+    return ItemMapper1_12.map(getPotionAsRldItemStack(random, type));
   }
 
   public static RldItemStack getPotionAsRldItemStack(Random random, PotionMixture type) {
@@ -138,11 +136,11 @@ public enum PotionMixture {
             .withExtension(random.nextBoolean())
             .withEffect(Effect.newEffect()
                 .withType(randomEffect0)
-                .withAmplification(Amplification.chooseRandom(random))
+                .withAmplification(Potion.Amplification.chooseRandom(random))
                 .withDuration(getSuggestedDuration(random, randomEffect0)))
             .withEffect(Effect.newEffect()
                 .withType(randomEffect1)
-                .withAmplification(Amplification.chooseRandom(random))
+                .withAmplification(Potion.Amplification.chooseRandom(random))
                 .withDuration(getSuggestedDuration(random, randomEffect1)))
             .asItemStack()
             .withDisplayName("Vile Mixture")

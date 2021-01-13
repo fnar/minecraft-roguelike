@@ -5,7 +5,7 @@ import com.github.srwaggon.minecraft.block.SingleBlockBrush;
 import com.github.srwaggon.minecraft.block.decorative.TorchBlock;
 import com.github.srwaggon.minecraft.block.decorative.VineBlock;
 import com.github.srwaggon.minecraft.block.normal.StairsBlock;
-import com.github.srwaggon.minecraft.item.potion.Potion;
+import com.github.srwaggon.minecraft.item.Potion;
 import com.github.srwaggon.minecraft.item.RldItemStack;
 
 import net.minecraft.item.ItemStack;
