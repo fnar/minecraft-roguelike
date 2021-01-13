@@ -117,7 +117,7 @@ public class SegmentTrap extends SegmentBase {
       case 1:
         return Potion.newPotion().withType(PotionType.POISON).withForm(PotionForm.SPLASH).asItemStack();
       case 2:
-        return Potion.newPotion().withType(PotionType.HARM).withForm(PotionForm.SPLASH).asItemStack();
+        return Potion.newPotion().withType(PotionType.HARMING).withForm(PotionForm.SPLASH).asItemStack();
     }
   }
 

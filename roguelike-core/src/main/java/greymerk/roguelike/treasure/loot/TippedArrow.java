@@ -47,7 +47,7 @@ public class TippedArrow {
   public static ItemStack getHarmful(Random rand, int amount) {
     switch (rand.nextInt(4)) {
       case 0:
-        return TippedArrow.get(PotionType.HARM, amount);
+        return TippedArrow.get(PotionType.HARMING, amount);
       case 1:
         return TippedArrow.get(PotionType.POISON, amount);
       case 2:
