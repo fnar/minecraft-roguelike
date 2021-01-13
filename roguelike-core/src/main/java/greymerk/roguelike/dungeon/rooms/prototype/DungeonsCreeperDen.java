@@ -71,7 +71,7 @@ public class DungeonsCreeperDen extends DungeonBase {
 
     List<Coord> chestSpaces = new RectSolid(start, end).get();
     chooseRandomLocations(3, chestSpaces).stream()
-        .peek(chestSpace -> worldEditor.getTreasureChestEditor().createChest(levelSettings.getDifficulty(chestSpace), chestSpace, true, getRoomSetting().getChestType().orElse(ChestType.ORE)))
+        .peek(chestSpace -> worldEditor.getTreasureChestEditor().createChest(chestSpace, true, levelSettings.getDifficulty(chestSpace), getRoomSetting().getChestType().orElse(ChestType.ORE)))
         .forEach(chestSpace -> spawnTntBeneath(worldEditor, chestSpace));
 
     final Coord cursor = origin.copy();

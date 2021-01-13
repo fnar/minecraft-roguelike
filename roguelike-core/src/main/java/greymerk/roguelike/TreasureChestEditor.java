@@ -4,6 +4,7 @@ import com.github.srwaggon.minecraft.block.BlockType;
 
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import greymerk.roguelike.treasure.ChestPlacementException;
 import greymerk.roguelike.treasure.TreasureChest;
@@ -30,31 +31,31 @@ public class TreasureChestEditor {
     return treasureManager;
   }
 
-  public void createChests(int level, List<Coord> chestLocations, boolean isTrapped, ChestType... chestTypes) {
-    chestLocations.forEach(chestLocation ->
-        createChest(level, chestLocation, isTrapped, chestTypes));
+  public List<TreasureChest> createChests(List<Coord> chestLocations, boolean isTrapped, int level, ChestType... chestTypes) {
+    return chestLocations.stream()
+        .map(chestLocation -> createChest(chestLocation, isTrapped, level, chestTypes))
+        .collect(Collectors.toList());
   }
 
-  public void createChest(int level, Coord chestLocation, boolean isTrapped, ChestType... chestTypes) {
-    if (isValidChestSpace(chestLocation, worldEditor)) {
-      ChestType type = ChestType.chooseRandomType(this.random, chestTypes);
-      safeGenerate(level, chestLocation, isTrapped, type);
+  public TreasureChest createChest(Coord chestLocation, boolean isTrapped, int level, ChestType... chestTypes) {
+    if (!isValidChestSpace(chestLocation, worldEditor)) {
+      return null;
     }
-  }
-
-  private void safeGenerate(int level, Coord chestLocation, boolean isTrapped, ChestType chestType) {
     try {
-      generateTreasureChest(chestLocation, isTrapped, chestType, level);
+      return generateTreasureChest(chestLocation, isTrapped, level, ChestType.chooseRandomAmong(this.random, chestTypes));
     } catch (ChestPlacementException ignored) {
+      // todo: how to print exceptions in this codebase gracefully?
     }
+    return null;
   }
 
-  public TreasureChest generateTreasureChest(Coord pos, boolean isTrapped, ChestType chestType, int level) throws ChestPlacementException {
+  private TreasureChest generateTreasureChest(Coord pos, boolean isTrapped, int level, ChestType chestType) throws ChestPlacementException {
     BlockBrush chestBlock = (isTrapped ? BlockType.TRAPPED_CHEST : BlockType.CHEST).getBrush();
 
     boolean success = chestBlock.stroke(worldEditor, pos);
 
     if (!success) {
+      // todo: this is thrown and immediately caught and ignored.
       throw new ChestPlacementException("Failed to place chest in world");
     }
 

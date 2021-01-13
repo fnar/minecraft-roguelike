@@ -183,7 +183,7 @@ public class DungeonReward extends DungeonBase {
 
     cursor = new Coord(x, y, z);
     cursor.translate(Direction.UP);
-    worldEditor.getTreasureChestEditor().createChest(levelSettings.getDifficulty(cursor), cursor, false, getRoomSetting().getChestType().orElse(ChestType.REWARD));
+    worldEditor.getTreasureChestEditor().createChest(cursor, false, levelSettings.getDifficulty(cursor), getRoomSetting().getChestType().orElse(ChestType.REWARD));
     return this;
   }
 
