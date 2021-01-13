@@ -24,7 +24,7 @@ public class ProfileMagicArcher implements IMonsterProfile {
 
     mob.setMobClass(MobType.STRAY, false);
 
-    mob.setSlot(EntityEquipmentSlot.OFFHAND, TippedArrow.get(PotionType.HARM));
+    mob.setSlot(EntityEquipmentSlot.OFFHAND, TippedArrow.get(PotionType.HARMING));
     mob.setSlot(EntityEquipmentSlot.MAINHAND, ItemWeapon.getBow(rand, level, Enchant.canEnchant(world.getDifficulty(), rand, level)));
 
     for (EntityEquipmentSlot slot : new EntityEquipmentSlot[]{

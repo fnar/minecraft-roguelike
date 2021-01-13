@@ -103,11 +103,11 @@ public class PotionMapper1_12 {
         return upgrade
             ? PotionTypes.STRONG_HEALING
             : PotionTypes.HEALING;
-      case HARM:
+      case HARMING:
         return upgrade
             ? PotionTypes.STRONG_HARMING
             : PotionTypes.HARMING;
-      case REGEN:
+      case REGENERATION:
         return extend
             ? PotionTypes.LONG_REGENERATION
             : upgrade
@@ -139,11 +139,36 @@ public class PotionMapper1_12 {
             : upgrade
                 ? PotionTypes.STRONG_SWIFTNESS
                 : PotionTypes.SWIFTNESS;
-      case FIRERESIST:
+      case FIRE_RESISTANCE:
         return extend
             ? PotionTypes.LONG_FIRE_RESISTANCE
             : PotionTypes.FIRE_RESISTANCE;
+      case INVISIBILITY:
+        return extend
+            ? PotionTypes.LONG_INVISIBILITY
+            : PotionTypes.INVISIBILITY;
+      case LEAPING:
+        return extend
+            ? PotionTypes.LONG_LEAPING
+            : PotionTypes.LEAPING;
+      case NIGHT_VISION:
+        return extend
+            ? PotionTypes.LONG_NIGHT_VISION
+            : PotionTypes.NIGHT_VISION;
+      case WATER_BREATHING:
+        return extend
+            ? PotionTypes.LONG_WATER_BREATHING
+            : PotionTypes.WATER_BREATHING;
+      case LUCK:
+//        return PotionTypes.LUCK; // introduced in 1.9. Not sure why I can't find it in Forge.
+      case LEVITATION:
+//        return PotionTypes.LEVITATION; // introduced in 1.9. Not sure why I can't find it in Forge.
+      case TURTLE_MASTER:
+//        return PotionTypes.TURTLE_MASTER; // introduced in 1.13
+      case SLOW_FALLING:
+//        return PotionTypes.SLOW_FALLING; // introduced in 1.13
       default:
+      case AWKWARD:
         return PotionTypes.AWKWARD;
     }
   }

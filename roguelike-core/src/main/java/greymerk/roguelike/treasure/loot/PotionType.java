@@ -14,15 +14,24 @@ import greymerk.roguelike.util.WeightedChoice;
 public enum PotionType {
 
   AWKWARD,
+  FIRE_RESISTANCE,
+  HARMING,
   HEALING,
-  HARM,
-  REGEN,
+  INVISIBILITY,
+  LEAPING,
+  LEVITATION,
+  LUCK,
+  NIGHT_VISION,
   POISON,
-  STRENGTH,
-  WEAKNESS,
+  REGENERATION,
   SLOWNESS,
+  SLOW_FALLING,
+  STRENGTH,
   SWIFTNESS,
-  FIRERESIST;
+  TURTLE_MASTER,
+  WATER_BREATHING,
+  WEAKNESS,
+  ;
 
   public static PotionType chooseRandom(Random rand) {
     return chooseRandomAmong(rand, values());

@@ -22,7 +22,7 @@ public class ItemPotion extends ItemBase {
         PotionType.HEALING,
         PotionType.STRENGTH,
         PotionType.SWIFTNESS,
-        PotionType.REGEN
+        PotionType.REGENERATION
     };
     PotionType type = PotionType.chooseRandomAmong(rand, potionTypes);
     return PotionMapper1_12.map(Potion.newPotion().withForm(PotionForm.REGULAR).withType(type).withAmplification().asItemStack());
