@@ -147,7 +147,7 @@ public class DungeonStorage extends DungeonBase {
     }
 
     List<Coord> chestLocations = chooseRandomLocations(2, chestSpaces);
-    worldEditor.getTreasureChestEditor().createChests(levelSettings.getDifficulty(origin), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(rand, ChestType.SUPPLIES_TREASURES)));
+    worldEditor.getTreasureChestEditor().createChests(chestLocations, false, levelSettings.getDifficulty(origin), getRoomSetting().getChestType().orElse(ChestType.chooseRandomAmong(rand, ChestType.SUPPLIES_TREASURES)));
     return this;
   }
 

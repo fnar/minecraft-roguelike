@@ -32,7 +32,7 @@ public class ChestType {
     this.identity = identity.toUpperCase();
   }
 
-  public static ChestType chooseRandomType(Random random, ChestType[] chestTypes) {
+  public static ChestType chooseRandomAmong(Random random, ChestType[] chestTypes) {
     return chestTypes[random.nextInt(chestTypes.length)];
   }
 

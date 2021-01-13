@@ -19,7 +19,6 @@ import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.treasure.ChestPlacementException;
 import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.treasure.loot.Loot;
@@ -185,38 +184,25 @@ public class DungeonBTeam extends DungeonBase {
     cursor.translate(dir.antiClockwise());
     int level = levelSettings.getDifficulty(cursor);
     ChestType chestType = ChestType.EMPTY;
-    try {
-      TreasureChest stal = worldEditor.getTreasureChestEditor().generateTreasureChest(cursor, false, chestType, level);
-      stal.setSlot(stal.getSize() / 2, Record.getRecord(Record.STAL));
-    } catch (ChestPlacementException cpe) {
-      // do nothing
-    }
+    TreasureChest stal = worldEditor.getTreasureChestEditor().createChest(cursor, false, level, chestType);
+    stal.setSlot(stal.getSize() / 2, Record.getRecord(Record.STAL));
 
     cursor = origin.copy();
     cursor.translate(dir.reverse(), 3);
     cursor.translate(dir.antiClockwise(), 4);
-    try {
-      TreasureChest bdub = worldEditor.getTreasureChestEditor().generateTreasureChest(cursor, false, chestType, level);
-      bdub.setSlot((bdub.getSize() / 2) - 2, ItemNovelty.getItem(ItemNovelty.BDOUBLEO));
-      ItemStack shirt = new ItemStack(Items.LEATHER_CHESTPLATE);
-      shirt.setStackDisplayName("Pink Sweater");
-      Loot.setItemLore(shirt, "\"It's chinese red!\"");
-      ItemArmour.dyeArmor(shirt, 250, 96, 128);
-      bdub.setSlot((bdub.getSize() / 2) + 2, shirt);
-    } catch (ChestPlacementException cpe) {
-      // do nothing
-    }
+    TreasureChest bdub = worldEditor.getTreasureChestEditor().createChest(cursor, false, level, chestType);
+    bdub.setSlot((bdub.getSize() / 2) - 2, ItemNovelty.getItem(ItemNovelty.BDOUBLEO));
+    ItemStack shirt = new ItemStack(Items.LEATHER_CHESTPLATE);
+    shirt.setStackDisplayName("Pink Sweater");
+    Loot.setItemLore(shirt, "\"It's chinese red!\"");
+    ItemArmour.dyeArmor(shirt, 250, 96, 128);
+    bdub.setSlot((bdub.getSize() / 2) + 2, shirt);
 
     cursor = origin.copy();
     cursor.translate(dir.reverse(), 3);
     cursor.translate(dir.clockwise(), 4);
-    try {
-      TreasureChest genny = worldEditor.getTreasureChestEditor().generateTreasureChest(cursor, false, chestType, level);
-      genny.setSlot(genny.getSize() / 2, ItemNovelty.getItem(ItemNovelty.GENERIKB));
-    } catch (ChestPlacementException cpe) {
-      // do nothing
-    }
-
+    TreasureChest genny = worldEditor.getTreasureChestEditor().createChest(cursor, false, level, chestType);
+    genny.setSlot(genny.getSize() / 2, ItemNovelty.getItem(ItemNovelty.GENERIKB));
 
     return this;
   }

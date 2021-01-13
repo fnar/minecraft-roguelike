@@ -148,7 +148,7 @@ public class DungeonMess extends DungeonBase {
     cursor.translate(entrances[0], 2);
     cursor.translate(Direction.UP);
 
-    editor.getTreasureChestEditor().createChest(settings.getDifficulty(cursor), cursor, false, ChestType.FOOD);
+    editor.getTreasureChestEditor().createChest(cursor, false, settings.getDifficulty(cursor), ChestType.FOOD);
 
     cursor = origin.copy();
     cursor.translate(entrances[0], 5);
@@ -423,7 +423,7 @@ public class DungeonMess extends DungeonBase {
     cursor.translate(dir, 7);
     stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
     cursor.translate(Direction.UP);
-    editor.getTreasureChestEditor().createChest(settings.getDifficulty(origin), cursor, false, getRoomSetting().getChestType().orElse(ChestType.FOOD));
+    editor.getTreasureChestEditor().createChest(cursor, false, settings.getDifficulty(origin), getRoomSetting().getChestType().orElse(ChestType.FOOD));
     cursor.translate(dir.antiClockwise());
     BlockType.FURNACE.getBrush().setFacing(dir).stroke(editor, cursor);
     cursor.translate(dir.clockwise(), 2);

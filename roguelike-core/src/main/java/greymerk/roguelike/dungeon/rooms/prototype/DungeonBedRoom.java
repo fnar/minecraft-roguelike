@@ -146,7 +146,7 @@ public class DungeonBedRoom extends DungeonBase {
     cursor.translate(dir);
     cursor.translate(side, 3);
 
-    worldEditor.getTreasureChestEditor().createChest(Dungeon.getLevel(cursor.getY()), cursor.add(Direction.UP), false, getRoomSetting().getChestType().orElse(ChestType.STARTER));
+    worldEditor.getTreasureChestEditor().createChest(cursor.add(Direction.UP), false, Dungeon.getLevel(cursor.getY()), getRoomSetting().getChestType().orElse(ChestType.STARTER));
 
     cursor.translate(side.reverse(), 6);
     if (rand.nextBoolean()) {

@@ -282,16 +282,16 @@ public class DungeonsSmithy extends DungeonBase {
   }
 
   private void smelter(WorldEditor editor, Direction dir, Coord origin) {
-    editor.getTreasureChestEditor().createChest(1, origin, false, ChestType.EMPTY);
+    editor.getTreasureChestEditor().createChest(origin, false, 1, ChestType.EMPTY);
 
     Coord cursor;
     cursor = origin.copy();
     cursor.translate(dir, 2);
     cursor.translate(Direction.UP, 2);
-    editor.getTreasureChestEditor().createChest(1, cursor, false, ChestType.EMPTY);
+    editor.getTreasureChestEditor().createChest(cursor, false, 1, ChestType.EMPTY);
     cursor.translate(Direction.UP);
     cursor.translate(dir.reverse());
-    editor.getTreasureChestEditor().createChest(1, cursor, false, ChestType.EMPTY);
+    editor.getTreasureChestEditor().createChest(cursor, false, 1, ChestType.EMPTY);
 
     cursor = origin.copy();
     cursor.translate(Direction.UP);
@@ -460,7 +460,7 @@ public class DungeonsSmithy extends DungeonBase {
     stair.setUpsideDown(true).setFacing(dir.clockwise());
     RectSolid.newRect(start, end).fill(editor, stair);
     cursor.translate(Direction.UP);
-    editor.getTreasureChestEditor().createChest(Dungeon.getLevel(cursor.getY()), cursor, false, getRoomSetting().getChestType().orElse(ChestType.SMITH));
+    editor.getTreasureChestEditor().createChest(cursor, false, Dungeon.getLevel(cursor.getY()), getRoomSetting().getChestType().orElse(ChestType.SMITH));
   }
 
 

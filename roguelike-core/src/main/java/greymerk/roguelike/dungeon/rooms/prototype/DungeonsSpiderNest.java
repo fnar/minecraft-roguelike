@@ -78,7 +78,7 @@ public class DungeonsSpiderNest extends DungeonBase {
         new Coord(originX + dungeonLength, originY + 1, originZ + dungeonWidth)
     ).get();
     List<Coord> chestLocations = chooseRandomLocations(1 + worldEditor.getRandom().nextInt(3), spaces);
-    worldEditor.getTreasureChestEditor().createChests(Dungeon.getLevel(originY), chestLocations, false, getRoomSetting().getChestType().orElse(ChestType.chooseRandomType(worldEditor.getRandom(), ChestType.COMMON_TREASURES)));
+    worldEditor.getTreasureChestEditor().createChests(chestLocations, false, Dungeon.getLevel(originY), getRoomSetting().getChestType().orElse(ChestType.chooseRandomAmong(worldEditor.getRandom(), ChestType.COMMON_TREASURES)));
     return this;
   }
 
