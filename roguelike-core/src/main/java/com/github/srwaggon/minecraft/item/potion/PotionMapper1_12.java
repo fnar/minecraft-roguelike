@@ -61,20 +61,13 @@ public class PotionMapper1_12 {
       itemStack.setTagCompound(tag);
     }
 
-
-    NBTTagList effects = tag.getTagList(CUSTOM, 10);
-    if (effects == null) {
-      effects = new NBTTagList();
-      tag.setTag(CUSTOM, effects);
-    }
-
     NBTTagCompound toAdd = new NBTTagCompound();
-
     toAdd.setByte("Id", (byte) type.getEffectID());
     toAdd.setByte("Amplifier", (byte) (amplifier));
     toAdd.setInteger("Duration", duration * ticksPerSecond);
     toAdd.setBoolean("Ambient", true);
 
+    NBTTagList effects = tag.getTagList(CUSTOM, 10);
     effects.appendTag(toAdd);
     tag.setTag(CUSTOM, effects);
     itemStack.setTagCompound(tag);
