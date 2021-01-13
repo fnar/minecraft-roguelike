@@ -1,5 +1,7 @@
 package com.github.srwaggon.minecraft.item;
 
+import com.github.srwaggon.minecraft.item.potion.PotionMapper1_12;
+
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -8,8 +10,10 @@ import greymerk.roguelike.treasure.loot.RecordSong;
 
 public class RecordMapper1_12 {
 
-  public static ItemStack map(RldItemStack itemStack) {
-    return map((RecordItem) itemStack.getItem());
+  public static ItemStack map(RldItemStack rldItemStack) {
+    ItemStack itemStack = map((RecordItem) rldItemStack.getItem());
+    PotionMapper1_12.mergeTags(rldItemStack, itemStack);
+    return itemStack;
   }
 
   public static ItemStack map(RecordItem item) {

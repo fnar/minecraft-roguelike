@@ -1,5 +1,7 @@
 package greymerk.roguelike.treasure.loot;
 
+import com.github.srwaggon.minecraft.item.potion.PotionMapper1_12;
+
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -25,10 +27,8 @@ public class TippedArrow {
   }
 
   public static ItemStack get(PotionType type, int amount) {
-
-    net.minecraft.potion.PotionType pot = PotionType.getEffect(type, false, false);
+    net.minecraft.potion.PotionType pot = PotionMapper1_12.map(type, false, false);
     return get(pot, amount);
-
   }
 
   public static ItemStack get(net.minecraft.potion.PotionType type, int amount) {

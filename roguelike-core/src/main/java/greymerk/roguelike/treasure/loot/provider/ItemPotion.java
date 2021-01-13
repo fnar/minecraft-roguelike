@@ -1,5 +1,8 @@
 package greymerk.roguelike.treasure.loot.provider;
 
+import com.github.srwaggon.minecraft.item.potion.Potion;
+import com.github.srwaggon.minecraft.item.potion.PotionMapper1_12;
+
 import net.minecraft.item.ItemStack;
 
 import java.util.Random;
@@ -22,7 +25,7 @@ public class ItemPotion extends ItemBase {
         PotionType.REGEN
     };
     PotionType type = PotionType.chooseRandomAmong(rand, potionTypes);
-    return PotionType.getSpecific(PotionForm.REGULAR, type, true, false);
+    return PotionMapper1_12.map(Potion.newPotion().withForm(PotionForm.REGULAR).withType(type).withAmplification().asItemStack());
   }
 
 }
