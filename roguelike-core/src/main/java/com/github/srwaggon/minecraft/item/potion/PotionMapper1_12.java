@@ -84,13 +84,11 @@ public class PotionMapper1_12 {
     }
   }
 
-  public static net.minecraft.potion.PotionType map(PotionType effect, boolean upgrade,
-      boolean extend) {
-
-    if (effect == null) {
-      return PotionTypes.AWKWARD;
-    }
-
+  public static net.minecraft.potion.PotionType map(
+      PotionType effect,
+      boolean upgrade,
+      boolean extend
+  ) {
     switch (effect) {
       case HEALING:
         return upgrade
@@ -160,8 +158,8 @@ public class PotionMapper1_12 {
 //        return PotionTypes.TURTLE_MASTER; // introduced in 1.13
       case SLOW_FALLING:
 //        return PotionTypes.SLOW_FALLING; // introduced in 1.13
-      default:
       case AWKWARD:
+      default:
         return PotionTypes.AWKWARD;
     }
   }
