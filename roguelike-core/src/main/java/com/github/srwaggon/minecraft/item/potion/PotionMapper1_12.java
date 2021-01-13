@@ -10,7 +10,7 @@ import net.minecraft.nbt.NBTTagList;
 
 import greymerk.roguelike.treasure.loot.PotionType;
 
-public class PotionItemStackMapper {
+public class PotionMapper1_12 {
 
   public static ItemStack map(RldItemStack potionItemStack) {
     RldItem item = potionItemStack.getItem();

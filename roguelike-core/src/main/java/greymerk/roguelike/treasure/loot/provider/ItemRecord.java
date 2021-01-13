@@ -4,7 +4,7 @@ import net.minecraft.item.ItemStack;
 
 import java.util.Random;
 
-import greymerk.roguelike.treasure.loot.Record;
+import greymerk.roguelike.treasure.loot.RecordSong;
 
 public class ItemRecord extends ItemBase {
 
@@ -14,7 +14,7 @@ public class ItemRecord extends ItemBase {
 
   @Override
   public ItemStack getLootItem(Random rand, int level) {
-    return Record.getRandomRecord(rand);
+    return RecordSong.getRandomRecord(rand);
   }
 
 

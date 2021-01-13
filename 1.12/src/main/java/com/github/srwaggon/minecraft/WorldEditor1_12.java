@@ -36,6 +36,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import greymerk.roguelike.TreasureChestEditor;
+import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
@@ -331,7 +332,7 @@ public class WorldEditor1_12 implements WorldEditor {
 
   @Override
   public void setItem(Coord pos, int slot, RldItemStack itemStack) {
-    setItem(pos, slot, ItemStackMapper.map(itemStack));
+    setItem(pos, slot, ItemMapper1_12.map(itemStack));
   }
 
   @Override
@@ -414,6 +415,14 @@ public class WorldEditor1_12 implements WorldEditor {
   @Override
   public void setLootTable(Coord pos, String table) {
     ((TileEntityChest) getTileEntity(pos)).setLootTable(new ResourceLocation(table), getSeed());
+  }
+
+  public int getCapacity(TreasureChest treasureChest) {
+    return ((TileEntityLockableLoot) getTileEntity(treasureChest.getPos())).getSizeInventory();
+  }
+
+  public boolean isEmptySlot(TreasureChest treasureChest, int slot) {
+    return ((TileEntityLockableLoot) getTileEntity(treasureChest.getPos())).getStackInSlot(slot).isEmpty();
   }
 }
 

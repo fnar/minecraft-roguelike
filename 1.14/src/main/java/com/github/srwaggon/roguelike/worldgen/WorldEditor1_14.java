@@ -24,6 +24,7 @@ import java.util.Objects;
 import java.util.Random;
 
 import greymerk.roguelike.TreasureChestEditor;
+import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
@@ -191,5 +192,13 @@ public class WorldEditor1_14 implements WorldEditor {
   @Override
   public void setLootTable(Coord pos, String table) {
 
+  }
+
+  public int getCapacity(TreasureChest treasureChest) {
+    return 0;
+  }
+
+  public boolean isEmptySlot(TreasureChest treasureChest, int slot) {
+    return false;
   }
 }
