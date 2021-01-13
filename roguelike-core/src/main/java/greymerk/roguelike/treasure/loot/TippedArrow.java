@@ -1,6 +1,6 @@
 package greymerk.roguelike.treasure.loot;
 
-import com.github.srwaggon.minecraft.item.potion.PotionMapper1_12;
+import com.github.srwaggon.minecraft.item.PotionMapper1_12;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;

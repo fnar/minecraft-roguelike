@@ -1,4 +1,4 @@
-package com.github.srwaggon.minecraft.item.potion;
+package com.github.srwaggon.minecraft;
 
 import java.util.Random;
 

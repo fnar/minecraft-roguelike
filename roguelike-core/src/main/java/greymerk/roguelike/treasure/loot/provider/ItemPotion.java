@@ -1,14 +1,14 @@
 package greymerk.roguelike.treasure.loot.provider;
 
-import com.github.srwaggon.minecraft.item.potion.Potion;
-import com.github.srwaggon.minecraft.item.potion.PotionMapper1_12;
+import com.github.srwaggon.minecraft.item.ItemMapper1_12;
+import com.github.srwaggon.minecraft.item.Potion;
 
 import net.minecraft.item.ItemStack;
 
 import java.util.Random;
 
-import greymerk.roguelike.treasure.loot.PotionType;
 import greymerk.roguelike.treasure.loot.PotionForm;
+import greymerk.roguelike.treasure.loot.PotionType;
 
 public class ItemPotion extends ItemBase {
 
@@ -25,7 +25,7 @@ public class ItemPotion extends ItemBase {
         PotionType.REGENERATION
     };
     PotionType type = PotionType.chooseRandomAmong(rand, potionTypes);
-    return PotionMapper1_12.map(Potion.newPotion().withForm(PotionForm.REGULAR).withType(type).withAmplification().asItemStack());
+    return ItemMapper1_12.map(Potion.newPotion().withForm(PotionForm.REGULAR).withType(type).withAmplification().asItemStack());
   }
 
 }

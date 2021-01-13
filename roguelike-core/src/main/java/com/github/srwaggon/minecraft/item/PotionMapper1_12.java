@@ -1,8 +1,6 @@
-package com.github.srwaggon.minecraft.item.potion;
+package com.github.srwaggon.minecraft.item;
 
-import com.github.srwaggon.minecraft.item.RldItem;
-import com.github.srwaggon.minecraft.item.RldItemStack;
-import com.github.srwaggon.minecraft.tag.TagMapper;
+import com.github.srwaggon.minecraft.EffectType;
 
 import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
@@ -12,8 +10,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.PotionUtils;
 
-import java.util.Optional;
-
 import greymerk.roguelike.treasure.loot.PotionForm;
 import greymerk.roguelike.treasure.loot.PotionType;
 
@@ -21,26 +17,10 @@ public class PotionMapper1_12 {
 
   public static ItemStack map(RldItemStack rldItemStack) {
     RldItem item = rldItemStack.getItem();
-    ItemStack itemStack = map((Potion) item);
-
-    mergeTags(rldItemStack, itemStack);
-
-    return itemStack;
+    return map((Potion) item);
   }
 
-  public static void mergeTags(RldItemStack rldItemStack, ItemStack itemStack) {
-    Optional.ofNullable(rldItemStack.getTags())
-        .ifPresent(compoundTag ->
-            Optional.ofNullable(itemStack.getTagCompound()).orElseGet(() -> ensureNbtTags(itemStack))
-                .merge(TagMapper.map(compoundTag)));
-  }
-
-  public static NBTTagCompound ensureNbtTags(ItemStack itemStack) {
-    itemStack.setTagCompound(new NBTTagCompound());
-    return itemStack.getTagCompound();
-  }
-
-  public static ItemStack map(Potion potion) {
+  private static ItemStack map(Potion potion) {
     ItemPotion itemPotion = map(potion.getForm());
     ItemStack itemStack = new ItemStack(itemPotion);
     net.minecraft.potion.PotionType data = map(potion.getType(), potion.isAmplified(), potion.isExtended());

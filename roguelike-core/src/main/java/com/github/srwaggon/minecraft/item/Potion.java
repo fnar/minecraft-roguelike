@@ -1,11 +1,11 @@
-package com.github.srwaggon.minecraft.item.potion;
+package com.github.srwaggon.minecraft.item;
 
 import com.google.common.collect.Lists;
 
-import com.github.srwaggon.minecraft.item.ItemType;
-import com.github.srwaggon.minecraft.item.RldItem;
+import com.github.srwaggon.minecraft.Effect;
 
 import java.util.List;
+import java.util.Random;
 
 import greymerk.roguelike.treasure.loot.PotionForm;
 import greymerk.roguelike.treasure.loot.PotionType;
@@ -100,4 +100,24 @@ public class Potion implements RldItem {
     return this;
   }
 
+  public enum Amplification {
+
+    UNAMPLIFIED(0),
+    LEVEL_ONE(1),
+    LEVEL_TWO(2);
+
+    private final int level;
+
+    Amplification(int level) {
+      this.level = level;
+    }
+
+    public int getLevel() {
+      return level;
+    }
+
+    public static Amplification chooseRandom(Random random) {
+      return Amplification.values()[random.nextInt(Amplification.values().length)];
+    }
+  }
 }
