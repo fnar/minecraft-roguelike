@@ -10,7 +10,7 @@ public class RldItemStack {
 
   private RldItem item;
   private int count;
-  private final CompoundTag tags = new CompoundTag();
+  private CompoundTag tags;
 
   public RldItemStack(RldItem item) {
     this(item, 1);
@@ -42,21 +42,32 @@ public class RldItemStack {
   }
 
   public RldItemStack withTag(String name, CompoundTag value) {
-    tags.withTag(name, value);
+    ensureTags().withTag(name, value);
     return this;
   }
 
   public RldItemStack withTag(String name, int value) {
-    tags.withTag(name, value);
+    ensureTags().withTag(name, value);
     return this;
   }
 
   public RldItemStack withTag(String name, String value) {
-    tags.withTag(name, value);
+    ensureTags().withTag(name, value);
     return this;
   }
 
   public CompoundTag getTags() {
+    return tags;
+  }
+
+  public boolean isTagged() {
+    return tags != null;
+  }
+
+  private CompoundTag ensureTags() {
+    if (tags == null) {
+      tags = new CompoundTag();
+    }
     return tags;
   }
 
@@ -66,7 +77,7 @@ public class RldItemStack {
   }
 
   public CompoundTag ensureCompoundTag(String name) {
-    CompoundTag tag = getTags().getCompound(name);
+    CompoundTag tag = ensureTags().getCompound(name);
     if (tag != null) {
       return tag;
     }
