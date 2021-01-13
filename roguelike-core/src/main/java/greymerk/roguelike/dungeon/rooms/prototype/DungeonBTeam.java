@@ -9,6 +9,7 @@ import com.github.srwaggon.minecraft.block.normal.SlabBlock;
 import com.github.srwaggon.minecraft.block.normal.StairsBlock;
 import com.github.srwaggon.minecraft.block.normal.Wood;
 import com.github.srwaggon.minecraft.block.redstone.TrapdoorBlock;
+import com.github.srwaggon.minecraft.item.RecordItem;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -23,7 +24,7 @@ import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.treasure.loot.Loot;
 import greymerk.roguelike.treasure.loot.PotionMixture;
-import greymerk.roguelike.treasure.loot.Record;
+import greymerk.roguelike.treasure.loot.RecordSong;
 import greymerk.roguelike.treasure.loot.provider.ItemArmour;
 import greymerk.roguelike.treasure.loot.provider.ItemNovelty;
 import greymerk.roguelike.util.DyeColor;
@@ -185,24 +186,24 @@ public class DungeonBTeam extends DungeonBase {
     int level = levelSettings.getDifficulty(cursor);
     ChestType chestType = ChestType.EMPTY;
     TreasureChest stal = worldEditor.getTreasureChestEditor().createChest(cursor, false, level, chestType);
-    stal.setSlot(stal.getSize() / 2, Record.getRecord(Record.STAL));
+    stal.setSlot(stal.worldEditor.getCapacity(stal) / 2, RecordItem.newRecord().withSong(RecordSong.STAL).asItemStack());
 
     cursor = origin.copy();
     cursor.translate(dir.reverse(), 3);
     cursor.translate(dir.antiClockwise(), 4);
     TreasureChest bdub = worldEditor.getTreasureChestEditor().createChest(cursor, false, level, chestType);
-    bdub.setSlot((bdub.getSize() / 2) - 2, ItemNovelty.getItem(ItemNovelty.BDOUBLEO));
+    bdub.setSlot((bdub.worldEditor.getCapacity(bdub) / 2) - 2, ItemNovelty.getItem(ItemNovelty.BDOUBLEO));
     ItemStack shirt = new ItemStack(Items.LEATHER_CHESTPLATE);
     shirt.setStackDisplayName("Pink Sweater");
     Loot.setItemLore(shirt, "\"It's chinese red!\"");
     ItemArmour.dyeArmor(shirt, 250, 96, 128);
-    bdub.setSlot((bdub.getSize() / 2) + 2, shirt);
+    bdub.setSlot((bdub.worldEditor.getCapacity(bdub) / 2) + 2, shirt);
 
     cursor = origin.copy();
     cursor.translate(dir.reverse(), 3);
     cursor.translate(dir.clockwise(), 4);
     TreasureChest genny = worldEditor.getTreasureChestEditor().createChest(cursor, false, level, chestType);
-    genny.setSlot(genny.getSize() / 2, ItemNovelty.getItem(ItemNovelty.GENERIKB));
+    genny.setSlot(genny.worldEditor.getCapacity(genny) / 2, ItemNovelty.getItem(ItemNovelty.GENERIKB));
 
     return this;
   }

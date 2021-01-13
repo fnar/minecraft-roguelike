@@ -1,35 +1,26 @@
-package greymerk.roguelike.treasure.loot;
+package com.github.srwaggon.minecraft.item;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import java.util.Random;
+import greymerk.roguelike.treasure.loot.RecordSong;
 
-public enum Record {
+public class RecordMapper1_12 {
 
-  THIRTEEN,
-  CAT,
-  BLOCKS,
-  CHIRP,
-  FAR,
-  MALL,
-  MELLOHI,
-  STAL,
-  STRAD,
-  WARD,
-  ELEVEN,
-  WAIT;
+  public static ItemStack map(RldItemStack itemStack) {
+    return map((RecordItem) itemStack.getItem());
+  }
 
-  public static ItemStack getRecord(Record type) {
+  public static ItemStack map(RecordItem item) {
+    return map(item.getSong());
+  }
+
+  public static ItemStack map(RecordSong type) {
     return new ItemStack(getId(type), 1, 0);
   }
 
-  public static ItemStack getRandomRecord(Random rand) {
-    return getRecord(Record.values()[rand.nextInt(Record.values().length)]);
-  }
-
-  public static Item getId(Record type) {
+  public static Item getId(RecordSong type) {
 
     switch (type) {
       case THIRTEEN:
@@ -60,5 +51,4 @@ public enum Record {
         return Items.RECORD_CAT;
     }
   }
-
 }

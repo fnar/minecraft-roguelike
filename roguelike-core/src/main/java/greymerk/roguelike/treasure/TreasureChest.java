@@ -1,7 +1,8 @@
 package greymerk.roguelike.treasure;
 
+import com.github.srwaggon.minecraft.item.RldItemStack;
+
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityChest;
 
 import java.util.Collections;
 import java.util.List;
@@ -20,7 +21,7 @@ public class TreasureChest {
   private final ChestType chestType;
   private final int level;
   private final Coord pos;
-  private final WorldEditor worldEditor;
+  public final WorldEditor worldEditor;
 
   public TreasureChest(
       ChestType chestType,
@@ -38,30 +39,36 @@ public class TreasureChest {
     worldEditor.setItem(pos, slot, item);
   }
 
-  public void setRandomEmptySlot(ItemStack item) {
-    List<Integer> slots = IntStream.range(0, getSize()).boxed().collect(Collectors.toList());
+  public void setRandomEmptySlot(ItemStack itemStack) {
+    List<Integer> slots = IntStream.range(0, this.worldEditor.getCapacity(this)).boxed().collect(Collectors.toList());
     Collections.shuffle(slots);
     slots.stream()
         .mapToInt(slot -> slot)
-        .filter(this::isEmptySlot)
+        .filter(slot -> worldEditor.isEmptySlot(this, slot))
         .findFirst()
-        .ifPresent(value -> setSlot(value, item));
+        .ifPresent(value -> setSlot(value, itemStack));
   }
 
-  public TileEntityChest getTileEntity() {
-    return (TileEntityChest) worldEditor.getTileEntity(pos);
+  public void setSlot(int slot, RldItemStack itemStack) {
+    worldEditor.setItem(pos, slot, itemStack);
   }
 
-  public boolean isEmptySlot(int slot) {
-    return getTileEntity().getStackInSlot(slot).isEmpty();
+  public void setRandomEmptySlot(RldItemStack itemStack) {
+    List<Integer> slots = IntStream.range(0, this.worldEditor.getCapacity(this)).boxed().collect(Collectors.toList());
+    Collections.shuffle(slots);
+    slots.stream()
+        .mapToInt(slot -> slot)
+        .filter(slot -> worldEditor.isEmptySlot(this, slot))
+        .findFirst()
+        .ifPresent(value -> setSlot(value, itemStack));
   }
 
   public ChestType getType() {
     return chestType;
   }
 
-  public int getSize() {
-    return getTileEntity().getSizeInventory();
+  public Coord getPos() {
+    return pos;
   }
 
   public int getLevel() {

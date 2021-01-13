@@ -16,6 +16,7 @@ import java.util.Map;
 import java.util.Random;
 
 import greymerk.roguelike.TreasureChestEditor;
+import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.util.DyeColor;
 
 public interface WorldEditor {
@@ -73,4 +74,9 @@ public interface WorldEditor {
   void setSkull(WorldEditor editor, Coord cursor, Direction dir, Skull type);
 
   void setLootTable(Coord pos, String table);
+  
+  int getCapacity(TreasureChest treasureChest);
+
+  boolean isEmptySlot(TreasureChest treasureChest, int slot);
+
 }

@@ -5,7 +5,7 @@ import com.github.srwaggon.minecraft.item.potion.Amplification;
 import com.github.srwaggon.minecraft.item.potion.Effect;
 import com.github.srwaggon.minecraft.item.potion.EffectType;
 import com.github.srwaggon.minecraft.item.potion.Potion;
-import com.github.srwaggon.minecraft.item.potion.PotionItemStackMapper;
+import com.github.srwaggon.minecraft.item.potion.PotionMapper1_12;
 
 import net.minecraft.item.ItemStack;
 
@@ -48,7 +48,7 @@ public enum PotionMixture {
 
   public static ItemStack getPotion(Random random, PotionMixture type) {
     RldItemStack rldItemStack = getPotionAsRldItemStack(random, type);
-    return PotionItemStackMapper.map(rldItemStack);
+    return PotionMapper1_12.map(rldItemStack);
   }
 
   public static RldItemStack getPotionAsRldItemStack(Random random, PotionMixture type) {
