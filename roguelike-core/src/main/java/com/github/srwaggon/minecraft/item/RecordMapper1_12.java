@@ -12,19 +12,16 @@ public class RecordMapper1_12 {
     return map((RecordItem) rldItemStack.getItem());
   }
 
-  public static ItemStack map(RecordItem item) {
-    return map(item.getSong());
+  private static ItemStack map(RecordItem item) {
+    return new ItemStack(getId(item.getSong()));
   }
 
-  public static ItemStack map(RecordSong type) {
-    return new ItemStack(getId(type), 1, 0);
-  }
-
-  public static Item getId(RecordSong type) {
+  private static Item getId(RecordSong type) {
 
     switch (type) {
       case THIRTEEN:
         return Items.RECORD_13;
+      default:
       case CAT:
         return Items.RECORD_CAT;
       case BLOCKS:
@@ -47,8 +44,6 @@ public class RecordMapper1_12 {
         return Items.RECORD_11;
       case WAIT:
         return Items.RECORD_WAIT;
-      default:
-        return Items.RECORD_CAT;
     }
   }
 }

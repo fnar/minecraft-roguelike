@@ -1,5 +1,8 @@
 package greymerk.roguelike.treasure.loot.provider;
 
+import com.github.srwaggon.minecraft.item.ItemMapper1_12;
+import com.github.srwaggon.minecraft.item.RecordItem;
+
 import net.minecraft.item.ItemStack;
 
 import java.util.Random;
@@ -14,7 +17,8 @@ public class ItemRecord extends ItemBase {
 
   @Override
   public ItemStack getLootItem(Random rand, int level) {
-    return RecordSong.getRandomRecord(rand);
+    RecordSong song = RecordSong.chooseRandom(rand);
+    return ItemMapper1_12.map(RecordItem.newRecord().withSong(song).asItemStack());
   }
 
 

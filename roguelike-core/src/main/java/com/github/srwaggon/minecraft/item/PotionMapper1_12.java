@@ -54,81 +54,60 @@ public class PotionMapper1_12 {
   }
 
 
-  public static ItemPotion map(PotionForm potionForm) {
-    if (potionForm == PotionForm.REGULAR) {
-      return Items.POTIONITEM;
-    } else if (potionForm == PotionForm.SPLASH) {
-      return Items.SPLASH_POTION;
-    } else {
-      return Items.LINGERING_POTION;
-    }
+  private static ItemPotion map(PotionForm potionForm) {
+    return potionForm == PotionForm.REGULAR ? Items.POTIONITEM
+        : potionForm == PotionForm.SPLASH ? Items.SPLASH_POTION
+            : Items.LINGERING_POTION;
   }
 
   public static net.minecraft.potion.PotionType map(
       PotionType effect,
-      boolean upgrade,
-      boolean extend
+      boolean isAmplified,
+      boolean isExtended
   ) {
     switch (effect) {
       case HEALING:
-        return upgrade
-            ? PotionTypes.STRONG_HEALING
+        return isAmplified ? PotionTypes.STRONG_HEALING
             : PotionTypes.HEALING;
       case HARMING:
-        return upgrade
-            ? PotionTypes.STRONG_HARMING
+        return isAmplified ? PotionTypes.STRONG_HARMING
             : PotionTypes.HARMING;
       case REGENERATION:
-        return extend
-            ? PotionTypes.LONG_REGENERATION
-            : upgrade
-                ? PotionTypes.STRONG_REGENERATION
+        return isExtended ? PotionTypes.LONG_REGENERATION
+            : isAmplified ? PotionTypes.STRONG_REGENERATION
                 : PotionTypes.REGENERATION;
       case POISON:
-        return extend
-            ? PotionTypes.LONG_POISON
-            : upgrade
-                ? PotionTypes.STRONG_POISON
+        return isExtended ? PotionTypes.LONG_POISON
+            : isAmplified ? PotionTypes.STRONG_POISON
                 : PotionTypes.POISON;
       case STRENGTH:
-        return extend
-            ? PotionTypes.LONG_STRENGTH
-            : upgrade
-                ? PotionTypes.STRONG_STRENGTH
+        return isExtended ? PotionTypes.LONG_STRENGTH
+            : isAmplified ? PotionTypes.STRONG_STRENGTH
                 : PotionTypes.STRENGTH;
       case WEAKNESS:
-        return extend
-            ? PotionTypes.LONG_WEAKNESS
+        return isExtended ? PotionTypes.LONG_WEAKNESS
             : PotionTypes.WEAKNESS;
       case SLOWNESS:
-        return extend
-            ? PotionTypes.LONG_SLOWNESS
+        return isExtended ? PotionTypes.LONG_SLOWNESS
             : PotionTypes.SLOWNESS;
       case SWIFTNESS:
-        return extend
-            ? PotionTypes.LONG_SWIFTNESS
-            : upgrade
-                ? PotionTypes.STRONG_SWIFTNESS
+        return isExtended ? PotionTypes.LONG_SWIFTNESS
+            : isAmplified ? PotionTypes.STRONG_SWIFTNESS
                 : PotionTypes.SWIFTNESS;
       case FIRE_RESISTANCE:
-        return extend
-            ? PotionTypes.LONG_FIRE_RESISTANCE
+        return isExtended ? PotionTypes.LONG_FIRE_RESISTANCE
             : PotionTypes.FIRE_RESISTANCE;
       case INVISIBILITY:
-        return extend
-            ? PotionTypes.LONG_INVISIBILITY
+        return isExtended ? PotionTypes.LONG_INVISIBILITY
             : PotionTypes.INVISIBILITY;
       case LEAPING:
-        return extend
-            ? PotionTypes.LONG_LEAPING
+        return isExtended ? PotionTypes.LONG_LEAPING
             : PotionTypes.LEAPING;
       case NIGHT_VISION:
-        return extend
-            ? PotionTypes.LONG_NIGHT_VISION
+        return isExtended ? PotionTypes.LONG_NIGHT_VISION
             : PotionTypes.NIGHT_VISION;
       case WATER_BREATHING:
-        return extend
-            ? PotionTypes.LONG_WATER_BREATHING
+        return isExtended ? PotionTypes.LONG_WATER_BREATHING
             : PotionTypes.WATER_BREATHING;
       case LUCK:
 //        return PotionTypes.LUCK; // introduced in 1.9. Not sure why I can't find it in Forge.

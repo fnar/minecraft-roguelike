@@ -22,7 +22,7 @@ public class ItemMapper1_12 {
     switch (item.getItemType()) {
 
       case BLOCK:
-        return new ItemStack(BlockItemMapper1_12.mapBlock((BlockItem) item));
+        return BlockItemMapper1_12.map(rldItemStack);
       case POTION:
         return PotionMapper1_12.map(rldItemStack);
       case RECORD:
