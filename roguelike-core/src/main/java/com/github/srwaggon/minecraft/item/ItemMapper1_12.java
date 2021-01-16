@@ -25,7 +25,7 @@ public class ItemMapper1_12 {
       case ARROW:
         return ArrowMapper1_12.map(rldItemStack);
       case BLOCK:
-        return BlockItemMapper1_12.map(rldItemStack);
+        return BlockMapper1_12.map(rldItemStack);
       case POTION:
         return PotionMapper1_12.map(rldItemStack);
       case RECORD:

@@ -22,7 +22,7 @@ public class RldItemStack {
   }
 
   public static RldItemStack forBlockType(BlockType blockType) {
-    return new RldItemStack(new BlockItem(blockType));
+    return new RldItemStack(new Block(blockType));
   }
 
   public RldItem getItem() {
