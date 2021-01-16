@@ -12,7 +12,6 @@ import net.minecraft.item.ItemStack;
 import java.util.Random;
 
 import greymerk.roguelike.treasure.loot.PotionMixture;
-import greymerk.roguelike.treasure.loot.PotionType;
 import greymerk.roguelike.treasure.loot.Shield;
 
 public class ItemJunk extends ItemBase {
@@ -125,7 +124,7 @@ public class ItemJunk extends ItemBase {
 
     RldItemStack rldItemStack = Arrow.newArrow()
         .withTip(Potion.newPotion()
-            .withType(PotionType.chooseRandom(rand)))
+            .withType(Potion.Type.chooseRandom(rand)))
         .asItemStack()
         .withCount(count);
 

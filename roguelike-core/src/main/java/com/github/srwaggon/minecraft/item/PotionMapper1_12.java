@@ -10,9 +10,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.PotionUtils;
 
-import greymerk.roguelike.treasure.loot.PotionForm;
-import greymerk.roguelike.treasure.loot.PotionType;
-
 public class PotionMapper1_12 {
 
   public static ItemStack map(RldItemStack rldItemStack) {
@@ -54,14 +51,14 @@ public class PotionMapper1_12 {
   }
 
 
-  private static ItemPotion map(PotionForm potionForm) {
-    return potionForm == PotionForm.REGULAR ? Items.POTIONITEM
-        : potionForm == PotionForm.SPLASH ? Items.SPLASH_POTION
+  private static ItemPotion map(Potion.Form form) {
+    return form == Potion.Form.REGULAR ? Items.POTIONITEM
+        : form == Potion.Form.SPLASH ? Items.SPLASH_POTION
             : Items.LINGERING_POTION;
   }
 
   public static net.minecraft.potion.PotionType map(
-      PotionType effect,
+      Potion.Type effect,
       boolean isAmplified,
       boolean isExtended
   ) {
