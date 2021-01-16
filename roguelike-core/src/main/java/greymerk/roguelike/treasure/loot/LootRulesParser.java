@@ -1,5 +1,6 @@
 package greymerk.roguelike.treasure.loot;
 
+import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -7,6 +8,7 @@ import com.google.gson.JsonObject;
 import net.minecraft.item.ItemStack;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,8 +22,12 @@ import greymerk.roguelike.util.WeightedRandomizer;
 
 public class LootRulesParser {
 
+  public static final List<Integer> ALL_LEVELS = Collections.unmodifiableList(Lists.newArrayList(0, 1, 2, 3, 4));
+
   public List<LootRule> parseLootRules(JsonElement jsonElement) throws Exception {
+
     List<LootRule> lootRules = new ArrayList<>();
+
     for (JsonElement ruleElement : jsonElement.getAsJsonArray()) {
       if (ruleElement.isJsonNull()) {
         continue;
@@ -48,19 +54,7 @@ public class LootRulesParser {
         items.add(parseProvider(item.getAsJsonObject()));
       }
 
-      List<Integer> levels = new ArrayList<>();
-      JsonElement levelElement = rule.get("level");
-      if (levelElement.isJsonArray()) {
-        JsonArray levelArray = levelElement.getAsJsonArray();
-        for (JsonElement lvl : levelArray) {
-          if (lvl.isJsonNull()) {
-            continue;
-          }
-          levels.add(lvl.getAsInt());
-        }
-      } else {
-        levels.add(rule.get("level").getAsInt());
-      }
+      List<Integer> levels = parseLevels(rule);
 
       boolean each = rule.get("each").getAsBoolean();
       int amount = rule.get("quantity").getAsInt();
@@ -70,6 +64,27 @@ public class LootRulesParser {
       }
     }
     return lootRules;
+  }
+
+  public List<Integer> parseLevels(JsonObject rule) {
+
+    if (!rule.has("level")) {
+      return ALL_LEVELS;
+    }
+
+    JsonElement levelElement = rule.get("level");
+
+    if (levelElement.isJsonArray()) {
+      JsonArray levelArray = levelElement.getAsJsonArray();
+      List<Integer> levels = new ArrayList<>();
+      levelArray.forEach(level -> levels.add(level.getAsInt()));
+      return levels;
+    }
+
+    List<Integer> levels = new ArrayList<>();
+    levels.add(rule.get("level").getAsInt());
+    return levels;
+
   }
 
   private LootRule newLootRule(WeightedRandomizer<ItemStack> items, int amount, int level, boolean each, Optional<ChestType> chestType) {
