@@ -1,15 +1,6 @@
 package greymerk.roguelike.treasure.loot;
 
-import com.google.gson.JsonObject;
-
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraft.potion.PotionUtils;
-
 import java.util.Random;
-
-import greymerk.roguelike.util.IWeighted;
-import greymerk.roguelike.util.WeightedChoice;
 
 public enum PotionType {
 
@@ -33,38 +24,16 @@ public enum PotionType {
   WEAKNESS,
   ;
 
-  public static PotionType chooseRandom(Random rand) {
-    return chooseRandomAmong(rand, values());
+  public static final PotionType[] BUFF = {HEALING, LEAPING, REGENERATION, STRENGTH, SWIFTNESS};
+  public static final PotionType[] HARMFUL = {HARMING, POISON, SLOWNESS, WEAKNESS};
+  public static final PotionType[] QUIRK = {FIRE_RESISTANCE, INVISIBILITY, LEVITATION, NIGHT_VISION, SLOW_FALLING, WATER_BREATHING};
+
+  public static PotionType chooseRandom(Random random) {
+    return chooseRandomAmong(random, values());
   }
 
-  public static PotionType chooseRandomAmong(Random rand, PotionType[] potionTypes) {
-    return potionTypes[rand.nextInt(potionTypes.length)];
+  public static PotionType chooseRandomAmong(Random random, PotionType[] potionTypes) {
+    return potionTypes[random.nextInt(potionTypes.length)];
   }
 
-  public static IWeighted<ItemStack> get(JsonObject data, int weight) throws Exception {
-    if (!data.has("name")) {
-      throw new Exception("Potion missing name field");
-    }
-    String nameString = data.get("name").getAsString();
-    net.minecraft.potion.PotionType type = net.minecraft.potion.PotionType.getPotionTypeForName(nameString);
-    ItemStack item = !data.has("form") ? new ItemStack(Items.POTIONITEM)
-        : data.get("form").getAsString().toLowerCase().equals("splash") ? new ItemStack(Items.SPLASH_POTION)
-            : data.get("form").getAsString().toLowerCase().equals("lingering") ? new ItemStack(Items.LINGERING_POTION)
-                : new ItemStack(Items.POTIONITEM);
-    return new WeightedChoice<>(PotionUtils.addPotionToItemStack(item, type), weight);
-  }
-
-  public static PotionType chooseRandomHarmful(Random random) {
-    switch (random.nextInt(4)) {
-      default:
-      case 0:
-        return HARMING;
-      case 1:
-        return POISON;
-      case 2:
-        return SLOWNESS;
-      case 3:
-        return WEAKNESS;
-    }
-  }
 }
