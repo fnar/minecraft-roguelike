@@ -42,6 +42,10 @@ public class Potion implements RldItem {
     return new Potion();
   }
 
+  public static Potion newStrongPoison() {
+    return newPotion().withType(PotionType.POISON).withAmplification();
+  }
+
   @Override
   public ItemType getItemType() {
     return ItemType.POTION;

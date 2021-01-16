@@ -29,16 +29,18 @@ public class RldItemStack {
     return item;
   }
 
-  public void setItem(RldItem item) {
+  public RldItemStack withItem(RldItem item) {
     this.item = item;
+    return this;
   }
 
   public int getCount() {
     return count;
   }
 
-  public void setCount(int count) {
+  public RldItemStack withCount(int count) {
     this.count = count;
+    return this;
   }
 
   public RldItemStack withTag(String name, CompoundTag value) {

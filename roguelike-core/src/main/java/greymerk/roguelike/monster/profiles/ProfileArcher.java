@@ -1,5 +1,8 @@
 package greymerk.roguelike.monster.profiles;
 
+import com.github.srwaggon.minecraft.item.Arrow;
+import com.github.srwaggon.minecraft.item.ItemMapper1_12;
+
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.world.World;
 
@@ -9,7 +12,6 @@ import greymerk.roguelike.monster.IEntity;
 import greymerk.roguelike.monster.IMonsterProfile;
 import greymerk.roguelike.monster.MonsterProfile;
 import greymerk.roguelike.treasure.loot.Enchant;
-import greymerk.roguelike.treasure.loot.TippedArrow;
 import greymerk.roguelike.treasure.loot.provider.ItemWeapon;
 
 public class ProfileArcher implements IMonsterProfile {
@@ -21,7 +23,7 @@ public class ProfileArcher implements IMonsterProfile {
 
     boolean hasPoisonTippedArrows = Enchant.canEnchant(world.getDifficulty(), rand, level) && rand.nextInt(10) == 0;
     if (hasPoisonTippedArrows) {
-      mob.setSlot(EntityEquipmentSlot.OFFHAND, TippedArrow.getHarmful(rand, 1));
+      mob.setSlot(EntityEquipmentSlot.OFFHAND, ItemMapper1_12.map(Arrow.newRandomHarmful(rand).asItemStack()));
     }
     MonsterProfile.TALLMOB.getMonsterProfile().addEquipment(world, rand, level, mob);
   }

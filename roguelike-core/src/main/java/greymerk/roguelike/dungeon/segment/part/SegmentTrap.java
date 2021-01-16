@@ -5,10 +5,9 @@ import com.github.srwaggon.minecraft.block.SingleBlockBrush;
 import com.github.srwaggon.minecraft.block.decorative.TorchBlock;
 import com.github.srwaggon.minecraft.block.decorative.VineBlock;
 import com.github.srwaggon.minecraft.block.normal.StairsBlock;
+import com.github.srwaggon.minecraft.item.Arrow;
 import com.github.srwaggon.minecraft.item.Potion;
 import com.github.srwaggon.minecraft.item.RldItemStack;
-
-import net.minecraft.item.ItemStack;
 
 import java.util.Random;
 
@@ -16,7 +15,6 @@ import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.treasure.loot.PotionForm;
 import greymerk.roguelike.treasure.loot.PotionType;
-import greymerk.roguelike.treasure.loot.TippedArrow;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -92,9 +90,9 @@ public class SegmentTrap extends SegmentBase {
     BlockType.DISPENSER.getBrush().setFacing(towardsCenter).stroke(editor, cursor);
 
     for (int i = 0; i < 5; i++) {
-      int amount = rand.nextInt(5) + 1;
-      ItemStack arrows = TippedArrow.getHarmful(rand, amount);
-      editor.setItem(cursor, rand.nextInt(9), arrows);
+      int slot = rand.nextInt(9);
+      RldItemStack payload = Arrow.newRandomHarmful(rand).asItemStack();
+      editor.setItem(cursor, slot, payload);
     }
 
     editor.setItem(cursor, 5, choosePayload(rand));
@@ -109,7 +107,6 @@ public class SegmentTrap extends SegmentBase {
   }
 
   private RldItemStack choosePayload(Random rand) {
-
     switch (rand.nextInt(3)) {
       default:
       case 0:

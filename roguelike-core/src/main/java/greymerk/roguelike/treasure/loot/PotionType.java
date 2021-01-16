@@ -54,4 +54,17 @@ public enum PotionType {
     return new WeightedChoice<>(PotionUtils.addPotionToItemStack(item, type), weight);
   }
 
+  public static PotionType chooseRandomHarmful(Random random) {
+    switch (random.nextInt(4)) {
+      default:
+      case 0:
+        return HARMING;
+      case 1:
+        return POISON;
+      case 2:
+        return SLOWNESS;
+      case 3:
+        return WEAKNESS;
+    }
+  }
 }

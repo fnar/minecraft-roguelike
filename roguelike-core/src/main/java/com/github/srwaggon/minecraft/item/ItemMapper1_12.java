@@ -11,16 +11,19 @@ import java.util.Optional;
 public class ItemMapper1_12 {
 
   public static ItemStack map(RldItemStack rldItemStack) {
-    ItemStack item = mapItemByType(rldItemStack);
-    mergeTags(rldItemStack, item);
-    return item;
+    ItemStack itemStack = mapItemByType(rldItemStack);
+    itemStack.setCount(rldItemStack.getCount());
+    mergeTags(rldItemStack, itemStack);
+    return itemStack;
   }
 
-  public static ItemStack mapItemByType(RldItemStack rldItemStack) {
+  private static ItemStack mapItemByType(RldItemStack rldItemStack) {
     RldItem item = rldItemStack.getItem();
 
     switch (item.getItemType()) {
 
+      case ARROW:
+        return ArrowMapper1_12.map(rldItemStack);
       case BLOCK:
         return BlockItemMapper1_12.map(rldItemStack);
       case POTION:
