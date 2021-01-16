@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
+import net.minecraft.potion.PotionUtils;
 
 import java.util.Random;
 
@@ -30,6 +31,7 @@ import greymerk.roguelike.treasure.loot.provider.ItemTool;
 import greymerk.roguelike.treasure.loot.provider.ItemWeapon;
 import greymerk.roguelike.util.IWeighted;
 import greymerk.roguelike.util.TextFormat;
+import greymerk.roguelike.util.WeightedChoice;
 
 public enum Loot {
 
@@ -70,7 +72,7 @@ public enum Loot {
 
     switch (type) {
       case "potion":
-        return PotionType.get(data, weight);
+        return parsePotion(data, weight);
       case "mixture":
         return new ItemMixture(data, weight);
       case "weapon":
@@ -181,4 +183,16 @@ public enum Loot {
     item.setStackDisplayName(option.apply(name));
   }
 
+  public static IWeighted<ItemStack> parsePotion(JsonObject data, int weight) throws Exception {
+    if (!data.has("name")) {
+      throw new Exception("Potion missing name field");
+    }
+    String nameString = data.get("name").getAsString();
+    net.minecraft.potion.PotionType type = net.minecraft.potion.PotionType.getPotionTypeForName(nameString);
+    ItemStack item = !data.has("form") ? new ItemStack(Items.POTIONITEM)
+        : data.get("form").getAsString().toLowerCase().equals("splash") ? new ItemStack(Items.SPLASH_POTION)
+            : data.get("form").getAsString().toLowerCase().equals("lingering") ? new ItemStack(Items.LINGERING_POTION)
+                : new ItemStack(Items.POTIONITEM);
+    return new WeightedChoice<>(PotionUtils.addPotionToItemStack(item, type), weight);
+  }
 }
