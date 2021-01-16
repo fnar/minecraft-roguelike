@@ -7,30 +7,27 @@ import com.github.srwaggon.minecraft.Effect;
 import java.util.List;
 import java.util.Random;
 
-import greymerk.roguelike.treasure.loot.PotionForm;
-import greymerk.roguelike.treasure.loot.PotionType;
-
 public class Potion implements RldItem {
 
-  private PotionType type;
-  private PotionForm form;
+  private Type type;
+  private Form form;
   private final List<Effect> effects = Lists.newArrayList();
   private boolean isAmplified;
   private boolean isExtended;
 
   public Potion() {
-    this(PotionType.AWKWARD);
+    this(Type.AWKWARD);
   }
 
-  public Potion(PotionType type) {
-    this(type, PotionForm.REGULAR);
+  public Potion(Type type) {
+    this(type, Form.REGULAR);
   }
 
-  public Potion(PotionType type, PotionForm form) {
+  public Potion(Type type, Form form) {
     this(type, form, Lists.newArrayList(), false, false);
   }
 
-  public Potion(PotionType type, PotionForm form, List<Effect> effects, boolean isAmplified, boolean isExtended) {
+  public Potion(Type type, Form form, List<Effect> effects, boolean isAmplified, boolean isExtended) {
     this.type = type;
     this.form = form;
     this.effects.addAll(effects);
@@ -43,7 +40,7 @@ public class Potion implements RldItem {
   }
 
   public static Potion newStrongPoison() {
-    return newPotion().withType(PotionType.POISON).withAmplification();
+    return newPotion().withType(Type.POISON).withAmplification();
   }
 
   @Override
@@ -51,20 +48,20 @@ public class Potion implements RldItem {
     return ItemType.POTION;
   }
 
-  public PotionType getType() {
+  public Type getType() {
     return type;
   }
 
-  public Potion withType(PotionType type) {
+  public Potion withType(Type type) {
     this.type = type;
     return this;
   }
 
-  public PotionForm getForm() {
+  public Form getForm() {
     return form;
   }
 
-  public Potion withForm(PotionForm Form) {
+  public Potion withForm(Form Form) {
     this.form = Form;
     return this;
   }
@@ -122,6 +119,53 @@ public class Potion implements RldItem {
 
     public static Amplification chooseRandom(Random random) {
       return Amplification.values()[random.nextInt(Amplification.values().length)];
+    }
+  }
+
+  public enum Type {
+
+    AWKWARD,
+    FIRE_RESISTANCE,
+    HARMING,
+    HEALING,
+    INVISIBILITY,
+    LEAPING,
+    LEVITATION,
+    LUCK,
+    NIGHT_VISION,
+    POISON,
+    REGENERATION,
+    SLOWNESS,
+    SLOW_FALLING,
+    STRENGTH,
+    SWIFTNESS,
+    TURTLE_MASTER,
+    WATER_BREATHING,
+    WEAKNESS,
+    ;
+
+    public static final Type[] BUFF = {HEALING, LEAPING, REGENERATION, STRENGTH, SWIFTNESS};
+    public static final Type[] HARMFUL = {HARMING, POISON, SLOWNESS, WEAKNESS};
+    public static final Type[] QUIRK = {FIRE_RESISTANCE, INVISIBILITY, LEVITATION, NIGHT_VISION, SLOW_FALLING, WATER_BREATHING};
+
+    public static Type chooseRandom(Random random) {
+      return chooseRandomAmong(random, Type.values());
+    }
+
+    public static Type chooseRandomAmong(Random random, Type[] types) {
+      return types[random.nextInt(types.length)];
+    }
+
+  }
+
+  public enum Form {
+
+    REGULAR,
+    SPLASH,
+    LINGERING;
+
+    public static Form chooseRandom(Random rand) {
+      return Form.values()[rand.nextInt(Form.values().length)];
     }
   }
 }

@@ -13,8 +13,7 @@ import java.util.Random;
 
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.ThemeBase;
-import greymerk.roguelike.treasure.loot.PotionForm;
-import greymerk.roguelike.treasure.loot.PotionType;
+
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -112,9 +111,9 @@ public class SegmentTrap extends SegmentBase {
       case 0:
         return BlockType.TNT.asItemStack();
       case 1:
-        return Potion.newPotion().withType(PotionType.POISON).withForm(PotionForm.SPLASH).asItemStack();
+        return Potion.newPotion().withType(Potion.Type.POISON).withForm(Potion.Form.SPLASH).asItemStack();
       case 2:
-        return Potion.newPotion().withType(PotionType.HARMING).withForm(PotionForm.SPLASH).asItemStack();
+        return Potion.newPotion().withType(Potion.Type.HARMING).withForm(Potion.Form.SPLASH).asItemStack();
     }
   }
 

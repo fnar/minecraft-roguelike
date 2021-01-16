@@ -3,8 +3,6 @@ package com.github.srwaggon.minecraft.item;
 import java.util.Optional;
 import java.util.Random;
 
-import greymerk.roguelike.treasure.loot.PotionType;
-
 public class Arrow implements RldItem {
 
   private Potion tip;
@@ -14,7 +12,7 @@ public class Arrow implements RldItem {
   }
 
   public static Arrow newRandomHarmful(Random random) {
-    return newArrow().withTip(Potion.newPotion().withType(PotionType.chooseRandomAmong(random, PotionType.HARMFUL)));
+    return newArrow().withTip(Potion.newPotion().withType(Potion.Type.chooseRandomAmong(random, Potion.Type.HARMFUL)));
   }
 
   @Override

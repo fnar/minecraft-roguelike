@@ -130,8 +130,8 @@ public enum PotionMixture {
     EffectType randomEffect1 = EffectType.chooseRandom(random);
     return
         Potion.newPotion()
-            .withForm(PotionForm.chooseRandom(random))
-            .withType(PotionType.chooseRandom(random))
+            .withForm(Potion.Form.chooseRandom(random))
+            .withType(Potion.Type.chooseRandom(random))
             .withAmplification(random.nextBoolean())
             .withExtension(random.nextBoolean())
             .withEffect(Effect.newEffect()
