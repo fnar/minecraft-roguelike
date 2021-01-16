@@ -1,6 +1,9 @@
 package greymerk.roguelike.monster.profiles;
 
-import net.minecraft.init.PotionTypes;
+import com.github.srwaggon.minecraft.item.Arrow;
+import com.github.srwaggon.minecraft.item.ItemMapper1_12;
+import com.github.srwaggon.minecraft.item.Potion;
+
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -13,7 +16,6 @@ import greymerk.roguelike.monster.MobType;
 import greymerk.roguelike.treasure.loot.Enchant;
 import greymerk.roguelike.treasure.loot.Quality;
 import greymerk.roguelike.treasure.loot.Slot;
-import greymerk.roguelike.treasure.loot.TippedArrow;
 import greymerk.roguelike.treasure.loot.provider.ItemArmour;
 import greymerk.roguelike.treasure.loot.provider.ItemWeapon;
 
@@ -24,7 +26,7 @@ public class ProfilePoisonArcher implements IMonsterProfile {
 
     mob.setMobClass(MobType.STRAY, false);
 
-    mob.setSlot(EntityEquipmentSlot.OFFHAND, TippedArrow.get(PotionTypes.STRONG_POISON));
+    mob.setSlot(EntityEquipmentSlot.OFFHAND, ItemMapper1_12.map(Arrow.newArrow().withTip(Potion.newStrongPoison()).asItemStack()));
     mob.setSlot(EntityEquipmentSlot.MAINHAND, ItemWeapon.getBow(rand, level, Enchant.canEnchant(world.getDifficulty(), rand, level)));
 
     for (EntityEquipmentSlot slot : new EntityEquipmentSlot[]{

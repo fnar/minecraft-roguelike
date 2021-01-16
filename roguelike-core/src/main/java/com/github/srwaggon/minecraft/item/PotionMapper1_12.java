@@ -20,7 +20,7 @@ public class PotionMapper1_12 {
     return map((Potion) item);
   }
 
-  private static ItemStack map(Potion potion) {
+  public static ItemStack map(Potion potion) {
     ItemPotion itemPotion = map(potion.getForm());
     ItemStack itemStack = new ItemStack(itemPotion);
     net.minecraft.potion.PotionType data = map(potion.getType(), potion.isAmplified(), potion.isExtended());

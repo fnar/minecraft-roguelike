@@ -1,5 +1,10 @@
 package greymerk.roguelike.treasure.loot.provider;
 
+import com.github.srwaggon.minecraft.item.Arrow;
+import com.github.srwaggon.minecraft.item.ItemMapper1_12;
+import com.github.srwaggon.minecraft.item.Potion;
+import com.github.srwaggon.minecraft.item.RldItemStack;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -7,8 +12,8 @@ import net.minecraft.item.ItemStack;
 import java.util.Random;
 
 import greymerk.roguelike.treasure.loot.PotionMixture;
+import greymerk.roguelike.treasure.loot.PotionType;
 import greymerk.roguelike.treasure.loot.Shield;
-import greymerk.roguelike.treasure.loot.TippedArrow;
 
 public class ItemJunk extends ItemBase {
 
@@ -49,7 +54,7 @@ public class ItemJunk extends ItemBase {
     }
 
     if (level > 1 && rand.nextInt(60) == 0) {
-      return TippedArrow.get(rand, 4 + rand.nextInt(level) * 2);
+      return getTippedArrow(rand, level);
     }
 
     if (level > 1 && rand.nextInt(50) == 0) {
@@ -110,9 +115,20 @@ public class ItemJunk extends ItemBase {
       case 4:
         return new ItemStack(Items.STRING);
       case 5:
-        return new ItemStack(Items.STICK);
       default:
         return new ItemStack(Items.STICK);
     }
+  }
+
+  private ItemStack getTippedArrow(Random rand, int level) {
+    int count = 4 + rand.nextInt(level) * 2;
+
+    RldItemStack rldItemStack = Arrow.newArrow()
+        .withTip(Potion.newPotion()
+            .withType(PotionType.chooseRandom(rand)))
+        .asItemStack()
+        .withCount(count);
+
+    return ItemMapper1_12.map(rldItemStack);
   }
 }
