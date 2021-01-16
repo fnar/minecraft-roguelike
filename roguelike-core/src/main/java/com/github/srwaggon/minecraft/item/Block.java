@@ -2,12 +2,12 @@ package com.github.srwaggon.minecraft.item;
 
 import com.github.srwaggon.minecraft.block.BlockType;
 
-public class BlockItem implements RldItem {
+public class Block implements RldItem {
 
   private BlockType blockType;
 
 
-  public BlockItem(BlockType blockType) {
+  public Block(BlockType blockType) {
     this.blockType = blockType;
   }
 
