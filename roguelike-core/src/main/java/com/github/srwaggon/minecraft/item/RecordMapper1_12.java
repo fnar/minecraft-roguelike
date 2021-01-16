@@ -4,19 +4,17 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import greymerk.roguelike.treasure.loot.RecordSong;
-
 public class RecordMapper1_12 {
 
   public static ItemStack map(RldItemStack rldItemStack) {
-    return map((RecordItem) rldItemStack.getItem());
+    return map((Record) rldItemStack.getItem());
   }
 
-  private static ItemStack map(RecordItem item) {
+  private static ItemStack map(Record item) {
     return new ItemStack(getId(item.getSong()));
   }
 
-  private static Item getId(RecordSong type) {
+  private static Item getId(Record.Song type) {
 
     switch (type) {
       case THIRTEEN:

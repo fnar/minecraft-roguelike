@@ -9,7 +9,7 @@ import com.github.srwaggon.minecraft.block.normal.SlabBlock;
 import com.github.srwaggon.minecraft.block.normal.StairsBlock;
 import com.github.srwaggon.minecraft.block.normal.Wood;
 import com.github.srwaggon.minecraft.block.redstone.TrapdoorBlock;
-import com.github.srwaggon.minecraft.item.RecordItem;
+import com.github.srwaggon.minecraft.item.Record;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -24,7 +24,6 @@ import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.treasure.loot.Loot;
 import greymerk.roguelike.treasure.loot.PotionMixture;
-import greymerk.roguelike.treasure.loot.RecordSong;
 import greymerk.roguelike.treasure.loot.provider.ItemArmour;
 import greymerk.roguelike.treasure.loot.provider.ItemNovelty;
 import greymerk.roguelike.util.DyeColor;
@@ -186,7 +185,7 @@ public class DungeonBTeam extends DungeonBase {
     int level = levelSettings.getDifficulty(cursor);
     ChestType chestType = ChestType.EMPTY;
     TreasureChest stal = worldEditor.getTreasureChestEditor().createChest(cursor, false, level, chestType);
-    stal.setSlot(stal.worldEditor.getCapacity(stal) / 2, RecordItem.newRecord().withSong(RecordSong.STAL).asItemStack());
+    stal.setSlot(stal.worldEditor.getCapacity(stal) / 2, Record.newRecord().withSong(Record.Song.STAL).asItemStack());
 
     cursor = origin.copy();
     cursor.translate(dir.reverse(), 3);
