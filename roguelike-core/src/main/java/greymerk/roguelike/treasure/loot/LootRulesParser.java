@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import greymerk.roguelike.treasure.loot.rule.ForEachLootRule;
 import greymerk.roguelike.treasure.loot.rule.LootRule;
@@ -24,46 +25,36 @@ public class LootRulesParser {
 
   public static final List<Integer> ALL_LEVELS = Collections.unmodifiableList(Lists.newArrayList(0, 1, 2, 3, 4));
 
-  public List<LootRule> parseLootRules(JsonElement jsonElement) throws Exception {
-
+  public List<LootRule> parseLootRules(JsonElement lootRulesElement) throws Exception {
     List<LootRule> lootRules = new ArrayList<>();
-
-    for (JsonElement ruleElement : jsonElement.getAsJsonArray()) {
-      if (ruleElement.isJsonNull()) {
-        continue;
-      }
-
-      JsonObject rule = ruleElement.getAsJsonObject();
-
-      if (!rule.has("loot")) {
-        continue;
-      }
-
-      Optional<ChestType> chestType = rule.has("type")
-          ? Optional.of(new ChestType(rule.get("type").getAsString()))
-          : rule.has("chestType")
-              ? Optional.of(new ChestType(rule.get("chestType").getAsString()))
-              : Optional.empty();
-
-      JsonArray data = rule.get("loot").getAsJsonArray();
-      WeightedRandomizer<ItemStack> items = new WeightedRandomizer<>(1);
-      for (JsonElement item : data) {
-        if (item.isJsonNull()) {
-          continue;
-        }
-        items.add(parseProvider(item.getAsJsonObject()));
-      }
-
-      List<Integer> levels = parseLevels(rule);
-
-      boolean each = rule.get("each").getAsBoolean();
-      int amount = rule.get("quantity").getAsInt();
-
-      for (int level : levels) {
-        lootRules.add(newLootRule(items, amount, level, each, chestType));
-      }
+    for (JsonElement lootRuleElement : lootRulesElement.getAsJsonArray()) {
+      lootRules.addAll(parseLootRule(lootRuleElement));
     }
     return lootRules;
+  }
+
+  public List<LootRule> parseLootRule(JsonElement lootRuleElement) throws Exception {
+    if (!lootRuleElement.isJsonNull()) {
+      JsonObject ruleObject = lootRuleElement.getAsJsonObject();
+      if (ruleObject.has("loot")) {
+        return parseLootRule(ruleObject);
+      }
+    }
+    return new ArrayList<>();
+  }
+
+  public List<LootRule> parseLootRule(JsonObject ruleObject) throws Exception {
+    JsonArray lootArray = ruleObject.get("loot").getAsJsonArray();
+
+    List<Integer> levels = parseLevels(ruleObject);
+    WeightedRandomizer<ItemStack> items = parseLootItems(lootArray);
+    int amount = ruleObject.get("quantity").getAsInt();
+    boolean each = ruleObject.get("each").getAsBoolean();
+    Optional<ChestType> chestType = parseChestType(ruleObject);
+
+    return levels.stream()
+        .map(level -> newLootRule(items, amount, level, each, chestType))
+        .collect(Collectors.toList());
   }
 
   public List<Integer> parseLevels(JsonObject rule) {
@@ -87,19 +78,16 @@ public class LootRulesParser {
 
   }
 
-  private LootRule newLootRule(WeightedRandomizer<ItemStack> items, int amount, int level, boolean each, Optional<ChestType> chestType) {
-    if (each && chestType.isPresent()) {
-      return new TypedForEachLootRule(chestType.get(), items, level, amount);
-    } else if (each) {
-      return new ForEachLootRule(items, level, amount);
-    } else if (chestType.isPresent()) {
-      return new TypedSingleUseLootRule(chestType.get(), items, level, amount);
-    } else {
-      return new SingleUseLootRule(items, level, amount);
-    }
+  private LootRule newLootRule(WeightedRandomizer<ItemStack> items, int amount, int level, boolean isEach, Optional<ChestType> chestType) {
+    return chestType.map(type -> isEach
+        ? new TypedForEachLootRule(type, items, level, amount)
+        : new TypedSingleUseLootRule(type, items, level, amount))
+        .orElseGet(() -> isEach
+            ? new ForEachLootRule(items, level, amount)
+            : new SingleUseLootRule(items, level, amount));
   }
 
-  private IWeighted<ItemStack> parseProvider(JsonObject lootItem) throws Exception {
+  private IWeighted<ItemStack> parseLootItemProvider(JsonObject lootItem) throws Exception {
 
     int weight = lootItem.has("weight") ? lootItem.get("weight").getAsInt() : 1;
 
@@ -114,9 +102,29 @@ public class LootRulesParser {
       if (jsonElement.isJsonNull()) {
         continue;
       }
-      items.add(parseProvider(jsonElement.getAsJsonObject()));
+      items.add(parseLootItemProvider(jsonElement.getAsJsonObject()));
     }
 
+    return items;
+  }
+
+  public Optional<ChestType> parseChestType(JsonObject rule) {
+    return rule.has("type")
+        ? Optional.of(new ChestType(rule.get("type").getAsString()))
+        : rule.has("chestType")
+            ? Optional.of(new ChestType(rule.get("chestType").getAsString()))
+            : Optional.empty();
+  }
+
+  public WeightedRandomizer<ItemStack> parseLootItems(JsonArray data) throws Exception {
+    WeightedRandomizer<ItemStack> items = new WeightedRandomizer<>(1);
+    for (JsonElement item : data) {
+      if (item.isJsonNull()) {
+        continue;
+      }
+      IWeighted<ItemStack> lootItemProvider = parseLootItemProvider(item.getAsJsonObject());
+      items.add(lootItemProvider);
+    }
     return items;
   }
 }
