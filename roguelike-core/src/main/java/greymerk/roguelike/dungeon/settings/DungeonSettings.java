@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.IntStream;
 
@@ -26,14 +27,14 @@ public class DungeonSettings {
 
   private static final int MAX_NUM_LEVELS = 5;
   private SettingIdentifier id;
-  private List<SettingIdentifier> inherit = new ArrayList<>();
+  private final List<SettingIdentifier> inherit = new ArrayList<>();
   private boolean exclusive;
   private TowerSettings towerSettings;
-  private Map<Integer, LevelSettings> levels = new HashMap<>();
+  private final Map<Integer, LevelSettings> levels = new HashMap<>();
   private SpawnCriteria spawnCriteria = new SpawnCriteria();
   private LootRuleManager lootRules = new LootRuleManager();
-  private List<LootTableRule> lootTables = new ArrayList<>();
-  private Set<SettingsType> overrides = new HashSet<>();
+  private final List<LootTableRule> lootTables = new ArrayList<>();
+  private final Set<SettingsType> overrides = new HashSet<>();
 
   public DungeonSettings() {
   }
@@ -46,29 +47,32 @@ public class DungeonSettings {
     setId(id);
   }
 
-  public DungeonSettings(DungeonSettings parent, DungeonSettings child) {
-    // todo: can this just become merge(parent) or inheritFrom(parent) ?
-    getOverrides().addAll(ofNullable(child.getOverrides()).orElse(newHashSet()));
+  public DungeonSettings inherit(DungeonSettings toInherit) {
+    DungeonSettings dungeonSettings = new DungeonSettings();
+    dungeonSettings.getOverrides().addAll(ofNullable(getOverrides()).orElse(newHashSet()));
 
-    setLootRules(new LootRuleManager());
-    if (!getOverrides().contains(SettingsType.LOOTRULES)) {
-      getLootRules().merge(parent.getLootRules());
-      getLootTables().addAll(parent.getLootTables());
+    if (!dungeonSettings.getOverrides().contains(SettingsType.LOOTRULES)) {
+      dungeonSettings.getLootRules().merge(toInherit.getLootRules());
+      dungeonSettings.getLootTables().addAll(toInherit.getLootTables());
     }
-    getLootRules().merge(child.getLootRules());
-    getLootTables().addAll(child.getLootTables());
-    getInherit().addAll(child.getInherit());
+    dungeonSettings.getLootRules().merge(getLootRules());
+    dungeonSettings.getLootTables().addAll(getLootTables());
 
-    setExclusive(child.isExclusive());
+    dungeonSettings.getInherit().addAll(getInherit());
 
-    setTowerSettings(getTowerSettings(parent, child));
+    dungeonSettings.exclusive = isExclusive();
+
+    dungeonSettings.setTowerSettings(dungeonSettings.getTowerSettings(toInherit, this));
 
     IntStream.range(0, getMaxNumLevels())
-        .forEach(i -> getLevels().put(i, newLevelSettings(parent, child, i)));
-  }
+        .forEach(level -> {
+          LevelSettings parent = toInherit.getLevels().get(level);
+          LevelSettings child = getLevels().get(level);
+          LevelSettings levelSettings = new LevelSettings(parent, child, dungeonSettings.getOverrides());
+          dungeonSettings.getLevels().put(level, levelSettings);
+        });
 
-  private LevelSettings newLevelSettings(DungeonSettings parent, DungeonSettings child, int i) {
-    return new LevelSettings(parent.getLevels().get(i), child.getLevels().get(i), getOverrides());
+    return dungeonSettings;
   }
 
   private TowerSettings getTowerSettings(DungeonSettings parent, DungeonSettings child) {
@@ -83,20 +87,17 @@ public class DungeonSettings {
 
   public DungeonSettings(DungeonSettings toCopy) {
     setTowerSettings(toCopy.getTowerSettings() != null ? new TowerSettings(toCopy.getTowerSettings()) : null);
-    setLootRules(toCopy.getLootRules());
+    this.lootRules = toCopy.getLootRules();
     getLootTables().addAll(toCopy.getLootTables());
 
     getInherit().addAll(toCopy.getInherit());
 
-    setExclusive(toCopy.isExclusive());
+    this.exclusive = toCopy.isExclusive();
 
     for (int i = 0; i < getMaxNumLevels(); ++i) {
       LevelSettings level = toCopy.getLevels().get(i);
-      if (level == null) {
-        getLevels().put(i, new LevelSettings());
-      } else {
-        getLevels().put(i, new LevelSettings(level));
-      }
+      LevelSettings levelSettings = Optional.ofNullable(level).map(LevelSettings::new).orElse(new LevelSettings());
+      getLevels().put(i, levelSettings);
     }
 
     if (toCopy.getOverrides() != null) {
@@ -186,24 +187,12 @@ public class DungeonSettings {
     return inherit;
   }
 
-  public void setInherit(List<SettingIdentifier> inherit) {
-    this.inherit = inherit;
-  }
-
   public Map<Integer, LevelSettings> getLevels() {
     return levels;
   }
 
-  public void setLevels(Map<Integer, LevelSettings> levels) {
-    this.levels = levels;
-  }
-
   public SpawnCriteria getSpawnCriteria() {
     return spawnCriteria;
-  }
-
-  public void setLootRules(LootRuleManager lootRules) {
-    this.lootRules = lootRules;
   }
 
   public List<LootTableRule> getLootTables() {

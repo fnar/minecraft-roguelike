@@ -62,10 +62,10 @@ public class DungeonSettingsTest {
     other.getOverrides().add(SettingsType.LOOTRULES);
     assert (other.getOverrides().contains(SettingsType.LOOTRULES));
 
-    DungeonSettings merge = new DungeonSettings(base, other);
+    DungeonSettings merge = other.inherit(base);
     assert (merge.getOverrides().contains(SettingsType.LOOTRULES));
 
-    merge = new DungeonSettings(other, base);
+    merge = base.inherit(other);
     assert (!merge.getOverrides().contains(SettingsType.LOOTRULES));
   }
 
@@ -116,7 +116,7 @@ public class DungeonSettingsTest {
     DungeonSettings other = new DungeonSettings();
     other.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(new ItemStack(Items.APPLE), 1), 0, 1));
 
-    DungeonSettings merge = new DungeonSettings(base, other);
+    DungeonSettings merge = other.inherit(base);
     LootRuleManager rules = merge.getLootRules();
 
     TreasureManager treasure = new TreasureManager(new Random());
@@ -137,7 +137,7 @@ public class DungeonSettingsTest {
     other.getOverrides().add(SettingsType.LOOTRULES);
     other.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(new ItemStack(Items.APPLE), 1), 0, 1));
 
-    DungeonSettings merge = new DungeonSettings(base, other);
+    DungeonSettings merge = other.inherit(base);
     LootRuleManager rules = merge.getLootRules();
 
     TreasureManager treasure = new TreasureManager(new Random());

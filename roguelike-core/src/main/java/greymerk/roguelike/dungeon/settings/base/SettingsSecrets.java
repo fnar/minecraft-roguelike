@@ -12,7 +12,7 @@ public class SettingsSecrets extends DungeonSettings {
 
   public SettingsSecrets() {
     super(ID);
-    setExclusive(false);
+
     for (int i = 0; i < 5; ++i) {
 
       SecretsSetting factory = new SecretsSetting();

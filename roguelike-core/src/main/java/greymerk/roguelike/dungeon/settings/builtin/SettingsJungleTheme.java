@@ -12,7 +12,6 @@ import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.settings.base.SettingsBase;
 import greymerk.roguelike.dungeon.towers.Tower;
 import greymerk.roguelike.theme.Theme;
-import greymerk.roguelike.treasure.loot.LootRuleManager;
 import greymerk.roguelike.treasure.loot.WeightedRandomLoot;
 import greymerk.roguelike.treasure.loot.rule.SingleUseLootRule;
 import greymerk.roguelike.worldgen.filter.Filter;
@@ -31,7 +30,6 @@ public class SettingsJungleTheme extends DungeonSettings {
     getSpawnCriteria().setBiomeTypes(newArrayList(JUNGLE));
     setTowerSettings(new TowerSettings(Tower.JUNGLE, Theme.JUNGLE));
 
-    setLootRules(new LootRuleManager());
     for (int i = 0; i < 5; ++i) {
       getLootRules().add(new SingleUseLootRule(new WeightedRandomLoot(Items.EMERALD, 0, 1, 1 + i, 1), i, 6));
       getLootRules().add(new SingleUseLootRule(new WeightedRandomLoot(Items.DIAMOND, 1), i, 3 + i * 3));
