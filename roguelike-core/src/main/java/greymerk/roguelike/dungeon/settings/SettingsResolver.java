@@ -105,10 +105,12 @@ public class SettingsResolver {
   }
 
   public DungeonSettings processInheritance(DungeonSettings dungeonSettings) {
-    return dungeonSettings.getInherits().stream()
+    DungeonSettings accumulatedInheritedSettings = dungeonSettings.getInherits().stream()
         .map(settingsContainer::get)
         .map(this::processInheritance)
-        .reduce(dungeonSettings, DungeonSettings::inherit);
+        .reduce(new DungeonSettings(), (accumulation, toInherit) -> toInherit.inherit(accumulation));
+
+    return dungeonSettings.inherit(accumulatedInheritedSettings);
   }
 
   private Optional<DungeonSettings> chooseOneBuiltinSettingAtRandom(WorldEditor editor, Coord coord) {
