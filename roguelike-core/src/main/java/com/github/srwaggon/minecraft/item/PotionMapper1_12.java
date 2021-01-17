@@ -1,5 +1,7 @@
 package com.github.srwaggon.minecraft.item;
 
+import com.google.gson.JsonObject;
+
 import com.github.srwaggon.minecraft.EffectType;
 
 import net.minecraft.init.Items;
@@ -9,6 +11,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.PotionUtils;
+
+import greymerk.roguelike.dungeon.settings.DungeonSettingParseException;
 
 public class PotionMapper1_12 {
 
@@ -118,5 +122,22 @@ public class PotionMapper1_12 {
       default:
         return PotionTypes.AWKWARD;
     }
+  }
+
+  public static ItemStack parsePotion(JsonObject data) throws DungeonSettingParseException {
+    if (!data.has("name")) {
+      throw new DungeonSettingParseException("Potion missing name field");
+    }
+    String nameString = data.get("name").getAsString().toUpperCase();
+
+    net.minecraft.potion.PotionType type = net.minecraft.potion.PotionType.getPotionTypeForName(nameString);
+
+    String formString = data.get("form").getAsString().toLowerCase();
+    net.minecraft.item.Item item = !data.has("form")
+        ? Items.POTIONITEM
+        : PotionMapper1_12.map(Potion.Form.valueOf(formString.toUpperCase()));
+    ItemStack itemStack = new ItemStack(item);
+
+    return PotionUtils.addPotionToItemStack(itemStack, type);
   }
 }
