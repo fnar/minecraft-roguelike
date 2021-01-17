@@ -37,9 +37,7 @@ public class SettingsResolver {
 
   private final SettingsContainer settingsContainer;
 
-  public SettingsResolver(
-      SettingsContainer settingsContainer
-  ) {
+  public SettingsResolver(SettingsContainer settingsContainer) {
     this.settingsContainer = settingsContainer;
   }
 
@@ -97,15 +95,8 @@ public class SettingsResolver {
   public DungeonSettings getByName(String name) {
     try {
       SettingIdentifier id = new SettingIdentifier(name);
-      if (settingsContainer.contains(id)) {
-        DungeonSettings setting = new DungeonSettings(settingsContainer.get(id));
-        DungeonSettings byName = processInheritance(setting);
-        if (byName != null) {
-          // todo: Remove SettingsBlank. This is data and should be treated like a constant instance
-          return new SettingsBlank().inherit(byName);
-        }
-      }
-      return null;
+      DungeonSettings dungeonSettings = settingsContainer.get(id);
+      return processInheritance(dungeonSettings);
     } catch (Exception e) {
       Minecraft.getMinecraft().player.sendChatMessage(Arrays.toString(e.getStackTrace()));
       throw new RuntimeException(e);
@@ -113,20 +104,11 @@ public class SettingsResolver {
     }
   }
 
-  public DungeonSettings processInheritance(
-      DungeonSettings dungeonSettings
-  ) {
+  public DungeonSettings processInheritance(DungeonSettings dungeonSettings) {
     return dungeonSettings.getInherits().stream()
-        .peek(this::throwIfNotFound)
         .map(settingsContainer::get)
         .map(this::processInheritance)
         .reduce(dungeonSettings, DungeonSettings::inherit);
-  }
-
-  private void throwIfNotFound(SettingIdentifier settingIdentifier) {
-    if (!settingsContainer.contains(settingIdentifier)) {
-      throw new RuntimeException("Setting not found: " + settingIdentifier.toString());
-    }
   }
 
   private Optional<DungeonSettings> chooseOneBuiltinSettingAtRandom(WorldEditor editor, Coord coord) {
