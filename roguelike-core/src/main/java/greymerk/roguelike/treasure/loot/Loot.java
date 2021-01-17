@@ -63,30 +63,41 @@ public enum Loot {
     return loot;
   }
 
+  enum LootType {
+    POTION,
+    MIXTURE,
+    WEAPON,
+    SPECIALTY,
+    NOVELTY,
+    TOOL,
+    ARMOUR,
+    ENCHANTED_BOOK,
+  }
+
   public static IWeighted<ItemStack> get(JsonObject data, int weight) throws Exception {
 
     if (!data.has("type")) {
       return new WeightedRandomLoot(data, weight);
     }
 
-    String type = data.get("type").getAsString().toLowerCase();
+    String type = data.get("type").getAsString().toUpperCase();
 
-    switch (type) {
-      case "potion":
-        return parsePotion(data, weight);
-      case "mixture":
+    switch (LootType.valueOf(type)) {
+      case POTION:
+        return new WeightedChoice<>(PotionMapper1_12.parsePotion(data), weight);
+      case MIXTURE:
         return new ItemMixture(data, weight);
-      case "weapon":
+      case WEAPON:
         return new ItemWeapon(data, weight);
-      case "specialty":
+      case SPECIALTY:
         return new ItemSpecialty(data, weight);
-      case "novelty":
+      case NOVELTY:
         return ItemNovelty.get(data, weight);
-      case "tool":
+      case TOOL:
         return new ItemTool(data, weight);
-      case "armour":
+      case ARMOUR:
         return new ItemArmour(data, weight);
-      case "enchanted_book":
+      case ENCHANTED_BOOK:
         return new ItemEnchBook(data, weight);
       default:
         throw new Exception("No such loot type as: " + type);
