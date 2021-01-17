@@ -2,13 +2,14 @@ package greymerk.roguelike.treasure.loot;
 
 import com.google.gson.JsonObject;
 
+import com.github.srwaggon.minecraft.item.PotionMapper1_12;
+
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
-import net.minecraft.potion.PotionUtils;
 
 import java.util.Random;
 
@@ -183,16 +184,4 @@ public enum Loot {
     item.setStackDisplayName(option.apply(name));
   }
 
-  public static IWeighted<ItemStack> parsePotion(JsonObject data, int weight) throws Exception {
-    if (!data.has("name")) {
-      throw new Exception("Potion missing name field");
-    }
-    String nameString = data.get("name").getAsString();
-    net.minecraft.potion.PotionType type = net.minecraft.potion.PotionType.getPotionTypeForName(nameString);
-    ItemStack item = !data.has("form") ? new ItemStack(Items.POTIONITEM)
-        : data.get("form").getAsString().toLowerCase().equals("splash") ? new ItemStack(Items.SPLASH_POTION)
-            : data.get("form").getAsString().toLowerCase().equals("lingering") ? new ItemStack(Items.LINGERING_POTION)
-                : new ItemStack(Items.POTIONITEM);
-    return new WeightedChoice<>(PotionUtils.addPotionToItemStack(item, type), weight);
-  }
 }
