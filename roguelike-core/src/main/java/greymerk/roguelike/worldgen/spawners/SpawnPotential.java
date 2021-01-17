@@ -1,6 +1,7 @@
 package greymerk.roguelike.worldgen.spawners;
 
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagFloat;
 import net.minecraft.nbt.NBTTagList;
 
 import java.util.Random;
@@ -139,6 +140,8 @@ public class SpawnPotential {
     if (areRoguelikeSpawnersEnabled()) {
       tagEntityAsFromRoguelikeSpawner(level, entityNbt);
     }
+
+    setLootingRateTags(entityNbt);
   }
 
   private boolean areRoguelikeSpawnersEnabled() {
@@ -161,6 +164,29 @@ public class SpawnPotential {
     buff.setInteger("Duration", 10);
     buff.setByte("Ambient", (byte) 0);
     return buff;
+  }
+
+  private void setLootingRateTags(NBTTagCompound entityNbt) {
+    float lootingChance = (float) RogueConfig.getDouble(RogueConfig.LOOTING);
+
+    NBTTagList handDropChances = new NBTTagList();
+    NBTTagFloat mainHandDropChance = new NBTTagFloat(lootingChance);
+    NBTTagFloat offHandDropChance = new NBTTagFloat(lootingChance);
+    handDropChances.appendTag(mainHandDropChance);
+    handDropChances.appendTag(offHandDropChance);
+    entityNbt.setTag("HandDropChances", handDropChances);
+
+
+    NBTTagList armorDropChances = new NBTTagList();
+    NBTTagFloat feetDropChance = new NBTTagFloat(lootingChance);
+    NBTTagFloat legsDropChance = new NBTTagFloat(lootingChance);
+    NBTTagFloat chestDropChance = new NBTTagFloat(lootingChance);
+    NBTTagFloat headDropChance = new NBTTagFloat(lootingChance);
+    armorDropChances.appendTag(feetDropChance);
+    armorDropChances.appendTag(legsDropChance);
+    armorDropChances.appendTag(chestDropChance);
+    armorDropChances.appendTag(headDropChance);
+    entityNbt.setTag("ArmorDropChances", armorDropChances);
   }
 
 }
