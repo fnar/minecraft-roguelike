@@ -11,7 +11,6 @@ import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.treasure.loot.Equipment;
 import greymerk.roguelike.treasure.loot.ILoot;
 import greymerk.roguelike.treasure.loot.Loot;
-import greymerk.roguelike.treasure.loot.LootRuleManager;
 import greymerk.roguelike.treasure.loot.LootTableRule;
 import greymerk.roguelike.treasure.loot.Quality;
 import greymerk.roguelike.treasure.loot.provider.ItemEnchBook;
@@ -29,8 +28,7 @@ public class SettingsLootRules extends DungeonSettings {
 
   public SettingsLootRules() {
     super(ID);
-    setExclusive(false);
-    setLootRules(new LootRuleManager());
+
     ILoot loot = Loot.getLoot();
 
     addStarterLoot(loot);

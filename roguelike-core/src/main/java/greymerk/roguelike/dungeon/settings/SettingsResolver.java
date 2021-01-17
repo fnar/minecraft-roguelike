@@ -102,9 +102,7 @@ public class SettingsResolver {
         DungeonSettings byName = processInheritance(setting);
         if (byName != null) {
           // todo: Remove SettingsBlank. This is data and should be treated like a constant instance
-          // todo: also consider eliminating usage of the merge constructor here.
-          // todo: also consider eliminating usage of the copy constructor here.
-          return new DungeonSettings(new SettingsBlank(), byName);
+          return new SettingsBlank().inherit(byName);
         }
       }
       return null;
@@ -121,17 +119,14 @@ public class SettingsResolver {
     return dungeonSettings.getInherits().stream()
         .peek(this::throwIfNotFound)
         .map(settingsContainer::get)
-        .reduce(dungeonSettings, this::inherit);
+        .map(this::processInheritance)
+        .reduce(dungeonSettings, DungeonSettings::inherit);
   }
 
   private void throwIfNotFound(SettingIdentifier settingIdentifier) {
     if (!settingsContainer.contains(settingIdentifier)) {
       throw new RuntimeException("Setting not found: " + settingIdentifier.toString());
     }
-  }
-
-  private DungeonSettings inherit(DungeonSettings child, DungeonSettings parent) {
-    return new DungeonSettings(processInheritance(parent), child);
   }
 
   private Optional<DungeonSettings> chooseOneBuiltinSettingAtRandom(WorldEditor editor, Coord coord) {

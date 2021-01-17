@@ -18,7 +18,6 @@ import greymerk.roguelike.dungeon.segment.SegmentGenerator;
 import greymerk.roguelike.dungeon.settings.level.LevelsParser;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.theme.ThemeParser;
-import greymerk.roguelike.treasure.loot.LootRuleManager;
 import greymerk.roguelike.treasure.loot.LootRulesParser;
 import greymerk.roguelike.treasure.loot.LootTableRule;
 import greymerk.roguelike.worldgen.filter.Filter;
@@ -102,9 +101,7 @@ public class DungeonSettingsParser {
 
   private static void parseLootRules(JsonObject root, DungeonSettings dungeonSettings) throws Exception {
     if (root.has("loot_rules")) {
-      LootRuleManager lootRuleManager = new LootRuleManager();
-      lootRuleManager.addAll(new LootRulesParser().parseLootRules(root.get("loot_rules")));
-      dungeonSettings.setLootRules(lootRuleManager);
+      dungeonSettings.getLootRules().addAll(new LootRulesParser().parseLootRules(root.get("loot_rules")));
     }
   }
 

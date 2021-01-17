@@ -1,7 +1,5 @@
 package greymerk.roguelike.dungeon.settings;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Random;
 import java.util.stream.IntStream;
 
@@ -14,7 +12,6 @@ import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.treasure.loot.Equipment;
 import greymerk.roguelike.treasure.loot.ILoot;
 import greymerk.roguelike.treasure.loot.Loot;
-import greymerk.roguelike.treasure.loot.LootRuleManager;
 import greymerk.roguelike.treasure.loot.Quality;
 import greymerk.roguelike.treasure.loot.provider.ItemEnchBook;
 import greymerk.roguelike.treasure.loot.provider.ItemSpecialty;
@@ -30,14 +27,9 @@ public class SettingsRandom extends DungeonSettings {
 
     setTowerSettings(new TowerSettings(Tower.randomTower(rand), randomTheme()));
 
-    Map<Integer, LevelSettings> levels = new HashMap<>();
-
     IntStream.range(0, 5)
-        .forEach(i -> levels.put(i, createRandomLevel(rand, i)));
+        .forEach(i -> getLevels().put(i, createRandomLevel(rand, i)));
 
-    setLevels(levels);
-
-    setLootRules(new LootRuleManager());
     ILoot loot = Loot.getLoot();
     getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, loot.get(Loot.WEAPON, 0), 0, 2));
     getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, loot.get(Loot.FOOD, 0), 0, 2));

@@ -13,7 +13,7 @@ public class SettingsSegments extends DungeonSettings {
 
   public SettingsSegments() {
     super(ID);
-    setExclusive(false);
+
     for (int i = 0; i < 5; ++i) {
 
       SegmentGenerator segments;

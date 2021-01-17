@@ -36,7 +36,7 @@ public class SettingsRooms extends DungeonSettings {
 
   public SettingsRooms() {
     super(ID);
-    setExclusive(false);
+
     addRoomsToLevel(0, getLevel0Rooms());
     addRoomsToLevel(1, getLevel1Rooms());
     addRoomsToLevel(2, getLevel2Rooms());
