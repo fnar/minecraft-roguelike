@@ -33,7 +33,7 @@ public class SettingsContainer {
   public static final String DEFAULT_NAMESPACE = "default";
   public static final String BUILTIN_NAMESPACE = "builtin";
 
-  private Map<String, Map<String, DungeonSettings>> settingsByNamespace = new HashMap<>();
+  private final Map<String, Map<String, DungeonSettings>> settingsByNamespace = new HashMap<>();
 
   public SettingsContainer(DungeonSettings... dungeonSettings) {
     put(
@@ -122,12 +122,12 @@ public class SettingsContainer {
 
   public DungeonSettings get(SettingIdentifier id) {
     if (!contains(id)) {
-      return null;
+      throw new RuntimeException("Setting not found: " + id.toString());
     }
     return getNamespace(id).get(id.getName());
   }
 
-  public boolean contains(SettingIdentifier id) {
+  private boolean contains(SettingIdentifier id) {
     return containsNamespace(id.getNamespace()) && getNamespace(id).containsKey(id.getName());
   }
 
