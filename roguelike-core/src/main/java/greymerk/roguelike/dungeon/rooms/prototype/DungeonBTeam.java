@@ -10,6 +10,7 @@ import com.github.srwaggon.minecraft.block.normal.StairsBlock;
 import com.github.srwaggon.minecraft.block.normal.Wood;
 import com.github.srwaggon.minecraft.block.redstone.TrapdoorBlock;
 import com.github.srwaggon.minecraft.item.Record;
+import com.github.srwaggon.util.Color;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -195,7 +196,7 @@ public class DungeonBTeam extends DungeonBase {
     ItemStack shirt = new ItemStack(Items.LEATHER_CHESTPLATE);
     shirt.setStackDisplayName("Pink Sweater");
     Loot.setItemLore(shirt, "\"It's chinese red!\"");
-    ItemArmour.dyeArmor(shirt, 250, 96, 128);
+    ItemArmour.dyeArmor(shirt, new Color(250, 96, 128));
     bdub.setSlot((bdub.worldEditor.getCapacity(bdub) / 2) + 2, shirt);
 
     cursor = origin.copy();

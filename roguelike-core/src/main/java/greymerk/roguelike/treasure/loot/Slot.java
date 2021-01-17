@@ -31,18 +31,18 @@ public enum Slot {
 
   }
 
-  public static Slot getSlot(EntityEquipmentSlot slot) {
+  public static EntityEquipmentSlot getSlot(Slot slot) {
     switch (slot) {
       case HEAD:
-        return HEAD;
+        return EntityEquipmentSlot.HEAD;
       case CHEST:
-        return CHEST;
+        return EntityEquipmentSlot.CHEST;
       case LEGS:
-        return LEGS;
+        return EntityEquipmentSlot.LEGS;
       case FEET:
-        return FEET;
-      case MAINHAND:
-        return WEAPON;
+        return EntityEquipmentSlot.FEET;
+      case WEAPON:
+        return EntityEquipmentSlot.MAINHAND;
       default:
         return null;
     }

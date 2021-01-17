@@ -5,7 +5,6 @@ import com.google.gson.JsonObject;
 import com.github.srwaggon.minecraft.item.PotionMapper1_12;
 
 import net.minecraft.init.Items;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -140,14 +139,6 @@ public enum Loot {
     }
 
     return new WeightedRandomLoot(Items.STICK, 0, 1);
-  }
-
-  public static ItemStack getEquipmentBySlot(Random rand, EntityEquipmentSlot slot, int level, boolean enchant) {
-    if (slot == EntityEquipmentSlot.MAINHAND) {
-      return ItemWeapon.getRandom(rand, level, enchant);
-    }
-
-    return ItemArmour.getRandom(rand, level, Slot.getSlot(slot), enchant);
   }
 
   public static ItemStack getEquipmentBySlot(Random rand, Slot slot, int level, boolean enchant) {

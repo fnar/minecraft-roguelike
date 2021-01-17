@@ -2,6 +2,8 @@ package greymerk.roguelike.treasure.loot.provider;
 
 import com.google.gson.JsonObject;
 
+import com.github.srwaggon.util.Color;
+
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -82,7 +84,8 @@ public class ItemArmour extends ItemBase {
       }
     }
 
-    ItemStack item = get(rand, slot, Quality.getArmourQuality(rand, level));
+    ItemStack item = get(slot, Quality.getArmourQuality(rand, level));
+    dyeArmor(item, Color.random(rand));
 
     if (enchantLevel > 0) {
       Enchant.enchantItem(rand, item, enchantLevel);
@@ -92,11 +95,8 @@ public class ItemArmour extends ItemBase {
 
   }
 
-  @SuppressWarnings("incomplete-switch")
-  public static ItemStack get(Random rand, Slot slot, Quality quality) {
-
+  public static ItemStack get(Slot slot, Quality quality) {
     switch (slot) {
-
       case HEAD:
         switch (quality) {
 
@@ -109,9 +109,7 @@ public class ItemArmour extends ItemBase {
           case STONE:
             return new ItemStack(Items.CHAINMAIL_HELMET);
           default:
-            ItemStack item = new ItemStack(Items.LEATHER_HELMET);
-            dyeArmor(item, rand.nextInt(256), rand.nextInt(255), rand.nextInt(255));
-            return item;
+            return new ItemStack(Items.LEATHER_HELMET);
         }
 
       case FEET:
@@ -126,9 +124,7 @@ public class ItemArmour extends ItemBase {
           case STONE:
             return new ItemStack(Items.CHAINMAIL_BOOTS);
           default:
-            ItemStack item = new ItemStack(Items.LEATHER_BOOTS);
-            dyeArmor(item, rand.nextInt(256), rand.nextInt(255), rand.nextInt(255));
-            return item;
+            return new ItemStack(Items.LEATHER_BOOTS);
         }
 
       case CHEST:
@@ -143,9 +139,7 @@ public class ItemArmour extends ItemBase {
           case STONE:
             return new ItemStack(Items.CHAINMAIL_CHESTPLATE);
           default:
-            ItemStack item = new ItemStack(Items.LEATHER_CHESTPLATE);
-            dyeArmor(item, rand.nextInt(256), rand.nextInt(255), rand.nextInt(255));
-            return item;
+            return new ItemStack(Items.LEATHER_CHESTPLATE);
         }
       case LEGS:
         switch (quality) {
@@ -159,18 +153,13 @@ public class ItemArmour extends ItemBase {
           case STONE:
             return new ItemStack(Items.CHAINMAIL_LEGGINGS);
           default:
-            ItemStack item = new ItemStack(Items.LEATHER_LEGGINGS);
-            dyeArmor(item, rand.nextInt(256), rand.nextInt(255), rand.nextInt(255));
-            return item;
+            return new ItemStack(Items.LEATHER_LEGGINGS);
         }
     }
     return null;
   }
 
-  public static ItemStack dyeArmor(ItemStack armor, int r, int g, int b) {
-
-    int color = r << 16 | g << 8 | b << 0;
-
+  public static ItemStack dyeArmor(ItemStack armor, Color color) {
     NBTTagCompound nbtdata = armor.getTagCompound();
 
     if (nbtdata == null) {
@@ -184,7 +173,7 @@ public class ItemArmour extends ItemBase {
       nbtdata.setTag("display", nbtDisplay);
     }
 
-    nbtDisplay.setInteger("color", color);
+    nbtDisplay.setInteger("color", color.asInt());
 
     return armor;
   }

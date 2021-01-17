@@ -3,6 +3,8 @@ package greymerk.roguelike.treasure.loot.provider;
 
 import com.google.gson.JsonObject;
 
+import com.github.srwaggon.util.Color;
+
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -139,7 +141,7 @@ public enum ItemNovelty {
         Loot.setItemLore(item, "Yessss, Manpants!", TextFormat.DARKGREEN);
         item.addEnchantment(Enchant.getEnchant(Enchant.FIREPROTECTION), 4);
         item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), 3);
-        ItemArmour.dyeArmor(item, 250, 128, 114);
+        ItemArmour.dyeArmor(item, new Color(250, 128, 114));
         return item;
       case ZISTEAUSIGN:
         item = new ItemStack(Items.SIGN);
@@ -171,7 +173,7 @@ public enum ItemNovelty {
         item.addEnchantment(Enchant.getEnchant(Enchant.PROTECTION), 3);
         item.addEnchantment(Enchant.getEnchant(Enchant.FEATHERFALLING), 2);
         item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), 3);
-        ItemArmour.dyeArmor(item, 165, 42, 42);
+        ItemArmour.dyeArmor(item, new Color(165, 42, 42));
         return item;
       case AMLP:
         item = new ItemStack(Items.SHEARS);

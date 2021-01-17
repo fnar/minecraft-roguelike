@@ -1,5 +1,7 @@
 package greymerk.roguelike.monster.profiles;
 
+import com.github.srwaggon.util.Color;
+
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -26,15 +28,11 @@ public class ProfileAshlea implements IMonsterProfile {
     ItemStack weapon = ItemNovelty.getItem(ItemNovelty.ASHLEA);
     mob.setSlot(EntityEquipmentSlot.MAINHAND, weapon);
 
-    for (EntityEquipmentSlot slot : new EntityEquipmentSlot[]{
-        EntityEquipmentSlot.HEAD,
-        EntityEquipmentSlot.CHEST,
-        EntityEquipmentSlot.LEGS,
-        EntityEquipmentSlot.FEET
-    }) {
-      ItemStack item = ItemArmour.get(rand, Slot.getSlot(slot), Quality.WOOD);
-      ItemArmour.dyeArmor(item, 255, 100, 255);
-      mob.setSlot(slot, item);
+    Slot[] slotsToBeArmored = {Slot.HEAD, Slot.CHEST, Slot.LEGS, Slot.FEET};
+    for (Slot slot : slotsToBeArmored) {
+      ItemStack item = ItemArmour.get(slot, Quality.WOOD);
+      ItemArmour.dyeArmor(item, new Color(255, 100, 255));
+      mob.setSlot(Slot.getSlot(slot), item);
     }
   }
 }
