@@ -1,6 +1,5 @@
 package greymerk.roguelike.monster.profiles;
 
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -16,14 +15,10 @@ public class ProfileTallMob implements IMonsterProfile {
 
   @Override
   public void addEquipment(World world, Random rand, int level, IEntity mob) {
-    for (EntityEquipmentSlot slot : new EntityEquipmentSlot[]{
-        EntityEquipmentSlot.HEAD,
-        EntityEquipmentSlot.CHEST,
-        EntityEquipmentSlot.LEGS,
-        EntityEquipmentSlot.FEET
-    }) {
-      ItemStack item = Loot.getEquipmentBySlot(rand, Slot.getSlot(slot), level, Enchant.canEnchant(world.getDifficulty(), rand, level));
-      mob.setSlot(slot, item);
+    Slot[] slotsToBeArmored = {Slot.HEAD, Slot.CHEST, Slot.LEGS, Slot.FEET};
+    for (Slot slot : slotsToBeArmored) {
+      ItemStack item = Loot.getEquipmentBySlot(rand, slot, level, Enchant.canEnchant(world.getDifficulty(), rand, level));
+      mob.setSlot(Slot.getSlot(slot), item);
     }
 
   }

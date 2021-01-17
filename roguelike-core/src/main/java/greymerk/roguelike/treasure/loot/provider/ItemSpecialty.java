@@ -2,6 +2,8 @@ package greymerk.roguelike.treasure.loot.provider;
 
 import com.google.gson.JsonObject;
 
+import com.github.srwaggon.util.Color;
+
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -353,7 +355,7 @@ public class ItemSpecialty extends ItemBase {
     switch (quality) {
       case WOOD:
         item = new ItemStack(Items.LEATHER_HELMET);
-        ItemArmour.dyeArmor(item, random.nextInt(256), random.nextInt(255), random.nextInt(255));
+        ItemArmour.dyeArmor(item, Color.random(random));
         canonical = "Skullcap";
         break;
       case STONE:
@@ -411,7 +413,7 @@ public class ItemSpecialty extends ItemBase {
     switch (quality) {
       case WOOD:
         item = new ItemStack(Items.LEATHER_BOOTS);
-        ItemArmour.dyeArmor(item, random.nextInt(256), random.nextInt(255), random.nextInt(255));
+        ItemArmour.dyeArmor(item, Color.random());
         canonical = "Shoes";
         break;
       case STONE:
@@ -460,7 +462,7 @@ public class ItemSpecialty extends ItemBase {
     switch (quality) {
       case WOOD:
         item = new ItemStack(Items.LEATHER_LEGGINGS);
-        ItemArmour.dyeArmor(item, random.nextInt(256), random.nextInt(255), random.nextInt(255));
+        ItemArmour.dyeArmor(item, Color.random());
         canonical = "Pantaloons";
         break;
       case STONE:
@@ -507,7 +509,7 @@ public class ItemSpecialty extends ItemBase {
     switch (quality) {
       case WOOD:
         item = new ItemStack(Items.LEATHER_CHESTPLATE);
-        ItemArmour.dyeArmor(item, random.nextInt(256), random.nextInt(255), random.nextInt(255));
+        ItemArmour.dyeArmor(item, Color.random());
         canonical = "Tunic";
         break;
       case STONE:

@@ -3,6 +3,7 @@ package greymerk.roguelike.monster.profiles;
 import com.github.srwaggon.minecraft.item.Arrow;
 import com.github.srwaggon.minecraft.item.ItemMapper1_12;
 import com.github.srwaggon.minecraft.item.Potion;
+import com.github.srwaggon.util.Color;
 
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -29,16 +30,12 @@ public class ProfilePoisonArcher implements IMonsterProfile {
     mob.setSlot(EntityEquipmentSlot.OFFHAND, ItemMapper1_12.map(Arrow.newArrow().withTip(Potion.newStrongPoison()).asItemStack()));
     mob.setSlot(EntityEquipmentSlot.MAINHAND, ItemWeapon.getBow(rand, level, Enchant.canEnchant(world.getDifficulty(), rand, level)));
 
-    for (EntityEquipmentSlot slot : new EntityEquipmentSlot[]{
-        EntityEquipmentSlot.HEAD,
-        EntityEquipmentSlot.CHEST,
-        EntityEquipmentSlot.LEGS,
-        EntityEquipmentSlot.FEET
-    }) {
-      ItemStack item = ItemArmour.get(rand, Slot.getSlot(slot), Quality.WOOD);
+    Slot[] slotsToBeArmored = {Slot.HEAD, Slot.CHEST, Slot.LEGS, Slot.FEET};
+    for (Slot slot : slotsToBeArmored) {
+      ItemStack item = ItemArmour.get(slot, Quality.WOOD);
       Enchant.enchantItem(rand, item, 20);
-      ItemArmour.dyeArmor(item, 178, 255, 102); //bright lime green
-      mob.setSlot(slot, item);
+      ItemArmour.dyeArmor(item, new Color(178, 255, 102)); //bright lime green
+      mob.setSlot(Slot.getSlot(slot), item);
     }
   }
 

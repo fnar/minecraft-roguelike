@@ -1,5 +1,7 @@
 package greymerk.roguelike.monster.profiles;
 
+import com.github.srwaggon.util.Color;
+
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -22,16 +24,16 @@ public class ProfileRleahy implements IMonsterProfile {
     mob.setSlot(EntityEquipmentSlot.MAINHAND, weapon);
     mob.setSlot(EntityEquipmentSlot.OFFHAND, Shield.get(rand));
 
-    ItemStack item = ItemArmour.get(rand, Slot.FEET, Quality.WOOD);
-    ItemArmour.dyeArmor(item, 32, 32, 32);
+    ItemStack item = ItemArmour.get(Slot.FEET, Quality.WOOD);
+    ItemArmour.dyeArmor(item, new Color(32, 32, 32));
     mob.setSlot(EntityEquipmentSlot.FEET, item);
 
-    item = ItemArmour.get(rand, Slot.LEGS, Quality.WOOD);
-    ItemArmour.dyeArmor(item, 0, 51, 102);
+    item = ItemArmour.get(Slot.LEGS, Quality.WOOD);
+    ItemArmour.dyeArmor(item, new Color(0, 51, 102));
     mob.setSlot(EntityEquipmentSlot.LEGS, item);
 
-    item = ItemArmour.get(rand, Slot.CHEST, Quality.WOOD);
-    ItemArmour.dyeArmor(item, 255, 204, 229);
+    item = ItemArmour.get(Slot.CHEST, Quality.WOOD);
+    ItemArmour.dyeArmor(item, new Color(255, 204, 229));
     mob.setSlot(EntityEquipmentSlot.CHEST, item);
   }
 }
