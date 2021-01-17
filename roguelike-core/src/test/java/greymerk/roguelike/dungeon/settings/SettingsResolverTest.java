@@ -104,19 +104,19 @@ public class SettingsResolverTest {
   @Test
   public void ResolveInheritTwoLevelMultiple() {
     DungeonSettings main = new DungeonSettings("main");
-    DungeonSettings child = new DungeonSettings("child");
-    DungeonSettings sibling = new DungeonSettings("sibling");
-    DungeonSettings grandchild = new DungeonSettings("grandchild");
+    DungeonSettings parent = new DungeonSettings("parent");
+    DungeonSettings otherParent = new DungeonSettings("otherParent");
+    DungeonSettings grandparent = new DungeonSettings("grandparent");
 
-    settingsContainer.put(main, child, sibling, grandchild);
+    settingsContainer.put(main, parent, otherParent, grandparent);
 
-    main.getInherit().add(child.getId());
-    main.getInherit().add(sibling.getId());
-    child.getInherit().add(grandchild.getId());
+    main.getInherit().add(parent.getId());
+    main.getInherit().add(otherParent.getId());
+    parent.getInherit().add(grandparent.getId());
 
-    child.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(new ItemStack(Items.STICK), 1), 0, 1));
-    sibling.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(new ItemStack(Items.COAL), 1), 0, 1));
-    grandchild.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(new ItemStack(Items.DIAMOND), 1), 0, 1));
+    parent.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(new ItemStack(Items.STICK), 1), 0, 1));
+    otherParent.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(new ItemStack(Items.COAL), 1), 0, 1));
+    grandparent.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(new ItemStack(Items.DIAMOND), 1), 0, 1));
 
     DungeonSettings assembled = settingsResolver.processInheritance(main);
 
@@ -259,7 +259,7 @@ public class SettingsResolverTest {
     verify(mockTreasureChest, times(items.length)).setRandomEmptySlot(itemStackCaptor.capture());
     List<Item> capturedItems = itemStackCaptor.getAllValues().stream().map(ItemStack::getItem).collect(Collectors.toList());
     assertThat(capturedItems.size()).isEqualTo(items.length);
-    assertThat(capturedItems).containsExactly(items);
+    assertThat(capturedItems).containsExactlyInAnyOrder(items);
   }
 
 }
