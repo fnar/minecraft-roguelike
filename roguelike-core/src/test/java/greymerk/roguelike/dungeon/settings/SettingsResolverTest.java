@@ -314,7 +314,7 @@ public class SettingsResolverTest {
     String potionLootSettings = "" +
         "{\n" +
         "  \"name\": \"" + settingsName +"\",\n" +
-        "  \"loot_rules\": [" + potionLootRules +"]" +
+        "  \"lootRules\": [" + potionLootRules +"]" +
         "}";
 
     settingsContainer.put(potionLootSettings);
