@@ -24,54 +24,55 @@ public class ThemeTest {
 
   @Test
   public void noBase() {
-    JsonObject json = new JsonObject();
+    JsonObject primaryFloor = new JsonObject();
+    primaryFloor.addProperty("name", "minecraft:dirt");
     JsonObject primary = new JsonObject();
-    json.add("primary", primary);
-
-    JsonObject secondary = new JsonObject();
-    json.add("secondary", secondary);
-
-    JsonObject floor = new JsonObject();
-    primary.add("floor", floor);
-    floor.addProperty("name", "minecraft:dirt");
+    primary.add("floor", primaryFloor);
 
     JsonObject walls = new JsonObject();
-    secondary.add("walls", walls);
     walls.addProperty("name", "minecraft:stone");
+    JsonObject secondary = new JsonObject();
+    secondary.add("walls", walls);
+
+    JsonObject json = new JsonObject();
+    json.add("primary", primary);
+    json.add("secondary", secondary);
 
     ThemeBase t = ThemeParser.parse(json);
     SingleBlockBrush floorBrush = (SingleBlockBrush) t.getPrimary().getFloor();
-    assertThat(floorBrush.getJson()).isEqualTo(floor);
+    assertThat(floorBrush.getJson()).isEqualTo(primaryFloor);
   }
 
   @Test
   public void noSecondary() {
-    JsonObject json = new JsonObject();
-    JsonObject primary = new JsonObject();
-    json.add("primary", primary);
+    JsonObject primaryFloor = new JsonObject();
+    primaryFloor.addProperty("name", "minecraft:dirt");
 
-    JsonObject floor = new JsonObject();
-    primary.add("floor", floor);
-    floor.addProperty("name", "minecraft:dirt");
+    JsonObject primary = new JsonObject();
+    primary.add("floor", primaryFloor);
+
+    JsonObject json = new JsonObject();
+    json.add("primary", primary);
 
     ThemeBase t = ThemeParser.parse(json);
     SingleBlockBrush floorBrush = (SingleBlockBrush) t.getPrimary().getFloor();
-    assertThat(floorBrush.getJson()).isEqualTo(floor);
+    assertThat(floorBrush.getJson()).isEqualTo(primaryFloor);
   }
 
   @Test
   public void noPrimary() {
-    JsonObject json = new JsonObject();
-    JsonObject secondary = new JsonObject();
-    json.add("secondary", secondary);
+    JsonObject secondaryFloor = new JsonObject();
+    secondaryFloor.addProperty("name", "minecraft:dirt");
 
-    JsonObject floor = new JsonObject();
-    secondary.add("floor", floor);
-    floor.addProperty("name", "minecraft:dirt");
+    JsonObject secondary = new JsonObject();
+    secondary.add("floor", secondaryFloor);
+
+    JsonObject json = new JsonObject();
+    json.add("secondary", secondary);
 
     ThemeBase t = ThemeParser.parse(json);
     SingleBlockBrush floorBrush = (SingleBlockBrush) t.getSecondary().getFloor();
-    assertThat(floorBrush.getJson()).isEqualTo(floor);
+    assertThat(floorBrush.getJson()).isEqualTo(secondaryFloor);
   }
 
   @Test
