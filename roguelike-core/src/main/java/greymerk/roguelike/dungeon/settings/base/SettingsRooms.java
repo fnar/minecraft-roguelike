@@ -20,7 +20,7 @@ import static greymerk.roguelike.dungeon.base.RoomType.CRYPT;
 import static greymerk.roguelike.dungeon.base.RoomType.DARKHALL;
 import static greymerk.roguelike.dungeon.base.RoomType.ENDER;
 import static greymerk.roguelike.dungeon.base.RoomType.FIRE;
-import static greymerk.roguelike.dungeon.base.RoomType.FORTRESS;
+import static greymerk.roguelike.dungeon.base.RoomType.NETHERFORT;
 import static greymerk.roguelike.dungeon.base.RoomType.NETHER;
 import static greymerk.roguelike.dungeon.base.RoomType.OBSIDIAN;
 import static greymerk.roguelike.dungeon.base.RoomType.OSSUARY;
@@ -108,7 +108,7 @@ public class SettingsRooms extends DungeonSettings {
         BLAZE.newSingleRoomSetting(),
         PRISON.newSingleRoomSetting(),
         DARKHALL.newSingleRoomSetting(),
-        FORTRESS.newSingleRoomSetting(),
+        NETHERFORT.newSingleRoomSetting(),
         SLIME.newRandomRoomSetting(10),
         BLAZE.newRandomRoomSetting(3),
         NETHER.newRandomRoomSetting(3),
