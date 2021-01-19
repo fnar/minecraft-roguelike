@@ -10,7 +10,6 @@ import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockJumble;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
@@ -22,33 +21,34 @@ public class HoleTower implements ITower {
     BlockBrush blocks = theme.getPrimary().getWall();
     Coord floor = Tower.getBaseCoord(editor, origin);
 
-    Coord start;
-    Coord end;
+    Coord start = floor.copy()
+        .north()
+        .east()
+        .up(3);
 
-    start = floor.copy();
-    start.translate(Direction.NORTH);
-    start.translate(Direction.EAST);
-    start.translate(Direction.UP, 3);
-    end = origin.copy();
-    end.translate(Direction.SOUTH);
-    end.translate(Direction.WEST);
-
+    Coord end = origin.copy()
+        .south()
+        .west();
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
-    start.translate(Direction.NORTH, 2);
-    start.translate(Direction.EAST, 2);
-    end.translate(Direction.SOUTH, 2);
-    end.translate(Direction.WEST, 2);
-    end.translate(Direction.UP);
 
+    start.north(2)
+        .east(2);
+    end.south(2)
+        .west(2)
+        .up();
+    RectSolid.newRect(start, end)
+        .fill(editor, getRubble(blocks), false, true)
+        .fill(editor, VineBlock.vine());
+  }
+
+  public BlockJumble getRubble(BlockBrush blocks) {
     BlockJumble rubble = new BlockJumble();
     rubble.addBlock(blocks);
     rubble.addBlock(SingleBlockBrush.AIR);
     rubble.addBlock(BlockType.DIRT.getBrush());
     rubble.addBlock(BlockType.DIRT_COARSE.getBrush());
     rubble.addBlock(BlockType.STONE_SMOOTH.getBrush());
-
-    RectSolid.newRect(start, end).fill(editor, rubble, false, true);
-    VineBlock.vine().fill(editor, new RectSolid(start, end));
+    return rubble;
   }
 
 }
