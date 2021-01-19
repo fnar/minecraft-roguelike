@@ -35,13 +35,13 @@ public class MinimumSpanningTree {
     for (int i = 0; i < size; ++i) {
 
       Coord temp = origin.copy();
-      temp.translate(Direction.NORTH, offset);
-      temp.translate(Direction.WEST, offset);
-      temp.translate(Direction.SOUTH, edgeLength * i);
+      temp.north(offset);
+      temp.west(offset);
+      temp.south(edgeLength * i);
 
       for (int j = 0; j < size; ++j) {
         points.add(new MSTPoint(temp.copy(), rand));
-        temp.translate(Direction.EAST, edgeLength);
+        temp.east(edgeLength);
       }
     }
 

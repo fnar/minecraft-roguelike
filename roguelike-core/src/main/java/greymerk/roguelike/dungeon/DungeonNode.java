@@ -40,12 +40,12 @@ public class DungeonNode implements IBounded {
     int size = getSize();
     Coord s = getPosition().copy();
     Coord e = s.copy();
-    s.translate(Direction.NORTH, size);
-    s.translate(Direction.WEST, size);
-    s.translate(Direction.DOWN, 3);
-    e.translate(Direction.SOUTH, size);
-    e.translate(Direction.EAST, size);
-    e.translate(Direction.UP, 8);
+    s.north(size);
+    s.west(size);
+    s.down(3);
+    e.south(size);
+    e.east(size);
+    e.up(8);
     RectSolid.newRect(s, e).fill(editor, theme.getPrimary().getWall());
   }
 
@@ -65,13 +65,13 @@ public class DungeonNode implements IBounded {
     Coord start = pos.copy();
     Coord end = pos.copy();
 
-    start.translate(Direction.NORTH, size);
-    start.translate(Direction.WEST, size);
-    start.translate(Direction.DOWN, 1);
+    start.north(size);
+    start.west(size);
+    start.down();
 
-    end.translate(Direction.SOUTH, size);
-    end.translate(Direction.EAST, size);
-    end.translate(Direction.UP, 8);
+    end.south(size);
+    end.east(size);
+    end.up(8);
 
     return new BoundingBox(start, end);
   }

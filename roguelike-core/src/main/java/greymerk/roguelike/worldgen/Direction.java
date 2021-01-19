@@ -12,23 +12,29 @@ import java.util.Random;
 
 public enum Direction {
 
-  NORTH(EnumFacing.SOUTH, EnumOrientation.SOUTH),
-  EAST(EnumFacing.WEST, EnumOrientation.WEST),
-  SOUTH(EnumFacing.NORTH, EnumOrientation.NORTH),
-  WEST(EnumFacing.EAST, EnumOrientation.EAST),
-  UP(EnumFacing.UP, EnumOrientation.UP_X),
-  DOWN(EnumFacing.DOWN, EnumOrientation.DOWN_X),
+  NORTH(EnumFacing.SOUTH, EnumOrientation.SOUTH, 0, 0, -1),
+  EAST(EnumFacing.WEST, EnumOrientation.WEST, 1, 0, 0),
+  SOUTH(EnumFacing.NORTH, EnumOrientation.NORTH, 0, 0, 1),
+  WEST(EnumFacing.EAST, EnumOrientation.EAST, -1, 0, 0),
+  UP(EnumFacing.UP, EnumOrientation.UP_X, 0, 1, 0),
+  DOWN(EnumFacing.DOWN, EnumOrientation.DOWN_X, 0, -1, 0),
   ;
 
   private final EnumFacing facing;
   private final EnumOrientation orientation;
+  private final int xDelta;
+  private final int yDelta;
+  private final int zDelta;
 
   Direction(
       EnumFacing facing,
-      EnumOrientation orientation
-  ) {
+      EnumOrientation orientation,
+      int xDelta, int yDelta, int zDelta) {
     this.facing = facing;
     this.orientation = orientation;
+    this.xDelta = xDelta;
+    this.yDelta = yDelta;
+    this.zDelta = zDelta;
   }
 
   public static Direction randomDirection(Random random) {
@@ -44,6 +50,18 @@ public enum Direction {
   }
 
   public static List<Direction> CARDINAL = Collections.unmodifiableList(Lists.newArrayList(NORTH, EAST, SOUTH, WEST));
+
+  public Coord translate(Coord coord) {
+    return coord.translate(this.xDelta, this.yDelta, this.zDelta);
+  }
+
+  public Coord translate(Coord coord, int magnitude) {
+    return coord.translate(
+        this.xDelta * magnitude,
+        this.yDelta * magnitude,
+        this.zDelta * magnitude
+    );
+  }
 
   public Direction reverse() {
     switch (this) {

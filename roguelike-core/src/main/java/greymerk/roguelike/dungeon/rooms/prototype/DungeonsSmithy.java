@@ -49,7 +49,7 @@ public class DungeonsSmithy extends DungeonBase {
     cursor = origin.copy();
     cursor.translate(dir.reverse(), 9);
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
-    cursor.translate(Direction.UP);
+    cursor.up();
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
 
     mainRoom(worldEditor, levelSettings, dir, origin);
@@ -72,7 +72,7 @@ public class DungeonsSmithy extends DungeonBase {
     for (Direction side : dir.orthogonals()) {
 
       start = origin.copy();
-      start.translate(Direction.UP, 3);
+      start.up(3);
       end = start.copy();
       start.translate(side, 2);
       start.translate(dir.reverse(), 2);
@@ -90,13 +90,13 @@ public class DungeonsSmithy extends DungeonBase {
         start.translate(side, 3);
         start.translate(o, 2);
         end = start.copy();
-        end.translate(Direction.UP, 2);
+        end.up(2);
         RectSolid.newRect(start, end).fill(editor, pillar);
 
         cursor = end.copy();
         cursor.translate(side.reverse());
         stair.setUpsideDown(true).setFacing(side.reverse()).stroke(editor, cursor);
-        cursor.translate(Direction.UP);
+        cursor.up();
         cursor.translate(side.reverse());
         stair.setUpsideDown(true).setFacing(side.reverse()).stroke(editor, cursor);
 
@@ -107,7 +107,7 @@ public class DungeonsSmithy extends DungeonBase {
     }
 
     cursor = origin.copy();
-    cursor.translate(Direction.UP, 4);
+    cursor.up(4);
     overheadLight(editor, settings, cursor);
   }
 
@@ -125,12 +125,12 @@ public class DungeonsSmithy extends DungeonBase {
     cursor.translate(dir, 6);
 
     start = cursor.copy();
-    start.translate(Direction.DOWN);
+    start.down();
     start.translate(dir, 3);
     start.translate(dir.antiClockwise(), 4);
 
     end = cursor.copy();
-    end.translate(Direction.UP, 4);
+    end.up(4);
     end.translate(dir.reverse(), 3);
     end.translate(dir.clockwise(), 4);
 
@@ -141,12 +141,12 @@ public class DungeonsSmithy extends DungeonBase {
     cursor.translate(dir.reverse(), 6);
 
     start = cursor.copy();
-    start.translate(Direction.DOWN);
+    start.down();
     start.translate(dir, 3);
     start.translate(dir.antiClockwise(), 4);
 
     end = cursor.copy();
-    end.translate(Direction.UP, 4);
+    end.up(4);
     end.translate(dir.reverse(), 3);
     end.translate(dir.clockwise(), 4);
 
@@ -155,12 +155,12 @@ public class DungeonsSmithy extends DungeonBase {
     // middle
 
     start = origin.copy();
-    start.translate(Direction.DOWN);
+    start.down();
     start.translate(dir.antiClockwise(), 6);
     start.translate(dir.reverse(), 4);
 
     end = origin.copy();
-    end.translate(Direction.UP, 6);
+    end.up(6);
     end.translate(dir.clockwise(), 6);
     end.translate(dir, 4);
 
@@ -178,11 +178,11 @@ public class DungeonsSmithy extends DungeonBase {
 
     start = origin.copy();
     start.translate(dir, 3);
-    start.translate(Direction.UP, 4);
+    start.up(4);
     end = start.copy();
     start.translate(dir.antiClockwise(), 5);
     end.translate(dir.clockwise(), 5);
-    end.translate(Direction.UP);
+    end.up();
     RectSolid.newRect(start, end).fill(editor, wall);
     start.translate(dir.reverse(), 6);
     end.translate(dir.reverse(), 6);
@@ -203,7 +203,7 @@ public class DungeonsSmithy extends DungeonBase {
     fireplace(editor, dir.clockwise(), origin);
 
     cursor = origin.copy();
-    cursor.translate(Direction.UP, 6);
+    cursor.up(6);
     overheadLight(editor, settings, cursor);
 
   }
@@ -218,7 +218,7 @@ public class DungeonsSmithy extends DungeonBase {
 
     start = origin.copy();
     end = origin.copy();
-    end.translate(Direction.UP, 3);
+    end.up(3);
     RectSolid.newRect(start, end).fill(editor, pillar);
     cursor = end.copy();
     cursor.translate(dir.antiClockwise());
@@ -229,12 +229,12 @@ public class DungeonsSmithy extends DungeonBase {
     cursor = end.copy();
     cursor.translate(dir.reverse());
     stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
-    cursor.translate(Direction.UP);
+    cursor.up();
     wall.stroke(editor, cursor);
     cursor.translate(dir.reverse());
     stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
     cursor.translate(dir.reverse());
-    cursor.translate(Direction.UP);
+    cursor.up();
     start = cursor.copy();
     end = cursor.copy();
     end.translate(dir, 2);
@@ -287,14 +287,14 @@ public class DungeonsSmithy extends DungeonBase {
     Coord cursor;
     cursor = origin.copy();
     cursor.translate(dir, 2);
-    cursor.translate(Direction.UP, 2);
+    cursor.up(2);
     editor.getTreasureChestEditor().createChest(cursor, false, 1, ChestType.EMPTY);
-    cursor.translate(Direction.UP);
+    cursor.up();
     cursor.translate(dir.reverse());
     editor.getTreasureChestEditor().createChest(cursor, false, 1, ChestType.EMPTY);
 
     cursor = origin.copy();
-    cursor.translate(Direction.UP);
+    cursor.up();
     cursor.translate(dir);
     BlockType.FURNACE.getBrush().setFacing(dir).stroke(editor, cursor);
 
@@ -303,11 +303,11 @@ public class DungeonsSmithy extends DungeonBase {
     BlockType.HOPPER.getBrush().setFacing(dir).stroke(editor, cursor);
 
     cursor.translate(dir);
-    cursor.translate(Direction.UP);
+    cursor.up();
     BlockType.HOPPER.getBrush().setFacing(dir).stroke(editor, cursor);
 
     cursor.translate(dir.reverse());
-    cursor.translate(Direction.UP);
+    cursor.up();
     BlockType.HOPPER.getBrush().setFacing(Direction.DOWN).stroke(editor, cursor);
   }
 
@@ -325,21 +325,21 @@ public class DungeonsSmithy extends DungeonBase {
     start = origin.copy();
     start.translate(dir, 4);
     end = start.copy();
-    start.translate(Direction.DOWN);
+    start.down();
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
     end.translate(dir, 2);
-    end.translate(Direction.UP, 5);
+    end.up(5);
 
     RectSolid.newRect(start, end).fill(editor, brick);
 
     start = origin.copy();
     start.translate(dir, 5);
     end = start.copy();
-    end.translate(Direction.UP, 5);
+    end.up(5);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
     cursor = origin.copy();
-    cursor.translate(Direction.UP);
+    cursor.up();
     cursor.translate(dir, 4);
     SingleBlockBrush.AIR.stroke(editor, cursor);
 
@@ -350,15 +350,15 @@ public class DungeonsSmithy extends DungeonBase {
       cursor.translate(side);
 
       stair.setUpsideDown(false).setFacing(side.reverse()).stroke(editor, cursor);
-      cursor.translate(Direction.UP);
+      cursor.up();
       stair.setUpsideDown(true).setFacing(side.reverse()).stroke(editor, cursor);
-      cursor.translate(Direction.UP);
+      cursor.up();
       stair.setUpsideDown(false).setFacing(side).stroke(editor, cursor);
-      cursor.translate(Direction.UP);
+      cursor.up();
       bars.stroke(editor, cursor);
-      cursor.translate(Direction.UP);
+      cursor.up();
       bars.stroke(editor, cursor);
-      cursor.translate(Direction.UP);
+      cursor.up();
       stair.setUpsideDown(true).setFacing(side).stroke(editor, cursor);
 
       cursor = origin.copy();
@@ -371,7 +371,7 @@ public class DungeonsSmithy extends DungeonBase {
       brick.stroke(editor, cursor);
       cursor.translate(dir);
       brick.stroke(editor, cursor);
-      cursor.translate(Direction.UP);
+      cursor.up();
       stair.setUpsideDown(false).setFacing(side.reverse()).stroke(editor, cursor);
       cursor.translate(dir.reverse());
       stair.setUpsideDown(false).setFacing(side.reverse()).stroke(editor, cursor);
@@ -382,17 +382,17 @@ public class DungeonsSmithy extends DungeonBase {
       brick.stroke(editor, cursor);
       cursor.translate(dir);
       brick.stroke(editor, cursor);
-      cursor.translate(Direction.UP);
+      cursor.up();
       brick.stroke(editor, cursor);
-      cursor.translate(Direction.UP);
+      cursor.up();
       stair.setUpsideDown(false).setFacing(dir.reverse()).stroke(editor, cursor);
-      cursor.translate(Direction.DOWN);
+      cursor.down();
       cursor.translate(dir.reverse());
       stair.setUpsideDown(false).setFacing(dir.reverse()).stroke(editor, cursor);
 
       cursor = origin.copy();
       cursor.translate(dir, 3);
-      cursor.translate(Direction.UP, 5);
+      cursor.up(5);
       stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
 
     }
@@ -402,13 +402,13 @@ public class DungeonsSmithy extends DungeonBase {
 
     start = origin.copy();
     start.translate(dir, 5);
-    start.translate(Direction.DOWN);
+    start.down();
     end = start.copy();
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
     RectSolid.newRect(start, end).fill(editor, netherrack);
-    start.translate(Direction.UP);
-    end.translate(Direction.UP);
+    start.up();
+    end.up();
     RectSolid.newRect(start, end).fill(editor, fire);
 
     cursor = origin.copy();
@@ -459,7 +459,7 @@ public class DungeonsSmithy extends DungeonBase {
     end.translate(dir.reverse());
     stair.setUpsideDown(true).setFacing(dir.clockwise());
     RectSolid.newRect(start, end).fill(editor, stair);
-    cursor.translate(Direction.UP);
+    cursor.up();
     editor.getTreasureChestEditor().createChest(cursor, false, Dungeon.getLevel(cursor.getY()), getRoomSetting().getChestType().orElse(ChestType.SMITH));
   }
 
@@ -482,9 +482,9 @@ public class DungeonsSmithy extends DungeonBase {
     }
 
     cursor = origin.copy();
-    cursor.translate(Direction.UP, 2);
+    cursor.up(2);
     BlockType.REDSTONE_BLOCK.getBrush().stroke(editor, cursor);
-    cursor.translate(Direction.DOWN);
+    cursor.down();
     BlockType.REDSTONE_LAMP_LIT.getBrush().stroke(editor, cursor);
   }
 

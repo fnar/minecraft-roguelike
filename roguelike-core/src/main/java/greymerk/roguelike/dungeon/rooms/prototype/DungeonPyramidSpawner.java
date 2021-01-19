@@ -53,15 +53,15 @@ public class DungeonPyramidSpawner extends DungeonBase {
     Coord cursor;
 
     cursor = new Coord(x, y, z);
-    cursor.translate(Direction.UP, 5);
+    cursor.up(5);
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
-    cursor.translate(Direction.UP, 1);
+    cursor.up();
     blocks.stroke(worldEditor, cursor);
 
     cursor = new Coord(x, y, z);
-    cursor.translate(Direction.UP, 5);
+    cursor.up(5);
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
-    cursor.translate(Direction.UP);
+    cursor.up();
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
 
     // Chests
@@ -74,36 +74,36 @@ public class DungeonPyramidSpawner extends DungeonBase {
       cursor.translate(dir, 3);
       cursor.translate(dir.antiClockwise(), 3);
       start = cursor.copy();
-      cursor.translate(Direction.UP, 3);
+      cursor.up(3);
       end = cursor.copy();
       RectSolid.newRect(start, end).fill(worldEditor, pillar);
-      cursor.translate(Direction.UP, 1);
+      cursor.up();
       blocks.stroke(worldEditor, cursor);
 
       cursor = new Coord(x, y, z);
-      cursor.translate(Direction.UP, 4);
+      cursor.up(4);
       cursor.translate(dir, 2);
       blocks.stroke(worldEditor, cursor);
       cursor.translate(dir.antiClockwise(), 2);
       blocks.stroke(worldEditor, cursor);
 
       cursor = new Coord(x, y, z);
-      cursor.translate(Direction.UP, 5);
+      cursor.up(5);
       cursor.translate(dir.antiClockwise());
       SingleBlockBrush.AIR.stroke(worldEditor, cursor);
-      cursor.translate(Direction.UP);
+      cursor.up();
       SingleBlockBrush.AIR.stroke(worldEditor, cursor);
 
       for (Direction orthogonals : dir.orthogonals()) {
 
         cursor = new Coord(x, y, z);
-        cursor.translate(Direction.UP, 3);
+        cursor.up(3);
         cursor.translate(orthogonals);
         cursor.translate(dir, 3);
         blocks.stroke(worldEditor, cursor);
 
         cursor = new Coord(x, y, z);
-        cursor.translate(Direction.UP, 4);
+        cursor.up(4);
         cursor.translate(dir, 2);
         blocks.stroke(worldEditor, cursor);
 

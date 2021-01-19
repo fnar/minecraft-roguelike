@@ -33,13 +33,13 @@ public class SegmentShelf extends SegmentBase {
     RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall(), false, true);
     start.translate(dir, 1);
     end.translate(dir, 1);
-    end.translate(Direction.UP, 2);
+    end.up(2);
     RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall(), false, true);
     start.translate(dir.reverse(), 1);
-    start.translate(Direction.UP, 1);
+    start.up(1);
     end.translate(dir.reverse(), 1);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR, false, true);
-    cursor.translate(Direction.UP, 2);
+    cursor.up(2);
     for (Direction d : orthogonals) {
       Coord c = cursor.copy();
       c.translate(d, 1);

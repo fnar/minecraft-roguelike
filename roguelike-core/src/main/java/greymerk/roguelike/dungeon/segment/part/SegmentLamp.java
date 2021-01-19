@@ -38,11 +38,11 @@ public class SegmentLamp extends SegmentBase {
     end = start.copy();
     start.translate(orthogonal[0]);
     end.translate(orthogonal[1]);
-    end.translate(Direction.UP, 2);
+    end.up(2);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     start = origin.copy();
-    start.translate(Direction.UP, 3);
+    start.up(3);
     end = start.copy();
     start.translate(dir);
     start.translate(orthogonal[0]);
@@ -56,10 +56,10 @@ public class SegmentLamp extends SegmentBase {
     start.translate(orthogonal[0]);
     end.translate(orthogonal[1]);
     end.translate(dir, 2);
-    end.translate(Direction.UP, 6);
+    end.up(6);
     RectSolid.newRect(start, end).fill(editor, wall);
     start = end.copy();
-    start.translate(Direction.DOWN, 2);
+    start.down(2);
     start.translate(dir.reverse(), 6);
     start.translate(orthogonal[0], 2);
     RectSolid.newRect(start, end).fill(editor, wall);
@@ -70,16 +70,16 @@ public class SegmentLamp extends SegmentBase {
       cursor.translate(dir, 2);
       cursor.translate(side);
       stair.setUpsideDown(false).setFacing(side.reverse()).stroke(editor, cursor);
-      cursor.translate(Direction.UP, 2);
+      cursor.up(2);
       stair.setUpsideDown(true).setFacing(side.reverse()).stroke(editor, cursor);
     }
 
     cursor = origin.copy();
-    cursor.translate(Direction.UP, 4);
+    cursor.up(4);
     overheadLight(editor, theme, cursor);
 
     cursor = origin.copy();
-    cursor.translate(Direction.UP);
+    cursor.up();
     cursor.translate(dir, 2);
 
     Coord lever = cursor.copy();
@@ -89,9 +89,9 @@ public class SegmentLamp extends SegmentBase {
 
     cursor.translate(dir);
     TorchBlock.redstone().setFacing(dir).stroke(editor, cursor);
-    cursor.translate(Direction.UP, 2);
+    cursor.up(2);
     TorchBlock.redstone().setFacing(Direction.UP).stroke(editor, cursor);
-    cursor.translate(Direction.UP, 2);
+    cursor.up(2);
     start = cursor.copy();
     end = start.copy();
     end.translate(dir.reverse(), 3);
@@ -116,7 +116,7 @@ public class SegmentLamp extends SegmentBase {
     }
 
     cursor = origin.copy();
-    cursor.translate(Direction.UP);
+    cursor.up();
     BlockType.REDSTONE_LAMP.getBrush().stroke(editor, cursor);
   }
 

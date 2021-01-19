@@ -60,7 +60,7 @@ public class ObsidianRoom extends DungeonBase {
 
     for (int i = 0; i < 3; ++i) {
       blockLocation.translate(dir.reverse(), 1);
-      blockLocation.translate(Direction.UP, 1);
+      blockLocation.up(1);
       secondaryWall.stroke(editor, blockLocation);
     }
   }
@@ -81,7 +81,7 @@ public class ObsidianRoom extends DungeonBase {
         RectSolid.newRect(new Coord(pillar.getX(), y - 4, pillar.getZ()), new Coord(pillar.getX(), y + 4, pillar.getZ())).fill(editor, secondaryWall);
 
         Coord start = new Coord(x, y, z);
-        start.translate(Direction.DOWN, 1);
+        start.down();
         start.translate(orthogonal, 2);
         start.translate(dir, 2);
         Coord end = start.copy();
@@ -89,15 +89,15 @@ public class ObsidianRoom extends DungeonBase {
         RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getPillar());
 
         start = new Coord(x, y, z);
-        start.translate(Direction.DOWN, 1);
+        start.down();
         start.translate(dir, 7);
         start.translate(orthogonal, 5);
         secondaryWall.stroke(editor, start);
-        start.translate(Direction.DOWN, 1);
+        start.down();
         end = start.copy();
         end.translate(dir.reverse(), 1);
         end.translate(orthogonal, 1);
-        end.translate(Direction.DOWN, 1);
+        end.down();
         RectSolid.newRect(start, end).fill(editor, secondaryWall);
       }
     }
@@ -106,13 +106,13 @@ public class ObsidianRoom extends DungeonBase {
   private static void liquidWindow(WorldEditor editor, Coord cursor, Direction orthogonal, ThemeBase theme) {
     BlockBrush liquid = theme.getPrimary().getLiquid();
     RectSolid.newRect(cursor, cursor).fill(editor, liquid);
-    cursor.translate(Direction.DOWN, 1);
+    cursor.down();
     RectSolid.newRect(cursor, cursor).fill(editor, liquid);
 
     BlockBrush fence = BlockType.FENCE_NETHER_BRICK.getBrush();
     cursor.translate(orthogonal, 1);
     fence.stroke(editor, cursor);
-    cursor.translate(Direction.UP, 1);
+    cursor.up(1);
     fence.stroke(editor, cursor);
   }
 
@@ -148,33 +148,33 @@ public class ObsidianRoom extends DungeonBase {
     for (Direction dir : Direction.CARDINAL) {
       for (Direction orthogonal : dir.orthogonals()) {
         Coord start = new Coord(x, y, z);
-        start.translate(Direction.UP, 3);
+        start.up(3);
         start.translate(dir, 3);
         start.translate(orthogonal, 3);
         Coord end = start.copy();
-        end.translate(Direction.UP, 2);
+        end.up(2);
         end.translate(dir, 2);
         end.translate(orthogonal, 2);
         RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
 
         start = new Coord(x, y, z);
         start.translate(dir, 3);
-        start.translate(Direction.UP, 3);
+        start.up(3);
         end = start.copy();
         end.translate(dir, 2);
         start.translate(orthogonal, 1);
-        end.translate(Direction.UP, 2);
+        end.up(2);
         RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
 
         Coord cursor = new Coord(x, y, z);
-        cursor.translate(Direction.UP, 4);
+        cursor.up(4);
         cursor.translate(dir, 4);
         spawnerLocations.add(cursor.copy());
         cursor.translate(orthogonal, 4);
         spawnerLocations.add(cursor.copy());
 
         cursor = new Coord(x, y, z);
-        cursor.translate(Direction.UP, 5);
+        cursor.up(5);
         cursor.translate(dir, 4);
         secondaryWall.stroke(worldEditor, cursor);
         cursor.translate(orthogonal, 4);
@@ -193,18 +193,18 @@ public class ObsidianRoom extends DungeonBase {
       start.translate(dir.antiClockwise(), 9);
       end.translate(dir.clockwise(), 9);
 
-      start.translate(Direction.DOWN, 4);
-      end.translate(Direction.DOWN, 1);
+      start.down(4);
+      end.down();
       RectSolid.newRect(start, end).fill(worldEditor, secondaryWall);
 
-      start.translate(Direction.UP, 4 + 3);
-      end.translate(Direction.UP, 1 + 3);
+      start.up(4 + 3);
+      end.up(1 + 3);
       RectSolid.newRect(start, end).fill(worldEditor, secondaryWall);
 
       // mid
       start = new Coord(x, y, z);
       start.translate(dir, 6);
-      start.translate(Direction.UP, 3);
+      start.up(3);
       end = start.copy();
       start.translate(dir.antiClockwise(), 9);
       end.translate(dir.clockwise(), 9);
@@ -213,7 +213,7 @@ public class ObsidianRoom extends DungeonBase {
       // inner
       start = new Coord(x, y, z);
       start.translate(dir, 2);
-      start.translate(Direction.UP, 3);
+      start.up(3);
       end = start.copy();
       start.translate(dir.antiClockwise(), 9);
       end.translate(dir.clockwise(), 9);
@@ -223,8 +223,8 @@ public class ObsidianRoom extends DungeonBase {
       start = new Coord(x, y, z);
       start.translate(dir, 11);
       end = start.copy();
-      start.translate(Direction.DOWN, 3);
-      end.translate(Direction.UP, 3);
+      start.down(3);
+      end.up(3);
       start.translate(dir.antiClockwise(), 11);
       end.translate(dir.clockwise(), 11);
       RectSolid.newRect(start, end).fill(worldEditor, secondaryWall, false, true);
@@ -235,9 +235,9 @@ public class ObsidianRoom extends DungeonBase {
     // upper mid floor
     for (Direction dir : Direction.CARDINAL) {
       Coord start = new Coord(x, y, z);
-      start.translate(Direction.DOWN, 1);
+      start.down();
       Coord end = start.copy();
-      end.translate(Direction.DOWN, 3);
+      end.down(3);
       start.translate(dir, 9);
       start.translate(dir.antiClockwise(), 1);
       end.translate(dir.clockwise(), 1);
@@ -251,16 +251,16 @@ public class ObsidianRoom extends DungeonBase {
         Coord end = start.copy();
         start.translate(dir, 9);
         start.translate(orthogonal, 2);
-        start.translate(Direction.DOWN, 3);
+        start.down(3);
         end.translate(dir, 8);
         end.translate(orthogonal, 9);
-        end.translate(Direction.DOWN, 2);
+        end.down(2);
 
         RectSolid.newRect(start, end).fill(worldEditor, primaryWall);
         StairsBlock stair = theme.getPrimary().getStair();
         Coord stepCoord = new Coord(x, y, z);
         stepCoord.translate(dir, 8);
-        stepCoord.translate(Direction.DOWN, 1);
+        stepCoord.down();
         stepCoord.translate(orthogonal, 2);
         stair.setUpsideDown(false).setFacing(orthogonal);
         stair.stroke(worldEditor, stepCoord);
@@ -269,13 +269,13 @@ public class ObsidianRoom extends DungeonBase {
 
         stair.setUpsideDown(false).setFacing(dir.reverse());
         stepCoord = new Coord(x, y, z);
-        stepCoord.translate(Direction.DOWN, 2);
+        stepCoord.down(2);
         stepCoord.translate(dir, 7);
         stepCoord.translate(orthogonal, 3);
         stair.stroke(worldEditor, stepCoord);
         stepCoord.translate(orthogonal, 1);
         stair.stroke(worldEditor, stepCoord);
-        stepCoord.translate(Direction.DOWN, 1);
+        stepCoord.down();
         stepCoord.translate(dir.reverse(), 1);
         stair.stroke(worldEditor, stepCoord);
         stepCoord.translate(orthogonal.reverse(), 1);
@@ -288,9 +288,9 @@ public class ObsidianRoom extends DungeonBase {
         Coord corner = new Coord(x, y, z);
         corner.translate(dir, 7);
         corner.translate(orthogonal, 7);
-        corner.translate(Direction.DOWN, 2);
+        corner.down(2);
         primaryWall.stroke(worldEditor, corner);
-        corner.translate(Direction.DOWN, 1);
+        corner.down();
         primaryWall.stroke(worldEditor, corner);
       }
     }
@@ -299,7 +299,7 @@ public class ObsidianRoom extends DungeonBase {
     for (Direction dir : Direction.CARDINAL) {
       for (Direction orthogonal : dir.orthogonals()) {
         Coord cursor = new Coord(x, y, z);
-        cursor.translate(Direction.DOWN, 2);
+        cursor.down(2);
         cursor.translate(dir, 3);
         liquidWindow(worldEditor, cursor.copy(), orthogonal, theme);
         cursor.translate(dir, 2);
@@ -308,7 +308,7 @@ public class ObsidianRoom extends DungeonBase {
         Coord chestPos = new Coord(x, y, z);
         chestPos.translate(dir, 4);
         chestPos.translate(orthogonal, 2);
-        chestPos.translate(Direction.DOWN, 3);
+        chestPos.down(3);
 
         worldEditor.getTreasureChestEditor().createChest(chestPos, false, Dungeon.getLevel(chestPos.getY()), getRoomSetting().getChestType().orElse(ChestType.chooseRandomAmong(worldEditor.getRandom(), ChestType.RARE_TREASURES)));
       }
@@ -327,12 +327,12 @@ public class ObsidianRoom extends DungeonBase {
 
     Coord start = origin.copy();
     Coord end = start.copy();
-    start.translate(Direction.DOWN, 5);
-    end.translate(Direction.DOWN, 8);
-    start.translate(Direction.NORTH, 6);
-    start.translate(Direction.EAST, 6);
-    end.translate(Direction.SOUTH, 6);
-    end.translate(Direction.WEST, 6);
+    start.down(5);
+    end.down(8);
+    start.north(6);
+    start.east(6);
+    end.south(6);
+    end.west(6);
     RectSolid.newRect(start, end).fill(worldEditor, crap);
 
     return this;

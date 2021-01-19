@@ -22,9 +22,9 @@ public class SegmentArch extends SegmentBase {
     Coord cursor = origin.copy();
     cursor.translate(dir, 2);
     SingleBlockBrush.AIR.stroke(editor, cursor);
-    cursor.translate(Direction.UP, 1);
+    cursor.up(1);
     SingleBlockBrush.AIR.stroke(editor, cursor);
-    cursor.translate(Direction.UP, 1);
+    cursor.up(1);
     stair.stroke(editor, cursor);
 
     for (Direction orthogonals : dir.orthogonals()) {
@@ -32,9 +32,9 @@ public class SegmentArch extends SegmentBase {
       cursor.translate(orthogonals, 1);
       cursor.translate(dir, 2);
       theme.getSecondary().getPillar().stroke(editor, cursor);
-      cursor.translate(Direction.UP, 1);
+      cursor.up(1);
       theme.getSecondary().getPillar().stroke(editor, cursor);
-      cursor.translate(Direction.UP, 1);
+      cursor.up(1);
       theme.getPrimary().getWall().stroke(editor, cursor);
       cursor.translate(dir.reverse(), 1);
       stair.stroke(editor, cursor);

@@ -87,7 +87,7 @@ public class MudFilter implements IFilter {
     plants.addBlock(BlockType.RED_MUSHROOM.getBrush());
 
     Coord cursor = pos.copy();
-    cursor.translate(Direction.UP);
+    cursor.up();
     plants.stroke(editor, cursor);
   }
 
@@ -98,17 +98,17 @@ public class MudFilter implements IFilter {
     }
 
     Coord cursor = pos.copy();
-    cursor.translate(Direction.UP);
+    cursor.up();
     if (!editor.isAirBlock(cursor)) {
       return false;
     }
 
-    cursor.translate(Direction.DOWN, 2);
+    cursor.down(2);
     if (editor.isAirBlock(cursor)) {
       return false;
     }
 
-    cursor.translate(Direction.UP);
+    cursor.up();
 
     for (Direction dir : Direction.values()) {
       cursor.translate(dir);

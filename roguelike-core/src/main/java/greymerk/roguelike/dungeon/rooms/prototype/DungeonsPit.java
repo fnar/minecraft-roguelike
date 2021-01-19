@@ -164,11 +164,11 @@ public class DungeonsPit extends DungeonBase {
 
     start = origin.copy();
     start.translate(dir, 3);
-    start.translate(Direction.DOWN);
+    start.down();
     start.translate(dir.antiClockwise());
     end = origin.copy();
     end.translate(dir, 6);
-    end.translate(Direction.UP, 3);
+    end.up(3);
     end.translate(dir.clockwise());
 
     for (Coord cell : new RectHollow(start, end)) {
@@ -183,16 +183,16 @@ public class DungeonsPit extends DungeonBase {
     plate.stroke(editor, cursor);
 
     cursor = origin.copy();
-    cursor.translate(Direction.DOWN);
+    cursor.down();
     cursor.translate(dir, 3);
     TorchBlock.redstone().setFacing(dir).stroke(editor, cursor);
     cursor.translate(dir);
     wire.stroke(editor, cursor);
-    cursor.translate(Direction.UP);
+    cursor.up();
     cursor.translate(dir);
     TorchBlock.redstone().extinguish().setFacing(Direction.UP).stroke(editor, cursor);
     cursor.translate(dir.reverse());
-    cursor.translate(Direction.UP);
+    cursor.up();
     BlockType.STICKY_PISTON.getBrush().setFacing(dir).stroke(editor, cursor);
   }
 

@@ -34,7 +34,7 @@ public class SegmentTomb extends SegmentBase {
     end = start.copy();
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
-    end.translate(Direction.UP, 3);
+    end.up(3);
     end.translate(dir, 3);
     List<Coord> box = new RectHollow(start, end).get();
 
@@ -50,7 +50,7 @@ public class SegmentTomb extends SegmentBase {
       return;
     }
     cursor = pos.copy();
-    cursor.translate(Direction.UP);
+    cursor.up();
     cursor.translate(dir, 4);
     SpawnerSettings spawners = level.getSpawners().isEmpty()
         ? MobType.newSpawnerSetting(MobType.UNDEAD_MOBS)
@@ -76,14 +76,14 @@ public class SegmentTomb extends SegmentBase {
     start.translate(orthogonals[0], 1);
     end = cursor.copy();
     end.translate(orthogonals[1], 1);
-    end.translate(Direction.UP, 2);
+    end.up(2);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     start.translate(dir, 1);
     end.translate(dir, 1);
     RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall(), false, true);
 
-    cursor.translate(Direction.UP, 2);
+    cursor.up(2);
     for (Direction d : orthogonals) {
       Coord c = cursor.copy();
       c.translate(d, 1);
@@ -94,7 +94,7 @@ public class SegmentTomb extends SegmentBase {
     tomb(editor, rand, level.getSettings(), theme, dir, origin.copy());
 
     cursor = origin.copy();
-    cursor.translate(Direction.UP);
+    cursor.up();
     cursor.translate(dir, 3);
     BlockType.QUARTZ.getBrush().stroke(editor, cursor);
   }

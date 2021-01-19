@@ -46,9 +46,9 @@ public class DungeonsEnder extends DungeonBase {
       start.translate(dir, 4);
       end = start.copy();
       start.translate(orthogonals[0], 4);
-      start.translate(Direction.DOWN, 1);
+      start.down();
       end.translate(orthogonals[1], 4);
-      end.translate(Direction.UP, 5);
+      end.up(5);
       RectSolid.newRect(start, end).fill(worldEditor, black, false, true);
 
     }

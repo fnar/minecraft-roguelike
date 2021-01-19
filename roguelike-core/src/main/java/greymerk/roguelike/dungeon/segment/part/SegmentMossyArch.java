@@ -29,9 +29,9 @@ public class SegmentMossyArch extends SegmentBase {
     Coord cursor = origin.copy();
     cursor.translate(wallDirection, 2);
     SingleBlockBrush.AIR.stroke(editor, cursor);
-    cursor.translate(Direction.UP, 1);
+    cursor.up(1);
     SingleBlockBrush.AIR.stroke(editor, cursor);
-    cursor.translate(Direction.UP, 1);
+    cursor.up(1);
     stair.stroke(editor, cursor);
 
     for (Direction orthogonals : wallDirection.orthogonals()) {
@@ -39,9 +39,9 @@ public class SegmentMossyArch extends SegmentBase {
       cursor.translate(orthogonals, 1);
       cursor.translate(wallDirection, 2);
       theme.getSecondary().getPillar().stroke(editor, cursor);
-      cursor.translate(Direction.UP, 1);
+      cursor.up(1);
       theme.getSecondary().getPillar().stroke(editor, cursor);
-      cursor.translate(Direction.UP, 1);
+      cursor.up(1);
       theme.getSecondary().getWall().stroke(editor, cursor);
       cursor.translate(wallDirection.reverse(), 1);
       stair.stroke(editor, cursor);
@@ -49,11 +49,11 @@ public class SegmentMossyArch extends SegmentBase {
 
     cursor = origin.copy();
     cursor.translate(wallDirection, 2);
-    cursor.translate(Direction.DOWN, 1);
+    cursor.down();
     BlockType.WATER_FLOWING.getBrush().stroke(editor, cursor);
 
     cursor = origin.copy();
-    cursor.translate(Direction.UP, 3);
+    cursor.up(3);
     cursor.translate(wallDirection, 1);
     VineBlock.vine().stroke(editor, cursor);
 

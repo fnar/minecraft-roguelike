@@ -255,7 +255,7 @@ public class WorldEditor1_12 implements WorldEditor {
 
     while (!isOpaqueCubeBlock(cursor) && cursor.getY() > 1) {
       blocks.stroke(this, cursor);
-      cursor.translate(Direction.DOWN);
+      cursor.down();
     }
   }
 

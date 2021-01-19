@@ -23,7 +23,6 @@ import greymerk.roguelike.dungeon.settings.SettingsResolver;
 import greymerk.roguelike.dungeon.settings.SpawnCriteria;
 import greymerk.roguelike.dungeon.tasks.DungeonTaskRegistry;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.VanillaStructure;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
@@ -222,7 +221,7 @@ public class Dungeon {
 
   private boolean canFindStartingCoord(int lowerLimit, Coord cursor) {
     while (!editor.validGroundBlock(cursor)) {
-      cursor.translate(Direction.DOWN);
+      cursor.down();
       if (cursor.getY() < lowerLimit) {
         return false;
       }

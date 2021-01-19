@@ -20,8 +20,8 @@ public class WireframeFilter implements IFilter {
     Coord start = box.getStart();
     Coord end = box.getEnd();
 
-    start.translate(Direction.UP, 100);
-    end.translate(Direction.UP, 100);
+    start.up(100);
+    end.up(100);
 
     IShape shape = new RectWireframe(start, end);
     BlockBrush block = BlockType.SEA_LANTERN.getBrush();

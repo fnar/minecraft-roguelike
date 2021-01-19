@@ -42,7 +42,7 @@ public class DungeonLinkerTop extends DungeonBase {
     RectHollow.newRect(start, end).fill(worldEditor, wall, false, true);
 
     cursor = origin.copy();
-    cursor.translate(Direction.UP, 5);
+    cursor.up(5);
     levelSettings.getTheme().getPrimary().getLightBlock().stroke(worldEditor, cursor);
 
     start = origin.copy();
@@ -59,13 +59,13 @@ public class DungeonLinkerTop extends DungeonBase {
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir, 4);
       end.translate(dir.antiClockwise(), 4);
-      end.translate(Direction.UP, 4);
+      end.up(4);
       RectSolid.newRect(start, end).fill(worldEditor, pillar);
 
       start = origin.copy();
       start.translate(dir, 3);
       start.translate(dir.antiClockwise(), 2);
-      start.translate(Direction.UP, 4);
+      start.up(4);
       end = start.copy();
       end.translate(dir.clockwise(), 4);
       RectSolid.newRect(start, end).fill(worldEditor, wall);
@@ -76,10 +76,10 @@ public class DungeonLinkerTop extends DungeonBase {
       for (Direction o : dir.orthogonals()) {
         cursor = origin.copy();
         cursor.translate(dir, 3);
-        cursor.translate(Direction.UP, 2);
+        cursor.up(2);
         cursor.translate(o, 2);
         stair.setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
-        cursor.translate(Direction.UP);
+        cursor.up();
         wall.stroke(worldEditor, cursor);
         cursor.translate(o.reverse());
         stair.setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);

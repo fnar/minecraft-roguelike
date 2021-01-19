@@ -29,7 +29,7 @@ public class SegmentSewer extends SegmentBase {
     Direction[] orthogonals = dir.orthogonals();
 
     start = origin.copy();
-    start.translate(Direction.UP, 2);
+    start.up(2);
     start.translate(dir);
     end = start.copy();
     start.translate(orthogonals[0]);
@@ -38,13 +38,13 @@ public class SegmentSewer extends SegmentBase {
     RectSolid.newRect(start, end).fill(editor, stair);
 
     start = origin.copy();
-    start.translate(Direction.DOWN);
+    start.down();
     end = start.copy();
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
-    start.translate(Direction.DOWN);
-    end.translate(Direction.DOWN);
+    start.down();
+    end.down();
     RectSolid.newRect(start, end).fill(editor, water);
   }
 }

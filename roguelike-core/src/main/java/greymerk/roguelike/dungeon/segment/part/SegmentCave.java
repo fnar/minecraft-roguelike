@@ -30,7 +30,7 @@ public class SegmentCave extends SegmentBase {
     Coord end;
 
     start = cursor.copy();
-    start.translate(Direction.UP, 2);
+    start.up(2);
     start.translate(dir);
     end = start.copy();
     start.translate(orthogonals[0]);
@@ -39,9 +39,9 @@ public class SegmentCave extends SegmentBase {
     start.translate(dir);
     end.translate(dir);
     RectSolid.newRect(start, end).fill(editor, fill);
-    start.translate(Direction.DOWN);
+    start.down();
     RectSolid.newRect(start, end).fill(editor, fill);
-    start.translate(Direction.DOWN);
+    start.down();
     RectSolid.newRect(start, end).fill(editor, fill);
 
   }

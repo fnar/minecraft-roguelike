@@ -53,8 +53,8 @@ public class DungeonFirework extends DungeonBase {
     end.translate(dir, 9);
     start.translate(dir.antiClockwise(), 4);
     end.translate(dir.clockwise(), 4);
-    start.translate(Direction.DOWN);
-    end.translate(Direction.UP, 3);
+    start.down();
+    end.up(3);
     RectHollow.newRect(start, end).fill(worldEditor, stainedHardenedClay().setColor(DyeColor.ORANGE), false, true);
 
     start = new Coord(x, y, z);
@@ -62,7 +62,7 @@ public class DungeonFirework extends DungeonBase {
     end = start.copy();
     start.translate(dir.reverse(), 3);
     end.translate(dir, 7);
-    end.translate(Direction.UP);
+    end.up();
     RectSolid.newRect(start, end).fill(worldEditor, breadboard);
 
     start.translate(dir.clockwise(), 2);
@@ -114,20 +114,20 @@ public class DungeonFirework extends DungeonBase {
     BlockBrush wire = BlockType.REDSTONE_WIRE.getBrush();
 
     start = new Coord(x, y, z);
-    start.translate(Direction.DOWN, 2);
+    start.down(2);
     start.translate(dir.clockwise());
     start.translate(dir.reverse(), 2);
     end = start.copy();
     end.translate(dir.antiClockwise(), 5);
     end.translate(dir.reverse(), 5);
-    end.translate(Direction.DOWN, 2);
+    end.down(2);
     RectSolid.newRect(start, end).fill(worldEditor, BlockType.COBBLESTONE.getBrush());
 
     cursor = new Coord(x, y, z);
     cursor.translate(dir.reverse(), 3);
-    cursor.translate(Direction.DOWN);
+    cursor.down();
     TorchBlock.redstone().setFacing(Direction.UP).stroke(worldEditor, cursor);
-    cursor.translate(Direction.DOWN);
+    cursor.down();
     breadboard.stroke(worldEditor, cursor);
     cursor.translate(dir.antiClockwise());
     TorchBlock.redstone().setFacing(dir.antiClockwise()).stroke(worldEditor, cursor);
@@ -147,16 +147,16 @@ public class DungeonFirework extends DungeonBase {
         .setPowered(true)
         .setFacing(dir)
         .stroke(worldEditor, cursor);
-    cursor.translate(Direction.UP);
+    cursor.up();
     cursor.translate(dir.reverse());
     stainedHardenedClay().setColor(DyeColor.RED).stroke(worldEditor, cursor);
-    cursor.translate(Direction.UP);
+    cursor.up();
     LeverBlock.lever().setActive(true).setFacing(Direction.UP).stroke(worldEditor, cursor);
 
     BlockBrush glowstone = BlockType.GLOWSTONE.getBrush();
     cursor = new Coord(x, y, z);
     cursor.translate(dir.reverse(), 5);
-    cursor.translate(Direction.UP, 3);
+    cursor.up(3);
     glowstone.stroke(worldEditor, cursor);
     cursor.translate(dir, 4);
     glowstone.stroke(worldEditor, cursor);
@@ -175,7 +175,7 @@ public class DungeonFirework extends DungeonBase {
     cursor.translate(dir.reverse());
     RepeaterBlock.repeater().setFacing(dir).stroke(editor, cursor);
     cursor.translate(dir.reverse());
-    cursor.translate(Direction.UP);
+    cursor.up();
 
     BlockType.DROPPER.getBrush().setFacing(Direction.UP).stroke(editor, cursor);
     for (int i = 0; i < 8; ++i) {
@@ -186,7 +186,7 @@ public class DungeonFirework extends DungeonBase {
     }
     editor.setItem(cursor, 8, new ItemStack(Items.WOODEN_HOE));
 
-    cursor.translate(Direction.UP);
+    cursor.up();
     BlockType.HOPPER.getBrush().setFacing(Direction.DOWN).stroke(editor, cursor);
     cursor.translate(dir);
     ComparatorBlock.comparator()
@@ -200,7 +200,7 @@ public class DungeonFirework extends DungeonBase {
 
     Coord top = new Coord(pos.getX(), 80, pos.getZ());
     while (top.getY() > pos.getY()) {
-      top.translate(Direction.DOWN);
+      top.down();
       if (editor.isSolidBlock(top)) {
         break;
       }
@@ -211,7 +211,7 @@ public class DungeonFirework extends DungeonBase {
     }
 
     Coord start = cursor.copy();
-    start.translate(Direction.UP);
+    start.up();
 
 
     start.translate(dir);
@@ -228,12 +228,12 @@ public class DungeonFirework extends DungeonBase {
         breadboard.stroke(editor, cursor);
       }
       torch = !torch;
-      cursor.translate(Direction.UP);
-      end.translate(Direction.UP);
+      cursor.up();
+      end.up();
     }
 
     if (torch) {
-      cursor.translate(Direction.DOWN);
+      cursor.down();
     }
 
     BlockType.DISPENSER.getBrush().setFacing(Direction.UP).stroke(editor, cursor);
@@ -241,7 +241,7 @@ public class DungeonFirework extends DungeonBase {
       editor.setItem(cursor, i, Firework.get(editor.getRandom(), 16 + editor.getRandom().nextInt(16)));
     }
 
-    cursor.translate(Direction.UP);
+    cursor.up();
     BlockBrush cob = BlockType.COBBLESTONE.getBrush();
     RectSolid.newRect(start, end).fill(editor, cob);
     start.translate(dir.reverse(), 2);
@@ -250,7 +250,7 @@ public class DungeonFirework extends DungeonBase {
     start.translate(dir);
     end.translate(dir);
     Coord above = end.copy();
-    above.translate(Direction.UP, 10);
+    above.up(10);
     for (Coord c : new RectSolid(cursor, above)) {
       if (editor.isSolidBlock(c)) {
         SingleBlockBrush.AIR.stroke(editor, c);
@@ -282,8 +282,8 @@ public class DungeonFirework extends DungeonBase {
     Direction[] orthogonal = dir.orthogonals();
     start.translate(orthogonal[0], 5);
     end.translate(orthogonal[1], 5);
-    start.translate(Direction.DOWN);
-    end.translate(Direction.UP, 3);
+    start.down();
+    end.up(3);
 
     for (Coord c : new RectHollow(start, end)) {
       if (editor.isAirBlock(c)) {

@@ -46,7 +46,7 @@ public class RuinTower implements ITower {
       }
 
       start = floor.copy();
-      start.translate(Direction.DOWN);
+      start.down();
       start.translate(dir, 4);
       end = new Coord(start.getX(), origin.getY() + 10, start.getZ());
       start.translate(dir.antiClockwise(), 2);

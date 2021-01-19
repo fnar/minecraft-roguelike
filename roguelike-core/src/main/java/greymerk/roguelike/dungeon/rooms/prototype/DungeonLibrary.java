@@ -58,14 +58,14 @@ public class DungeonLibrary extends DungeonBase {
     RectSolid.newRect(new Coord(x - 5, y - 1, z - 5), new Coord(x + 5, y - 1, z + 5)).fill(worldEditor, levelSettings.getTheme().getPrimary().getFloor());
 
     start = origin.copy();
-    start.translate(Direction.UP, 5);
+    start.up(5);
     BlockType.REDSTONE_BLOCK.getBrush().stroke(worldEditor, start);
-    start.translate(Direction.DOWN);
+    start.down();
     BlockType.REDSTONE_LAMP_LIT.getBrush().stroke(worldEditor, start);
     start = origin.copy();
-    start.translate(Direction.UP, 6);
+    start.up(6);
     end = start.copy();
-    end.translate(Direction.UP);
+    end.up();
     RectSolid.newRect(start, end).fill(worldEditor, levelSettings.getTheme().getPrimary().getPillar());
 
 
@@ -86,54 +86,54 @@ public class DungeonLibrary extends DungeonBase {
       start.translate(dir, 4);
       start.translate(dir.antiClockwise(), 4);
       end = start.copy();
-      end.translate(Direction.UP, 4);
+      end.up(4);
       RectSolid.newRect(start, end).fill(worldEditor, levelSettings.getTheme().getPrimary().getPillar());
 
       start = origin.copy();
       start.translate(dir, 3);
       start.translate(dir.antiClockwise(), 3);
-      start.translate(Direction.UP, 3);
+      start.up(3);
       end = start.copy();
-      end.translate(Direction.UP, 3);
+      end.up(3);
       RectSolid.newRect(start, end).fill(worldEditor, levelSettings.getTheme().getPrimary().getPillar());
 
       cursor = end.copy();
       cursor.translate(dir.reverse());
       cursor.translate(dir.clockwise());
-      cursor.translate(Direction.UP);
+      cursor.up();
       walls.stroke(worldEditor, cursor);
 
       for (Direction o : dir.orthogonals()) {
         cursor = origin.copy();
         cursor.translate(dir, 4);
         cursor.translate(o, 3);
-        cursor.translate(Direction.UP, 2);
+        cursor.up(2);
 
         stair.setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
-        cursor.translate(Direction.UP);
+        cursor.up();
         walls.stroke(worldEditor, cursor);
         cursor.translate(o.reverse());
         stair.setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
-        cursor.translate(Direction.UP, 3);
+        cursor.up(3);
         cursor.translate(dir.reverse());
         stair.setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
       }
 
       // Light fixture related stuff
       cursor = origin.copy();
-      cursor.translate(Direction.UP, 4);
+      cursor.up(4);
       cursor.translate(dir);
       stair.setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
       cursor.translate(dir, 2);
       stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
-      cursor.translate(Direction.UP);
+      cursor.up();
       start = cursor.copy();
       end = cursor.copy();
       start.translate(dir.reverse(), 2);
       RectSolid.newRect(start, end).fill(worldEditor, walls);
-      cursor.translate(Direction.UP);
+      cursor.up();
       walls.stroke(worldEditor, cursor);
-      cursor.translate(Direction.UP);
+      cursor.up();
       cursor.translate(dir.reverse());
       stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
       cursor.translate(dir.reverse());
@@ -153,7 +153,7 @@ public class DungeonLibrary extends DungeonBase {
     end = start.copy();
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
-    end.translate(Direction.UP, 2);
+    end.up(2);
 
     RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall());
 
@@ -166,7 +166,7 @@ public class DungeonLibrary extends DungeonBase {
       cursor = pos.copy();
       cursor.translate(dir, 5);
       cursor.translate(o);
-      cursor.translate(Direction.UP, 2);
+      cursor.up(2);
 
       StairsBlock stair = theme.getPrimary().getStair();
       stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
@@ -188,7 +188,7 @@ public class DungeonLibrary extends DungeonBase {
     end = cursor.copy();
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
-    end.translate(Direction.UP, 2);
+    end.up(2);
     SingleBlockBrush.AIR.fill(editor, new RectSolid(start, end));
     start.translate(dir);
     end.translate(dir);
@@ -197,12 +197,12 @@ public class DungeonLibrary extends DungeonBase {
     for (Direction o : dir.orthogonals()) {
       Coord c = cursor.copy();
       c.translate(o, 2);
-      c.translate(Direction.UP, 2);
+      c.up(2);
       theme.getPrimary().getStair().setUpsideDown(true).setFacing(o.reverse()).stroke(editor, c);
       c.translate(dir);
-      c.translate(Direction.DOWN);
+      c.down();
       shelf.stroke(editor, c);
-      c.translate(Direction.DOWN);
+      c.down();
       shelf.stroke(editor, c);
     }
 
@@ -221,7 +221,7 @@ public class DungeonLibrary extends DungeonBase {
     cursor.translate(dir.clockwise(), 2);
     stair.setUpsideDown(true).setFacing(dir.antiClockwise()).stroke(editor, cursor);
 
-    cursor.translate(Direction.UP);
+    cursor.up();
     FlowerPotBlock.flowerPot().withRandomContent(editor.getRandom()).stroke(editor, cursor);
 
     cursor.translate(dir.antiClockwise());
@@ -240,17 +240,17 @@ public class DungeonLibrary extends DungeonBase {
 
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
-    end.translate(Direction.UP, 2);
+    end.up(2);
     SingleBlockBrush.AIR.fill(editor, new RectSolid(start, end));
 
     start.translate(dir);
-    end.translate(dir).up(1);
+    end.translate(dir).up();
     theme.getPrimary().getWall().fill(editor, new RectSolid(start, end), false, true);
 
     for (Direction o : dir.orthogonals()) {
       Coord c = cursor.copy();
       c.translate(o, 2);
-      c.translate(Direction.UP, 2);
+      c.up(2);
       theme.getPrimary().getStair().setUpsideDown(true).setFacing(o.reverse()).stroke(editor, c);
     }
 

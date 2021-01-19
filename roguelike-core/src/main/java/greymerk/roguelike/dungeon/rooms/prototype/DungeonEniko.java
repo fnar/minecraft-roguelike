@@ -36,7 +36,7 @@ public class DungeonEniko extends DungeonBase {
 
     start = origin.copy();
     end = start.copy();
-    end.translate(Direction.UP, 3);
+    end.up(3);
     RectSolid.newRect(start, end).fill(editor, pillar);
     for (Direction dir : Direction.CARDINAL) {
       cursor = end.copy();
@@ -94,7 +94,7 @@ public class DungeonEniko extends DungeonBase {
         stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
         c.translate(o);
         stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
-        c.translate(Direction.UP);
+        c.up();
         chests.add(c.copy());
         c.translate(o.reverse());
         chests.add(c.copy());
@@ -105,7 +105,7 @@ public class DungeonEniko extends DungeonBase {
 
       if (entrances.contains(dir)) {
         start = origin.copy();
-        start.translate(Direction.DOWN);
+        start.down();
         end = start.copy();
         start.translate(dir.antiClockwise());
         end.translate(dir.clockwise());

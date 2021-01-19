@@ -44,16 +44,16 @@ public class DungeonPyramidCorner extends DungeonBase {
     Coord cursor;
 
     cursor = new Coord(x, y, z);
-    cursor.translate(Direction.UP, 4);
+    cursor.up(4);
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
-    cursor.translate(Direction.UP, 1);
+    cursor.up(1);
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
 
 
     for (Direction dir : Direction.CARDINAL) {
 
       cursor = new Coord(x, y, z);
-      cursor.translate(Direction.UP, 4);
+      cursor.up(4);
       cursor.translate(dir);
       SingleBlockBrush.AIR.stroke(worldEditor, cursor);
 
@@ -61,7 +61,7 @@ public class DungeonPyramidCorner extends DungeonBase {
       cursor.translate(dir, 2);
       cursor.translate(dir.orthogonals()[0], 2);
       start = cursor.copy();
-      cursor.translate(Direction.UP, 2);
+      cursor.up(2);
       end = cursor.copy();
       RectSolid.newRect(start, end).fill(worldEditor, pillar);
     }

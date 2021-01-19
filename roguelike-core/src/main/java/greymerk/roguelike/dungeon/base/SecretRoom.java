@@ -44,19 +44,19 @@ public class SecretRoom extends DungeonBase {
     Coord end = pos.copy();
     Direction entrance = entrances.get(0);
     start.translate(entrance.orthogonals()[0]);
-    start.translate(Direction.DOWN);
+    start.down();
     start.translate(entrance, 2);
     end.translate(entrance.orthogonals()[1]);
     end.translate(entrance, size + 5);
-    end.translate(Direction.UP, 2);
+    end.up(2);
     RectSolid.newRect(start, end).fill(worldEditor, levelSettings.getTheme().getPrimary().getWall(), false, true);
 
     end = pos.copy();
     end.translate(entrance, size + 5);
-    end.translate(Direction.UP);
+    end.up();
     RectSolid.newRect(pos, end).fill(worldEditor, SingleBlockBrush.AIR);
 
-    end.translate(Direction.DOWN);
+    end.down();
     return prototype.generate(end, Lists.newArrayList(entrance));
   }
 

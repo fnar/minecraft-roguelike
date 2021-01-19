@@ -51,9 +51,9 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
     s = start.copy();
     e = end.copy();
     s.translate(dir.antiClockwise(), 3);
-    s.translate(Direction.UP, 3);
+    s.up(3);
     e.translate(dir.clockwise(), 3);
-    e.translate(Direction.DOWN, 3);
+    e.down(3);
     RectSolid.newRect(s, e).fill(editor, theme.getPrimary().getWall());
   }
 
@@ -69,30 +69,30 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
     bridgeBlocks.addBlock(SingleBlockBrush.AIR);
 
     s = start.copy();
-    s.translate(Direction.NORTH);
-    s.translate(Direction.EAST);
+    s.north();
+    s.east();
     e = end.copy();
-    e.translate(Direction.SOUTH);
-    e.translate(Direction.WEST);
-    e.translate(Direction.UP, 2);
+    e.south();
+    e.west();
+    e.up(2);
     RectSolid.newRect(s, e).fill(editor, SingleBlockBrush.AIR);
 
-    s.translate(Direction.NORTH);
-    s.translate(Direction.EAST);
-    s.translate(Direction.DOWN);
-    e.translate(Direction.SOUTH);
-    e.translate(Direction.WEST);
-    e.translate(Direction.UP);
+    s.north();
+    s.east();
+    s.down();
+    e.south();
+    e.west();
+    e.up();
     RectHollow.newRect(s, e).fill(editor, wallBlocks, false, true);
 
     s = start.copy();
-    s.translate(Direction.NORTH);
-    s.translate(Direction.EAST);
-    s.translate(Direction.DOWN);
+    s.north();
+    s.east();
+    s.down();
     e = end.copy();
-    e.translate(Direction.SOUTH);
-    e.translate(Direction.WEST);
-    e.translate(Direction.DOWN);
+    e.south();
+    e.west();
+    e.down();
     RectSolid.newRect(s, e).fill(editor, floor, false, true);
     RectSolid.newRect(s, e).fill(editor, bridgeBlocks, true, false);
 
@@ -105,10 +105,10 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
     Coord start = location.copy();
     Direction[] orth = dir.orthogonals();
     start.translate(orth[0], 2);
-    start.translate(Direction.UP, 2);
+    start.up(2);
     Coord end = location.copy();
     end.translate(orth[1], 2);
-    end.translate(Direction.DOWN, 2);
+    end.down(2);
 
     RectSolid.newRect(start, end).fill(editor, wallBlocks, false, true);
 
@@ -145,9 +145,9 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
     s = start.copy();
     e = end.copy();
     s.translate(dir.antiClockwise(), 2);
-    s.translate(Direction.UP, 3);
+    s.up(3);
     e.translate(dir.clockwise(), 2);
-    e.translate(Direction.DOWN, 1);
+    e.down();
     return new BoundingBox(s, e);
   }
 

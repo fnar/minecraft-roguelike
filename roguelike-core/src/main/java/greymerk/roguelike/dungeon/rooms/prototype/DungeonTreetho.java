@@ -54,8 +54,8 @@ public class DungeonTreetho extends DungeonBase {
     start.translate(new Coord(-9, 8, -9));
     end.translate(new Coord(9, 8, 9));
     RectSolid.newRect(start, end).fill(worldEditor, birchSlab);
-    start.translate(Direction.UP);
-    end.translate(Direction.UP);
+    start.up();
+    end.up();
     RectSolid.newRect(start, end).fill(worldEditor, pumpkin);
 
     cursor = origin.copy();
@@ -105,11 +105,11 @@ public class DungeonTreetho extends DungeonBase {
         Coord p = cursor.copy();
         if (i % 4 == 0) {
           sapling.stroke(editor, p);
-          p.translate(Direction.DOWN);
+          p.down();
           dirt.stroke(editor, p);
         } else {
           glass.stroke(editor, p);
-          p.translate(Direction.DOWN);
+          p.down();
           light.stroke(editor, p);
         }
       }
@@ -135,7 +135,7 @@ public class DungeonTreetho extends DungeonBase {
       RectSolid.newRect(start, end).fill(editor, fill);
 
       Coord cursor = origin.copy();
-      cursor.translate(Direction.DOWN);
+      cursor.down();
       cursor.translate(dir, 10);
       cursor.translate(dir.antiClockwise(), 10);
       for (int i = 0; i < 5; ++i) {

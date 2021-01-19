@@ -48,7 +48,7 @@ public class RogueTower implements ITower {
       for (Direction orthogonals : dir.orthogonals()) {
         // ground floor
         start = floor.copy();
-        start.translate(Direction.DOWN, 1);
+        start.down();
         start.translate(dir, 2);
         end = start.copy();
         end.translate(dir, 3);
@@ -65,20 +65,20 @@ public class RogueTower implements ITower {
         start = cursor.copy();
         end = cursor.copy();
         end.translate(dir.reverse(), 1);
-        end.translate(Direction.UP, 2);
+        end.up(2);
         RectSolid.newRect(start, end).fill(editor, blocks);
         start = end.copy();
         start.translate(dir, 1);
         start.translate(orthogonals.reverse(), 1);
         RectSolid.newRect(start, end).fill(editor, blocks);
-        cursor.translate(Direction.UP, 2);
+        cursor.up(2);
         stair.setUpsideDown(false).setFacing(orthogonals);
         stair.stroke(editor, cursor);
 
         start = floor.copy();
         start.translate(dir, 4);
         end = start.copy();
-        end.translate(Direction.UP, 9);
+        end.up(9);
         end.translate(orthogonals, 2);
         RectSolid.newRect(start, end).fill(editor, blocks);
 
@@ -86,41 +86,41 @@ public class RogueTower implements ITower {
         start.translate(dir, 3);
         start.translate(orthogonals, 3);
         end = start.copy();
-        end.translate(Direction.UP, 9);
+        end.up(9);
         RectSolid.newRect(start, end).fill(editor, blocks);
 
         start = floor.copy();
         start.translate(dir, 4);
         end = start.copy();
         end.translate(dir, 1);
-        end.translate(Direction.UP, 1);
+        end.up(1);
         RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
         cursor = floor.copy();
         cursor.translate(dir, 3);
         cursor.translate(orthogonals, 2);
-        cursor.translate(Direction.UP, 3);
+        cursor.up(3);
         stair.setUpsideDown(true).setFacing(orthogonals.reverse());
         stair.stroke(editor, cursor);
-        cursor.translate(Direction.UP, 5);
+        cursor.up(5);
         stair.setUpsideDown(true).setFacing(orthogonals.reverse());
         stair.stroke(editor, cursor);
 
         start = floor.copy();
         start.translate(dir, 4);
         start.translate(orthogonals, 3);
-        start.translate(Direction.UP, 4);
+        start.up(4);
         stair.setUpsideDown(true).setFacing(orthogonals);
         stair.stroke(editor, start);
 
-        start.translate(Direction.UP, 1);
+        start.up(1);
         end = start.copy();
-        end.translate(Direction.UP, 4);
+        end.up(4);
         RectSolid.newRect(start, end).fill(editor, blocks);
 
         start = floor.copy();
         start.translate(dir, 5);
-        start.translate(Direction.UP, 4);
+        start.up(4);
         stair.setUpsideDown(true).setFacing(dir);
         stair.stroke(editor, start);
 
@@ -129,7 +129,7 @@ public class RogueTower implements ITower {
         stair.setUpsideDown(true).setFacing(orthogonals);
         stair.stroke(editor, cursor);
 
-        start.translate(Direction.UP, 3);
+        start.up(3);
         stair.setUpsideDown(true).setFacing(dir);
         stair.stroke(editor, start);
 
@@ -138,40 +138,40 @@ public class RogueTower implements ITower {
         stair.setUpsideDown(true).setFacing(orthogonals);
         stair.stroke(editor, cursor);
 
-        start.translate(Direction.UP, 1);
+        start.up(1);
         end = start.copy();
         end.translate(orthogonals, 1);
-        end.translate(Direction.UP, 1);
+        end.up(1);
         RectSolid.newRect(start, end).fill(editor, blocks);
 
         cursor = end.copy();
         cursor.translate(orthogonals, 1);
-        cursor.translate(Direction.DOWN, 1);
+        cursor.down();
         stair.setUpsideDown(true).setFacing(orthogonals);
         stair.stroke(editor, cursor);
-        cursor.translate(Direction.UP, 1);
+        cursor.up(1);
         cursor.translate(orthogonals, 1);
         stair.stroke(editor, cursor);
 
         cursor.translate(orthogonals.reverse(), 1);
         blocks.stroke(editor, cursor);
-        cursor.translate(Direction.UP, 1);
+        cursor.up(1);
         blocks.stroke(editor, cursor);
         cursor.translate(orthogonals, 1);
         blocks.stroke(editor, cursor);
-        cursor.translate(Direction.UP, 1);
+        cursor.up(1);
         addCrenellation(editor, cursor, blocks);
 
-        cursor.translate(Direction.DOWN, 2);
+        cursor.down(2);
         cursor.translate(dir.reverse(), 1);
         cursor.translate(orthogonals, 1);
         blocks.stroke(editor, cursor);
-        cursor.translate(Direction.DOWN, 1);
+        cursor.down();
         blocks.stroke(editor, cursor);
 
         cursor = floor.copy();
         cursor.translate(dir, 6);
-        cursor.translate(Direction.UP, 9);
+        cursor.up(9);
 
         stair.setUpsideDown(true).setFacing(dir);
         stair.stroke(editor, cursor);
@@ -181,18 +181,18 @@ public class RogueTower implements ITower {
         stair.stroke(editor, cursor);
 
         cursor.translate(orthogonals.reverse(), 1);
-        cursor.translate(Direction.UP, 1);
+        cursor.up(1);
         blocks.stroke(editor, cursor);
         cursor.translate(orthogonals, 1);
         blocks.stroke(editor, cursor);
-        cursor.translate(Direction.UP, 1);
+        cursor.up(1);
         addCrenellation(editor, cursor, blocks);
 
         cursor = floor.copy();
         cursor.translate(dir, 4);
-        cursor.translate(Direction.UP, 5);
+        cursor.up(5);
         SingleBlockBrush.AIR.stroke(editor, cursor);
-        cursor.translate(Direction.UP, 1);
+        cursor.up(1);
         SingleBlockBrush.AIR.stroke(editor, cursor);
         cursor.translate(orthogonals, 2);
         BlockType.IRON_BAR.getBrush().stroke(editor, cursor);
@@ -234,7 +234,7 @@ public class RogueTower implements ITower {
       return;
     }
 
-    cursor.translate(Direction.UP, 1);
+    cursor.up(1);
     TorchBlock.torch().setFacing(Direction.UP).stroke(editor, cursor);
   }
 }

@@ -30,14 +30,14 @@ public class SegmentNetherArch extends SegmentBase {
       cursor = origin.copy();
       cursor.translate(dir, 1);
       cursor.translate(orthogonals, 1);
-      cursor.translate(Direction.UP, 2);
+      cursor.up(2);
       stair.stroke(editor, cursor);
 
       cursor = origin.copy();
       cursor.translate(dir, 2);
       cursor.translate(orthogonals, 1);
       pillar.stroke(editor, cursor);
-      cursor.translate(Direction.UP, 1);
+      cursor.up(1);
       pillar.stroke(editor, cursor);
     }
 
@@ -47,13 +47,13 @@ public class SegmentNetherArch extends SegmentBase {
     cursor = origin.copy();
     cursor.translate(dir, 2);
     fence.stroke(editor, cursor);
-    cursor.translate(Direction.UP, 1);
+    cursor.up(1);
     fence.stroke(editor, cursor);
 
     if (hasLava) {
       cursor.translate(dir, 1);
       lava.stroke(editor, cursor);
-      cursor.translate(Direction.DOWN, 1);
+      cursor.down();
       lava.stroke(editor, cursor);
     }
   }

@@ -36,7 +36,7 @@ public class SegmentSewerDoor extends SegmentBase {
     Direction[] orthogonal = dir.orthogonals();
 
     cursor = origin.copy();
-    cursor.translate(Direction.DOWN);
+    cursor.down();
     bars.stroke(editor, cursor);
     start = cursor.copy();
     end = start.copy();
@@ -45,16 +45,16 @@ public class SegmentSewerDoor extends SegmentBase {
     stair.setUpsideDown(true).setFacing(orthogonal[0]).stroke(editor, start);
     stair.setUpsideDown(true).setFacing(orthogonal[1]).stroke(editor, end);
     cursor = origin.copy();
-    cursor.translate(Direction.DOWN);
+    cursor.down();
     bars.stroke(editor, cursor);
-    start.translate(Direction.DOWN);
-    end.translate(Direction.DOWN);
+    start.down();
+    end.down();
     RectSolid.newRect(start, end).fill(editor, water);
 
     cursor = origin.copy();
-    cursor.translate(Direction.UP, 3);
+    cursor.up(3);
     bars.stroke(editor, cursor);
-    cursor.translate(Direction.UP);
+    cursor.up();
     leaves.stroke(editor, cursor, false, true);
     cursor.translate(dir);
     water.stroke(editor, cursor, false, true);
@@ -67,7 +67,7 @@ public class SegmentSewerDoor extends SegmentBase {
     start.translate(orthogonal[0], 1);
     end = cursor.copy();
     end.translate(orthogonal[1], 1);
-    end.translate(Direction.UP, 2);
+    end.up(2);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     SecretsSetting secrets = level.getSettings().getSecrets();
@@ -77,7 +77,7 @@ public class SegmentSewerDoor extends SegmentBase {
     end.translate(dir, 1);
     RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall(), false, true);
 
-    cursor.translate(Direction.UP, 2);
+    cursor.up(2);
     for (Direction d : orthogonal) {
       Coord c = cursor.copy();
       c.translate(d, 1);

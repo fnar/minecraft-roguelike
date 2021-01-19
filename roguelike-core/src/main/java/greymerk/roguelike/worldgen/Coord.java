@@ -66,24 +66,8 @@ public class Coord {
   }
 
   public Coord translate(Direction dir, int amount) {
-    switch (dir) {
-      case UP:
-        return up(amount);
-      case DOWN:
-        return down(amount);
-      case NORTH:
-        return north(amount);
-      case EAST:
-        return east(amount);
-      case SOUTH:
-        return south(amount);
-      case WEST:
-        return west(amount);
-      default:
-        return this;
-    }
+    return dir.translate(this, amount);
   }
-
 
   public Coord translate(int x, int y, int z) {
     this.x += x;
