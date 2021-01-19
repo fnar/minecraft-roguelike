@@ -186,24 +186,24 @@ public class DungeonBTeam extends DungeonBase {
     int level = levelSettings.getDifficulty(cursor);
     ChestType chestType = ChestType.EMPTY;
     TreasureChest stal = worldEditor.getTreasureChestEditor().createChest(cursor, false, level, chestType);
-    stal.setSlot(stal.worldEditor.getCapacity(stal) / 2, Record.newRecord().withSong(Record.Song.STAL).asItemStack());
+    stal.setSlot(worldEditor.getCapacity(stal) / 2, Record.newRecord().withSong(Record.Song.STAL).asItemStack());
 
     cursor = origin.copy();
     cursor.translate(dir.reverse(), 3);
     cursor.translate(dir.antiClockwise(), 4);
     TreasureChest bdub = worldEditor.getTreasureChestEditor().createChest(cursor, false, level, chestType);
-    bdub.setSlot((bdub.worldEditor.getCapacity(bdub) / 2) - 2, ItemNovelty.getItem(ItemNovelty.BDOUBLEO));
+    bdub.setSlot((worldEditor.getCapacity(bdub) / 2) - 2, ItemNovelty.getItem(ItemNovelty.BDOUBLEO));
     ItemStack shirt = new ItemStack(Items.LEATHER_CHESTPLATE);
     shirt.setStackDisplayName("Pink Sweater");
     Loot.setItemLore(shirt, "\"It's chinese red!\"");
     ItemArmour.dyeArmor(shirt, new Color(250, 96, 128));
-    bdub.setSlot((bdub.worldEditor.getCapacity(bdub) / 2) + 2, shirt);
+    bdub.setSlot((worldEditor.getCapacity(bdub) / 2) + 2, shirt);
 
     cursor = origin.copy();
     cursor.translate(dir.reverse(), 3);
     cursor.translate(dir.clockwise(), 4);
     TreasureChest genny = worldEditor.getTreasureChestEditor().createChest(cursor, false, level, chestType);
-    genny.setSlot(genny.worldEditor.getCapacity(genny) / 2, ItemNovelty.getItem(ItemNovelty.GENERIKB));
+    genny.setSlot(worldEditor.getCapacity(genny) / 2, ItemNovelty.getItem(ItemNovelty.GENERIKB));
 
     return this;
   }
