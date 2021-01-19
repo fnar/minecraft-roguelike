@@ -101,9 +101,17 @@ public class Coord {
     return this;
   }
 
+  public Coord up() {
+    return up(1);
+  }
+
   public Coord up(int amount) {
     this.y += amount;
     return this;
+  }
+
+  public Coord down() {
+    return down(1);
   }
 
   public Coord down(int amount) {
@@ -111,9 +119,17 @@ public class Coord {
     return this;
   }
 
+  public Coord north() {
+    return north(1);
+  }
+
   public Coord north(int amount) {
     this.z -= amount;
     return this;
+  }
+
+  public Coord east() {
+    return east(1);
   }
 
   public Coord east(int amount) {
@@ -121,9 +137,17 @@ public class Coord {
     return this;
   }
 
+  public Coord south() {
+    return south(1);
+  }
+
   public Coord south(int amount) {
     this.z += amount;
     return this;
+  }
+
+  public Coord west() {
+    return west(1);
   }
 
   public Coord west(int amount) {
