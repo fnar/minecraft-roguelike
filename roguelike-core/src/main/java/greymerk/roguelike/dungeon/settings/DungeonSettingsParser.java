@@ -35,6 +35,8 @@ public class DungeonSettingsParser {
         throw new Exception(cause.getMessage());
       }
       return parseDungeonSettings(parse);
+    } catch (DungeonSettingParseException dungeonSettingParseException) {
+      throw dungeonSettingParseException;
     } catch (Exception e) {
       throw new Exception("An unknown error occurred while parsing json: " + e.getClass().toString() + " " + e.getMessage());
     }
