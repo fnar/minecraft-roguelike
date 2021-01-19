@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.annotation.Nonnull;
 
-import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 
 public class RectSolid implements IShape {
@@ -51,7 +50,7 @@ public class RectSolid implements IShape {
       this.c2 = c2.copy();
 
       Coord.correct(this.c1, this.c2);
-      cursor = c1.copy();
+      cursor = this.c1.copy();
     }
 
     @Override
