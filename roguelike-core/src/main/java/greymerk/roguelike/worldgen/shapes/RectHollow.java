@@ -26,7 +26,7 @@ public class RectHollow implements IShape {
   }
 
   @Override
-  public void fill(WorldEditor editor, BlockBrush block, boolean fillAir, boolean replaceSolid) {
+  public IShape fill(WorldEditor editor, BlockBrush block, boolean fillAir, boolean replaceSolid) {
     IShape.super.fill(editor, block, fillAir, replaceSolid);
 
     Coord innerStart = start.copy();
@@ -35,6 +35,7 @@ public class RectHollow implements IShape {
     innerStart.translate(new Coord(1, 1, 1));
     innerEnd.translate(new Coord(-1, -1, -1));
     RectSolid.newRect(innerStart, innerEnd).fill(editor, SingleBlockBrush.AIR);
+    return this;
   }
 
   @Override
