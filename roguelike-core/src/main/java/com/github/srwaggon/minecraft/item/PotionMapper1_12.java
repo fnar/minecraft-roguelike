@@ -132,10 +132,9 @@ public class PotionMapper1_12 {
 
     net.minecraft.potion.PotionType type = net.minecraft.potion.PotionType.getPotionTypeForName(nameString);
 
-    String formString = data.get("form").getAsString().toLowerCase();
     net.minecraft.item.Item item = !data.has("form")
         ? Items.POTIONITEM
-        : PotionMapper1_12.map(Potion.Form.valueOf(formString.toUpperCase()));
+        : PotionMapper1_12.map(Potion.Form.valueOf(data.get("form").getAsString().toUpperCase()));
     ItemStack itemStack = new ItemStack(item);
 
     return PotionUtils.addPotionToItemStack(itemStack, type);
