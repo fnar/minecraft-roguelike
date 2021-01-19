@@ -151,7 +151,10 @@ public class DungeonSettingsParser {
 
   private static void parseRoomCount(JsonObject root, DungeonSettings dungeonSettings) {
     if (root.has("num_rooms")) {
-      JsonArray arr = root.get("num_rooms").getAsJsonArray();
+      throw new DungeonSettingParseException("Please update field \"num_rooms\" to \"numRooms\" to conform to JSON standards.");
+    }
+    if (root.has("numRooms")) {
+      JsonArray arr = root.get("numRooms").getAsJsonArray();
       for (int i = 0; i < arr.size(); ++i) {
         JsonElement jsonElement = arr.get(i);
         if (jsonElement.isJsonNull()) {
