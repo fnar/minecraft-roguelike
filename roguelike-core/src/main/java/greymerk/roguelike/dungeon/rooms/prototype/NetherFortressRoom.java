@@ -25,9 +25,9 @@ import static greymerk.roguelike.worldgen.Direction.CARDINAL;
 import static greymerk.roguelike.worldgen.Direction.DOWN;
 import static greymerk.roguelike.worldgen.Direction.UP;
 
-public class FortressRoom extends DungeonBase {
+public class NetherFortressRoom extends DungeonBase {
 
-  public FortressRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+  public NetherFortressRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
   }
 

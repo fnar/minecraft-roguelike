@@ -41,7 +41,7 @@ import greymerk.roguelike.dungeon.rooms.prototype.DungeonsSlime;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsSmithy;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsSpiderNest;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsWood;
-import greymerk.roguelike.dungeon.rooms.prototype.FortressRoom;
+import greymerk.roguelike.dungeon.rooms.prototype.NetherFortressRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.ObsidianRoom;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.treasure.loot.ChestType;
@@ -126,8 +126,8 @@ public class RoomSetting {
         return new DungeonsFire(this, levelSettings, worldEditor);
       case FIREWORK:
         return new DungeonFirework(this, levelSettings, worldEditor);
-      case FORTRESS:
-        return new FortressRoom(this, levelSettings, worldEditor);
+      case NETHERFORT:
+        return new NetherFortressRoom(this, levelSettings, worldEditor);
       case LAB:
         return new DungeonLab(this, levelSettings, worldEditor);
       case LIBRARY:
