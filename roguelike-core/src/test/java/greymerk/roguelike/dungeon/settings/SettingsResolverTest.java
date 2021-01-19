@@ -9,6 +9,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import org.assertj.core.util.Lists;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -60,6 +61,7 @@ public class SettingsResolverTest {
 
     when(mockTreasureChest.getType()).thenReturn(ChestType.STARTER);
     when(mockTreasureChest.getLevel()).thenReturn(0);
+    when(mockTreasureChest.isNotEmpty()).thenReturn(true);
   }
 
   @Test
@@ -260,6 +262,85 @@ public class SettingsResolverTest {
     List<Item> capturedItems = itemStackCaptor.getAllValues().stream().map(ItemStack::getItem).collect(Collectors.toList());
     assertThat(capturedItems.size()).isEqualTo(items.length);
     assertThat(capturedItems).containsExactlyInAnyOrder(items);
+  }
+
+  @Test
+  public void potions() throws Exception {
+    List<String> potionTypes = Lists.newArrayList(
+        "mundane",
+        "thick",
+        "night_vision",
+        "long_night_vision",
+        "invisibility",
+        "long_invisibility",
+        "leaping",
+        "strong_leaping",
+        "long_leaping",
+        "fire_resistance",
+        "long_fire_resistance",
+        "swiftness",
+        "strong_swiftness",
+        "long_swiftness",
+        "slowness",
+        "strong_slowness",
+        "long_slowness",
+        "water_breathing",
+        "long_water_breathing",
+        "healing",
+        "strong_healing",
+        "long_healing",
+        "harming",
+        "strong_harming",
+        "poison",
+        "strong_poison",
+        "long_poison",
+        "regeneration",
+        "strong_regeneration",
+        "long_regeneration",
+        "strength",
+        "strong_strength",
+        "long_strength",
+        "weakness",
+        "long_weakness",
+        "luck",
+        "turtle_master",
+        "strong_turtle_master",
+        "long_turtle_master",
+        "slow_falling",
+        "long_slow_falling"
+    );
+    String potionLootRules = potionTypes.stream().map(this::createPotionLootRule).collect(Collectors.joining(","));
+    String settingsName = "loot:potions";
+    String potionLootSettings = "" +
+        "{\n" +
+        "  \"name\": \"" + settingsName +"\",\n" +
+        "  \"loot_rules\": [" + potionLootRules +"]" +
+        "}";
+
+    settingsContainer.put(potionLootSettings);
+    DungeonSettings dungeonSettings = settingsResolver.getByName(settingsName);
+
+    dungeonSettings.getLootRules().process(treasureManager);
+
+    verify(mockTreasureChest, times(potionTypes.size())).setRandomEmptySlot(itemStackCaptor.capture());
+
+    List<ItemStack> potionItemStacks = itemStackCaptor.getAllValues();
+    for (ItemStack potionItemStack : potionItemStacks) {
+      assertThat(potionItemStack.getItem()).isEqualTo(Items.POTIONITEM);
+    }
+
+  }
+
+  private String createPotionLootRule(String potion) {
+    return createLootRule("potion", potion);
+  }
+
+  private String createMixtureLootRule(String mixture) {
+    return createLootRule("mixture", mixture);
+  }
+
+  private String createLootRule(final String type, String potion) {
+    return "{\"level\": [0, 1, 2, 3, 4], \"each\": true, \"quantity\": 1, \"loot\": [{\"data\": {\"type\": \"" + type + "\", \"name\": \"" + potion + "\", \"min\": 1, \"max\":1}}]}";
   }
 
 }
