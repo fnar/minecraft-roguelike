@@ -154,4 +154,10 @@ public class DungeonSettingsTest {
     assertThat(capturedItems.size()).isEqualTo(items.length);
     assertThat(capturedItems).containsExactly(items);
   }
+
+  @Test
+  public void toStringTest() {
+    String foo = new DungeonSettings("foo").toString();
+    System.out.println(foo);
+  }
 }

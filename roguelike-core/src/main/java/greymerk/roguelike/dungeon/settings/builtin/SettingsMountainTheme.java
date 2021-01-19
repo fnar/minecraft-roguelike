@@ -26,7 +26,7 @@ public class SettingsMountainTheme extends DungeonSettings {
     super(ID);
     setExclusive(true);
     getInherit().add(SettingsBase.ID);
-    getSpawnCriteria().setBiomeTypes(newArrayList(MOUNTAIN));
+    getCriteria().setBiomeTypes(newArrayList(MOUNTAIN));
     setTowerSettings(new TowerSettings(Tower.ENIKO, Theme.OAK));
 
     Theme[] themes = {Theme.ENIKO, Theme.ENIKO2, Theme.SEWER, Theme.MOSSY, Theme.NETHER};

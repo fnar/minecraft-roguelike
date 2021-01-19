@@ -201,7 +201,7 @@ public class WorldEditor1_12 implements WorldEditor {
     try {
       world.setBlockState(getBlockPos(coord), metaBlock.getState(), metaBlock.getFlag());
     } catch (NullPointerException npe) {
-      //ignore it.
+      System.out.println(npe);
     }
 
     stats.merge(metaBlock.getBlock(), 1, Integer::sum);

@@ -1,5 +1,8 @@
 package greymerk.roguelike.treasure.loot;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,8 +32,19 @@ public class LootRuleManager {
     this.rules.forEach(rule -> rule.process(treasure));
   }
 
+  public List<LootRule> getRules() {
+    return rules;
+  }
+
   @Override
   public String toString() {
+
+    try {
+      return new ObjectMapper().writeValueAsString(this);
+    } catch (JsonProcessingException e) {
+      e.printStackTrace();
+    }
+
     return Integer.toString(this.rules.size());
   }
 }

@@ -27,7 +27,7 @@ public class SettingsJungleTheme extends DungeonSettings {
     super(ID);
     setExclusive(true);
     getInherit().add(SettingsBase.ID);
-    getSpawnCriteria().setBiomeTypes(newArrayList(JUNGLE));
+    getCriteria().setBiomeTypes(newArrayList(JUNGLE));
     setTowerSettings(new TowerSettings(Tower.JUNGLE, Theme.JUNGLE));
 
     for (int i = 0; i < 5; ++i) {

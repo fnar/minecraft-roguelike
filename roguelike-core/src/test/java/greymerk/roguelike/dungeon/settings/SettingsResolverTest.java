@@ -138,7 +138,7 @@ public class SettingsResolverTest {
 
     DungeonSettings child = new DungeonSettings("child");
     child.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(coal, 1), 0, 1));
-    child.getInherits().add(parent.getId());
+    child.getInherit().add(parent.getId());
     settingsContainer.put(child);
 
     DungeonSettings assembled = settingsResolver.processInheritance(child);
@@ -161,7 +161,7 @@ public class SettingsResolverTest {
 
     DungeonSettings child = new DungeonSettings("child");
     child.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(coal, 1), 0, 1));
-    child.getInherits().add(parent.getId());
+    child.getInherit().add(parent.getId());
     settingsContainer.put(child);
 
     DungeonSettings assembled = settingsResolver.processInheritance(child);

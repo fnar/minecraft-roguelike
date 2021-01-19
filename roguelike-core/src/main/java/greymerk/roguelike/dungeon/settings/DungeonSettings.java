@@ -1,5 +1,9 @@
 package greymerk.roguelike.dungeon.settings;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -76,17 +80,17 @@ public class DungeonSettings {
   }
 
   private TowerSettings getTowerSettings(DungeonSettings parent, DungeonSettings child) {
-    if (getOverrides().contains(SettingsType.TOWER) && child.getTowerSettings() != null) {
-      return new TowerSettings(child.getTowerSettings());
-    } else if (parent.getTowerSettings() != null || child.getTowerSettings() != null) {
-      return new TowerSettings(parent.getTowerSettings(), child.getTowerSettings());
+    if (getOverrides().contains(SettingsType.TOWER) && child.towerSettings != null) {
+      return new TowerSettings(child.towerSettings);
+    } else if (parent.towerSettings != null || child.towerSettings != null) {
+      return new TowerSettings(parent.towerSettings, child.towerSettings);
     } else {
       return null;
     }
   }
 
   public DungeonSettings(DungeonSettings toCopy) {
-    setTowerSettings(toCopy.getTowerSettings() != null ? new TowerSettings(toCopy.getTowerSettings()) : null);
+    setTowerSettings(toCopy.towerSettings != null ? new TowerSettings(toCopy.towerSettings) : null);
     this.lootRules = toCopy.getLootRules();
     getLootTables().addAll(toCopy.getLootTables());
 
@@ -109,16 +113,13 @@ public class DungeonSettings {
     return MAX_NUM_LEVELS;
   }
 
+  @JsonIgnore
   public SettingIdentifier getId() {
     return id;
   }
 
   public void setId(SettingIdentifier id) {
     this.id = id;
-  }
-
-  public List<SettingIdentifier> getInherits() {
-    return getInherit() != null ? getInherit() : new ArrayList<>();
   }
 
   public String getNamespace() {
@@ -135,7 +136,7 @@ public class DungeonSettings {
 
   public boolean isValid(WorldEditor editor, Coord pos) {
     PositionInfo positionInfo = editor.getInfo(pos);
-    return getSpawnCriteria().isValid(positionInfo);
+    return getCriteria().isValid(positionInfo);
   }
 
   public LevelSettings getLevelSettings(int level) {
@@ -143,13 +144,14 @@ public class DungeonSettings {
   }
 
   public TowerSettings getTower() {
-    if (getTowerSettings() == null) {
+    if (towerSettings == null) {
       return new TowerSettings(Tower.ROGUE, Theme.STONE);
     }
 
-    return getTowerSettings();
+    return towerSettings;
   }
 
+  @JsonIgnore
   public int getNumLevels() {
     return getMaxNumLevels();
   }
@@ -175,10 +177,6 @@ public class DungeonSettings {
     this.exclusive = exclusive;
   }
 
-  public TowerSettings getTowerSettings() {
-    return towerSettings;
-  }
-
   public void setTowerSettings(TowerSettings towerSettings) {
     this.towerSettings = towerSettings;
   }
@@ -187,11 +185,12 @@ public class DungeonSettings {
     return inherit;
   }
 
+  @JsonIgnore
   public Map<Integer, LevelSettings> getLevels() {
     return levels;
   }
 
-  public SpawnCriteria getSpawnCriteria() {
+  public SpawnCriteria getCriteria() {
     return spawnCriteria;
   }
 
@@ -199,4 +198,13 @@ public class DungeonSettings {
     return lootTables;
   }
 
+  @Override
+  public String toString() {
+    try {
+      return new ObjectMapper().writeValueAsString(this);
+    } catch (JsonProcessingException e) {
+      e.printStackTrace();
+    }
+    return super.toString();
+  }
 }
