@@ -33,18 +33,18 @@ public class SegmentFireArch extends SegmentBase {
     end = start.copy();
     start.translate(orthogonals[0]);
     end.translate(orthogonals[0]);
-    end.translate(Direction.UP, 2);
+    end.up(2);
     end.translate(dir);
     RectSolid.newRect(start, end).fill(editor, walls);
     cursor = origin.copy();
     cursor.translate(dir, 2);
     stair.setUpsideDown(false).setFacing(dir.reverse()).stroke(editor, cursor);
-    cursor.translate(Direction.UP, 2);
+    cursor.up(2);
     stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
-    cursor.translate(Direction.DOWN, 2);
+    cursor.down(2);
     cursor.translate(dir);
     BlockType.NETHERRACK.getBrush().stroke(editor, cursor);
-    cursor.translate(Direction.UP);
+    cursor.up();
     BlockType.FIRE.getBrush().stroke(editor, cursor);
     cursor.translate(dir.reverse());
     BlockType.IRON_BAR.getBrush().stroke(editor, cursor);
@@ -54,7 +54,7 @@ public class SegmentFireArch extends SegmentBase {
       cursor = origin.copy();
       cursor.translate(dir);
       cursor.translate(orthogonal);
-      cursor.translate(Direction.UP, 2);
+      cursor.up(2);
       stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
 
     }

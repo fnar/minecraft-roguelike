@@ -35,17 +35,17 @@ public class SegmentJungle extends SegmentBase {
     end = start.copy();
     start.translate(orthogonals[0], 1);
     end.translate(orthogonals[1], 1);
-    end.translate(Direction.UP, 1);
+    end.up(1);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
-    start.translate(Direction.DOWN, 1);
-    end.translate(Direction.DOWN, 2);
+    start.down();
+    end.down(2);
 
     if (rand.nextInt(5) == 0) {
       RectSolid.newRect(start, end).fill(editor, BlockType.WATER_FLOWING.getBrush());
     } else {
       RectSolid.newRect(start, end).fill(editor, BlockType.GRASS.getBrush());
-      start.translate(Direction.UP, 1);
-      end.translate(Direction.UP, 1);
+      start.up(1);
+      end.up(1);
       if (rand.nextBoolean()) {
         RectSolid.newRect(start, end).fill(editor, leaves);
       }
@@ -55,7 +55,7 @@ public class SegmentJungle extends SegmentBase {
       cursor = origin.copy();
       cursor.translate(wallDirection, 2);
       cursor.translate(d, 1);
-      cursor.translate(Direction.UP, 1);
+      cursor.up(1);
       stair.setUpsideDown(true).setFacing(d.reverse());
       stair.stroke(editor, cursor);
     }

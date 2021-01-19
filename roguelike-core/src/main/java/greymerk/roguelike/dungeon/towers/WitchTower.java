@@ -35,13 +35,13 @@ public class WitchTower implements ITower {
     // main floor
 
     start = main.copy();
-    start.translate(Direction.NORTH, 3);
-    start.translate(Direction.WEST, 3);
-    start.translate(Direction.DOWN);
+    start.north(3);
+    start.west(3);
+    start.down();
     end = main.copy();
-    end.translate(Direction.SOUTH, 3);
-    end.translate(Direction.EAST, 3);
-    end.translate(Direction.UP, 3);
+    end.south(3);
+    end.east(3);
+    end.up(3);
 
     RectHollow.newRect(start, end).fill(editor, blocks);
 
@@ -52,9 +52,9 @@ public class WitchTower implements ITower {
       start = main.copy();
       start.translate(dir, 3);
       start.translate(orthogonal[0], 3);
-      start.translate(Direction.DOWN);
+      start.down();
       end = start.copy();
-      end.translate(Direction.UP, 3);
+      end.up(3);
 
       RectSolid.newRect(start, end).fill(editor, pillar);
 
@@ -62,9 +62,9 @@ public class WitchTower implements ITower {
         start = main.copy();
         start.translate(dir, 4);
         start.translate(o, 2);
-        start.translate(Direction.DOWN);
+        start.down();
         end = start.copy();
-        end.translate(Direction.UP, 3);
+        end.up(3);
 
         RectSolid.newRect(start, end).fill(editor, pillar);
         cursor = end.copy();
@@ -81,16 +81,16 @@ public class WitchTower implements ITower {
     // second floor
 
     Coord secondFloor = main.copy();
-    secondFloor.translate(Direction.UP, 4);
+    secondFloor.up(4);
 
     start = secondFloor.copy();
-    start.translate(Direction.NORTH, 4);
-    start.translate(Direction.WEST, 4);
-    start.translate(Direction.DOWN);
+    start.north(4);
+    start.west(4);
+    start.down();
     end = secondFloor.copy();
-    end.translate(Direction.SOUTH, 4);
-    end.translate(Direction.EAST, 4);
-    end.translate(Direction.UP, 6);
+    end.south(4);
+    end.east(4);
+    end.up(6);
 
     RectHollow.newRect(start, end).fill(editor, blocks);
 
@@ -100,37 +100,37 @@ public class WitchTower implements ITower {
 
       start = secondFloor.copy();
       start.translate(dir, 4);
-      start.translate(Direction.UP);
+      start.up();
       end = start.copy();
       start.translate(orthogonal[0]);
       end.translate(orthogonal[1]);
-      end.translate(Direction.UP);
+      end.up();
       RectSolid.newRect(start, end).fill(editor, glass);
 
       start = secondFloor.copy();
       start.translate(dir, 4);
-      start.translate(Direction.DOWN);
+      start.down();
       start.translate(orthogonal[0], 4);
       end = start.copy();
-      end.translate(Direction.UP, 4);
+      end.up(4);
       RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
       for (Direction o : orthogonal) {
 
         start = secondFloor.copy();
-        start.translate(Direction.DOWN);
+        start.down();
         start.translate(dir, 4);
         start.translate(o, 3);
         end = start.copy();
-        end.translate(Direction.UP, 3);
+        end.up(3);
         RectSolid.newRect(start, end).fill(editor, pillar);
 
         start = secondFloor.copy();
-        start.translate(Direction.DOWN);
+        start.down();
         start.translate(dir, 5);
         start.translate(o, 2);
         end = start.copy();
-        end.translate(Direction.UP, 4);
+        end.up(4);
         RectSolid.newRect(start, end).fill(editor, pillar);
 
         cursor = end.copy();
@@ -147,16 +147,16 @@ public class WitchTower implements ITower {
     // third floor
 
     Coord thirdFloor = secondFloor.copy();
-    thirdFloor.translate(Direction.UP, 7);
+    thirdFloor.up(7);
 
     start = thirdFloor.copy();
-    start.translate(Direction.NORTH, 3);
-    start.translate(Direction.WEST, 3);
-    start.translate(Direction.DOWN);
+    start.north(3);
+    start.west(3);
+    start.down();
     end = thirdFloor.copy();
-    end.translate(Direction.SOUTH, 3);
-    end.translate(Direction.EAST, 3);
-    end.translate(Direction.UP, 4);
+    end.south(3);
+    end.east(3);
+    end.up(4);
 
     RectHollow.newRect(start, end).fill(editor, blocks);
 
@@ -166,31 +166,31 @@ public class WitchTower implements ITower {
 
       cursor = thirdFloor.copy();
       cursor.translate(dir, 3);
-      cursor.translate(Direction.UP);
+      cursor.up();
       window(editor, theme, dir, cursor);
 
       start = thirdFloor.copy();
       start.translate(dir, 2);
       end = start.copy();
       end.translate(dir, 4);
-      end.translate(Direction.DOWN);
+      end.down();
       RectSolid.newRect(start, end).fill(editor, blocks);
 
       start = thirdFloor.copy();
       start.translate(dir, 5);
-      start.translate(Direction.DOWN, 2);
+      start.down(2);
       end = start.copy();
       start.translate(orthogonal[0]);
       end.translate(orthogonal[1]);
-      end.translate(Direction.DOWN);
+      end.down();
       RectSolid.newRect(start, end).fill(editor, blocks);
 
       start = thirdFloor.copy();
       start.translate(dir, 3);
       start.translate(orthogonal[0], 3);
-      start.translate(Direction.DOWN, 2);
+      start.down(2);
       end = start.copy();
-      end.translate(Direction.UP, 5);
+      end.up(5);
       RectSolid.newRect(start, end).fill(editor, pillar);
 
       cursor = end.copy();
@@ -205,18 +205,18 @@ public class WitchTower implements ITower {
 
         start = thirdFloor.copy();
         start.translate(dir, 4);
-        start.translate(Direction.DOWN);
+        start.down();
         start.translate(o, 3);
         end = start.copy();
         end.translate(o);
-        end.translate(Direction.DOWN);
+        end.down();
         RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
         for (int i = 0; i < 4; ++i) {
           start = thirdFloor.copy();
           start.translate(dir, 4);
           start.translate(o, i + 1);
-          start.translate(Direction.DOWN, i);
+          start.down(i);
           end = start.copy();
           end.translate(dir, 2);
           stair.setUpsideDown(false).setFacing(o);
@@ -226,7 +226,7 @@ public class WitchTower implements ITower {
             start = thirdFloor.copy();
             start.translate(dir, 4);
             start.translate(o, i + 1);
-            start.translate(Direction.DOWN, i + 1);
+            start.down(i + 1);
             end = start.copy();
             end.translate(dir, 2);
             RectSolid.newRect(start, end).fill(editor, blocks);
@@ -235,7 +235,7 @@ public class WitchTower implements ITower {
           start = thirdFloor.copy();
           start.translate(dir, 4);
           start.translate(o, 2);
-          start.translate(Direction.DOWN, 3);
+          start.down(3);
           end = start.copy();
           end.translate(dir, 2);
           RectSolid.newRect(start, end).fill(editor, blocks);
@@ -243,7 +243,7 @@ public class WitchTower implements ITower {
           cursor = thirdFloor.copy();
           cursor.translate(dir, 6);
           cursor.translate(o);
-          cursor.translate(Direction.DOWN, 2);
+          cursor.down(2);
           stair.setUpsideDown(true).setFacing(o.reverse()).stroke(editor, cursor);
         }
       }
@@ -257,32 +257,32 @@ public class WitchTower implements ITower {
     // attic
 
     Coord attic = thirdFloor.copy();
-    attic.translate(Direction.UP, 5);
+    attic.up(5);
 
     start = attic.copy();
-    start.translate(Direction.NORTH, 2);
-    start.translate(Direction.WEST, 2);
-    start.translate(Direction.DOWN);
+    start.north(2);
+    start.west(2);
+    start.down();
     end = attic.copy();
-    end.translate(Direction.SOUTH, 2);
-    end.translate(Direction.EAST, 2);
-    end.translate(Direction.UP, 3);
+    end.south(2);
+    end.east(2);
+    end.up(3);
 
     RectHollow.newRect(start, end).fill(editor, blocks);
 
     start = attic.copy();
-    start.translate(Direction.UP, 4);
+    start.up(4);
     end = start.copy();
-    start.translate(Direction.NORTH);
-    start.translate(Direction.WEST);
-    end.translate(Direction.SOUTH);
-    end.translate(Direction.EAST);
+    start.north();
+    start.west();
+    end.south();
+    end.east();
     RectHollow.newRect(start, end).fill(editor, blocks);
 
     start = attic.copy();
-    start.translate(Direction.UP, 5);
+    start.up(5);
     end = start.copy();
-    end.translate(Direction.UP, 2);
+    end.up(2);
     RectHollow.newRect(start, end).fill(editor, blocks);
 
     for (Direction dir : Direction.CARDINAL) {
@@ -291,7 +291,7 @@ public class WitchTower implements ITower {
 
       cursor = attic.copy();
       cursor.translate(dir, 2);
-      cursor.translate(Direction.UP);
+      cursor.up();
       window(editor, theme, dir, cursor);
 
       stair.setUpsideDown(false).setFacing(dir);
@@ -306,7 +306,7 @@ public class WitchTower implements ITower {
 
       start = attic.copy();
       start.translate(dir, 4);
-      start.translate(Direction.DOWN);
+      start.down();
       end = start.copy();
       start.translate(orthogonal[0], 4);
       end.translate(orthogonal[1], 4);
@@ -315,7 +315,7 @@ public class WitchTower implements ITower {
 
       start = attic.copy();
       start.translate(dir, 3);
-      start.translate(Direction.UP, 3);
+      start.up(3);
       end = start.copy();
       start.translate(orthogonal[0], 3);
       end.translate(orthogonal[1], 3);
@@ -324,7 +324,7 @@ public class WitchTower implements ITower {
 
       start = attic.copy();
       start.translate(dir, 2);
-      start.translate(Direction.UP, 4);
+      start.up(4);
       end = start.copy();
       start.translate(orthogonal[0], 2);
       end.translate(orthogonal[1], 2);
@@ -343,13 +343,13 @@ public class WitchTower implements ITower {
         cursor.translate(dir);
         start = cursor.copy();
         end = start.copy();
-        end.translate(Direction.UP);
+        end.up();
         end.translate(dir, 3);
         RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
         cursor = main.copy();
         cursor.translate(dir, 4);
-        cursor.translate(Direction.DOWN);
+        cursor.down();
         step(editor, theme, dir, cursor);
         break;
       }
@@ -364,14 +364,14 @@ public class WitchTower implements ITower {
 
     cursor = origin.copy();
     SingleBlockBrush.AIR.stroke(editor, cursor);
-    cursor.translate(Direction.UP);
+    cursor.up();
     SingleBlockBrush.AIR.stroke(editor, cursor);
 
     for (Direction o : dir.orthogonals()) {
       cursor = origin.copy();
       cursor.translate(o);
       stair.setUpsideDown(false).setFacing(o.reverse()).stroke(editor, cursor);
-      cursor.translate(Direction.UP);
+      cursor.up();
       stair.setUpsideDown(true).setFacing(o.reverse()).stroke(editor, cursor);
     }
   }
@@ -404,7 +404,7 @@ public class WitchTower implements ITower {
     stair.setUpsideDown(false).setFacing(dir);
     RectSolid.newRect(start, end).fill(editor, stair);
 
-    origin.translate(Direction.DOWN);
+    origin.down();
     origin.translate(dir);
     step(editor, theme, dir, origin);
   }

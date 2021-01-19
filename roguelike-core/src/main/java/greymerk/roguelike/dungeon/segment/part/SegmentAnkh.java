@@ -35,7 +35,7 @@ public class SegmentAnkh extends SegmentBase {
     start = pos.copy();
     start.translate(dir, 2);
     end = start.copy();
-    end.translate(Direction.UP, 2);
+    end.up(2);
 
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
@@ -46,9 +46,9 @@ public class SegmentAnkh extends SegmentBase {
       cursor.translate(dir, 2);
       cursor.translate(o);
       stair.setUpsideDown(false).setFacing(o.reverse()).stroke(editor, cursor);
-      cursor.translate(Direction.UP);
+      cursor.up();
       stair.setUpsideDown(false).setFacing(o.reverse()).stroke(editor, cursor);
-      cursor.translate(Direction.UP);
+      cursor.up();
       stair.setUpsideDown(true).setFacing(o.reverse()).stroke(editor, cursor);
     }
 
@@ -57,7 +57,7 @@ public class SegmentAnkh extends SegmentBase {
     end = start.copy();
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
-    end.translate(Direction.UP, 2);
+    end.up(2);
     RectSolid.newRect(start, end).fill(editor, glass);
     start.translate(dir);
     end.translate(dir);
@@ -65,9 +65,9 @@ public class SegmentAnkh extends SegmentBase {
 
     cursor = pos.copy();
     cursor.translate(dir, 3);
-    cursor.translate(Direction.DOWN);
+    cursor.down();
     glowstone.stroke(editor, cursor);
-    cursor.translate(Direction.UP, 4);
+    cursor.up(4);
     glowstone.stroke(editor, cursor);
   }
 

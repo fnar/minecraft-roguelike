@@ -32,7 +32,7 @@ public class SegmentDoor extends SegmentBase {
     start.translate(orthogonal[0], 1);
     end = cursor.copy();
     end.translate(orthogonal[1], 1);
-    end.translate(Direction.UP, 2);
+    end.up(2);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     SecretsSetting secrets = level.getSettings().getSecrets();
@@ -42,7 +42,7 @@ public class SegmentDoor extends SegmentBase {
     end.translate(dir, 1);
     RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall(), false, true);
 
-    cursor.translate(Direction.UP, 2);
+    cursor.up(2);
     for (Direction d : orthogonal) {
       Coord c = cursor.copy();
       c.translate(d, 1);

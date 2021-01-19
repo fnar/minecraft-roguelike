@@ -27,7 +27,7 @@ public class SegmentNetherWart extends SegmentBase {
     cursor = origin.copy();
     cursor.translate(dir, 2);
     SingleBlockBrush.AIR.stroke(editor, cursor);
-    cursor.translate(Direction.UP, 1);
+    cursor.up(1);
     SingleBlockBrush.AIR.stroke(editor, cursor);
     cursor = origin.copy();
     cursor.translate(dir, 5);
@@ -36,7 +36,7 @@ public class SegmentNetherWart extends SegmentBase {
     cursor = origin.copy();
     cursor.translate(dir, 3);
     BlockType.FENCE_NETHER_BRICK.getBrush().stroke(editor, cursor);
-    cursor.translate(Direction.UP, 1);
+    cursor.up(1);
     BlockType.FENCE_NETHER_BRICK.getBrush().stroke(editor, cursor);
 
     for (Direction orthogonals : dir.orthogonals()) {
@@ -44,17 +44,17 @@ public class SegmentNetherWart extends SegmentBase {
       cursor = origin.copy();
       cursor.translate(dir, 2);
       cursor.translate(orthogonals, 1);
-      cursor.translate(Direction.UP, 1);
+      cursor.up(1);
       stair.stroke(editor, cursor);
-      cursor.translate(Direction.UP, 1);
+      cursor.up(1);
       wall.stroke(editor, cursor);
       cursor.translate(orthogonals.reverse(), 1);
       wall.stroke(editor, cursor);
-      cursor.translate(Direction.DOWN, 2);
+      cursor.down(2);
       Crop.NETHER_WART.getBrush().stroke(editor, cursor);
       cursor.translate(orthogonals, 1);
       Crop.NETHER_WART.getBrush().stroke(editor, cursor);
-      cursor.translate(Direction.DOWN, 1);
+      cursor.down();
       BlockType.SOUL_SAND.getBrush().stroke(editor, cursor);
       cursor.translate(orthogonals.reverse(), 1);
       BlockType.SOUL_SAND.getBrush().stroke(editor, cursor);

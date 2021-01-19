@@ -33,7 +33,7 @@ public class SegmentSkull extends SegmentBase {
     end = start.copy();
     start.translate(orthogonals[0], 1);
     end.translate(orthogonals[1], 1);
-    end.translate(Direction.UP, 2);
+    end.up(2);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
     start.translate(dir, 1);
     end.translate(dir, 1);
@@ -41,7 +41,7 @@ public class SegmentSkull extends SegmentBase {
 
     for (Direction d : orthogonals) {
       cursor = origin.copy();
-      cursor.translate(Direction.UP, 2);
+      cursor.up(2);
       cursor.translate(dir, 2);
       cursor.translate(d, 1);
       stair.stroke(editor, cursor);
@@ -54,10 +54,10 @@ public class SegmentSkull extends SegmentBase {
     }
 
     cursor = origin.copy();
-    cursor.translate(Direction.UP, 1);
+    cursor.up(1);
     cursor.translate(dir, 3);
     SingleBlockBrush.AIR.stroke(editor, cursor);
-    cursor.translate(Direction.UP, 1);
+    cursor.up(1);
     stair.setUpsideDown(true).setFacing(dir.reverse());
     stair.stroke(editor, cursor);
 
@@ -65,7 +65,7 @@ public class SegmentSkull extends SegmentBase {
     Coord shelf = origin.copy();
     shelf.translate(dir, 3);
     Coord below = shelf.copy();
-    shelf.translate(Direction.UP, 1);
+    shelf.up(1);
 
     if (editor.isAirBlock(below)) {
       return;

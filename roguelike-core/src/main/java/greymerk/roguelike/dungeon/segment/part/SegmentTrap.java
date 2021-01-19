@@ -42,14 +42,14 @@ public class SegmentTrap extends SegmentBase {
     end = start.copy();
     start.translate(orth[0]);
     end.translate(orth[1]);
-    end.translate(Direction.UP, 2);
+    end.up(2);
     RectSolid.newRect(start, end).fill(editor, vine);
     start.translate(dir);
     end.translate(dir);
     RectSolid.newRect(start, end).fill(editor, wall);
 
     cursor = origin.copy();
-    cursor.translate(Direction.UP);
+    cursor.up();
     cursor.translate(dir, 3);
     SingleBlockBrush.AIR.stroke(editor, cursor);
 
@@ -58,7 +58,7 @@ public class SegmentTrap extends SegmentBase {
       cursor.translate(dir, 2);
       cursor.translate(side);
       stair.setUpsideDown(false).setFacing(side.reverse()).stroke(editor, cursor);
-      cursor.translate(Direction.UP, 2);
+      cursor.up(2);
       stair.setUpsideDown(true).setFacing(side.reverse()).stroke(editor, cursor);
     }
 
@@ -69,7 +69,7 @@ public class SegmentTrap extends SegmentBase {
 
     RectSolid.newRect(start, end).fill(editor, plate);
 
-    end.translate(Direction.DOWN, 2);
+    end.down(2);
     start = end.copy();
     start.translate(dir, 3);
 
@@ -78,9 +78,9 @@ public class SegmentTrap extends SegmentBase {
     cursor = start.copy();
     cursor.translate(dir, 2);
     TorchBlock.redstone().setFacing(dir).stroke(editor, cursor);
-    cursor.translate(Direction.UP, 2);
+    cursor.up(2);
     TorchBlock.redstone().setFacing(Direction.UP).stroke(editor, cursor);
-    cursor.translate(Direction.UP);
+    cursor.up();
     placeTrap(editor, rand, dir, cursor);
   }
 

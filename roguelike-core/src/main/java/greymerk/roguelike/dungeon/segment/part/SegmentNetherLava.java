@@ -30,7 +30,7 @@ public class SegmentNetherLava extends SegmentBase {
     cursor = origin.copy();
     cursor.translate(dir, 2);
     SingleBlockBrush.AIR.stroke(editor, cursor);
-    cursor.translate(Direction.UP, 1);
+    cursor.up(1);
     SingleBlockBrush.AIR.stroke(editor, cursor);
     cursor = origin.copy();
     cursor.translate(dir, 5);
@@ -42,8 +42,8 @@ public class SegmentNetherLava extends SegmentBase {
       start.translate(dir, 3);
       end = start.copy();
       start.translate(orthogonals, 1);
-      start.translate(Direction.UP, 2);
-      end.translate(Direction.DOWN, 1);
+      start.up(2);
+      end.down();
       if (!isAir) {
         RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
         lava.stroke(editor, start);
@@ -59,10 +59,10 @@ public class SegmentNetherLava extends SegmentBase {
       stair.stroke(editor, cursor);
 
       stair.setUpsideDown(true).setFacing(orthogonals.reverse());
-      cursor.translate(Direction.UP, 1);
+      cursor.up(1);
       stair.stroke(editor, cursor);
 
-      cursor.translate(Direction.UP, 1);
+      cursor.up(1);
       wall.stroke(editor, cursor);
       cursor.translate(orthogonals.reverse(), 1);
       wall.stroke(editor, cursor);

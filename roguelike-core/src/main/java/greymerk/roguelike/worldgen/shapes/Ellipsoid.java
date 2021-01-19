@@ -82,7 +82,7 @@ public class Ellipsoid implements IShape {
         return toReturn;
       }
 
-      cursor.translate(Direction.SOUTH);
+      cursor.south();
 
       if (inRange(cursor)) {
         dir = dir.antiClockwise();
@@ -92,7 +92,7 @@ public class Ellipsoid implements IShape {
         cursor = new Coord(cursor.getX(), cursor.getY(), 0);
       }
 
-      cursor.translate(Direction.EAST);
+      cursor.east();
 
       if (inRange(cursor)) {
         dir = dir.antiClockwise();
@@ -102,7 +102,7 @@ public class Ellipsoid implements IShape {
         cursor = new Coord(0, cursor.getY(), cursor.getZ());
       }
 
-      cursor.translate(Direction.UP);
+      cursor.up();
       dir = dir.antiClockwise();
       top = true;
       return toReturn;

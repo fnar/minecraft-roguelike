@@ -57,8 +57,8 @@ public class DungeonLinker extends DungeonBase {
       start = origin.copy();
       start.translate(dir, 4);
       end = start.copy();
-      end.translate(Direction.UP, 8);
-      start.translate(Direction.DOWN);
+      end.up(8);
+      start.down();
       start.translate(dir.antiClockwise(), 4);
       end.translate(dir.clockwise(), 4);
       RectSolid.newRect(start, end).fill(worldEditor, bars, true, false);
@@ -69,7 +69,7 @@ public class DungeonLinker extends DungeonBase {
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir, 4);
       end.translate(dir.antiClockwise(), 4);
-      end.translate(Direction.UP, 8);
+      end.up(8);
       RectSolid.newRect(start, end).fill(worldEditor, pillar);
     }
 

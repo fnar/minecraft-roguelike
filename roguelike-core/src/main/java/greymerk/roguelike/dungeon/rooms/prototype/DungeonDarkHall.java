@@ -39,36 +39,36 @@ public class DungeonDarkHall extends DungeonBase {
     start = origin.copy();
     end = origin.copy();
 
-    start.translate(Direction.NORTH, 7);
-    start.translate(Direction.WEST, 7);
-    end.translate(Direction.SOUTH, 7);
-    end.translate(Direction.EAST, 7);
-    start.translate(Direction.DOWN);
-    end.translate(Direction.UP, 7);
+    start.north(7);
+    start.west(7);
+    end.south(7);
+    end.east(7);
+    start.down();
+    end.up(7);
 
     RectHollow.newRect(start, end).fill(worldEditor, outerWall, false, true);
 
     start = origin.copy();
     end = origin.copy();
 
-    start.translate(Direction.NORTH, 4);
-    start.translate(Direction.WEST, 4);
-    end.translate(Direction.SOUTH, 4);
-    end.translate(Direction.EAST, 4);
-    start.translate(Direction.UP, 6);
-    end.translate(Direction.UP, 9);
+    start.north(4);
+    start.west(4);
+    end.south(4);
+    end.east(4);
+    start.up(6);
+    end.up(9);
 
     RectHollow.newRect(start, end).fill(worldEditor, outerWall, false, true);
 
     start = origin.copy();
     end = origin.copy();
 
-    start.translate(Direction.NORTH, 6);
-    start.translate(Direction.WEST, 6);
-    end.translate(Direction.SOUTH, 6);
-    end.translate(Direction.EAST, 6);
-    start.translate(Direction.DOWN);
-    end.translate(Direction.DOWN);
+    start.north(6);
+    start.west(6);
+    end.south(6);
+    end.east(6);
+    start.down();
+    end.down();
 
     RectSolid.newRect(start, end).fill(worldEditor, theme.getPrimary().getFloor(), false, true);
 
@@ -88,12 +88,12 @@ public class DungeonDarkHall extends DungeonBase {
       start.translate(dir, 6);
       start.translate(dir.antiClockwise(), 6);
       end = start.copy();
-      end.translate(Direction.UP, 5);
+      end.up(5);
       RectSolid.newRect(start, end).fill(worldEditor, pillar);
 
       start = origin.copy();
       start.translate(dir, 6);
-      start.translate(Direction.UP, 6);
+      start.up(6);
       end = start.copy();
       start.translate(dir.antiClockwise(), 6);
       end.translate(dir.clockwise(), 6);
@@ -101,20 +101,20 @@ public class DungeonDarkHall extends DungeonBase {
 
       start = origin.copy();
       start.translate(dir, 3);
-      start.translate(Direction.UP, 6);
+      start.up(6);
       end = start.copy();
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir.clockwise(), 3);
       RectSolid.newRect(start, end).fill(worldEditor, wall);
-      start.translate(Direction.UP, 2);
-      end.translate(Direction.UP, 2);
+      start.up(2);
+      end.up(2);
       RectSolid.newRect(start, end).fill(worldEditor, wall);
 
       start = origin.copy();
       start.translate(dir, 3);
-      start.translate(Direction.UP, 7);
+      start.up(7);
       pillar.stroke(worldEditor, start);
-      start.translate(Direction.UP);
+      start.up();
       end = start.copy();
       end.translate(dir.reverse(), 3);
       RectSolid.newRect(start, end).fill(worldEditor, wall);
@@ -122,22 +122,22 @@ public class DungeonDarkHall extends DungeonBase {
       if (entrances.contains(dir)) {
         start = origin.copy();
         start.translate(dir, 7);
-        start.translate(Direction.UP, 2);
+        start.up(2);
         end = start.copy();
-        end.translate(Direction.UP, 3);
+        end.up(3);
         start.translate(dir.antiClockwise(), 2);
         end.translate(dir.clockwise(), 2);
         RectSolid.newRect(start, end).fill(worldEditor, wall);
 
         cursor = origin.copy();
         cursor.translate(dir, 7);
-        cursor.translate(Direction.UP, 2);
+        cursor.up(2);
         SingleBlockBrush.AIR.stroke(worldEditor, cursor);
 
         for (Direction o : dir.orthogonals()) {
           cursor = origin.copy();
           cursor.translate(dir, 7);
-          cursor.translate(Direction.UP, 2);
+          cursor.up(2);
           cursor.translate(o);
           stair.setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
 
@@ -150,7 +150,7 @@ public class DungeonDarkHall extends DungeonBase {
           cursor.translate(dir, 7);
           cursor.translate(o, 2);
           pillar.stroke(worldEditor, cursor);
-          cursor.translate(Direction.UP);
+          cursor.up();
           pillar.stroke(worldEditor, cursor);
         }
       } else {
@@ -161,7 +161,7 @@ public class DungeonDarkHall extends DungeonBase {
 
       start = origin.copy();
       start.translate(dir, 6);
-      start.translate(Direction.UP, 6);
+      start.up(6);
       end = start.copy();
       end.translate(dir.reverse(), 2);
       RectSolid.newRect(start, end).fill(worldEditor, wall);
@@ -172,7 +172,7 @@ public class DungeonDarkHall extends DungeonBase {
         cursor.translate(o, 3);
         pillar(worldEditor, levelSettings, dir.reverse(), cursor);
         start = cursor.copy();
-        start.translate(Direction.UP, 6);
+        start.up(6);
         end = start.copy();
         end.translate(dir.reverse(), 6);
         RectSolid.newRect(start, end).fill(worldEditor, wall);
@@ -196,18 +196,18 @@ public class DungeonDarkHall extends DungeonBase {
 
     start = origin.copy();
     end = start.copy();
-    end.translate(Direction.UP, 5);
+    end.up(5);
     RectSolid.newRect(start, end).fill(editor, pillar);
 
     cursor = origin.copy();
-    cursor.translate(Direction.UP, 3);
+    cursor.up(3);
     cursor.translate(dir);
     stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor);
-    cursor.translate(Direction.UP);
+    cursor.up();
     stair.setUpsideDown(false).setFacing(dir.reverse()).stroke(editor, cursor);
     cursor.translate(dir);
     stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor);
-    cursor.translate(Direction.UP);
+    cursor.up();
     stair.setUpsideDown(false).setFacing(dir.reverse()).stroke(editor, cursor);
     cursor.translate(dir);
     if (editor.isAirBlock(cursor)) {

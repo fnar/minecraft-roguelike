@@ -34,7 +34,7 @@ public class MultiShape implements IShape {
   @Override
   public List<Coord> get() {
     return shape.stream()
-        .map(Coord::new)
+        .map(Coord::copy)
         .collect(toList());
   }
 }

@@ -80,13 +80,13 @@ public class RectHollow implements IShape {
 
       if (cursor.getZ() == c2.getZ() && cursor.getX() == c2.getX()) {
         cursor = new Coord(c1.getX(), cursor.getY(), c1.getZ());
-        cursor.translate(Direction.UP);
+        cursor.up();
         return toReturn;
       }
 
       if (cursor.getX() == c2.getX()) {
         cursor = new Coord(c1.getX(), cursor.getY(), cursor.getZ());
-        cursor.translate(Direction.SOUTH);
+        cursor.south();
         return toReturn;
       }
 
@@ -97,9 +97,9 @@ public class RectHollow implements IShape {
               && cursor.getZ() != c2.getZ()
               && cursor.getX() == c1.getX()
       ) {
-        cursor.translate(Direction.EAST, c2.getX() - c1.getX());
+        cursor.east(c2.getX() - c1.getX());
       } else {
-        cursor.translate(Direction.EAST);
+        cursor.east();
       }
 
       return toReturn;

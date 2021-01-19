@@ -39,13 +39,13 @@ public class PrisonCell implements IAlcove {
     start = origin.copy();
     end = origin.copy();
     end.translate(dir, RECESSED);
-    end.translate(Direction.UP);
+    end.up();
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     Coord cursor = origin.copy();
     cursor.translate(dir, RECESSED - 1);
     plate.stroke(editor, cursor);
-    cursor.translate(Direction.DOWN);
+    cursor.down();
     if (rand.nextBoolean()) {
       SpawnerSettings spawners = settings.getSpawners().isEmpty()
           ? MobType.ZOMBIE.newSpawnerSetting()

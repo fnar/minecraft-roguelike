@@ -71,7 +71,7 @@ public class RectPyramid implements IShape {
     public Coord next() {
 
       Coord toReturn = start.copy();
-      toReturn.translate(Direction.UP, cursor.getY());
+      toReturn.up(cursor.getY());
       if (dir == Direction.NORTH || dir == Direction.SOUTH) {
         toReturn.translate(dir.antiClockwise(), cursor.getX());
         toReturn.translate(dir, cursor.getZ());
@@ -85,7 +85,7 @@ public class RectPyramid implements IShape {
         return toReturn;
       }
 
-      cursor.translate(Direction.SOUTH);
+      cursor.south();
 
       if (inRange(cursor)) {
         dir = dir.antiClockwise();
@@ -95,7 +95,7 @@ public class RectPyramid implements IShape {
       cursor = new Coord(cursor.getX(), cursor.getY(), 0);
 
 
-      cursor.translate(Direction.EAST);
+      cursor.east();
 
       if (inRange(cursor)) {
         dir = dir.antiClockwise();
@@ -103,7 +103,7 @@ public class RectPyramid implements IShape {
       }
 
       cursor = new Coord(0, cursor.getY(), cursor.getZ());
-      cursor.translate(Direction.UP);
+      cursor.up();
       dir = dir.antiClockwise();
       return toReturn;
     }

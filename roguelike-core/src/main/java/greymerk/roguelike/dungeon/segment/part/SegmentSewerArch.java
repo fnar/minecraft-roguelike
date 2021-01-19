@@ -30,33 +30,33 @@ public class SegmentSewerArch extends SegmentBase {
     Direction[] orthogonals = dir.orthogonals();
 
     cursor = origin.copy();
-    cursor.translate(Direction.UP, 3);
+    cursor.up(3);
     mossy.stroke(editor, cursor, false, true);
-    cursor.translate(Direction.UP);
+    cursor.up();
     water.stroke(editor, cursor, false, true);
 
     cursor = origin.copy();
     cursor.translate(dir, 2);
     SingleBlockBrush.AIR.stroke(editor, cursor);
-    cursor.translate(Direction.UP, 1);
+    cursor.up(1);
     SingleBlockBrush.AIR.stroke(editor, cursor);
-    cursor.translate(Direction.UP, 1);
+    cursor.up(1);
     stair.stroke(editor, cursor);
 
     cursor = origin.copy();
     cursor.translate(dir, 2);
     bars.stroke(editor, cursor);
-    cursor.translate(Direction.UP);
+    cursor.up();
     bars.stroke(editor, cursor);
 
     start = origin.copy();
-    start.translate(Direction.DOWN);
+    start.down();
     end = start.copy();
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
-    start.translate(Direction.DOWN);
-    end.translate(Direction.DOWN);
+    start.down();
+    end.down();
     RectSolid.newRect(start, end).fill(editor, water);
 
     for (Direction o : orthogonals) {
@@ -64,9 +64,9 @@ public class SegmentSewerArch extends SegmentBase {
       cursor.translate(o, 1);
       cursor.translate(dir, 2);
       theme.getSecondary().getPillar().stroke(editor, cursor);
-      cursor.translate(Direction.UP, 1);
+      cursor.up(1);
       theme.getSecondary().getPillar().stroke(editor, cursor);
-      cursor.translate(Direction.UP, 1);
+      cursor.up(1);
       theme.getPrimary().getWall().stroke(editor, cursor);
       cursor.translate(dir.reverse(), 1);
       stair.stroke(editor, cursor);

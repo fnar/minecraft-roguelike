@@ -30,7 +30,7 @@ public class SegmentBooks extends SegmentBase {
     start.translate(orthogonals[0], 1);
     end = cursor.copy();
     end.translate(orthogonals[1], 1);
-    end.translate(Direction.UP, 2);
+    end.up(2);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     generateSecret(level.getSettings().getSecrets(), editor, level.getSettings(), dir, origin.copy());
@@ -39,7 +39,7 @@ public class SegmentBooks extends SegmentBase {
     end.translate(dir, 1);
     RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall(), false, true);
 
-    cursor.translate(Direction.UP, 2);
+    cursor.up(2);
     for (Direction d : orthogonals) {
       Coord c = cursor.copy();
       c.translate(d, 1);
@@ -50,7 +50,7 @@ public class SegmentBooks extends SegmentBase {
     cursor = origin.copy();
     cursor.translate(dir, 3);
     BlockType.BOOKSHELF.getBrush().stroke(editor, cursor);
-    cursor.translate(Direction.UP);
+    cursor.up();
     BlockType.BOOKSHELF.getBrush().stroke(editor, cursor);
   }
 }

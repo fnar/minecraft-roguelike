@@ -35,12 +35,12 @@ public class DungeonOssuary extends DungeonBase {
 
     start = origin.copy();
     end = origin.copy();
-    start.translate(Direction.DOWN);
-    start.translate(Direction.NORTH, 8);
-    start.translate(Direction.EAST, 8);
-    end.translate(Direction.SOUTH, 8);
-    end.translate(Direction.WEST, 8);
-    end.translate(Direction.UP, 6);
+    start.down();
+    start.north(8);
+    start.east(8);
+    end.south(8);
+    end.west(8);
+    end.up(6);
     RectHollow.newRect(start, end).fill(worldEditor, walls, false, true);
 
     // entrance arches
@@ -51,79 +51,79 @@ public class DungeonOssuary extends DungeonBase {
         start = cursor.copy();
         start.translate(o, 2);
         end = start.copy();
-        end.translate(Direction.UP, 5);
+        end.up(5);
         end.translate(dir.reverse());
         RectSolid.newRect(start, end).fill(worldEditor, walls);
 
         start = cursor.copy();
         start.translate(o, 2);
-        start.translate(Direction.UP, 2);
+        start.up(2);
         start.translate(dir.reverse(), 2);
         end = start.copy();
-        end.translate(Direction.UP, 3);
+        end.up(3);
         RectSolid.newRect(start, end).fill(worldEditor, walls);
         stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, start);
 
         start.translate(dir.reverse());
-        start.translate(Direction.UP);
+        start.up();
         end.translate(dir.reverse());
         RectSolid.newRect(start, end).fill(worldEditor, walls);
         stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, start);
 
         start.translate(dir.reverse());
-        start.translate(Direction.UP);
+        start.up();
         end.translate(dir.reverse());
         RectSolid.newRect(start, end).fill(worldEditor, walls);
         stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, start);
 
         start = cursor.copy();
-        start.translate(Direction.UP, 3);
+        start.up(3);
         end = start.copy();
         start.translate(dir.antiClockwise());
         end.translate(dir.clockwise());
-        end.translate(Direction.UP, 3);
+        end.up(3);
         RectSolid.newRect(start, end).fill(worldEditor, walls);
-        start.translate(Direction.UP);
+        start.up();
         start.translate(dir.reverse());
         end.translate(dir.reverse());
         RectSolid.newRect(start, end).fill(worldEditor, walls);
-        start.translate(Direction.UP);
+        start.up();
         start.translate(dir.reverse());
         end.translate(dir.reverse());
         RectSolid.newRect(start, end).fill(worldEditor, walls);
 
         Coord c = cursor.copy();
         c.translate(o);
-        c.translate(Direction.UP, 2);
+        c.up(2);
         stair.setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, c);
         c.translate(dir.reverse());
-        c.translate(Direction.UP);
+        c.up();
         stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
         c.translate(dir.reverse());
-        c.translate(Direction.UP);
+        c.up();
         stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
         c.translate(dir.reverse());
       }
 
       Coord c = origin.copy();
       c.translate(dir, 7);
-      c.translate(Direction.UP, 3);
+      c.up(3);
       stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
       c.translate(dir.reverse());
-      c.translate(Direction.UP);
+      c.up();
       stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
     }
 
     for (Direction dir : Direction.CARDINAL) {
       cursor = origin.copy();
       cursor.translate(dir, 4);
-      cursor.translate(Direction.UP, 5);
+      cursor.up(5);
       start = cursor.copy();
-      start.translate(Direction.NORTH);
-      start.translate(Direction.EAST);
+      start.north();
+      start.east();
       end = cursor.copy();
-      end.translate(Direction.SOUTH);
-      end.translate(Direction.WEST);
+      end.south();
+      end.west();
       RectSolid.newRect(start, end).fill(worldEditor, walls);
       SingleBlockBrush.AIR.stroke(worldEditor, cursor);
       for (Direction d : Direction.CARDINAL) {
@@ -141,22 +141,22 @@ public class DungeonOssuary extends DungeonBase {
       end = start.copy();
       end.translate(dir);
       end.translate(dir.antiClockwise());
-      end.translate(Direction.UP, 6);
+      end.up(6);
       RectSolid.newRect(start, end).fill(worldEditor, walls);
     }
 
     // central ceiling
     cursor = origin.copy();
-    cursor.translate(Direction.UP, 6);
+    cursor.up(6);
     start = cursor.copy();
-    start.translate(Direction.NORTH, 2);
-    start.translate(Direction.EAST, 2);
+    start.north(2);
+    start.east(2);
     end = cursor.copy();
-    end.translate(Direction.SOUTH, 2);
-    end.translate(Direction.WEST, 2);
+    end.south(2);
+    end.west(2);
     RectSolid.newRect(start, end).fill(worldEditor, walls);
-    start.translate(Direction.DOWN);
-    end.translate(Direction.DOWN);
+    start.down();
+    end.down();
     RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
     for (Direction d : Direction.CARDINAL) {
@@ -168,7 +168,7 @@ public class DungeonOssuary extends DungeonBase {
     for (Direction dir : Direction.CARDINAL) {
       Direction[] orthogonal = dir.orthogonals();
       cursor = origin.copy();
-      cursor.translate(Direction.UP, 5);
+      cursor.up(5);
       cursor.translate(dir, 2);
       SingleBlockBrush.AIR.stroke(worldEditor, cursor);
       for (Direction o : orthogonal) {
@@ -184,13 +184,13 @@ public class DungeonOssuary extends DungeonBase {
       cursor = origin.copy();
       cursor.translate(dir, 4);
       cursor.translate(dir.antiClockwise(), 4);
-      cursor.translate(Direction.UP, 5);
+      cursor.up(5);
       start = cursor.copy();
-      start.translate(Direction.NORTH);
-      start.translate(Direction.EAST);
+      start.north();
+      start.east();
       end = cursor.copy();
-      end.translate(Direction.SOUTH);
-      end.translate(Direction.WEST);
+      end.south();
+      end.west();
       RectSolid.newRect(start, end).fill(worldEditor, walls);
       SingleBlockBrush.AIR.stroke(worldEditor, cursor);
       for (Direction d : Direction.CARDINAL) {
@@ -203,7 +203,7 @@ public class DungeonOssuary extends DungeonBase {
         cursor = origin.copy();
         cursor.translate(dir, 4);
         cursor.translate(dir.antiClockwise(), 4);
-        cursor.translate(Direction.UP, 4);
+        cursor.up(4);
         cursor.translate(d, 2);
         SingleBlockBrush.AIR.stroke(worldEditor, cursor);
         for (Direction o : d.orthogonals()) {
@@ -217,16 +217,16 @@ public class DungeonOssuary extends DungeonBase {
         start.translate(dir.antiClockwise(), 4);
         start.translate(d, 3);
         end = start.copy();
-        end.translate(Direction.UP, 4);
+        end.up(4);
         RectSolid.newRect(start, end).fill(worldEditor, walls);
         start = end.copy();
         start.translate(d.orthogonals()[0]);
         end.translate(d.orthogonals()[1]);
-        end.translate(Direction.UP, 2);
+        end.up(2);
         RectSolid.newRect(start, end).fill(worldEditor, walls);
         start.translate(d.reverse());
         end.translate(d.reverse());
-        start.translate(Direction.UP);
+        start.up();
         RectSolid.newRect(start, end).fill(worldEditor, walls);
 
         for (Direction o : d.orthogonals()) {
@@ -236,13 +236,13 @@ public class DungeonOssuary extends DungeonBase {
           cursor.translate(d, 3);
           cursor.translate(o);
           walls.stroke(worldEditor, cursor);
-          cursor.translate(Direction.UP);
+          cursor.up();
           skull(worldEditor, d.reverse(), cursor);
-          cursor.translate(Direction.UP);
+          cursor.up();
           walls.stroke(worldEditor, cursor);
-          cursor.translate(Direction.UP);
+          cursor.up();
           skull(worldEditor, d.reverse(), cursor);
-          cursor.translate(Direction.UP);
+          cursor.up();
           cursor.translate(d.reverse());
           stair.setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
         }
@@ -260,7 +260,7 @@ public class DungeonOssuary extends DungeonBase {
     }
 
     Coord cursor = origin.copy();
-    cursor.translate(Direction.DOWN);
+    cursor.down();
     if (editor.isAirBlock(cursor)) {
       return;
     }

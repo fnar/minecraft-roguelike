@@ -47,7 +47,7 @@ public class DungeonsSlime extends DungeonBase {
       corner(worldEditor, levelSettings, cursor);
 
       start = origin.copy();
-      start.translate(Direction.UP, 4);
+      start.up(4);
       start.translate(dir, 3);
       end = start.copy();
       start.translate(dir.antiClockwise(), 8);
@@ -69,11 +69,11 @@ public class DungeonsSlime extends DungeonBase {
         start.translate(dir.antiClockwise(), 3);
         end.translate(dir.clockwise(), 3);
         RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
-        start.translate(Direction.DOWN);
-        end.translate(Direction.DOWN);
+        start.down();
+        end.down();
         RectSolid.newRect(start, end).fill(worldEditor, liquid);
-        start.translate(Direction.DOWN);
-        end.translate(Direction.DOWN);
+        start.down();
+        end.down();
         RectSolid.newRect(start, end).fill(worldEditor, wall);
 
         start = origin.copy();
@@ -86,9 +86,9 @@ public class DungeonsSlime extends DungeonBase {
         cursor = origin.copy();
         cursor.translate(dir, 7);
         wall.stroke(worldEditor, cursor);
-        cursor.translate(Direction.UP, 2);
+        cursor.up(2);
         wall.stroke(worldEditor, cursor);
-        cursor.translate(Direction.DOWN);
+        cursor.down();
         cursor.translate(dir);
         liquid.stroke(worldEditor, cursor);
         for (Direction o : dir.orthogonals()) {
@@ -96,9 +96,9 @@ public class DungeonsSlime extends DungeonBase {
           cursor.translate(dir, 7);
           cursor.translate(o);
           stair.setUpsideDown(true).setFacing(o).stroke(worldEditor, cursor);
-          cursor.translate(Direction.UP);
+          cursor.up();
           wall.stroke(worldEditor, cursor);
-          cursor.translate(Direction.UP);
+          cursor.up();
           stair.setUpsideDown(false).setFacing(o).stroke(worldEditor, cursor);
 
         }
@@ -139,7 +139,7 @@ public class DungeonsSlime extends DungeonBase {
       start.translate(dir, 2);
       start.translate(dir.antiClockwise(), 2);
       end = start.copy();
-      end.translate(Direction.UP, 3);
+      end.up(3);
       RectSolid.newRect(start, end).fill(editor, pillar);
 
       for (Direction d : Direction.CARDINAL) {

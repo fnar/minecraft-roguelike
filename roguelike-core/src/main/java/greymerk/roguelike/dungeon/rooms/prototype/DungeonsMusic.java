@@ -82,7 +82,7 @@ public class DungeonsMusic extends DungeonBase {
 
       cursor = origin.copy();
       cursor.translate(dir, 5);
-      cursor.translate(Direction.UP, 3);
+      cursor.up(3);
       panel.stroke(worldEditor, cursor);
       cursor.translate(dir.reverse());
       stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
@@ -93,7 +93,7 @@ public class DungeonsMusic extends DungeonBase {
       pillar(worldEditor, levelSettings, cursor);
 
       start = origin.copy();
-      start.translate(Direction.UP, 4);
+      start.up(4);
       start.translate(dir, 3);
       end = start.copy();
       start.translate(dir.antiClockwise(), 3);
@@ -101,7 +101,7 @@ public class DungeonsMusic extends DungeonBase {
       RectSolid.newRect(start, end).fill(worldEditor, pillar);
 
       cursor = origin.copy();
-      cursor.translate(Direction.UP, 4);
+      cursor.up(4);
       cursor.translate(dir);
       stair.setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
       cursor.translate(dir);
@@ -115,14 +115,14 @@ public class DungeonsMusic extends DungeonBase {
 
         cursor = origin.copy();
         cursor.translate(dir, 4);
-        cursor.translate(Direction.UP, 3);
+        cursor.up(3);
         cursor.translate(o);
         stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
 
         cursor = origin.copy();
         cursor.translate(dir, 5);
         cursor.translate(o, 3);
-        cursor.translate(Direction.UP);
+        cursor.up();
         chests.add(cursor.copy());
         cursor.translate(o);
         chests.add(cursor.copy());
@@ -133,11 +133,11 @@ public class DungeonsMusic extends DungeonBase {
         stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
         cursor.translate(o);
         stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
-        cursor.translate(Direction.UP, 2);
+        cursor.up(2);
         stair.setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
         cursor.translate(o.reverse());
         stair.setUpsideDown(true).setFacing(o).stroke(worldEditor, cursor);
-        cursor.translate(Direction.UP);
+        cursor.up();
         panel.stroke(worldEditor, cursor);
         cursor.translate(o);
         panel.stroke(worldEditor, cursor);
@@ -152,7 +152,7 @@ public class DungeonsMusic extends DungeonBase {
     BlockType.JUKEBOX.getBrush().stroke(worldEditor, origin);
 
     cursor = origin.copy();
-    cursor.translate(Direction.UP, 4);
+    cursor.up(4);
     BlockType.GLOWSTONE.getBrush().stroke(worldEditor, cursor);
 
     List<Coord> chestLocations = chooseRandomLocations(1, chests);
@@ -173,13 +173,13 @@ public class DungeonsMusic extends DungeonBase {
 
     start = origin.copy();
     end = start.copy();
-    end.translate(Direction.UP, 2);
+    end.up(2);
     RectSolid.newRect(start, end).fill(editor, pillar);
     for (Direction dir : Direction.CARDINAL) {
       cursor = end.copy();
       cursor.translate(dir);
       stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor, true, false);
-      cursor.translate(Direction.UP);
+      cursor.up();
       panel.stroke(editor, cursor);
     }
   }

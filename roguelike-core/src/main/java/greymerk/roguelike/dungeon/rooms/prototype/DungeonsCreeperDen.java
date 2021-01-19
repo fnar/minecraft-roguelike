@@ -82,7 +82,7 @@ public class DungeonsCreeperDen extends DungeonBase {
 
   private void spawnTntBeneath(WorldEditor editor, Coord coord) {
     Coord cursor = coord.copy();
-    cursor.translate(Direction.DOWN, 2);
+    cursor.down(2);
     TNT_META_BLOCK.stroke(editor, cursor);
   }
 

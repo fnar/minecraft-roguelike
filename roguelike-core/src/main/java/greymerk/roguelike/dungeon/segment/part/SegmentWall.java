@@ -34,7 +34,7 @@ public class SegmentWall extends SegmentBase {
     start.translate(orthogonals[0], 1);
     end = cursor.copy();
     end.translate(orthogonals[1], 1);
-    end.translate(Direction.UP, 2);
+    end.up(2);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     SecretsSetting secrets = level.getSettings().getSecrets();
@@ -44,7 +44,7 @@ public class SegmentWall extends SegmentBase {
     end.translate(dir, 1);
     RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall(), false, true);
 
-    cursor.translate(Direction.UP, 2);
+    cursor.up(2);
     for (Direction d : orthogonals) {
       Coord c = cursor.copy();
       c.translate(d, 1);
@@ -57,7 +57,7 @@ public class SegmentWall extends SegmentBase {
       BlockBrush wall = theme.getPrimary().getWall();
       cursor.translate(dir, 3);
       wall.stroke(editor, cursor);
-      cursor.translate(Direction.UP);
+      cursor.up();
       wall.stroke(editor, cursor);
     }
   }

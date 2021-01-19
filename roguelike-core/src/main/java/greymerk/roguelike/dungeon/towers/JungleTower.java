@@ -23,7 +23,7 @@ public class JungleTower implements ITower {
   public void generate(WorldEditor editor, Random rand, ThemeBase theme, Coord dungeon) {
 
     Coord origin = Tower.getBaseCoord(editor, dungeon);
-    origin.translate(Direction.UP);
+    origin.up();
     BlockBrush pillar = theme.getPrimary().getPillar();
     BlockBrush walls = theme.getPrimary().getWall();
     StairsBlock stair = theme.getPrimary().getStair();
@@ -37,7 +37,7 @@ public class JungleTower implements ITower {
     for (Direction dir : Direction.CARDINAL) {
 
       cursor = origin.copy();
-      cursor.translate(Direction.UP, 3);
+      cursor.up(3);
       cursor.translate(dir, 7);
       pillar(editor, theme, cursor);
 
@@ -46,23 +46,23 @@ public class JungleTower implements ITower {
         c.translate(o, 3);
         pillar(editor, theme, c);
         c.translate(dir);
-        c.translate(Direction.UP);
+        c.up();
         walls.stroke(editor, c);
-        c.translate(Direction.UP);
+        c.up();
         walls.stroke(editor, c);
-        c.translate(Direction.UP);
+        c.up();
         stair.setUpsideDown(false).setFacing(dir).stroke(editor, c);
         c.translate(dir.reverse());
         walls.stroke(editor, c);
       }
 
       cursor = origin.copy();
-      cursor.translate(Direction.UP, 4);
+      cursor.up(4);
       cursor.translate(dir, 8);
       walls.stroke(editor, cursor);
-      cursor.translate(Direction.UP);
+      cursor.up();
       walls.stroke(editor, cursor);
-      cursor.translate(Direction.UP);
+      cursor.up();
       stair.setUpsideDown(false).setFacing(dir).stroke(editor, cursor);
       cursor.translate(dir.reverse());
       walls.stroke(editor, cursor);
@@ -71,7 +71,7 @@ public class JungleTower implements ITower {
       start.translate(dir, 2);
       start.translate(dir.antiClockwise(), 2);
       end = start.copy();
-      end.translate(Direction.UP, 3);
+      end.up(3);
       pillar.fill(editor, new RectSolid(start, end));
       cursor = end.copy();
       for (Direction d : new Direction[]{dir.reverse(), dir.clockwise()}) {
@@ -82,7 +82,7 @@ public class JungleTower implements ITower {
 
       // corner pillar
       cursor = origin.copy();
-      cursor.translate(Direction.UP, 6);
+      cursor.up(6);
       cursor.translate(dir, 6);
       cursor.translate(dir.antiClockwise(), 6);
       editor.fillDown(cursor.copy(), pillar);
@@ -90,11 +90,11 @@ public class JungleTower implements ITower {
         start = cursor.copy();
         start.translate(d);
         stair.setUpsideDown(false).setFacing(d).stroke(editor, start);
-        start.translate(Direction.DOWN);
+        start.down();
         end = start.copy();
-        end.translate(Direction.DOWN, 2);
+        end.down(2);
         walls.fill(editor, new RectSolid(start, end));
-        end.translate(Direction.DOWN);
+        end.down();
         stair.setUpsideDown(true).setFacing(d).stroke(editor, end);
       }
     }
@@ -102,15 +102,15 @@ public class JungleTower implements ITower {
 
     for (Direction dir : Direction.CARDINAL) {
       cursor = origin.copy();
-      cursor.translate(Direction.UP, 4);
+      cursor.up(4);
       cursor.translate(dir, 7);
       start = cursor.copy();
       end = cursor.copy();
       start.translate(dir.antiClockwise(), 5);
       end.translate(dir.clockwise(), 5);
       walls.fill(editor, new RectSolid(start, end));
-      start.translate(Direction.UP);
-      end.translate(Direction.UP);
+      start.up();
+      end.up();
       grass.fill(editor, new RectSolid(start, end));
       start.translate(dir.reverse());
       end.translate(dir.reverse());
@@ -120,7 +120,7 @@ public class JungleTower implements ITower {
       stair.setUpsideDown(true).setFacing(dir.reverse()).fill(editor, new RectSolid(start, end));
 
       cursor = origin.copy();
-      cursor.translate(Direction.UP, 4);
+      cursor.up(4);
       cursor.translate(dir, 6);
       pillar(editor, theme, cursor);
       for (Direction o : dir.orthogonals()) {
@@ -130,7 +130,7 @@ public class JungleTower implements ITower {
       }
 
       start = origin.copy();
-      start.translate(Direction.UP, 5);
+      start.up(5);
       start.translate(dir, 2);
       end = start.copy();
       end.translate(dir, 3);
@@ -141,7 +141,7 @@ public class JungleTower implements ITower {
       walls.fill(editor, new RectSolid(start, end));
 
       start = origin.copy();
-      start.translate(Direction.UP, 6);
+      start.up(6);
       start.translate(dir, 3);
       start.translate(dir.antiClockwise(), 2);
       end = start.copy();
@@ -150,16 +150,16 @@ public class JungleTower implements ITower {
       walls.fill(editor, new RectSolid(start, end));
 
       start = origin.copy();
-      start.translate(Direction.UP, 4);
+      start.up(4);
       start.translate(dir, 2);
       end = start.copy();
       start.translate(dir.antiClockwise(), 2);
       end.translate(dir.clockwise());
-      end.translate(Direction.UP, 2);
+      end.up(2);
       walls.fill(editor, new RectSolid(start, end));
 
       start = origin.copy();
-      start.translate(Direction.UP, 4);
+      start.up(4);
       start.translate(dir, 3);
       end = start.copy();
       start.translate(dir.antiClockwise(), 3);
@@ -171,7 +171,7 @@ public class JungleTower implements ITower {
     for (Direction dir : Direction.CARDINAL) {
       for (Direction o : dir.orthogonals()) {
         start = origin.copy();
-        start.translate(Direction.UP, 6);
+        start.up(6);
         start.translate(dir, 5);
         start.translate(o);
         end = start.copy();
@@ -187,20 +187,20 @@ public class JungleTower implements ITower {
     // second floor pillars
     for (Direction dir : Direction.CARDINAL) {
       cursor = origin.copy();
-      cursor.translate(Direction.UP, 9);
+      cursor.up(9);
       cursor.translate(dir, 5);
       for (Direction o : dir.orthogonals()) {
         Coord c = cursor.copy();
         c.translate(o, 2);
         pillar(editor, theme, c);
         c.translate(dir);
-        c.translate(Direction.UP);
+        c.up();
         walls.stroke(editor, c);
-        c.translate(Direction.UP);
+        c.up();
         stair.setUpsideDown(false).setFacing(dir).stroke(editor, c);
         c.translate(dir.reverse());
         walls.stroke(editor, c);
-        c.translate(Direction.UP);
+        c.up();
         stair.setUpsideDown(false).setFacing(dir).stroke(editor, c);
       }
       cursor.translate(dir.antiClockwise(), 5);
@@ -208,19 +208,19 @@ public class JungleTower implements ITower {
       for (Direction d : new Direction[]{dir.antiClockwise(), dir}) {
         Coord c = cursor.copy();
         c.translate(d);
-        c.translate(Direction.UP);
+        c.up();
         walls.stroke(editor, c);
-        c.translate(Direction.UP);
+        c.up();
         stair.setUpsideDown(false).setFacing(d).stroke(editor, c);
       }
 
       cursor = origin.copy();
-      cursor.translate(Direction.UP, 10);
+      cursor.up(10);
       cursor.translate(dir, 2);
       cursor.translate(dir.antiClockwise(), 2);
       start = cursor.copy();
       end = start.copy();
-      end.translate(Direction.DOWN, 3);
+      end.down(3);
       pillar.fill(editor, new RectSolid(start, end));
       for (Direction d : new Direction[]{dir.clockwise(), dir.reverse()}) {
         Coord c = cursor.copy();
@@ -228,12 +228,12 @@ public class JungleTower implements ITower {
         stair.setUpsideDown(true).setFacing(d).stroke(editor, c);
       }
 
-      cursor.translate(Direction.DOWN);
+      cursor.down();
       for (Direction d : new Direction[]{dir.antiClockwise(), dir}) {
         Coord c = cursor.copy();
         c.translate(d);
         stair.setUpsideDown(true).setFacing(d).stroke(editor, c);
-        c.translate(Direction.UP);
+        c.up();
         walls.stroke(editor, c);
         c.translate(d);
         walls.stroke(editor, c);
@@ -243,7 +243,7 @@ public class JungleTower implements ITower {
 
     for (Direction dir : Direction.CARDINAL) {
       start = origin.copy();
-      start.translate(Direction.UP, 10);
+      start.up(10);
       start.translate(dir, 5);
       end = start.copy();
       start.translate(dir.antiClockwise(), 5);
@@ -251,7 +251,7 @@ public class JungleTower implements ITower {
       walls.fill(editor, new RectSolid(start, end));
 
       start = origin.copy();
-      start.translate(Direction.UP, 11);
+      start.up(11);
       start.translate(dir, 2);
       end = start.copy();
       start.translate(dir.antiClockwise());
@@ -260,7 +260,7 @@ public class JungleTower implements ITower {
       walls.fill(editor, new RectSolid(start, end));
 
       cursor = origin.copy();
-      cursor.translate(Direction.UP, 11);
+      cursor.up(11);
       cursor.translate(dir, 5);
       start = cursor.copy();
       end = start.copy();
@@ -269,7 +269,7 @@ public class JungleTower implements ITower {
       grass.fill(editor, new RectSolid(start, end));
 
       cursor = origin.copy();
-      cursor.translate(Direction.UP, 12);
+      cursor.up(12);
       cursor.translate(dir, 3);
       start = cursor.copy();
       end = start.copy();
@@ -281,7 +281,7 @@ public class JungleTower implements ITower {
 
     for (Direction dir : Direction.CARDINAL) {
       cursor = origin.copy();
-      cursor.translate(Direction.UP, 12);
+      cursor.up(12);
       cursor.translate(dir, 2);
       start = cursor.copy();
       end = cursor.copy();
@@ -290,7 +290,7 @@ public class JungleTower implements ITower {
       walls.fill(editor, new RectSolid(start, end));
 
       cursor = origin.copy();
-      cursor.translate(Direction.UP, 11);
+      cursor.up(11);
       cursor.translate(dir, 5);
       cursor.translate(dir.antiClockwise(), 5);
       walls.stroke(editor, cursor);
@@ -300,19 +300,19 @@ public class JungleTower implements ITower {
       cursor = origin.copy();
       cursor.translate(dir, 2);
       cursor.translate(dir.antiClockwise(), 2);
-      cursor.translate(Direction.UP, 15);
+      cursor.up(15);
       pillar(editor, theme, cursor);
       for (Direction d : new Direction[]{dir, dir.antiClockwise()}) {
         Coord c = cursor.copy();
         c.translate(d);
-        c.translate(Direction.UP);
+        c.up();
         walls.stroke(editor, c);
-        c.translate(Direction.UP);
+        c.up();
         stair.setUpsideDown(false).setFacing(d).stroke(editor, c);
       }
 
       start = origin.copy();
-      start.translate(Direction.UP, 16);
+      start.up(16);
       start.translate(dir, 2);
       end = start.copy();
       start.translate(dir.antiClockwise());
@@ -320,7 +320,7 @@ public class JungleTower implements ITower {
       walls.fill(editor, new RectSolid(start, end));
 
       cursor = origin.copy();
-      cursor.translate(Direction.UP, 17);
+      cursor.up(17);
       cursor.translate(dir, 2);
       start = cursor.copy();
       end = cursor.copy();
@@ -331,28 +331,28 @@ public class JungleTower implements ITower {
       walls.stroke(editor, cursor);
 
       start = origin.copy();
-      start.translate(Direction.UP, 17);
+      start.up(17);
       end = start.copy();
       start.translate(dir);
       start.translate(dir.antiClockwise());
       end.translate(dir.reverse());
       end.translate(dir.clockwise());
       walls.fill(editor, new RectSolid(start, end));
-      start.translate(Direction.UP);
-      end.translate(Direction.UP);
+      start.up();
+      end.up();
       grass.fill(editor, new RectSolid(start, end));
     }
 
     start = origin.copy();
-    start.translate(Direction.NORTH, 2);
-    start.translate(Direction.EAST, 2);
+    start.north(2);
+    start.east(2);
     end = new Coord(origin.getX(), dungeon.getY() + 10, origin.getZ());
-    end.translate(Direction.SOUTH, 2);
-    end.translate(Direction.WEST, 2);
+    end.south(2);
+    end.west(2);
     walls.fill(editor, new RectSolid(start, end), false, true);
 
     cursor = origin.copy();
-    cursor.translate(Direction.UP, 12);
+    cursor.up(12);
     start = new Coord(cursor.getX(), dungeon.getY(), cursor.getZ());
     end = cursor.copy();
     for (Coord c : new RectSolid(start, end)) {
@@ -366,7 +366,7 @@ public class JungleTower implements ITower {
     List<Coord> spots = new ArrayList<>();
     for (Direction dir : Direction.CARDINAL) {
       Coord cursor = origin.copy();
-      cursor.translate(Direction.UP, 6);
+      cursor.up(6);
       cursor.translate(dir, 7);
       for (Direction o : dir.orthogonals()) {
         Coord c = cursor.copy();
@@ -381,7 +381,7 @@ public class JungleTower implements ITower {
       }
 
       cursor = origin.copy();
-      cursor.translate(Direction.UP, 12);
+      cursor.up(12);
       cursor.translate(dir, 5);
       spots.add(cursor.copy());
       for (Direction o : dir.orthogonals()) {
@@ -395,7 +395,7 @@ public class JungleTower implements ITower {
       }
 
       cursor = origin.copy();
-      cursor.translate(Direction.UP, 13);
+      cursor.up(13);
       cursor.translate(dir, 4);
       spots.add(cursor.copy());
       for (Direction o : dir.orthogonals()) {
@@ -409,7 +409,7 @@ public class JungleTower implements ITower {
       }
 
       cursor = origin.copy();
-      cursor.translate(Direction.UP, 18);
+      cursor.up(18);
       cursor.translate(dir, 2);
       spots.add(cursor.copy());
       for (Direction o : dir.orthogonals()) {
@@ -419,7 +419,7 @@ public class JungleTower implements ITower {
       }
 
       cursor = origin.copy();
-      cursor.translate(Direction.UP, 19);
+      cursor.up(19);
       Coord start = cursor.copy();
       Coord end = cursor.copy();
       start.translate(dir);
@@ -436,13 +436,13 @@ public class JungleTower implements ITower {
     }
 
     Coord start = origin.copy()
-        .translate(Direction.NORTH, 8)
-        .translate(Direction.EAST, 8);
+        .north(8)
+        .east(8);
 
     Coord end = origin.copy()
-        .translate(Direction.UP, 20)
-        .translate(Direction.SOUTH, 8)
-        .translate(Direction.WEST, 8);
+        .up(20)
+        .south(8)
+        .west(8);
 
     VineBlock.vine().fill(editor, new RectSolid(start, end));
   }
@@ -461,7 +461,7 @@ public class JungleTower implements ITower {
       leafSpill(editor, rand, c, rand.nextInt(6));
     }
     if (rand.nextBoolean()) {
-      cursor.translate(Direction.UP);
+      cursor.up();
       log.stroke(editor, cursor);
       for (Direction dir : Direction.CARDINAL) {
         Coord c = cursor.copy();
@@ -470,7 +470,7 @@ public class JungleTower implements ITower {
       }
     }
     if (rand.nextInt(3) == 0) {
-      cursor.translate(Direction.UP);
+      cursor.up();
       log.stroke(editor, cursor);
       for (Direction dir : Direction.CARDINAL) {
         Coord c = cursor.copy();
@@ -478,7 +478,7 @@ public class JungleTower implements ITower {
         leaves.stroke(editor, c, true, false);
       }
     }
-    cursor.translate(Direction.UP);
+    cursor.up();
     leaves.stroke(editor, cursor);
   }
 
@@ -489,7 +489,7 @@ public class JungleTower implements ITower {
     BlockBrush leaves = Wood.JUNGLE.getLeaves();
     leaves.stroke(editor, origin);
     Coord cursor = origin.copy();
-    cursor.translate(Direction.DOWN);
+    cursor.down();
     if (!editor.isOpaqueBlock(cursor)) {
       leaves.stroke(editor, origin);
       if (rand.nextBoolean()) {
@@ -505,7 +505,7 @@ public class JungleTower implements ITower {
         continue;
       }
       leaves.stroke(editor, origin);
-      cursor.translate(Direction.DOWN);
+      cursor.down();
       if (editor.isOpaqueBlock(cursor)) {
         continue;
       }

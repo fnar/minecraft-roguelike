@@ -36,21 +36,21 @@ public class SegmentMushrooms extends SegmentBase {
     end = start.copy();
     start.translate(orthogonals[0], 1);
     end.translate(orthogonals[1], 1);
-    end.translate(Direction.UP, 1);
+    end.up(1);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
-    start.translate(Direction.DOWN, 1);
-    end.translate(Direction.DOWN, 2);
+    start.down();
+    end.down(2);
 
     RectSolid.newRect(start, end).fill(editor, BlockType.MYCELIUM.getBrush());
-    start.translate(Direction.UP, 1);
-    end.translate(Direction.UP, 1);
+    start.up(1);
+    end.up(1);
     RectSolid.newRect(start, end).fill(editor, mushrooms);
 
     for (Direction d : orthogonals) {
       cursor = origin.copy();
       cursor.translate(wallDirection, 2);
       cursor.translate(d, 1);
-      cursor.translate(Direction.UP, 1);
+      cursor.up(1);
       stair.setUpsideDown(true).setFacing(d.reverse());
       stair.stroke(editor, cursor);
     }

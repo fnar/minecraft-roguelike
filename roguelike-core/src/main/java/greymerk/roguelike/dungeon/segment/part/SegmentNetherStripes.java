@@ -30,7 +30,7 @@ public class SegmentNetherStripes extends SegmentBase {
     cursor = origin.copy();
     cursor.translate(dir, 2);
     SingleBlockBrush.AIR.stroke(editor, cursor);
-    cursor.translate(Direction.UP, 1);
+    cursor.up(1);
     SingleBlockBrush.AIR.stroke(editor, cursor);
     cursor = origin.copy();
     cursor.translate(dir, 5);
@@ -42,9 +42,9 @@ public class SegmentNetherStripes extends SegmentBase {
     cursor = origin.copy();
     cursor.translate(dir, 2);
     slab.stroke(editor, cursor);
-    cursor.translate(Direction.UP, 1);
+    cursor.up(1);
     slab.stroke(editor, cursor);
-    cursor.translate(Direction.UP, 1);
+    cursor.up(1);
     slab.stroke(editor, cursor);
 
     for (Direction orthogonal : dir.orthogonals()) {
@@ -52,8 +52,8 @@ public class SegmentNetherStripes extends SegmentBase {
       start.translate(dir, 3);
       end = start.copy();
       start.translate(orthogonal, 1);
-      start.translate(Direction.UP, 3);
-      end.translate(Direction.DOWN, 2);
+      start.up(3);
+      end.down(2);
       if (isLava && !isAir) {
         RectSolid.newRect(start, end).fill(editor, BlockType.LAVA_FLOWING.getBrush(), false, true);
       }
@@ -63,9 +63,9 @@ public class SegmentNetherStripes extends SegmentBase {
       cursor.translate(dir, 2);
       cursor.translate(orthogonal, 1);
       stair.stroke(editor, cursor);
-      cursor.translate(Direction.UP, 1);
+      cursor.up(1);
       stair.stroke(editor, cursor);
-      cursor.translate(Direction.UP, 1);
+      cursor.up(1);
       stair.stroke(editor, cursor);
       cursor.translate(dir.reverse(), 1);
       stair.stroke(editor, cursor);

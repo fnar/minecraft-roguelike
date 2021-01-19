@@ -80,10 +80,10 @@ public enum Tower {
       if (editor.validGroundBlock(cursor)) {
         break;
       }
-      cursor.translate(Direction.DOWN);
+      cursor.down();
     }
 
-    cursor.translate(Direction.UP);
+    cursor.up();
 
     int yOffset = cursor.getY() - pos.getY();
 

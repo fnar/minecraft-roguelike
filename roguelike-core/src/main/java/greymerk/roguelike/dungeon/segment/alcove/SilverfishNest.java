@@ -33,10 +33,10 @@ public class SilverfishNest implements IAlcove {
     nest(editor, rand, centre.getX(), centre.getY(), centre.getZ());
 
     Coord start = corridor.copy();
-    start.translate(Direction.UP);
+    start.up();
 
     Coord end = centre.copy();
-    end.translate(Direction.UP);
+    end.up();
     end.translate(dir.reverse(), 1);
 
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
