@@ -39,23 +39,23 @@ public class RectSolid implements IShape {
     return new RectSolidIterator(this.start, this.end);
   }
 
-  private class RectSolidIterator implements Iterator<Coord> {
+  private static class RectSolidIterator implements Iterator<Coord> {
 
     Coord cursor;
-    Coord c1;
-    Coord c2;
+    Coord start;
+    Coord end;
 
-    public RectSolidIterator(Coord c1, Coord c2) {
-      this.c1 = c1.copy();
-      this.c2 = c2.copy();
+    public RectSolidIterator(Coord start, Coord end) {
+      this.start = start.copy();
+      this.end = end.copy();
 
-      Coord.correct(this.c1, this.c2);
-      cursor = this.c1.copy();
+      Coord.correct(this.start, this.end);
+      cursor = this.start.copy();
     }
 
     @Override
     public boolean hasNext() {
-      return this.cursor.getY() <= this.c2.getY();
+      return this.cursor.getY() <= this.end.getY();
     }
 
     @Override
@@ -63,14 +63,14 @@ public class RectSolid implements IShape {
 
       Coord toReturn = cursor.copy();
 
-      if (cursor.getZ() == c2.getZ() && cursor.getX() == c2.getX()) {
-        cursor = new Coord(c1.getX(), cursor.getY(), c1.getZ());
+      if (cursor.getZ() == end.getZ() && cursor.getX() == end.getX()) {
+        cursor = new Coord(start.getX(), cursor.getY(), start.getZ());
         cursor.up();
         return toReturn;
       }
 
-      if (cursor.getX() == c2.getX()) {
-        cursor = new Coord(c1.getX(), cursor.getY(), cursor.getZ());
+      if (cursor.getX() == end.getX()) {
+        cursor = new Coord(start.getX(), cursor.getY(), cursor.getZ());
         cursor.south();
         return toReturn;
       }
