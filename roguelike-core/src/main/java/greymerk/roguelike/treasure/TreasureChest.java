@@ -21,7 +21,7 @@ public class TreasureChest {
   private final ChestType chestType;
   private final int level;
   private final Coord pos;
-  public final WorldEditor worldEditor;
+  private final WorldEditor worldEditor;
 
   public TreasureChest(
       ChestType chestType,
@@ -31,7 +31,7 @@ public class TreasureChest {
   ) {
     this.chestType = chestType;
     this.level = level;
-    this.pos = pos;
+    this.pos = pos.copy();
     this.worldEditor = worldEditor;
   }
 
@@ -68,7 +68,7 @@ public class TreasureChest {
   }
 
   public Coord getPos() {
-    return pos;
+    return pos.copy();
   }
 
   public int getLevel() {
