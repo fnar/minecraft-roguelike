@@ -136,7 +136,10 @@ public class DungeonSettingsParser {
 
   private static void parseLootTables(JsonObject root, DungeonSettings dungeonSettings) throws Exception {
     if (root.has("loot_tables")) {
-      JsonArray lootTables = root.get("loot_tables").getAsJsonArray();
+      throw new DungeonSettingParseException("Please update field \"loot_tables\" to \"lootTables\" to conform to JSON standards.");
+    }
+    if (root.has("lootTables")) {
+      JsonArray lootTables = root.get("lootTables").getAsJsonArray();
       for (JsonElement jsonElement : lootTables) {
         if (jsonElement.isJsonNull()) {
           continue;
