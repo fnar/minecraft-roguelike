@@ -8,14 +8,15 @@ import greymerk.roguelike.worldgen.WorldEditor;
 
 public interface IShape extends Iterable<Coord> {
 
-  default void fill(WorldEditor editor, BlockBrush block) {
-    fill(editor, block, true, true);
+  default IShape fill(WorldEditor editor, BlockBrush block) {
+    return fill(editor, block, true, true);
   }
 
-  default void fill(WorldEditor editor, BlockBrush block, boolean fillAir, boolean replaceSolid) {
+  default IShape fill(WorldEditor editor, BlockBrush block, boolean fillAir, boolean replaceSolid) {
     for (Coord coord : this) {
       block.stroke(editor, coord, fillAir, replaceSolid);
     }
+    return this;
   }
 
   List<Coord> get();
