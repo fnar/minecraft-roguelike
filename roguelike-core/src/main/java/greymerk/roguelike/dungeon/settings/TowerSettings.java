@@ -11,11 +11,11 @@ import greymerk.roguelike.theme.ThemeTower;
 
 public class TowerSettings {
 
-  private Tower tower;
+  private Tower type;
   private ThemeBase theme;
 
-  public TowerSettings(Tower tower, Theme theme) {
-    this.tower = tower;
+  public TowerSettings(Tower type, Theme theme) {
+    this.type = type;
     this.theme = theme.getThemeBase();
   }
 
@@ -23,40 +23,40 @@ public class TowerSettings {
 
     JsonObject data = e.getAsJsonObject();
 
-    tower = data.has("type") ? Tower.get(data.get("type").getAsString()) : null;
+    type = data.has("type") ? Tower.get(data.get("type").getAsString()) : null;
     theme = data.has("theme") ? ThemeParser.parse(data.get("theme").getAsJsonObject()) : null;
 
   }
 
   public TowerSettings(TowerSettings base, TowerSettings override) {
     if (base == null) {
-      tower = override.tower;
+      type = override.type;
       theme = override.theme;
       return;
     }
 
     if (override == null) {
-      tower = base.tower;
+      type = base.type;
       theme = base.theme;
       return;
     }
 
-    tower = override.tower == null ? base.tower : override.tower;
+    type = override.type == null ? base.type : override.type;
     theme = override.theme == null ? base.theme : override.theme;
 
   }
 
   public TowerSettings(TowerSettings toCopy) {
-    tower = toCopy.tower;
+    type = toCopy.type;
     theme = toCopy.theme;
   }
 
-  public Tower getTower() {
-    if (tower == null) {
+  public Tower getType() {
+    if (type == null) {
       return Tower.ROGUE;
     }
 
-    return tower;
+    return type;
   }
 
   public ThemeBase getTheme() {

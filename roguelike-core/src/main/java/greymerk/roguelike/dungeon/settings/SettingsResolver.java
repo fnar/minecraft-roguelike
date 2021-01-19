@@ -105,7 +105,7 @@ public class SettingsResolver {
   }
 
   public DungeonSettings processInheritance(DungeonSettings dungeonSettings) {
-    DungeonSettings accumulatedInheritedSettings = dungeonSettings.getInherits().stream()
+    DungeonSettings accumulatedInheritedSettings = dungeonSettings.getInherit().stream()
         .map(settingsContainer::get)
         .map(this::processInheritance)
         .reduce(new DungeonSettings(), (accumulation, toInherit) -> toInherit.inherit(accumulation));
@@ -153,7 +153,7 @@ public class SettingsResolver {
   private WeightedRandomizer<DungeonSettings> newWeightedRandomizer(List<DungeonSettings> dungeonSettings) {
     WeightedRandomizer<DungeonSettings> settingsRandomizer = new WeightedRandomizer<>();
     dungeonSettings.stream()
-        .map(setting -> new WeightedChoice<>(setting, setting.getSpawnCriteria().getWeight()))
+        .map(setting -> new WeightedChoice<>(setting, setting.getCriteria().getWeight()))
         .forEach(settingsRandomizer::add);
     return settingsRandomizer;
   }

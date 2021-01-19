@@ -37,7 +37,7 @@ public class SettingsSwampTheme extends DungeonSettings {
     super(ID);
     setExclusive(true);
     getInherit().add(SettingsBase.ID);
-    getSpawnCriteria().setBiomeTypes(newArrayList(SWAMP));
+    getCriteria().setBiomeTypes(newArrayList(SWAMP));
     setTowerSettings(new TowerSettings(WITCH, DARKOAK));
 
     Theme[] themes = {DARKHALL, DARKHALL, MUDDY, MOSSY, NETHER};

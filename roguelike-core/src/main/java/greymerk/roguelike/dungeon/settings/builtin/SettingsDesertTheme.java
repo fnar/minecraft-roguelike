@@ -30,7 +30,7 @@ public class SettingsDesertTheme extends DungeonSettings {
     super(ID);
     setExclusive(true);
     getInherit().add(SettingsBase.ID);
-    getSpawnCriteria().setBiomeTypes(newArrayList(SANDY));
+    getCriteria().setBiomeTypes(newArrayList(SANDY));
     setTowerSettings(new TowerSettings(Tower.PYRAMID, Theme.PYRAMID));
     for (int i = 0; i < 5; ++i) {
       getLootRules().add(new SingleUseLootRule(new WeightedRandomLoot(Items.GOLD_INGOT, 0, 1, 1 + i, 1), i, 6));

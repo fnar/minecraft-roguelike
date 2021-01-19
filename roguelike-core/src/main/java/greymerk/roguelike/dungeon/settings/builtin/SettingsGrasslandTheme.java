@@ -25,7 +25,7 @@ public class SettingsGrasslandTheme extends DungeonSettings {
     super(ID);
     setExclusive(true);
     getInherit().add(SettingsBase.ID);
-    getSpawnCriteria().setBiomeTypes(newArrayList(PLAINS));
+    getCriteria().setBiomeTypes(newArrayList(PLAINS));
 
     setTowerSettings(new TowerSettings(Tower.HOUSE, Theme.HOUSE));
 
