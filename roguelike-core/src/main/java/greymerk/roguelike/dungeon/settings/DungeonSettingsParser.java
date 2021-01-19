@@ -103,7 +103,10 @@ public class DungeonSettingsParser {
 
   private static void parseLootRules(JsonObject root, DungeonSettings dungeonSettings) throws Exception {
     if (root.has("loot_rules")) {
-      dungeonSettings.getLootRules().addAll(new LootRulesParser().parseLootRules(root.get("loot_rules")));
+      throw new DungeonSettingParseException("Please update field \"loot_rules\" to \"lootRules\" to conform to JSON standards.");
+    }
+    if (root.has("lootRules")) {
+      dungeonSettings.getLootRules().addAll(new LootRulesParser().parseLootRules(root.get("lootRules")));
     }
   }
 
