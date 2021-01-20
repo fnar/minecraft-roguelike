@@ -63,23 +63,30 @@ public class SegmentGenerator implements ISegmentGenerator {
   public void add(JsonObject entry) {
 
     String segType = entry.get("type").getAsString();
-    Segment type = Segment.valueOf(segType);
+    Segment segment = Segment.valueOf(segType);
 
     if (entry.has("arch")) {
       boolean a = entry.get("arch").getAsBoolean();
       if (a) {
-        arch = type;
+        arch = segment;
       }
       return;
     }
 
     int weight = entry.has("weight") ? entry.get("weight").getAsInt() : 1;
 
-    segments.add(new WeightedChoice<>(type, weight));
+    segments.add(new WeightedChoice<>(segment, weight));
   }
 
-  public void add(Segment toAdd, int weight) {
-    segments.add(new WeightedChoice<>(toAdd, weight));
+  public SegmentGenerator inherit(SegmentGenerator toInherit) {
+    SegmentGenerator segmentGenerator = new SegmentGenerator();
+    segmentGenerator.segments.merge(segments);
+    segmentGenerator.segments.merge(toInherit.segments);
+    return segmentGenerator;
+  }
+
+  public void add(Segment segment, int weight) {
+    segments.add(new WeightedChoice<>(segment, weight));
   }
 
   @Override
