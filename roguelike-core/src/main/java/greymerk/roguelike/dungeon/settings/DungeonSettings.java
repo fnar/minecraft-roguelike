@@ -70,10 +70,10 @@ public class DungeonSettings {
 
     IntStream.range(0, getMaxNumLevels())
         .forEach(level -> {
-          LevelSettings parent = toInherit.getLevels().get(level);
-          LevelSettings child = getLevels().get(level);
+          LevelSettings parent = toInherit.getLevelSettings().get(level);
+          LevelSettings child = getLevelSettings().get(level);
           LevelSettings levelSettings = new LevelSettings(parent, child, dungeonSettings.getOverrides());
-          dungeonSettings.getLevels().put(level, levelSettings);
+          dungeonSettings.getLevelSettings().put(level, levelSettings);
         });
 
     return dungeonSettings;
@@ -99,9 +99,9 @@ public class DungeonSettings {
     this.exclusive = toCopy.isExclusive();
 
     for (int i = 0; i < getMaxNumLevels(); ++i) {
-      LevelSettings level = toCopy.getLevels().get(i);
+      LevelSettings level = toCopy.getLevelSettings().get(i);
       LevelSettings levelSettings = Optional.ofNullable(level).map(LevelSettings::new).orElse(new LevelSettings());
-      getLevels().put(i, levelSettings);
+      getLevelSettings().put(i, levelSettings);
     }
 
     if (toCopy.getOverrides() != null) {
@@ -140,7 +140,7 @@ public class DungeonSettings {
   }
 
   public LevelSettings getLevelSettings(int level) {
-    return getLevels().get(level);
+    return getLevelSettings().get(level);
   }
 
   public TowerSettings getTower() {
@@ -186,7 +186,7 @@ public class DungeonSettings {
   }
 
   @JsonIgnore
-  public Map<Integer, LevelSettings> getLevels() {
+  public Map<Integer, LevelSettings> getLevelSettings() {
     return levels;
   }
 

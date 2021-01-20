@@ -27,7 +27,7 @@ public class SettingsMesaTheme extends DungeonSettings {
     for (int i = 0; i < 5; ++i) {
       LevelSettings level = new LevelSettings();
       level.setTheme(themes[i].getThemeBase());
-      getLevels().put(i, level);
+      getLevelSettings().put(i, level);
     }
   }
 }

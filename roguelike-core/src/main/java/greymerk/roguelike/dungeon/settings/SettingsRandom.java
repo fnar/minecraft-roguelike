@@ -28,7 +28,7 @@ public class SettingsRandom extends DungeonSettings {
     setTowerSettings(new TowerSettings(Tower.randomTower(rand), randomTheme()));
 
     IntStream.range(0, 5)
-        .forEach(i -> getLevels().put(i, createRandomLevel(rand, i)));
+        .forEach(i -> getLevelSettings().put(i, createRandomLevel(rand, i)));
 
     ILoot loot = Loot.getLoot();
     getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, loot.get(Loot.WEAPON, 0), 0, 2));

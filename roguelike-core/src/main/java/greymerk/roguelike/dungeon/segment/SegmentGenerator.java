@@ -17,10 +17,14 @@ import greymerk.roguelike.util.WeightedRandomizer;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
+@EqualsAndHashCode
+@ToString
 public class SegmentGenerator implements ISegmentGenerator {
 
-  protected Segment arch;
+  protected Segment arch = Segment.ARCH;
   protected WeightedRandomizer<Segment> segments;
 
   public SegmentGenerator() {
@@ -30,11 +34,6 @@ public class SegmentGenerator implements ISegmentGenerator {
   public SegmentGenerator(Segment arch) {
     segments = new WeightedRandomizer<>();
     this.arch = arch;
-  }
-
-  public SegmentGenerator(SegmentGenerator toCopy) {
-    arch = toCopy.arch;
-    segments = new WeightedRandomizer<>(toCopy.segments);
   }
 
   public SegmentGenerator(JsonObject json) {
@@ -80,9 +79,14 @@ public class SegmentGenerator implements ISegmentGenerator {
 
   public SegmentGenerator inherit(SegmentGenerator toInherit) {
     SegmentGenerator segmentGenerator = new SegmentGenerator();
-    segmentGenerator.segments.merge(segments);
-    segmentGenerator.segments.merge(toInherit.segments);
+    segmentGenerator.add(toInherit);
+    segmentGenerator.add(this);
     return segmentGenerator;
+  }
+
+  public void add(SegmentGenerator segmentGenerator) {
+    this.arch = segmentGenerator.arch;
+    this.segments.merge(segmentGenerator.segments);
   }
 
   public void add(Segment segment, int weight) {

@@ -136,7 +136,7 @@ public class SettingsDesertTheme extends DungeonSettings {
         level.setGenerator(LevelGenerator.CLASSIC);
       }
 
-      getLevels().put(i, level);
+      getLevelSettings().put(i, level);
     }
   }
 }

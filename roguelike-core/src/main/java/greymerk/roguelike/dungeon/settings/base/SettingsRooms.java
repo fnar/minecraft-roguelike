@@ -51,7 +51,7 @@ public class SettingsRooms extends DungeonSettings {
     LevelSettings level = new LevelSettings();
     level.setRooms(roomSetting);
 
-    getLevels().put(i, level);
+    getLevelSettings().put(i, level);
   }
 
   private List<RoomSetting> getLevel0Rooms() {

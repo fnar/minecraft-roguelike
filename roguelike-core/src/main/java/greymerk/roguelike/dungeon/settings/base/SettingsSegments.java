@@ -79,7 +79,7 @@ public class SettingsSegments extends DungeonSettings {
 
       LevelSettings level = new LevelSettings();
       level.setSegments(segments);
-      getLevels().put(i, level);
+      getLevelSettings().put(i, level);
 
     }
   }

@@ -105,8 +105,8 @@ public class SettingsMountainTheme extends DungeonSettings {
         level.setRooms(factory);
       }
 
-      getLevels().put(i, level);
+      getLevelSettings().put(i, level);
     }
-    getLevels().get(3).addFilter(Filter.VINE);
+    getLevelSettings().get(3).addFilter(Filter.VINE);
   }
 }
