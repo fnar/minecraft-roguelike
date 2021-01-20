@@ -9,6 +9,7 @@ import com.google.gson.JsonSyntaxException;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 import greymerk.roguelike.dungeon.LevelGenerator;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
@@ -276,31 +277,15 @@ public class DungeonSettingsParser {
     }
   }
 
-  private static void parseSegments(JsonObject root, DungeonSettings dungeonSettings) {
-    if (!root.has("segments")) {
-      return;
-    }
-    JsonArray arr = root.get("segments").getAsJsonArray();
-    for (int lvl : dungeonSettings.getLevels().keySet()) {
-      boolean hasEntry = false;
-      SegmentGenerator segments = new SegmentGenerator();
-      for (JsonElement jsonElement : arr) {
-        if (jsonElement.isJsonNull()) {
-          continue;
-        }
-        JsonObject entry = jsonElement.getAsJsonObject();
-        List<Integer> levels = LevelsParser.parseLevelsOrDefault(entry, ALL_LEVELS);
-        if (!levels.contains(lvl)) {
-          continue;
-        }
-
-        hasEntry = true;
-        segments.add(entry);
-      }
-
-      if (hasEntry) {
-        dungeonSettings.getLevels().get(lvl).setSegments(segments);
-      }
+  private static void parseSegments(JsonObject dungeonSettingsJson, DungeonSettings dungeonSettings) {
+    if (dungeonSettingsJson.has("segments")) {
+      JsonElement segmentsElement = dungeonSettingsJson.get("segments");
+      Map<Integer, SegmentGenerator> segmentsByLevel = SegmentsParser.parseSegments(segmentsElement);
+      segmentsByLevel.forEach((level, segments) -> {
+        LevelSettings levelSettings = dungeonSettings.getLevelSettings(level);
+        SegmentGenerator newSegments = levelSettings.getSegments().inherit(segments);
+        levelSettings.setSegments(newSegments);
+      });
     }
   }
 
@@ -310,9 +295,6 @@ public class DungeonSettingsParser {
     }
     JsonArray spawnersJson = root.get("spawners").getAsJsonArray();
     for (JsonElement spawnerJsonElement : spawnersJson) {
-      if (spawnerJsonElement.isJsonNull()) {
-        continue;
-      }
       JsonObject spawnerJson = spawnerJsonElement.getAsJsonObject();
       List<Integer> levels = LevelsParser.parseLevelsOrDefault(spawnerJson, ALL_LEVELS);
       for (int level : levels) {
@@ -329,9 +311,6 @@ public class DungeonSettingsParser {
     }
     JsonArray filtersArray = root.get("filters").getAsJsonArray();
     for (JsonElement filterElement : filtersArray) {
-      if (filterElement.isJsonNull()) {
-        continue;
-      }
       JsonObject filterObject = filterElement.getAsJsonObject();
       List<Integer> levels = LevelsParser.parseLevelsOrDefault(filterObject, ALL_LEVELS);
       for (int level : levels) {

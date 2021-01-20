@@ -11,7 +11,6 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.LevelGenerator;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.base.SecretsSetting;
-import greymerk.roguelike.dungeon.segment.ISegmentGenerator;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.theme.ThemeBase;
@@ -190,7 +189,7 @@ public class LevelSettings {
     this.secrets = secrets;
   }
 
-  public ISegmentGenerator getSegments() {
+  public SegmentGenerator getSegments() {
     return segments != null ? segments : new SegmentGenerator();
   }
 
