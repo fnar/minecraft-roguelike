@@ -182,7 +182,7 @@ public class BlockMapper1_12 {
       case ACACIA_DOOR:
       case DARK_OAK_DOOR:
       case WARPED_DOOR:
-        return getDoor((DoorBlock) block);
+        return mapDoor((DoorBlock) block);
       case CHISELED_QUARTZ:
         return getQuartz(Quartz.CHISELED, facing);
       case PILLAR_QUARTZ:
@@ -649,8 +649,12 @@ public class BlockMapper1_12 {
         .withProperty(BlockTrapDoor.FACING, block.getFacing().getFacing());
   }
 
-  public static MetaBlock1_2 getDoor(DoorBlock block) {
-    return getDoorMetaBlock(block.getBlockType())
+  public static MetaBlock1_2 mapDoor(DoorBlock block) {
+    JsonElement json = block.getJson();
+    MetaBlock1_2 doorMetaBlock = json != null
+        ? new MetaBlock1_2(json)
+        : getDoorMetaBlock(block.getBlockType());
+    return doorMetaBlock
         .withProperty(BlockDoor.HALF, block.isTop() ? BlockDoor.EnumDoorHalf.UPPER : BlockDoor.EnumDoorHalf.LOWER)
         .withProperty(BlockDoor.FACING, block.getFacing().getFacing())
         .withProperty(BlockDoor.OPEN, block.isOpen())
