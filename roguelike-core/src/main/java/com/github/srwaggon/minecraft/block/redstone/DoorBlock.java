@@ -82,6 +82,7 @@ public class DoorBlock extends SingleBlockBrush {
   private DoorBlock getTop() {
     DoorBlock topBlock = new DoorBlock(getBlockType(), getMaterial())
         .setTop();
+    topBlock.setJson(this.getJson());
     if (this.isOpen()) {
       topBlock.setOpen();
     }
