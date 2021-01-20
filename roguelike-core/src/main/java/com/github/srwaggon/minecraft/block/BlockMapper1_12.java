@@ -1,5 +1,7 @@
 package com.github.srwaggon.minecraft.block;
 
+import com.google.gson.JsonElement;
+
 import com.github.srwaggon.minecraft.block.decorative.AnvilBlock;
 import com.github.srwaggon.minecraft.block.decorative.BedBlock;
 import com.github.srwaggon.minecraft.block.decorative.CropBlock;
@@ -155,7 +157,7 @@ public class BlockMapper1_12 {
       case SPRUCE_STAIRS:
       case STONE_BRICK_STAIRS:
       case STONE_STAIRS:
-        return getStairs((StairsBlock) block);
+        return mapStairs((StairsBlock) block);
       case ACACIA_SLAB:
       case BIRCH_SLAB:
       case BRICK_SLAB:
@@ -596,9 +598,12 @@ public class BlockMapper1_12 {
         .withProperty(BlockAnvil.FACING, block.getFacing().getFacing());
   }
 
-  private static MetaBlock1_2 getStairs(StairsBlock block) {
-    Block blockForStairs = getBlockForStairs(block.getBlockType());
-    return new MetaBlock1_2(blockForStairs)
+  public static MetaBlock1_2 mapStairs(StairsBlock block) {
+    JsonElement json = block.getJson();
+    MetaBlock1_2 metaBlock1_2 = json != null
+        ? new MetaBlock1_2(json)
+        : new MetaBlock1_2(getBlockForStairs(block.getBlockType()));
+    return metaBlock1_2
         .withProperty(BlockStairs.FACING, block.getFacing().getFacing())
         .withProperty(BlockStairs.HALF, block.isUpsideDown() ? BlockStairs.EnumHalf.TOP : BlockStairs.EnumHalf.BOTTOM);
   }
