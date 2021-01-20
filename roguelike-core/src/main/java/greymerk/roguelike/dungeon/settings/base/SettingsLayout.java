@@ -30,7 +30,7 @@ public class SettingsLayout extends DungeonSettings {
       level.setRange(range[i]);
       level.setScatter(scatter[i]);
       level.setGenerator(generator[i]);
-      getLevels().put(i, level);
+      getLevelSettings().put(i, level);
     }
   }
 

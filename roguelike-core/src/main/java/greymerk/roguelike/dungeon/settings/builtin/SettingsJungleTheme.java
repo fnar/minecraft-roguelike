@@ -58,7 +58,7 @@ public class SettingsJungleTheme extends DungeonSettings {
       }
 
       level.setTheme(themes[i].getThemeBase());
-      getLevels().put(i, level);
+      getLevelSettings().put(i, level);
     }
   }
 }

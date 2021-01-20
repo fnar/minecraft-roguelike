@@ -37,7 +37,7 @@ public class LevelSettings {
   private RoomsSetting rooms = new RoomsSetting();
   private SecretsSetting secrets = new SecretsSetting();
   private ThemeBase theme;
-  private SegmentGenerator segments;
+  private SegmentGenerator segments = new SegmentGenerator();
   private SpawnerSettings spawners = new SpawnerSettings();
   private LevelGenerator generator;
   private Set<Filter> filters = new HashSet<>();
@@ -93,9 +93,7 @@ public class LevelSettings {
 
     setTheme(inherit(parent, child, overrides));
 
-    if (parent.segments != null || child.segments != null) {
-      segments = child.segments == null ? new SegmentGenerator(parent.segments) : new SegmentGenerator(child.segments);
-    }
+    segments = child.segments.inherit(parent.segments);
 
     spawners = new SpawnerSettings(parent.spawners, child.spawners);
     generator = child.generator == null ? parent.generator : child.generator;
@@ -130,7 +128,7 @@ public class LevelSettings {
     rooms = toCopy.rooms != null ? new RoomsSetting(toCopy.rooms) : null;
     secrets = toCopy.secrets != null ? new SecretsSetting(toCopy.secrets) : null;
     theme = toCopy.theme;
-    segments = toCopy.segments != null ? new SegmentGenerator(toCopy.segments) : null;
+    segments.add(toCopy.segments);
     spawners = new SpawnerSettings(toCopy.spawners);
     filters = Sets.newHashSet(toCopy.filters);
     generator = toCopy.generator;
@@ -190,7 +188,7 @@ public class LevelSettings {
   }
 
   public SegmentGenerator getSegments() {
-    return segments != null ? segments : new SegmentGenerator();
+    return segments;
   }
 
   public void setSegments(SegmentGenerator segments) {

@@ -9,14 +9,12 @@ import com.google.gson.JsonSyntaxException;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import greymerk.roguelike.dungeon.LevelGenerator;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.base.SecretsSetting;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.rooms.RoomSettingParser;
-import greymerk.roguelike.dungeon.segment.SegmentGenerator;
 import greymerk.roguelike.dungeon.settings.level.LevelsParser;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.theme.ThemeParser;
@@ -51,7 +49,7 @@ public class DungeonSettingsParser {
     // set up level settings objects
     for (int i = 0; i < DungeonSettings.getMaxNumLevels(); ++i) {
       LevelSettings setting = new LevelSettings();
-      dungeonSettings.getLevels().put(i, setting);
+      dungeonSettings.getLevelSettings().put(i, setting);
     }
 
     parseId(root, dungeonSettings);
@@ -164,7 +162,7 @@ public class DungeonSettingsParser {
         if (jsonElement.isJsonNull()) {
           continue;
         }
-        LevelSettings setting = dungeonSettings.getLevels().get(i);
+        LevelSettings setting = dungeonSettings.getLevelSettings().get(i);
         setting.setNumRooms(jsonElement.getAsInt());
       }
     }
@@ -178,7 +176,7 @@ public class DungeonSettingsParser {
         if (jsonElement.isJsonNull()) {
           continue;
         }
-        LevelSettings setting = dungeonSettings.getLevels().get(i);
+        LevelSettings setting = dungeonSettings.getLevelSettings().get(i);
         setting.setScatter(jsonElement.getAsInt());
       }
     }
@@ -197,8 +195,8 @@ public class DungeonSettingsParser {
       if (layout.has("level")) {
         List<Integer> levels = LevelsParser.parseLevelsOrDefault(layout, ALL_LEVELS);
         for (Integer level : levels) {
-          if (dungeonSettings.getLevels().containsKey(level)) {
-            LevelSettings setting = dungeonSettings.getLevels().get(level);
+          if (dungeonSettings.getLevelSettings().containsKey(level)) {
+            LevelSettings setting = dungeonSettings.getLevelSettings().get(level);
             setting.setGenerator(LevelGenerator.valueOf(layout.get("type").getAsString().toUpperCase()));
           }
         }
@@ -219,7 +217,7 @@ public class DungeonSettingsParser {
     //
     // parseRoomSettings(roomArray);
 
-    for (int floorLevel : dungeonSettings.getLevels().keySet()) {
+    for (int floorLevel : dungeonSettings.getLevelSettings().keySet()) {
 
       RoomsSetting roomsSetting = new RoomsSetting();
       SecretsSetting secretsSetting = new SecretsSetting();
@@ -238,7 +236,7 @@ public class DungeonSettingsParser {
         }
       }
 
-      LevelSettings level = dungeonSettings.getLevels().get(floorLevel);
+      LevelSettings level = dungeonSettings.getLevelSettings().get(floorLevel);
       level.setRooms(roomsSetting);
       level.setSecrets(secretsSetting);
     }
@@ -267,10 +265,10 @@ public class DungeonSettingsParser {
       }
 
       for (int level : levels) {
-        if (!dungeonSettings.getLevels().containsKey(level)) {
+        if (!dungeonSettings.getLevelSettings().containsKey(level)) {
           continue;
         }
-        LevelSettings settings = dungeonSettings.getLevels().get(level);
+        LevelSettings settings = dungeonSettings.getLevelSettings().get(level);
         ThemeBase theme = ThemeParser.parse(themeJsonObject);
         settings.setTheme(theme);
       }
@@ -280,12 +278,9 @@ public class DungeonSettingsParser {
   private static void parseSegments(JsonObject dungeonSettingsJson, DungeonSettings dungeonSettings) {
     if (dungeonSettingsJson.has("segments")) {
       JsonElement segmentsElement = dungeonSettingsJson.get("segments");
-      Map<Integer, SegmentGenerator> segmentsByLevel = SegmentsParser.parseSegments(segmentsElement);
-      segmentsByLevel.forEach((level, segments) -> {
-        LevelSettings levelSettings = dungeonSettings.getLevelSettings(level);
-        SegmentGenerator newSegments = levelSettings.getSegments().inherit(segments);
-        levelSettings.setSegments(newSegments);
-      });
+      SegmentsParser.parseSegments(segmentsElement)
+          .forEach((level, segments) ->
+              dungeonSettings.getLevelSettings(level).getSegments().add(segments));
     }
   }
 
@@ -298,8 +293,8 @@ public class DungeonSettingsParser {
       JsonObject spawnerJson = spawnerJsonElement.getAsJsonObject();
       List<Integer> levels = LevelsParser.parseLevelsOrDefault(spawnerJson, ALL_LEVELS);
       for (int level : levels) {
-        if (dungeonSettings.getLevels().containsKey(level)) {
-          dungeonSettings.getLevels().get(level).getSpawners().parse(spawnerJson);
+        if (dungeonSettings.getLevelSettings().containsKey(level)) {
+          dungeonSettings.getLevelSettings().get(level).getSpawners().parse(spawnerJson);
         }
       }
     }
@@ -314,10 +309,10 @@ public class DungeonSettingsParser {
       JsonObject filterObject = filterElement.getAsJsonObject();
       List<Integer> levels = LevelsParser.parseLevelsOrDefault(filterObject, ALL_LEVELS);
       for (int level : levels) {
-        if (dungeonSettings.getLevels().containsKey(level)) {
+        if (dungeonSettings.getLevelSettings().containsKey(level)) {
           String name = filterObject.get("name").getAsString();
           Filter type = Filter.valueOf(name.toUpperCase());
-          dungeonSettings.getLevels().get(level).addFilter(type);
+          dungeonSettings.getLevelSettings().get(level).addFilter(type);
         }
       }
     }

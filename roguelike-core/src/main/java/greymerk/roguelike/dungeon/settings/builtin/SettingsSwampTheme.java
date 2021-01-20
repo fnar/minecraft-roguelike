@@ -96,10 +96,10 @@ public class SettingsSwampTheme extends DungeonSettings {
         level.addFilter(Filter.MUD);
       }
 
-      getLevels().put(i, level);
+      getLevelSettings().put(i, level);
     }
 
-    getLevels().get(2).addFilter(Filter.VINE);
-    getLevels().get(3).addFilter(Filter.VINE);
+    getLevelSettings().get(2).addFilter(Filter.VINE);
+    getLevelSettings().get(3).addFilter(Filter.VINE);
   }
 }

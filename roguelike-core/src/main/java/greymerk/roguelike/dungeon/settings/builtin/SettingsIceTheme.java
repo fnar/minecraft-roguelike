@@ -25,7 +25,7 @@ public class SettingsIceTheme extends DungeonSettings {
     getCriteria().setBiomeTypes(newArrayList(SNOWY));
     setTowerSettings(new TowerSettings(PYRAMID, ICE));
     IntStream.range(0, 5)
-        .forEach(i -> getLevels().put(i, generateLevelSettings(i)));
+        .forEach(i -> getLevelSettings().put(i, generateLevelSettings(i)));
   }
 
   private LevelSettings generateLevelSettings(int i) {
