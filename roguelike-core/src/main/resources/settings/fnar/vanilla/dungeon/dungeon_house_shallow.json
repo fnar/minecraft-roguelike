@@ -1,0 +1,12 @@
+{
+  "name" : "dungeon:brick_house_shallow",
+  "exclusive": true,
+  "criteria": {"biomeTypes": ["FOREST", "HILLS", "MOUNTAIN", "PLAINS"]},
+  "inherit" : [
+    "dungeon:generic",
+    "theme:forest",
+    "tower:house_house",
+    "layout:type_mixed",
+    "layout:size_small"
+  ]
+}

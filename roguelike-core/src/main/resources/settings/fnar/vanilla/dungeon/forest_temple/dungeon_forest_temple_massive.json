@@ -1,0 +1,11 @@
+{
+  "name" : "dungeon:forest_temple_massive",
+  "exclusive": true,
+  "criteria": {"biomeTypes": ["FOREST"]},
+  "inherit" : [
+    "dungeon:forest_temple",
+    "layout:size_massive",
+    "tower:eniko_forest"
+  ],
+  "criteria": {"biomeTypes": ["FOREST"]}
+}

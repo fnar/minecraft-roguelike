@@ -1,0 +1,8 @@
+{
+  "name" : "dungeon:cave_tiny",
+  "exclusive": true,
+  "inherit" : [
+    "dungeon:cave",
+    "layout:size_tiny"
+  ]
+}

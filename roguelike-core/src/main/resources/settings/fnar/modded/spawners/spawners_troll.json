@@ -1,0 +1,6 @@
+{
+  "name": "spawners:troll",
+  "spawners": [
+    {"potentials": [{"name": "iceandfire:if_troll"}], "level": [0, 1, 2, 3, 4]}
+  ]
+}

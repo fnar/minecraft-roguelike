@@ -1,0 +1,8 @@
+{
+  "name" : "dungeon:mesa_builtin",
+  "exclusive": true,
+  "criteria": {"biomeTypes": ["MESA"]},
+  "inherit" : [
+    "builtin:mesa"
+  ]
+}

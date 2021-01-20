@@ -1,0 +1,7 @@
+{
+  "name" : "spawners:myrmex",
+  "inherit": [
+    "spawners:myrmex_workers",
+    "spawners:myrmex_boss"
+  ]
+}

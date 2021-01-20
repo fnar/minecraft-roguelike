@@ -1,0 +1,7 @@
+{
+  "name": "dungeon:common",
+  "inherit": [
+    "dungeon:generic",
+    "layout:roomcount_decreasing_tiny"
+  ]
+}
