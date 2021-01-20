@@ -1,0 +1,12 @@
+{
+  "name": "dungeon:ice_pyramid",
+  "exclusive": true,
+  "criteria": {"biomeTypes": ["SNOWY"]},
+  "inherit": [
+    "dungeon:common",
+    "rooms:undead",
+    "segments:undead",
+    "theme:ice",
+    "tower:ice_pyramid"
+  ]
+}

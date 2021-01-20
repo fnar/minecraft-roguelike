@@ -1,0 +1,69 @@
+{
+  "name": "loot:other",
+  "lootRules": [
+    {
+      "level": [0, 1, 2, 3, 4],
+      "type": "MUSIC",
+      "each": true,
+      "quantity": 1,
+      "loot": [
+        {"data": {"name": "minecraft:record_cat"}, "weight": 1},
+        {"data": {"name": "minecraft:record_13"}, "weight": 1}
+      ]
+    },
+    {
+      "level": [0, 1, 2, 3, 4],
+      "type": "SUPPLIES",
+      "each": true,
+      "quantity": 3,
+      "loot": [
+        {"data": {"name": "minecraft:wheat_seeds"}, "weight": 1},
+        {"data": {"name": "minecraft:wooden_hoe"}, "weight": 1},
+        {"data": {"name": "minecraft:pumpkin_seeds"}, "weight": 1},
+        {"data": {"name": "minecraft:melon_seeds"}, "weight": 1},
+        {"data": {"name": "minecraft:lead"}, "weight": 1},
+        {"data": {"name": "minecraft:saddle"}, "weight": 1},
+        {"data": {"name": "minecraft:wheat"}, "weight": 1},
+        {"data": {"name": "minecraft:beetroot_seeds"}, "weight": 1},
+        {"data": {"name": "minecraft:sapling"}, "weight": 1},
+        {"data": {"name": "minecraft:coal", "min": 1, "max": 6}, "weight": 5},
+        {"data": {"name": "minecraft:iron_ingot", "min": 1, "max": 3}, "weight": 3},
+        {"data": {"name": "minecraft:gold_ingot", "min": 1, "max": 3}, "weight": 3}
+      ]
+    },
+    {
+      "level": [0, 1, 2, 3, 4],
+      "type": "SMITH",
+      "each": true,
+      "quantity": 1,
+      "loot": [
+        {"data": {"type": "specialty", "equipment": "sword", "quality": "iron", "level": 1}, "weight": 1}
+      ]
+    },
+    {
+      "level": [0, 1, 2, 3, 4],
+      "type": "BLOCKS",
+      "each": true,
+      "quantity": 3,
+      "loot": [
+        {"data": {"name": "minecraft:dirt", "meta": 0, "min": 16, "max": 32}, "weight": 5},
+        {"data": {"name": "minecraft:stone", "meta": 0, "min": 16, "max": 32}, "weight": 5},
+        {"data": {"name": "minecraft:cobblestone", "min": 16, "max": 32}, "weight": 5},
+        {"data": {"name": "minecraft:stonebrick", "meta": 0, "min": 16, "max": 32}, "weight": 1},
+        {"data": {"name": "minecraft:stonebrick", "meta": 1, "min": 8, "max": 16}, "weight": 1},
+        {"data": {"name": "minecraft:stonebrick", "meta": 2, "min": 8, "max": 16}, "weight": 1},
+        {"data": {"name": "minecraft:log", "meta": 0, "min": 4, "max": 8}, "weight": 5},
+        {"data": {"name": "minecraft:planks", "meta": 0, "min": 8, "max": 16}, "weight": 5},
+        {"data": {"name": "minecraft:planks", "meta": 1, "min": 8, "max": 16}, "weight": 1},
+        {"data": {"name": "minecraft:planks", "meta": 2, "min": 8, "max": 16}, "weight": 1},
+        {"data": {"name": "minecraft:planks", "meta": 3, "min": 8, "max": 16}, "weight": 1},
+        {"data": {"name": "minecraft:planks", "meta": 4, "min": 8, "max": 16}, "weight": 1},
+        {"data": {"name": "minecraft:planks", "meta": 5, "min": 8, "max": 16}, "weight": 1},
+        {"data": {"name": "minecraft:gravel", "min": 16, "max": 32}, "weight": 5},
+        {"data": {"name": "minecraft:clay", "min": 8, "max": 16}, "weight": 1},
+        {"data": {"name": "minecraft:sand", "min": 16, "max": 32}, "weight": 2},
+        {"data": {"name": "minecraft:glass", "min": 8, "max": 16}, "weight": 1}
+      ]
+    }
+  ]
+}

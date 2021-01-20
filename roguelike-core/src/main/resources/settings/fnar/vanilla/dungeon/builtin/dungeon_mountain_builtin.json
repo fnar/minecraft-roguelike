@@ -1,0 +1,8 @@
+{
+  "name" : "dungeon:mountain_builtin",
+  "exclusive": true,
+  "criteria": {"biomeTypes": ["MOUNTAIN"]},
+  "inherit" : [
+    "builtin:mountain"
+  ]
+}

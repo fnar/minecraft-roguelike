@@ -1,0 +1,8 @@
+{
+  "name" : "dungeon:swamp_builtin",
+  "exclusive": true,
+  "criteria": {"biomeTypes": ["SWAMP"]},
+  "inherit" : [
+    "builtin:swamp"
+  ]
+}

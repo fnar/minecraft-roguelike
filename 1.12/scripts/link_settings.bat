@@ -1,0 +1,1 @@
+mklink /J run\config\roguelike_dungeons\settings ..\roguelike-core\src\main\resources\settings

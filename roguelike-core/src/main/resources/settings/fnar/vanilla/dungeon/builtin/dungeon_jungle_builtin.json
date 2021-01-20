@@ -1,0 +1,8 @@
+{
+  "name" : "dungeon:jungle_builtin",
+  "exclusive": true,
+  "criteria": {"biomeTypes": ["JUNGLE"]},
+  "inherit" : [
+    "builtin:jungle"
+  ]
+}
