@@ -83,7 +83,7 @@ public class LevelSettings {
     if (overrides.contains(ROOMS)) {
       rooms = new RoomsSetting(child.rooms);
     } else {
-      rooms = new RoomsSetting(parent.rooms, child.rooms);
+      rooms = child.rooms.inherit(parent.rooms);
     }
 
     if (overrides.contains(SECRETS)) {
