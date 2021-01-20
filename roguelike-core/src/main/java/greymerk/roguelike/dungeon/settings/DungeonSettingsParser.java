@@ -7,6 +7,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
+import java.util.Collections;
 import java.util.List;
 
 import greymerk.roguelike.dungeon.LevelGenerator;
@@ -23,6 +24,8 @@ import greymerk.roguelike.treasure.loot.LootTableRule;
 import greymerk.roguelike.worldgen.filter.Filter;
 
 public class DungeonSettingsParser {
+
+  public static final List<Integer> ALL_LEVELS = Collections.unmodifiableList(Lists.newArrayList(0, 1, 2, 3, 4));
 
   public static DungeonSettings parseJson(String content) throws Exception {
     try {
@@ -191,7 +194,7 @@ public class DungeonSettingsParser {
       }
       JsonObject layout = jsonElement.getAsJsonObject();
       if (layout.has("level")) {
-        List<Integer> levels = LevelsParser.parseLevelsIfPresent(layout);
+        List<Integer> levels = LevelsParser.parseLevelsOrDefault(layout, ALL_LEVELS);
         for (Integer level : levels) {
           if (dungeonSettings.getLevels().containsKey(level)) {
             LevelSettings setting = dungeonSettings.getLevels().get(level);
@@ -257,7 +260,7 @@ public class DungeonSettingsParser {
         continue;
       }
       JsonObject themeJsonObject = themeJsonElement.getAsJsonObject();
-      List<Integer> levels = LevelsParser.parseLevelsIfPresent(themeJsonObject);
+      List<Integer> levels = LevelsParser.parseLevelsOrDefault(themeJsonObject, ALL_LEVELS);
       if (levels == null) {
         continue;
       }
@@ -286,8 +289,8 @@ public class DungeonSettingsParser {
           continue;
         }
         JsonObject entry = jsonElement.getAsJsonObject();
-        List<Integer> lvls = LevelsParser.parseLevelsIfPresent(entry);
-        if (!lvls.contains(lvl)) {
+        List<Integer> levels = LevelsParser.parseLevelsOrDefault(entry, ALL_LEVELS);
+        if (!levels.contains(lvl)) {
           continue;
         }
 
@@ -311,10 +314,10 @@ public class DungeonSettingsParser {
         continue;
       }
       JsonObject spawnerJson = spawnerJsonElement.getAsJsonObject();
-      List<Integer> lvls = LevelsParser.parseLevelsIfPresent(spawnerJson);
-      for (int i : lvls) {
-        if (dungeonSettings.getLevels().containsKey(i)) {
-          dungeonSettings.getLevels().get(i).getSpawners().parse(spawnerJson);
+      List<Integer> levels = LevelsParser.parseLevelsOrDefault(spawnerJson, ALL_LEVELS);
+      for (int level : levels) {
+        if (dungeonSettings.getLevels().containsKey(level)) {
+          dungeonSettings.getLevels().get(level).getSpawners().parse(spawnerJson);
         }
       }
     }
@@ -324,19 +327,18 @@ public class DungeonSettingsParser {
     if (!root.has("filters")) {
       return;
     }
-    JsonArray arr = root.get("filters").getAsJsonArray();
-    for (JsonElement jsonElement : arr) {
-      if (jsonElement.isJsonNull()) {
+    JsonArray filtersArray = root.get("filters").getAsJsonArray();
+    for (JsonElement filterElement : filtersArray) {
+      if (filterElement.isJsonNull()) {
         continue;
       }
-      JsonObject entry = jsonElement.getAsJsonObject();
-      List<Integer> lvls = LevelsParser.parseLevelsIfPresent(entry);
-      for (int i : lvls) {
-        if (dungeonSettings.getLevels().containsKey(i)) {
-          String name = entry.get("name").getAsString();
+      JsonObject filterObject = filterElement.getAsJsonObject();
+      List<Integer> levels = LevelsParser.parseLevelsOrDefault(filterObject, ALL_LEVELS);
+      for (int level : levels) {
+        if (dungeonSettings.getLevels().containsKey(level)) {
+          String name = filterObject.get("name").getAsString();
           Filter type = Filter.valueOf(name.toUpperCase());
-          LevelSettings level = dungeonSettings.getLevels().get(i);
-          level.addFilter(type);
+          dungeonSettings.getLevels().get(level).addFilter(type);
         }
       }
     }
