@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.github.srwaggon.minecraft.block.BlockMapper1_12;
 import com.github.srwaggon.minecraft.block.SingleBlockBrush;
 import com.github.srwaggon.minecraft.block.normal.StairsBlock;
+import com.github.srwaggon.minecraft.block.redstone.DoorBlock;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
@@ -49,6 +50,9 @@ public class MetaBlock1_2 {
     }
     if (singleBlockBrush instanceof StairsBlock) {
       return BlockMapper1_12.mapStairs((StairsBlock) singleBlockBrush);
+    }
+    if (singleBlockBrush instanceof DoorBlock) {
+      return BlockMapper1_12.mapDoor((DoorBlock) singleBlockBrush);
     }
     return new MetaBlock1_2(json);
   }
