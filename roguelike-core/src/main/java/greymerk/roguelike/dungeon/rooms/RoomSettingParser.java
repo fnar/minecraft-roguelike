@@ -8,7 +8,8 @@ import java.util.Optional;
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.treasure.loot.ChestType;
 
-import static greymerk.roguelike.dungeon.settings.level.LevelsParser.parseLevelsIfPresent;
+import static greymerk.roguelike.dungeon.settings.DungeonSettingsParser.ALL_LEVELS;
+import static greymerk.roguelike.dungeon.settings.level.LevelsParser.parseLevelsOrDefault;
 
 public class RoomSettingParser {
 
@@ -26,7 +27,7 @@ public class RoomSettingParser {
         parseRoomFrequency(roomSettingJson),
         parseWeight(roomSettingJson),
         parseCount(roomSettingJson),
-        parseLevelsIfPresent(roomSettingJson),
+        parseLevelsOrDefault(roomSettingJson, ALL_LEVELS),
         parseChestType(roomSettingJson)
     );
   }

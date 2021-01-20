@@ -1,5 +1,6 @@
 package greymerk.roguelike.dungeon.settings.level;
 
+import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -7,29 +8,19 @@ import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.google.common.collect.Lists.newArrayList;
-
 public class LevelsParser {
 
-  public static List<Integer> parseLevelsIfPresent(JsonObject roomSettingJson) {
-    return roomSettingJson.has("level")
-        ? parseLevels(roomSettingJson)
-        : null;
-  }
-
-  public static List<Integer> parseLevels(JsonObject roomSettingJson) {
-    JsonElement levelJson = roomSettingJson.get("level");
-    if (!levelJson.isJsonArray()) {
-      return newArrayList(levelJson.getAsInt());
+  public static List<Integer> parseLevelsOrDefault(JsonObject parentObject, List<Integer> defaultValue) {
+    if (!parentObject.has("level")) {
+      return defaultValue;
     }
-    JsonArray levelsArray = levelJson.getAsJsonArray();
+    JsonElement levelElement = parentObject.get("level");
+    if (!levelElement.isJsonArray()) {
+      return Lists.newArrayList(levelElement.getAsInt());
+    }
+    JsonArray levelsArray = levelElement.getAsJsonArray();
     List<Integer> levels = new ArrayList<>();
-    for (JsonElement jsonElement : levelsArray) {
-      if (jsonElement.isJsonNull()) {
-        continue;
-      }
-      levels.add(jsonElement.getAsInt());
-    }
+    levelsArray.forEach(level -> levels.add(level.getAsInt()));
     return levels;
   }
 }
