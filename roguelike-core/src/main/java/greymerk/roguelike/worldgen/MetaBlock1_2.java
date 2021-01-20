@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 
 import com.github.srwaggon.minecraft.block.BlockMapper1_12;
 import com.github.srwaggon.minecraft.block.SingleBlockBrush;
+import com.github.srwaggon.minecraft.block.normal.StairsBlock;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;
@@ -43,9 +44,13 @@ public class MetaBlock1_2 {
 
   public static MetaBlock1_2 getMetaBlock(SingleBlockBrush singleBlockBrush) {
     JsonElement json = singleBlockBrush.getJson();
-    return json == null
-        ? BlockMapper1_12.map(singleBlockBrush)
-        : new MetaBlock1_2(json);
+    if (json == null) {
+      return BlockMapper1_12.map(singleBlockBrush);
+    }
+    if (singleBlockBrush instanceof StairsBlock) {
+      return BlockMapper1_12.mapStairs((StairsBlock) singleBlockBrush);
+    }
+    return new MetaBlock1_2(json);
   }
 
   public <T extends Comparable<T>, V extends T> MetaBlock1_2 withProperty(IProperty<T> property, V value) {
