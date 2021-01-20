@@ -14,7 +14,7 @@ public class RoomSettingParserTest {
   @Test
   public void parse_CanParseTheSpawnerId() {
     String roomSettingJson = "{\n" +
-        "  \"type\": \"FORTRESS\",\n" +
+        "  \"type\": \"NETHERFORT\",\n" +
         "  \"spawnerId\": \"BLAZE\"\n" +
         "}";
 
@@ -29,7 +29,7 @@ public class RoomSettingParserTest {
   @Test
   public void parse_parsesTheTreasureChestType_WithAValidValue() {
     String roomSettingJson = "{\n" +
-        "  \"type\": \"FORTRESS\",\n" +
+        "  \"type\": \"NETHERFORT\",\n" +
         "  \"chestType\": \"ARMOUR\"\n" +
         "}";
     assertThat(parseRoomSetting(roomSettingJson).getChestType().get()).isEqualTo(new ChestType("ARMOUR"));
@@ -38,7 +38,7 @@ public class RoomSettingParserTest {
   @Test
   public void parse_parseTheTreasureChestTypeAsNull_WhenTheKeyIsAbsent() {
     String roomSettingJson = "{\n" +
-        "  \"type\": \"FORTRESS\"\n" +
+        "  \"type\": \"NETHERFORT\"\n" +
         "}";
     assertThat(parseRoomSetting(roomSettingJson).getChestType()).isEmpty();
   }
@@ -46,7 +46,7 @@ public class RoomSettingParserTest {
   @Test
   public void parse_parseTheTreasureChestTypeAsNull_WhenNull() {
     String roomSettingJson = "{\n" +
-        "  \"type\": \"FORTRESS\",\n" +
+        "  \"type\": \"NETHERFORT\",\n" +
         "  \"chestType\": null\n" +
         "}";
     assertThat(parseRoomSetting(roomSettingJson).getChestType()).isEmpty();
