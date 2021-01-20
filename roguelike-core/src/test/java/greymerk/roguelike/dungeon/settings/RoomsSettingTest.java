@@ -62,29 +62,29 @@ public class RoomsSettingTest {
 
   @Test
   public void testMerge() {
+    RoomsSetting expected = new RoomsSetting();
+    expected.add(RoomType.BLAZE.newRandomRoomSetting(5));
+    expected.add(RoomType.CAKE.newRandomRoomSetting(1));
+    expected.add(RoomType.SLIME.newRandomRoomSetting(2));
+    expected.add(RoomType.ASHLEA.newRandomRoomSetting(5));
+    expected.add(RoomType.ETHO.newRandomRoomSetting(1));
+    expected.add(RoomType.AVIDYA.newRandomRoomSetting(2));
 
-    RoomsSetting base = new RoomsSetting();
-    RoomsSetting other = new RoomsSetting();
+    RoomsSetting parent0 = new RoomsSetting();
+    parent0.add(RoomType.BLAZE.newRandomRoomSetting(5));
+    parent0.add(RoomType.CAKE.newRandomRoomSetting(1));
+    parent0.add(RoomType.SLIME.newRandomRoomSetting(2));
 
-    RoomsSetting third = new RoomsSetting();
-    base.add(RoomType.BLAZE.newRandomRoomSetting(5));
-    base.add(RoomType.CAKE.newRandomRoomSetting(1));
-    base.add(RoomType.SLIME.newRandomRoomSetting(2));
+    RoomsSetting parent1 = new RoomsSetting();
+    parent1.add(RoomType.ASHLEA.newRandomRoomSetting(5));
+    parent1.add(RoomType.ETHO.newRandomRoomSetting(1));
+    parent1.add(RoomType.AVIDYA.newRandomRoomSetting(2));
 
-    RoomsSetting merge = new RoomsSetting(base, other);
-    assertThat(third).isNotEqualTo(merge);
+    RoomsSetting child = new RoomsSetting()
+        .inherit(parent0)
+        .inherit(parent1);
 
-    third.add(RoomType.CAKE.newRandomRoomSetting(1));
-    assertThat(third).isNotEqualTo(merge);
-
-    third.add(RoomType.SLIME.newRandomRoomSetting(2));
-    assertThat(third).isNotEqualTo(merge);
-
-    third.add(RoomType.BLAZE.newRandomRoomSetting(1));
-    assertThat(third).isNotEqualTo(merge);
-
-    third.add(RoomType.BLAZE.newRandomRoomSetting(5));
-    assertThat(third).isNotEqualTo(merge);
+    assertThat(child).isEqualTo(expected);
   }
 
   @Test
@@ -93,20 +93,21 @@ public class RoomsSettingTest {
     base.add(RoomType.BLAZE.newRandomRoomSetting(5));
     base.add(RoomType.CAKE.newRandomRoomSetting(1));
     base.add(RoomType.SLIME.newRandomRoomSetting(2));
+    RoomsSetting other = new RoomsSetting(base);
 
-    RoomsSetting third = new RoomsSetting(base);
     base.add(RoomType.CREEPER.newSingleRoomSetting());
     base.add(RoomType.CREEPER.newSingleRoomSetting());
     base.add(RoomType.CREEPER.newSingleRoomSetting());
-    RoomsSetting merge = new RoomsSetting(base, new RoomsSetting());
-    assertThat(third).isNotEqualTo(merge);
 
-    third.add(RoomType.CREEPER.newSingleRoomSetting());
-    assertThat(third).isNotEqualTo(merge);
+    RoomsSetting merge = new RoomsSetting().inherit(base);
+    assertThat(other).isNotEqualTo(merge);
 
-    third.add(RoomType.CREEPER.newSingleRoomSetting());
-    third.add(RoomType.CREEPER.newSingleRoomSetting());
-    assertThat(third).isEqualTo(merge);
+    other.add(RoomType.CREEPER.newSingleRoomSetting());
+    assertThat(other).isNotEqualTo(merge);
+
+    other.add(RoomType.CREEPER.newSingleRoomSetting());
+    other.add(RoomType.CREEPER.newSingleRoomSetting());
+    assertThat(other).isEqualTo(merge);
   }
 
   @Test

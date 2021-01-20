@@ -33,14 +33,22 @@ public class RoomsSetting {
   }
 
   public RoomsSetting(RoomsSetting parent, RoomsSetting child) {
-    singleRoomSettings = newLinkedList((child.singleRoomSettings.isEmpty() ? parent : child).singleRoomSettings);
-    randomRooms = new WeightedRandomizer<>((child.randomRooms.isEmpty() ? parent : child).randomRooms);
+    child.inherit(parent);
   }
 
   public static RoomsSetting getRandom(Random random, int numRooms) {
     RoomsSetting rooms = new RoomsSetting();
     range(0, numRooms).forEach(i -> rooms.add(getRandomIntersection(random).newRandomRoomSetting(1)));
     return rooms;
+  }
+
+  public RoomsSetting inherit(RoomsSetting toInherit) {
+    RoomsSetting roomsSetting = new RoomsSetting();
+    roomsSetting.singleRoomSettings.addAll(singleRoomSettings);
+    roomsSetting.singleRoomSettings.addAll(toInherit.singleRoomSettings);
+    roomsSetting.randomRooms.merge(getRandomRooms());
+    roomsSetting.randomRooms.merge(toInherit.getRandomRooms());
+    return roomsSetting;
   }
 
   public void add(RoomSetting roomSetting) {
