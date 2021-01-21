@@ -1,7 +1,9 @@
 {
   "name": "tower:rogue_forest",
-
   "tower": {
-    "type": "ROGUE"
+    "type": "ROGUE",
+    "theme": {
+      "base": "OAK"
+    }
   }
 }

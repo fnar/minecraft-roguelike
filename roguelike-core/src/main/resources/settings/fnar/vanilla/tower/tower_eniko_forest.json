@@ -1,10 +1,9 @@
 {
   "name": "tower:eniko_forest",
-
   "tower": {
     "type": "ENIKO",
-    "inherit": [
-      "theme:forest"
-    ]
+    "theme": {
+      "base": "OAK"
+    }
   }
 }
