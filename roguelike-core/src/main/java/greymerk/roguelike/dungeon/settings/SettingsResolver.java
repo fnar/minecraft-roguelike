@@ -124,16 +124,16 @@ public class SettingsResolver {
   }
 
   private Optional<DungeonSettings> chooseRandomValid(WorldEditor editor, Coord coord, Collection<DungeonSettings> settings) {
-    Collection<DungeonSettings> builtinSettings = settings.stream()
+    Collection<DungeonSettings> inflatedSettings = settings.stream()
         .map(this::processInheritance)
         .collect(toList());
-    List<DungeonSettings> validBuiltinSettings = filterValid(builtinSettings, editor, coord);
-    WeightedRandomizer<DungeonSettings> settingsRandomizer = newWeightedRandomizer(validBuiltinSettings);
+    List<DungeonSettings> validSettings = filterValid(inflatedSettings, editor, coord);
+    WeightedRandomizer<DungeonSettings> settingsRandomizer = newWeightedRandomizer(validSettings);
     return ofNullable(settingsRandomizer.get(editor.getRandom()));
   }
 
-  private List<DungeonSettings> filterValid(Collection<DungeonSettings> builtinSettings, WorldEditor editor, Coord coord) {
-    return builtinSettings.stream()
+  private List<DungeonSettings> filterValid(Collection<DungeonSettings> settings, WorldEditor editor, Coord coord) {
+    return settings.stream()
         .filter(DungeonSettings::isExclusive)
         .filter(isValid(editor, coord))
         .collect(Collectors.toList());
