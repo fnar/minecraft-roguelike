@@ -28,6 +28,7 @@ import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.TreasureManager;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.treasure.loot.LootRuleManager;
+import greymerk.roguelike.treasure.loot.rule.SingleUseLootRule;
 import greymerk.roguelike.treasure.loot.rule.TypedForEachLootRule;
 import greymerk.roguelike.util.WeightedChoice;
 
@@ -56,17 +57,47 @@ public class DungeonSettingsTest {
   }
 
   @Test
-  public void overridesMerge() {
-    DungeonSettings base = new DungeonSettings();
-    DungeonSettings other = new DungeonSettings();
-    other.getOverrides().add(SettingsType.LOOTRULES);
-    assert (other.getOverrides().contains(SettingsType.LOOTRULES));
+  public void overridesAreNotInherited() {
+    DungeonSettings parent0 = new DungeonSettings();
+    DungeonSettings parent1 = new DungeonSettings();
+    parent1.getOverrides().add(SettingsType.LOOTRULES);
+    assertThat(parent1.getOverrides()).contains(SettingsType.LOOTRULES);
 
-    DungeonSettings merge = other.inherit(base);
-    assert (merge.getOverrides().contains(SettingsType.LOOTRULES));
+    DungeonSettings child = parent1.inherit(parent0);
+    assertThat(child.getOverrides()).isEmpty();
 
-    merge = base.inherit(other);
-    assert (!merge.getOverrides().contains(SettingsType.LOOTRULES));
+    child = parent0.inherit(parent1);
+    assertThat(child.getOverrides()).isEmpty();
+  }
+
+  @Test
+  public void overrides_onlyPassesOnTheBaseParentsLootRules() {
+    SingleUseLootRule stickLootRule = new SingleUseLootRule(new WeightedChoice<>(new ItemStack(Items.STICK), 1), 0, 1);
+    SingleUseLootRule boneLootRule = new SingleUseLootRule(new WeightedChoice<>(new ItemStack(Items.BONE), 1), 0, 1);
+
+    DungeonSettings parent0 = new DungeonSettings();
+    parent0.getLootRules().add(stickLootRule);
+    parent0.getOverrides().add(SettingsType.LOOTRULES);
+
+    DungeonSettings parent1 = new DungeonSettings();
+    parent1.getLootRules().add(boneLootRule);
+
+    assertThat(parent0.inherit(parent1).getLootRules().getRules()).containsOnly(stickLootRule);
+  }
+
+  @Test
+  public void overrides_onlyDiscardsIfTheBaseParentIsTheOverrider() {
+    SingleUseLootRule stickLootRule = new SingleUseLootRule(new WeightedChoice<>(new ItemStack(Items.STICK), 1), 0, 1);
+    SingleUseLootRule boneLootRule = new SingleUseLootRule(new WeightedChoice<>(new ItemStack(Items.BONE), 1), 0, 1);
+
+    DungeonSettings parent0 = new DungeonSettings();
+    parent0.getLootRules().add(stickLootRule);
+
+    DungeonSettings parent1 = new DungeonSettings();
+    parent1.getLootRules().add(boneLootRule);
+    parent1.getOverrides().add(SettingsType.LOOTRULES);
+
+    assertThat(parent0.inherit(parent1).getLootRules().getRules()).containsOnly(stickLootRule, boneLootRule);
   }
 
   @Test
@@ -152,7 +183,7 @@ public class DungeonSettingsTest {
     verify(mockTreasureChest, times(items.length)).setRandomEmptySlot(itemStackCaptor.capture());
     List<Item> capturedItems = itemStackCaptor.getAllValues().stream().map(ItemStack::getItem).collect(Collectors.toList());
     assertThat(capturedItems.size()).isEqualTo(items.length);
-    assertThat(capturedItems).containsExactly(items);
+    assertThat(capturedItems).containsExactlyInAnyOrder(items);
   }
 
   @Test
