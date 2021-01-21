@@ -23,7 +23,7 @@ public class VineBlock extends SingleBlockBrush {
     }
     ArrayList<Direction> directions = new ArrayList<>(Direction.CARDINAL);
     directions.add(Direction.UP);
-    Collections.shuffle(directions, editor.getRandom());
+    Collections.shuffle(directions, editor.getRandom(origin));
     for (Direction dir : directions) {
       if (dir == Direction.DOWN) {
         return false;

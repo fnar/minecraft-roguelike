@@ -41,7 +41,6 @@ public class BlockCheckers implements BlockBrush {
 
   @Override
   public boolean stroke(WorldEditor editor, Coord origin, boolean fillAir, boolean replaceSolid) {
-    Random random = editor.getRandom();
     int x = origin.getX() - this.offset.getX();
     int y = origin.getY() - this.offset.getY();
     int z = origin.getZ() - this.offset.getY();

@@ -26,7 +26,6 @@ public class DungeonsCrypt extends DungeonBase {
   }
 
   public DungeonBase generate(Coord origin, List<Direction> entrances) {
-    Random rand = worldEditor.getRandom();
     ThemeBase theme = levelSettings.getTheme();
     StairsBlock stair = theme.getPrimary().getStair();
     BlockBrush walls = theme.getPrimary().getWall();
@@ -85,7 +84,7 @@ public class DungeonsCrypt extends DungeonBase {
             cursor.translate(o, 3);
             cursor.up();
 
-            crypt(worldEditor, rand, levelSettings, cursor, o);
+            crypt(worldEditor, worldEditor.getRandom(), levelSettings, cursor, o);
           } else {
 
             start = origin.copy();
@@ -102,14 +101,14 @@ public class DungeonsCrypt extends DungeonBase {
             cursor.translate(o, 3);
             cursor.up();
 
-            sarcophagus(worldEditor, rand, levelSettings, cursor, o);
+            sarcophagus(worldEditor, worldEditor.getRandom(cursor), levelSettings, cursor, o);
           }
         }
 
       } else {
         cursor = origin.copy();
         cursor.translate(dir, 4);
-        mausoleumWall(worldEditor, rand, levelSettings, cursor, dir);
+        mausoleumWall(worldEditor, worldEditor.getRandom(cursor), levelSettings, cursor, dir);
       }
 
       cursor = origin.copy();

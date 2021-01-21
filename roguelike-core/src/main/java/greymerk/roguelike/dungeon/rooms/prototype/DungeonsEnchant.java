@@ -32,7 +32,6 @@ public class DungeonsEnchant extends DungeonBase {
   @Override
   public DungeonBase generate(Coord origin, List<Direction> entrances) {
     Direction dir = entrances.get(0);
-    Random rand = worldEditor.getRandom();
     ThemeBase theme = levelSettings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();
     BlockBrush pillar = theme.getPrimary().getPillar();
@@ -301,7 +300,8 @@ public class DungeonsEnchant extends DungeonBase {
     BlockType.ENCHANTING_TABLE.getBrush().stroke(worldEditor, cursor);
 
     List<Coord> chestLocations = chooseRandomLocations(1, chests);
-    worldEditor.getTreasureChestEditor().createChests(chestLocations, false, levelSettings.getDifficulty(origin), getRoomSetting().getChestType().orElse(ChestType.ENCHANTING));
+    ChestType chestType = getRoomSetting().getChestType().orElse(ChestType.ENCHANTING);
+    worldEditor.getTreasureChestEditor().createChests(chestLocations, false, levelSettings.getDifficulty(origin), chestType);
 
     return this;
   }

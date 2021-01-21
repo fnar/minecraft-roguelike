@@ -238,7 +238,7 @@ public class DungeonFirework extends DungeonBase {
 
     BlockType.DISPENSER.getBrush().setFacing(Direction.UP).stroke(editor, cursor);
     for (int i = 0; i < 9; i++) {
-      editor.setItem(cursor, i, Firework.get(editor.getRandom(), 16 + editor.getRandom().nextInt(16)));
+      editor.setItem(cursor, i, Firework.get(editor.getRandom(cursor), 16 + editor.getRandom(cursor).nextInt(16)));
     }
 
     cursor.up();

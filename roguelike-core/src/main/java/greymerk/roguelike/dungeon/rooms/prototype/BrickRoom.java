@@ -5,7 +5,6 @@ import com.github.srwaggon.minecraft.block.normal.StairsBlock;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
@@ -133,10 +132,11 @@ public class BrickRoom extends DungeonBase {
       }
     }
 
-    Random random = worldEditor.getRandom();
     List<Coord> chestLocations = chooseRandomLocations(1, potentialChestLocations);
     int level = Dungeon.getLevel(origin.getY());
-    worldEditor.getTreasureChestEditor().createChests(chestLocations, false, level, getRoomSetting().getChestType().orElse(ChestType.chooseRandomAmong(random, ChestType.COMMON_TREASURES)));
+    ChestType chestType = getRoomSetting().getChestType()
+        .orElse(ChestType.chooseRandomAmong(worldEditor.getRandom(cursor), ChestType.COMMON_TREASURES));
+    worldEditor.getTreasureChestEditor().createChests(chestLocations, false, level, chestType);
 
     generateSpawner(origin);
     return this;

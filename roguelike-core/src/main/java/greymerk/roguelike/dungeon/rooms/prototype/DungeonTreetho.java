@@ -121,7 +121,7 @@ public class DungeonTreetho extends DungeonBase {
 
     BlockBrush fill = BlockType.SPRUCE_PLANK.getBrush();
 
-    MinimumSpanningTree tree = new MinimumSpanningTree(editor.getRandom(), 7, 3);
+    MinimumSpanningTree tree = new MinimumSpanningTree(editor.getRandom(origin), 7, 3);
     tree.generate(editor, fill, origin);
 
     for (Direction dir : Direction.CARDINAL) {

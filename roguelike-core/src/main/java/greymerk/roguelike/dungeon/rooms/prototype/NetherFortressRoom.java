@@ -87,8 +87,9 @@ public class NetherFortressRoom extends DungeonBase {
     RectSolid.newRect(start, end).fill(worldEditor, netherwart, false, true);
     List<Coord> chests = (new RectSolid(start, end).get());
 
-    List<Coord> chestLocations = chooseRandomLocations(worldEditor.getRandom().nextInt(3) + 1, chests);
-    worldEditor.getTreasureChestEditor().createChests(chestLocations, false, levelSettings.getDifficulty(origin), getRoomSetting().getChestType().orElse(ChestType.chooseRandomAmong(worldEditor.getRandom(), ChestType.RARE_TREASURES)));
+    List<Coord> chestLocations = chooseRandomLocations(worldEditor.getRandom(origin).nextInt(3) + 1, chests);
+    ChestType chestType = getRoomSetting().getChestType().orElse(ChestType.chooseRandomAmong(worldEditor.getRandom(origin), ChestType.RARE_TREASURES));
+    worldEditor.getTreasureChestEditor().createChests(chestLocations, false, levelSettings.getDifficulty(origin), chestType);
 
     for (Direction dir : CARDINAL) {
 
@@ -119,7 +120,7 @@ public class NetherFortressRoom extends DungeonBase {
       cursor = origin.copy();
       cursor.translate(dir, 4);
       cursor.translate(dir.antiClockwise(), 4);
-      supportPillar(worldEditor, worldEditor.getRandom(), levelSettings, cursor);
+      supportPillar(worldEditor, worldEditor.getRandom(cursor), levelSettings, cursor);
 
       for (Direction o : dir.orthogonals()) {
         cursor = origin.copy();

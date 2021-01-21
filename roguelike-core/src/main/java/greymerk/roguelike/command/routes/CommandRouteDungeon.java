@@ -59,7 +59,7 @@ public class CommandRouteDungeon extends CommandRouteBase {
     if (settingName == null) {
       return resolveAnyCustomDungeonSettings(pos, editor);
     } else if (settingName.equals("random")) {
-      return resolveRandomDungeon(editor);
+      return resolveRandomDungeon(editor, pos);
     } else {
       return resolveNamedDungeonSettings(settingName);
     }
@@ -72,9 +72,9 @@ public class CommandRouteDungeon extends CommandRouteBase {
         .orElseThrow(() -> new NoValidLocationException(pos));
   }
 
-  private DungeonSettings resolveRandomDungeon(WorldEditor editor) throws Exception {
+  private DungeonSettings resolveRandomDungeon(WorldEditor editor, Coord pos) throws Exception {
     Dungeon.initResolver();
-    return new SettingsRandom(editor.getRandom());
+    return new SettingsRandom(editor.getRandom(pos));
   }
 
   private DungeonSettings resolveNamedDungeonSettings(String settingName) throws Exception {
