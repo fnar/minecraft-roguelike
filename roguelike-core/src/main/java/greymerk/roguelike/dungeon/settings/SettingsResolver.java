@@ -117,25 +117,18 @@ public class SettingsResolver {
     if (!RogueConfig.getBoolean(RogueConfig.SPAWNBUILTIN)) {
       return empty();
     }
-    WeightedRandomizer<DungeonSettings> settingsRandomizer = newWeightedRandomizer(getValidBuiltinSettings(editor, coord));
-
-    if (settingsRandomizer.isEmpty()) {
-      return empty();
-    }
-    Random random = editor.getRandom();
-    DungeonSettings randomSetting = settingsRandomizer.get(random);
-    DungeonSettings builtin = processInheritance(randomSetting);
-    return ofNullable(builtin);
-  }
-
-  private List<DungeonSettings> getValidBuiltinSettings(WorldEditor editor, Coord coord) {
-    return filterValid(settingsContainer.getBuiltinSettings(), editor, coord);
+    Collection<DungeonSettings> builtinSettings = settingsContainer.getBuiltinSettings().stream()
+        .map(this::processInheritance)
+        .collect(toList());
+    List<DungeonSettings> validBuiltinSettings = filterValid(builtinSettings, editor, coord);
+    WeightedRandomizer<DungeonSettings> settingsRandomizer = newWeightedRandomizer(validBuiltinSettings);
+    return ofNullable(settingsRandomizer.get(editor.getRandom()));
   }
 
   private List<DungeonSettings> filterValid(Collection<DungeonSettings> builtinSettings, WorldEditor editor, Coord coord) {
     return builtinSettings.stream()
-        .filter(isValid(editor, coord))
         .filter(DungeonSettings::isExclusive)
+        .filter(isValid(editor, coord))
         .collect(Collectors.toList());
   }
 
@@ -143,11 +136,13 @@ public class SettingsResolver {
       WorldEditor editor,
       Coord coord
   ) {
-    List<DungeonSettings> validCustomSettings = filterValid(settingsContainer.getCustomSettings(), editor, coord);
+    List<DungeonSettings> customSettings = settingsContainer.getCustomSettings().stream()
+        .map(this::processInheritance)
+        .collect(toList());
+    List<DungeonSettings> validCustomSettings = filterValid(customSettings, editor, coord);
     WeightedRandomizer<DungeonSettings> settingsRandomizer = newWeightedRandomizer(validCustomSettings);
     Random random = editor.getRandom();
-    return ofNullable(settingsRandomizer.get(random))
-        .map(this::processInheritance);
+    return ofNullable(settingsRandomizer.get(random));
   }
 
   private WeightedRandomizer<DungeonSettings> newWeightedRandomizer(List<DungeonSettings> dungeonSettings) {
