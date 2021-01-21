@@ -52,6 +52,7 @@ public class DungeonSettings {
 
   public DungeonSettings inherit(DungeonSettings toInherit) {
     DungeonSettings dungeonSettings = new DungeonSettings();
+    dungeonSettings.id = id;
 //    dungeonSettings.inherit.addAll(getInherit());
 //    dungeonSettings.overrides.addAll(ofNullable(getOverrides()).orElse(newHashSet()));
     dungeonSettings.exclusive = isExclusive();
@@ -85,6 +86,7 @@ public class DungeonSettings {
   }
 
   public DungeonSettings(DungeonSettings toCopy) {
+    id = toCopy.id;
     inherit.addAll(toCopy.inherit);
     overrides.addAll(toCopy.overrides);
     exclusive = toCopy.exclusive;
