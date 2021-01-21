@@ -1,8 +1,0 @@
-{
-  "name" : "dungeon:desert_builtin",
-  "exclusive": true,
-  "criteria": {"biomeTypes": ["SANDY"]},
-  "inherit" : [
-    "builtin:desert"
-  ]
-}
