@@ -15,7 +15,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.Random;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -117,7 +116,15 @@ public class SettingsResolver {
     if (!RogueConfig.getBoolean(RogueConfig.SPAWNBUILTIN)) {
       return empty();
     }
-    Collection<DungeonSettings> builtinSettings = settingsContainer.getBuiltinSettings().stream()
+    return chooseRandomValid(editor, coord, settingsContainer.getBuiltinSettings());
+  }
+
+  private Optional<DungeonSettings> chooseRandomCustomDungeonIfPossible(WorldEditor editor, Coord coord) {
+    return chooseRandomValid(editor, coord, settingsContainer.getCustomSettings());
+  }
+
+  private Optional<DungeonSettings> chooseRandomValid(WorldEditor editor, Coord coord, Collection<DungeonSettings> settings) {
+    Collection<DungeonSettings> builtinSettings = settings.stream()
         .map(this::processInheritance)
         .collect(toList());
     List<DungeonSettings> validBuiltinSettings = filterValid(builtinSettings, editor, coord);
@@ -130,19 +137,6 @@ public class SettingsResolver {
         .filter(DungeonSettings::isExclusive)
         .filter(isValid(editor, coord))
         .collect(Collectors.toList());
-  }
-
-  private Optional<DungeonSettings> chooseRandomCustomDungeonIfPossible(
-      WorldEditor editor,
-      Coord coord
-  ) {
-    List<DungeonSettings> customSettings = settingsContainer.getCustomSettings().stream()
-        .map(this::processInheritance)
-        .collect(toList());
-    List<DungeonSettings> validCustomSettings = filterValid(customSettings, editor, coord);
-    WeightedRandomizer<DungeonSettings> settingsRandomizer = newWeightedRandomizer(validCustomSettings);
-    Random random = editor.getRandom();
-    return ofNullable(settingsRandomizer.get(random));
   }
 
   private WeightedRandomizer<DungeonSettings> newWeightedRandomizer(List<DungeonSettings> dungeonSettings) {
