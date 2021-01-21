@@ -54,7 +54,7 @@ public class DungeonSettings {
     DungeonSettings dungeonSettings = new DungeonSettings();
 //    dungeonSettings.inherit.addAll(getInherit());
 //    dungeonSettings.overrides.addAll(ofNullable(getOverrides()).orElse(newHashSet()));
-//    dungeonSettings.exclusive = isExclusive();
+    dungeonSettings.exclusive = isExclusive();
     dungeonSettings.lootRules.merge(lootRules);
     dungeonSettings.lootTables.addAll(lootTables);
     if (!overrides.contains(SettingsType.LOOTRULES)) {
