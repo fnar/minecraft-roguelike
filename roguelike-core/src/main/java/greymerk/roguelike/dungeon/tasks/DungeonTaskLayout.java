@@ -27,7 +27,7 @@ public class DungeonTaskLayout implements IDungeonTask {
 
     // generate level layouts
     for (DungeonLevel level : levels) {
-      ILevelGenerator generator = LevelGenerator.getGenerator(editor, random, level.getSettings().getGenerator(), level);
+      ILevelGenerator generator = LevelGenerator.getGenerator(editor, editor.getRandom(), level.getSettings().getGenerator(), level);
 
       try {
         level.generate(generator, start);
@@ -36,7 +36,6 @@ public class DungeonTaskLayout implements IDungeonTask {
       }
 
       LevelLayout layout = generator.getLayout();
-      random = editor.getRandom();
       start = layout.getEnd().getPosition().copy();
       start.down(Dungeon.VERTICAL_SPACING);
     }

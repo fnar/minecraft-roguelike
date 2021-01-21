@@ -30,7 +30,7 @@ public class DungeonsMusic extends DungeonBase {
   }
 
   public DungeonBase generate(Coord origin, List<Direction> entrances) {
-    Random rand = worldEditor.getRandom();
+    Random rand = worldEditor.getRandom(origin);
 
     ThemeBase theme = levelSettings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();

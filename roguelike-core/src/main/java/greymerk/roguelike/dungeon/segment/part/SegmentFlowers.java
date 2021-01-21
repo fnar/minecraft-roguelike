@@ -55,7 +55,7 @@ public class SegmentFlowers extends SegmentBase {
     end.translate(orthogonals[1]);
     for (Coord c : new RectSolid(start, end)) {
       if (rand.nextInt(3) == 0 && editor.isSolidBlock(c)) {
-        FlowerPotBlock.flowerPot().withRandomContent(editor.getRandom()).stroke(editor, c);
+        FlowerPotBlock.flowerPot().withRandomContent(editor.getRandom(c)).stroke(editor, c);
       }
     }
   }

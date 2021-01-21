@@ -43,7 +43,7 @@ public class DungeonsPit extends DungeonBase {
 
     ThemeBase theme = levelSettings.getTheme();
 
-    rand = worldEditor.getRandom();
+    rand = worldEditor.getRandom(origin);
     originX = origin.getX();
     originY = origin.getY();
     originZ = origin.getZ();

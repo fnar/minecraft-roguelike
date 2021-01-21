@@ -27,7 +27,7 @@ public class DungeonsEnder extends DungeonBase {
   }
 
   public DungeonBase generate(Coord origin, List<Direction> entrances) {
-    Random rand = worldEditor.getRandom();
+    Random rand = worldEditor.getRandom(origin);
     BlockBrush black = BlockType.OBSIDIAN.getBrush();
     BlockBrush white = Quartz.SMOOTH.getBrush();
 

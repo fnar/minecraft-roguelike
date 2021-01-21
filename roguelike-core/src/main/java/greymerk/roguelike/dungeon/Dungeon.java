@@ -141,7 +141,7 @@ public class Dungeon {
 
   public void generate(DungeonSettings dungeonSettings, Coord coord) {
     try {
-      Random random = editor.getRandom();
+      Random random = editor.getRandom(coord);
 
       origin = new Coord(coord.getX(), TOPLEVEL, coord.getZ());
       Coord start = getPosition();
@@ -173,7 +173,7 @@ public class Dungeon {
 
   private Optional<DungeonSettings> getDungeonSettingsMaybe(Coord coord) {
     if (RogueConfig.getBoolean(RogueConfig.RANDOM)) {
-      return Optional.of(new SettingsRandom(editor.getRandom()));
+      return Optional.of(new SettingsRandom(editor.getRandom(coord)));
     } else if (settingsResolver != null) {
       return Optional.ofNullable(settingsResolver.getAnyCustomDungeonSettings(editor, coord));
     } else {

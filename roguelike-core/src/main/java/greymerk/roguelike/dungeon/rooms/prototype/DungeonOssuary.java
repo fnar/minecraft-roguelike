@@ -255,7 +255,7 @@ public class DungeonOssuary extends DungeonBase {
   }
 
   private void skull(WorldEditor editor, Direction dir, Coord origin) {
-    if (editor.getRandom().nextInt(3) == 0) {
+    if (editor.getRandom(origin).nextInt(3) == 0) {
       return;
     }
 
@@ -265,7 +265,7 @@ public class DungeonOssuary extends DungeonBase {
       return;
     }
 
-    Skull skull = editor.getRandom().nextInt(15) == 0 ? Skull.WITHER : Skull.SKELETON;
+    Skull skull = editor.getRandom(origin).nextInt(15) == 0 ? Skull.WITHER : Skull.SKELETON;
     editor.setSkull(editor, origin, dir, skull);
   }
 

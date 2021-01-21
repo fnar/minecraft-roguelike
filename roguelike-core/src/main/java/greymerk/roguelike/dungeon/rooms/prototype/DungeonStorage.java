@@ -43,7 +43,7 @@ public class DungeonStorage extends DungeonBase {
   @Override
   public DungeonBase generate(Coord origin, List<Direction> entrances) {
 
-    Random rand = worldEditor.getRandom();
+    Random rand = worldEditor.getRandom(origin);
 
     int x = origin.getX();
     int y = origin.getY();

@@ -28,7 +28,7 @@ public class DungeonsNetherBrick extends DungeonBase {
   }
 
   public DungeonBase generate(Coord origin, List<Direction> entrances) {
-    Random random = worldEditor.getRandom();
+    Random random = worldEditor.getRandom(origin);
 
     int x = origin.getX();
     int y = origin.getY();
