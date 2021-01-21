@@ -3,10 +3,13 @@ package greymerk.roguelike.util;
 import java.util.Objects;
 import java.util.Random;
 
+import lombok.ToString;
+
+@ToString
 public class WeightedChoice<T> implements IWeighted<T> {
 
-  private T item;
-  private int weight;
+  private final T item;
+  private final int weight;
 
   public WeightedChoice(T toAdd, int weight) {
     item = toAdd;
