@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.BiomeDictionary;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,18 +14,24 @@ import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.worldgen.PositionInfo;
 
 import static net.minecraftforge.common.BiomeDictionary.Type;
-import static net.minecraftforge.common.BiomeDictionary.getBiomes;
 import static net.minecraftforge.common.BiomeDictionary.hasType;
 
 public class SpawnCriteria {
 
   private int weight;
   private final List<ResourceLocation> biomes = new ArrayList<>();
-  private List<Type> biomeTypes = new ArrayList<>();
+  private final List<Type> biomeTypes = new ArrayList<>();
   private final List<Integer> validDimensions = new ArrayList<>();
 
   public SpawnCriteria() {
     this(new JsonObject());
+  }
+
+  public SpawnCriteria (SpawnCriteria spawnCriteria) {
+    this.weight = spawnCriteria.weight;
+    this.biomes.addAll(spawnCriteria.biomes);
+    this.biomeTypes.addAll(spawnCriteria.biomeTypes);
+    this.validDimensions.addAll(spawnCriteria.validDimensions);
   }
 
   public SpawnCriteria(JsonObject data) {
@@ -32,6 +39,14 @@ public class SpawnCriteria {
     addBiomeCriteria(data);
     addBiomeTypeCriteria(data);
     addDimensionCriteria(data);
+  }
+
+  public SpawnCriteria inherit(SpawnCriteria toInherit) {
+    SpawnCriteria result = new SpawnCriteria(this);
+    result.biomes.addAll(toInherit.biomes);
+    result.biomeTypes.addAll(toInherit.biomeTypes);
+    result.validDimensions.addAll(toInherit.validDimensions);
+    return result;
   }
 
   private void addBiomeCriteria(JsonObject data) {
@@ -52,7 +67,7 @@ public class SpawnCriteria {
           continue;
         }
         Type type = Type.getType(biomeType.getAsString().toUpperCase());
-        if (getBiomes(type).size() > 0) {
+        if (BiomeDictionary.getBiomes(type).size() > 0) {
           biomeTypes.add(type);
         }
       }
@@ -87,7 +102,7 @@ public class SpawnCriteria {
   }
 
   public void setBiomeTypes(List<Type> biomeTypes) {
-    this.biomeTypes = biomeTypes;
+    this.biomeTypes.addAll(biomeTypes);
   }
 
   public boolean isValid(PositionInfo positionInfo) {
@@ -121,4 +136,15 @@ public class SpawnCriteria {
     return validDimensions.contains(positionInfo.getDimension());
   }
 
+  public List<ResourceLocation> getBiomes() {
+    return biomes;
+  }
+
+  public List<Type> getBiomeTypes() {
+    return biomeTypes;
+  }
+
+  public List<Integer> getValidDimensions() {
+    return validDimensions;
+  }
 }

@@ -22,7 +22,6 @@ import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.PositionInfo;
 import greymerk.roguelike.worldgen.WorldEditor;
 
-import static com.google.common.collect.Sets.newHashSet;
 import static greymerk.roguelike.dungeon.settings.SettingsContainer.DEFAULT_NAMESPACE;
 import static java.util.Optional.ofNullable;
 
@@ -53,27 +52,23 @@ public class DungeonSettings {
 
   public DungeonSettings inherit(DungeonSettings toInherit) {
     DungeonSettings dungeonSettings = new DungeonSettings();
-    dungeonSettings.getOverrides().addAll(ofNullable(getOverrides()).orElse(newHashSet()));
-
-    if (!dungeonSettings.getOverrides().contains(SettingsType.LOOTRULES)) {
-      dungeonSettings.getLootRules().merge(toInherit.getLootRules());
-      dungeonSettings.getLootTables().addAll(toInherit.getLootTables());
+//    dungeonSettings.inherit.addAll(getInherit());
+//    dungeonSettings.overrides.addAll(ofNullable(getOverrides()).orElse(newHashSet()));
+//    dungeonSettings.exclusive = isExclusive();
+    dungeonSettings.lootRules.merge(lootRules);
+    dungeonSettings.lootTables.addAll(lootTables);
+    if (!overrides.contains(SettingsType.LOOTRULES)) {
+      dungeonSettings.lootRules.merge(toInherit.lootRules);
+      dungeonSettings.lootTables.addAll(toInherit.lootTables);
     }
-    dungeonSettings.getLootRules().merge(getLootRules());
-    dungeonSettings.getLootTables().addAll(getLootTables());
-
-    dungeonSettings.getInherit().addAll(getInherit());
-
-    dungeonSettings.exclusive = isExclusive();
-
-    dungeonSettings.setTowerSettings(dungeonSettings.getTowerSettings(toInherit, this));
-
+    dungeonSettings.towerSettings = dungeonSettings.getTowerSettings(toInherit, this);
+    dungeonSettings.spawnCriteria = this.spawnCriteria.inherit(toInherit.spawnCriteria);
     IntStream.range(0, getMaxNumLevels())
         .forEach(level -> {
-          LevelSettings parent = toInherit.getLevelSettings().get(level);
-          LevelSettings child = getLevelSettings().get(level);
-          LevelSettings levelSettings = new LevelSettings(parent, child, dungeonSettings.getOverrides());
-          dungeonSettings.getLevelSettings().put(level, levelSettings);
+          LevelSettings parent = toInherit.levels.get(level);
+          LevelSettings child = levels.get(level);
+          LevelSettings levelSettings = new LevelSettings(parent, child, dungeonSettings.overrides);
+          dungeonSettings.levels.put(level, levelSettings);
         });
 
     return dungeonSettings;
@@ -90,23 +85,18 @@ public class DungeonSettings {
   }
 
   public DungeonSettings(DungeonSettings toCopy) {
-    setTowerSettings(toCopy.towerSettings != null ? new TowerSettings(toCopy.towerSettings) : null);
-    this.lootRules = toCopy.getLootRules();
-    getLootTables().addAll(toCopy.getLootTables());
-
-    getInherit().addAll(toCopy.getInherit());
-
-    this.exclusive = toCopy.isExclusive();
-
+    inherit.addAll(toCopy.inherit);
+    overrides.addAll(toCopy.overrides);
+    exclusive = toCopy.exclusive;
+    lootRules.merge(toCopy.lootRules);
+    lootTables.addAll(toCopy.lootTables);
     for (int i = 0; i < getMaxNumLevels(); ++i) {
-      LevelSettings level = toCopy.getLevelSettings().get(i);
+      LevelSettings level = toCopy.levels.get(i);
       LevelSettings levelSettings = Optional.ofNullable(level).map(LevelSettings::new).orElse(new LevelSettings());
-      getLevelSettings().put(i, levelSettings);
+      levels.put(i, levelSettings);
     }
-
-    if (toCopy.getOverrides() != null) {
-      getOverrides().addAll(toCopy.getOverrides());
-    }
+    spawnCriteria = new SpawnCriteria(toCopy.spawnCriteria);
+    towerSettings = toCopy.towerSettings != null ? new TowerSettings(toCopy.towerSettings) : null;
   }
 
   public static int getMaxNumLevels() {
