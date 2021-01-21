@@ -7,9 +7,9 @@ import java.util.Random;
 
 public class WeightedRandomizer<T> implements IWeighted<T> {
 
-  private int weight;
+  private final int weight;
   private int weightSum;
-  private List<IWeighted<T>> items;
+  private final List<IWeighted<T>> items;
 
   public WeightedRandomizer(int weight) {
     this.weight = weight;
