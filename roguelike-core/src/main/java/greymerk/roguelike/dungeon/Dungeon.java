@@ -3,9 +3,6 @@ package greymerk.roguelike.dungeon;
 import com.github.srwaggon.minecraft.block.Material;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.biome.Biome;
-import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.common.BiomeDictionary.Type;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -183,9 +180,6 @@ public class Dungeon {
   }
 
   public boolean canGenerateDungeonHere(Coord coord) {
-    if (isInvalidBiome(coord)) {
-      return false;
-    }
     Predicate<VanillaStructure> isTooCloseTo = structure -> hasStructureTooCloseBy(coord, structure);
     if (Arrays.stream(VanillaStructure.values()).anyMatch(isTooCloseTo)) {
       return false;
@@ -199,20 +193,6 @@ public class Dungeon {
         && canFindStartingCoord(lowerLimit, cursor)
         && isFreeOverhead(cursor)
         && isSolidBelow(cursor);
-  }
-
-  private boolean isInvalidBiome(Coord coord) {
-    Biome biome = editor.getInfo(coord).getBiome();
-
-    Type[] invalidBiomes = new Type[]{
-        Type.RIVER,
-        Type.BEACH,
-        Type.MUSHROOM,
-        Type.OCEAN
-    };
-
-    return Arrays.stream(invalidBiomes)
-        .anyMatch(type -> BiomeDictionary.hasType(biome, type));
   }
 
   private boolean hasStructureTooCloseBy(Coord coord, VanillaStructure structure) {
