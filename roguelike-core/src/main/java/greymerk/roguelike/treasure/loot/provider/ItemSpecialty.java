@@ -189,31 +189,42 @@ public class ItemSpecialty extends ItemBase {
   }
 
   private static String rollEfficiency(ItemStack itemStack, String name, Random random) {
-    int efficiencyLevel = 1 + random.nextInt(3);
-    itemStack.addEnchantment(Enchant.getEnchant(Enchant.EFFICIENCY), efficiencyLevel);
-    return efficiencyLevel >= 3 ? "Mastercraft " + name : name;
+    int enchantmentLevel = random.nextInt(4);
+    if (enchantmentLevel <= 0) {
+      return name;
+    }
+    itemStack.addEnchantment(Enchant.getEnchant(Enchant.EFFICIENCY), enchantmentLevel);
+    return enchantmentLevel >= 3 ? "Masterwork " + name : name;
   }
 
   private static String rollFortune(ItemStack item, String name, Random random) {
     if (random.nextInt(10) != 0) {
       return name;
     }
-    item.addEnchantment(Enchant.getEnchant(Enchant.FORTUNE), 1 + random.nextInt(3));
+    int enchantmentLevel = random.nextInt(4);
+    if (enchantmentLevel <= 0) {
+      return name;
+    }
+    item.addEnchantment(Enchant.getEnchant(Enchant.FORTUNE), enchantmentLevel);
     return name + " of Prospecting";
   }
 
   private static String rollSilkTouch(ItemStack item, String name, Random random) {
-    if (random.nextInt(10) == 0) {
-      item.addEnchantment(Enchant.getEnchant(Enchant.SILKTOUCH), 1);
-      name = "Precision " + name;
+    if (random.nextInt(10) != 0) {
+      return name;
     }
+    item.addEnchantment(Enchant.getEnchant(Enchant.SILKTOUCH), 1);
+    name = "Precision " + name;
     return name;
   }
 
   private static String rollUnbreaking(ItemStack itemStack, String name, Random random) {
-    int unbreakingLevel = 1 + random.nextInt(3);
-    itemStack.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), unbreakingLevel);
-    return unbreakingLevel >= 3 ? "Reinforced " + name : name;
+    int enchantmentLevel = random.nextInt(4);
+    if (enchantmentLevel <= 0) {
+      return name;
+    }
+    itemStack.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), enchantmentLevel);
+    return enchantmentLevel >= 3 ? "Reinforced " + name : name;
   }
 
   private static String rollGeneralEnchantments(ItemStack itemStack, String name, Random random) {
@@ -266,8 +277,11 @@ public class ItemSpecialty extends ItemBase {
     if (random.nextBoolean()) {
       return name;
     }
-    int sharpnessLevel = random.nextInt(6);
-    item.addEnchantment(Enchant.getEnchant(Enchant.SHARPNESS), sharpnessLevel);
+    int enchantmentLevel = random.nextInt(6);
+    if (enchantmentLevel <= 0) {
+      return name;
+    }
+    item.addEnchantment(Enchant.getEnchant(Enchant.SHARPNESS), enchantmentLevel);
     return name;
   }
 
@@ -275,13 +289,15 @@ public class ItemSpecialty extends ItemBase {
     if (random.nextBoolean()) {
       return name;
     }
-    int lootingLevel = 1;
-    lootingLevel += random.nextInt(3);
-    item.addEnchantment(Enchant.getEnchant(Enchant.LOOTING), lootingLevel);
-    if (lootingLevel < 3) {
+    int enchantmentLevel = random.nextInt(4);
+    if (enchantmentLevel <= 0) {
+      return name;
+    }
+    item.addEnchantment(Enchant.getEnchant(Enchant.LOOTING), enchantmentLevel);
+    if (enchantmentLevel < 3) {
       return "Burglar's " + name;
     }
-    Loot.setItemLore(item, "Once belonged to a king of thieves who secretly lived in a desert.", TextFormat.DARKGREEN);
+    Loot.setItemLore(item, "Once belonged to a king of hidden desert thieves.", TextFormat.DARKGREEN);
     return "Bandit King's " + name;
   }
 
@@ -289,16 +305,34 @@ public class ItemSpecialty extends ItemBase {
     if (random.nextBoolean()) {
       return name;
     }
-    int fieryLevel = random.nextInt(4);
-    item.addEnchantment(Enchant.getEnchant(Enchant.FIREASPECT), fieryLevel);
-    Loot.setItemLore(item, "From the fiery depths", TextFormat.DARKGREEN);
-    return name + " of the Inferno";
+    int enchantmentLevel = random.nextInt(4);
+    if (enchantmentLevel <= 0) {
+      return name;
+    }
+    item.addEnchantment(Enchant.getEnchant(Enchant.FIREASPECT), enchantmentLevel);
+    if (enchantmentLevel == 1) {
+      Loot.setItemLore(item, "Warm to the touch", TextFormat.YELLOW);
+      return "Ember " + name;
+    }
+
+    if (enchantmentLevel == 2) {
+      Loot.setItemLore(item, "Almost too hot to hold", TextFormat.RED);
+      return "Fiery " + name;
+    }
+
+    if (enchantmentLevel == 3) {
+      Loot.setItemLore(item, "From the fiery depths", TextFormat.DARKRED);
+      return name + " of the Inferno";
+    }
+    return name;
   }
 
   private static ItemStack getBow(Random random, Quality quality) {
     String name;
     ItemStack item = new ItemStack(Items.BOW);
-    item.addEnchantment(Enchant.getEnchant(Enchant.POWER), random.nextInt(4));
+
+    rollPower(random, item);
+
     switch (quality) {
       case WOOD:
       case STONE:
@@ -345,6 +379,14 @@ public class ItemSpecialty extends ItemBase {
         Loot.setItemLore(item, "Warm to the touch", TextFormat.DARKGREEN);
         return item;
     }
+  }
+
+  private static void rollPower(Random random, ItemStack item) {
+    int enchantmentLevel = random.nextInt(4);
+    if (enchantmentLevel <= 0) {
+      return;
+    }
+    item.addEnchantment(Enchant.getEnchant(Enchant.POWER), enchantmentLevel);
   }
 
   private static ItemStack getHelmet(Random random, Quality quality) {
