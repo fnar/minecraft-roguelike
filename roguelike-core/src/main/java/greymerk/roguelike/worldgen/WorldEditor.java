@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 
 import greymerk.roguelike.TreasureChestEditor;
@@ -35,7 +36,9 @@ public interface WorldEditor {
 
   Random getRandom();
 
-  Random getRandom(Coord coord);
+  default Random getRandom(Coord coord) {
+    return new Random(Objects.hash(getSeed(), coord));
+  }
 
   boolean setBlock(Coord pos, SingleBlockBrush singleBlockBrush, boolean fillAir, boolean replaceSolid);
 
