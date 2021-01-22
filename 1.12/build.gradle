@@ -33,8 +33,6 @@ repositories {
 }
 
 dependencies {
-    compile project(':roguelike-core')
-
     compileOnly 'org.projectlombok:lombok:1.18.12'
     annotationProcessor 'org.projectlombok:lombok:1.18.12'
 
@@ -43,9 +41,7 @@ dependencies {
 
     testCompile "junit:junit:4.11"
 
-    dependencies {
-        testCompile "org.mockito:mockito-core:1.+"
-    }
+    testCompile "org.mockito:mockito-core:1.+"
     testCompile("org.assertj:assertj-core:3.11.1")
 }
 
@@ -79,8 +75,13 @@ jar {
         ])
     }
     from {
-        configurations.compile
-                .filter{ it.toString().contains("roguelike") }
-                .collect { it.isDirectory() ? it : zipTree(it) }
+        configurations.compile.collect {
+            exclude 'dummyThing'
+            exclude 'LICENSE'
+            exclude 'META-INF/*'
+            exclude 'module-info.class'
+
+            it.isDirectory() ? it : zipTree(it)
+        }
     }
 }
