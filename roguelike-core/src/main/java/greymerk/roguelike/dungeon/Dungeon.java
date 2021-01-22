@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
+import java.util.function.Predicate;
 import java.util.stream.IntStream;
 
 import greymerk.roguelike.config.RogueConfig;
@@ -182,7 +183,11 @@ public class Dungeon {
   }
 
   public boolean canGenerateDungeonHere(Coord coord) {
-    if (isInvalidBiome(coord) || hasStrongholdTooCloseBy(coord)) {
+    if (isInvalidBiome(coord)) {
+      return false;
+    }
+    Predicate<VanillaStructure> isTooCloseTo = structure -> hasStructureTooCloseBy(coord, structure);
+    if (Arrays.stream(VanillaStructure.values()).anyMatch(isTooCloseTo)) {
       return false;
     }
 
@@ -210,13 +215,9 @@ public class Dungeon {
         .anyMatch(type -> BiomeDictionary.hasType(biome, type));
   }
 
-  private boolean hasStrongholdTooCloseBy(Coord coord) {
-    Coord stronghold = editor.findNearestStructure(VanillaStructure.STRONGHOLD, coord);
-    if (stronghold == null) {
-      return false;
-    }
-    double strongholdDistance = coord.distance(stronghold);
-    return strongholdDistance < 300;
+  private boolean hasStructureTooCloseBy(Coord coord, VanillaStructure structure) {
+    Coord structureCoord = editor.findNearestStructure(structure, coord);
+    return structureCoord != null && coord.distance(structureCoord) < 300;
   }
 
   private boolean canFindStartingCoord(int lowerLimit, Coord cursor) {
