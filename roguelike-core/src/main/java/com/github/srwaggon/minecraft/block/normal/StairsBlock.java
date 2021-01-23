@@ -33,6 +33,10 @@ public class StairsBlock extends SingleBlockBrush {
     return new StairsBlock(BlockType.STONE_STAIRS, Material.STONE);
   }
 
+  public static StairsBlock stone() {
+    return new StairsBlock(BlockType.STONE_STAIRS, Material.STONE);
+  }
+
   public static StairsBlock stoneBrick() {
     return new StairsBlock(BlockType.STONE_BRICK_STAIRS, Material.STONE);
   }
