@@ -2,8 +2,6 @@ package com.github.srwaggon.minecraft.block;
 
 import com.google.gson.JsonElement;
 
-import com.fasterxml.jackson.annotation.JsonValue;
-
 import greymerk.roguelike.dungeon.settings.DungeonSettingParseException;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
@@ -47,7 +45,6 @@ public class SingleBlockBrush implements BlockBrush {
     return this;
   }
 
-  @JsonValue
   public MetaBlock getMetaBlock() {
     String name = BlockMapper1_12.map(this).getBlock().getRegistryName().toString();
     return new MetaBlock(name);
