@@ -4,13 +4,15 @@ import com.github.srwaggon.minecraft.block.BlockType;
 import com.github.srwaggon.minecraft.block.Material;
 import com.github.srwaggon.minecraft.block.SingleBlockBrush;
 
+import java.util.Random;
+
 import greymerk.roguelike.util.DyeColor;
 import lombok.Getter;
 
 @Getter
 public class ColoredBlock extends SingleBlockBrush {
 
-  private DyeColor color = DyeColor.RED;
+  private DyeColor color = DyeColor.chooseRandom(new Random());
 
   public ColoredBlock(BlockType blockType, Material material) {
     super(blockType, material);
