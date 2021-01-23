@@ -2,8 +2,6 @@ package greymerk.roguelike.dungeon;
 
 import com.github.srwaggon.minecraft.block.Material;
 
-import net.minecraft.client.Minecraft;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -15,7 +13,6 @@ import java.util.stream.IntStream;
 
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
-import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.dungeon.settings.SettingsRandom;
 import greymerk.roguelike.dungeon.settings.SettingsResolver;
 import greymerk.roguelike.dungeon.settings.SpawnCriteria;
@@ -27,9 +24,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 import static java.lang.Math.PI;
 import static java.lang.Math.cos;
-import static java.lang.Math.max;
 import static java.lang.Math.sin;
-import static java.util.Optional.ofNullable;
 
 public class Dungeon {
   public static final int VERTICAL_SPACING = 10;
@@ -72,35 +67,6 @@ public class Dungeon {
     return editor.getInfo(coord).getDimension();
   }
 
-  private static boolean isVillageChunk(WorldEditor editor, int chunkX, int chunkZ) {
-    int frequency = RogueConfig.getInt(RogueConfig.SPAWNFREQUENCY);
-
-    int min = max(frequency * 4 / 5, 2);
-    int max = min * 4;
-    int distance = 3 * min;
-
-    int tempX = (chunkX < 0)
-        ? chunkX - (max - 1)
-        : chunkX;
-    int tempZ = (chunkZ < 0)
-        ? chunkZ - (max - 1)
-        : chunkZ;
-
-    Random random = editor.getSeededRandom(tempX, tempZ, 10387312);
-    int m = tempX + random.nextInt(distance);
-    int n = tempZ + random.nextInt(distance);
-
-    return chunkX == m && chunkZ == n;
-  }
-
-  private static boolean isVillageChunkReworked(WorldEditor editor, int chunkX, int chunkZ) {
-    Random random = editor.getSeededRandom(chunkX, chunkZ, 10387312);
-    int frequency = RogueConfig.getInt(RogueConfig.SPAWNFREQUENCY);
-    int distance = 3 * max(2, frequency);
-    return random.nextInt(distance) == 0
-        && random.nextInt(distance) == 0;
-  }
-
   private static boolean isSpawnFrequencyHit(int chunkX, int chunkZ) {
     int frequency = getSpawnFrequency();
     return chunkX % frequency == 0
@@ -131,40 +97,12 @@ public class Dungeon {
     }
   }
 
-  private static Coord getNearbyCoord(Random random, int x, int z) {
-    int distance = random.nextInt(getSpawnRadius());
-    double angle = random.nextDouble() * 2 * PI;
-    int xOffset = (int) (cos(angle) * distance);
-    int zOffset = (int) (sin(angle) * distance);
-    return new Coord(x + xOffset, 0, z + zOffset);
-  }
-
-  private Optional<Coord> selectLocation(Random rand, int x, int z) {
-    int attempts = RogueConfig.getInt(RogueConfig.SPAWN_ATTEMPTS);
-    return IntStream.range(0, attempts)
-        .peek(System.out::println)
-        .mapToObj(i -> getNearbyCoord(rand, x, z))
-        .filter(this::canGenerateDungeonHere)
-        .findFirst();
-  }
-
-  private static int getSpawnRadius() {
-    int spawnDiameter = getSpawnFrequency() * CHUNK_SIZE;
-    return spawnDiameter / 2;
-  }
-
-  private void printDungeonName(DungeonSettings dungeonSettings) {
-    Optional<SettingIdentifier> id = ofNullable(dungeonSettings.getId());
-    String string = id.isPresent() ? id.toString() : dungeonSettings.toString();
-    Minecraft.getMinecraft().player.sendChatMessage(string);
-  }
-
   public void generate(DungeonSettings dungeonSettings, Coord coord) {
     try {
       Random random = editor.getRandom(coord);
 
       origin = new Coord(coord.getX(), TOPLEVEL, coord.getZ());
-      Coord start = getPosition();
+
       IntStream.range(0, dungeonSettings.getNumLevels())
           .mapToObj(dungeonSettings::getLevelSettings)
           .map(DungeonLevel::new)
@@ -191,14 +129,25 @@ public class Dungeon {
     }
   }
 
-  private Optional<DungeonSettings> getDungeonSettingsMaybe(Coord coord) {
-    if (RogueConfig.getBoolean(RogueConfig.RANDOM)) {
-      return Optional.of(new SettingsRandom(editor.getRandom(coord)));
-    } else if (settingsResolver != null) {
-      return Optional.ofNullable(settingsResolver.getAnyCustomDungeonSettings(editor, coord));
-    } else {
-      return Optional.empty();
-    }
+  private Optional<Coord> selectLocation(Random rand, int x, int z) {
+    int attempts = RogueConfig.getInt(RogueConfig.SPAWN_ATTEMPTS);
+    return IntStream.range(0, attempts)
+        .mapToObj(i -> getNearbyCoord(rand, x, z))
+        .filter(this::canGenerateDungeonHere)
+        .findFirst();
+  }
+
+  private static Coord getNearbyCoord(Random random, int x, int z) {
+    int distance = random.nextInt(getSpawnRadius());
+    double angle = random.nextDouble() * 2 * PI;
+    int xOffset = (int) (cos(angle) * distance);
+    int zOffset = (int) (sin(angle) * distance);
+    return new Coord(x + xOffset, 0, z + zOffset);
+  }
+
+  private static int getSpawnRadius() {
+    int spawnDiameter = getSpawnFrequency() * CHUNK_SIZE;
+    return spawnDiameter / 2;
   }
 
   public boolean canGenerateDungeonHere(Coord coord) {
@@ -260,6 +209,17 @@ public class Dungeon {
       }
     }
     return true;
+  }
+
+  private Optional<DungeonSettings> getDungeonSettingsMaybe(Coord coord) {
+    if (RogueConfig.getBoolean(RogueConfig.RANDOM)) {
+      return Optional.of(new SettingsRandom(editor.getRandom(coord)));
+    }
+    // todo: Why would this ever be null?
+    if (settingsResolver == null) {
+      return Optional.empty();
+    }
+    return settingsResolver.chooseDungeonSetting(editor, coord);
   }
 
   public Coord getPosition() {
