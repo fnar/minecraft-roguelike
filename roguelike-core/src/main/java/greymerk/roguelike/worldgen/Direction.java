@@ -37,7 +37,7 @@ public enum Direction {
     this.zDelta = zDelta;
   }
 
-  public static Direction randomDirection(Random random) {
+  public static Direction randomCardinal(Random random) {
     return CARDINAL.get(random.nextInt(CARDINAL.size()));
   }
 

@@ -26,7 +26,7 @@ public class LevelGeneratorClassic implements ILevelGenerator {
   public void generate(Coord start) {
     this.start = start;
     List<Node> gNodes = new ArrayList<>();
-    Node startNode = new Node(Direction.randomDirection(random), start);
+    Node startNode = new Node(Direction.randomCardinal(random), start);
     gNodes.add(startNode);
 
     while (!isDone(gNodes)) {
