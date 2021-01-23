@@ -18,7 +18,7 @@
         {"data": {"name": "minecraft:tnt", "min": 3, "max": 5}, "weight": 1}
       ],
       "each": true,
-      "quantity": 2
+      "quantity": 3
     },
     {
       "level": [0, 1, 2, 3, 4],
@@ -40,7 +40,7 @@
       "level": [1, 2, 3, 4],
       "type": "TOOLS",
       "each": false,
-      "quantity": 1,
+      "quantity": 2,
       "loot": [
         {"data": {"type": "tool", "level": 0}, "weight": 16},
         {"data": {"type": "tool", "level": 1}, "weight": 8},

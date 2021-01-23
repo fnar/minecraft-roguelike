@@ -47,7 +47,7 @@
         {"data": {"name": "minecraft:waterlily"}, "weight": 2}
       ],
       "each": true,
-      "quantity": 2
+      "quantity": 4
     },
     {
       "level": [0, 1, 2, 3, 4],
