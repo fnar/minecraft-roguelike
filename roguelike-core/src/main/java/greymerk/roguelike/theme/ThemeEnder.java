@@ -24,7 +24,7 @@ public class ThemeEnder extends ThemeBase {
 
     this.secondary = new BlockSet(
         floor,
-        BlockType.SANDSTONE_CHISELED.getBrush(),
+        BlockType.CHISELED_SANDSTONE.getBrush(),
         stair,
         pillar
     );

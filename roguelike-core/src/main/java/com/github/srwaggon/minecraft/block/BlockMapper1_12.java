@@ -170,6 +170,7 @@ public class BlockMapper1_12 {
       case QUARTZ_SLAB:
       case RED_SANDSTONE_SLAB:
       case SANDSTONE_SLAB:
+      case SMOOTH_RED_SANDSTONE_SLAB:
       case SPRUCE_SLAB:
       case STONEBRICK_SLAB:
       case STONE_SLAB:
@@ -353,8 +354,14 @@ public class BlockMapper1_12 {
         return new MetaBlock1_2(Blocks.IRON_ORE);
       case ORE_COAL:
         return new MetaBlock1_2(Blocks.COAL_BLOCK);
-      case STAINED_GLASS:
+      case GLASS:
         return new MetaBlock1_2(Blocks.GLASS);
+      case GLASS_PANE:
+        return new MetaBlock1_2(Blocks.GLASS_PANE);
+      case STAINED_GLASS:
+        return map(BlockType.STAINED_GLASS.getBrush());
+      case STAINED_GLASS_PANE:
+        return map(BlockType.STAINED_GLASS_PANE.getBrush());
       case ORE_LAPIS:
         return new MetaBlock1_2(Blocks.LAPIS_ORE);
       case LAPIS_BLOCK:
@@ -363,7 +370,7 @@ public class BlockMapper1_12 {
         return new MetaBlock1_2(Blocks.EMERALD_ORE);
       case SANDSTONE:
         return new MetaBlock1_2(Blocks.SANDSTONE);
-      case SANDSTONE_CHISELED:
+      case CHISELED_SANDSTONE:
         return new MetaBlock1_2(Blocks.SANDSTONE, BlockSandStone.TYPE, BlockSandStone.EnumType.CHISELED);
       case SANDSTONE_SMOOTH:
         return new MetaBlock1_2(Blocks.SANDSTONE, BlockSandStone.TYPE, BlockSandStone.EnumType.SMOOTH);
@@ -427,11 +434,11 @@ public class BlockMapper1_12 {
         return new MetaBlock1_2(Blocks.COAL_BLOCK);
       case ICE_PACKED:
         return new MetaBlock1_2(Blocks.PACKED_ICE);
-      case SANDSTONE_RED:
+      case RED_SANDSTONE:
         return new MetaBlock1_2(Blocks.RED_SANDSTONE);
-      case SANDSTONE_RED_CHISELED:
+      case CHISELED_RED_SANDSTONE:
         return new MetaBlock1_2(Blocks.RED_SANDSTONE, BlockRedSandstone.TYPE, BlockRedSandstone.EnumType.CHISELED);
-      case SANDSTONE_RED_SMOOTH:
+      case SMOOTH_RED_SANDSTONE:
         return new MetaBlock1_2(Blocks.RED_SANDSTONE, BlockRedSandstone.TYPE, BlockRedSandstone.EnumType.SMOOTH);
       case QUARTZ:
         return new MetaBlock1_2(Blocks.QUARTZ_BLOCK);
@@ -543,6 +550,10 @@ public class BlockMapper1_12 {
         return getSapling(Wood.ACACIA);
       case DARK_OAK_SAPLING:
         return getSapling(Wood.DARK_OAK);
+      case TORCH:
+        return map(BlockType.TORCH.getBrush());
+      case REDSTONE_TORCH:
+        return map(BlockType.REDSTONE_TORCH.getBrush());
       case AIR:
       default:
         return new MetaBlock1_2(Blocks.AIR);
@@ -757,7 +768,7 @@ public class BlockMapper1_12 {
       case NETHERBRICK_SLAB:
       case QUARTZ_SLAB:
         return isFullBlock ? Blocks.DOUBLE_STONE_SLAB : Blocks.STONE_SLAB;
-      case SANDSTONE_RED:
+      case RED_SANDSTONE:
       case SMOOTH_RED_SANDSTONE_SLAB:
         return isFullBlock ? Blocks.DOUBLE_STONE_SLAB2 : Blocks.STONE_SLAB2;
       case OAK_SLAB:
