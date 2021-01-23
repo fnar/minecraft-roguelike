@@ -1,10 +1,13 @@
 package greymerk.roguelike.worldgen.shapes;
 
+import com.google.common.collect.Sets;
+
 import com.github.srwaggon.minecraft.block.SingleBlockBrush;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
@@ -46,6 +49,11 @@ public class RectHollow implements IShape {
     }
 
     return coords;
+  }
+
+  @Override
+  public Set<Coord> getAnchors() {
+    return Sets.newHashSet(start, end);
   }
 
   @Override

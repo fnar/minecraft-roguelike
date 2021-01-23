@@ -1,8 +1,11 @@
 package greymerk.roguelike.worldgen.shapes;
 
+import com.google.common.collect.Sets;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 
@@ -31,6 +34,11 @@ public class RectSolid implements IShape {
     }
 
     return coords;
+  }
+
+  @Override
+  public Set<Coord> getAnchors() {
+    return Sets.newHashSet(start, end);
   }
 
   @Nonnull

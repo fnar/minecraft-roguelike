@@ -1,5 +1,7 @@
 package greymerk.roguelike.worldgen.shapes;
 
+import com.google.common.collect.Sets;
+
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -36,5 +38,10 @@ public class MultiShape implements IShape {
     return shape.stream()
         .map(Coord::copy)
         .collect(toList());
+  }
+
+  @Override
+  public Set<Coord> getAnchors() {
+    return Sets.newHashSet(shape);
   }
 }
