@@ -3,7 +3,6 @@
   "themes": [
     {
       "base": "TEMPLE",
-      "level": [0, 1, 2, 3, 4],
       "primary": {
         "door": {"name": "minecraft:iron_door"},
         "floor": {"name": "minecraft:prismarine", "meta": 0},

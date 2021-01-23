@@ -1,5 +1,6 @@
 {
   "name": "dungeon:generic",
+  "exclusive": false,
   "inherit": [
     "layout:size_small",
     "layout:type_mixed",
