@@ -1,9 +1,5 @@
 package greymerk.roguelike.dungeon.settings;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -105,7 +101,6 @@ public class DungeonSettings {
     return MAX_NUM_LEVELS;
   }
 
-  @JsonIgnore
   public SettingIdentifier getId() {
     return id;
   }
@@ -143,7 +138,6 @@ public class DungeonSettings {
     return towerSettings;
   }
 
-  @JsonIgnore
   public int getNumLevels() {
     return getMaxNumLevels();
   }
@@ -177,7 +171,6 @@ public class DungeonSettings {
     return inherit;
   }
 
-  @JsonIgnore
   public Map<Integer, LevelSettings> getLevelSettings() {
     return levels;
   }
@@ -190,13 +183,4 @@ public class DungeonSettings {
     return lootTables;
   }
 
-  @Override
-  public String toString() {
-    try {
-      return new ObjectMapper().writeValueAsString(this);
-    } catch (JsonProcessingException e) {
-      e.printStackTrace();
-    }
-    return super.toString();
-  }
 }
