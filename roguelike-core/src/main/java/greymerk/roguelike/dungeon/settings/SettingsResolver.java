@@ -85,10 +85,11 @@ public class SettingsResolver {
     }
   }
 
-  public DungeonSettings getAnyCustomDungeonSettings(WorldEditor editor, Coord coord) {
-    return chooseRandomCustomDungeonIfPossible(editor, coord)
-        .orElseGet(() -> chooseOneBuiltinSettingAtRandom(editor, coord)
-            .orElse(null));
+  public Optional<DungeonSettings> chooseDungeonSetting(WorldEditor editor, Coord coord) {
+    Optional<DungeonSettings> customDungeon = chooseRandomCustomDungeonIfPossible(editor, coord);
+    return customDungeon.isPresent()
+        ? customDungeon
+        : chooseOneBuiltinSettingAtRandom(editor, coord);
   }
 
   public DungeonSettings getByName(String name) {
