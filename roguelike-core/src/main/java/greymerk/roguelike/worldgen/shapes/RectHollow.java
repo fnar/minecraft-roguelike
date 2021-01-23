@@ -8,7 +8,6 @@ import java.util.List;
 
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 
 public class RectHollow implements IShape {
@@ -65,7 +64,7 @@ public class RectHollow implements IShape {
       this.c2 = c2.copy();
 
       Coord.correct(this.c1, this.c2);
-      cursor = c1.copy();
+      cursor = this.c1.copy();
     }
 
     @Override
