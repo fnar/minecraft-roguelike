@@ -9,7 +9,16 @@
     "segments:traps_few",
     "spawners:evil_humanoids",
     "spawners:undead",
-    "theme:mineshaft",
     "tower:villager_house"
+  ],
+  "filters": [
+    {"level": [1, 2, 3], "name": "vine"},
+    {"level": [1, 3], "name": "cobweb"},
+    {"level": [4], "name": "mud"}
+  ],
+  "themes": [
+    {"level": [0, 1], "base": "MINESHAFT"},
+    {"level": [2, 3], "base": "MOSSY"},
+    {"level": [4], "base": "CRYPT"}
   ]
 }
