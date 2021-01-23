@@ -51,7 +51,7 @@ public class TreeTower implements ITower {
     carveRoom(editor, ground);
     carveRoom(editor, upstairs);
 
-    Direction dir = Direction.randomDirection(rand);
+    Direction dir = Direction.randomCardinal(rand);
     start = ground.copy();
     end = ground.copy();
     end.up();
