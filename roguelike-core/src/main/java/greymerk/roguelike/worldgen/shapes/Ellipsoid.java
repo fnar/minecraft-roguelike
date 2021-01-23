@@ -1,8 +1,11 @@
 package greymerk.roguelike.worldgen.shapes;
 
+import com.google.common.collect.Sets;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.Nonnull;
 
@@ -32,6 +35,11 @@ public class Ellipsoid implements IShape {
       copy.add(pos);
     }
     return copy;
+  }
+
+  @Override
+  public Set<Coord> getAnchors() {
+    return Sets.newHashSet(start, end);
   }
 
   private class EllipsoidIterator implements Iterator<Coord> {

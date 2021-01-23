@@ -1,10 +1,12 @@
 package greymerk.roguelike.worldgen.shapes;
 
+import com.google.common.collect.Sets;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
-import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 
 public class RectWireframe implements IShape {
@@ -30,6 +32,11 @@ public class RectWireframe implements IShape {
     }
 
     return coords;
+  }
+
+  @Override
+  public Set<Coord> getAnchors() {
+    return Sets.newHashSet(start, end);
   }
 
   @Override
