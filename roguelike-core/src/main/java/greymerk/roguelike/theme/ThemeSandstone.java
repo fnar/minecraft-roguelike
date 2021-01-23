@@ -19,7 +19,7 @@ public class ThemeSandstone extends ThemeBase {
 
     this.primary = new BlockSet(walls, stair, pillar);
 
-    BlockBrush segmentWall = BlockType.SANDSTONE_CHISELED.getBrush();
+    BlockBrush segmentWall = BlockType.CHISELED_SANDSTONE.getBrush();
 
     this.secondary = new BlockSet(segmentWall, stair, pillar);
 

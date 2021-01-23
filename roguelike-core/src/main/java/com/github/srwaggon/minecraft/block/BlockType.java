@@ -1,5 +1,9 @@
 package com.github.srwaggon.minecraft.block;
 
+import com.github.srwaggon.minecraft.block.decorative.TorchBlock;
+import com.github.srwaggon.minecraft.block.normal.ColoredBlock;
+import com.github.srwaggon.minecraft.block.normal.SlabBlock;
+import com.github.srwaggon.minecraft.block.normal.StairsBlock;
 import com.github.srwaggon.minecraft.item.RldItemStack;
 
 public enum BlockType {
@@ -74,6 +78,7 @@ public enum BlockType {
   FLOWER_POT,
   FURNACE,
   GLASS,
+  GLASS_PANE,
   GLOWSTONE,
   GOLD_BLOCK,
   GRANITE,
@@ -156,10 +161,9 @@ public enum BlockType {
   REEDS,
   SAND,
   SANDSTONE,
-  SANDSTONE_CHISELED,
-  SANDSTONE_RED,
-  SANDSTONE_RED_CHISELED,
-  SANDSTONE_RED_SMOOTH,
+  CHISELED_SANDSTONE,
+  RED_SANDSTONE,
+  CHISELED_RED_SANDSTONE,
   SANDSTONE_SLAB,
   SANDSTONE_SMOOTH,
   SANDSTONE_STAIRS,
@@ -168,6 +172,7 @@ public enum BlockType {
   BOOKSHELF,
   SKULL,
   SMOOTH_QUARTZ,
+  SMOOTH_RED_SANDSTONE,
   SMOOTH_RED_SANDSTONE_SLAB,
   SNOW,
   SOUL_SAND,
@@ -209,10 +214,105 @@ public enum BlockType {
   WOOL,
   YELLOW_FLOWER,
   PLANT,
-  CROP;
+  CROP
+  ;
 
   public SingleBlockBrush getBrush() {
-    return new SingleBlockBrush(this);
+    switch (this) {
+
+
+      // colored blocks
+      case CARPET:
+        return ColoredBlock.carpet();
+      case CONCRETE:
+        return ColoredBlock.concrete();
+      case CONCRETE_POWDER:
+        return ColoredBlock.concretePowder();
+      case STAINED_GLASS:
+        return ColoredBlock.stainedGlass();
+      case STAINED_GLASS_PANE:
+        return ColoredBlock.stainedGlassPane();
+      case STAINED_HARDENED_CLAY:
+        return ColoredBlock.stainedHardenedClay();
+      case TERRACOTTA:
+        return ColoredBlock.terracotta();
+      case WOOL:
+        return ColoredBlock.wool();
+
+
+      // stairs
+      case ACACIA_STAIRS:
+        return StairsBlock.acacia();
+      case BIRCH_STAIRS:
+        return StairsBlock.birch();
+      case BRICK_STAIRS:
+        return StairsBlock.brick();
+      case DARK_OAK_STAIRS:
+        return StairsBlock.darkOak();
+      case JUNGLE_STAIRS:
+        return StairsBlock.jungle();
+      case NETHER_BRICK_STAIRS:
+        return StairsBlock.netherBrick();
+      case OAK_STAIRS:
+        return StairsBlock.oak();
+      case PURPUR_STAIRS:
+        return StairsBlock.purpur();
+      case QUARTZ_STAIRS:
+        return StairsBlock.quartz();
+      case RED_SANDSTONE_STAIRS:
+        return StairsBlock.redSandstone();
+      case SANDSTONE_STAIRS:
+        return StairsBlock.sandstone();
+      case SPRUCE_STAIRS:
+        return StairsBlock.spruce();
+      case STONE_BRICK_STAIRS:
+        return StairsBlock.stoneBrick();
+      case STONE_STAIRS:
+        return StairsBlock.stone();
+
+
+      // slabs
+      case ACACIA_SLAB:
+        return SlabBlock.acacia();
+      case BIRCH_SLAB:
+        return SlabBlock.birch();
+      case BRICK_SLAB:
+        return SlabBlock.brick();
+      case COBBLE_SLAB:
+        return SlabBlock.cobble();
+      case DARK_OAK_SLAB:
+        return SlabBlock.darkOak();
+      case JUNGLE_SLAB:
+        return SlabBlock.jungle();
+      case LEGACY_OAK_SLAB:
+        return SlabBlock.legacyOak();
+      case NETHERBRICK_SLAB:
+        return SlabBlock.netherBrick();
+      case OAK_SLAB:
+        return SlabBlock.oak();
+      case QUARTZ_SLAB:
+        return SlabBlock.quartz();
+      case RED_SANDSTONE_SLAB:
+        return SlabBlock.redSandStone();
+      case SANDSTONE_SLAB:
+        return SlabBlock.sandstone();
+      case SMOOTH_RED_SANDSTONE_SLAB:
+        return SlabBlock.smoothRedSandstone();
+      case SPRUCE_SLAB:
+        return SlabBlock.spruce();
+      case STONEBRICK_SLAB:
+        return SlabBlock.stoneBrick();
+      case STONE_SLAB:
+        return SlabBlock.stone();
+
+      // torches
+      case REDSTONE_TORCH:
+        return TorchBlock.redstone();
+      case TORCH:
+        return TorchBlock.torch();
+      default:
+        return new SingleBlockBrush(this);
+    }
   }
 
   public RldItemStack asItemStack() {
