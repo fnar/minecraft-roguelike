@@ -25,18 +25,18 @@
     {"level": 4, "frequency": "single", "type": "REWARD", "count": 1},
     {"level": 4, "frequency": "secret", "type": "FIREWORK", "count": 1},
 
-    {"level": [0,1,2,3,4], "frequency": "random", "type": "CORNER", "weight": 2},
-    {"level": [0,1,2,3,4], "frequency": "random", "type": "DARKHALL", "weight": 1},
-    {"level": [0,1,2,3,4], "frequency": "random", "type": "FIRE", "weight": 1},
-    {"level": [0,1,2,3,4], "frequency": "random", "type": "MESS", "weight": 1},
-    {"level": [0,1,2,3,4], "frequency": "random", "type": "LAB", "weight": 1},
-    {"level": [0,1,2,3,4], "frequency": "random", "type": "LIBRARY", "weight": 1},
-    {"level": [0,1,2,3,4], "frequency": "random", "type": "STORAGE", "weight": 1},
+    {"level": [0,1,2,3,4], "frequency": "random", "type": "CORNER", "weight": 10},
+    {"level": [0,1,2,3,4], "frequency": "random", "type": "DARKHALL", "weight": 5},
+    {"level": [0,1,2,3,4], "frequency": "random", "type": "FIRE", "weight": 5},
+    {"level": [0,1,2,3,4], "frequency": "random", "type": "MESS", "weight": 5},
+    {"level": [0,1,2,3,4], "frequency": "random", "type": "LAB", "weight": 5},
+    {"level": [0,1,2,3,4], "frequency": "random", "type": "LIBRARY", "weight": 5},
+    {"level": [0,1,2,3,4], "frequency": "random", "type": "STORAGE", "weight": 5},
 
-    {"level": [1,2,3], "frequency": "random", "type": "PRISON", "weight": 2},
-    {"level": [2,3,4], "frequency": "random", "type": "OBSIDIAN", "weight": 2},
-    {"level": [0,1,2,3], "frequency": "random", "type": "BRICK", "weight": 5},
-    {"level": [0,1,2,3,4], "frequency": "random", "type": "NETHERFORT", "weight": 1},
-    {"level": [0,1,2,3,4], "frequency": "random", "type": "NETHER", "weight": 3}
+    {"level": [0,1,2,3], "frequency": "random", "type": "BRICK", "weight": 15},
+    {"level": [1,2,3], "frequency": "random", "type": "PRISON", "weight": 5},
+    {"level": [2,3,4], "frequency": "random", "type": "OBSIDIAN", "weight": 5},
+    {"level": [0,1,2,3,4], "frequency": "random", "type": "NETHERFORT", "weight": 5},
+    {"level": [0,1,2,3,4], "frequency": "random", "type": "NETHER", "weight": 5}
   ]
 }

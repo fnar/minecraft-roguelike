@@ -3,7 +3,6 @@
   "themes" : [
     {
       "base": "MOSSY",
-      "level" : [0,1,2,3,4],
       "primary" : {
         "walls" : {
           "type" : "WEIGHTED",
