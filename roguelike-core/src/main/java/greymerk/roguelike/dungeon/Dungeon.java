@@ -34,6 +34,7 @@ import static java.util.Optional.ofNullable;
 public class Dungeon {
   public static final int VERTICAL_SPACING = 10;
   public static final int TOPLEVEL = 50;
+  public static final int CHUNK_SIZE = 16;
 
   public static SettingsResolver settingsResolver;
 
@@ -47,8 +48,8 @@ public class Dungeon {
   }
 
   private Coord origin;
-  private List<DungeonLevel> levels = new ArrayList<>();
-  private WorldEditor editor;
+  private final List<DungeonLevel> levels = new ArrayList<>();
+  private final WorldEditor editor;
 
   public Dungeon(WorldEditor editor) {
     this.editor = editor;
@@ -67,7 +68,7 @@ public class Dungeon {
   }
 
   private static int getDimension(int chunkX, int chunkZ, WorldEditor editor) {
-    final Coord coord = new Coord(chunkX * 16, 0, chunkZ * 16);
+    final Coord coord = new Coord(chunkX * CHUNK_SIZE, 0, chunkZ * CHUNK_SIZE);
     return editor.getInfo(coord).getDimension();
   }
 
@@ -96,6 +97,24 @@ public class Dungeon {
     return chunkX == m && chunkZ == n;
   }
 
+  private static boolean isVillageChunkReworked(WorldEditor editor, int chunkX, int chunkZ) {
+    Random random = editor.getSeededRandom(chunkX, chunkZ, 10387312);
+    int frequency = RogueConfig.getInt(RogueConfig.SPAWNFREQUENCY);
+    int distance = 3 * max(2, frequency);
+    return random.nextInt(distance) == 0
+        && random.nextInt(distance) == 0;
+  }
+
+  private static boolean isSpawnFrequencyHit(int chunkX, int chunkZ) {
+    int frequency = getSpawnFrequency();
+    return chunkX % frequency == 0
+        && chunkZ % frequency == 0;
+  }
+
+  private static int getSpawnFrequency() {
+    return 3 * Math.max(2, RogueConfig.getInt(RogueConfig.SPAWNFREQUENCY));
+  }
+
   private static boolean isSpawnChanceHit(int chunkX, int chunkZ) {
     double spawnChance = RogueConfig.getDouble(RogueConfig.SPAWNCHANCE);
     Random rand = new Random(Objects.hash(chunkX, chunkZ, 31));
@@ -116,8 +135,8 @@ public class Dungeon {
     }
   }
 
-  public static Coord getNearbyCoord(Random random, int x, int z, int min, int max) {
-    int distance = min + random.nextInt(max - min);
+  private static Coord getNearbyCoord(Random random, int x, int z) {
+    int distance = random.nextInt(getSpawnRadius());
     double angle = random.nextDouble() * 2 * PI;
     int xOffset = (int) (cos(angle) * distance);
     int zOffset = (int) (sin(angle) * distance);
@@ -125,10 +144,17 @@ public class Dungeon {
   }
 
   private Optional<Coord> selectLocation(Random rand, int x, int z) {
-    return IntStream.range(0, 50)
-        .mapToObj(i -> getNearbyCoord(rand, x, z, 40, 100))
+    int attempts = RogueConfig.getInt(RogueConfig.SPAWN_ATTEMPTS);
+    return IntStream.range(0, attempts)
+        .peek(System.out::println)
+        .mapToObj(i -> getNearbyCoord(rand, x, z))
         .filter(this::canGenerateDungeonHere)
         .findFirst();
+  }
+
+  private static int getSpawnRadius() {
+    int spawnDiameter = getSpawnFrequency() * CHUNK_SIZE;
+    return spawnDiameter / 2;
   }
 
   private void printDungeonName(DungeonSettings dungeonSettings) {
@@ -158,8 +184,8 @@ public class Dungeon {
 
   public void spawnInChunk(Random rand, int chunkX, int chunkZ) {
     if (canSpawnInChunk(chunkX, chunkZ, editor)) {
-      int x = chunkX * 16 + 4;
-      int z = chunkZ * 16 + 4;
+      int x = chunkX * CHUNK_SIZE;
+      int z = chunkZ * CHUNK_SIZE;
 
       selectLocation(rand, x, z)
           .ifPresent(coord ->
@@ -197,7 +223,7 @@ public class Dungeon {
 
   private boolean hasStructureTooCloseBy(Coord coord, VanillaStructure structure) {
     Coord structureCoord = editor.findNearestStructure(structure, coord);
-    return structureCoord != null && coord.distance(structureCoord) < 300;
+    return structureCoord != null && coord.distance(structureCoord) < RogueConfig.getInt(RogueConfig.SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES);
   }
 
   private boolean canFindStartingCoord(int lowerLimit, Coord cursor) {

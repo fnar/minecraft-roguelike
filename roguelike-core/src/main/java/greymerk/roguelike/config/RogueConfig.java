@@ -24,6 +24,8 @@ public enum RogueConfig {
   SPAWNBUILTIN("doBuiltinSpawn", true, 0, 0.0, null),
   SPAWNCHANCE("spawnChance", false, 0, 1.0, null),
   SPAWNFREQUENCY("spawnFrequency", false, 10, 0.0, null),
+  SPAWN_ATTEMPTS("spawnAttempts", false, 10, 0.0, null),
+  SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES("spawnMinimumDistanceFromVanillaStructures", false, 50, 0.0, null),
   UPPERLIMIT("upperLimit", false, 100, 0.0, null),
   ;
 
@@ -99,6 +101,12 @@ public enum RogueConfig {
     }
     if (!instance.ContainsKey(SPAWNBUILTIN.name)) {
       setBoolean(SPAWNBUILTIN, SPAWNBUILTIN.defaultBoolean);
+    }
+    if (!instance.ContainsKey(SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES.name)) {
+      setInt(SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES, SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES.defaultInt);
+    }
+    if (!instance.ContainsKey(SPAWN_ATTEMPTS.name)) {
+      setInt(SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES, SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES.defaultInt);
     }
   }
 
