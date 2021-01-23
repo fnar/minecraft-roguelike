@@ -2,6 +2,9 @@ package greymerk.roguelike.worldgen;
 
 import java.util.Objects;
 
+import greymerk.roguelike.worldgen.shapes.RectHollow;
+import greymerk.roguelike.worldgen.shapes.RectSolid;
+
 import static greymerk.roguelike.worldgen.Direction.UP;
 
 public class Coord {
@@ -208,4 +211,15 @@ public class Coord {
     return z == other.z;
   }
 
+  public RectSolid newRect(int radius) {
+    Coord corner0 = copy().north(radius).east(radius);
+    Coord corner1 = copy().south(radius).west(radius);
+    return RectSolid.newRect(corner0, corner1);
+  }
+
+  public RectHollow newHollowRect(int radius) {
+    Coord corner0 = copy().north(radius).east(radius);
+    Coord corner1 = copy().south(radius).west(radius);
+    return RectHollow.newRect(corner0, corner1);
+  }
 }
