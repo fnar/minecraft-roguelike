@@ -34,9 +34,6 @@ public class ThemeMineShaft extends ThemeBase {
 
   private BlockSet getSecondaryBlockSet(BlockJumble floor) {
     Wood oak = Wood.OAK;
-    BlockBrush walls2 = oak.getPlanks();
-    StairsBlock stair2 = oak.getStairs();
-    BlockBrush pillar2 = oak.getLog();
-    return new BlockSet(floor, walls2, stair2, pillar2);
+    return new BlockSet(floor, oak.getPlanks(), oak.getStairs(), oak.getPlanks());
   }
 }
