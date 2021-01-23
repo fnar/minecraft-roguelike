@@ -56,14 +56,14 @@ public class Dungeon {
   }
 
   public static void initResolver() throws Exception {
-    SettingsResolver settingsResolver = SettingsResolver.initSettingsResolver();
-    Dungeon.settingsResolver = settingsResolver;
+    Dungeon.settingsResolver = SettingsResolver.initSettingsResolver();
   }
 
   public static boolean canSpawnInChunk(int chunkX, int chunkZ, WorldEditor editor) {
     return RogueConfig.getBoolean(RogueConfig.DONATURALSPAWN)
         && SpawnCriteria.isValidDimension(getDimension(chunkX, chunkZ, editor))
-        && isVillageChunk(editor, chunkX, chunkZ)
+//        && isVillageChunk(editor, chunkX, chunkZ)
+        && isSpawnFrequencyHit(chunkX, chunkZ)
         && isSpawnChanceHit(chunkX, chunkZ);
   }
 
@@ -72,27 +72,23 @@ public class Dungeon {
     return editor.getInfo(coord).getDimension();
   }
 
-  public static boolean isVillageChunk(WorldEditor editor, int chunkX, int chunkZ) {
+  private static boolean isVillageChunk(WorldEditor editor, int chunkX, int chunkZ) {
     int frequency = RogueConfig.getInt(RogueConfig.SPAWNFREQUENCY);
-    int min = 8 * frequency / 10;
-    int max = 32 * frequency / 10;
 
-    min = max(min, 2);
-    max = max(max, 8);
+    int min = max(frequency * 4 / 5, 2);
+    int max = min * 4;
+    int distance = 3 * min;
 
-    int tempX = chunkX < 0 ? chunkX - (max - 1) : chunkX;
-    int tempZ = chunkZ < 0 ? chunkZ - (max - 1) : chunkZ;
+    int tempX = (chunkX < 0)
+        ? chunkX - (max - 1)
+        : chunkX;
+    int tempZ = (chunkZ < 0)
+        ? chunkZ - (max - 1)
+        : chunkZ;
 
-    int m = tempX / max;
-    int n = tempZ / max;
-
-    Random r = editor.getSeededRandom(m, n, 10387312);
-
-    m *= max;
-    n *= max;
-
-    m += r.nextInt(max - min);
-    n += r.nextInt(max - min);
+    Random random = editor.getSeededRandom(tempX, tempZ, 10387312);
+    int m = tempX + random.nextInt(distance);
+    int n = tempZ + random.nextInt(distance);
 
     return chunkX == m && chunkZ == n;
   }
