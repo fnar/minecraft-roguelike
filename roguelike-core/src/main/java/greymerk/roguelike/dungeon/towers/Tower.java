@@ -3,24 +3,25 @@ package greymerk.roguelike.dungeon.towers;
 import java.util.Random;
 
 import greymerk.roguelike.theme.Theme;
-import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 
 public enum Tower {
 
-  ROGUE,
+  BUMBO,
+  BUNKER,
   ENIKO,
   ETHO,
-  PYRAMID,
-  JUNGLE,
-  WITCH,
-  HOUSE,
-  BUNKER,
-  RUIN,
   HOLE,
+  HOUSE,
+  JUNGLE,
+  PYRAMID,
+  ROGUE,
+  RUIN,
   TREE,
-  BUMBO;
+  VILLAGER_HOUSE,
+  WITCH
+  ;
 
   public static ITower get(Tower type) {
 
@@ -50,6 +51,8 @@ public enum Tower {
         return new TreeTower();
       case BUMBO:
         return new BumboTower();
+      case VILLAGER_HOUSE:
+        return new VillagerHouseTower();
     }
   }
 
