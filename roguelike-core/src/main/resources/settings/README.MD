@@ -1,3 +1,5 @@
+Current download: https://github.com/srwaggon/minecraft-roguelike/releases/download/v2.3.0/settings.zip
+
 These settings serve mostly as examples of how Dungeon Settings could be written.
 
 There are errors here and there, and I am always accepting pull requests for corrections.
