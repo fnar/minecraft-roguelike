@@ -1,6 +1,8 @@
 Roguelike Dungeons: _Fnar Edition_
 ===================
 
+https://cf.way2muchnoise.eu/fnars-roguelike-dungeons.svg
+
 This is a mod for minecraft that adds randomly generated dungeon complexes. This version is a fork of [Greymerk's masterpeice](http://github.com/greymerk/minecraft-roguelike).
 
 ### Clone to desktop
