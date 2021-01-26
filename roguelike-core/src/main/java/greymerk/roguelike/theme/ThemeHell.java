@@ -24,10 +24,10 @@ public class ThemeHell extends ThemeBase {
     floor.addBlock(walls, 1500);
     floor.addBlock(BlockType.RED_NETHERBRICK.getBrush(), 500);
     floor.addBlock(BlockType.REDSTONE_BLOCK.getBrush(), 50);
-    if (RogueConfig.getBoolean(RogueConfig.PRECIOUSBLOCKS)) {
+    if (RogueConfig.PRECIOUSBLOCKS.getBoolean()) {
       floor.addBlock(BlockType.GOLD_BLOCK.getBrush(), 2);
     }
-    if (RogueConfig.getBoolean(RogueConfig.PRECIOUSBLOCKS)) {
+    if (RogueConfig.PRECIOUSBLOCKS.getBoolean()) {
       floor.addBlock(BlockType.DIAMOND_BLOCK.getBrush(), 1);
     }
 

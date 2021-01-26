@@ -340,7 +340,7 @@ public class DungeonBTeam extends DungeonBase {
     bricks.addBlock(BlockType.STONE_BRICK_CRACKED.getBrush());
     bricks.addBlock(BlockType.STONE_BRICK_MOSSY.getBrush());
     BlockBrush plank = Wood.SPRUCE.getPlanks();
-    BlockBrush b = RogueConfig.getBoolean(RogueConfig.GENEROUS)
+    BlockBrush b = RogueConfig.GENEROUS.getBoolean()
         ? BlockType.EMERALD_BLOCK.getBrush()
         : stainedGlass().setColor(DyeColor.LIME);
 

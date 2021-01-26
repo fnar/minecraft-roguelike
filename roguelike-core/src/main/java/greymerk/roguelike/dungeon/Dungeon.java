@@ -55,7 +55,7 @@ public class Dungeon {
   }
 
   public static boolean canSpawnInChunk(int chunkX, int chunkZ, WorldEditor editor) {
-    return RogueConfig.getBoolean(RogueConfig.DONATURALSPAWN)
+    return RogueConfig.DONATURALSPAWN.getBoolean()
         && SpawnCriteria.isValidDimension(getDimension(chunkX, chunkZ, editor))
 //        && isVillageChunk(editor, chunkX, chunkZ)
         && isSpawnFrequencyHit(chunkX, chunkZ)
@@ -74,11 +74,11 @@ public class Dungeon {
   }
 
   private static int getSpawnFrequency() {
-    return 3 * Math.max(2, RogueConfig.getInt(RogueConfig.SPAWNFREQUENCY));
+    return 3 * Math.max(2, RogueConfig.SPAWNFREQUENCY.getInt());
   }
 
   private static boolean isSpawnChanceHit(int chunkX, int chunkZ) {
-    double spawnChance = RogueConfig.getDouble(RogueConfig.SPAWNCHANCE);
+    double spawnChance = RogueConfig.SPAWNCHANCE.getDouble();
     Random rand = new Random(Objects.hash(chunkX, chunkZ, 31));
     return rand.nextFloat() < spawnChance;
   }
@@ -130,7 +130,7 @@ public class Dungeon {
   }
 
   private Optional<Coord> selectLocation(Random rand, int x, int z) {
-    int attempts = RogueConfig.getInt(RogueConfig.SPAWN_ATTEMPTS);
+    int attempts = RogueConfig.SPAWN_ATTEMPTS.getInt();
     return IntStream.range(0, attempts)
         .mapToObj(i -> getNearbyCoord(rand, x, z))
         .filter(this::canGenerateDungeonHere)
@@ -156,8 +156,8 @@ public class Dungeon {
       return false;
     }
 
-    int upperLimit = RogueConfig.getInt(RogueConfig.UPPERLIMIT);
-    int lowerLimit = RogueConfig.getInt(RogueConfig.LOWERLIMIT);
+    int upperLimit = RogueConfig.UPPERLIMIT.getInt();
+    int lowerLimit = RogueConfig.LOWERLIMIT.getInt();
     Coord cursor = new Coord(coord.getX(), upperLimit, coord.getZ());
 
     return editor.isAirBlock(cursor)
@@ -168,7 +168,7 @@ public class Dungeon {
 
   private boolean hasStructureTooCloseBy(Coord coord, VanillaStructure structure) {
     Coord structureCoord = editor.findNearestStructure(structure, coord);
-    return structureCoord != null && coord.distance(structureCoord) < RogueConfig.getInt(RogueConfig.SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES);
+    return structureCoord != null && coord.distance(structureCoord) < RogueConfig.SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES.getInt();
   }
 
   private boolean canFindStartingCoord(int lowerLimit, Coord cursor) {
@@ -212,7 +212,7 @@ public class Dungeon {
   }
 
   private Optional<DungeonSettings> getDungeonSettingsMaybe(Coord coord) {
-    if (RogueConfig.getBoolean(RogueConfig.RANDOM)) {
+    if (RogueConfig.RANDOM.getBoolean()) {
       return Optional.of(new SettingsRandom(editor.getRandom(coord)));
     }
     // todo: Why would this ever be null?

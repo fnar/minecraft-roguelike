@@ -216,7 +216,7 @@ public class BlockMapper1_12 {
       case BED:
         return getBed((BedBlock) block);
       case FURNACE:
-        if (!RogueConfig.getBoolean(RogueConfig.FURNITURE)) {
+        if (!RogueConfig.FURNITURE.getBoolean()) {
           return new MetaBlock1_2(Blocks.COBBLESTONE);
         }
         return new MetaBlock1_2(Blocks.FURNACE)
@@ -455,7 +455,7 @@ public class BlockMapper1_12 {
       case REEDS:
         return new MetaBlock1_2(Blocks.REEDS);
       case CRAFTING_TABLE:
-        return (!RogueConfig.getBoolean(RogueConfig.FURNITURE)
+        return (!RogueConfig.FURNITURE.getBoolean()
             ? getPlankMetaBlock(Wood.OAK)
             : new MetaBlock1_2(Blocks.CRAFTING_TABLE));
       case NOTEBLOCK:
@@ -601,7 +601,7 @@ public class BlockMapper1_12 {
   }
 
   public static MetaBlock1_2 getAnvil(AnvilBlock block) {
-    if (!RogueConfig.getBoolean(RogueConfig.FURNITURE)) {
+    if (!RogueConfig.FURNITURE.getBoolean()) {
       return map(BlockType.ANDESITE_POLISHED);
     }
     return new MetaBlock1_2(Blocks.ANVIL)

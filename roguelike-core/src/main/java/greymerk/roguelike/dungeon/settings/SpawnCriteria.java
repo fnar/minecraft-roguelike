@@ -86,7 +86,7 @@ public class SpawnCriteria {
   }
 
   public static boolean isValidDimension(int dimension) {
-    return isValidDimension(dimension, RogueConfig.getIntList(RogueConfig.DIMENSIONWL), RogueConfig.getIntList(RogueConfig.DIMENSIONBL));
+    return isValidDimension(dimension, RogueConfig.DIMENSIONWL.getIntList(), RogueConfig.DIMENSIONBL.getIntList());
   }
 
   public static boolean isValidDimension(int dimension, List<Integer> whiteList, List<Integer> blackList) {

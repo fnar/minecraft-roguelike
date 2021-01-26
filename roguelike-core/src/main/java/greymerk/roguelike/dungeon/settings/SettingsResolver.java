@@ -114,7 +114,7 @@ public class SettingsResolver {
   }
 
   private Optional<DungeonSettings> chooseOneBuiltinSettingAtRandom(WorldEditor editor, Coord coord) {
-    if (!RogueConfig.getBoolean(RogueConfig.SPAWNBUILTIN)) {
+    if (!RogueConfig.SPAWNBUILTIN.getBoolean()) {
       return empty();
     }
     return chooseRandomValid(editor, coord, settingsContainer.getBuiltinSettings());

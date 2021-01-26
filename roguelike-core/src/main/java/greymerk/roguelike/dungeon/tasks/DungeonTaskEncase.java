@@ -18,7 +18,7 @@ public class DungeonTaskEncase implements IDungeonTask {
     List<DungeonLevel> levels = dungeon.getLevels();
 
     // encase
-    if (RogueConfig.getBoolean(RogueConfig.ENCASE)) {
+    if (RogueConfig.ENCASE.getBoolean()) {
       for (DungeonLevel level : levels) {
         level.filter(editor, random, Filter.get(Filter.ENCASE));
       }

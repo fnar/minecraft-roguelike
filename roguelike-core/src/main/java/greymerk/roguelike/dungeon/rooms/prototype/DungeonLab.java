@@ -262,7 +262,7 @@ public class DungeonLab extends DungeonBase {
     stair.setUpsideDown(true).setFacing(Direction.EAST);
     RectSolid.newRect(new Coord(x, y, z + 1), new Coord(x, y, z + 4)).fill(editor, stair);
 
-    if (RogueConfig.getBoolean(RogueConfig.GENEROUS)) {
+    if (RogueConfig.GENEROUS.getBoolean()) {
       Coord bs = new Coord(x + 1, y + 1, z + 5);
       BlockType.BREWING_STAND.getBrush().stroke(editor, bs);
       editor.setItem(bs, BrewingStand.Slot.FUEL, new ItemStack(Items.BLAZE_POWDER));
