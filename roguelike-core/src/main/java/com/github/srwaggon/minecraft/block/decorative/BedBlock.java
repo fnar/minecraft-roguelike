@@ -58,7 +58,7 @@ public class BedBlock extends SingleBlockBrush {
 
     Coord cursor = pos.copy();
 
-    if (!RogueConfig.getBoolean(RogueConfig.FURNITURE)) {
+    if (!RogueConfig.FURNITURE.getBoolean()) {
       wool().setColor(DyeColor.WHITE).stroke(editor, cursor);
 
       cursor.translate(this.getFacing());

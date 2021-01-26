@@ -77,7 +77,7 @@ public class DungeonsEnder extends DungeonBase {
     end = origin.copy();
     start.translate(new Coord(-4, 0, -4));
     end.translate(new Coord(4, 0, 4));
-    if (RogueConfig.getBoolean(RogueConfig.GENEROUS)) {
+    if (RogueConfig.GENEROUS.getBoolean()) {
       addEnderChest(worldEditor, new RectSolid(start, end));
     }
     generateSpawner(origin, MobType.ENDERMAN);

@@ -22,10 +22,10 @@ public class ThemeNether extends ThemeBase {
     BlockWeightedRandom floor = new BlockWeightedRandom();
     floor.addBlock(walls, 2000);
     floor.addBlock(BlockType.REDSTONE_BLOCK.getBrush(), 50);
-    if (RogueConfig.getBoolean(RogueConfig.PRECIOUSBLOCKS)) {
+    if (RogueConfig.PRECIOUSBLOCKS.getBoolean()) {
       floor.addBlock(BlockType.GOLD_BLOCK.getBrush(), 2);
     }
-    if (RogueConfig.getBoolean(RogueConfig.PRECIOUSBLOCKS)) {
+    if (RogueConfig.PRECIOUSBLOCKS.getBoolean()) {
       floor.addBlock(BlockType.DIAMOND_BLOCK.getBrush(), 1);
     }
 

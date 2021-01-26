@@ -145,7 +145,7 @@ public class SpawnPotential {
   }
 
   private boolean areRoguelikeSpawnersEnabled() {
-    return RogueConfig.getBoolean(RogueConfig.ROGUESPAWNERS) && equip;
+    return RogueConfig.ROGUESPAWNERS.getBoolean() && equip;
   }
 
   private void tagEntityAsFromRoguelikeSpawner(int level, NBTTagCompound entityNbt) {
@@ -167,7 +167,7 @@ public class SpawnPotential {
   }
 
   private void setLootingRateTags(NBTTagCompound entityNbt) {
-    float lootingChance = (float) RogueConfig.getDouble(RogueConfig.LOOTING);
+    float lootingChance = (float) RogueConfig.LOOTING.getDouble();
 
     NBTTagList handDropChances = new NBTTagList();
     NBTTagFloat mainHandDropChance = new NBTTagFloat(lootingChance);

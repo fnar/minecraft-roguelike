@@ -5,29 +5,50 @@ import com.google.common.collect.Lists;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 
-public enum RogueConfig {
+public class RogueConfig {
 
-  DIMENSIONBL("dimensionBL", false, 0, 0.0, Lists.newArrayList()),
-  DIMENSIONWL("dimensionWL", false, 0, 0.0, Lists.newArrayList(0)),
-  DONATURALSPAWN("doNaturalSpawn", true, 0, 0.0, null),
-  ENCASE("encase", false, 0, 0.0, null),
-  FURNITURE("furniture", true, 0, 0.0, null),
-  GENEROUS("generous", true, 0, 0.0, null),
-  LOOTING("looting", false, 0, 0.085D, null),
-  LOWERLIMIT("lowerLimit", false, 60, 0.0, null),
-  MOBDROPS("mobDrops", false, 0, 0.0, null),
-  PRECIOUSBLOCKS("preciousBlocks", true, 0, 0.0, null),
-  RANDOM("random", false, 0, 0.0, null),
-  ROGUESPAWNERS("rogueSpawners", true, 0, 0.0, null),
-  SPAWNBUILTIN("doBuiltinSpawn", true, 0, 0.0, null),
-  SPAWNCHANCE("spawnChance", false, 0, 1.0, null),
-  SPAWNFREQUENCY("spawnFrequency", false, 10, 0.0, null),
-  SPAWN_ATTEMPTS("spawnAttempts", false, 10, 0.0, null),
-  SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES("spawnMinimumDistanceFromVanillaStructures", false, 50, 0.0, null),
-  UPPERLIMIT("upperLimit", false, 100, 0.0, null),
-  ;
+  public static final RogueConfig DIMENSIONBL = new RogueConfig("dimensionBL", Lists.newArrayList());
+  public static final RogueConfig DIMENSIONWL = new RogueConfig("dimensionWL", Lists.newArrayList(0));
+  public static final RogueConfig DONATURALSPAWN = new RogueConfig("doNaturalSpawn", true);
+  public static final RogueConfig ENCASE = new RogueConfig("encase", false);
+  public static final RogueConfig FURNITURE = new RogueConfig("furniture", true);
+  public static final RogueConfig GENEROUS = new RogueConfig("generous", true);
+  public static final RogueConfig LOOTING = new RogueConfig("looting", 0.085D);
+  public static final RogueConfig LOWERLIMIT = new RogueConfig("lowerLimit", 60);
+  public static final RogueConfig MOBDROPS = new RogueConfig("mobDrops", 0.0);
+  public static final RogueConfig PRECIOUSBLOCKS = new RogueConfig("preciousBlocks", true);
+  public static final RogueConfig RANDOM = new RogueConfig("random", false);
+  public static final RogueConfig ROGUESPAWNERS = new RogueConfig("rogueSpawners", true);
+  public static final RogueConfig SPAWNBUILTIN = new RogueConfig("doBuiltinSpawn", true);
+  public static final RogueConfig SPAWNCHANCE = new RogueConfig("spawnChance", 1.0);
+  public static final RogueConfig SPAWNFREQUENCY = new RogueConfig("spawnFrequency", 10);
+  public static final RogueConfig SPAWN_ATTEMPTS = new RogueConfig("spawnAttempts", 10);
+  public static final RogueConfig SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES = new RogueConfig("spawnMinimumDistanceFromVanillaStructures", 50);
+  public static final RogueConfig UPPERLIMIT = new RogueConfig("upperLimit", 100);
+
+  private static final boolean DEFAULT_BOOLEAN = false;
+  private static final int DEFAULT_INT = 0;
+  private static final double DEFAULT_DOUBLE = 0.0;
+  private static final List<Integer> DEFAULT_INT_LIST = Collections.unmodifiableList(Lists.newArrayList());
+
+  RogueConfig(String name, boolean value) {
+    this(name, value, DEFAULT_INT, DEFAULT_DOUBLE, null);
+  }
+
+  RogueConfig(String name, int value) {
+    this(name, DEFAULT_BOOLEAN, value, DEFAULT_DOUBLE, null);
+  }
+
+  RogueConfig(String name, double value) {
+    this(name, DEFAULT_BOOLEAN, DEFAULT_INT, value, null);
+  }
+
+  RogueConfig(String name, List<Integer> value) {
+    this(name, DEFAULT_BOOLEAN, DEFAULT_INT, DEFAULT_DOUBLE, value);
+  }
 
   RogueConfig(
       String name,
@@ -58,107 +79,59 @@ public enum RogueConfig {
   @SuppressWarnings("unchecked")
   private static void setDefaults() {
     if (!instance.ContainsKey(DONATURALSPAWN.name)) {
-      setBoolean(DONATURALSPAWN, DONATURALSPAWN.defaultBoolean);
+      DONATURALSPAWN.setBoolean(DONATURALSPAWN.defaultBoolean);
     }
     if (!instance.ContainsKey(SPAWNFREQUENCY.name)) {
-      setInt(SPAWNFREQUENCY, SPAWNFREQUENCY.defaultInt);
+      SPAWNFREQUENCY.setInt(SPAWNFREQUENCY.defaultInt);
     }
     if (!instance.ContainsKey(SPAWNCHANCE.name)) {
       setDouble(SPAWNCHANCE, SPAWNCHANCE.defaultDouble);
     }
     if (!instance.ContainsKey(GENEROUS.name)) {
-      setBoolean(GENEROUS, GENEROUS.defaultBoolean);
+      GENEROUS.setBoolean(GENEROUS.defaultBoolean);
     }
     if (!instance.ContainsKey(DIMENSIONWL.name)) {
-      setIntList(DIMENSIONWL, DIMENSIONWL.defaultIntList);
+      DIMENSIONWL.setIntList(DIMENSIONWL.defaultIntList);
     }
     if (!instance.ContainsKey(DIMENSIONBL.name)) {
-      setIntList(DIMENSIONBL, DIMENSIONBL.defaultIntList);
+      DIMENSIONBL.setIntList(DIMENSIONBL.defaultIntList);
     }
     if (!instance.ContainsKey(PRECIOUSBLOCKS.name)) {
-      setBoolean(PRECIOUSBLOCKS, PRECIOUSBLOCKS.defaultBoolean);
+      PRECIOUSBLOCKS.setBoolean(PRECIOUSBLOCKS.defaultBoolean);
     }
     if (!instance.ContainsKey(LOOTING.name)) {
       setDouble(LOOTING, LOOTING.defaultDouble);
     }
     if (!instance.ContainsKey(UPPERLIMIT.name)) {
-      setInt(UPPERLIMIT, UPPERLIMIT.defaultInt);
+      UPPERLIMIT.setInt(UPPERLIMIT.defaultInt);
     }
     if (!instance.ContainsKey(LOWERLIMIT.name)) {
-      setInt(LOWERLIMIT, LOWERLIMIT.defaultInt);
+      LOWERLIMIT.setInt(LOWERLIMIT.defaultInt);
     }
     if (!instance.ContainsKey(ROGUESPAWNERS.name)) {
-      setBoolean(ROGUESPAWNERS, ROGUESPAWNERS.defaultBoolean);
+      ROGUESPAWNERS.setBoolean(ROGUESPAWNERS.defaultBoolean);
     }
     if (!instance.ContainsKey(ENCASE.name)) {
-      setBoolean(ENCASE, ENCASE.defaultBoolean);
+      ENCASE.setBoolean(ENCASE.defaultBoolean);
     }
     if (!instance.ContainsKey(FURNITURE.name)) {
-      setBoolean(FURNITURE, FURNITURE.defaultBoolean);
+      FURNITURE.setBoolean(FURNITURE.defaultBoolean);
     }
     if (!instance.ContainsKey(RANDOM.name)) {
-      setBoolean(RANDOM, RANDOM.defaultBoolean);
+      RANDOM.setBoolean(RANDOM.defaultBoolean);
     }
     if (!instance.ContainsKey(SPAWNBUILTIN.name)) {
-      setBoolean(SPAWNBUILTIN, SPAWNBUILTIN.defaultBoolean);
+      SPAWNBUILTIN.setBoolean(SPAWNBUILTIN.defaultBoolean);
     }
     if (!instance.ContainsKey(SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES.name)) {
-      setInt(SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES, SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES.defaultInt);
+      SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES.setInt(SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES.defaultInt);
     }
     if (!instance.ContainsKey(SPAWN_ATTEMPTS.name)) {
-      setInt(SPAWN_ATTEMPTS, SPAWN_ATTEMPTS.defaultInt);
+      SPAWN_ATTEMPTS.setInt(SPAWN_ATTEMPTS.defaultInt);
     }
-  }
-
-  public static double getDouble(RogueConfig option) {
-    if (testing) {
-      return option.defaultDouble;
-    }
-    reload(false);
-    return instance.GetDouble(option.name, option.defaultDouble);
   }
 
   public static void setDouble(RogueConfig option, double value) {
-    reload(false);
-    instance.Set(option.name, value);
-  }
-
-  public static boolean getBoolean(RogueConfig option) {
-    if (testing) {
-      return option.defaultBoolean;
-    }
-    reload(false);
-    return instance.GetBoolean(option.name, option.defaultBoolean);
-  }
-
-  public static void setBoolean(RogueConfig option, Boolean value) {
-    reload(false);
-    instance.Set(option.name, value);
-  }
-
-  public static int getInt(RogueConfig option) {
-    if (testing) {
-      return option.defaultInt;
-    }
-    reload(false);
-    return instance.GetInteger(option.name, option.defaultInt);
-  }
-
-  public static void setInt(RogueConfig option, int value) {
-    reload(false);
-    instance.Set(option.name, value);
-  }
-
-  @SuppressWarnings("unchecked")
-  public static List<Integer> getIntList(RogueConfig option) {
-    if (testing) {
-      return option.defaultIntList;
-    }
-    reload(false);
-    return instance.GetListInteger(option.name, option.defaultIntList);
-  }
-
-  public static void setIntList(RogueConfig option, List<Integer> value) {
     reload(false);
     instance.Set(option.name, value);
   }
@@ -207,4 +180,51 @@ public enum RogueConfig {
     }
   }
 
+  public double getDouble() {
+    if (testing) {
+      return defaultDouble;
+    }
+    reload(false);
+    return instance.GetDouble(name, defaultDouble);
+  }
+
+  public boolean getBoolean() {
+    if (testing) {
+      return defaultBoolean;
+    }
+    reload(false);
+    return instance.GetBoolean(name, defaultBoolean);
+  }
+
+  public void setBoolean(Boolean value) {
+    reload(false);
+    instance.Set(name, value);
+  }
+
+  public int getInt() {
+    if (testing) {
+      return defaultInt;
+    }
+    reload(false);
+    return instance.GetInteger(name, defaultInt);
+  }
+
+  public void setInt(int value) {
+    reload(false);
+    instance.Set(name, value);
+  }
+
+  @SuppressWarnings("unchecked")
+  public List<Integer> getIntList() {
+    if (testing) {
+      return defaultIntList;
+    }
+    reload(false);
+    return instance.GetListInteger(name, defaultIntList);
+  }
+
+  public void setIntList(List<Integer> value) {
+    reload(false);
+    instance.Set(name, value);
+  }
 }
