@@ -1,5 +1,12 @@
 {
   "name" : "spawners:fun",
+  "requires": [
+    "embers",
+    "iceandfire",
+    "rats",
+    "thaumcraft",
+    "twilightforest"
+  ],
   "spawners" : [
     {
       "level" : [0, 1, 2, 3, 4],
@@ -29,7 +36,7 @@
         {"name" : "minecraft:zombie_pigman", "equip": true, "weight": 1},
         {"name" : "minecraft:pig", "equip": true, "weight": 1},
         {"name" : "rats:rat", "equip": true, "weight": 1},
-        {"name" : "tconstruct:blueslime", "equip": true, "weight": 1},
+        {"name" : "iceandfire:blueslime", "equip": true, "weight": 1},
         {"name" : "thaumcraft:firebat", "equip": true, "weight": 1},
         {"name" : "thaumcraft:wisp", "equip": true, "weight": 1},
         {"name" : "twilightforest:goblin_knight_lower", "equip": true, "weight": 1},

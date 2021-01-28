@@ -1,0 +1,91 @@
+{
+  "name": "loot:fnarpack_tools",
+  "requires": [
+    "cyclicmagic",
+    "dungeontactics",
+    "notreepunching",
+    "randomthings",
+    "realistictorches",
+    "roughtweaks",
+    "toughasnails"
+  ],
+  "lootRules": [
+    {
+      "level": [0,1,2,3,4],
+      "type": "TOOLS",
+      "each": true,
+      "quantity": 1,
+      "loot": [
+        {"data": {"name": "minecraft:stick"}, "weight": 160},
+
+        {"data": {"name": "dungeontactics:bone_pickaxe"}, "weight": 32},
+        {"data": {"name": "dungeontactics:bone_shovel"}, "weight": 32},
+        {"data": {"name": "dungeontactics:bone_axe"}, "weight": 32},
+        {"data": {"name": "dungeontactics:bone_hoe"}, "weight": 32},
+
+        {"data": {"name": "dungeontactics:silver_pickaxe"}, "weight": 16},
+        {"data": {"name": "dungeontactics:silver_shovel"}, "weight": 16},
+        {"data": {"name": "dungeontactics:silver_axe"}, "weight": 16},
+        {"data": {"name": "dungeontactics:silver_hoe"}, "weight": 16},
+
+        {"data": {"name": "notreepunching:knife/iron"}, "weight": 4},
+        {"data": {"name": "notreepunching:knife/steel"}, "weight": 4},
+        {"data": {"name": "notreepunching:saw/iron"}, "weight": 4},
+        {"data": {"name": "notreepunching:saw/steel"}, "weight": 4},
+        {"data": {"name": "notreepunching:mattock/iron"}, "weight": 4},
+        {"data": {"name": "dungeontactics:steel_pickaxe"}, "weight": 4},
+        {"data": {"name": "dungeontactics:steel_shovel"}, "weight": 4},
+        {"data": {"name": "dungeontactics:steel_axe"}, "weight": 4},
+        {"data": {"name": "dungeontactics:steel_hoe"}, "weight": 4},
+
+        {"data": {"name": "notreepunching:knife/diamond"}, "weight": 2},
+        {"data": {"name": "notreepunching:saw/diamond"}, "weight": 2},
+        {"data": {"name": "notreepunching:mattock/diamond"}, "weight": 2},
+        {"data": {"name": "cyclicmagic:emerald_pickaxe"}, "weight": 2},
+        {"data": {"name": "cyclicmagic:emerald_spade"}, "weight": 2},
+        {"data": {"name": "cyclicmagic:emerald_axe"}, "weight": 2},
+        {"data": {"name": "cyclicmagic:emerald_hoe"}, "weight": 2},
+        {"data": {"name": "dungeontactics:mithril_pickaxe"}, "weight": 2},
+        {"data": {"name": "dungeontactics:mithril_shovel"}, "weight": 2},
+        {"data": {"name": "dungeontactics:mithril_axe"}, "weight": 2},
+        {"data": {"name": "dungeontactics:mithril_hoe"}, "weight": 2}
+      ]
+    },
+    {
+      "level": [0, 1, 2, 3, 4],
+      "type": "TOOLS",
+      "each": true,
+      "quantity": 1,
+      "loot": [
+        {"data": {"name": "dungeontactics:climbing_rope", "min": 4, "max": 16}, "weight": 1},
+        {"data": {"name": "randomthings:escaperope"}, "weight" : 1},
+        {"data": {"name": "realistictorches:matchbox"}, "weight": 1},
+        {"data": {"name": "realistictorches:torch_unlit", "min": 4, "max": 16}, "weight": 1},
+        {"data": {"name": "roughtweaks:salve"}, "weight": 1},
+        {"data": {"name": "roughtweaks:plaster"}, "weight": 1},
+        {"data": {"name": "roughtweaks:bandage"}, "weight": 1},
+        {"data": {"name": "toughasnails:charcoal_filter"}, "weight": 1}
+      ]
+    },
+    {
+      "level": [0, 1, 2, 3, 4],
+      "type": "TOOLS",
+      "each": true,
+      "quantity": 1,
+      "loot": [
+        {"data": {"name": "minecraft:stick"}, "weight": 16},
+        {"data": {"name": "chisel:chisel_iron"}},
+        {"data": {"name": "comforts:sleeping_bag"}},
+        {"data": {"name": "dungeontactics:engineers_wrench_iron"}},
+        {"data": {"name": "dungeontactics:engineers_wrench_steel"}},
+        {"data": {"name": "grapplemod:grapplinghook"}},
+        {"data": {"name": "quark:candle"}},
+        {"data": {"name": "roughtweaks:medikit"}},
+        {"data": {"name": "roughtweaks:medikitenchanted"}},
+        {"data": {"name": "sereneseasons:season_clock"}},
+        {"data": {"name": "toughasnails:canteen"}},
+        {"data": {"name": "toughasnails:thermometer"}}
+      ]
+    }
+  ]
+}
