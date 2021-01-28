@@ -1,0 +1,117 @@
+{
+  "name": "loot:fnarpack_treasure",
+  "requires": [
+    "akashictome",
+    "antiqueatlas",
+    "bountifulbaubles",
+    "cookingforblockheads",
+    "computercraft",
+    "cyclicmagic",
+    "dungeontactics",
+    "grapplemod",
+    "openglider",
+    "qualitytools",
+    "randomthings",
+    "scalinghealth",
+    "xreliquary",
+    "xpbook",
+    "xat",
+    "wearablebackpacks",
+    "toolbelt",
+    "solcarrot"
+  ],
+  "lootRules": [
+    {
+      "level": [1, 2, 3, 4],
+      "each": false,
+      "quantity": 2,
+      "loot": [
+        {"data": {"name": "akashictome:tome"}, "weight": 8},
+
+        {"data": {"name": "antiqueatlas:empty_antique_atlas"}, "weight": 8},
+
+        {"data": {"name": "bountifulbaubles:flaregun"}, "weight": 4},
+        {"data": {"name": "bountifulbaubles:trinketluckyhorseshoe"}, "weight": 4},
+        {"data": {"name": "bountifulbaubles:magicmirror"}, "weight": 4},
+        {"data": {"name": "bountifulbaubles:wormholemirror"}, "weight": 4},
+        {"data": {"name": "bountifulbaubles:flare_red"}, "weight": 4},
+        {"data": {"name": "bountifulbaubles:phantomprism"}, "weight": 4},
+
+        {"data": {"name": "cookingforblockheads:cow_jar"}, "weight": 8},
+
+        {"data": {"name": "computercraft:disk", "meta": "0"}, "weight": 1},
+
+        {"data": {"name": "cyclicmagic:charm_fire"}, "weight": 8},
+        {"data": {"name": "cyclicmagic:charm_void"}, "weight": 8},
+        {"data": {"name": "cyclicmagic:charm_water"}, "weight": 8},
+        {"data": {"name": "cyclicmagic:charm_wing"}, "weight": 8},
+        {"data": {"name": "cyclicmagic:charm_antidote"}, "weight": 8},
+        {"data": {"name": "cyclicmagic:glove_climb"}, "weight": 8},
+        {"data": {"name": "cyclicmagic:shears_obsidian"}, "weight": 8},
+        {"data": {"name": "cyclicmagic:tool_harvest_crops"}, "weight": 8},
+
+        {"data": {"name": "cyclicmagic:ender_eye_orb"}, "weight": 4},
+        {"data": {"name": "cyclicmagic:ender_pearl_reuse"}, "weight": 4},
+        {"data": {"name": "cyclicmagic:glove_climb"}, "weight": 4},
+        {"data": {"name": "cyclicmagic:mattock"}, "weight": 4},
+        {"data": {"name": "cyclicmagic:chest_sack_empty"}, "weight": 4},
+        {"data": {"name": "cyclicmagic:sack_ender"}, "weight": 4},
+        {"data": {"name": "cyclicmagic:soulstone"}, "weight": 4},
+
+        {"data": {"name": "grapplemod:grapplinghook"}, "weight": 8},
+
+        {"data": {"name": "dungeontactics:master_hammer_smash", "level": 4}, "weight": 4},
+        {"data": {"name": "dungeontactics:master_hammer_leap", "level": 4}, "weight": 4},
+        {"data": {"name": "dungeontactics:master_knife_smokebomb", "level": 4}, "weight": 4},
+        {"data": {"name": "dungeontactics:master_knife_multistrike", "level": 4}, "weight": 4},
+        {"data": {"name": "dungeontactics:master_cutlass_pierce", "level": 4}, "weight": 4},
+        {"data": {"name": "dungeontactics:master_cutlass_riposte", "level": 4}, "weight": 4},
+        {"data": {"name": "dungeontactics:master_cestus_roar", "level": 4}, "weight": 4},
+        {"data": {"name": "dungeontactics:master_cestus_pummel", "level": 4}, "weight": 4},
+
+        {"data": {"name": "openglider:hang_glider_part"}, "weight": 16},
+        {"data": {"name": "openglider:hang_glider_basic"}, "weight": 8},
+        {"data": {"name": "openglider:hang_glider_advanced"}, "weight": 2},
+
+        {"data": {"name": "qualitytools:emerald_ring"}, "weight": 32},
+        {"data": {"name": "qualitytools:emerald_amulet"}, "weight": 32},
+
+        {"data": {"name": "randomthings:escaperope"}, "weight": 32},
+
+        {"data": {"name": "scalinghealth:heartdust"}, "weight": 32},
+        {"data": {"name": "scalinghealth:crystalshard"}, "weight": 16},
+        {"data": {"name": "scalinghealth:heartcontainer"}, "weight": 2},
+
+        {"data": {"name": "solcarrot:food_book"}, "weight": 8},
+
+        {"data": {"name": "toolbelt:pouch"}, "weight": 16},
+        {"data": {"name": "toolbelt:belt"}, "weight": 4},
+
+        {"data": {"name": "wearablebackpacks:backpack"}, "weight": 8},
+
+        {"data": {"name": "xat:glowing_powder"}, "weight": 16},
+        {"data": {"name": "xat:glowing_ingot"}, "weight": 4},
+        {"data": {"name": "xat:glowing_gem"}, "weight": 1},
+        {"data": {"name": "xat:dwarf_stout"}, "weight": 4},
+        {"data": {"name": "xat:fairy_dew"}, "weight": 4},
+        {"data": {"name": "xat:weightless_stone"}, "weight": 4},
+        {"data": {"name": "xat:inertia_null_stone"}, "weight": 4},
+        {"data": {"name": "xat:greater_inertia_stone"}, "weight": 4},
+        {"data": {"name": "xat:glow_ring"}, "weight": 4},
+        {"data": {"name": "xat:sea_stone"}, "weight": 4},
+        {"data": {"name": "xat:polarized_stone"}, "weight": 4},
+        {"data": {"name": "xat:dragons_eye"}, "weight": 4},
+        {"data": {"name": "xat:fairy_ring"}, "weight": 4},
+        {"data": {"name": "xat:dwarf_ring"}, "weight": 4},
+        {"data": {"name": "xat:wither_ring"}, "weight": 4},
+        {"data": {"name": "xat:poison_stone"}, "weight": 4},
+        {"data": {"name": "xat:ender_tiara"}, "weight": 4},
+        {"data": {"name": "xat:damage_shield"}, "weight": 4},
+
+        {"data": {"name": "xpbook:xp_book"}, "weight": 8},
+
+        {"data": {"name": "xreliquary:apothecary_mortar"}, "weight": 1}
+      ]
+    }
+  ]
+}

@@ -1,5 +1,6 @@
 {
   "name": "spawners:goblins",
+  "requires": ["twilightforest"],
   "spawners": [
     {"level": [0, 1, 2, 3, 4], "weight": 3, "potentials": [
       {"weight": 1, "name": "twilightforest:goblin_knight_upper"},
