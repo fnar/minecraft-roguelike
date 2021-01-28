@@ -58,7 +58,6 @@
       "quantity": 1,
       "loot": [
         {"data": {"name": "dungeontactics:climbing_rope", "min": 4, "max": 16}, "weight": 1},
-        {"data": {"name": "randomthings:escaperope"}, "weight" : 1},
         {"data": {"name": "realistictorches:matchbox"}, "weight": 1},
         {"data": {"name": "realistictorches:torch_unlit", "min": 4, "max": 16}, "weight": 1},
         {"data": {"name": "roughtweaks:salve"}, "weight": 1},
