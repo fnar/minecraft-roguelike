@@ -9,9 +9,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.Loader;
 
 import java.util.Random;
 
+import greymerk.roguelike.dungeon.settings.DungeonSettingParseException;
 import greymerk.roguelike.util.IWeighted;
 
 public class WeightedRandomLoot implements Comparable<WeightedRandomLoot>, IWeighted<ItemStack> {
@@ -69,7 +71,7 @@ public class WeightedRandomLoot implements Comparable<WeightedRandomLoot>, IWeig
     try {
       this.item.getUnlocalizedName();
     } catch (NullPointerException e) {
-      throw new Exception("Invalid item: " + this.name);
+      throw new DungeonSettingParseException("Invalid item: " + this.name + ". Check for typos, and ensure that it exists in this pack.");
     }
     this.damage = json.has("meta") ? json.get("meta").getAsInt() : 0;
     this.weight = weight;

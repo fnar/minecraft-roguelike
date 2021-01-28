@@ -7,8 +7,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
+import net.minecraftforge.fml.common.Loader;
+
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import greymerk.roguelike.dungeon.LevelGenerator;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
@@ -26,7 +29,9 @@ public class DungeonSettingsParser {
 
   public static final List<Integer> ALL_LEVELS = Collections.unmodifiableList(Lists.newArrayList(0, 1, 2, 3, 4));
 
-  public static DungeonSettings parseJson(String content) throws Exception {
+  private static final String REQUIRES_KEY = "requires";
+
+  public static Optional<DungeonSettings> parseJson(String content) throws Exception {
     try {
       JsonParser jsonParser = new JsonParser();
       JsonObject parse;
@@ -44,7 +49,12 @@ public class DungeonSettingsParser {
     }
   }
 
-  public static DungeonSettings parseDungeonSettings(JsonObject root) throws Exception {
+  public static Optional<DungeonSettings> parseDungeonSettings(JsonObject root) throws Exception {
+    boolean hasRequiredMods = parseRequires(root);
+    if (!hasRequiredMods) {
+      return Optional.empty();
+    }
+
     DungeonSettings dungeonSettings = new DungeonSettings();
     // set up level settings objects
     for (int i = 0; i < DungeonSettings.getMaxNumLevels(); ++i) {
@@ -68,7 +78,31 @@ public class DungeonSettingsParser {
     parseThemes(root, dungeonSettings);
     parseSegments(root, dungeonSettings);
     parseFilters(root, dungeonSettings);
-    return dungeonSettings;
+    return Optional.of(dungeonSettings);
+  }
+
+  private static boolean parseRequires(JsonObject root) throws Exception {
+
+    if (!root.has(REQUIRES_KEY)) {
+      return true;
+    }
+    JsonElement requiresElement = root.get(REQUIRES_KEY);
+
+    if (requiresElement.isJsonObject()) {
+      throw new DungeonSettingParseException("Expected field '" + REQUIRES_KEY + "' to be list of modid's but instead found a single object.");
+    }
+    if (!requiresElement.isJsonArray()) {
+      throw new DungeonSettingParseException("Expected field '" + REQUIRES_KEY + "' to be list of modid's but it wasn't.");
+    }
+    JsonArray requiresArray = requiresElement.getAsJsonArray();
+    for (JsonElement requiredModElement : requiresArray) {
+      String requiredModName = requiredModElement.getAsString();
+      if (!Loader.isModLoaded(requiredModName)) {
+//        throw new DungeonSettingParseException("Expected mod " + requiredModName + " to be loaded but could not be found.");
+        return false;
+      }
+    }
+    return true;
   }
 
   private static void parseId(JsonObject root, DungeonSettings dungeonSettings) throws Exception {
@@ -248,10 +282,10 @@ public class DungeonSettingsParser {
     }
     JsonElement themesJsonElement = rootJsonObject.get("themes");
     if (themesJsonElement.isJsonObject()) {
-      throw new DungeonSettingParseException("Expected themes to be list of themes but instead found a single object.");
+      throw new DungeonSettingParseException("Expected field 'themes' to be list of themes but instead found a single object.");
     }
     if (!themesJsonElement.isJsonArray()) {
-      throw new DungeonSettingParseException("Expected themes to be list of themes but it wasn't.");
+      throw new DungeonSettingParseException("Expected field 'themes' to be list of themes but it wasn't.");
     }
     JsonArray themesJsonArray = themesJsonElement.getAsJsonArray();
     for (JsonElement themeJsonElement : themesJsonArray) {

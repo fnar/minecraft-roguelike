@@ -19,6 +19,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -132,7 +133,11 @@ public class DungeonSettingsTest {
 
     dungeonJson.add("themes", themes);
 
-    DungeonSettings setting = DungeonSettingsParser.parseDungeonSettings(dungeonJson);
+    Optional<DungeonSettings> dungeonSettings = DungeonSettingsParser.parseDungeonSettings(dungeonJson);
+    if (!dungeonSettings.isPresent()) {
+      fail("Expected DungeonSettings to be found but it was not.");
+    }
+    DungeonSettings setting = (DungeonSettings) dungeonSettings.get();
 
     LevelSettings level = setting.getLevelSettings(0);
     SingleBlockBrush floorBrush = (SingleBlockBrush) level.getTheme().getPrimary().getFloor();
