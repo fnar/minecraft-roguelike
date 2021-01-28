@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 import greymerk.roguelike.dungeon.settings.base.SettingsBase;
@@ -70,7 +71,7 @@ public class SettingsContainer {
   }
 
   public void put(String dungeonSettingsJson) throws Exception {
-    put(parseJson(dungeonSettingsJson));
+    parseJson(dungeonSettingsJson).ifPresent(this::put);
   }
 
   public void put(DungeonSettings... dungeonSettings) {
