@@ -17,9 +17,7 @@
 
             {"type" : "METABLOCK", "data" : {"name" : "mossy_cobblestone"}, "weight" : 5},
             {"type" : "METABLOCK", "data" : {"name" : "stonebrick", "meta" : 1}, "weight" : 2},
-            {"type" : "METABLOCK", "data" : {"name" : "leaves"}, "weight" : 5},
-
-            {"type" : "METABLOCK", "data" : {"name" : "web"}, "weight" : 1}
+            {"type" : "METABLOCK", "data" : {"name" : "leaves"}, "weight" : 5}
           ]
         },
         "pillar" : {"type" : "LAYERS", "data" : [
@@ -59,9 +57,7 @@
 
             {"type" : "METABLOCK", "data" : {"name" : "stonebrick", "meta" : 1}, "weight" : 2},
             {"type" : "METABLOCK", "data" : {"name" : "mossy_cobblestone"}, "weight" : 10},
-            {"type" : "METABLOCK", "data" : {"name" : "leaves"}, "weight" : 5},
-
-            {"type" : "METABLOCK", "data" : {"name" : "web"}, "weight" : 1}
+            {"type" : "METABLOCK", "data" : {"name" : "leaves"}, "weight" : 5}
           ]
         },
         "stair" : {"type" : "METABLOCK", "data" : {"name" : "dark_oak_stairs"}},
@@ -103,8 +99,7 @@
             {"type" : "METABLOCK", "data" : {"name" : "mossy_cobblestone"}, "weight" : 5},
             {"type" : "METABLOCK", "data" : {"name" : "leaves"}, "weight" : 5},
 
-            {"type" : "METABLOCK", "data" : {"name" : "grass_path"}, "weight" : 1},
-            {"type" : "METABLOCK", "data" : {"name" : "web"}, "weight" : 1}
+            {"type" : "METABLOCK", "data" : {"name" : "grass_path"}, "weight" : 1}
           ]
         },
         "pillar" : {"type" : "LAYERS", "data" : [
@@ -142,8 +137,7 @@
             {"type" : "METABLOCK", "data" : {"name" : "mossy_cobblestone"}, "weight" : 10},
             {"type" : "METABLOCK", "data" : {"name" : "leaves"}, "weight" : 5},
 
-            {"type" : "METABLOCK", "data" : {"name" : "grass_path"}, "weight" : 1},
-            {"type" : "METABLOCK", "data" : {"name" : "web"}, "weight" : 1}
+            {"type" : "METABLOCK", "data" : {"name" : "grass_path"}, "weight" : 1}
           ]
         },
         "stair" : {"type" : "METABLOCK", "data" : {"name" : "dark_oak_stairs"}},
@@ -183,8 +177,7 @@
           {"type" : "METABLOCK", "data" : {"name" : "mossy_cobblestone"}, "weight" : 5},
           {"type" : "METABLOCK", "data" : {"name" : "leaves"}, "weight" : 5},
 
-          {"type" : "METABLOCK", "data" : {"name" : "grass_path"}, "weight" : 1},
-          {"type" : "METABLOCK", "data" : {"name" : "web"}, "weight" : 1}
+          {"type" : "METABLOCK", "data" : {"name" : "grass_path"}, "weight" : 1}
         ]
         },
         "pillar" : {"type" : "LAYERS", "data" : [
@@ -223,8 +216,7 @@
           {"type" : "METABLOCK", "data" : {"name" : "mossy_cobblestone"}, "weight" : 5},
           {"type" : "METABLOCK", "data" : {"name" : "leaves"}, "weight" : 5},
 
-          {"type" : "METABLOCK", "data" : {"name" : "grass_path"}, "weight" : 1},
-          {"type" : "METABLOCK", "data" : {"name" : "web"}, "weight" : 1}
+          {"type" : "METABLOCK", "data" : {"name" : "grass_path"}, "weight" : 1}
         ]
         },
         "stair" : {"type" : "METABLOCK", "data" : {"name" : "dark_oak_stairs"}},
@@ -264,8 +256,7 @@
           {"type" : "METABLOCK", "data" : {"name" : "mossy_cobblestone"}, "weight" : 5},
           {"type" : "METABLOCK", "data" : {"name" : "leaves"}, "weight" : 25},
 
-          {"type" : "METABLOCK", "data" : {"name" : "grass_path"}, "weight" : 1},
-          {"type" : "METABLOCK", "data" : {"name" : "web"}, "weight" : 1}
+          {"type" : "METABLOCK", "data" : {"name" : "grass_path"}, "weight" : 1}
         ]
         },
         "pillar" : {"type" : "LAYERS", "data" : [
@@ -287,10 +278,7 @@
           {"type" : "METABLOCK", "data" : {"name" : "leaves"}, "weight" : 15},
           {"type" : "METABLOCK", "data" : {"name" : "grass"}, "weight" : 60},
 
-          {"type" : "METABLOCK", "data" : {"name" : "dirt"}, "weight" : 5},
-
-          {"type" : "METABLOCK", "data" : {"name" : "water"}, "weight" : 2},
-          {"type" : "METABLOCK", "data" : {"name" : "soul_sand"}, "weight" : 2}
+          {"type" : "METABLOCK", "data" : {"name" : "dirt"}, "weight" : 5}
         ]}
       },
       "secondary" : {
@@ -307,8 +295,7 @@
           {"type" : "METABLOCK", "data" : {"name" : "mossy_cobblestone"}, "weight" : 5},
           {"type" : "METABLOCK", "data" : {"name" : "leaves"}, "weight" : 25},
 
-          {"type" : "METABLOCK", "data" : {"name" : "grass_path"}, "weight" : 1},
-          {"type" : "METABLOCK", "data" : {"name" : "web"}, "weight" : 1}
+          {"type" : "METABLOCK", "data" : {"name" : "grass_path"}, "weight" : 1}
         ]
         },
         "stair" : {"type" : "METABLOCK", "data" : {"name" : "dark_oak_stairs"}},
@@ -326,10 +313,7 @@
           {"type" : "METABLOCK", "data" : {"name" : "leaves"}, "weight" : 15},
           {"type" : "METABLOCK", "data" : {"name" : "grass"}, "weight" : 75},
 
-          {"type" : "METABLOCK", "data" : {"name" : "dirt"}, "weight" : 5},
-
-          {"type" : "METABLOCK", "data" : {"name" : "water"}, "weight" : 2},
-          {"type" : "METABLOCK", "data" : {"name" : "soul_sand"}, "weight" : 2}
+          {"type" : "METABLOCK", "data" : {"name" : "dirt"}, "weight" : 5}
         ]
         }
       }
