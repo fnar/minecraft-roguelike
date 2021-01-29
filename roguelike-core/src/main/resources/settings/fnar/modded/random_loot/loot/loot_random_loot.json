@@ -1,0 +1,86 @@
+{
+  "name": "loot:random_loot",
+  "requires": ["randomloot"],
+  "lootRules" : [
+    {
+      "level" : [0,1,2,3,4],
+      "type" : "ORE",
+      "each" : true,
+      "quantity" : 2,
+      "loot" : [
+        {"data" : {"name" : "randomloot:random_shard"}, "weight" : 8},
+        {"data" : {"name" : "randomloot:random_chunk"}, "weight" : 4},
+        {"data" : {"name" : "randomloot:random_cluster"}, "weight" : 1}
+      ]
+    },
+    {
+      "level" : [1,2],
+      "type" : "ORE",
+      "each" : true,
+      "quantity" : 2,
+      "loot" : [
+        {"data" : {"name" : "randomloot:random_shard"}, "weight" : 4},
+        {"data" : {"name" : "randomloot:random_chunk"}, "weight" : 4},
+        {"data" : {"name" : "randomloot:random_cluster"}, "weight" : 1}
+      ]
+    },
+    {
+      "level" : [3,4],
+      "type" : "ORE",
+      "each" : true,
+      "quantity" : 2,
+      "loot" : [
+        {"data" : {"name" : "randomloot:random_shard"}, "weight" : 2},
+        {"data" : {"name" : "randomloot:random_chunk"}, "weight" : 2},
+        {"data" : {"name" : "randomloot:random_cluster"}, "weight" : 1}
+      ]
+    },
+    {
+      "level" : [0],
+      "each" : true,
+      "type" : "TOOLS",
+      "quantity" : 1,
+      "loot" : [
+        {"data" : {"name" : "randomloot:random_shard"}, "weight" : 3},
+        {"data" : {"name" : "randomloot:basic_case"}, "weight" : 1}
+      ]
+    },
+    {
+      "level" : [1,2],
+      "each" : true,
+      "type" : "TOOLS",
+      "quantity" : 1,
+      "loot" : [
+        {"data" : {"name" : "randomloot:random_shard"}, "weight" : 8},
+        {"data" : {"name" : "randomloot:random_chunk"}, "weight" : 4},
+        {"data" : {"name" : "randomloot:random_cluster"}, "weight" : 1},
+        {"data" : {"name" : "randomloot:basic_case"}, "weight" : 8},
+        {"data" : {"name" : "randomloot:golden_case"}, "weight" : 4},
+        {"data" : {"name" : "randomloot:titan_case"}, "weight" : 1}
+      ]
+    },
+    {
+      "level" : [3,4],
+      "each" : true,
+      "type" : "TOOLS",
+      "quantity" : 1,
+      "loot" : [
+        {"data" : {"name" : "randomloot:random_shard"}, "weight" : 2},
+        {"data" : {"name" : "randomloot:random_chunk"}, "weight" : 4},
+        {"data" : {"name" : "randomloot:random_cluster"}, "weight" : 1},
+        {"data" : {"name" : "randomloot:basic_case"}, "weight" : 2},
+        {"data" : {"name" : "randomloot:golden_case"}, "weight" : 4},
+        {"data" : {"name" : "randomloot:titan_case"}, "weight" : 1}
+      ]
+    },
+    {
+      "level" : [4],
+      "each" : false,
+      "quantity" : 1,
+      "loot" : [
+        {"data" : {"name" : "randomloot:golden_case"}, "weight" : 1},
+        {"data" : {"name" : "randomloot:titan_case"}, "weight" : 1}
+      ]
+    }
+  ]
+}
