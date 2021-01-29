@@ -3,6 +3,7 @@
   "inherit": [
     "loot:all",
     "loot:armour",
+    "loot:blocks",
     "loot:brewing",
     "loot:enchanting",
     "loot:food",
@@ -10,6 +11,7 @@
     "loot:other",
     "loot:potions",
     "loot:starter",
+    "loot:supplies",
     "loot:tools",
     "loot:treasure",
     "loot:weapons",
