@@ -8,8 +8,6 @@
 
     "filter:muddy",
     "filter:viney",
-
-    "layout:size_small"
   ],
   "criteria" : {"biomeTypes" : ["FOREST", "MESA", "PLAINS", "SANDY", "SNOWY"]}
 }
