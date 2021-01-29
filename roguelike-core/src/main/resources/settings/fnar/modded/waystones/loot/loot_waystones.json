@@ -7,7 +7,6 @@
       "each": false,
       "quantity": 1,
       "loot": [
-        {"data" : {"name" : "minecraft:stick"}, "weight" : 64},
         {"data" : {"name" : "waystones:return_scroll"}, "weight" : 64},
         {"data" : {"name" : "waystones:bound_scroll"}, "weight" : 16},
         {"data" : {"name" : "waystones:warp_scroll"}, "weight" : 4},
