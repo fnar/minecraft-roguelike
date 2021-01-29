@@ -1,0 +1,10 @@
+{
+  "name": "main:fnarpack",
+  "inherit": [
+    "loot:fnarpack_armour",
+    "loot:fnarpack_ore",
+    "loot:fnarpack_tools",
+    "loot:fnarpack_treasure",
+    "loot:fnarpack_weapons"
+  ]
+}
