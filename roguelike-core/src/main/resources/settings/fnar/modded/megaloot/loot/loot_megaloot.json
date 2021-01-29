@@ -1,0 +1,85 @@
+{
+  "name": "loot:megaloot",
+  "requires": ["megaloot"],
+  "lootRules" : [
+    {
+      "level" : [0,1,2,3,4],
+      "type" : "ORE",
+      "each" : true,
+      "quantity" : 2,
+      "loot" : [
+        {"data" : {"name" : "megaloot:shard_common"}, "weight" : 3},
+        {"data" : {"name" : "megaloot:shard_rare"}, "weight" : 1}
+      ]
+    },
+    {
+      "level" : [1,2],
+      "type" : "ORE",
+      "each" : true,
+      "quantity" : 2,
+      "loot" : [
+        {"data" : {"name" : "megaloot:shard_common"}, "weight" : 4},
+        {"data" : {"name" : "megaloot:shard_rare"}, "weight" : 4},
+        {"data" : {"name" : "megaloot:shard_epic"}, "weight" : 1}
+      ]
+    },
+    {
+      "level" : [3,4],
+      "type" : "ORE",
+      "each" : true,
+      "quantity" : 2,
+      "loot" : [
+        {"data" : {"name" : "megaloot:shard_common"}, "weight" : 2},
+        {"data" : {"name" : "megaloot:shard_rare"}, "weight" : 2},
+        {"data" : {"name" : "megaloot:shard_epic"}, "weight" : 1}
+      ]
+    },
+    {
+      "level" : [0],
+      "each" : true,
+      "type" : "TOOLS",
+      "quantity" : 1,
+      "loot" : [
+        {"data" : {"name" : "megaloot:shard_common"}, "weight" : 3},
+        {"data" : {"name" : "megaloot:weaponcase_common"}, "weight" : 1}
+      ]
+    },
+    {
+      "level" : [1,2],
+      "each" : true,
+      "type" : "TOOLS",
+      "quantity" : 1,
+      "loot" : [
+        {"data" : {"name" : "megaloot:shard_common"}, "weight" : 8},
+        {"data" : {"name" : "megaloot:shard_rare"}, "weight" : 4},
+        {"data" : {"name" : "megaloot:shard_epic"}, "weight" : 1},
+        {"data" : {"name" : "megaloot:weaponcase_common"}, "weight" : 8},
+        {"data" : {"name" : "megaloot:weaponcase_rare"}, "weight" : 4},
+        {"data" : {"name" : "megaloot:weaponcase_epic"}, "weight" : 1}
+      ]
+    },
+    {
+      "level" : [3,4],
+      "each" : true,
+      "type" : "TOOLS",
+      "quantity" : 1,
+      "loot" : [
+        {"data" : {"name" : "megaloot:shard_common"}, "weight" : 2},
+        {"data" : {"name" : "megaloot:shard_rare"}, "weight" : 4},
+        {"data" : {"name" : "megaloot:shard_epic"}, "weight" : 1},
+        {"data" : {"name" : "megaloot:weaponcase_common"}, "weight" : 2},
+        {"data" : {"name" : "megaloot:weaponcase_rare"}, "weight" : 4},
+        {"data" : {"name" : "megaloot:weaponcase_epic"}, "weight" : 1}
+      ]
+    },
+    {
+      "level" : [4],
+      "each" : false,
+      "quantity" : 1,
+      "loot" : [
+        {"data" : {"name" : "megaloot:weaponcase_rare"}, "weight" : 1},
+        {"data" : {"name" : "megaloot:weaponcase_epic"}, "weight" : 1}
+      ]
+    }
+  ]
+}

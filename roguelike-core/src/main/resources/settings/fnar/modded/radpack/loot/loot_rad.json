@@ -1,0 +1,7 @@
+{
+  "name": "loot:rad",
+  "inherit": [
+    "loot:megaloot",
+    "loot:random_loot"
+  ]
+}
