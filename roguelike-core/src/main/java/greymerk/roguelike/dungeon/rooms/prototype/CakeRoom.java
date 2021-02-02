@@ -2,7 +2,6 @@ package greymerk.roguelike.dungeon.rooms.prototype;
 
 import com.github.srwaggon.minecraft.block.BlockType;
 import com.github.srwaggon.minecraft.block.SingleBlockBrush;
-import com.github.srwaggon.minecraft.block.normal.Wood;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +19,9 @@ import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
-public class DungeonsWood extends DungeonBase {
+public class CakeRoom extends DungeonBase {
 
-  public DungeonsWood(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+  public CakeRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
   }
 
@@ -36,30 +35,31 @@ public class DungeonsWood extends DungeonBase {
     final int WIDTH = random.nextInt(2) + 2;
     final int LENGTH = random.nextInt(2) + 3;
 
-    Wood wood = Wood.values()[random.nextInt(Wood.values().length)];
-    BlockBrush pillar = wood.getLog();
-    BlockBrush planks = Wood.OAK.getPlanks();
 
-    BlockBrush glowstone = levelSettings.getTheme().getPrimary().getLightBlock();
+    RectSolid.newRect(
+        new Coord(x - WIDTH, y, z - LENGTH),
+        new Coord(x + WIDTH, y + HEIGHT, z + LENGTH))
+        .fill(worldEditor, SingleBlockBrush.AIR);
 
+    BlockBrush floor = levelSettings.getTheme().getPrimary().getFloor();
+    RectHollow.newRect(
+        new Coord(x - WIDTH - 1, y - 1, z - LENGTH - 1),
+        new Coord(x + WIDTH + 1, y + HEIGHT + 1, z + LENGTH + 1))
+        .fill(worldEditor, floor, false, true);
 
-    RectSolid.newRect(new Coord(x - WIDTH, y, z - LENGTH), new Coord(x + WIDTH, y + HEIGHT, z + LENGTH)).fill(worldEditor, SingleBlockBrush.AIR);
-    RectHollow.newRect(new Coord(x - WIDTH - 1, y - 1, z - LENGTH - 1), new Coord(x + WIDTH + 1, y + HEIGHT + 1, z + LENGTH + 1)).fill(worldEditor, planks, false, true);
-
-    // log beams
+    BlockBrush pillar = levelSettings.getTheme().getPrimary().getPillar();
     RectSolid.newRect(new Coord(x - WIDTH, y, z - LENGTH), new Coord(x - WIDTH, y + HEIGHT, z - LENGTH)).fill(worldEditor, pillar);
     RectSolid.newRect(new Coord(x - WIDTH, y, z + LENGTH), new Coord(x - WIDTH, y + HEIGHT, z + LENGTH)).fill(worldEditor, pillar);
     RectSolid.newRect(new Coord(x + WIDTH, y, z - LENGTH), new Coord(x + WIDTH, y + HEIGHT, z - LENGTH)).fill(worldEditor, pillar);
     RectSolid.newRect(new Coord(x + WIDTH, y, z + LENGTH), new Coord(x + WIDTH, y + HEIGHT, z + LENGTH)).fill(worldEditor, pillar);
 
-    // glowstone
-    glowstone.stroke(worldEditor, new Coord(x - WIDTH + 1, y - 1, z - LENGTH + 1));
-    glowstone.stroke(worldEditor, new Coord(x - WIDTH + 1, y - 1, z + LENGTH - 1));
-    glowstone.stroke(worldEditor, new Coord(x + WIDTH - 1, y - 1, z - LENGTH + 1));
-    glowstone.stroke(worldEditor, new Coord(x + WIDTH - 1, y - 1, z + LENGTH - 1));
+    BlockBrush lightBLock = levelSettings.getTheme().getPrimary().getLightBlock();
+    lightBLock.stroke(worldEditor, new Coord(x - WIDTH + 1, y - 1, z - LENGTH + 1));
+    lightBLock.stroke(worldEditor, new Coord(x - WIDTH + 1, y - 1, z + LENGTH - 1));
+    lightBLock.stroke(worldEditor, new Coord(x + WIDTH - 1, y - 1, z - LENGTH + 1));
+    lightBLock.stroke(worldEditor, new Coord(x + WIDTH - 1, y - 1, z + LENGTH - 1));
 
-    planks.stroke(worldEditor, new Coord(x, y, z));
-    BlockType.CAKE.getBrush().stroke(worldEditor, new Coord(x, y + 1, z));
+    placeCake(origin, pillar);
 
     List<Coord> spaces = new ArrayList<>();
     spaces.add(new Coord(x - WIDTH, y, z - LENGTH + 1));
@@ -70,6 +70,12 @@ public class DungeonsWood extends DungeonBase {
     List<Coord> chestLocations = chooseRandomLocations(1, spaces);
     worldEditor.getTreasureChestEditor().createChests(chestLocations, false, Dungeon.getLevel(y), getRoomSetting().getChestType().orElse(ChestType.FOOD));
     return this;
+  }
+
+  public void placeCake(Coord origin, BlockBrush pillar) {
+    Coord cakeStand = origin.copy();
+    pillar.stroke(worldEditor, cakeStand);
+    BlockType.CAKE.getBrush().stroke(worldEditor, cakeStand.up());
   }
 
   public int getSize() {
