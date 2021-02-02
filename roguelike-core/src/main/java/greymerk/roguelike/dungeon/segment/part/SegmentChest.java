@@ -72,12 +72,14 @@ public class SegmentChest extends SegmentBase {
       return;
     }
 
-    boolean isTrapped = rand.nextInt(20) == 0;
+    int difficulty = level.getSettings().getDifficulty(shelf);
+    boolean isTrapped = rand.nextInt(30 / (Math.max(1, difficulty))) == 0;
     editor.getTreasureChestEditor().createChest(shelf, isTrapped, Dungeon.getLevel(origin.getY()), ChestType.COMMON_TREASURES);
     if (isTrapped) {
-      BlockType.TNT.getBrush().stroke(editor, new Coord(shelf.getX(), shelf.getY() - 2, shelf.getZ()));
+      Coord tntCoord = shelf.copy().down(2);
+      BlockType.TNT.getBrush().stroke(editor, tntCoord);
       if (rand.nextBoolean()) {
-        BlockType.TNT.getBrush().stroke(editor, new Coord(shelf.getX(), shelf.getY() - 3, shelf.getZ()));
+        BlockType.TNT.getBrush().stroke(editor, tntCoord.down());
       }
     }
   }
