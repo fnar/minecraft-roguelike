@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
+import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -25,12 +26,11 @@ public class TreasureChest {
 
   public TreasureChest(
       ChestType chestType,
-      int level,
       Coord pos,
       WorldEditor worldEditor
   ) {
     this.chestType = chestType;
-    this.level = level;
+    this.level = Dungeon.getLevel(pos.getY());
     this.pos = pos.copy();
     this.worldEditor = worldEditor;
   }

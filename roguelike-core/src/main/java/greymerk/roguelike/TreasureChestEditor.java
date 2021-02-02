@@ -42,14 +42,14 @@ public class TreasureChestEditor {
       return null;
     }
     try {
-      return generateTreasureChest(chestLocation, isTrapped, level, ChestType.chooseRandomAmong(this.random, chestTypes));
+      return generateTreasureChest(chestLocation, isTrapped, ChestType.chooseRandomAmong(this.random, chestTypes));
     } catch (ChestPlacementException ignored) {
       // todo: how to print exceptions in this codebase gracefully?
     }
     return null;
   }
 
-  private TreasureChest generateTreasureChest(Coord pos, boolean isTrapped, int level, ChestType chestType) throws ChestPlacementException {
+  private TreasureChest generateTreasureChest(Coord pos, boolean isTrapped, ChestType chestType) throws ChestPlacementException {
     BlockBrush chestBlock = (isTrapped ? BlockType.TRAPPED_CHEST : BlockType.CHEST).getBrush();
 
     boolean success = chestBlock.stroke(worldEditor, pos);
@@ -61,7 +61,6 @@ public class TreasureChestEditor {
 
     TreasureChest treasureChest = new TreasureChest(
         chestType,
-        level,
         pos,
         worldEditor
     );
@@ -71,8 +70,8 @@ public class TreasureChestEditor {
   }
 
   private boolean isValidChestSpace(Coord coord, WorldEditor worldEditor) {
-    return worldEditor.isAirBlock(coord)
-        && worldEditor.isSolidBlock(coord.add(Direction.DOWN))
+//    return worldEditor.isAirBlock(coord) &&
+    return worldEditor.isSolidBlock(coord.add(Direction.DOWN))
         && worldEditor.getTreasureChestEditor().isNotNextToChest(coord, worldEditor);
   }
 
