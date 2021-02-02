@@ -79,7 +79,11 @@ public interface WorldEditor {
   void setSkull(WorldEditor editor, Coord cursor, Direction dir, Skull type);
 
   void setLootTable(Coord pos, String table);
-  
+
+  default int getSeed(Coord coord) {
+    return Objects.hash(coord.hashCode(), getSeed());
+  }
+
   int getCapacity(TreasureChest treasureChest);
 
   boolean isEmptySlot(TreasureChest treasureChest, int slot);
