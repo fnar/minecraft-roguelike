@@ -26,8 +26,8 @@ import java.util.stream.Collectors;
 @Mod("roguelike")
 public class Roguelike {
 
-  public static final String version = "2.3.0";
-  public static final String date = "2021/1/23";
+  public static final String version = "2.3.1";
+  public static final String date = "2021/2/01";
   // The instance of your mod that Forge uses.
 //  @Instance("roguelike")
 //  public static Roguelike instance;
