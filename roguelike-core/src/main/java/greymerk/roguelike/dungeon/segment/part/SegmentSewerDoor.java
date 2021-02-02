@@ -27,7 +27,7 @@ public class SegmentSewerDoor extends SegmentBase {
     BlockBrush bars = BlockType.IRON_BAR.getBrush();
     BlockBrush water = BlockType.WATER_FLOWING.getBrush();
     BlockBrush leaves = Wood.SPRUCE.getLeaves();
-    BlockBrush glowstone = BlockType.GLOWSTONE.getBrush();
+    BlockBrush glowstone = theme.getSecondary().getLightBlock();
 
     Coord cursor;
     Coord start;

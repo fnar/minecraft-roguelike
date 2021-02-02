@@ -259,7 +259,7 @@ public class DungeonBTeam extends DungeonBase {
     cursor.up();
     fence.stroke(editor, cursor);
     cursor.up();
-    BlockType.GLOWSTONE.getBrush().stroke(editor, cursor);
+    levelSettings.getTheme().getPrimary().getLightBlock().stroke(editor, cursor);
     for (Direction d : Direction.CARDINAL) {
       if (d == dir.reverse()) {
         continue;

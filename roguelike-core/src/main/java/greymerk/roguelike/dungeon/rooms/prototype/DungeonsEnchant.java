@@ -6,7 +6,6 @@ import com.github.srwaggon.minecraft.block.normal.StairsBlock;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
@@ -135,7 +134,7 @@ public class DungeonsEnchant extends DungeonBase {
     cursor.up(4);
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
     cursor.up();
-    BlockType.GLOWSTONE.getBrush().stroke(worldEditor, cursor);
+    levelSettings.getTheme().getPrimary().getLightBlock().stroke(worldEditor, cursor);
     cursor.down();
     cursor.translate(dir.reverse());
     stair.setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);

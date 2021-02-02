@@ -54,7 +54,7 @@ public class DungeonMess extends DungeonBase {
 
     cursor = origin.copy();
     cursor.up(4);
-    BlockType.GLOWSTONE.getBrush().stroke(worldEditor, cursor);
+    levelSettings.getTheme().getPrimary().getLightBlock().stroke(worldEditor, cursor);
 
     for (Direction dir : Direction.CARDINAL) {
       start = origin.copy();

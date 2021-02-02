@@ -153,7 +153,7 @@ public class DungeonsMusic extends DungeonBase {
 
     cursor = origin.copy();
     cursor.up(4);
-    BlockType.GLOWSTONE.getBrush().stroke(worldEditor, cursor);
+    levelSettings.getTheme().getPrimary().getLightBlock().stroke(worldEditor, cursor);
 
     List<Coord> chestLocations = chooseRandomLocations(1, chests);
     worldEditor.getTreasureChestEditor().createChests(chestLocations, false, levelSettings.getDifficulty(origin), getRoomSetting().getChestType().orElse(ChestType.MUSIC));

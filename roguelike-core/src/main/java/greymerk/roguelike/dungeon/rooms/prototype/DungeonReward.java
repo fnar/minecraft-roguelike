@@ -1,6 +1,5 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
-import com.github.srwaggon.minecraft.block.BlockType;
 import com.github.srwaggon.minecraft.block.SingleBlockBrush;
 import com.github.srwaggon.minecraft.block.normal.StairsBlock;
 
@@ -149,7 +148,7 @@ public class DungeonReward extends DungeonBase {
         cursor.translate(dir, 7);
         cursor.translate(orthogonal, 4);
         cursor.down();
-        BlockType.GLOWSTONE.getBrush().stroke(worldEditor, cursor);
+        levelSettings.getTheme().getPrimary().getLightBlock().stroke(worldEditor, cursor);
 
       }
 
@@ -179,7 +178,7 @@ public class DungeonReward extends DungeonBase {
 
     cursor = new Coord(x, y, z);
     cursor.up(4);
-    BlockType.GLOWSTONE.getBrush().stroke(worldEditor, cursor);
+    levelSettings.getTheme().getPrimary().getLightBlock().stroke(worldEditor, cursor);
 
     cursor = new Coord(x, y, z);
     cursor.up();
