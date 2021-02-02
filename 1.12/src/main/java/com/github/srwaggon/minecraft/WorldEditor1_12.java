@@ -415,7 +415,7 @@ public class WorldEditor1_12 implements WorldEditor {
 
   @Override
   public void setLootTable(Coord pos, String table) {
-    ((TileEntityChest) getTileEntity(pos)).setLootTable(new ResourceLocation(table), getSeed());
+    ((TileEntityChest) getTileEntity(pos)).setLootTable(new ResourceLocation(table), getSeed(pos));
   }
 
   public int getCapacity(TreasureChest treasureChest) {
