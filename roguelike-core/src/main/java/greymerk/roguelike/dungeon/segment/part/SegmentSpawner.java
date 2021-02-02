@@ -2,7 +2,6 @@ package greymerk.roguelike.dungeon.segment.part;
 
 import com.github.srwaggon.minecraft.block.BlockType;
 import com.github.srwaggon.minecraft.block.SingleBlockBrush;
-import com.github.srwaggon.minecraft.block.normal.StairsBlock;
 
 import java.util.Random;
 
@@ -21,66 +20,51 @@ public class SegmentSpawner extends SegmentBase {
 
   @Override
   protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, ThemeBase theme, Coord origin) {
-
-    StairsBlock stair = theme.getSecondary().getStair();
-    BlockBrush wall = theme.getSecondary().getWall();
-
-
-    Coord cursor;
-    Coord start;
-    Coord end;
-
     Direction[] orthogonals = dir.orthogonals();
 
-    start = origin.copy();
-    start.translate(dir, 2);
-    end = start.copy();
-    start.translate(orthogonals[0], 1);
-    end.translate(orthogonals[1], 1);
-    end.up(2);
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
-    start.translate(dir, 1);
-    end.translate(dir, 1);
-    RectSolid.newRect(start, end).fill(editor, wall);
+    Coord start = origin.copy()
+        .translate(dir, 2)
+        .translate(orthogonals[0], 1);
 
-    for (Direction d : orthogonals) {
-      cursor = origin.copy();
-      cursor.up(2);
-      cursor.translate(dir, 2);
-      cursor.translate(d, 1);
-      stair.setUpsideDown(true).setFacing(dir.reverse());
-      stair.stroke(editor, cursor);
+    Coord end = origin.copy()
+        .translate(dir, 2)
+        .translate(orthogonals[1], 1)
+        .up(2);
 
-      cursor = origin.copy();
-      cursor.translate(dir, 2);
-      cursor.translate(d, 1);
-      stair.setUpsideDown(false).setFacing(d.reverse());
-      stair.stroke(editor, cursor);
+    RectSolid.newRect(start, end)
+        .fill(editor, SingleBlockBrush.AIR)
+        .translate(dir, 1)
+        .fill(editor, theme.getSecondary().getWall());
+
+    generateDecorativeArch(editor, dir, origin, theme);
+    generateSpawner(editor, rand, level, dir, origin, theme);
+  }
+
+  private void generateDecorativeArch(WorldEditor editor, Direction dir, Coord origin, ThemeBase theme) {
+    for (Direction orthogonal : dir.orthogonals()) {
+      Coord cursor = origin.copy()
+          .up(2)
+          .translate(dir, 2)
+          .translate(orthogonal, 1);
+      theme.getSecondary().getStair().setUpsideDown(true).setFacing(orthogonal.reverse()).stroke(editor, cursor);
     }
+  }
 
-    cursor = origin.copy();
-    cursor.up(1);
-    cursor.translate(dir, 3);
-    SingleBlockBrush.AIR.stroke(editor, cursor);
-    cursor.up(1);
-    stair.setUpsideDown(true).setFacing(dir.reverse());
-    stair.stroke(editor, cursor);
+  private void generateSpawner(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Coord origin, ThemeBase theme) {
+    Coord spawnerCoord = origin.copy()
+        .translate(dir, 4)
+        .up(1);
 
-    Coord shelf = origin.copy();
-    shelf.translate(dir, 3);
-    shelf.up(1);
+    int difficulty = level.getSettings().getDifficulty(spawnerCoord);
 
-    int difficulty = level.getSettings().getDifficulty(shelf);
-
-    BlockBrush inFrontOfSpawner = rand.nextInt(Math.max(1, difficulty)) == 0
-        ? BlockType.GLASS.getBrush()
-        : wall;
-    inFrontOfSpawner.stroke(editor, shelf);
-
-    shelf.translate(dir, 1);
     SpawnerSettings spawners = level.getSettings().getSpawners().isEmpty()
         ? MobType.newSpawnerSetting(MobType.COMMON_MOBS)
         : level.getSettings().getSpawners();
-    spawners.generateSpawner(editor, shelf, difficulty);
+    spawners.generateSpawner(editor, spawnerCoord, difficulty);
+
+    BlockBrush panelInFrontOfSpawner = rand.nextInt(Math.max(1, difficulty)) == 0
+        ? BlockType.GLASS.getBrush()
+        : theme.getSecondary().getWall();
+    panelInFrontOfSpawner.stroke(editor, spawnerCoord.translate(dir.reverse()));
   }
 }
