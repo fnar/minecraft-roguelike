@@ -1,6 +1,0 @@
-{
-  "name": "main:rad",
-  "inherit": [
-    "loot:rad"
-  ]
-}
