@@ -1,5 +1,6 @@
 package greymerk.roguelike.dungeon.segment.part;
 
+import com.github.srwaggon.minecraft.block.BlockType;
 import com.github.srwaggon.minecraft.block.SingleBlockBrush;
 import com.github.srwaggon.minecraft.block.normal.StairsBlock;
 
@@ -7,6 +8,7 @@ import java.util.Random;
 
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -21,6 +23,7 @@ public class SegmentSpawner extends SegmentBase {
   protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, ThemeBase theme, Coord origin) {
 
     StairsBlock stair = theme.getSecondary().getStair();
+    BlockBrush wall = theme.getSecondary().getWall();
 
 
     Coord cursor;
@@ -38,7 +41,7 @@ public class SegmentSpawner extends SegmentBase {
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
     start.translate(dir, 1);
     end.translate(dir, 1);
-    RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall());
+    RectSolid.newRect(start, end).fill(editor, wall);
 
     for (Direction d : orthogonals) {
       cursor = origin.copy();
@@ -67,9 +70,17 @@ public class SegmentSpawner extends SegmentBase {
     shelf.translate(dir, 3);
     shelf.up(1);
 
+    int difficulty = level.getSettings().getDifficulty(shelf);
+
+    BlockBrush inFrontOfSpawner = rand.nextInt(Math.max(1, difficulty)) == 0
+        ? BlockType.GLASS.getBrush()
+        : wall;
+    inFrontOfSpawner.stroke(editor, shelf);
+
+    shelf.translate(dir, 1);
     SpawnerSettings spawners = level.getSettings().getSpawners().isEmpty()
         ? MobType.newSpawnerSetting(MobType.COMMON_MOBS)
         : level.getSettings().getSpawners();
-    spawners.generateSpawner(editor, shelf, level.getSettings().getDifficulty(shelf));
+    spawners.generateSpawner(editor, shelf, difficulty);
   }
 }
