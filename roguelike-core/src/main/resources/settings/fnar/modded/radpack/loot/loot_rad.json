@@ -1,9 +1,0 @@
-{
-  "name": "loot:rad",
-  "inherit": [
-    "loot:ebwizardry",
-    "loot:megaloot",
-    "loot:random_loot",
-    "loot:waystones"
-  ]
-}

@@ -1,8 +1,0 @@
-{
-  "name": "spawners:slime",
-  "requires": ["tconstruct"],
-  "spawners": [
-    {"level": [0, 1, 2, 3, 4], "potentials": [{"name": "tconstruct:blueslime"}]},
-    {"level": [0, 1, 2, 3, 4], "potentials": [{"name": "minecraft:magma_cube"}]}
-  ]
-}
