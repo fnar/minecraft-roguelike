@@ -112,17 +112,6 @@ public enum Direction {
   }
 
   public Direction[] orthogonals() {
-    switch (this) {
-      case NORTH:
-        return new Direction[]{WEST, EAST};
-      case SOUTH:
-        return new Direction[]{EAST, WEST};
-      case EAST:
-        return new Direction[]{NORTH, SOUTH};
-      case WEST:
-        return new Direction[]{SOUTH, NORTH};
-      default:
-        return new Direction[]{this, this};
-    }
+    return new Direction[]{antiClockwise(), clockwise()};
   }
 }
