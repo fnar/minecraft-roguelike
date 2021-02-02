@@ -65,7 +65,7 @@ public class SettingsContainer {
         String dungeonSettingsJson = dungeonSettingsJsonByFileName.get(fileName);
         put(dungeonSettingsJson);
       } catch (Exception e) {
-        throw new Exception("Error in: " + fileName + " : " + e.getMessage(), e);
+        throw new Exception("Error in: " + fileName + ": " + e.getMessage(), e);
       }
     }
   }
