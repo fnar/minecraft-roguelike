@@ -24,8 +24,8 @@ public class SegmentLamp extends SegmentBase {
   @Override
   protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, ThemeBase theme, Coord origin) {
 
-    StairsBlock stair = theme.getPrimary().getStair();
-    BlockBrush wall = theme.getPrimary().getWall();
+    StairsBlock stair = theme.getSecondary().getStair();
+    BlockBrush wall = theme.getSecondary().getWall();
 
     Coord cursor;
     Coord start;
