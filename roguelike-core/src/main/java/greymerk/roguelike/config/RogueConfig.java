@@ -10,6 +10,7 @@ import java.util.List;
 
 public class RogueConfig {
 
+  public static final RogueConfig BREAK_IF_REQUIRED_MOD_IS_MISSING = new RogueConfig("breakIfRequiredModIsMissing", true);
   public static final RogueConfig DIMENSIONBL = new RogueConfig("dimensionBL", Lists.newArrayList());
   public static final RogueConfig DIMENSIONWL = new RogueConfig("dimensionWL", Lists.newArrayList(0));
   public static final RogueConfig DONATURALSPAWN = new RogueConfig("doNaturalSpawn", true);
@@ -76,8 +77,16 @@ public class RogueConfig {
   public static boolean testing = false;
   private static ConfigFile instance = null;
 
+  public String getName() {
+    return name;
+  }
+
   @SuppressWarnings("unchecked")
   private static void setDefaults() {
+    if (!instance.ContainsKey(BREAK_IF_REQUIRED_MOD_IS_MISSING.name)) {
+      BREAK_IF_REQUIRED_MOD_IS_MISSING.setBoolean(BREAK_IF_REQUIRED_MOD_IS_MISSING.defaultBoolean);
+    }
+
     if (!instance.ContainsKey(DONATURALSPAWN.name)) {
       DONATURALSPAWN.setBoolean(DONATURALSPAWN.defaultBoolean);
     }

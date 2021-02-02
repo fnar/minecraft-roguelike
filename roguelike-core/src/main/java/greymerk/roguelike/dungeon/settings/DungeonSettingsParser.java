@@ -7,12 +7,15 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
+import com.github.fnar.roguelike.settings.RequiredModMissingException;
+
 import net.minecraftforge.fml.common.Loader;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
+import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.dungeon.LevelGenerator;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.base.SecretsSetting;
@@ -42,8 +45,8 @@ public class DungeonSettingsParser {
         throw new Exception(cause.getMessage());
       }
       return parseDungeonSettings(parse);
-    } catch (DungeonSettingParseException dungeonSettingParseException) {
-      throw dungeonSettingParseException;
+    } catch (DungeonSettingParseException | RequiredModMissingException exception) {
+      throw exception;
     } catch (Exception e) {
       throw new Exception("An unknown error occurred while parsing json: " + e.getClass().toString() + " " + e.getMessage());
     }
@@ -98,7 +101,9 @@ public class DungeonSettingsParser {
     for (JsonElement requiredModElement : requiresArray) {
       String requiredModName = requiredModElement.getAsString();
       if (!Loader.isModLoaded(requiredModName)) {
-//        throw new DungeonSettingParseException("Expected mod " + requiredModName + " to be loaded but could not be found.");
+        if (RogueConfig.BREAK_IF_REQUIRED_MOD_IS_MISSING.getBoolean()) {
+          throw new RequiredModMissingException(requiredModName);
+        }
         return false;
       }
     }
