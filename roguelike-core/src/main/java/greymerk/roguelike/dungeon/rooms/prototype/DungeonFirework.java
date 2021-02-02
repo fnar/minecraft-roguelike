@@ -153,15 +153,15 @@ public class DungeonFirework extends DungeonBase {
     cursor.up();
     LeverBlock.lever().setActive(true).setFacing(Direction.UP).stroke(worldEditor, cursor);
 
-    BlockBrush glowstone = BlockType.GLOWSTONE.getBrush();
+    BlockBrush light = levelSettings.getTheme().getPrimary().getLightBlock();
     cursor = new Coord(x, y, z);
     cursor.translate(dir.reverse(), 5);
     cursor.up(3);
-    glowstone.stroke(worldEditor, cursor);
+    light.stroke(worldEditor, cursor);
     cursor.translate(dir, 4);
-    glowstone.stroke(worldEditor, cursor);
+    light.stroke(worldEditor, cursor);
     cursor.translate(dir, 6);
-    glowstone.stroke(worldEditor, cursor);
+    light.stroke(worldEditor, cursor);
 
     return this;
   }

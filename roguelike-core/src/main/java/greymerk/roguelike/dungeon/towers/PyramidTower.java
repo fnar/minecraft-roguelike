@@ -215,7 +215,7 @@ public class PyramidTower implements ITower {
 
     cursor = origin.copy();
     cursor.up(7);
-    BlockType.GLOWSTONE.getBrush().stroke(editor, cursor);
+    theme.getPrimary().getLightBlock().stroke(editor, cursor);
 
   }
 

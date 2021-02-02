@@ -1,6 +1,5 @@
 package greymerk.roguelike.dungeon.segment.part;
 
-import com.github.srwaggon.minecraft.block.BlockType;
 import com.github.srwaggon.minecraft.block.SingleBlockBrush;
 import com.github.srwaggon.minecraft.block.normal.ColoredBlock;
 import com.github.srwaggon.minecraft.block.normal.StairsBlock;
@@ -28,7 +27,7 @@ public class SegmentAnkh extends SegmentBase {
     DyeColor color = DyeColor.chooseRandom(rand);
     BlockBrush glass = ColoredBlock.stainedGlass().setColor(color);
     BlockBrush back = ColoredBlock.stainedHardenedClay().setColor(color);
-    BlockBrush glowstone = BlockType.GLOWSTONE.getBrush();
+    BlockBrush light = theme.getSecondary().getLightBlock();
 
     Direction[] orthogonals = dir.orthogonals();
 
@@ -66,9 +65,9 @@ public class SegmentAnkh extends SegmentBase {
     cursor = pos.copy();
     cursor.translate(dir, 3);
     cursor.down();
-    glowstone.stroke(editor, cursor);
+    light.stroke(editor, cursor);
     cursor.up(4);
-    glowstone.stroke(editor, cursor);
+    light.stroke(editor, cursor);
   }
 
 }

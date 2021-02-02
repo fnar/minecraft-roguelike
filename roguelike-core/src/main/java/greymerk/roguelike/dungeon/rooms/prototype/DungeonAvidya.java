@@ -46,14 +46,14 @@ public class DungeonAvidya extends DungeonBase {
     BlockBrush redClay = stainedHardenedClay().setColor(DyeColor.RED);
     BlockBrush whiteClay = stainedHardenedClay().setColor(DyeColor.WHITE);
     BlockBrush pillarQuartz = Quartz.PILLAR.getBrush().setFacing(Direction.UP);
-    BlockBrush glowstone = BlockType.GLOWSTONE.getBrush();
+    BlockBrush lightBlock = levelSettings.getTheme().getPrimary().getLightBlock();
 
     // clear space
     RectSolid.newRect(new Coord(x - 8, y, z - 8), new Coord(x + 8, y + 5, z + 8)).fill(worldEditor, SingleBlockBrush.AIR);
 
     // roof
     RectSolid.newRect(new Coord(x - 6, y + 6, z - 6), new Coord(x + 6, y + 6, z + 6)).fill(worldEditor, redClay);
-    RectSolid.newRect(new Coord(x - 3, y + 6, z - 3), new Coord(x + 3, y + 6, z + 3)).fill(worldEditor, glowstone);
+    RectSolid.newRect(new Coord(x - 3, y + 6, z - 3), new Coord(x + 3, y + 6, z + 3)).fill(worldEditor, lightBlock);
 
     RectSolid.newRect(new Coord(x - 7, y - 1, z - 7), new Coord(x + 7, y - 1, z + 7)).fill(worldEditor, SingleBlockBrush.AIR);
 
@@ -245,11 +245,11 @@ public class DungeonAvidya extends DungeonBase {
         cursor.translate(dir.reverse(), 1);
         BlockType.COBBLESTONE.getBrush().stroke(worldEditor, cursor);
         cursor.translate(orthogonals.reverse(), 1);
-        glowstone.stroke(worldEditor, cursor);
+        lightBlock.stroke(worldEditor, cursor);
         cursor.translate(orthogonals, 2);
         SingleBlockBrush.AIR.stroke(worldEditor, cursor);
         cursor.down();
-        glowstone.stroke(worldEditor, cursor);
+        lightBlock.stroke(worldEditor, cursor);
         cursor.up(1);
         cursor.translate(dir.reverse(), 1);
         BlockType.COBBLESTONE.getBrush().stroke(worldEditor, cursor);
