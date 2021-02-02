@@ -20,8 +20,8 @@ import static greymerk.roguelike.dungeon.base.RoomType.CRYPT;
 import static greymerk.roguelike.dungeon.base.RoomType.DARKHALL;
 import static greymerk.roguelike.dungeon.base.RoomType.ENDER;
 import static greymerk.roguelike.dungeon.base.RoomType.FIRE;
-import static greymerk.roguelike.dungeon.base.RoomType.NETHERFORT;
 import static greymerk.roguelike.dungeon.base.RoomType.NETHER;
+import static greymerk.roguelike.dungeon.base.RoomType.NETHERFORT;
 import static greymerk.roguelike.dungeon.base.RoomType.OBSIDIAN;
 import static greymerk.roguelike.dungeon.base.RoomType.OSSUARY;
 import static greymerk.roguelike.dungeon.base.RoomType.PIT;
@@ -58,18 +58,21 @@ public class SettingsRooms extends DungeonSettings {
     return Lists.newArrayList(
         CAKE.newSingleRoomSetting(),
         FIRE.newSingleRoomSetting(),
+        REWARD.newSingleRoomSetting(),
+
+        BRICK.newRandomRoomSetting(2),
         BRICK.newRandomRoomSetting(4),
-        CORNER.newRandomRoomSetting(2),
-        REWARD.newSingleRoomSetting()
+        CORNER.newRandomRoomSetting(2)
     );
   }
 
   private List<RoomSetting> getLevel1Rooms() {
     return Lists.newArrayList(
         PIT.newSingleRoomSetting(),
-        CORNER.newRandomRoomSetting(10),
+        REWARD.newSingleRoomSetting(),
+
         BRICK.newRandomRoomSetting(3),
-        REWARD.newSingleRoomSetting()
+        CORNER.newRandomRoomSetting(10)
     );
   }
 
@@ -81,10 +84,11 @@ public class SettingsRooms extends DungeonSettings {
         FIRE.newSingleRoomSetting(),
         SPIDER.newSingleRoomSetting(),
         PRISON.newSingleRoomSetting(),
+        REWARD.newSingleRoomSetting(),
+
         CRYPT.newRandomRoomSetting(5),
         CORNER.newRandomRoomSetting(5),
-        BRICK.newRandomRoomSetting(3),
-        REWARD.newSingleRoomSetting()
+        BRICK.newRandomRoomSetting(3)
     );
   }
 
@@ -93,12 +97,13 @@ public class SettingsRooms extends DungeonSettings {
         OSSUARY.newSingleRoomSetting(),
         ENDER.newSingleRoomSetting(),
         CRYPT.newSingleRoomSetting(),
+        REWARD.newSingleRoomSetting(),
+
         PRISON.newRandomRoomSetting(3),
         SLIME.newRandomRoomSetting(5),
         CREEPER.newRandomRoomSetting(1),
         SPIDER.newRandomRoomSetting(1),
-        PIT.newRandomRoomSetting(1),
-        REWARD.newSingleRoomSetting()
+        PIT.newRandomRoomSetting(1)
     );
   }
 
@@ -109,11 +114,12 @@ public class SettingsRooms extends DungeonSettings {
         PRISON.newSingleRoomSetting(),
         DARKHALL.newSingleRoomSetting(),
         NETHERFORT.newSingleRoomSetting(),
+        REWARD.newSingleRoomSetting(),
+
         SLIME.newRandomRoomSetting(10),
         BLAZE.newRandomRoomSetting(3),
         NETHER.newRandomRoomSetting(3),
-        SPIDER.newRandomRoomSetting(2),
-        REWARD.newSingleRoomSetting()
+        SPIDER.newRandomRoomSetting(2)
     );
   }
 }
