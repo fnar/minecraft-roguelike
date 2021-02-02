@@ -1,12 +1,14 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
+import com.google.common.collect.Lists;
+
 import com.github.srwaggon.minecraft.block.SingleBlockBrush;
 import com.github.srwaggon.minecraft.block.normal.StairsBlock;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
@@ -60,8 +62,6 @@ public class BrickRoom extends DungeonBase {
     cursor.translate(UP, 1);
     blocks.stroke(worldEditor, cursor);
 
-    // Chests
-    List<Coord> potentialChestLocations = new ArrayList<>();
 
     for (Direction dir : CARDINAL) {
 
@@ -123,23 +123,41 @@ public class BrickRoom extends DungeonBase {
       cursor.translate(dir.antiClockwise(), 1);
       cursor.translate(UP, 5);
       blocks.stroke(worldEditor, cursor, false, true);
-
-      for (Direction orthogonals : dir.orthogonals()) {
-        cursor = origin.copy();
-        cursor.translate(dir, 3);
-        cursor.translate(orthogonals, 2);
-        potentialChestLocations.add(cursor);
-      }
     }
 
-    List<Coord> chestLocations = chooseRandomLocations(1, potentialChestLocations);
-    int level = Dungeon.getLevel(origin.getY());
-    ChestType chestType = getRoomSetting().getChestType()
-        .orElse(ChestType.chooseRandomAmong(worldEditor.getRandom(cursor), ChestType.COMMON_TREASURES));
-    worldEditor.getTreasureChestEditor().createChests(chestLocations, false, level, chestType);
+    Direction randomDirection = Direction.randomCardinal(worldEditor.getRandom());
+    Coord spawnerLocation = origin.copy()
+        .translate(randomDirection, worldEditor.getRandom().nextInt(getSize()))
+        .translate(randomDirection.clockwise(), worldEditor.getRandom().nextInt(getSize()));
+    generateSpawner(spawnerLocation);
 
-    generateSpawner(origin);
+    generateChest(origin, spawnerLocation);
+
     return this;
+  }
+
+  public void generateChest(Coord origin, Coord spawnerLocation) {
+    int difficulty = levelSettings.getDifficulty(origin);
+    ChestType[] chestTypes = getRoomSetting().getChestType()
+        .map(chestType -> new ChestType[]{chestType})
+        .orElse(ChestType.COMMON_TREASURES);
+
+    boolean isChestBeneathSpawner = worldEditor.getRandom(spawnerLocation).nextInt(Math.max(1, difficulty) + 1) != 0;
+    List<Coord> chestLocations = isChestBeneathSpawner
+        ? Lists.newArrayList(spawnerLocation.copy().down())
+        : chooseRandomLocations(1, getPotentialSpawnLocations(origin));
+
+    worldEditor.getTreasureChestEditor().createChests(chestLocations, false, difficulty, chestTypes);
+  }
+
+  public List<Coord> getPotentialSpawnLocations(Coord origin) {
+    List<Coord> potentialChestLocations = new ArrayList<>();
+    CARDINAL.forEach(dir -> Arrays.stream(dir.orthogonals())
+        .map(orthogonal -> origin.copy()
+            .translate(dir, 3)
+            .translate(orthogonal, 2))
+        .forEach(potentialChestLocations::add));
+    return potentialChestLocations;
   }
 
   public int getSize() {
