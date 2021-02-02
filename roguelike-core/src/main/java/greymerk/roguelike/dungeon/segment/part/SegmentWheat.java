@@ -3,7 +3,6 @@ package greymerk.roguelike.dungeon.segment.part;
 import com.github.srwaggon.minecraft.block.BlockType;
 import com.github.srwaggon.minecraft.block.SingleBlockBrush;
 import com.github.srwaggon.minecraft.block.decorative.Crop;
-import com.github.srwaggon.minecraft.block.decorative.PumpkinBlock;
 import com.github.srwaggon.minecraft.block.normal.StairsBlock;
 
 import java.util.Random;
@@ -63,7 +62,7 @@ public class SegmentWheat extends SegmentBase {
     cursor = origin.copy();
     cursor.translate(dir, 3);
     cursor.up(1);
-    PumpkinBlock.jackOLantern().setFacing(dir.reverse()).stroke(editor, cursor);
+    theme.getSecondary().getLightBlock().setFacing(dir.reverse()).stroke(editor, cursor);
 
     StairsBlock stair = theme.getSecondary().getStair();
 
