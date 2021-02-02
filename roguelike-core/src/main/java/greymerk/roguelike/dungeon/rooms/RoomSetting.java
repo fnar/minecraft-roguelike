@@ -40,7 +40,7 @@ import greymerk.roguelike.dungeon.rooms.prototype.DungeonsPrison;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsSlime;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsSmithy;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsSpiderNest;
-import greymerk.roguelike.dungeon.rooms.prototype.DungeonsWood;
+import greymerk.roguelike.dungeon.rooms.prototype.CakeRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.NetherFortressRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.ObsidianRoom;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
@@ -105,7 +105,7 @@ public class RoomSetting {
       case BTEAM:
         return new DungeonBTeam(this, levelSettings, worldEditor);
       case CAKE:
-        return new DungeonsWood(this, levelSettings, worldEditor);
+        return new CakeRoom(this, levelSettings, worldEditor);
       case CORNER:
         return new CornerRoom(this, levelSettings, worldEditor);
       case CREEPER:

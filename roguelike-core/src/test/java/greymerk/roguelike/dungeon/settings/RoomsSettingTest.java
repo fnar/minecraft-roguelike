@@ -14,7 +14,7 @@ import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.rooms.prototype.CornerRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsPit;
-import greymerk.roguelike.dungeon.rooms.prototype.DungeonsWood;
+import greymerk.roguelike.dungeon.rooms.prototype.CakeRoom;
 import greymerk.roguelike.worldgen.WorldEditor;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -127,8 +127,8 @@ public class RoomsSettingTest {
     levelSettings = new LevelSettings();
     levelSettings.setRooms(roomSettings);
     RoomIterator roomIterator = new RoomIterator(levelSettings, editor);
-    assertThat(roomIterator.getDungeonRoom()).isInstanceOf(DungeonsWood.class);
-    assertThat(roomIterator.getDungeonRoom()).isInstanceOf(DungeonsWood.class);
+    assertThat(roomIterator.getDungeonRoom()).isInstanceOf(CakeRoom.class);
+    assertThat(roomIterator.getDungeonRoom()).isInstanceOf(CakeRoom.class);
     assertThat(roomIterator.getDungeonRoom()).isInstanceOf(CornerRoom.class);
 
     roomSettings = new RoomsSetting();
