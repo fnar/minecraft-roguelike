@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.segment.ISegment;
-import greymerk.roguelike.dungeon.segment.ISegmentGenerator;
+import greymerk.roguelike.dungeon.segment.SegmentGenerator;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -127,7 +127,7 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
 
   public void genSegments(WorldEditor editor, Random rand, DungeonLevel level) {
     LevelSettings settings = level.getSettings();
-    ISegmentGenerator segGen = settings.getSegments();
+    SegmentGenerator segGen = settings.getSegments();
     for (Coord c : this) {
       segments.addAll(segGen.genSegment(editor, rand, level, getDirection(), c));
     }

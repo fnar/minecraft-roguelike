@@ -22,9 +22,9 @@ import lombok.ToString;
 
 @EqualsAndHashCode
 @ToString
-public class SegmentGenerator implements ISegmentGenerator {
+public class SegmentGenerator {
 
-  protected Segment arch = Segment.ARCH;
+  protected Segment arch;
   protected WeightedRandomizer<Segment> segments;
 
   public SegmentGenerator() {
@@ -93,74 +93,67 @@ public class SegmentGenerator implements ISegmentGenerator {
     segments.add(new WeightedChoice<>(segment, weight));
   }
 
-  @Override
+  public Segment getArch() {
+    return arch;
+  }
+
+  public WeightedRandomizer<Segment> getSegments() {
+    return segments;
+  }
+
   public List<ISegment> genSegment(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Coord pos) {
-
-    int x = pos.getX();
-    int y = pos.getY();
-    int z = pos.getZ();
-
     List<ISegment> segments = new ArrayList<>();
 
-    for (Direction direction : dir.orthogonals()) {
+    for (Direction orthogonals : dir.orthogonals()) {
       ISegment segment = pickSegment(rand, dir, pos);
       if (segment == null) {
         return segments;
       }
-      segment.generate(editor, rand, level, direction, level.getSettings().getTheme(), pos.copy());
+      segment.generate(editor, rand, level, orthogonals, level.getSettings().getTheme(), pos.copy());
       segments.add(segment);
     }
 
     if (!level.hasNearbyNode(pos) && rand.nextInt(3) == 0) {
-      addSupport(editor, rand, level.getSettings().getTheme(), x, y, z);
+      addSupport(editor, level.getSettings().getTheme(), pos.copy());
     }
 
     return segments;
   }
 
-  private ISegment pickSegment(Random rand, Direction dir, Coord pos) {
-    int x = pos.getX();
+  private ISegment pickSegment(Random random, Direction dir, Coord pos) {
     int z = pos.getZ();
-
     if ((dir == Direction.NORTH || dir == Direction.SOUTH) && z % 3 == 0) {
-      if (z % 6 == 0) {
-        return Segment.getSegment(arch);
-      }
-      return segments.isEmpty()
-          ? Segment.getSegment(Segment.WALL)
-          : Segment.getSegment(segments.get(rand));
+      return pickSegment(z % 6 == 0, random);
     }
 
+    int x = pos.getX();
     if ((dir == Direction.WEST || dir == Direction.EAST) && x % 3 == 0) {
-      if (x % 6 == 0) {
-        return Segment.getSegment(arch);
-      }
-      return segments.isEmpty()
-          ? Segment.getSegment(Segment.WALL)
-          : Segment.getSegment(segments.get(rand));
+      return pickSegment(x % 6 == 0, random);
     }
 
     return null;
   }
 
-  private void addSupport(WorldEditor editor, Random rand, ThemeBase theme, int x, int y, int z) {
-    if (!editor.isAirBlock(new Coord(x, y - 2, z))) {
+  private ISegment pickSegment(boolean isArch, Random random) {
+    return isArch
+        ? Segment.getSegment(getArch())
+        : getSegments().isEmpty()
+            ? Segment.getSegment(Segment.WALL)
+            : Segment.getSegment(getSegments().get(random));
+  }
+
+  private void addSupport(WorldEditor editor, ThemeBase theme, Coord origin) {
+    Coord beneathWalkway = origin.copy().down(2);
+    if (!editor.isAirBlock(beneathWalkway)) {
       return;
     }
 
-    editor.fillDown(new Coord(x, y - 2, z), theme.getPrimary().getPillar());
+    editor.fillDown(beneathWalkway, theme.getPrimary().getPillar());
 
-    StairsBlock stair = theme.getPrimary().getStair();
-    stair.setUpsideDown(true).setFacing(Direction.WEST)
-        .stroke(editor, new Coord(x - 1, y - 2, z));
-
-    stair.setUpsideDown(true).setFacing(Direction.EAST)
-        .stroke(editor, new Coord(x + 1, y - 2, z));
-
-    stair.setUpsideDown(true).setFacing(Direction.SOUTH)
-        .stroke(editor, new Coord(x, y - 2, z + 1));
-
-    stair.setUpsideDown(true).setFacing(Direction.NORTH)
-        .stroke(editor, new Coord(x, y - 2, z - 1));
+    StairsBlock stair = theme.getPrimary().getStair().setUpsideDown(true);
+    stair.setFacing(Direction.WEST).stroke(editor, beneathWalkway.copy().west());
+    stair.setFacing(Direction.EAST).stroke(editor, beneathWalkway.copy().east());
+    stair.setFacing(Direction.SOUTH).stroke(editor, beneathWalkway.copy().south());
+    stair.setFacing(Direction.NORTH).stroke(editor, beneathWalkway.copy().north());
   }
 }
