@@ -22,8 +22,8 @@ import greymerk.roguelike.EntityJoinWorld;
 @Mod(modid = "roguelike", name = "Roguelike Dungeons -- Fnar Edition", version = Roguelike.version, acceptableRemoteVersions = "*")
 public class Roguelike {
 
-  public static final String version = "2.3.1";
-  public static final String date = "2021/2/01";
+  public static final String version = "2.3.2";
+  public static final String date = "2021/6/15";
   // The instance of your mod that Forge uses.
   @Instance("roguelike")
   public static Roguelike instance;
