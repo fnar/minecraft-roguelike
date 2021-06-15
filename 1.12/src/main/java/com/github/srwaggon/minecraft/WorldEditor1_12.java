@@ -345,7 +345,11 @@ public class WorldEditor1_12 implements WorldEditor {
     if (!(tileEntity instanceof TileEntityLockableLoot)) {
       return;
     }
-    ((TileEntityLockableLoot) tileEntity).setInventorySlotContents(slot, itemStack);
+    try {
+      ((TileEntityLockableLoot) tileEntity).setInventorySlotContents(slot, itemStack);
+    } catch (NullPointerException nullPointerException) {
+      System.out.printf("Could not place item %s at position %s. BlockState at pos: %s%n", itemStack, pos, getBlockStateAt(pos));
+    }
   }
 
   @Override
@@ -426,4 +430,3 @@ public class WorldEditor1_12 implements WorldEditor {
     return ((TileEntityLockableLoot) getTileEntity(treasureChest.getPos())).getStackInSlot(slot).isEmpty();
   }
 }
-
