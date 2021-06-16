@@ -176,8 +176,8 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
   }
 
   Optional<Direction> getEntrance(Coord vertex) {
-    Coord start = getStart();
-    Coord end = getEnd();
+    Coord start = this.start;
+    Coord end = this.end;
     if (vertex.equals(start)) {
       return Optional.of(start.dirTo(end));
     } else if (vertex.equals(end)) {
