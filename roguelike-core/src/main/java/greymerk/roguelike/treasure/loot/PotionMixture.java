@@ -19,14 +19,14 @@ public enum PotionMixture {
   ABSINTHE,
   VILE,
   LAUDANUM,
-  ANIMUS,
+  RAGE,
   STOUT,
-  VITAE,
+  STAMINA,
   NECTAR,
   COFFEE,
-  LUMA;
+  AURA;
 
-  public static final PotionMixture[] POTIONS = {LAUDANUM, ANIMUS, VITAE, NECTAR, COFFEE, LUMA};
+  public static final PotionMixture[] POTIONS = {LAUDANUM, RAGE, STAMINA, NECTAR, COFFEE, AURA};
   public static final PotionMixture[] BOOZE = {TEQUILA, LAUDANUM, MOONSHINE, ABSINTHE, STOUT};
 
   public static ItemStack chooseRandomBooze(Random rand) {
@@ -62,18 +62,18 @@ public enum PotionMixture {
       default:
       case VILE:
         return getVile(random);
-      case ANIMUS:
-        return getAnimus();
-      case VITAE:
-        return getVitae();
+      case RAGE:
+        return getRage();
+      case STAMINA:
+        return getStamina();
       case STOUT:
         return getStout();
       case NECTAR:
         return getNectar();
       case COFFEE:
         return getCoffee();
-      case LUMA:
-        return getLuma();
+      case AURA:
+        return getAura();
     }
   }
 
@@ -148,7 +148,7 @@ public enum PotionMixture {
             .withTag("CustomPotionColor", DyeColor.RGBToColor(random.nextInt(256), random.nextInt(256), random.nextInt(256)));
   }
 
-  public static RldItemStack getAnimus() {
+  public static RldItemStack getRage() {
     return
         Potion.newPotion()
             .withEffect(Effect.newEffect(EffectType.STRENGTH, 2, 20))
@@ -161,7 +161,7 @@ public enum PotionMixture {
             .withTag("CustomPotionColor", DyeColor.RGBToColor(0, 0, 255));
   }
 
-  public static RldItemStack getVitae() {
+  public static RldItemStack getStamina() {
     return
         Potion.newPotion()
             .withEffect(Effect.newEffect(EffectType.SATURATION, 9, 1))
@@ -214,7 +214,7 @@ public enum PotionMixture {
             .withTag("CustomPotionColor", DyeColor.RGBToColor(111, 78, 55));
   }
 
-  public static RldItemStack getLuma() {
+  public static RldItemStack getAura() {
     return
         Potion.newPotion()
             .withEffect(Effect.newEffect(EffectType.GLOWING, 0, 600))
