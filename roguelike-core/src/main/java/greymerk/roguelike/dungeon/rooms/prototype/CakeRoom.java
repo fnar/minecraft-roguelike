@@ -54,10 +54,10 @@ public class CakeRoom extends DungeonBase {
     RectSolid.newRect(new Coord(x + WIDTH, y, z + LENGTH), new Coord(x + WIDTH, y + HEIGHT, z + LENGTH)).fill(worldEditor, pillar);
 
     BlockBrush lightBLock = levelSettings.getTheme().getPrimary().getLightBlock();
-    lightBLock.stroke(worldEditor, new Coord(x - WIDTH + 1, y - 1, z - LENGTH + 1));
-    lightBLock.stroke(worldEditor, new Coord(x - WIDTH + 1, y - 1, z + LENGTH - 1));
-    lightBLock.stroke(worldEditor, new Coord(x + WIDTH - 1, y - 1, z - LENGTH + 1));
-    lightBLock.stroke(worldEditor, new Coord(x + WIDTH - 1, y - 1, z + LENGTH - 1));
+    lightBLock.stroke(worldEditor, new Coord(x - WIDTH + 1, y + HEIGHT + 1, z - LENGTH + 1));
+    lightBLock.stroke(worldEditor, new Coord(x - WIDTH + 1, y + HEIGHT + 1, z + LENGTH - 1));
+    lightBLock.stroke(worldEditor, new Coord(x + WIDTH - 1, y + HEIGHT + 1, z - LENGTH + 1));
+    lightBLock.stroke(worldEditor, new Coord(x + WIDTH - 1, y + HEIGHT + 1, z + LENGTH - 1));
 
     placeCake(origin, pillar);
 
