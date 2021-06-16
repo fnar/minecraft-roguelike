@@ -106,35 +106,35 @@ public enum Loot {
   public static IWeighted<ItemStack> getProvider(Loot type, int level) {
     switch (type) {
       case WEAPON:
-        return new ItemWeapon(0, level);
+        return new ItemWeapon(1, level);
       case ARMOUR:
-        return new ItemArmour(0, level);
+        return new ItemArmour(1, level);
       case BLOCK:
-        return new ItemBlock(0, level);
+        return new ItemBlock(1, level);
       case JUNK:
-        return new ItemJunk(0, level);
+        return new ItemJunk(1, level);
       case ORE:
-        return new ItemOre(0, level);
+        return new ItemOre(1, level);
       case TOOL:
-        return new ItemTool(0, level);
+        return new ItemTool(1, level);
       case POTION:
-        return new ItemPotion(0, level);
+        return new ItemPotion(1, level);
       case BREWING:
-        return new ItemBrewing(0, level);
+        return new ItemBrewing(1, level);
       case FOOD:
-        return new ItemFood(0, level);
+        return new ItemFood(1, level);
       case ENCHANTBOOK:
-        return new ItemEnchBook(0, level);
+        return new ItemEnchBook(1, level);
       case ENCHANTBONUS:
-        return new ItemEnchBonus(0, level);
+        return new ItemEnchBonus(1, level);
       case SUPPLY:
-        return new ItemSupply(0, level);
+        return new ItemSupply(1, level);
       case MUSIC:
-        return new ItemRecord(0, level);
+        return new ItemRecord(1, level);
       case SMITHY:
-        return new ItemSmithy(0, level);
+        return new ItemSmithy(1, level);
       case SPECIAL:
-        return new ItemSpecialty(0, level);
+        return new ItemSpecialty(1, level);
       case REWARD:
     }
 

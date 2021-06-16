@@ -59,8 +59,8 @@ public class SettingsRandom extends DungeonSettings {
       getLootRules().add(new TypedForEachLootRule(ChestType.MUSIC, loot.get(Loot.MUSIC, i), i, 1));
       getLootRules().add(new TypedForEachLootRule(ChestType.REWARD, loot.get(Loot.REWARD, i), i, 1));
       getLootRules().add(new ForEachLootRule(loot.get(Loot.JUNK, i), i, 6));
-      getLootRules().add(new SingleUseLootRule(new ItemSpecialty(0, i, Quality.get(i)), i, 3));
-      getLootRules().add(new SingleUseLootRule(new ItemEnchBook(0, i), i, i * 2 + 5));
+      getLootRules().add(new SingleUseLootRule(new ItemSpecialty(1, i, Quality.get(i)), i, 3));
+      getLootRules().add(new SingleUseLootRule(new ItemEnchBook(1, i), i, i * 2 + 5));
     }
   }
 
