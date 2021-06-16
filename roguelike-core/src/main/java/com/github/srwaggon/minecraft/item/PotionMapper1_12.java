@@ -46,7 +46,7 @@ public class PotionMapper1_12 {
     toAdd.setByte("Id", (byte) type.getEffectID());
     toAdd.setByte("Amplifier", (byte) (amplifier));
     toAdd.setInteger("Duration", duration * ticksPerSecond);
-    toAdd.setBoolean("Ambient", true);
+    toAdd.setBoolean("Ambient", false);
 
     NBTTagList effects = tag.getTagList(CUSTOM, 10);
     effects.appendTag(toAdd);

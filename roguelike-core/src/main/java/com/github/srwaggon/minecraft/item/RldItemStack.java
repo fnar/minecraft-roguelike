@@ -3,6 +3,7 @@ package com.github.srwaggon.minecraft.item;
 
 import com.github.srwaggon.minecraft.block.BlockType;
 import com.github.srwaggon.minecraft.tag.CompoundTag;
+import com.github.srwaggon.minecraft.tag.ListTag;
 
 import greymerk.roguelike.treasure.loot.ItemHideFlags;
 
@@ -89,8 +90,8 @@ public class RldItemStack {
   }
 
   public RldItemStack withDisplayLore(String lore) {
-    return withTag("display", new CompoundTag()
-        .withTag("Lore", lore));
+    ensureCompoundTag("display").withTag("Lore", new ListTag().withTag(lore));
+    return this;
   }
 
   public RldItemStack withHideFlag(ItemHideFlags... hideFlags) {
