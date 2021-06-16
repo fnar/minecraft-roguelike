@@ -58,7 +58,7 @@ public class DungeonsNetherBrick extends DungeonBase {
     RectSolid.newRect(new Coord(x - length, y + height, z - width), new Coord(x + length, y + height, z + width)).fill(worldEditor, ceiling);
 
     List<Coord> chestLocations = chooseRandomLocations(1, new RectSolid(new Coord(x - length, y, z - width), new Coord(x + length, y, z + width)).get());
-    worldEditor.getTreasureChestEditor().createChests(chestLocations, false, Dungeon.getLevel(y), getRoomSetting().getChestType().orElse(ChestType.chooseRandomAmong(random, ChestType.COMMON_TREASURES)));
+    worldEditor.getTreasureChestEditor().createChests(chestLocations, false, Dungeon.getLevel(y), entrances.get(0), getRoomSetting().getChestType().orElse(ChestType.chooseRandomAmong(random, ChestType.COMMON_TREASURES)));
 
     final Coord cursor = new Coord(x - length - 1, y + random.nextInt(2), z - width - 1);
     generateSpawner(cursor, MobType.COMMON_MOBS);

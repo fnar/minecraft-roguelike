@@ -117,4 +117,8 @@ public class LevelLayout {
     boxes.addAll(tunnels);
     return boxes;
   }
+
+  public boolean isStartOrEnd(DungeonNode node) {
+    return getStart() == node || node == getEnd();
+  }
 }

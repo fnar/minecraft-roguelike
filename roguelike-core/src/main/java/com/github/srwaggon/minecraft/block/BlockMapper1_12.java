@@ -27,6 +27,7 @@ import com.github.srwaggon.minecraft.block.redstone.TrapdoorBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAnvil;
 import net.minecraft.block.BlockBed;
+import net.minecraft.block.BlockChest;
 import net.minecraft.block.BlockCocoa;
 import net.minecraft.block.BlockColored;
 import net.minecraft.block.BlockDirt;
@@ -242,6 +243,12 @@ public class BlockMapper1_12 {
             .withProperty(BlockPistonBase.FACING, enumFacing);
       case INFESTED_BLOCK:
         return getInfestedBlock((InfestedBlock) block);
+      case CHEST:
+        return new MetaBlock1_2(Blocks.CHEST)
+            .withProperty(BlockChest.FACING, facing.getFacing());
+      case TRAPPED_CHEST:
+        return new MetaBlock1_2(Blocks.TRAPPED_CHEST)
+            .withProperty(BlockChest.FACING, facing.getFacing());
       default:
         return map(block.getBlockType());
     }

@@ -15,9 +15,9 @@ import greymerk.roguelike.worldgen.shapes.Shape;
 
 public class DungeonNode implements IBounded {
 
-  private Coord pos;
+  private final Coord pos;
   private DungeonBase toGenerate;
-  private List<Direction> entrances;
+  private final List<Direction> entrances;
 
   public DungeonNode(List<Direction> entrances, Coord origin) {
     this.entrances = entrances;
@@ -114,5 +114,9 @@ public class DungeonNode implements IBounded {
 
   boolean isNotYetGenerated() {
     return getRoom() == null;
+  }
+
+  public DungeonBase generate() {
+    return getRoom().generate(getPosition(), getEntrances());
   }
 }

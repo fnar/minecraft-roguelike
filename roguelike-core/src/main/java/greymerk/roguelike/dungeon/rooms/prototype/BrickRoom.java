@@ -131,12 +131,12 @@ public class BrickRoom extends DungeonBase {
         .translate(randomDirection.clockwise(), worldEditor.getRandom().nextInt(getSize()));
     generateSpawner(spawnerLocation);
 
-    generateChest(origin, spawnerLocation);
+    generateChest(origin, spawnerLocation, entrances.get(0));
 
     return this;
   }
 
-  public void generateChest(Coord origin, Coord spawnerLocation) {
+  public void generateChest(Coord origin, Coord spawnerLocation, Direction facing) {
     int difficulty = levelSettings.getDifficulty(origin);
     ChestType[] chestTypes = getRoomSetting().getChestType()
         .map(chestType -> new ChestType[]{chestType})
@@ -147,7 +147,7 @@ public class BrickRoom extends DungeonBase {
         ? Lists.newArrayList(spawnerLocation.copy().down())
         : chooseRandomLocations(1, getPotentialSpawnLocations(origin));
 
-    worldEditor.getTreasureChestEditor().createChests(chestLocations, false, difficulty, chestTypes);
+    worldEditor.getTreasureChestEditor().createChests(chestLocations, false, difficulty, facing, chestTypes);
   }
 
   public List<Coord> getPotentialSpawnLocations(Coord origin) {

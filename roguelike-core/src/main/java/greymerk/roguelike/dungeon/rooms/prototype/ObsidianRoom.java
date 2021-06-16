@@ -311,7 +311,7 @@ public class ObsidianRoom extends DungeonBase {
         chestPos.down(3);
 
         ChestType chestType = getRoomSetting().getChestType().orElse(ChestType.chooseRandomAmong(worldEditor.getRandom(chestPos), ChestType.RARE_TREASURES));
-        worldEditor.getTreasureChestEditor().createChest(chestPos, false, Dungeon.getLevel(chestPos.getY()), chestType);
+        worldEditor.getTreasureChestEditor().createChest(chestPos, false, Dungeon.getLevel(chestPos.getY()), orthogonal.reverse(), chestType);
       }
     }
 

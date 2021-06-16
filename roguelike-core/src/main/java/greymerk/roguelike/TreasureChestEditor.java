@@ -31,26 +31,26 @@ public class TreasureChestEditor {
     return treasureManager;
   }
 
-  public List<TreasureChest> createChests(List<Coord> chestLocations, boolean isTrapped, int level, ChestType... chestTypes) {
+  public List<TreasureChest> createChests(List<Coord> chestLocations, boolean isTrapped, int level, Direction facing, ChestType... chestTypes) {
     return chestLocations.stream()
-        .map(chestLocation -> createChest(chestLocation, isTrapped, level, chestTypes))
+        .map(chestLocation -> createChest(chestLocation, isTrapped, level, facing, chestTypes))
         .collect(Collectors.toList());
   }
 
-  public TreasureChest createChest(Coord chestLocation, boolean isTrapped, int level, ChestType... chestTypes) {
+  public TreasureChest createChest(Coord chestLocation, boolean isTrapped, int level, Direction facing, ChestType... chestTypes) {
 //    if (!isValidChestSpace(chestLocation, worldEditor)) {
 //      return null;
 //    }
     try {
-      return generateTreasureChest(chestLocation, isTrapped, ChestType.chooseRandomAmong(this.random, chestTypes));
+      return generateTreasureChest(chestLocation, isTrapped, ChestType.chooseRandomAmong(this.random, chestTypes), facing);
     } catch (ChestPlacementException chestPlacementException ) {
       chestPlacementException.printStackTrace();
     }
     return null;
   }
 
-  private TreasureChest generateTreasureChest(Coord pos, boolean isTrapped, ChestType chestType) throws ChestPlacementException {
-    BlockBrush chestBlock = (isTrapped ? BlockType.TRAPPED_CHEST : BlockType.CHEST).getBrush();
+  private TreasureChest generateTreasureChest(Coord pos, boolean isTrapped, ChestType chestType, Direction facing) throws ChestPlacementException {
+    BlockBrush chestBlock = (isTrapped ? BlockType.TRAPPED_CHEST : BlockType.CHEST).getBrush().setFacing(facing);
 
     boolean success = chestBlock.stroke(worldEditor, pos);
 

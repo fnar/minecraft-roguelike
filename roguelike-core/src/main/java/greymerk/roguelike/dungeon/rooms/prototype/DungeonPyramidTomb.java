@@ -209,7 +209,7 @@ public class DungeonPyramidTomb extends DungeonBase {
 
     blocks.stroke(editor, cursor);
     cursor.up();
-    editor.getTreasureChestEditor().createChest(cursor, false, Dungeon.getLevel(cursor.getY()), ChestType.ORE);
+    editor.getTreasureChestEditor().createChest(cursor, false, Dungeon.getLevel(cursor.getY()), dir, ChestType.ORE);
     cursor.up();
     blocks.stroke(editor, cursor);
 

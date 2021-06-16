@@ -81,7 +81,7 @@ public class DungeonMess extends DungeonBase {
 
       Direction[] corner = new Direction[]{dir, dir.antiClockwise()};
       if (entrances.size() == 4 && dir == entrances.get(0)) {
-        supplyCorner(worldEditor, levelSettings, corner, origin);
+        supplyCorner(worldEditor, levelSettings, corner, origin, dir);
       } else {
         corner(worldEditor, levelSettings, corner, origin);
       }
@@ -119,7 +119,7 @@ public class DungeonMess extends DungeonBase {
     return this;
   }
 
-  private void supplyCorner(WorldEditor editor, LevelSettings settings, Direction[] entrances, Coord origin) {
+  private void supplyCorner(WorldEditor editor, LevelSettings settings, Direction[] entrances, Coord origin, Direction entranceDir) {
     ThemeBase theme = settings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();
     BlockBrush pillar = theme.getPrimary().getPillar();
@@ -148,7 +148,7 @@ public class DungeonMess extends DungeonBase {
     cursor.translate(entrances[0], 2);
     cursor.up();
 
-    editor.getTreasureChestEditor().createChest(cursor, false, settings.getDifficulty(cursor), ChestType.FOOD);
+    editor.getTreasureChestEditor().createChest(cursor, false, settings.getDifficulty(cursor), entranceDir.reverse(), ChestType.FOOD);
 
     cursor = origin.copy();
     cursor.translate(entrances[0], 5);
@@ -423,7 +423,7 @@ public class DungeonMess extends DungeonBase {
     cursor.translate(dir, 7);
     stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
     cursor.up();
-    editor.getTreasureChestEditor().createChest(cursor, false, settings.getDifficulty(origin), getRoomSetting().getChestType().orElse(ChestType.FOOD));
+    editor.getTreasureChestEditor().createChest(cursor, false, settings.getDifficulty(origin), dir, getRoomSetting().getChestType().orElse(ChestType.FOOD));
     cursor.translate(dir.antiClockwise());
     BlockType.FURNACE.getBrush().setFacing(dir).stroke(editor, cursor);
     cursor.translate(dir.clockwise(), 2);
