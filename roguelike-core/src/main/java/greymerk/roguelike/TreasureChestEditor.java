@@ -38,9 +38,9 @@ public class TreasureChestEditor {
   }
 
   public TreasureChest createChest(Coord chestLocation, boolean isTrapped, int level, ChestType... chestTypes) {
-    if (!isValidChestSpace(chestLocation, worldEditor)) {
-      return null;
-    }
+//    if (!isValidChestSpace(chestLocation, worldEditor)) {
+//      return null;
+//    }
     try {
       return generateTreasureChest(chestLocation, isTrapped, ChestType.chooseRandomAmong(this.random, chestTypes));
     } catch (ChestPlacementException ignored) {
