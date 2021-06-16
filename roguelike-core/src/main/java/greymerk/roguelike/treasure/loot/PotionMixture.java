@@ -19,14 +19,14 @@ public enum PotionMixture {
   ABSINTHE,
   VILE,
   LAUDANUM,
-  RAGE,
+  ANIMUS,
   STOUT,
-  STAMINA,
+  VITAE,
   NECTAR,
   COFFEE,
-  AURA;
+  LUMA;
 
-  public static final PotionMixture[] POTIONS = {LAUDANUM, RAGE, STAMINA, NECTAR, COFFEE, AURA};
+  public static final PotionMixture[] POTIONS = {LAUDANUM, ANIMUS, VITAE, NECTAR, COFFEE, LUMA};
   public static final PotionMixture[] BOOZE = {TEQUILA, LAUDANUM, MOONSHINE, ABSINTHE, STOUT};
 
   public static ItemStack chooseRandomBooze(Random rand) {
@@ -62,18 +62,18 @@ public enum PotionMixture {
       default:
       case VILE:
         return getVile(random);
-      case RAGE:
-        return getRage();
-      case STAMINA:
-        return getStamina();
+      case ANIMUS:
+        return getAnimus();
+      case VITAE:
+        return getVitae();
       case STOUT:
         return getStout();
       case NECTAR:
         return getNectar();
       case COFFEE:
         return getCoffee();
-      case AURA:
-        return getAura();
+      case LUMA:
+        return getLuma();
     }
   }
 
@@ -84,7 +84,7 @@ public enum PotionMixture {
         .asItemStack()
         .withDisplayName("Tequila")
         .withHideFlag(ItemHideFlags.EFFECTS)
-        .withTag("CustomPotionColor", DyeColor.RGBToColor(255, 232, 196));
+        .withTag("CustomPotionColor", DyeColor.RGBToColor(250, 220, 140));
   }
 
   public static RldItemStack getLaudanum() {
@@ -98,7 +98,7 @@ public enum PotionMixture {
         .withDisplayName("Laudanum")
         .withDisplayLore("A medicinal tincture.")
         .withHideFlag(ItemHideFlags.EFFECTS)
-        .withTag("CustomPotionColor", DyeColor.RGBToColor(150, 50, 0));
+        .withTag("CustomPotionColor", DyeColor.RGBToColor(200, 180, 100));
   }
 
   public static RldItemStack getMoonshine(Random random) {
@@ -110,7 +110,7 @@ public enum PotionMixture {
             .asItemStack()
             .withDisplayName("Moonshine")
             .withHideFlag(ItemHideFlags.EFFECTS)
-            .withTag("CustomPotionColor", DyeColor.RGBToColor(250, 240, 230));
+            .withTag("CustomPotionColor", DyeColor.RGBToColor(222, 238, 244));
   }
 
   public static RldItemStack getAbsinthe() {
@@ -122,7 +122,7 @@ public enum PotionMixture {
             .asItemStack()
             .withDisplayName("Absinthe")
             .withHideFlag(ItemHideFlags.EFFECTS)
-            .withTag("CustomPotionColor", DyeColor.RGBToColor(200, 250, 150));
+            .withTag("CustomPotionColor", DyeColor.RGBToColor(85, 165, 120));
   }
 
   public static RldItemStack getVile(Random random) {
@@ -144,10 +144,11 @@ public enum PotionMixture {
                 .withDuration(getSuggestedDuration(random, randomEffect1)))
             .asItemStack()
             .withDisplayName("Vile Mixture")
-            .withHideFlag(ItemHideFlags.EFFECTS);
+            .withHideFlag(ItemHideFlags.EFFECTS)
+            .withTag("CustomPotionColor", DyeColor.RGBToColor(random.nextInt(256), random.nextInt(256), random.nextInt(256)));
   }
 
-  public static RldItemStack getRage() {
+  public static RldItemStack getAnimus() {
     return
         Potion.newPotion()
             .withEffect(Effect.newEffect(EffectType.STRENGTH, 2, 20))
@@ -157,10 +158,10 @@ public enum PotionMixture {
             .withDisplayName("Animus")
             .withDisplayLore("An unstable mixture.")
             .withHideFlag(ItemHideFlags.EFFECTS)
-            .withTag("CustomPotionColor", DyeColor.RGBToColor(255, 0, 0));
+            .withTag("CustomPotionColor", DyeColor.RGBToColor(0, 0, 255));
   }
 
-  public static RldItemStack getStamina() {
+  public static RldItemStack getVitae() {
     return
         Potion.newPotion()
             .withEffect(Effect.newEffect(EffectType.SATURATION, 9, 1))
@@ -171,7 +172,7 @@ public enum PotionMixture {
             .withDisplayName("Vitae")
             .withDisplayLore("Essence of life.")
             .withHideFlag(ItemHideFlags.EFFECTS)
-            .withTag("CustomPotionColor", DyeColor.RGBToColor(230, 50, 20));
+            .withTag("CustomPotionColor", DyeColor.RGBToColor(255, 255, 255));
   }
 
   public static RldItemStack getStout() {
@@ -185,7 +186,7 @@ public enum PotionMixture {
             .withDisplayName("Stout")
             .withDisplayLore("\"It's Good for You\"")
             .withHideFlag(ItemHideFlags.EFFECTS)
-            .withTag("CustomPotionColor", DyeColor.RGBToColor(50, 40, 20));
+            .withTag("CustomPotionColor", DyeColor.RGBToColor(62, 14, 16));
   }
 
   public static RldItemStack getNectar() {
@@ -198,7 +199,7 @@ public enum PotionMixture {
             .withDisplayName("Nectar")
             .withDisplayLore("A Floral extract.")
             .withHideFlag(ItemHideFlags.EFFECTS)
-            .withTag("CustomPotionColor", DyeColor.RGBToColor(250, 150, 250));
+            .withTag("CustomPotionColor", DyeColor.RGBToColor(245, 200, 71));
   }
 
   public static RldItemStack getCoffee() {
@@ -210,10 +211,10 @@ public enum PotionMixture {
             .withDisplayName("Coffee")
             .withDisplayLore("A darkroast bean brew.")
             .withHideFlag(ItemHideFlags.EFFECTS)
-            .withTag("CustomPotionColor", DyeColor.RGBToColor(20, 20, 10));
+            .withTag("CustomPotionColor", DyeColor.RGBToColor(111, 78, 55));
   }
 
-  public static RldItemStack getAura() {
+  public static RldItemStack getLuma() {
     return
         Potion.newPotion()
             .withEffect(Effect.newEffect(EffectType.GLOWING, 0, 600))
