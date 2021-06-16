@@ -7,25 +7,24 @@ import java.util.Random;
 
 public class WeightedRandomizer<T> implements IWeighted<T> {
 
-  private final int weight;
-  private int weightSum;
-  private final List<IWeighted<T>> items;
+  private int weight;
+  private int weightSum = 0;
+  private final List<IWeighted<T>> items = new ArrayList<>();
+
+  public WeightedRandomizer() {
+  }
 
   public WeightedRandomizer(int weight) {
     this.weight = weight;
-    weightSum = 0;
-    items = new ArrayList<>();
   }
 
   public WeightedRandomizer(WeightedRandomizer<T> toCopy) {
     weight = toCopy.weight;
     weightSum = toCopy.weightSum;
-    items = new ArrayList<>();
     items.addAll(toCopy.items);
   }
 
   public WeightedRandomizer(WeightedRandomizer<T> base, WeightedRandomizer<T> other) {
-    this();
     for (IWeighted<T> item : base.items) {
       add(item);
     }
@@ -33,10 +32,6 @@ public class WeightedRandomizer<T> implements IWeighted<T> {
     for (IWeighted<T> item : other.items) {
       add(item);
     }
-  }
-
-  public WeightedRandomizer() {
-    this(0);
   }
 
   @Override
@@ -51,6 +46,16 @@ public class WeightedRandomizer<T> implements IWeighted<T> {
   public void add(IWeighted<T> toAdd) {
     weightSum += toAdd.getWeight();
     items.add(toAdd);
+  }
+
+  public WeightedRandomizer<T> with(IWeighted<T> toAdd) {
+    add(toAdd);
+    return this;
+  }
+
+  public WeightedRandomizer<T> with(WeightedChoice<T> toAdd) {
+    add(toAdd);
+    return this;
   }
 
   public T get(Random rand) {

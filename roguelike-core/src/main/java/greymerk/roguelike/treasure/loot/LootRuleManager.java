@@ -2,6 +2,8 @@ package greymerk.roguelike.treasure.loot;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import greymerk.roguelike.treasure.TreasureManager;
 import greymerk.roguelike.treasure.loot.rule.LootRule;
@@ -14,7 +16,7 @@ public class LootRuleManager {
     if (other == null) {
       return;
     }
-    addAll(other.rules);
+    addAll(filterNonEmptyLootRules(other.rules));
   }
 
   public void add(LootRule toAdd) {
@@ -22,7 +24,13 @@ public class LootRuleManager {
   }
 
   public void addAll(List<LootRule> rules) {
-    this.rules.addAll(rules);
+    this.rules.addAll(filterNonEmptyLootRules(rules));
+  }
+
+  private List<LootRule> filterNonEmptyLootRules(List<LootRule> rules) {
+    Predicate<LootRule> isEmpty = LootRule::isEmpty;
+    Predicate<LootRule> isNotEmpty = isEmpty.negate();
+    return rules.stream().filter(isNotEmpty).collect(Collectors.toList());
   }
 
   public void process(TreasureManager treasure) {
