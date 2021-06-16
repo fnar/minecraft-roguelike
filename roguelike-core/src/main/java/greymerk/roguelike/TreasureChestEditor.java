@@ -43,8 +43,8 @@ public class TreasureChestEditor {
 //    }
     try {
       return generateTreasureChest(chestLocation, isTrapped, ChestType.chooseRandomAmong(this.random, chestTypes));
-    } catch (ChestPlacementException ignored) {
-      // todo: how to print exceptions in this codebase gracefully?
+    } catch (ChestPlacementException chestPlacementException ) {
+      chestPlacementException.printStackTrace();
     }
     return null;
   }
