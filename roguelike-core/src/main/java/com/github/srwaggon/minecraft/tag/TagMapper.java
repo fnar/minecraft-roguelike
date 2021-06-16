@@ -3,12 +3,13 @@ package com.github.srwaggon.minecraft.tag;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagInt;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 
 public class TagMapper {
 
   public static NBTBase map(Tag tag) {
-    switch(tag.getType()) {
+    switch (tag.getType()) {
       default: // this is a dumb default.
       case INT:
         return map((IntTag) tag);
@@ -16,6 +17,8 @@ public class TagMapper {
         return map((StringTag) tag);
       case COMPOUND:
         return map((CompoundTag) tag);
+      case LIST:
+        return map((ListTag) tag);
     }
   }
 
@@ -36,4 +39,14 @@ public class TagMapper {
 
     return nbtTagCompound;
   }
+
+  public static NBTTagList map(ListTag tagList) {
+    NBTTagList nbtTagList = new NBTTagList();
+
+    tagList.getTags()
+        .forEach(tag -> nbtTagList.appendTag(map(tag)));
+
+    return nbtTagList;
+  }
+
 }
