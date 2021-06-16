@@ -19,10 +19,9 @@ public class DungeonTaskRooms implements IDungeonTask {
 
   private void generateLevel(DungeonLevel level) {
     LevelLayout layout = level.getLayout();
-    DungeonNode startRoom = layout.getStart();
-    DungeonNode endRoom = layout.getEnd();
     layout.getNodes().stream()
-        .filter(node -> startRoom != node && node != endRoom)
-        .forEach(node -> node.getRoom().generate(node.getPosition(), node.getEntrances()));
+        .filter(node -> !layout.isStartOrEnd(node))
+        .forEach(DungeonNode::generate);
   }
+
 }

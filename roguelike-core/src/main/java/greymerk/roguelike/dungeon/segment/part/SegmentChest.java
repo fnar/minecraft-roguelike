@@ -74,7 +74,7 @@ public class SegmentChest extends SegmentBase {
 
     int difficulty = level.getSettings().getDifficulty(shelf);
     boolean isTrapped = rand.nextInt(30 / (Math.max(1, difficulty))) == 0;
-    editor.getTreasureChestEditor().createChest(shelf, isTrapped, Dungeon.getLevel(origin.getY()), ChestType.COMMON_TREASURES);
+    editor.getTreasureChestEditor().createChest(shelf, isTrapped, Dungeon.getLevel(origin.getY()), dir, ChestType.COMMON_TREASURES);
     if (isTrapped) {
       Coord tntCoord = shelf.copy().down(2);
       BlockType.TNT.getBrush().stroke(editor, tntCoord);

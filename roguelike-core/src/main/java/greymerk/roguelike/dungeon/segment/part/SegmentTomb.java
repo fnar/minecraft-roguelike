@@ -57,7 +57,7 @@ public class SegmentTomb extends SegmentBase {
         : level.getSpawners();
     spawners.generateSpawner(editor, cursor, level.getDifficulty(cursor));
     cursor.translate(dir);
-    editor.getTreasureChestEditor().createChest(cursor, false, Dungeon.getLevel(cursor.getY()), ChestType.chooseRandomAmong(rand, ChestType.COMMON_TREASURES));
+    editor.getTreasureChestEditor().createChest(cursor, false, Dungeon.getLevel(cursor.getY()), dir, ChestType.chooseRandomAmong(rand, ChestType.COMMON_TREASURES));
   }
 
   @Override

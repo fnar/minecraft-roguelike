@@ -185,13 +185,13 @@ public class DungeonBTeam extends DungeonBase {
     cursor.translate(dir.antiClockwise());
     int level = levelSettings.getDifficulty(cursor);
     ChestType chestType = ChestType.EMPTY;
-    TreasureChest stal = worldEditor.getTreasureChestEditor().createChest(cursor, false, level, chestType);
+    TreasureChest stal = worldEditor.getTreasureChestEditor().createChest(cursor, false, level, dir, chestType);
     stal.setSlot(worldEditor.getCapacity(stal) / 2, Record.newRecord().withSong(Record.Song.STAL).asItemStack());
 
     cursor = origin.copy();
     cursor.translate(dir.reverse(), 3);
     cursor.translate(dir.antiClockwise(), 4);
-    TreasureChest bdub = worldEditor.getTreasureChestEditor().createChest(cursor, false, level, chestType);
+    TreasureChest bdub = worldEditor.getTreasureChestEditor().createChest(cursor, false, level, dir, chestType);
     bdub.setSlot((worldEditor.getCapacity(bdub) / 2) - 2, ItemNovelty.getItem(ItemNovelty.BDOUBLEO));
     ItemStack shirt = new ItemStack(Items.LEATHER_CHESTPLATE);
     shirt.setStackDisplayName("Pink Sweater");
@@ -202,7 +202,7 @@ public class DungeonBTeam extends DungeonBase {
     cursor = origin.copy();
     cursor.translate(dir.reverse(), 3);
     cursor.translate(dir.clockwise(), 4);
-    TreasureChest genny = worldEditor.getTreasureChestEditor().createChest(cursor, false, level, chestType);
+    TreasureChest genny = worldEditor.getTreasureChestEditor().createChest(cursor, false, level, dir, chestType);
     genny.setSlot(worldEditor.getCapacity(genny) / 2, ItemNovelty.getItem(ItemNovelty.GENERIKB));
 
     return this;

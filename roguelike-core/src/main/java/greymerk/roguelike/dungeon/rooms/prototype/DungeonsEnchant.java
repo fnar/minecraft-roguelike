@@ -300,7 +300,7 @@ public class DungeonsEnchant extends DungeonBase {
 
     List<Coord> chestLocations = chooseRandomLocations(1, chests);
     ChestType chestType = getRoomSetting().getChestType().orElse(ChestType.ENCHANTING);
-    worldEditor.getTreasureChestEditor().createChests(chestLocations, false, levelSettings.getDifficulty(origin), chestType);
+    worldEditor.getTreasureChestEditor().createChests(chestLocations, false, levelSettings.getDifficulty(origin), dir, chestType);
 
     return this;
   }
