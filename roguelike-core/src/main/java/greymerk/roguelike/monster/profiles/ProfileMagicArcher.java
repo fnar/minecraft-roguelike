@@ -1,8 +1,8 @@
 package greymerk.roguelike.monster.profiles;
 
+import com.github.fnar.util.Colors;
 import com.github.srwaggon.minecraft.item.Arrow;
 import com.github.srwaggon.minecraft.item.ItemMapper1_12;
-import com.github.srwaggon.util.Color;
 
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -31,9 +31,8 @@ public class ProfileMagicArcher implements IMonsterProfile {
 
     Slot[] slotsToBeArmored = {Slot.HEAD, Slot.CHEST, Slot.LEGS, Slot.FEET};
     for (Slot slot : slotsToBeArmored) {
-      ItemStack item = ItemArmour.get(slot, Quality.WOOD);
+      ItemStack item = ItemArmour.get(slot, Quality.WOOD, Colors.DEEP_VIOLET);
       Enchant.enchantItem(random, item, 20);
-      ItemArmour.dyeArmor(item, new Color(51, 0, 102));
       mob.setSlot(Slot.getSlot(slot), item);
     }
   }

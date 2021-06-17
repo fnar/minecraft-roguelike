@@ -69,7 +69,7 @@ public class ItemArmour extends ItemBase {
   }
 
   @SuppressWarnings("incomplete-switch")
-  public static ItemStack getRandom(Random rand, int level, Slot slot, int enchantLevel) {
+  private static ItemStack getRandom(Random rand, int level, Slot slot, int enchantLevel) {
 
     if (enchantLevel > 0 && rand.nextInt(20 + (level * 10)) == 0) {
       switch (slot) {
@@ -84,8 +84,11 @@ public class ItemArmour extends ItemBase {
       }
     }
 
-    ItemStack item = get(slot, Quality.getArmourQuality(rand, level));
-    dyeArmor(item, Color.random(rand));
+    Quality armourQuality = Quality.getArmourQuality(rand, level);
+    ItemStack item = get(slot, armourQuality);
+    if (armourQuality == Quality.WOOD) {
+      dyeArmor(item, Color.random(rand));
+    }
 
     if (enchantLevel > 0) {
       Enchant.enchantItem(rand, item, enchantLevel);
@@ -93,6 +96,14 @@ public class ItemArmour extends ItemBase {
 
     return item;
 
+  }
+
+  public static ItemStack get(Slot slot, Quality quality, Color color) {
+    ItemStack itemStack = get(slot, quality);
+    if (quality == Quality.WOOD) {
+      dyeArmor(itemStack, color);
+    }
+    return itemStack;
   }
 
   public static ItemStack get(Slot slot, Quality quality) {
