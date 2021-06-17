@@ -328,7 +328,12 @@ public class WorldEditor1_12 implements WorldEditor {
 
   @Override
   public void setBedColorAt(Coord cursor, DyeColor color) {
-    ((TileEntityBed) getTileEntity(cursor)).setColor(DyeColor.get(color));
+    TileEntity tileEntity = getTileEntity(cursor);
+    if (tileEntity instanceof TileEntityBed) {
+      ((TileEntityBed) tileEntity).setColor(DyeColor.get(color));
+    } else {
+      System.out.printf("Failed to paint bed at position %s to become color %s. Current block at position is %s%n", cursor, color, getBlockStateAt(cursor));
+    }
   }
 
   @Override
