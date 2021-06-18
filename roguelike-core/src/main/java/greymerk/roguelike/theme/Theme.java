@@ -1,5 +1,7 @@
 package greymerk.roguelike.theme;
 
+import com.github.fnar.roguelike.theme.NetherFortressTheme;
+
 import java.util.Random;
 
 public enum Theme {
@@ -28,6 +30,7 @@ public enum Theme {
   MOSSY(new ThemeMossy()),
   MUDDY(new ThemeMuddy()),
   NETHER(new ThemeNether()),
+  NETHER_FORTRESS(new NetherFortressTheme()),
   OAK(new ThemeOak()),
   PURPUR(new ThemePurpur()),
   PYRAMID(new ThemePyramid()),
