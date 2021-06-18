@@ -34,7 +34,7 @@ public class BlockWeightedRandom implements BlockBrush {
 
   @Override
   public boolean stroke(WorldEditor editor, Coord origin, boolean fillAir, boolean replaceSolid) {
-    BlockBrush block = blocks.get(editor.getRandom(origin));
+    BlockBrush block = blocks.get(editor.getRandom());
     return block.stroke(editor, origin, fillAir, replaceSolid);
   }
 }
