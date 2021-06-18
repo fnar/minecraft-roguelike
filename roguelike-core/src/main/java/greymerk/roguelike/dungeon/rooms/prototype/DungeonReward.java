@@ -30,7 +30,10 @@ public class DungeonReward extends DungeonBase {
     int z = origin.getZ();
     ThemeBase theme = levelSettings.getTheme();
 
-    RectSolid.newRect(new Coord(x - 7, y, z - 7), new Coord(x + 7, y + 5, z + 7)).fill(worldEditor, SingleBlockBrush.AIR);
+    RectSolid.newRect(
+        new Coord(x - 7, y, z - 7),
+        new Coord(x + 7, y + 5, z + 7)
+    ).fill(worldEditor, SingleBlockBrush.AIR);
     RectHollow.newRect(new Coord(x - 8, y - 1, z - 8), new Coord(x + 8, y + 6, z + 8)).fill(worldEditor, theme.getPrimary().getWall(), false, true);
     RectSolid.newRect(new Coord(x - 1, y + 4, z - 1), new Coord(x + 1, y + 5, z + 1)).fill(worldEditor, theme.getPrimary().getWall());
 

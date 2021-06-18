@@ -1,5 +1,7 @@
 package greymerk.roguelike.dungeon.rooms;
 
+import com.github.fnar.roguelike.dungeon.rooms.NetherPortalRoom;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -142,6 +144,8 @@ public class RoomSetting {
         return new DungeonsMusic(this, levelSettings, worldEditor);
       case NETHER:
         return new DungeonsNetherBrick(this, levelSettings, worldEditor);
+      case NETHER_PORTAL:
+        return new NetherPortalRoom(this, levelSettings, worldEditor);
       case OBSIDIAN:
         return new ObsidianRoom(this, levelSettings, worldEditor);
       case OSSUARY:

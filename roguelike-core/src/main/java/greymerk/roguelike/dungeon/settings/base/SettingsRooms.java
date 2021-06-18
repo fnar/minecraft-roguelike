@@ -22,6 +22,7 @@ import static greymerk.roguelike.dungeon.base.RoomType.ENDER;
 import static greymerk.roguelike.dungeon.base.RoomType.FIRE;
 import static greymerk.roguelike.dungeon.base.RoomType.NETHER;
 import static greymerk.roguelike.dungeon.base.RoomType.NETHERFORT;
+import static greymerk.roguelike.dungeon.base.RoomType.NETHER_PORTAL;
 import static greymerk.roguelike.dungeon.base.RoomType.OBSIDIAN;
 import static greymerk.roguelike.dungeon.base.RoomType.OSSUARY;
 import static greymerk.roguelike.dungeon.base.RoomType.PIT;
@@ -109,12 +110,13 @@ public class SettingsRooms extends DungeonSettings {
 
   private List<RoomSetting> getLevel4Rooms() {
     return Lists.newArrayList(
+        REWARD.newSingleRoomSetting(),
         OBSIDIAN.newSingleRoomSetting(),
         BLAZE.newSingleRoomSetting(),
         PRISON.newSingleRoomSetting(),
         DARKHALL.newSingleRoomSetting(),
         NETHERFORT.newSingleRoomSetting(),
-        REWARD.newSingleRoomSetting(),
+        NETHER_PORTAL.newSingleRoomSetting(),
 
         SLIME.newRandomRoomSetting(10),
         BLAZE.newRandomRoomSetting(3),

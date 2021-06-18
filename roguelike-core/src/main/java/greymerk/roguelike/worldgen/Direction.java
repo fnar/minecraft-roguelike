@@ -111,6 +111,18 @@ public enum Direction {
     }
   }
 
+  public Direction back() {
+    return reverse();
+  }
+
+  public Direction left() {
+    return antiClockwise();
+  }
+
+  public Direction right() {
+    return clockwise();
+  }
+
   public Direction[] orthogonals() {
     return new Direction[]{antiClockwise(), clockwise()};
   }

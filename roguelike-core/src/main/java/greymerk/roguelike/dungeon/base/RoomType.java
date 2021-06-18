@@ -41,6 +41,7 @@ public enum RoomType {
   MESS(true, false),
   MUSIC(true, false),
   NETHER(true, false),
+  NETHER_PORTAL(false, false),
   OBSIDIAN(true, false),
   OSSUARY(true, false),
   PIT(true, false),
@@ -53,10 +54,11 @@ public enum RoomType {
   SMITH(false, true),
   SPIDER(true, false),
   STORAGE(true, false),
-  TREETHO(false, false);
+  TREETHO(false, false),
+  ;
 
-  private boolean isIntersection;
-  private boolean isSecret;
+  private final boolean isIntersection;
+  private final boolean isSecret;
 
   RoomType(
       boolean isIntersection,
