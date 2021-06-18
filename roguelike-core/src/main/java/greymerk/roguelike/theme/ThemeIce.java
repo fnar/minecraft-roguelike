@@ -2,18 +2,20 @@ package greymerk.roguelike.theme;
 
 import com.github.srwaggon.minecraft.block.BlockType;
 import com.github.srwaggon.minecraft.block.normal.StairsBlock;
-
-import greymerk.roguelike.worldgen.BlockBrush;
+import com.github.srwaggon.minecraft.block.redstone.DoorBlock;
 
 public class ThemeIce extends ThemeBase {
 
   public ThemeIce() {
 
-    BlockBrush walls = BlockType.SNOW.getBrush();
-    StairsBlock stair = StairsBlock.quartz();
-    BlockBrush pillar = BlockType.ICE_PACKED.getBrush();
-
-    this.primary = new BlockSet(walls, stair, pillar);
+    this.primary = new BlockSet(
+        BlockType.SNOW.getBrush(),
+        BlockType.SNOW.getBrush(),
+        StairsBlock.quartz(),
+        BlockType.ICE_PACKED.getBrush(),
+        DoorBlock.iron(),
+        BlockType.SEA_LANTERN.getBrush(),
+        BlockType.WATER_FLOWING.getBrush());
     this.secondary = this.primary;
   }
 }
