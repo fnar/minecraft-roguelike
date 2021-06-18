@@ -17,8 +17,8 @@ public class RectSolid implements IShape {
   private final Coord end;
 
   public RectSolid(Coord start, Coord end) {
-    this.start = start;
-    this.end = end;
+    this.start = start.copy();
+    this.end = end.copy();
   }
 
   public static RectSolid newRect(Coord start, Coord end) {

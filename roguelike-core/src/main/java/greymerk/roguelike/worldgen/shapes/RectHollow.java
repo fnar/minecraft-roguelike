@@ -19,8 +19,8 @@ public class RectHollow implements IShape {
   private Coord end;
 
   public RectHollow(Coord start, Coord end) {
-    this.start = start;
-    this.end = end;
+    this.start = start.copy();
+    this.end = end.copy();
   }
 
   public static RectHollow newRect(Coord start, Coord end) {
@@ -42,7 +42,7 @@ public class RectHollow implements IShape {
 
   @Override
   public List<Coord> get() {
-    List<Coord> coords = new ArrayList<Coord>();
+    List<Coord> coords = new ArrayList<>();
 
     for (Coord c : this) {
       coords.add(c);

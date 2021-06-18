@@ -43,9 +43,9 @@ public class CakeRoom extends DungeonBase {
 
     BlockBrush floor = levelSettings.getTheme().getPrimary().getFloor();
     RectHollow.newRect(
-        new Coord(x - WIDTH - 1, y - 1, z - LENGTH - 1),
-        new Coord(x + WIDTH + 1, y + HEIGHT + 1, z + LENGTH + 1))
-        .fill(worldEditor, floor, false, true);
+        origin.copy().west(WIDTH + 1).north(LENGTH + 1).down(),
+        origin.copy().east(WIDTH + 1).south(LENGTH + 1).up(HEIGHT + 1)
+    ).fill(worldEditor, floor, false, true);
 
     BlockBrush pillar = levelSettings.getTheme().getPrimary().getPillar();
     RectSolid.newRect(new Coord(x - WIDTH, y, z - LENGTH), new Coord(x - WIDTH, y + HEIGHT, z - LENGTH)).fill(worldEditor, pillar);
