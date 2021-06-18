@@ -239,7 +239,7 @@ public class DungeonBlaze extends DungeonBase {
     start.east(3);
     end.south(3);
     end.west(3);
-    RectSolid.newRect(start, end).fill(worldEditor, BlockType.LAVA_FLOWING.getBrush());
+    RectSolid.newRect(start, end).fill(worldEditor, levelSettings.getTheme().getPrimary().getLiquid());
 
     cursor = origin.copy();
     cursor.up(4);
