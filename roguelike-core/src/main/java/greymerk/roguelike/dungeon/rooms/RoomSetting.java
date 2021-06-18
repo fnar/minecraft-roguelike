@@ -8,6 +8,7 @@ import java.util.Optional;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.rooms.prototype.BrickRoom;
+import greymerk.roguelike.dungeon.rooms.prototype.CakeRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.CornerRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonAshlea;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonAvidya;
@@ -42,7 +43,6 @@ import greymerk.roguelike.dungeon.rooms.prototype.DungeonsPrison;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsSlime;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsSmithy;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsSpiderNest;
-import greymerk.roguelike.dungeon.rooms.prototype.CakeRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.NetherFortressRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.ObsidianRoom;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
@@ -128,8 +128,6 @@ public class RoomSetting {
         return new DungeonsFire(this, levelSettings, worldEditor);
       case FIREWORK:
         return new DungeonFirework(this, levelSettings, worldEditor);
-      case NETHERFORT:
-        return new NetherFortressRoom(this, levelSettings, worldEditor);
       case LAB:
         return new DungeonLab(this, levelSettings, worldEditor);
       case LIBRARY:
@@ -144,6 +142,8 @@ public class RoomSetting {
         return new DungeonsMusic(this, levelSettings, worldEditor);
       case NETHER:
         return new DungeonsNetherBrick(this, levelSettings, worldEditor);
+      case NETHERFORT:
+        return new NetherFortressRoom(this, levelSettings, worldEditor);
       case NETHER_PORTAL:
         return new NetherPortalRoom(this, levelSettings, worldEditor);
       case OBSIDIAN:
