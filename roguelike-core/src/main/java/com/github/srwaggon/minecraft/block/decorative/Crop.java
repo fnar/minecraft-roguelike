@@ -2,6 +2,7 @@ package com.github.srwaggon.minecraft.block.decorative;
 
 public enum Crop {
 
+  BEETROOTS,
   CARROTS,
   COCOA,
   MELON_STEM,

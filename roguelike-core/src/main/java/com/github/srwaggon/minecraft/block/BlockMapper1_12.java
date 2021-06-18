@@ -256,21 +256,23 @@ public class BlockMapper1_12 {
 
   private static MetaBlock1_2 getCrop(CropBlock cropBlock) {
     switch (cropBlock.getCrop()) {
-      default:
-      case WHEAT:
-        return new MetaBlock1_2(Blocks.WHEAT);
+      case BEETROOTS:
+        return new MetaBlock1_2(Blocks.BEETROOTS);
       case CARROTS:
         return new MetaBlock1_2(Blocks.CARROTS);
+      case COCOA:
+        return getCocoaBlock(cropBlock.getFacing());
       case MELON_STEM:
         return new MetaBlock1_2(Blocks.MELON_STEM);
-      case PUMPKIN_STEM:
-        return new MetaBlock1_2(Blocks.PUMPKIN_STEM);
       case NETHER_WART:
         return new MetaBlock1_2(Blocks.NETHER_WART);
       case POTATOES:
         return new MetaBlock1_2(Blocks.POTATOES);
-      case COCOA:
-        return getCocoaBlock(cropBlock.getFacing());
+      case PUMPKIN_STEM:
+        return new MetaBlock1_2(Blocks.PUMPKIN_STEM);
+      default:
+      case WHEAT:
+        return new MetaBlock1_2(Blocks.WHEAT);
     }
   }
 
