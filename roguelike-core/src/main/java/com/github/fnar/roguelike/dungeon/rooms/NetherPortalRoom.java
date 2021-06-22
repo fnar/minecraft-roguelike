@@ -1,6 +1,6 @@
 package com.github.fnar.roguelike.dungeon.rooms;
 
-import com.github.srwaggon.minecraft.block.BlockType;
+import com.github.fnar.minecraft.worldgen.NetherPortal;
 import com.github.srwaggon.minecraft.block.SingleBlockBrush;
 import com.github.srwaggon.minecraft.block.normal.StairsBlock;
 
@@ -25,93 +25,135 @@ public class NetherPortalRoom extends DungeonBase {
 
   @Override
   public DungeonBase generate(Coord origin, List<Direction> entrances) {
+    Direction front = entrances.get(0);
 
-    Coord realOrigin = origin.copy().down();
+    generateWalls(origin, front);
+    theFloorsAreFloors(origin, front);
+    generateCatwalks(origin);
+    theFloorIsLava(origin, front);
+    createPathFromEachEntranceToTheCenterOverTheLiquid(origin, entrances);
+    ceilingChan(origin, front);
 
-    generateWalls(realOrigin, entrances);
-
-    generateNetherPortal(realOrigin, entrances);
+    generateDoorways(origin, entrances);
+    generateNetherPortalWithPlatform(origin, entrances);
 
     return null;
   }
 
-  private void generateWalls(Coord origin, List<Direction> entrances) {
-    Direction front = entrances.get(0);
-    Direction left = front.left();
-    Direction right = front.right();
-    Direction back = front.back();
-
-    Coord frontLeftCorner = origin.copy().translate(left, getSize()).translate(front, getSize());
-    Coord backRightCorner = origin.copy().translate(right, getSize()).translate(back, getSize());
-    Coord upperFrontLeftCorner = frontLeftCorner.copy().up(getHeight());
-    Coord upperBackRightCorner = backRightCorner.copy().up(getHeight());
-
+  private void generateWalls(Coord origin, Direction front) {
     BlockBrush walls = levelSettings.getTheme().getPrimary().getWall();
     RectHollow.newRect(
-        frontLeftCorner.copy().down(2),
-        upperBackRightCorner
-    ).fill(worldEditor, walls, false, true);
+        origin.copy().translate(front.left(), getSize()).translate(front, getSize()).copy().down(3),
+        origin.copy().translate(front.right(), getSize()).translate(front.back(), getSize()).copy().up(getHeight())
+    ).fill(worldEditor, walls);
+  }
 
-    // the floor is lava
-    BlockBrush liquid = levelSettings.getTheme().getPrimary().getLiquid();
-    RectSolid.newRect(
-        frontLeftCorner.copy().translate(back).translate(right).down(),
-        backRightCorner.copy().translate(front).translate(left)
-    ).fill(worldEditor, liquid, true, true);
-
-    BlockBrush floors = levelSettings.getTheme().getPrimary().getFloor();
-
-    RectSolid.newRect(
-        origin.copy().translate(left, 3).translate(front, 3),
-        origin.copy().translate(right, 3).translate(front.reverse(), 3)
-    ).fill(worldEditor, floors);
-
-    // create a path to each entrance over the liquid
+  private void generateDoorways(Coord origin, List<Direction> entrances) {
     for (Direction entrance : entrances) {
-      RectSolid.newRect(
-          origin.copy().translate(entrance.left()),
-          origin.copy().translate(entrance.right()).translate(entrance, getSize())
-      ).fill(worldEditor, floors);
+      Coord doorwayOrigin = origin.copy().translate(entrance, getSize());
+      generateDoorway(doorwayOrigin, entrance);
     }
+  }
 
-    // ceiling-chan >///<
+  private void generateDoorway(Coord origin, Direction facing) {
     RectSolid.newRect(
-        upperFrontLeftCorner,
-        upperBackRightCorner
+        origin.copy().translate(facing.left()),
+        origin.copy().translate(facing.right()).up(2)
+    ).fill(worldEditor, SingleBlockBrush.AIR);
+  }
+
+  private void theFloorsAreFloors(Coord origin, Direction front) {
+    BlockBrush floors = levelSettings.getTheme().getPrimary().getFloor();
+    RectSolid.newRect(
+        origin.copy().translate(front.left(), 3).translate(front, 3).down(),
+        origin.copy().translate(front.right(), 3).translate(front.back(), 3).down(2)
     ).fill(worldEditor, floors);
   }
 
-  private void generateNetherPortal(Coord origin, List<Direction> entrances) {
-    Direction mainEntrance = entrances.get(0);
-    Direction[] orthogonals = mainEntrance.orthogonals();
+  private void generateCatwalks(Coord origin) {
+    BlockBrush floors = levelSettings.getTheme().getPrimary().getFloor();
+    StairsBlock stair = levelSettings.getTheme().getPrimary().getStair();
+
+    for (Direction side : Direction.cardinals()) {
+      Coord catwalkOrigin = origin.copy().translate(side, getSize() - 1);
+      RectSolid.newRect(
+          catwalkOrigin.copy().translate(side.left(), getSize()),
+          catwalkOrigin.copy().translate(side.right(), getSize()).translate(side.back()).down(2)
+      ).fill(worldEditor, floors);
+
+      RectSolid.newRect(
+          catwalkOrigin.copy().translate(side.left(), 2),
+          catwalkOrigin.copy().translate(side.right(), 2).translate(side.back())
+      ).fill(worldEditor, SingleBlockBrush.AIR);
+
+      for (Direction orthogonal : side.orthogonals()) {
+        stair.setUpsideDown(false).setFacing(orthogonal.reverse());
+        stair.stroke(worldEditor, catwalkOrigin.copy().translate(orthogonal, 3));
+        stair.stroke(worldEditor, catwalkOrigin.copy().translate(orthogonal, 3).translate(side.back()));
+      }
+    }
+  }
+
+  private void theFloorIsLava(Coord origin, Direction front) {
+    BlockBrush liquid = levelSettings.getTheme().getPrimary().getLiquid();
+    RectSolid.newRect(
+        origin.copy().translate(front, getSize() - 1).translate(front.left(), getSize() - 1).down(),
+        origin.copy().translate(front.back(), getSize() - 1).translate(front.right(), getSize() - 1).down(2)
+    ).fill(worldEditor, liquid, true, false);
+  }
+
+  private void createPathFromEachEntranceToTheCenterOverTheLiquid(Coord origin, List<Direction> entrances) {
+    BlockBrush floors = levelSettings.getTheme().getPrimary().getFloor();
+    Direction.cardinals().stream()
+        .filter(direction -> !entrances.contains(direction))
+        .forEach(direction -> RectSolid.newRect(
+            origin.copy().translate(direction.left()).down(),
+            origin.copy().translate(direction.right()).translate(direction, getSize()).down(2)
+        ).fill(worldEditor, floors));
+  }
+
+  private void ceilingChan(Coord origin, Direction front) {
+    // ceiling-chan >///<
+    BlockBrush floors = levelSettings.getTheme().getPrimary().getFloor();
+    RectSolid.newRect(
+        origin.copy().translate(front.left(), getSize()).translate(front, getSize()).up(getHeight()),
+        origin.copy().translate(front.right(), getSize()).translate(front.back(), getSize()).up(getHeight())
+    ).fill(worldEditor, floors);
+  }
+
+  private void generateNetherPortalWithPlatform(Coord origin, List<Direction> entrances) {
+    Direction front = entrances.get(0);
+
+    BlockBrush pillar = levelSettings.getTheme().getPrimary().getPillar();
+    RectSolid.newRect(
+        origin.copy().translate(front).translate(front.left(), 3),
+        origin.copy().translate(front.back()).translate(front.right(), 3).up(getHeight() -1)
+    ).fill(worldEditor, pillar);
 
     // portal platform
     RectSolid.newRect(
-        origin.copy().up().translate(orthogonals[0], 2).translate(orthogonals[0].clockwise(), 2),
-        origin.copy().up().translate(orthogonals[1], 2).translate(orthogonals[1].clockwise(), 2)
-    ).fill(worldEditor, levelSettings.getTheme().getPrimary().getWall());
+        origin.copy().translate(front.left(), 2).translate(front, 2),
+        origin.copy().translate(front.right(), 2).translate(front.back(), 2)
+    ).fill(worldEditor, pillar);
 
-    Stream.of(mainEntrance, mainEntrance.reverse()).forEach(side -> {
-      StairsBlock stairsBrush = levelSettings.getTheme().getPrimary().getStair().setUpsideDown(false);
-      if (entrances.contains(side)) {
-        Coord platformStairs = origin.copy().up().translate(side, 2);
-        stairsBrush.setFacing(side);
-        stairsBrush.stroke(worldEditor, platformStairs);
-        stairsBrush.stroke(worldEditor, platformStairs.copy().translate(orthogonals[0]));
-        stairsBrush.stroke(worldEditor, platformStairs.copy().translate(orthogonals[1]));
-      }
-    });
+    StairsBlock stairsBrush = levelSettings.getTheme().getPrimary().getStair();
+    Stream.of(front, front.reverse())
+        .forEach(side -> {
+          Coord platformStairs = origin.copy().translate(side, 2);
+          stairsBrush.setUpsideDown(false);
+          stairsBrush.setFacing(side);
+          stairsBrush.stroke(worldEditor, platformStairs);
+          stairsBrush.stroke(worldEditor, platformStairs.copy().translate(front.left()));
+          stairsBrush.stroke(worldEditor, platformStairs.copy().translate(front.right()));
+        });
 
     // nether portal, atop the portal platform
-    Coord portalBase = origin.copy().up();
-    RectHollow.newRect(
-        portalBase.copy().translate(orthogonals[0], 2),
-        portalBase.copy().translate(orthogonals[1], 2).up(5)
-    ).fill(worldEditor, new SingleBlockBrush(BlockType.OBSIDIAN));
+    Coord portalBase = origin.copy();
+    new NetherPortal(worldEditor).generate(portalBase, front, 5, 7);
 
     // 2x cheeky spawners beneath of portal
-    for (Direction orthogonal : orthogonals) {
-      generateSpawner(origin.copy().translate(orthogonal));
+    for (Direction orthogonal : front.orthogonals()) {
+      generateSpawner(portalBase.copy().down().translate(orthogonal));
     }
   }
 

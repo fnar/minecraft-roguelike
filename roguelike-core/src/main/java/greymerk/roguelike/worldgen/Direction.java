@@ -1,6 +1,7 @@
 package greymerk.roguelike.worldgen;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 
 import net.minecraft.block.BlockLever.EnumOrientation;
 import net.minecraft.util.EnumFacing;
@@ -8,6 +9,7 @@ import net.minecraft.util.EnumFacing;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 
 public enum Direction {
@@ -50,6 +52,10 @@ public enum Direction {
   }
 
   public static List<Direction> CARDINAL = Collections.unmodifiableList(Lists.newArrayList(NORTH, EAST, SOUTH, WEST));
+
+  public static Set<Direction> cardinals() {
+    return Sets.newHashSet(CARDINAL);
+  }
 
   public Coord translate(Coord coord) {
     return coord.translate(this.xDelta, this.yDelta, this.zDelta);

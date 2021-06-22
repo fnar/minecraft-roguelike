@@ -214,7 +214,8 @@ public enum BlockType {
   WOOL,
   YELLOW_FLOWER,
   PLANT,
-  CROP
+  CROP,
+  NETHER_PORTAL,
   ;
 
   public SingleBlockBrush getBrush() {
