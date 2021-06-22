@@ -49,9 +49,9 @@ public class Line implements IShape {
     int dx;
     int dy;
     int dz;
-    int l;
-    int m;
-    int n;
+    int absDx;
+    int absDy;
+    int absDz;
     int x_inc;
     int y_inc;
     int z_inc;
@@ -71,44 +71,48 @@ public class Line implements IShape {
       dx = end.getX() - start.getX();
       dy = end.getY() - start.getY();
       dz = end.getZ() - start.getZ();
+
       x_inc = dx < 0 ? -1 : 1;
-      l = Math.abs(dx);
+      absDx = Math.abs(dx);
+
       y_inc = dy < 0 ? -1 : 1;
-      m = Math.abs(dy);
+      absDy = Math.abs(dy);
+
       z_inc = dz < 0 ? -1 : 1;
-      n = Math.abs(dz);
-      dx2 = l << 1;
-      dy2 = m << 1;
-      dz2 = n << 1;
+      absDz = Math.abs(dz);
+
+      dx2 = absDx << 1;
+      dy2 = absDy << 1;
+      dz2 = absDz << 1;
       i = 0;
 
-      if (l >= m && l >= n) {
-        err_1 = dy2 - l;
-        err_2 = dz2 - l;
-      } else if (m >= l && m >= n) {
-        err_1 = dx2 - m;
-        err_2 = dz2 - m;
+      if (absDx >= absDy && absDx >= absDz) {
+        err_1 = dy2 - absDx;
+        err_2 = dz2 - absDx;
+      } else if (absDy >= absDx && absDy >= absDz) {
+        err_1 = dx2 - absDy;
+        err_2 = dz2 - absDy;
       } else {
-        err_1 = dy2 - n;
-        err_2 = dz2 - n;
+        err_1 = dy2 - absDz;
+        err_2 = dz2 - absDz;
       }
 
     }
 
     @Override
     public boolean hasNext() {
-      if (l >= m && l >= n) {
-        return i < l;
-      } else if (m >= l && m >= n) {
-        return i < m;
+      if (absDx >= absDy && absDx >= absDz) {
+        return i < absDx;
+      } else if (absDy >= absDx && absDy >= absDz) {
+        return i < absDy;
       } else {
-        return i < n;
+        return i < absDz;
       }
     }
 
     @Override
     public Coord next() {
-      if (l >= m && l >= n) {
+      if (absDx >= absDy && absDx >= absDz) {
         if (err_1 > 0) {
           y += y_inc;
           err_1 -= dx2;
@@ -120,7 +124,7 @@ public class Line implements IShape {
         err_1 += dy2;
         err_2 += dz2;
         x += x_inc;
-      } else if (m >= l && m >= n) {
+      } else if (absDy >= absDx && absDy >= absDz) {
         if (err_1 > 0) {
           x += x_inc;
           err_1 -= dy2;
