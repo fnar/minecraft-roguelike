@@ -47,6 +47,7 @@ import net.minecraft.block.BlockOldLeaf;
 import net.minecraft.block.BlockOldLog;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.BlockPlanks;
+import net.minecraft.block.BlockPortal;
 import net.minecraft.block.BlockPrismarine;
 import net.minecraft.block.BlockPumpkin;
 import net.minecraft.block.BlockQuartz;
@@ -250,7 +251,8 @@ public class BlockMapper1_12 {
         return new MetaBlock1_2(Blocks.TRAPPED_CHEST)
             .withProperty(BlockChest.FACING, facing.getFacing());
       case NETHER_PORTAL:
-        return new MetaBlock1_2(Blocks.PORTAL);
+        return new MetaBlock1_2(Blocks.PORTAL)
+            .withProperty(BlockPortal.AXIS, facing.getFacing().getAxis());
       default:
         return map(block.getBlockType());
     }
