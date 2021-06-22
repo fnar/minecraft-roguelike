@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -26,16 +27,25 @@ public class BlockPattern {
     this.blockBrushMap = blockBrushMap;
   }
 
-  public void paintPattern(Coord origin, Direction facing) {
-    List<List<List<BlockBrush>>> patternOfBrushes = parseSlices(pattern);
+  public void stroke(Coord origin, Direction facing) {
+    BiConsumer<BlockBrush, Coord> stroke = (brush, rowCursor) -> brush.stroke(worldEditor, rowCursor);
+    stroke(origin, facing, stroke);
+  }
 
+  public void stroke(Coord origin, Direction facing, boolean fillAir, boolean fillSolid) {
+    BiConsumer<BlockBrush, Coord> stroke = (BlockBrush brush, Coord rowCursor) -> brush.stroke(worldEditor, rowCursor, fillAir, fillSolid);
+    stroke(origin, facing, stroke);
+  }
+
+  private void stroke(Coord origin, Direction facing, BiConsumer<BlockBrush, Coord> stroke) {
+    List<List<List<BlockBrush>>> patternOfBrushes = parseSlices(pattern);
     Coord cursor = origin.copy();
     for (List<List<BlockBrush>> slice : patternOfBrushes) {
       Coord sliceCursor = cursor.copy();
       for (List<BlockBrush> row : slice) {
         Coord rowCursor = sliceCursor.copy();
         for (BlockBrush brush : row) {
-          brush.stroke(worldEditor, rowCursor);
+          stroke.accept(brush, rowCursor);
           rowCursor.translate(facing.right());
         }
         sliceCursor.translate(facing.back());
