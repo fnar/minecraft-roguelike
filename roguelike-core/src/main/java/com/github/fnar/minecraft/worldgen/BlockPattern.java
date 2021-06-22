@@ -1,6 +1,7 @@
 package com.github.fnar.minecraft.worldgen;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -58,6 +59,9 @@ public class BlockPattern {
   }
 
   private List<BlockBrush> parseRow(String row) {
+    if (row.isEmpty()) {
+      return Collections.emptyList();
+    }
     return Arrays.stream(row.split(blockDelimiter))
         .map(str -> str.charAt(0))
         .map(blockBrushMap::get)
