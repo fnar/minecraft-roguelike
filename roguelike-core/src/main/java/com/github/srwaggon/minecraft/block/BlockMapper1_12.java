@@ -249,6 +249,8 @@ public class BlockMapper1_12 {
       case TRAPPED_CHEST:
         return new MetaBlock1_2(Blocks.TRAPPED_CHEST)
             .withProperty(BlockChest.FACING, facing.getFacing());
+      case NETHER_PORTAL:
+        return new MetaBlock1_2(Blocks.PORTAL);
       default:
         return map(block.getBlockType());
     }
