@@ -35,12 +35,49 @@ public class PlatformsRoom extends DungeonBase {
     generateDoorways(origin, entrances);
     generateIslands(origin, front);
     theFloorIsLava(origin, front);
-    generateCeilingDecoration(origin, front);
+    generateCeilingDecoration(origin);
 
     return null;
   }
 
   private void generateIslands(Coord origin, Direction front) {
+    BlockBrush pillar = levelSettings.getTheme().getPrimary().getPillar();
+
+    Map<Character, BlockBrush> blockBrushMap = Stream.of(new Object[][]{
+        {'.', SingleBlockBrush.AIR},
+        {'x', pillar},
+    }).collect(Collectors.toMap(data -> (Character) data[0], data -> (BlockBrush) data[1]));
+
+    for (int x = 0; x < 2; x++) {
+      for (int z = 0; z < 2; z++) {
+
+        int xOffset = (x == 0 ? -1 : 1) * (getSize() / 2);
+        int zOffset = (z == 0 ? -1 : 1) * (getSize() / 2);
+
+        Coord location = origin.copy()
+            .down(2)
+            .translate(front.left()).translate(front) // center
+            .translate(front.left(), xOffset)
+            .translate(front, zOffset);
+
+        BlockPattern blockPattern = new BlockPattern(worldEditor, chooseRandomBlockPattern(), blockBrushMap);
+        blockPattern.stroke(location, front, true, false);
+        blockPattern.stroke(location.up(), front, true, false);
+        if (worldEditor.getRandom().nextBoolean()) {
+          blockPattern.stroke(location.up(), front, true, false);
+        }
+      }
+    }
+  }
+
+  private String chooseRandomBlockPattern() {
+    String[] patterns = blockPatternStrings();
+    return patterns[(int) (Math.random() * patterns.length)];
+  }
+
+  private String[] blockPatternStrings() {
+    String blankPattern = "";
+
     String plusPatternString = "" +
         ". x . \n" +
         "x x x \n" +
@@ -56,53 +93,12 @@ public class PlatformsRoom extends DungeonBase {
         "x x x \n" +
         "x x . \n";
 
-    BlockBrush pillar = levelSettings.getTheme().getPrimary().getPillar();
-    Map<Character, BlockBrush> blockBrushMap = Stream.of(new Object[][]{
-        {'.', SingleBlockBrush.AIR},
-        {'x', pillar},
-    }).collect(Collectors.toMap(data -> (Character) data[0], data -> (BlockBrush) data[1]));
-
-    BlockPattern plusPatternBlocks = new BlockPattern(worldEditor, plusPatternString, blockBrushMap);
-    BlockPattern squarePatternBlocks = new BlockPattern(worldEditor, squarePatternString, blockBrushMap);
-    BlockPattern diamondPatternBlocks = new BlockPattern(worldEditor, diamondPatternString, blockBrushMap);
-
-    for (int x = 0; x < 3; x++) {
-      for (int z = 0; z < 3; z++) {
-
-        if (worldEditor.getRandom().nextBoolean() && worldEditor.getRandom().nextBoolean()) {
-          continue;
-        }
-
-        int xOffset = (x - 1) * (getSize() * 2 / 3);
-        int zOffset = (z - 1) * (getSize() * 2 / 3);
-
-        Coord location = origin.copy()
-            .down(2)
-            .translate(front.left()).translate(front) // center
-            .translate(front.left(), xOffset)
-            .translate(front, zOffset);
-
-        BlockPattern blockPattern;
-        if (worldEditor.getRandom().nextBoolean()) {
-          blockPattern = plusPatternBlocks;
-        } else if (worldEditor.getRandom().nextBoolean()) {
-          blockPattern = squarePatternBlocks;
-        } else {
-          blockPattern = diamondPatternBlocks;
-        }
-
-        blockPattern.paintPattern(location, front);
-        blockPattern.paintPattern(location.up(), front);
-        if (worldEditor.getRandom().nextBoolean()) {
-          blockPattern.paintPattern(location.up(), front);
-        }
-
-        // the middle island is elevated
-        if (x == 0 && z == 0) {
-          blockPattern.paintPattern(location.up(), front);
-        }
-      }
-    }
+    return new String[]{
+        blankPattern,
+        plusPatternString,
+        squarePatternString,
+        diamondPatternString
+    };
   }
 
   private void generateWalls(Coord origin, Direction front) {
@@ -136,8 +132,8 @@ public class PlatformsRoom extends DungeonBase {
     ).fill(worldEditor, SingleBlockBrush.AIR);
   }
 
-  private void generateCeilingDecoration(Coord origin, Direction front) {
-    BlockBrush pillar = levelSettings.getTheme().getPrimary().getPillar();
+  private void generateCeilingDecoration(Coord origin) {
+    BlockBrush pillar = levelSettings.getTheme().getSecondary().getPillar();
     StairsBlock stair = levelSettings.getTheme().getPrimary().getStair();
     Direction.cardinals()
         .forEach(direction -> {
@@ -145,19 +141,32 @@ public class PlatformsRoom extends DungeonBase {
           Coord beamStart = origin.copy().translate(direction, getSize() / 2 - 1).translate(direction.left(), getSize() - 1).up(getHeight() - 2);
           Coord beamEnd = origin.copy().translate(direction, getSize() / 2 - 1).translate(direction.right(), getSize() - 1).up(getHeight() - 2);
 
+          pillar.setFacing(direction.right());
           new FnarLine(beamStart, beamEnd).fill(worldEditor, pillar);
+
           stair.setUpsideDown(true);
-          stair.setFacing(direction.right()).stroke(worldEditor, beamStart.down());
-          stair.setFacing(direction.left()).stroke(worldEditor, beamEnd.down());
+          stair.setFacing(direction.right());
+          stair.stroke(worldEditor, beamStart.down(2));
+          pillar.stroke(worldEditor, beamStart.up());
+          stair.stroke(worldEditor, beamStart.translate(direction.right()));
+
+          stair.setUpsideDown(true);
+          stair.setFacing(direction.left());
+          stair.stroke(worldEditor, beamEnd.down(2));
+          pillar.stroke(worldEditor, beamEnd.up());
+          stair.stroke(worldEditor, beamEnd.translate(direction.left()));
         });
+
+    // todo: stop being a good citizen: maybe theme.getPillar, etc., return a new instance
+    pillar.setFacing(Direction.UP);
   }
 
   private int getHeight() {
-    return 6;
+    return 7;
   }
 
   @Override
   public int getSize() {
-    return 9;
+    return 7;
   }
 }
