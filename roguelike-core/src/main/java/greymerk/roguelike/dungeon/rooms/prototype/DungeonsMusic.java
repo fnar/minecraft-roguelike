@@ -1,8 +1,8 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
-import com.github.srwaggon.minecraft.block.BlockType;
-import com.github.srwaggon.minecraft.block.SingleBlockBrush;
-import com.github.srwaggon.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.block.BlockType;
+import com.github.fnar.minecraft.block.SingleBlockBrush;
+import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
-import static com.github.srwaggon.minecraft.block.normal.ColoredBlock.carpet;
+import static com.github.fnar.minecraft.block.normal.ColoredBlock.carpet;
 
 public class DungeonsMusic extends DungeonBase {
 

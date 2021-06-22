@@ -2,7 +2,7 @@ package greymerk.roguelike.dungeon.base;
 
 import com.google.common.collect.Lists;
 
-import com.github.srwaggon.minecraft.block.SingleBlockBrush;
+import com.github.fnar.minecraft.block.SingleBlockBrush;
 
 import java.util.List;
 

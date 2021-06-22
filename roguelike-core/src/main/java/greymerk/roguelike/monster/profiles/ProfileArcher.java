@@ -1,7 +1,7 @@
 package greymerk.roguelike.monster.profiles;
 
-import com.github.srwaggon.minecraft.item.Arrow;
-import com.github.srwaggon.minecraft.item.ItemMapper1_12;
+import com.github.fnar.minecraft.item.Arrow;
+import com.github.fnar.minecraft.item.ItemMapper1_12;
 
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.world.World;

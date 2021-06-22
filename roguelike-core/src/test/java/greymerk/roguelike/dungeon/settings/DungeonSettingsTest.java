@@ -3,7 +3,7 @@ package greymerk.roguelike.dungeon.settings;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import com.github.srwaggon.minecraft.block.SingleBlockBrush;
+import com.github.fnar.minecraft.block.SingleBlockBrush;
 
 import net.minecraft.init.Bootstrap;
 import net.minecraft.init.Items;

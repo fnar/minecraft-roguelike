@@ -1,13 +1,13 @@
 package greymerk.roguelike.theme;
 
-import com.github.srwaggon.minecraft.block.normal.StairsBlock;
-import com.github.srwaggon.minecraft.block.normal.Wood;
+import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.block.normal.Wood;
 
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockStripes;
 
-import static com.github.srwaggon.minecraft.block.normal.ColoredBlock.concrete;
+import static com.github.fnar.minecraft.block.normal.ColoredBlock.concrete;
 
 public class ThemeRainbow extends ThemeBase {
 

@@ -1,9 +1,9 @@
 package greymerk.roguelike.theme;
 
-import com.github.srwaggon.minecraft.block.BlockType;
-import com.github.srwaggon.minecraft.block.normal.StairsBlock;
-import com.github.srwaggon.minecraft.block.normal.Wood;
-import com.github.srwaggon.minecraft.block.redstone.DoorBlock;
+import com.github.fnar.minecraft.block.BlockType;
+import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.block.normal.Wood;
+import com.github.fnar.minecraft.block.redstone.DoorBlock;
 
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;

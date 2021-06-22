@@ -3,10 +3,10 @@ package greymerk.roguelike.worldgen;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import com.github.srwaggon.minecraft.block.BlockMapper1_12;
-import com.github.srwaggon.minecraft.block.SingleBlockBrush;
-import com.github.srwaggon.minecraft.block.normal.StairsBlock;
-import com.github.srwaggon.minecraft.block.redstone.DoorBlock;
+import com.github.fnar.minecraft.block.BlockMapper1_12;
+import com.github.fnar.minecraft.block.SingleBlockBrush;
+import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.block.redstone.DoorBlock;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.properties.IProperty;

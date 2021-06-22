@@ -1,6 +1,6 @@
 package greymerk.roguelike.worldgen.filter;
 
-import com.github.srwaggon.minecraft.block.BlockType;
+import com.github.fnar.minecraft.block.BlockType;
 
 import java.util.Random;
 

@@ -1,13 +1,13 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
-import com.github.srwaggon.minecraft.block.BlockType;
-import com.github.srwaggon.minecraft.block.SingleBlockBrush;
-import com.github.srwaggon.minecraft.block.decorative.BrewingStand;
-import com.github.srwaggon.minecraft.block.decorative.Crop;
-import com.github.srwaggon.minecraft.block.decorative.FlowerPotBlock;
-import com.github.srwaggon.minecraft.block.decorative.TorchBlock;
-import com.github.srwaggon.minecraft.block.normal.SlabBlock;
-import com.github.srwaggon.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.block.BlockType;
+import com.github.fnar.minecraft.block.SingleBlockBrush;
+import com.github.fnar.minecraft.block.decorative.BrewingStand;
+import com.github.fnar.minecraft.block.decorative.Crop;
+import com.github.fnar.minecraft.block.decorative.FlowerPotBlock;
+import com.github.fnar.minecraft.block.decorative.TorchBlock;
+import com.github.fnar.minecraft.block.normal.SlabBlock;
+import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -29,7 +29,7 @@ import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
-import static com.github.srwaggon.minecraft.block.normal.ColoredBlock.stainedHardenedClay;
+import static com.github.fnar.minecraft.block.normal.ColoredBlock.stainedHardenedClay;
 
 public class DungeonLab extends DungeonBase {
 

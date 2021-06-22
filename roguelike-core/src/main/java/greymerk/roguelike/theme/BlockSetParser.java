@@ -2,8 +2,8 @@ package greymerk.roguelike.theme;
 
 import com.google.gson.JsonObject;
 
-import com.github.srwaggon.minecraft.block.normal.StairsBlock;
-import com.github.srwaggon.minecraft.block.redstone.DoorBlock;
+import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.block.redstone.DoorBlock;
 
 import java.util.Optional;
 

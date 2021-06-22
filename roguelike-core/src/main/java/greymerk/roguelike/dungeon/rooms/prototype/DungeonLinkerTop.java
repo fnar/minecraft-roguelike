@@ -1,6 +1,6 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
-import com.github.srwaggon.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import java.util.List;
 

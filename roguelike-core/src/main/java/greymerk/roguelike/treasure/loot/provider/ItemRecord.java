@@ -1,7 +1,7 @@
 package greymerk.roguelike.treasure.loot.provider;
 
-import com.github.srwaggon.minecraft.item.ItemMapper1_12;
-import com.github.srwaggon.minecraft.item.Record;
+import com.github.fnar.minecraft.item.ItemMapper1_12;
+import com.github.fnar.minecraft.item.Record;
 
 import net.minecraft.item.ItemStack;
 
