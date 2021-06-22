@@ -1,7 +1,6 @@
 package com.github.fnar.minecraft.worldgen;
 
 import com.github.fnar.minecraft.block.BlockType;
-import com.github.fnar.minecraft.block.SingleBlockBrush;
 
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -23,11 +22,11 @@ public class NetherPortal {
     RectHollow.newRect(
         origin.copy().translate(front.left(), leftSide),
         origin.copy().translate(front.right(), rightSide).up(height - 1)
-    ).fill(worldEditor, new SingleBlockBrush(BlockType.OBSIDIAN));
+    ).fill(worldEditor, BlockType.OBSIDIAN.getBrush());
 
     RectSolid.newRect(
         origin.copy().translate(front.left(), leftSide - 1).up(),
         origin.copy().translate(front.right(), rightSide - 1).up(height - 2)
-    ).fill(worldEditor, new SingleBlockBrush(BlockType.NETHER_PORTAL));
+    ).fill(worldEditor, BlockType.NETHER_PORTAL.getBrush().setFacing(front.clockwise()));
   }
 }
