@@ -1,5 +1,6 @@
 package greymerk.roguelike.dungeon;
 
+import com.github.fnar.util.ReportThisIssueException;
 import com.github.srwaggon.minecraft.block.Material;
 
 import java.util.ArrayList;
@@ -110,9 +111,17 @@ public class Dungeon {
 
       Arrays.stream(DungeonStage.values())
           .flatMap(stage -> DungeonTaskRegistry.getTaskRegistry().getTasks(stage).stream())
-          .forEach(task -> task.execute(editor, random, this, dungeonSettings));
+          .forEach(task -> performTaskSafely(dungeonSettings, random, task));
     } catch (Exception e) {
       e.printStackTrace();
+    }
+  }
+
+  private void performTaskSafely(DungeonSettings dungeonSettings, Random random, greymerk.roguelike.dungeon.tasks.IDungeonTask task) {
+    try {
+      task.execute(editor, random, this, dungeonSettings);
+    } catch (Exception exception) {
+      new ReportThisIssueException(exception).printStackTrace();
     }
   }
 
