@@ -2,8 +2,10 @@ package greymerk.roguelike.dungeon.settings.base;
 
 import com.google.common.collect.Lists;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
@@ -62,7 +64,6 @@ public class SettingsRooms extends DungeonSettings {
         REWARD.newSingleRoomSetting(),
 
         BRICK.newRandomRoomSetting(2),
-        BRICK.newRandomRoomSetting(4),
         CORNER.newRandomRoomSetting(2)
     );
   }
@@ -96,7 +97,6 @@ public class SettingsRooms extends DungeonSettings {
   private List<RoomSetting> getLevel3Rooms() {
     return Lists.newArrayList(
         OSSUARY.newSingleRoomSetting(),
-        ENDER.newSingleRoomSetting(),
         CRYPT.newSingleRoomSetting(),
         REWARD.newSingleRoomSetting(),
 
@@ -104,24 +104,33 @@ public class SettingsRooms extends DungeonSettings {
         SLIME.newRandomRoomSetting(5),
         CREEPER.newRandomRoomSetting(1),
         SPIDER.newRandomRoomSetting(1),
-        PIT.newRandomRoomSetting(1)
+        PIT.newRandomRoomSetting(1),
+        ENDER.newRandomRoomSetting(1)
     );
   }
 
   private List<RoomSetting> getLevel4Rooms() {
-    return Lists.newArrayList(
+    ArrayList<RoomSetting> rooms = Lists.newArrayList(
         REWARD.newSingleRoomSetting(),
         OBSIDIAN.newSingleRoomSetting(),
-        BLAZE.newSingleRoomSetting(),
-        PRISON.newSingleRoomSetting(),
         DARKHALL.newSingleRoomSetting(),
         NETHERFORT.newSingleRoomSetting(),
-        NETHER_PORTAL.newSingleRoomSetting(),
 
-        SLIME.newRandomRoomSetting(10),
-        BLAZE.newRandomRoomSetting(3),
-        NETHER.newRandomRoomSetting(3),
-        SPIDER.newRandomRoomSetting(2)
+        BRICK.newRandomRoomSetting(2),
+        CORNER.newRandomRoomSetting(2),
+        SLIME.newRandomRoomSetting(2),
+        NETHER.newRandomRoomSetting(2),
+
+        BLAZE.newRandomRoomSetting(1),
+        OBSIDIAN.newRandomRoomSetting(1),
+        NETHER_PORTAL.newRandomRoomSetting(1)
     );
+
+    RoomType[] flavours = {BLAZE, BRICK, CRYPT, NETHER, PRISON, SLIME};
+    RoomType chosenFlavour = flavours[(int) (Math.random() * flavours.length)];
+
+    rooms.add(chosenFlavour.newRandomRoomSetting(10));
+
+    return rooms;
   }
 }
