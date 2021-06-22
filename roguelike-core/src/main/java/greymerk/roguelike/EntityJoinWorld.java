@@ -1,5 +1,8 @@
 package greymerk.roguelike;
 
+import com.github.fnar.minecraft.EffectType;
+import com.github.fnar.util.ReportThisIssueException;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.monster.EntityMob;
@@ -21,6 +24,14 @@ public class EntityJoinWorld {
   @SubscribeEvent
   public void OnEntityJoinWorld(EntityJoinWorldEvent event) {
 
+    try {
+      equipMobIfSpawnedByRoguelikeSpawner(event);
+    } catch (Exception exception) {
+      new ReportThisIssueException(exception).printStackTrace();
+    }
+  }
+
+  private void equipMobIfSpawnedByRoguelikeSpawner(EntityJoinWorldEvent event) {
     World world = event.getWorld();
     if (world.isRemote) {
       return;
@@ -37,16 +48,21 @@ public class EntityJoinWorld {
 
     Collection<?> effects = mob.getActivePotionEffects();
     for (Object buff : effects) {
-      if (Potion.getIdFromPotion(((PotionEffect) buff).getPotion()) == 4) {
-        int level = ((PotionEffect) buff).getAmplifier();
-
-        IEntity metaEntity = new MetaEntity(mob);
-        MonsterProfile.equip(world, world.rand, level, metaEntity);
-        if (entity.isDead) {
-          event.setCanceled(true);
-        }
-        return;
+      if (!isMobFromRoguelikeSpawner((PotionEffect) buff)) {
+        continue;
       }
+      int level = Math.max(4, Math.min(0, ((PotionEffect) buff).getAmplifier()));
+
+      IEntity metaEntity = new MetaEntity(mob);
+      MonsterProfile.equip(world, world.rand, level, metaEntity);
+      if (entity.isDead) {
+        event.setCanceled(true);
+      }
+      return;
     }
+  }
+
+  private boolean isMobFromRoguelikeSpawner(PotionEffect buff) {
+    return Potion.getIdFromPotion(buff.getPotion()) == EffectType.FATIGUE.getEffectID();
   }
 }

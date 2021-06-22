@@ -1,5 +1,7 @@
 package greymerk.roguelike.worldgen.spawners;
 
+import com.github.fnar.minecraft.EffectType;
+
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagFloat;
 import net.minecraft.nbt.NBTTagList;
@@ -25,10 +27,10 @@ import static java.util.stream.IntStream.range;
 
 public class SpawnPotential {
 
-  private String name;
-  private int weight;
-  private boolean equip;
-  private NBTTagCompound entityNbt;
+  private final String name;
+  private final int weight;
+  private final boolean equip;
+  private final NBTTagCompound entityNbt;
 
   public SpawnPotential(String name, boolean equip, int weight, NBTTagCompound entityNbt) {
     this.name = name;
@@ -158,8 +160,7 @@ public class SpawnPotential {
 
   private NBTTagCompound getMiningFatigueBuff(int level) {
     NBTTagCompound buff = new NBTTagCompound();
-    int miningFatigueEffectId = 4;
-    buff.setByte("Id", (byte) miningFatigueEffectId);
+    buff.setByte("Id", (byte) EffectType.FATIGUE.getEffectID());
     buff.setByte("Amplifier", (byte) level);
     buff.setInteger("Duration", 10);
     buff.setByte("Ambient", (byte) 0);
