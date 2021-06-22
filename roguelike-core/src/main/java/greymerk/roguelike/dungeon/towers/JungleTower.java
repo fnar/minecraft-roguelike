@@ -1,9 +1,9 @@
 package greymerk.roguelike.dungeon.towers;
 
-import com.github.srwaggon.minecraft.block.BlockType;
-import com.github.srwaggon.minecraft.block.decorative.VineBlock;
-import com.github.srwaggon.minecraft.block.normal.StairsBlock;
-import com.github.srwaggon.minecraft.block.normal.Wood;
+import com.github.fnar.minecraft.block.BlockType;
+import com.github.fnar.minecraft.block.decorative.VineBlock;
+import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.block.normal.Wood;
 
 import java.util.ArrayList;
 import java.util.List;

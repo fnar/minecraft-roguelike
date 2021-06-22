@@ -2,7 +2,7 @@ package greymerk.roguelike.dungeon.segment.part;
 
 import com.google.common.collect.Lists;
 
-import com.github.srwaggon.util.Pair;
+import com.github.fnar.util.Pair;
 
 import java.util.List;
 import java.util.Optional;

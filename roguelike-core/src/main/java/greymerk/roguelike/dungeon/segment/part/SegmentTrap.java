@@ -1,13 +1,13 @@
 package greymerk.roguelike.dungeon.segment.part;
 
-import com.github.srwaggon.minecraft.block.BlockType;
-import com.github.srwaggon.minecraft.block.SingleBlockBrush;
-import com.github.srwaggon.minecraft.block.decorative.TorchBlock;
-import com.github.srwaggon.minecraft.block.decorative.VineBlock;
-import com.github.srwaggon.minecraft.block.normal.StairsBlock;
-import com.github.srwaggon.minecraft.item.Arrow;
-import com.github.srwaggon.minecraft.item.Potion;
-import com.github.srwaggon.minecraft.item.RldItemStack;
+import com.github.fnar.minecraft.block.BlockType;
+import com.github.fnar.minecraft.block.SingleBlockBrush;
+import com.github.fnar.minecraft.block.decorative.TorchBlock;
+import com.github.fnar.minecraft.block.decorative.VineBlock;
+import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.item.Arrow;
+import com.github.fnar.minecraft.item.Potion;
+import com.github.fnar.minecraft.item.RldItemStack;
 
 import java.util.Random;
 

@@ -1,7 +1,7 @@
 package greymerk.roguelike.dungeon;
 
 import com.github.fnar.util.ReportThisIssueException;
-import com.github.srwaggon.minecraft.block.Material;
+import com.github.fnar.minecraft.block.Material;
 
 import java.util.ArrayList;
 import java.util.Arrays;

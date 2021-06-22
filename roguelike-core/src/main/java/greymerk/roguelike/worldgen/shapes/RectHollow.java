@@ -2,7 +2,7 @@ package greymerk.roguelike.worldgen.shapes;
 
 import com.google.common.collect.Sets;
 
-import com.github.srwaggon.minecraft.block.SingleBlockBrush;
+import com.github.fnar.minecraft.block.SingleBlockBrush;
 
 import java.util.ArrayList;
 import java.util.Iterator;

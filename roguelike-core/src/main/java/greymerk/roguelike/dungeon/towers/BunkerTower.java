@@ -1,8 +1,8 @@
 package greymerk.roguelike.dungeon.towers;
 
-import com.github.srwaggon.minecraft.block.BlockType;
-import com.github.srwaggon.minecraft.block.SingleBlockBrush;
-import com.github.srwaggon.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.block.BlockType;
+import com.github.fnar.minecraft.block.SingleBlockBrush;
+import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import java.util.Random;
 
@@ -15,7 +15,7 @@ import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
-import static com.github.srwaggon.minecraft.block.normal.ColoredBlock.stainedGlassPane;
+import static com.github.fnar.minecraft.block.normal.ColoredBlock.stainedGlassPane;
 
 public class BunkerTower implements ITower {
 

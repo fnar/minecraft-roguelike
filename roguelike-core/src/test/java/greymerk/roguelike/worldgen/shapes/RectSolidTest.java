@@ -1,7 +1,7 @@
 package greymerk.roguelike.worldgen.shapes;
 
-import com.github.srwaggon.minecraft.block.BlockType;
-import com.github.srwaggon.minecraft.block.SingleBlockBrush;
+import com.github.fnar.minecraft.block.BlockType;
+import com.github.fnar.minecraft.block.SingleBlockBrush;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

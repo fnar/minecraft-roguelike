@@ -1,7 +1,7 @@
 package greymerk.roguelike.treasure.loot.provider;
 
-import com.github.srwaggon.minecraft.block.BlockMapper1_12;
-import com.github.srwaggon.minecraft.block.BlockType;
+import com.github.fnar.minecraft.block.BlockMapper1_12;
+import com.github.fnar.minecraft.block.BlockType;
 
 import net.minecraft.item.ItemStack;
 

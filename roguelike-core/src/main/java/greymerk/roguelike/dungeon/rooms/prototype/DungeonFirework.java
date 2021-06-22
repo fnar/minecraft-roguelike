@@ -1,11 +1,11 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
-import com.github.srwaggon.minecraft.block.BlockType;
-import com.github.srwaggon.minecraft.block.SingleBlockBrush;
-import com.github.srwaggon.minecraft.block.decorative.TorchBlock;
-import com.github.srwaggon.minecraft.block.redstone.ComparatorBlock;
-import com.github.srwaggon.minecraft.block.redstone.LeverBlock;
-import com.github.srwaggon.minecraft.block.redstone.RepeaterBlock;
+import com.github.fnar.minecraft.block.BlockType;
+import com.github.fnar.minecraft.block.SingleBlockBrush;
+import com.github.fnar.minecraft.block.decorative.TorchBlock;
+import com.github.fnar.minecraft.block.redstone.ComparatorBlock;
+import com.github.fnar.minecraft.block.redstone.LeverBlock;
+import com.github.fnar.minecraft.block.redstone.RepeaterBlock;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -26,7 +26,7 @@ import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
-import static com.github.srwaggon.minecraft.block.normal.ColoredBlock.stainedHardenedClay;
+import static com.github.fnar.minecraft.block.normal.ColoredBlock.stainedHardenedClay;
 
 public class DungeonFirework extends DungeonBase {
 

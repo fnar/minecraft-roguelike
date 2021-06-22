@@ -2,7 +2,7 @@ package greymerk.roguelike.worldgen.spawners;
 
 import com.google.common.collect.Lists;
 
-import com.github.srwaggon.minecraft.block.BlockType;
+import com.github.fnar.minecraft.block.BlockType;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;

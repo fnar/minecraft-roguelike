@@ -1,6 +1,6 @@
 package greymerk.roguelike.dungeon.settings.base;
 
-import com.github.srwaggon.minecraft.item.ItemMapper1_12;
+import com.github.fnar.minecraft.item.ItemMapper1_12;
 
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootTableList;

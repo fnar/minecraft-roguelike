@@ -2,7 +2,7 @@ package greymerk.roguelike.treasure.loot.provider;
 
 import com.google.gson.JsonObject;
 
-import com.github.srwaggon.util.Color;
+import com.github.fnar.util.Color;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;

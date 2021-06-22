@@ -1,10 +1,10 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
-import com.github.srwaggon.minecraft.block.BlockType;
-import com.github.srwaggon.minecraft.block.SingleBlockBrush;
-import com.github.srwaggon.minecraft.block.decorative.AnvilBlock;
-import com.github.srwaggon.minecraft.block.normal.SlabBlock;
-import com.github.srwaggon.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.block.BlockType;
+import com.github.fnar.minecraft.block.SingleBlockBrush;
+import com.github.fnar.minecraft.block.decorative.AnvilBlock;
+import com.github.fnar.minecraft.block.normal.SlabBlock;
+import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import java.util.List;
 

@@ -1,9 +1,9 @@
 package greymerk.roguelike.treasure.loot.provider;
 
-import com.github.srwaggon.minecraft.item.Arrow;
-import com.github.srwaggon.minecraft.item.ItemMapper1_12;
-import com.github.srwaggon.minecraft.item.Potion;
-import com.github.srwaggon.minecraft.item.RldItemStack;
+import com.github.fnar.minecraft.item.Arrow;
+import com.github.fnar.minecraft.item.ItemMapper1_12;
+import com.github.fnar.minecraft.item.Potion;
+import com.github.fnar.minecraft.item.RldItemStack;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;

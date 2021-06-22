@@ -1,7 +1,5 @@
 package com.github.fnar.util;
 
-import com.github.srwaggon.util.Color;
-
 public class Colors {
 
   // Thanks to https://colornamer.robertcooper.me/ for the names

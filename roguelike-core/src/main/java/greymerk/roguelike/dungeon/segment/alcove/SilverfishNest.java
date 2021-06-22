@@ -1,8 +1,8 @@
 package greymerk.roguelike.dungeon.segment.alcove;
 
-import com.github.srwaggon.minecraft.block.BlockType;
-import com.github.srwaggon.minecraft.block.SingleBlockBrush;
-import com.github.srwaggon.minecraft.block.normal.InfestedBlock;
+import com.github.fnar.minecraft.block.BlockType;
+import com.github.fnar.minecraft.block.SingleBlockBrush;
+import com.github.fnar.minecraft.block.normal.InfestedBlock;
 
 import java.util.List;
 import java.util.Random;

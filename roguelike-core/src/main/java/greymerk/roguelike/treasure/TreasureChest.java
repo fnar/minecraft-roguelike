@@ -1,6 +1,6 @@
 package greymerk.roguelike.treasure;
 
-import com.github.srwaggon.minecraft.item.RldItemStack;
+import com.github.fnar.minecraft.item.RldItemStack;
 
 import net.minecraft.item.ItemStack;
 

@@ -1,6 +1,6 @@
 package greymerk.roguelike.worldgen.filter;
 
-import com.github.srwaggon.minecraft.block.decorative.VineBlock;
+import com.github.fnar.minecraft.block.decorative.VineBlock;
 
 import java.util.Random;
 

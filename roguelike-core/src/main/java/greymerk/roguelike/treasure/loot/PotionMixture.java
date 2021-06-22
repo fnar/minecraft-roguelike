@@ -1,10 +1,10 @@
 package greymerk.roguelike.treasure.loot;
 
-import com.github.srwaggon.minecraft.item.ItemMapper1_12;
-import com.github.srwaggon.minecraft.item.RldItemStack;
-import com.github.srwaggon.minecraft.Effect;
-import com.github.srwaggon.minecraft.EffectType;
-import com.github.srwaggon.minecraft.item.Potion;
+import com.github.fnar.minecraft.item.ItemMapper1_12;
+import com.github.fnar.minecraft.item.RldItemStack;
+import com.github.fnar.minecraft.Effect;
+import com.github.fnar.minecraft.EffectType;
+import com.github.fnar.minecraft.item.Potion;
 
 import net.minecraft.item.ItemStack;
 

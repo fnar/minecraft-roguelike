@@ -1,12 +1,12 @@
 package greymerk.roguelike.worldgen;
 
-import com.github.srwaggon.minecraft.block.BlockType;
-import com.github.srwaggon.minecraft.block.Material;
-import com.github.srwaggon.minecraft.block.SingleBlockBrush;
-import com.github.srwaggon.minecraft.block.decorative.Plant;
-import com.github.srwaggon.minecraft.block.decorative.Skull;
-import com.github.srwaggon.minecraft.block.normal.StairsBlock;
-import com.github.srwaggon.minecraft.item.RldItemStack;
+import com.github.fnar.minecraft.block.BlockType;
+import com.github.fnar.minecraft.block.Material;
+import com.github.fnar.minecraft.block.SingleBlockBrush;
+import com.github.fnar.minecraft.block.decorative.Plant;
+import com.github.fnar.minecraft.block.decorative.Skull;
+import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.item.RldItemStack;
 
 import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;

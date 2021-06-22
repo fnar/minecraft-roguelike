@@ -1,6 +1,6 @@
 package greymerk.roguelike.citadel;
 
-import com.github.srwaggon.minecraft.block.SingleBlockBrush;
+import com.github.fnar.minecraft.block.SingleBlockBrush;
 
 import java.util.List;
 import java.util.Random;

@@ -1,6 +1,6 @@
 package greymerk.roguelike.dungeon.towers;
 
-import com.github.srwaggon.minecraft.block.BlockType;
+import com.github.fnar.minecraft.block.BlockType;
 
 import java.util.Random;
 

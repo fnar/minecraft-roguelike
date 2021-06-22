@@ -1,7 +1,7 @@
 package greymerk.roguelike.dungeon.towers;
 
-import com.github.srwaggon.minecraft.block.SingleBlockBrush;
-import com.github.srwaggon.minecraft.block.normal.Wood;
+import com.github.fnar.minecraft.block.SingleBlockBrush;
+import com.github.fnar.minecraft.block.normal.Wood;
 
 import java.util.ArrayList;
 import java.util.List;
