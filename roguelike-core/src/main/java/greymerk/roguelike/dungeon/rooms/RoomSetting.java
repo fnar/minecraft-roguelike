@@ -1,6 +1,7 @@
 package greymerk.roguelike.dungeon.rooms;
 
 import com.github.fnar.roguelike.dungeon.rooms.NetherPortalRoom;
+import com.github.fnar.roguelike.dungeon.rooms.PlatformsRoom;
 
 import java.util.List;
 import java.util.Optional;
@@ -152,6 +153,8 @@ public class RoomSetting {
         return new DungeonOssuary(this, levelSettings, worldEditor);
       case PIT:
         return new DungeonsPit(this, levelSettings, worldEditor);
+      case PLATFORMS:
+        return new PlatformsRoom(this, levelSettings, worldEditor);
       case PRISON:
         return new DungeonsPrison(this, levelSettings, worldEditor);
       case PYRAMIDCORNER:

@@ -45,6 +45,7 @@ public enum RoomType {
   OBSIDIAN(true, false),
   OSSUARY(true, false),
   PIT(true, false),
+  PLATFORMS(true, false),
   PRISON(true, false),
   PYRAMIDCORNER(true, false),
   PYRAMIDSPAWNER(false, false),
