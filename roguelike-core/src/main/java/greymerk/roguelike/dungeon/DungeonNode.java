@@ -5,8 +5,8 @@ import java.util.List;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.BoundingBox;
-import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.IBounded;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.IShape;
@@ -116,7 +116,7 @@ public class DungeonNode implements IBounded {
     return getRoom() == null;
   }
 
-  public DungeonBase generate() {
-    return getRoom().generate(getPosition(), getEntrances());
+  public void generate() {
+    getRoom().generate(getPosition(), getEntrances());
   }
 }
