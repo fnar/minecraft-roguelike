@@ -28,6 +28,7 @@ import static greymerk.roguelike.dungeon.base.RoomType.NETHER_PORTAL;
 import static greymerk.roguelike.dungeon.base.RoomType.OBSIDIAN;
 import static greymerk.roguelike.dungeon.base.RoomType.OSSUARY;
 import static greymerk.roguelike.dungeon.base.RoomType.PIT;
+import static greymerk.roguelike.dungeon.base.RoomType.PLATFORMS;
 import static greymerk.roguelike.dungeon.base.RoomType.PRISON;
 import static greymerk.roguelike.dungeon.base.RoomType.REWARD;
 import static greymerk.roguelike.dungeon.base.RoomType.SLIME;
@@ -100,8 +101,9 @@ public class SettingsRooms extends DungeonSettings {
         CRYPT.newSingleRoomSetting(),
         REWARD.newSingleRoomSetting(),
 
-        PRISON.newRandomRoomSetting(3),
         SLIME.newRandomRoomSetting(5),
+        PRISON.newRandomRoomSetting(3),
+        PLATFORMS.newRandomRoomSetting(2),
         CREEPER.newRandomRoomSetting(1),
         SPIDER.newRandomRoomSetting(1),
         PIT.newRandomRoomSetting(1),
@@ -118,6 +120,7 @@ public class SettingsRooms extends DungeonSettings {
 
         BRICK.newRandomRoomSetting(2),
         CORNER.newRandomRoomSetting(2),
+        PLATFORMS.newRandomRoomSetting(2),
         SLIME.newRandomRoomSetting(2),
         NETHER.newRandomRoomSetting(2),
 
