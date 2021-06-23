@@ -8,6 +8,7 @@ import java.util.List;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.theme.BlockSet;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
@@ -24,198 +25,124 @@ public class DungeonDarkHall extends DungeonBase {
 
   @Override
   public DungeonBase generate(Coord origin, List<Direction> entrances) {
-
     ThemeBase theme = levelSettings.getTheme();
-
     BlockBrush outerWall = theme.getPrimary().getWall();
     BlockBrush wall = theme.getSecondary().getWall();
+    BlockBrush floor = theme.getPrimary().getFloor();
+
     BlockBrush pillar = theme.getSecondary().getPillar();
-    StairsBlock stair = theme.getSecondary().getStair();
+    BlockBrush accentFloor = theme.getSecondary().getFloor();
 
-    Coord cursor;
-    Coord start;
-    Coord end;
+    RectHollow r1 = RectHollow.newRect(
+        origin.copy().north(7).west(7).down(),
+        origin.copy().south(7).east(7).up(7));
+    outerWall.fill(worldEditor, r1, false, true);
 
-    start = origin.copy();
-    end = origin.copy();
+    RectHollow r2 = RectHollow.newRect(
+        origin.copy().north(4).west(4).up(6),
+        origin.copy().south(4).east(4).up(9));
+    outerWall.fill(worldEditor, r2, false, true);
 
-    start.north(7);
-    start.west(7);
-    end.south(7);
-    end.east(7);
-    start.down();
-    end.up(7);
+    RectSolid r3 = RectSolid.newRect(
+        origin.copy().north(6).west(6).down(),
+        origin.copy().south(6).east(6).down());
+    floor.fill(worldEditor, r3, false, true);
 
-    RectHollow.newRect(start, end).fill(worldEditor, outerWall, false, true);
-
-    start = origin.copy();
-    end = origin.copy();
-
-    start.north(4);
-    start.west(4);
-    end.south(4);
-    end.east(4);
-    start.up(6);
-    end.up(9);
-
-    RectHollow.newRect(start, end).fill(worldEditor, outerWall, false, true);
-
-    start = origin.copy();
-    end = origin.copy();
-
-    start.north(6);
-    start.west(6);
-    end.south(6);
-    end.east(6);
-    start.down();
-    end.down();
-
-    RectSolid.newRect(start, end).fill(worldEditor, theme.getPrimary().getFloor(), false, true);
-
-    for (Direction dir : entrances) {
-      Direction[] orthogonal = dir.orthogonals();
-      start = origin.copy();
-      start.translate(orthogonal[0]);
-      end = origin.copy();
-      end.translate(orthogonal[1]);
-      end.translate(dir, 7);
-      RectSolid.newRect(start, end).fill(worldEditor, theme.getSecondary().getFloor(), false, true);
+    for (Direction entrance : entrances) {
+      RectSolid r4 = RectSolid.newRect(
+          origin.copy().translate(entrance.left()),
+          origin.copy().translate(entrance.right()).translate(entrance, 7));
+      accentFloor.fill(worldEditor, r4, false, true);
     }
 
-    for (Direction dir : Direction.CARDINAL) {
+    for (Direction side : Direction.CARDINAL) {
+      generateAccentPillar(origin.copy().translate(side, 6).translate(side.left(), 6), 5);
+      generateBeam(side, origin.copy().translate(side, 6).up(6), 13);
+      generateBeam(side, origin.copy().translate(side, 3).up(6), 7);
+      generateBeam(side, origin.copy().translate(side, 3).up(8), 7);
+      generateBeam(side, origin.copy().up(8), 7);
 
-      start = origin.copy();
-      start.translate(dir, 6);
-      start.translate(dir.antiClockwise(), 6);
-      end = start.copy();
-      end.up(5);
-      RectSolid.newRect(start, end).fill(worldEditor, pillar);
+      pillar.stroke(worldEditor, origin.copy().translate(side, 3).up(7));
 
-      start = origin.copy();
-      start.translate(dir, 6);
-      start.up(6);
-      end = start.copy();
-      start.translate(dir.antiClockwise(), 6);
-      end.translate(dir.clockwise(), 6);
-      RectSolid.newRect(start, end).fill(worldEditor, wall);
-
-      start = origin.copy();
-      start.translate(dir, 3);
-      start.up(6);
-      end = start.copy();
-      start.translate(dir.antiClockwise(), 3);
-      end.translate(dir.clockwise(), 3);
-      RectSolid.newRect(start, end).fill(worldEditor, wall);
-      start.up(2);
-      end.up(2);
-      RectSolid.newRect(start, end).fill(worldEditor, wall);
-
-      start = origin.copy();
-      start.translate(dir, 3);
-      start.up(7);
-      pillar.stroke(worldEditor, start);
-      start.up();
-      end = start.copy();
-      end.translate(dir.reverse(), 3);
-      RectSolid.newRect(start, end).fill(worldEditor, wall);
-
-      if (entrances.contains(dir)) {
-        start = origin.copy();
-        start.translate(dir, 7);
-        start.up(2);
-        end = start.copy();
-        end.up(3);
-        start.translate(dir.antiClockwise(), 2);
-        end.translate(dir.clockwise(), 2);
-        RectSolid.newRect(start, end).fill(worldEditor, wall);
-
-        cursor = origin.copy();
-        cursor.translate(dir, 7);
-        cursor.up(2);
-        SingleBlockBrush.AIR.stroke(worldEditor, cursor);
-
-        for (Direction o : dir.orthogonals()) {
-          cursor = origin.copy();
-          cursor.translate(dir, 7);
-          cursor.up(2);
-          cursor.translate(o);
-          stair.setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
-
-          cursor = origin.copy();
-          cursor.translate(dir, 6);
-          cursor.translate(o, 3);
-          pillar(worldEditor, levelSettings, o.reverse(), cursor);
-
-          cursor = origin.copy();
-          cursor.translate(dir, 7);
-          cursor.translate(o, 2);
-          pillar.stroke(worldEditor, cursor);
-          cursor.up();
-          pillar.stroke(worldEditor, cursor);
-        }
+      if (!entrances.contains(side)) {
+        pillar(worldEditor, levelSettings, side.reverse(), origin.copy().translate(side, 6));
       } else {
-        cursor = origin.copy();
-        cursor.translate(dir, 6);
-        pillar(worldEditor, levelSettings, dir.reverse(), cursor);
+        generateEntranceArchway(origin.copy().translate(side, 7), side, levelSettings.getTheme().getSecondary());
       }
 
-      start = origin.copy();
-      start.translate(dir, 6);
-      start.up(6);
-      end = start.copy();
-      end.translate(dir.reverse(), 2);
-      RectSolid.newRect(start, end).fill(worldEditor, wall);
+      wall.fill(worldEditor, RectSolid.newRect(
+          origin.copy().translate(side, 6).up(6),
+          origin.copy().translate(side, 4).up(6)));
 
-      for (Direction o : dir.orthogonals()) {
-        cursor = origin.copy();
-        cursor.translate(dir, 6);
-        cursor.translate(o, 3);
-        pillar(worldEditor, levelSettings, dir.reverse(), cursor);
-        start = cursor.copy();
-        start.up(6);
-        end = start.copy();
-        end.translate(dir.reverse(), 6);
-        RectSolid.newRect(start, end).fill(worldEditor, wall);
+      for (Direction orthogonal : side.orthogonals()) {
+        Coord cursor = origin.copy().translate(side, 6).translate(orthogonal, 3);
+        pillar(worldEditor, levelSettings, side.reverse(), cursor);
+        wall.fill(worldEditor, RectSolid.newRect(
+            cursor.copy().up(6),
+            cursor.copy().up(6).translate(side.reverse(), 6)));
       }
     }
 
     return this;
   }
 
+  private void generateEntranceArchway(Coord origin, Direction side, BlockSet blockBrush) {
+    BlockBrush wall = blockBrush.getWall();
+    BlockBrush pillar = blockBrush.getPillar();
+    StairsBlock stair = blockBrush.getStair();
+
+    Coord aboveOrigin = origin.copy().up(2);
+
+    wall.fill(worldEditor, RectSolid.newRect(
+        aboveOrigin.copy().translate(side.left(), 2),
+        aboveOrigin.copy().translate(side.right(), 2).up(3)));
+
+    SingleBlockBrush.AIR.stroke(worldEditor, aboveOrigin);
+
+    for (Direction orthogonal : side.orthogonals()) {
+      stair.setUpsideDown(true).setFacing(orthogonal.reverse()).stroke(worldEditor, aboveOrigin.copy().translate(orthogonal));
+      pillar(worldEditor, levelSettings, orthogonal.reverse(), origin.copy().translate(side.back()).translate(orthogonal, 3));
+      Coord cursor = origin.copy().translate(orthogonal, 2);
+      pillar.stroke(worldEditor, cursor);
+      pillar.stroke(worldEditor, cursor.up());
+    }
+  }
+
+  private void generateBeam(Direction dir, Coord origin, int width) {
+    BlockBrush wall = levelSettings.getTheme().getSecondary().getWall();
+    int left = width / 2;
+    int right = width - left - 1;
+    Coord beamLeftAnchor = origin.copy().translate(dir.left(), left);
+    Coord beamRightAnchor = origin.copy().translate(dir.right(), right);
+    RectSolid beam = RectSolid.newRect(beamLeftAnchor, beamRightAnchor);
+    wall.fill(worldEditor, beam);
+  }
+
+  public void generateAccentPillar(Coord origin, int height) {
+    BlockBrush pillar = levelSettings.getTheme().getSecondary().getPillar();
+    RectSolid.newRect(
+        origin.copy(),
+        origin.copy().up(height)
+    ).fill(worldEditor, pillar);
+  }
+
   private void pillar(WorldEditor editor, LevelSettings settings, Direction dir, Coord origin) {
+    BlockBrush wall = settings.getTheme().getSecondary().getWall();
+    StairsBlock stair = settings.getTheme().getSecondary().getStair();
 
-    ThemeBase theme = settings.getTheme();
+    generateAccentPillar(origin, 5);
 
-    BlockBrush wall = theme.getSecondary().getWall();
-    BlockBrush pillar = theme.getSecondary().getPillar();
-    StairsBlock stair = theme.getSecondary().getStair();
-
-    Coord cursor;
-    Coord start;
-    Coord end;
-
-    start = origin.copy();
-    end = start.copy();
-    end.up(5);
-    RectSolid.newRect(start, end).fill(editor, pillar);
-
-    cursor = origin.copy();
-    cursor.up(3);
-    cursor.translate(dir);
+    Coord cursor = origin.copy().up(3).translate(dir);
     stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor);
-    cursor.up();
-    stair.setUpsideDown(false).setFacing(dir.reverse()).stroke(editor, cursor);
-    cursor.translate(dir);
-    stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor);
-    cursor.up();
-    stair.setUpsideDown(false).setFacing(dir.reverse()).stroke(editor, cursor);
+    stair.setUpsideDown(false).setFacing(dir.reverse()).stroke(editor, cursor.up());
+    stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor.translate(dir));
+    stair.setUpsideDown(false).setFacing(dir.reverse()).stroke(editor, cursor.up());
     cursor.translate(dir);
     if (editor.isAirBlock(cursor)) {
       stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor);
     } else {
       wall.stroke(editor, cursor);
     }
-
   }
 
   @Override
