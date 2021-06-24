@@ -20,4 +20,6 @@ public interface BlockBrush {
 
   default BlockBrush setFacing(Direction direction) { return this; }
 
+  BlockBrush copy();
+
 }

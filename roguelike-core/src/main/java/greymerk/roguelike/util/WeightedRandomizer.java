@@ -112,4 +112,8 @@ public class WeightedRandomizer<T> implements IWeighted<T> {
         ", items=" + items +
         '}';
   }
+
+  public WeightedRandomizer<T> copy() {
+    return new WeightedRandomizer<T>(this);
+  }
 }

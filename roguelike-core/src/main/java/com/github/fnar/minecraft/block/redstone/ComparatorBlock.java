@@ -39,4 +39,12 @@ public class ComparatorBlock extends SingleBlockBrush {
     return new ComparatorBlock();
   }
 
+  @Override
+  public ComparatorBlock copy() {
+    ComparatorBlock copy = new ComparatorBlock();
+    copy.setFacing(getFacing());
+    copy.setMode(mode);
+    copy.setPowered(isPowered);
+    return copy;
+  }
 }

@@ -5,7 +5,6 @@ import com.google.gson.JsonElement;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class BlockCheckers implements BlockBrush {
 
@@ -74,5 +73,10 @@ public class BlockCheckers implements BlockBrush {
         }
       }
     }
+  }
+
+  @Override
+  public BlockCheckers copy() {
+    return new BlockCheckers(fillOne.copy(), fillTwo.copy(), offset.copy());
   }
 }

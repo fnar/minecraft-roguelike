@@ -55,4 +55,11 @@ public class ColoredBlock extends SingleBlockBrush {
     return this;
   }
 
+  @Override
+  public ColoredBlock copy() {
+    ColoredBlock copy = new ColoredBlock(getBlockType(), getMaterial());
+    copy.setFacing(getFacing());
+    copy.setColor(color);
+    return copy;
+  }
 }

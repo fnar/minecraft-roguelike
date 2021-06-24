@@ -21,9 +21,22 @@ public class PumpkinBlock extends SingleBlockBrush {
     return new PumpkinBlock().setLit();
   }
 
+  public boolean isCarved() {
+    return isCarved;
+  }
+
   public PumpkinBlock setCarved() {
     isCarved = true;
     return this;
+  }
+
+  private PumpkinBlock setCarved(final boolean isCarved) {
+    this.isCarved = isCarved;
+    return this;
+  }
+
+  public boolean isLit() {
+    return isLit;
   }
 
   public PumpkinBlock setLit() {
@@ -31,11 +44,18 @@ public class PumpkinBlock extends SingleBlockBrush {
     return this;
   }
 
-  public boolean isCarved() {
-    return isCarved;
+  private PumpkinBlock setLit(final boolean isLit) {
+    this.isLit = isLit;
+    return this;
   }
 
-  public boolean isLit() {
-    return isLit;
+  @Override
+  public PumpkinBlock copy() {
+    PumpkinBlock copy = new PumpkinBlock();
+    copy.setFacing(getFacing());
+    copy.setCarved(isCarved);
+    copy.setLit(isLit);
+    return copy;
   }
+
 }

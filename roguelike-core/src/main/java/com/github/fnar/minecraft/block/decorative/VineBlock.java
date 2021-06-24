@@ -41,4 +41,11 @@ public class VineBlock extends SingleBlockBrush {
   public static VineBlock vine() {
     return new VineBlock();
   }
+
+  @Override
+  public VineBlock copy() {
+    VineBlock vineBlock = new VineBlock();
+    vineBlock.setFacing(getFacing());
+    return vineBlock;
+  }
 }

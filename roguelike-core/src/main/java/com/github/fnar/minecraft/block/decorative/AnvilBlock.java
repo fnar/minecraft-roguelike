@@ -30,4 +30,11 @@ public class AnvilBlock extends SingleBlockBrush {
   public Damage getDamage() {
     return damage;
   }
+
+  public AnvilBlock copy() {
+    AnvilBlock copy = new AnvilBlock();
+    copy.setFacing(getFacing());
+    copy.setDamage(damage);
+    return copy;
+  }
 }

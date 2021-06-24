@@ -20,11 +20,24 @@ public class TorchBlock extends SingleBlockBrush {
     return isLit;
   }
 
+  public TorchBlock setLit(boolean isLit) {
+    this.isLit = isLit;
+    return this;
+  }
+
   public static TorchBlock redstone() {
     return new TorchBlock(BlockType.REDSTONE_TORCH);
   }
 
   public static TorchBlock torch() {
     return new TorchBlock(BlockType.TORCH);
+  }
+
+  @Override
+  public TorchBlock copy() {
+    TorchBlock copy = new TorchBlock(getBlockType());
+    copy.setFacing(getFacing());
+    copy.setLit(isLit);
+    return copy;
   }
 }

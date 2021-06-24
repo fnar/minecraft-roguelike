@@ -42,4 +42,11 @@ public class FlowerPotBlock extends SingleBlockBrush {
     return new FlowerPotBlock();
   }
 
+  @Override
+  public FlowerPotBlock copy() {
+    FlowerPotBlock copy = new FlowerPotBlock();
+    copy.setFacing(getFacing());
+    copy.setContent(content);
+    return copy;
+  }
 }

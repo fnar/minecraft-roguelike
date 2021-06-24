@@ -5,12 +5,18 @@ import com.google.gson.JsonElement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BlockJumble implements BlockBrush {
 
-  private List<BlockBrush> blocks = new ArrayList<>();
+  private final List<BlockBrush> blocks = new ArrayList<>();
 
+  // todo: deprecate
   public BlockJumble() {
+  }
+
+  public BlockJumble(List<BlockBrush> blocks) {
+    this.blocks.addAll(blocks);
   }
 
   public BlockJumble(JsonElement data) {
@@ -30,6 +36,11 @@ public class BlockJumble implements BlockBrush {
   public boolean stroke(WorldEditor editor, Coord origin, boolean fillAir, boolean replaceSolid) {
     BlockBrush block = blocks.get(editor.getRandom(origin).nextInt(blocks.size()));
     return block.stroke(editor, origin, fillAir, replaceSolid);
+  }
+
+  @Override
+  public BlockJumble copy() {
+    return new BlockJumble(blocks.stream().map(BlockBrush::copy).collect(Collectors.toList()));
   }
 
 }

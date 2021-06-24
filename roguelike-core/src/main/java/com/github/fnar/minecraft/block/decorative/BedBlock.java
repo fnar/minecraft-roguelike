@@ -77,4 +77,14 @@ public class BedBlock extends SingleBlockBrush {
   public static BedBlock bed() {
     return new BedBlock();
   }
+
+  @Override
+  public BedBlock copy() {
+    BedBlock copy = new BedBlock();
+    copy.setFacing(getFacing());
+    copy.setColor(color);
+    copy.setHead(isHead);
+    return copy;
+  }
+  
 }

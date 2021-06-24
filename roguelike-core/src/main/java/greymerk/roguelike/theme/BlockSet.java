@@ -110,30 +110,30 @@ public class BlockSet {
   }
 
   public BlockBrush getWall() {
-    return walls;
+    return walls.copy();
   }
 
   public StairsBlock getStair() {
-    return stair;
+    return stair.copy();
   }
 
   public BlockBrush getPillar() {
-    return ofNullable(pillar).orElse(getWall());
+    return ofNullable(pillar.copy()).orElse(getWall());
   }
 
   public BlockBrush getFloor() {
-    return ofNullable(floor).orElse(getWall());
+    return ofNullable(floor.copy()).orElse(getWall());
   }
 
   public DoorBlock getDoor() {
-    return door;
+    return door.copy();
   }
 
   public BlockBrush getLightBlock() {
-    return lightBlock;
+    return lightBlock.copy();
   }
 
   public BlockBrush getLiquid() {
-    return liquid;
+    return liquid.copy();
   }
 }

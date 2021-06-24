@@ -88,4 +88,15 @@ public class StairsBlock extends SingleBlockBrush {
   public static StairsBlock purpur() {
     return new StairsBlock(BlockType.PURPUR_STAIRS, Material.NONE);
   }
+
+  @Override
+  public StairsBlock copy() {
+    JsonElement json = getJson();
+    StairsBlock copy = json != null
+        ? new StairsBlock(json)
+        : new StairsBlock(getBlockType(), getMaterial());
+    copy.setFacing(getFacing());
+    copy.setUpsideDown(this.isUpsideDown);
+    return copy;
+  }
 }

@@ -24,4 +24,11 @@ public class PlantBlock extends SingleBlockBrush {
     return new PlantBlock();
   }
 
+  @Override
+  public PlantBlock copy() {
+    PlantBlock copy = new PlantBlock();
+    copy.setFacing(getFacing());
+    copy.setPlant(plant);
+    return copy;
+  }
 }
