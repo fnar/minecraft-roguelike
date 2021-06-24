@@ -11,7 +11,6 @@ public class BlockJumble implements BlockBrush {
 
   private final List<BlockBrush> blocks = new ArrayList<>();
 
-  // todo: deprecate
   public BlockJumble() {
   }
 
