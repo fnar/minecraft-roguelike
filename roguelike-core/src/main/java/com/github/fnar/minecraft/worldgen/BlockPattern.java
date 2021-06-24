@@ -15,16 +15,16 @@ import greymerk.roguelike.worldgen.WorldEditor;
 public class BlockPattern {
 
   private final WorldEditor worldEditor;
-  private final String pattern;
   private final Map<Character, BlockBrush> blockBrushMap;
+  private final List<List<List<BlockBrush>>> patternOfBrushes;
   private String sliceDelimiter = "\n\n";
   private String rowDelimiter = "\n";
   private String blockDelimiter = " ";
 
   public BlockPattern(WorldEditor worldEditor, String pattern, Map<Character, BlockBrush> blockBrushMap) {
     this.worldEditor = worldEditor;
-    this.pattern = pattern;
     this.blockBrushMap = blockBrushMap;
+    this.patternOfBrushes = parseSlices(pattern);
   }
 
   public void stroke(Coord origin, Direction facing) {
@@ -38,7 +38,6 @@ public class BlockPattern {
   }
 
   private void stroke(Coord origin, Direction facing, BiConsumer<BlockBrush, Coord> stroke) {
-    List<List<List<BlockBrush>>> patternOfBrushes = parseSlices(pattern);
     Coord cursor = origin.copy();
     for (List<List<BlockBrush>> slice : patternOfBrushes) {
       Coord sliceCursor = cursor.copy();

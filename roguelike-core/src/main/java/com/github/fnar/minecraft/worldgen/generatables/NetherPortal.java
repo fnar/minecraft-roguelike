@@ -1,4 +1,4 @@
-package com.github.fnar.minecraft.worldgen;
+package com.github.fnar.minecraft.worldgen.generatables;
 
 import com.github.fnar.minecraft.block.BlockType;
 
