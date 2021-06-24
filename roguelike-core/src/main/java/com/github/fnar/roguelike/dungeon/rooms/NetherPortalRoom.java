@@ -1,8 +1,12 @@
 package com.github.fnar.roguelike.dungeon.rooms;
 
-import com.github.fnar.minecraft.worldgen.NetherPortal;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.worldgen.generatables.Doorway;
+import com.github.fnar.minecraft.worldgen.generatables.Entryway;
+import com.github.fnar.minecraft.worldgen.generatables.IronBarredEntryway;
+import com.github.fnar.minecraft.worldgen.generatables.NetherPortal;
+import com.github.fnar.minecraft.worldgen.generatables.WalledDoorway;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -56,10 +60,19 @@ public class NetherPortalRoom extends DungeonBase {
   }
 
   private void generateDoorway(Coord origin, Direction facing) {
-    RectSolid.newRect(
-        origin.copy().translate(facing.left()),
-        origin.copy().translate(facing.right()).up(2)
-    ).fill(worldEditor, SingleBlockBrush.AIR);
+    switch (worldEditor.getRandom().nextInt(4)) {
+      default:
+      case 0:
+        new Entryway(worldEditor).generate(origin, facing);
+      case 1:
+        new Doorway(worldEditor, levelSettings.getTheme()).generate(origin, facing);
+        return;
+      case 2:
+        new IronBarredEntryway(worldEditor).generate(origin, facing);
+        return;
+      case 3:
+        new WalledDoorway(worldEditor, levelSettings.getTheme()).generate(origin, facing);
+    }
   }
 
   private void theFloorsAreFloors(Coord origin, Direction front) {
@@ -127,7 +140,7 @@ public class NetherPortalRoom extends DungeonBase {
     BlockBrush pillar = levelSettings.getTheme().getPrimary().getPillar();
     RectSolid.newRect(
         origin.copy().translate(front).translate(front.left(), 3),
-        origin.copy().translate(front.back()).translate(front.right(), 3).up(getHeight() -1)
+        origin.copy().translate(front.back()).translate(front.right(), 3).up(getHeight() - 1)
     ).fill(worldEditor, pillar);
 
     // portal platform
