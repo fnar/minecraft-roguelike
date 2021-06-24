@@ -23,4 +23,12 @@ public class LeverBlock extends SingleBlockBrush {
   public boolean isActive() {
     return isActive;
   }
+
+  @Override
+  public LeverBlock copy() {
+    LeverBlock copy = new LeverBlock();
+    copy.setFacing(getFacing());
+    copy.setActive(isActive);
+    return copy;
+  }
 }

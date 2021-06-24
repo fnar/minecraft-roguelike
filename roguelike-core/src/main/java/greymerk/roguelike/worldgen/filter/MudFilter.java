@@ -1,10 +1,14 @@
 package greymerk.roguelike.worldgen.filter;
 
+import com.google.common.collect.Lists;
+
 import com.github.fnar.minecraft.block.BlockType;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockJumble;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -45,15 +49,17 @@ public class MudFilter implements IFilter {
       return;
     }
 
-    BlockJumble wet = new BlockJumble();
-    wet.addBlock(BlockType.CLAY.getBrush());
-    wet.addBlock(BlockType.SOUL_SAND.getBrush());
-    wet.addBlock(BlockType.MYCELIUM.getBrush());
+    ArrayList<BlockBrush> wetBlocks = Lists.newArrayList(
+        BlockType.CLAY.getBrush(),
+        BlockType.SOUL_SAND.getBrush(),
+        BlockType.MYCELIUM.getBrush());
+    BlockJumble wet = new BlockJumble(wetBlocks);
 
-    BlockJumble dry = new BlockJumble();
-    dry.addBlock(BlockType.DIRT_PODZOL.getBrush());
-    dry.addBlock(BlockType.DIRT.getBrush());
-    dry.addBlock(BlockType.DIRT_COARSE.getBrush());
+    ArrayList<BlockBrush> dryBlocks = Lists.newArrayList(
+        BlockType.DIRT_PODZOL.getBrush(),
+        BlockType.DIRT.getBrush(),
+        BlockType.DIRT_COARSE.getBrush());
+    BlockJumble dry = new BlockJumble(dryBlocks);
 
     switch (counter) {
       case 5:

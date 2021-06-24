@@ -58,4 +58,12 @@ public class TallPlantBlock extends SingleBlockBrush {
     return isSuccess;
   }
 
+  @Override
+  public TallPlantBlock copy() {
+    TallPlantBlock copy = new TallPlantBlock();
+    copy.setFacing(getFacing());
+    copy.setTallPlant(tallPlant);
+    copy.setTop(isTop);
+    return copy;
+  }
 }

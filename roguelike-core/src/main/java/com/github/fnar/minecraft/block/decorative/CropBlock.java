@@ -23,4 +23,12 @@ public class CropBlock extends SingleBlockBrush {
   public static CropBlock crop() {
     return new CropBlock();
   }
+
+  @Override
+  public CropBlock copy() {
+    CropBlock copy = new CropBlock();
+    copy.setFacing(getFacing());
+    copy.setCrop(crop);
+    return copy;
+  }
 }

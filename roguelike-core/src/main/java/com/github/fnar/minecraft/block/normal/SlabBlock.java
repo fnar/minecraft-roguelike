@@ -103,4 +103,14 @@ public class SlabBlock extends SingleBlockBrush {
     isSeamless = seamless;
     return this;
   }
+
+  @Override
+  public SlabBlock copy() {
+    SlabBlock copy = new SlabBlock(getBlockType());
+    copy.setFacing(getFacing());
+    copy.setFullBlock(isFullBlock);
+    copy.setSeamless(isSeamless);
+    copy.setTop(isTop);
+    return copy;
+  }
 }

@@ -40,4 +40,12 @@ public class InfestedBlock extends SingleBlockBrush {
   public static InfestedBlock infestedBlock() {
     return new InfestedBlock();
   }
+
+  @Override
+  public InfestedBlock copy() {
+    InfestedBlock copy = new InfestedBlock();
+    copy.setFacing(getFacing());
+    copy.setStone(stone);
+    return copy;
+  }
 }

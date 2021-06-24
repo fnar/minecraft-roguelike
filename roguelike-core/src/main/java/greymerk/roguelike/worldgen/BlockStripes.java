@@ -5,13 +5,17 @@ import com.google.gson.JsonElement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BlockStripes implements BlockBrush {
 
-  private List<BlockBrush> blocks;
+  private final List<BlockBrush> blocks = new ArrayList<>();
 
   public BlockStripes() {
-    blocks = new ArrayList<>();
+  }
+
+  public BlockStripes(List<BlockBrush> blocks) {
+    this.blocks.addAll(blocks);
   }
 
   public BlockStripes(JsonElement data) {
@@ -35,4 +39,10 @@ public class BlockStripes implements BlockBrush {
     BlockBrush block = blocks.get(choice);
     return block.stroke(editor, origin, fillAir, replaceSolid);
   }
+
+  @Override
+  public BlockStripes copy() {
+    return new BlockStripes(blocks.stream().map(BlockBrush::copy).collect(Collectors.toList()));
+  }
+
 }

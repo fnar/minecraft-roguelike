@@ -21,6 +21,11 @@ public class TrapdoorBlock extends SingleBlockBrush {
     return new TrapdoorBlock(Material.METAL);
   }
 
+  public TrapdoorBlock setFlushWithTop(boolean isFlushWithTop) {
+    this.isFlushWithTop = isFlushWithTop;
+    return this;
+  }
+
   public TrapdoorBlock setFlushWithTop() {
     isFlushWithTop = true;
     return this;
@@ -30,6 +35,11 @@ public class TrapdoorBlock extends SingleBlockBrush {
     return isFlushWithTop;
   }
 
+  public TrapdoorBlock setOpen(boolean isOpen) {
+    this.isOpen = isOpen;
+    return this;
+  }
+
   public TrapdoorBlock setOpen() {
     isOpen = true;
     return this;
@@ -37,5 +47,14 @@ public class TrapdoorBlock extends SingleBlockBrush {
 
   public boolean isOpen() {
     return isOpen;
+  }
+
+  @Override
+  public TrapdoorBlock copy() {
+    TrapdoorBlock copy = new TrapdoorBlock(getMaterial());
+    copy.setFacing(getFacing());
+    copy.setFlushWithTop(isFlushWithTop);
+    copy.setOpen(isOpen);
+    return copy;
   }
 }

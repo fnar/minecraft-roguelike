@@ -5,10 +5,15 @@ import com.google.gson.JsonElement;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class BlockColumns implements BlockBrush {
 
-  private List<BlockBrush> blocks = new ArrayList<>();
+  private final List<BlockBrush> blocks = new ArrayList<>();
+
+  public BlockColumns(List<BlockBrush> blocks) {
+    this.blocks.addAll(blocks);
+  }
 
   public BlockColumns(JsonElement data) {
     for (JsonElement jsonElement : (JsonArray) data) {
@@ -29,6 +34,11 @@ public class BlockColumns implements BlockBrush {
     int choice = Math.abs((pos.getX() % size + pos.getZ() % size)) % size;
     BlockBrush block = blocks.get(choice);
     return block.stroke(editor, pos, fillAir, replaceSolid);
+  }
+
+  @Override
+  public BlockColumns copy() {
+    return new BlockColumns(blocks.stream().map(BlockBrush::copy).collect(Collectors.toList()));
   }
 
 }

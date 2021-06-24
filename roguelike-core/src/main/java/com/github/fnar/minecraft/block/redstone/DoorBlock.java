@@ -102,4 +102,17 @@ public class DoorBlock extends SingleBlockBrush {
     }
     return true;
   }
+
+  @Override
+  public DoorBlock copy() {
+    JsonElement json = getJson();
+    DoorBlock copy = (json != null)
+        ? new DoorBlock(json)
+        : new DoorBlock(getBlockType(), getMaterial());
+    copy.setFacing(getFacing());
+    copy.setHingeLeft(isHingeLeft);
+    copy.setOpen(isOpen);
+    copy.setTop(isTop);
+    return copy;
+  }
 }

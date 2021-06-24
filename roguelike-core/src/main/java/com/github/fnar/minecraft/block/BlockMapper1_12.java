@@ -282,7 +282,7 @@ public class BlockMapper1_12 {
 
   private static MetaBlock1_2 getRepeater(RepeaterBlock block) {
     return new MetaBlock1_2(block.isPowered() ? Blocks.POWERED_REPEATER : Blocks.UNPOWERED_REPEATER)
-        .withProperty(BlockRedstoneRepeater.DELAY, block.getDelay())
+        .withProperty(BlockRedstoneRepeater.DELAY, block.getDelay().asInt())
         .withProperty(BlockRedstoneRepeater.FACING, block.getFacing().getFacing());
   }
 

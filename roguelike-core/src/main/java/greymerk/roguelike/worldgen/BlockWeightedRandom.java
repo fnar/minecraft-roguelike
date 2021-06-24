@@ -9,14 +9,12 @@ import greymerk.roguelike.util.WeightedRandomizer;
 
 public class BlockWeightedRandom implements BlockBrush {
 
-  private WeightedRandomizer<BlockBrush> blocks;
+  private WeightedRandomizer<BlockBrush> blocks = new WeightedRandomizer<>();
 
   public BlockWeightedRandom() {
-    blocks = new WeightedRandomizer<>();
   }
 
   public BlockWeightedRandom(JsonElement data) {
-    this();
     for (JsonElement jsonElement : (JsonArray) data) {
       if (jsonElement.isJsonNull()) {
         continue;
@@ -28,6 +26,10 @@ public class BlockWeightedRandom implements BlockBrush {
     }
   }
 
+  public BlockWeightedRandom(final WeightedRandomizer<BlockBrush> blocks) {
+    this.blocks = blocks;
+  }
+
   public void addBlock(BlockBrush toAdd, int weight) {
     blocks.add(new WeightedChoice<>(toAdd, weight));
   }
@@ -36,5 +38,10 @@ public class BlockWeightedRandom implements BlockBrush {
   public boolean stroke(WorldEditor editor, Coord origin, boolean fillAir, boolean replaceSolid) {
     BlockBrush block = blocks.get(editor.getRandom());
     return block.stroke(editor, origin, fillAir, replaceSolid);
+  }
+
+  @Override
+  public BlockWeightedRandom copy() {
+    return new BlockWeightedRandom(blocks.copy());
   }
 }

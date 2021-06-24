@@ -12,13 +12,13 @@ public class RepeaterBlock extends SingleBlockBrush {
     FOUR(4),
     ;
 
-    int delay;
+    private final int delay;
 
     Delay(int delay) {
       this.delay = delay;
     }
 
-    public int getDelay() {
+    public int asInt() {
       return delay;
     }
   }
@@ -35,8 +35,8 @@ public class RepeaterBlock extends SingleBlockBrush {
     return this;
   }
 
-  public int getDelay() {
-    return delay.getDelay();
+  public Delay getDelay() {
+    return delay;
   }
 
   public RepeaterBlock setPowered(boolean isPowered) {
@@ -52,4 +52,12 @@ public class RepeaterBlock extends SingleBlockBrush {
     return new RepeaterBlock();
   }
 
+  @Override
+  public RepeaterBlock copy() {
+    RepeaterBlock copy = new RepeaterBlock();
+    copy.setFacing(getFacing());
+    copy.setPowered(isPowered);
+    copy.setDelay(delay);
+    return copy;
+  }
 }

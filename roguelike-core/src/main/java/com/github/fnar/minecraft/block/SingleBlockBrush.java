@@ -45,6 +45,13 @@ public class SingleBlockBrush implements BlockBrush {
     return this;
   }
 
+  public SingleBlockBrush copy() {
+    SingleBlockBrush copy = new SingleBlockBrush(this.blockType, this.material);
+    copy.setFacing(facing);
+    copy.setJson(json);
+    return copy;
+  }
+
   public MetaBlock getMetaBlock() {
     String name = BlockMapper1_12.map(this).getBlock().getRegistryName().toString();
     return new MetaBlock(name);
