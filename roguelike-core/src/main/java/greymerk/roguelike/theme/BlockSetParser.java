@@ -43,8 +43,17 @@ class BlockSetParser {
 
   private static Optional<StairsBlock> parseStair(JsonObject json) throws DungeonSettingParseException {
     return json.has("stair")
-        ? of(new StairsBlock(json.get("stair").getAsJsonObject()))
+        ? of(somethingAboutStairWithData(json))
         : empty();
+  }
+
+  private static StairsBlock somethingAboutStairWithData(JsonObject json) throws DungeonSettingParseException {
+    // todo: review -- should this just use BlockProvider.create() instead?
+    JsonObject stairData = json.get("stair").getAsJsonObject();
+    JsonObject jsonObject = stairData.has("data")
+        ? stairData.get("data").getAsJsonObject()
+        : stairData;
+    return new StairsBlock(jsonObject);
   }
 
   private static Optional<BlockBrush> parsePillar(JsonObject json) throws DungeonSettingParseException {
