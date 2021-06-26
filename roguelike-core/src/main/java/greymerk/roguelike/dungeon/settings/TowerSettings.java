@@ -24,8 +24,11 @@ public class TowerSettings {
     JsonObject data = e.getAsJsonObject();
 
     type = data.has("type") ? Tower.get(data.get("type").getAsString()) : null;
-    theme = data.has("theme") ? ThemeParser.parse(data.get("theme").getAsJsonObject()) : null;
-
+    try {
+      theme = data.has("theme") ? ThemeParser.parse(data.get("theme").getAsJsonObject()) : null;
+    } catch (DungeonSettingParseException exception) {
+      throw new DungeonSettingParseException("While parsing tower: " + exception.getMessage());
+    }
   }
 
   public TowerSettings(TowerSettings base, TowerSettings override) {
