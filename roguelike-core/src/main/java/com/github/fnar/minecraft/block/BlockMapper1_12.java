@@ -125,17 +125,17 @@ public class BlockMapper1_12 {
       case SPRUCE_PLANK:
         return getPlankMetaBlock(Wood.SPRUCE);
       case OAK_LEAVES:
-        return getLeaves(Wood.OAK, true);
+        return getLeaves(Wood.OAK, false);
       case SPRUCE_LEAVES:
-        return getLeaves(Wood.SPRUCE, true);
+        return getLeaves(Wood.SPRUCE, false);
       case BIRCH_LEAVES:
-        return getLeaves(Wood.BIRCH, true);
+        return getLeaves(Wood.BIRCH, false);
       case JUNGLE_LEAVES:
-        return getLeaves(Wood.JUNGLE, true);
+        return getLeaves(Wood.JUNGLE, false);
       case ACACIA_LEAVES2:
-        return getLeaves(Wood.ACACIA, true);
+        return getLeaves(Wood.ACACIA, false);
       case DARK_OAK_LEAVES:
-        return getLeaves(Wood.DARK_OAK, true);
+        return getLeaves(Wood.DARK_OAK, false);
       case CARPET:
       case CONCRETE:
       case CONCRETE_POWDER:
@@ -769,7 +769,6 @@ public class BlockMapper1_12 {
     return metaBlock;
   }
 
-
   public static Block getSlabMinecraftBlock(BlockType blockType, boolean isFullBlock) {
     switch (blockType) {
       case STONE_SLAB:
@@ -795,7 +794,6 @@ public class BlockMapper1_12 {
         return Blocks.STONE_SLAB;
     }
   }
-
 
   public static MetaBlock1_2 getTorch(TorchBlock torchBlock) {
     Block minecraftTorchBlock = !torchBlock.isLit()
@@ -968,7 +966,6 @@ public class BlockMapper1_12 {
     return new MetaBlock1_2(base)
         .withProperty(variantType, getWoodVariant(type))
         .withProperty(BlockLeaves.DECAYABLE, decay);
-
   }
 
   private static Block getBlockId(Wood type) {
