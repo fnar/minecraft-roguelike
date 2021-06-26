@@ -9,7 +9,9 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.minecraft.block.redstone.DoorBlock;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.ResourceLocation;
 
@@ -39,7 +41,11 @@ public class MetaBlock1_2 {
     }
     Block block = Block.REGISTRY.getObject(location);
     int meta = json.has("meta") ? json.get("meta").getAsInt() : 0;
-    this.setState(block.getStateFromMeta(meta));
+    IBlockState blockState = block.getStateFromMeta(meta);
+    this.setState(blockState);
+    if (name.contains("leaves")) {
+      withProperty(BlockLeaves.DECAYABLE, false);
+    }
     flag = json.has("flag") ? json.get("flag").getAsInt() : 2;
   }
 
