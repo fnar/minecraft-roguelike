@@ -1,7 +1,9 @@
 package greymerk.roguelike.theme;
 
+import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.minecraft.block.normal.Wood;
+import com.github.fnar.minecraft.block.redstone.DoorBlock;
 
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -22,8 +24,24 @@ public class ThemeRainbow extends ThemeBase {
     BlockBrush pillar = Wood.ACACIA.getLog();
     BlockBrush planks = Wood.ACACIA.getPlanks();
 
-    this.primary = new BlockSet(rainbow, stair, pillar);
-    this.secondary = new BlockSet(planks, stair, pillar);
+    this.primary = new BlockSet(
+        rainbow,
+        rainbow,
+        stair,
+        pillar,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
+    this.secondary = new BlockSet(
+        planks,
+        planks,
+        stair,
+        pillar,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
 
   }
 }

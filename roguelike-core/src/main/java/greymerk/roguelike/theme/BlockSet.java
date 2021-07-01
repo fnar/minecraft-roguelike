@@ -10,16 +10,15 @@ import static java.util.Optional.ofNullable;
 
 public class BlockSet {
 
-  private BlockBrush floor;
+  private BlockBrush floor = BlockType.STONE_BRICK.getBrush();
   private BlockBrush walls = BlockType.STONE_BRICK.getBrush();
   private StairsBlock stair = StairsBlock.stoneBrick();
-  private BlockBrush pillar;
+  private BlockBrush pillar = BlockType.STONE_BRICK.getBrush();
   private DoorBlock door = DoorBlock.oak();
   private BlockBrush lightBlock = BlockType.GLOWSTONE.getBrush();
   private BlockBrush liquid = BlockType.WATER_FLOWING.getBrush();
 
-  public BlockSet() {
-
+  private BlockSet() {
   }
 
   public BlockSet(
@@ -38,52 +37,6 @@ public class BlockSet {
     this.door = door;
     this.lightBlock = lightBlock;
     this.liquid = liquid;
-  }
-
-  public BlockSet(
-      BlockBrush floor,
-      BlockBrush walls,
-      StairsBlock stair,
-      BlockBrush pillar,
-      DoorBlock door
-  ) {
-    this(
-        floor,
-        walls,
-        stair,
-        pillar,
-        door,
-        BlockType.GLOWSTONE.getBrush(),
-        BlockType.WATER_FLOWING.getBrush()
-    );
-  }
-
-  public BlockSet(
-      BlockBrush floor,
-      BlockBrush walls,
-      StairsBlock stair,
-      BlockBrush pillar
-  ) {
-    this(
-        floor,
-        walls,
-        stair,
-        pillar,
-        DoorBlock.oak()
-    );
-  }
-
-  public BlockSet(
-      BlockBrush walls,
-      StairsBlock stair,
-      BlockBrush pillar
-  ) {
-    this(
-        walls,
-        walls,
-        stair,
-        pillar
-    );
   }
 
   static BlockSet inherit(

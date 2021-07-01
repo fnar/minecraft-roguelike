@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.block.redstone.DoorBlock;
 
 import net.minecraft.init.Bootstrap;
 
@@ -78,8 +79,24 @@ public class ThemeTest {
 
   @Test
   public void themesInheritFromTheirParents() {
-    BlockSet dirtBlockSet = new BlockSet(BlockType.DIRT.getBrush(), StairsBlock.oak(), null);
-    BlockSet grassBlockSet = new BlockSet(BlockType.GRASS.getBrush(), StairsBlock.oak(), null);
+    BlockSet dirtBlockSet = new BlockSet(
+        BlockType.DIRT.getBrush(),
+        BlockType.DIRT.getBrush(),
+        StairsBlock.oak(),
+        null,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
+    BlockSet grassBlockSet = new BlockSet(
+        BlockType.GRASS.getBrush(),
+        BlockType.GRASS.getBrush(),
+        StairsBlock.oak(),
+        null,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
 
     ThemeBase parent = new ThemeBase(dirtBlockSet, null);
     ThemeBase child = new ThemeBase(null, grassBlockSet);
@@ -91,8 +108,24 @@ public class ThemeTest {
 
   @Test
   public void themesInheritTheirSecondaryBlockSetFromTheirPrimaryIfTheirSecondaryBlockSetIsAbsent() {
-    BlockSet dirtBlockSet = new BlockSet(BlockType.DIRT.getBrush(), StairsBlock.oak(), null);
-    BlockSet grassBlockSet = new BlockSet(BlockType.GRASS.getBrush(), StairsBlock.oak(), null);
+    BlockSet dirtBlockSet = new BlockSet(
+        BlockType.DIRT.getBrush(),
+        BlockType.DIRT.getBrush(),
+        StairsBlock.oak(),
+        null,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
+    BlockSet grassBlockSet = new BlockSet(
+        BlockType.GRASS.getBrush(),
+        BlockType.GRASS.getBrush(),
+        StairsBlock.oak(),
+        null,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
 
     ThemeBase dirtTheme = new ThemeBase(dirtBlockSet, null);
     ThemeBase grassTheme = new ThemeBase(grassBlockSet, null);
@@ -104,7 +137,15 @@ public class ThemeTest {
 
   @Test
   public void themesInheritTheirPrimaryBlockSetFromTheirParentIfAbsent() {
-    BlockSet dirtBlockSet = new BlockSet(BlockType.DIRT.getBrush(), null, null);
+    BlockSet dirtBlockSet = new BlockSet(
+        BlockType.DIRT.getBrush(),
+        BlockType.DIRT.getBrush(),
+        null,
+        null,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
 
     ThemeBase parent = new ThemeBase(dirtBlockSet, null);
     ThemeBase child = new ThemeBase(null, null);
@@ -115,7 +156,15 @@ public class ThemeTest {
 
   @Test
   public void themesInheritTheirSecondaryBlockSetFromTheirParentIfAbsent() {
-    BlockSet dirtBlockSet = new BlockSet(BlockType.DIRT.getBrush(), null, null);
+    BlockSet dirtBlockSet = new BlockSet(
+        BlockType.DIRT.getBrush(),
+        BlockType.DIRT.getBrush(),
+        null,
+        null,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
 
     ThemeBase parent = new ThemeBase(null, dirtBlockSet);
     ThemeBase child = new ThemeBase(null, null);
@@ -126,7 +175,15 @@ public class ThemeTest {
 
   @Test
   public void themesInheritTheirSecondaryBlockSetFromTheirParentsPrimaryIfTheParentHasNoSecondary() {
-    BlockSet dirtBlockSet = new BlockSet(BlockType.DIRT.getBrush(), null, null);
+    BlockSet dirtBlockSet = new BlockSet(
+        BlockType.DIRT.getBrush(),
+        BlockType.DIRT.getBrush(),
+        null,
+        null,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
 
     ThemeBase parent = new ThemeBase(dirtBlockSet, null);
     ThemeBase child = new ThemeBase(null, null);

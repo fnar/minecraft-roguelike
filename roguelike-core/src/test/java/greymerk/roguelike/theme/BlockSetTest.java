@@ -23,14 +23,13 @@ public class BlockSetTest {
 
   @Test
   public void jsonNoBase() {
-
     JsonObject json = new JsonObject();
     JsonObject floor = new JsonObject();
     json.add("floor", floor);
 
     floor.addProperty("name", "minecraft:dirt");
 
-    BlockSet test = BlockSetParser.parseBlockSet(json, new BlockSet());
+    BlockSet test = BlockSetParser.parseBlockSet(json, ThemeBases.OAK.getPrimary());
 
     SingleBlockBrush floorBrush = (SingleBlockBrush) test.getFloor();
     assertThat(floorBrush.getJson()).isEqualTo(floor);

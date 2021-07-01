@@ -1,6 +1,8 @@
 package greymerk.roguelike.theme;
 
+import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.block.redstone.DoorBlock;
 
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -18,7 +20,23 @@ public class ThemeBumbo extends ThemeBase {
     BlockBrush yellow = concrete().setColor(DyeColor.YELLOW);
     BlockBrush red = concrete().setColor(DyeColor.RED);
 
-    primary = new BlockSet(moustache, green, StairsBlock.acacia(), white);
-    secondary = new BlockSet(red, yellow, StairsBlock.acacia(), black);
+    primary = new BlockSet(
+        moustache,
+        green,
+        StairsBlock.acacia(),
+        white,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
+    secondary = new BlockSet(
+        red,
+        yellow,
+        StairsBlock.acacia(),
+        black,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
   }
 }

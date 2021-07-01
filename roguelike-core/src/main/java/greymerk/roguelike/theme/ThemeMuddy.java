@@ -3,6 +3,7 @@ package greymerk.roguelike.theme;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.minecraft.block.normal.Wood;
+import com.github.fnar.minecraft.block.redstone.DoorBlock;
 
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
@@ -32,11 +33,27 @@ public class ThemeMuddy extends ThemeBase {
     BlockBrush mossy = BlockType.STONE_BRICK_MOSSY.getBrush();
     BlockBrush pillar = mossy;
 
-    this.primary = new BlockSet(floor, walls, stair, pillar);
+    this.primary = new BlockSet(
+        floor,
+        walls,
+        stair,
+        pillar,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
 
     BlockBrush segmentWall = Wood.DARK_OAK.getLog();
     StairsBlock segmentStair = StairsBlock.darkOak();
 
-    this.secondary = new BlockSet(floor, segmentWall, segmentStair, segmentWall);
+    this.secondary = new BlockSet(
+        floor,
+        segmentWall,
+        segmentStair,
+        segmentWall,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
   }
 }

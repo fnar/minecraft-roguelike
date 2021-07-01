@@ -29,7 +29,15 @@ public class ThemeCrypt extends ThemeBase {
 
     StairsBlock stair = StairsBlock.stoneBrick();
 
-    this.primary = new BlockSet(walls, walls, stair, pillar, DoorBlock.iron());
+    this.primary = new BlockSet(
+        walls,
+        walls,
+        stair,
+        pillar,
+        DoorBlock.iron(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
     this.secondary = this.primary;
 
   }

@@ -3,6 +3,7 @@ package greymerk.roguelike.theme;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.normal.SlabBlock;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.block.redstone.DoorBlock;
 
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -29,7 +30,15 @@ public class ThemeEniko2 extends ThemeBase {
     StairsBlock stair = StairsBlock.stoneBrick();
     BlockBrush pillar = SlabBlock.stone().setTop(false).setFullBlock(true).setSeamless(true);
 
-    this.primary = new BlockSet(floor, walls, stair, pillar);
+    this.primary = new BlockSet(
+        floor,
+        walls,
+        stair,
+        pillar,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
 
     this.secondary = primary;
   }

@@ -3,6 +3,7 @@ package greymerk.roguelike.theme;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.minecraft.block.normal.Wood;
+import com.github.fnar.minecraft.block.redstone.DoorBlock;
 
 import greymerk.roguelike.worldgen.BlockBrush;
 
@@ -13,8 +14,24 @@ public class ThemeBrick extends ThemeBase {
     StairsBlock stair = StairsBlock.brick();
     BlockBrush pillar = Wood.SPRUCE.getLog();
     BlockBrush segmentWall = Wood.SPRUCE.getPlanks();
-    this.primary = new BlockSet(walls, stair, walls);
-    this.secondary = new BlockSet(segmentWall, stair, pillar);
+    this.primary = new BlockSet(
+        walls,
+        walls,
+        stair,
+        walls,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
+    this.secondary = new BlockSet(
+        segmentWall,
+        segmentWall,
+        stair,
+        pillar,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
 
   }
 }

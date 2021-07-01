@@ -2,15 +2,22 @@ package greymerk.roguelike.theme;
 
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.block.redstone.DoorBlock;
 
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
 
 public class ThemeBling extends ThemeBase {
 
   public ThemeBling() {
-    primary = new BlockSet(createWalls(),
+    primary = new BlockSet(
+        createWalls(),
+        createWalls(),
         StairsBlock.quartz(),
-        BlockType.LAPIS_BLOCK.getBrush());
+        BlockType.LAPIS_BLOCK.getBrush(),
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
     secondary = primary;
   }
 

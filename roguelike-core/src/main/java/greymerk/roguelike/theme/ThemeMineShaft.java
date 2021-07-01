@@ -3,6 +3,7 @@ package greymerk.roguelike.theme;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.minecraft.block.normal.Wood;
+import com.github.fnar.minecraft.block.redstone.DoorBlock;
 
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockJumble;
@@ -29,11 +30,27 @@ public class ThemeMineShaft extends ThemeBase {
   private BlockSet getPrimaryBlockSet(BlockJumble floor, BlockWeightedRandom walls) {
     StairsBlock stair = StairsBlock.cobble();
     BlockBrush pillar = BlockType.COBBLESTONE_WALL.getBrush();
-    return new BlockSet(floor, walls, stair, pillar);
+    return new BlockSet(
+        floor,
+        walls,
+        stair,
+        pillar,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
   }
 
   private BlockSet getSecondaryBlockSet(BlockJumble floor) {
     Wood oak = Wood.OAK;
-    return new BlockSet(floor, oak.getPlanks(), oak.getStairs(), oak.getPlanks());
+    return new BlockSet(
+        floor,
+        oak.getPlanks(),
+        oak.getStairs(),
+        oak.getPlanks(),
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
   }
 }

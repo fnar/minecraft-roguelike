@@ -2,6 +2,7 @@ package greymerk.roguelike.theme;
 
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.block.redstone.DoorBlock;
 
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockCheckers;
@@ -14,7 +15,15 @@ public class ThemeChecker extends ThemeBase {
     BlockBrush checks = new BlockCheckers(one, two);
     StairsBlock stair = StairsBlock.quartz();
 
-    this.primary = new BlockSet(checks, stair, checks);
+    this.primary = new BlockSet(
+        checks,
+        checks,
+        stair,
+        checks,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
 
     this.secondary = primary;
 

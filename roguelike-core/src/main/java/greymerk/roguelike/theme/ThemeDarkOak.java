@@ -15,7 +15,15 @@ public class ThemeDarkOak extends ThemeBase {
     BlockBrush pillar = Wood.DARK_OAK.getLog();
     DoorBlock door = DoorBlock.darkOak();
 
-    this.primary = new BlockSet(walls, walls, stair, pillar, door);
+    this.primary = new BlockSet(
+        walls,
+        walls,
+        stair,
+        pillar,
+        door,
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
     this.secondary = primary;
   }
 }
