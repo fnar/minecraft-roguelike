@@ -31,7 +31,7 @@ public enum Theme {
   MUDDY(new ThemeMuddy()),
   NETHER(new ThemeNether()),
   NETHER_FORTRESS(new NetherFortressTheme()),
-  OAK(new ThemeOak()),
+  OAK(ThemeBases.OAK),
   PURPUR(new ThemePurpur()),
   PYRAMID(new ThemePyramid()),
   QUARTZ(new ThemeQuartz()),
