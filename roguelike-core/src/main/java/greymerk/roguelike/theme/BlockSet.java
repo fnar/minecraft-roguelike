@@ -118,11 +118,11 @@ public class BlockSet {
   }
 
   public BlockBrush getPillar() {
-    return ofNullable(pillar.copy()).orElse(getWall());
+    return ofNullable(pillar).orElse(getWall()).copy();
   }
 
   public BlockBrush getFloor() {
-    return ofNullable(floor.copy()).orElse(getWall());
+    return ofNullable(floor).orElse(getWall()).copy();
   }
 
   public DoorBlock getDoor() {

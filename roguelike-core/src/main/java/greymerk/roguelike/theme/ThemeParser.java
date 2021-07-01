@@ -1,7 +1,6 @@
 package greymerk.roguelike.theme;
 
 import com.google.gson.JsonElement;
-import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 
 import java.util.Arrays;
@@ -18,22 +17,7 @@ public class ThemeParser {
   public static final String SECONDARY_KEY = "secondary";
 
   public static ThemeBase parse(JsonObject json) throws DungeonSettingParseException {
-    ThemeBase themeBase;
-    if (!json.has(THEME_BASE_KEY)) {
-      throw new DungeonSettingParseException("Theme is missing a 'base'. Check the wiki for details and an example.");
-    }
-
-    JsonElement baseElement = json.get(THEME_BASE_KEY);
-    if (baseElement.isJsonNull()) {
-      throw new DungeonSettingParseException("Theme base cannot be set to null. Check the wiki for detils and an example.");
-    }
-
-    String baseString = baseElement.getAsString();
-    if (baseString.isEmpty()) {
-      throw new DungeonSettingParseException("Theme base cannot be empty. Check the wiki for detils and an example.");
-    }
-
-    themeBase = get(baseString).getThemeBase();
+    ThemeBase themeBase = parseThemeBase(json);
 
     BlockSet primaryBlockSet = ofNullable(parsePrimaryBlockSet(json, themeBase))
         .orElse(ofNullable(themeBase).map(ThemeBase::getPrimary)
@@ -45,6 +29,24 @@ public class ThemeParser {
             .orElse(null));
 
     return new ThemeBase(primaryBlockSet, secondaryBlockSet);
+  }
+
+  private static ThemeBase parseThemeBase(JsonObject json) {
+    if (!json.has(THEME_BASE_KEY)) {
+      return Theme.OAK.getThemeBase();
+    }
+
+    JsonElement baseElement = json.get(THEME_BASE_KEY);
+    if (baseElement.isJsonNull()) {
+      return Theme.OAK.getThemeBase();
+    }
+
+    String baseString = baseElement.getAsString();
+    if (baseString.isEmpty()) {
+      return Theme.OAK.getThemeBase();
+    }
+
+    return get(baseString).getThemeBase();
   }
 
   private static BlockSet parsePrimaryBlockSet(JsonObject json, ThemeBase base) throws DungeonSettingParseException {
