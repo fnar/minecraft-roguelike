@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
+import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import net.minecraft.init.Bootstrap;
 
@@ -77,8 +78,8 @@ public class ThemeTest {
 
   @Test
   public void themesInheritFromTheirParents() {
-    BlockSet dirtBlockSet = new BlockSet(BlockType.DIRT.getBrush(), null, null);
-    BlockSet grassBlockSet = new BlockSet(BlockType.GRASS.getBrush(), null, null);
+    BlockSet dirtBlockSet = new BlockSet(BlockType.DIRT.getBrush(), StairsBlock.oak(), null);
+    BlockSet grassBlockSet = new BlockSet(BlockType.GRASS.getBrush(), StairsBlock.oak(), null);
 
     ThemeBase parent = new ThemeBase(dirtBlockSet, null);
     ThemeBase child = new ThemeBase(null, grassBlockSet);
@@ -90,13 +91,13 @@ public class ThemeTest {
 
   @Test
   public void themesInheritTheirSecondaryBlockSetFromTheirPrimaryIfTheirSecondaryBlockSetIsAbsent() {
-    BlockSet dirtBlockSet = new BlockSet(BlockType.DIRT.getBrush(), null, null);
-    BlockSet grassBlockSet = new BlockSet(BlockType.GRASS.getBrush(), null, null);
+    BlockSet dirtBlockSet = new BlockSet(BlockType.DIRT.getBrush(), StairsBlock.oak(), null);
+    BlockSet grassBlockSet = new BlockSet(BlockType.GRASS.getBrush(), StairsBlock.oak(), null);
 
-    ThemeBase parent = new ThemeBase(dirtBlockSet, null);
-    ThemeBase child = new ThemeBase(grassBlockSet, null);
+    ThemeBase dirtTheme = new ThemeBase(dirtBlockSet, null);
+    ThemeBase grassTheme = new ThemeBase(grassBlockSet, null);
 
-    ThemeBase actual = ThemeBase.inherit(parent, child);
+    ThemeBase actual = ThemeBase.inherit(dirtTheme, grassTheme);
     assertThat(actual.getPrimary().getFloor()).isEqualTo(grassBlockSet.getFloor());
     assertThat(actual.getSecondary().getFloor()).isEqualTo(grassBlockSet.getFloor());
   }
