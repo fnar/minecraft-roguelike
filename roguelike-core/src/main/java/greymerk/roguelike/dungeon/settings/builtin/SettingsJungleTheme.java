@@ -1,5 +1,7 @@
 package greymerk.roguelike.dungeon.settings.builtin;
 
+import com.github.fnar.roguelike.theme.ThemeBases;
+
 import net.minecraft.init.Items;
 
 import greymerk.roguelike.dungeon.segment.Segment;
@@ -11,7 +13,7 @@ import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.settings.base.SettingsBase;
 import greymerk.roguelike.dungeon.towers.Tower;
-import greymerk.roguelike.theme.Theme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.treasure.loot.WeightedRandomLoot;
 import greymerk.roguelike.treasure.loot.rule.SingleUseLootRule;
 import greymerk.roguelike.worldgen.filter.Filter;
@@ -28,7 +30,7 @@ public class SettingsJungleTheme extends DungeonSettings {
     setExclusive(true);
     getInherit().add(SettingsBase.ID);
     getCriteria().setBiomeTypes(newArrayList(JUNGLE));
-    setTowerSettings(new TowerSettings(Tower.JUNGLE, Theme.JUNGLE));
+    setTowerSettings(new TowerSettings(Tower.JUNGLE, ThemeBases.JUNGLE));
 
     for (int i = 0; i < 5; ++i) {
       getLootRules().add(new SingleUseLootRule(new WeightedRandomLoot(Items.EMERALD, 0, 1, 1 + i, 1), i, 6));
@@ -36,7 +38,7 @@ public class SettingsJungleTheme extends DungeonSettings {
     }
 
 
-    Theme[] themes = {Theme.JUNGLE, Theme.JUNGLE, Theme.MOSSY, Theme.MOSSY, Theme.NETHER};
+    ThemeBase[] themes = {ThemeBases.JUNGLE, ThemeBases.JUNGLE, ThemeBases.MOSSY, ThemeBases.MOSSY, ThemeBases.NETHER};
 
     SegmentGenerator segments;
     for (int i = 0; i < 5; ++i) {
@@ -57,7 +59,7 @@ public class SettingsJungleTheme extends DungeonSettings {
         level.addFilter(Filter.VINE);
       }
 
-      level.setTheme(themes[i].getThemeBase());
+      level.setTheme(themes[i]);
       getLevelSettings().put(i, level);
     }
   }

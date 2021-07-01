@@ -1,5 +1,9 @@
 package greymerk.roguelike.dungeon.settings.builtin;
 
+import com.github.fnar.roguelike.theme.ThemeBases;
+
+import com.github.fnar.roguelike.theme.ThemeBases;
+
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
@@ -13,7 +17,7 @@ import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.settings.base.SettingsBase;
-import greymerk.roguelike.theme.Theme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.treasure.loot.WeightedRandomLoot;
 import greymerk.roguelike.treasure.loot.rule.ForEachLootRule;
 import greymerk.roguelike.treasure.loot.rule.SingleUseLootRule;
@@ -22,11 +26,6 @@ import greymerk.roguelike.worldgen.filter.Filter;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static greymerk.roguelike.dungeon.towers.Tower.WITCH;
-import static greymerk.roguelike.theme.Theme.DARKHALL;
-import static greymerk.roguelike.theme.Theme.DARKOAK;
-import static greymerk.roguelike.theme.Theme.MOSSY;
-import static greymerk.roguelike.theme.Theme.MUDDY;
-import static greymerk.roguelike.theme.Theme.NETHER;
 import static net.minecraftforge.common.BiomeDictionary.Type.SWAMP;
 
 public class SettingsSwampTheme extends DungeonSettings {
@@ -38,9 +37,9 @@ public class SettingsSwampTheme extends DungeonSettings {
     setExclusive(true);
     getInherit().add(SettingsBase.ID);
     getCriteria().setBiomeTypes(newArrayList(SWAMP));
-    setTowerSettings(new TowerSettings(WITCH, DARKOAK));
+    setTowerSettings(new TowerSettings(WITCH, ThemeBases.DARK_OAK));
 
-    Theme[] themes = {DARKHALL, DARKHALL, MUDDY, MOSSY, NETHER};
+    ThemeBase[] themes = {ThemeBases.DARK_HALL, ThemeBases.DARK_HALL, ThemeBases.MUDDY, ThemeBases.MOSSY, ThemeBases.NETHER};
 
     WeightedRandomizer<ItemStack> brewing = new WeightedRandomizer<>();
     brewing.add(new WeightedRandomLoot(Items.GLASS_BOTTLE, 0, 1, 3, 3));
@@ -55,7 +54,7 @@ public class SettingsSwampTheme extends DungeonSettings {
     for (int i = 0; i < 5; ++i) {
 
       LevelSettings level = new LevelSettings();
-      level.setTheme(themes[i].getThemeBase());
+      level.setTheme(themes[i]);
 
       if (i == 0) {
 

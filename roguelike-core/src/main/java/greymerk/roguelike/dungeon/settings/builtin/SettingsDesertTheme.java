@@ -1,5 +1,7 @@
 package greymerk.roguelike.dungeon.settings.builtin;
 
+import com.github.fnar.roguelike.theme.ThemeBases;
+
 import net.minecraft.init.Items;
 
 import greymerk.roguelike.dungeon.LevelGenerator;
@@ -16,6 +18,7 @@ import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.settings.base.SettingsBase;
 import greymerk.roguelike.dungeon.towers.Tower;
 import greymerk.roguelike.theme.Theme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.treasure.loot.WeightedRandomLoot;
 import greymerk.roguelike.treasure.loot.rule.SingleUseLootRule;
 
@@ -31,17 +34,17 @@ public class SettingsDesertTheme extends DungeonSettings {
     setExclusive(true);
     getInherit().add(SettingsBase.ID);
     getCriteria().setBiomeTypes(newArrayList(SANDY));
-    setTowerSettings(new TowerSettings(Tower.PYRAMID, Theme.PYRAMID));
+    setTowerSettings(new TowerSettings(Tower.PYRAMID, ThemeBases.PYRAMID));
     for (int i = 0; i < 5; ++i) {
       getLootRules().add(new SingleUseLootRule(new WeightedRandomLoot(Items.GOLD_INGOT, 0, 1, 1 + i, 1), i, 6));
     }
 
-    Theme[] themes = {Theme.PYRAMID, Theme.SANDSTONE, Theme.SANDSTONERED, Theme.ENDER, Theme.NETHER};
+    ThemeBase[] themes = {ThemeBases.PYRAMID, ThemeBases.SANDSTONE, ThemeBases.SANDSTONE_RED, ThemeBases.ENDER, ThemeBases.NETHER};
 
     for (int i = 0; i < 5; ++i) {
 
       LevelSettings level = new LevelSettings();
-      level.setTheme(themes[i].getThemeBase());
+      level.setTheme(themes[i]);
 
       if (i == 0) {
         level.setDifficulty(2);

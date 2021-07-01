@@ -1,5 +1,7 @@
 package greymerk.roguelike.dungeon.settings.builtin;
 
+import com.github.fnar.roguelike.theme.ThemeBases;
+
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.base.SecretsSetting;
@@ -12,7 +14,7 @@ import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.settings.base.SettingsBase;
 import greymerk.roguelike.dungeon.towers.Tower;
-import greymerk.roguelike.theme.Theme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.filter.Filter;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -27,13 +29,13 @@ public class SettingsMountainTheme extends DungeonSettings {
     setExclusive(true);
     getInherit().add(SettingsBase.ID);
     getCriteria().setBiomeTypes(newArrayList(MOUNTAIN));
-    setTowerSettings(new TowerSettings(Tower.ENIKO, Theme.OAK));
+    setTowerSettings(new TowerSettings(Tower.ENIKO, ThemeBases.OAK));
 
-    Theme[] themes = {Theme.ENIKO, Theme.ENIKO2, Theme.SEWER, Theme.MOSSY, Theme.NETHER};
+    ThemeBase[] themes = {ThemeBases.ENIKO, ThemeBases.ENIKO2, ThemeBases.SEWER, ThemeBases.MOSSY, ThemeBases.NETHER};
 
     for (int i = 0; i < 5; ++i) {
       LevelSettings level = new LevelSettings();
-      level.setTheme(themes[i].getThemeBase());
+      level.setTheme(themes[i]);
 
       if (i == 0) {
         level.setScatter(16);

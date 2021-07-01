@@ -46,7 +46,6 @@ public enum Theme {
   TERRACOTTA(ThemeBases.TERRACOTTA),
   TOWER(ThemeBases.TOWER);
 
-  private static final Random random = new Random();
   private final ThemeBase themeBase;
 
   Theme(ThemeBase themeBase) {
@@ -57,8 +56,12 @@ public enum Theme {
     return themeBase;
   }
 
-  public static Theme randomTheme() {
-    return values()[random.nextInt(values().length)];
+  public static ThemeBase randomThemeBase() {
+    return values()[(int) (Math.random() * values().length)].getThemeBase();
+  }
+
+  public static ThemeBase randomThemeBase(Random random) {
+    return values()[random.nextInt(values().length)].getThemeBase();
   }
 
 }

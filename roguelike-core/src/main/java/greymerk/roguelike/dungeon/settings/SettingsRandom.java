@@ -19,13 +19,13 @@ import greymerk.roguelike.treasure.loot.rule.ForEachLootRule;
 import greymerk.roguelike.treasure.loot.rule.SingleUseLootRule;
 import greymerk.roguelike.treasure.loot.rule.TypedForEachLootRule;
 
-import static greymerk.roguelike.theme.Theme.randomTheme;
+import static greymerk.roguelike.theme.Theme.randomThemeBase;
 
 public class SettingsRandom extends DungeonSettings {
 
   public SettingsRandom(Random rand) {
 
-    setTowerSettings(new TowerSettings(Tower.randomTower(rand), randomTheme()));
+    setTowerSettings(new TowerSettings(Tower.randomTower(rand), randomThemeBase()));
 
     IntStream.range(0, 5)
         .forEach(i -> getLevelSettings().put(i, createRandomLevel(rand, i)));
@@ -74,7 +74,7 @@ public class SettingsRandom extends DungeonSettings {
     level.setScatter(15);
     level.setSecrets(SecretsSetting.getRandom(rand, 2));
     level.setSegments(SegmentGenerator.getRandom(rand, 12));
-    level.setTheme(randomTheme());
+    level.setTheme(randomThemeBase());
     return level;
   }
 }

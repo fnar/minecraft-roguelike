@@ -3,6 +3,8 @@ package greymerk.roguelike.theme;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import com.github.fnar.roguelike.theme.ThemeBases;
+
 import java.util.Arrays;
 import java.util.function.Function;
 
@@ -33,17 +35,17 @@ public class ThemeParser {
 
   private static ThemeBase parseThemeBase(JsonObject json) {
     if (!json.has(THEME_BASE_KEY)) {
-      return Theme.OAK.getThemeBase();
+      return ThemeBases.OAK;
     }
 
     JsonElement baseElement = json.get(THEME_BASE_KEY);
     if (baseElement.isJsonNull()) {
-      return Theme.OAK.getThemeBase();
+      return ThemeBases.OAK;
     }
 
     String baseString = baseElement.getAsString();
     if (baseString.isEmpty()) {
-      return Theme.OAK.getThemeBase();
+      return ThemeBases.OAK;
     }
 
     return get(baseString).getThemeBase();

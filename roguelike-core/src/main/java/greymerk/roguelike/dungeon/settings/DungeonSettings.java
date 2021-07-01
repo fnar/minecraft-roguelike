@@ -1,5 +1,7 @@
 package greymerk.roguelike.dungeon.settings;
 
+import com.github.fnar.roguelike.theme.ThemeBases;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -132,7 +134,7 @@ public class DungeonSettings {
 
   public TowerSettings getTower() {
     if (towerSettings == null) {
-      return new TowerSettings(Tower.ROGUE, Theme.STONE);
+      return new TowerSettings(Tower.ROGUE, ThemeBases.STONE);
     }
 
     return towerSettings;

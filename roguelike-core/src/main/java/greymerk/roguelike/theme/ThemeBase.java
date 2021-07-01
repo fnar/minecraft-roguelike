@@ -10,6 +10,11 @@ public class ThemeBase {
   public ThemeBase() {
   }
 
+  public ThemeBase(BlockSet palette) {
+    this.primary = palette;
+    this.secondary = palette;
+  }
+
   public ThemeBase(BlockSet primary, BlockSet secondary) {
     this.primary = primary;
     this.secondary = secondary;

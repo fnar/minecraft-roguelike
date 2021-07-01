@@ -1,5 +1,7 @@
 package greymerk.roguelike.dungeon.settings.builtin;
 
+import com.github.fnar.roguelike.theme.ThemeBases;
+
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.base.SecretsSetting;
@@ -27,7 +29,7 @@ public class SettingsForestTheme extends DungeonSettings {
     setExclusive(true);
     getInherit().add(SettingsBase.ID);
     getCriteria().setBiomeTypes(newArrayList(FOREST));
-    setTowerSettings(new TowerSettings(Tower.ROGUE, Theme.TOWER));
+    setTowerSettings(new TowerSettings(Tower.ROGUE, ThemeBases.TOWER));
 
     for (int i = 0; i < 5; ++i) {
 
@@ -51,7 +53,7 @@ public class SettingsForestTheme extends DungeonSettings {
           secrets.add(RoomType.BEDROOM.newSingleRoomSetting());
           secrets.add(RoomType.BEDROOM.newSingleRoomSetting());
           level.setSecrets(secrets);
-          level.setTheme(Theme.SPRUCE.getThemeBase());
+          level.setTheme(ThemeBases.SPRUCE);
           segments = new SegmentGenerator(Segment.ARCH);
           segments.add(Segment.DOOR, 8);
           segments.add(Segment.LAMP, 2);
@@ -73,7 +75,7 @@ public class SettingsForestTheme extends DungeonSettings {
           rooms.add(RoomType.CORNER.newRandomRoomSetting(10));
           rooms.add(RoomType.BRICK.newRandomRoomSetting(3));
           level.setRooms(rooms);
-          level.setTheme(Theme.DARKHALL.getThemeBase());
+          level.setTheme(ThemeBases.DARK_HALL);
           segments = new SegmentGenerator(Segment.ARCH);
           segments.add(Segment.DOOR, 10);
           segments.add(Segment.FLOWERS, 2);

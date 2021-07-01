@@ -1,5 +1,7 @@
 package greymerk.roguelike.dungeon.settings.builtin;
 
+import com.github.fnar.roguelike.theme.ThemeBases;
+
 import java.util.stream.IntStream;
 
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
@@ -11,7 +13,6 @@ import greymerk.roguelike.dungeon.settings.base.SettingsBase;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static greymerk.roguelike.dungeon.towers.Tower.PYRAMID;
-import static greymerk.roguelike.theme.Theme.ICE;
 import static net.minecraftforge.common.BiomeDictionary.Type.SNOWY;
 
 public class SettingsIceTheme extends DungeonSettings {
@@ -23,7 +24,7 @@ public class SettingsIceTheme extends DungeonSettings {
     setExclusive(true);
     getInherit().add(SettingsBase.ID);
     getCriteria().setBiomeTypes(newArrayList(SNOWY));
-    setTowerSettings(new TowerSettings(PYRAMID, ICE));
+    setTowerSettings(new TowerSettings(PYRAMID, ThemeBases.ICE));
     IntStream.range(0, 5)
         .forEach(i -> getLevelSettings().put(i, generateLevelSettings(i)));
   }
@@ -31,7 +32,7 @@ public class SettingsIceTheme extends DungeonSettings {
   private LevelSettings generateLevelSettings(int i) {
     LevelSettings levelSettings = new LevelSettings();
 
-    levelSettings.setTheme(ICE);
+    levelSettings.setTheme(ThemeBases.ICE);
 
     return levelSettings;
   }

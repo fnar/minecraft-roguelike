@@ -1,8 +1,10 @@
 package greymerk.roguelike.dungeon.towers;
 
+import com.github.fnar.roguelike.theme.ThemeBases;
+
 import java.util.Random;
 
-import greymerk.roguelike.theme.Theme;
+import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 
@@ -56,22 +58,22 @@ public enum Tower {
     }
   }
 
-  public static Theme getDefaultTheme(Tower type) {
+  public static ThemeBase getDefaultTheme(Tower type) {
     switch (type) {
       case ETHO:
-        return Theme.ETHOTOWER;
+        return ThemeBases.ETHO_TOWER;
       case PYRAMID:
-        return Theme.PYRAMID;
+        return ThemeBases.PYRAMID;
       case JUNGLE:
-        return Theme.JUNGLE;
+        return ThemeBases.JUNGLE;
       case WITCH:
-        return Theme.DARKHALL;
+        return ThemeBases.DARK_HALL;
       case HOUSE:
-        return Theme.HOUSE;
+        return ThemeBases.HOUSE;
       case BUMBO:
-        return Theme.BUMBO;
+        return ThemeBases.BUMBO;
       default:
-        return Theme.OAK;
+        return ThemeBases.OAK;
     }
   }
 
