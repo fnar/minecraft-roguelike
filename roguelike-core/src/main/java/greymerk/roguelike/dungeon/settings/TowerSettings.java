@@ -6,13 +6,13 @@ import com.google.gson.JsonObject;
 import greymerk.roguelike.dungeon.towers.Tower;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.theme.ThemeBase;
+import com.github.fnar.roguelike.theme.ThemeBases;
 import greymerk.roguelike.theme.ThemeParser;
-import greymerk.roguelike.theme.ThemeTower;
 
 public class TowerSettings {
 
-  private Tower type;
-  private ThemeBase theme;
+  private final Tower type;
+  private final ThemeBase theme;
 
   public TowerSettings(Tower type, Theme theme) {
     this.type = type;
@@ -64,7 +64,7 @@ public class TowerSettings {
 
   public ThemeBase getTheme() {
     if (theme == null) {
-      return new ThemeTower();
+      return ThemeBases.TOWER;
     }
 
     return theme;

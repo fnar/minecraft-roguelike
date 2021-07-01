@@ -3,6 +3,7 @@ package greymerk.roguelike.theme;
 import com.google.gson.JsonObject;
 
 import com.github.fnar.minecraft.block.SingleBlockBrush;
+import com.github.fnar.roguelike.theme.ThemeBases;
 
 import net.minecraft.init.Bootstrap;
 
