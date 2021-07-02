@@ -19,7 +19,7 @@ import greymerk.roguelike.treasure.loot.rule.ForEachLootRule;
 import greymerk.roguelike.treasure.loot.rule.SingleUseLootRule;
 import greymerk.roguelike.treasure.loot.rule.TypedForEachLootRule;
 
-import static greymerk.roguelike.theme.Theme.randomTheme;
+import static greymerk.roguelike.theme.Themes.randomTheme;
 
 public class SettingsRandom extends DungeonSettings {
 

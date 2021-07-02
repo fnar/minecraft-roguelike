@@ -4,7 +4,7 @@ import com.github.fnar.roguelike.theme.NetherFortressTheme;
 
 import java.util.Random;
 
-public enum Theme {
+public enum Themes {
 
   BLING(new ThemeBling()),
   BRICK(new ThemeBrick()),
@@ -49,7 +49,7 @@ public enum Theme {
   private static final Random random = new Random();
   private final ThemeBase themeBase;
 
-  Theme(ThemeBase themeBase) {
+  Themes(ThemeBase themeBase) {
     this.themeBase = themeBase;
   }
 
@@ -57,7 +57,7 @@ public enum Theme {
     return themeBase;
   }
 
-  public static Theme randomTheme() {
+  public static Themes randomTheme() {
     return values()[random.nextInt(values().length)];
   }
 

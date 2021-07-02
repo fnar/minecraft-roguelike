@@ -7,7 +7,7 @@ import java.util.Random;
 
 import greymerk.roguelike.dungeon.towers.ITower;
 import greymerk.roguelike.dungeon.towers.Tower;
-import greymerk.roguelike.theme.Theme;
+import greymerk.roguelike.theme.Themes;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.util.graph.Edge;
 import greymerk.roguelike.util.graph.Graph;
@@ -66,7 +66,7 @@ public class CityGrounds {
       c.translate(pos);
       Random rand = Citadel.getRandom(editor, c.getX(), c.getZ());
       ITower tower = Tower.get(Tower.values()[rand.nextInt(Tower.values().length)]);
-      tower.generate(editor, rand, Theme.values()[rand.nextInt(Theme.values().length)].getThemeBase(), new Coord(c.getX(), 50, c.getZ()));
+      tower.generate(editor, rand, Themes.values()[rand.nextInt(Themes.values().length)].getThemeBase(), new Coord(c.getX(), 50, c.getZ()));
     }
 
   }

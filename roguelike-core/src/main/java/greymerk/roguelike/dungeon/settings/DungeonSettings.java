@@ -10,7 +10,7 @@ import java.util.Set;
 import java.util.stream.IntStream;
 
 import greymerk.roguelike.dungeon.towers.Tower;
-import greymerk.roguelike.theme.Theme;
+import greymerk.roguelike.theme.Themes;
 import greymerk.roguelike.treasure.TreasureManager;
 import greymerk.roguelike.treasure.loot.LootRuleManager;
 import greymerk.roguelike.treasure.loot.LootTableRule;
@@ -132,7 +132,7 @@ public class DungeonSettings {
 
   public TowerSettings getTower() {
     if (towerSettings == null) {
-      return new TowerSettings(Tower.ROGUE, Theme.STONE);
+      return new TowerSettings(Tower.ROGUE, Themes.STONE);
     }
 
     return towerSettings;

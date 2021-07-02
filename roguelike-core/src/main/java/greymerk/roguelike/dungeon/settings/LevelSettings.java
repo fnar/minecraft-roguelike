@@ -12,7 +12,7 @@ import greymerk.roguelike.dungeon.LevelGenerator;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.base.SecretsSetting;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
-import greymerk.roguelike.theme.Theme;
+import greymerk.roguelike.theme.Themes;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.filter.Filter;
@@ -198,14 +198,14 @@ public class LevelSettings {
   public ThemeBase getTheme() {
     // return theme;
     // todo: not rely on this class to provide default as it's an inverted dependency
-    return theme != null ? theme : Theme.STONE.getThemeBase();
+    return theme != null ? theme : Themes.STONE.getThemeBase();
   }
 
   public void setTheme(ThemeBase theme) {
     this.theme = theme;
   }
 
-  public void setTheme(Theme theme) {
+  public void setTheme(Themes theme) {
     this.theme = theme.getThemeBase();
   }
 
