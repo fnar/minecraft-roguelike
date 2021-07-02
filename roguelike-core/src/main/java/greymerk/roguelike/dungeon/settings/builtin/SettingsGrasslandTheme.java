@@ -10,7 +10,7 @@ import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.settings.base.SettingsBase;
 import greymerk.roguelike.dungeon.towers.Tower;
-import greymerk.roguelike.theme.Theme;
+import greymerk.roguelike.theme.Themes;
 import greymerk.roguelike.worldgen.filter.Filter;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -27,7 +27,7 @@ public class SettingsGrasslandTheme extends DungeonSettings {
     getInherit().add(SettingsBase.ID);
     getCriteria().setBiomeTypes(newArrayList(PLAINS));
 
-    setTowerSettings(new TowerSettings(Tower.HOUSE, Theme.HOUSE));
+    setTowerSettings(new TowerSettings(Tower.HOUSE, Themes.HOUSE));
 
     for (int i = 0; i < 5; ++i) {
 

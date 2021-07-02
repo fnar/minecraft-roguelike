@@ -11,7 +11,7 @@ import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.settings.base.SettingsBase;
 import greymerk.roguelike.dungeon.towers.Tower;
-import greymerk.roguelike.theme.Theme;
+import greymerk.roguelike.theme.Themes;
 import greymerk.roguelike.treasure.loot.WeightedRandomLoot;
 import greymerk.roguelike.treasure.loot.rule.SingleUseLootRule;
 import greymerk.roguelike.worldgen.filter.Filter;
@@ -28,7 +28,7 @@ public class SettingsJungleTheme extends DungeonSettings {
     setExclusive(true);
     getInherit().add(SettingsBase.ID);
     getCriteria().setBiomeTypes(newArrayList(JUNGLE));
-    setTowerSettings(new TowerSettings(Tower.JUNGLE, Theme.JUNGLE));
+    setTowerSettings(new TowerSettings(Tower.JUNGLE, Themes.JUNGLE));
 
     for (int i = 0; i < 5; ++i) {
       getLootRules().add(new SingleUseLootRule(new WeightedRandomLoot(Items.EMERALD, 0, 1, 1 + i, 1), i, 6));
@@ -36,7 +36,7 @@ public class SettingsJungleTheme extends DungeonSettings {
     }
 
 
-    Theme[] themes = {Theme.JUNGLE, Theme.JUNGLE, Theme.MOSSY, Theme.MOSSY, Theme.NETHER};
+    Themes[] themes = {Themes.JUNGLE, Themes.JUNGLE, Themes.MOSSY, Themes.MOSSY, Themes.NETHER};
 
     SegmentGenerator segments;
     for (int i = 0; i < 5; ++i) {

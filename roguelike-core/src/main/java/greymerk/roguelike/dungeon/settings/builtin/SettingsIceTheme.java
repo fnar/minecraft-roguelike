@@ -11,7 +11,7 @@ import greymerk.roguelike.dungeon.settings.base.SettingsBase;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static greymerk.roguelike.dungeon.towers.Tower.PYRAMID;
-import static greymerk.roguelike.theme.Theme.ICE;
+import static greymerk.roguelike.theme.Themes.ICE;
 import static net.minecraftforge.common.BiomeDictionary.Type.SNOWY;
 
 public class SettingsIceTheme extends DungeonSettings {

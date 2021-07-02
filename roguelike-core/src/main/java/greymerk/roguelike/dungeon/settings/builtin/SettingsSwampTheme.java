@@ -13,7 +13,7 @@ import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.settings.base.SettingsBase;
-import greymerk.roguelike.theme.Theme;
+import greymerk.roguelike.theme.Themes;
 import greymerk.roguelike.treasure.loot.WeightedRandomLoot;
 import greymerk.roguelike.treasure.loot.rule.ForEachLootRule;
 import greymerk.roguelike.treasure.loot.rule.SingleUseLootRule;
@@ -22,11 +22,11 @@ import greymerk.roguelike.worldgen.filter.Filter;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static greymerk.roguelike.dungeon.towers.Tower.WITCH;
-import static greymerk.roguelike.theme.Theme.DARKHALL;
-import static greymerk.roguelike.theme.Theme.DARKOAK;
-import static greymerk.roguelike.theme.Theme.MOSSY;
-import static greymerk.roguelike.theme.Theme.MUDDY;
-import static greymerk.roguelike.theme.Theme.NETHER;
+import static greymerk.roguelike.theme.Themes.DARKHALL;
+import static greymerk.roguelike.theme.Themes.DARKOAK;
+import static greymerk.roguelike.theme.Themes.MOSSY;
+import static greymerk.roguelike.theme.Themes.MUDDY;
+import static greymerk.roguelike.theme.Themes.NETHER;
 import static net.minecraftforge.common.BiomeDictionary.Type.SWAMP;
 
 public class SettingsSwampTheme extends DungeonSettings {
@@ -40,7 +40,7 @@ public class SettingsSwampTheme extends DungeonSettings {
     getCriteria().setBiomeTypes(newArrayList(SWAMP));
     setTowerSettings(new TowerSettings(WITCH, DARKOAK));
 
-    Theme[] themes = {DARKHALL, DARKHALL, MUDDY, MOSSY, NETHER};
+    Themes[] themes = {DARKHALL, DARKHALL, MUDDY, MOSSY, NETHER};
 
     WeightedRandomizer<ItemStack> brewing = new WeightedRandomizer<>();
     brewing.add(new WeightedRandomLoot(Items.GLASS_BOTTLE, 0, 1, 3, 3));
