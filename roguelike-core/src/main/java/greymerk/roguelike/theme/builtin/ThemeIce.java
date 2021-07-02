@@ -5,9 +5,9 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.minecraft.block.redstone.DoorBlock;
 
 import greymerk.roguelike.theme.BlockSet;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 
-public class ThemeIce extends ThemeBase {
+public class ThemeIce extends Theme {
 
   public ThemeIce() {
 

@@ -12,7 +12,7 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
@@ -29,7 +29,7 @@ public class DungeonsSmithy extends DungeonBase {
 
   public DungeonBase generate(Coord origin, List<Direction> entrances) {
 
-    ThemeBase theme = levelSettings.getTheme();
+    Theme theme = levelSettings.getTheme();
 
     Coord cursor;
 
@@ -59,7 +59,7 @@ public class DungeonsSmithy extends DungeonBase {
 
   private void sideRoom(WorldEditor editor, LevelSettings settings, Direction dir, Coord origin) {
 
-    ThemeBase theme = settings.getTheme();
+    Theme theme = settings.getTheme();
 
     Coord cursor;
     Coord start;
@@ -111,7 +111,7 @@ public class DungeonsSmithy extends DungeonBase {
     overheadLight(editor, settings, cursor);
   }
 
-  private void clearBoxes(WorldEditor editor, ThemeBase theme, Direction dir, Coord origin) {
+  private void clearBoxes(WorldEditor editor, Theme theme, Direction dir, Coord origin) {
 
     BlockBrush wall = theme.getPrimary().getWall();
 
@@ -170,7 +170,7 @@ public class DungeonsSmithy extends DungeonBase {
 
   private void mainRoom(WorldEditor editor, LevelSettings settings, Direction dir, Coord origin) {
 
-    ThemeBase theme = settings.getTheme();
+    Theme theme = settings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();
     Coord cursor;
     Coord start;
@@ -208,7 +208,7 @@ public class DungeonsSmithy extends DungeonBase {
 
   }
 
-  private void mainPillar(WorldEditor editor, ThemeBase theme, Direction dir, Coord origin) {
+  private void mainPillar(WorldEditor editor, Theme theme, Direction dir, Coord origin) {
     BlockBrush wall = theme.getPrimary().getWall();
     BlockBrush pillar = theme.getPrimary().getPillar();
     StairsBlock stair = theme.getPrimary().getStair();
@@ -250,7 +250,7 @@ public class DungeonsSmithy extends DungeonBase {
 
   private void smelterSide(WorldEditor editor, LevelSettings settings, Direction dir, Coord origin) {
 
-    ThemeBase theme = settings.getTheme();
+    Theme theme = settings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();
 
     Coord cursor;
@@ -421,7 +421,7 @@ public class DungeonsSmithy extends DungeonBase {
 
   private void anvilRoom(WorldEditor editor, LevelSettings settings, Direction dir, Coord origin) {
 
-    ThemeBase theme = settings.getTheme();
+    Theme theme = settings.getTheme();
     StairsBlock stair = theme.getPrimary().getStair();
     BlockBrush wall = theme.getPrimary().getWall();
 
@@ -466,7 +466,7 @@ public class DungeonsSmithy extends DungeonBase {
 
   private void overheadLight(WorldEditor editor, LevelSettings settings, Coord origin) {
 
-    ThemeBase theme = settings.getTheme();
+    Theme theme = settings.getTheme();
     StairsBlock stair = theme.getPrimary().getStair();
 
     Coord cursor;

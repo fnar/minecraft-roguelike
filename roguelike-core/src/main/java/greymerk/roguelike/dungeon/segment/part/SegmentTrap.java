@@ -12,7 +12,7 @@ import com.github.fnar.minecraft.item.RldItemStack;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.DungeonLevel;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
@@ -23,7 +23,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class SegmentTrap extends SegmentBase {
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, ThemeBase theme, Coord origin) {
+  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
 
     BlockBrush plate = BlockType.PRESSURE_PLATE_STONE.getBrush();
     BlockBrush wire = BlockType.REDSTONE_WIRE.getBrush();

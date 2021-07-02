@@ -5,7 +5,7 @@ import com.github.fnar.minecraft.block.SingleBlockBrush;
 
 import java.util.Random;
 
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -16,7 +16,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class PyramidTower implements ITower {
 
   @Override
-  public void generate(WorldEditor editor, Random rand, ThemeBase theme, Coord dungeon) {
+  public void generate(WorldEditor editor, Random rand, Theme theme, Coord dungeon) {
 
     Coord floor = Tower.getBaseCoord(editor, dungeon);
     floor.up();
@@ -60,7 +60,7 @@ public class PyramidTower implements ITower {
 
   }
 
-  private void entrance(WorldEditor editor, ThemeBase theme, Direction dir, Coord origin) {
+  private void entrance(WorldEditor editor, Theme theme, Direction dir, Coord origin) {
 
     BlockBrush blocks = theme.getPrimary().getWall();
     Coord cursor;
@@ -133,7 +133,7 @@ public class PyramidTower implements ITower {
     blocks.stroke(editor, cursor);
   }
 
-  private void spire(WorldEditor editor, ThemeBase theme, Coord origin) {
+  private void spire(WorldEditor editor, Theme theme, Coord origin) {
     BlockBrush blocks = theme.getPrimary().getWall();
     Coord cursor;
     Coord start;
@@ -219,7 +219,7 @@ public class PyramidTower implements ITower {
 
   }
 
-  private void wall(WorldEditor editor, ThemeBase theme, Direction dir, Coord pos) {
+  private void wall(WorldEditor editor, Theme theme, Direction dir, Coord pos) {
     BlockBrush blocks = theme.getPrimary().getWall();
     Coord cursor;
     Coord start;
@@ -281,7 +281,7 @@ public class PyramidTower implements ITower {
     }
   }
 
-  private void corner(WorldEditor editor, ThemeBase theme, Direction dir, Coord pos) {
+  private void corner(WorldEditor editor, Theme theme, Direction dir, Coord pos) {
 
     BlockBrush blocks = theme.getPrimary().getWall();
     Coord cursor;

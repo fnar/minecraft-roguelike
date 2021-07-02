@@ -11,7 +11,7 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -32,7 +32,7 @@ public class DungeonsMusic extends DungeonBase {
   public DungeonBase generate(Coord origin, List<Direction> entrances) {
     Random rand = worldEditor.getRandom(origin);
 
-    ThemeBase theme = levelSettings.getTheme();
+    Theme theme = levelSettings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();
     StairsBlock stair = theme.getSecondary().getStair();
     BlockBrush panel = theme.getSecondary().getWall();
@@ -162,7 +162,7 @@ public class DungeonsMusic extends DungeonBase {
   }
 
   private void pillar(WorldEditor editor, LevelSettings settings, Coord origin) {
-    ThemeBase theme = settings.getTheme();
+    Theme theme = settings.getTheme();
     StairsBlock stair = theme.getSecondary().getStair();
     BlockBrush panel = theme.getSecondary().getWall();
     BlockBrush pillar = theme.getSecondary().getPillar();

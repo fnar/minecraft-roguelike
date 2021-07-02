@@ -86,14 +86,14 @@ public enum Themes {
   TOWER(new ThemeTower());
 
   private static final Random random = new Random();
-  private final ThemeBase themeBase;
+  private final Theme theme;
 
-  Themes(ThemeBase themeBase) {
-    this.themeBase = themeBase;
+  Themes(Theme theme) {
+    this.theme = theme;
   }
 
-  public ThemeBase getThemeBase() {
-    return themeBase;
+  public Theme getThemeBase() {
+    return theme;
   }
 
   public static Themes randomTheme() {

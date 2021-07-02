@@ -9,7 +9,7 @@ import java.util.List;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -24,7 +24,7 @@ public class DungeonsSlime extends DungeonBase {
   }
 
   public DungeonBase generate(Coord origin, List<Direction> entrances) {
-    ThemeBase theme = levelSettings.getTheme();
+    Theme theme = levelSettings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();
     BlockBrush bars = BlockType.IRON_BAR.getBrush();
     BlockBrush liquid = theme.getPrimary().getLiquid();
@@ -110,7 +110,7 @@ public class DungeonsSlime extends DungeonBase {
   }
 
   private void corner(WorldEditor editor, LevelSettings settings, Coord origin) {
-    ThemeBase theme = settings.getTheme();
+    Theme theme = settings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();
     BlockBrush pillar = theme.getPrimary().getPillar();
     StairsBlock stair = theme.getPrimary().getStair();

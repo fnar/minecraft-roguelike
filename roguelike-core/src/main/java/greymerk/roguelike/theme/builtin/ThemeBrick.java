@@ -5,10 +5,10 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.minecraft.block.normal.Wood;
 
 import greymerk.roguelike.theme.BlockSet;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 
-public class ThemeBrick extends ThemeBase {
+public class ThemeBrick extends Theme {
 
   public ThemeBrick() {
     BlockBrush walls = BlockType.BRICK.getBrush();

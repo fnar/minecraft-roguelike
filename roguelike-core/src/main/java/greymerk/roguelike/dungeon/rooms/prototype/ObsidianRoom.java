@@ -11,7 +11,7 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockJumble;
@@ -26,7 +26,7 @@ public class ObsidianRoom extends DungeonBase {
     super(roomSetting, levelSettings, worldEditor);
   }
 
-  private static void outerPillars(WorldEditor editor, ThemeBase theme, int x, int y, int z) {
+  private static void outerPillars(WorldEditor editor, Theme theme, int x, int y, int z) {
     for (Direction dir : Direction.CARDINAL) {
       for (Direction orthogonal : dir.orthogonals()) {
         Coord pillarLocation = new Coord(x, y, z);
@@ -44,7 +44,7 @@ public class ObsidianRoom extends DungeonBase {
     }
   }
 
-  private static void outerPillar(WorldEditor editor, ThemeBase theme, Coord pillarLocation, Direction dir) {
+  private static void outerPillar(WorldEditor editor, Theme theme, Coord pillarLocation, Direction dir) {
 
     BlockBrush secondaryWall = theme.getSecondary().getPillar();
 
@@ -65,7 +65,7 @@ public class ObsidianRoom extends DungeonBase {
     }
   }
 
-  private static void innerPillars(WorldEditor editor, ThemeBase theme, int x, int y, int z) {
+  private static void innerPillars(WorldEditor editor, Theme theme, int x, int y, int z) {
 
     BlockBrush secondaryWall = theme.getSecondary().getPillar();
 
@@ -103,7 +103,7 @@ public class ObsidianRoom extends DungeonBase {
     }
   }
 
-  private static void liquidWindow(WorldEditor editor, Coord cursor, Direction orthogonal, ThemeBase theme) {
+  private static void liquidWindow(WorldEditor editor, Coord cursor, Direction orthogonal, Theme theme) {
     BlockBrush liquid = theme.getPrimary().getLiquid();
     RectSolid.newRect(cursor, cursor).fill(editor, liquid);
     cursor.down();
@@ -122,7 +122,7 @@ public class ObsidianRoom extends DungeonBase {
     int x = origin.getX();
     int y = origin.getY();
     int z = origin.getZ();
-    ThemeBase theme = levelSettings.getTheme();
+    Theme theme = levelSettings.getTheme();
 
     HashSet<Coord> spawnerLocations = new HashSet<>();
     BlockBrush primaryWall = theme.getPrimary().getWall();

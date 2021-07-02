@@ -11,7 +11,7 @@ import java.util.List;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.util.mst.MinimumSpanningTree;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -31,7 +31,7 @@ public class DungeonTreetho extends DungeonBase {
   @Override
   public DungeonBase generate(Coord origin, List<Direction> entrances) {
 
-    ThemeBase theme = levelSettings.getTheme();
+    Theme theme = levelSettings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();
     Direction dir = entrances.get(0);
 
@@ -148,7 +148,7 @@ public class DungeonTreetho extends DungeonBase {
 
   private void pillar(WorldEditor editor, LevelSettings settings, Coord origin) {
 
-    ThemeBase theme = settings.getTheme();
+    Theme theme = settings.getTheme();
     BlockBrush pillar = theme.getPrimary().getPillar();
     StairsBlock stair = theme.getPrimary().getStair();
 

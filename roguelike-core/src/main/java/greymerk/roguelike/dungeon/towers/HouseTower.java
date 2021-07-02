@@ -10,7 +10,7 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import java.util.Random;
 
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -27,7 +27,7 @@ import static com.github.fnar.minecraft.block.normal.ColoredBlock.stainedGlassPa
 public class HouseTower implements ITower {
 
   @Override
-  public void generate(WorldEditor editor, Random rand, ThemeBase theme, Coord dungeon) {
+  public void generate(WorldEditor editor, Random rand, Theme theme, Coord dungeon) {
 
     Coord floor = Tower.getBaseCoord(editor, dungeon);
 
@@ -278,7 +278,7 @@ public class HouseTower implements ITower {
     RectSolid.newRect(start, end).fill(editor, pane);
   }
 
-  private void roof(WorldEditor editor, ThemeBase theme, Direction dir, Coord origin) {
+  private void roof(WorldEditor editor, Theme theme, Direction dir, Coord origin) {
     BlockBrush walls = theme.getSecondary().getWall();
     StairsBlock stair = theme.getSecondary().getStair();
     Coord cursor;
@@ -434,7 +434,7 @@ public class HouseTower implements ITower {
     stair.setUpsideDown(false).setFacing(dir.reverse()).fill(editor, new RectSolid(start, end));
   }
 
-  private void upperFloor(WorldEditor editor, ThemeBase theme, Direction dir, Coord origin) {
+  private void upperFloor(WorldEditor editor, Theme theme, Direction dir, Coord origin) {
     BlockBrush floor = theme.getPrimary().getFloor();
     Direction[] orth = dir.orthogonals();
     Coord start;
@@ -457,7 +457,7 @@ public class HouseTower implements ITower {
     RectSolid.newRect(start, end).fill(editor, floor);
   }
 
-  private void upperWalls(WorldEditor editor, ThemeBase theme, Direction dir, Coord origin) {
+  private void upperWalls(WorldEditor editor, Theme theme, Direction dir, Coord origin) {
     BlockBrush walls = theme.getPrimary().getWall();
     Direction[] orth = dir.orthogonals();
     Coord cursor;
@@ -554,7 +554,7 @@ public class HouseTower implements ITower {
     pillar(editor, theme, 3, cursor);
   }
 
-  private void pillar(WorldEditor editor, ThemeBase theme, int height, Coord start) {
+  private void pillar(WorldEditor editor, Theme theme, int height, Coord start) {
     BlockBrush pillar = theme.getPrimary().getPillar();
     Coord end;
     end = start.copy();
@@ -562,7 +562,7 @@ public class HouseTower implements ITower {
     RectSolid.newRect(start, end).fill(editor, pillar);
   }
 
-  private void support(WorldEditor editor, ThemeBase theme, Direction[] dirs, Coord origin) {
+  private void support(WorldEditor editor, Theme theme, Direction[] dirs, Coord origin) {
     BlockBrush pillar = theme.getPrimary().getPillar();
     StairsBlock stair = theme.getPrimary().getStair();
     Coord cursor;
@@ -591,7 +591,7 @@ public class HouseTower implements ITower {
 
   }
 
-  private void door(WorldEditor editor, ThemeBase theme, Direction dir, Coord origin) {
+  private void door(WorldEditor editor, Theme theme, Direction dir, Coord origin) {
 
     BlockBrush floor = theme.getPrimary().getFloor();
     BlockBrush pillar = theme.getPrimary().getPillar();
@@ -678,7 +678,7 @@ public class HouseTower implements ITower {
     step(editor, theme, dir.reverse(), cursor);
   }
 
-  private void step(WorldEditor editor, ThemeBase theme, Direction dir, Coord origin) {
+  private void step(WorldEditor editor, Theme theme, Direction dir, Coord origin) {
 
     Coord start;
     Coord end;

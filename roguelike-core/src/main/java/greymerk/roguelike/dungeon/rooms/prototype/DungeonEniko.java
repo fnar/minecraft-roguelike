@@ -9,7 +9,7 @@ import java.util.List;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
@@ -27,7 +27,7 @@ public class DungeonEniko extends DungeonBase {
     super(roomSetting, levelSettings, worldEditor);
   }
 
-  private static void pillar(WorldEditor editor, ThemeBase theme, Coord origin) {
+  private static void pillar(WorldEditor editor, Theme theme, Coord origin) {
     StairsBlock stair = theme.getPrimary().getStair();
     BlockBrush pillar = theme.getPrimary().getPillar();
     Coord start;
@@ -48,7 +48,7 @@ public class DungeonEniko extends DungeonBase {
   @Override
   public DungeonBase generate(Coord origin, List<Direction> entrances) {
 
-    ThemeBase theme = levelSettings.getTheme();
+    Theme theme = levelSettings.getTheme();
     StairsBlock stair = theme.getPrimary().getStair();
     BlockBrush walls = theme.getPrimary().getWall();
     BlockBrush floor = theme.getPrimary().getFloor();

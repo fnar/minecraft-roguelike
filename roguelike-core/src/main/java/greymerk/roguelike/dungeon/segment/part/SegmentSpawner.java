@@ -6,7 +6,7 @@ import com.github.fnar.minecraft.block.SingleBlockBrush;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.DungeonLevel;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -19,7 +19,7 @@ public class SegmentSpawner extends SegmentBase {
 
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, ThemeBase theme, Coord origin) {
+  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
     Direction[] orthogonals = dir.orthogonals();
 
     Coord start = origin.copy()
@@ -40,7 +40,7 @@ public class SegmentSpawner extends SegmentBase {
     generateSpawner(editor, rand, level, dir, origin, theme);
   }
 
-  private void generateDecorativeArch(WorldEditor editor, Direction dir, Coord origin, ThemeBase theme) {
+  private void generateDecorativeArch(WorldEditor editor, Direction dir, Coord origin, Theme theme) {
     for (Direction orthogonal : dir.orthogonals()) {
       Coord cursor = origin.copy()
           .up(2)
@@ -50,7 +50,7 @@ public class SegmentSpawner extends SegmentBase {
     }
   }
 
-  private void generateSpawner(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Coord origin, ThemeBase theme) {
+  private void generateSpawner(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Coord origin, Theme theme) {
     Coord spawnerCoord = origin.copy()
         .translate(dir, 4)
         .up(1);

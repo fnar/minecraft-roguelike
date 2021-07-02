@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -20,7 +20,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class JungleTower implements ITower {
 
   @Override
-  public void generate(WorldEditor editor, Random rand, ThemeBase theme, Coord dungeon) {
+  public void generate(WorldEditor editor, Random rand, Theme theme, Coord dungeon) {
 
     Coord origin = Tower.getBaseCoord(editor, dungeon);
     origin.up();
@@ -513,7 +513,7 @@ public class JungleTower implements ITower {
     }
   }
 
-  private void pillar(WorldEditor editor, ThemeBase theme, Coord origin) {
+  private void pillar(WorldEditor editor, Theme theme, Coord origin) {
 
     BlockBrush pillar = theme.getPrimary().getPillar();
     StairsBlock stair = theme.getPrimary().getStair();

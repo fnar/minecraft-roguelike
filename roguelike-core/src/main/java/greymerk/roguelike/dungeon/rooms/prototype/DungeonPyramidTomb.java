@@ -10,7 +10,7 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
@@ -31,7 +31,7 @@ public class DungeonPyramidTomb extends DungeonBase {
   public DungeonBase generate(Coord origin, List<Direction> entrances) {
 
 
-    ThemeBase theme = levelSettings.getTheme();
+    Theme theme = levelSettings.getTheme();
     BlockBrush pillar = theme.getPrimary().getPillar();
     BlockBrush blocks = theme.getPrimary().getWall();
 
@@ -151,7 +151,7 @@ public class DungeonPyramidTomb extends DungeonBase {
     return this;
   }
 
-  private void ceilingTiles(WorldEditor editor, ThemeBase theme, int width, Direction dir, Coord origin) {
+  private void ceilingTiles(WorldEditor editor, Theme theme, int width, Direction dir, Coord origin) {
 
     if (width < 1) {
       return;
@@ -192,7 +192,7 @@ public class DungeonPyramidTomb extends DungeonBase {
     ceilingTiles(editor, theme, (width - 2), dir, cursor);
   }
 
-  private void tile(WorldEditor editor, ThemeBase theme, Direction dir, Coord origin) {
+  private void tile(WorldEditor editor, Theme theme, Direction dir, Coord origin) {
     StairsBlock stair = theme.getPrimary().getStair();
     stair.setUpsideDown(true).setFacing(dir).stroke(editor, origin);
     Coord cursor = origin.copy();

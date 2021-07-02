@@ -5,7 +5,7 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import java.util.Random;
 
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -16,7 +16,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class EthoTower implements ITower {
 
   @Override
-  public void generate(WorldEditor editor, Random rand, ThemeBase theme, Coord dungeon) {
+  public void generate(WorldEditor editor, Random rand, Theme theme, Coord dungeon) {
 
     BlockBrush primary = theme.getPrimary().getWall();
     BlockBrush pillar = theme.getSecondary().getPillar();
@@ -218,7 +218,7 @@ public class EthoTower implements ITower {
     }
   }
 
-  private void step(WorldEditor editor, ThemeBase theme, Direction dir, Coord origin) {
+  private void step(WorldEditor editor, Theme theme, Direction dir, Coord origin) {
 
     if (editor.isOpaqueCubeBlock(origin)) {
       return;

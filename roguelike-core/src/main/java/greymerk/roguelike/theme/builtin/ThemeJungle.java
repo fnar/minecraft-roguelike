@@ -5,13 +5,13 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.minecraft.block.normal.Wood;
 
 import greymerk.roguelike.theme.BlockSet;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockJumble;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
 import greymerk.roguelike.worldgen.Direction;
 
-public class ThemeJungle extends ThemeBase {
+public class ThemeJungle extends Theme {
 
   public ThemeJungle() {
     BlockBrush cracked = BlockType.STONE_BRICK_CRACKED.getBrush();

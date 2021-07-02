@@ -12,7 +12,7 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
@@ -34,7 +34,7 @@ public class NetherFortressRoom extends DungeonBase {
   }
 
   public DungeonBase generate(Coord origin, List<Direction> entrances) {
-    ThemeBase theme = levelSettings.getTheme();
+    Theme theme = levelSettings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();
     StairsBlock stair = theme.getPrimary().getStair();
     SingleBlockBrush liquid = (SingleBlockBrush) theme.getPrimary().getLiquid();
@@ -164,7 +164,7 @@ public class NetherFortressRoom extends DungeonBase {
 
   private void supportPillar(WorldEditor editor, Random rand, LevelSettings levelSettings, Coord origin) {
 
-    ThemeBase theme = levelSettings.getTheme();
+    Theme theme = levelSettings.getTheme();
     BlockBrush pillar = theme.getPrimary().getPillar();
     StairsBlock stair = theme.getPrimary().getStair();
     BlockBrush lava = LAVA_FLOWING.getBrush();
@@ -196,7 +196,7 @@ public class NetherFortressRoom extends DungeonBase {
   }
 
   private void pillar(WorldEditor editor, LevelSettings settings, Coord origin) {
-    ThemeBase theme = settings.getTheme();
+    Theme theme = settings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();
     BlockBrush pillar = theme.getPrimary().getPillar();
     StairsBlock stair = theme.getPrimary().getStair();

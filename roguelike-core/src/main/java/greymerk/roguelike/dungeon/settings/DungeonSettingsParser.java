@@ -22,7 +22,7 @@ import greymerk.roguelike.dungeon.base.SecretsSetting;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.rooms.RoomSettingParser;
 import greymerk.roguelike.dungeon.settings.level.LevelsParser;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.theme.ThemeParser;
 import greymerk.roguelike.treasure.loot.LootRulesParser;
 import greymerk.roguelike.treasure.loot.LootTableRule;
@@ -308,7 +308,7 @@ public class DungeonSettingsParser {
           continue;
         }
         LevelSettings settings = dungeonSettings.getLevelSettings().get(level);
-        ThemeBase theme = ThemeParser.parse(themeJsonObject);
+        Theme theme = ThemeParser.parse(themeJsonObject);
         settings.setTheme(theme);
       }
     }

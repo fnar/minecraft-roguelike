@@ -8,7 +8,7 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.towers.ITower;
 import greymerk.roguelike.dungeon.towers.Tower;
 import greymerk.roguelike.theme.Themes;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.util.graph.Edge;
 import greymerk.roguelike.util.graph.Graph;
 import greymerk.roguelike.util.mst.MSTPoint;
@@ -19,7 +19,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class CityGrounds {
 
-  public static void generate(WorldEditor editor, MinimumSpanningTree mst, ThemeBase theme, Coord pos) {
+  public static void generate(WorldEditor editor, MinimumSpanningTree mst, Theme theme, Coord pos) {
 
     Coord start;
     Coord end;

@@ -5,7 +5,7 @@ import com.github.fnar.minecraft.block.normal.SlabBlock;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import greymerk.roguelike.theme.BlockSet;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockStripes;
@@ -13,7 +13,7 @@ import greymerk.roguelike.worldgen.BlockWeightedRandom;
 
 import static com.github.fnar.minecraft.block.normal.ColoredBlock.stainedHardenedClay;
 
-public class ThemeEniko extends ThemeBase {
+public class ThemeEniko extends Theme {
 
   public ThemeEniko() {
 

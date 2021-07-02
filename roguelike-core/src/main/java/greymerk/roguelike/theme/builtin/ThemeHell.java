@@ -6,11 +6,11 @@ import com.github.fnar.minecraft.block.redstone.DoorBlock;
 
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.theme.BlockSet;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
 
-public class ThemeHell extends ThemeBase {
+public class ThemeHell extends Theme {
 
   public ThemeHell() {
 

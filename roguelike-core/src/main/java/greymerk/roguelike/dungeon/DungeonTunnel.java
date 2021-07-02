@@ -11,7 +11,7 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.segment.ISegment;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockJumble;
 import greymerk.roguelike.worldgen.BoundingBox;
@@ -43,7 +43,7 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
     return tunnel.iterator();
   }
 
-  public void encase(WorldEditor editor, ThemeBase theme) {
+  public void encase(WorldEditor editor, Theme theme) {
     Coord s;
     Coord e;
     Direction dir = getDirection();

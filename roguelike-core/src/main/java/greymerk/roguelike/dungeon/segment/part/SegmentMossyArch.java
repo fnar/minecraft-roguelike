@@ -8,7 +8,7 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.DungeonLevel;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -19,7 +19,7 @@ public class SegmentMossyArch extends SegmentBase {
   private boolean spawnHoleSet = false;
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction wallDirection, ThemeBase theme, Coord origin) {
+  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction wallDirection, Theme theme, Coord origin) {
 
     StairsBlock stair = theme.getSecondary().getStair();
     stair.setUpsideDown(true).setFacing(wallDirection.reverse());
