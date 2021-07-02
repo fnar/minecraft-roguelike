@@ -16,22 +16,22 @@ public class ThemeParser {
   public static final String PRIMARY_KEY = "primary";
   public static final String SECONDARY_KEY = "secondary";
 
-  public static ThemeBase parse(JsonObject json) throws DungeonSettingParseException {
-    ThemeBase themeBase = parseThemeBase(json);
+  public static Theme parse(JsonObject json) throws DungeonSettingParseException {
+    Theme theme = parseThemeBase(json);
 
-    BlockSet primaryBlockSet = ofNullable(parsePrimaryBlockSet(json, themeBase))
-        .orElse(ofNullable(themeBase).map(ThemeBase::getPrimary)
+    BlockSet primaryBlockSet = ofNullable(parsePrimaryBlockSet(json, theme))
+        .orElse(ofNullable(theme).map(Theme::getPrimary)
             .orElse(null));
 
 
-    BlockSet secondaryBlockSet = ofNullable(parseSecondaryBlockSet(json, themeBase))
-        .orElse(ofNullable(themeBase).map(ThemeBase::getSecondary)
+    BlockSet secondaryBlockSet = ofNullable(parseSecondaryBlockSet(json, theme))
+        .orElse(ofNullable(theme).map(Theme::getSecondary)
             .orElse(null));
 
-    return new ThemeBase(primaryBlockSet, secondaryBlockSet);
+    return new Theme(primaryBlockSet, secondaryBlockSet);
   }
 
-  private static ThemeBase parseThemeBase(JsonObject json) {
+  private static Theme parseThemeBase(JsonObject json) {
     if (!json.has(THEME_BASE_KEY)) {
       return Themes.OAK.getThemeBase();
     }
@@ -49,15 +49,15 @@ public class ThemeParser {
     return get(baseString).getThemeBase();
   }
 
-  private static BlockSet parsePrimaryBlockSet(JsonObject json, ThemeBase base) throws DungeonSettingParseException {
-    return parseBlockSet(json, base, PRIMARY_KEY, ThemeBase::getPrimary);
+  private static BlockSet parsePrimaryBlockSet(JsonObject json, Theme base) throws DungeonSettingParseException {
+    return parseBlockSet(json, base, PRIMARY_KEY, Theme::getPrimary);
   }
 
-  private static BlockSet parseSecondaryBlockSet(JsonObject json, ThemeBase base) throws DungeonSettingParseException {
-    return parseBlockSet(json, base, SECONDARY_KEY, ThemeBase::getSecondary);
+  private static BlockSet parseSecondaryBlockSet(JsonObject json, Theme base) throws DungeonSettingParseException {
+    return parseBlockSet(json, base, SECONDARY_KEY, Theme::getSecondary);
   }
 
-  private static BlockSet parseBlockSet(JsonObject json, ThemeBase baseTheme, String key, Function<ThemeBase, BlockSet> getBlockSetFunction) throws DungeonSettingParseException {
+  private static BlockSet parseBlockSet(JsonObject json, Theme baseTheme, String key, Function<Theme, BlockSet> getBlockSetFunction) throws DungeonSettingParseException {
     if (!json.has(key)) {
       return null;
     } else {

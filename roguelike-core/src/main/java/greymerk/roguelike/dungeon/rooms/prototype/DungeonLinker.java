@@ -7,7 +7,7 @@ import java.util.List;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -24,7 +24,7 @@ public class DungeonLinker extends DungeonBase {
   @Override
   public DungeonBase generate(Coord origin, List<Direction> entrances) {
 
-    ThemeBase theme = levelSettings.getTheme();
+    Theme theme = levelSettings.getTheme();
 
     BlockBrush pillar = theme.getPrimary().getPillar();
     BlockBrush wall = theme.getPrimary().getWall();

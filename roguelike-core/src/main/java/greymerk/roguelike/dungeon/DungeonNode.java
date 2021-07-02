@@ -3,7 +3,7 @@ package greymerk.roguelike.dungeon;
 import java.util.List;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BoundingBox;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -36,7 +36,7 @@ public class DungeonNode implements IBounded {
     return toGenerate.getSize();
   }
 
-  public void encase(WorldEditor editor, ThemeBase theme) {
+  public void encase(WorldEditor editor, Theme theme) {
     int size = getSize();
     Coord s = getPosition().copy();
     Coord e = s.copy();

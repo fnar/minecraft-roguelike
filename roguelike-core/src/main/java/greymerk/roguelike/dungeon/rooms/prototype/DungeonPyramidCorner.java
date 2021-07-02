@@ -7,7 +7,7 @@ import java.util.List;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -27,7 +27,7 @@ public class DungeonPyramidCorner extends DungeonBase {
     int x = origin.getX();
     int y = origin.getY();
     int z = origin.getZ();
-    ThemeBase theme = levelSettings.getTheme();
+    Theme theme = levelSettings.getTheme();
 
     BlockBrush blocks = theme.getPrimary().getWall();
     BlockBrush pillar = theme.getPrimary().getPillar();

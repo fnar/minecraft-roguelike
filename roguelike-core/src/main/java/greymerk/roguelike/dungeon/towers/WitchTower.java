@@ -5,7 +5,7 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import java.util.Random;
 
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
@@ -19,7 +19,7 @@ import static com.github.fnar.minecraft.block.normal.ColoredBlock.stainedGlass;
 public class WitchTower implements ITower {
 
   @Override
-  public void generate(WorldEditor editor, Random rand, ThemeBase theme, Coord origin) {
+  public void generate(WorldEditor editor, Random rand, Theme theme, Coord origin) {
 
     BlockBrush blocks = theme.getPrimary().getWall();
     BlockBrush pillar = theme.getPrimary().getPillar();
@@ -356,7 +356,7 @@ public class WitchTower implements ITower {
     }
   }
 
-  private void window(WorldEditor editor, ThemeBase theme, Direction dir, Coord origin) {
+  private void window(WorldEditor editor, Theme theme, Direction dir, Coord origin) {
 
     Coord cursor;
 
@@ -376,7 +376,7 @@ public class WitchTower implements ITower {
     }
   }
 
-  private void step(WorldEditor editor, ThemeBase theme, Direction dir, Coord origin) {
+  private void step(WorldEditor editor, Theme theme, Direction dir, Coord origin) {
 
     if (editor.isOpaqueCubeBlock(origin)) {
       return;

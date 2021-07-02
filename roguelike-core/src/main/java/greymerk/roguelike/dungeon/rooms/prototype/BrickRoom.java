@@ -12,7 +12,7 @@ import java.util.List;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
@@ -36,7 +36,7 @@ public class BrickRoom extends DungeonBase {
     int y = origin.getY();
     int z = origin.getZ();
 
-    ThemeBase theme = levelSettings.getTheme();
+    Theme theme = levelSettings.getTheme();
 
     StairsBlock stair = theme.getPrimary().getStair();
     BlockBrush blocks = theme.getPrimary().getWall();

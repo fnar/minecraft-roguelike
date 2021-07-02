@@ -11,7 +11,7 @@ import java.util.List;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
@@ -29,7 +29,7 @@ public class DungeonMess extends DungeonBase {
   @Override
   public DungeonBase generate(Coord origin, List<Direction> entrances) {
 
-    ThemeBase theme = levelSettings.getTheme();
+    Theme theme = levelSettings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();
     BlockBrush panel = theme.getSecondary().getWall();
     BlockBrush pillar = theme.getPrimary().getPillar();
@@ -120,7 +120,7 @@ public class DungeonMess extends DungeonBase {
   }
 
   private void supplyCorner(WorldEditor editor, LevelSettings settings, Direction[] entrances, Coord origin, Direction entranceDir) {
-    ThemeBase theme = settings.getTheme();
+    Theme theme = settings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();
     BlockBrush pillar = theme.getPrimary().getPillar();
     BlockBrush panel = theme.getSecondary().getWall();
@@ -204,7 +204,7 @@ public class DungeonMess extends DungeonBase {
   }
 
   private void corner(WorldEditor editor, LevelSettings settings, Direction[] entrances, Coord origin) {
-    ThemeBase theme = settings.getTheme();
+    Theme theme = settings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();
     BlockBrush pillar = theme.getPrimary().getPillar();
     BlockBrush panel = theme.getSecondary().getWall();
@@ -287,7 +287,7 @@ public class DungeonMess extends DungeonBase {
   }
 
   private void doorway(WorldEditor editor, LevelSettings settings, Direction dir, Coord origin) {
-    ThemeBase theme = settings.getTheme();
+    Theme theme = settings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();
     BlockBrush panel = theme.getSecondary().getWall();
     StairsBlock stair = theme.getPrimary().getStair();
@@ -342,7 +342,7 @@ public class DungeonMess extends DungeonBase {
   }
 
   private void fireplace(WorldEditor editor, LevelSettings settings, Direction dir, Coord origin) {
-    ThemeBase theme = settings.getTheme();
+    Theme theme = settings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();
     StairsBlock stair = theme.getPrimary().getStair();
     BlockBrush bars = BlockType.IRON_BAR.getBrush();
@@ -414,7 +414,7 @@ public class DungeonMess extends DungeonBase {
   }
 
   private void supplies(WorldEditor editor, LevelSettings settings, Direction dir, Coord origin) {
-    ThemeBase theme = settings.getTheme();
+    Theme theme = settings.getTheme();
     StairsBlock stair = theme.getPrimary().getStair();
     Coord cursor;
 
@@ -444,7 +444,7 @@ public class DungeonMess extends DungeonBase {
   }
 
   private void sideTable(WorldEditor editor, LevelSettings settings, Direction dir, Coord origin) {
-    ThemeBase theme = settings.getTheme();
+    Theme theme = settings.getTheme();
     StairsBlock table = theme.getSecondary().getStair();
     Coord cursor = origin.copy();
 

@@ -5,12 +5,12 @@ import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import greymerk.roguelike.theme.BlockSet;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockJumble;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
 
-public class ThemeTower extends ThemeBase {
+public class ThemeTower extends Theme {
 
   public ThemeTower() {
 

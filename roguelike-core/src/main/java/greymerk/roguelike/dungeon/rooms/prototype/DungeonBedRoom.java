@@ -16,7 +16,7 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.Coord;
@@ -33,7 +33,7 @@ public class DungeonBedRoom extends DungeonBase {
     super(roomSetting, levelSettings, worldEditor);
   }
 
-  public void pillar(WorldEditor editor, Direction dir, ThemeBase theme, final Coord base) {
+  public void pillar(WorldEditor editor, Direction dir, Theme theme, final Coord base) {
     Coord start = base.copy();
     Coord end = base.copy();
 
@@ -48,7 +48,7 @@ public class DungeonBedRoom extends DungeonBase {
   @Override
   public DungeonBase generate(Coord origin, List<Direction> entrances) {
     Random rand = worldEditor.getRandom();
-    ThemeBase theme = levelSettings.getTheme();
+    Theme theme = levelSettings.getTheme();
 
     Coord cursor;
     Coord start;

@@ -6,11 +6,11 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.minecraft.block.redstone.DoorBlock;
 
 import greymerk.roguelike.theme.BlockSet;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
 
-public class ThemeMossy extends ThemeBase {
+public class ThemeMossy extends Theme {
 
   public ThemeMossy() {
 

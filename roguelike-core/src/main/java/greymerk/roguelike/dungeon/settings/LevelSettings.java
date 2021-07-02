@@ -13,7 +13,7 @@ import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.base.SecretsSetting;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
 import greymerk.roguelike.theme.Themes;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.filter.Filter;
 import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
@@ -36,7 +36,7 @@ public class LevelSettings {
   private int levelDifficulty = -1;
   private RoomsSetting rooms = new RoomsSetting();
   private SecretsSetting secrets = new SecretsSetting();
-  private ThemeBase theme;
+  private Theme theme;
   private SegmentGenerator segments = new SegmentGenerator();
   private SpawnerSettings spawners = new SpawnerSettings();
   private LevelGenerator generator;
@@ -102,7 +102,7 @@ public class LevelSettings {
     filters.addAll(child.filters);
   }
 
-  private ThemeBase inherit(LevelSettings parent, LevelSettings child, Set<SettingsType> overrides) {
+  private Theme inherit(LevelSettings parent, LevelSettings child, Set<SettingsType> overrides) {
     boolean isChildThemeAbsent = child.theme == null;
     boolean isParentThemeAbsent = parent.theme == null;
     if (isChildThemeAbsent && isParentThemeAbsent) {
@@ -117,7 +117,7 @@ public class LevelSettings {
     if (overrides.contains(THEMES)) {
       return child.theme;
     }
-    return ThemeBase.inherit(parent.theme, child.theme);
+    return Theme.inherit(parent.theme, child.theme);
   }
 
   private void init(LevelSettings toCopy) {
@@ -195,13 +195,13 @@ public class LevelSettings {
     this.segments = segments;
   }
 
-  public ThemeBase getTheme() {
+  public Theme getTheme() {
     // return theme;
     // todo: not rely on this class to provide default as it's an inverted dependency
     return theme != null ? theme : Themes.STONE.getThemeBase();
   }
 
-  public void setTheme(ThemeBase theme) {
+  public void setTheme(Theme theme) {
     this.theme = theme;
   }
 

@@ -6,7 +6,7 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import java.util.Random;
 
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
@@ -20,7 +20,7 @@ import static com.github.fnar.minecraft.block.normal.ColoredBlock.stainedGlassPa
 public class BunkerTower implements ITower {
 
   @Override
-  public void generate(WorldEditor editor, Random rand, ThemeBase theme, Coord dungeon) {
+  public void generate(WorldEditor editor, Random rand, Theme theme, Coord dungeon) {
     Coord origin = Tower.getBaseCoord(editor, dungeon);
     origin.up();
     Coord cursor;

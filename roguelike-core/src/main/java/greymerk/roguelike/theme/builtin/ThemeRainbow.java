@@ -4,14 +4,14 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.minecraft.block.normal.Wood;
 
 import greymerk.roguelike.theme.BlockSet;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockStripes;
 
 import static com.github.fnar.minecraft.block.normal.ColoredBlock.concrete;
 
-public class ThemeRainbow extends ThemeBase {
+public class ThemeRainbow extends Theme {
 
   public ThemeRainbow() {
 

@@ -6,10 +6,10 @@ import com.github.fnar.minecraft.block.normal.Wood;
 import com.github.fnar.minecraft.block.redstone.DoorBlock;
 
 import greymerk.roguelike.theme.BlockSet;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 
-public class ThemeDarkOak extends ThemeBase {
+public class ThemeDarkOak extends Theme {
 
   public ThemeDarkOak() {
     BlockBrush walls = BlockType.DARK_OAK_PLANK.getBrush();

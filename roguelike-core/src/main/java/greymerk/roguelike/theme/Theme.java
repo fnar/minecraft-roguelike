@@ -2,21 +2,21 @@ package greymerk.roguelike.theme;
 
 import java.util.Optional;
 
-public class ThemeBase {
+public class Theme {
 
   protected BlockSet primary;
   protected BlockSet secondary;
 
-  public ThemeBase() {
+  public Theme() {
   }
 
-  public ThemeBase(BlockSet primary, BlockSet secondary) {
+  public Theme(BlockSet primary, BlockSet secondary) {
     this.primary = primary;
     this.secondary = secondary;
   }
 
-  public static ThemeBase inherit(ThemeBase parent, ThemeBase child) {
-    return new ThemeBase(
+  public static Theme inherit(Theme parent, Theme child) {
+    return new Theme(
         BlockSet.inherit(parent.getPrimary(), child.getPrimary()),
         BlockSet.inherit(parent.getSecondary(), child.getSecondary()));
   }

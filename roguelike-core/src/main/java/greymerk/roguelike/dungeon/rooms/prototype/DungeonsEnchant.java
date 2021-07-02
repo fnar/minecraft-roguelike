@@ -10,7 +10,7 @@ import java.util.List;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -31,7 +31,7 @@ public class DungeonsEnchant extends DungeonBase {
   @Override
   public DungeonBase generate(Coord origin, List<Direction> entrances) {
     Direction dir = entrances.get(0);
-    ThemeBase theme = levelSettings.getTheme();
+    Theme theme = levelSettings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();
     BlockBrush pillar = theme.getPrimary().getPillar();
     BlockBrush panel = stainedHardenedClay().setColor(DyeColor.PURPLE);

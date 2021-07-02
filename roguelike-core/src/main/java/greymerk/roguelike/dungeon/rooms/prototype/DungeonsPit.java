@@ -12,7 +12,7 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
@@ -41,7 +41,7 @@ public class DungeonsPit extends DungeonBase {
 
   public DungeonBase generate(Coord origin, List<Direction> entrances) {
 
-    ThemeBase theme = levelSettings.getTheme();
+    Theme theme = levelSettings.getTheme();
 
     rand = worldEditor.getRandom(origin);
     originX = origin.getX();
@@ -154,7 +154,7 @@ public class DungeonsPit extends DungeonBase {
   }
 
   private void setTrap(WorldEditor editor, LevelSettings settings, Direction dir, Coord origin) {
-    ThemeBase theme = settings.getTheme();
+    Theme theme = settings.getTheme();
     BlockBrush walls = theme.getPrimary().getWall();
     BlockBrush plate = BlockType.PRESSURE_PLATE_STONE.getBrush();
     BlockBrush wire = BlockType.REDSTONE_WIRE.getBrush();

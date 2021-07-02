@@ -4,7 +4,7 @@ import com.github.fnar.minecraft.block.SingleBlockBrush;
 
 import java.util.Random;
 
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockCheckers;
 import greymerk.roguelike.worldgen.Coord;
@@ -15,7 +15,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class BumboTower implements ITower {
 
   @Override
-  public void generate(WorldEditor editor, Random rand, ThemeBase theme, Coord origin) {
+  public void generate(WorldEditor editor, Random rand, Theme theme, Coord origin) {
     Coord ground = Tower.getBaseCoord(editor, origin);
 
     Direction dir = Direction.randomCardinal(rand);
@@ -50,7 +50,7 @@ public class BumboTower implements ITower {
     }
   }
 
-  private void stem(WorldEditor editor, ThemeBase theme, Coord origin, Direction dir) {
+  private void stem(WorldEditor editor, Theme theme, Coord origin, Direction dir) {
     BlockBrush green = theme.getPrimary().getWall();
 
     Coord start;
@@ -86,7 +86,7 @@ public class BumboTower implements ITower {
 
   }
 
-  private void arm(WorldEditor editor, ThemeBase theme, Coord origin, Direction dir) {
+  private void arm(WorldEditor editor, Theme theme, Coord origin, Direction dir) {
     BlockBrush green = theme.getPrimary().getWall();
 
     Coord start;
@@ -153,7 +153,7 @@ public class BumboTower implements ITower {
     RectSolid.newRect(start, end).fill(editor, green);
   }
 
-  private void hat(WorldEditor editor, ThemeBase theme, Coord origin) {
+  private void hat(WorldEditor editor, Theme theme, Coord origin) {
     BlockBrush yellow = theme.getSecondary().getWall();
     BlockBrush red = theme.getSecondary().getFloor();
 
@@ -234,7 +234,7 @@ public class BumboTower implements ITower {
     }
   }
 
-  private void face(WorldEditor editor, ThemeBase theme, Coord origin, Direction dir) {
+  private void face(WorldEditor editor, Theme theme, Coord origin, Direction dir) {
     BlockBrush black = theme.getSecondary().getPillar();
     BlockBrush white = theme.getPrimary().getPillar();
     BlockBrush moustache = theme.getPrimary().getFloor();
@@ -315,7 +315,7 @@ public class BumboTower implements ITower {
     }
   }
 
-  private void rooms(WorldEditor editor, ThemeBase theme, Coord origin) {
+  private void rooms(WorldEditor editor, Theme theme, Coord origin) {
 
     Coord start;
     Coord end;

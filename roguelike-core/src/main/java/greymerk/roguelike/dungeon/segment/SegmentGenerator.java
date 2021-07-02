@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.DungeonLevel;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.util.WeightedChoice;
 import greymerk.roguelike.util.WeightedRandomizer;
 import greymerk.roguelike.worldgen.Coord;
@@ -142,7 +142,7 @@ public class SegmentGenerator {
             : Segment.getSegment(getSegments().get(random));
   }
 
-  private void addSupport(WorldEditor editor, ThemeBase theme, Coord origin) {
+  private void addSupport(WorldEditor editor, Theme theme, Coord origin) {
     Coord beneathWalkway = origin.copy().down(2);
     if (!editor.isAirBlock(beneathWalkway)) {
       return;

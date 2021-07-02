@@ -13,7 +13,7 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
@@ -144,7 +144,7 @@ public class DungeonLibrary extends DungeonBase {
     return this;
   }
 
-  private void door(WorldEditor editor, ThemeBase theme, Direction dir, Coord pos) {
+  private void door(WorldEditor editor, Theme theme, Direction dir, Coord pos) {
     Coord start;
     Coord end;
 
@@ -175,7 +175,7 @@ public class DungeonLibrary extends DungeonBase {
     }
   }
 
-  private void desk(WorldEditor editor, ThemeBase theme, Direction dir, Coord pos) {
+  private void desk(WorldEditor editor, Theme theme, Direction dir, Coord pos) {
 
     Coord cursor;
     Coord start;
@@ -231,7 +231,7 @@ public class DungeonLibrary extends DungeonBase {
     TorchBlock.torch().setFacing(Direction.UP).stroke(editor, cursor);
   }
 
-  private void plants(WorldEditor editor, ThemeBase theme, Direction dir, Coord origin) {
+  private void plants(WorldEditor editor, Theme theme, Direction dir, Coord origin) {
 
     Coord cursor = origin.copy();
     cursor.translate(dir, 5);

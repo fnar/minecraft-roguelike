@@ -7,7 +7,7 @@ import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.towers.Tower;
 import greymerk.roguelike.theme.Themes;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 
 public class SettingsTheme extends DungeonSettings {
 
@@ -22,7 +22,7 @@ public class SettingsTheme extends DungeonSettings {
     setTowerSettings(new TowerSettings(Tower.ROGUE, Themes.TOWER));
     for (int i = 0; i < 5; ++i) {
       LevelSettings level = new LevelSettings();
-      ThemeBase theme = i == 4 ? randomTheme().getThemeBase() : themes[i].getThemeBase();
+      Theme theme = i == 4 ? randomTheme().getThemeBase() : themes[i].getThemeBase();
       level.setTheme(theme);
       getLevelSettings().put(i, level);
     }

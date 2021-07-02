@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
 import greymerk.roguelike.worldgen.Coord;
@@ -23,7 +23,7 @@ public class TreeTower implements ITower {
   public static final Wood WOOD_TYPE = Wood.OAK;
 
   @Override
-  public void generate(WorldEditor editor, Random rand, ThemeBase theme, Coord origin) {
+  public void generate(WorldEditor editor, Random rand, Theme theme, Coord origin) {
 
     Coord start;
     Coord end;

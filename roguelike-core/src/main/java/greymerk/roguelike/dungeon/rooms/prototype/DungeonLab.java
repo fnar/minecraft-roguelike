@@ -19,7 +19,7 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -37,7 +37,7 @@ public class DungeonLab extends DungeonBase {
     super(roomSetting, levelSettings, worldEditor);
   }
 
-  private static void corner(WorldEditor editor, ThemeBase theme, int x, int y, int z) {
+  private static void corner(WorldEditor editor, Theme theme, int x, int y, int z) {
 
     BlockBrush doubleSlab = SlabBlock.stone().setTop(false).setFullBlock(true).setSeamless(true);
     BlockBrush cobble = BlockType.COBBLESTONE.getBrush();
@@ -71,7 +71,7 @@ public class DungeonLab extends DungeonBase {
   }
 
   // fountains
-  private static void southEast(WorldEditor editor, ThemeBase theme, int x, int y, int z) {
+  private static void southEast(WorldEditor editor, Theme theme, int x, int y, int z) {
 
     BlockBrush stone = BlockType.STONE_BRICK.getBrush();
     StairsBlock stair = StairsBlock.stoneBrick();
@@ -103,7 +103,7 @@ public class DungeonLab extends DungeonBase {
 
   }
 
-  private static void northWest(WorldEditor editor, ThemeBase theme, int x, int y, int z) {
+  private static void northWest(WorldEditor editor, Theme theme, int x, int y, int z) {
 
     BlockBrush stone = BlockType.STONE_BRICK.getBrush();
     BlockBrush redstone = BlockType.REDSTONE_BLOCK.getBrush();
@@ -144,7 +144,7 @@ public class DungeonLab extends DungeonBase {
     BlockType.WATER_FLOWING.getBrush().stroke(editor, new Coord(x, y, z));
   }
 
-  private static void northEast(WorldEditor editor, ThemeBase theme, int x, int y, int z) {
+  private static void northEast(WorldEditor editor, Theme theme, int x, int y, int z) {
 
     BlockBrush stone = BlockType.STONE_BRICK.getBrush();
     BlockBrush redstone = BlockType.REDSTONE_BLOCK.getBrush();
@@ -185,7 +185,7 @@ public class DungeonLab extends DungeonBase {
     BlockType.WATER_FLOWING.getBrush().stroke(editor, new Coord(x + 5, y, z));
   }
 
-  private static void pillar(WorldEditor editor, ThemeBase theme, int x, int y, int z) {
+  private static void pillar(WorldEditor editor, Theme theme, int x, int y, int z) {
 
     theme.getSecondary().getPillar().fill(editor, new RectSolid(new Coord(x, y, z), new Coord(x, y + 2, z)));
     theme.getPrimary().getWall().stroke(editor, new Coord(x, y + 3, z));
@@ -203,7 +203,7 @@ public class DungeonLab extends DungeonBase {
     int x = origin.getX();
     int y = origin.getY();
     int z = origin.getZ();
-    ThemeBase theme = levelSettings.getTheme();
+    Theme theme = levelSettings.getTheme();
 
     BlockBrush blocks = theme.getPrimary().getWall();
 
@@ -252,7 +252,7 @@ public class DungeonLab extends DungeonBase {
     return this;
   }
 
-  private void southWest(WorldEditor editor, ThemeBase theme, int x, int y, int z) {
+  private void southWest(WorldEditor editor, Theme theme, int x, int y, int z) {
 
     corner(editor, theme, x, y, z);
 

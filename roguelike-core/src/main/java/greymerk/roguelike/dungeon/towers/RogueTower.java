@@ -7,7 +7,7 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import java.util.Random;
 
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -17,7 +17,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class RogueTower implements ITower {
 
-  public void generate(WorldEditor editor, Random rand, ThemeBase theme, Coord dungeon) {
+  public void generate(WorldEditor editor, Random rand, Theme theme, Coord dungeon) {
 
 
     int x = dungeon.getX();

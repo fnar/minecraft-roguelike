@@ -10,7 +10,7 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
@@ -26,7 +26,7 @@ public class DungeonsCrypt extends DungeonBase {
   }
 
   public DungeonBase generate(Coord origin, List<Direction> entrances) {
-    ThemeBase theme = levelSettings.getTheme();
+    Theme theme = levelSettings.getTheme();
     StairsBlock stair = theme.getPrimary().getStair();
     BlockBrush walls = theme.getPrimary().getWall();
     BlockBrush floor = theme.getPrimary().getFloor();
@@ -131,7 +131,7 @@ public class DungeonsCrypt extends DungeonBase {
 
   private void sarcophagus(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Direction dir) {
 
-    ThemeBase theme = settings.getTheme();
+    Theme theme = settings.getTheme();
 
     BlockBrush walls = theme.getPrimary().getWall();
     StairsBlock stair = theme.getPrimary().getStair();
@@ -219,7 +219,7 @@ public class DungeonsCrypt extends DungeonBase {
 
   private void crypt(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Direction dir) {
 
-    ThemeBase theme = settings.getTheme();
+    Theme theme = settings.getTheme();
 
     BlockBrush walls = theme.getPrimary().getWall();
     StairsBlock stair = theme.getPrimary().getStair();
@@ -280,7 +280,7 @@ public class DungeonsCrypt extends DungeonBase {
 
   private void mausoleumWall(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Direction dir) {
 
-    ThemeBase theme = settings.getTheme();
+    Theme theme = settings.getTheme();
     BlockBrush walls = theme.getPrimary().getWall();
 
     Coord cursor;
@@ -316,7 +316,7 @@ public class DungeonsCrypt extends DungeonBase {
 
   private void pillar(WorldEditor editor, LevelSettings settings, Coord origin) {
 
-    ThemeBase theme = settings.getTheme();
+    Theme theme = settings.getTheme();
 
     BlockBrush walls = theme.getPrimary().getWall();
     StairsBlock stair = theme.getPrimary().getStair();
@@ -340,7 +340,7 @@ public class DungeonsCrypt extends DungeonBase {
 
   private void tomb(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Direction dir) {
 
-    ThemeBase theme = settings.getTheme();
+    Theme theme = settings.getTheme();
     Coord cursor;
 
     StairsBlock stair = theme.getPrimary().getStair();

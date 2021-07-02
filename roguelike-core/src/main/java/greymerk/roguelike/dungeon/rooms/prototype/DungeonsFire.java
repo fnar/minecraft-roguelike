@@ -8,7 +8,7 @@ import java.util.List;
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.ThemeBase;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -23,7 +23,7 @@ public class DungeonsFire extends DungeonBase {
     super(roomSetting, levelSettings, worldEditor);
   }
 
-  public static void genFire(WorldEditor editor, ThemeBase theme, Coord origin) {
+  public static void genFire(WorldEditor editor, Theme theme, Coord origin) {
 
     BlockBrush wall = theme.getPrimary().getWall();
     BlockBrush pillar = theme.getPrimary().getPillar();
@@ -102,7 +102,7 @@ public class DungeonsFire extends DungeonBase {
   @Override
   public DungeonBase generate(Coord origin, List<Direction> entrances) {
 
-    ThemeBase theme = levelSettings.getTheme();
+    Theme theme = levelSettings.getTheme();
 
     BlockBrush wall = theme.getPrimary().getWall();
     StairsBlock stair = theme.getPrimary().getStair();
