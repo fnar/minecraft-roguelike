@@ -7,7 +7,7 @@ import greymerk.roguelike.dungeon.towers.Tower;
 import greymerk.roguelike.theme.Themes;
 import greymerk.roguelike.theme.ThemeBase;
 import greymerk.roguelike.theme.ThemeParser;
-import greymerk.roguelike.theme.ThemeTower;
+import greymerk.roguelike.theme.builtin.ThemeTower;
 
 public class TowerSettings {
 
