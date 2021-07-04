@@ -42,32 +42,23 @@ public class DungeonStorage extends DungeonBase {
 
   @Override
   public DungeonBase generate(Coord origin, List<Direction> entrances) {
-
-    Random rand = worldEditor.getRandom(origin);
-
-    int x = origin.getX();
-    int y = origin.getY();
-    int z = origin.getZ();
     Theme theme = levelSettings.getTheme();
-
     List<Coord> chestSpaces = new ArrayList<>();
 
-    // space
-    RectSolid.newRect(new Coord(x - 6, y, z - 6), new Coord(x + 6, y + 3, z + 6)).fill(worldEditor, SingleBlockBrush.AIR);
+    Direction front = entrances.get(0);
+
+    generateCavity(origin, front);
+    generateFloor(origin, front);
+    generateCeiling(origin, front);
 
     Coord cursor;
     Coord start;
     Coord end;
-
-    BlockBrush blocks = theme.getPrimary().getWall();
-
-    RectSolid.newRect(new Coord(x - 6, y - 1, z - 6), new Coord(x + 6, y - 1, z + 6)).fill(worldEditor, blocks);
-    RectSolid.newRect(new Coord(x - 5, y + 4, z - 5), new Coord(x + 5, y + 4, z + 5)).fill(worldEditor, blocks);
-
+    BlockBrush wall = theme.getPrimary().getWall();
     for (Direction dir : Direction.CARDINAL) {
       for (Direction orthogonals : dir.orthogonals()) {
 
-        cursor = new Coord(x, y, z);
+        cursor = origin.copy();
         cursor.up(3);
         cursor.translate(dir, 2);
         cursor.translate(orthogonals, 2);
@@ -85,15 +76,14 @@ public class DungeonStorage extends DungeonBase {
         end.down(3);
         end.translate(dir, 1);
         end.translate(orthogonals, 1);
-        RectSolid.newRect(start, end).fill(worldEditor, blocks);
+        RectSolid.newRect(start, end).fill(worldEditor, wall);
 
-        cursor = new Coord(x, y, z);
+        cursor = origin.copy();
         cursor.translate(dir, 2);
         cursor.translate(orthogonals, 2);
         pillar(worldEditor, cursor, theme, 4);
         cursor.translate(dir, 4);
         pillar(worldEditor, cursor, theme, 3);
-
 
         cursor.up(2);
         pillarTop(worldEditor, theme, cursor);
@@ -105,18 +95,18 @@ public class DungeonStorage extends DungeonBase {
         cursor.translate(dir.reverse(), 3);
         pillarTop(worldEditor, theme, cursor);
 
-        start = new Coord(x, y, z);
+        start = origin.copy();
         start.translate(dir, 6);
         start.up(3);
         end = start.copy();
         end.translate(orthogonals, 5);
-        RectSolid.newRect(start, end).fill(worldEditor, blocks);
+        RectSolid.newRect(start, end).fill(worldEditor, wall);
         start.translate(dir, 1);
         end.translate(dir, 1);
         end.down(3);
-        RectSolid.newRect(start, end).fill(worldEditor, blocks, false, true);
+        RectSolid.newRect(start, end).fill(worldEditor, wall, false, true);
 
-        cursor = new Coord(x, y, z);
+        cursor = origin.copy();
         cursor.translate(dir, 6);
         cursor.translate(orthogonals, 3);
         StairsBlock stair = theme.getSecondary().getStair();
@@ -129,7 +119,7 @@ public class DungeonStorage extends DungeonBase {
         cursor.translate(orthogonals.reverse(), 1);
         chestSpaces.add(cursor.copy());
 
-        start = new Coord(x, y, z);
+        start = origin.copy();
         start.down();
         start.translate(dir, 3);
         start.translate(orthogonals, 3);
@@ -138,7 +128,7 @@ public class DungeonStorage extends DungeonBase {
         end.translate(orthogonals, 1);
         RectSolid.newRect(start, end).fill(worldEditor, theme.getSecondary().getFloor());
 
-        cursor = new Coord(x, y, z);
+        cursor = origin.copy();
         cursor.translate(dir, 5);
         cursor.translate(orthogonals, 5);
         pillar(worldEditor, cursor, theme, 4);
@@ -146,13 +136,48 @@ public class DungeonStorage extends DungeonBase {
       }
     }
 
+    Random rand = worldEditor.getRandom(origin);
     List<Coord> chestLocations = chooseRandomLocations(2, chestSpaces);
     worldEditor.getTreasureChestEditor().createChests(chestLocations, false, levelSettings.getDifficulty(origin), entrances.get(0).reverse(), getRoomSetting().getChestType().orElse(ChestType.chooseRandomAmong(rand, ChestType.SUPPLIES_TREASURES)));
+
+    generateDoorways(origin, entrances);
+
     return this;
+  }
+
+  private void generateCavity(Coord origin, Direction front) {
+    int size = getSize() - 1;
+    RectSolid roomRect = RectSolid.newRect(
+        origin.copy().translate(front, size).translate(front.left(), size).down(),
+        origin.copy().translate(front.reverse(), size).translate(front.right(), size).up(getCeilingHeight())
+    );
+    SingleBlockBrush.AIR.fill(worldEditor, roomRect);
+  }
+
+  private void generateFloor(Coord origin, Direction front) {
+    BlockBrush floor = levelSettings.getTheme().getPrimary().getFloor();
+    RectSolid floorRect = RectSolid.newRect(
+        origin.copy().translate(front, getSize()).translate(front.left(), getSize()).down(),
+        origin.copy().translate(front.reverse(), getSize()).translate(front.right(), getSize()).down()
+    );
+    floor.fill(worldEditor, floorRect);
+  }
+
+  private void generateCeiling(Coord origin, Direction front) {
+    BlockBrush wall = levelSettings.getTheme().getPrimary().getWall();
+    RectSolid ceilingRect = RectSolid.newRect(
+        origin.copy().translate(front, getSize()).translate(front.left(), getSize()).up(getCeilingHeight()),
+        origin.copy().translate(front.reverse(), getSize()).translate(front.right(), getSize()).up(getCeilingHeight())
+    );
+    wall.fill(worldEditor, ceilingRect);
+  }
+
+  private int getCeilingHeight() {
+    return 4;
   }
 
   @Override
   public int getSize() {
-    return 10;
+    return 7;
   }
 }

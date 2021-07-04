@@ -224,12 +224,13 @@ public class DungeonsFire extends DungeonBase {
       RectSolid.newRect(start, end).fill(worldEditor, stair, true, false);
     }
 
+    generateDoorways(origin, entrances);
 
     return this;
   }
 
   public int getSize() {
-    return 10;
+    return 8;
   }
 
 }

@@ -199,7 +199,6 @@ public class DungeonLab extends DungeonBase {
 
   @Override
   public DungeonBase generate(Coord origin, List<Direction> entrances) {
-
     int x = origin.getX();
     int y = origin.getY();
     int z = origin.getZ();
@@ -249,6 +248,8 @@ public class DungeonLab extends DungeonBase {
     RectSolid.newRect(new Coord(x - 6, y + 1, z + 8), new Coord(x - 3, y + 3, z + 8)).fill(worldEditor, backWalls);
     RectSolid.newRect(new Coord(x + 3, y + 1, z + 8), new Coord(x + 6, y + 3, z + 8)).fill(worldEditor, backWalls);
 
+    generateDoorways(origin, entrances);
+
     return this;
   }
 
@@ -271,7 +272,7 @@ public class DungeonLab extends DungeonBase {
   }
 
   public int getSize() {
-    return 9;
+    return 8;
   }
 
 }

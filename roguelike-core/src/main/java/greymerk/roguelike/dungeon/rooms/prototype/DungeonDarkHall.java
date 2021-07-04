@@ -2,13 +2,13 @@ package greymerk.roguelike.dungeon.rooms.prototype;
 
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.worldgen.generatables.Doorways;
 
 import java.util.List;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.BlockSet;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
@@ -67,7 +67,7 @@ public class DungeonDarkHall extends DungeonBase {
       if (!entrances.contains(side)) {
         pillar(worldEditor, levelSettings, side.reverse(), origin.copy().translate(side, 6));
       } else {
-        generateEntranceArchway(origin.copy().translate(side, 7), side, levelSettings.getTheme().getSecondary());
+        generateEntranceArchway(origin.copy().translate(side, 7), side, levelSettings);
       }
 
       wall.fill(worldEditor, RectSolid.newRect(
@@ -86,26 +86,28 @@ public class DungeonDarkHall extends DungeonBase {
     return this;
   }
 
-  private void generateEntranceArchway(Coord origin, Direction side, BlockSet blockBrush) {
-    BlockBrush wall = blockBrush.getWall();
-    BlockBrush pillar = blockBrush.getPillar();
-    StairsBlock stair = blockBrush.getStair();
+  private void generateEntranceArchway(Coord origin, Direction facing, LevelSettings levelSettings) {
+    BlockBrush wall = levelSettings.getTheme().getSecondary().getWall();
+    BlockBrush pillar = levelSettings.getTheme().getSecondary().getPillar();
+    StairsBlock stair = levelSettings.getTheme().getSecondary().getStair();
 
     Coord aboveOrigin = origin.copy().up(2);
 
     wall.fill(worldEditor, RectSolid.newRect(
-        aboveOrigin.copy().translate(side.left(), 2),
-        aboveOrigin.copy().translate(side.right(), 2).up(3)));
+        aboveOrigin.copy().translate(facing.left(), 2),
+        aboveOrigin.copy().translate(facing.right(), 2).up(3)));
 
     SingleBlockBrush.AIR.stroke(worldEditor, aboveOrigin);
 
-    for (Direction orthogonal : side.orthogonals()) {
+    for (Direction orthogonal : facing.orthogonals()) {
       stair.setUpsideDown(true).setFacing(orthogonal.reverse()).stroke(worldEditor, aboveOrigin.copy().translate(orthogonal));
-      pillar(worldEditor, levelSettings, orthogonal.reverse(), origin.copy().translate(side.back()).translate(orthogonal, 3));
+      pillar(worldEditor, levelSettings, orthogonal.reverse(), origin.copy().translate(facing.back()).translate(orthogonal, 3));
       Coord cursor = origin.copy().translate(orthogonal, 2);
       pillar.stroke(worldEditor, cursor);
       pillar.stroke(worldEditor, cursor.up());
     }
+
+    Doorways.generateDoorway(worldEditor, levelSettings, origin, facing);
   }
 
   private void generateBeam(Direction dir, Coord origin, int width) {
@@ -147,7 +149,7 @@ public class DungeonDarkHall extends DungeonBase {
 
   @Override
   public int getSize() {
-    return 9;
+    return 8;
   }
 
 

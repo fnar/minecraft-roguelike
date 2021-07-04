@@ -30,6 +30,8 @@ public class DungeonsMusic extends DungeonBase {
   }
 
   public DungeonBase generate(Coord origin, List<Direction> entrances) {
+    generateDoorways(origin, entrances);
+
     Random rand = worldEditor.getRandom(origin);
 
     Theme theme = levelSettings.getTheme();
@@ -157,6 +159,8 @@ public class DungeonsMusic extends DungeonBase {
 
     List<Coord> chestLocations = chooseRandomLocations(1, chests);
     worldEditor.getTreasureChestEditor().createChests(chestLocations, false, levelSettings.getDifficulty(origin), entrances.get(0).reverse(), getRoomSetting().getChestType().orElse(ChestType.MUSIC));
+
+    generateDoorways(origin, entrances);
 
     return this;
   }

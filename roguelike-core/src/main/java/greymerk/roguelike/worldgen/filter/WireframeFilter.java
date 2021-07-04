@@ -1,10 +1,11 @@
 package greymerk.roguelike.worldgen.filter;
 
-import com.github.fnar.minecraft.block.BlockType;
+import com.github.fnar.minecraft.block.normal.ColoredBlock;
 
 import java.util.Random;
 
 import greymerk.roguelike.theme.Theme;
+import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.IBounded;
@@ -23,7 +24,7 @@ public class WireframeFilter implements IFilter {
     end.up(100);
 
     IShape shape = new RectWireframe(start, end);
-    BlockBrush block = BlockType.SEA_LANTERN.getBrush();
+    BlockBrush block = ColoredBlock.stainedHardenedClay().setColor(DyeColor.RED);
 
     shape.fill(editor, block);
   }

@@ -28,7 +28,6 @@ public class PlatformsRoom extends DungeonBase {
 
   @Override
   public DungeonBase generate(Coord origin, List<Direction> entrances) {
-
     Direction front = entrances.get(0);
 
     generateWalls(origin, front);
@@ -116,20 +115,6 @@ public class PlatformsRoom extends DungeonBase {
         origin.copy().translate(front, getSize() - 1).translate(front.left(), getSize() - 1).down(),
         origin.copy().translate(front.back(), getSize() - 1).translate(front.right(), getSize() - 1).down(2)
     ).fill(worldEditor, liquid, true, false);
-  }
-
-  private void generateDoorways(Coord origin, List<Direction> entrances) {
-    for (Direction entrance : entrances) {
-      Coord doorwayOrigin = origin.copy().translate(entrance, getSize());
-      generateDoorway(doorwayOrigin, entrance);
-    }
-  }
-
-  private void generateDoorway(Coord origin, Direction facing) {
-    RectSolid.newRect(
-        origin.copy().translate(facing.left()),
-        origin.copy().translate(facing.right()).up(2)
-    ).fill(worldEditor, SingleBlockBrush.AIR);
   }
 
   private void generateCeilingDecoration(Coord origin) {
