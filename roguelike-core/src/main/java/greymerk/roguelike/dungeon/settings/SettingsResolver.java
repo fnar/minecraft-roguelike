@@ -52,8 +52,7 @@ public class SettingsResolver {
     }
 
     Map<String, String> fileByName = collectSettingsFiles(settingsDirectoryFile);
-    SettingsContainer settings = new SettingsContainer();
-    settings.put(fileByName);
+    SettingsContainer settings = new SettingsContainer(fileByName);
     return new SettingsResolver(settings);
   }
 
@@ -74,7 +73,7 @@ public class SettingsResolver {
 
   private static Map<String, String> mapContentByFilename(List<File> files) {
     return files.stream()
-        .collect(toMap(File::getName, SettingsResolver::getFileContent));
+        .collect(toMap(File::getAbsolutePath, SettingsResolver::getFileContent));
   }
 
   private static String getFileContent(File file) {
