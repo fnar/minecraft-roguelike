@@ -1,6 +1,7 @@
 package com.github.fnar.minecraft.worldgen.generatables;
 
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.theme.BlockSet;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -13,6 +14,11 @@ public class WalledDoorway implements Generatable {
         origin.copy().translate(facing.left()),
         origin.copy().translate(facing.right()).up(2)
     );
-    levelSettings.getTheme().getPrimary().getWall().fill(worldEditor, rect);
+
+    BlockSet blockSet = worldEditor.getRandom().nextBoolean()
+        ? levelSettings.getTheme().getPrimary()
+        : levelSettings.getTheme().getSecondary();
+
+    blockSet.getWall().fill(worldEditor, rect);
   }
 }
