@@ -15,6 +15,7 @@ public class CommandContext {
 
   public void sendFailure(Exception e) {
     sendFailure(e.getMessage());
+    e.printStackTrace();
   }
 
   public void sendFailure(String message) {
