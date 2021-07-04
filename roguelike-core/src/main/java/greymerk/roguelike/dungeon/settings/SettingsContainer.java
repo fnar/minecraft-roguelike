@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.Predicate;
 
 import greymerk.roguelike.dungeon.settings.base.SettingsBase;
@@ -36,7 +35,7 @@ public class SettingsContainer {
 
   private final Map<String, Map<String, DungeonSettings>> settingsByNamespace = new HashMap<>();
 
-  public SettingsContainer(DungeonSettings... dungeonSettings) {
+  private SettingsContainer() {
     put(
         new SettingsRooms(),
         new SettingsSecrets(),
@@ -55,17 +54,26 @@ public class SettingsContainer {
         new SettingsMesaTheme(),
         new SettingsIceTheme()
     );
+  }
 
+  public SettingsContainer(DungeonSettings... dungeonSettings) {
+    this();
     put(dungeonSettings);
   }
 
+  public SettingsContainer(Map<String, String> dungeonSettingsJsonByFileName) throws Exception {
+    this();
+    put(dungeonSettingsJsonByFileName);
+  }
+
   public void put(Map<String, String> dungeonSettingsJsonByFileName) throws Exception {
-    for (String fileName : dungeonSettingsJsonByFileName.keySet()) {
+    for (Map.Entry<String, String> entry : dungeonSettingsJsonByFileName.entrySet()) {
+      String filePath = entry.getKey();
+      String setting = entry.getValue();
       try {
-        String dungeonSettingsJson = dungeonSettingsJsonByFileName.get(fileName);
-        put(dungeonSettingsJson);
+        put(setting);
       } catch (Exception e) {
-        throw new Exception("Error in: " + fileName + ": " + e.getMessage(), e);
+        throw new Exception("Error in: " + filePath + ": " + e.getMessage(), e);
       }
     }
   }
