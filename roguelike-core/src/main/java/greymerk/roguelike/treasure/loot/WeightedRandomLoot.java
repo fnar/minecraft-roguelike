@@ -9,7 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.Loader;
 
 import java.util.Random;
 
@@ -19,14 +18,14 @@ import greymerk.roguelike.util.IWeighted;
 public class WeightedRandomLoot implements Comparable<WeightedRandomLoot>, IWeighted<ItemStack> {
 
 
-  private String name;
+  private final String name;
   private Item item;
   private Block block;
-  private int damage;
-  private int min;
-  private int max;
-  private int enchLevel;
-  private int weight;
+  private final int damage;
+  private final int min;
+  private final int max;
+  private final int enchLevel;
+  private final int weight;
 
   private NBTTagCompound nbt;
 
@@ -100,7 +99,8 @@ public class WeightedRandomLoot implements Comparable<WeightedRandomLoot>, IWeig
       return 1;
     }
 
-    return rand.nextInt(max - min) + min;
+    int difference = max - min;
+    return (difference > 0 ? rand.nextInt(difference) : 0) + min;
   }
 
 
