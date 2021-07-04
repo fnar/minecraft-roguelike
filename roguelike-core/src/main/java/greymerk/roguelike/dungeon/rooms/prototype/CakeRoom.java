@@ -69,6 +69,8 @@ public class CakeRoom extends DungeonBase {
 
     List<Coord> chestLocations = chooseRandomLocations(1, spaces);
     worldEditor.getTreasureChestEditor().createChests(chestLocations, false, Dungeon.getLevel(y), entrances.get(0).reverse(), getRoomSetting().getChestType().orElse(ChestType.FOOD));
+
+    generateDoorways(origin, entrances);
     return this;
   }
 
@@ -79,7 +81,7 @@ public class CakeRoom extends DungeonBase {
   }
 
   public int getSize() {
-    return 6;
+    return 4;
   }
 
 }

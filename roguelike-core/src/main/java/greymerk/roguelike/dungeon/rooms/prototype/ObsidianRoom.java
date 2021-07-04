@@ -336,12 +336,14 @@ public class ObsidianRoom extends DungeonBase {
     end.west(6);
     RectSolid.newRect(start, end).fill(worldEditor, crap);
 
+    generateDoorways(origin, entrances);
+
     return this;
   }
 
   @Override
   public int getSize() {
-    return 10;
+    return 11;
   }
 
 }

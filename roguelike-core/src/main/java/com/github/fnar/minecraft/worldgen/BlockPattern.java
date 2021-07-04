@@ -28,8 +28,7 @@ public class BlockPattern {
   }
 
   public void stroke(Coord origin, Direction facing) {
-    BiConsumer<BlockBrush, Coord> stroke = (brush, rowCursor) -> brush.stroke(worldEditor, rowCursor);
-    stroke(origin, facing, stroke);
+    stroke(origin, facing, (brush, rowCursor) -> brush.stroke(worldEditor, rowCursor));
   }
 
   public void stroke(Coord origin, Direction facing, boolean fillAir, boolean fillSolid) {

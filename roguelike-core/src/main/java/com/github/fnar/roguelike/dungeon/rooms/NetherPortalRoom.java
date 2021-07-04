@@ -2,11 +2,7 @@ package com.github.fnar.roguelike.dungeon.rooms;
 
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
-import com.github.fnar.minecraft.worldgen.generatables.Doorway;
-import com.github.fnar.minecraft.worldgen.generatables.Entryway;
-import com.github.fnar.minecraft.worldgen.generatables.IronBarredEntryway;
 import com.github.fnar.minecraft.worldgen.generatables.NetherPortal;
-import com.github.fnar.minecraft.worldgen.generatables.WalledDoorway;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -37,7 +33,6 @@ public class NetherPortalRoom extends DungeonBase {
     theFloorIsLava(origin, front);
     createPathFromEachEntranceToTheCenterOverTheLiquid(origin, entrances);
     ceilingChan(origin, front);
-
     generateDoorways(origin, entrances);
     generateNetherPortalWithPlatform(origin, entrances);
 
@@ -50,29 +45,6 @@ public class NetherPortalRoom extends DungeonBase {
         origin.copy().translate(front.left(), getSize()).translate(front, getSize()).copy().down(3),
         origin.copy().translate(front.right(), getSize()).translate(front.back(), getSize()).copy().up(getHeight())
     ).fill(worldEditor, walls);
-  }
-
-  private void generateDoorways(Coord origin, List<Direction> entrances) {
-    for (Direction entrance : entrances) {
-      Coord doorwayOrigin = origin.copy().translate(entrance, getSize());
-      generateDoorway(doorwayOrigin, entrance);
-    }
-  }
-
-  private void generateDoorway(Coord origin, Direction facing) {
-    switch (worldEditor.getRandom().nextInt(4)) {
-      default:
-      case 0:
-        new Entryway(worldEditor).generate(origin, facing);
-      case 1:
-        new Doorway(worldEditor, levelSettings.getTheme()).generate(origin, facing);
-        return;
-      case 2:
-        new IronBarredEntryway(worldEditor).generate(origin, facing);
-        return;
-      case 3:
-        new WalledDoorway(worldEditor, levelSettings.getTheme()).generate(origin, facing);
-    }
   }
 
   private void theFloorsAreFloors(Coord origin, Direction front) {

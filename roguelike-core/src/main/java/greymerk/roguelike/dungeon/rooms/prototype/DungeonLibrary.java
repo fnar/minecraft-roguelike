@@ -6,6 +6,7 @@ import com.github.fnar.minecraft.block.decorative.FlowerPotBlock;
 import com.github.fnar.minecraft.block.decorative.TallPlant;
 import com.github.fnar.minecraft.block.decorative.TorchBlock;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.worldgen.generatables.Doorways;
 
 import java.util.List;
 import java.util.Random;
@@ -33,7 +34,6 @@ public class DungeonLibrary extends DungeonBase {
 
   @Override
   public DungeonBase generate(Coord origin, List<Direction> entrances) {
-
     Random rand = worldEditor.getRandom(origin);
     int x = origin.getX();
     int y = origin.getY();
@@ -70,16 +70,12 @@ public class DungeonLibrary extends DungeonBase {
 
 
     for (Direction dir : Direction.CARDINAL) {
-
-      if (entrances.contains(dir)) {
-        door(worldEditor, levelSettings.getTheme(), dir, origin);
-      } else {
+      if (!entrances.contains(dir)) {
         if (rand.nextBoolean()) {
           desk(worldEditor, levelSettings.getTheme(), dir, origin);
         } else {
           plants(worldEditor, levelSettings.getTheme(), dir, origin);
         }
-
       }
 
       start = origin.copy();
@@ -140,39 +136,9 @@ public class DungeonLibrary extends DungeonBase {
       stair.setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
     }
 
+    generateDoorways(origin, entrances);
 
     return this;
-  }
-
-  private void door(WorldEditor editor, Theme theme, Direction dir, Coord pos) {
-    Coord start;
-    Coord end;
-
-    start = pos.copy();
-    start.translate(dir, 7);
-    end = start.copy();
-    start.translate(dir.antiClockwise());
-    end.translate(dir.clockwise());
-    end.up(2);
-
-    RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall());
-
-    Coord cursor = pos.copy();
-    cursor.translate(dir, 7);
-    theme.getPrimary().getDoor().setFacing(dir).stroke(editor, cursor);
-
-    for (Direction o : dir.orthogonals()) {
-
-      cursor = pos.copy();
-      cursor.translate(dir, 5);
-      cursor.translate(o);
-      cursor.up(2);
-
-      StairsBlock stair = theme.getPrimary().getStair();
-      stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
-      cursor.translate(dir);
-      stair.setUpsideDown(true).setFacing(o.reverse()).stroke(editor, cursor);
-    }
   }
 
   private void desk(WorldEditor editor, Theme theme, Direction dir, Coord pos) {

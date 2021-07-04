@@ -1,5 +1,7 @@
 package greymerk.roguelike.dungeon.base;
 
+import com.github.fnar.minecraft.worldgen.generatables.Doorways;
+
 import java.util.List;
 
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
@@ -39,6 +41,15 @@ public abstract class DungeonBase implements Comparable<DungeonBase> {
   }
 
   public abstract DungeonBase generate(Coord origin, List<Direction> entrances);
+
+  protected void generateDoorways(Coord origin, List<Direction> entrances) {
+    entrances.forEach(direction ->
+        Doorways.generateDoorway(
+            worldEditor,
+            levelSettings,
+            origin.copy().translate(direction, getSize()),
+            direction));
+  }
 
   protected void generateSpawner(Coord spawnerLocation, MobType... defaultMobs) {
     int difficulty = levelSettings.getDifficulty(spawnerLocation);

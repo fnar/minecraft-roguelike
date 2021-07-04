@@ -138,6 +138,8 @@ public class NetherFortressRoom extends DungeonBase {
       }
     }
 
+    generateDoorways(origin, entrances);
+
     return this;
   }
 
@@ -218,12 +220,10 @@ public class NetherFortressRoom extends DungeonBase {
       cursor.translate(UP);
       wall.stroke(editor, cursor);
     }
-
-
   }
 
   public int getSize() {
-    return 10;
+    return 8;
   }
 
 

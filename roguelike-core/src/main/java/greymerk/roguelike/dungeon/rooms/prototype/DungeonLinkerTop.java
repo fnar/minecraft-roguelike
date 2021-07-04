@@ -86,13 +86,14 @@ public class DungeonLinkerTop extends DungeonBase {
       }
     }
 
+    generateDoorways(origin, entrances);
 
     return this;
   }
 
   @Override
   public int getSize() {
-    return 6;
+    return 4;
   }
 
 }
