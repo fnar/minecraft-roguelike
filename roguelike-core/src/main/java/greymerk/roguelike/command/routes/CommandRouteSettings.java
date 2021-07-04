@@ -23,11 +23,7 @@ public class CommandRouteSettings extends CommandRouteBase {
         Dungeon.initResolver();
         context.sendSuccess("Settings Reloaded");
       } catch (Exception exception) {
-        if (exception.getMessage() == null) {
-          context.sendFailure("Uncaught Exception");
-        } else {
-          context.sendFailure(exception);
-        }
+        context.sendFailure(exception);
       }
       return;
     }
