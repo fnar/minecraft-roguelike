@@ -39,7 +39,7 @@ public class DungeonSettingsParser {
       JsonParser jsonParser = new JsonParser();
       JsonObject parse;
       try {
-        parse = (JsonObject) jsonParser.parse(content);
+        parse = jsonParser.parse(content).getAsJsonObject();
       } catch (JsonSyntaxException e) {
         Throwable cause = e.getCause();
         throw new Exception(cause.getMessage());
