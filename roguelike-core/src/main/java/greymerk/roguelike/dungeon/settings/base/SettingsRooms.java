@@ -63,7 +63,6 @@ public class SettingsRooms extends DungeonSettings {
         CAKE.newSingleRoomSetting(),
         FIRE.newSingleRoomSetting(),
         REWARD.newSingleRoomSetting(),
-        NETHER_PORTAL.newSingleRoomSetting(),
 
         BRICK.newRandomRoomSetting(2),
         CORNER.newRandomRoomSetting(2)
@@ -74,7 +73,6 @@ public class SettingsRooms extends DungeonSettings {
     return Lists.newArrayList(
         PIT.newSingleRoomSetting(),
         REWARD.newSingleRoomSetting(),
-        NETHER_PORTAL.newSingleRoomSetting(),
 
         BRICK.newRandomRoomSetting(3),
         CORNER.newRandomRoomSetting(10)
@@ -90,7 +88,6 @@ public class SettingsRooms extends DungeonSettings {
         SPIDER.newSingleRoomSetting(),
         PRISON.newSingleRoomSetting(),
         REWARD.newSingleRoomSetting(),
-        NETHER_PORTAL.newSingleRoomSetting(),
 
         CRYPT.newRandomRoomSetting(5),
         CORNER.newRandomRoomSetting(5),
@@ -103,7 +100,6 @@ public class SettingsRooms extends DungeonSettings {
         OSSUARY.newSingleRoomSetting(),
         CRYPT.newSingleRoomSetting(),
         REWARD.newSingleRoomSetting(),
-        NETHER_PORTAL.newSingleRoomSetting(),
 
         SLIME.newRandomRoomSetting(5),
         PRISON.newRandomRoomSetting(3),
@@ -121,7 +117,6 @@ public class SettingsRooms extends DungeonSettings {
         OBSIDIAN.newSingleRoomSetting(),
         DARKHALL.newSingleRoomSetting(),
         NETHERFORT.newSingleRoomSetting(),
-        NETHER_PORTAL.newSingleRoomSetting(),
 
         BRICK.newRandomRoomSetting(2),
         CORNER.newRandomRoomSetting(2),
