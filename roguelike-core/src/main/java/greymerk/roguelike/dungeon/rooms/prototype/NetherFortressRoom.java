@@ -145,7 +145,9 @@ public class NetherFortressRoom extends DungeonBase {
 
   private boolean isHotGarden() {
     SingleBlockBrush liquid = (SingleBlockBrush) levelSettings.getTheme().getPrimary().getLiquid();
-    return liquid.getBlockType().equals(LAVA_FLOWING);
+    boolean isBlockTypeLava = liquid.getBlockType() != null && liquid.getBlockType().equals(LAVA_FLOWING);
+    boolean hasJsonLava = liquid.getJson() != null && liquid.getJson().toString().toLowerCase().contains("lava");
+    return isBlockTypeLava || hasJsonLava;
   }
 
   private BlockWeightedRandom getCrops() {
