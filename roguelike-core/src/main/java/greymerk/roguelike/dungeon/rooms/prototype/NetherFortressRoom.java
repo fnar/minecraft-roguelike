@@ -225,7 +225,7 @@ public class NetherFortressRoom extends DungeonBase {
   }
 
   public int getSize() {
-    return 8;
+    return 9;
   }
 
 
