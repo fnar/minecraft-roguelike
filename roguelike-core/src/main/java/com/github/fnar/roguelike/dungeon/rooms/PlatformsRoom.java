@@ -1,9 +1,9 @@
 package com.github.fnar.roguelike.dungeon.rooms;
 
-import com.github.fnar.minecraft.worldgen.BlockPattern;
-import com.github.fnar.minecraft.worldgen.shape.FnarLine;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.worldgen.BlockPattern;
+import com.github.fnar.minecraft.worldgen.shape.FnarLine;
 
 import java.util.List;
 import java.util.Map;
@@ -141,9 +141,6 @@ public class PlatformsRoom extends DungeonBase {
           pillar.stroke(worldEditor, beamEnd.up());
           stair.stroke(worldEditor, beamEnd.translate(direction.left()));
         });
-
-    // todo: stop being a good citizen: maybe theme.getPillar, etc., return a new instance
-    pillar.setFacing(Direction.UP);
   }
 
   private int getHeight() {
