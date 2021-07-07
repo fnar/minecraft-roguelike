@@ -48,6 +48,10 @@ public class WeightedRandomizer<T> implements IWeighted<T> {
     items.add(toAdd);
   }
 
+  public void add(T entryway, int weight) {
+    add(new WeightedChoice<T>(entryway, weight));
+  }
+
   public WeightedRandomizer<T> with(IWeighted<T> toAdd) {
     add(toAdd);
     return this;
