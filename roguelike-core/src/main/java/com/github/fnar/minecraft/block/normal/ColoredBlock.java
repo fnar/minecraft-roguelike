@@ -55,6 +55,38 @@ public class ColoredBlock extends SingleBlockBrush {
     return this;
   }
 
+  public ColoredBlock black() {
+    return this.setColor(DyeColor.BLACK);
+  }
+
+  public ColoredBlock blue() {
+    return this.setColor(DyeColor.BLUE);
+  }
+
+  public ColoredBlock green() {
+    return this.setColor(DyeColor.GREEN);
+  }
+
+  public ColoredBlock orange() {
+    return this.setColor(DyeColor.ORANGE);
+  }
+
+  public ColoredBlock purple() {
+    return this.setColor(DyeColor.PURPLE);
+  }
+
+  public ColoredBlock red() {
+    return this.setColor(DyeColor.RED);
+  }
+
+  public ColoredBlock yellow() {
+    return this.setColor(DyeColor.YELLOW);
+  }
+
+  public ColoredBlock white() {
+    return this.setColor(DyeColor.WHITE);
+  }
+
   @Override
   public ColoredBlock copy() {
     ColoredBlock copy = new ColoredBlock(getBlockType(), getMaterial());
