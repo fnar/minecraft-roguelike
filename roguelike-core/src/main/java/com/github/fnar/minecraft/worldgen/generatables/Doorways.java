@@ -8,9 +8,10 @@ import greymerk.roguelike.worldgen.WorldEditor;
 public class Doorways {
 
   public static void generateDoorway(WorldEditor worldEditor, LevelSettings levelSettings, Coord origin, Direction facing) {
-//     new WoolDoorway() // for debugging
-    getDoorwayType(worldEditor, origin, facing)
-        .generate(worldEditor, levelSettings, origin, facing);
+    // new WoolDoorway() // for debugging
+    // feature doesn't seem ready yet -- disabled for now
+    // getDoorwayType(worldEditor, origin, facing)
+    //     .generate(worldEditor, levelSettings, origin, facing);
   }
 
   private static Generatable getDoorwayType(WorldEditor worldEditor, Coord origin, Direction facing) {
