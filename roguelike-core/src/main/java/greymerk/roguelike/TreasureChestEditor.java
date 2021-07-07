@@ -56,7 +56,7 @@ public class TreasureChestEditor {
 
     if (!success) {
       // todo: this is thrown and immediately caught and ignored.
-      throw new ChestPlacementException("Failed to place chest in world");
+      throw new ChestPlacementException(String.format("Failed to place chest in world at %s", pos));
     }
 
     TreasureChest treasureChest = new TreasureChest(
