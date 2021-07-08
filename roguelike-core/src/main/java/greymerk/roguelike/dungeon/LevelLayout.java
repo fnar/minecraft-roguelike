@@ -71,43 +71,42 @@ public class LevelLayout {
         .anyMatch(tunnel -> node.overlaps(size, tunnel));
   }
 
-  private boolean anyNodesOverlap(DungeonNode node, int size) {
-    return getNodes().stream()
-        .anyMatch(other -> node.overlaps(size, other));
-  }
-
   public DungeonNode getBestFit(DungeonBase room) {
-    return getNonOverlappingConnectingNode(room)
-        .orElseGet(this::getConnectingNode);
+    return findFirstNonOverlappingNode(room)
+        .orElseGet(this::findFirstConnectingNode);
   }
 
-  private Optional<DungeonNode> getNonOverlappingConnectingNode(DungeonBase room) {
+  private Optional<DungeonNode> findFirstNonOverlappingNode(DungeonBase room) {
     return getNodes().stream()
-        .filter(this::isConnectingNode)
+        .filter(this::isNotEdgeNode)
         .filter(DungeonNode::isNotYetGenerated)
-        .filter(node -> !overlaps(node, room.getSize()))
+        .filter(node -> !node.hasOverlappingNode(room.getSize(), getNodes()))
         .findFirst();
   }
 
-  private DungeonNode getConnectingNode() {
+  private DungeonNode findFirstConnectingNode() {
     return getNodes().stream()
-        .filter(this::isConnectingNode)
+        .filter(this::isNotEdgeNode)
         .filter(DungeonNode::isNotYetGenerated)
         .findFirst()
         .orElse(null);
   }
 
   private boolean overlaps(DungeonNode node, int size) {
-    return anyTunnelsOverlap(node, size) || anyNodesOverlap(node, size);
+    return anyTunnelsOverlap(node, size) || node.hasOverlappingNode(size, this.getNodes());
   }
 
-  private boolean isConnectingNode(DungeonNode node) {
-    return node != start && node != end;
+  private boolean isNotEdgeNode(DungeonNode node) {
+    return !isEdgeNode(node);
+  }
+
+  private boolean isEdgeNode(DungeonNode node) {
+    return node == start || node == end;
   }
 
   public boolean hasEmptyRooms() {
     return nodes.stream()
-        .filter(this::isConnectingNode)
+        .filter(this::isNotEdgeNode)
         .anyMatch(DungeonNode::isNotYetGenerated);
   }
 
