@@ -58,30 +58,24 @@ public class DungeonStorage extends DungeonBase {
     for (Direction dir : Direction.CARDINAL) {
       for (Direction orthogonals : dir.orthogonals()) {
 
-        cursor = origin.copy();
-        cursor.up(3);
-        cursor.translate(dir, 2);
-        cursor.translate(orthogonals, 2);
+        cursor = origin.copy()
+            .up(3)
+            .translate(dir, 2)
+            .translate(orthogonals, 2);
         pillarTop(worldEditor, theme, cursor);
-        cursor.translate(dir, 3);
-        cursor.translate(orthogonals, 3);
+        cursor.translate(dir, 3).translate(orthogonals, 3);
         pillarTop(worldEditor, theme, cursor);
         start = cursor.copy();
 
-        cursor.down();
-        cursor.translate(dir, 1);
+        cursor.down().translate(dir, 1);
         pillarTop(worldEditor, theme, cursor);
 
-        end = cursor.copy();
-        end.down(3);
-        end.translate(dir, 1);
-        end.translate(orthogonals, 1);
+        end = cursor.copy().down(3).translate(dir, 1).translate(orthogonals, 1);
         RectSolid.newRect(start, end).fill(worldEditor, wall);
 
-        cursor = origin.copy();
-        cursor.translate(dir, 2);
-        cursor.translate(orthogonals, 2);
+        cursor = origin.copy().translate(dir, 2).translate(orthogonals, 2);
         pillar(worldEditor, cursor, theme, 4);
+
         cursor.translate(dir, 4);
         pillar(worldEditor, cursor, theme, 3);
 
@@ -95,16 +89,7 @@ public class DungeonStorage extends DungeonBase {
         cursor.translate(dir.reverse(), 3);
         pillarTop(worldEditor, theme, cursor);
 
-        start = origin.copy();
-        start.translate(dir, 6);
-        start.up(3);
-        end = start.copy();
-        end.translate(orthogonals, 5);
-        RectSolid.newRect(start, end).fill(worldEditor, wall);
-        start.translate(dir, 1);
-        end.translate(dir, 1);
-        end.down(3);
-        RectSolid.newRect(start, end).fill(worldEditor, wall, false, true);
+        generateWall(origin, dir, orthogonals);
 
         cursor = origin.copy();
         cursor.translate(dir, 6);
@@ -140,13 +125,24 @@ public class DungeonStorage extends DungeonBase {
     List<Coord> chestLocations = chooseRandomLocations(2, chestSpaces);
     worldEditor.getTreasureChestEditor().createChests(chestLocations, false, levelSettings.getDifficulty(origin), entrances.get(0).reverse(), getRoomSetting().getChestType().orElse(ChestType.chooseRandomAmong(rand, ChestType.SUPPLIES_TREASURES)));
 
-    generateDoorways(origin, entrances);
+    generateDoorways(origin, entrances, getSize()-3);
 
     return this;
   }
 
+  private void generateWall(Coord origin, Direction dir, Direction orthogonals) {
+    BlockBrush wall = levelSettings.getTheme().getPrimary().getWall();
+    Coord start = origin.copy().translate(dir, 6).up(3);
+    Coord end = start.copy().translate(orthogonals, 5);
+    RectSolid.newRect(start, end).fill(worldEditor, wall);
+
+    start.translate(dir, 1);
+    end.translate(dir, 1).down(3);
+    RectSolid.newRect(start, end).fill(worldEditor, wall, false, true);
+  }
+
   private void generateCavity(Coord origin, Direction front) {
-    int size = getSize() - 1;
+    int size = getSize() - 4; // 6
     RectSolid roomRect = RectSolid.newRect(
         origin.copy().translate(front, size).translate(front.left(), size).down(),
         origin.copy().translate(front.reverse(), size).translate(front.right(), size).up(getCeilingHeight())
@@ -178,6 +174,6 @@ public class DungeonStorage extends DungeonBase {
 
   @Override
   public int getSize() {
-    return 7;
+    return 10;
   }
 }

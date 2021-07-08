@@ -2,7 +2,6 @@ package greymerk.roguelike.dungeon.rooms.prototype;
 
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
-import com.github.fnar.minecraft.worldgen.generatables.Doorways;
 
 import java.util.List;
 
@@ -83,6 +82,8 @@ public class DungeonDarkHall extends DungeonBase {
       }
     }
 
+    generateDoorways(origin, entrances);
+
     return this;
   }
 
@@ -106,8 +107,6 @@ public class DungeonDarkHall extends DungeonBase {
       pillar.stroke(worldEditor, cursor);
       pillar.stroke(worldEditor, cursor.up());
     }
-
-    Doorways.generateDoorway(worldEditor, levelSettings, origin, facing);
   }
 
   private void generateBeam(Direction dir, Coord origin, int width) {
@@ -149,7 +148,7 @@ public class DungeonDarkHall extends DungeonBase {
 
   @Override
   public int getSize() {
-    return 8;
+    return 10;
   }
 
 

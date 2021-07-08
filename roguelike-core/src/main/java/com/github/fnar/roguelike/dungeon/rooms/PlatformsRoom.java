@@ -31,7 +31,7 @@ public class PlatformsRoom extends DungeonBase {
     Direction front = entrances.get(0);
 
     generateWalls(origin, front);
-    generateDoorways(origin, entrances);
+    generateDoorways(origin, entrances, getSize());
     generateIslands(origin, front);
     theFloorIsLava(origin, front);
     generateCeilingDecoration(origin);

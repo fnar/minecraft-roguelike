@@ -272,7 +272,7 @@ public class DungeonLab extends DungeonBase {
   }
 
   public int getSize() {
-    return 8;
+    return 10;
   }
 
 }

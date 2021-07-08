@@ -194,6 +194,6 @@ public class DungeonReward extends DungeonBase {
 
   @Override
   public int getSize() {
-    return 8;
+    return 10;
   }
 }

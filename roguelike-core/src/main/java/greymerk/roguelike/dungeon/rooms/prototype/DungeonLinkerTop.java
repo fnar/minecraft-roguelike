@@ -93,7 +93,7 @@ public class DungeonLinkerTop extends DungeonBase {
 
   @Override
   public int getSize() {
-    return 4;
+    return 6;
   }
 
 }

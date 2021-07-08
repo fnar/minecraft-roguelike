@@ -33,8 +33,8 @@ public class NetherPortalRoom extends DungeonBase {
     theFloorIsLava(origin, front);
     createPathFromEachEntranceToTheCenterOverTheLiquid(origin, entrances);
     ceilingChan(origin, front);
-    generateDoorways(origin, entrances);
     generateNetherPortalWithPlatform(origin, entrances);
+    generateDoorways(origin, entrances, getSize());
 
     return null;
   }
