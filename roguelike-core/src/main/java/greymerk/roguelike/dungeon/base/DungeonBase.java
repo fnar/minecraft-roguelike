@@ -43,11 +43,15 @@ public abstract class DungeonBase implements Comparable<DungeonBase> {
   public abstract DungeonBase generate(Coord origin, List<Direction> entrances);
 
   protected void generateDoorways(Coord origin, List<Direction> entrances) {
+    generateDoorways(origin, entrances, getSize()-2);
+  }
+
+  protected void generateDoorways(Coord origin, List<Direction> entrances, int distanceFromOrigin) {
     entrances.forEach(direction ->
         Doorways.generateDoorway(
             worldEditor,
             levelSettings,
-            origin.copy().translate(direction, getSize()),
+            origin.copy().translate(direction, distanceFromOrigin),
             direction));
   }
 
