@@ -30,7 +30,7 @@ public class DungeonNode implements IBounded {
 
   public int getSize() {
     if (toGenerate == null) {
-      return 6;
+      return 10;
     }
 
     return toGenerate.getSize();
@@ -118,5 +118,10 @@ public class DungeonNode implements IBounded {
 
   public void generate() {
     getRoom().generate(getPosition(), getEntrances());
+  }
+
+  boolean hasOverlappingNode(int size, List<DungeonNode> nodes) {
+    return nodes.stream()
+        .anyMatch(other -> overlaps(size, other));
   }
 }

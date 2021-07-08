@@ -343,7 +343,7 @@ public class ObsidianRoom extends DungeonBase {
 
   @Override
   public int getSize() {
-    return 11;
+    return 13;
   }
 
 }

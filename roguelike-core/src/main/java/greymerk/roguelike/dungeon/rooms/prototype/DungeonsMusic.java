@@ -30,8 +30,6 @@ public class DungeonsMusic extends DungeonBase {
   }
 
   public DungeonBase generate(Coord origin, List<Direction> entrances) {
-    generateDoorways(origin, entrances);
-
     Random rand = worldEditor.getRandom(origin);
 
     Theme theme = levelSettings.getTheme();
@@ -189,7 +187,7 @@ public class DungeonsMusic extends DungeonBase {
   }
 
   public int getSize() {
-    return 7;
+    return 8;
   }
 
 }

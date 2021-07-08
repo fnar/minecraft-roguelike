@@ -259,7 +259,7 @@ public class DungeonBlaze extends DungeonBase {
   }
 
   public int getSize() {
-    return 8;
+    return 10;
   }
 
 }

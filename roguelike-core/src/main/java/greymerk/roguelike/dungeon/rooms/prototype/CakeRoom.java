@@ -81,7 +81,7 @@ public class CakeRoom extends DungeonBase {
   }
 
   public int getSize() {
-    return 4;
+    return 6;
   }
 
 }
