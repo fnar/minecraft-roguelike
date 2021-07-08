@@ -5,7 +5,6 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.DungeonBase;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
@@ -121,13 +120,18 @@ public class DungeonStorage extends DungeonBase {
       }
     }
 
-    Random rand = worldEditor.getRandom(origin);
-    List<Coord> chestLocations = chooseRandomLocations(2, chestSpaces);
-    worldEditor.getTreasureChestEditor().createChests(chestLocations, false, levelSettings.getDifficulty(origin), entrances.get(0).reverse(), getRoomSetting().getChestType().orElse(ChestType.chooseRandomAmong(rand, ChestType.SUPPLIES_TREASURES)));
+    chooseRandomLocations(2, chestSpaces)
+        .forEach(coord -> worldEditor.getTreasureChestEditor()
+            .createChest(coord, false, levelSettings.getDifficulty(origin), coord.dirTo(origin).reverse(), randomChestType()));
 
-    generateDoorways(origin, entrances, getSize()-3);
+    generateDoorways(origin, entrances, getSize() - 3);
 
     return this;
+  }
+
+  private ChestType randomChestType() {
+    return getRoomSetting().getChestType()
+        .orElse(ChestType.chooseRandomAmong(worldEditor.getRandom(), ChestType.SUPPLIES_TREASURES));
   }
 
   private void generateWall(Coord origin, Direction dir, Direction orthogonals) {
