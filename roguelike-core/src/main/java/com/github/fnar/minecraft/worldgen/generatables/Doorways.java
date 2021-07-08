@@ -7,28 +7,25 @@ import greymerk.roguelike.worldgen.WorldEditor;
 
 public class Doorways {
 
+  public static final Generatable[] DOORWAYS = {
+      new Entryway(),
+      new Doorway(),
+      new IronBarredEntryway(),
+      new WalledDoorway()
+  };
+
   public static void generateDoorway(WorldEditor worldEditor, LevelSettings levelSettings, Coord origin, Direction facing) {
     // new WoolDoorway() // for debugging
-    // feature doesn't seem ready yet -- disabled for now
-    // getDoorwayType(worldEditor, origin, facing)
-    //     .generate(worldEditor, levelSettings, origin, facing);
+    getDoorwayType(worldEditor, origin, facing)
+        .generate(worldEditor, levelSettings, origin, facing);
   }
 
   private static Generatable getDoorwayType(WorldEditor worldEditor, Coord origin, Direction facing) {
-    if (worldEditor.getRandom().nextBoolean()) {
+    if (!worldEditor.getRandom().nextBoolean() || !isNextToAir(worldEditor, origin, facing)) {
       return new Entryway();
     }
-
-    if (isNextToAir(worldEditor, origin, facing)) {
-      if (worldEditor.getRandom().nextBoolean()) {
-        new Doorway();
-      }
-      if (worldEditor.getRandom().nextBoolean()) {
-        return new IronBarredEntryway();
-      }
-    }
-
-    return new WalledDoorway();
+    int choice = worldEditor.getRandom().nextInt(DOORWAYS.length);
+    return DOORWAYS[choice];
   }
 
   private static boolean isNextToAir(WorldEditor worldEditor, Coord origin, Direction facing) {
