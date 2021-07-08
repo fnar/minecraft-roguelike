@@ -1,6 +1,6 @@
 package com.github.fnar.minecraft.worldgen.generatables;
 
-import com.github.fnar.minecraft.block.BlockType;
+import com.github.fnar.minecraft.block.SingleBlockBrush;
 
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.Coord;
@@ -15,6 +15,6 @@ public class Entryway implements Generatable {
         origin.copy().translate(facing.left()),
         origin.copy().translate(facing.right()).up(2)
     );
-    BlockType.IRON_BAR.getBrush().fill(worldEditor, rect);
+    SingleBlockBrush.AIR.fill(worldEditor, rect);
   }
 }
