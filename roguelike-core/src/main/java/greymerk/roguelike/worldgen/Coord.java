@@ -162,9 +162,7 @@ public class Coord {
     int ydiff = other.y - y;
     int zdiff = other.z - z;
 
-    if (
-        Math.abs(ydiff) > Math.abs(xdiff)
-            && Math.abs(ydiff) > Math.abs(zdiff)) {
+    if (Math.abs(ydiff) > Math.abs(xdiff) && Math.abs(ydiff) > Math.abs(zdiff)) {
       return UP;
     }
 
