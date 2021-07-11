@@ -35,7 +35,7 @@ public class SettingsRandom extends DungeonSettings {
     getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, loot.get(Loot.FOOD, 0), 0, 2));
     getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, loot.get(Loot.TOOL, 0), 0, 2));
     getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, loot.get(Loot.SUPPLY, 0), 0, 2));
-    getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new ItemSpecialty(0, 0, Equipment.LEGGINGS, Quality.WOOD), 0, 2));
+    getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new ItemSpecialty(0, 0, Equipment.LEGS, Quality.WOOD), 0, 2));
     for (int i = 0; i < 5; ++i) {
       getLootRules().add(new TypedForEachLootRule(ChestType.ARMOUR, loot.get(Loot.POTION, i), i, 1));
       getLootRules().add(new TypedForEachLootRule(ChestType.ARMOUR, loot.get(Loot.ARMOUR, i), i, 1));

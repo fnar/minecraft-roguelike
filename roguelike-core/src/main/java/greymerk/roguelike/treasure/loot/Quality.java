@@ -179,9 +179,9 @@ public enum Quality {
       case BOW:
         return weaponQuality.get(level).get(rand);
       case HELMET:
-      case CHESTPLATE:
-      case LEGGINGS:
-      case BOOTS:
+      case CHEST:
+      case LEGS:
+      case FEET:
         return armourQuality.get(level).get(rand);
       case PICK:
       case AXE:

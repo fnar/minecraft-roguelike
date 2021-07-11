@@ -80,11 +80,11 @@ public class ItemSpecialty extends ItemBase {
         return createBow(random, quality);
       case HELMET:
         return createHelmet(random, quality);
-      case CHESTPLATE:
+      case CHEST:
         return createChestplate(random, quality);
-      case LEGGINGS:
+      case LEGS:
         return createLeggings(random, quality);
-      case BOOTS:
+      case FEET:
         return createBoots(random, quality);
       case PICK:
         return createPickaxe(random, quality);
@@ -491,7 +491,7 @@ public class ItemSpecialty extends ItemBase {
   }
 
   public static ItemStack createBoots(Random random, int level) {
-    Quality quality = Quality.rollRandomQualityByLevel(random, level, Equipment.BOOTS);
+    Quality quality = Quality.rollRandomQualityByLevel(random, level, Equipment.FEET);
     return ItemSpecialty.createBoots(random, quality);
   }
 
@@ -545,7 +545,7 @@ public class ItemSpecialty extends ItemBase {
   }
 
   public static ItemStack createLeggings(Random random, int level) {
-    Quality quality = Quality.rollRandomQualityByLevel(random, level, Equipment.LEGGINGS);
+    Quality quality = Quality.rollRandomQualityByLevel(random, level, Equipment.LEGS);
     return ItemSpecialty.createLeggings(random, quality);
   }
 
@@ -597,7 +597,7 @@ public class ItemSpecialty extends ItemBase {
   }
 
   public static ItemStack createChestplate(Random random, int level) {
-    Quality quality = Quality.rollRandomQualityByLevel(random, level, Equipment.CHESTPLATE);
+    Quality quality = Quality.rollRandomQualityByLevel(random, level, Equipment.CHEST);
     return ItemSpecialty.createChestplate(random, quality);
   }
 
