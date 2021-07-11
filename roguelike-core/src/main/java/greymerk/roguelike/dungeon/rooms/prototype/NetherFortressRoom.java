@@ -81,17 +81,17 @@ public class NetherFortressRoom extends DungeonBase {
     SingleBlockBrush soil = isHotGarden()
         ? BlockType.SOUL_SAND.getBrush()
         : BlockType.FARMLAND.getBrush();
-    soil.fill(worldEditor, new RectSolid(start, end), false, true);
+    soil.fill(worldEditor, new RectSolid(start, end), true, true);
 
     start = origin.copy();
     end = origin.copy();
     start.translate(new Coord(-3, -1, -3));
     end.translate(new Coord(3, -1, 3));
     BlockWeightedRandom crop = getCrops();
-    RectSolid.newRect(start, end).fill(worldEditor, crop, true, true);
-    List<Coord> chests = (new RectSolid(start, end).get());
+    RectSolid cropsRectangle = RectSolid.newRect(start, end);
+    cropsRectangle.fill(worldEditor, crop, true, true);
 
-    List<Coord> chestLocations = chooseRandomLocations(worldEditor.getRandom(origin).nextInt(3) + 1, chests);
+    List<Coord> chestLocations = chooseRandomLocations(worldEditor.getRandom(origin).nextInt(3) + 1, cropsRectangle.get());
     generateChests(origin, entrances, chestLocations);
 
     for (Direction dir : CARDINAL) {
