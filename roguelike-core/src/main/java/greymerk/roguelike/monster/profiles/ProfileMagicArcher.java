@@ -31,7 +31,7 @@ public class ProfileMagicArcher implements IMonsterProfile {
 
     Slot[] slotsToBeArmored = {Slot.HEAD, Slot.CHEST, Slot.LEGS, Slot.FEET};
     for (Slot slot : slotsToBeArmored) {
-      ItemStack item = ItemArmour.get(slot, Quality.WOOD, Colors.DEEP_VIOLET);
+      ItemStack item = ItemArmour.create(slot, Quality.WOOD, Colors.DEEP_VIOLET);
       Enchant.enchantItem(random, item, 20);
       mob.setSlot(Slot.getSlot(slot), item);
     }

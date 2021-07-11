@@ -4,6 +4,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import java.util.Random;
+
 import static net.minecraft.init.Items.CHAINMAIL_BOOTS;
 import static net.minecraft.init.Items.CHAINMAIL_CHESTPLATE;
 import static net.minecraft.init.Items.CHAINMAIL_HELMET;
@@ -50,9 +52,9 @@ public enum Equipment {
   SWORD("sword", false, WOODEN_SWORD, STONE_SWORD, IRON_SWORD, GOLDEN_SWORD, DIAMOND_SWORD),
   BOW("minecraft:bow", false, Items.BOW, Items.BOW, Items.BOW, Items.BOW, Items.BOW),
   HELMET("helmet", true, LEATHER_HELMET, CHAINMAIL_HELMET, IRON_HELMET, GOLDEN_HELMET, DIAMOND_HELMET),
-  CHEST("chestplate", true, LEATHER_CHESTPLATE, CHAINMAIL_CHESTPLATE, IRON_CHESTPLATE, GOLDEN_CHESTPLATE, DIAMOND_CHESTPLATE),
-  LEGS("leggings", true, LEATHER_LEGGINGS, CHAINMAIL_LEGGINGS, IRON_LEGGINGS, GOLDEN_LEGGINGS, DIAMOND_LEGGINGS),
-  FEET("boots", true, LEATHER_BOOTS, CHAINMAIL_BOOTS, IRON_BOOTS, GOLDEN_BOOTS, DIAMOND_BOOTS),
+  CHESTPLATE("chestplate", true, LEATHER_CHESTPLATE, CHAINMAIL_CHESTPLATE, IRON_CHESTPLATE, GOLDEN_CHESTPLATE, DIAMOND_CHESTPLATE),
+  LEGGINGS("leggings", true, LEATHER_LEGGINGS, CHAINMAIL_LEGGINGS, IRON_LEGGINGS, GOLDEN_LEGGINGS, DIAMOND_LEGGINGS),
+  BOOTS("boots", true, LEATHER_BOOTS, CHAINMAIL_BOOTS, IRON_BOOTS, GOLDEN_BOOTS, DIAMOND_BOOTS),
   PICK("pickaxe", false, WOODEN_PICKAXE, STONE_PICKAXE, IRON_PICKAXE, GOLDEN_PICKAXE, DIAMOND_PICKAXE),
   AXE("axe", false, WOODEN_AXE, STONE_AXE, IRON_AXE, GOLDEN_AXE, DIAMOND_AXE),
   SHOVEL("shovel", false, WOODEN_SHOVEL, STONE_SHOVEL, IRON_SHOVEL, GOLDEN_SHOVEL, DIAMOND_SHOVEL),
@@ -68,13 +70,19 @@ public enum Equipment {
     this.diamond = diamond;
   }
 
-  private String name;
-  private boolean isArmor;
-  private Item wood;
-  private Item stone;
-  private Item iron;
-  private Item gold;
-  private Item diamond;
+  private final String name;
+  private final boolean isArmor;
+  private final Item wood;
+  private final Item stone;
+  private final Item iron;
+  private final Item gold;
+  private final Item diamond;
+
+  public static Equipment random(Random rand) {
+    Equipment[] equipmentValues = values();
+    int choice = rand.nextInt(equipmentValues.length);
+    return equipmentValues[choice];
+  }
 
   public ItemStack get(Quality quality) {
     return new ItemStack(getItem(quality));

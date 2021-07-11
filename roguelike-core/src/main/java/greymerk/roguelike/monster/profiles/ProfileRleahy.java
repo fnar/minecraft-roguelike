@@ -24,13 +24,13 @@ public class ProfileRleahy implements IMonsterProfile {
     mob.setSlot(EntityEquipmentSlot.MAINHAND, weapon);
     mob.setSlot(EntityEquipmentSlot.OFFHAND, Shield.get(rand));
 
-    ItemStack item = ItemArmour.get(Slot.FEET, Quality.WOOD, Colors.LEAD);
+    ItemStack item = ItemArmour.create(Slot.FEET, Quality.WOOD, Colors.LEAD);
     mob.setSlot(EntityEquipmentSlot.FEET, item);
 
-    item = ItemArmour.get(Slot.LEGS, Quality.WOOD, Colors.PRUSSIAN_BLUE);
+    item = ItemArmour.create(Slot.LEGS, Quality.WOOD, Colors.PRUSSIAN_BLUE);
     mob.setSlot(EntityEquipmentSlot.LEGS, item);
 
-    item = ItemArmour.get(Slot.CHEST, Quality.WOOD, Colors.CLASSIC_ROSE);
+    item = ItemArmour.create(Slot.CHEST, Quality.WOOD, Colors.CLASSIC_ROSE);
     mob.setSlot(EntityEquipmentSlot.CHEST, item);
   }
 }

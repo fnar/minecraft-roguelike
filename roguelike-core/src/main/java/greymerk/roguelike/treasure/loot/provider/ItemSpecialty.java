@@ -8,6 +8,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import java.util.Optional;
 import java.util.Random;
 
 import greymerk.roguelike.treasure.loot.Enchant;
@@ -60,69 +61,86 @@ public class ItemSpecialty extends ItemBase {
     this.quality = q;
   }
 
-  public static ItemStack getRandomItem(Random rand, int level) {
-    return getRandomItem(Equipment.values()[rand.nextInt(Equipment.values().length)], rand, level);
+  public static ItemStack getRandomItem(Random random, int level) {
+    Equipment equipment = Equipment.random(random);
+    return getRandomItem(random, equipment, level);
   }
 
-  public static ItemStack getRandomItem(Equipment type, Random rand, int level) {
-    return getRandomItem(type, rand, Quality.get(rand, level, type));
+  public static ItemStack getRandomItem(Random random, Equipment type, int level) {
+    Quality quality = Quality.rollRandomQualityByLevel(random, level, type);
+    return getRandomItem(random, type, quality);
   }
 
-  public static ItemStack getRandomItem(Equipment type, Random random, Quality quality) {
+  public static ItemStack getRandomItem(Random random, Equipment type, Quality quality) {
 
     switch (type) {
       case SWORD:
-        return getSword(random, quality);
+        return createSword(random, quality);
       case BOW:
-        return getBow(random, quality);
+        return createBow(random, quality);
       case HELMET:
-        return getHelmet(random, quality);
-      case CHEST:
-        return getChest(random, quality);
-      case LEGS:
-        return getLegs(random, quality);
-      case FEET:
-        return getBoots(random, quality);
+        return createHelmet(random, quality);
+      case CHESTPLATE:
+        return createChestplate(random, quality);
+      case LEGGINGS:
+        return createLeggings(random, quality);
+      case BOOTS:
+        return createBoots(random, quality);
       case PICK:
-        return getPick(random, quality);
+        return createPickaxe(random, quality);
       case AXE:
-        return getAxe(random, quality);
+        return createAxe(random, quality);
       case SHOVEL:
-        return getShovel(random, quality);
+        return createShovel(random, quality);
       default:
         return null;
     }
   }
 
-  public static ItemStack getRandomArmour(Random rand, Quality quality) {
-    switch (rand.nextInt(4)) {
+  public static ItemStack createArmour(Random random, int level) {
+    Quality quality = Quality.rollArmourQuality(random, level);
+    return createArmour(random, quality);
+  }
+
+  public static ItemStack createArmour(Random random, Quality quality) {
+    switch (random.nextInt(4)) {
       case 0:
-        return getRandomItem(Equipment.HELMET, rand, quality);
+        return createHelmet(random, quality);
       case 1:
-        return getRandomItem(Equipment.CHEST, rand, quality);
+        return createChestplate(random, quality);
       case 2:
-        return getRandomItem(Equipment.LEGS, rand, quality);
+        return createLeggings(random, quality);
       case 3:
-        return getRandomItem(Equipment.FEET, rand, quality);
+        return createBoots(random, quality);
       default:
         return null;
     }
   }
 
-  public static ItemStack getRandomTool(Random rand, Quality quality) {
-    switch (rand.nextInt(3)) {
+  public static ItemStack createTool(Random random, int level) {
+    Quality quality = Quality.rollToolQuality(random, level);
+    return createTool(random, quality);
+  }
+
+  public static ItemStack createTool(Random random, Quality quality) {
+    switch (random.nextInt(3)) {
       case 0:
-        return getRandomItem(Equipment.PICK, rand, quality);
+        return createPickaxe(random, quality);
       case 1:
-        return getRandomItem(Equipment.AXE, rand, quality);
+        return createAxe(random, quality);
       case 2:
-        return getRandomItem(Equipment.SHOVEL, rand, quality);
+        return createShovel(random, quality);
       default:
         return null;
     }
   }
 
-  private static ItemStack getShovel(Random random, Quality quality) {
+  public static ItemStack createShovel(Random random, int level) {
+    Quality quality = Quality.rollWeaponQuality(random, level);
+    return createShovel(random, quality);
+  }
+
+  private static ItemStack createShovel(Random random, Quality quality) {
     String name = quality.getDescriptor() + " Spade";
     switch (quality) {
       case DIAMOND:
@@ -139,7 +157,12 @@ public class ItemSpecialty extends ItemBase {
     }
   }
 
-  private static ItemStack getAxe(Random random, Quality quality) {
+  public static ItemStack createAxe(Random random, int level) {
+    Quality quality = Quality.rollWeaponQuality(random, level);
+    return createAxe(random, quality);
+  }
+
+  private static ItemStack createAxe(Random random, Quality quality) {
     String name = quality.getDescriptor() + " Axe";
     switch (quality) {
       case DIAMOND:
@@ -156,7 +179,12 @@ public class ItemSpecialty extends ItemBase {
     }
   }
 
-  private static ItemStack getPick(Random random, Quality quality) {
+  public static ItemStack createPickaxe(Random random, int level) {
+    Quality quality = Quality.rollWeaponQuality(random, level);
+    return createPickaxe(random, quality);
+  }
+
+  private static ItemStack createPickaxe(Random random, Quality quality) {
     String name = quality.getDescriptor() + " Pick";
     switch (quality) {
       case DIAMOND:
@@ -241,7 +269,12 @@ public class ItemSpecialty extends ItemBase {
     return "Prideful " + name;
   }
 
-  private static ItemStack getSword(Random random, Quality quality) {
+  public static ItemStack createSword(Random random, int level) {
+    Quality quality = Quality.rollWeaponQuality(random, level);
+    return createSword(random, quality);
+  }
+
+  public static ItemStack createSword(Random random, Quality quality) {
     String name = quality.getDescriptor() + " Blade";
     switch (quality) {
       default:
@@ -327,7 +360,12 @@ public class ItemSpecialty extends ItemBase {
     return name;
   }
 
-  private static ItemStack getBow(Random random, Quality quality) {
+  public static ItemStack createBow(Random random, int level) {
+    Quality quality = Quality.rollWeaponQuality(random, level);
+    return createBow(random, quality);
+  }
+
+  private static ItemStack createBow(Random random, Quality quality) {
     String name;
     ItemStack item = new ItemStack(Items.BOW);
 
@@ -389,7 +427,12 @@ public class ItemSpecialty extends ItemBase {
     item.addEnchantment(Enchant.getEnchant(Enchant.POWER), enchantmentLevel);
   }
 
-  private static ItemStack getHelmet(Random random, Quality quality) {
+  public static ItemStack createHelmet(Random random, int level) {
+    Quality quality = Quality.rollRandomQualityByLevel(random, level, Equipment.HELMET);
+    return ItemSpecialty.createHelmet(random, quality);
+  }
+
+  private static ItemStack createHelmet(Random random, Quality quality) {
     ItemStack item;
 
     String canonical = "";
@@ -447,7 +490,12 @@ public class ItemSpecialty extends ItemBase {
     return item;
   }
 
-  private static ItemStack getBoots(Random random, Quality quality) {
+  public static ItemStack createBoots(Random random, int level) {
+    Quality quality = Quality.rollRandomQualityByLevel(random, level, Equipment.BOOTS);
+    return ItemSpecialty.createBoots(random, quality);
+  }
+
+  private static ItemStack createBoots(Random random, Quality quality) {
     ItemStack item;
 
     String canonical = "";
@@ -496,7 +544,12 @@ public class ItemSpecialty extends ItemBase {
     return commonArmorThingy(random, quality, item, canonical, suffix);
   }
 
-  private static ItemStack getLegs(Random random, Quality quality) {
+  public static ItemStack createLeggings(Random random, int level) {
+    Quality quality = Quality.rollRandomQualityByLevel(random, level, Equipment.LEGGINGS);
+    return ItemSpecialty.createLeggings(random, quality);
+  }
+
+  private static ItemStack createLeggings(Random random, Quality quality) {
     ItemStack item;
 
     String canonical = "";
@@ -543,7 +596,12 @@ public class ItemSpecialty extends ItemBase {
     return commonArmorThingy(random, quality, item, canonical, suffix);
   }
 
-  private static ItemStack getChest(Random random, Quality quality) {
+  public static ItemStack createChestplate(Random random, int level) {
+    Quality quality = Quality.rollRandomQualityByLevel(random, level, Equipment.CHESTPLATE);
+    return ItemSpecialty.createChestplate(random, quality);
+  }
+
+  private static ItemStack createChestplate(Random random, Quality quality) {
     ItemStack item;
 
     String canonical = "";
@@ -636,37 +694,23 @@ public class ItemSpecialty extends ItemBase {
   }
 
   @Override
-  public ItemStack get(Random rand) {
-    Equipment t = this.type == null ? Equipment.values()[rand.nextInt(Equipment.values().length)] : this.type;
-    Quality q = this.quality == null ? Quality.get(rand, level, t) : this.quality;
-    return getRandomItem(t, rand, q);
+  public ItemStack get(Random random) {
+    Equipment equipmentType = Optional.ofNullable(this.type)
+        .orElseGet(() -> Equipment.random(random));
+
+    Quality quality = Optional.ofNullable(this.quality)
+        .orElseGet(() -> Quality.rollRandomQualityByLevel(random, level, equipmentType));
+
+    return getRandomItem(random, equipmentType, quality);
   }
 
   @Override
   public ItemStack getLootItem(Random rand, int level) {
-
-    Quality q;
-    switch (level) {
-      case 0:
-        q = Quality.WOOD;
-        break;
-      case 1:
-        q = Quality.STONE;
-        break;
-      case 2:
-        q = Quality.IRON;
-        break;
-      case 3:
-        q = Quality.GOLD;
-        break;
-      case 4:
-        q = Quality.DIAMOND;
-        break;
-      default:
-        q = Quality.WOOD;
-        break;
-    }
-
-    return getRandomItem(Equipment.values()[rand.nextInt(Equipment.values().length)], rand, q);
+    // I think this isn't actually used.
+    // The invoker of getLootItem() is the base class's get() method, which is overwritten here.
+//    Equipment equipmentType = Equipment.random(rand);
+//    Quality quality = Quality.get(level);
+//    return getRandomItem(rand, equipmentType, quality);
+    return null;
   }
 }
