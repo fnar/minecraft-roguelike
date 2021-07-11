@@ -8,6 +8,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
+import java.util.Optional;
 import java.util.Random;
 
 import greymerk.roguelike.treasure.loot.Enchant;
@@ -53,9 +54,13 @@ public class ItemArmour extends ItemBase {
     }
   }
 
-  public static ItemStack get(Random rand, int level, Quality quality, Equipment armorEquipment, boolean enchant) {
-    ItemStack armorItem = armorEquipment.get(quality == null ? Quality.get(level) : quality);
-    return enchant ? Enchant.enchantItem(rand, armorItem, Enchant.getLevel(rand, level)) : armorItem;
+  public static ItemStack create(Random rand, int level, Quality quality, Equipment armorEquipment, boolean enchant) {
+    Quality ensuredQuality = Optional.ofNullable(quality).orElseGet(() -> Quality.get(level));
+    ItemStack armorItem = armorEquipment.get(ensuredQuality);
+    if (enchant) {
+      return Enchant.enchantItem(rand, armorItem, Enchant.getLevel(rand, level));
+    }
+    return armorItem;
   }
 
   public static ItemStack getRandom(Random rand, int level, boolean enchant) {
@@ -69,44 +74,35 @@ public class ItemArmour extends ItemBase {
   }
 
   @SuppressWarnings("incomplete-switch")
-  private static ItemStack getRandom(Random rand, int level, Slot slot, int enchantLevel) {
+  private static ItemStack getRandom(Random random, int level, Slot slot, int enchantLevel) {
 
-    if (enchantLevel > 0 && rand.nextInt(20 + (level * 10)) == 0) {
-      switch (slot) {
-        case HEAD:
-          return ItemSpecialty.getRandomItem(Equipment.HELMET, rand, level);
-        case CHEST:
-          return ItemSpecialty.getRandomItem(Equipment.CHEST, rand, level);
-        case LEGS:
-          return ItemSpecialty.getRandomItem(Equipment.LEGS, rand, level);
-        case FEET:
-          return ItemSpecialty.getRandomItem(Equipment.FEET, rand, level);
-      }
+    if (enchantLevel > 0 && random.nextInt(20 + (level * 10)) == 0) {
+      return ItemSpecialty.createArmour(random, level);
     }
 
-    Quality armourQuality = Quality.getArmourQuality(rand, level);
-    ItemStack item = get(slot, armourQuality);
+    Quality armourQuality = Quality.rollArmourQuality(random, level);
+    ItemStack item = create(slot, armourQuality);
     if (armourQuality == Quality.WOOD) {
-      dyeArmor(item, Color.random(rand));
+      dyeArmor(item, Color.random(random));
     }
 
     if (enchantLevel > 0) {
-      Enchant.enchantItem(rand, item, enchantLevel);
+      Enchant.enchantItem(random, item, enchantLevel);
     }
 
     return item;
 
   }
 
-  public static ItemStack get(Slot slot, Quality quality, Color color) {
-    ItemStack itemStack = get(slot, quality);
+  public static ItemStack create(Slot slot, Quality quality, Color color) {
+    ItemStack itemStack = create(slot, quality);
     if (quality == Quality.WOOD) {
       dyeArmor(itemStack, color);
     }
     return itemStack;
   }
 
-  public static ItemStack get(Slot slot, Quality quality) {
+  public static ItemStack create(Slot slot, Quality quality) {
     switch (slot) {
       case HEAD:
         switch (quality) {
@@ -192,7 +188,7 @@ public class ItemArmour extends ItemBase {
   @Override
   public ItemStack getLootItem(Random rand, int level) {
     if (equipment != null || quality != null) {
-      return get(rand, level, quality, equipment, enchant);
+      return create(rand, level, quality, equipment, enchant);
     }
     return getRandom(rand, level, true);
   }

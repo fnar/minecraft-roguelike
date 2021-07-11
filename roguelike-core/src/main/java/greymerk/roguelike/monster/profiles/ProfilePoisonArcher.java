@@ -32,7 +32,7 @@ public class ProfilePoisonArcher implements IMonsterProfile {
 
     Slot[] slotsToBeArmored = {Slot.HEAD, Slot.CHEST, Slot.LEGS, Slot.FEET};
     for (Slot slot : slotsToBeArmored) {
-      ItemStack item = ItemArmour.get(slot, Quality.WOOD, Colors.PALE_LIME_GREEN);
+      ItemStack item = ItemArmour.create(slot, Quality.WOOD, Colors.PALE_LIME_GREEN);
       Enchant.enchantItem(rand, item, 20);
       mob.setSlot(Slot.getSlot(slot), item);
     }

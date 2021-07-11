@@ -30,7 +30,7 @@ public class ProfileAshlea implements IMonsterProfile {
 
     Slot[] slotsToBeArmored = {Slot.HEAD, Slot.CHEST, Slot.LEGS, Slot.FEET};
     for (Slot slot : slotsToBeArmored) {
-      ItemStack item = ItemArmour.get(slot, Quality.WOOD, Colors.PINK_FLAMINGO);
+      ItemStack item = ItemArmour.create(slot, Quality.WOOD, Colors.PINK_FLAMINGO);
       mob.setSlot(Slot.getSlot(slot), item);
     }
   }

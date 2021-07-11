@@ -1,5 +1,6 @@
 package greymerk.roguelike.treasure.loot;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -22,9 +23,9 @@ public enum Quality {
     this.toolName = toolName;
   }
 
-  private String descriptor;
-  private String armorName;
-  private String toolName;
+  private final String descriptor;
+  private final String armorName;
+  private final String toolName;
 
   public String getDescriptor() {
     return descriptor;
@@ -38,9 +39,9 @@ public enum Quality {
     return toolName;
   }
 
-  private static Map<Integer, IWeighted<Quality>> armourQuality;
-  private static Map<Integer, IWeighted<Quality>> weaponQuality;
-  private static Map<Integer, IWeighted<Quality>> toolQuality;
+  private static final Map<Integer, IWeighted<Quality>> armourQuality;
+  private static final Map<Integer, IWeighted<Quality>> weaponQuality;
+  private static final Map<Integer, IWeighted<Quality>> toolQuality;
 
   static {
     armourQuality = new HashMap<>();
@@ -171,51 +172,41 @@ public enum Quality {
 
   }
 
-  public static Quality get(Random rand, int level, Equipment type) {
+  public static Quality rollRandomQualityByLevel(Random rand, int level, Equipment type) {
 
     switch (type) {
       case SWORD:
       case BOW:
         return weaponQuality.get(level).get(rand);
       case HELMET:
-      case CHEST:
-      case LEGS:
-      case FEET:
+      case CHESTPLATE:
+      case LEGGINGS:
+      case BOOTS:
         return armourQuality.get(level).get(rand);
       case PICK:
       case AXE:
       case SHOVEL:
         return toolQuality.get(level).get(rand);
     }
-    return null;
+    return WOOD;
   }
 
   public static Quality get(int level) {
-    switch (level) {
-      case 0:
-        return Quality.WOOD;
-      case 1:
-        return Quality.STONE;
-      case 2:
-        return Quality.IRON;
-      case 3:
-        return Quality.GOLD;
-      case 4:
-        return Quality.DIAMOND;
-      default:
-        return Quality.WOOD;
-    }
+    return Arrays.stream(Quality.values())
+        .filter(quality -> quality.ordinal() == level)
+        .findFirst()
+        .orElse(WOOD);
   }
 
-  public static Quality getArmourQuality(Random rand, int level) {
+  public static Quality rollArmourQuality(Random rand, int level) {
     return armourQuality.get(level).get(rand);
   }
 
-  public static Quality getToolQuality(Random rand, int level) {
+  public static Quality rollToolQuality(Random rand, int level) {
     return toolQuality.get(level).get(rand);
   }
 
-  public static Quality getWeaponQuality(Random rand, int level) {
+  public static Quality rollWeaponQuality(Random rand, int level) {
     return weaponQuality.get(level).get(rand);
   }
 

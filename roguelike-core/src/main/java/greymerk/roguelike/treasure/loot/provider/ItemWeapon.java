@@ -62,7 +62,7 @@ public class ItemWeapon extends ItemBase {
   public static ItemStack getBow(Random rand, int level, boolean enchant) {
 
     if (rand.nextInt(20 + (level * 10)) == 0) {
-      return ItemSpecialty.getRandomItem(Equipment.BOW, rand, level);
+      return ItemSpecialty.createBow(rand, level);
     }
 
     ItemStack bow = new ItemStack(Items.BOW);
@@ -75,17 +75,17 @@ public class ItemWeapon extends ItemBase {
 
   }
 
-  public static ItemStack getSword(Random rand, int level, boolean enchant) {
+  public static ItemStack getSword(Random random, int level, boolean enchant) {
     ItemStack sword;
 
-    if (enchant && rand.nextInt(10 + (level * 10)) == 0) {
-      return ItemSpecialty.getRandomItem(Equipment.SWORD, rand, level);
+    if (enchant && random.nextInt(10 + (level * 10)) == 0) {
+      return ItemSpecialty.createSword(random, level);
     }
 
-    sword = pickSword(rand, level);
+    sword = pickSword(random, level);
 
-    if (enchant && rand.nextInt(6 - level) == 0) {
-      Enchant.enchantItem(rand, sword, Enchant.getLevel(rand, level));
+    if (enchant && random.nextInt(6 - level) == 0) {
+      Enchant.enchantItem(random, sword, Enchant.getLevel(random, level));
     }
 
     return sword;
@@ -93,11 +93,14 @@ public class ItemWeapon extends ItemBase {
 
   public static ItemStack getSword(Random rand, int level, boolean enchant, Quality quality) {
     ItemStack sword = quality != null ? getSwordByQuality(quality) : pickSword(rand, level);
-    return enchant ? Enchant.enchantItem(rand, sword, Enchant.getLevel(rand, level)) : sword;
+    if (enchant) {
+      return Enchant.enchantItem(rand, sword, Enchant.getLevel(rand, level));
+    }
+    return sword;
   }
 
-  private static ItemStack pickSword(Random rand, int level) {
-    Quality quality = Quality.getWeaponQuality(rand, level);
+  private static ItemStack pickSword(Random random, int level) {
+    Quality quality = Quality.rollWeaponQuality(random, level);
     return getSwordByQuality(quality);
   }
 
