@@ -112,6 +112,9 @@ public class Dungeon {
       Arrays.stream(DungeonStage.values())
           .flatMap(stage -> DungeonTaskRegistry.getTaskRegistry().getTasks(stage).stream())
           .forEach(task -> performTaskSafely(dungeonSettings, random, task));
+
+      System.out.println("Dungeon generated at " + coord);
+
     } catch (Exception e) {
       e.printStackTrace();
     }
