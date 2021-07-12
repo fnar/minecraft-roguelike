@@ -87,7 +87,7 @@ public class CommandRouteDungeon extends CommandRouteBase {
   private void generateDungeon(CommandContext context, Coord coord, WorldEditor editor, DungeonSettings dungeonSettings) {
     Dungeon dungeon = new Dungeon(editor);
     dungeon.generate(dungeonSettings, coord);
-    context.sendSuccess("Dungeon generated at " + coord.toString());
+    context.sendSuccess(String.format("Successfully generated dungeon with id %s at %s.%n", dungeonSettings.getId(), coord));
   }
 
   private String getSettingName(ArgumentParser argumentParser) {
