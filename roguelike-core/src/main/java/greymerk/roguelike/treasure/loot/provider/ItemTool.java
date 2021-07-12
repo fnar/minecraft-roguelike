@@ -2,6 +2,8 @@ package greymerk.roguelike.treasure.loot.provider;
 
 import com.google.gson.JsonObject;
 
+import com.github.fnar.roguelike.loot.special.tools.SpecialTool;
+
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -64,7 +66,7 @@ public class ItemTool extends ItemBase {
   public static ItemStack getRandom(Random rand, int level, boolean enchant) {
 
     if (enchant && rand.nextInt(20 + (level * 10)) == 0) {
-      ItemSpecialty.createTool(rand, level);
+      return SpecialTool.createTool(rand, level);
     }
 
     ItemStack tool = pickTool(rand, level);

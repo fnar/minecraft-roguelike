@@ -174,4 +174,31 @@ public enum Enchant {
 
     return item;
   }
+
+  public static int getProtectionLevel(Quality quality, Random rand) {
+
+    int value = 1;
+
+    switch (quality) {
+      case WOOD:
+        if (rand.nextInt(3) == 0) {
+          value++;
+        }
+        break;
+      case STONE:
+        if (rand.nextBoolean()) {
+          value++;
+        }
+        break;
+      case IRON:
+      case GOLD:
+        value += rand.nextInt(3);
+        break;
+      case DIAMOND:
+        value += 2 + rand.nextInt(2);
+        break;
+    }
+
+    return value;
+  }
 }

@@ -13,7 +13,7 @@ public enum Quality {
 
   WOOD("Hand-carved", "leather", "wooden"),
   STONE("Stonecut", "chainmail", "stone"),
-  IRON("Tempered", "iron", "iron"),
+  IRON("Iron", "iron", "iron"),
   GOLD("Gilded", "golden", "golden"),
   DIAMOND("Crystal", "diamond", "diamond");
 
