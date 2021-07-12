@@ -2,6 +2,7 @@ package greymerk.roguelike.treasure.loot.provider;
 
 import com.google.gson.JsonObject;
 
+import com.github.fnar.roguelike.loot.special.armour.SpecialArmour;
 import com.github.fnar.util.Color;
 
 import net.minecraft.init.Items;
@@ -64,9 +65,9 @@ public class ItemArmour extends ItemBase {
   }
 
   public static ItemStack getRandom(Random rand, int level, boolean enchant) {
-    return getRandom(rand, level,
-        Slot.getSlotByNumber(rand.nextInt(4) + 1),
-        enchant ? Enchant.getLevel(rand, level) : 0);
+    int enchantLevel = enchant ? Enchant.getLevel(rand, level) : 0;
+    Slot slotByNumber = Slot.getSlotByNumber(rand.nextInt(4) + 1);
+    return getRandom(rand, level, slotByNumber, enchantLevel);
   }
 
   public static ItemStack getRandom(Random rand, int level, Slot slot, boolean enchant) {
@@ -77,7 +78,7 @@ public class ItemArmour extends ItemBase {
   private static ItemStack getRandom(Random random, int level, Slot slot, int enchantLevel) {
 
     if (enchantLevel > 0 && random.nextInt(20 + (level * 10)) == 0) {
-      return ItemSpecialty.createArmour(random, level);
+      return SpecialArmour.createArmour(random, level);
     }
 
     Quality armourQuality = Quality.rollArmourQuality(random, level);

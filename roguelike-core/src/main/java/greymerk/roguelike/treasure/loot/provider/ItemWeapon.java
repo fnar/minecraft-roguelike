@@ -2,6 +2,9 @@ package greymerk.roguelike.treasure.loot.provider;
 
 import com.google.gson.JsonObject;
 
+import com.github.fnar.roguelike.loot.special.weapons.SpecialBow;
+import com.github.fnar.roguelike.loot.special.weapons.SpecialSword;
+
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 
@@ -62,7 +65,7 @@ public class ItemWeapon extends ItemBase {
   public static ItemStack getBow(Random rand, int level, boolean enchant) {
 
     if (rand.nextInt(20 + (level * 10)) == 0) {
-      return ItemSpecialty.createBow(rand, level);
+      return new SpecialBow(rand, level).complete();
     }
 
     ItemStack bow = new ItemStack(Items.BOW);
@@ -79,7 +82,7 @@ public class ItemWeapon extends ItemBase {
     ItemStack sword;
 
     if (enchant && random.nextInt(10 + (level * 10)) == 0) {
-      return ItemSpecialty.createSword(random, level);
+      return new SpecialSword(random, level).complete();
     }
 
     sword = pickSword(random, level);

@@ -1,5 +1,7 @@
 package greymerk.roguelike.treasure.loot.provider;
 
+import com.github.fnar.roguelike.loot.special.weapons.SpecialSword;
+
 import net.minecraft.item.ItemStack;
 
 import java.util.Random;
@@ -14,6 +16,6 @@ public class ItemSmithy extends ItemBase {
 
   @Override
   public ItemStack getLootItem(Random random, int level) {
-    return ItemSpecialty.createSword(random, Quality.IRON);
+    return new SpecialSword(random, Quality.IRON).complete();
   }
 }
