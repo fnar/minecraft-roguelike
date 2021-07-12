@@ -8,11 +8,12 @@ import java.util.Random;
 
 import greymerk.roguelike.treasure.loot.Enchant;
 import greymerk.roguelike.treasure.loot.Quality;
+import greymerk.roguelike.treasure.loot.provider.ItemArmour;
 
 public class SpecialArmour extends SpecialEquipment {
 
   public static ItemStack createArmour(Random random, int level) {
-    Quality quality = Quality.rollArmourQuality(random, level);
+    Quality quality = ItemArmour.rollArmourQuality(random, level);
     return createArmour(random, quality);
   }
 

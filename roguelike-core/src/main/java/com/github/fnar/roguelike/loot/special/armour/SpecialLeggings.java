@@ -5,15 +5,14 @@ import net.minecraft.item.Item;
 
 import java.util.Random;
 
-import greymerk.roguelike.treasure.loot.Equipment;
 import greymerk.roguelike.treasure.loot.Quality;
 
-import static greymerk.roguelike.treasure.loot.Quality.*;
+import static greymerk.roguelike.treasure.loot.provider.ItemArmour.rollArmourQuality;
 
 public class SpecialLeggings extends SpecialArmour {
 
   public SpecialLeggings(Random random, int level) {
-    this(random, rollRandomQualityByLevel(random, level, Equipment.LEGS));
+    this(random, rollArmourQuality(random, level));
   }
 
   public SpecialLeggings(Random random, Quality quality) {

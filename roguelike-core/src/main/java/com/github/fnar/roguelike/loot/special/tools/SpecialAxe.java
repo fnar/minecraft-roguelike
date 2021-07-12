@@ -6,11 +6,12 @@ import net.minecraft.item.Item;
 import java.util.Random;
 
 import greymerk.roguelike.treasure.loot.Quality;
+import greymerk.roguelike.treasure.loot.provider.ItemTool;
 
 public class SpecialAxe extends SpecialTool {
 
   public SpecialAxe(Random random, int level) {
-    this(random, Quality.rollToolQuality(random, level));
+    this(random, ItemTool.rollToolQuality(random, level));
   }
 
   public SpecialAxe(Random random, Quality quality) {

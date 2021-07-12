@@ -6,12 +6,13 @@ import java.util.Random;
 
 import greymerk.roguelike.treasure.loot.Enchant;
 import greymerk.roguelike.treasure.loot.Quality;
+import greymerk.roguelike.treasure.loot.provider.ItemWeapon;
 import greymerk.roguelike.util.TextFormat;
 
 public class SpecialBow extends SpecialWeapon {
 
   public SpecialBow(Random random, int level) {
-    this(random, Quality.rollWeaponQuality(random, level));
+    this(random, ItemWeapon.rollWeaponQuality(random, level));
   }
 
   public SpecialBow(Random random, Quality quality) {

@@ -8,11 +8,12 @@ import java.util.Random;
 
 import greymerk.roguelike.treasure.loot.Enchant;
 import greymerk.roguelike.treasure.loot.Quality;
+import greymerk.roguelike.treasure.loot.provider.ItemTool;
 
 public class SpecialTool extends SpecialEquipment {
 
   public static ItemStack createTool(Random random, int level) {
-    Quality quality = Quality.rollToolQuality(random, level);
+    Quality quality = ItemTool.rollToolQuality(random, level);
     return createTool(random, quality);
   }
 

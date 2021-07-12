@@ -5,15 +5,14 @@ import net.minecraft.item.ItemArmor;
 
 import java.util.Random;
 
-import greymerk.roguelike.treasure.loot.Equipment;
 import greymerk.roguelike.treasure.loot.Quality;
 
-import static greymerk.roguelike.treasure.loot.Quality.*;
+import static greymerk.roguelike.treasure.loot.provider.ItemArmour.rollArmourQuality;
 
 public class SpecialChestplate extends SpecialArmour {
 
   public SpecialChestplate(Random random, int level) {
-    this(random, rollRandomQualityByLevel(random, level, Equipment.CHEST));
+    this(random, rollArmourQuality(random, level));
   }
 
   public SpecialChestplate(Random random, Quality quality) {

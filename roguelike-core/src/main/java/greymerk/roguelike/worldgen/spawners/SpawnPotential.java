@@ -20,9 +20,9 @@ import static greymerk.roguelike.treasure.loot.Equipment.LEGS;
 import static greymerk.roguelike.treasure.loot.Equipment.PICK;
 import static greymerk.roguelike.treasure.loot.Equipment.SHOVEL;
 import static greymerk.roguelike.treasure.loot.Equipment.SWORD;
-import static greymerk.roguelike.treasure.loot.Quality.rollArmourQuality;
-import static greymerk.roguelike.treasure.loot.Quality.rollToolQuality;
-import static greymerk.roguelike.treasure.loot.Quality.rollWeaponQuality;
+import static greymerk.roguelike.treasure.loot.provider.ItemArmour.rollArmourQuality;
+import static greymerk.roguelike.treasure.loot.provider.ItemTool.rollToolQuality;
+import static greymerk.roguelike.treasure.loot.provider.ItemWeapon.rollWeaponQuality;
 import static java.util.stream.IntStream.range;
 
 public class SpawnPotential {

@@ -9,19 +9,28 @@ import com.github.fnar.roguelike.loot.special.weapons.SpecialSword;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import greymerk.roguelike.treasure.loot.Enchant;
 import greymerk.roguelike.treasure.loot.Equipment;
 import greymerk.roguelike.treasure.loot.Quality;
+import greymerk.roguelike.util.IWeighted;
+import greymerk.roguelike.util.WeightedChoice;
+import greymerk.roguelike.util.WeightedRandomizer;
 
 
 public class ItemWeapon extends ItemBase {
 
+  private static final Map<Integer, IWeighted<Quality>> weaponQuality = new HashMap<>();
+  static {
+    ItemWeapon.loadWeaponQualityOddsTable();
+  }
+
   private Equipment type;
   private boolean enchant;
   private Quality quality;
-
 
   public ItemWeapon(int weight, int level) {
     super(weight, level);
@@ -108,8 +117,56 @@ public class ItemWeapon extends ItemBase {
   }
 
   private static Item randomSword(Random random, int level) {
-    Quality quality = Quality.rollWeaponQuality(random, level);
+    Quality quality = rollWeaponQuality(random, level);
     return WeaponType.getSwordItem(quality);
+  }
+
+  public static void loadWeaponQualityOddsTable() {
+    for (int i = 0; i < 5; ++i) {
+      WeightedRandomizer<Quality> weapon = new WeightedRandomizer<>();
+      switch (i) {
+        case 0:
+          weapon.add(new WeightedChoice<>(Quality.WOOD, 200));
+          weapon.add(new WeightedChoice<>(Quality.STONE, 50));
+          weapon.add(new WeightedChoice<>(Quality.IRON, 10));
+          weapon.add(new WeightedChoice<>(Quality.GOLD, 3));
+          weapon.add(new WeightedChoice<>(Quality.DIAMOND, 1));
+          break;
+        case 1:
+          weapon.add(new WeightedChoice<>(Quality.WOOD, 100));
+          weapon.add(new WeightedChoice<>(Quality.STONE, 30));
+          weapon.add(new WeightedChoice<>(Quality.IRON, 10));
+          weapon.add(new WeightedChoice<>(Quality.GOLD, 3));
+          weapon.add(new WeightedChoice<>(Quality.DIAMOND, 1));
+          break;
+        case 2:
+          weapon.add(new WeightedChoice<>(Quality.WOOD, 50));
+          weapon.add(new WeightedChoice<>(Quality.STONE, 20));
+          weapon.add(new WeightedChoice<>(Quality.IRON, 10));
+          weapon.add(new WeightedChoice<>(Quality.GOLD, 3));
+          weapon.add(new WeightedChoice<>(Quality.DIAMOND, 1));
+          break;
+        case 3:
+          weapon.add(new WeightedChoice<>(Quality.WOOD, 1));
+          weapon.add(new WeightedChoice<>(Quality.STONE, 3));
+          weapon.add(new WeightedChoice<>(Quality.IRON, 5));
+          weapon.add(new WeightedChoice<>(Quality.GOLD, 3));
+          weapon.add(new WeightedChoice<>(Quality.DIAMOND, 1));
+          break;
+        case 4:
+          weapon.add(new WeightedChoice<>(Quality.WOOD, 1));
+          weapon.add(new WeightedChoice<>(Quality.STONE, 2));
+          weapon.add(new WeightedChoice<>(Quality.IRON, 15));
+          weapon.add(new WeightedChoice<>(Quality.GOLD, 5));
+          weapon.add(new WeightedChoice<>(Quality.DIAMOND, 3));
+          break;
+      }
+      weaponQuality.put(i, weapon);
+    }
+  }
+
+  public static Quality rollWeaponQuality(Random rand, int level) {
+    return weaponQuality.get(level).get(rand);
   }
 
   @Override

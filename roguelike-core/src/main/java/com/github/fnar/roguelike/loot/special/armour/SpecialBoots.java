@@ -6,15 +6,15 @@ import net.minecraft.item.Item;
 import java.util.Random;
 
 import greymerk.roguelike.treasure.loot.Enchant;
-import greymerk.roguelike.treasure.loot.Equipment;
 import greymerk.roguelike.treasure.loot.Quality;
 
-import static greymerk.roguelike.treasure.loot.Quality.*;
+import static greymerk.roguelike.treasure.loot.Quality.DIAMOND;
+import static greymerk.roguelike.treasure.loot.provider.ItemTool.rollToolQuality;
 
 public class SpecialBoots extends SpecialArmour {
 
   public SpecialBoots(Random random, int level) {
-    this(random, rollRandomQualityByLevel(random, level, Equipment.FEET));
+    this(random, rollToolQuality(random, level));
   }
 
   public SpecialBoots(Random random, Quality quality) {
