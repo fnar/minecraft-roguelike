@@ -11,7 +11,7 @@ import greymerk.roguelike.monster.MobType;
 public class ProfileWitch implements IMonsterProfile {
 
   @Override
-  public void addEquipment(World world, Random rand, int level, IEntity mob) {
+  public void equip(World world, Random rand, int level, IEntity mob) {
     mob.setMobClass(MobType.WITCH, true);
   }
 

@@ -16,7 +16,7 @@ import greymerk.roguelike.treasure.loot.provider.ItemWeapon;
 public class ProfileSwordsman implements IMonsterProfile {
 
   @Override
-  public void addEquipment(World world, Random random, int level, IEntity mob) {
+  public void equip(World world, Random random, int level, IEntity mob) {
     ItemStack weapon = random.nextInt(20) == 0
         ? ItemNovelty.getItem(ItemNovelty.VALANDRAH)
         : ItemWeapon.getSword(random, level, Enchant.canEnchant(world.getDifficulty(), random, level));

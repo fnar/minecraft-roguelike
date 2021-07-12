@@ -6,6 +6,6 @@ import java.util.Random;
 
 public interface IMonsterProfile {
 
-  void addEquipment(World world, Random rand, int level, IEntity mob);
+  void equip(World world, Random rand, int level, IEntity mob);
 
 }

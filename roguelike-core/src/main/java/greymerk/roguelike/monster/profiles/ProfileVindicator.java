@@ -13,7 +13,7 @@ import greymerk.roguelike.monster.MobType;
 public class ProfileVindicator implements IMonsterProfile {
 
   @Override
-  public void addEquipment(World world, Random random, int level, IEntity mob) {
+  public void equip(World world, Random random, int level, IEntity mob) {
     mob.setMobClass(MobType.VINDICATOR, true);
     mob.equipMainhand(new SpecialAxe(random, level).complete());
   }

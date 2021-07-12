@@ -14,11 +14,11 @@ import greymerk.roguelike.treasure.loot.provider.ItemTool;
 public class ProfileBaby implements IMonsterProfile {
 
   @Override
-  public void addEquipment(World world, Random rand, int level, IEntity mob) {
+  public void equip(World world, Random rand, int level, IEntity mob) {
     mob.setChild(true);
 
     if (rand.nextBoolean()) {
-      MonsterProfile.VILLAGER.getMonsterProfile().addEquipment(world, rand, level, mob);
+      MonsterProfile.VILLAGER.getMonsterProfile().equip(world, rand, level, mob);
     }
 
     boolean isEnchanted = Enchant.canEnchant(world.getDifficulty(), rand, level);

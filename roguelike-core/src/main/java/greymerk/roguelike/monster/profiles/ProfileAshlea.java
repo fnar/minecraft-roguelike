@@ -15,9 +15,9 @@ import greymerk.roguelike.treasure.loot.provider.ItemNovelty;
 public class ProfileAshlea implements IMonsterProfile {
 
   @Override
-  public void addEquipment(World world, Random rand, int level, IEntity mob) {
+  public void equip(World world, Random rand, int level, IEntity mob) {
     mob.setChild(true);
-    MonsterProfile.VILLAGER.getMonsterProfile().addEquipment(world, rand, level, mob);
+    MonsterProfile.VILLAGER.getMonsterProfile().equip(world, rand, level, mob);
     ItemStack weapon = ItemNovelty.getItem(ItemNovelty.ASHLEA);
     mob.equipMainhand(weapon);
     mob.equipArmor(world, rand, level, Colors.PINK_FLAMINGO);

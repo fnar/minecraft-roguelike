@@ -15,7 +15,7 @@ import greymerk.roguelike.treasure.loot.provider.ItemWeapon;
 public class ProfileWither implements IMonsterProfile {
 
   @Override
-  public void addEquipment(World world, Random rand, int level, IEntity mob) {
+  public void equip(World world, Random rand, int level, IEntity mob) {
     mob.setMobClass(MobType.WITHERSKELETON, false);
     mob.equipMainhand(ItemWeapon.getSword(rand, level, Enchant.canEnchant(world.getDifficulty(), rand, level)));
     mob.equipArmor(world, rand, level, Color.random());

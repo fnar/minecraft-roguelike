@@ -14,7 +14,7 @@ import greymerk.roguelike.monster.MobType;
 public class ProfileMagicArcher implements IMonsterProfile {
 
   @Override
-  public void addEquipment(World world, Random random, int level, IEntity mob) {
+  public void equip(World world, Random random, int level, IEntity mob) {
     mob.setMobClass(MobType.STRAY, false);
     mob.equipBow(world, random, level);
     mob.equipArrows(Arrow.newRandomHarmful(random));
