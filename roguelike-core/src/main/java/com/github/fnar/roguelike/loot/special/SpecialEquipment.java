@@ -31,16 +31,6 @@ public class SpecialEquipment {
   protected Quality quality;
   private ItemStack itemStack;
 
-  public static ItemStack getRandomEquipment(Random random, int level) {
-    Equipment equipment = Equipment.random(random);
-    return getRandomEquipment(random, equipment, level);
-  }
-
-  public static ItemStack getRandomEquipment(Random random, Equipment type, int level) {
-    Quality quality = Quality.rollRandomQualityByLevel(random, level, type);
-    return getRandomEquipment(random, type, quality);
-  }
-
   public static ItemStack getRandomEquipment(Random random, Equipment type, Quality quality) {
     switch (type) {
       case SWORD:

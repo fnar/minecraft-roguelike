@@ -1,5 +1,6 @@
 package greymerk.roguelike.monster.profiles;
 
+import com.github.fnar.minecraft.item.ArmourType;
 import com.github.fnar.util.Colors;
 import com.github.fnar.minecraft.item.Arrow;
 import com.github.fnar.minecraft.item.ItemMapper1_12;
@@ -8,6 +9,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import greymerk.roguelike.monster.IEntity;
@@ -29,12 +31,12 @@ public class ProfileMagicArcher implements IMonsterProfile {
     mob.setSlot(EntityEquipmentSlot.OFFHAND, ItemMapper1_12.map(Arrow.newRandomHarmful(random).asItemStack()));
     mob.setSlot(EntityEquipmentSlot.MAINHAND, ItemWeapon.getBow(random, level, Enchant.canEnchant(world.getDifficulty(), random, level)));
 
-    Slot[] slotsToBeArmored = {Slot.HEAD, Slot.CHEST, Slot.LEGS, Slot.FEET};
-    for (Slot slot : slotsToBeArmored) {
-      ItemStack item = ItemArmour.create(slot, Quality.WOOD, Colors.DEEP_VIOLET);
+    Arrays.stream(ArmourType.values()).forEach(armourType -> {
+      EntityEquipmentSlot slot = Slot.getSlot(armourType.asSlot());
+      ItemStack item = ItemArmour.create(armourType, Quality.WOOD, Colors.DEEP_VIOLET);
       Enchant.enchantItem(random, item, 20);
-      mob.setSlot(Slot.getSlot(slot), item);
-    }
+      mob.setSlot(slot, item);
+    });
   }
 
 }
