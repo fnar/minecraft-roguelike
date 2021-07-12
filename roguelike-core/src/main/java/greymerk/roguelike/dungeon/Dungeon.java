@@ -1,7 +1,10 @@
 package greymerk.roguelike.dungeon;
 
-import com.github.fnar.util.ReportThisIssueException;
 import com.github.fnar.minecraft.block.Material;
+import com.github.fnar.util.ReportThisIssueException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -28,6 +31,8 @@ import static java.lang.Math.cos;
 import static java.lang.Math.sin;
 
 public class Dungeon {
+
+
   public static final int VERTICAL_SPACING = 10;
   public static final int TOPLEVEL = 50;
   public static final int CHUNK_SIZE = 16;
@@ -42,6 +47,9 @@ public class Dungeon {
       // do nothing
     }
   }
+
+  public static final String MOD_ID = "roguelike";
+  private static Logger logger = LogManager.getLogger(MOD_ID);
 
   private Coord origin;
   private final List<DungeonLevel> levels = new ArrayList<>();
@@ -99,6 +107,7 @@ public class Dungeon {
   }
 
   public void generate(DungeonSettings dungeonSettings, Coord coord) {
+    logger.info("Trying to spawn dungeon with id {} at {}...", dungeonSettings.getId(), coord);
     try {
       Random random = editor.getRandom(coord);
 
@@ -113,7 +122,7 @@ public class Dungeon {
           .flatMap(stage -> DungeonTaskRegistry.getTaskRegistry().getTasks(stage).stream())
           .forEach(task -> performTaskSafely(dungeonSettings, random, task));
 
-      System.out.println("Dungeon generated at " + coord);
+      logger.info("Successfully generated dungeon with id {} at {}.", dungeonSettings.getId(), coord);
 
     } catch (Exception e) {
       e.printStackTrace();
