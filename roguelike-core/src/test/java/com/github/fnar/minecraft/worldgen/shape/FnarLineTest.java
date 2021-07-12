@@ -161,7 +161,6 @@ public class FnarLineTest {
         ALL_OFFSET_COORD.getZ();
     for (int i = 0; i < expectedElements; i++) {
       assertThat(iterator.hasNext()).isTrue();
-      System.out.println(iterator.next());
     }
     assertThat(iterator.hasNext()).isFalse();
   }
@@ -182,7 +181,6 @@ public class FnarLineTest {
 
     for (int i = 0; i < expectedElements; i++) {
       assertThat(iterator.hasNext()).isTrue();
-      System.out.println(iterator.next());
     }
     assertThat(iterator.hasNext()).isFalse();
   }

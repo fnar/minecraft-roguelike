@@ -29,6 +29,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.gen.ChunkProviderServer;
 
+import org.apache.logging.log4j.LogManager;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +49,8 @@ import greymerk.roguelike.worldgen.PositionInfo;
 import greymerk.roguelike.worldgen.VanillaStructure;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
+
+import static greymerk.roguelike.dungeon.Dungeon.MOD_ID;
 
 public class WorldEditor1_12 implements WorldEditor {
 
@@ -201,7 +205,7 @@ public class WorldEditor1_12 implements WorldEditor {
     try {
       world.setBlockState(getBlockPos(coord), metaBlock.getState(), metaBlock.getFlag());
     } catch (NullPointerException npe) {
-      System.out.println(npe);
+      LogManager.getLogger(MOD_ID).error(npe);
     }
 
     stats.merge(metaBlock.getBlock(), 1, Integer::sum);

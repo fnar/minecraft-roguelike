@@ -194,6 +194,7 @@ public class DungeonSettingsTest {
 
   @Test
   public void toStringTest() {
+    // todo: do
     String foo = new DungeonSettings("foo").toString();
     System.out.println(foo);
   }
