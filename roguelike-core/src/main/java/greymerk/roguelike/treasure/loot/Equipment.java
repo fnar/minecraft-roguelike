@@ -6,6 +6,10 @@ import com.github.fnar.minecraft.item.WeaponType;
 
 import java.util.Random;
 
+import greymerk.roguelike.treasure.loot.provider.ItemArmour;
+import greymerk.roguelike.treasure.loot.provider.ItemTool;
+import greymerk.roguelike.treasure.loot.provider.ItemWeapon;
+
 public enum Equipment {
   SWORD("sword", false),
   BOW("minecraft:bow", false),
@@ -29,6 +33,24 @@ public enum Equipment {
   public static Equipment random(Random rand) {
     int choice = rand.nextInt(values().length);
     return values()[choice];
+  }
+
+  public Quality rollRandomQualityByLevel(Random random, int level) {
+    switch (this) {
+      case SWORD:
+      case BOW:
+        return ItemWeapon.rollWeaponQuality(random, level);
+      case HELMET:
+      case CHEST:
+      case LEGS:
+      case FEET:
+        return ItemArmour.rollArmourQuality(random, level);
+      case PICK:
+      case AXE:
+      case SHOVEL:
+        return ItemTool.rollToolQuality(random, level);
+    }
+    return Quality.WOOD;
   }
 
   public ArmourType asArmourType() {

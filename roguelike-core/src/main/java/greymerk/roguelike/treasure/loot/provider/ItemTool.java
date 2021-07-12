@@ -8,14 +8,24 @@ import com.github.fnar.roguelike.loot.special.tools.SpecialTool;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 
 import greymerk.roguelike.treasure.loot.Enchant;
 import greymerk.roguelike.treasure.loot.Equipment;
 import greymerk.roguelike.treasure.loot.Quality;
+import greymerk.roguelike.util.IWeighted;
+import greymerk.roguelike.util.WeightedChoice;
+import greymerk.roguelike.util.WeightedRandomizer;
 
 public class ItemTool extends ItemBase {
+
+  private static final Map<Integer, IWeighted<Quality>> toolQuality = new HashMap<>();
+  static {
+    ItemTool.loadToolQualityOddsTable();
+  }
 
   private Equipment type;
   private boolean enchant;
@@ -53,6 +63,54 @@ public class ItemTool extends ItemBase {
     }
   }
 
+  public static void loadToolQualityOddsTable() {
+    for (int i = 0; i < 5; ++i) {
+      WeightedRandomizer<Quality> tool = new WeightedRandomizer<>();
+      switch (i) {
+        case 0:
+          tool.add(new WeightedChoice<>(Quality.WOOD, 10));
+          tool.add(new WeightedChoice<>(Quality.STONE, 20));
+          tool.add(new WeightedChoice<>(Quality.IRON, 10));
+          tool.add(new WeightedChoice<>(Quality.GOLD, 3));
+          tool.add(new WeightedChoice<>(Quality.DIAMOND, 1));
+          break;
+        case 1:
+          tool.add(new WeightedChoice<>(Quality.WOOD, 2));
+          tool.add(new WeightedChoice<>(Quality.STONE, 10));
+          tool.add(new WeightedChoice<>(Quality.IRON, 10));
+          tool.add(new WeightedChoice<>(Quality.GOLD, 3));
+          tool.add(new WeightedChoice<>(Quality.DIAMOND, 1));
+          break;
+        case 2:
+          tool.add(new WeightedChoice<>(Quality.WOOD, 1));
+          tool.add(new WeightedChoice<>(Quality.STONE, 5));
+          tool.add(new WeightedChoice<>(Quality.IRON, 10));
+          tool.add(new WeightedChoice<>(Quality.GOLD, 5));
+          tool.add(new WeightedChoice<>(Quality.DIAMOND, 3));
+          break;
+        case 3:
+          tool.add(new WeightedChoice<>(Quality.WOOD, 1));
+          tool.add(new WeightedChoice<>(Quality.STONE, 3));
+          tool.add(new WeightedChoice<>(Quality.IRON, 10));
+          tool.add(new WeightedChoice<>(Quality.GOLD, 5));
+          tool.add(new WeightedChoice<>(Quality.DIAMOND, 5));
+          break;
+        case 4:
+          tool.add(new WeightedChoice<>(Quality.WOOD, 1));
+          tool.add(new WeightedChoice<>(Quality.STONE, 2));
+          tool.add(new WeightedChoice<>(Quality.IRON, 10));
+          tool.add(new WeightedChoice<>(Quality.GOLD, 3));
+          tool.add(new WeightedChoice<>(Quality.DIAMOND, 5));
+          break;
+      }
+      toolQuality.put(i, tool);
+    }
+  }
+
+  public static Quality rollToolQuality(Random rand, int level) {
+    return toolQuality.get(level).get(rand);
+  }
+
   @Override
   public ItemStack getLootItem(Random random, int level) {
     if (type == null) {
@@ -79,7 +137,7 @@ public class ItemTool extends ItemBase {
     }
     boolean shouldEnchant = enchant && random.nextInt(6 - level) == 0;
     ToolType toolType = ToolType.random(random);
-    Quality quality = Quality.rollToolQuality(random, level);
+    Quality quality = rollToolQuality(random, level);
     Item toolItem = toolType.asItem(quality);
     ItemStack toolItemStack = new ItemStack(toolItem);
     if (shouldEnchant) {

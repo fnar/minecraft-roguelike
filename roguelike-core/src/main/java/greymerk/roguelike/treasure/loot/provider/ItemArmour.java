@@ -9,14 +9,24 @@ import com.github.fnar.util.Color;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 
 import greymerk.roguelike.treasure.loot.Enchant;
 import greymerk.roguelike.treasure.loot.Equipment;
 import greymerk.roguelike.treasure.loot.Quality;
+import greymerk.roguelike.util.IWeighted;
+import greymerk.roguelike.util.WeightedChoice;
+import greymerk.roguelike.util.WeightedRandomizer;
 
 public class ItemArmour extends ItemBase {
+
+  private static final Map<Integer, IWeighted<Quality>> armourQuality = new HashMap<>();
+  static {
+    ItemArmour.loadArmourQualityOddsTable();
+  }
 
   private Equipment equipment;
   private boolean enchant;
@@ -70,7 +80,7 @@ public class ItemArmour extends ItemBase {
   }
 
   public static ItemStack getRandom(Random random, int level, int enchantLevel, ArmourType armourType) {
-    Quality quality = Quality.rollArmourQuality(random, level);
+    Quality quality = rollArmourQuality(random, level);
     ItemStack itemStack = new ItemStack(armourType.asItem(quality));
     dyeArmor(quality, itemStack, Color.random(random));
 
@@ -104,6 +114,54 @@ public class ItemArmour extends ItemBase {
     nbtDisplay.setInteger("color", color.asInt());
 
     return armor;
+  }
+
+  public static void loadArmourQualityOddsTable() {
+    for (int i = 0; i < 5; ++i) {
+      WeightedRandomizer<Quality> armour = new WeightedRandomizer<>();
+      switch (i) {
+        case 0:
+          armour.add(new WeightedChoice<>(Quality.WOOD, 250));
+          armour.add(new WeightedChoice<>(Quality.STONE, 50));
+          armour.add(new WeightedChoice<>(Quality.IRON, 20));
+          armour.add(new WeightedChoice<>(Quality.GOLD, 3));
+          armour.add(new WeightedChoice<>(Quality.DIAMOND, 1));
+          break;
+        case 1:
+          armour.add(new WeightedChoice<>(Quality.WOOD, 150));
+          armour.add(new WeightedChoice<>(Quality.STONE, 30));
+          armour.add(new WeightedChoice<>(Quality.IRON, 10));
+          armour.add(new WeightedChoice<>(Quality.GOLD, 3));
+          armour.add(new WeightedChoice<>(Quality.DIAMOND, 1));
+          break;
+        case 2:
+          armour.add(new WeightedChoice<>(Quality.WOOD, 50));
+          armour.add(new WeightedChoice<>(Quality.STONE, 30));
+          armour.add(new WeightedChoice<>(Quality.IRON, 20));
+          armour.add(new WeightedChoice<>(Quality.GOLD, 3));
+          armour.add(new WeightedChoice<>(Quality.DIAMOND, 1));
+          break;
+        case 3:
+          armour.add(new WeightedChoice<>(Quality.WOOD, 20));
+          armour.add(new WeightedChoice<>(Quality.STONE, 10));
+          armour.add(new WeightedChoice<>(Quality.IRON, 10));
+          armour.add(new WeightedChoice<>(Quality.GOLD, 5));
+          armour.add(new WeightedChoice<>(Quality.DIAMOND, 3));
+          break;
+        case 4:
+          armour.add(new WeightedChoice<>(Quality.WOOD, 2));
+          armour.add(new WeightedChoice<>(Quality.STONE, 3));
+          armour.add(new WeightedChoice<>(Quality.IRON, 10));
+          armour.add(new WeightedChoice<>(Quality.GOLD, 3));
+          armour.add(new WeightedChoice<>(Quality.DIAMOND, 3));
+          break;
+      }
+      armourQuality.put(i, armour);
+    }
+  }
+
+  public static Quality rollArmourQuality(Random rand, int level) {
+    return armourQuality.get(level).get(rand);
   }
 
   @Override

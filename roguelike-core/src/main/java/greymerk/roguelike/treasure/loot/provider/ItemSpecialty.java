@@ -62,7 +62,7 @@ public class ItemSpecialty extends ItemBase {
         .orElseGet(() -> Equipment.random(random));
 
     Quality quality = Optional.ofNullable(this.quality)
-        .orElseGet(() -> Quality.rollRandomQualityByLevel(random, level, equipmentType));
+        .orElseGet(() -> equipmentType.rollRandomQualityByLevel(random, level));
 
     return SpecialEquipment.getRandomEquipment(random, equipmentType, quality);
   }
