@@ -4,6 +4,7 @@ import net.minecraft.item.Item;
 
 import java.util.Random;
 
+import greymerk.roguelike.treasure.loot.Equipment;
 import greymerk.roguelike.treasure.loot.Quality;
 
 import static net.minecraft.init.Items.DIAMOND_AXE;
@@ -49,6 +50,20 @@ public enum ToolType {
         return EquipmentType.asItem(quality, WOODEN_PICKAXE, STONE_PICKAXE, IRON_PICKAXE, GOLDEN_PICKAXE, DIAMOND_PICKAXE);
       case SHOVEL:
         return EquipmentType.asItem(quality, WOODEN_SHOVEL, STONE_SHOVEL, IRON_SHOVEL, GOLDEN_SHOVEL, DIAMOND_SHOVEL);
+    }
+    throw new IllegalArgumentException("Unexpected ToolType: " + this);
+  }
+
+  public Equipment asEquipment() {
+    switch(this) {
+      case AXE:
+        return Equipment.AXE;
+      case HOE:
+        return Equipment.HOE;
+      case PICKAXE:
+        return Equipment.PICK;
+      case SHOVEL:
+        return Equipment.SHOVEL;
     }
     throw new IllegalArgumentException("Unexpected ToolType: " + this);
   }

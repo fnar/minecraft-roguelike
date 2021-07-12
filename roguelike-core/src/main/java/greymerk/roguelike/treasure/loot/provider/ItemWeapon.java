@@ -64,7 +64,6 @@ public class ItemWeapon extends ItemBase {
   }
 
   public static ItemStack getRandom(Random rand, int rank, boolean enchant) {
-
     if (rand.nextInt(10) == 0) {
       return ItemWeapon.getBow(rand, rank, enchant);
     } else {

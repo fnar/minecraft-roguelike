@@ -1,6 +1,8 @@
 package greymerk.roguelike.worldgen.spawners;
 
 import com.github.fnar.minecraft.EffectType;
+import com.github.fnar.minecraft.item.ToolType;
+import com.github.fnar.minecraft.item.WeaponType;
 
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagFloat;
@@ -9,17 +11,11 @@ import net.minecraft.nbt.NBTTagList;
 import java.util.Random;
 
 import greymerk.roguelike.config.RogueConfig;
-import greymerk.roguelike.treasure.loot.Equipment;
 
-import static greymerk.roguelike.treasure.loot.Equipment.AXE;
-import static greymerk.roguelike.treasure.loot.Equipment.BOW;
 import static greymerk.roguelike.treasure.loot.Equipment.CHEST;
 import static greymerk.roguelike.treasure.loot.Equipment.FEET;
 import static greymerk.roguelike.treasure.loot.Equipment.HELMET;
 import static greymerk.roguelike.treasure.loot.Equipment.LEGS;
-import static greymerk.roguelike.treasure.loot.Equipment.PICK;
-import static greymerk.roguelike.treasure.loot.Equipment.SHOVEL;
-import static greymerk.roguelike.treasure.loot.Equipment.SWORD;
 import static greymerk.roguelike.treasure.loot.provider.ItemArmour.rollArmourQuality;
 import static greymerk.roguelike.treasure.loot.provider.ItemTool.rollToolQuality;
 import static greymerk.roguelike.treasure.loot.provider.ItemWeapon.rollWeaponQuality;
@@ -75,25 +71,13 @@ public class SpawnPotential {
   }
 
   private String getMainhand(Random random, int level) {
-    return random.nextBoolean()
-        ? chooseRandomWeapon(random).getMinecraftName(rollWeaponQuality(random, level))
-        : random.nextBoolean()
-            ? chooseRandomTool(random).getMinecraftName(rollToolQuality(random, level))
-            : null;
-  }
-
-  private Equipment chooseRandomWeapon(Random random) {
-    return random.nextInt(5) == 0
-        ? BOW
-        : SWORD;
-  }
-
-  private Equipment chooseRandomTool(Random random) {
-    return random.nextBoolean()
-        ? random.nextBoolean()
-        ? PICK
-        : SHOVEL
-        : AXE;
+    if (random.nextBoolean()) {
+      return WeaponType.random(random).asEquipment().getMinecraftName(rollWeaponQuality(random, level));
+    }
+    if (random.nextBoolean()) {
+      return ToolType.random(random).asEquipment().getMinecraftName(rollToolQuality(random, level));
+    }
+    return null;
   }
 
   private String getOffHand(Random random) {

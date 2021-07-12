@@ -20,7 +20,7 @@ public enum Equipment {
   PICK("pickaxe", false),
   AXE("axe", false),
   SHOVEL("shovel", false),
-  ;
+  HOE("hoe", false);
 
   Equipment(String name, boolean isArmor) {
     this.name = name;
