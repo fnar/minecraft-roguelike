@@ -15,7 +15,7 @@ import greymerk.roguelike.treasure.loot.provider.ItemWeapon;
 public class ProfilePigman implements IMonsterProfile {
 
   @Override
-  public void addEquipment(World world, Random random, int level, IEntity mob) {
+  public void equip(World world, Random random, int level, IEntity mob) {
     mob.setMobClass(MobType.PIGZOMBIE, true);
     ItemStack weapon = ItemWeapon.getSword(random, level, true);
     mob.equipMainhand(weapon);

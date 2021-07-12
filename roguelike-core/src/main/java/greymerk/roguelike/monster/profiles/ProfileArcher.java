@@ -15,7 +15,7 @@ import greymerk.roguelike.treasure.loot.provider.ItemWeapon;
 public class ProfileArcher implements IMonsterProfile {
 
   @Override
-  public void addEquipment(World world, Random rand, int level, IEntity mob) {
+  public void equip(World world, Random rand, int level, IEntity mob) {
     boolean hasEnchantedBow = Enchant.canEnchant(world.getDifficulty(), rand, level) && rand.nextInt(10) == 0;
     mob.equipMainhand(ItemWeapon.getBow(rand, level, hasEnchantedBow));
 

@@ -18,7 +18,7 @@ import greymerk.roguelike.treasure.loot.provider.ItemNovelty;
 public class ProfileRleahy implements IMonsterProfile {
 
   @Override
-  public void addEquipment(World world, Random random, int level, IEntity mob) {
+  public void equip(World world, Random random, int level, IEntity mob) {
     ItemStack weapon = ItemNovelty.getItem(ItemNovelty.RLEAHY);
     mob.equipMainhand(weapon);
     mob.equipShield(random);

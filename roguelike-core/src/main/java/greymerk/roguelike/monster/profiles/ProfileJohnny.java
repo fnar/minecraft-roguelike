@@ -14,7 +14,7 @@ import greymerk.roguelike.monster.MobType;
 public class ProfileJohnny implements IMonsterProfile {
 
   @Override
-  public void addEquipment(World world, Random random, int level, IEntity mob) {
+  public void equip(World world, Random random, int level, IEntity mob) {
     mob.setMobClass(MobType.VINDICATOR, false);
     mob.equipMainhand(new SpecialAxe(random, 4).complete());
     mob.equipArmor(world, random, level, Color.random());

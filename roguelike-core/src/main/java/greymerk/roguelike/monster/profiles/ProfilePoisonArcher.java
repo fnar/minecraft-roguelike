@@ -15,7 +15,7 @@ import greymerk.roguelike.monster.MobType;
 public class ProfilePoisonArcher implements IMonsterProfile {
 
   @Override
-  public void addEquipment(World world, Random random, int level, IEntity mob) {
+  public void equip(World world, Random random, int level, IEntity mob) {
     mob.setMobClass(MobType.STRAY, false);
     mob.equipBow(world, random, level);
     mob.equipArrows(Arrow.newArrow().withTip(Potion.newStrongPoison()));

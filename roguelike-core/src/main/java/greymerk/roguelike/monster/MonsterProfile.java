@@ -56,9 +56,9 @@ public enum MonsterProfile {
 
   public static void equip(World world, Random rand, int level, IEntity mob) {
     if (mob.instance(EntityZombie.class)) {
-      ZOMBIE.getMonsterProfile().addEquipment(world, rand, level, mob);
+      ZOMBIE.getMonsterProfile().equip(world, rand, level, mob);
     } else if (mob.instance(EntitySkeleton.class)) {
-      SKELETON.getMonsterProfile().addEquipment(world, rand, level, mob);
+      SKELETON.getMonsterProfile().equip(world, rand, level, mob);
     }
   }
 

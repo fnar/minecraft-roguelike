@@ -11,30 +11,30 @@ import greymerk.roguelike.monster.MonsterProfile;
 public class ProfileSkeleton implements IMonsterProfile {
 
   @Override
-  public void addEquipment(World world, Random rand, int level, IEntity mob) {
+  public void equip(World world, Random rand, int level, IEntity mob) {
 
 
     if (level == 3 && rand.nextInt(40) == 0) {
-      MonsterProfile.POISONARCHER.getMonsterProfile().addEquipment(world, rand, level, mob);
+      MonsterProfile.POISONARCHER.getMonsterProfile().equip(world, rand, level, mob);
       return;
     }
 
     if (level > 1 && rand.nextInt(50) == 0) {
-      MonsterProfile.MAGICARCHER.getMonsterProfile().addEquipment(world, rand, level, mob);
+      MonsterProfile.MAGICARCHER.getMonsterProfile().equip(world, rand, level, mob);
       return;
     }
 
     if (level > 1 && rand.nextInt(10) == 0) {
-      MonsterProfile.WITHER.getMonsterProfile().addEquipment(world, rand, level, mob);
+      MonsterProfile.WITHER.getMonsterProfile().equip(world, rand, level, mob);
       return;
     }
 
     if (level > 0 && rand.nextInt(20) == 0) {
-      MonsterProfile.SWORDSMAN.getMonsterProfile().addEquipment(world, rand, level, mob);
+      MonsterProfile.SWORDSMAN.getMonsterProfile().equip(world, rand, level, mob);
       return;
     }
 
-    MonsterProfile.ARCHER.getMonsterProfile().addEquipment(world, rand, level, mob);
+    MonsterProfile.ARCHER.getMonsterProfile().equip(world, rand, level, mob);
   }
 
 }

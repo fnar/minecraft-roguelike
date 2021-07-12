@@ -15,7 +15,7 @@ import greymerk.roguelike.treasure.loot.provider.ItemTool;
 public class ProfileVillager implements IMonsterProfile {
 
   @Override
-  public void addEquipment(World world, Random random, int level, IEntity mob) {
+  public void equip(World world, Random random, int level, IEntity mob) {
     mob.setMobClass(MobType.ZOMBIEVILLAGER, false);
     mob.equipMainhand(ItemTool.getRandom(random, level, Enchant.canEnchant(world.getDifficulty(), random, level)));
     mob.equipShield(random);
