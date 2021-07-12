@@ -1,6 +1,5 @@
 package greymerk.roguelike.monster.profiles;
 
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -24,7 +23,7 @@ public class ProfileBaby implements IMonsterProfile {
 
     boolean isEnchanted = Enchant.canEnchant(world.getDifficulty(), rand, level);
     ItemStack weapon = ItemTool.getRandom(rand, level, isEnchanted);
-    mob.setSlot(EntityEquipmentSlot.MAINHAND, weapon);
+    mob.equipMainhand(weapon);
   }
 
 }

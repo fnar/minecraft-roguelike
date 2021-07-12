@@ -1,6 +1,7 @@
 package greymerk.roguelike.monster.profiles;
 
-import net.minecraft.inventory.EntityEquipmentSlot;
+import com.github.fnar.util.Color;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -8,23 +9,21 @@ import java.util.Random;
 
 import greymerk.roguelike.monster.IEntity;
 import greymerk.roguelike.monster.IMonsterProfile;
-import greymerk.roguelike.monster.MonsterProfile;
 import greymerk.roguelike.treasure.loot.Enchant;
-import greymerk.roguelike.treasure.loot.Shield;
 import greymerk.roguelike.treasure.loot.provider.ItemNovelty;
 import greymerk.roguelike.treasure.loot.provider.ItemWeapon;
 
 public class ProfileSwordsman implements IMonsterProfile {
 
   @Override
-  public void addEquipment(World world, Random rand, int level, IEntity mob) {
-    ItemStack weapon = rand.nextInt(20) == 0
+  public void addEquipment(World world, Random random, int level, IEntity mob) {
+    ItemStack weapon = random.nextInt(20) == 0
         ? ItemNovelty.getItem(ItemNovelty.VALANDRAH)
-        : ItemWeapon.getSword(rand, level, Enchant.canEnchant(world.getDifficulty(), rand, level));
+        : ItemWeapon.getSword(random, level, Enchant.canEnchant(world.getDifficulty(), random, level));
 
-    mob.setSlot(EntityEquipmentSlot.MAINHAND, weapon);
-    mob.setSlot(EntityEquipmentSlot.OFFHAND, Shield.get(rand));
-    MonsterProfile.TALLMOB.getMonsterProfile().addEquipment(world, rand, level, mob);
+    mob.equipMainhand(weapon);
+    mob.equipShield(random);
+    mob.equipArmor(world, random, level, Color.random());
   }
 
 }

@@ -18,7 +18,6 @@ import greymerk.roguelike.monster.profiles.ProfilePoisonArcher;
 import greymerk.roguelike.monster.profiles.ProfileRleahy;
 import greymerk.roguelike.monster.profiles.ProfileSkeleton;
 import greymerk.roguelike.monster.profiles.ProfileSwordsman;
-import greymerk.roguelike.monster.profiles.ProfileTallMob;
 import greymerk.roguelike.monster.profiles.ProfileVillager;
 import greymerk.roguelike.monster.profiles.ProfileVindicator;
 import greymerk.roguelike.monster.profiles.ProfileWitch;
@@ -26,7 +25,6 @@ import greymerk.roguelike.monster.profiles.ProfileWither;
 import greymerk.roguelike.monster.profiles.ProfileZombie;
 
 public enum MonsterProfile {
-  TALLMOB(new ProfileTallMob()),
   ZOMBIE(new ProfileZombie()),
   PIGMAN(new ProfilePigman()),
   SKELETON(new ProfileSkeleton()),

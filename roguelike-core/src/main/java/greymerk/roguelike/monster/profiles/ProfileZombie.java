@@ -1,5 +1,7 @@
 package greymerk.roguelike.monster.profiles;
 
+import com.github.fnar.util.Color;
+
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -7,6 +9,8 @@ import java.util.Random;
 import greymerk.roguelike.monster.IEntity;
 import greymerk.roguelike.monster.IMonsterProfile;
 import greymerk.roguelike.monster.MonsterProfile;
+import greymerk.roguelike.treasure.loot.Enchant;
+import greymerk.roguelike.treasure.loot.provider.ItemTool;
 
 public class ProfileZombie implements IMonsterProfile {
 
@@ -59,8 +63,9 @@ public class ProfileZombie implements IMonsterProfile {
       return;
     }
 
-    IMonsterProfile.equipMob(world, rand, level, mob);
-
+    mob.equipMainhand(ItemTool.getRandom(rand, level, Enchant.canEnchant(world.getDifficulty(), rand, level)));
+    mob.equipShield(rand);
+    mob.equipArmor(world, rand, level, Color.random());
   }
 
 }
