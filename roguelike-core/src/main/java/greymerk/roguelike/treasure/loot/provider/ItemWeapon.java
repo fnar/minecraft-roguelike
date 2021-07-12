@@ -2,10 +2,11 @@ package greymerk.roguelike.treasure.loot.provider;
 
 import com.google.gson.JsonObject;
 
+import com.github.fnar.minecraft.item.WeaponType;
 import com.github.fnar.roguelike.loot.special.weapons.SpecialBow;
 import com.github.fnar.roguelike.loot.special.weapons.SpecialSword;
 
-import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 import java.util.Random;
@@ -68,7 +69,7 @@ public class ItemWeapon extends ItemBase {
       return new SpecialBow(rand, level).complete();
     }
 
-    ItemStack bow = new ItemStack(Items.BOW);
+    ItemStack bow = new ItemStack(WeaponType.getBowItem());
 
     if (enchant && rand.nextInt(6 - level) == 0) {
       Enchant.enchantItem(rand, bow, Enchant.getLevel(rand, level));
@@ -85,7 +86,7 @@ public class ItemWeapon extends ItemBase {
       return new SpecialSword(random, level).complete();
     }
 
-    sword = pickSword(random, level);
+    sword = new ItemStack(randomSword(random, level));
 
     if (enchant && random.nextInt(6 - level) == 0) {
       Enchant.enchantItem(random, sword, Enchant.getLevel(random, level));
@@ -95,31 +96,20 @@ public class ItemWeapon extends ItemBase {
   }
 
   public static ItemStack getSword(Random rand, int level, boolean enchant, Quality quality) {
-    ItemStack sword = quality != null ? getSwordByQuality(quality) : pickSword(rand, level);
+    Item swordItem = quality == null
+        ? randomSword(rand, level)
+        : WeaponType.getSwordItem(quality);
+
+    ItemStack swordItemStack = new ItemStack(swordItem);
     if (enchant) {
-      return Enchant.enchantItem(rand, sword, Enchant.getLevel(rand, level));
+      return Enchant.enchantItem(rand, swordItemStack, Enchant.getLevel(rand, level));
     }
-    return sword;
+    return swordItemStack;
   }
 
-  private static ItemStack pickSword(Random random, int level) {
+  private static Item randomSword(Random random, int level) {
     Quality quality = Quality.rollWeaponQuality(random, level);
-    return getSwordByQuality(quality);
-  }
-
-  private static ItemStack getSwordByQuality(Quality quality) {
-    switch (quality) {
-      case DIAMOND:
-        return new ItemStack(Items.DIAMOND_SWORD);
-      case GOLD:
-        return new ItemStack(Items.GOLDEN_SWORD);
-      case IRON:
-        return new ItemStack(Items.IRON_SWORD);
-      case STONE:
-        return new ItemStack(Items.STONE_SWORD);
-      default:
-        return new ItemStack(Items.WOODEN_SWORD);
-    }
+    return WeaponType.getSwordItem(quality);
   }
 
   @Override
@@ -136,6 +126,5 @@ public class ItemWeapon extends ItemBase {
     }
     return getRandom(rand, level, true);
   }
-
 
 }

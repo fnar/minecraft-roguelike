@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.EnumDifficulty;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 public enum Enchant {
@@ -123,12 +124,9 @@ public enum Enchant {
   }
 
   public static boolean canEnchant(EnumDifficulty difficulty, Random rand, int level) {
+    EnumDifficulty ensureDifficulty = Optional.ofNullable(difficulty).orElse(EnumDifficulty.NORMAL);
 
-    if (difficulty == null) {
-      difficulty = EnumDifficulty.NORMAL;
-    }
-
-    switch (difficulty) {
+    switch (ensureDifficulty) {
       case PEACEFUL:
         return false;
       case EASY:

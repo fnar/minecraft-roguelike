@@ -1,7 +1,6 @@
 package com.github.fnar.roguelike.loot.special.weapons;
 
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
+import com.github.fnar.minecraft.item.WeaponType;
 
 import java.util.Random;
 
@@ -17,26 +16,10 @@ public class SpecialSword extends SpecialWeapon {
 
   public SpecialSword(Random random, Quality quality) {
     withQuality(quality);
-    withItem(getSwordItem());
+    withItem(WeaponType.getSwordItem(quality));
     withName(quality.getDescriptor() + " Blade");
     withSwordEnchantments(random);
     withCommonEnchantments(random);
-  }
-
-  private Item getSwordItem() {
-    switch (quality) {
-      default:
-      case WOOD:
-        return Items.WOODEN_SWORD;
-      case STONE:
-        return Items.STONE_SWORD;
-      case IRON:
-        return Items.IRON_SWORD;
-      case GOLD:
-        return Items.GOLDEN_SWORD;
-      case DIAMOND:
-        return Items.DIAMOND_SWORD;
-    }
   }
 
   public void withSwordEnchantments(Random random) {

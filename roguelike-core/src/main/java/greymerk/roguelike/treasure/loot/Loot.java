@@ -10,8 +10,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTTagString;
 
-import java.util.Random;
-
 import greymerk.roguelike.treasure.loot.provider.ItemArmour;
 import greymerk.roguelike.treasure.loot.provider.ItemBlock;
 import greymerk.roguelike.treasure.loot.provider.ItemBrewing;
@@ -139,15 +137,6 @@ public enum Loot {
     }
 
     return new WeightedRandomLoot(Items.STICK, 0, 1);
-  }
-
-  public static ItemStack getEquipmentBySlot(Random rand, Slot slot, int level, boolean enchant) {
-
-    if (slot == Slot.WEAPON) {
-      return ItemWeapon.getRandom(rand, level, enchant);
-    }
-
-    return ItemArmour.getRandom(rand, level, slot, enchant);
   }
 
   public static void setItemLore(ItemStack item, String loreText) {

@@ -1,6 +1,6 @@
 package com.github.fnar.roguelike.loot.special.weapons;
 
-import net.minecraft.init.Items;
+import com.github.fnar.minecraft.item.WeaponType;
 
 import java.util.Random;
 
@@ -17,7 +17,7 @@ public class SpecialBow extends SpecialWeapon {
   public SpecialBow(Random random, Quality quality) {
 
     withQuality(quality);
-    withItem(Items.BOW);
+    withItem(WeaponType.getBowItem());
     withPower(random);
 
     switch (quality) {
