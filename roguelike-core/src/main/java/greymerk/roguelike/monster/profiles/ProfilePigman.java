@@ -1,6 +1,7 @@
 package greymerk.roguelike.monster.profiles;
 
-import net.minecraft.inventory.EntityEquipmentSlot;
+import com.github.fnar.util.Color;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
@@ -9,19 +10,17 @@ import java.util.Random;
 import greymerk.roguelike.monster.IEntity;
 import greymerk.roguelike.monster.IMonsterProfile;
 import greymerk.roguelike.monster.MobType;
-import greymerk.roguelike.monster.MonsterProfile;
-import greymerk.roguelike.treasure.loot.Shield;
 import greymerk.roguelike.treasure.loot.provider.ItemWeapon;
 
 public class ProfilePigman implements IMonsterProfile {
 
   @Override
-  public void addEquipment(World world, Random rand, int level, IEntity mob) {
+  public void addEquipment(World world, Random random, int level, IEntity mob) {
     mob.setMobClass(MobType.PIGZOMBIE, true);
-    ItemStack weapon = ItemWeapon.getSword(rand, level, true);
-    mob.setSlot(EntityEquipmentSlot.MAINHAND, weapon);
-    mob.setSlot(EntityEquipmentSlot.OFFHAND, Shield.get(rand));
-    MonsterProfile.TALLMOB.getMonsterProfile().addEquipment(world, rand, level, mob);
+    ItemStack weapon = ItemWeapon.getSword(random, level, true);
+    mob.equipMainhand(weapon);
+    mob.equipShield(random);
+    mob.equipArmor(world, random, level, Color.random());
   }
 
 }

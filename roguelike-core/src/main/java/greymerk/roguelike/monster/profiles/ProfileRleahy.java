@@ -12,17 +12,16 @@ import java.util.Random;
 import greymerk.roguelike.monster.IEntity;
 import greymerk.roguelike.monster.IMonsterProfile;
 import greymerk.roguelike.treasure.loot.Quality;
-import greymerk.roguelike.treasure.loot.Shield;
 import greymerk.roguelike.treasure.loot.provider.ItemArmour;
 import greymerk.roguelike.treasure.loot.provider.ItemNovelty;
 
 public class ProfileRleahy implements IMonsterProfile {
 
   @Override
-  public void addEquipment(World world, Random rand, int level, IEntity mob) {
+  public void addEquipment(World world, Random random, int level, IEntity mob) {
     ItemStack weapon = ItemNovelty.getItem(ItemNovelty.RLEAHY);
-    mob.setSlot(EntityEquipmentSlot.MAINHAND, weapon);
-    mob.setSlot(EntityEquipmentSlot.OFFHAND, Shield.get(rand));
+    mob.equipMainhand(weapon);
+    mob.equipShield(random);
 
     ItemStack boots = ItemArmour.create(ArmourType.BOOTS, Quality.WOOD, Colors.LEAD);
     mob.setSlot(EntityEquipmentSlot.FEET, boots);

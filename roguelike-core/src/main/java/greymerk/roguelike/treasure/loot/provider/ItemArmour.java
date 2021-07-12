@@ -79,10 +79,10 @@ public class ItemArmour extends ItemBase {
     return itemStack;
   }
 
-  public static ItemStack getRandom(Random random, int level, int enchantLevel, ArmourType armourType) {
+  public static ItemStack getRandom(Random random, int level, int enchantLevel, ArmourType armourType, Color color) {
     Quality quality = rollArmourQuality(random, level);
     ItemStack itemStack = new ItemStack(armourType.asItem(quality));
-    dyeArmor(quality, itemStack, Color.random(random));
+    dyeArmor(quality, itemStack, color);
 
     if (enchantLevel > 0) {
       Enchant.enchantItem(random, itemStack, enchantLevel);
@@ -184,7 +184,7 @@ public class ItemArmour extends ItemBase {
     boolean isSpecialArmour = enchantLevel > 0 && rand.nextInt(20 + (level * 10)) == 0;
     return isSpecialArmour
         ? SpecialArmour.createArmour(rand, level)
-        : getRandom(rand, level, enchantLevel, ArmourType.random(rand));
+        : getRandom(rand, level, enchantLevel, ArmourType.random(rand), Color.random(rand));
   }
 
 }
