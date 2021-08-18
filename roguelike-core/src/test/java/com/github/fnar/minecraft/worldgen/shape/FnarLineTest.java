@@ -1,8 +1,11 @@
 package com.github.fnar.minecraft.worldgen.shape;
 
+import com.google.common.collect.Lists;
+
 import org.junit.Test;
 
 import java.util.Iterator;
+import java.util.List;
 
 import greymerk.roguelike.worldgen.Coord;
 
@@ -155,14 +158,40 @@ public class FnarLineTest {
     Iterator<Coord> iterator = line.iterator();
 
     assertThat(iterator.hasNext()).isTrue();
-    int expectedElements = 1 +
-        ALL_OFFSET_COORD.getX() +
-        ALL_OFFSET_COORD.getY() +
-        ALL_OFFSET_COORD.getZ();
-    for (int i = 0; i < expectedElements; i++) {
+
+    List<Coord> expectedCoords = buildExpectedCoords(ORIGIN, ALL_OFFSET_COORD);
+
+    for (Coord expectedCoord : expectedCoords) {
       assertThat(iterator.hasNext()).isTrue();
+      Coord next = iterator.next();
+      assertThat(next).isEqualTo(expectedCoord);
     }
     assertThat(iterator.hasNext()).isFalse();
+  }
+
+  private List<Coord> buildExpectedCoords(Coord origin, Coord destination) {
+    List<Coord> expectedCoords = Lists.newArrayList();
+    int x = origin.getX();
+    int y = origin.getY();
+    int z = origin.getZ();
+    int expectedElements = 1 +
+        Math.abs(origin.getX()) +
+        Math.abs(origin.getY()) +
+        Math.abs(origin.getZ()) +
+        Math.abs(destination.getX()) +
+        Math.abs(destination.getY()) +
+        Math.abs(destination.getZ());
+    for (int i = 0; i < expectedElements; i++) {
+      expectedCoords.add(new Coord(x, y, z));
+      if (i % 3 == 0) {
+        x++;
+      } else if ((i - 1) % 3 == 0) {
+        y++;
+      } else if ((i - 2) % 3 == 0) {
+        z++;
+      }
+    }
+    return expectedCoords;
   }
 
   @Test
@@ -181,6 +210,7 @@ public class FnarLineTest {
 
     for (int i = 0; i < expectedElements; i++) {
       assertThat(iterator.hasNext()).isTrue();
+      iterator.next();
     }
     assertThat(iterator.hasNext()).isFalse();
   }
