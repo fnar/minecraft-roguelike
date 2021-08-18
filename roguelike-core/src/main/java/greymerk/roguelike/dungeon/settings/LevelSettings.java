@@ -17,13 +17,10 @@ import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.filter.Filter;
 import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
-import lombok.ToString;
 
 import static greymerk.roguelike.dungeon.settings.SettingsType.ROOMS;
 import static greymerk.roguelike.dungeon.settings.SettingsType.SECRETS;
-import static greymerk.roguelike.dungeon.settings.SettingsType.THEMES;
 
-@ToString
 public class LevelSettings {
 
   private static final int NUM_ROOMS = 12;
@@ -36,7 +33,7 @@ public class LevelSettings {
   private int levelDifficulty = -1;
   private RoomsSetting rooms = new RoomsSetting();
   private SecretsSetting secrets = new SecretsSetting();
-  private Theme theme;
+  private Theme theme = new Theme();
   private SegmentGenerator segments = new SegmentGenerator();
   private SpawnerSettings spawners = new SpawnerSettings();
   private LevelGenerator generator;
@@ -91,7 +88,7 @@ public class LevelSettings {
       secrets = new SecretsSetting(parent.secrets, child.secrets);
     }
 
-    setTheme(inherit(parent, child, overrides));
+    setTheme(child.theme.inherit(parent.theme, overrides));
 
     segments = child.segments.inherit(parent.segments);
 
@@ -100,24 +97,6 @@ public class LevelSettings {
 
     filters.addAll(parent.filters);
     filters.addAll(child.filters);
-  }
-
-  private Theme inherit(LevelSettings parent, LevelSettings child, Set<SettingsType> overrides) {
-    boolean isChildThemeAbsent = child.theme == null;
-    boolean isParentThemeAbsent = parent.theme == null;
-    if (isChildThemeAbsent && isParentThemeAbsent) {
-      return null;
-    }
-    if (isChildThemeAbsent) {
-      return parent.theme;
-    }
-    if (isParentThemeAbsent) {
-      return child.theme;
-    }
-    if (overrides.contains(THEMES)) {
-      return child.theme;
-    }
-    return Theme.inherit(parent.theme, child.theme);
   }
 
   private void init(LevelSettings toCopy) {
@@ -228,7 +207,6 @@ public class LevelSettings {
   public void addFilter(Filter filter) {
     filters.add(filter);
   }
-
 
   @Override
   public boolean equals(Object o) {
