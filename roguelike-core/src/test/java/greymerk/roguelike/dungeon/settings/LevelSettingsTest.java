@@ -155,7 +155,7 @@ public class LevelSettingsTest {
   }
 
   @Test
-  public void testFilterMerge() {
+  public void testFilterMerge0() {
     Set<SettingsType> overrides = new HashSet<>();
 
     LevelSettings compare = new LevelSettings();
@@ -170,11 +170,44 @@ public class LevelSettingsTest {
 
     LevelSettings other = new LevelSettings();
 
-    assert !new LevelSettings(other, other, overrides).getFilters().contains(Filter.VINE);
+    assertThat(new LevelSettings(other, other, overrides).getFilters()).doesNotContain(Filter.VINE);
+  }
 
-    assert new LevelSettings(base, other, overrides).getFilters().contains(Filter.VINE);
+  @Test
+  public void testFilterMerge1() {
+    Set<SettingsType> overrides = new HashSet<>();
 
-    assert new LevelSettings(other, base, overrides).getFilters().contains(Filter.VINE);
+    LevelSettings compare = new LevelSettings();
+    assert compare.getFilters().isEmpty();
+    compare.addFilter(Filter.VINE);
+    assert compare.getFilters().contains(Filter.VINE);
 
+    LevelSettings base = new LevelSettings();
+    base.addFilter(Filter.VINE);
+
+    assert new LevelSettings(base).getFilters().contains(Filter.VINE);
+
+    LevelSettings other = new LevelSettings();
+
+    assertThat(new LevelSettings(base, other, overrides).getFilters()).contains(Filter.VINE);
+  }
+
+  @Test
+  public void testFilterMerge2() {
+    Set<SettingsType> overrides = new HashSet<>();
+
+    LevelSettings compare = new LevelSettings();
+    assert compare.getFilters().isEmpty();
+    compare.addFilter(Filter.VINE);
+    assert compare.getFilters().contains(Filter.VINE);
+
+    LevelSettings base = new LevelSettings();
+    base.addFilter(Filter.VINE);
+
+    assert new LevelSettings(base).getFilters().contains(Filter.VINE);
+
+    LevelSettings other = new LevelSettings();
+
+    assertThat(new LevelSettings(other, base, overrides).getFilters()).contains(Filter.VINE);
   }
 }
