@@ -87,7 +87,8 @@ public class BlockSet {
   }
 
   static BlockSet inherit(
-      BlockSet childBlockSet, BlockSet parentBlockSet
+      BlockSet parentBlockSet,
+      BlockSet childBlockSet
   ) {
     if (parentBlockSet == null && childBlockSet == null) {
       return new BlockSet();

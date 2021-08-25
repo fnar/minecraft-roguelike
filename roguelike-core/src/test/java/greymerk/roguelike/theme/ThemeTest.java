@@ -1,6 +1,5 @@
 package greymerk.roguelike.theme;
 
-import com.google.common.collect.Sets;
 import com.google.gson.JsonObject;
 
 import com.github.fnar.minecraft.block.BlockType;
@@ -85,7 +84,7 @@ public class ThemeTest {
     Theme parent = new Theme(dirtBlockSet, null);
     Theme child = new Theme(null, grassBlockSet);
 
-    Theme actual = child.inherit(parent, Sets.newHashSet());
+    Theme actual = Theme.inherit(parent, child);
     assertThat(actual.getPrimary().getFloor()).isEqualTo(dirtBlockSet.getFloor());
     assertThat(actual.getSecondary().getFloor()).isEqualTo(grassBlockSet.getFloor());
   }
@@ -98,7 +97,7 @@ public class ThemeTest {
     Theme dirtTheme = new Theme(dirtBlockSet, null);
     Theme grassTheme = new Theme(grassBlockSet, null);
 
-    Theme actual = grassTheme.inherit(dirtTheme, Sets.newHashSet());
+    Theme actual = Theme.inherit(dirtTheme, grassTheme);
     assertThat(actual.getPrimary().getFloor()).isEqualTo(grassBlockSet.getFloor());
     assertThat(actual.getSecondary().getFloor()).isEqualTo(grassBlockSet.getFloor());
   }
@@ -110,7 +109,7 @@ public class ThemeTest {
     Theme parent = new Theme(dirtBlockSet, null);
     Theme child = new Theme(null, null);
 
-    Theme actual = child.inherit(parent, Sets.newHashSet());
+    Theme actual = Theme.inherit(parent, child);
     assertThat(actual.getPrimary().getFloor()).isEqualTo(dirtBlockSet.getFloor());
   }
 
@@ -121,7 +120,7 @@ public class ThemeTest {
     Theme parent = new Theme(null, dirtBlockSet);
     Theme child = new Theme(null, null);
 
-    Theme actual = child.inherit(parent, Sets.newHashSet());
+    Theme actual = Theme.inherit(parent, child);
     assertThat(actual.getSecondary().getFloor()).isEqualTo(dirtBlockSet.getFloor());
   }
 
@@ -132,7 +131,7 @@ public class ThemeTest {
     Theme parent = new Theme(dirtBlockSet, null);
     Theme child = new Theme(null, null);
 
-    Theme actual = child.inherit(parent, Sets.newHashSet());
+    Theme actual = Theme.inherit(parent, child);
     assertThat(actual.getSecondary().getFloor()).isEqualTo(dirtBlockSet.getFloor());
   }
 
@@ -141,7 +140,7 @@ public class ThemeTest {
     Theme parent = new Theme(null, null);
     Theme child = new Theme(null, null);
 
-    Theme actual = child.inherit(parent, Sets.newHashSet());
+    Theme actual = Theme.inherit(parent, child);
     assertThat(actual.getPrimary().getFloor()).isEqualTo(BlockType.STONE_BRICK.getBrush());
     assertThat(actual.getSecondary().getFloor()).isEqualTo(BlockType.STONE_BRICK.getBrush());
   }
