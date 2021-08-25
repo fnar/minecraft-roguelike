@@ -31,6 +31,10 @@ public enum DyeColor {
     }
   }
 
+  public static DyeColor chooseRandom() {
+    return values()[(int) (Math.random() * values().length)];
+  }
+
   public static DyeColor chooseRandom(Random random) {
     return values()[random.nextInt(values().length)];
   }
