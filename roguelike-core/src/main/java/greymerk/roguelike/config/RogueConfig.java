@@ -3,12 +3,33 @@ package greymerk.roguelike.config;
 
 import com.google.common.collect.Lists;
 
+import com.github.fnar.util.Strings;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
+
+import greymerk.roguelike.worldgen.VanillaStructure;
+
+import static greymerk.roguelike.dungeon.Dungeon.MOD_ID;
 
 public class RogueConfig {
+
+  private static final Logger logger = LogManager.getLogger(MOD_ID);
+
+  public static final String configDirName = "config/roguelike_dungeons";
+  public static final String configFileName = "roguelike.cfg";
+
+  public static boolean testing = false;
+  private static ConfigFile instance = null;
 
   public static final RogueConfig BREAK_IF_REQUIRED_MOD_IS_MISSING = new RogueConfig("breakIfRequiredModIsMissing", true);
   public static final RogueConfig DIMENSIONBL = new RogueConfig("dimensionBL", Lists.newArrayList());
@@ -29,26 +50,39 @@ public class RogueConfig {
   public static final RogueConfig SPAWN_ATTEMPTS = new RogueConfig("spawnAttempts", 10);
   public static final RogueConfig SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES = new RogueConfig("spawnMinimumDistanceFromVanillaStructures", 50);
   public static final RogueConfig UPPERLIMIT = new RogueConfig("upperLimit", 100);
+  public static final RogueConfig VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM = new RogueConfig("vanillaStructuresToCheckMinimumDistanceFrom", VanillaStructure.getAllAsCommaDelimitedString());
 
   private static final boolean DEFAULT_BOOLEAN = false;
   private static final int DEFAULT_INT = 0;
   private static final double DEFAULT_DOUBLE = 0.0;
   private static final List<Integer> DEFAULT_INT_LIST = Collections.unmodifiableList(Lists.newArrayList());
+  private static final String DEFAULT_STRING_VALUE = "";
+
+  private final String name;
+  private final Boolean defaultBoolean;
+  private final Integer defaultInt;
+  private final Double defaultDouble;
+  private final List<Integer> defaultIntList;
+  private final String defaultStringValue;
 
   RogueConfig(String name, boolean value) {
-    this(name, value, DEFAULT_INT, DEFAULT_DOUBLE, null);
+    this(name, value, DEFAULT_INT, DEFAULT_DOUBLE, null, DEFAULT_STRING_VALUE);
   }
 
   RogueConfig(String name, int value) {
-    this(name, DEFAULT_BOOLEAN, value, DEFAULT_DOUBLE, null);
+    this(name, DEFAULT_BOOLEAN, value, DEFAULT_DOUBLE, null, DEFAULT_STRING_VALUE);
   }
 
   RogueConfig(String name, double value) {
-    this(name, DEFAULT_BOOLEAN, DEFAULT_INT, value, null);
+    this(name, DEFAULT_BOOLEAN, DEFAULT_INT, value, null, DEFAULT_STRING_VALUE);
   }
 
   RogueConfig(String name, List<Integer> value) {
-    this(name, DEFAULT_BOOLEAN, DEFAULT_INT, DEFAULT_DOUBLE, value);
+    this(name, DEFAULT_BOOLEAN, DEFAULT_INT, DEFAULT_DOUBLE, value, DEFAULT_STRING_VALUE);
+  }
+
+  RogueConfig(String name, String value) {
+    this(name, DEFAULT_BOOLEAN, DEFAULT_INT, DEFAULT_DOUBLE, DEFAULT_INT_LIST, value);
   }
 
   RogueConfig(
@@ -56,26 +90,16 @@ public class RogueConfig {
       Boolean defaultBoolean,
       Integer defaultInt,
       Double defaultDouble,
-      List<Integer> defaultIntList
+      List<Integer> defaultIntList,
+      String defaultStringValue
   ) {
     this.name = name;
     this.defaultBoolean = defaultBoolean;
     this.defaultInt = defaultInt;
     this.defaultDouble = defaultDouble;
     this.defaultIntList = defaultIntList;
+    this.defaultStringValue = defaultStringValue;
   }
-
-  private final String name;
-  private final Boolean defaultBoolean;
-  private final Integer defaultInt;
-  private final Double defaultDouble;
-  private final List<Integer> defaultIntList;
-
-  public static final String configDirName = "config/roguelike_dungeons";
-  public static final String configFileName = "roguelike.cfg";
-
-  public static boolean testing = false;
-  private static ConfigFile instance = null;
 
   public String getName() {
     return name;
@@ -137,6 +161,10 @@ public class RogueConfig {
     }
     if (!instance.ContainsKey(SPAWN_ATTEMPTS.name)) {
       SPAWN_ATTEMPTS.setInt(SPAWN_ATTEMPTS.defaultInt);
+    }
+
+    if (!instance.ContainsKey(VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM.getName())) {
+      VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM.setString(VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM.defaultStringValue);
     }
   }
 
@@ -235,5 +263,33 @@ public class RogueConfig {
   public void setIntList(List<Integer> value) {
     reload(false);
     instance.Set(name, value);
+  }
+
+  public String getString() {
+    if (testing) {
+      return defaultStringValue;
+    }
+    return instance.GetString(name, defaultStringValue);
+  }
+
+  private void setString(String defaultStringValue) {
+    reload(false);
+    instance.Set(name, defaultStringValue);
+  }
+
+  public static Set<VanillaStructure> vanillaStructuresToCheckDistanceTo() {
+
+    return Strings.splitCommas(VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM.getString()).stream()
+        .map(str -> str.toUpperCase(Locale.ENGLISH))
+        .map(structureName -> {
+          try {
+            return VanillaStructure.valueOf(structureName);
+          } catch (IllegalArgumentException exception) {
+            logger.error("Invalid value for config `vanillaStructuresToCheckMinimumDistanceFrom`: \"{}\". Skipping...", structureName);
+          }
+          return null;
+        })
+        .filter(Objects::nonNull)
+        .collect(Collectors.toSet());
   }
 }

@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Random;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.IntStream;
 
@@ -49,7 +50,7 @@ public class Dungeon {
   }
 
   public static final String MOD_ID = "roguelike";
-  private static Logger logger = LogManager.getLogger(MOD_ID);
+  private static final Logger logger = LogManager.getLogger(MOD_ID);
 
   private Coord origin;
   private final List<DungeonLevel> levels = new ArrayList<>();
@@ -139,6 +140,7 @@ public class Dungeon {
 
   public void spawnInChunk(Random rand, int chunkX, int chunkZ) {
     if (canSpawnInChunk(chunkX, chunkZ, editor)) {
+      logger.info("Trying to spawn dungeon at chunkX {} and chunkZ {}...", chunkX, chunkZ);
       int x = chunkX * CHUNK_SIZE;
       int z = chunkZ * CHUNK_SIZE;
 
@@ -173,7 +175,8 @@ public class Dungeon {
 
   public boolean canGenerateDungeonHere(Coord coord) {
     Predicate<VanillaStructure> isTooCloseTo = structure -> hasStructureTooCloseBy(coord, structure);
-    if (Arrays.stream(VanillaStructure.values()).anyMatch(isTooCloseTo)) {
+    Set<VanillaStructure> structuresToCheckDistanceTo = RogueConfig.vanillaStructuresToCheckDistanceTo();
+    if (!structuresToCheckDistanceTo.isEmpty() && structuresToCheckDistanceTo.stream().anyMatch(isTooCloseTo)) {
       return false;
     }
 
@@ -188,8 +191,13 @@ public class Dungeon {
   }
 
   private boolean hasStructureTooCloseBy(Coord coord, VanillaStructure structure) {
+    int minimumDistanceRequired = RogueConfig.SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES.getInt();
     Coord structureCoord = editor.findNearestStructure(structure, coord);
-    return structureCoord != null && coord.distance(structureCoord) < RogueConfig.SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES.getInt();
+    if (structureCoord == null) {
+      logger.info("Did not detect structure \"{}\" within {} blocks of potential spawn location {}.", structure.name(), minimumDistanceRequired, coord);
+      return false;
+    }
+    return coord.distance(structureCoord) < minimumDistanceRequired;
   }
 
   private boolean canFindStartingCoord(int lowerLimit, Coord cursor) {
