@@ -56,16 +56,21 @@ public class CornerRoom extends DungeonBase {
       Coord ceiling = origin.copy()
           .translate(dir, 1)
           .up(4);
-      primary.getStair().setUpsideDown(true).setFacing(dir.reverse());
-      primary.getStair().stroke(editor, ceiling);
+
+      primary.getStair()
+          .setUpsideDown(true)
+          .setFacing(dir.reverse())
+          .stroke(editor, ceiling);
 
       for (Direction orthogonal : dir.orthogonals()) {
         Coord decorativeCeiling = origin.copy()
             .translate(dir, 2)
             .translate(orthogonal, 1)
             .up(3);
-        primary.getStair().setUpsideDown(true).setFacing(orthogonal.reverse());
-        primary.getStair().stroke(editor, decorativeCeiling);
+        primary.getStair()
+            .setUpsideDown(true)
+            .setFacing(orthogonal.reverse())
+            .stroke(editor, decorativeCeiling);
       }
     }
   }
