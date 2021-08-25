@@ -16,8 +16,9 @@ public class ThemeTerracotta extends Theme {
   public ThemeTerracotta() {
 
     BlockJumble blocks = new BlockJumble();
+    DyeColor color = DyeColor.chooseRandom();
     for (Direction dir : Direction.CARDINAL) {
-      blocks.addBlock(ColoredBlock.terracotta().setColor(DyeColor.MAGENTA).setFacing(dir));
+      blocks.addBlock(ColoredBlock.terracotta().setColor(color).setFacing(dir));
     }
 
     StairsBlock stair = StairsBlock.purpur();
