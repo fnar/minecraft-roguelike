@@ -9,6 +9,7 @@ import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Optional;
 import java.util.Set;
 import java.util.TreeSet;
 import java.util.regex.Pattern;
@@ -316,6 +317,11 @@ public abstract class ConfigurationProvider implements Iterable<Configuration> {
     entries.addAll(kvp.entrySet());
     return new ConfigurationProviderIterator(entries.iterator());
 
+  }
+
+  public String GetString(String name, String defaultValue) {
+    return Optional.ofNullable(Get(name, defaultValue))
+        .orElse(defaultValue);
   }
 
   private class EntryAlphabetical implements Comparator<Entry<String, String>> {

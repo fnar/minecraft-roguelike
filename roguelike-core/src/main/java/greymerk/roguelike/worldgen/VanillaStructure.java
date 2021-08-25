@@ -1,5 +1,9 @@
 package greymerk.roguelike.worldgen;
 
+import com.github.fnar.util.Strings;
+
+import java.util.Arrays;
+
 public enum VanillaStructure {
 
   STRONGHOLD,
@@ -31,6 +35,12 @@ public enum VanillaStructure {
   public static VanillaStructure getType(String name) {
     return VanillaStructure.valueOf(name.toUpperCase());
   }
+
+  public static String getAllAsCommaDelimitedString() {
+    return Arrays.stream(values())
+        .map(VanillaStructure::getName)
+        .reduce(Strings::commaConcatenate)
+        .orElse("");
+  }
+
 }
-
-
