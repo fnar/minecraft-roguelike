@@ -2,12 +2,20 @@ package greymerk.roguelike.theme;
 
 import java.util.Optional;
 
+import lombok.ToString;
+
+@ToString
 public class Theme {
 
   protected BlockSet primary;
   protected BlockSet secondary;
 
   public Theme() {
+  }
+
+  public Theme(Theme toCopy) {
+    this.primary = new BlockSet(toCopy.getPrimary());
+    this.secondary = new BlockSet(toCopy.getSecondary());
   }
 
   public Theme(BlockSet primary, BlockSet secondary) {

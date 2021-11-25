@@ -29,9 +29,9 @@ public class DungeonSettings {
   private final List<SettingIdentifier> inherit = new ArrayList<>();
   private boolean exclusive;
   private TowerSettings towerSettings;
-  private final Map<Integer, LevelSettings> levels = new HashMap<>();
+  private Map<Integer, LevelSettings> levels = new HashMap<>();
   private SpawnCriteria spawnCriteria = new SpawnCriteria();
-  private LootRuleManager lootRules = new LootRuleManager();
+  private final LootRuleManager lootRules = new LootRuleManager();
   private final List<LootTableRule> lootTables = new ArrayList<>();
   private final Set<SettingsType> overrides = new HashSet<>();
 
@@ -64,8 +64,13 @@ public class DungeonSettings {
         .forEach(level -> {
           LevelSettings parent = toInherit.levels.get(level);
           LevelSettings child = levels.get(level);
-          LevelSettings levelSettings = new LevelSettings(parent, child, dungeonSettings.overrides);
-          dungeonSettings.levels.put(level, levelSettings);
+          dungeonSettings.levels.put(level, parent == null
+              ? child == null
+              ? new LevelSettings()
+              : new LevelSettings(child)
+              : child == null
+                  ? new LevelSettings(parent)
+                  : new LevelSettings(child).inherit(parent, dungeonSettings.overrides));
         });
 
     return dungeonSettings;

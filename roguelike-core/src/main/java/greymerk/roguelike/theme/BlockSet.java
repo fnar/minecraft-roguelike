@@ -5,9 +5,11 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.minecraft.block.redstone.DoorBlock;
 
 import greymerk.roguelike.worldgen.BlockBrush;
+import lombok.ToString;
 
 import static java.util.Optional.ofNullable;
 
+@ToString
 public class BlockSet {
 
   private BlockBrush floor;
@@ -19,7 +21,16 @@ public class BlockSet {
   private BlockBrush liquid = BlockType.WATER_FLOWING.getBrush();
 
   public BlockSet() {
+  }
 
+  public BlockSet(BlockSet toCopy) {
+    this.floor = toCopy.getFloor();
+    this.walls = toCopy.getWall();
+    this.stair = toCopy.getStair();
+    this.pillar = toCopy.getPillar();
+    this.door = toCopy.getDoor();
+    this.lightBlock = toCopy.getLightBlock();
+    this.liquid = toCopy.getLiquid();
   }
 
   public BlockSet(

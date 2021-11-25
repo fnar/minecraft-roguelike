@@ -6,8 +6,8 @@ import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.towers.Tower;
-import greymerk.roguelike.theme.Themes;
 import greymerk.roguelike.theme.Theme;
+import greymerk.roguelike.theme.Themes;
 
 public class SettingsTheme extends DungeonSettings {
 

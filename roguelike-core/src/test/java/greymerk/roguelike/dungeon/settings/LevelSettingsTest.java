@@ -1,23 +1,28 @@
 package greymerk.roguelike.dungeon.settings;
 
+import com.google.common.collect.Sets;
+
 import net.minecraft.init.Bootstrap;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.HashSet;
+import java.util.Collections;
+import java.util.List;
 import java.util.Set;
 
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.dungeon.LevelGenerator;
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
-import greymerk.roguelike.dungeon.base.SecretsSetting;
+import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.worldgen.filter.Filter;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class LevelSettingsTest {
+
+  public static final Set<SettingsType> EMPTY_OVERRIDES = Collections.unmodifiableSet(Sets.newHashSet());
 
   @Before
   public void setUp() {
@@ -53,161 +58,162 @@ public class LevelSettingsTest {
   }
 
   @Test
-  public void testRoomsMerge() {
+  public void levelSettingsInheritRooms() {
+    LevelSettings parent = new LevelSettings();
+    RoomSetting cakeRoomSetting = RoomType.CAKE.newSingleRoomSetting();
+    parent.getRooms().add(cakeRoomSetting);
 
-    LevelSettings base = new LevelSettings();
-    LevelSettings other = new LevelSettings();
+    List<RoomSetting> actual = new LevelSettings().inherit(parent, EMPTY_OVERRIDES).getRooms().getSingleRoomSettings();
 
-    RoomsSetting baseRooms = new RoomsSetting();
-    RoomsSetting otherRooms = new RoomsSetting();
-
-    base.setRooms(baseRooms);
-    other.setRooms(otherRooms);
-
-    LevelSettings control = new LevelSettings();
-    RoomsSetting controlRooms = new RoomsSetting();
-    control.setRooms(controlRooms);
-    Set<SettingsType> overrides = new HashSet<>();
-
-    LevelSettings merge = new LevelSettings(base, other, overrides);
-    assertThat(control).isEqualTo(merge);
-
-    baseRooms.add(RoomType.CAKE.newSingleRoomSetting());
-    merge = new LevelSettings(base, other, overrides);
-    assertThat(control).isNotEqualTo(merge);
-
-    controlRooms.add(RoomType.CAKE.newSingleRoomSetting());
-    assertThat(control).isEqualTo(merge);
+    assertThat(actual).containsOnly(cakeRoomSetting);
   }
 
   @Test
-  public void testSecretsMerge() {
+  public void levelSettingsInheritSecretsFromTheirParents() {
+    RoomSetting bedroomSecret0 = RoomType.BEDROOM.newSingleRoomSetting();
+    RoomSetting bedroomSecret1 = RoomType.BEDROOM.newSingleRoomSetting();
 
-    LevelSettings base = new LevelSettings();
-    LevelSettings other = new LevelSettings();
+    LevelSettings parent = new LevelSettings();
+    parent.getSecrets().add(bedroomSecret0);
+    parent.getSecrets().add(bedroomSecret1);
 
-    SecretsSetting baseSecrets = new SecretsSetting();
-    SecretsSetting otherSecrets = new SecretsSetting();
+    LevelSettings actual = new LevelSettings().inherit(parent, EMPTY_OVERRIDES);
 
-    base.setSecrets(baseSecrets);
-    other.setSecrets(otherSecrets);
-
-    SecretsSetting controlSecrets = new SecretsSetting();
-    LevelSettings control = new LevelSettings();
-    control.setSecrets(controlSecrets);
-
-    LevelSettings merge;
-    Set<SettingsType> overrides = new HashSet<>();
-
-    merge = new LevelSettings(base, other, overrides);
-
-    assert control.equals(merge);
-
-    baseSecrets.add(RoomType.BEDROOM.newSingleRoomSetting());
-    baseSecrets.add(RoomType.BEDROOM.newSingleRoomSetting());
-
-    merge = new LevelSettings(base, other, overrides);
-    assert !control.equals(merge);
-
-    controlSecrets.add(RoomType.BEDROOM.newSingleRoomSetting());
-    controlSecrets.add(RoomType.BEDROOM.newSingleRoomSetting());
-    assert control.equals(merge);
+    assertThat(actual.getSecrets().getSecretRoomSettings()).containsOnly(bedroomSecret0, bedroomSecret1);
   }
 
   @Test
   public void testThemeMerge() {
+    // TODO
   }
 
   @Test
   public void testSegmentsMerge() {
+    // TODO
   }
 
   @Test
   public void testSpawnerMerge() {
+    // TODO
   }
 
   @Test
-  public void testGeneratorMerge() {
+  public void childRetainsLevelGeneratorType_WhenChildHasLevelGenerator() {
+    LevelSettings parent = new LevelSettings();
+    LevelSettings child = new LevelSettings();
 
-    LevelSettings compare = new LevelSettings();
-    compare.setGenerator(LevelGenerator.CLASSIC);
+    child.setGenerator(LevelGenerator.CLASSIC);
 
-    Set<SettingsType> overrides = new HashSet<>();
-
-    LevelSettings base = new LevelSettings();
-    LevelSettings other = new LevelSettings();
-
-    LevelSettings control = new LevelSettings(base, other, overrides);
-
-    assert !control.equals(compare);
-
-    other.setGenerator(LevelGenerator.CLASSIC);
-    assert other.equals(compare);
-
-    LevelSettings merge = new LevelSettings(base, other, overrides);
-
-    assert merge.equals(compare);
-
-    LevelSettings merge2 = new LevelSettings(other, base, overrides);
-
-    assert merge2.equals(compare);
-
+    child.inherit(parent, EMPTY_OVERRIDES);
+    assertThat(child.getGenerator()).isEqualTo(LevelGenerator.CLASSIC);
   }
 
   @Test
-  public void testFilterMerge0() {
-    Set<SettingsType> overrides = new HashSet<>();
+  public void childInheritsLevelGenerator_WhenChildHasNoLevelGenerator() {
+    LevelSettings parent = new LevelSettings();
+    LevelSettings child = new LevelSettings();
 
-    LevelSettings compare = new LevelSettings();
-    assert compare.getFilters().isEmpty();
-    compare.addFilter(Filter.VINE);
-    assert compare.getFilters().contains(Filter.VINE);
+    parent.setGenerator(LevelGenerator.CLASSIC);
 
-    LevelSettings base = new LevelSettings();
-    base.addFilter(Filter.VINE);
-
-    assert new LevelSettings(base).getFilters().contains(Filter.VINE);
-
-    LevelSettings other = new LevelSettings();
-
-    assertThat(new LevelSettings(other, other, overrides).getFilters()).doesNotContain(Filter.VINE);
+    child.inherit(parent, EMPTY_OVERRIDES);
+    assertThat(child.getGenerator()).isEqualTo(LevelGenerator.CLASSIC);
   }
 
   @Test
-  public void testFilterMerge1() {
-    Set<SettingsType> overrides = new HashSet<>();
+  public void childrenPreferTheirOwnLevelGenerator_EvenWhenAParentHasALevelGenerator() {
+    LevelSettings parent = new LevelSettings();
+    LevelSettings child = new LevelSettings();
 
-    LevelSettings compare = new LevelSettings();
-    assert compare.getFilters().isEmpty();
-    compare.addFilter(Filter.VINE);
-    assert compare.getFilters().contains(Filter.VINE);
+    parent.setGenerator(LevelGenerator.MST);
+    child.setGenerator(LevelGenerator.CLASSIC);
 
-    LevelSettings base = new LevelSettings();
-    base.addFilter(Filter.VINE);
-
-    assert new LevelSettings(base).getFilters().contains(Filter.VINE);
-
-    LevelSettings other = new LevelSettings();
-
-    assertThat(new LevelSettings(base, other, overrides).getFilters()).contains(Filter.VINE);
+    child.inherit(parent, EMPTY_OVERRIDES);
+    assertThat(child.getGenerator()).isEqualTo(LevelGenerator.CLASSIC);
   }
 
   @Test
-  public void testFilterMerge2() {
-    Set<SettingsType> overrides = new HashSet<>();
+  public void levelSettingsInheritLevelGeneratorsFromTheirParents_WhenParentHasLevelGenerator() {
+    LevelSettings expected = new LevelSettings();
+    expected.setGenerator(LevelGenerator.CLASSIC);
 
-    LevelSettings compare = new LevelSettings();
-    assert compare.getFilters().isEmpty();
-    compare.addFilter(Filter.VINE);
-    assert compare.getFilters().contains(Filter.VINE);
+    LevelSettings parent = new LevelSettings();
+    LevelSettings child = new LevelSettings();
 
-    LevelSettings base = new LevelSettings();
-    base.addFilter(Filter.VINE);
+    assertThat(child).isNotEqualTo(expected);
 
-    assert new LevelSettings(base).getFilters().contains(Filter.VINE);
+    parent.setGenerator(LevelGenerator.CLASSIC);
 
-    LevelSettings other = new LevelSettings();
+    assertThat(parent).isEqualTo(expected);
+    assertThat(child).isNotEqualTo(expected);
+    assertThat(child.inherit(parent, EMPTY_OVERRIDES)).isEqualTo(expected);
+  }
 
-    assertThat(new LevelSettings(other, base, overrides).getFilters()).contains(Filter.VINE);
+  @Test
+  public void levelSettingsRetainTheirLevelGeneratorDespiteInheritance_WhenParentHasNone() {
+    LevelSettings expected = new LevelSettings();
+    expected.setGenerator(LevelGenerator.CLASSIC);
+
+    LevelSettings parent = new LevelSettings();
+    LevelSettings child = new LevelSettings();
+
+    assertThat(child).isNotEqualTo(expected);
+
+    child.setGenerator(LevelGenerator.CLASSIC);
+
+    assertThat(parent).isNotEqualTo(expected);
+    assertThat(child).isEqualTo(expected);
+    assertThat(child.inherit(parent, EMPTY_OVERRIDES)).isEqualTo(expected);
+  }
+
+  @Test
+  public void levelSettingsRetainTheirLevelGeneratorDespiteInheritance_EvenWhenParentHasALevelGenerator() {
+    LevelSettings expected = new LevelSettings();
+    expected.setGenerator(LevelGenerator.CLASSIC);
+
+    LevelSettings parent = new LevelSettings();
+    LevelSettings child = new LevelSettings();
+
+    assertThat(child).isNotEqualTo(expected);
+
+    parent.setGenerator(LevelGenerator.MST);
+    child.setGenerator(LevelGenerator.CLASSIC);
+
+    assertThat(parent).isNotEqualTo(expected);
+    assertThat(child).isEqualTo(expected);
+    assertThat(child.inherit(parent, EMPTY_OVERRIDES)).isEqualTo(expected);
+  }
+
+  @Test
+  public void filtersAreInheritedFromParents_WhenParentsHaveFilters() {
+    LevelSettings child = new LevelSettings();
+    LevelSettings parent = new LevelSettings();
+    parent.addFilter(Filter.VINE);
+
+    LevelSettings actual = child.inherit(parent, EMPTY_OVERRIDES);
+
+    assertThat(actual.getFilters()).containsOnly(Filter.VINE);
+  }
+
+  @Test
+  public void filtersAreKept_WhenParentsHaveNoFilters() {
+    LevelSettings child = new LevelSettings();
+    LevelSettings parent = new LevelSettings();
+    child.addFilter(Filter.VINE);
+
+    LevelSettings actual = child.inherit(parent, EMPTY_OVERRIDES);
+
+    assertThat(actual.getFilters()).containsOnly(Filter.VINE);
+  }
+
+  @Test
+  public void childrenMergeFiltersFromTheirParentsWithTheirOwnFilters() {
+    LevelSettings child = new LevelSettings();
+    child.addFilter(Filter.VINE);
+    LevelSettings parent = new LevelSettings();
+    parent.addFilter(Filter.COBWEB);
+
+    LevelSettings actual = child.inherit(parent, EMPTY_OVERRIDES);
+
+    assertThat(actual.getFilters()).containsOnly(Filter.VINE, Filter.COBWEB);
   }
 }
