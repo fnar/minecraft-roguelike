@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.util.WeightedChoice;
@@ -124,19 +123,16 @@ public class SettingsResolver {
   }
 
   private Optional<DungeonSettings> chooseRandomValid(WorldEditor editor, Coord coord, Collection<DungeonSettings> settings) {
-    Collection<DungeonSettings> inflatedSettings = settings.stream()
+    List<DungeonSettings> inflatedSettings = settings.stream()
         .map(this::processInheritance)
+        .filter(isValid(editor, coord))
         .collect(toList());
-    List<DungeonSettings> validSettings = filterValid(inflatedSettings, editor, coord);
-    WeightedRandomizer<DungeonSettings> settingsRandomizer = newWeightedRandomizer(validSettings);
+    WeightedRandomizer<DungeonSettings> settingsRandomizer = newWeightedRandomizer(inflatedSettings);
     return ofNullable(settingsRandomizer.get(editor.getRandom(coord)));
   }
 
-  private List<DungeonSettings> filterValid(Collection<DungeonSettings> settings, WorldEditor editor, Coord coord) {
-    return settings.stream()
-        .filter(DungeonSettings::isExclusive)
-        .filter(isValid(editor, coord))
-        .collect(Collectors.toList());
+  private Predicate<DungeonSettings> isValid(WorldEditor editor, Coord coord) {
+    return setting -> setting.isExclusive() && setting.isValid(editor, coord);
   }
 
   private WeightedRandomizer<DungeonSettings> newWeightedRandomizer(List<DungeonSettings> dungeonSettings) {
@@ -145,10 +141,6 @@ public class SettingsResolver {
         .map(setting -> new WeightedChoice<>(setting, setting.getCriteria().getWeight()))
         .forEach(settingsRandomizer::add);
     return settingsRandomizer;
-  }
-
-  private Predicate<DungeonSettings> isValid(WorldEditor editor, Coord pos) {
-    return setting -> setting.isValid(editor, pos);
   }
 
   public String toString(String namespace) {

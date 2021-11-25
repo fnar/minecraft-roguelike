@@ -12,8 +12,8 @@ import greymerk.roguelike.dungeon.LevelGenerator;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.base.SecretsSetting;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
-import greymerk.roguelike.theme.Themes;
 import greymerk.roguelike.theme.Theme;
+import greymerk.roguelike.theme.Themes;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.filter.Filter;
 import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
@@ -49,57 +49,40 @@ public class LevelSettings {
     init(toCopy);
   }
 
-  public LevelSettings(LevelSettings parent, LevelSettings child, Set<SettingsType> overrides) {
-    if (parent == null && child == null) {
-      return;
-    }
+  public LevelSettings inherit(LevelSettings parent, Set<SettingsType> overrides) {
+    numRooms = numRooms != parent.numRooms && numRooms != NUM_ROOMS
+        ? numRooms
+        : parent.numRooms;
 
-    if (parent == null) {
-      init(child);
-      return;
-    }
+    range = range != parent.range && range != LEVEL_RANGE
+        ? range
+        : parent.range;
 
-    if (child == null) {
-      init(parent);
-      return;
-    }
+    setScatter(scatter != parent.scatter && scatter != MINIMUM_SCATTER
+        ? scatter
+        : parent.scatter);
 
-    numRooms = child.numRooms != parent.numRooms
-        && child.numRooms != NUM_ROOMS
-        ? child.numRooms : parent.numRooms;
+    levelDifficulty = (parent.levelDifficulty != levelDifficulty && levelDifficulty != -1) || parent.levelDifficulty == -1
+        ? levelDifficulty
+        : parent.levelDifficulty;
 
-    range = child.range != parent.range
-        && child.range != LEVEL_RANGE
-        ? child.range : parent.range;
+    rooms = overrides.contains(ROOMS) ? new RoomsSetting(rooms) : rooms.inherit(parent.rooms);
 
-    setScatter(child.scatter != parent.scatter && child.scatter != MINIMUM_SCATTER
-        ? child.scatter : parent.scatter);
+    setSecrets(overrides.contains(SECRETS) ? new SecretsSetting(secrets) : new SecretsSetting(parent.secrets, secrets));
 
-    levelDifficulty = (parent.levelDifficulty != child.levelDifficulty
-        && child.levelDifficulty != -1) || parent.levelDifficulty == -1
-        ? child.levelDifficulty : parent.levelDifficulty;
+    setTheme(theme == null
+        ? parent.theme == null
+        ? Themes.OAK.getThemeBase()
+        : parent.theme
+        : inherit(parent, this, overrides));
 
-    if (overrides.contains(ROOMS)) {
-      rooms = new RoomsSetting(child.rooms);
-    } else {
-      rooms = child.rooms.inherit(parent.rooms);
-    }
+    segments = segments.inherit(parent.segments);
 
-    if (overrides.contains(SECRETS)) {
-      secrets = new SecretsSetting(child.secrets);
-    } else {
-      secrets = new SecretsSetting(parent.secrets, child.secrets);
-    }
-
-    setTheme(inherit(parent, child, overrides));
-
-    segments = child.segments.inherit(parent.segments);
-
-    spawners = new SpawnerSettings(parent.spawners, child.spawners);
-    generator = child.generator == null ? parent.generator : child.generator;
+    spawners = new SpawnerSettings(parent.spawners, spawners);
+    generator = generator == null ? parent.generator : generator;
 
     filters.addAll(parent.filters);
-    filters.addAll(child.filters);
+    return this;
   }
 
   private Theme inherit(LevelSettings parent, LevelSettings child, Set<SettingsType> overrides) {
@@ -196,7 +179,6 @@ public class LevelSettings {
   }
 
   public Theme getTheme() {
-    // return theme;
     // todo: not rely on this class to provide default as it's an inverted dependency
     return theme != null ? theme : Themes.STONE.getThemeBase();
   }
