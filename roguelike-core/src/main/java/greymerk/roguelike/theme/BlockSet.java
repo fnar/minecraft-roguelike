@@ -5,10 +5,12 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.minecraft.block.redstone.DoorBlock;
 
 import greymerk.roguelike.worldgen.BlockBrush;
+import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import static java.util.Optional.ofNullable;
 
+@EqualsAndHashCode
 @ToString
 public class BlockSet {
 

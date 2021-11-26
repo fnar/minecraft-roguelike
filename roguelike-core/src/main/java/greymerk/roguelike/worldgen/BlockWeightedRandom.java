@@ -6,7 +6,11 @@ import com.google.gson.JsonObject;
 
 import greymerk.roguelike.util.WeightedChoice;
 import greymerk.roguelike.util.WeightedRandomizer;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
+@EqualsAndHashCode
+@ToString
 public class BlockWeightedRandom implements BlockBrush {
 
   private WeightedRandomizer<BlockBrush> blocks = new WeightedRandomizer<>();

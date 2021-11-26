@@ -5,6 +5,7 @@ import com.github.fnar.minecraft.block.BlockType;
 
 import net.minecraft.item.ItemStack;
 
+import java.util.Objects;
 import java.util.Random;
 
 import greymerk.roguelike.treasure.loot.WeightedRandomLoot;
@@ -12,7 +13,7 @@ import greymerk.roguelike.util.WeightedRandomizer;
 
 public class ItemBlock extends ItemBase {
 
-  private WeightedRandomizer<ItemStack> loot;
+  private final WeightedRandomizer<ItemStack> loot;
 
   public ItemBlock(int weight, int level) {
     super(weight, level);
@@ -29,5 +30,22 @@ public class ItemBlock extends ItemBase {
   @Override
   public ItemStack getLootItem(Random rand, int level) {
     return this.loot.get(rand);
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+    ItemBlock itemBlock = (ItemBlock) o;
+    return Objects.equals(loot, itemBlock.loot);
+  }
+
+  @Override
+  public int hashCode() {
+    return Objects.hash(loot);
   }
 }
