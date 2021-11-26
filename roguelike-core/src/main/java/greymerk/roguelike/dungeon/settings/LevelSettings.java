@@ -72,7 +72,7 @@ public class LevelSettings {
 
     setTheme(theme == null
         ? parent.theme == null
-        ? Themes.OAK.getThemeBase()
+        ? null
         : parent.theme
         : inherit(parent, this, overrides));
 

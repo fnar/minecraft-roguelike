@@ -2,9 +2,13 @@ package greymerk.roguelike.util;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
+
+@EqualsAndHashCode
+@ToString
 public class WeightedRandomizer<T> implements IWeighted<T> {
 
   private int weight;
@@ -49,7 +53,7 @@ public class WeightedRandomizer<T> implements IWeighted<T> {
   }
 
   public void add(T entryway, int weight) {
-    add(new WeightedChoice<T>(entryway, weight));
+    add(new WeightedChoice<>(entryway, weight));
   }
 
   public WeightedRandomizer<T> with(IWeighted<T> toAdd) {
@@ -88,36 +92,7 @@ public class WeightedRandomizer<T> implements IWeighted<T> {
     }
   }
 
-  @Override
-  public boolean equals(Object o) {
-    // I think this is only for tests, which means the behaviour isn't being tested, just the state
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    WeightedRandomizer<?> that = (WeightedRandomizer<?>) o;
-    return weight == that.weight &&
-        weightSum == that.weightSum &&
-        Objects.equals(items, that.items);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(weight, weightSum, items);
-  }
-
-  @Override
-  public String toString() {
-    return "WeightedRandomizer{" +
-        "weight=" + weight +
-        ", weightSum=" + weightSum +
-        ", items=" + items +
-        '}';
-  }
-
   public WeightedRandomizer<T> copy() {
-    return new WeightedRandomizer<T>(this);
+    return new WeightedRandomizer<>(this);
   }
 }
