@@ -18,7 +18,7 @@ import net.minecraft.item.ItemStack;
 import java.util.List;
 
 import greymerk.roguelike.config.RogueConfig;
-import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.treasure.TreasureChest;
@@ -40,14 +40,14 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 import static com.github.fnar.minecraft.block.normal.ColoredBlock.stainedGlass;
 import static com.github.fnar.minecraft.block.normal.ColoredBlock.stainedHardenedClay;
 
-public class DungeonBTeam extends DungeonBase {
+public class BTeamRoom extends BaseRoom {
 
-  public DungeonBTeam(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+  public BTeamRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
   }
 
   @Override
-  public DungeonBase generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord origin, List<Direction> entrances) {
 
     StairsBlock stair = StairsBlock.spruce();
     BlockBrush log = Wood.OAK.getLog();

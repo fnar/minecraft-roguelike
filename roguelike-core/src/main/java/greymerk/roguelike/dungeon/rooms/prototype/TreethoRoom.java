@@ -8,7 +8,7 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import java.util.List;
 
-import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.Theme;
@@ -22,14 +22,14 @@ import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 
-public class DungeonTreetho extends DungeonBase {
+public class TreethoRoom extends BaseRoom {
 
-  public DungeonTreetho(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+  public TreethoRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
   }
 
   @Override
-  public DungeonBase generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord origin, List<Direction> entrances) {
 
     Theme theme = levelSettings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();

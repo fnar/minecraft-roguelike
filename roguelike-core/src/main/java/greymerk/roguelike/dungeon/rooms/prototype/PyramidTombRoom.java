@@ -7,7 +7,7 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 import java.util.List;
 
 import greymerk.roguelike.dungeon.Dungeon;
-import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.Theme;
@@ -21,14 +21,14 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 import static greymerk.roguelike.worldgen.spawners.MobType.UNDEAD_MOBS;
 
-public class DungeonPyramidTomb extends DungeonBase {
+public class PyramidTombRoom extends BaseRoom {
 
-  public DungeonPyramidTomb(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+  public PyramidTombRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
   }
 
   @Override
-  public DungeonBase generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord origin, List<Direction> entrances) {
 
 
     Theme theme = levelSettings.getTheme();

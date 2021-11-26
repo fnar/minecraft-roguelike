@@ -17,9 +17,9 @@ import lombok.ToString;
 
 @EqualsAndHashCode(callSuper = true)
 @ToString
-public class SecretRoom extends DungeonBase {
+public class SecretRoom extends BaseRoom {
 
-  private final DungeonBase prototype;
+  private final BaseRoom prototype;
 
   public SecretRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
@@ -37,7 +37,7 @@ public class SecretRoom extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(Coord pos, List<Direction> entrances) {
+  public BaseRoom generate(Coord pos, List<Direction> entrances) {
     int size = prototype.getSize();
 
     Coord start = pos.copy();

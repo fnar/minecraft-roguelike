@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.DungeonLevel;
-import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.base.SecretsSetting;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -71,7 +71,7 @@ public class SegmentSewerDoor extends SegmentBase {
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     SecretsSetting secrets = level.getSettings().getSecrets();
-    Optional<DungeonBase> room = generateSecret(secrets, editor, level.getSettings(), dir, origin.copy());
+    Optional<BaseRoom> room = generateSecret(secrets, editor, level.getSettings(), dir, origin.copy());
 
     start.translate(dir, 1);
     end.translate(dir, 1);

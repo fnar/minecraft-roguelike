@@ -4,7 +4,7 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import java.util.Random;
 
-import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.Coord;
@@ -29,14 +29,14 @@ public enum LevelGenerator {
 
   public static void generateLevelLink(WorldEditor editor, Random rand, LevelSettings settings, DungeonNode start, DungeonNode end) {
 
-    DungeonBase downstairs = RoomType.LINKER.newSingleRoomSetting().instantiate(settings, editor);
+    BaseRoom downstairs = RoomType.LINKER.newSingleRoomSetting().instantiate(settings, editor);
     downstairs.generate(start.getPosition(), Direction.CARDINAL);
 
     if (end == null) {
       return;
     }
 
-    DungeonBase upstairs = RoomType.LINKERTOP.newSingleRoomSetting().instantiate(settings, editor);
+    BaseRoom upstairs = RoomType.LINKERTOP.newSingleRoomSetting().instantiate(settings, editor);
     upstairs.generate(end.getPosition(), end.getEntrances());
 
     StairsBlock stair = settings.getTheme().getPrimary().getStair();

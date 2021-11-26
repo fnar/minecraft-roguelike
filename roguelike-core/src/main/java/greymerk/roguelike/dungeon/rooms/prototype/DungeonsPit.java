@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.Dungeon;
-import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.Theme;
@@ -20,7 +20,7 @@ import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 
-public class DungeonsPit extends DungeonBase {
+public class DungeonsPit extends BaseRoom {
   Random rand;
   int originX;
   int originY;
@@ -39,7 +39,7 @@ public class DungeonsPit extends DungeonBase {
     dungeonWidth = 2;
   }
 
-  public DungeonBase generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord origin, List<Direction> entrances) {
 
     Theme theme = levelSettings.getTheme();
 

@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.config.RogueConfig;
-import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -20,13 +20,13 @@ import greymerk.roguelike.worldgen.shapes.IShape;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.MobType;
 
-public class DungeonsEnder extends DungeonBase {
+public class DungeonsEnder extends BaseRoom {
 
   public DungeonsEnder(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
   }
 
-  public DungeonBase generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord origin, List<Direction> entrances) {
     Random rand = worldEditor.getRandom(origin);
     BlockBrush black = BlockType.OBSIDIAN.getBrush();
     BlockBrush white = Quartz.SMOOTH.getBrush();

@@ -6,7 +6,7 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 import java.util.ArrayList;
 import java.util.List;
 
-import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.Theme;
@@ -17,9 +17,9 @@ import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
-public class DungeonStorage extends DungeonBase {
+public class StorageRoom extends BaseRoom {
 
-  public DungeonStorage(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+  public StorageRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
   }
 
@@ -40,7 +40,7 @@ public class DungeonStorage extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord origin, List<Direction> entrances) {
     Theme theme = levelSettings.getTheme();
     List<Coord> chestSpaces = new ArrayList<>();
 

@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
-import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.treasure.loot.Firework;
@@ -28,14 +28,14 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 import static com.github.fnar.minecraft.block.normal.ColoredBlock.stainedHardenedClay;
 
-public class DungeonFirework extends DungeonBase {
+public class FireworkRoom extends BaseRoom {
 
-  public DungeonFirework(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+  public FireworkRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
   }
 
   @Override
-  public DungeonBase generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord origin, List<Direction> entrances) {
 
     int x = origin.getX();
     int y = origin.getY();

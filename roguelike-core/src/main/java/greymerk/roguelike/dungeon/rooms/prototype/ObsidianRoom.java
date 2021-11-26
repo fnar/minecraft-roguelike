@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import greymerk.roguelike.dungeon.Dungeon;
-import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.Theme;
@@ -20,7 +20,7 @@ import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
-public class ObsidianRoom extends DungeonBase {
+public class ObsidianRoom extends BaseRoom {
 
   public ObsidianRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
@@ -117,7 +117,7 @@ public class ObsidianRoom extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord origin, List<Direction> entrances) {
 
     int x = origin.getX();
     int y = origin.getY();

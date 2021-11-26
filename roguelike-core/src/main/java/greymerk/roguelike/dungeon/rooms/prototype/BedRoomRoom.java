@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.Dungeon;
-import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.Theme;
@@ -27,9 +27,9 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = false)
-public class DungeonBedRoom extends DungeonBase {
+public class BedRoomRoom extends BaseRoom {
 
-  public DungeonBedRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+  public BedRoomRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
   }
 
@@ -46,7 +46,7 @@ public class DungeonBedRoom extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord origin, List<Direction> entrances) {
     Random rand = worldEditor.getRandom();
     Theme theme = levelSettings.getTheme();
 

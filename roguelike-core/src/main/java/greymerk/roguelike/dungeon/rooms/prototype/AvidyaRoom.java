@@ -8,7 +8,7 @@ import com.github.fnar.minecraft.block.normal.Wood;
 
 import java.util.List;
 
-import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.util.DyeColor;
@@ -20,9 +20,9 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 import static com.github.fnar.minecraft.block.normal.ColoredBlock.stainedHardenedClay;
 
-public class DungeonAvidya extends DungeonBase {
+public class AvidyaRoom extends BaseRoom {
 
-  public DungeonAvidya(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+  public AvidyaRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
   }
 
@@ -37,7 +37,7 @@ public class DungeonAvidya extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord origin, List<Direction> entrances) {
 
     int x = origin.getX();
     int y = origin.getY();
