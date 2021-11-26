@@ -70,11 +70,7 @@ public class LevelSettings {
 
     setSecrets(overrides.contains(SECRETS) ? new SecretsSetting(secrets) : new SecretsSetting(parent.secrets, secrets));
 
-    setTheme(theme == null
-        ? parent.theme == null
-        ? null
-        : parent.theme
-        : inherit(parent, this, overrides));
+    setTheme(chooseTheme(parent, overrides));
 
     segments = segments.inherit(parent.segments);
 
@@ -85,22 +81,14 @@ public class LevelSettings {
     return this;
   }
 
-  private Theme inherit(LevelSettings parent, LevelSettings child, Set<SettingsType> overrides) {
-    boolean isChildThemeAbsent = child.theme == null;
-    boolean isParentThemeAbsent = parent.theme == null;
-    if (isChildThemeAbsent && isParentThemeAbsent) {
-      return null;
+  private Theme chooseTheme(LevelSettings parent, Set<SettingsType> overrides) {
+    if (overrides.contains(THEMES) || parent.theme == null) {
+      return this.theme;
     }
-    if (isChildThemeAbsent) {
+    if (this.theme == null) {
       return parent.theme;
     }
-    if (isParentThemeAbsent) {
-      return child.theme;
-    }
-    if (overrides.contains(THEMES)) {
-      return child.theme;
-    }
-    return Theme.inherit(parent.theme, child.theme);
+    return Theme.inherit(parent.theme, this.theme);
   }
 
   private void init(LevelSettings toCopy) {
