@@ -7,21 +7,21 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
-import greymerk.roguelike.dungeon.settings.base.SettingsBase;
-import greymerk.roguelike.dungeon.settings.base.SettingsLayout;
-import greymerk.roguelike.dungeon.settings.base.SettingsLootRules;
-import greymerk.roguelike.dungeon.settings.base.SettingsRooms;
-import greymerk.roguelike.dungeon.settings.base.SettingsSecrets;
-import greymerk.roguelike.dungeon.settings.base.SettingsSegments;
-import greymerk.roguelike.dungeon.settings.base.SettingsTheme;
-import greymerk.roguelike.dungeon.settings.builtin.SettingsDesertTheme;
-import greymerk.roguelike.dungeon.settings.builtin.SettingsForestTheme;
-import greymerk.roguelike.dungeon.settings.builtin.SettingsGrasslandTheme;
-import greymerk.roguelike.dungeon.settings.builtin.SettingsIceTheme;
-import greymerk.roguelike.dungeon.settings.builtin.SettingsJungleTheme;
-import greymerk.roguelike.dungeon.settings.builtin.SettingsMesaTheme;
-import greymerk.roguelike.dungeon.settings.builtin.SettingsMountainTheme;
-import greymerk.roguelike.dungeon.settings.builtin.SettingsSwampTheme;
+import greymerk.roguelike.dungeon.settings.builtin.BuiltinBaseSettings;
+import greymerk.roguelike.dungeon.settings.builtin.BuiltinLayoutSettings;
+import greymerk.roguelike.dungeon.settings.builtin.BuiltinLootSettings;
+import greymerk.roguelike.dungeon.settings.builtin.BuiltinRoomsSettings;
+import greymerk.roguelike.dungeon.settings.builtin.BuiltinSecretsSettings;
+import greymerk.roguelike.dungeon.settings.builtin.BuiltinSegmentsSettings;
+import greymerk.roguelike.dungeon.settings.builtin.BuiltinThemeSettings;
+import greymerk.roguelike.dungeon.settings.builtin.dungeon.BuiltinDesertDungeonSettings;
+import greymerk.roguelike.dungeon.settings.builtin.dungeon.BuiltinForestDungeonSettings;
+import greymerk.roguelike.dungeon.settings.builtin.dungeon.BuiltinPlainsDungeonSettings;
+import greymerk.roguelike.dungeon.settings.builtin.dungeon.BuiltinIceDungeonSettings;
+import greymerk.roguelike.dungeon.settings.builtin.dungeon.BuiltinJungleDungeonSettings;
+import greymerk.roguelike.dungeon.settings.builtin.dungeon.BuiltinMesaDungeonSettings;
+import greymerk.roguelike.dungeon.settings.builtin.dungeon.BuiltinMountainDungeonSettings;
+import greymerk.roguelike.dungeon.settings.builtin.dungeon.BuiltinSwampDungeonSettings;
 
 import static greymerk.roguelike.dungeon.settings.DungeonSettingsParser.parseJson;
 import static java.util.Arrays.stream;
@@ -37,22 +37,22 @@ public class SettingsContainer {
 
   private SettingsContainer() {
     put(
-        new SettingsRooms(),
-        new SettingsSecrets(),
-        new SettingsSegments(),
-        new SettingsLayout(),
-        new SettingsTheme(),
-        new SettingsLootRules(),
-        new SettingsBase(),
+        new BuiltinRoomsSettings(),
+        new BuiltinSecretsSettings(),
+        new BuiltinSegmentsSettings(),
+        new BuiltinLayoutSettings(),
+        new BuiltinThemeSettings(),
+        new BuiltinLootSettings(),
+        new BuiltinBaseSettings(),
 
-        new SettingsDesertTheme(),
-        new SettingsGrasslandTheme(),
-        new SettingsJungleTheme(),
-        new SettingsSwampTheme(),
-        new SettingsMountainTheme(),
-        new SettingsForestTheme(),
-        new SettingsMesaTheme(),
-        new SettingsIceTheme()
+        new BuiltinDesertDungeonSettings(),
+        new BuiltinPlainsDungeonSettings(),
+        new BuiltinJungleDungeonSettings(),
+        new BuiltinSwampDungeonSettings(),
+        new BuiltinMountainDungeonSettings(),
+        new BuiltinForestDungeonSettings(),
+        new BuiltinMesaDungeonSettings(),
+        new BuiltinIceDungeonSettings()
     );
   }
 

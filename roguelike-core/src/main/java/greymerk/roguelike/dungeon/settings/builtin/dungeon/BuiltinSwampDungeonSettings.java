@@ -1,4 +1,4 @@
-package greymerk.roguelike.dungeon.settings.builtin;
+package greymerk.roguelike.dungeon.settings.builtin.dungeon;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -12,7 +12,7 @@ import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.TowerSettings;
-import greymerk.roguelike.dungeon.settings.base.SettingsBase;
+import greymerk.roguelike.dungeon.settings.builtin.BuiltinBaseSettings;
 import greymerk.roguelike.theme.Themes;
 import greymerk.roguelike.treasure.loot.WeightedRandomLoot;
 import greymerk.roguelike.treasure.loot.rule.ForEachLootRule;
@@ -29,14 +29,14 @@ import static greymerk.roguelike.theme.Themes.MUDDY;
 import static greymerk.roguelike.theme.Themes.NETHER;
 import static net.minecraftforge.common.BiomeDictionary.Type.SWAMP;
 
-public class SettingsSwampTheme extends DungeonSettings {
+public class BuiltinSwampDungeonSettings extends DungeonSettings {
 
   public static final SettingIdentifier ID = new SettingIdentifier(SettingsContainer.BUILTIN_NAMESPACE, "swamp");
 
-  public SettingsSwampTheme() {
+  public BuiltinSwampDungeonSettings() {
     super(ID);
     setExclusive(true);
-    getInherit().add(SettingsBase.ID);
+    getInherit().add(BuiltinBaseSettings.ID);
     getCriteria().setBiomeTypes(newArrayList(SWAMP));
     setTowerSettings(new TowerSettings(WITCH, DARKOAK));
 

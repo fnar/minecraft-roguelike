@@ -1,4 +1,4 @@
-package greymerk.roguelike.dungeon.settings.base;
+package greymerk.roguelike.dungeon.settings.builtin;
 
 import greymerk.roguelike.dungeon.LevelGenerator;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
@@ -6,11 +6,11 @@ import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
 
-public class SettingsLayout extends DungeonSettings {
+public class BuiltinLayoutSettings extends DungeonSettings {
 
   public static final SettingIdentifier ID = new SettingIdentifier(SettingsContainer.BUILTIN_NAMESPACE, "layout");
 
-  public SettingsLayout() {
+  public BuiltinLayoutSettings() {
     super(ID);
     int[] numRooms = {10, 15, 15, 20, 15};
     int[] scatter = {15, 15, 17, 12, 15};
