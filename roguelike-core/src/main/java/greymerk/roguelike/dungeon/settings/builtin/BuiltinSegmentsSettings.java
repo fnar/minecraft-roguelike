@@ -1,4 +1,4 @@
-package greymerk.roguelike.dungeon.settings.base;
+package greymerk.roguelike.dungeon.settings.builtin;
 
 import greymerk.roguelike.dungeon.segment.Segment;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
@@ -7,11 +7,11 @@ import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
 
-public class SettingsSegments extends DungeonSettings {
+public class BuiltinSegmentsSettings extends DungeonSettings {
 
   public static final SettingIdentifier ID = new SettingIdentifier(SettingsContainer.BUILTIN_NAMESPACE, "segments");
 
-  public SettingsSegments() {
+  public BuiltinSegmentsSettings() {
     super(ID);
 
     for (int i = 0; i < 5; ++i) {

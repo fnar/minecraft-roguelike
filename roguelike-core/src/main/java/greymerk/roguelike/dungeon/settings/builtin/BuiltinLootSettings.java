@@ -1,4 +1,4 @@
-package greymerk.roguelike.dungeon.settings.base;
+package greymerk.roguelike.dungeon.settings.builtin;
 
 import com.github.fnar.minecraft.item.ItemMapper1_12;
 
@@ -25,11 +25,11 @@ import greymerk.roguelike.util.WeightedChoice;
 
 import static com.google.common.collect.Lists.newArrayList;
 
-public class SettingsLootRules extends DungeonSettings {
+public class BuiltinLootSettings extends DungeonSettings {
 
   public static final SettingIdentifier ID = new SettingIdentifier(SettingsContainer.BUILTIN_NAMESPACE, "loot");
 
-  public SettingsLootRules() {
+  public BuiltinLootSettings() {
     super(ID);
 
     ILoot loot = Loot.getLoot();

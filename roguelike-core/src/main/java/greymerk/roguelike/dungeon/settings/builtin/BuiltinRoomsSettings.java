@@ -1,4 +1,4 @@
-package greymerk.roguelike.dungeon.settings.base;
+package greymerk.roguelike.dungeon.settings.builtin;
 
 import com.google.common.collect.Lists;
 
@@ -34,11 +34,11 @@ import static greymerk.roguelike.dungeon.base.RoomType.REWARD;
 import static greymerk.roguelike.dungeon.base.RoomType.SLIME;
 import static greymerk.roguelike.dungeon.base.RoomType.SPIDER;
 
-public class SettingsRooms extends DungeonSettings {
+public class BuiltinRoomsSettings extends DungeonSettings {
 
   public static final SettingIdentifier ID = new SettingIdentifier(SettingsContainer.BUILTIN_NAMESPACE, "rooms");
 
-  public SettingsRooms() {
+  public BuiltinRoomsSettings() {
     super(ID);
 
     addRoomsToLevel(0, getLevel0Rooms());
