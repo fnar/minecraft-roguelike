@@ -20,13 +20,13 @@ import static java.util.Collections.shuffle;
 import static java.util.stream.Collectors.toList;
 
 @EqualsAndHashCode
-public abstract class DungeonBase implements Comparable<DungeonBase> {
+public abstract class BaseRoom implements Comparable<BaseRoom> {
 
   private final RoomSetting roomSetting;
   protected final LevelSettings levelSettings;
   protected final WorldEditor worldEditor;
 
-  public DungeonBase(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+  public BaseRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     this.roomSetting = roomSetting;
     this.levelSettings = levelSettings;
     this.worldEditor = worldEditor;
@@ -40,7 +40,7 @@ public abstract class DungeonBase implements Comparable<DungeonBase> {
         .collect(toList());
   }
 
-  public abstract DungeonBase generate(Coord origin, List<Direction> entrances);
+  public abstract BaseRoom generate(Coord origin, List<Direction> entrances);
 
   protected void generateDoorways(Coord origin, List<Direction> entrances) {
     generateDoorways(origin, entrances, getSize()-2);
@@ -101,7 +101,7 @@ public abstract class DungeonBase implements Comparable<DungeonBase> {
   }
 
   @Override
-  public int compareTo(DungeonBase other) {
+  public int compareTo(BaseRoom other) {
     return getSize() - other.getSize();
   }
 

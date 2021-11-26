@@ -7,7 +7,7 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 import java.util.ArrayList;
 import java.util.List;
 
-import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.Theme;
@@ -22,14 +22,14 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 import static com.github.fnar.minecraft.block.normal.ColoredBlock.stainedHardenedClay;
 
-public class DungeonsEnchant extends DungeonBase {
+public class DungeonsEnchant extends BaseRoom {
 
   public DungeonsEnchant(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
   }
 
   @Override
-  public DungeonBase generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord origin, List<Direction> entrances) {
     Direction dir = entrances.get(0);
     Theme theme = levelSettings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();

@@ -16,7 +16,7 @@ import java.util.List;
 
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.dungeon.Dungeon;
-import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.Theme;
@@ -31,9 +31,9 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 import static com.github.fnar.minecraft.block.normal.ColoredBlock.stainedHardenedClay;
 
-public class DungeonLab extends DungeonBase {
+public class LabRoom extends BaseRoom {
 
-  public DungeonLab(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+  public LabRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
   }
 
@@ -198,7 +198,7 @@ public class DungeonLab extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord origin, List<Direction> entrances) {
     int x = origin.getX();
     int y = origin.getY();
     int z = origin.getZ();

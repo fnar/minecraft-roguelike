@@ -6,7 +6,7 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import java.util.List;
 
-import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.Theme;
@@ -17,13 +17,13 @@ import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
-public class DungeonsSlime extends DungeonBase {
+public class DungeonsSlime extends BaseRoom {
 
   public DungeonsSlime(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
   }
 
-  public DungeonBase generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord origin, List<Direction> entrances) {
     Theme theme = levelSettings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();
     BlockBrush bars = BlockType.IRON_BAR.getBrush();

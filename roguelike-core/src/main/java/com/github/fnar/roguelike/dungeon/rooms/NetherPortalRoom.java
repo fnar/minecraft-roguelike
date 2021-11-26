@@ -7,7 +7,7 @@ import com.github.fnar.minecraft.worldgen.generatables.NetherPortal;
 import java.util.List;
 import java.util.stream.Stream;
 
-import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -17,14 +17,14 @@ import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
-public class NetherPortalRoom extends DungeonBase {
+public class NetherPortalRoom extends BaseRoom {
 
   public NetherPortalRoom(RoomSetting roomsSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomsSetting, levelSettings, worldEditor);
   }
 
   @Override
-  public DungeonBase generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord origin, List<Direction> entrances) {
     Direction front = entrances.get(0);
 
     generateWalls(origin, front);

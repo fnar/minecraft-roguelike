@@ -6,7 +6,7 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 import java.util.ArrayList;
 import java.util.List;
 
-import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.Theme;
@@ -21,9 +21,9 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 import static greymerk.roguelike.worldgen.spawners.MobType.COMMON_MOBS;
 
 
-public class DungeonEniko extends DungeonBase {
+public class EnikoRoom extends BaseRoom {
 
-  public DungeonEniko(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+  public EnikoRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
   }
 
@@ -46,7 +46,7 @@ public class DungeonEniko extends DungeonBase {
   }
 
   @Override
-  public DungeonBase generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord origin, List<Direction> entrances) {
 
     Theme theme = levelSettings.getTheme();
     StairsBlock stair = theme.getPrimary().getStair();

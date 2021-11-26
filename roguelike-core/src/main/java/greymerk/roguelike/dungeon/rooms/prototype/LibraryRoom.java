@@ -10,7 +10,7 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 import java.util.List;
 import java.util.Random;
 
-import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.Theme;
@@ -25,14 +25,14 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 import static com.github.fnar.minecraft.block.normal.ColoredBlock.carpet;
 
 
-public class DungeonLibrary extends DungeonBase {
+public class LibraryRoom extends BaseRoom {
 
-  public DungeonLibrary(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+  public LibraryRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
   }
 
   @Override
-  public DungeonBase generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord origin, List<Direction> entrances) {
     Random rand = worldEditor.getRandom(origin);
     int x = origin.getX();
     int y = origin.getY();

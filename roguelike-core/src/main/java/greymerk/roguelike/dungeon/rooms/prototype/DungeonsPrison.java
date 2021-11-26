@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -21,14 +21,14 @@ import greymerk.roguelike.worldgen.spawners.MobType;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode(callSuper = false)
-public class DungeonsPrison extends DungeonBase {
+public class DungeonsPrison extends BaseRoom {
 
   public DungeonsPrison(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
   }
 
   @Override
-  public DungeonBase generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord origin, List<Direction> entrances) {
 
     Coord cursor;
 

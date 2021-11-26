@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.DungeonLevel;
-import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.base.SecretRoom;
 import greymerk.roguelike.dungeon.base.SecretsSetting;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
@@ -70,7 +70,7 @@ public abstract class SegmentBase implements ISegment {
         && !editor.isAirBlock(southWest);
   }
 
-  public Optional<DungeonBase> generateSecret(SecretsSetting secretsSetting, WorldEditor worldEditor, LevelSettings levelSettings, Direction dir, Coord pos) {
+  public Optional<BaseRoom> generateSecret(SecretsSetting secretsSetting, WorldEditor worldEditor, LevelSettings levelSettings, Direction dir, Coord pos) {
     List<RoomSetting> secretRoomSettings = secretsSetting.getSecretRoomSettings();
     Optional<Pair<RoomSetting, SecretRoom>> first = secretRoomSettings.stream()
         .map(roomSetting -> new Pair<>(roomSetting, new SecretRoom(roomSetting, levelSettings, worldEditor)))

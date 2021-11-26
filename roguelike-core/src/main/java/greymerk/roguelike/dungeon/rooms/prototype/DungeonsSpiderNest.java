@@ -6,7 +6,7 @@ import com.github.fnar.minecraft.block.SingleBlockBrush;
 import java.util.List;
 
 import greymerk.roguelike.dungeon.Dungeon;
-import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.treasure.loot.ChestType;
@@ -17,7 +17,7 @@ import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.spawners.MobType;
 
-public class DungeonsSpiderNest extends DungeonBase {
+public class DungeonsSpiderNest extends BaseRoom {
   int originX;
   int originY;
   int originZ;
@@ -32,7 +32,7 @@ public class DungeonsSpiderNest extends DungeonBase {
     dungeonWidth = 3;
   }
 
-  public DungeonBase generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord origin, List<Direction> entrances) {
 
     originX = origin.getX();
     originY = origin.getY();

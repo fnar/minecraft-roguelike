@@ -4,7 +4,7 @@ import com.github.fnar.minecraft.block.SingleBlockBrush;
 
 import java.util.List;
 
-import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.Theme;
@@ -15,14 +15,14 @@ import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
-public class DungeonPyramidCorner extends DungeonBase {
+public class PyramidCornerRoom extends BaseRoom {
 
-  public DungeonPyramidCorner(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+  public PyramidCornerRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
   }
 
   @Override
-  public DungeonBase generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord origin, List<Direction> entrances) {
 
     int x = origin.getX();
     int y = origin.getY();

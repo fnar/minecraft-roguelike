@@ -11,9 +11,9 @@ import greymerk.roguelike.worldgen.WorldEditor;
 import static greymerk.roguelike.dungeon.base.RoomType.CORNER;
 import static java.util.stream.Collectors.toCollection;
 
-public class RoomIterator implements Iterator<DungeonBase> {
+public class RoomIterator implements Iterator<BaseRoom> {
 
-  private final LinkedList<DungeonBase> singleRooms;
+  private final LinkedList<BaseRoom> singleRooms;
   private final WeightedRandomizer<RoomSetting> randomRooms;
   private final LevelSettings levelSettings;
   private WorldEditor worldEditor;
@@ -27,7 +27,7 @@ public class RoomIterator implements Iterator<DungeonBase> {
     this.worldEditor = worldEditor;
   }
 
-  public DungeonBase getDungeonRoom() {
+  public BaseRoom getDungeonRoom() {
     if (hasNext()) {
       return next();
     } else if (randomRooms.isEmpty()) {
@@ -43,7 +43,7 @@ public class RoomIterator implements Iterator<DungeonBase> {
   }
 
   @Override
-  public DungeonBase next() {
+  public BaseRoom next() {
     return singleRooms.poll();
   }
 }

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import greymerk.roguelike.dungeon.base.DungeonBase;
+import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.Theme;
@@ -24,13 +24,13 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 import static greymerk.roguelike.worldgen.Direction.CARDINAL;
 import static greymerk.roguelike.worldgen.Direction.UP;
 
-public class BrickRoom extends DungeonBase {
+public class BrickRoom extends BaseRoom {
 
   public BrickRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
   }
 
-  public DungeonBase generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord origin, List<Direction> entrances) {
 
     int x = origin.getX();
     int y = origin.getY();
