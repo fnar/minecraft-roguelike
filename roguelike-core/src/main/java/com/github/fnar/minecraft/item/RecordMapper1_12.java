@@ -4,17 +4,17 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class RecordMapper1_12 {
+public class RecordMapper1_12 implements RecordMapper {
 
-  public static ItemStack map(RldItemStack rldItemStack) {
+  public ItemStack map(RldItemStack rldItemStack) {
     return map((Record) rldItemStack.getItem());
   }
 
-  private static ItemStack map(Record item) {
+  private ItemStack map(Record item) {
     return new ItemStack(getId(item.getSong()));
   }
 
-  private static Item getId(Record.Song type) {
+  private Item getId(Record.Song type) {
 
     switch (type) {
       case THIRTEEN:

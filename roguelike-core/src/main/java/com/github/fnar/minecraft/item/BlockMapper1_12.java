@@ -7,7 +7,7 @@ import greymerk.roguelike.worldgen.MetaBlock1_2;
 
 public class BlockMapper1_12 {
 
-  public static ItemStack map(RldItemStack rldItemStack) {
+  public ItemStack map(RldItemStack rldItemStack) {
     return new ItemStack(map((Block)rldItemStack.getItem()));
   }
 

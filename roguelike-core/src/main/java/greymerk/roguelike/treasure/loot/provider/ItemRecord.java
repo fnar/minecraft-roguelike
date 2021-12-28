@@ -16,6 +16,6 @@ public class ItemRecord extends ItemBase {
   @Override
   public ItemStack getLootItem(Random rand, int level) {
     Record.Song song = Record.Song.chooseRandom(rand);
-    return ItemMapper1_12.map(Record.newRecord().withSong(song).asItemStack());
+    return new ItemMapper1_12().map(Record.newRecord().withSong(song).asItemStack());
   }
 }

@@ -2,7 +2,7 @@ package greymerk.roguelike.treasure.loot;
 
 import com.google.gson.JsonObject;
 
-import com.github.fnar.minecraft.item.PotionMapper1_12;
+import com.github.fnar.minecraft.item.PotionParser;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -81,7 +81,7 @@ public enum Loot {
 
     switch (LootType.valueOf(type)) {
       case POTION:
-        return new WeightedChoice<>(PotionMapper1_12.parsePotion(data), weight);
+        return new WeightedChoice<>(new PotionParser().parsePotion(data), weight);
       case MIXTURE:
         return new ItemMixture(data, weight);
       case WEAPON:

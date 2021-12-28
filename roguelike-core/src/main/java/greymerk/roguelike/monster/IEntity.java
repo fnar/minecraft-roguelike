@@ -38,7 +38,7 @@ public interface IEntity {
   }
 
   default void equipArrows(Arrow arrow) {
-    equipOffhand(ItemMapper1_12.map(arrow.asItemStack()));
+    equipOffhand(new ItemMapper1_12().map(arrow.asItemStack()));
   }
 
   default void equipShield(Random rand) {

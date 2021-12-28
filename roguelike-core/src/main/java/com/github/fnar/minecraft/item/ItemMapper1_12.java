@@ -8,9 +8,10 @@ import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.Optional;
 
-public class ItemMapper1_12 {
+public class ItemMapper1_12 implements ItemMapper {
 
-  public static ItemStack map(RldItemStack rldItemStack) {
+  @Override
+  public ItemStack map(RldItemStack rldItemStack) {
     ItemStack itemStack = mapItemByType(rldItemStack);
     itemStack.setCount(rldItemStack.getCount());
     mergeTags(rldItemStack, itemStack);
@@ -23,27 +24,28 @@ public class ItemMapper1_12 {
     switch (item.getItemType()) {
 
       case ARROW:
-        return ArrowMapper1_12.map(rldItemStack);
+        return new ArrowMapper1_12().map(rldItemStack);
       case BLOCK:
-        return BlockMapper1_12.map(rldItemStack);
+        return new BlockMapper1_12().map(rldItemStack);
       case POTION:
-        return PotionMapper1_12.map(rldItemStack);
+        return new PotionMapper1_12().map(rldItemStack);
       case RECORD:
-        return RecordMapper1_12.map(rldItemStack);
+        return new RecordMapper1_12().map(rldItemStack);
       default:
         return new ItemStack(Items.AIR);
     }
   }
 
-  public static void mergeTags(RldItemStack rldItemStack, ItemStack itemStack) {
+  private static void mergeTags(RldItemStack rldItemStack, ItemStack itemStack) {
     Optional.ofNullable(rldItemStack.getTags())
         .ifPresent(compoundTag ->
             Optional.ofNullable(itemStack.getTagCompound()).orElseGet(() -> ensureNbtTags(itemStack))
                 .merge(TagMapper.map(compoundTag)));
   }
 
-  public static NBTTagCompound ensureNbtTags(ItemStack itemStack) {
+  private static NBTTagCompound ensureNbtTags(ItemStack itemStack) {
     itemStack.setTagCompound(new NBTTagCompound());
     return itemStack.getTagCompound();
   }
+
 }

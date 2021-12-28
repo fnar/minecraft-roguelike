@@ -12,7 +12,7 @@ public class Arrow implements RldItem {
   }
 
   public static Arrow newRandomHarmful(Random random) {
-    return newArrow().withTip(Potion.newPotion().withType(Potion.Type.chooseRandomAmong(random, Potion.Type.HARMFUL)));
+    return newArrow().withTip(Potion.newPotion().withEffect(Potion.Effect.chooseRandomAmong(random, Potion.Effect.HARMFUL)));
   }
 
   @Override

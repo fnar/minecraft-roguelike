@@ -124,10 +124,10 @@ public class ItemJunk extends ItemBase {
 
     RldItemStack rldItemStack = Arrow.newArrow()
         .withTip(Potion.newPotion()
-            .withType(Potion.Type.chooseRandom(rand)))
+            .withEffect(Potion.Effect.chooseRandom(rand)))
         .asItemStack()
         .withCount(count);
 
-    return ItemMapper1_12.map(rldItemStack);
+    return new ItemMapper1_12().map(rldItemStack);
   }
 }

@@ -2,33 +2,31 @@ package com.github.fnar.minecraft.item;
 
 import com.google.common.collect.Lists;
 
-import com.github.fnar.minecraft.Effect;
-
 import java.util.List;
 import java.util.Random;
 
 public class Potion implements RldItem {
 
-  private Type type;
+  private Effect effect;
   private Form form;
-  private final List<Effect> effects = Lists.newArrayList();
+  private final List<com.github.fnar.minecraft.Effect> effects = Lists.newArrayList();
   private boolean isAmplified;
   private boolean isExtended;
 
   public Potion() {
-    this(Type.AWKWARD);
+    this(Effect.AWKWARD);
   }
 
-  public Potion(Type type) {
-    this(type, Form.REGULAR);
+  public Potion(Effect effect) {
+    this(effect, Form.REGULAR);
   }
 
-  public Potion(Type type, Form form) {
-    this(type, form, Lists.newArrayList(), false, false);
+  public Potion(Effect effect, Form form) {
+    this(effect, form, Lists.newArrayList(), false, false);
   }
 
-  public Potion(Type type, Form form, List<Effect> effects, boolean isAmplified, boolean isExtended) {
-    this.type = type;
+  public Potion(Effect effect, Form form, List<com.github.fnar.minecraft.Effect> effects, boolean isAmplified, boolean isExtended) {
+    this.effect = effect;
     this.form = form;
     this.effects.addAll(effects);
     this.isAmplified = isAmplified;
@@ -40,7 +38,7 @@ public class Potion implements RldItem {
   }
 
   public static Potion newStrongPoison() {
-    return newPotion().withType(Type.POISON).withAmplification();
+    return newPotion().withEffect(Effect.POISON).withAmplification();
   }
 
   @Override
@@ -48,12 +46,12 @@ public class Potion implements RldItem {
     return ItemType.POTION;
   }
 
-  public Type getType() {
-    return type;
+  public Effect getEffect() {
+    return effect;
   }
 
-  public Potion withType(Type type) {
-    this.type = type;
+  public Potion withEffect(Effect effect) {
+    this.effect = effect;
     return this;
   }
 
@@ -66,11 +64,11 @@ public class Potion implements RldItem {
     return this;
   }
 
-  public List<Effect> getEffects() {
+  public List<com.github.fnar.minecraft.Effect> getEffects() {
     return effects;
   }
 
-  public Potion withEffect(Effect effects) {
+  public Potion withEffect(com.github.fnar.minecraft.Effect effects) {
     this.effects.add(effects);
     return this;
   }
@@ -122,7 +120,7 @@ public class Potion implements RldItem {
     }
   }
 
-  public enum Type {
+  public enum Effect {
 
     AWKWARD,
     FIRE_RESISTANCE,
@@ -144,16 +142,16 @@ public class Potion implements RldItem {
     WEAKNESS,
     ;
 
-    public static final Type[] BUFF = {HEALING, LEAPING, REGENERATION, STRENGTH, SWIFTNESS};
-    public static final Type[] HARMFUL = {HARMING, POISON, SLOWNESS, WEAKNESS};
-    public static final Type[] QUIRK = {FIRE_RESISTANCE, INVISIBILITY, LEVITATION, NIGHT_VISION, SLOW_FALLING, WATER_BREATHING};
+    public static final Effect[] BUFF = {HEALING, LEAPING, REGENERATION, STRENGTH, SWIFTNESS};
+    public static final Effect[] HARMFUL = {HARMING, POISON, SLOWNESS, WEAKNESS};
+    public static final Effect[] QUIRK = {FIRE_RESISTANCE, INVISIBILITY, LEVITATION, NIGHT_VISION, SLOW_FALLING, WATER_BREATHING};
 
-    public static Type chooseRandom(Random random) {
-      return chooseRandomAmong(random, Type.values());
+    public static Effect chooseRandom(Random random) {
+      return chooseRandomAmong(random, Effect.values());
     }
 
-    public static Type chooseRandomAmong(Random random, Type[] types) {
-      return types[random.nextInt(types.length)];
+    public static Effect chooseRandomAmong(Random random, Effect[] effects) {
+      return effects[random.nextInt(effects.length)];
     }
 
   }
