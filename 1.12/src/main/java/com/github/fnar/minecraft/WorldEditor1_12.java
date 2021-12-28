@@ -342,7 +342,7 @@ public class WorldEditor1_12 implements WorldEditor {
 
   @Override
   public void setItem(Coord pos, int slot, RldItemStack itemStack) {
-    setItem(pos, slot, ItemMapper1_12.map(itemStack));
+    setItem(pos, slot, new ItemMapper1_12().map(itemStack));
   }
 
   @Override

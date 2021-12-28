@@ -1,7 +1,5 @@
 package com.github.fnar.minecraft.item;
 
-import com.google.gson.JsonObject;
-
 import com.github.fnar.minecraft.EffectType;
 
 import net.minecraft.init.Items;
@@ -12,19 +10,26 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.potion.PotionUtils;
 
-import greymerk.roguelike.dungeon.settings.DungeonSettingParseException;
+public class PotionMapper1_12 implements PotionMapper {
 
-public class PotionMapper1_12 {
+  @Override
+  public ItemPotion map(Potion.Form form) {
+    return form == Potion.Form.REGULAR ? Items.POTIONITEM
+        : form == Potion.Form.SPLASH ? Items.SPLASH_POTION
+            : Items.LINGERING_POTION;
+  }
 
-  public static ItemStack map(RldItemStack rldItemStack) {
+  @Override
+  public ItemStack map(RldItemStack rldItemStack) {
     RldItem item = rldItemStack.getItem();
     return map((Potion) item);
   }
 
-  public static ItemStack map(Potion potion) {
-    ItemPotion itemPotion = map(potion.getForm());
+  @Override
+  public ItemStack map(Potion potion) {
+    ItemPotion itemPotion = new PotionMapper1_12().map(potion.getForm());
     ItemStack itemStack = new ItemStack(itemPotion);
-    net.minecraft.potion.PotionType data = map(potion.getType(), potion.isAmplified(), potion.isExtended());
+    net.minecraft.potion.PotionType data = new PotionMapper1_12().map(potion.getEffect(), potion.isAmplified(), potion.isExtended());
     ItemStack potionWithData = PotionUtils.addPotionToItemStack(itemStack, data);
     potion.getEffects()
         .forEach(effect ->
@@ -54,15 +59,8 @@ public class PotionMapper1_12 {
     itemStack.setTagCompound(tag);
   }
 
-
-  private static ItemPotion map(Potion.Form form) {
-    return form == Potion.Form.REGULAR ? Items.POTIONITEM
-        : form == Potion.Form.SPLASH ? Items.SPLASH_POTION
-            : Items.LINGERING_POTION;
-  }
-
-  public static net.minecraft.potion.PotionType map(
-      Potion.Type effect,
+  public net.minecraft.potion.PotionType map(
+      Potion.Effect effect,
       boolean isAmplified,
       boolean isExtended
   ) {
@@ -124,19 +122,4 @@ public class PotionMapper1_12 {
     }
   }
 
-  public static ItemStack parsePotion(JsonObject data) throws DungeonSettingParseException {
-    if (!data.has("name")) {
-      throw new DungeonSettingParseException("Potion missing name field");
-    }
-    String nameString = data.get("name").getAsString().toUpperCase();
-
-    net.minecraft.potion.PotionType type = net.minecraft.potion.PotionType.getPotionTypeForName(nameString);
-
-    net.minecraft.item.Item item = !data.has("form")
-        ? Items.POTIONITEM
-        : PotionMapper1_12.map(Potion.Form.valueOf(data.get("form").getAsString().toUpperCase()));
-    ItemStack itemStack = new ItemStack(item);
-
-    return PotionUtils.addPotionToItemStack(itemStack, type);
-  }
 }

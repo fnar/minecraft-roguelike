@@ -3,10 +3,11 @@ package com.github.fnar.minecraft.item;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.PotionType;
 
 public class ArrowMapper1_12 {
 
-  public static ItemStack map(RldItemStack rldItemStack) {
+  public ItemStack map(RldItemStack rldItemStack) {
     return map((Arrow) rldItemStack.getItem());
   }
 
@@ -17,13 +18,13 @@ public class ArrowMapper1_12 {
   }
 
   private static ItemStack getTippedArrowStack(Potion potion) {
-    String tipString = net.minecraft.potion.PotionType.REGISTRY.getNameForObject(PotionMapper1_12.map(potion.getType(), false, false)).toString();
+    PotionType potionType = new PotionMapper1_12().map(potion.getEffect(), false, false);
+    String tipString = net.minecraft.potion.PotionType.REGISTRY.getNameForObject(potionType).toString();
     ItemStack arrow = new ItemStack(Items.TIPPED_ARROW);
     NBTTagCompound nbt = new NBTTagCompound();
     nbt.setString("Potion", tipString);
     arrow.setTagCompound(nbt);
     return arrow;
   }
-
 
 }

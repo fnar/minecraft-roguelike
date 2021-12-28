@@ -2,7 +2,6 @@ package greymerk.roguelike.treasure.loot;
 
 import com.github.fnar.minecraft.item.ItemMapper1_12;
 import com.github.fnar.minecraft.item.RldItemStack;
-import com.github.fnar.minecraft.Effect;
 import com.github.fnar.minecraft.EffectType;
 import com.github.fnar.minecraft.item.Potion;
 
@@ -46,7 +45,7 @@ public enum PotionMixture {
   }
 
   public static ItemStack getPotion(Random random, PotionMixture type) {
-    return ItemMapper1_12.map(getPotionAsRldItemStack(random, type));
+    return new ItemMapper1_12().map(getPotionAsRldItemStack(random, type));
   }
 
   public static RldItemStack getPotionAsRldItemStack(Random random, PotionMixture type) {
@@ -79,8 +78,8 @@ public enum PotionMixture {
 
    public static RldItemStack getTequila(Random random) {
     return Potion.newPotion()
-        .withEffect(Effect.newEffect(EffectType.STRENGTH, 2, 30 + random.nextInt(60)))
-        .withEffect(Effect.newEffect(EffectType.FATIGUE, 0, 30 + random.nextInt(60)))
+        .withEffect(com.github.fnar.minecraft.Effect.newEffect(EffectType.STRENGTH, 2, 30 + random.nextInt(60)))
+        .withEffect(com.github.fnar.minecraft.Effect.newEffect(EffectType.FATIGUE, 0, 30 + random.nextInt(60)))
         .asItemStack()
         .withDisplayName("Tequila")
         .withHideFlag(ItemHideFlags.EFFECTS)
@@ -89,11 +88,11 @@ public enum PotionMixture {
 
   public static RldItemStack getLaudanum() {
     return Potion.newPotion()
-        .withEffect(Effect.newEffect(EffectType.REGEN, 2, 8))
-        .withEffect(Effect.newEffect(EffectType.WEAKNESS, 1, 5))
-        .withEffect(Effect.newEffect(EffectType.SLOWNESS, 1, 5))
-        .withEffect(Effect.newEffect(EffectType.FATIGUE, 1, 5))
-        .withEffect(Effect.newEffect(EffectType.NAUSEA, 0, 5))
+        .withEffect(com.github.fnar.minecraft.Effect.newEffect(EffectType.REGEN, 2, 8))
+        .withEffect(com.github.fnar.minecraft.Effect.newEffect(EffectType.WEAKNESS, 1, 5))
+        .withEffect(com.github.fnar.minecraft.Effect.newEffect(EffectType.SLOWNESS, 1, 5))
+        .withEffect(com.github.fnar.minecraft.Effect.newEffect(EffectType.FATIGUE, 1, 5))
+        .withEffect(com.github.fnar.minecraft.Effect.newEffect(EffectType.NAUSEA, 0, 5))
         .asItemStack()
         .withDisplayName("Laudanum")
         .withDisplayLore("A medicinal tincture.")
@@ -104,9 +103,9 @@ public enum PotionMixture {
   public static RldItemStack getMoonshine(Random random) {
     return
         Potion.newPotion()
-            .withEffect(Effect.newEffect(EffectType.DAMAGE, 0, 1))
-            .withEffect(Effect.newEffect(EffectType.BLINDNESS, 0, 30 + random.nextInt(60)))
-            .withEffect(Effect.newEffect(EffectType.RESISTANCE, 1, 30 + random.nextInt(30)))
+            .withEffect(com.github.fnar.minecraft.Effect.newEffect(EffectType.DAMAGE, 0, 1))
+            .withEffect(com.github.fnar.minecraft.Effect.newEffect(EffectType.BLINDNESS, 0, 30 + random.nextInt(60)))
+            .withEffect(com.github.fnar.minecraft.Effect.newEffect(EffectType.RESISTANCE, 1, 30 + random.nextInt(30)))
             .asItemStack()
             .withDisplayName("Moonshine")
             .withHideFlag(ItemHideFlags.EFFECTS)
@@ -116,9 +115,9 @@ public enum PotionMixture {
   public static RldItemStack getAbsinthe() {
     return
         Potion.newPotion()
-            .withEffect(Effect.newEffect(EffectType.POISON, 0, 3))
-            .withEffect(Effect.newEffect(EffectType.NIGHT_VISION, 0, 120))
-            .withEffect(Effect.newEffect(EffectType.JUMP, 2, 120))
+            .withEffect(com.github.fnar.minecraft.Effect.newEffect(EffectType.POISON, 0, 3))
+            .withEffect(com.github.fnar.minecraft.Effect.newEffect(EffectType.NIGHT_VISION, 0, 120))
+            .withEffect(com.github.fnar.minecraft.Effect.newEffect(EffectType.JUMP, 2, 120))
             .asItemStack()
             .withDisplayName("Absinthe")
             .withHideFlag(ItemHideFlags.EFFECTS)
@@ -131,14 +130,14 @@ public enum PotionMixture {
     return
         Potion.newPotion()
             .withForm(Potion.Form.chooseRandom(random))
-            .withType(Potion.Type.chooseRandom(random))
+            .withEffect(Potion.Effect.chooseRandom(random))
             .withAmplification(random.nextBoolean())
             .withExtension(random.nextBoolean())
-            .withEffect(Effect.newEffect()
+            .withEffect(com.github.fnar.minecraft.Effect.newEffect()
                 .withType(randomEffect0)
                 .withAmplification(Potion.Amplification.chooseRandom(random))
                 .withDuration(getSuggestedDuration(random, randomEffect0)))
-            .withEffect(Effect.newEffect()
+            .withEffect(com.github.fnar.minecraft.Effect.newEffect()
                 .withType(randomEffect1)
                 .withAmplification(Potion.Amplification.chooseRandom(random))
                 .withDuration(getSuggestedDuration(random, randomEffect1)))
@@ -151,9 +150,9 @@ public enum PotionMixture {
   public static RldItemStack getRage() {
     return
         Potion.newPotion()
-            .withEffect(Effect.newEffect(EffectType.STRENGTH, 2, 20))
-            .withEffect(Effect.newEffect(EffectType.BLINDNESS, 0, 10))
-            .withEffect(Effect.newEffect(EffectType.WITHER, 0, 3))
+            .withEffect(com.github.fnar.minecraft.Effect.newEffect(EffectType.STRENGTH, 2, 20))
+            .withEffect(com.github.fnar.minecraft.Effect.newEffect(EffectType.BLINDNESS, 0, 10))
+            .withEffect(com.github.fnar.minecraft.Effect.newEffect(EffectType.WITHER, 0, 3))
             .asItemStack()
             .withDisplayName("Animus")
             .withDisplayLore("An unstable mixture.")
@@ -164,10 +163,10 @@ public enum PotionMixture {
   public static RldItemStack getStamina() {
     return
         Potion.newPotion()
-            .withEffect(Effect.newEffect(EffectType.SATURATION, 9, 1))
-            .withEffect(Effect.newEffect(EffectType.SPEED, 1, 120))
-            .withEffect(Effect.newEffect(EffectType.HASTE, 1, 120))
-            .withEffect(Effect.newEffect(EffectType.JUMP, 2, 120))
+            .withEffect(com.github.fnar.minecraft.Effect.newEffect(EffectType.SATURATION, 9, 1))
+            .withEffect(com.github.fnar.minecraft.Effect.newEffect(EffectType.SPEED, 1, 120))
+            .withEffect(com.github.fnar.minecraft.Effect.newEffect(EffectType.HASTE, 1, 120))
+            .withEffect(com.github.fnar.minecraft.Effect.newEffect(EffectType.JUMP, 2, 120))
             .asItemStack()
             .withDisplayName("Vitae")
             .withDisplayLore("Essence of life.")
@@ -178,10 +177,10 @@ public enum PotionMixture {
   public static RldItemStack getStout() {
     return
         Potion.newPotion()
-            .withEffect(Effect.newEffect(EffectType.REGEN, 0, 5))
-            .withEffect(Effect.newEffect(EffectType.SATURATION, 1, 1))
-            .withEffect(Effect.newEffect(EffectType.HEALTH_BOOST, 1, 120))
-            .withEffect(Effect.newEffect(EffectType.RESISTANCE, 0, 120))
+            .withEffect(com.github.fnar.minecraft.Effect.newEffect(EffectType.REGEN, 0, 5))
+            .withEffect(com.github.fnar.minecraft.Effect.newEffect(EffectType.SATURATION, 1, 1))
+            .withEffect(com.github.fnar.minecraft.Effect.newEffect(EffectType.HEALTH_BOOST, 1, 120))
+            .withEffect(com.github.fnar.minecraft.Effect.newEffect(EffectType.RESISTANCE, 0, 120))
             .asItemStack()
             .withDisplayName("Stout")
             .withDisplayLore("\"It's Good for You\"")
@@ -192,9 +191,9 @@ public enum PotionMixture {
   public static RldItemStack getNectar() {
     return
         Potion.newPotion()
-            .withEffect(Effect.newEffect(EffectType.ABSORPTION, 9, 20))
-            .withEffect(Effect.newEffect(EffectType.RESISTANCE, 2, 20))
-            .withEffect(Effect.newEffect(EffectType.HEALTH, 1, 1))
+            .withEffect(com.github.fnar.minecraft.Effect.newEffect(EffectType.ABSORPTION, 9, 20))
+            .withEffect(com.github.fnar.minecraft.Effect.newEffect(EffectType.RESISTANCE, 2, 20))
+            .withEffect(com.github.fnar.minecraft.Effect.newEffect(EffectType.HEALTH, 1, 1))
             .asItemStack()
             .withDisplayName("Nectar")
             .withDisplayLore("A Floral extract.")
@@ -205,8 +204,8 @@ public enum PotionMixture {
   public static RldItemStack getCoffee() {
     return
         Potion.newPotion()
-            .withEffect(Effect.newEffect(EffectType.HASTE, 1, 600))
-            .withEffect(Effect.newEffect(EffectType.SPEED, 0, 600))
+            .withEffect(com.github.fnar.minecraft.Effect.newEffect(EffectType.HASTE, 1, 600))
+            .withEffect(com.github.fnar.minecraft.Effect.newEffect(EffectType.SPEED, 0, 600))
             .asItemStack()
             .withDisplayName("Coffee")
             .withDisplayLore("A darkroast bean brew.")
@@ -217,7 +216,7 @@ public enum PotionMixture {
   public static RldItemStack getAura() {
     return
         Potion.newPotion()
-            .withEffect(Effect.newEffect(EffectType.GLOWING, 0, 600))
+            .withEffect(com.github.fnar.minecraft.Effect.newEffect(EffectType.GLOWING, 0, 600))
             .asItemStack()
             .withDisplayName("Luma")
             .withDisplayLore("A glowstone extract.")

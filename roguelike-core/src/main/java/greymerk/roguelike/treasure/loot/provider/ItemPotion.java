@@ -15,14 +15,14 @@ public class ItemPotion extends ItemBase {
 
   @Override
   public ItemStack getLootItem(Random rand, int level) {
-    final Potion.Type[] types = new Potion.Type[]{
-        Potion.Type.HEALING,
-        Potion.Type.STRENGTH,
-        Potion.Type.SWIFTNESS,
-        Potion.Type.REGENERATION
+    final Potion.Effect[] effects = new Potion.Effect[]{
+        Potion.Effect.HEALING,
+        Potion.Effect.STRENGTH,
+        Potion.Effect.SWIFTNESS,
+        Potion.Effect.REGENERATION
     };
-    Potion.Type type = Potion.Type.chooseRandomAmong(rand, types);
-    return ItemMapper1_12.map(Potion.newPotion().withForm(Potion.Form.REGULAR).withType(type).withAmplification().asItemStack());
+    Potion.Effect effect = Potion.Effect.chooseRandomAmong(rand, effects);
+    return new ItemMapper1_12().map(Potion.newPotion().withForm(Potion.Form.REGULAR).withEffect(effect).withAmplification().asItemStack());
   }
 
 }

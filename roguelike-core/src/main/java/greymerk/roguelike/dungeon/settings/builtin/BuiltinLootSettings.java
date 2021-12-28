@@ -87,7 +87,7 @@ public class BuiltinLootSettings extends DungeonSettings {
       getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, loot.get(Loot.TOOL, level), level, 2));
       getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, loot.get(Loot.SUPPLY, level), level, 2));
       getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new ItemSpecialty(1, level, Equipment.LEGS, Quality.WOOD), level, 2));
-      getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(ItemMapper1_12.map(PotionMixture.getCoffee()), 1), level, 2));
+      getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(new ItemMapper1_12().map(PotionMixture.getCoffee()), 1), level, 2));
     }
   }
 }
