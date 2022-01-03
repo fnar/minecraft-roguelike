@@ -1,23 +1,22 @@
 package com.github.fnar.roguelike.loot.special.tools;
 
+import com.github.fnar.minecraft.item.Enchantment;
+import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.roguelike.loot.special.SpecialEquipment;
-
-import net.minecraft.item.ItemStack;
 
 import java.util.Random;
 
-import greymerk.roguelike.treasure.loot.Enchant;
 import greymerk.roguelike.treasure.loot.Quality;
-import greymerk.roguelike.treasure.loot.provider.ItemTool;
+import greymerk.roguelike.treasure.loot.provider.ToolQualityOddsTable;
 
 public class SpecialTool extends SpecialEquipment {
 
-  public static ItemStack createTool(Random random, int level) {
-    Quality quality = ItemTool.rollToolQuality(random, level);
+  public static RldItemStack createTool(Random random, int level) {
+    Quality quality = ToolQualityOddsTable.rollToolQuality(random, level);
     return createTool(random, quality);
   }
 
-  public static ItemStack createTool(Random random, Quality quality) {
+  public static RldItemStack createTool(Random random, Quality quality) {
     return chooseTool(random, quality).complete();
   }
 
@@ -43,7 +42,7 @@ public class SpecialTool extends SpecialEquipment {
     if (enchantmentLevel <= 0) {
       return;
     }
-    withEnchantment(Enchant.getEnchant(Enchant.FORTUNE), enchantmentLevel);
+    withEnchantment(Enchantment.Effect.FORTUNE, enchantmentLevel);
     withSuffix("of Prospecting");
   }
 
@@ -51,7 +50,7 @@ public class SpecialTool extends SpecialEquipment {
     if (random.nextInt(10) != 0) {
       return;
     }
-    withEnchantment(Enchant.getEnchant(Enchant.SILKTOUCH), 1);
+    withEnchantment(Enchantment.Effect.SILK_TOUCH, 1);
     withPrefix("Precision");
   }
 
@@ -60,7 +59,7 @@ public class SpecialTool extends SpecialEquipment {
     if (enchantmentLevel <= 0) {
       return;
     }
-    withEnchantment(Enchant.getEnchant(Enchant.EFFICIENCY), enchantmentLevel);
+    withEnchantment(Enchantment.Effect.EFFICIENCY, enchantmentLevel);
     if (enchantmentLevel >= 3) {
       withPrefix("Artisan's");
     }

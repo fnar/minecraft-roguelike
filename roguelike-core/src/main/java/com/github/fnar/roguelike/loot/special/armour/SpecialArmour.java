@@ -1,23 +1,22 @@
 package com.github.fnar.roguelike.loot.special.armour;
 
+import com.github.fnar.minecraft.item.Enchantment;
+import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.roguelike.loot.special.SpecialEquipment;
-
-import net.minecraft.item.ItemStack;
 
 import java.util.Random;
 
-import greymerk.roguelike.treasure.loot.Enchant;
 import greymerk.roguelike.treasure.loot.Quality;
-import greymerk.roguelike.treasure.loot.provider.ItemArmour;
+import greymerk.roguelike.treasure.loot.provider.ArmourQualityOddsTable;
 
 public class SpecialArmour extends SpecialEquipment {
 
-  public static ItemStack createArmour(Random random, int level) {
-    Quality quality = ItemArmour.rollArmourQuality(random, level);
+  public static RldItemStack createArmour(Random random, int level) {
+    Quality quality = ArmourQualityOddsTable.rollArmourQuality(random, level);
     return createArmour(random, quality);
   }
 
-  public static ItemStack createArmour(Random random, Quality quality) {
+  public static RldItemStack createArmour(Random random, Quality quality) {
     switch (random.nextInt(4)) {
       case 0:
         return new SpecialHelmet(random, quality).complete();
@@ -61,22 +60,22 @@ public class SpecialArmour extends SpecialEquipment {
   }
 
   protected void withProtection(Random random) {
-    withEnchantment(Enchant.getEnchant(Enchant.PROTECTION), Enchant.getProtectionLevel(quality, random));
+    withEnchantment(Enchantment.Effect.PROTECTION, SpecialEquipment.getProtectionLevel(quality, random));
     withSuffix("of Defense");
   }
 
   protected void withProjectileProtection(Random random) {
-    withEnchantment(Enchant.getEnchant(Enchant.PROJECTILEPROTECTION), Enchant.getProtectionLevel(quality, random));
+    withEnchantment(Enchantment.Effect.PROJECTILE_PROTECTION, SpecialEquipment.getProtectionLevel(quality, random));
     withSuffix("of Deflection");
   }
 
   protected void withBlastProtection(Random random) {
-    withEnchantment(Enchant.getEnchant(Enchant.BLASTPROTECTION), Enchant.getProtectionLevel(quality, random));
+    withEnchantment(Enchantment.Effect.BLAST_PROTECTION, SpecialEquipment.getProtectionLevel(quality, random));
     withSuffix("of Integrity");
   }
 
   protected void withFlameProtection(Random random) {
-    withEnchantment(Enchant.getEnchant(Enchant.FIREPROTECTION), Enchant.getProtectionLevel(quality, random));
+    withEnchantment(Enchantment.Effect.FIRE_PROTECTION, SpecialEquipment.getProtectionLevel(quality, random));
     withSuffix("of Flamewarding");
   }
 

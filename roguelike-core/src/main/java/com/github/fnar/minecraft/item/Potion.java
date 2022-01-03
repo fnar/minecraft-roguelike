@@ -7,6 +7,8 @@ import java.util.Random;
 
 public class Potion implements RldItem {
 
+  // TODO: Move amplification and extension onto effect instead of potion
+  // TODO: Potions can hold multiple effects
   private Effect effect;
   private Form form;
   private final List<com.github.fnar.minecraft.Effect> effects = Lists.newArrayList();
@@ -35,10 +37,6 @@ public class Potion implements RldItem {
 
   public static Potion newPotion() {
     return new Potion();
-  }
-
-  public static Potion newStrongPoison() {
-    return newPotion().withEffect(Effect.POISON).withAmplification();
   }
 
   @Override
@@ -123,6 +121,7 @@ public class Potion implements RldItem {
   public enum Effect {
 
     AWKWARD,
+    EMPTY,
     FIRE_RESISTANCE,
     HARMING,
     HEALING,
@@ -130,6 +129,7 @@ public class Potion implements RldItem {
     LEAPING,
     LEVITATION,
     LUCK,
+    MUNDANE,
     NIGHT_VISION,
     POISON,
     REGENERATION,
@@ -137,7 +137,9 @@ public class Potion implements RldItem {
     SLOW_FALLING,
     STRENGTH,
     SWIFTNESS,
+    THICK,
     TURTLE_MASTER,
+    WATER,
     WATER_BREATHING,
     WEAKNESS,
     ;
@@ -154,6 +156,9 @@ public class Potion implements RldItem {
       return effects[random.nextInt(effects.length)];
     }
 
+    public Potion asItem() {
+      return newPotion().withEffect(this);
+    }
   }
 
   public enum Form {

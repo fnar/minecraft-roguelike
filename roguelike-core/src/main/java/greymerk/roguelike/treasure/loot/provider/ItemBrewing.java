@@ -1,41 +1,40 @@
 package greymerk.roguelike.treasure.loot.provider;
 
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
+import com.github.fnar.minecraft.item.Ingredient;
+import com.github.fnar.minecraft.item.RldItemStack;
 
 import java.util.Random;
 
-import greymerk.roguelike.treasure.loot.WeightedRandomLoot;
+import greymerk.roguelike.treasure.loot.MinecraftItemLootItem;
 import greymerk.roguelike.util.WeightedRandomizer;
 
 
-public class ItemBrewing extends ItemBase {
+public class ItemBrewing extends LootItem {
 
-  private WeightedRandomizer<ItemStack> items;
+  private final WeightedRandomizer<RldItemStack> items;
 
   public ItemBrewing(int weight, int level) {
     super(weight, level);
     this.items = new WeightedRandomizer<>();
-    this.items.add(new WeightedRandomLoot(Items.SPIDER_EYE, 0, 1, 3, 1));
-    this.items.add(new WeightedRandomLoot(Items.BLAZE_POWDER, 0, 1, 3, 1));
-    this.items.add(new WeightedRandomLoot(Items.MAGMA_CREAM, 0, 1, 3, 1));
-    this.items.add(new WeightedRandomLoot(Items.GHAST_TEAR, 0, 1, 3, 1));
-    this.items.add(new WeightedRandomLoot(Items.NETHER_WART, 0, 1, 3, 1));
-    this.items.add(new WeightedRandomLoot(Items.REDSTONE, 0, 1, 3, 1));
-    this.items.add(new WeightedRandomLoot(Items.GLOWSTONE_DUST, 0, 1, 3, 1));
-    this.items.add(new WeightedRandomLoot(Items.SUGAR, 0, 1, 3, 1));
-    this.items.add(new WeightedRandomLoot(Items.SPECKLED_MELON, 0, 1, 3, 1));
-    this.items.add(new WeightedRandomLoot(Items.FERMENTED_SPIDER_EYE, 0, 1, 3, 1));
-    this.items.add(new WeightedRandomLoot(Blocks.BROWN_MUSHROOM, 0, 1, 3, 1));
-    this.items.add(new WeightedRandomLoot(Blocks.RED_MUSHROOM, 0, 1, 3, 1));
-    this.items.add(new WeightedRandomLoot(Items.RABBIT_FOOT, 0, 1, 3, 1));
-    this.items.add(new WeightedRandomLoot(Items.FISH, 3, 1, 3, 1));
-    this.items.add(new WeightedRandomLoot(Items.GLASS_BOTTLE, 0, 3, 12, 1));
+    this.items.add(new MinecraftItemLootItem(Ingredient.Type.SPIDER_EYE.asItem(), 0, 1, 3, 1));
+    this.items.add(new MinecraftItemLootItem(Ingredient.Type.BLAZE_POWDER.asItem(), 0, 1, 3, 1));
+    this.items.add(new MinecraftItemLootItem(Ingredient.Type.MAGMA_CREAM.asItem(), 0, 1, 3, 1));
+    this.items.add(new MinecraftItemLootItem(Ingredient.Type.GHAST_TEAR.asItem(), 0, 1, 3, 1));
+    this.items.add(new MinecraftItemLootItem(Ingredient.Type.NETHER_WART.asItem(), 0, 1, 3, 1));
+    this.items.add(new MinecraftItemLootItem(Ingredient.Type.REDSTONE.asItem(), 0, 1, 3, 1));
+    this.items.add(new MinecraftItemLootItem(Ingredient.Type.GLOWSTONE_DUST.asItem(), 0, 1, 3, 1));
+    this.items.add(new MinecraftItemLootItem(Ingredient.Type.SUGAR.asItem(), 0, 1, 3, 1));
+    this.items.add(new MinecraftItemLootItem(Ingredient.Type.SPECKLED_MELON.asItem(), 0, 1, 3, 1));
+    this.items.add(new MinecraftItemLootItem(Ingredient.Type.FERMENTED_SPIDER_EYE.asItem(), 0, 1, 3, 1));
+    this.items.add(new MinecraftItemLootItem(Ingredient.Type.BROWN_MUSHROOM.asItem(), 0, 1, 3, 1));
+    this.items.add(new MinecraftItemLootItem(Ingredient.Type.RED_MUSHROOM.asItem(), 0, 1, 3, 1));
+    this.items.add(new MinecraftItemLootItem(Ingredient.Type.RABBIT_FOOT.asItem(), 0, 1, 3, 1));
+    this.items.add(new MinecraftItemLootItem(Ingredient.Type.FISH.asItem(), 3, 1, 3, 1));
+    this.items.add(new MinecraftItemLootItem(Ingredient.Type.GLASS_BOTTLE.asItem(), 0, 3, 12, 1));
   }
 
   @Override
-  public ItemStack getLootItem(Random rand, int level) {
+  public RldItemStack getLootItem(Random rand, int level) {
     return this.items.get(rand);
   }
 }

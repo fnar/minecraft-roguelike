@@ -10,15 +10,21 @@ import greymerk.roguelike.treasure.loot.Quality;
 import greymerk.roguelike.treasure.loot.Slot;
 
 public enum ArmourType {
-  HELMET,
-  CHESTPLATE,
-  LEGGINGS,
+
   BOOTS,
+  CHESTPLATE,
+  HELMET,
+  HORSE,
+  LEGGINGS,
   ;
 
   public static ArmourType random(Random random) {
     int choice = random.nextInt(values().length);
     return values()[choice];
+  }
+
+  public Armour asItem() {
+    return new Armour(this);
   }
 
   public Item asItem(Quality quality) {
@@ -36,7 +42,7 @@ public enum ArmourType {
   }
 
   public Equipment asEquipment() {
-    switch(this) {
+    switch (this) {
       case HELMET:
         return Equipment.HELMET;
       case CHESTPLATE:
@@ -50,7 +56,7 @@ public enum ArmourType {
   }
 
   public Slot asSlot() {
-    switch(this) {
+    switch (this) {
       case HELMET:
         return Slot.HEAD;
       case CHESTPLATE:

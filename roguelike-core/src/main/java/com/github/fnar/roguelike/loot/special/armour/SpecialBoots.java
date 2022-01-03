@@ -1,15 +1,16 @@
 package com.github.fnar.roguelike.loot.special.armour;
 
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
+import com.github.fnar.minecraft.item.ArmourType;
+import com.github.fnar.minecraft.item.Enchantment;
+import com.github.fnar.minecraft.item.RldItem;
+import com.github.fnar.roguelike.loot.special.SpecialEquipment;
 
 import java.util.Random;
 
-import greymerk.roguelike.treasure.loot.Enchant;
 import greymerk.roguelike.treasure.loot.Quality;
 
 import static greymerk.roguelike.treasure.loot.Quality.DIAMOND;
-import static greymerk.roguelike.treasure.loot.provider.ItemTool.rollToolQuality;
+import static greymerk.roguelike.treasure.loot.provider.ToolQualityOddsTable.rollToolQuality;
 
 public class SpecialBoots extends SpecialArmour {
 
@@ -19,7 +20,7 @@ public class SpecialBoots extends SpecialArmour {
 
   public SpecialBoots(Random random, Quality quality) {
     withQuality(quality);
-    withItem(getSpecialBootsItem());
+    withRldItem(getItem());
     withName(getSpecialBootsName());
     withBootsEnchantments(random);
     withCommonEnchantments(random);
@@ -36,25 +37,13 @@ public class SpecialBoots extends SpecialArmour {
   }
 
   private void withFeatherFalling(Random random) {
-    withEnchantment(Enchant.getEnchant(Enchant.FEATHERFALLING), quality == DIAMOND ? 4 : 1 + random.nextInt(3));
-    withEnchantment(Enchant.getEnchant(Enchant.PROTECTION), Enchant.getProtectionLevel(quality, random));
+    withEnchantment(Enchantment.Effect.FEATHER_FALLING, quality == DIAMOND ? 4 : 1 + random.nextInt(3));
+    withEnchantment(Enchantment.Effect.PROTECTION, SpecialEquipment.getProtectionLevel(quality, random));
     withSuffix("of Lightness");
   }
 
-  private Item getSpecialBootsItem() {
-    switch (quality) {
-      case DIAMOND:
-        return Items.DIAMOND_BOOTS;
-      case GOLD:
-        return Items.GOLDEN_BOOTS;
-      case IRON:
-        return Items.IRON_BOOTS;
-      case STONE:
-        return Items.CHAINMAIL_BOOTS;
-      case WOOD:
-      default:
-        return Items.LEATHER_BOOTS;
-    }
+  private RldItem getItem() {
+    return ArmourType.BOOTS.asItem().withQuality(quality);
   }
 
   private String getSpecialBootsName() {

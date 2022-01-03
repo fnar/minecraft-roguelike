@@ -18,7 +18,7 @@ public class ProfilePoisonArcher implements IMonsterProfile {
   public void equip(World world, Random random, int level, IEntity mob) {
     mob.setMobClass(MobType.STRAY, false);
     mob.equipBow(world, random, level);
-    mob.equipArrows(Arrow.newArrow().withTip(Potion.newStrongPoison()));
+    mob.equipArrows(Arrow.newArrow().withTip(Potion.Effect.POISON.asItem().withAmplification()));
     mob.equipArmor(world, random, level, Colors.PALE_LIME_GREEN);
   }
 

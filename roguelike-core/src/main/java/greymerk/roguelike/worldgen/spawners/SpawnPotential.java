@@ -1,5 +1,7 @@
 package greymerk.roguelike.worldgen.spawners;
 
+import com.google.common.collect.Lists;
+
 import com.github.fnar.minecraft.EffectType;
 import com.github.fnar.minecraft.item.ToolType;
 import com.github.fnar.minecraft.item.WeaponType;
@@ -8,6 +10,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagFloat;
 import net.minecraft.nbt.NBTTagList;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import greymerk.roguelike.config.RogueConfig;
@@ -16,9 +19,9 @@ import static greymerk.roguelike.treasure.loot.Equipment.CHEST;
 import static greymerk.roguelike.treasure.loot.Equipment.FEET;
 import static greymerk.roguelike.treasure.loot.Equipment.HELMET;
 import static greymerk.roguelike.treasure.loot.Equipment.LEGS;
-import static greymerk.roguelike.treasure.loot.provider.ItemArmour.rollArmourQuality;
-import static greymerk.roguelike.treasure.loot.provider.ItemTool.rollToolQuality;
-import static greymerk.roguelike.treasure.loot.provider.ItemWeapon.rollWeaponQuality;
+import static greymerk.roguelike.treasure.loot.provider.ArmourQualityOddsTable.rollArmourQuality;
+import static greymerk.roguelike.treasure.loot.provider.ToolQualityOddsTable.rollToolQuality;
+import static greymerk.roguelike.treasure.loot.provider.WeaponQualityOddsTable.rollWeaponQuality;
 import static java.util.stream.IntStream.range;
 
 public class SpawnPotential {
@@ -75,9 +78,18 @@ public class SpawnPotential {
       return WeaponType.random(random).asEquipment().getMinecraftName(rollWeaponQuality(random, level));
     }
     if (random.nextBoolean()) {
-      return ToolType.random(random).asEquipment().getMinecraftName(rollToolQuality(random, level));
+      return ToolType.randomAmong(random, someTools()).asEquipment().getMinecraftName(rollToolQuality(random, level));
     }
     return null;
+  }
+
+  private ArrayList<ToolType> someTools() {
+    return Lists.newArrayList(
+        ToolType.AXE,
+        ToolType.HOE,
+        ToolType.PICKAXE,
+        ToolType.SHOVEL
+    );
   }
 
   private String getOffHand(Random random) {

@@ -1,15 +1,46 @@
 package greymerk.roguelike.treasure.loot;
 
-import net.minecraft.item.ItemStack;
+import com.github.fnar.minecraft.item.ItemType;
+import com.github.fnar.minecraft.item.RldItem;
 
-import greymerk.roguelike.treasure.loot.books.BookStarter;
+import java.util.ArrayList;
+import java.util.List;
 
-public enum Book {
+public class Book implements RldItem {
 
-  CREDITS;
+  private final List<String> pages = new ArrayList<>();
+  private String author;
+  private String title;
 
-  public static ItemStack get(Book type) {
-    return new BookStarter().get();
+  public Book(String author, String title) {
+    this.author = author;
+    this.title = title;
   }
 
+  public void addPage(String page) {
+    this.pages.add(page);
+  }
+
+  public List<String> getPages() {
+    return pages;
+  }
+
+  public String getAuthor() {
+    return author;
+  }
+
+  public String getTitle() {
+    return title;
+  }
+
+  @Override
+  public ItemType getItemType() {
+    return ItemType.BOOK;
+  }
+
+  public enum Special {
+
+    CREDITS
+
+  }
 }

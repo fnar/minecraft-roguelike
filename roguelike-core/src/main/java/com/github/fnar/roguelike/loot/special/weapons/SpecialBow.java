@@ -1,24 +1,24 @@
 package com.github.fnar.roguelike.loot.special.weapons;
 
+import com.github.fnar.minecraft.item.Enchantment;
 import com.github.fnar.minecraft.item.WeaponType;
 
 import java.util.Random;
 
-import greymerk.roguelike.treasure.loot.Enchant;
 import greymerk.roguelike.treasure.loot.Quality;
-import greymerk.roguelike.treasure.loot.provider.ItemWeapon;
+import greymerk.roguelike.treasure.loot.provider.WeaponQualityOddsTable;
 import greymerk.roguelike.util.TextFormat;
 
 public class SpecialBow extends SpecialWeapon {
 
   public SpecialBow(Random random, int level) {
-    this(random, ItemWeapon.rollWeaponQuality(random, level));
+    this(random, WeaponQualityOddsTable.rollWeaponQuality(random, level));
   }
 
   public SpecialBow(Random random, Quality quality) {
 
     withQuality(quality);
-    withItem(WeaponType.getBowItem());
+    withRldItem(WeaponType.BOW.asItem());
     withPower(random);
 
     switch (quality) {
@@ -33,13 +33,13 @@ public class SpecialBow extends SpecialWeapon {
         withLore("Highly polished", TextFormat.DARKGREEN);
       case GOLD:
         if (random.nextBoolean()) {
-          withEnchantment(Enchant.getEnchant(Enchant.INFINITY), 1);
+          withEnchantment(Enchantment.Effect.INFINITY, 1);
           withName("Elven Bow");
           withLore("Beautifully crafted", TextFormat.DARKGREEN);
         }
 
         if (random.nextBoolean()) {
-          withEnchantment(Enchant.getEnchant(Enchant.MENDING), 1);
+          withEnchantment(Enchantment.Effect.MENDING, 1);
           withName("Faerie Bow");
           withLore("Blessed by the fae", TextFormat.DARKGREEN);
         }
@@ -47,7 +47,7 @@ public class SpecialBow extends SpecialWeapon {
         withLore("Curves outward toward the target", TextFormat.DARKGREEN);
         break;
       case DIAMOND:
-        withEnchantment(Enchant.getEnchant(Enchant.FLAME), 1);
+        withEnchantment(Enchantment.Effect.FLAME, 1);
         withName("Eldritch Bow");
         withLore("Warm to the touch", TextFormat.DARKGREEN);
         break;
@@ -60,6 +60,6 @@ public class SpecialBow extends SpecialWeapon {
     if (enchantmentLevel <= 0) {
       return;
     }
-    withEnchantment(Enchant.getEnchant(Enchant.POWER), enchantmentLevel);
+    withEnchantment(Enchantment.Effect.POWER, enchantmentLevel);
   }
 }

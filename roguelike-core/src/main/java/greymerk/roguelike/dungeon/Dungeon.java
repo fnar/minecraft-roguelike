@@ -244,7 +244,6 @@ public class Dungeon {
     if (RogueConfig.RANDOM.getBoolean()) {
       return Optional.of(new SettingsRandom(editor.getRandom(coord)));
     }
-    // todo: Why would this ever be null?
     if (settingsResolver == null) {
       return Optional.empty();
     }

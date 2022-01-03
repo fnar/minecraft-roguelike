@@ -2,8 +2,6 @@ package greymerk.roguelike.treasure;
 
 import com.github.fnar.minecraft.item.RldItemStack;
 
-import net.minecraft.item.ItemStack;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,20 +31,6 @@ public class TreasureChest {
     this.level = Dungeon.getLevel(pos.getY());
     this.pos = pos.copy();
     this.worldEditor = worldEditor;
-  }
-
-  public void setSlot(int slot, ItemStack item) {
-    worldEditor.setItem(pos, slot, item);
-  }
-
-  public void setRandomEmptySlot(ItemStack itemStack) {
-    List<Integer> slots = IntStream.range(0, this.worldEditor.getCapacity(this)).boxed().collect(Collectors.toList());
-    Collections.shuffle(slots);
-    slots.stream()
-        .mapToInt(slot -> slot)
-        .filter(slot -> worldEditor.isEmptySlot(this, slot))
-        .findFirst()
-        .ifPresent(value -> setSlot(value, itemStack));
   }
 
   public void setSlot(int slot, RldItemStack itemStack) {

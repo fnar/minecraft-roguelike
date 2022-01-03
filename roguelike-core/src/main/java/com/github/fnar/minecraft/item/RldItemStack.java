@@ -1,7 +1,6 @@
 package com.github.fnar.minecraft.item;
 
 
-import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.tag.CompoundTag;
 import com.github.fnar.minecraft.tag.ListTag;
 
@@ -11,19 +10,14 @@ public class RldItemStack {
 
   private RldItem item;
   private int count;
+  private int damage;
   private CompoundTag tags;
-
-  public RldItemStack(RldItem item) {
-    this(item, 1);
-  }
+  private boolean isPlzNbt = false;
+  private String plzNbt;
 
   public RldItemStack(RldItem item, int count) {
     this.item = item;
     this.count = count;
-  }
-
-  public static RldItemStack forBlockType(BlockType blockType) {
-    return new RldItemStack(new Block(blockType));
   }
 
   public RldItem getItem() {
@@ -44,6 +38,15 @@ public class RldItemStack {
     return this;
   }
 
+  public int getDamage() {
+    return damage;
+  }
+
+  public RldItemStack withDamage(int damage) {
+    this.damage = damage;
+    return this;
+  }
+
   public RldItemStack withTag(String name, CompoundTag value) {
     ensureTags().withTag(name, value);
     return this;
@@ -61,10 +64,6 @@ public class RldItemStack {
 
   public CompoundTag getTags() {
     return tags;
-  }
-
-  public boolean isTagged() {
-    return tags != null;
   }
 
   private CompoundTag ensureTags() {
@@ -99,4 +98,19 @@ public class RldItemStack {
         .ifPresent(integer -> withTag("HideFlags", integer));
     return this;
   }
+
+  public boolean isPlzNbt() {
+    return isPlzNbt;
+  }
+
+  public RldItemStack plzNbt(String json) {
+    this.isPlzNbt = true;
+    this.plzNbt = json;
+    return this;
+  }
+
+  public String getPlzNbt() {
+    return plzNbt;
+  }
+
 }

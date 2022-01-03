@@ -1,27 +1,28 @@
 package greymerk.roguelike.treasure.loot.provider;
 
-import net.minecraft.item.ItemStack;
+import com.github.fnar.minecraft.item.RldItemStack;
 
 import java.util.Random;
 
 import greymerk.roguelike.treasure.loot.Book;
+import greymerk.roguelike.treasure.loot.books.BookStarter;
 
-public class ItemBook extends ItemBase {
+public class ItemBook extends LootItem {
 
-  Book type;
+  Book.Special type;
 
-  public ItemBook(Book type) {
+  public ItemBook(Book.Special type) {
     this(type, 1, 0);
   }
 
-  public ItemBook(Book type, int weight, int level) {
+  public ItemBook(Book.Special type, int weight, int level) {
     super(weight, level);
     this.type = type;
   }
 
   @Override
-  public ItemStack getLootItem(Random rand, int level) {
-    return Book.get(type);
+  public RldItemStack getLootItem(Random rand, int level) {
+    return new BookStarter().asStack();
   }
 
 }

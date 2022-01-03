@@ -1,13 +1,13 @@
 package com.github.fnar.roguelike.loot.special.armour;
 
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
+import com.github.fnar.minecraft.item.ArmourType;
+import com.github.fnar.minecraft.item.RldItem;
 
 import java.util.Random;
 
 import greymerk.roguelike.treasure.loot.Quality;
 
-import static greymerk.roguelike.treasure.loot.provider.ItemArmour.rollArmourQuality;
+import static greymerk.roguelike.treasure.loot.provider.ArmourQualityOddsTable.rollArmourQuality;
 
 public class SpecialLeggings extends SpecialArmour {
 
@@ -17,7 +17,7 @@ public class SpecialLeggings extends SpecialArmour {
 
   public SpecialLeggings(Random random, Quality quality) {
     withQuality(quality);
-    withItem(getSpecialLeggingsItem());
+    withRldItem(getSpecialLeggingsItem());
     withName(getSpecialLeggingsName());
     withLeggingsEnchantments(random);
     withCommonEnchantments(random);
@@ -29,20 +29,8 @@ public class SpecialLeggings extends SpecialArmour {
     withArmorEnchantments(random);
   }
 
-  private Item getSpecialLeggingsItem() {
-    switch (quality) {
-      case DIAMOND:
-        return Items.DIAMOND_LEGGINGS;
-      case GOLD:
-        return Items.GOLDEN_LEGGINGS;
-      case IRON:
-        return Items.IRON_LEGGINGS;
-      case STONE:
-        return Items.CHAINMAIL_LEGGINGS;
-      case WOOD:
-      default:
-        return Items.LEATHER_LEGGINGS;
-    }
+  private RldItem getSpecialLeggingsItem() {
+    return ArmourType.LEGGINGS.asItem().withQuality(quality);
   }
 
   private String getSpecialLeggingsName() {

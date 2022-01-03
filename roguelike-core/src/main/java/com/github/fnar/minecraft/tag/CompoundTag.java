@@ -5,6 +5,9 @@ import com.google.common.collect.Maps;
 import java.util.Map;
 import java.util.Set;
 
+import lombok.ToString;
+
+@ToString
 public class CompoundTag implements Tag {
 
   private final Map<String, Tag> tagMap = Maps.newHashMap();

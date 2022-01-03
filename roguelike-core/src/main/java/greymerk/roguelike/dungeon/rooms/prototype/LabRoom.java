@@ -3,7 +3,7 @@ package greymerk.roguelike.dungeon.rooms.prototype;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.decorative.BrewingStand;
-import com.github.fnar.minecraft.block.decorative.Crop;
+import com.github.fnar.minecraft.material.Crop;
 import com.github.fnar.minecraft.block.decorative.FlowerPotBlock;
 import com.github.fnar.minecraft.block.decorative.TorchBlock;
 import com.github.fnar.minecraft.block.normal.SlabBlock;
@@ -156,7 +156,7 @@ public class LabRoom extends BaseRoom {
     stone.stroke(editor, new Coord(x + 1, y, z));
     FlowerPotBlock.flowerPot().withRandomContent(editor.getRandom()).stroke(editor, new Coord(x + 1, y + 1, z));
     farmland.stroke(editor, new Coord(x + 2, y, z));
-    Crop.MELON_STEM.getBrush().stroke(editor, new Coord(x + 2, y + 1, z));
+    Crop.MELON.getBrush().stroke(editor, new Coord(x + 2, y + 1, z));
     farmland.stroke(editor, new Coord(x + 3, y, z));
     stone.stroke(editor, new Coord(x + 4, y, z));
     FlowerPotBlock.flowerPot().withRandomContent(editor.getRandom()).stroke(editor, new Coord(x + 4, y + 1, z));
@@ -165,7 +165,7 @@ public class LabRoom extends BaseRoom {
     FlowerPotBlock.flowerPot().withRandomContent(editor.getRandom()).stroke(editor, new Coord(x + 5, y + 1, z + 1));
     farmland.stroke(editor, new Coord(x + 5, y, z + 2));
     // todo grow pumpkin stem
-    Crop.PUMPKIN_STEM.getBrush().stroke(editor, new Coord(x + 5, y + 1, z + 2));
+    Crop.PUMPKIN.getBrush().stroke(editor, new Coord(x + 5, y + 1, z + 2));
 
     farmland.stroke(editor, new Coord(x + 5, y, z + 3));
     stone.stroke(editor, new Coord(x + 5, y, z + 4));

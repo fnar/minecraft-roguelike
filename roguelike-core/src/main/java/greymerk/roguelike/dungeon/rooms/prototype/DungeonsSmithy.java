@@ -460,7 +460,7 @@ public class DungeonsSmithy extends BaseRoom {
     stair.setUpsideDown(true).setFacing(dir.clockwise());
     RectSolid.newRect(start, end).fill(editor, stair);
     cursor.up();
-    editor.getTreasureChestEditor().createChest(cursor, false, Dungeon.getLevel(cursor.getY()), dir, getRoomSetting().getChestType().orElse(ChestType.SMITH));
+    editor.getTreasureChestEditor().createChest(cursor, false, Dungeon.getLevel(cursor.getY()), dir.antiClockwise(), getRoomSetting().getChestType().orElse(ChestType.SMITH));
   }
 
 

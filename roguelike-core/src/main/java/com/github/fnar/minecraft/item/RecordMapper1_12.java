@@ -4,22 +4,22 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class RecordMapper1_12 implements RecordMapper {
+public class RecordMapper1_12 extends BaseItemMapper1_12<Record> implements RecordMapper {
 
-  public ItemStack map(RldItemStack rldItemStack) {
-    return map((Record) rldItemStack.getItem());
+  @Override
+  public Class<Record> getClazz() {
+    return Record.class;
   }
 
-  private ItemStack map(Record item) {
-    return new ItemStack(getId(item.getSong()));
+  public ItemStack map(Record item) {
+    return new ItemStack(getId(item));
   }
 
-  private Item getId(Record.Song type) {
+  private Item getId(Record item) {
 
-    switch (type) {
+    switch (item.getSong()) {
       case THIRTEEN:
         return Items.RECORD_13;
-      default:
       case CAT:
         return Items.RECORD_CAT;
       case BLOCKS:
@@ -43,5 +43,6 @@ public class RecordMapper1_12 implements RecordMapper {
       case WAIT:
         return Items.RECORD_WAIT;
     }
+    throw new CouldNotMapItemException(item);
   }
 }

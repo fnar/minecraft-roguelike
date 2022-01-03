@@ -4,11 +4,13 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import com.github.fnar.minecraft.block.SingleBlockBrush;
+import com.github.fnar.minecraft.item.Food;
+import com.github.fnar.minecraft.item.Material;
+import com.github.fnar.minecraft.item.RldItem;
+import com.github.fnar.minecraft.item.RldItemStack;
+import com.github.fnar.minecraft.item.ToolType;
 
 import net.minecraft.init.Bootstrap;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -47,7 +49,7 @@ public class DungeonSettingsTest {
   private TreasureChest mockTreasureChest;
 
   @Captor
-  private ArgumentCaptor<ItemStack> itemStackCaptor;
+  private ArgumentCaptor<RldItemStack> itemStackCaptor;
 
   @Before
   public void before() {
@@ -74,8 +76,8 @@ public class DungeonSettingsTest {
 
   @Test
   public void overrides_onlyPassesOnTheBaseParentsLootRules() {
-    SingleUseLootRule stickLootRule = new SingleUseLootRule(new WeightedChoice<>(new ItemStack(Items.STICK), 1), 0, 1);
-    SingleUseLootRule boneLootRule = new SingleUseLootRule(new WeightedChoice<>(new ItemStack(Items.BONE), 1), 0, 1);
+    SingleUseLootRule stickLootRule = new SingleUseLootRule(new WeightedChoice<>(Material.Type.STICK.asItem().asStack(), 1), 0, 1);
+    SingleUseLootRule boneLootRule = new SingleUseLootRule(new WeightedChoice<>(Material.Type.BONE.asItem().asStack(), 1), 0, 1);
 
     DungeonSettings parent0 = new DungeonSettings();
     parent0.getLootRules().add(stickLootRule);
@@ -89,8 +91,8 @@ public class DungeonSettingsTest {
 
   @Test
   public void overrides_onlyDiscardsIfTheBaseParentIsTheOverrider() {
-    SingleUseLootRule stickLootRule = new SingleUseLootRule(new WeightedChoice<>(new ItemStack(Items.STICK), 1), 0, 1);
-    SingleUseLootRule boneLootRule = new SingleUseLootRule(new WeightedChoice<>(new ItemStack(Items.BONE), 1), 0, 1);
+    SingleUseLootRule stickLootRule = new SingleUseLootRule(new WeightedChoice<>(Material.Type.STICK.asItem().asStack(), 1), 0, 1);
+    SingleUseLootRule boneLootRule = new SingleUseLootRule(new WeightedChoice<>(Material.Type.BONE.asItem().asStack(), 1), 0, 1);
 
     DungeonSettings parent0 = new DungeonSettings();
     parent0.getLootRules().add(stickLootRule);
@@ -138,7 +140,7 @@ public class DungeonSettingsTest {
     if (!dungeonSettings.isPresent()) {
       fail("Expected DungeonSettings to be found but it was not.");
     }
-    DungeonSettings setting = (DungeonSettings) dungeonSettings.get();
+    DungeonSettings setting = dungeonSettings.get();
 
     LevelSettings level = setting.getLevelSettings(0);
     SingleBlockBrush floorBrush = (SingleBlockBrush) level.getTheme().getPrimary().getFloor();
@@ -148,10 +150,10 @@ public class DungeonSettingsTest {
   @Test
   public void testLootSettingsMerge() {
     DungeonSettings base = new DungeonSettings();
-    base.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(new ItemStack(Items.SHEARS), 1), 0, 1));
+    base.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(ToolType.SHEARS.asItem().asStack(), 1), 0, 1));
 
     DungeonSettings other = new DungeonSettings();
-    other.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(new ItemStack(Items.APPLE), 1), 0, 1));
+    other.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(Food.Type.APPLE.asItem().asStack(), 1), 0, 1));
 
     DungeonSettings merge = other.inherit(base);
     LootRuleManager rules = merge.getLootRules();
@@ -162,17 +164,17 @@ public class DungeonSettingsTest {
 
     rules.process(treasure);
 
-    assertChestContains(Items.SHEARS, Items.APPLE);
+    assertChestContains(ToolType.SHEARS.asItem(), Food.Type.APPLE.asItem());
   }
 
   @Test
   public void testLootSettingsOverride() {
     DungeonSettings base = new DungeonSettings();
-    base.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(new ItemStack(Items.SHEARS), 1), 0, 1));
+    base.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(ToolType.SHEARS.asItem().asStack(), 1), 0, 1));
 
     DungeonSettings other = new DungeonSettings();
     other.getOverrides().add(SettingsType.LOOTRULES);
-    other.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(new ItemStack(Items.APPLE), 1), 0, 1));
+    other.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(Food.Type.APPLE.asItem().asStack(), 1), 0, 1));
 
     DungeonSettings merge = other.inherit(base);
     LootRuleManager rules = merge.getLootRules();
@@ -182,12 +184,14 @@ public class DungeonSettingsTest {
 
     rules.process(treasure);
 
-    assertChestContains(Items.APPLE);
+    assertChestContains(Food.Type.APPLE.asItem());
   }
 
-  public void assertChestContains(Item... items) {
+  public void assertChestContains(RldItem... items) {
     verify(mockTreasureChest, times(items.length)).setRandomEmptySlot(itemStackCaptor.capture());
-    List<Item> capturedItems = itemStackCaptor.getAllValues().stream().map(ItemStack::getItem).collect(Collectors.toList());
+    List<RldItem> capturedItems = itemStackCaptor.getAllValues().stream()
+        .map(RldItemStack::getItem)
+        .collect(Collectors.toList());
     assertThat(capturedItems.size()).isEqualTo(items.length);
     assertThat(capturedItems).containsExactlyInAnyOrder(items);
   }

@@ -4,7 +4,7 @@ import com.github.fnar.minecraft.block.decorative.TorchBlock;
 import com.github.fnar.minecraft.block.normal.ColoredBlock;
 import com.github.fnar.minecraft.block.normal.SlabBlock;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
-import com.github.fnar.minecraft.item.RldItemStack;
+import com.github.fnar.minecraft.item.BlockItem;
 
 public enum BlockType {
 
@@ -31,6 +31,7 @@ public enum BlockType {
   BIRCH_SLAB,
   BIRCH_STAIRS,
   BONE_BLOCK,
+  BOOKSHELF,
   BREWING_STAND,
   BRICK,
   BRICK_SLAB,
@@ -41,16 +42,21 @@ public enum BlockType {
   CARPET,
   CHEST,
   CHISELED_QUARTZ,
+  CHISELED_RED_SANDSTONE,
+  CHISELED_SANDSTONE,
+  CLAY,
   COAL_BLOCK,
   COBBLESTONE,
   COBBLESTONE_MOSSY,
   COBBLESTONE_WALL,
   COBBLE_SLAB,
+  COCOA_BEANS,
   COMPARATOR,
   CONCRETE,
   CONCRETE_POWDER,
   CRAFTING_TABLE,
   CRIMSON_DOOR,
+  CROP,
   DARK_OAK_DOOR,
   DARK_OAK_FENCE,
   DARK_OAK_LEAVES,
@@ -88,6 +94,7 @@ public enum BlockType {
   HOPPER,
   ICE,
   ICE_PACKED,
+  INFESTED_BLOCK,
   IRON_BAR,
   IRON_BLOCK,
   IRON_DOOR,
@@ -112,6 +119,7 @@ public enum BlockType {
   NETHERBRICK_SLAB,
   NETHERRACK,
   NETHER_BRICK_STAIRS,
+  NETHER_PORTAL,
   NETHER_WART_BLOCK,
   NOTEBLOCK,
   OAK_DOOR,
@@ -133,6 +141,7 @@ public enum BlockType {
   ORE_REDSTONE,
   PILLAR_QUARTZ,
   PISTON,
+  PLANT,
   PRESSURE_PLATE_STONE,
   PRESSURE_PLATE_WOODEN,
   PRISMARINE,
@@ -156,26 +165,26 @@ public enum BlockType {
   RED_FLOWER,
   RED_MUSHROOM,
   RED_NETHERBRICK,
+  RED_SANDSTONE,
   RED_SANDSTONE_SLAB,
   RED_SANDSTONE_STAIRS,
   REEDS,
+  REPEATER,
   SAND,
   SANDSTONE,
-  CHISELED_SANDSTONE,
-  RED_SANDSTONE,
-  CHISELED_RED_SANDSTONE,
   SANDSTONE_SLAB,
   SANDSTONE_SMOOTH,
   SANDSTONE_STAIRS,
   SAND_RED,
   SEA_LANTERN,
-  BOOKSHELF,
+  SIGN,
   SKULL,
   SMOOTH_QUARTZ,
   SMOOTH_RED_SANDSTONE,
   SMOOTH_RED_SANDSTONE_SLAB,
   SNOW,
   SOUL_SAND,
+  SPONGE,
   SPRUCE_DOOR,
   SPRUCE_FENCE,
   SPRUCE_LEAVES,
@@ -186,7 +195,6 @@ public enum BlockType {
   SPRUCE_STAIRS,
   STAINED_GLASS,
   STAINED_GLASS_PANE,
-  CLAY,
   STAINED_HARDENED_CLAY,
   STICKY_PISTON,
   STONEBRICK_SLAB,
@@ -195,7 +203,6 @@ public enum BlockType {
   STONE_BRICK_CRACKED,
   STONE_BRICK_MOSSY,
   STONE_BRICK_STAIRS,
-  INFESTED_BLOCK,
   STONE_SLAB,
   STONE_SMOOTH,
   STONE_STAIRS,
@@ -205,18 +212,17 @@ public enum BlockType {
   TORCH,
   TRAPDOOR,
   TRAPPED_CHEST,
-  REPEATER,
   VINE,
   WARPED_DOOR,
   WATER_FLOWING,
   WATER_STILL,
   WEB,
   WOOL,
-  YELLOW_FLOWER,
-  PLANT,
-  CROP,
-  NETHER_PORTAL,
-  ;
+  YELLOW_FLOWER;
+
+  public BlockItem asItem() {
+    return new BlockItem(this);
+  }
 
   public SingleBlockBrush getBrush() {
     switch (this) {
@@ -314,10 +320,6 @@ public enum BlockType {
       default:
         return new SingleBlockBrush(this);
     }
-  }
-
-  public RldItemStack asItemStack() {
-    return RldItemStack.forBlockType(this);
   }
 
 }

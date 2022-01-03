@@ -2,7 +2,7 @@ package greymerk.roguelike.dungeon.segment.part;
 
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
-import com.github.fnar.minecraft.block.decorative.Crop;
+import com.github.fnar.minecraft.material.Crop;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import java.util.Random;

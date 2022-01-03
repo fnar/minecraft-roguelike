@@ -2,6 +2,7 @@ package com.github.fnar.minecraft.block.decorative;
 
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
+import com.github.fnar.minecraft.material.Crop;
 
 public class CropBlock extends SingleBlockBrush {
 

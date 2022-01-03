@@ -1,17 +1,17 @@
 package com.github.fnar.roguelike.loot.special.tools;
 
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
+import com.github.fnar.minecraft.item.RldItem;
+import com.github.fnar.minecraft.item.ToolType;
 
 import java.util.Random;
 
 import greymerk.roguelike.treasure.loot.Quality;
-import greymerk.roguelike.treasure.loot.provider.ItemTool;
+import greymerk.roguelike.treasure.loot.provider.ToolQualityOddsTable;
 
 public class SpecialAxe extends SpecialTool {
 
   public SpecialAxe(Random random, int level) {
-    this(random, ItemTool.rollToolQuality(random, level));
+    this(random, ToolQualityOddsTable.rollToolQuality(random, level));
   }
 
   public SpecialAxe(Random random, Quality quality) {
@@ -21,25 +21,13 @@ public class SpecialAxe extends SpecialTool {
     } else {
       withName(quality.getDescriptor() + " Axe");
     }
-    withItem(getAxeItem());
+    withRldItem(getItem());
     withToolEnchantments(random);
     withCommonEnchantments(random);
   }
 
-  private Item getAxeItem() {
-    switch (quality) {
-      case DIAMOND:
-        return Items.DIAMOND_AXE;
-      case GOLD:
-        return Items.GOLDEN_AXE;
-      case IRON:
-        return Items.IRON_AXE;
-      case STONE:
-        return Items.STONE_AXE;
-      case WOOD:
-      default:
-        return Items.WOODEN_AXE;
-    }
+  private RldItem getItem() {
+    return ToolType.AXE.asItem().withQuality(quality);
   }
 
 }

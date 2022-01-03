@@ -1,10 +1,8 @@
 package greymerk.roguelike.treasure.loot.books;
 
-//import greymerk.roguelike.Roguelike;
+import greymerk.roguelike.treasure.loot.Book;
 
-import greymerk.roguelike.treasure.loot.BookBase;
-
-public class BookStarter extends BookBase {
+public class BookStarter extends Book {
 
   public BookStarter() {
     super("greymerk", "Roguelike Dungeons");

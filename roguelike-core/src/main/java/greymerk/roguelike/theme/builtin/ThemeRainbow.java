@@ -1,7 +1,7 @@
 package greymerk.roguelike.theme.builtin;
 
 import com.github.fnar.minecraft.block.normal.StairsBlock;
-import com.github.fnar.minecraft.block.normal.Wood;
+import com.github.fnar.minecraft.material.Wood;
 
 import greymerk.roguelike.theme.BlockSet;
 import greymerk.roguelike.theme.Theme;

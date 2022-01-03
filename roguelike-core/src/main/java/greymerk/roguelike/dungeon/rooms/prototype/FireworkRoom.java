@@ -6,6 +6,8 @@ import com.github.fnar.minecraft.block.decorative.TorchBlock;
 import com.github.fnar.minecraft.block.redstone.ComparatorBlock;
 import com.github.fnar.minecraft.block.redstone.LeverBlock;
 import com.github.fnar.minecraft.block.redstone.RepeaterBlock;
+import com.github.fnar.minecraft.item.Material;
+import com.github.fnar.minecraft.item.RldItemStack;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -16,7 +18,6 @@ import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.treasure.loot.Firework;
-import greymerk.roguelike.treasure.loot.Loot;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.util.TextFormat;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -179,9 +180,10 @@ public class FireworkRoom extends BaseRoom {
 
     BlockType.DROPPER.getBrush().setFacing(Direction.UP).stroke(editor, cursor);
     for (int i = 0; i < 8; ++i) {
-      ItemStack stick = new ItemStack(Items.STICK, 1);
-      stick.setStackDisplayName(Integer.toString(i));
-      Loot.setItemLore(stick, "Random logic unit", TextFormat.DARKGRAY);
+
+      RldItemStack stick = Material.Type.STICK.asItem().asStack()
+          .withDisplayName(Integer.toString(i))
+          .withDisplayLore(TextFormat.DARKGRAY.apply("Random logic unit"));
       editor.setItem(cursor, i, stick);
     }
     editor.setItem(cursor, 8, new ItemStack(Items.WOODEN_HOE));

@@ -13,7 +13,6 @@ public class ProfileSkeleton implements IMonsterProfile {
   @Override
   public void equip(World world, Random rand, int level, IEntity mob) {
 
-
     if (level == 3 && rand.nextInt(40) == 0) {
       MonsterProfile.POISONARCHER.getMonsterProfile().equip(world, rand, level, mob);
       return;

@@ -1,8 +1,9 @@
 package greymerk.roguelike.treasure;
 
+import com.github.fnar.minecraft.item.Material;
+import com.github.fnar.minecraft.item.RldItemStack;
+
 import net.minecraft.init.Bootstrap;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +19,7 @@ import greymerk.roguelike.util.WeightedRandomizer;
 
 import static greymerk.roguelike.treasure.TreasureManager.ofType;
 import static greymerk.roguelike.treasure.TreasureManager.ofTypeOnLevel;
-import static greymerk.roguelike.treasure.TreasureManager.onLevel;
+import static greymerk.roguelike.treasure.TreasureManager.onLevelAndNotEmpty;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -34,8 +35,8 @@ public class TreasureManagerTest {
 
   @Test
   public void addItem() {
-    WeightedChoice<ItemStack> stick = new WeightedChoice<>(new ItemStack(Items.STICK), 1);
-    WeightedRandomizer<ItemStack> loot = new WeightedRandomizer<>();
+    WeightedChoice<RldItemStack> stick = new WeightedChoice<>(Material.Type.STICK.asItem().asStack(), 1);
+    WeightedRandomizer<RldItemStack> loot = new WeightedRandomizer<>();
     loot.add(stick);
 
     TreasureManager treasure = new TreasureManager(new Random());
@@ -49,7 +50,7 @@ public class TreasureManagerTest {
     treasure.addItem(ofTypeOnLevel(ChestType.WEAPONS, 1), loot, 1);
     treasure.addItem(ofType(ChestType.WEAPONS), loot, 1);
     treasure.addItem(ofType(ChestType.WEAPONS), loot, 1);
-    treasure.addItem(onLevel(0), loot, 1);
-    treasure.addItem(onLevel(1), loot, 1);
+    treasure.addItem(onLevelAndNotEmpty(0), loot, 1);
+    treasure.addItem(onLevelAndNotEmpty(1), loot, 1);
   }
 }

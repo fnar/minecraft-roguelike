@@ -1,35 +1,29 @@
 package greymerk.roguelike.util;
 
+import com.github.fnar.minecraft.item.Dye;
+
 import net.minecraft.item.EnumDyeColor;
 
 import java.util.Random;
 
 public enum DyeColor {
 
-  WHITE,
-  ORANGE,
-  MAGENTA,
-  LIGHT_BLUE,
-  YELLOW,
-  LIME,
-  PINK,
-  GRAY,
-  LIGHT_GRAY,
-  CYAN,
-  PURPLE,
+  BLACK,
   BLUE,
   BROWN,
+  CYAN,
+  GRAY,
   GREEN,
+  LIGHT_BLUE,
+  LIGHT_GRAY,
+  LIME,
+  MAGENTA,
+  ORANGE,
+  PINK,
+  PURPLE,
   RED,
-  BLACK;
-
-  public static EnumDyeColor get(DyeColor color) {
-    try {
-      return EnumDyeColor.valueOf(color.toString());
-    } catch (IllegalArgumentException illegalArgumentException) {
-      return EnumDyeColor.WHITE;
-    }
-  }
+  WHITE,
+  YELLOW;
 
   public static DyeColor chooseRandom() {
     return values()[(int) (Math.random() * values().length)];
@@ -75,5 +69,17 @@ public enum DyeColor {
       return p + (q - p) * (2f / 3f - t) * 6f;
     }
     return p;
+  }
+
+  public EnumDyeColor toEnumDyeColor() {
+    try {
+      return EnumDyeColor.valueOf(toString());
+    } catch (IllegalArgumentException illegalArgumentException) {
+      return EnumDyeColor.WHITE;
+    }
+  }
+
+  public Dye asItem() {
+    return new Dye(this);
   }
 }

@@ -1,9 +1,11 @@
 package greymerk.roguelike.treasure.loot;
 
+import com.github.fnar.minecraft.item.Food;
+import com.github.fnar.minecraft.item.RldItem;
+import com.github.fnar.minecraft.item.RldItemStack;
+import com.github.fnar.minecraft.item.ToolType;
+
 import net.minecraft.init.Bootstrap;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -34,7 +36,7 @@ public class LootRuleManagerTest {
   private TreasureChest mockTreasureChest;
 
   @Captor
-  private ArgumentCaptor<ItemStack> itemStackCaptor;
+  private ArgumentCaptor<RldItemStack> itemStackCaptor;
 
   @Before
   public void setUp() {
@@ -47,23 +49,23 @@ public class LootRuleManagerTest {
   @Test
   public void testAdd() {
     LootRuleManager manager = new LootRuleManager();
-    manager.add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(new ItemStack(Items.SHEARS), 1), 0, 1));
+    manager.add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(ToolType.SHEARS.asItem().asStack(), 1), 0, 1));
     TreasureManager treasure = new TreasureManager(new Random());
 
     treasure.addChest(mockTreasureChest);
 
     manager.process(treasure);
 
-    assertChestContains(Items.SHEARS);
+    assertChestContains(ToolType.SHEARS.asItem());
   }
 
   @Test
   public void testMerge() {
     LootRuleManager base = new LootRuleManager();
-    base.add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(new ItemStack(Items.SHEARS), 1), 0, 1));
+    base.add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(ToolType.SHEARS.asItem().asStack(), 1), 0, 1));
 
     LootRuleManager other = new LootRuleManager();
-    other.add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(new ItemStack(Items.APPLE), 1), 0, 1));
+    other.add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(Food.Type.APPLE.asItem().asStack(), 1), 0, 1));
 
     base.merge(other);
 
@@ -72,12 +74,12 @@ public class LootRuleManagerTest {
 
     base.process(treasure);
 
-    assertChestContains(Items.SHEARS, Items.APPLE);
+    assertChestContains(ToolType.SHEARS.asItem(), Food.Type.APPLE.asItem());
   }
 
-  public void assertChestContains(Item... items) {
+  public void assertChestContains(RldItem... items) {
     verify(mockTreasureChest, times(items.length)).setRandomEmptySlot(itemStackCaptor.capture());
-    List<Item> capturedItems = itemStackCaptor.getAllValues().stream().map(ItemStack::getItem).collect(Collectors.toList());
+    List<RldItem> capturedItems = itemStackCaptor.getAllValues().stream().map(RldItemStack::getItem).collect(Collectors.toList());
     assertThat(capturedItems.size()).isEqualTo(items.length);
     assertThat(capturedItems).containsExactly(items);
   }

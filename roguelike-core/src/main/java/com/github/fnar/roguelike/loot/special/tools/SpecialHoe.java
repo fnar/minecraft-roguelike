@@ -1,23 +1,23 @@
 package com.github.fnar.roguelike.loot.special.tools;
 
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
+import com.github.fnar.minecraft.item.RldItem;
+import com.github.fnar.minecraft.item.ToolType;
 
 import java.util.Random;
 
 import greymerk.roguelike.treasure.loot.Quality;
-import greymerk.roguelike.treasure.loot.provider.ItemTool;
+import greymerk.roguelike.treasure.loot.provider.ToolQualityOddsTable;
 import greymerk.roguelike.util.TextFormat;
 
 public class SpecialHoe extends SpecialTool {
 
   public SpecialHoe(Random random, int level) {
-    this(random, ItemTool.rollToolQuality(random, level));
+    this(random, ToolQualityOddsTable.rollToolQuality(random, level));
   }
 
   public SpecialHoe(Random random, Quality quality) {
     withName(quality == Quality.DIAMOND ? "Useless Hoe" : quality.getDescriptor() + " Hoe");
-    withItem(getHoeItem(quality));
+    withRldItem(getItem(quality));
     withToolEnchantments(random);
     withCommonEnchantments(random);
     if (quality == Quality.DIAMOND) {
@@ -25,19 +25,7 @@ public class SpecialHoe extends SpecialTool {
     }
   }
 
-  private Item getHoeItem(Quality quality) {
-    switch (quality) {
-      case DIAMOND:
-        return Items.DIAMOND_HOE;
-      case GOLD:
-        return Items.GOLDEN_HOE;
-      case IRON:
-        return Items.IRON_HOE;
-      case STONE:
-        return Items.STONE_HOE;
-      case WOOD:
-      default:
-        return Items.WOODEN_HOE;
-    }
+  private RldItem getItem(Quality quality) {
+    return ToolType.HOE.asItem().withQuality(quality);
   }
 }

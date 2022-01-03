@@ -1,27 +1,25 @@
 package com.github.fnar.roguelike.loot.special;
 
+import com.github.fnar.minecraft.item.Enchantment;
+import com.github.fnar.minecraft.item.RldBaseItem;
+import com.github.fnar.minecraft.item.RldItem;
+import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.roguelike.loot.special.armour.SpecialBoots;
 import com.github.fnar.roguelike.loot.special.armour.SpecialChestplate;
 import com.github.fnar.roguelike.loot.special.armour.SpecialHelmet;
 import com.github.fnar.roguelike.loot.special.armour.SpecialLeggings;
 import com.github.fnar.roguelike.loot.special.tools.SpecialAxe;
+import com.github.fnar.roguelike.loot.special.tools.SpecialHoe;
 import com.github.fnar.roguelike.loot.special.tools.SpecialPickaxe;
 import com.github.fnar.roguelike.loot.special.tools.SpecialShovel;
 import com.github.fnar.roguelike.loot.special.weapons.SpecialBow;
 import com.github.fnar.roguelike.loot.special.weapons.SpecialSword;
 import com.github.fnar.util.Color;
 
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-
 import java.util.Random;
 
-import greymerk.roguelike.treasure.loot.Enchant;
 import greymerk.roguelike.treasure.loot.Equipment;
-import greymerk.roguelike.treasure.loot.Loot;
 import greymerk.roguelike.treasure.loot.Quality;
-import greymerk.roguelike.treasure.loot.provider.ItemArmour;
 import greymerk.roguelike.util.TextFormat;
 
 public class SpecialEquipment {
@@ -29,9 +27,10 @@ public class SpecialEquipment {
   private final StringBuilder canonicalName = new StringBuilder();
   private final StringBuilder suffix = new StringBuilder();
   protected Quality quality;
-  private ItemStack itemStack;
+  private RldItem rldItem;
+  private String lore;
 
-  public static ItemStack getRandomEquipment(Random random, Equipment type, Quality quality) {
+  public static RldItemStack getRandomEquipment(Random random, Equipment type, Quality quality) {
     switch (type) {
       case SWORD:
         return new SpecialSword(random, quality).complete();
@@ -51,13 +50,31 @@ public class SpecialEquipment {
         return new SpecialAxe(random, quality).complete();
       case SHOVEL:
         return new SpecialShovel(random, quality).complete();
+      case HOE:
+        return new SpecialHoe(random, quality).complete();
       default:
         return null;
     }
   }
 
-  public SpecialEquipment withItem(Item item) {
-    this.itemStack = new ItemStack(item);
+  public static int getProtectionLevel(Quality quality, Random rand) {
+    switch (quality) {
+      case WOOD:
+        return 1 + (rand.nextInt(3) == 0 ? 1 : 0);
+      case STONE:
+        return 1 + (rand.nextBoolean() ? 1 : 0);
+      case IRON:
+      case GOLD:
+        return 1 + rand.nextInt(3);
+      case DIAMOND:
+        return 1 + 2 + rand.nextInt(2);
+      default:
+        return 1;
+    }
+  }
+
+  public SpecialEquipment withRldItem(RldItem rldItem) {
+    this.rldItem = rldItem;
     return this;
   }
 
@@ -72,7 +89,7 @@ public class SpecialEquipment {
   }
 
   protected SpecialEquipment withLore(String s, TextFormat textFormatColor) {
-    Loot.setItemLore(itemStack, s, textFormatColor);
+    lore = textFormatColor.apply(s);
     return this;
   }
 
@@ -82,12 +99,12 @@ public class SpecialEquipment {
   }
 
   public SpecialEquipment withColor(Color color) {
-    ItemArmour.dyeArmor(itemStack, color);
+    ((RldBaseItem) rldItem).withColor(color);
     return this;
   }
 
-  public SpecialEquipment withEnchantment(Enchantment enchantment, int level) {
-    itemStack.addEnchantment(enchantment, level);
+  public SpecialEquipment withEnchantment(Enchantment.Effect enchantment, int level) {
+    ((RldBaseItem) rldItem).withEnchantment(enchantment.asEnchantment().withLevel(level));
     return this;
   }
 
@@ -99,7 +116,7 @@ public class SpecialEquipment {
 
   public void withMending(Random random) {
     if (random.nextInt(20) == 0) {
-      withEnchantment(Enchant.getEnchant(Enchant.MENDING), 1);
+      withEnchantment(Enchantment.Effect.MENDING, 1);
       withPrefix("Prideful");
     }
   }
@@ -107,14 +124,16 @@ public class SpecialEquipment {
   public void withUnbreaking(Random random) {
     int enchantmentLevel = random.nextInt(5) - 1;
     if (enchantmentLevel > 0) {
-      withEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), enchantmentLevel);
+      withEnchantment(Enchantment.Effect.UNBREAKING, enchantmentLevel);
 
+      if (enchantmentLevel >= 3) {
+        withPrefix("Masterwork");
+      }
+      if (enchantmentLevel == 2) {
+        withPrefix("Tempered");
+      }
       if (enchantmentLevel == 1) {
         withPrefix("Reinforced");
-      } else if (enchantmentLevel == 2) {
-        withPrefix("Tempered");
-      } else if (enchantmentLevel >= 3) {
-        withPrefix("Masterwork");
       }
     }
   }
@@ -129,13 +148,13 @@ public class SpecialEquipment {
     return this;
   }
 
-  public ItemStack complete() {
-    String name = new StringBuilder()
-        .append(prefix)
-        .append(canonicalName)
-        .append(suffix)
-        .toString();
-    itemStack.setStackDisplayName(name);
-    return itemStack;
+  public RldItemStack complete() {
+    String name = String.valueOf(prefix) + canonicalName + suffix;
+
+    RldItemStack rldItemStack = rldItem.asStack().withDisplayName(name);
+    if (lore != null) {
+      return rldItemStack.withDisplayLore(lore);
+    }
+    return rldItemStack;
   }
 }

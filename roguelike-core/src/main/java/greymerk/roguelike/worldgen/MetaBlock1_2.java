@@ -11,8 +11,8 @@ import com.github.fnar.minecraft.block.redstone.DoorBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.properties.IProperty;
-import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 
 import greymerk.roguelike.dungeon.settings.DungeonSettingParseException;
@@ -105,4 +105,7 @@ public class MetaBlock1_2 {
     return this.getState().equals(otherBlock.getState());
   }
 
+  public Item asItem() {
+    return Item.getItemFromBlock(getBlock());
+  }
 }

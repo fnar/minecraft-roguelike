@@ -1,53 +1,55 @@
 package greymerk.roguelike.treasure.loot.provider;
 
 
-import com.google.gson.JsonObject;
-
+import com.github.fnar.minecraft.block.BlockType;
+import com.github.fnar.minecraft.item.ArmourType;
+import com.github.fnar.minecraft.item.Dye;
+import com.github.fnar.minecraft.item.Enchantment;
+import com.github.fnar.minecraft.item.Food;
+import com.github.fnar.minecraft.item.Material;
+import com.github.fnar.minecraft.item.Record;
+import com.github.fnar.minecraft.item.RldItemStack;
+import com.github.fnar.minecraft.item.ToolType;
+import com.github.fnar.minecraft.item.WeaponType;
 import com.github.fnar.util.Colors;
-
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import greymerk.roguelike.treasure.loot.Enchant;
-import greymerk.roguelike.treasure.loot.Loot;
-import greymerk.roguelike.util.IWeighted;
+import greymerk.roguelike.treasure.loot.Quality;
+import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.util.TextFormat;
-import greymerk.roguelike.util.WeightedChoice;
 
 public enum ItemNovelty {
 
-  GREYMERK,
-  NEBRISCROWN,
-  NULL,
-  MANPANTS,
-  ZISTEAUSIGN,
-  AVIDYA,
-  ASHLEA,
-  KURT,
   AMLP,
-  CLEO,
-  ENIKOSWORD,
-  ENIKOBOW,
-  BDOUBLEO,
-  GUUDE,
-  RLEAHY,
-  ETHO,
+  ASHLEA,
+  AVIDYA,
   BAJ,
-  DOCM,
-  GINGER,
-  VECHS,
-  NOTCH,
-  QUANTUMLEAP,
-  GENERIKB,
-  FOURLES,
+  BDOUBLEO,
+  CLEO,
   DINNERBONE,
+  DOCM,
+  ENIKOBOW,
+  ENIKOSWORD,
+  ETHO,
+  FOURLES,
+  GENERIKB,
+  GINGER,
+  GREYMERK,
   GRIM,
+  GUUDE,
+  KURT,
+  MANPANTS,
   MMILLSS,
-  VALANDRAH;
+  NEBRISCROWN,
+  NOTCH,
+  NULL,
+  QUANTUMLEAP,
+  RLEAHY,
+  VALANDRAH,
+  VECHS,
+  ZISTEAUSIGN;
 
   public static final Map<String, ItemNovelty> names;
 
@@ -83,255 +85,355 @@ public enum ItemNovelty {
     names.put("valandrah", ItemNovelty.VALANDRAH);
   }
 
-  public static ItemStack getItemByName(String name) {
+  public static RldItemStack getItemByName(String name) {
     if (!names.containsKey(name)) {
       return null;
     }
     return getItem(names.get(name));
   }
 
-  public static IWeighted<ItemStack> get(JsonObject data, int weight) throws Exception {
-    if (!data.has("name")) {
-      throw new Exception("Novelty item requires a name");
-    }
-    String name = data.get("name").getAsString();
-    ItemStack item = getItemByName(name);
-    if (item == null) {
-      throw new Exception("No such novelty name: " + name);
-    }
-    return new WeightedChoice<>(item, weight);
-  }
-
-  public static IWeighted<ItemStack> get(ItemNovelty choice, int weight) {
-    return new WeightedChoice<>(getItem(choice), weight);
-  }
-
-  public static ItemStack getItem(ItemNovelty choice) {
-
-    ItemStack item;
+  public static RldItemStack getItem(ItemNovelty choice) {
 
     switch (choice) {
-
       case GREYMERK:
-        item = new ItemStack(Items.IRON_AXE);
-        item.setStackDisplayName("Greymerk's Hatchet");
-        Loot.setItemLore(item, "Pointlessly sharp", TextFormat.DARKGREEN);
-        item.addEnchantment(Enchant.getEnchant(Enchant.SHARPNESS), 3);
-        item.addEnchantment(Enchant.getEnchant(Enchant.KNOCKBACK), 1);
-        item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), 2);
-        return item;
+        return greymerksHatchet();
       case NEBRISCROWN:
-        item = new ItemStack(Items.GOLDEN_HELMET);
-        item.setStackDisplayName("Nebrian Crown of Justice");
-        Loot.setItemLore(item, "Adorned with precious gemstones", TextFormat.DARKGREEN);
-        item.addEnchantment(Enchant.getEnchant(Enchant.PROTECTION), 4);
-        item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), 3);
-        return item;
+        return nebrisCrown();
       case NULL:
-        item = new ItemStack(Items.DIAMOND_SWORD);
-        item.setStackDisplayName("Null Pointer");
-        Loot.setItemLore(item, "Exceptional", TextFormat.DARKGREEN);
-        item.addEnchantment(Enchant.getEnchant(Enchant.SHARPNESS), 5);
-        item.addEnchantment(Enchant.getEnchant(Enchant.KNOCKBACK), 2);
-        item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), 3);
-        return item;
+        return nullPointer();
       case MANPANTS:
-        item = new ItemStack(Items.LEATHER_LEGGINGS);
-        item.setStackDisplayName("Man Pants");
-        Loot.setItemLore(item, "Yessss, Manpants!", TextFormat.DARKGREEN);
-        item.addEnchantment(Enchant.getEnchant(Enchant.FIREPROTECTION), 4);
-        item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), 3);
-        ItemArmour.dyeArmor(item, Colors.SMOKED_SALMON);
-        return item;
+        return manPants();
       case ZISTEAUSIGN:
-        item = new ItemStack(Items.SIGN);
-        Loot.setItemName(item, "Battle Sign", TextFormat.DARKPURPLE);
-        Loot.setItemLore(item, "\"That's what you get!\"", TextFormat.DARKGREEN);
-        item.addEnchantment(Enchant.getEnchant(Enchant.SHARPNESS), 5);
-        item.addEnchantment(Enchant.getEnchant(Enchant.KNOCKBACK), 3);
-        item.addEnchantment(Enchant.getEnchant(Enchant.FIREASPECT), 1);
-        return item;
+        return zisteauSign();
       case AVIDYA:
-        item = new ItemStack(Items.MILK_BUCKET);
-        Loot.setItemName(item, "White Russian", TextFormat.DARKPURPLE);
-        Loot.setItemLore(item, "The dude's favourite", TextFormat.DARKGREEN);
-        item.addEnchantment(Enchant.getEnchant(Enchant.ARTHOPODS), 4);
-        item.addEnchantment(Enchant.getEnchant(Enchant.KNOCKBACK), 1);
-        item.addEnchantment(Enchant.getEnchant(Enchant.FIREASPECT), 1);
-        return item;
+        return avidyasWhiteRussian();
       case ASHLEA:
-        item = new ItemStack(Items.COOKIE);
-        Loot.setItemName(item, "Ashlea's Oatmeal Cookie", TextFormat.DARKPURPLE);
-        Loot.setItemLore(item, "Perfect for elevensies", TextFormat.DARKGREEN);
-        item.addEnchantment(Enchant.getEnchant(Enchant.SHARPNESS), 2);
-        item.addEnchantment(Enchant.getEnchant(Enchant.KNOCKBACK), 1);
-        return item;
+        return ashleasOatmealCookie();
       case KURT:
-        item = new ItemStack(Items.LEATHER_BOOTS);
-        item.setStackDisplayName("Farland Travellers");
-        Loot.setItemLore(item, "Indeed!", TextFormat.DARKGREEN);
-        item.addEnchantment(Enchant.getEnchant(Enchant.PROTECTION), 3);
-        item.addEnchantment(Enchant.getEnchant(Enchant.FEATHERFALLING), 2);
-        item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), 3);
-        ItemArmour.dyeArmor(item, Colors.HARISSA_RED);
-        return item;
+        return farlandTravellers();
       case AMLP:
-        item = new ItemStack(Items.SHEARS);
-        item.setStackDisplayName("Lascerator");
-        Loot.setItemLore(item, "The wool collector", TextFormat.DARKGREEN);
-        item.addEnchantment(Enchant.getEnchant(Enchant.SHARPNESS), 3);
-        item.addEnchantment(Enchant.getEnchant(Enchant.KNOCKBACK), 2);
-        item.addEnchantment(Enchant.getEnchant(Enchant.FIREASPECT), 1);
-        return item;
+        return lascerator();
       case CLEO:
-        item = new ItemStack(Items.FISH);
-        Loot.setItemName(item, "Cleophian Digging Feesh", TextFormat.DARKPURPLE);
-        Loot.setItemLore(item, "Feesh are not efeeshent for digging", TextFormat.DARKGREEN);
-        item.addEnchantment(Enchant.getEnchant(Enchant.EFFICIENCY), 10);
-        item.addEnchantment(Enchant.getEnchant(Enchant.KNOCKBACK), 5);
-        item.addEnchantment(Enchant.getEnchant(Enchant.FORTUNE), 5);
-        item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), 10);
-        return item;
+        return cleophianDiggingFeesh();
       case BDOUBLEO:
-        item = new ItemStack(Items.DIAMOND_SHOVEL);
-        item.setStackDisplayName("Dig Job");
-        Loot.setItemLore(item, "Recovered from hell's blazes", TextFormat.DARKGREEN);
-        item.addEnchantment(Enchant.getEnchant(Enchant.EFFICIENCY), 5);
-        item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), 3);
-        return item;
+        return bDoubleOsDigJob();
       case GUUDE:
-        item = new ItemStack(Items.RECORD_13);
-        Loot.setItemName(item, "Boulderfistian Golden Record", TextFormat.DARKPURPLE);
-        Loot.setItemLore(item, "\"You're Watching Guude Boulderfist...\"", TextFormat.DARKGREEN);
-        item.addEnchantment(Enchant.getEnchant(Enchant.SHARPNESS), 3);
-        item.addEnchantment(Enchant.getEnchant(Enchant.KNOCKBACK), 1);
-        item.addEnchantment(Enchant.getEnchant(Enchant.BLASTPROTECTION), 3);
-        return item;
+        return boulderfistianGoldenRecord();
       case RLEAHY:
-        item = new ItemStack(Items.BREAD);
-        Loot.setItemName(item, "Rleahian battle sub", TextFormat.DARKPURPLE);
-        Loot.setItemLore(item, "With extra pastrami", TextFormat.DARKGREEN);
-        item.addEnchantment(Enchant.getEnchant(Enchant.SHARPNESS), 2);
-        item.addEnchantment(Enchant.getEnchant(Enchant.KNOCKBACK), 1);
-        item.addEnchantment(Enchant.getEnchant(Enchant.FIREASPECT), 2);
-        return item;
+        return rleahianBattleSub();
       case ETHO:
-        item = new ItemStack(Items.WOODEN_PICKAXE);
-        item.setStackDisplayName("Your Mum");
-        Loot.setItemLore(item, "The original", TextFormat.DARKGREEN);
-        item.addEnchantment(Enchant.getEnchant(Enchant.EFFICIENCY), 5);
-        item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), 3);
-        return item;
+        return ethosYourMomJoke();
       case ENIKOBOW:
-        item = new ItemStack(Items.BOW);
-        item.setStackDisplayName("Eniko's String Theory");
-        Loot.setItemLore(item, "For Science!", TextFormat.DARKGREEN);
-        item.addEnchantment(Enchant.getEnchant(Enchant.POWER), 5);
-        item.addEnchantment(Enchant.getEnchant(Enchant.KNOCKBACK), 2);
-        item.addEnchantment(Enchant.getEnchant(Enchant.INFINITY), 1);
-        item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), 3);
-        return item;
+        return enikosStringTheory();
       case ENIKOSWORD:
-        item = new ItemStack(Items.DIAMOND_SWORD);
-        item.setStackDisplayName("Eniko's Earring");
-        Loot.setItemLore(item, "\"She do the loot take boogie\"", TextFormat.DARKGREEN);
-        item.addEnchantment(Enchant.getEnchant(Enchant.SHARPNESS), 5);
-        item.addEnchantment(Enchant.getEnchant(Enchant.LOOTING), 3);
-        item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), 3);
-        return item;
+        return enikosEarring();
       case BAJ:
-        item = new ItemStack(Items.GOLDEN_HOE);
-        Loot.setItemName(item, "Baj's Last Resort", TextFormat.DARKPURPLE);
-        Loot.setItemLore(item, "\"Starvation could be fatal\"", TextFormat.DARKGREEN);
-        item.addEnchantment(Enchant.getEnchant(Enchant.SHARPNESS), 2);
-        item.addEnchantment(Enchant.getEnchant(Enchant.KNOCKBACK), 1);
-        item.addEnchantment(Enchant.getEnchant(Enchant.FORTUNE), 5);
-        return item;
+        return bajsLastResort();
       case DOCM:
-        item = new ItemStack(Items.FISHING_ROD);
-        Loot.setItemName(item, "Rod of Command", TextFormat.DARKPURPLE);
-        Loot.setItemLore(item, "\"Get to the dang land!\"", TextFormat.DARKGREEN);
-        item.addEnchantment(Enchant.getEnchant(Enchant.SHARPNESS), 3);
-        item.addEnchantment(Enchant.getEnchant(Enchant.KNOCKBACK), 1);
-        return item;
+        return docmRodOfCommand();
       case GINGER:
-        item = new ItemStack(Items.COOKED_CHICKEN);
-        Loot.setItemName(item, "Spice Chicken", TextFormat.DARKPURPLE);
-        Loot.setItemLore(item, "\"Kung Pao!\"", TextFormat.DARKGREEN);
-        item.addEnchantment(Enchant.getEnchant(Enchant.KNOCKBACK), 1);
-        item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), 3);
-        item.addEnchantment(Enchant.getEnchant(Enchant.SHARPNESS), 1);
-        return item;
+        return gingerSpiceChicken();
       case VECHS:
-        item = new ItemStack(Items.STICK);
-        Loot.setItemName(item, "Legendary Stick", TextFormat.DARKPURPLE);
-        Loot.setItemLore(item, "\"Really?!\"", TextFormat.DARKGREEN);
-        item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), 1);
-        return item;
+        return vechsLegendaryStick();
       case NOTCH:
-        item = new ItemStack(Items.APPLE);
-        Loot.setItemName(item, "Notch's apple", TextFormat.DARKPURPLE);
-        Loot.setItemLore(item, "Imbued with the creator's power", TextFormat.DARKGREEN);
-        item.addEnchantment(Enchant.getEnchant(Enchant.SHARPNESS), 10);
-        item.addEnchantment(Enchant.getEnchant(Enchant.KNOCKBACK), 10);
-        return item;
+        return notchsApple();
       case QUANTUMLEAP:
-        item = new ItemStack(Blocks.SPONGE);
-        Loot.setItemName(item, "QuantumLeap's Swiss Cheese", TextFormat.DARKPURPLE);
-        Loot.setItemLore(item, "\"Oh boy\"", TextFormat.DARKGREEN);
-        item.addEnchantment(Enchant.getEnchant(Enchant.SHARPNESS), 4);
-        return item;
+        return quantumleapsSwissCheese();
       case GENERIKB:
-        item = new ItemStack(Items.BAKED_POTATO);
-        Loot.setItemName(item, "Hot Potato", TextFormat.DARKPURPLE);
-        Loot.setItemLore(item, "All a hermit needs", TextFormat.DARKGREEN);
-        item.addEnchantment(Enchant.getEnchant(Enchant.FIREASPECT), 3);
-        item.addEnchantment(Enchant.getEnchant(Enchant.SHARPNESS), 2);
-        item.addEnchantment(Enchant.getEnchant(Enchant.KNOCKBACK), 1);
-        return item;
+        return generikBsHotPotato();
       case FOURLES:
-        item = new ItemStack(Items.DYE, 1, 3);
-        Loot.setItemName(item, "Fourles Darkroast Beans", TextFormat.DARKPURPLE);
-        Loot.setItemLore(item, "\"Mmmm... Dark Roast\"", TextFormat.DARKGREEN);
-        item.addEnchantment(Enchant.getEnchant(Enchant.FIREASPECT), 2);
-        item.addEnchantment(Enchant.getEnchant(Enchant.SHARPNESS), 2);
-        return item;
+        return fourlesDarkroastBeans();
       case DINNERBONE:
-        item = new ItemStack(Items.BONE, 1);
-        Loot.setItemName(item, "Old Dinnerbone", TextFormat.DARKPURPLE);
-        Loot.setItemLore(item, "\"Dang Skellies!\"", TextFormat.DARKGREEN);
-        item.addEnchantment(Enchant.getEnchant(Enchant.SHARPNESS), 3);
-        item.addEnchantment(Enchant.getEnchant(Enchant.FIREASPECT), 2);
-        return item;
+        return oldDinnerbone();
       case GRIM:
-        item = new ItemStack(Items.ROTTEN_FLESH);
-        Loot.setItemName(item, "Grim chew-toy", TextFormat.DARKPURPLE);
-        Loot.setItemLore(item, "\"Come on Grim, let's do this!\"", TextFormat.DARKGREEN);
-        item.addEnchantment(Enchant.getEnchant(Enchant.SMITE), 2);
-        item.addEnchantment(Enchant.getEnchant(Enchant.LOOTING), 1);
-        return item;
+        return grimChewToy();
       case MMILLSS:
-        item = new ItemStack(Blocks.CACTUS);
-        Loot.setItemName(item, "MMillssian spider bane", TextFormat.DARKPURPLE);
-        Loot.setItemLore(item, "\"I really don't need anymore string...\"", TextFormat.DARKGREEN);
-        item.addEnchantment(Enchant.getEnchant(Enchant.ARTHOPODS), 4);
-        item.addEnchantment(Enchant.getEnchant(Enchant.THORNS), 2);
-        item.addEnchantment(Enchant.getEnchant(Enchant.LOOTING), 1);
-        return item;
+        return mmillssSpiderBane();
       case VALANDRAH:
-        item = new ItemStack(Items.IRON_SWORD);
-        item.setStackDisplayName("Valandrah's Kiss");
-        Loot.setItemLore(item, "\"Feel the kiss of my blade\"", TextFormat.DARKGREEN);
-        item.addEnchantment(Enchant.getEnchant(Enchant.SHARPNESS), 4);
-        item.addEnchantment(Enchant.getEnchant(Enchant.FIREASPECT), 1);
-        item.addEnchantment(Enchant.getEnchant(Enchant.KNOCKBACK), 1);
-        item.addEnchantment(Enchant.getEnchant(Enchant.UNBREAKING), 2);
-        return item;
+        return valandrahsKiss();
       default:
         return null;
-
     }
   }
 
+  public static RldItemStack greymerksHatchet() {
+    return ToolType.AXE.asItem().withQuality(Quality.IRON)
+        .withEnchantment(Enchantment.Effect.SHARPNESS.asEnchantment().withLevel(3))
+        .withEnchantment(Enchantment.Effect.KNOCKBACK.asEnchantment().withLevel(1))
+        .withEnchantment(Enchantment.Effect.UNBREAKING.asEnchantment().withLevel(2))
+        .asStack()
+        .withDisplayName("Greymerk's Hatchet")
+        .withDisplayLore(TextFormat.DARKGREEN.apply("Pointlessly sharp"));
+  }
+
+  public static RldItemStack nebrisCrown() {
+    return ArmourType.HELMET.asItem().golden()
+        .withEnchantment(Enchantment.Effect.PROTECTION.asEnchantment().withLevel(4))
+        .withEnchantment(Enchantment.Effect.UNBREAKING.asEnchantment().withLevel(3))
+        .asStack()
+        .withDisplayName("Nebrian Crown of Justice").withDisplayLore(TextFormat.DARKGREEN.apply("Adorned with precious gemstones"));
+  }
+
+  public static RldItemStack nullPointer() {
+    return WeaponType.SWORD.asItem().diamond()
+        .withEnchantment(Enchantment.Effect.SHARPNESS.asEnchantment().withLevel(5))
+        .withEnchantment(Enchantment.Effect.KNOCKBACK.asEnchantment().withLevel(2))
+        .withEnchantment(Enchantment.Effect.UNBREAKING.asEnchantment().withLevel(3))
+        .asStack()
+        .withDisplayName("Null Pointer")
+        .withDisplayLore(TextFormat.DARKGREEN.apply("Exceptional"));
+  }
+
+  public static RldItemStack manPants() {
+    return ArmourType.LEGGINGS.asItem().leather()
+        .withColor(Colors.SMOKED_SALMON)
+        .withEnchantment(Enchantment.Effect.FIRE_PROTECTION.asEnchantment().withLevel(4))
+        .withEnchantment(Enchantment.Effect.UNBREAKING.asEnchantment().withLevel(3))
+        .asStack()
+        .withDisplayName("Man Pants")
+        .withDisplayLore(TextFormat.DARKGREEN.apply("Yessss, Manpants!"));
+  }
+
+  public static RldItemStack zisteauSign() {
+    return BlockType.SIGN.asItem()
+        .withEnchantment(Enchantment.Effect.SHARPNESS.asEnchantment().withLevel(5))
+        .withEnchantment(Enchantment.Effect.KNOCKBACK.asEnchantment().withLevel(3))
+        .withEnchantment(Enchantment.Effect.FIRE_ASPECT.asEnchantment().withLevel(1))
+        .asStack()
+        .withDisplayName(TextFormat.DARKPURPLE.apply("Battle Sign"))
+        .withDisplayLore(TextFormat.DARKGREEN.apply("\"That's what you get!\""));
+  }
+
+  public static RldItemStack avidyasWhiteRussian() {
+    return Food.Type.MILK_BUCKET.asItem()
+        .withEnchantment(Enchantment.Effect.BANE_OF_ARTHROPODS.asEnchantment().withLevel(4))
+        .withEnchantment(Enchantment.Effect.KNOCKBACK.asEnchantment().withLevel(1))
+        .withEnchantment(Enchantment.Effect.FIRE_ASPECT.asEnchantment().withLevel(1))
+        .asStack()
+        .withDisplayName(TextFormat.DARKPURPLE.apply("White Russian"))
+        .withDisplayLore(TextFormat.DARKGREEN.apply("The dude's favourite"));
+  }
+
+  public static RldItemStack ashleasOatmealCookie() {
+    return Food.Type.COOKIE.asItem()
+        .withEnchantment(Enchantment.Effect.SHARPNESS.asEnchantment().withLevel(2))
+        .withEnchantment(Enchantment.Effect.KNOCKBACK.asEnchantment().withLevel(1))
+        .asStack()
+        .withDisplayName(TextFormat.DARKPURPLE.apply("Ashlea's Oatmeal Cookie"))
+        .withDisplayLore(TextFormat.DARKGREEN.apply("Perfect for elevensies"));
+  }
+
+  public static RldItemStack farlandTravellers() {
+    return ArmourType.BOOTS.asItem()
+        .leather()
+        .withColor(Colors.HARISSA_RED)
+        .withEnchantment(Enchantment.Effect.PROTECTION.asEnchantment().withLevel(3))
+        .withEnchantment(Enchantment.Effect.FEATHER_FALLING.asEnchantment().withLevel(2))
+        .withEnchantment(Enchantment.Effect.UNBREAKING.asEnchantment().withLevel(3))
+        .asStack()
+        .withDisplayName("Farland Travellers")
+        .withDisplayLore(TextFormat.DARKGREEN.apply("Indeed!"));
+  }
+
+  public static RldItemStack lascerator() {
+    return ToolType.SHEARS.asItem()
+        .withEnchantment(Enchantment.Effect.SHARPNESS.asEnchantment().withLevel(3))
+        .withEnchantment(Enchantment.Effect.KNOCKBACK.asEnchantment().withLevel(2))
+        .withEnchantment(Enchantment.Effect.FIRE_ASPECT.asEnchantment().withLevel(1))
+        .asStack()
+        .withDisplayName("Lascerator")
+        .withDisplayLore(TextFormat.DARKGREEN.apply("The wool collector"));
+  }
+
+  public static RldItemStack cleophianDiggingFeesh() {
+    return Food.Type.RAW_COD.asItem()
+        .withEnchantment(Enchantment.Effect.EFFICIENCY.asEnchantment().withLevel(10))
+        .withEnchantment(Enchantment.Effect.KNOCKBACK.asEnchantment().withLevel(5))
+        .withEnchantment(Enchantment.Effect.FORTUNE.asEnchantment().withLevel(5))
+        .withEnchantment(Enchantment.Effect.UNBREAKING.asEnchantment().withLevel(10))
+        .asStack()
+        .withDisplayName(TextFormat.DARKPURPLE.apply("Cleophian Digging Feesh"))
+        .withDisplayLore(TextFormat.DARKGREEN.apply("Feesh are not efeeshent for digging"));
+  }
+
+  public static RldItemStack bDoubleOspinkSweater() {
+    return ArmourType.CHESTPLATE.asItem()
+        .withQuality(Quality.WOOD)
+        .withColor(Colors.CHINESE_RED)
+        .asStack()
+        .withDisplayName("Pink Sweater")
+        .withDisplayLore("\"It's chinese red!\"");
+  }
+
+  public static RldItemStack bDoubleOsDigJob() {
+    return ToolType.SHOVEL.asItem().diamond()
+        .withEnchantment(Enchantment.Effect.EFFICIENCY.asEnchantment().withLevel(5))
+        .withEnchantment(Enchantment.Effect.UNBREAKING.asEnchantment().withLevel(3))
+        .asStack()
+        .withDisplayName("Dig Job")
+        .withDisplayLore(TextFormat.DARKGREEN.apply("Recovered from hell's blazes"));
+  }
+
+  public static RldItemStack boulderfistianGoldenRecord() {
+    return Record.newRecord().withSong(Record.Song.THIRTEEN)
+        .withEnchantment(Enchantment.Effect.SHARPNESS.asEnchantment().withLevel(3))
+        .withEnchantment(Enchantment.Effect.KNOCKBACK.asEnchantment().withLevel(1))
+        .withEnchantment(Enchantment.Effect.BLAST_PROTECTION.asEnchantment().withLevel(3))
+        .asStack()
+        .withDisplayName(TextFormat.DARKPURPLE.apply("Boulderfistian Golden Record"))
+        .withDisplayLore(TextFormat.DARKGREEN.apply("\"You're Watching Guude Boulderfist...\""));
+  }
+
+  public static RldItemStack rleahianBattleSub() {
+    return Food.Type.BREAD.asItem()
+        .withEnchantment(Enchantment.Effect.SHARPNESS.asEnchantment().withLevel(2))
+        .withEnchantment(Enchantment.Effect.KNOCKBACK.asEnchantment().withLevel(1))
+        .withEnchantment(Enchantment.Effect.FIRE_ASPECT.asEnchantment().withLevel(2))
+        .asStack()
+        .withDisplayName(TextFormat.DARKPURPLE.apply("Rleahian battle sub"))
+        .withDisplayLore(TextFormat.DARKGREEN.apply("With extra pastrami"));
+  }
+
+  public static RldItemStack ethosYourMomJoke() {
+    return ToolType.PICKAXE.asItem().wooden()
+        .withEnchantment(Enchantment.Effect.EFFICIENCY.asEnchantment().withLevel(5))
+        .withEnchantment(Enchantment.Effect.UNBREAKING.asEnchantment().withLevel(3))
+        .asStack()
+        .withDisplayName("Your Mum")
+        .withDisplayLore(TextFormat.DARKGREEN.apply("The original"));
+  }
+
+  public static RldItemStack enikosStringTheory() {
+    return WeaponType.BOW.asItem()
+        .withEnchantment(Enchantment.Effect.POWER.asEnchantment().withLevel(5))
+        .withEnchantment(Enchantment.Effect.KNOCKBACK.asEnchantment().withLevel(2))
+        .withEnchantment(Enchantment.Effect.INFINITY.asEnchantment().withLevel(1))
+        .withEnchantment(Enchantment.Effect.UNBREAKING.asEnchantment().withLevel(3))
+        .asStack()
+        .withDisplayName("Eniko's String Theory")
+        .withDisplayLore(TextFormat.DARKGREEN.apply("For Science!"));
+  }
+
+  public static RldItemStack enikosEarring() {
+    return WeaponType.SWORD.asItem().diamond()
+        .withEnchantment(Enchantment.Effect.SHARPNESS.asEnchantment().withLevel(5))
+        .withEnchantment(Enchantment.Effect.LOOTING.asEnchantment().withLevel(3))
+        .withEnchantment(Enchantment.Effect.UNBREAKING.asEnchantment().withLevel(3))
+        .asStack()
+        .withDisplayName("Eniko's Earring")
+        .withDisplayLore(TextFormat.DARKGREEN.apply("\"She do the loot take boogie\""));
+  }
+
+  public static RldItemStack bajsLastResort() {
+    return ToolType.HOE.asItem().golden()
+        .withEnchantment(Enchantment.Effect.SHARPNESS.asEnchantment().withLevel(2))
+        .withEnchantment(Enchantment.Effect.KNOCKBACK.asEnchantment().withLevel(1))
+        .withEnchantment(Enchantment.Effect.FORTUNE.asEnchantment().withLevel(5))
+        .asStack()
+        .withDisplayName(TextFormat.DARKPURPLE.apply("Baj's Last Resort"))
+        .withDisplayLore(TextFormat.DARKGREEN.apply("\"Starvation could be fatal\""));
+  }
+
+  public static RldItemStack docmRodOfCommand() {
+    return ToolType.FISHING_ROD.asItem()
+        .withEnchantment(Enchantment.Effect.SHARPNESS.asEnchantment().withLevel(3))
+        .withEnchantment(Enchantment.Effect.KNOCKBACK.asEnchantment().withLevel(1))
+        .asStack()
+        .withDisplayName(TextFormat.DARKPURPLE.apply("Rod of Command"))
+        .withDisplayLore(TextFormat.DARKGREEN.apply("\"Get to the dang land!\""));
+  }
+
+  public static RldItemStack gingerSpiceChicken() {
+    return Food.Type.COOKED_CHICKEN.asItem()
+        .withEnchantment(Enchantment.Effect.KNOCKBACK.asEnchantment().withLevel(1))
+        .withEnchantment(Enchantment.Effect.UNBREAKING.asEnchantment().withLevel(3))
+        .withEnchantment(Enchantment.Effect.SHARPNESS.asEnchantment().withLevel(1))
+        .asStack()
+        .withDisplayName(TextFormat.DARKPURPLE.apply("Spice Chicken"))
+        .withDisplayLore(TextFormat.DARKGREEN.apply("\"Kung Pao!\""));
+  }
+
+  public static RldItemStack vechsLegendaryStick() {
+    return Material.Type.STICK.asItem()
+        .withEnchantment(Enchantment.Effect.UNBREAKING.asEnchantment().withLevel(1))
+        .asStack()
+        .withDisplayName(TextFormat.DARKPURPLE.apply("Legendary Stick"))
+        .withDisplayLore(TextFormat.DARKGREEN.apply("\"Really?!\""));
+  }
+
+  public static RldItemStack notchsApple() {
+    return Food.Type.APPLE.asItem()
+        .withEnchantment(Enchantment.Effect.SHARPNESS.asEnchantment().withLevel(10))
+        .withEnchantment(Enchantment.Effect.KNOCKBACK.asEnchantment().withLevel(10))
+        .asStack()
+        .withDisplayName(TextFormat.DARKPURPLE.apply("Notch's apple"))
+        .withDisplayLore(TextFormat.DARKGREEN.apply("Imbued with the creator's power"));
+  }
+
+  public static RldItemStack quantumleapsSwissCheese() {
+    return BlockType.SPONGE.asItem()
+        .withEnchantment(Enchantment.Effect.SHARPNESS.asEnchantment().withLevel(4))
+        .asStack()
+        .withDisplayName(TextFormat.DARKPURPLE.apply("QuantumLeap's Swiss Cheese"))
+        .withDisplayLore(TextFormat.DARKGREEN.apply("\"Oh boy\""));
+  }
+
+  public static RldItemStack generikBsHotPotato() {
+    return Food.Type.BAKED_POTATO.asItem()
+        .withEnchantment(Enchantment.Effect.FIRE_ASPECT.asEnchantment().withLevel(3))
+        .withEnchantment(Enchantment.Effect.SHARPNESS.asEnchantment().withLevel(2))
+        .withEnchantment(Enchantment.Effect.KNOCKBACK.asEnchantment().withLevel(1))
+        .asStack()
+        .withDisplayName(TextFormat.DARKPURPLE.apply("Hot Potato"))
+        .withDisplayLore(TextFormat.DARKGREEN.apply("All a hermit needs"));
+  }
+
+  public static RldItemStack fourlesDarkroastBeans() {
+    return new Dye(DyeColor.BROWN)
+        .withEnchantment(Enchantment.Effect.FIRE_ASPECT.asEnchantment().withLevel(2))
+        .withEnchantment(Enchantment.Effect.SHARPNESS.asEnchantment().withLevel(2))
+        .asStack()
+        .withDisplayName(TextFormat.DARKPURPLE.apply("Fourles Darkroast Beans"))
+        .withDisplayLore(TextFormat.DARKGREEN.apply("\"Mmmm... Dark Roast\""));
+  }
+
+  public static RldItemStack oldDinnerbone() {
+    return Material.Type.BONE.asItem()
+        .withEnchantment(Enchantment.Effect.SHARPNESS.asEnchantment().withLevel(3))
+        .withEnchantment(Enchantment.Effect.FIRE_ASPECT.asEnchantment().withLevel(2))
+        .asStack()
+        .withDisplayName(TextFormat.DARKPURPLE.apply("Old Dinnerbone"))
+        .withDisplayLore(TextFormat.DARKGREEN.apply("\"Dang Skellies!\""));
+  }
+
+  public static RldItemStack grimChewToy() {
+    return Food.Type.ROTTEN_FLESH.asItem()
+        .withEnchantment(Enchantment.Effect.SMITE.asEnchantment().withLevel(2))
+        .withEnchantment(Enchantment.Effect.LOOTING.asEnchantment().withLevel(1))
+        .asStack()
+        .withDisplayName(TextFormat.DARKPURPLE.apply("Grim chew-toy"))
+        .withDisplayLore(TextFormat.DARKGREEN.apply("\"Come on Grim, let's do this!\""));
+  }
+
+  public static RldItemStack mmillssSpiderBane() {
+    return BlockType.CACTUS.asItem()
+        .withEnchantment(Enchantment.Effect.BANE_OF_ARTHROPODS.asEnchantment().withLevel(4))
+        .withEnchantment(Enchantment.Effect.THORNS.asEnchantment().withLevel(2))
+        .withEnchantment(Enchantment.Effect.LOOTING.asEnchantment().withLevel(1))
+        .asStack()
+        .withDisplayName(TextFormat.DARKPURPLE.apply("MMillssian spider bane"))
+        .withDisplayLore(TextFormat.DARKGREEN.apply("\"I really don't need anymore string...\""));
+  }
+
+  public static RldItemStack valandrahsKiss() {
+    return WeaponType.SWORD.asItem().iron()
+        .withEnchantment(Enchantment.Effect.SHARPNESS.asEnchantment().withLevel(4))
+        .withEnchantment(Enchantment.Effect.FIRE_ASPECT.asEnchantment().withLevel(1))
+        .withEnchantment(Enchantment.Effect.KNOCKBACK.asEnchantment().withLevel(1))
+        .withEnchantment(Enchantment.Effect.UNBREAKING.asEnchantment().withLevel(2))
+        .asStack()
+        .withDisplayName("Valandrah's Kiss")
+        .withDisplayLore(TextFormat.DARKGREEN.apply("\"Feel the kiss of my blade\""));
+  }
 
 }

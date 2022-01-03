@@ -2,7 +2,7 @@ package greymerk.roguelike.dungeon.rooms.prototype;
 
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
-import com.github.fnar.minecraft.block.decorative.Crop;
+import com.github.fnar.minecraft.material.Crop;
 import com.github.fnar.minecraft.block.decorative.CropBlock;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 

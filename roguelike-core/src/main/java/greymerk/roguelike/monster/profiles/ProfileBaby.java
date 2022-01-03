@@ -1,6 +1,7 @@
 package greymerk.roguelike.monster.profiles;
 
-import net.minecraft.item.ItemStack;
+import com.github.fnar.minecraft.item.RldItemStack;
+
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -8,8 +9,7 @@ import java.util.Random;
 import greymerk.roguelike.monster.IEntity;
 import greymerk.roguelike.monster.IMonsterProfile;
 import greymerk.roguelike.monster.MonsterProfile;
-import greymerk.roguelike.treasure.loot.Enchant;
-import greymerk.roguelike.treasure.loot.provider.ItemTool;
+import greymerk.roguelike.treasure.loot.provider.ToolLootItem;
 
 public class ProfileBaby implements IMonsterProfile {
 
@@ -21,8 +21,8 @@ public class ProfileBaby implements IMonsterProfile {
       MonsterProfile.VILLAGER.getMonsterProfile().equip(world, rand, level, mob);
     }
 
-    boolean isEnchanted = Enchant.canEnchant(world.getDifficulty(), rand, level);
-    ItemStack weapon = ItemTool.getRandom(rand, level, isEnchanted);
+    boolean isEnchanted = IMonsterProfile.canEnchant(world.getDifficulty(), rand, level);
+    RldItemStack weapon = ToolLootItem.getRandom(rand, level, isEnchanted);
     mob.equipMainhand(weapon);
   }
 

@@ -2,7 +2,7 @@ package com.github.fnar.minecraft.item;
 
 import java.util.Random;
 
-public class Record implements RldItem {
+public class Record extends RldBaseItem {
 
   private Song song;
 
@@ -41,6 +41,10 @@ public class Record implements RldItem {
 
     public static Song chooseRandom(Random random) {
       return Song.values()[random.nextInt(Song.values().length)];
+    }
+
+    public Record asItem() {
+      return Record.newRecord().withSong(this);
     }
   }
 }

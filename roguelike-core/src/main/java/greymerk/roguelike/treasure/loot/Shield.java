@@ -1,31 +1,18 @@
 package greymerk.roguelike.treasure.loot;
 
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
+import com.github.fnar.minecraft.item.RldItemStack;
 
 import java.util.Random;
+import java.util.stream.IntStream;
 
 public class Shield {
 
-  public static ItemStack get(Random rand) {
-
-    ItemStack banner = Banner.get(rand);
-
-    ItemStack shield = new ItemStack(Items.SHIELD, 1, 0);
-
-    applyBanner(banner, shield);
-
-    return shield;
-  }
-
-  public static void applyBanner(ItemStack banner, ItemStack shield) {
-
-    NBTTagCompound bannerNBT = banner.getSubCompound("BlockEntityTag");
-    NBTTagCompound shieldNBT = bannerNBT == null ? new NBTTagCompound() : bannerNBT.copy();
-    shieldNBT.setInteger("Base", banner.getMetadata() & 15);
-    shield.setTagInfo("BlockEntityTag", shieldNBT);
-
+  public static RldItemStack get(Random rand) {
+    com.github.fnar.minecraft.item.Shield shield = new com.github.fnar.minecraft.item.Shield();
+    int count = rand.nextInt(8) + 1;
+    IntStream.range(0, count)
+        .forEach(i -> shield.addRandomPattern(rand));
+    return shield.asStack();
   }
 
 }

@@ -1,23 +1,21 @@
 package greymerk.roguelike.dungeon.settings.builtin;
 
-import com.github.fnar.minecraft.item.ItemMapper1_12;
-
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootTableList;
 
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
-import greymerk.roguelike.treasure.loot.Book;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.treasure.loot.Equipment;
-import greymerk.roguelike.treasure.loot.ILoot;
-import greymerk.roguelike.treasure.loot.Loot;
+import greymerk.roguelike.treasure.loot.GreymerkChestType;
+import greymerk.roguelike.treasure.loot.GreymerkLootProvider;
 import greymerk.roguelike.treasure.loot.LootTableRule;
 import greymerk.roguelike.treasure.loot.PotionMixture;
 import greymerk.roguelike.treasure.loot.Quality;
-import greymerk.roguelike.treasure.loot.provider.ItemEnchBook;
-import greymerk.roguelike.treasure.loot.provider.ItemSpecialty;
+import greymerk.roguelike.treasure.loot.books.BookStarter;
+import greymerk.roguelike.treasure.loot.provider.EnchantedBookLootItem;
+import greymerk.roguelike.treasure.loot.provider.SpecialtyLootItem;
 import greymerk.roguelike.treasure.loot.rule.ForEachLootRule;
 import greymerk.roguelike.treasure.loot.rule.SingleUseLootRule;
 import greymerk.roguelike.treasure.loot.rule.TypedForEachLootRule;
@@ -32,38 +30,38 @@ public class BuiltinLootSettings extends DungeonSettings {
   public BuiltinLootSettings() {
     super(ID);
 
-    ILoot loot = Loot.getLoot();
+    GreymerkLootProvider loot = new GreymerkLootProvider();
 
     addStarterLoot(loot);
 
     addRewardLoot();
 
     for (int level = 0; level < 5; level++) {
-      getLootRules().add(new TypedForEachLootRule(ChestType.ARMOUR, loot.get(Loot.POTION, level), level, 1));
-      getLootRules().add(new TypedForEachLootRule(ChestType.ARMOUR, loot.get(Loot.ARMOUR, level), level, 1));
-      getLootRules().add(new TypedForEachLootRule(ChestType.ARMOUR, loot.get(Loot.FOOD, level), level, 1));
-      getLootRules().add(new TypedForEachLootRule(ChestType.WEAPONS, loot.get(Loot.POTION, level), level, 1));
-      getLootRules().add(new TypedForEachLootRule(ChestType.WEAPONS, loot.get(Loot.WEAPON, level), level, 1));
-      getLootRules().add(new TypedForEachLootRule(ChestType.WEAPONS, loot.get(Loot.FOOD, level), level, 1));
-      getLootRules().add(new TypedForEachLootRule(ChestType.WEAPONS, loot.get(Loot.FOOD, level), level, 1));
-      getLootRules().add(new TypedForEachLootRule(ChestType.BLOCKS, loot.get(Loot.BLOCK, level), level, 6));
-      getLootRules().add(new TypedForEachLootRule(ChestType.ENCHANTING, loot.get(Loot.ENCHANTBONUS, level), level, 2));
-      getLootRules().add(new TypedForEachLootRule(ChestType.ENCHANTING, loot.get(Loot.ENCHANTBOOK, level), level, 1));
-      getLootRules().add(new TypedForEachLootRule(ChestType.FOOD, loot.get(Loot.FOOD, level), level, 8));
-      getLootRules().add(new TypedForEachLootRule(ChestType.ORE, loot.get(Loot.ORE, level), level, 5));
-      getLootRules().add(new TypedForEachLootRule(ChestType.POTIONS, loot.get(Loot.POTION, level), level, 6));
-      getLootRules().add(new TypedForEachLootRule(ChestType.BREWING, loot.get(Loot.BREWING, level), level, 8));
-      getLootRules().add(new TypedForEachLootRule(ChestType.TOOLS, loot.get(Loot.ORE, level), level, 1));
-      getLootRules().add(new TypedForEachLootRule(ChestType.TOOLS, loot.get(Loot.TOOL, level), level, 1));
-      getLootRules().add(new TypedForEachLootRule(ChestType.TOOLS, loot.get(Loot.BLOCK, level), level, 1));
-      getLootRules().add(new TypedForEachLootRule(ChestType.SUPPLIES, loot.get(Loot.SUPPLY, level), level, 6));
-      getLootRules().add(new TypedForEachLootRule(ChestType.SMITH, loot.get(Loot.ORE, level), level, 6));
-      getLootRules().add(new TypedForEachLootRule(ChestType.SMITH, loot.get(Loot.SMITHY, level), level, 1));
-      getLootRules().add(new TypedForEachLootRule(ChestType.MUSIC, loot.get(Loot.MUSIC, level), level, 1));
-      getLootRules().add(new TypedForEachLootRule(ChestType.REWARD, loot.get(Loot.REWARD, level), level, 1));
-      getLootRules().add(new ForEachLootRule(loot.get(Loot.JUNK, level), level, 6));
-      getLootRules().add(new SingleUseLootRule(new ItemSpecialty(1, level, Quality.get(level)), level, 3));
-      getLootRules().add(new SingleUseLootRule(new ItemEnchBook(1, level), level, level * 2 + 5));
+      getLootRules().add(new TypedForEachLootRule(ChestType.ARMOUR, loot.get(GreymerkChestType.POTION, level), level, 1));
+      getLootRules().add(new TypedForEachLootRule(ChestType.ARMOUR, loot.get(GreymerkChestType.ARMOUR, level), level, 1));
+      getLootRules().add(new TypedForEachLootRule(ChestType.ARMOUR, loot.get(GreymerkChestType.FOOD, level), level, 1));
+      getLootRules().add(new TypedForEachLootRule(ChestType.WEAPONS, loot.get(GreymerkChestType.POTION, level), level, 1));
+      getLootRules().add(new TypedForEachLootRule(ChestType.WEAPONS, loot.get(GreymerkChestType.WEAPON, level), level, 1));
+      getLootRules().add(new TypedForEachLootRule(ChestType.WEAPONS, loot.get(GreymerkChestType.FOOD, level), level, 1));
+      getLootRules().add(new TypedForEachLootRule(ChestType.WEAPONS, loot.get(GreymerkChestType.FOOD, level), level, 1));
+      getLootRules().add(new TypedForEachLootRule(ChestType.BLOCKS, loot.get(GreymerkChestType.BLOCK, level), level, 6));
+      getLootRules().add(new TypedForEachLootRule(ChestType.ENCHANTING, loot.get(GreymerkChestType.ENCHANTBONUS, level), level, 2));
+      getLootRules().add(new TypedForEachLootRule(ChestType.ENCHANTING, loot.get(GreymerkChestType.ENCHANTBOOK, level), level, 1));
+      getLootRules().add(new TypedForEachLootRule(ChestType.FOOD, loot.get(GreymerkChestType.FOOD, level), level, 8));
+      getLootRules().add(new TypedForEachLootRule(ChestType.ORE, loot.get(GreymerkChestType.ORE, level), level, 5));
+      getLootRules().add(new TypedForEachLootRule(ChestType.POTIONS, loot.get(GreymerkChestType.POTION, level), level, 6));
+      getLootRules().add(new TypedForEachLootRule(ChestType.BREWING, loot.get(GreymerkChestType.BREWING, level), level, 8));
+      getLootRules().add(new TypedForEachLootRule(ChestType.TOOLS, loot.get(GreymerkChestType.ORE, level), level, 1));
+      getLootRules().add(new TypedForEachLootRule(ChestType.TOOLS, loot.get(GreymerkChestType.TOOL, level), level, 1));
+      getLootRules().add(new TypedForEachLootRule(ChestType.TOOLS, loot.get(GreymerkChestType.BLOCK, level), level, 1));
+      getLootRules().add(new TypedForEachLootRule(ChestType.SUPPLIES, loot.get(GreymerkChestType.SUPPLY, level), level, 6));
+      getLootRules().add(new TypedForEachLootRule(ChestType.SMITH, loot.get(GreymerkChestType.ORE, level), level, 6));
+      getLootRules().add(new TypedForEachLootRule(ChestType.SMITH, loot.get(GreymerkChestType.SMITHY, level), level, 1));
+      getLootRules().add(new TypedForEachLootRule(ChestType.MUSIC, loot.get(GreymerkChestType.MUSIC, level), level, 1));
+      getLootRules().add(new TypedForEachLootRule(ChestType.REWARD, loot.get(GreymerkChestType.REWARD, level), level, 1));
+      getLootRules().add(new ForEachLootRule(loot.get(GreymerkChestType.JUNK, level), level, 6));
+      getLootRules().add(new SingleUseLootRule(new SpecialtyLootItem(1, level, Quality.get(level)), level, 3));
+      getLootRules().add(new SingleUseLootRule(new EnchantedBookLootItem(1, level), level, level * 2 + 5));
     }
   }
 
@@ -79,15 +77,15 @@ public class BuiltinLootSettings extends DungeonSettings {
     getLootTables().add(new LootTableRule(newArrayList(level), chestsSimpleDungeon.getResourcePath(), newArrayList(ChestType.REWARD)));
   }
 
-  private void addStarterLoot(ILoot loot) {
+  private void addStarterLoot(GreymerkLootProvider loot) {
     for (int level = 0; level < 5; level++) {
-      getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(Book.get(Book.CREDITS), 1), level, 1));
-      getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, loot.get(Loot.WEAPON, level), level, 2));
-      getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, loot.get(Loot.FOOD, level), level, 2));
-      getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, loot.get(Loot.TOOL, level), level, 2));
-      getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, loot.get(Loot.SUPPLY, level), level, 2));
-      getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new ItemSpecialty(1, level, Equipment.LEGS, Quality.WOOD), level, 2));
-      getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(new ItemMapper1_12().map(PotionMixture.getCoffee()), 1), level, 2));
+      getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(new BookStarter().asStack(), 1), level, 1));
+      getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, loot.get(GreymerkChestType.WEAPON, level), level, 2));
+      getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, loot.get(GreymerkChestType.FOOD, level), level, 2));
+      getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, loot.get(GreymerkChestType.TOOL, level), level, 2));
+      getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, loot.get(GreymerkChestType.SUPPLY, level), level, 2));
+      getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new SpecialtyLootItem(1, level, Equipment.LEGS, Quality.WOOD), level, 2));
+      getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(PotionMixture.getCoffee(), 1), level, 2));
     }
   }
 }

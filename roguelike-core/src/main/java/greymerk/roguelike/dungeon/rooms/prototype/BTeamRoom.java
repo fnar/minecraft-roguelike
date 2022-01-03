@@ -1,19 +1,15 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
-import com.github.fnar.util.Colors;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.decorative.BrewingStand;
-import com.github.fnar.minecraft.block.decorative.Crop;
 import com.github.fnar.minecraft.block.normal.ColoredBlock;
 import com.github.fnar.minecraft.block.normal.SlabBlock;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
-import com.github.fnar.minecraft.block.normal.Wood;
 import com.github.fnar.minecraft.block.redstone.TrapdoorBlock;
 import com.github.fnar.minecraft.item.Record;
-
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
+import com.github.fnar.minecraft.material.Crop;
+import com.github.fnar.minecraft.material.Wood;
 
 import java.util.List;
 
@@ -23,9 +19,7 @@ import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.loot.ChestType;
-import greymerk.roguelike.treasure.loot.Loot;
 import greymerk.roguelike.treasure.loot.PotionMixture;
-import greymerk.roguelike.treasure.loot.provider.ItemArmour;
 import greymerk.roguelike.treasure.loot.provider.ItemNovelty;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -186,24 +180,20 @@ public class BTeamRoom extends BaseRoom {
     int level = levelSettings.getDifficulty(cursor);
     ChestType chestType = ChestType.EMPTY;
     TreasureChest stal = worldEditor.getTreasureChestEditor().createChest(cursor, false, level, dir, chestType);
-    stal.setSlot(worldEditor.getCapacity(stal) / 2, Record.newRecord().withSong(Record.Song.STAL).asItemStack());
+    stal.setSlot(worldEditor.getCapacity(stal) / 2, Record.Song.STAL.asItem().asStack());
 
     cursor = origin.copy();
     cursor.translate(dir.reverse(), 3);
     cursor.translate(dir.antiClockwise(), 4);
     TreasureChest bdub = worldEditor.getTreasureChestEditor().createChest(cursor, false, level, dir, chestType);
-    bdub.setSlot((worldEditor.getCapacity(bdub) / 2) - 2, ItemNovelty.getItem(ItemNovelty.BDOUBLEO));
-    ItemStack shirt = new ItemStack(Items.LEATHER_CHESTPLATE);
-    shirt.setStackDisplayName("Pink Sweater");
-    Loot.setItemLore(shirt, "\"It's chinese red!\"");
-    ItemArmour.dyeArmor(shirt, Colors.CHINESE_RED);
-    bdub.setSlot((worldEditor.getCapacity(bdub) / 2) + 2, shirt);
+    bdub.setSlot((worldEditor.getCapacity(bdub) / 2) - 2, ItemNovelty.bDoubleOsDigJob());
+    bdub.setSlot((worldEditor.getCapacity(bdub) / 2) + 2, ItemNovelty.bDoubleOspinkSweater());
 
     cursor = origin.copy();
     cursor.translate(dir.reverse(), 3);
     cursor.translate(dir.clockwise(), 4);
     TreasureChest genny = worldEditor.getTreasureChestEditor().createChest(cursor, false, level, dir, chestType);
-    genny.setSlot(worldEditor.getCapacity(genny) / 2, ItemNovelty.getItem(ItemNovelty.GENERIKB));
+    genny.setSlot(worldEditor.getCapacity(genny) / 2, ItemNovelty.generikBsHotPotato());
 
     return this;
   }

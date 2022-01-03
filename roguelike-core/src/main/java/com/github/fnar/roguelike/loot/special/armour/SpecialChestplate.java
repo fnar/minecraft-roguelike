@@ -1,13 +1,13 @@
 package com.github.fnar.roguelike.loot.special.armour;
 
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemArmor;
+import com.github.fnar.minecraft.item.ArmourType;
+import com.github.fnar.minecraft.item.RldItem;
 
 import java.util.Random;
 
 import greymerk.roguelike.treasure.loot.Quality;
 
-import static greymerk.roguelike.treasure.loot.provider.ItemArmour.rollArmourQuality;
+import static greymerk.roguelike.treasure.loot.provider.ArmourQualityOddsTable.rollArmourQuality;
 
 public class SpecialChestplate extends SpecialArmour {
 
@@ -17,7 +17,7 @@ public class SpecialChestplate extends SpecialArmour {
 
   public SpecialChestplate(Random random, Quality quality) {
     withQuality(quality);
-    withItem(getChestplateItem());
+    withRldItem(getItem());
     withName(getChestplateName());
     withChestplateEnchantments(random);
     withCommonEnchantments(random);
@@ -29,20 +29,8 @@ public class SpecialChestplate extends SpecialArmour {
     withArmorEnchantments(random);
   }
 
-  private ItemArmor getChestplateItem() {
-    switch (quality) {
-      case DIAMOND:
-        return Items.DIAMOND_CHESTPLATE;
-      case GOLD:
-        return Items.GOLDEN_CHESTPLATE;
-      case IRON:
-        return Items.IRON_CHESTPLATE;
-      case STONE:
-        return Items.CHAINMAIL_CHESTPLATE;
-      case WOOD:
-      default:
-        return Items.LEATHER_CHESTPLATE;
-    }
+  private RldItem getItem() {
+    return ArmourType.CHESTPLATE.asItem().withQuality(quality);
   }
 
   private String getChestplateName() {

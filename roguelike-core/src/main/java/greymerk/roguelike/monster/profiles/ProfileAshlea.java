@@ -1,8 +1,8 @@
 package greymerk.roguelike.monster.profiles;
 
+import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.util.Colors;
 
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -18,7 +18,7 @@ public class ProfileAshlea implements IMonsterProfile {
   public void equip(World world, Random rand, int level, IEntity mob) {
     mob.setChild(true);
     MonsterProfile.VILLAGER.getMonsterProfile().equip(world, rand, level, mob);
-    ItemStack weapon = ItemNovelty.getItem(ItemNovelty.ASHLEA);
+    RldItemStack weapon = ItemNovelty.ashleasOatmealCookie();
     mob.equipMainhand(weapon);
     mob.equipArmor(world, rand, level, Colors.PINK_FLAMINGO);
   }

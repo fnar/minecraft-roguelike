@@ -18,6 +18,6 @@ public class DungeonTaskLoot implements IDungeonTask {
   public void execute(WorldEditor editor, Random random, Dungeon dungeon, DungeonSettings settings) {
     TreasureManager treasureManager = editor.getTreasureChestEditor().getTreasureManager();
     settings.processLoot(treasureManager);
-    treasureManager.addItem(ofType(ChestType.STARTER), new WeightedChoice<>(new BookStatistics(editor).get(), 0), 1);
+    treasureManager.addItem(ofType(ChestType.STARTER), new WeightedChoice<>(new BookStatistics(editor).asStack(), 0), 1);
   }
 }
