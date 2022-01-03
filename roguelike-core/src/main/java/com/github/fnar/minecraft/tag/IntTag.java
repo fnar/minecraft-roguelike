@@ -1,5 +1,8 @@
 package com.github.fnar.minecraft.tag;
 
+import lombok.ToString;
+
+@ToString
 public class IntTag implements Tag {
 
   private final int value;

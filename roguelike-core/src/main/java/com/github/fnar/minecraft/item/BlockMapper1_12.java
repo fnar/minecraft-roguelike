@@ -5,14 +5,17 @@ import net.minecraft.item.ItemStack;
 
 import greymerk.roguelike.worldgen.MetaBlock1_2;
 
-public class BlockMapper1_12 {
+public class BlockMapper1_12 extends BaseItemMapper1_12<BlockItem> {
 
-  public ItemStack map(RldItemStack rldItemStack) {
-    return new ItemStack(map((Block)rldItemStack.getItem()));
+  @Override
+  public Class<BlockItem> getClazz() {
+    return BlockItem.class;
   }
 
-  private static Item map(Block item) {
-    MetaBlock1_2 metaBlock = com.github.fnar.minecraft.block.BlockMapper1_12.map(item.getBlockType());
-    return Item.getItemFromBlock(metaBlock.getBlock());
+  @Override
+  public ItemStack map(BlockItem block) {
+    MetaBlock1_2 metaBlock = com.github.fnar.minecraft.block.BlockMapper1_12.map(block.getBlockType());
+    Item item = Item.getItemFromBlock(metaBlock.getBlock());
+    return new ItemStack(item);
   }
 }

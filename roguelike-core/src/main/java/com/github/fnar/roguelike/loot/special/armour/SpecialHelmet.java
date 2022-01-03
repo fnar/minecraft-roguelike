@@ -1,14 +1,15 @@
 package com.github.fnar.roguelike.loot.special.armour;
 
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
+import com.github.fnar.minecraft.item.ArmourType;
+import com.github.fnar.minecraft.item.Enchantment;
+import com.github.fnar.minecraft.item.RldItem;
+import com.github.fnar.roguelike.loot.special.SpecialEquipment;
 
 import java.util.Random;
 
-import greymerk.roguelike.treasure.loot.Enchant;
 import greymerk.roguelike.treasure.loot.Quality;
 
-import static greymerk.roguelike.treasure.loot.provider.ItemArmour.rollArmourQuality;
+import static greymerk.roguelike.treasure.loot.provider.ArmourQualityOddsTable.rollArmourQuality;
 
 public class SpecialHelmet extends SpecialArmour {
 
@@ -18,7 +19,7 @@ public class SpecialHelmet extends SpecialArmour {
 
   public SpecialHelmet(Random random, Quality quality) {
     withQuality(quality);
-    withItem(getSpecialHelmetItem());
+    withRldItem(getItem());
     withName(getSpecialHelmetName());
     withHelmetEnchantments(random);
     withCommonEnchantments(random);
@@ -35,26 +36,14 @@ public class SpecialHelmet extends SpecialArmour {
   }
 
   private void withDiving(Random random) {
-    withEnchantment(Enchant.getEnchant(Enchant.RESPIRATION), 3);
-    withEnchantment(Enchant.getEnchant(Enchant.AQUAAFFINITY), 1);
-    withEnchantment(Enchant.getEnchant(Enchant.PROTECTION), Enchant.getProtectionLevel(quality, random));
+    withEnchantment(Enchantment.Effect.RESPIRATION, 3);
+    withEnchantment(Enchantment.Effect.AQUA_AFFINITY, 1);
+    withEnchantment(Enchantment.Effect.PROTECTION, SpecialEquipment.getProtectionLevel(quality, random));
     withSuffix("of Diving");
   }
 
-  private Item getSpecialHelmetItem() {
-    switch (quality) {
-      case DIAMOND:
-        return Items.DIAMOND_HELMET;
-      case GOLD:
-        return Items.GOLDEN_HELMET;
-      case IRON:
-        return Items.IRON_HELMET;
-      case STONE:
-        return Items.CHAINMAIL_HELMET;
-      case WOOD:
-      default:
-        return Items.LEATHER_HELMET;
-    }
+  private RldItem getItem() {
+    return ArmourType.HELMET.asItem().withQuality(quality);
   }
 
   private String getSpecialHelmetName() {

@@ -16,7 +16,7 @@ public class RoomIterator implements Iterator<BaseRoom> {
   private final LinkedList<BaseRoom> singleRooms;
   private final WeightedRandomizer<RoomSetting> randomRooms;
   private final LevelSettings levelSettings;
-  private WorldEditor worldEditor;
+  private final WorldEditor worldEditor;
 
   public RoomIterator(LevelSettings levelSettings, WorldEditor worldEditor) {
     singleRooms = levelSettings.getRooms().getSingleRoomSettings().stream()

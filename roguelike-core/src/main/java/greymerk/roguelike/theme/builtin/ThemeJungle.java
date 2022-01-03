@@ -2,7 +2,7 @@ package greymerk.roguelike.theme.builtin;
 
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
-import com.github.fnar.minecraft.block.normal.Wood;
+import com.github.fnar.minecraft.material.Wood;
 
 import greymerk.roguelike.theme.BlockSet;
 import greymerk.roguelike.theme.Theme;
@@ -26,7 +26,6 @@ public class ThemeJungle extends Theme {
 
     StairsBlock stair = StairsBlock.cobble();
 
-    BlockBrush pillar = chisel;
     BlockBrush pillar2 = Wood.JUNGLE.getLog();
 
     BlockJumble stairJumble = new BlockJumble();
@@ -39,7 +38,7 @@ public class ThemeJungle extends Theme {
     floor.addBlock(walls, 5);
 
 
-    this.primary = new BlockSet(floor, walls, stair, pillar);
+    this.primary = new BlockSet(floor, walls, stair, chisel);
     this.secondary = new BlockSet(chisel, stair, pillar2);
   }
 }

@@ -1,6 +1,6 @@
 package greymerk.roguelike.treasure.loot.rule;
 
-import net.minecraft.item.ItemStack;
+import com.github.fnar.minecraft.item.RldItemStack;
 
 import greymerk.roguelike.treasure.TreasureManager;
 import greymerk.roguelike.treasure.loot.ChestType;
@@ -13,17 +13,17 @@ public class TypedForEachLootRule implements LootRule {
 
   private final ChestType chestType;
   private final int level;
-  private WeightedRandomizer<ItemStack> items = new WeightedRandomizer<>();
+  private WeightedRandomizer<RldItemStack> items = new WeightedRandomizer<>();
   private final int amount;
 
-  public TypedForEachLootRule(ChestType chestType, WeightedRandomizer<ItemStack> item, int level, int amount) {
+  public TypedForEachLootRule(ChestType chestType, WeightedRandomizer<RldItemStack> item, int level, int amount) {
     this.chestType = chestType;
     this.items = item;
     this.level = level;
     this.amount = amount;
   }
 
-  public TypedForEachLootRule(ChestType chestType, IWeighted<ItemStack> item, int level, int amount) {
+  public TypedForEachLootRule(ChestType chestType, IWeighted<RldItemStack> item, int level, int amount) {
     this.chestType = chestType;
     this.items.add(item);
     this.level = level;

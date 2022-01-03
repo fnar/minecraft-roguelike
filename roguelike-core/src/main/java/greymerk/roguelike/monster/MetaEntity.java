@@ -1,5 +1,8 @@
 package greymerk.roguelike.monster;
 
+import com.github.fnar.minecraft.item.ItemMapper1_12;
+import com.github.fnar.minecraft.item.RldItemStack;
+
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.monster.EntityZombie;
@@ -17,6 +20,10 @@ public class MetaEntity implements IEntity {
   @Override
   public void setSlot(EntityEquipmentSlot slot, ItemStack item) {
     mob.setItemStackToSlot(slot, item);
+  }
+
+  public void setSlot(EntityEquipmentSlot slot, RldItemStack rldItemStack) {
+    mob.setItemStackToSlot(slot, new ItemMapper1_12().map(rldItemStack));
   }
 
   @Override

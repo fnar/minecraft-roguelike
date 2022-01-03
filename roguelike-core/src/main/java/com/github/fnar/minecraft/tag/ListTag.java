@@ -4,8 +4,11 @@ import com.google.common.collect.Lists;
 
 import java.util.List;
 
+import lombok.ToString;
+
 import static com.github.fnar.minecraft.tag.TagType.LIST;
 
+@ToString
 public class ListTag implements Tag {
 
   private final List<Tag> tags = Lists.newLinkedList();

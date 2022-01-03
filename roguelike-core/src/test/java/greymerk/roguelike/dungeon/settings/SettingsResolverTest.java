@@ -3,13 +3,14 @@ package greymerk.roguelike.dungeon.settings;
 import com.google.gson.JsonObject;
 
 import com.github.fnar.minecraft.block.SingleBlockBrush;
+import com.github.fnar.minecraft.item.ItemType;
+import com.github.fnar.minecraft.item.Material;
+import com.github.fnar.minecraft.item.RldItem;
+import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.roguelike.dungeon.settings.fixture.Dungeon;
 import com.github.fnar.roguelike.dungeon.settings.fixture.Theme;
 
 import net.minecraft.init.Bootstrap;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 
 import org.assertj.core.util.Lists;
 import org.junit.Before;
@@ -49,7 +50,7 @@ public class SettingsResolverTest {
   private TreasureChest mockTreasureChest;
 
   @Captor
-  private ArgumentCaptor<ItemStack> itemStackCaptor;
+  private ArgumentCaptor<RldItemStack> itemStackCaptor;
 
   @Before
   public void setUp() {
@@ -75,13 +76,13 @@ public class SettingsResolverTest {
 
     main.getInherit().add(toInherit.getId());
 
-    toInherit.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(new ItemStack(Items.STICK), 1), 0, 1));
+    toInherit.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(Material.Type.STICK.asItem().asStack(), 1), 0, 1));
 
     DungeonSettings assembled = settingsResolver.processInheritance(main);
 
     assertChestContains();
     assembled.getLootRules().process(treasureManager);
-    assertChestContains(Items.STICK);
+    assertChestContains(Material.Type.STICK.asItem());
   }
 
   @Test
@@ -95,14 +96,14 @@ public class SettingsResolverTest {
     main.getInherit().add(child.getId());
     child.getInherit().add(grandchild.getId());
 
-    child.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(new ItemStack(Items.STICK), 1), 0, 1));
-    grandchild.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(new ItemStack(Items.DIAMOND), 1), 0, 1));
+    child.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(Material.Type.STICK.asItem().asStack(), 1), 0, 1));
+    grandchild.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(Material.Type.DIAMOND.asItem().asStack(), 1), 0, 1));
 
     DungeonSettings assembled = settingsResolver.processInheritance(main);
 
     assertChestContains();
     assembled.getLootRules().process(treasureManager);
-    assertChestContains(Items.DIAMOND, Items.STICK);
+    assertChestContains(Material.Type.DIAMOND.asItem(), Material.Type.STICK.asItem());
   }
 
   @Test
@@ -118,21 +119,21 @@ public class SettingsResolverTest {
     main.getInherit().add(otherParent.getId());
     parent.getInherit().add(grandparent.getId());
 
-    parent.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(new ItemStack(Items.STICK), 1), 0, 1));
-    otherParent.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(new ItemStack(Items.COAL), 1), 0, 1));
-    grandparent.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(new ItemStack(Items.DIAMOND), 1), 0, 1));
+    parent.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(Material.Type.STICK.asItem().asStack(), 1), 0, 1));
+    otherParent.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(Material.Type.COAL.asItem().asStack(), 1), 0, 1));
+    grandparent.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(Material.Type.DIAMOND.asItem().asStack(), 1), 0, 1));
 
     DungeonSettings assembled = settingsResolver.processInheritance(main);
 
     assertChestContains();
     assembled.getLootRules().process(treasureManager);
-    assertChestContains(Items.COAL, Items.DIAMOND, Items.STICK);
+    assertChestContains(Material.Type.COAL.asItem(), Material.Type.DIAMOND.asItem(), Material.Type.STICK.asItem());
   }
 
   @Test
   public void processInheritance_BothChildAndParentLootTablesAreKept() {
-    ItemStack stick = new ItemStack(Items.STICK);
-    ItemStack coal = new ItemStack(Items.COAL);
+    RldItemStack stick = Material.Type.STICK.asItem().asStack();
+    RldItemStack coal = Material.Type.COAL.asItem().asStack();
 
     DungeonSettings parent = new DungeonSettings("parent");
     parent.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(stick, 1), 0, 1));
@@ -147,13 +148,13 @@ public class SettingsResolverTest {
 
     assertChestContains();
     assembled.getLootRules().process(treasureManager);
-    assertChestContains(Items.STICK, Items.COAL);
+    assertChestContains(Material.Type.STICK.asItem(), Material.Type.COAL.asItem());
   }
 
   @Test
   public void processInheritance_GivesParentLootRulesAndLootTablesToChildren() {
-    ItemStack stick = new ItemStack(Items.STICK);
-    ItemStack coal = new ItemStack(Items.COAL);
+    RldItemStack stick = Material.Type.STICK.asItem().asStack();
+    RldItemStack coal = Material.Type.COAL.asItem().asStack();
 
     DungeonSettings parent = new DungeonSettings("parent");
     LootTableRule rewardDungeonLootTable = newLootTableRule(0, "minecraft:dungeon", ChestType.STARTER);
@@ -172,7 +173,7 @@ public class SettingsResolverTest {
 
     assertChestContains();
     assembled.getLootRules().process(treasureManager);
-    assertChestContains(Items.STICK, Items.COAL);
+    assertChestContains(Material.Type.STICK.asItem(), Material.Type.COAL.asItem());
   }
 
   @Test
@@ -191,9 +192,9 @@ public class SettingsResolverTest {
     assertThat(lightBlock.getJson()).isEqualTo(expected);
   }
 
-  public void assertChestContains(Item... items) {
+  public void assertChestContains(RldItem... items) {
     verify(mockTreasureChest, times(items.length)).setRandomEmptySlot(itemStackCaptor.capture());
-    List<Item> capturedItems = itemStackCaptor.getAllValues().stream().map(ItemStack::getItem).collect(Collectors.toList());
+    List<RldItem> capturedItems = itemStackCaptor.getAllValues().stream().map(RldItemStack::getItem).collect(Collectors.toList());
     assertThat(capturedItems.size()).isEqualTo(items.length);
     assertThat(capturedItems).containsExactlyInAnyOrder(items);
   }
@@ -258,9 +259,9 @@ public class SettingsResolverTest {
 
     verify(mockTreasureChest, times(potionTypes.size())).setRandomEmptySlot(itemStackCaptor.capture());
 
-    List<ItemStack> potionItemStacks = itemStackCaptor.getAllValues();
-    for (ItemStack potionItemStack : potionItemStacks) {
-      assertThat(potionItemStack.getItem()).isEqualTo(Items.POTIONITEM);
+    List<RldItemStack> potionItemStacks = itemStackCaptor.getAllValues();
+    for (RldItemStack potionItemStack : potionItemStacks) {
+      assertThat(potionItemStack.getItem().getItemType()).isEqualTo(ItemType.POTION);
     }
 
   }

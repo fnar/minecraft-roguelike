@@ -90,7 +90,7 @@ public class SegmentTrap extends SegmentBase {
 
     for (int i = 0; i < 5; i++) {
       int slot = rand.nextInt(9);
-      RldItemStack payload = Arrow.newRandomHarmful(rand).asItemStack();
+      RldItemStack payload = Arrow.newRandomHarmful(rand).asStack();
       editor.setItem(cursor, slot, payload);
     }
 
@@ -109,11 +109,11 @@ public class SegmentTrap extends SegmentBase {
     switch (rand.nextInt(3)) {
       default:
       case 0:
-        return BlockType.TNT.asItemStack();
+        return BlockType.TNT.asItem().asStack();
       case 1:
-        return Potion.newPotion().withEffect(Potion.Effect.POISON).withForm(Potion.Form.SPLASH).asItemStack();
+        return Potion.newPotion().withEffect(Potion.Effect.POISON).withForm(Potion.Form.SPLASH).asStack();
       case 2:
-        return Potion.newPotion().withEffect(Potion.Effect.HARMING).withForm(Potion.Form.SPLASH).asItemStack();
+        return Potion.newPotion().withEffect(Potion.Effect.HARMING).withForm(Potion.Form.SPLASH).asStack();
     }
   }
 

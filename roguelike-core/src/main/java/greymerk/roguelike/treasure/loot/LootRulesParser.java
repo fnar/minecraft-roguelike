@@ -4,13 +4,14 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import net.minecraft.item.ItemStack;
+import com.github.fnar.minecraft.item.RldItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import greymerk.roguelike.dungeon.settings.DungeonSettingParseException;
 import greymerk.roguelike.dungeon.settings.level.LevelsParser;
 import greymerk.roguelike.treasure.loot.rule.ForEachLootRule;
 import greymerk.roguelike.treasure.loot.rule.LootRule;
@@ -46,7 +47,7 @@ public class LootRulesParser {
     JsonArray lootArray = ruleObject.get("loot").getAsJsonArray();
 
     List<Integer> levels = LevelsParser.parseLevelsOrDefault(ruleObject, ALL_LEVELS);
-    WeightedRandomizer<ItemStack> items = parseLootItems(lootArray);
+    WeightedRandomizer<RldItemStack> items = parseLootItems(lootArray);
     int amount = ruleObject.get("quantity").getAsInt();
     boolean each = ruleObject.get("each").getAsBoolean();
     Optional<ChestType> chestType = parseChestType(ruleObject);
@@ -56,7 +57,7 @@ public class LootRulesParser {
         .collect(Collectors.toList());
   }
 
-  private LootRule newLootRule(WeightedRandomizer<ItemStack> items, int amount, int level, boolean isEach, Optional<ChestType> chestType) {
+  private LootRule newLootRule(WeightedRandomizer<RldItemStack> items, int amount, int level, boolean isEach, Optional<ChestType> chestType) {
     return chestType.map(type -> isEach
         ? new TypedForEachLootRule(type, items, level, amount)
         : new TypedSingleUseLootRule(type, items, level, amount))
@@ -65,18 +66,23 @@ public class LootRulesParser {
             : new SingleUseLootRule(items, level, amount));
   }
 
-  private IWeighted<ItemStack> parseLootItemProvider(JsonObject lootItem) throws Exception {
+  private IWeighted<RldItemStack> parseLootItemProvider(JsonObject lootItem) throws Exception {
 
     int weight = lootItem.has("weight") ? lootItem.get("weight").getAsInt() : 1;
 
-    if (lootItem.get("data").isJsonObject()) {
-      JsonObject data = lootItem.get("data").getAsJsonObject();
-      return Loot.get(data, weight);
+    if (!lootItem.has("data")) {
+      throw new DungeonSettingParseException("Loot items should  have the property \"data\".");
     }
 
-    JsonArray data = lootItem.get("data").getAsJsonArray();
-    WeightedRandomizer<ItemStack> items = new WeightedRandomizer<>(weight);
-    for (JsonElement jsonElement : data) {
+    JsonElement data = lootItem.get("data");
+    if (data.isJsonObject()) {
+      JsonObject dataAsJsonObject = data.getAsJsonObject();
+      return GreymerkChestType.parseLootItem(dataAsJsonObject, weight);
+    }
+
+    WeightedRandomizer<RldItemStack> items = new WeightedRandomizer<>(weight);
+    JsonArray dataAsJsonArray = data.getAsJsonArray();
+    for (JsonElement jsonElement : dataAsJsonArray) {
       if (jsonElement.isJsonNull()) {
         continue;
       }
@@ -94,13 +100,22 @@ public class LootRulesParser {
             : Optional.empty();
   }
 
-  public WeightedRandomizer<ItemStack> parseLootItems(JsonArray data) throws Exception {
-    WeightedRandomizer<ItemStack> items = new WeightedRandomizer<>(1);
+  public WeightedRandomizer<RldItemStack> parseLootItems(JsonArray data) throws Exception {
+    WeightedRandomizer<RldItemStack> items = new WeightedRandomizer<>(1);
     for (JsonElement item : data) {
       if (item.isJsonNull()) {
-        continue;
+        throw new DungeonSettingParseException("The list of \"loot\" in \"lootRules\" are expected to not contain null value.");
       }
-      IWeighted<ItemStack> lootItemProvider = parseLootItemProvider(item.getAsJsonObject());
+      if (item.isJsonArray()) {
+        throw new DungeonSettingParseException("The list of \"loot\" in \"lootRules\" are expected to be JSON objects, but an array/list was found instead.");
+      }
+      if (item.isJsonPrimitive()) {
+        throw new DungeonSettingParseException("The list of \"loot\" in \"lootRules\" are expected to be JSON objects, but a primitive was found instead, with value `" + item.getAsString() + "`.");
+      }
+      if (!item.isJsonObject()) {
+        throw new DungeonSettingParseException("The list of \"loot\" in \"lootRules\" are expected to be JSON objects.");
+      }
+      IWeighted<RldItemStack> lootItemProvider = parseLootItemProvider(item.getAsJsonObject());
       items.add(lootItemProvider);
     }
     return items;

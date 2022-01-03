@@ -6,12 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import greymerk.roguelike.treasure.loot.BookBase;
+import greymerk.roguelike.treasure.loot.Book;
 import greymerk.roguelike.worldgen.WorldEditor;
 
 import static org.apache.commons.lang3.StringUtils.abbreviate;
 
-public class BookStatistics extends BookBase {
+public class BookStatistics extends Book {
 
   public BookStatistics(WorldEditor editor) {
     super("greymerk", "Statistics");

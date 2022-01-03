@@ -16,8 +16,8 @@ import com.github.fnar.minecraft.block.normal.InfestedBlock;
 import com.github.fnar.minecraft.block.normal.Quartz;
 import com.github.fnar.minecraft.block.normal.SlabBlock;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
-import com.github.fnar.minecraft.block.normal.Stone;
-import com.github.fnar.minecraft.block.normal.Wood;
+import com.github.fnar.minecraft.material.Stone;
+import com.github.fnar.minecraft.material.Wood;
 import com.github.fnar.minecraft.block.redstone.ComparatorBlock;
 import com.github.fnar.minecraft.block.redstone.DoorBlock;
 import com.github.fnar.minecraft.block.redstone.LeverBlock;
@@ -266,13 +266,13 @@ public class BlockMapper1_12 {
         return new MetaBlock1_2(Blocks.CARROTS);
       case COCOA:
         return getCocoaBlock(cropBlock.getFacing());
-      case MELON_STEM:
+      case MELON:
         return new MetaBlock1_2(Blocks.MELON_STEM);
       case NETHER_WART:
         return new MetaBlock1_2(Blocks.NETHER_WART);
       case POTATOES:
         return new MetaBlock1_2(Blocks.POTATOES);
-      case PUMPKIN_STEM:
+      case PUMPKIN:
         return new MetaBlock1_2(Blocks.PUMPKIN_STEM);
       default:
       case WHEAT:
@@ -578,7 +578,7 @@ public class BlockMapper1_12 {
       return new MetaBlock1_2(getTerracottaByColor(coloredBlock.getColor()));
     }
     return new MetaBlock1_2(getBlock(coloredBlock.getBlockType()))
-        .withProperty(BlockColored.COLOR, DyeColor.get(coloredBlock.getColor()));
+        .withProperty(BlockColored.COLOR, coloredBlock.getColor().toEnumDyeColor());
   }
 
   private static Block getBlock(BlockType type) {

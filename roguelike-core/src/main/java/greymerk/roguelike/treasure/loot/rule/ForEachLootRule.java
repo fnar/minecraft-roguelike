@@ -1,26 +1,26 @@
 package greymerk.roguelike.treasure.loot.rule;
 
-import net.minecraft.item.ItemStack;
+import com.github.fnar.minecraft.item.RldItemStack;
 
 import greymerk.roguelike.treasure.TreasureManager;
 import greymerk.roguelike.util.IWeighted;
 import greymerk.roguelike.util.WeightedRandomizer;
 
-import static greymerk.roguelike.treasure.TreasureManager.onLevel;
+import static greymerk.roguelike.treasure.TreasureManager.onLevelAndNotEmpty;
 
 public class ForEachLootRule implements LootRule {
 
   private final int level;
-  private WeightedRandomizer<ItemStack> items = new WeightedRandomizer<>();
+  private WeightedRandomizer<RldItemStack> items = new WeightedRandomizer<>();
   private final int amount;
 
-  public ForEachLootRule(WeightedRandomizer<ItemStack> items, int level, int amount) {
+  public ForEachLootRule(WeightedRandomizer<RldItemStack> items, int level, int amount) {
     this.items = items;
     this.level = level;
     this.amount = amount;
   }
 
-  public ForEachLootRule(IWeighted<ItemStack> item, int level, int amount) {
+  public ForEachLootRule(IWeighted<RldItemStack> item, int level, int amount) {
     this.items.add(item);
     this.level = level;
     this.amount = amount;
@@ -31,7 +31,7 @@ public class ForEachLootRule implements LootRule {
     if (isEmpty()) {
       return;
     }
-    treasureManager.addItemToAll(onLevel(level), items, amount);
+    treasureManager.addItemToAll(onLevelAndNotEmpty(level), items, amount);
   }
 
   @Override

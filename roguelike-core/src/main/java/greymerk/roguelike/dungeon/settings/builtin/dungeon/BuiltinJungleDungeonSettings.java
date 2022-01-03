@@ -1,6 +1,6 @@
 package greymerk.roguelike.dungeon.settings.builtin.dungeon;
 
-import net.minecraft.init.Items;
+import com.github.fnar.minecraft.item.Material;
 
 import greymerk.roguelike.dungeon.segment.Segment;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
@@ -12,8 +12,9 @@ import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.settings.builtin.BuiltinBaseSettings;
 import greymerk.roguelike.dungeon.towers.Tower;
 import greymerk.roguelike.theme.Themes;
-import greymerk.roguelike.treasure.loot.WeightedRandomLoot;
+import greymerk.roguelike.treasure.loot.MinecraftItemLootItem;
 import greymerk.roguelike.treasure.loot.rule.SingleUseLootRule;
+import greymerk.roguelike.util.WeightedChoice;
 import greymerk.roguelike.worldgen.filter.Filter;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -31,8 +32,8 @@ public class BuiltinJungleDungeonSettings extends DungeonSettings {
     setTowerSettings(new TowerSettings(Tower.JUNGLE, Themes.JUNGLE));
 
     for (int i = 0; i < 5; ++i) {
-      getLootRules().add(new SingleUseLootRule(new WeightedRandomLoot(Items.EMERALD, 0, 1, 1 + i, 1), i, 6));
-      getLootRules().add(new SingleUseLootRule(new WeightedRandomLoot(Items.DIAMOND, 1), i, 3 + i * 3));
+      getLootRules().add(new SingleUseLootRule(new MinecraftItemLootItem(Material.Type.EMERALD.asItem(), 0, 1, 1 + i, 1), i, 6));
+      getLootRules().add(new SingleUseLootRule(new WeightedChoice<>(Material.Type.DIAMOND.asItem().asStack(), 1), i, 3 + i * 3));
     }
 
 

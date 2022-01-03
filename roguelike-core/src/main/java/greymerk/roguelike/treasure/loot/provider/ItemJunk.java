@@ -1,39 +1,41 @@
 package greymerk.roguelike.treasure.loot.provider;
 
+import com.github.fnar.minecraft.block.BlockType;
+import com.github.fnar.minecraft.item.ArmourType;
 import com.github.fnar.minecraft.item.Arrow;
-import com.github.fnar.minecraft.item.ItemMapper1_12;
+import com.github.fnar.minecraft.item.Food;
+import com.github.fnar.minecraft.item.Ingredient;
+import com.github.fnar.minecraft.item.Material;
+import com.github.fnar.minecraft.item.Miscellaneous;
 import com.github.fnar.minecraft.item.Potion;
 import com.github.fnar.minecraft.item.RldItemStack;
-
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 
 import java.util.Random;
 
 import greymerk.roguelike.treasure.loot.PotionMixture;
 import greymerk.roguelike.treasure.loot.Shield;
+import greymerk.roguelike.util.DyeColor;
 
-public class ItemJunk extends ItemBase {
+public class ItemJunk extends LootItem {
 
   public ItemJunk(int weight, int level) {
     super(weight, level);
   }
 
   @Override
-  public ItemStack getLootItem(Random rand, int level) {
+  public RldItemStack getLootItem(Random rand, int level) {
 
     if (level > 0 && rand.nextInt(200) == 0) {
       if (level > 2 && rand.nextInt(10) == 0) {
-        return new ItemStack(Items.DIAMOND_HORSE_ARMOR, 1, 0);
+        return ArmourType.HORSE.asItem().diamond().asStack();
       }
       if (level > 1 && rand.nextInt(5) == 0) {
-        return new ItemStack(Items.GOLDEN_HORSE_ARMOR, 1, 0);
+        return ArmourType.HORSE.asItem().golden().asStack();
       }
       if (rand.nextInt(3) == 0) {
-        return new ItemStack(Items.IRON_HORSE_ARMOR, 1, 0);
+        return ArmourType.HORSE.asItem().iron().asStack();
       }
-      return new ItemStack(Items.SADDLE);
+      return Miscellaneous.Type.SADDLE.asItem().asStack();
     }
 
     if (rand.nextInt(100) == 0) {
@@ -41,11 +43,11 @@ public class ItemJunk extends ItemBase {
     }
 
     if (level > 1 && rand.nextInt(100) == 0) {
-      return new ItemStack(Items.GHAST_TEAR);
+      return Ingredient.Type.GHAST_TEAR.asItem().asStack();
     }
 
     if (level < 3 && rand.nextInt(80) == 0) {
-      return new ItemStack(Items.BOOK);
+      return Miscellaneous.Type.BOOK.asItem().asStack();
     }
 
     if (rand.nextInt(80) == 0) {
@@ -59,17 +61,17 @@ public class ItemJunk extends ItemBase {
     if (level > 1 && rand.nextInt(50) == 0) {
       switch (rand.nextInt(6)) {
         case 0:
-          return new ItemStack(Items.GUNPOWDER, 1 + rand.nextInt(3));
+          return Ingredient.Type.GUNPOWDER.asItem().asStack().withCount(1 + rand.nextInt(3));
         case 1:
-          return new ItemStack(Items.BLAZE_POWDER, 1 + rand.nextInt(3));
+          return Ingredient.Type.BLAZE_POWDER.asItem().asStack().withCount(1 + rand.nextInt(3));
         case 2:
-          return new ItemStack(Items.GOLD_NUGGET, 1 + rand.nextInt(3));
+          return Material.Type.GOLD_NUGGET.asItem().asStack().withCount(1 + rand.nextInt(3));
         case 3:
-          return new ItemStack(Items.REDSTONE, 1 + rand.nextInt(3));
+          return Ingredient.Type.REDSTONE.asItem().asStack().withCount(1 + rand.nextInt(3));
         case 4:
-          return new ItemStack(Items.GLOWSTONE_DUST, 1 + rand.nextInt(8));
+          return Ingredient.Type.GLOWSTONE_DUST.asItem().asStack().withCount(1 + rand.nextInt(8));
         case 5:
-          return new ItemStack(Items.DYE, 1 + rand.nextInt(3));
+          return DyeColor.WHITE.asItem().asStack().withCount(1 + rand.nextInt(3));
       }
     }
 
@@ -78,56 +80,52 @@ public class ItemJunk extends ItemBase {
     }
 
     if (rand.nextInt(30) == 0) {
-      return new ItemStack(Blocks.TORCH, 6 + rand.nextInt(20));
+      return BlockType.TORCH.asItem().asStack().withCount(rand.nextInt(20) + 6);
     }
 
     if (level > 0 && rand.nextInt(8) == 0) {
       switch (rand.nextInt(8)) {
         case 0:
-          return new ItemStack(Items.SLIME_BALL);
+          return Material.Type.SLIME_BALL.asItem().asStack();
         case 1:
-          return new ItemStack(Items.SNOWBALL);
+          return Material.Type.SNOWBALL.asItem().asStack();
         case 2:
-          return new ItemStack(Items.MUSHROOM_STEW);
+          return Food.Type.MUSHROOM_STEW.asItem().asStack();
         case 3:
-          return new ItemStack(Items.CLAY_BALL);
+          return Material.Type.CLAY_BALL.asItem().asStack();
         case 4:
-          return new ItemStack(Items.FLINT);
+          return Material.Type.FLINT.asItem().asStack();
         case 5:
-          return new ItemStack(Items.FEATHER);
+          return Material.Type.FEATHER.asItem().asStack();
         case 6:
-          return new ItemStack(Items.GLASS_BOTTLE);
+          return Miscellaneous.Type.GLASS_BOTTLE.asItem().asStack();
         case 7:
-          return new ItemStack(Items.LEATHER);
+          return Material.Type.LEATHER.asItem().asStack();
       }
     }
 
     switch (rand.nextInt(7)) {
       case 0:
-        return new ItemStack(Items.BONE);
+        return Material.Type.BONE.asItem().asStack();
       case 1:
-        return new ItemStack(Items.ROTTEN_FLESH);
+        return Food.Type.ROTTEN_FLESH.asItem().asStack();
       case 2:
-        return new ItemStack(Items.SPIDER_EYE);
+        return Ingredient.Type.SPIDER_EYE.asItem().asStack();
       case 3:
-        return new ItemStack(Items.PAPER);
+        return Material.Type.PAPER.asItem().asStack();
       case 4:
-        return new ItemStack(Items.STRING);
+        return Material.Type.STRING.asItem().asStack();
       case 5:
       default:
-        return new ItemStack(Items.STICK);
+        return Material.Type.STICK.asItem().asStack();
     }
   }
 
-  private ItemStack getTippedArrow(Random rand, int level) {
-    int count = 4 + rand.nextInt(level) * 2;
-
-    RldItemStack rldItemStack = Arrow.newArrow()
-        .withTip(Potion.newPotion()
-            .withEffect(Potion.Effect.chooseRandom(rand)))
-        .asItemStack()
-        .withCount(count);
-
-    return new ItemMapper1_12().map(rldItemStack);
+  private RldItemStack getTippedArrow(Random rand, int level) {
+    return Arrow.newArrow()
+        .withTip(Potion.Effect.chooseRandom(rand).asItem())
+        .asStack()
+        .withCount(rand.nextInt(level) * 2 + 4);
   }
+
 }

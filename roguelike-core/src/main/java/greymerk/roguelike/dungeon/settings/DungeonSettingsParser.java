@@ -41,8 +41,7 @@ public class DungeonSettingsParser {
       try {
         parse = jsonParser.parse(content).getAsJsonObject();
       } catch (JsonSyntaxException e) {
-        Throwable cause = e.getCause();
-        throw new Exception(cause.getMessage());
+        throw new Exception(e.getCause());
       }
       return parseDungeonSettings(parse);
     } catch (DungeonSettingParseException | RequiredModMissingException exception) {
@@ -243,7 +242,7 @@ public class DungeonSettingsParser {
     }
   }
 
-  private static void parseRooms(JsonObject root, DungeonSettings dungeonSettings) throws Exception {
+  private static void parseRooms(JsonObject root, DungeonSettings dungeonSettings) {
     if (!root.has("rooms")) {
       return;
     }
@@ -358,7 +357,7 @@ public class DungeonSettingsParser {
   }
 
   // todo: See above
-  private static List<RoomSetting> parseRoomSettings(JsonArray roomArray) throws Exception {
+  private static List<RoomSetting> parseRoomSettings(JsonArray roomArray) {
     List<RoomSetting> roomSettings = Lists.newArrayList();
     for (JsonElement roomSettingElement : roomArray) {
       if (roomSettingElement.isJsonNull()) {

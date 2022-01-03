@@ -1,7 +1,8 @@
 package greymerk.roguelike.dungeon.settings.builtin.dungeon;
 
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
+import com.github.fnar.minecraft.item.Ingredient;
+import com.github.fnar.minecraft.item.Material;
+import com.github.fnar.minecraft.item.RldItemStack;
 
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
@@ -14,7 +15,7 @@ import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.settings.builtin.BuiltinBaseSettings;
 import greymerk.roguelike.theme.Themes;
-import greymerk.roguelike.treasure.loot.WeightedRandomLoot;
+import greymerk.roguelike.treasure.loot.MinecraftItemLootItem;
 import greymerk.roguelike.treasure.loot.rule.ForEachLootRule;
 import greymerk.roguelike.treasure.loot.rule.SingleUseLootRule;
 import greymerk.roguelike.util.WeightedRandomizer;
@@ -42,15 +43,15 @@ public class BuiltinSwampDungeonSettings extends DungeonSettings {
 
     Themes[] themes = {DARKHALL, DARKHALL, MUDDY, MOSSY, NETHER};
 
-    WeightedRandomizer<ItemStack> brewing = new WeightedRandomizer<>();
-    brewing.add(new WeightedRandomLoot(Items.GLASS_BOTTLE, 0, 1, 3, 3));
-    brewing.add(new WeightedRandomLoot(Items.MAGMA_CREAM, 0, 1, 2, 1));
-    brewing.add(new WeightedRandomLoot(Items.SPECKLED_MELON, 0, 1, 3, 1));
-    brewing.add(new WeightedRandomLoot(Items.BLAZE_POWDER, 0, 1, 3, 1));
-    brewing.add(new WeightedRandomLoot(Items.SUGAR, 0, 1, 3, 1));
+    WeightedRandomizer<RldItemStack> brewing = new WeightedRandomizer<>();
+    brewing.add(new MinecraftItemLootItem(Ingredient.Type.GLASS_BOTTLE.asItem(), 0, 1, 3, 3));
+    brewing.add(new MinecraftItemLootItem(Ingredient.Type.MAGMA_CREAM.asItem(), 0, 1, 2, 1));
+    brewing.add(new MinecraftItemLootItem(Ingredient.Type.SPECKLED_MELON.asItem(), 0, 1, 3, 1));
+    brewing.add(new MinecraftItemLootItem(Ingredient.Type.BLAZE_POWDER.asItem(), 0, 1, 3, 1));
+    brewing.add(new MinecraftItemLootItem(Ingredient.Type.SUGAR.asItem(), 0, 1, 3, 1));
     for (int i = 0; i < 5; ++i) {
       getLootRules().add(new ForEachLootRule(brewing, i, 2));
-      getLootRules().add(new SingleUseLootRule(new WeightedRandomLoot(Items.SLIME_BALL, 0, 1, 1 + i, 1), i, 4 + i * 3));
+      getLootRules().add(new SingleUseLootRule(new MinecraftItemLootItem(Material.Type.SLIME_BALL.asItem(), 0, 1, 1 + i, 1), i, 4 + i * 3));
     }
     for (int i = 0; i < 5; ++i) {
 

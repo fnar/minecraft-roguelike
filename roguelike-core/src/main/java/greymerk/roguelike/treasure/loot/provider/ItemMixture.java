@@ -2,15 +2,15 @@ package greymerk.roguelike.treasure.loot.provider;
 
 import com.google.gson.JsonObject;
 
-import net.minecraft.item.ItemStack;
+import com.github.fnar.minecraft.item.RldItemStack;
 
 import java.util.Random;
 
 import greymerk.roguelike.treasure.loot.PotionMixture;
 
-public class ItemMixture extends ItemBase {
+public class ItemMixture extends LootItem {
 
-  PotionMixture type;
+  private final PotionMixture type;
 
   public ItemMixture(JsonObject data, int weight) throws Exception {
     super(weight, 0);
@@ -29,7 +29,7 @@ public class ItemMixture extends ItemBase {
   }
 
   @Override
-  public ItemStack getLootItem(Random rand, int level) {
+  public RldItemStack getLootItem(Random rand, int level) {
     return PotionMixture.getPotion(rand, type);
   }
 }

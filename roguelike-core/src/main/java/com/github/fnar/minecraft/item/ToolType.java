@@ -2,6 +2,7 @@ package com.github.fnar.minecraft.item;
 
 import net.minecraft.item.Item;
 
+import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.treasure.loot.Equipment;
@@ -30,10 +31,18 @@ import static net.minecraft.init.Items.WOODEN_SHOVEL;
 
 public enum ToolType {
   AXE,
+  FISHING_ROD,
+  FLINT_AND_STEEL,
   HOE,
   PICKAXE,
-  SHOVEL
+  SHEARS,
+  SHIELD,
+  SHOVEL,
   ;
+
+  public static ToolType randomAmong(Random random, List<ToolType> values) {
+    return values.get(random.nextInt(values.size()));
+  }
 
   public static ToolType random(Random random) {
     int choice = random.nextInt(values().length);
@@ -52,6 +61,10 @@ public enum ToolType {
         return EquipmentType.asItem(quality, WOODEN_SHOVEL, STONE_SHOVEL, IRON_SHOVEL, GOLDEN_SHOVEL, DIAMOND_SHOVEL);
     }
     throw new IllegalArgumentException("Unexpected ToolType: " + this);
+  }
+
+  public Tool asItem() {
+    return new Tool(this);
   }
 
   public Equipment asEquipment() {

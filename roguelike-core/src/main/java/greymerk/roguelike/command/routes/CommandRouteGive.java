@@ -1,5 +1,8 @@
 package greymerk.roguelike.command.routes;
 
+import com.github.fnar.minecraft.item.ItemMapper1_12;
+import com.github.fnar.minecraft.item.RldItemStack;
+
 import net.minecraft.item.ItemStack;
 
 import java.util.List;
@@ -20,13 +23,14 @@ public class CommandRouteGive extends CommandRouteBase {
       return;
     }
 
-    ItemStack item = ItemNovelty.getItemByName(ap.get(0));
+    RldItemStack item = ItemNovelty.getItemByName(ap.get(0));
     if (item == null) {
       context.sendFailure("No such item");
       return;
     }
 
-    context.give(item);
-    context.sendSuccess("Given " + item.getDisplayName());
+    ItemStack mappedItem = new ItemMapper1_12().map(item);
+    context.give(mappedItem);
+    context.sendSuccess("Given " + mappedItem.getDisplayName());
   }
 }

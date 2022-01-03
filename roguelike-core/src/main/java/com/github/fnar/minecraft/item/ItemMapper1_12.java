@@ -1,51 +1,51 @@
 package com.github.fnar.minecraft.item;
 
-import com.github.fnar.minecraft.tag.TagMapper;
-
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-
-import java.util.Optional;
 
 public class ItemMapper1_12 implements ItemMapper {
 
   @Override
   public ItemStack map(RldItemStack rldItemStack) {
-    ItemStack itemStack = mapItemByType(rldItemStack);
-    itemStack.setCount(rldItemStack.getCount());
-    mergeTags(rldItemStack, itemStack);
-    return itemStack;
-  }
-
-  private static ItemStack mapItemByType(RldItemStack rldItemStack) {
     RldItem item = rldItemStack.getItem();
-
     switch (item.getItemType()) {
-
+      case ARMOUR:
+        return new ArmourMapper1_12().map(rldItemStack);
       case ARROW:
         return new ArrowMapper1_12().map(rldItemStack);
+      case BOOK:
+        return new BookMapper1_12().map(rldItemStack);
+      case BANNER:
+        return new BannerMapper1_12().map(rldItemStack);
       case BLOCK:
         return new BlockMapper1_12().map(rldItemStack);
+      case DYE:
+        return new DyeMapper1_12().map(rldItemStack);
+      case FOOD:
+        return new FoodMapper1_12().map(rldItemStack);
+      case INGREDIENT:
+        return new IngredientMapper1_12().map(rldItemStack);
+      case MATERIAL:
+        return new MaterialMapper1_12().map(rldItemStack);
+      case MISCELLANEOUS:
+        return new MiscellaneousMapper1_12().map(rldItemStack);
       case POTION:
         return new PotionMapper1_12().map(rldItemStack);
       case RECORD:
         return new RecordMapper1_12().map(rldItemStack);
-      default:
-        return new ItemStack(Items.AIR);
+      case SAPLING:
+        return new SaplingMapper1_12().map(rldItemStack);
+      case SEED:
+        return new SeedMapper1_12().map(rldItemStack);
+      case SHIELD:
+        return new ShieldMapper1_12().map(rldItemStack);
+      case STRINGLY_NAMED:
+        return new StringlyNamedItemMapper1_12().map(rldItemStack);
+      case TOOL:
+        return new ToolMapper1_12().map(rldItemStack);
+      case WEAPON:
+        return new WeaponMapper1_12().map(rldItemStack);
     }
-  }
-
-  private static void mergeTags(RldItemStack rldItemStack, ItemStack itemStack) {
-    Optional.ofNullable(rldItemStack.getTags())
-        .ifPresent(compoundTag ->
-            Optional.ofNullable(itemStack.getTagCompound()).orElseGet(() -> ensureNbtTags(itemStack))
-                .merge(TagMapper.map(compoundTag)));
-  }
-
-  private static NBTTagCompound ensureNbtTags(ItemStack itemStack) {
-    itemStack.setTagCompound(new NBTTagCompound());
-    return itemStack.getTagCompound();
+    throw new CouldNotMapItemException(rldItemStack);
   }
 
 }

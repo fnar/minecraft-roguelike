@@ -1,8 +1,11 @@
 package com.github.fnar.minecraft.tag;
 
+import lombok.ToString;
+
+@ToString
 public class StringTag implements Tag {
 
-  private String value;
+  private final String value;
 
   public StringTag(String value) {
     this.value = value;

@@ -1,8 +1,6 @@
 package greymerk.roguelike.treasure;
 
-import com.google.common.base.Predicates;
-
-import net.minecraft.item.ItemStack;
+import com.github.fnar.minecraft.item.RldItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +16,7 @@ import static java.util.stream.Collectors.toList;
 public class TreasureManager {
 
   List<TreasureChest> chests = new ArrayList<>();
-  private Random random;
+  private final Random random;
 
   public TreasureManager(Random random) {
     this.random = random;
@@ -28,14 +26,14 @@ public class TreasureManager {
     this.chests.add(toAdd);
   }
 
-  public void addItemToAll(Predicate<TreasureChest> chestPredicate, IWeighted<ItemStack> items, int amount) {
+  public void addItemToAll(Predicate<TreasureChest> chestPredicate, IWeighted<RldItemStack> items, int amount) {
     findChests(chestPredicate).forEach(chest ->
         IntStream.range(0, amount)
             .mapToObj(i -> items.get(random))
             .forEach(chest::setRandomEmptySlot));
   }
 
-  public void addItem(Predicate<TreasureChest> chestPredicate, IWeighted<ItemStack> items, int amount) {
+  public void addItem(Predicate<TreasureChest> chestPredicate, IWeighted<RldItemStack> items, int amount) {
     List<TreasureChest> chests = findChests(chestPredicate);
     if (chests.isEmpty()) {
       return;
@@ -46,7 +44,7 @@ public class TreasureManager {
         .forEach(item -> addItemToRandomChest(chests, item));
   }
 
-  private void addItemToRandomChest(List<TreasureChest> chests, ItemStack item) {
+  private void addItemToRandomChest(List<TreasureChest> chests, RldItemStack item) {
     chests.get(random.nextInt(chests.size())).setRandomEmptySlot(item);
   }
 
@@ -61,14 +59,14 @@ public class TreasureManager {
   }
 
   public static Predicate<TreasureChest> ofTypeOnLevel(ChestType chestType, int level) {
-    return Predicates.and(
-        chest -> chest.getLevel() == level,
-        chest -> chest.getType().equals(chestType));
+    return isOnLevel(level).and(ofType(chestType));
   }
 
-  public static Predicate<TreasureChest> onLevel(int level) {
-    return Predicates.and(
-        TreasureChest::isNotEmpty,
-        chest -> chest.getLevel() == level);
+  private static Predicate<TreasureChest> isOnLevel(int level) {
+    return chest -> chest.getLevel() == level;
+  }
+
+  public static Predicate<TreasureChest> onLevelAndNotEmpty(int level) {
+    return ((Predicate<TreasureChest>) TreasureChest::isNotEmpty).and(isOnLevel(level));
   }
 }
