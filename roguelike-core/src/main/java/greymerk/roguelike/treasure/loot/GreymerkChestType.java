@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 
 import com.github.fnar.minecraft.item.Material;
 import com.github.fnar.minecraft.item.RldItemStack;
+import com.github.fnar.roguelike.settings.loot.ArmourLootItemParser;
 import com.github.fnar.roguelike.settings.loot.MinecraftItemLootItemParser;
 import com.github.fnar.roguelike.settings.loot.NoveltyLootItemParser;
 import com.github.fnar.roguelike.settings.loot.PotionLootItemParser;
@@ -12,8 +13,8 @@ import com.github.fnar.roguelike.settings.loot.ToolLootItemParser;
 import com.github.fnar.roguelike.settings.loot.WeaponLootItemParser;
 
 import greymerk.roguelike.treasure.loot.provider.ArmourLootItem;
-import greymerk.roguelike.treasure.loot.provider.EnchantedBookLootItem;
 import greymerk.roguelike.treasure.loot.provider.BlockLootItem;
+import greymerk.roguelike.treasure.loot.provider.EnchantedBookLootItem;
 import greymerk.roguelike.treasure.loot.provider.ItemBrewing;
 import greymerk.roguelike.treasure.loot.provider.ItemEnchBonus;
 import greymerk.roguelike.treasure.loot.provider.ItemFood;
@@ -82,7 +83,7 @@ public enum GreymerkChestType {
       case TOOL:
         return ToolLootItemParser.parse(data, weight);
       case ARMOUR:
-        return new ArmourLootItem(data, weight);
+        return ArmourLootItemParser.parse(data, weight);
       case ENCHANTED_BOOK:
         return parseEnchantedBookProvider(data, weight);
       default:

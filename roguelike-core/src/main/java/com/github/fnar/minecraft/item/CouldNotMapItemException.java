@@ -1,6 +1,8 @@
 package com.github.fnar.minecraft.item;
 
-public class CouldNotMapItemException extends RuntimeException {
+import com.github.fnar.minecraft.CouldNotMapException;
+
+public class CouldNotMapItemException extends CouldNotMapException {
 
   public CouldNotMapItemException(RldItem rldItem) {
     super("Could not map item: " + rldItem.toString());

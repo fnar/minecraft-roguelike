@@ -12,10 +12,10 @@ public class ItemEnchBonus extends LootItem {
   }
 
   @Override
-  public RldItemStack getLootItem(Random rand, int level) {
-    return rand.nextBoolean()
-        ? Miscellaneous.Type.EXPERIENCE_BOTTLE.asItem().asStack().withCount(1 + rand.nextInt(5))
-        : Miscellaneous.Type.ENDER_PEARL.asItem().asStack().withCount(1 + rand.nextInt(2));
+  public RldItemStack getLootItem(Random random, int level) {
+    return random.nextBoolean()
+        ? Miscellaneous.Type.EXPERIENCE_BOTTLE.asItem().asStack().withCount(1 + random.nextInt(5))
+        : Miscellaneous.Type.ENDER_PEARL.asItem().asStack().withCount(1 + random.nextInt(2));
   }
 
 

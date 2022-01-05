@@ -16,32 +16,32 @@ public class SupplyLootItem extends LootItem {
   }
 
   @Override
-  public RldItemStack getLootItem(Random rand, int level) {
+  public RldItemStack getLootItem(Random random, int level) {
 
-    if (rand.nextInt(20) == 0) {
+    if (random.nextInt(20) == 0) {
       return Food.Type.CARROT.asItem().asStack().withCount(1);
     }
-    if (rand.nextInt(20) == 0) {
+    if (random.nextInt(20) == 0) {
       return Food.Type.POTATO.asItem().asStack().withCount(1);
     }
 
-    switch (rand.nextInt(8)) {
+    switch (random.nextInt(8)) {
       case 0:
-        return Crop.WHEAT.asSeed().asStack().withCount(rand.nextInt(8) + 1);
+        return Crop.WHEAT.asSeed().asStack().withCount(random.nextInt(8) + 1);
       case 1:
-        return Crop.PUMPKIN.asSeed().asStack().withCount(rand.nextInt(8) + 1);
+        return Crop.PUMPKIN.asSeed().asStack().withCount(random.nextInt(8) + 1);
       case 2:
-        return Crop.MELON.asSeed().asStack().withCount(rand.nextInt(8) + 1);
+        return Crop.MELON.asSeed().asStack().withCount(random.nextInt(8) + 1);
       case 3:
-        return Material.Type.WHEAT.asItem().asStack().withCount(rand.nextInt(8) + 1);
+        return Material.Type.WHEAT.asItem().asStack().withCount(random.nextInt(8) + 1);
       case 4:
-        return BlockType.TORCH.asItem().asStack().withCount(10 + rand.nextInt(10));
+        return BlockType.TORCH.asItem().asStack().withCount(10 + random.nextInt(10));
       case 5:
-        return Material.Type.PAPER.asItem().asStack().withCount(rand.nextInt(8) + 1);
+        return Material.Type.PAPER.asItem().asStack().withCount(random.nextInt(8) + 1);
       case 6:
-        return Material.Type.BOOK.asItem().asStack().withCount(rand.nextInt(4) + 1);
+        return Material.Type.BOOK.asItem().asStack().withCount(random.nextInt(4) + 1);
       case 7:
-        return Wood.chooseRandom().asSapling().asStack().withCount(rand.nextInt(4));
+        return Wood.chooseRandom().asSapling().asStack().withCount(random.nextInt(4));
       default:
         return Material.Type.STICK.asItem().asStack().withCount(1);
     }

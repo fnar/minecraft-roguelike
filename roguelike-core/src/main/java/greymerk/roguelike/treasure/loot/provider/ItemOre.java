@@ -72,7 +72,7 @@ public class ItemOre extends LootItem {
   }
 
   @Override
-  public RldItemStack getLootItem(Random rand, int level) {
-    return this.loot.get(level).get(rand);
+  public RldItemStack getLootItem(Random random, int level) {
+    return this.loot.get(level).get(random);
   }
 }

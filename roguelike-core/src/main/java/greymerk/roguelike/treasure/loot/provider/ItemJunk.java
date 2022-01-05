@@ -23,68 +23,68 @@ public class ItemJunk extends LootItem {
   }
 
   @Override
-  public RldItemStack getLootItem(Random rand, int level) {
+  public RldItemStack getLootItem(Random random, int level) {
 
-    if (level > 0 && rand.nextInt(200) == 0) {
-      if (level > 2 && rand.nextInt(10) == 0) {
+    if (level > 0 && random.nextInt(200) == 0) {
+      if (level > 2 && random.nextInt(10) == 0) {
         return ArmourType.HORSE.asItem().diamond().asStack();
       }
-      if (level > 1 && rand.nextInt(5) == 0) {
+      if (level > 1 && random.nextInt(5) == 0) {
         return ArmourType.HORSE.asItem().golden().asStack();
       }
-      if (rand.nextInt(3) == 0) {
+      if (random.nextInt(3) == 0) {
         return ArmourType.HORSE.asItem().iron().asStack();
       }
       return Miscellaneous.Type.SADDLE.asItem().asStack();
     }
 
-    if (rand.nextInt(100) == 0) {
-      return PotionMixture.chooseRandomPotion(rand);
+    if (random.nextInt(100) == 0) {
+      return PotionMixture.chooseRandomPotion(random);
     }
 
-    if (level > 1 && rand.nextInt(100) == 0) {
+    if (level > 1 && random.nextInt(100) == 0) {
       return Ingredient.Type.GHAST_TEAR.asItem().asStack();
     }
 
-    if (level < 3 && rand.nextInt(80) == 0) {
+    if (level < 3 && random.nextInt(80) == 0) {
       return Miscellaneous.Type.BOOK.asItem().asStack();
     }
 
-    if (rand.nextInt(80) == 0) {
-      return Shield.get(rand);
+    if (random.nextInt(80) == 0) {
+      return Shield.get(random);
     }
 
-    if (level > 1 && rand.nextInt(60) == 0) {
-      return getTippedArrow(rand, level);
+    if (level > 1 && random.nextInt(60) == 0) {
+      return getTippedArrow(random, level);
     }
 
-    if (level > 1 && rand.nextInt(50) == 0) {
-      switch (rand.nextInt(6)) {
+    if (level > 1 && random.nextInt(50) == 0) {
+      switch (random.nextInt(6)) {
         case 0:
-          return Ingredient.Type.GUNPOWDER.asItem().asStack().withCount(1 + rand.nextInt(3));
+          return Ingredient.Type.GUNPOWDER.asItem().asStack().withCount(1 + random.nextInt(3));
         case 1:
-          return Ingredient.Type.BLAZE_POWDER.asItem().asStack().withCount(1 + rand.nextInt(3));
+          return Ingredient.Type.BLAZE_POWDER.asItem().asStack().withCount(1 + random.nextInt(3));
         case 2:
-          return Material.Type.GOLD_NUGGET.asItem().asStack().withCount(1 + rand.nextInt(3));
+          return Material.Type.GOLD_NUGGET.asItem().asStack().withCount(1 + random.nextInt(3));
         case 3:
-          return Ingredient.Type.REDSTONE.asItem().asStack().withCount(1 + rand.nextInt(3));
+          return Ingredient.Type.REDSTONE.asItem().asStack().withCount(1 + random.nextInt(3));
         case 4:
-          return Ingredient.Type.GLOWSTONE_DUST.asItem().asStack().withCount(1 + rand.nextInt(8));
+          return Ingredient.Type.GLOWSTONE_DUST.asItem().asStack().withCount(1 + random.nextInt(8));
         case 5:
-          return DyeColor.WHITE.asItem().asStack().withCount(1 + rand.nextInt(3));
+          return DyeColor.WHITE.asItem().asStack().withCount(1 + random.nextInt(3));
       }
     }
 
-    if (rand.nextInt(60) == 0) {
-      return PotionMixture.getPotion(rand, PotionMixture.LAUDANUM);
+    if (random.nextInt(60) == 0) {
+      return PotionMixture.getPotion(random, PotionMixture.LAUDANUM);
     }
 
-    if (rand.nextInt(30) == 0) {
-      return BlockType.TORCH.asItem().asStack().withCount(rand.nextInt(20) + 6);
+    if (random.nextInt(30) == 0) {
+      return BlockType.TORCH.asItem().asStack().withCount(random.nextInt(20) + 6);
     }
 
-    if (level > 0 && rand.nextInt(8) == 0) {
-      switch (rand.nextInt(8)) {
+    if (level > 0 && random.nextInt(8) == 0) {
+      switch (random.nextInt(8)) {
         case 0:
           return Material.Type.SLIME_BALL.asItem().asStack();
         case 1:
@@ -104,7 +104,7 @@ public class ItemJunk extends LootItem {
       }
     }
 
-    switch (rand.nextInt(7)) {
+    switch (random.nextInt(7)) {
       case 0:
         return Material.Type.BONE.asItem().asStack();
       case 1:

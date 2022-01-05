@@ -34,7 +34,7 @@ public class ItemBrewing extends LootItem {
   }
 
   @Override
-  public RldItemStack getLootItem(Random rand, int level) {
-    return this.items.get(rand);
+  public RldItemStack getLootItem(Random random, int level) {
+    return this.items.get(random);
   }
 }

@@ -2,17 +2,18 @@ package com.github.fnar.roguelike.loot.special.weapons;
 
 import com.github.fnar.minecraft.item.Enchantment;
 import com.github.fnar.minecraft.item.WeaponType;
+import com.github.fnar.roguelike.loot.special.SpecialEquipment;
 
 import java.util.Random;
 
+import greymerk.roguelike.treasure.loot.Equipment;
 import greymerk.roguelike.treasure.loot.Quality;
-import greymerk.roguelike.treasure.loot.provider.WeaponQualityOddsTable;
 import greymerk.roguelike.util.TextFormat;
 
-public class SpecialBow extends SpecialWeapon {
+public class SpecialBow extends SpecialEquipment {
 
   public SpecialBow(Random random, int level) {
-    this(random, WeaponQualityOddsTable.rollWeaponQuality(random, level));
+    this(random, Equipment.rollQuality(random, level));
   }
 
   public SpecialBow(Random random, Quality quality) {

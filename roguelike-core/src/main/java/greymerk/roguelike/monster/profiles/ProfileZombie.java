@@ -2,69 +2,59 @@ package greymerk.roguelike.monster.profiles;
 
 import com.github.fnar.util.Color;
 
-import net.minecraft.world.World;
-
 import java.util.Random;
 
-import greymerk.roguelike.monster.IEntity;
-import greymerk.roguelike.monster.IMonsterProfile;
+import greymerk.roguelike.monster.Mob;
 import greymerk.roguelike.monster.MonsterProfile;
+import greymerk.roguelike.monster.MonsterProfileType;
 import greymerk.roguelike.treasure.loot.provider.ToolLootItem;
 
-public class ProfileZombie implements IMonsterProfile {
+public class ProfileZombie implements MonsterProfile {
 
   @Override
-  public void equip(World world, Random rand, int level, IEntity mob) {
+  public Mob apply(Mob mob, int level, int difficulty, Random rand) {
 
 
     if (level == 4 && rand.nextInt(20) == 0) {
-      MonsterProfile.PIGMAN.getMonsterProfile().equip(world, rand, level, mob);
-      return;
+      return MonsterProfileType.PIG_ZOMBIE.apply(mob, level, difficulty, rand);
     }
 
     if (level == 3 && rand.nextInt(100) == 0) {
-      MonsterProfile.WITCH.getMonsterProfile().equip(world, rand, level, mob);
-      return;
+      return MonsterProfileType.WITCH.apply(mob, level, difficulty, rand);
     }
 
     if (level == 2 && rand.nextInt(300) == 0) {
-      MonsterProfile.EVOKER.getMonsterProfile().equip(world, rand, level, mob);
-      return;
+      return MonsterProfileType.EVOKER.apply(mob, level, difficulty, rand);
     }
 
     if (level == 1 && rand.nextInt(200) == 0) {
-      MonsterProfile.JOHNNY.getMonsterProfile().equip(world, rand, level, mob);
-      return;
+      return MonsterProfileType.JOHNNY.apply(mob, level, difficulty, rand);
     }
 
     if (rand.nextInt(100) == 0) {
-      MonsterProfile.RLEAHY.getMonsterProfile().equip(world, rand, level, mob);
-      return;
+      return MonsterProfileType.RLEAHY.apply(mob, level, difficulty, rand);
     }
 
     if (rand.nextInt(100) == 0) {
-      MonsterProfile.ASHLEA.getMonsterProfile().equip(world, rand, level, mob);
-      return;
+      return MonsterProfileType.ASHLEA.apply(mob, level, difficulty, rand);
     }
 
     if (rand.nextInt(40) == 0) {
-      MonsterProfile.BABY.getMonsterProfile().equip(world, rand, level, mob);
-      return;
+      return MonsterProfileType.BABY.apply(mob, level, difficulty, rand);
     }
 
     if (level > 1 && rand.nextInt(20) == 0) {
-      MonsterProfile.HUSK.getMonsterProfile().equip(world, rand, level, mob);
-      return;
+      return MonsterProfileType.HUSK.apply(mob, level, difficulty, rand);
     }
 
     if (level < 3 && rand.nextInt(20) == 0) {
-      MonsterProfile.VILLAGER.getMonsterProfile().equip(world, rand, level, mob);
-      return;
+      return MonsterProfileType.ZOMBIE_VILLAGER.apply(mob, level, difficulty, rand);
     }
 
-    mob.equipMainhand(ToolLootItem.getRandom(rand, level, IMonsterProfile.canEnchant(world.getDifficulty(), rand, level)));
+    mob.equipMainhand(ToolLootItem.get(rand, level, difficulty));
     mob.equipShield(rand);
-    mob.equipArmor(world, rand, level, Color.random());
+    mob.equipArmor(rand, level, Color.random(), difficulty);
+    return mob;
   }
 
 }

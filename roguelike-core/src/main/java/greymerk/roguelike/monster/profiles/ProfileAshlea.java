@@ -1,25 +1,23 @@
 package greymerk.roguelike.monster.profiles;
 
-import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.util.Colors;
-
-import net.minecraft.world.World;
 
 import java.util.Random;
 
-import greymerk.roguelike.monster.IEntity;
-import greymerk.roguelike.monster.IMonsterProfile;
+import greymerk.roguelike.monster.Mob;
 import greymerk.roguelike.monster.MonsterProfile;
+import greymerk.roguelike.monster.MonsterProfileType;
 import greymerk.roguelike.treasure.loot.provider.ItemNovelty;
 
-public class ProfileAshlea implements IMonsterProfile {
+public class ProfileAshlea implements MonsterProfile {
 
   @Override
-  public void equip(World world, Random rand, int level, IEntity mob) {
+  public Mob apply(Mob mob, int level, int difficulty, Random rand) {
+
+    MonsterProfileType.ZOMBIE_VILLAGER.apply(mob, level, difficulty, rand);
     mob.setChild(true);
-    MonsterProfile.VILLAGER.getMonsterProfile().equip(world, rand, level, mob);
-    RldItemStack weapon = ItemNovelty.ashleasOatmealCookie();
-    mob.equipMainhand(weapon);
-    mob.equipArmor(world, rand, level, Colors.PINK_FLAMINGO);
+    mob.equipMainhand(ItemNovelty.ashleasOatmealCookie());
+    mob.equipArmor(rand, level, Colors.PINK_FLAMINGO, difficulty);
+    return mob;
   }
 }

@@ -17,7 +17,7 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import greymerk.roguelike.CommonProxy;
-import greymerk.roguelike.EntityJoinWorld;
+import greymerk.roguelike.EntityJoinWorld1_12;
 
 @Mod(modid = "roguelike", name = "Roguelike Dungeons -- Fnar Edition", version = Roguelike.version, acceptableRemoteVersions = "*")
 public class Roguelike {
@@ -39,7 +39,7 @@ public class Roguelike {
 
   @EventHandler
   public void modInit(FMLInitializationEvent event) {
-    MinecraftForge.EVENT_BUS.register(new EntityJoinWorld());
+    MinecraftForge.EVENT_BUS.register(new EntityJoinWorld1_12());
   }
 
   @EventHandler

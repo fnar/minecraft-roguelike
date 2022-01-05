@@ -1,6 +1,6 @@
 package greymerk.roguelike.command.routes;
 
-import com.github.fnar.minecraft.item.ItemMapper1_12;
+import com.github.fnar.minecraft.item.mapper.ItemMapper1_12;
 import com.github.fnar.minecraft.item.RldItemStack;
 
 import net.minecraft.item.ItemStack;

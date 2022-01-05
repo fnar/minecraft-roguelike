@@ -1,13 +1,13 @@
 package com.github.fnar.minecraft.item;
 
+import com.github.fnar.minecraft.entity.Slot;
+
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 
 import java.util.Random;
 
-import greymerk.roguelike.treasure.loot.Equipment;
 import greymerk.roguelike.treasure.loot.Quality;
-import greymerk.roguelike.treasure.loot.Slot;
 
 public enum ArmourType {
 
@@ -37,20 +37,6 @@ public enum ArmourType {
         return EquipmentType.asItem(quality, Items.LEATHER_LEGGINGS, Items.CHAINMAIL_LEGGINGS, Items.GOLDEN_LEGGINGS, Items.IRON_LEGGINGS, Items.DIAMOND_LEGGINGS);
       case BOOTS:
         return EquipmentType.asItem(quality, Items.LEATHER_BOOTS, Items.CHAINMAIL_BOOTS, Items.GOLDEN_BOOTS, Items.IRON_BOOTS, Items.DIAMOND_BOOTS);
-    }
-    throw new IllegalArgumentException("Unexpected ArmourType: " + this);
-  }
-
-  public Equipment asEquipment() {
-    switch (this) {
-      case HELMET:
-        return Equipment.HELMET;
-      case CHESTPLATE:
-        return Equipment.CHEST;
-      case LEGGINGS:
-        return Equipment.LEGS;
-      case BOOTS:
-        return Equipment.FEET;
     }
     throw new IllegalArgumentException("Unexpected ArmourType: " + this);
   }

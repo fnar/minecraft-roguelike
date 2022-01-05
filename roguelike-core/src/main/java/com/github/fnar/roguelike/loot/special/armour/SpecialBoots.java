@@ -10,12 +10,12 @@ import java.util.Random;
 import greymerk.roguelike.treasure.loot.Quality;
 
 import static greymerk.roguelike.treasure.loot.Quality.DIAMOND;
-import static greymerk.roguelike.treasure.loot.provider.ToolQualityOddsTable.rollToolQuality;
+import static greymerk.roguelike.treasure.loot.Equipment.rollQuality;
 
 public class SpecialBoots extends SpecialArmour {
 
   public SpecialBoots(Random random, int level) {
-    this(random, rollToolQuality(random, level));
+    this(random, rollQuality(random, level));
   }
 
   public SpecialBoots(Random random, Quality quality) {

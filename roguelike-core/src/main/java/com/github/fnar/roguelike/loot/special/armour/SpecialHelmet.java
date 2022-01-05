@@ -7,14 +7,13 @@ import com.github.fnar.roguelike.loot.special.SpecialEquipment;
 
 import java.util.Random;
 
+import greymerk.roguelike.treasure.loot.Equipment;
 import greymerk.roguelike.treasure.loot.Quality;
-
-import static greymerk.roguelike.treasure.loot.provider.ArmourQualityOddsTable.rollArmourQuality;
 
 public class SpecialHelmet extends SpecialArmour {
 
   public SpecialHelmet(Random random, int level) {
-    this(random, rollArmourQuality(random, level));
+    this(random, Equipment.rollQuality(random, level));
   }
 
   public SpecialHelmet(Random random, Quality quality) {

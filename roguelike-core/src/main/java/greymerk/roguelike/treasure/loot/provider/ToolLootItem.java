@@ -1,7 +1,6 @@
 package greymerk.roguelike.treasure.loot.provider;
 
 import com.github.fnar.minecraft.item.RldItemStack;
-import com.github.fnar.minecraft.item.Tool;
 import com.github.fnar.minecraft.item.ToolType;
 import com.github.fnar.roguelike.loot.special.tools.SpecialTool;
 
@@ -30,35 +29,30 @@ public class ToolLootItem extends LootItem {
 
   @Override
   public RldItemStack getLootItem(Random random, int level) {
-    if (type == null) {
-      return getRandom(random, level, true);
-    }
-
-    ToolType toolType = type.asToolType();
-    if (toolType == null) {
-      return getRandom(random, level, true);
-    }
-    Quality quality = Optional.ofNullable(this.quality).orElseGet(() -> Quality.get(level));
-
-    Tool tool = toolType.asItem().withQuality(quality);
-
-    if (enchant) {
-      tool.plzEnchantAtLevel(LootItem.getEnchantmentLevel(random, level));
-    }
-    return tool.asStack();
+    ToolType toolType = Optional.ofNullable(this.type).map(Equipment::asToolType).orElseGet(() -> ToolType.random(random));
+    Quality quality = Optional.ofNullable(this.quality).orElseGet(() -> Equipment.rollQuality(random, level));
+    return get(random, level, toolType, quality, this.enchant);
   }
 
-  public static RldItemStack getRandom(Random random, int level, boolean enchant) {
-    if (enchant && random.nextInt(20 + (level * 10)) == 0) {
-      return SpecialTool.createTool(random, level);
-    }
+  public static RldItemStack get(Random random, int level, int difficulty) {
+    boolean enchanted = isEnchanted(difficulty, random, level);
+    return get(random, level, enchanted);
+  }
+
+  private static RldItemStack get(Random random, int level, boolean enchant) {
     ToolType toolType = ToolType.random(random);
-    Quality quality = ToolQualityOddsTable.rollToolQuality(random, level);
-    Tool tool = toolType.asItem().withQuality(quality);
-    if (enchant && random.nextInt(6 - level) == 0) {
-      tool.plzEnchantAtLevel(LootItem.getEnchantmentLevel(random, level));
-    }
-    return tool.asStack();
+    Quality quality = Equipment.rollQuality(random, level);
+    return get(random, level, toolType, quality, enchant);
+  }
+
+  private static RldItemStack get(Random random, int level, ToolType toolType, Quality quality, boolean enchant) {
+    return isSpecial(random, level)
+        ? SpecialTool.createTool(random, quality)
+        : toolType
+            .asItem()
+            .withQuality(quality)
+            .plzEnchantAtLevel(enchant ? LootItem.getEnchantmentLevel(random, level) : 0)
+            .asStack();
   }
 
 
