@@ -12,7 +12,7 @@ public class PotionLootItem extends LootItem {
   }
 
   @Override
-  public RldItemStack getLootItem(Random rand, int level) {
+  public RldItemStack getLootItem(Random random, int level) {
     final Potion.Effect[] effects = new Potion.Effect[]{
         Potion.Effect.HEALING,
         Potion.Effect.STRENGTH,
@@ -20,7 +20,7 @@ public class PotionLootItem extends LootItem {
         Potion.Effect.REGENERATION
     };
 
-    Potion.Effect effect = Potion.Effect.chooseRandomAmong(rand, effects);
+    Potion.Effect effect = Potion.Effect.chooseRandomAmong(random, effects);
 
     return Potion.newPotion().withForm(Potion.Form.REGULAR).withEffect(effect).withAmplification().asStack();
   }

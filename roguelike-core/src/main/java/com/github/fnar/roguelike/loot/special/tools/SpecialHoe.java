@@ -5,14 +5,14 @@ import com.github.fnar.minecraft.item.ToolType;
 
 import java.util.Random;
 
+import greymerk.roguelike.treasure.loot.Equipment;
 import greymerk.roguelike.treasure.loot.Quality;
-import greymerk.roguelike.treasure.loot.provider.ToolQualityOddsTable;
 import greymerk.roguelike.util.TextFormat;
 
 public class SpecialHoe extends SpecialTool {
 
   public SpecialHoe(Random random, int level) {
-    this(random, ToolQualityOddsTable.rollToolQuality(random, level));
+    this(random, Equipment.rollQuality(random, level));
   }
 
   public SpecialHoe(Random random, Quality quality) {

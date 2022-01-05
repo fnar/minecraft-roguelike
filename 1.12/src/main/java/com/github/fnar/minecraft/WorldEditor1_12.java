@@ -9,7 +9,7 @@ import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.decorative.Plant;
 import com.github.fnar.minecraft.block.decorative.Skull;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
-import com.github.fnar.minecraft.item.ItemMapper1_12;
+import com.github.fnar.minecraft.item.mapper.ItemMapper1_12;
 import com.github.fnar.minecraft.item.RldItemStack;
 
 import net.minecraft.block.Block;

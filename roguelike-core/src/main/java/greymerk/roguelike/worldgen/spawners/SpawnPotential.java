@@ -19,9 +19,7 @@ import static greymerk.roguelike.treasure.loot.Equipment.CHEST;
 import static greymerk.roguelike.treasure.loot.Equipment.FEET;
 import static greymerk.roguelike.treasure.loot.Equipment.HELMET;
 import static greymerk.roguelike.treasure.loot.Equipment.LEGS;
-import static greymerk.roguelike.treasure.loot.provider.ArmourQualityOddsTable.rollArmourQuality;
-import static greymerk.roguelike.treasure.loot.provider.ToolQualityOddsTable.rollToolQuality;
-import static greymerk.roguelike.treasure.loot.provider.WeaponQualityOddsTable.rollWeaponQuality;
+import static greymerk.roguelike.treasure.loot.Equipment.rollQuality;
 import static java.util.stream.IntStream.range;
 
 public class SpawnPotential {
@@ -75,10 +73,10 @@ public class SpawnPotential {
 
   private String getMainhand(Random random, int level) {
     if (random.nextBoolean()) {
-      return WeaponType.random(random).asEquipment().getMinecraftName(rollWeaponQuality(random, level));
+      return WeaponType.random(random).asEquipment().getMinecraftName(rollQuality(random, level));
     }
     if (random.nextBoolean()) {
-      return ToolType.randomAmong(random, someTools()).asEquipment().getMinecraftName(rollToolQuality(random, level));
+      return ToolType.randomAmong(random, someTools()).asEquipment().getMinecraftName(rollQuality(random, level));
     }
     return null;
   }
@@ -115,10 +113,10 @@ public class SpawnPotential {
   private void equipArmour(NBTTagCompound entityNbt, Random rand, int level) {
     NBTTagList armour = new NBTTagList();
     // Turns out this order is important.
-    armour.appendTag(getItem(FEET.getMinecraftName(rollArmourQuality(rand, level))));
-    armour.appendTag(getItem(LEGS.getMinecraftName(rollArmourQuality(rand, level))));
-    armour.appendTag(getItem(CHEST.getMinecraftName(rollArmourQuality(rand, level))));
-    armour.appendTag(getItem(HELMET.getMinecraftName(rollArmourQuality(rand, level))));
+    armour.appendTag(getItem(FEET.getMinecraftName(rollQuality(rand, level))));
+    armour.appendTag(getItem(LEGS.getMinecraftName(rollQuality(rand, level))));
+    armour.appendTag(getItem(CHEST.getMinecraftName(rollQuality(rand, level))));
+    armour.appendTag(getItem(HELMET.getMinecraftName(rollQuality(rand, level))));
     entityNbt.setTag("ArmorItems", armour);
   }
 

@@ -21,7 +21,25 @@ public abstract class LootItem implements IWeighted<RldItemStack> {
     this.level = level;
   }
 
-  public abstract RldItemStack getLootItem(Random rand, int level);
+  public static boolean isSpecial(Random random, int level) {
+    return random.nextInt(20 + (level * 10)) == 0;
+  }
+
+  public static boolean isEnchanted(int difficulty, Random rand, int level) {
+    switch (difficulty) {
+      default:
+      case 0: // peaceful
+        return false;
+      case 1: // easy
+        return rand.nextInt(6) == 0;
+      case 2: // normal
+        return rand.nextInt(6 - level) == 0;
+      case 3: // difficult
+        return rand.nextBoolean();
+    }
+  }
+
+  public abstract RldItemStack getLootItem(Random random, int level);
 
   @Override
   public int getWeight() {
@@ -33,19 +51,19 @@ public abstract class LootItem implements IWeighted<RldItemStack> {
     return getLootItem(rand, level);
   }
 
-  public static int getEnchantmentLevel(Random rand, int level) {
+  public static int getEnchantmentLevel(Random random, int level) {
 
     switch (level) {
       case 4:
-        return 30 + rand.nextInt(10);
+        return 30 + random.nextInt(10);
       case 3:
-        return 15 + rand.nextInt(15);
+        return 15 + random.nextInt(15);
       case 2:
-        return 5 + rand.nextInt(15);
+        return 5 + random.nextInt(15);
       case 1:
-        return 1 + rand.nextInt(10);
+        return 1 + random.nextInt(10);
       case 0:
-        return 1 + rand.nextInt(5);
+        return 1 + random.nextInt(5);
       default:
         return 1;
     }

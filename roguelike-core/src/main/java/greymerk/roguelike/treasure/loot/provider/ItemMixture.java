@@ -29,7 +29,7 @@ public class ItemMixture extends LootItem {
   }
 
   @Override
-  public RldItemStack getLootItem(Random rand, int level) {
-    return PotionMixture.getPotion(rand, type);
+  public RldItemStack getLootItem(Random random, int level) {
+    return PotionMixture.getPotion(random, type);
   }
 }

@@ -21,7 +21,7 @@ public class ItemBook extends LootItem {
   }
 
   @Override
-  public RldItemStack getLootItem(Random rand, int level) {
+  public RldItemStack getLootItem(Random random, int level) {
     return new BookStarter().asStack();
   }
 

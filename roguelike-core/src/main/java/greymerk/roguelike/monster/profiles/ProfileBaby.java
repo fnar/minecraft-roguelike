@@ -1,29 +1,24 @@
 package greymerk.roguelike.monster.profiles;
 
-import com.github.fnar.minecraft.item.RldItemStack;
-
-import net.minecraft.world.World;
-
 import java.util.Random;
 
-import greymerk.roguelike.monster.IEntity;
-import greymerk.roguelike.monster.IMonsterProfile;
+import greymerk.roguelike.monster.Mob;
 import greymerk.roguelike.monster.MonsterProfile;
+import greymerk.roguelike.monster.MonsterProfileType;
 import greymerk.roguelike.treasure.loot.provider.ToolLootItem;
 
-public class ProfileBaby implements IMonsterProfile {
+public class ProfileBaby implements MonsterProfile {
 
   @Override
-  public void equip(World world, Random rand, int level, IEntity mob) {
+  public Mob apply(Mob mob, int level, int difficulty, Random rand) {
     mob.setChild(true);
 
     if (rand.nextBoolean()) {
-      MonsterProfile.VILLAGER.getMonsterProfile().equip(world, rand, level, mob);
+      return MonsterProfileType.ZOMBIE_VILLAGER.apply(mob, level, difficulty, rand);
     }
 
-    boolean isEnchanted = IMonsterProfile.canEnchant(world.getDifficulty(), rand, level);
-    RldItemStack weapon = ToolLootItem.getRandom(rand, level, isEnchanted);
-    mob.equipMainhand(weapon);
+    mob.equipMainhand(ToolLootItem.get(rand, level, difficulty));
+    return mob;
   }
 
 }

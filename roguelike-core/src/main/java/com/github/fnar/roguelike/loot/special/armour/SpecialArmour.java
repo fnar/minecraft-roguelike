@@ -1,33 +1,25 @@
 package com.github.fnar.roguelike.loot.special.armour;
 
 import com.github.fnar.minecraft.item.Enchantment;
-import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.roguelike.loot.special.SpecialEquipment;
 
 import java.util.Random;
 
 import greymerk.roguelike.treasure.loot.Quality;
-import greymerk.roguelike.treasure.loot.provider.ArmourQualityOddsTable;
 
 public class SpecialArmour extends SpecialEquipment {
 
-  public static RldItemStack createArmour(Random random, int level) {
-    Quality quality = ArmourQualityOddsTable.rollArmourQuality(random, level);
-    return createArmour(random, quality);
-  }
-
-  public static RldItemStack createArmour(Random random, Quality quality) {
+  public static SpecialArmour createArmour(Random random, Quality quality) {
     switch (random.nextInt(4)) {
       case 0:
-        return new SpecialHelmet(random, quality).complete();
+        return new SpecialHelmet(random, quality);
       case 1:
-        return new SpecialChestplate(random, quality).complete();
+        return new SpecialChestplate(random, quality);
       case 2:
-        return new SpecialLeggings(random, quality).complete();
+        return new SpecialLeggings(random, quality);
       case 3:
-        return new SpecialBoots(random, quality).complete();
       default:
-        return null;
+        return new SpecialBoots(random, quality);
     }
   }
 

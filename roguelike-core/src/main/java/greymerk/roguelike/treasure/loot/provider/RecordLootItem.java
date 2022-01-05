@@ -12,8 +12,8 @@ public class RecordLootItem extends LootItem {
   }
 
   @Override
-  public RldItemStack getLootItem(Random rand, int level) {
-    Record.Song song = Record.Song.chooseRandom(rand);
+  public RldItemStack getLootItem(Random random, int level) {
+    Record.Song song = Record.Song.chooseRandom(random);
     return Record.newRecord().withSong(song).asStack();
   }
 }

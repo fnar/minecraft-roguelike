@@ -19,8 +19,8 @@ public class EnchantedBookLootItem extends LootItem {
   }
 
   @Override
-  public RldItemStack getLootItem(Random rand, int level) {
-    int enchantLevel = this.enchantmentLevel != 0 ? this.enchantmentLevel : LootItem.getEnchantmentLevel(rand, level);
+  public RldItemStack getLootItem(Random random, int level) {
+    int enchantLevel = this.enchantmentLevel != 0 ? this.enchantmentLevel : LootItem.getEnchantmentLevel(random, level);
     return Miscellaneous.Type.BOOK.asItem().plzEnchantAtLevel(enchantLevel).asStack();
   }
 

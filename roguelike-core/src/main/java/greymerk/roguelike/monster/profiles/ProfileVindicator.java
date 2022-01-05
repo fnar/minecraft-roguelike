@@ -2,20 +2,17 @@ package greymerk.roguelike.monster.profiles;
 
 import com.github.fnar.roguelike.loot.special.tools.SpecialAxe;
 
-import net.minecraft.world.World;
-
 import java.util.Random;
 
-import greymerk.roguelike.monster.IEntity;
-import greymerk.roguelike.monster.IMonsterProfile;
-import greymerk.roguelike.monster.MobType;
+import greymerk.roguelike.monster.MonsterProfile;
+import greymerk.roguelike.monster.Mob;
 
-public class ProfileVindicator implements IMonsterProfile {
+public class ProfileVindicator implements MonsterProfile {
 
   @Override
-  public void equip(World world, Random random, int level, IEntity mob) {
-    mob.setMobClass(MobType.VINDICATOR, true);
+  public Mob apply(Mob mob, int level, int difficulty, Random random) {
     mob.equipMainhand(new SpecialAxe(random, level).complete());
+    return mob;
   }
 
 }

@@ -4,22 +4,19 @@ import com.github.fnar.minecraft.item.Arrow;
 import com.github.fnar.minecraft.item.Potion;
 import com.github.fnar.util.Colors;
 
-import net.minecraft.world.World;
-
 import java.util.Random;
 
-import greymerk.roguelike.monster.IEntity;
-import greymerk.roguelike.monster.IMonsterProfile;
-import greymerk.roguelike.monster.MobType;
+import greymerk.roguelike.monster.MonsterProfile;
+import greymerk.roguelike.monster.Mob;
 
-public class ProfilePoisonArcher implements IMonsterProfile {
+public class ProfilePoisonArcher implements MonsterProfile {
 
   @Override
-  public void equip(World world, Random random, int level, IEntity mob) {
-    mob.setMobClass(MobType.STRAY, false);
-    mob.equipBow(world, random, level);
+  public Mob apply(Mob mob, int level, int difficulty, Random random) {
+    mob.equipBow(random, level, difficulty);
     mob.equipArrows(Arrow.newArrow().withTip(Potion.Effect.POISON.asItem().withAmplification()));
-    mob.equipArmor(world, random, level, Colors.PALE_LIME_GREEN);
+    mob.equipArmor(random, level, Colors.PALE_LIME_GREEN, difficulty);
+    return mob;
   }
 
 }
