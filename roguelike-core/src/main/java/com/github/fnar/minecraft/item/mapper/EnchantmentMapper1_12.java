@@ -1,11 +1,9 @@
 package com.github.fnar.minecraft.item.mapper;
 
 import com.github.fnar.minecraft.item.Enchantment;
-import com.github.fnar.minecraft.item.EnchantmentMapper;
 
-public class EnchantmentMapper1_12 implements EnchantmentMapper {
+public class EnchantmentMapper1_12 {
 
-  @Override
   public net.minecraft.enchantment.Enchantment map(Enchantment enchantment) {
     String name = getName(enchantment.getEnchant());
     return net.minecraft.enchantment.Enchantment.getEnchantmentByLocation(name);

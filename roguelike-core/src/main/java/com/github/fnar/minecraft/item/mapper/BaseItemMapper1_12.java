@@ -16,7 +16,6 @@ public abstract class BaseItemMapper1_12<ItemClass> implements ItemMapper {
 
   public abstract Class<ItemClass> getClazz();
 
-  @Override
   public ItemStack map(RldItemStack rldItemStack) {
     Class<ItemClass> clazz = getClazz();
     if (!(clazz.isAssignableFrom(rldItemStack.getItem().getClass()))) {
