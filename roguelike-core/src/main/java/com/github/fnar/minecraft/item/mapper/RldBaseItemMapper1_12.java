@@ -1,6 +1,5 @@
 package com.github.fnar.minecraft.item.mapper;
 
-import com.github.fnar.minecraft.item.EnchantmentMapper;
 import com.github.fnar.minecraft.item.RldBaseItem;
 import com.github.fnar.util.Color;
 
@@ -20,7 +19,7 @@ public abstract class RldBaseItemMapper1_12<T extends RldBaseItem> extends BaseI
   // TODO: use seed for randomness, or use other random.
   private static final Random RAND = new Random(0);
 
-  private final EnchantmentMapper enchantmentMapper = new EnchantmentMapper1_12();
+  private final EnchantmentMapper1_12 enchantmentMapper = new EnchantmentMapper1_12();
 
   protected ItemStack map(T rldItem, Item item) {
     ItemStack itemStack = new ItemStack(item);

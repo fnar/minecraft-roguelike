@@ -2,13 +2,12 @@ package com.github.fnar.minecraft.item.mapper;
 
 import com.github.fnar.minecraft.item.CouldNotMapItemException;
 import com.github.fnar.minecraft.item.Record;
-import com.github.fnar.minecraft.item.RecordMapper;
 
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class RecordMapper1_12 extends BaseItemMapper1_12<Record> implements RecordMapper {
+public class RecordMapper1_12 extends BaseItemMapper1_12<Record> {
 
   @Override
   public Class<Record> getClazz() {
