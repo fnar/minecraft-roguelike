@@ -36,10 +36,6 @@ public interface WorldEditor {
 
   Random getRandom();
 
-  default Random getRandom(Coord coord) {
-    return new Random(Objects.hash(getSeed(), coord));
-  }
-
   boolean setBlock(Coord pos, SingleBlockBrush singleBlockBrush, boolean fillAir, boolean replaceSolid);
 
   boolean isAirBlock(Coord pos);

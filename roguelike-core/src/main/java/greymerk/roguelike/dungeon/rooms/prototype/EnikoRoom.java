@@ -116,7 +116,7 @@ public class EnikoRoom extends BaseRoom {
 
     generateSpawner(origin, COMMON_MOBS);
     List<Coord> chestLocations = chooseRandomLocations(1, chests);
-    ChestType chestType = getRoomSetting().getChestType().orElse(ChestType.chooseRandomAmong(worldEditor.getRandom(origin), ChestType.COMMON_TREASURES));
+    ChestType chestType = getRoomSetting().getChestType().orElse(ChestType.chooseRandomAmong(worldEditor.getRandom(), ChestType.COMMON_TREASURES));
     worldEditor.getTreasureChestEditor().createChests(chestLocations, false, levelSettings.getDifficulty(origin), entrances.get(0).reverse(), chestType);
 
     return this;

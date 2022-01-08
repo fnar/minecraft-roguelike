@@ -32,7 +32,7 @@ public class DungeonsPrison extends BaseRoom {
 
     Coord cursor;
 
-    Random rand = worldEditor.getRandom(origin);
+    Random rand = worldEditor.getRandom();
     largeRoom(worldEditor, levelSettings, origin);
 
     for (Direction dir : entrances) {

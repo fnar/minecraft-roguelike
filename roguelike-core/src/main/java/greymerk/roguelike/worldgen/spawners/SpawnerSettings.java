@@ -29,7 +29,7 @@ public class SpawnerSettings {
 
   public void generateSpawner(WorldEditor editor, Coord cursor, int difficulty) {
     try {
-      spawners.get(editor.getRandom(cursor)).generate(editor, cursor, difficulty);
+      spawners.get(editor.getRandom()).generate(editor, cursor, difficulty);
     } catch (Exception e) {
       throw new RuntimeException("Tried to spawn empty spawner", e);
     }

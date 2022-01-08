@@ -27,7 +27,7 @@ public class CakeRoom extends BaseRoom {
 
   @Override
   public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    Random random = worldEditor.getRandom(origin);
+    Random random = worldEditor.getRandom();
     int x = origin.getX();
     int y = origin.getY();
     int z = origin.getZ();

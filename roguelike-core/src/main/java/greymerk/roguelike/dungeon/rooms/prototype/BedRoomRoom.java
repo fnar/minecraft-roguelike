@@ -126,11 +126,11 @@ public class BedRoomRoom extends BaseRoom {
 
     cursor = origin.copy();
     cursor.translate(dir, 3);
-    BedBlock.bed().setColor(DyeColor.chooseRandom(worldEditor.getRandom(cursor))).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+    BedBlock.bed().setColor(DyeColor.chooseRandom(worldEditor.getRandom())).setFacing(dir.reverse()).stroke(worldEditor, cursor);
     cursor.translate(side, 2);
     BlockType.BOOKSHELF.getBrush().stroke(worldEditor, cursor);
     cursor.up();
-    FlowerPotBlock.flowerPot().withRandomContent(worldEditor.getRandom(cursor)).stroke(worldEditor, cursor);
+    FlowerPotBlock.flowerPot().withRandomContent(worldEditor.getRandom()).stroke(worldEditor, cursor);
     cursor.translate(side.reverse(), 3);
     cursor.down();
     StairsBlock stair = theme.getSecondary().getStair();

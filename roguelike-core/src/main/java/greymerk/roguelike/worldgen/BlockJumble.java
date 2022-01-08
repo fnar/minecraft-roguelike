@@ -33,7 +33,7 @@ public class BlockJumble implements BlockBrush {
 
   @Override
   public boolean stroke(WorldEditor editor, Coord origin, boolean fillAir, boolean replaceSolid) {
-    BlockBrush block = blocks.get(editor.getRandom(origin).nextInt(blocks.size()));
+    BlockBrush block = blocks.get(editor.getRandom().nextInt(blocks.size()));
     return block.stroke(editor, origin, fillAir, replaceSolid);
   }
 

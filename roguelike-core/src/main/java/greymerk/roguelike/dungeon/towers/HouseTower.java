@@ -166,9 +166,9 @@ public class HouseTower implements ITower {
     cursor.translate(dir.reverse());
     stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor);
     cursor.up();
-    FlowerPotBlock.flowerPot().withRandomContent(editor.getRandom(cursor)).stroke(editor, cursor);
+    FlowerPotBlock.flowerPot().withRandomContent(editor.getRandom()).stroke(editor, cursor);
     cursor.translate(dir);
-    FlowerPotBlock.flowerPot().withRandomContent(editor.getRandom(cursor)).stroke(editor, cursor);
+    FlowerPotBlock.flowerPot().withRandomContent(editor.getRandom()).stroke(editor, cursor);
 
     cursor = origin.copy();
     cursor.up(4);
@@ -187,7 +187,7 @@ public class HouseTower implements ITower {
     cursor.translate(dir.reverse());
     BlockType.BOOKSHELF.getBrush().stroke(editor, cursor);
     cursor.up();
-    FlowerPotBlock.flowerPot().withRandomContent(editor.getRandom(cursor)).stroke(editor, cursor);
+    FlowerPotBlock.flowerPot().withRandomContent(editor.getRandom()).stroke(editor, cursor);
     cursor.down();
     cursor.translate(dir.reverse());
     BedBlock.bed().setColor(DyeColor.RED).setFacing(orthogonals[1]).stroke(editor, cursor);

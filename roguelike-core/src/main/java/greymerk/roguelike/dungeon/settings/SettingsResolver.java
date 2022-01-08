@@ -128,7 +128,7 @@ public class SettingsResolver {
         .filter(isValid(editor, coord))
         .collect(toList());
     WeightedRandomizer<DungeonSettings> settingsRandomizer = newWeightedRandomizer(inflatedSettings);
-    return ofNullable(settingsRandomizer.get(editor.getRandom(coord)));
+    return ofNullable(settingsRandomizer.get(editor.getRandom()));
   }
 
   private Predicate<DungeonSettings> isValid(WorldEditor editor, Coord coord) {

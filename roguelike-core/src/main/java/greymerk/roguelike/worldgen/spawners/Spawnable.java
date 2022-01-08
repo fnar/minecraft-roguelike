@@ -42,7 +42,7 @@ public class Spawnable {
     nbt.setInteger("y", pos.getY());
     nbt.setInteger("z", pos.getZ());
 
-    nbt.setTag("SpawnPotentials", getSpawnPotentials(editor.getRandom(pos), level));
+    nbt.setTag("SpawnPotentials", getSpawnPotentials(editor.getRandom(), level));
 
     spawnerLogic.readFromNBT(nbt);
     spawnerLogic.updateSpawner();

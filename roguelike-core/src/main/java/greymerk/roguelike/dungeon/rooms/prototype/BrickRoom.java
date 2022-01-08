@@ -142,7 +142,7 @@ public class BrickRoom extends BaseRoom {
         .map(chestType -> new ChestType[]{chestType})
         .orElse(ChestType.COMMON_TREASURES);
 
-    boolean isChestBeneathSpawner = worldEditor.getRandom(spawnerLocation).nextInt(Math.max(1, difficulty) + 1) != 0;
+    boolean isChestBeneathSpawner = worldEditor.getRandom().nextInt(Math.max(1, difficulty) + 1) != 0;
     List<Coord> chestLocations = isChestBeneathSpawner
         ? Lists.newArrayList(spawnerLocation.copy().down())
         : chooseRandomLocations(1, getPotentialSpawnLocations(origin));

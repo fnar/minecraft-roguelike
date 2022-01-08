@@ -110,7 +110,7 @@ public class Dungeon {
   public void generate(DungeonSettings dungeonSettings, Coord coord) {
     logger.info("Trying to spawn dungeon with id {} at {}...", dungeonSettings.getId(), coord);
     try {
-      Random random = editor.getRandom(coord);
+      Random random = editor.getRandom();
 
       origin = new Coord(coord.getX(), TOPLEVEL, coord.getZ());
 
@@ -242,7 +242,7 @@ public class Dungeon {
 
   private Optional<DungeonSettings> getDungeonSettingsMaybe(Coord coord) {
     if (RogueConfig.RANDOM.getBoolean()) {
-      return Optional.of(new SettingsRandom(editor.getRandom(coord)));
+      return Optional.of(new SettingsRandom(editor.getRandom()));
     }
     if (settingsResolver == null) {
       return Optional.empty();
