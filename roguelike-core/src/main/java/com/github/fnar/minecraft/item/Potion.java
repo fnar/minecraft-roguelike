@@ -2,6 +2,8 @@ package com.github.fnar.minecraft.item;
 
 import com.google.common.collect.Lists;
 
+import com.github.fnar.util.Color;
+
 import java.util.List;
 import java.util.Random;
 
@@ -14,6 +16,7 @@ public class Potion implements RldItem {
   private final List<com.github.fnar.minecraft.Effect> effects = Lists.newArrayList();
   private boolean isAmplified;
   private boolean isExtended;
+  private Color color;
 
   public Potion() {
     this(Effect.AWKWARD);
@@ -95,6 +98,15 @@ public class Potion implements RldItem {
   public Potion withExtension(boolean isExtended) {
     this.isExtended = isExtended;
     return this;
+  }
+
+  public Potion withColor(Color color) {
+    this.color = color;
+    return this;
+  }
+
+  public Color getColor() {
+    return color;
   }
 
   public enum Amplification {

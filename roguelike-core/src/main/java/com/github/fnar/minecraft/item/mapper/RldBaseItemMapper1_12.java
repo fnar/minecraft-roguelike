@@ -71,20 +71,20 @@ public abstract class RldBaseItemMapper1_12<T extends RldBaseItem> extends BaseI
   }
 
   private static void dyeArmor(ItemStack armor, Color color) {
-    NBTTagCompound nbtData = armor.getTagCompound();
+    NBTTagCompound tags = armor.getTagCompound();
 
-    if (nbtData == null) {
-      nbtData = new NBTTagCompound();
-      armor.setTagCompound(nbtData);
+    if (tags == null) {
+      tags = new NBTTagCompound();
+      armor.setTagCompound(tags);
     }
 
-    NBTTagCompound nbtDisplay = nbtData.getCompoundTag("display");
+    NBTTagCompound displayTag = tags.getCompoundTag("display");
 
-    if (!nbtData.hasKey("display")) {
-      nbtData.setTag("display", nbtDisplay);
+    if (!tags.hasKey("display")) {
+      tags.setTag("display", displayTag);
     }
 
-    nbtDisplay.setInteger("color", color.asInt());
+    displayTag.setInteger("color", color.asInt());
 
   }
 }

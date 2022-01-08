@@ -15,9 +15,14 @@ public class Firework extends RldBaseItem {
   private FlightLength flightLength = FlightLength.SHORT;
 
   public static List<Color> randomColors(Random random) {
-    return IntStream.range(0, random.nextInt(4) + 1)
-        .mapToObj(i -> Color.HSLToColor(random.nextFloat(), (float) 1.0, (float) 0.5))
+    int numberOfColours = random.nextInt(4) + 1;
+    return IntStream.range(0, numberOfColours)
+        .mapToObj(i -> randomColor(random))
         .collect(Collectors.toList());
+  }
+
+  private static Color randomColor(Random random) {
+    return Color.HSLToColor(random.nextFloat(), (float) 1.0, (float) 0.5);
   }
 
   public List<Explosion> getExplosions() {
