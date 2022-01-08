@@ -101,14 +101,14 @@ public class DungeonsCrypt extends BaseRoom {
             cursor.translate(o, 3);
             cursor.up();
 
-            sarcophagus(worldEditor, worldEditor.getRandom(cursor), levelSettings, cursor, o);
+            sarcophagus(worldEditor, worldEditor.getRandom(), levelSettings, cursor, o);
           }
         }
 
       } else {
         cursor = origin.copy();
         cursor.translate(dir, 4);
-        mausoleumWall(worldEditor, worldEditor.getRandom(cursor), levelSettings, cursor, dir);
+        mausoleumWall(worldEditor, worldEditor.getRandom(), levelSettings, cursor, dir);
       }
 
       cursor = origin.copy();

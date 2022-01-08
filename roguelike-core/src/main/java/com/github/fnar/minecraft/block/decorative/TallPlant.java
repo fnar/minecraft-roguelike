@@ -21,7 +21,7 @@ public enum TallPlant {
 
   public static void placePlant(WorldEditor editor, Coord origin, Direction dir) {
     placePlanter(editor, origin);
-    chooseRandom(editor.getRandom(origin)).getBrush()
+    chooseRandom(editor.getRandom()).getBrush()
         .setFacing(dir)
         .stroke(editor, origin.copy().up());
   }

@@ -42,7 +42,7 @@ public class CommandRouteTower extends CommandRouteBase {
     ITower tower = Tower.get(type);
 
     WorldEditor editor = context.createEditor();
-    tower.generate(editor, editor.getRandom(here), Tower.getDefaultTheme(type).getThemeBase(), here);
+    tower.generate(editor, editor.getRandom(), Tower.getDefaultTheme(type).getThemeBase(), here);
     context.sendSuccess(towerName + " Tower generated at " + here.toString());
   }
 

@@ -30,7 +30,7 @@ public class DungeonsMusic extends BaseRoom {
   }
 
   public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    Random rand = worldEditor.getRandom(origin);
+    Random rand = worldEditor.getRandom();
 
     Theme theme = levelSettings.getTheme();
     BlockBrush wall = theme.getPrimary().getWall();

@@ -33,7 +33,7 @@ public class LibraryRoom extends BaseRoom {
 
   @Override
   public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    Random rand = worldEditor.getRandom(origin);
+    Random rand = worldEditor.getRandom();
     int x = origin.getX();
     int y = origin.getY();
     int z = origin.getZ();
@@ -187,7 +187,7 @@ public class LibraryRoom extends BaseRoom {
     stair.setUpsideDown(true).setFacing(dir.antiClockwise()).stroke(editor, cursor);
 
     cursor.up();
-    FlowerPotBlock.flowerPot().withRandomContent(editor.getRandom(cursor)).stroke(editor, cursor);
+    FlowerPotBlock.flowerPot().withRandomContent(editor.getRandom()).stroke(editor, cursor);
 
     cursor.translate(dir.antiClockwise());
     carpet().setColor(DyeColor.GREEN).stroke(editor, cursor);

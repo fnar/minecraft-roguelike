@@ -43,7 +43,7 @@ public class DungeonsPit extends BaseRoom {
 
     Theme theme = levelSettings.getTheme();
 
-    rand = worldEditor.getRandom(origin);
+    rand = worldEditor.getRandom();
     originX = origin.getX();
     originY = origin.getY();
     originZ = origin.getZ();

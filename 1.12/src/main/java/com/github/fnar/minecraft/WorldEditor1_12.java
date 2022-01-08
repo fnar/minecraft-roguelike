@@ -94,7 +94,7 @@ public class WorldEditor1_12 implements WorldEditor {
 
     TileEntitySkull tileEntitySkull = (TileEntitySkull) tileEntity;
     setSkullType(tileEntitySkull, type);
-    setSkullRotation(editor.getRandom(cursor), tileEntitySkull, dir);
+    setSkullRotation(editor.getRandom(), tileEntitySkull, dir);
   }
 
   public static void setSkullType(TileEntitySkull skull, Skull type) {

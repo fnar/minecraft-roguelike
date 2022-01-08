@@ -27,7 +27,7 @@ public class DungeonsEnder extends BaseRoom {
   }
 
   public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    Random rand = worldEditor.getRandom(origin);
+    Random rand = worldEditor.getRandom();
     BlockBrush black = BlockType.OBSIDIAN.getBrush();
     BlockBrush white = Quartz.SMOOTH.getBrush();
 
