@@ -11,7 +11,7 @@ import com.github.fnar.minecraft.item.Record;
 import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.minecraft.item.ToolType;
 import com.github.fnar.minecraft.item.WeaponType;
-import com.github.fnar.util.Colors;
+import com.github.fnar.util.Color;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -186,7 +186,7 @@ public enum ItemNovelty {
 
   public static RldItemStack manPants() {
     return ArmourType.LEGGINGS.asItem().leather()
-        .withColor(Colors.SMOKED_SALMON)
+        .withColor(Color.SMOKED_SALMON)
         .withEnchantment(Enchantment.Effect.FIRE_PROTECTION.asEnchantment().withLevel(4))
         .withEnchantment(Enchantment.Effect.UNBREAKING.asEnchantment().withLevel(3))
         .asStack()
@@ -226,7 +226,7 @@ public enum ItemNovelty {
   public static RldItemStack farlandTravellers() {
     return ArmourType.BOOTS.asItem()
         .leather()
-        .withColor(Colors.HARISSA_RED)
+        .withColor(Color.HARISSA_RED)
         .withEnchantment(Enchantment.Effect.PROTECTION.asEnchantment().withLevel(3))
         .withEnchantment(Enchantment.Effect.FEATHER_FALLING.asEnchantment().withLevel(2))
         .withEnchantment(Enchantment.Effect.UNBREAKING.asEnchantment().withLevel(3))
@@ -259,7 +259,7 @@ public enum ItemNovelty {
   public static RldItemStack bDoubleOspinkSweater() {
     return ArmourType.CHESTPLATE.asItem()
         .withQuality(Quality.WOOD)
-        .withColor(Colors.CHINESE_RED)
+        .withColor(Color.CHINESE_RED)
         .asStack()
         .withDisplayName("Pink Sweater")
         .withDisplayLore("\"It's chinese red!\"");

@@ -5,9 +5,7 @@ import com.github.fnar.minecraft.block.decorative.BedBlock;
 import com.github.fnar.minecraft.block.decorative.FlowerPotBlock;
 import com.github.fnar.minecraft.block.decorative.TorchBlock;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
-
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
+import com.github.fnar.minecraft.item.Material;
 
 import java.util.List;
 import java.util.Random;
@@ -171,7 +169,7 @@ public class BedRoomRoom extends BaseRoom {
       cursor.translate(dir.reverse());
     }
     BlockType.FURNACE.getBrush().setFacing(side.reverse()).stroke(worldEditor, cursor);
-    worldEditor.setItem(cursor, WorldEditor.FURNACE_FUEL_SLOT, new ItemStack(Items.COAL, 2 + rand.nextInt(3)));
+    worldEditor.setItem(cursor, WorldEditor.FURNACE_FUEL_SLOT, Material.Type.COAL.asItemStack().withCount(2 + rand.nextInt(3)));
     return this;
   }
 

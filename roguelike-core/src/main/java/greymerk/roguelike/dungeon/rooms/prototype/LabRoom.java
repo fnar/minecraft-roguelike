@@ -3,14 +3,12 @@ package greymerk.roguelike.dungeon.rooms.prototype;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.decorative.BrewingStand;
-import com.github.fnar.minecraft.material.Crop;
 import com.github.fnar.minecraft.block.decorative.FlowerPotBlock;
 import com.github.fnar.minecraft.block.decorative.TorchBlock;
 import com.github.fnar.minecraft.block.normal.SlabBlock;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
-
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
+import com.github.fnar.minecraft.item.Ingredient;
+import com.github.fnar.minecraft.material.Crop;
 
 import java.util.List;
 
@@ -266,7 +264,7 @@ public class LabRoom extends BaseRoom {
     if (RogueConfig.GENEROUS.getBoolean()) {
       Coord bs = new Coord(x + 1, y + 1, z + 5);
       BlockType.BREWING_STAND.getBrush().stroke(editor, bs);
-      editor.setItem(bs, BrewingStand.Slot.FUEL, new ItemStack(Items.BLAZE_POWDER));
+      editor.setItem(bs, BrewingStand.Slot.FUEL, Ingredient.Type.BLAZE_POWDER.asItemStack());
     }
     editor.getTreasureChestEditor().createChest(new Coord(x, y + 1, z + 4), false, Dungeon.getLevel(y), Direction.WEST, getRoomSetting().getChestType().orElse(ChestType.BREWING));
   }

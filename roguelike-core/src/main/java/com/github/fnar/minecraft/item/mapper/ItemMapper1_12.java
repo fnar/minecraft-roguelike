@@ -25,6 +25,8 @@ public class ItemMapper1_12 implements ItemMapper {
         return new BlockMapper1_12().map(rldItemStack);
       case DYE:
         return new DyeMapper1_12().map(rldItemStack);
+      case FIREWORK:
+        return new FireworkMapper1_12().map(rldItemStack);
       case FOOD:
         return new FoodMapper1_12().map(rldItemStack);
       case INGREDIENT:

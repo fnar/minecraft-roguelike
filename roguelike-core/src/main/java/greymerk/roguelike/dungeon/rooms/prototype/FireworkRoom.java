@@ -8,16 +8,15 @@ import com.github.fnar.minecraft.block.redstone.LeverBlock;
 import com.github.fnar.minecraft.block.redstone.RepeaterBlock;
 import com.github.fnar.minecraft.item.Material;
 import com.github.fnar.minecraft.item.RldItemStack;
-
-import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
+import com.github.fnar.minecraft.item.ToolType;
 
 import java.util.List;
+import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.treasure.loot.Firework;
+import greymerk.roguelike.treasure.loot.Quality;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.util.TextFormat;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -186,7 +185,7 @@ public class FireworkRoom extends BaseRoom {
           .withDisplayLore(TextFormat.DARKGRAY.apply("Random logic unit"));
       editor.setItem(cursor, i, stick);
     }
-    editor.setItem(cursor, 8, new ItemStack(Items.WOODEN_HOE));
+    editor.setItem(cursor, 8, ToolType.HOE.asItem().withQuality(Quality.WOOD).asStack());
 
     cursor.up();
     BlockType.HOPPER.getBrush().setFacing(Direction.DOWN).stroke(editor, cursor);
@@ -240,7 +239,7 @@ public class FireworkRoom extends BaseRoom {
 
     BlockType.DISPENSER.getBrush().setFacing(Direction.UP).stroke(editor, cursor);
     for (int i = 0; i < 9; i++) {
-      editor.setItem(cursor, i, Firework.get(editor.getRandom(cursor), 16 + editor.getRandom(cursor).nextInt(16)));
+      editor.setItem(cursor, i, createFireworks(editor.getRandom()));
     }
 
     cursor.up();
@@ -266,6 +265,15 @@ public class FireworkRoom extends BaseRoom {
     RectSolid.newRect(start, end).fill(editor, cob);
   }
 
+  private RldItemStack createFireworks(Random random) {
+    int stackSize = 16 + random.nextInt(16);
+    return new com.github.fnar.minecraft.item.Firework()
+        .withExplosion(new com.github.fnar.minecraft.item.Firework.Explosion()
+            .withFlicker(random.nextBoolean())
+            .withTrail(random.nextBoolean())
+            .withColors(com.github.fnar.minecraft.item.Firework.randomColors(random)))
+        .withFlightLength(com.github.fnar.minecraft.item.Firework.FlightLength.chooseRandom(random)).asStack().withCount(stackSize);
+  }
 
   @Override
   public int getSize() {
