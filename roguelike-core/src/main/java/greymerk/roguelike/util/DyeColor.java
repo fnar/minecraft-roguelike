@@ -33,11 +33,6 @@ public enum DyeColor {
     return values()[random.nextInt(values().length)];
   }
 
-  // todo: extract all calls of this in to static color objects, and map to ints
-  public static int RGBToColor(int r, int g, int b) {
-    return r << 16 | g << 8 | b;
-  }
-
   public EnumDyeColor toEnumDyeColor() {
     try {
       return EnumDyeColor.valueOf(toString());

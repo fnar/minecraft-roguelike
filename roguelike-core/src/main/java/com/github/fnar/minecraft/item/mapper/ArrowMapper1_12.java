@@ -23,7 +23,7 @@ public class ArrowMapper1_12 {
 
   private static ItemStack getTippedArrowStack(Potion potion) {
     // TODO: Move amplification and extension onto effect instead of potion
-    PotionType potionType = new PotionMapper1_12().map(potion.getEffect(), false, false);
+    PotionType potionType = new PotionMapper1_12().mapToPotionType(potion.getEffect(), false, false);
     String tipString = net.minecraft.potion.PotionType.REGISTRY.getNameForObject(potionType).toString();
     ItemStack arrow = new ItemStack(Items.TIPPED_ARROW);
     NBTTagCompound nbt = new NBTTagCompound();

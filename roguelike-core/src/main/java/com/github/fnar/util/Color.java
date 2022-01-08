@@ -4,6 +4,8 @@ import java.util.Random;
 
 public class Color {
 
+  public static final int BOUND = 256;
+
   // Thanks to https://colornamer.robertcooper.me/ for the names
   public static final Color PRUSSIAN_BLUE = new Color(0, 51, 102);
   public static final Color LEAD = new Color(32, 32, 32);
@@ -14,12 +16,20 @@ public class Color {
   public static final Color SMOKED_SALMON = new Color(250, 128, 114);
   public static final Color PINK_FLAMINGO = new Color(255, 100, 255);
   public static final Color CLASSIC_ROSE = new Color(255, 204, 229);
+  public static final Color POPCORN = new Color(250, 220, 140);
+  public static final Color SPLIT_PEA_SOUP = new Color(200, 180, 100);
+  public static final Color ICE_FISHING = new Color(222, 238, 244);
+  public static final Color ADVERTISING_GREEN = new Color(85, 165, 120);
+  public static final Color BLUE = new Color(0, 0, 255);
+  public static final Color WHITE = new Color(255, 255, 255);
+  public static final Color ENGLISH_BREAKFAST = new Color(62, 14, 16);
+  public static final Color SUNNY_MOOD = new Color(245, 200, 71);
+  public static final Color COFFEE = new Color(111, 78, 55);
+  public static final Color DELAYED_YELLOW = new Color(250, 250, 0);
 
-  public static final int BOUND = 256;
-
-  int red;
-  int green;
-  int blue;
+  private final int red;
+  private final int green;
+  private final int blue;
 
   public Color(int red, int green, int blue) {
     this.red = red;
@@ -59,7 +69,7 @@ public class Color {
     return new Color((int) (r * 255), (int) (g * 255), (int) (b * 255));
   }
 
-  public static float hueToRgb(float p, float q, float t) {
+  private static float hueToRgb(float p, float q, float t) {
     if (t < 0f) {
       t += 1f;
     }

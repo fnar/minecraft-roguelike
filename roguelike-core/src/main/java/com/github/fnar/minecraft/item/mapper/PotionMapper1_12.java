@@ -1,10 +1,7 @@
 package com.github.fnar.minecraft.item.mapper;
 
-import com.github.fnar.minecraft.EffectType;
+import com.github.fnar.minecraft.Effect;
 import com.github.fnar.minecraft.item.Potion;
-import com.github.fnar.minecraft.item.PotionMapper;
-import com.github.fnar.minecraft.item.RldItem;
-import com.github.fnar.minecraft.item.RldItemStack;
 
 import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
@@ -12,58 +9,69 @@ import net.minecraft.item.ItemPotion;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
+import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
 
-public class PotionMapper1_12 implements PotionMapper {
+import java.util.Optional;
+
+public class PotionMapper1_12 extends BaseItemMapper1_12<Potion> {
 
   @Override
-  public ItemPotion map(Potion.Form form) {
+  public Class<Potion> getClazz() {
+    return Potion.class;
+  }
+
+  @Override
+  public ItemStack map(Potion potion) {
+    ItemPotion potionForm = mapForm(potion.getForm());
+    PotionType potionType = mapPotionType(potion);
+    ItemStack itemStack = PotionUtils.addPotionToItemStack(new ItemStack(potionForm), potionType);
+
+    NBTTagCompound tags = getNbtTagCompound(itemStack);
+
+    Optional.ofNullable(potion.getColor()).ifPresent(color -> tags.setInteger("CustomPotionColor", color.asInt()));
+
+    potion.getEffects()
+        .stream().map(this::mapEffectToTag)
+        .forEach(effectTag -> mapEffectTags(effectTag, tags));
+
+    return itemStack;
+  }
+
+  private NBTTagCompound getNbtTagCompound(ItemStack itemStack) {
+    NBTTagCompound tags = Optional.ofNullable(itemStack.getTagCompound()).orElseGet(NBTTagCompound::new);
+    itemStack.setTagCompound(tags);
+    return tags;
+  }
+
+  private PotionType mapPotionType(Potion potion) {
+    return mapToPotionType(potion.getEffect(), potion.isAmplified(), potion.isExtended());
+  }
+
+  private ItemPotion mapForm(Potion.Form form) {
     return form == Potion.Form.REGULAR ? Items.POTIONITEM
         : form == Potion.Form.SPLASH ? Items.SPLASH_POTION
             : Items.LINGERING_POTION;
   }
 
-  @Override
-  public ItemStack map(RldItemStack rldItemStack) {
-    RldItem item = rldItemStack.getItem();
-    return map((Potion) item);
-  }
-
-  @Override
-  public ItemStack map(Potion potion) {
-    ItemPotion itemPotion = new PotionMapper1_12().map(potion.getForm());
-    ItemStack itemStack = new ItemStack(itemPotion);
-    net.minecraft.potion.PotionType data = new PotionMapper1_12().map(potion.getEffect(), potion.isAmplified(), potion.isExtended());
-    ItemStack potionWithData = PotionUtils.addPotionToItemStack(itemStack, data);
-    potion.getEffects()
-        .forEach(effect ->
-            addCustomEffect(potionWithData, effect.getType(), effect.getAmplification(), effect.getDuration()));
-    return potionWithData;
-  }
-
-  private static void addCustomEffect(ItemStack itemStack, EffectType type, int amplifier, int duration) {
+  private NBTTagCompound mapEffectToTag(Effect effect) {
     final int ticksPerSecond = 20;
-    final String CUSTOM = "CustomPotionEffects";
-
-    NBTTagCompound tag = itemStack.getTagCompound();
-    if (tag == null) {
-      tag = new NBTTagCompound();
-      itemStack.setTagCompound(tag);
-    }
-
-    NBTTagCompound toAdd = new NBTTagCompound();
-    toAdd.setByte("Id", (byte) type.getEffectID());
-    toAdd.setByte("Amplifier", (byte) (amplifier));
-    toAdd.setInteger("Duration", duration * ticksPerSecond);
-    toAdd.setBoolean("Ambient", false);
-
-    NBTTagList effects = tag.getTagList(CUSTOM, 10);
-    effects.appendTag(toAdd);
-    tag.setTag(CUSTOM, effects);
-    itemStack.setTagCompound(tag);
+    NBTTagCompound effectTag = new NBTTagCompound();
+    effectTag.setByte("Id", (byte) effect.getType().getEffectID());
+    effectTag.setByte("Amplifier", (byte) effect.getAmplification());
+    effectTag.setInteger("Duration", effect.getDuration() * ticksPerSecond);
+    effectTag.setBoolean("Ambient", false);
+    return effectTag;
   }
 
-  public net.minecraft.potion.PotionType map(
+  private static void mapEffectTags(NBTTagCompound effectTag, NBTTagCompound tags) {
+    final String customPotionEffectsTag = "CustomPotionEffects";
+    NBTTagList effects = tags.getTagList(customPotionEffectsTag, 10);
+    effects.appendTag(effectTag);
+    tags.setTag(customPotionEffectsTag, effects);
+  }
+
+  public net.minecraft.potion.PotionType mapToPotionType(
       Potion.Effect effect,
       boolean isAmplified,
       boolean isExtended

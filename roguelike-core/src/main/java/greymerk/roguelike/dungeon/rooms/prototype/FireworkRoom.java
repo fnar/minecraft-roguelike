@@ -6,6 +6,7 @@ import com.github.fnar.minecraft.block.decorative.TorchBlock;
 import com.github.fnar.minecraft.block.redstone.ComparatorBlock;
 import com.github.fnar.minecraft.block.redstone.LeverBlock;
 import com.github.fnar.minecraft.block.redstone.RepeaterBlock;
+import com.github.fnar.minecraft.item.Firework;
 import com.github.fnar.minecraft.item.Material;
 import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.minecraft.item.ToolType;
@@ -267,12 +268,12 @@ public class FireworkRoom extends BaseRoom {
 
   private RldItemStack createFireworks(Random random) {
     int stackSize = 16 + random.nextInt(16);
-    return new com.github.fnar.minecraft.item.Firework()
-        .withExplosion(new com.github.fnar.minecraft.item.Firework.Explosion()
+    return new Firework()
+        .withExplosion(new Firework.Explosion()
             .withFlicker(random.nextBoolean())
             .withTrail(random.nextBoolean())
-            .withColors(com.github.fnar.minecraft.item.Firework.randomColors(random)))
-        .withFlightLength(com.github.fnar.minecraft.item.Firework.FlightLength.chooseRandom(random)).asStack().withCount(stackSize);
+            .withColors(Firework.randomColors(random)))
+        .withFlightLength(Firework.FlightLength.chooseRandom(random)).asStack().withCount(stackSize);
   }
 
   @Override
