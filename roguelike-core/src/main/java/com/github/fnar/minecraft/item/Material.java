@@ -43,6 +43,10 @@ public class Material extends RldBaseItem {
     public Material asItem() {
       return new Material(this);
     }
+
+    public RldItemStack asItemStack() {
+      return asItem().asStack();
+    }
   }
 
   @Override

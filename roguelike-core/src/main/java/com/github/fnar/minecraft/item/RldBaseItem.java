@@ -10,7 +10,7 @@ import java.util.Objects;
 public abstract class RldBaseItem implements RldItem {
 
   private Color color;
-  private List<Enchantment> enchantments = Lists.newArrayList();
+  private final List<Enchantment> enchantments = Lists.newArrayList();
   private boolean isPlzEnchant = false;
   private int plzEnchantLevel = 0;
 

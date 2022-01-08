@@ -67,6 +67,10 @@ public enum ToolType {
     return new Tool(this);
   }
 
+  public RldItemStack asItemStack() {
+    return asItem().asStack();
+  }
+
   public Equipment asEquipment() {
     switch(this) {
       case AXE:

@@ -8,6 +8,7 @@ public enum ItemType {
   BLOCK,
   BOOK,
   DYE,
+  FIREWORK,
   FOOD,
   INGREDIENT,
   MATERIAL,

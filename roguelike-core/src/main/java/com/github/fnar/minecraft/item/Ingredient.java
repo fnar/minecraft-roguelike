@@ -39,6 +39,10 @@ public class Ingredient extends RldBaseItem {
     public Ingredient asItem() {
       return new Ingredient(this);
     }
+
+    public RldItemStack asItemStack() {
+      return asItem().asStack();
+    }
   }
 
 }

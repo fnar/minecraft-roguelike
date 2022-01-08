@@ -3,7 +3,7 @@ package greymerk.roguelike.monster.profiles;
 import com.github.fnar.minecraft.entity.Slot;
 import com.github.fnar.minecraft.item.ArmourType;
 import com.github.fnar.minecraft.item.RldItemStack;
-import com.github.fnar.util.Colors;
+import com.github.fnar.util.Color;
 
 import java.util.Random;
 
@@ -20,13 +20,13 @@ public class ProfileRleahy implements MonsterProfile {
     mob.equipMainhand(weapon);
     mob.equipShield(random);
 
-    RldItemStack boots = ArmourType.BOOTS.asItem().withQuality(Quality.WOOD).withColor(Colors.LEAD).asStack();
+    RldItemStack boots = ArmourType.BOOTS.asItem().withQuality(Quality.WOOD).withColor(Color.LEAD).asStack();
     mob.equip(Slot.FEET, boots);
 
-    RldItemStack leggings = ArmourType.LEGGINGS.asItem().withQuality(Quality.WOOD).withColor(Colors.PRUSSIAN_BLUE).asStack();
+    RldItemStack leggings = ArmourType.LEGGINGS.asItem().withQuality(Quality.WOOD).withColor(Color.PRUSSIAN_BLUE).asStack();
     mob.equip(Slot.LEGS, leggings);
 
-    RldItemStack chestplate = ArmourType.CHESTPLATE.asItem().withQuality(Quality.WOOD).withColor(Colors.CLASSIC_ROSE).asStack();
+    RldItemStack chestplate = ArmourType.CHESTPLATE.asItem().withQuality(Quality.WOOD).withColor(Color.CLASSIC_ROSE).asStack();
     mob.equip(Slot.CHEST, chestplate);
     return mob;
   }

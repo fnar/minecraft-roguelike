@@ -224,11 +224,6 @@ public class WorldEditor1_12 implements WorldEditor {
   }
 
   @Override
-  public Random getSeededRandom(int a, int b, int c) {
-    return world.setRandomSeed(a, b, c);
-  }
-
-  @Override
   public void spiralStairStep(Random rand, Coord origin, StairsBlock stair, BlockBrush fill) {
     Coord cursor;
     Coord start;
@@ -271,14 +266,6 @@ public class WorldEditor1_12 implements WorldEditor {
   @Override
   public boolean validGroundBlock(Coord pos) {
     return !invalid.contains(getBlockStateAt(pos).getMaterial());
-  }
-
-  @Override
-  public int getStat(Block type) {
-    if (!stats.containsKey(type)) {
-      return 0;
-    }
-    return stats.get(type);
   }
 
   @Override

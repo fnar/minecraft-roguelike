@@ -1,6 +1,6 @@
 package greymerk.roguelike.monster.profiles;
 
-import com.github.fnar.util.Colors;
+import com.github.fnar.util.Color;
 
 import java.util.Random;
 
@@ -17,7 +17,7 @@ public class ProfileAshlea implements MonsterProfile {
     MonsterProfileType.ZOMBIE_VILLAGER.apply(mob, level, difficulty, rand);
     mob.setChild(true);
     mob.equipMainhand(ItemNovelty.ashleasOatmealCookie());
-    mob.equipArmor(rand, level, Colors.PINK_FLAMINGO, difficulty);
+    mob.equipArmor(rand, level, Color.PINK_FLAMINGO, difficulty);
     return mob;
   }
 }

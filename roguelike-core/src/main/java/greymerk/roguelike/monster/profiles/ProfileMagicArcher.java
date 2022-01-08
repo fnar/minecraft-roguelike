@@ -1,7 +1,7 @@
 package greymerk.roguelike.monster.profiles;
 
 import com.github.fnar.minecraft.item.Arrow;
-import com.github.fnar.util.Colors;
+import com.github.fnar.util.Color;
 
 import java.util.Random;
 
@@ -14,7 +14,7 @@ public class ProfileMagicArcher implements MonsterProfile {
   public Mob apply(Mob mob, int level, int difficulty, Random random) {
     mob.equipBow(random, level, difficulty);
     mob.equipArrows(Arrow.newRandomHarmful(random));
-    mob.equipArmor(random, level, Colors.DEEP_VIOLET, difficulty);
+    mob.equipArmor(random, level, Color.DEEP_VIOLET, difficulty);
     return mob;
   }
 
