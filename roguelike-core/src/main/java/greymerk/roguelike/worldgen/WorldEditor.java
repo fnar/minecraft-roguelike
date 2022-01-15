@@ -9,7 +9,6 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.minecraft.block.spawner.Spawner;
 import com.github.fnar.minecraft.item.RldItemStack;
 
-import net.minecraft.block.Block;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
@@ -53,7 +52,7 @@ public interface WorldEditor {
 
   boolean validGroundBlock(Coord pos);
 
-  Map<Block, Integer> getStats();
+  Map<BlockType, Integer> getStats();
 
   boolean canPlace(SingleBlockBrush block, Coord pos, Direction dir);
 

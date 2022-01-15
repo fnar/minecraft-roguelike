@@ -1,6 +1,6 @@
 package greymerk.roguelike.treasure.loot.books;
 
-import net.minecraft.block.Block;
+import com.github.fnar.minecraft.block.BlockType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,13 +23,14 @@ public class BookStatistics extends Book {
 
   private List<String> getPages(WorldEditor editor) {
     List<String> pages = new ArrayList<>();
-    Map<Block, Integer> stats = editor.getStats();
+    Map<BlockType, Integer> stats = editor.getStats();
 
     int counter = 0;
     StringBuilder page = new StringBuilder();
-    for (Block type : stats.keySet()) {
+    for (BlockType type : stats.keySet()) {
       int count = stats.get(type);
-      String name = abbreviate(type.getLocalizedName(), 16);
+//      String name = abbreviate(type.getLocalizedName(), 16);
+      String name = abbreviate(type.toString(), 16);
       String line = name + " : " + count + "\n";
       page.append(line);
       ++counter;
