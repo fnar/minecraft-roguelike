@@ -3,9 +3,6 @@ package greymerk.roguelike.worldgen;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
-import net.minecraft.block.BlockLever.EnumOrientation;
-import net.minecraft.util.EnumFacing;
-
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
@@ -14,26 +11,19 @@ import java.util.Set;
 
 public enum Direction {
 
-  NORTH(EnumFacing.SOUTH, EnumOrientation.SOUTH, 0, 0, -1),
-  EAST(EnumFacing.WEST, EnumOrientation.WEST, 1, 0, 0),
-  SOUTH(EnumFacing.NORTH, EnumOrientation.NORTH, 0, 0, 1),
-  WEST(EnumFacing.EAST, EnumOrientation.EAST, -1, 0, 0),
-  UP(EnumFacing.UP, EnumOrientation.UP_X, 0, 1, 0),
-  DOWN(EnumFacing.DOWN, EnumOrientation.DOWN_X, 0, -1, 0),
+  NORTH(0, 0, -1),
+  EAST(1, 0, 0),
+  SOUTH(0, 0, 1),
+  WEST(-1, 0, 0),
+  UP(0, 1, 0),
+  DOWN(0, -1, 0),
   ;
 
-  private final EnumFacing facing;
-  private final EnumOrientation orientation;
   private final int xDelta;
   private final int yDelta;
   private final int zDelta;
 
-  Direction(
-      EnumFacing facing,
-      EnumOrientation orientation,
-      int xDelta, int yDelta, int zDelta) {
-    this.facing = facing;
-    this.orientation = orientation;
+  Direction(int xDelta, int yDelta, int zDelta) {
     this.xDelta = xDelta;
     this.yDelta = yDelta;
     this.zDelta = zDelta;
@@ -41,14 +31,6 @@ public enum Direction {
 
   public static Direction randomCardinal(Random random) {
     return CARDINAL.get(random.nextInt(CARDINAL.size()));
-  }
-
-  public EnumFacing getFacing() {
-    return facing;
-  }
-
-  public EnumOrientation getOrientation() {
-    return orientation;
   }
 
   public static List<Direction> CARDINAL = Collections.unmodifiableList(Lists.newArrayList(NORTH, EAST, SOUTH, WEST));

@@ -9,8 +9,8 @@ import greymerk.roguelike.worldgen.PositionInfo;
 
 public class PositionInfo1_12 implements PositionInfo {
 
-  private World world;
-  private Coord pos;
+  private final World world;
+  private final Coord pos;
 
   public PositionInfo1_12(World world, Coord pos) {
     this.world = world;

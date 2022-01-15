@@ -83,7 +83,7 @@ public class BlockMapper1_12 {
   public static MetaBlock1_12 map(SingleBlockBrush block) {
     Direction facing = block.getFacing();
 
-    EnumFacing enumFacing = facing.getFacing();
+    EnumFacing enumFacing = getFacing(facing);
 
     switch (block.getBlockType()) {
       case ANVIL:
@@ -246,13 +246,13 @@ public class BlockMapper1_12 {
         return getInfestedBlock((InfestedBlock) block);
       case CHEST:
         return new MetaBlock1_12(Blocks.CHEST)
-            .withProperty(BlockChest.FACING, facing.getFacing());
+            .withProperty(BlockChest.FACING, enumFacing);
       case TRAPPED_CHEST:
         return new MetaBlock1_12(Blocks.TRAPPED_CHEST)
-            .withProperty(BlockChest.FACING, facing.getFacing());
+            .withProperty(BlockChest.FACING, enumFacing);
       case NETHER_PORTAL:
         return new MetaBlock1_12(Blocks.PORTAL)
-            .withProperty(BlockPortal.AXIS, facing.getFacing().getAxis());
+            .withProperty(BlockPortal.AXIS, enumFacing.getAxis());
       default:
         return map(block.getBlockType());
     }
@@ -283,12 +283,12 @@ public class BlockMapper1_12 {
   private static MetaBlock1_12 getRepeater(RepeaterBlock block) {
     return new MetaBlock1_12(block.isPowered() ? Blocks.POWERED_REPEATER : Blocks.UNPOWERED_REPEATER)
         .withProperty(BlockRedstoneRepeater.DELAY, block.getDelay().asInt())
-        .withProperty(BlockRedstoneRepeater.FACING, block.getFacing().getFacing());
+        .withProperty(BlockRedstoneRepeater.FACING, getFacing(block.getFacing()));
   }
 
   private static MetaBlock1_12 getComparator(ComparatorBlock block) {
     return new MetaBlock1_12(block.isPowered() ? Blocks.POWERED_COMPARATOR : Blocks.UNPOWERED_COMPARATOR)
-        .withProperty(BlockRedstoneComparator.FACING, block.getFacing().getFacing())
+        .withProperty(BlockRedstoneComparator.FACING, getFacing(block.getFacing()))
         .withProperty(BlockRedstoneComparator.MODE, block.getMode() == ComparatorBlock.Mode.SUBTRACTION
             ? BlockRedstoneComparator.Mode.SUBTRACT
             : BlockRedstoneComparator.Mode.COMPARE);
@@ -296,7 +296,7 @@ public class BlockMapper1_12 {
 
   private static MetaBlock1_12 getCocoaBlock(Direction facing) {
     return new MetaBlock1_12(Blocks.COCOA)
-        .withProperty(BlockCocoa.FACING, facing.reverse().getFacing())
+        .withProperty(BlockCocoa.FACING, getFacing(facing.reverse()))
         .withProperty(BlockCocoa.AGE, 2);
   }
 
@@ -308,7 +308,25 @@ public class BlockMapper1_12 {
             ? BlockLever.EnumOrientation.UP_X
             : dir == Direction.DOWN
                 ? BlockLever.EnumOrientation.DOWN_X
-                : dir.reverse().getOrientation());
+                : getLeverOrientation(dir.reverse()));
+  }
+
+  public static BlockLever.EnumOrientation getLeverOrientation(Direction direction) {
+    switch(direction) {
+      default:
+      case NORTH:
+        return BlockLever.EnumOrientation.NORTH;
+      case EAST:
+        return BlockLever.EnumOrientation.EAST;
+      case SOUTH:
+        return BlockLever.EnumOrientation.SOUTH;
+      case WEST:
+        return BlockLever.EnumOrientation.WEST;
+      case UP:
+        return BlockLever.EnumOrientation.UP_X;
+      case DOWN:
+        return BlockLever.EnumOrientation.DOWN_X;
+    }
   }
 
   // TODO: can all public calls to this be replaced with calls to map(SingleBlockBrush)?
@@ -605,13 +623,13 @@ public class BlockMapper1_12 {
 
   private static MetaBlock1_12 getBed(BedBlock bedBlock) {
     return new MetaBlock1_12(Blocks.BED)
-        .withProperty(BlockBed.FACING, bedBlock.getFacing().getFacing())
+        .withProperty(BlockBed.FACING, getFacing(bedBlock.getFacing()))
         .withProperty(BlockBed.PART, bedBlock.isHead() ? BlockBed.EnumPartType.HEAD : BlockBed.EnumPartType.FOOT);
   }
 
   private static MetaBlock1_12 getPumpkin(PumpkinBlock block) {
     return new MetaBlock1_12(block.isLit() ? Blocks.LIT_PUMPKIN : Blocks.PUMPKIN)
-        .withProperty(BlockPumpkin.FACING, block.getFacing().getFacing());
+        .withProperty(BlockPumpkin.FACING, getFacing(block.getFacing()));
   }
 
   private static MetaBlock1_12 getAnvil(AnvilBlock block) {
@@ -620,7 +638,7 @@ public class BlockMapper1_12 {
     }
     return new MetaBlock1_12(Blocks.ANVIL)
         .withProperty(BlockAnvil.DAMAGE, block.getDamage().ordinal())
-        .withProperty(BlockAnvil.FACING, block.getFacing().getFacing());
+        .withProperty(BlockAnvil.FACING, getFacing(block.getFacing()));
   }
 
   public static MetaBlock1_12 mapStairs(StairsBlock block) {
@@ -629,7 +647,7 @@ public class BlockMapper1_12 {
         ? new MetaBlock1_12(json)
         : new MetaBlock1_12(getBlockForStairs(block.getBlockType()));
     return metaBlock1_12
-        .withProperty(BlockStairs.FACING, block.getFacing().getFacing())
+        .withProperty(BlockStairs.FACING, getFacing(block.getFacing()))
         .withProperty(BlockStairs.HALF, block.isUpsideDown() ? BlockStairs.EnumHalf.TOP : BlockStairs.EnumHalf.BOTTOM);
   }
 
@@ -671,7 +689,7 @@ public class BlockMapper1_12 {
     return new MetaBlock1_12(block.getMaterial() == Material.METAL ? Blocks.IRON_DOOR : Blocks.TRAPDOOR)
         .withProperty(BlockTrapDoor.HALF, block.isFlushWithTop() ? BlockTrapDoor.DoorHalf.TOP : BlockTrapDoor.DoorHalf.BOTTOM)
         .withProperty(BlockTrapDoor.OPEN, block.isOpen())
-        .withProperty(BlockTrapDoor.FACING, block.getFacing().getFacing());
+        .withProperty(BlockTrapDoor.FACING, getFacing(block.getFacing()));
   }
 
   public static MetaBlock1_12 mapDoor(DoorBlock block) {
@@ -681,7 +699,7 @@ public class BlockMapper1_12 {
         : getDoorMetaBlock(block.getBlockType());
     return doorMetaBlock
         .withProperty(BlockDoor.HALF, block.isTop() ? BlockDoor.EnumDoorHalf.UPPER : BlockDoor.EnumDoorHalf.LOWER)
-        .withProperty(BlockDoor.FACING, block.getFacing().getFacing())
+        .withProperty(BlockDoor.FACING, getFacing(block.getFacing()))
         .withProperty(BlockDoor.OPEN, block.isOpen())
         .withProperty(BlockDoor.HINGE, block.isHingeLeft() ? BlockDoor.EnumHingePosition.LEFT : BlockDoor.EnumHingePosition.RIGHT);
   }
@@ -809,7 +827,7 @@ public class BlockMapper1_12 {
         ? EnumFacing.UP
         : dir == Direction.DOWN
             ? EnumFacing.DOWN
-            : dir.reverse().getFacing();
+            : getFacing(dir.reverse());
 
     return new MetaBlock1_12(minecraftTorchBlock)
         .withProperty(BlockTorch.FACING, facing);
@@ -1127,7 +1145,7 @@ public class BlockMapper1_12 {
   private static MetaBlock1_12 getTallPlant(TallPlantBlock tallPlantBlock) {
     return new MetaBlock1_12(Blocks.DOUBLE_PLANT)
         .withProperty(BlockDoublePlant.VARIANT, getTallPlantMinecraftBlock(tallPlantBlock.getTallPlant()))
-        .withProperty(BlockDoublePlant.FACING, tallPlantBlock.getFacing().getFacing())
+        .withProperty(BlockDoublePlant.FACING, getFacing(tallPlantBlock.getFacing()))
         .withProperty(BlockDoublePlant.HALF, tallPlantBlock.isTop()
             ? BlockDoublePlant.EnumBlockHalf.UPPER
             : BlockDoublePlant.EnumBlockHalf.LOWER);
@@ -1148,6 +1166,24 @@ public class BlockMapper1_12 {
         return BlockDoublePlant.EnumPlantType.ROSE;
       case PEONY:
         return BlockDoublePlant.EnumPlantType.PAEONIA;
+    }
+  }
+
+  public static EnumFacing getFacing(Direction direction) {
+    switch (direction) {
+      default:
+      case NORTH:
+        return EnumFacing.NORTH;
+      case EAST:
+        return EnumFacing.EAST;
+      case SOUTH:
+        return EnumFacing.SOUTH;
+      case WEST:
+        return EnumFacing.WEST;
+      case UP:
+        return EnumFacing.UP;
+      case DOWN:
+        return EnumFacing.DOWN;
     }
   }
 }
