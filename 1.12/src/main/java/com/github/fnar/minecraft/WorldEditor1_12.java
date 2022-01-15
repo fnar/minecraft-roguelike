@@ -49,7 +49,7 @@ import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
-import greymerk.roguelike.worldgen.MetaBlock1_2;
+import greymerk.roguelike.worldgen.MetaBlock1_12;
 import greymerk.roguelike.worldgen.PositionInfo;
 import greymerk.roguelike.worldgen.VanillaStructure;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -203,10 +203,10 @@ public class WorldEditor1_12 implements WorldEditor {
       return false;
     }
 
-    return setBlock(MetaBlock1_2.getMetaBlock(singleBlockBrush), coord);
+    return setBlock(MetaBlock1_12.getMetaBlock(singleBlockBrush), coord);
   }
 
-  private boolean setBlock(MetaBlock1_2 metaBlock, Coord coord) {
+  private boolean setBlock(MetaBlock1_12 metaBlock, Coord coord) {
     try {
       world.setBlockState(getBlockPos(coord), metaBlock.getState(), metaBlock.getFlag());
     } catch (NullPointerException npe) {
