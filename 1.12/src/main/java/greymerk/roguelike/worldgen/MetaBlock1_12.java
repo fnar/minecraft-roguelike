@@ -3,11 +3,6 @@ package greymerk.roguelike.worldgen;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import com.github.fnar.minecraft.block.BlockMapper1_12;
-import com.github.fnar.minecraft.block.SingleBlockBrush;
-import com.github.fnar.minecraft.block.normal.StairsBlock;
-import com.github.fnar.minecraft.block.redstone.DoorBlock;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.properties.IProperty;
@@ -47,20 +42,6 @@ public class MetaBlock1_12 {
       withProperty(BlockLeaves.DECAYABLE, false);
     }
     flag = json.has("flag") ? json.get("flag").getAsInt() : 2;
-  }
-
-  public static MetaBlock1_12 getMetaBlock(SingleBlockBrush singleBlockBrush) {
-    JsonElement json = singleBlockBrush.getJson();
-    if (json == null) {
-      return BlockMapper1_12.map(singleBlockBrush);
-    }
-    if (singleBlockBrush instanceof StairsBlock) {
-      return BlockMapper1_12.mapStairs((StairsBlock) singleBlockBrush);
-    }
-    if (singleBlockBrush instanceof DoorBlock) {
-      return BlockMapper1_12.mapDoor((DoorBlock) singleBlockBrush);
-    }
-    return new MetaBlock1_12(json);
   }
 
   public <T extends Comparable<T>, V extends T> MetaBlock1_12 withProperty(IProperty<T> property, V value) {

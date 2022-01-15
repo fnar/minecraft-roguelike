@@ -12,7 +12,7 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.worldgen.WorldEditor;
 
-public class DungeonGenerator implements IWorldGenerator {
+public class DungeonGenerator1_12 implements IWorldGenerator {
 
   @Override
   public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {

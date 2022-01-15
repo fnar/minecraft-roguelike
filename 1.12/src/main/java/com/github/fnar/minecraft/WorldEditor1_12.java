@@ -2,6 +2,7 @@ package com.github.fnar.minecraft;
 
 
 import com.google.common.collect.Lists;
+import com.google.gson.JsonElement;
 
 import com.github.fnar.minecraft.block.BlockMapper1_12;
 import com.github.fnar.minecraft.block.BlockType;
@@ -9,6 +10,7 @@ import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.decorative.Plant;
 import com.github.fnar.minecraft.block.decorative.Skull;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.block.redstone.DoorBlock;
 import com.github.fnar.minecraft.block.spawner.SpawnPotentialMapper1_12;
 import com.github.fnar.minecraft.block.spawner.Spawner;
 import com.github.fnar.minecraft.item.mapper.ItemMapper1_12;
@@ -203,10 +205,7 @@ public class WorldEditor1_12 implements WorldEditor {
       return false;
     }
 
-    return setBlock(MetaBlock1_12.getMetaBlock(singleBlockBrush), coord);
-  }
-
-  private boolean setBlock(MetaBlock1_12 metaBlock, Coord coord) {
+    MetaBlock1_12 metaBlock = getMetaBlock(singleBlockBrush);
     try {
       world.setBlockState(getBlockPos(coord), metaBlock.getState(), metaBlock.getFlag());
     } catch (NullPointerException npe) {
@@ -216,6 +215,20 @@ public class WorldEditor1_12 implements WorldEditor {
     stats.merge(metaBlock.getBlock(), 1, Integer::sum);
 
     return true;
+  }
+
+  private static MetaBlock1_12 getMetaBlock(SingleBlockBrush singleBlockBrush) {
+    JsonElement json = singleBlockBrush.getJson();
+    if (json == null) {
+      return BlockMapper1_12.map(singleBlockBrush);
+    }
+    if (singleBlockBrush instanceof StairsBlock) {
+      return BlockMapper1_12.mapStairs((StairsBlock) singleBlockBrush);
+    }
+    if (singleBlockBrush instanceof DoorBlock) {
+      return BlockMapper1_12.mapDoor((DoorBlock) singleBlockBrush);
+    }
+    return new MetaBlock1_12(json);
   }
 
   @Override
@@ -280,6 +293,7 @@ public class WorldEditor1_12 implements WorldEditor {
 
   @Override
   public boolean canPlace(SingleBlockBrush block, Coord pos, Direction dir) {
+    // todo: can we map the `block` herea instead of block.getType()?
     return isAirBlock(pos)
         && BlockMapper1_12.map(block.getBlockType()).getBlock().canPlaceBlockOnSide(world, getBlockPos(pos), dir.getFacing());
   }

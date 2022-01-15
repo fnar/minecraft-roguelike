@@ -5,12 +5,12 @@ import java.util.List;
 import greymerk.roguelike.command.CommandContext;
 import greymerk.roguelike.command.CommandRouteBase;
 
-public class CommandRouteRoguelike extends CommandRouteBase {
+public class CommandRouteRoguelike1_12 extends CommandRouteBase {
 
-  public CommandRouteRoguelike() {
+  public CommandRouteRoguelike1_12() {
     super();
     this.addRoute("dungeon", new CommandRouteDungeon());
-    this.addRoute("give", new CommandRouteGive());
+    this.addRoute("give", new CommandRouteGive1_12());
     this.addRoute("config", new CommandRouteConfig());
     this.addRoute("settings", new CommandRouteSettings());
     this.addRoute("tower", new CommandRouteTower());

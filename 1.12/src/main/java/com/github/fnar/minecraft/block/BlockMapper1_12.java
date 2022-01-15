@@ -311,6 +311,7 @@ public class BlockMapper1_12 {
                 : dir.reverse().getOrientation());
   }
 
+  // TODO: can all public calls to this be replaced with calls to map(SingleBlockBrush)?
   public static MetaBlock1_12 map(BlockType blockType) {
     switch (blockType) {
       case WATER_STILL:
