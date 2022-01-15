@@ -10,8 +10,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-import greymerk.roguelike.worldgen.MetaBlock1_2;
-
 public class SeedMapper1_12 extends BaseItemMapper1_12<Seed> {
   @Override
   public Class<Seed> getClazz() {
@@ -46,8 +44,7 @@ public class SeedMapper1_12 extends BaseItemMapper1_12<Seed> {
   }
 
   private Item asItem(SingleBlockBrush brush) {
-    MetaBlock1_2 map = BlockMapper1_12.map(brush);
-    return map.asItem();
+    return BlockMapper1_12.map(brush).asItem();
   }
 
 }

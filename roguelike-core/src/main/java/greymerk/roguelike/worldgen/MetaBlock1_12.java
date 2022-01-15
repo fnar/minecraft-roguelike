@@ -17,22 +17,22 @@ import net.minecraft.util.ResourceLocation;
 
 import greymerk.roguelike.dungeon.settings.DungeonSettingParseException;
 
-public class MetaBlock1_2 {
+public class MetaBlock1_12 {
 
   private IBlockState state;
   private int flag = 2;
 
-  public <T extends Comparable<T>, V extends T> MetaBlock1_2(Block block, IProperty<T> property, V value) {
+  public <T extends Comparable<T>, V extends T> MetaBlock1_12(Block block, IProperty<T> property, V value) {
     this(block);
     withProperty(property, value);
   }
 
-  public MetaBlock1_2(Block block) {
+  public MetaBlock1_12(Block block) {
     this.setState(block.getDefaultState());
   }
 
   @SuppressWarnings("deprecation")
-  public MetaBlock1_2(JsonElement e) throws DungeonSettingParseException {
+  public MetaBlock1_12(JsonElement e) throws DungeonSettingParseException {
     JsonObject json = (JsonObject) e;
     String name = json.get("name").getAsString();
     ResourceLocation location = new ResourceLocation(name);
@@ -49,7 +49,7 @@ public class MetaBlock1_2 {
     flag = json.has("flag") ? json.get("flag").getAsInt() : 2;
   }
 
-  public static MetaBlock1_2 getMetaBlock(SingleBlockBrush singleBlockBrush) {
+  public static MetaBlock1_12 getMetaBlock(SingleBlockBrush singleBlockBrush) {
     JsonElement json = singleBlockBrush.getJson();
     if (json == null) {
       return BlockMapper1_12.map(singleBlockBrush);
@@ -60,10 +60,10 @@ public class MetaBlock1_2 {
     if (singleBlockBrush instanceof DoorBlock) {
       return BlockMapper1_12.mapDoor((DoorBlock) singleBlockBrush);
     }
-    return new MetaBlock1_2(json);
+    return new MetaBlock1_12(json);
   }
 
-  public <T extends Comparable<T>, V extends T> MetaBlock1_2 withProperty(IProperty<T> property, V value) {
+  public <T extends Comparable<T>, V extends T> MetaBlock1_12 withProperty(IProperty<T> property, V value) {
     this.state = this.state.withProperty(property, value);
     return this;
   }
@@ -97,11 +97,11 @@ public class MetaBlock1_2 {
     if (other == null) {
       return false;
     }
-    if (!(other instanceof MetaBlock1_2)) {
+    if (!(other instanceof MetaBlock1_12)) {
       return false;
     }
 
-    MetaBlock1_2 otherBlock = (MetaBlock1_2) other;
+    MetaBlock1_12 otherBlock = (MetaBlock1_12) other;
     return this.getState().equals(otherBlock.getState());
   }
 

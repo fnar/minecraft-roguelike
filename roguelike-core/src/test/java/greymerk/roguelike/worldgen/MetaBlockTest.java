@@ -22,22 +22,22 @@ public class MetaBlockTest {
   @Test
   public void jsonArgs() {
 
-    MetaBlock1_2 dirt = new MetaBlock1_2(Blocks.DIRT);
-    MetaBlock1_2 stone = new MetaBlock1_2(Blocks.STONE);
+    MetaBlock1_12 dirt = new MetaBlock1_12(Blocks.DIRT);
+    MetaBlock1_12 stone = new MetaBlock1_12(Blocks.STONE);
 
     JsonObject json = new JsonObject();
     json.addProperty("name", "minecraft:dirt");
-    MetaBlock1_2 test = new MetaBlock1_2(json);
+    MetaBlock1_12 test = new MetaBlock1_12(json);
     assert (test.equals(dirt));
 
-    MetaBlock1_2 podzol = new MetaBlock1_2(Blocks.DIRT);
+    MetaBlock1_12 podzol = new MetaBlock1_12(Blocks.DIRT);
     podzol.withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL);
 
     json = new JsonObject();
     json.addProperty("name", "minecraft:dirt");
     json.addProperty("meta", 2);
 
-    test = new MetaBlock1_2(json);
+    test = new MetaBlock1_12(json);
 
     assertFalse(test.equals(stone));
     assertFalse(test.equals(dirt));
@@ -47,8 +47,8 @@ public class MetaBlockTest {
 
   @Test
   public void testEquals() {
-    MetaBlock1_2 dirt = new MetaBlock1_2(Blocks.DIRT);
-    MetaBlock1_2 dirt2 = new MetaBlock1_2(Blocks.DIRT);
+    MetaBlock1_12 dirt = new MetaBlock1_12(Blocks.DIRT);
+    MetaBlock1_12 dirt2 = new MetaBlock1_12(Blocks.DIRT);
     assert (dirt.equals(dirt2));
   }
 }
