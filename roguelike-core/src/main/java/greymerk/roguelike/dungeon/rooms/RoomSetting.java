@@ -8,30 +8,15 @@ import java.util.Optional;
 
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.base.RoomType;
-import greymerk.roguelike.dungeon.rooms.prototype.BrickRoom;
-import greymerk.roguelike.dungeon.rooms.prototype.CakeRoom;
-import greymerk.roguelike.dungeon.rooms.prototype.CornerRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.AshleaRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.AvidyaRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.BTeamRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.BedRoomRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.BlazeRoom;
+import greymerk.roguelike.dungeon.rooms.prototype.BrickRoom;
+import greymerk.roguelike.dungeon.rooms.prototype.CakeRoom;
+import greymerk.roguelike.dungeon.rooms.prototype.CornerRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.DarkHallRoom;
-import greymerk.roguelike.dungeon.rooms.prototype.EnikoRoom;
-import greymerk.roguelike.dungeon.rooms.prototype.EthoRoom;
-import greymerk.roguelike.dungeon.rooms.prototype.FireworkRoom;
-import greymerk.roguelike.dungeon.rooms.prototype.LabRoom;
-import greymerk.roguelike.dungeon.rooms.prototype.LibraryRoom;
-import greymerk.roguelike.dungeon.rooms.prototype.LinkerRoom;
-import greymerk.roguelike.dungeon.rooms.prototype.LinkerTopRoom;
-import greymerk.roguelike.dungeon.rooms.prototype.MessRoom;
-import greymerk.roguelike.dungeon.rooms.prototype.OssuaryRoom;
-import greymerk.roguelike.dungeon.rooms.prototype.PyramidCornerRoom;
-import greymerk.roguelike.dungeon.rooms.prototype.PyramidSpawnerRoom;
-import greymerk.roguelike.dungeon.rooms.prototype.PyramidTombRoom;
-import greymerk.roguelike.dungeon.rooms.prototype.RewardRoom;
-import greymerk.roguelike.dungeon.rooms.prototype.StorageRoom;
-import greymerk.roguelike.dungeon.rooms.prototype.TreethoRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsCreeperDen;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsCrypt;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsEnchant;
@@ -44,8 +29,23 @@ import greymerk.roguelike.dungeon.rooms.prototype.DungeonsPrison;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsSlime;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsSmithy;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsSpiderNest;
+import greymerk.roguelike.dungeon.rooms.prototype.EnikoRoom;
+import greymerk.roguelike.dungeon.rooms.prototype.EthoRoom;
+import greymerk.roguelike.dungeon.rooms.prototype.FireworkRoom;
+import greymerk.roguelike.dungeon.rooms.prototype.LabRoom;
+import greymerk.roguelike.dungeon.rooms.prototype.LibraryRoom;
+import greymerk.roguelike.dungeon.rooms.prototype.LinkerRoom;
+import greymerk.roguelike.dungeon.rooms.prototype.LinkerTopRoom;
+import greymerk.roguelike.dungeon.rooms.prototype.MessRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.NetherFortressRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.ObsidianRoom;
+import greymerk.roguelike.dungeon.rooms.prototype.OssuaryRoom;
+import greymerk.roguelike.dungeon.rooms.prototype.PyramidCornerRoom;
+import greymerk.roguelike.dungeon.rooms.prototype.PyramidSpawnerRoom;
+import greymerk.roguelike.dungeon.rooms.prototype.PyramidTombRoom;
+import greymerk.roguelike.dungeon.rooms.prototype.RewardRoom;
+import greymerk.roguelike.dungeon.rooms.prototype.StorageRoom;
+import greymerk.roguelike.dungeon.rooms.prototype.TreethoRoom;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -177,4 +177,5 @@ public class RoomSetting {
         return new TreethoRoom(this, levelSettings, worldEditor);
     }
   }
+
 }

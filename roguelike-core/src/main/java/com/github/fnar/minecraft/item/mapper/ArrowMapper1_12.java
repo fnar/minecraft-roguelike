@@ -15,7 +15,7 @@ public class ArrowMapper1_12 {
     return map((Arrow) rldItemStack.getItem());
   }
 
-  private static ItemStack map(Arrow arrow) {
+  public ItemStack map(Arrow arrow) {
     return arrow.getTip()
         .map(ArrowMapper1_12::getTippedArrowStack)
         .orElseGet(() -> new ItemStack(Items.ARROW));

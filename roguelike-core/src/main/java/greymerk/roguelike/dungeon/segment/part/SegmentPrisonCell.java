@@ -9,7 +9,6 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.base.SecretsSetting;
-import greymerk.roguelike.dungeon.segment.IAlcove;
 import greymerk.roguelike.dungeon.segment.alcove.PrisonCell;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.Coord;
@@ -58,10 +57,8 @@ public class SegmentPrisonCell extends SegmentBase {
       cursor.translate(dir, 3);
       theme.getSecondary().getDoor().setFacing(dir.reverse()).stroke(editor, cursor);
     } else {
-      IAlcove cell = new PrisonCell();
-      if (cell.isValidLocation(editor, origin.copy(), dir)) {
-        cell.generate(editor, rand, level.getSettings(), origin.copy(), dir);
-      }
+      PrisonCell.generate(editor, rand, level, dir, origin);
     }
   }
+
 }

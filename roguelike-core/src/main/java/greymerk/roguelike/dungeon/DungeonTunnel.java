@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-import greymerk.roguelike.dungeon.segment.ISegment;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
+import greymerk.roguelike.dungeon.segment.part.SegmentBase;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -26,16 +26,16 @@ import greymerk.roguelike.worldgen.shapes.Shape;
 
 public class DungeonTunnel implements Iterable<Coord>, IBounded {
 
-  private Coord start;
-  private Coord end;
-  private List<ISegment> segments;
-  private List<Coord> tunnel;
+  private final Coord start;
+  private final Coord end;
+  private final List<SegmentBase> segments;
+  private final List<Coord> tunnel;
 
   public DungeonTunnel(Coord start, Coord end) {
     this.start = start;
     this.end = end;
     tunnel = new RectSolid(start, end).get();
-    segments = new ArrayList<ISegment>();
+    segments = new ArrayList<>();
   }
 
   @Override
@@ -134,7 +134,7 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
 
   }
 
-  public List<ISegment> getSegments() {
+  public List<SegmentBase> getSegments() {
     return segments;
   }
 

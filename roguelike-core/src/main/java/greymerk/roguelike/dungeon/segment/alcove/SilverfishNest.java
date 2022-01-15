@@ -3,11 +3,14 @@ package greymerk.roguelike.dungeon.segment.alcove;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.InfestedBlock;
+import com.github.fnar.minecraft.block.spawner.MobType;
+import com.github.fnar.minecraft.block.spawner.Spawner;
 
 import java.util.List;
 import java.util.Random;
 
-import greymerk.roguelike.dungeon.segment.IAlcove;
+import greymerk.roguelike.dungeon.DungeonLevel;
+import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
@@ -16,38 +19,18 @@ import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
-import greymerk.roguelike.worldgen.spawners.MobType;
-import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
-public class SilverfishNest implements IAlcove {
+public class SilverfishNest {
 
-  private static int RECESSED = 6;
+  private static final int RECESSED = 6;
 
-  @Override
-  public void generate(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Direction dir) {
-
-    Coord corridor = origin.copy();
-    Coord centre = origin.copy();
-    centre.translate(dir, RECESSED);
-
-    nest(editor, rand, centre.getX(), centre.getY(), centre.getZ());
-
-    Coord start = corridor.copy();
-    start.up();
-
-    Coord end = centre.copy();
-    end.up();
-    end.translate(dir.reverse(), 1);
-
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
-    SpawnerSettings spawners = settings.getSpawners().isEmpty()
-        ? MobType.SILVERFISH.newSpawnerSetting()
-        : settings.getSpawners();
-    spawners.generateSpawner(editor, centre, settings.getDifficulty(centre));
+  public static void generate(SilverfishNest silverfishNest, WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Coord origin) {
+    if (isValidLocation(editor, origin.copy(), dir)) {
+      generate(silverfishNest, editor, rand, level.getSettings(), origin.copy(), dir);
+    }
   }
 
-  @Override
-  public boolean isValidLocation(WorldEditor editor, Coord origin, Direction dir) {
+  private static boolean isValidLocation(WorldEditor editor, Coord origin, Direction dir) {
 
     Coord centre = origin.copy();
     centre.translate(dir, RECESSED);
@@ -64,6 +47,28 @@ public class SilverfishNest implements IAlcove {
     }
 
     return true;
+  }
+
+  private static void generate(SilverfishNest silverfishNest, WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Direction dir) {
+
+    Coord corridor = origin.copy();
+    Coord centre = origin.copy();
+    centre.translate(dir, RECESSED);
+
+    silverfishNest.nest(editor, rand, centre.getX(), centre.getY(), centre.getZ());
+
+    Coord start = corridor.copy();
+    start.up();
+
+    Coord end = centre.copy();
+    end.up();
+    end.translate(dir.reverse(), 1);
+
+    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+    Spawner spawner = settings.getSpawnerSettings().isEmpty()
+            ? MobType.SILVERFISH.asSpawner()
+            : settings.getSpawnerSettings().getSpawners().get(editor.getRandom());
+    BaseRoom.generateSpawnerSafe(editor, spawner, centre, settings.getDifficulty(centre));
   }
 
   private void nest(WorldEditor editor, Random rand, int x, int y, int z) {

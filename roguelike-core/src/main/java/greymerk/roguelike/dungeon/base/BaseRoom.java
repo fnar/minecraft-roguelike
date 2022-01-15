@@ -1,19 +1,22 @@
 package greymerk.roguelike.dungeon.base;
 
+import com.github.fnar.minecraft.block.spawner.MobType;
+import com.github.fnar.minecraft.block.spawner.Spawner;
+import com.github.fnar.minecraft.block.spawner.SpawnerSettings;
 import com.github.fnar.minecraft.worldgen.generatables.Doorways;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 
+import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.dungeon.settings.SettingsResolver;
-import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
-import greymerk.roguelike.worldgen.spawners.MobType;
-import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 import lombok.EqualsAndHashCode;
 
 import static java.util.Collections.shuffle;
@@ -57,30 +60,52 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
 
   protected void generateSpawner(Coord spawnerLocation, MobType... defaultMobs) {
     int difficulty = levelSettings.getDifficulty(spawnerLocation);
-    getSpawnerSettings(difficulty, defaultMobs, levelSettings.getSpawners()).generateSpawner(worldEditor, spawnerLocation, difficulty);
+    generateSpawner(spawnerLocation, difficulty, defaultMobs);
   }
 
-  private SpawnerSettings getSpawnerSettings(int difficulty, MobType[] defaultMobs, SpawnerSettings levelSettingsSpawners) {
-    String spawnerId = roomSetting.getSpawnerId();
-    if (spawnerId != null) {
+  private void generateSpawner(Coord spawnerLocation, int difficulty, MobType... defaultMobs) {
+    Spawner spawner = chooseSpawner(difficulty, defaultMobs, worldEditor.getRandom());
+    generateSpawnerSafe(worldEditor, spawner, spawnerLocation, difficulty);
+  }
 
-      // todo: lift
-      DungeonSettings dungeonSettings = null;
-      try {
-        dungeonSettings = SettingsResolver.initSettingsResolver().getByName(spawnerId);
-      } catch (Exception e) {
-        e.printStackTrace();
-      }
-      if (dungeonSettings != null) {
-        SpawnerSettings dungeonSettingsSpawners = dungeonSettings.getLevelSettings(difficulty).getSpawners();
-        if (!dungeonSettingsSpawners.isEmpty()) {
-          return dungeonSettingsSpawners;
-        }
-      }
+  private Spawner chooseSpawner(int difficulty, MobType[] defaultMobs, Random random) {
+    Optional<SpawnerSettings> roomSpawnerSettings = getSpawnerSettings(roomSetting.getSpawnerId(), difficulty);
+    SpawnerSettings levelSpawnerSettings = levelSettings.getSpawnerSettings();
+    if (roomSpawnerSettings.isPresent()) {
+      return roomSpawnerSettings.get().chooseOneAtRandom(random);
     }
-    return !levelSettingsSpawners.isEmpty()
-        ? levelSettingsSpawners
-        : MobType.newSpawnerSetting(defaultMobs.length > 0 ? defaultMobs : MobType.COMMON_MOBS);
+    if (!levelSpawnerSettings.isEmpty()) {
+      return levelSpawnerSettings.chooseOneAtRandom(worldEditor.getRandom());
+    }
+    return MobType.asSpawner(defaultMobs.length > 0 ? defaultMobs : MobType.COMMON_MOBS);
+  }
+
+  private static Optional<SpawnerSettings> getSpawnerSettings(String spawnerId, int difficulty) {
+    if (spawnerId == null) {
+      return Optional.empty();
+    }
+    DungeonSettings dungeonSettings = null;
+    try {
+      dungeonSettings = Dungeon.settingsResolver.getByName(spawnerId);
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+    if (dungeonSettings == null) {
+      return Optional.empty();
+    }
+    SpawnerSettings spawnerSettings = dungeonSettings.getLevelSettings(difficulty).getSpawnerSettings();
+    if (spawnerSettings == null || spawnerSettings.isEmpty()) {
+       return Optional.empty();
+    }
+    return Optional.of(spawnerSettings);
+  }
+
+  public static void generateSpawnerSafe(WorldEditor editor, Spawner spawner, Coord cursor, int difficulty) {
+    try {
+      editor.generateSpawner(spawner, cursor, difficulty);
+    } catch (Exception e) {
+      throw new RuntimeException("Tried to spawn empty spawner", e);
+    }
   }
 
   public abstract int getSize();

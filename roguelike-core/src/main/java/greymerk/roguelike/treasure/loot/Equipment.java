@@ -12,6 +12,7 @@ import greymerk.roguelike.util.IWeighted;
 import greymerk.roguelike.util.WeightedChoice;
 import greymerk.roguelike.util.WeightedRandomizer;
 
+// todo: eliminate?
 public enum Equipment {
   SWORD("sword", false),
   BOW("minecraft:bow", false),

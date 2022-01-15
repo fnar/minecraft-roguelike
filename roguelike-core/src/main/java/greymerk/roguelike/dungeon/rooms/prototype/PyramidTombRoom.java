@@ -19,7 +19,7 @@ import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
-import static greymerk.roguelike.worldgen.spawners.MobType.UNDEAD_MOBS;
+import static com.github.fnar.minecraft.block.spawner.MobType.UNDEAD_MOBS;
 
 public class PyramidTombRoom extends BaseRoom {
 
