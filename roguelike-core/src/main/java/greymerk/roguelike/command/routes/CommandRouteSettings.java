@@ -6,15 +6,20 @@ import com.github.fnar.roguelike.command.SimpleRoguelikeCommand;
 import java.util.List;
 import java.util.function.Consumer;
 
-import greymerk.roguelike.command.CommandContext;
+import greymerk.roguelike.command.CommandBase;
+import greymerk.roguelike.command.CommandContext1_12;
 import greymerk.roguelike.command.CommandRouteBase;
 import greymerk.roguelike.dungeon.settings.SettingsResolver;
 import greymerk.roguelike.util.ArgumentParser;
 
 public class CommandRouteSettings extends CommandRouteBase {
 
+  public CommandRouteSettings(CommandBase commandBase) {
+    super(commandBase);
+  }
+
   @Override
-  public void execute(CommandContext context, List<String> args) {
+  public void execute(CommandContext1_12 context, List<String> args) {
     ArgumentParser argumentParser = new ArgumentParser(args);
 
     if (!argumentParser.hasEntry(0)) {

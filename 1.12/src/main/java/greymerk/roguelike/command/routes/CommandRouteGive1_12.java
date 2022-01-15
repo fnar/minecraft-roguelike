@@ -1,21 +1,23 @@
 package greymerk.roguelike.command.routes;
 
-import com.github.fnar.minecraft.item.mapper.ItemMapper1_12;
 import com.github.fnar.minecraft.item.RldItemStack;
-
-import net.minecraft.item.ItemStack;
 
 import java.util.List;
 
-import greymerk.roguelike.command.CommandContext;
+import greymerk.roguelike.command.CommandBase;
+import greymerk.roguelike.command.CommandContext1_12;
 import greymerk.roguelike.command.CommandRouteBase;
 import greymerk.roguelike.treasure.loot.provider.ItemNovelty;
 import greymerk.roguelike.util.ArgumentParser;
 
 public class CommandRouteGive1_12 extends CommandRouteBase {
 
+  public CommandRouteGive1_12(CommandBase commandBase) {
+    super(commandBase);
+  }
+
   @Override
-  public void execute(CommandContext context, List<String> args) {
+  public void execute(CommandContext1_12 context, List<String> args) {
     ArgumentParser ap = new ArgumentParser(args);
 
     if (!ap.hasEntry(0)) {
@@ -23,14 +25,14 @@ public class CommandRouteGive1_12 extends CommandRouteBase {
       return;
     }
 
-    RldItemStack item = ItemNovelty.getItemByName(ap.get(0));
+    String name = ap.get(0);
+    RldItemStack item = ItemNovelty.getItemByName(name);
     if (item == null) {
       context.sendFailure("No such item");
       return;
     }
 
-    ItemStack mappedItem = new ItemMapper1_12().map(item);
-    context.give(mappedItem);
-    context.sendSuccess("Given " + mappedItem.getDisplayName());
+    context.give(item);
+    context.sendSuccess("Given " + name);
   }
 }

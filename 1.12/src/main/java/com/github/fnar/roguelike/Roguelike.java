@@ -10,13 +10,11 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
-import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-import greymerk.roguelike.CommonProxy;
 import greymerk.roguelike.EntityJoinWorld1_12;
 
 @Mod(modid = "roguelike", name = "Roguelike Dungeons -- Fnar Edition", version = Roguelike.version, acceptableRemoteVersions = "*")
@@ -27,9 +25,6 @@ public class Roguelike {
   // The instance of your mod that Forge uses.
   @Instance("roguelike")
   public static Roguelike instance;
-  // Says where the client and server 'proxy' code is loaded.
-  @SidedProxy(clientSide = "greymerk.roguelike.ClientProxy", serverSide = "greymerk.roguelike.CommonProxy")
-  public static CommonProxy proxy;
   public static DungeonGenerator1_12 worldGen = new DungeonGenerator1_12();
 
   @EventHandler

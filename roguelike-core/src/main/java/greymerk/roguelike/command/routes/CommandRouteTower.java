@@ -5,7 +5,8 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import greymerk.roguelike.command.CommandContext;
+import greymerk.roguelike.command.CommandBase;
+import greymerk.roguelike.command.CommandContext1_12;
 import greymerk.roguelike.command.CommandRouteBase;
 import greymerk.roguelike.dungeon.towers.ITower;
 import greymerk.roguelike.dungeon.towers.Tower;
@@ -16,8 +17,12 @@ import greymerk.roguelike.worldgen.WorldEditor;
 
 public class CommandRouteTower extends CommandRouteBase {
 
+  public CommandRouteTower(CommandBase commandBase) {
+    super(commandBase);
+  }
+
   @Override
-  public void execute(CommandContext context, List<String> args) {
+  public void execute(CommandContext1_12 context, List<String> args) {
     ArgumentParser ap = new ArgumentParser(args);
 
     if (!ap.hasEntry(0)) {

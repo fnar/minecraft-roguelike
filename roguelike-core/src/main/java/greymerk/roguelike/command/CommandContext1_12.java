@@ -1,15 +1,15 @@
 package greymerk.roguelike.command;
 
-import net.minecraft.item.ItemStack;
+import com.github.fnar.minecraft.item.RldItemStack;
 
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 
-public class CommandContext {
+public class CommandContext1_12 {
 
-  private CommandSender commandSender;
+  private final CommandSender commandSender;
 
-  public CommandContext(CommandSender commandSender) {
+  public CommandContext1_12(CommandSender commandSender) {
     this.commandSender = commandSender;
   }
 
@@ -46,7 +46,7 @@ public class CommandContext {
     return commandSender.getPos();
   }
 
-  public void give(ItemStack item) {
+  public void give(RldItemStack item) {
     commandSender.give(item);
   }
 }

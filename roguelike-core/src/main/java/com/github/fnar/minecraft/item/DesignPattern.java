@@ -59,11 +59,4 @@ public enum DesignPattern {
     return new Design(this, color);
   }
 
-  public net.minecraft.tileentity.BannerPattern toBannerPattern() {
-    try {
-      return net.minecraft.tileentity.BannerPattern.valueOf(toString());
-    } catch (IllegalArgumentException illegalArgumentException) {
-      return net.minecraft.tileentity.BannerPattern.BASE;
-    }
-  }
 }

@@ -1,6 +1,8 @@
 package com.github.fnar.roguelike.command;
 
 import com.github.fnar.minecraft.WorldEditor1_12;
+import com.github.fnar.minecraft.item.RldItemStack;
+import com.github.fnar.minecraft.item.mapper.ItemMapper1_12;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.Entity;
@@ -16,7 +18,7 @@ import greymerk.roguelike.worldgen.WorldEditor;
 
 public class CommandSender1_12 implements CommandSender {
 
-  private ICommandSender commandSender;
+  private final ICommandSender commandSender;
 
   public CommandSender1_12(ICommandSender iCommandSender) {
     this.commandSender = iCommandSender;
@@ -30,9 +32,10 @@ public class CommandSender1_12 implements CommandSender {
   }
 
   @Override
-  public void give(ItemStack item) {
+  public void give(RldItemStack item) {
     Entity player = commandSender.getCommandSenderEntity();
-    EntityItem drop = player.entityDropItem(item, 0);
+    ItemStack mappedItem = new ItemMapper1_12().map(item);
+    EntityItem drop = player.entityDropItem(mappedItem, 0);
     drop.setNoPickupDelay();
   }
 

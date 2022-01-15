@@ -11,14 +11,14 @@ import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-import greymerk.roguelike.command.CommandContext;
+import greymerk.roguelike.command.CommandContext1_12;
 import greymerk.roguelike.command.ICommandRouter;
 import greymerk.roguelike.command.routes.CommandRouteRoguelike1_12;
 
 
 public class CommandRoguelike1_12 extends CommandBase {
 
-  private ICommandRouter router;
+  private final ICommandRouter router;
 
   public CommandRoguelike1_12() {
     this.router = new CommandRouteRoguelike1_12();
@@ -37,7 +37,7 @@ public class CommandRoguelike1_12 extends CommandBase {
 
   @Override
   public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
-    CommandContext context = new CommandContext(new CommandSender1_12(sender));
+    CommandContext1_12 context = new CommandContext1_12(new CommandSender1_12(sender));
     router.execute(context, Arrays.asList(args));
   }
 
