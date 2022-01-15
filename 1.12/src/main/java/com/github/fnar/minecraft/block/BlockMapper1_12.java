@@ -71,6 +71,7 @@ import net.minecraft.block.BlockVine;
 import net.minecraft.block.BlockWoodSlab;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.EnumFacing;
 
 import greymerk.roguelike.config.RogueConfig;
@@ -597,7 +598,7 @@ public class BlockMapper1_12 {
       return new MetaBlock1_12(getTerracottaByColor(coloredBlock.getColor()));
     }
     return new MetaBlock1_12(getBlock(coloredBlock.getBlockType()))
-        .withProperty(BlockColored.COLOR, coloredBlock.getColor().toEnumDyeColor());
+        .withProperty(BlockColored.COLOR, toEnumDyeColor(coloredBlock.getColor()));
   }
 
   private static Block getBlock(BlockType type) {
@@ -1184,6 +1185,14 @@ public class BlockMapper1_12 {
         return EnumFacing.UP;
       case DOWN:
         return EnumFacing.DOWN;
+    }
+  }
+
+  public static EnumDyeColor toEnumDyeColor(DyeColor color) {
+    try {
+      return EnumDyeColor.valueOf(color.toString());
+    } catch (IllegalArgumentException illegalArgumentException) {
+      return EnumDyeColor.WHITE;
     }
   }
 }
