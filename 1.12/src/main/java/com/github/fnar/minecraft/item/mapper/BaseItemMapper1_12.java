@@ -14,6 +14,8 @@ import java.util.Optional;
 
 public abstract class BaseItemMapper1_12<ItemClass> implements ItemMapper {
 
+  private static final TagMapper1_12 tagMapper = new TagMapper1_12();
+
   public abstract Class<ItemClass> getClazz();
 
   public ItemStack map(RldItemStack rldItemStack) {
@@ -47,7 +49,7 @@ public abstract class BaseItemMapper1_12<ItemClass> implements ItemMapper {
     Optional.ofNullable(rldItemStack.getTags())
         .ifPresent(compoundTag ->
             Optional.ofNullable(itemStack.getTagCompound()).orElseGet(() -> ensureNbtTags(itemStack))
-                .merge(TagMapper1_12.map(compoundTag)));
+                .merge(tagMapper.map(compoundTag)));
   }
 
   private static NBTTagCompound ensureNbtTags(ItemStack itemStack) {

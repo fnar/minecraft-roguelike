@@ -8,8 +8,7 @@ import net.minecraft.nbt.NBTTagString;
 
 public class TagMapper1_12 {
 
-  // TODO: convert to instance method
-  public static NBTBase map(Tag tag) {
+  public NBTBase map(Tag tag) {
     switch (tag.getType()) {
       default: // this is a dumb default.
       case INT:
@@ -23,25 +22,15 @@ public class TagMapper1_12 {
     }
   }
 
-  public static NBTTagString map(StringTag stringTag) {
+  public NBTTagString map(StringTag stringTag) {
     return new NBTTagString(stringTag.getValue());
   }
 
-  public static NBTTagInt map(IntTag intTag) {
+  public NBTTagInt map(IntTag intTag) {
     return new NBTTagInt(intTag.getValue());
   }
 
-  public static NBTTagCompound map(CompoundTag compoundTag) {
-    NBTTagCompound nbtTagCompound = new NBTTagCompound();
-
-    compoundTag.getTags()
-        .forEach(tag ->
-            nbtTagCompound.setTag(tag.getKey(), map(tag.getValue())));
-
-    return nbtTagCompound;
-  }
-
-  public static NBTTagList map(ListTag tagList) {
+  public NBTTagList map(ListTag tagList) {
     NBTTagList nbtTagList = new NBTTagList();
 
     tagList.getTags()
@@ -50,4 +39,13 @@ public class TagMapper1_12 {
     return nbtTagList;
   }
 
+  public NBTTagCompound map(CompoundTag compoundTag) {
+    NBTTagCompound nbtTagCompound = new NBTTagCompound();
+
+    compoundTag.getTags()
+        .forEach(tag ->
+            nbtTagCompound.setTag(tag.getKey(), map(tag.getValue())));
+
+    return nbtTagCompound;
+  }
 }
