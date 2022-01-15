@@ -602,18 +602,18 @@ public class BlockMapper1_12 {
     }
   }
 
-  public static MetaBlock1_2 getBed(BedBlock bedBlock) {
+  private static MetaBlock1_2 getBed(BedBlock bedBlock) {
     return new MetaBlock1_2(Blocks.BED)
         .withProperty(BlockBed.FACING, bedBlock.getFacing().getFacing())
         .withProperty(BlockBed.PART, bedBlock.isHead() ? BlockBed.EnumPartType.HEAD : BlockBed.EnumPartType.FOOT);
   }
 
-  public static MetaBlock1_2 getPumpkin(PumpkinBlock block) {
+  private static MetaBlock1_2 getPumpkin(PumpkinBlock block) {
     return new MetaBlock1_2(block.isLit() ? Blocks.LIT_PUMPKIN : Blocks.PUMPKIN)
         .withProperty(BlockPumpkin.FACING, block.getFacing().getFacing());
   }
 
-  public static MetaBlock1_2 getAnvil(AnvilBlock block) {
+  private static MetaBlock1_2 getAnvil(AnvilBlock block) {
     if (!RogueConfig.FURNITURE.getBoolean()) {
       return map(BlockType.ANDESITE_POLISHED);
     }
@@ -632,7 +632,7 @@ public class BlockMapper1_12 {
         .withProperty(BlockStairs.HALF, block.isUpsideDown() ? BlockStairs.EnumHalf.TOP : BlockStairs.EnumHalf.BOTTOM);
   }
 
-  public static Block getBlockForStairs(BlockType stairs) {
+  private static Block getBlockForStairs(BlockType stairs) {
     switch (stairs) {
       case ACACIA_STAIRS:
         return Blocks.ACACIA_STAIRS;
@@ -769,7 +769,7 @@ public class BlockMapper1_12 {
     return metaBlock;
   }
 
-  public static Block getSlabMinecraftBlock(BlockType blockType, boolean isFullBlock) {
+  private static Block getSlabMinecraftBlock(BlockType blockType, boolean isFullBlock) {
     switch (blockType) {
       case STONE_SLAB:
       case SANDSTONE_SLAB:
@@ -795,7 +795,7 @@ public class BlockMapper1_12 {
     }
   }
 
-  public static MetaBlock1_2 getTorch(TorchBlock torchBlock) {
+  private static MetaBlock1_2 getTorch(TorchBlock torchBlock) {
     Block minecraftTorchBlock = !torchBlock.isLit()
         ? Blocks.UNLIT_REDSTONE_TORCH
         : torchBlock.getBlockType() == BlockType.REDSTONE_TORCH
@@ -814,7 +814,7 @@ public class BlockMapper1_12 {
         .withProperty(BlockTorch.FACING, facing);
   }
 
-  public static Block getTerracottaByColor(DyeColor color) {
+  private static Block getTerracottaByColor(DyeColor color) {
 
     switch (color) {
       case WHITE:
@@ -853,7 +853,7 @@ public class BlockMapper1_12 {
     }
   }
 
-  public static MetaBlock1_2 getLogMetaBlock(Wood type, Direction facing) {
+  private static MetaBlock1_2 getLogMetaBlock(Wood type, Direction facing) {
     Block minecraftLogBlock = getMinecraftLogBlock(type);
     MetaBlock1_2 log = new MetaBlock1_2(minecraftLogBlock);
     MetaBlock1_2 logWithVariants = addLogVariants(log, type);
@@ -876,7 +876,7 @@ public class BlockMapper1_12 {
     }
   }
 
-  public static Block getMinecraftLogBlock(Wood type) {
+  private static Block getMinecraftLogBlock(Wood type) {
     switch (type) {
       case OAK:
       case JUNGLE:
@@ -904,7 +904,7 @@ public class BlockMapper1_12 {
     }
   }
 
-  public static MetaBlock1_2 getPlankMetaBlock(Wood type) {
+  private static MetaBlock1_2 getPlankMetaBlock(Wood type) {
     MetaBlock1_2 plank = new MetaBlock1_2(Blocks.PLANKS);
     switch (type) {
       default:
@@ -923,7 +923,7 @@ public class BlockMapper1_12 {
     }
   }
 
-  public static MetaBlock1_2 getFenceMetaBlock(Wood type) {
+  private static MetaBlock1_2 getFenceMetaBlock(Wood type) {
     switch (type) {
       case SPRUCE:
         return new MetaBlock1_2(Blocks.SPRUCE_FENCE);
@@ -941,7 +941,7 @@ public class BlockMapper1_12 {
     }
   }
 
-  public static MetaBlock1_2 getSapling(Wood type) {
+  private static MetaBlock1_2 getSapling(Wood type) {
     MetaBlock1_2 sapling = new MetaBlock1_2(Blocks.SAPLING);
     switch (type) {
       default:
@@ -960,7 +960,7 @@ public class BlockMapper1_12 {
     }
   }
 
-  public static MetaBlock1_2 getLeaves(Wood type, boolean decay) {
+  private static MetaBlock1_2 getLeaves(Wood type, boolean decay) {
     Block base = getBlockId(type);
     PropertyEnum<BlockPlanks.EnumType> variantType = base == Blocks.LEAVES ? BlockOldLeaf.VARIANT : BlockNewLeaf.VARIANT;
     return new MetaBlock1_2(base)
@@ -1002,7 +1002,7 @@ public class BlockMapper1_12 {
     }
   }
 
-  public static MetaBlock1_2 createVine(Direction dir) {
+  private static MetaBlock1_2 createVine(Direction dir) {
     MetaBlock1_2 vine = new MetaBlock1_2(Blocks.VINE);
     vine.withProperty(BlockVine.UP, dir == Direction.UP);
     vine.withProperty(BlockVine.NORTH, dir == Direction.NORTH);
@@ -1016,7 +1016,7 @@ public class BlockMapper1_12 {
     return getPlant(block.getPlant());
   }
 
-  public static MetaBlock1_2 getPlant(Plant type) {
+  private static MetaBlock1_2 getPlant(Plant type) {
     switch (type) {
       case POPPY:
         return new MetaBlock1_2(Blocks.RED_FLOWER);
@@ -1094,7 +1094,7 @@ public class BlockMapper1_12 {
     }
   }
 
-  public static MetaBlock1_2 getQuartz(Quartz type, Direction facing) {
+  private static MetaBlock1_2 getQuartz(Quartz type, Direction facing) {
     MetaBlock1_2 block = new MetaBlock1_2(Blocks.QUARTZ_BLOCK);
     switch (type) {
       case CHISELED:
@@ -1108,7 +1108,7 @@ public class BlockMapper1_12 {
     }
   }
 
-  public static MetaBlock1_2 addPillarLines(MetaBlock1_2 block, Direction facing) {
+  private static MetaBlock1_2 addPillarLines(MetaBlock1_2 block, Direction facing) {
     switch (facing) {
       case EAST:
       case WEST:
@@ -1123,7 +1123,7 @@ public class BlockMapper1_12 {
     }
   }
 
-  public static MetaBlock1_2 getTallPlant(TallPlantBlock tallPlantBlock) {
+  private static MetaBlock1_2 getTallPlant(TallPlantBlock tallPlantBlock) {
     return new MetaBlock1_2(Blocks.DOUBLE_PLANT)
         .withProperty(BlockDoublePlant.VARIANT, getTallPlantMinecraftBlock(tallPlantBlock.getTallPlant()))
         .withProperty(BlockDoublePlant.FACING, tallPlantBlock.getFacing().getFacing())
@@ -1132,7 +1132,7 @@ public class BlockMapper1_12 {
             : BlockDoublePlant.EnumBlockHalf.LOWER);
   }
 
-  public static BlockDoublePlant.EnumPlantType getTallPlantMinecraftBlock(TallPlant type) {
+  private static BlockDoublePlant.EnumPlantType getTallPlantMinecraftBlock(TallPlant type) {
     switch (type) {
       default:
       case DOUBLE_TALL_GRASS:
