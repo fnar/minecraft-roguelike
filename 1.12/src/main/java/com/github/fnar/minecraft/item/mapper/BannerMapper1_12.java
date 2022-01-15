@@ -1,5 +1,6 @@
 package com.github.fnar.minecraft.item.mapper;
 
+import com.github.fnar.minecraft.block.BlockMapper1_12;
 import com.github.fnar.minecraft.item.Banner;
 import com.github.fnar.minecraft.item.Design;
 
@@ -27,7 +28,7 @@ public class BannerMapper1_12 extends BaseItemMapper1_12<Banner> {
     NBTTagCompound patternsAttributes = new NBTTagCompound();
 
     for (Design bannerDesign : banner.getDesigns()) {
-      patternsAttributes.setInteger("Color", bannerDesign.getColor().toEnumDyeColor().getDyeDamage());
+      patternsAttributes.setInteger("Color", BlockMapper1_12.toEnumDyeColor(bannerDesign.getColor()).getDyeDamage());
       patternsAttributes.setString("Pattern", new DesignMapper1_12().map(bannerDesign.getDesignPattern()).getHashname());
       patternsTag.appendTag(patternsAttributes);
     }
