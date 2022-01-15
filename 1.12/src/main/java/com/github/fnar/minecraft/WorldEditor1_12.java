@@ -13,10 +13,9 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.minecraft.block.redstone.DoorBlock;
 import com.github.fnar.minecraft.block.spawner.SpawnPotentialMapper1_12;
 import com.github.fnar.minecraft.block.spawner.Spawner;
-import com.github.fnar.minecraft.item.mapper.ItemMapper1_12;
 import com.github.fnar.minecraft.item.RldItemStack;
+import com.github.fnar.minecraft.item.mapper.ItemMapper1_12;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -73,7 +72,7 @@ public class WorldEditor1_12 implements WorldEditor {
       Material.PLANTS
   );
   private final World world;
-  private final Map<Block, Integer> stats = new HashMap<>();
+  private final Map<BlockType, Integer> stats = new HashMap<>();
   private final TreasureChestEditor treasureChestEditor;
   private final Random random;
 
@@ -212,7 +211,7 @@ public class WorldEditor1_12 implements WorldEditor {
       LogManager.getLogger(MOD_ID).error(npe);
     }
 
-    stats.merge(metaBlock.getBlock(), 1, Integer::sum);
+    stats.merge(singleBlockBrush.getBlockType(), 1, Integer::sum);
 
     return true;
   }
@@ -287,7 +286,7 @@ public class WorldEditor1_12 implements WorldEditor {
   }
 
   @Override
-  public Map<Block, Integer> getStats() {
+  public Map<BlockType, Integer> getStats() {
     return stats;
   }
 
@@ -327,7 +326,7 @@ public class WorldEditor1_12 implements WorldEditor {
   @Override
   public String toString() {
     return stats.entrySet().stream()
-        .map(pair -> pair.getKey().getLocalizedName() + ": " + pair.getValue() + "\n")
+        .map(pair -> pair.getKey().toString() + ": " + pair.getValue() + "\n")
         .collect(Collectors.joining());
   }
 
