@@ -6,7 +6,6 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.DungeonLevel;
-import greymerk.roguelike.dungeon.segment.IAlcove;
 import greymerk.roguelike.dungeon.segment.alcove.SilverfishNest;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.Coord;
@@ -61,9 +60,7 @@ public class SegmentSilverfish extends SegmentBase {
     stair.setUpsideDown(true).setFacing(dir.reverse());
     stair.stroke(editor, cursor);
 
-    IAlcove nest = new SilverfishNest();
-    if (nest.isValidLocation(editor, origin.copy(), dir)) {
-      nest.generate(editor, rand, level.getSettings(), origin.copy(), dir);
-    }
+    SilverfishNest.generate(new SilverfishNest(), editor, rand, level, dir, origin);
   }
+
 }

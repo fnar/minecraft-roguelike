@@ -18,7 +18,7 @@ import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
-import static greymerk.roguelike.worldgen.spawners.MobType.COMMON_MOBS;
+import static com.github.fnar.minecraft.block.spawner.MobType.COMMON_MOBS;
 
 
 public class EnikoRoom extends BaseRoom {

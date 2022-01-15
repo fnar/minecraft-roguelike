@@ -2,6 +2,8 @@ package greymerk.roguelike.dungeon.settings;
 
 import com.google.common.collect.Sets;
 
+import com.github.fnar.minecraft.block.spawner.SpawnerSettings;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -16,7 +18,6 @@ import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.theme.Themes;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.filter.Filter;
-import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 import lombok.ToString;
 
 import static greymerk.roguelike.dungeon.settings.SettingsType.ROOMS;
@@ -179,7 +180,7 @@ public class LevelSettings {
     this.theme = theme.getThemeBase();
   }
 
-  public SpawnerSettings getSpawners() {
+  public SpawnerSettings getSpawnerSettings() {
     return spawners;
   }
 

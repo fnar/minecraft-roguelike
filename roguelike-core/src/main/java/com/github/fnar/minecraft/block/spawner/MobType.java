@@ -1,10 +1,8 @@
-package greymerk.roguelike.worldgen.spawners;
-
-import com.google.common.collect.Lists;
-
-import net.minecraft.nbt.NBTTagCompound;
+package com.github.fnar.minecraft.block.spawner;
 
 import java.util.Arrays;
+import java.util.Random;
+import java.util.stream.Collectors;
 
 public enum MobType {
 
@@ -37,29 +35,30 @@ public enum MobType {
   public static final MobType[] UNDEAD_MOBS = {SKELETON, ZOMBIE};
   public static final MobType[] NETHER_MOBS = {BLAZE, LAVASLIME, PIGZOMBIE, WITHERSKELETON};
 
-  private String name;
+  private final String name;
 
   MobType(String name) {
     this.name = "minecraft:" + name;
+  }
+
+  public static MobType chooseAmong(MobType[] mobTypes, Random random) {
+    return mobTypes[random.nextInt(mobTypes.length)];
   }
 
   public String getName() {
     return name;
   }
 
-  public SpawnerSettings newSpawnerSetting() {
-    return MobType.newSpawnerSetting(this);
+  public Spawner asSpawner() {
+    return asSpawner(this);
   }
 
-  public static SpawnerSettings newSpawnerSetting(MobType... mobTypes) {
-    SpawnerSettings spawnerSettings = new SpawnerSettings();
-
-    Arrays.stream(mobTypes)
-        .map(spawner -> new SpawnPotential(spawner.getName(), true, 1, new NBTTagCompound()))
-        .map(spawnPotential -> new Spawnable(Lists.newArrayList(spawnPotential)))
-        .forEach(spawnable -> spawnerSettings.add(spawnable, 1));
-
-    return spawnerSettings;
+  public static Spawner asSpawner(MobType... mobTypes) {
+    return new Spawner(Arrays.stream(mobTypes)
+        .map(MobType::getName)
+        .map(SpawnPotential::new)
+        .collect(Collectors.toList())
+    );
   }
 
 }

@@ -7,6 +7,8 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
+import com.github.fnar.minecraft.block.spawner.Spawner;
+import com.github.fnar.minecraft.block.spawner.SpawnerSettings;
 import com.github.fnar.roguelike.settings.RequiredModMissingException;
 
 import net.minecraftforge.fml.common.Loader;
@@ -330,11 +332,12 @@ public class DungeonSettingsParser {
     for (JsonElement spawnerJsonElement : spawnersJson) {
       JsonObject spawnerJson = spawnerJsonElement.getAsJsonObject();
       List<Integer> levels = LevelsParser.parseLevelsOrDefault(spawnerJson, ALL_LEVELS);
-      for (int level : levels) {
-        if (dungeonSettings.getLevelSettings().containsKey(level)) {
-          dungeonSettings.getLevelSettings().get(level).getSpawners().parse(spawnerJson);
-        }
-      }
+      Spawner spawner = SpawnerSettings.parseSpawnPotentials(spawnerJson);
+      int weight = SpawnerSettings.parseWeight(spawnerJson);
+      levels.stream()
+          .mapToInt(level -> level)
+          .filter(level -> dungeonSettings.getLevelSettings().containsKey(level))
+          .forEach(level -> dungeonSettings.getLevelSettings().get(level).getSpawnerSettings().add(spawner, weight));
     }
   }
 

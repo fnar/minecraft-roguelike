@@ -1,19 +1,18 @@
-package greymerk.roguelike.worldgen.spawners;
+package com.github.fnar.minecraft.block.spawner;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.List;
+import java.util.Random;
 
 import greymerk.roguelike.util.WeightedChoice;
 import greymerk.roguelike.util.WeightedRandomizer;
-import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.WorldEditor;
 
 
 public class SpawnerSettings {
 
-  private WeightedRandomizer<Spawnable> spawners = new WeightedRandomizer<>();
+  private WeightedRandomizer<Spawner> spawners = new WeightedRandomizer<>();
 
   public SpawnerSettings() {
   }
@@ -27,43 +26,37 @@ public class SpawnerSettings {
     spawners.merge(other.spawners);
   }
 
-  public void generateSpawner(WorldEditor editor, Coord cursor, int difficulty) {
-    try {
-      spawners.get(editor.getRandom()).generate(editor, cursor, difficulty);
-    } catch (Exception e) {
-      throw new RuntimeException("Tried to spawn empty spawner", e);
-    }
+  public WeightedRandomizer<Spawner> getSpawners() {
+    return spawners;
   }
 
   public boolean isEmpty() {
     return spawners.isEmpty();
   }
 
-  public void parse(JsonObject spawnerJson) throws Exception {
-    add(
-        parseSpawnPotentials(spawnerJson),
-        parseWeight(spawnerJson));
-  }
-
-  private Spawnable parseSpawnPotentials(JsonObject entry) throws Exception {
+  public static Spawner parseSpawnPotentials(JsonObject entry) throws Exception {
     // todo: Check for potentials before getting
     JsonElement spawnPotentialsJson = entry.get("potentials");
     List<SpawnPotential> spawnPotentials = SpawnPotentialParser.parse(spawnPotentialsJson);
-    return new Spawnable(spawnPotentials);
+    return new Spawner(spawnPotentials);
   }
 
-  private int parseWeight(JsonObject entry) {
+  public static int parseWeight(JsonObject entry) {
     return entry.has("weight")
         ? entry.get("weight").getAsInt()
         : 1;
   }
 
-  public void add(Spawnable spawnable, int weight) {
-    spawners.add(new WeightedChoice<>(spawnable, weight));
+  public void add(Spawner spawner, int weight) {
+    spawners.add(new WeightedChoice<>(spawner, weight));
   }
 
   @Override
   public String toString() {
     return spawners.toString();
+  }
+
+  public Spawner chooseOneAtRandom(Random random) {
+    return getSpawners().get(random);
   }
 }

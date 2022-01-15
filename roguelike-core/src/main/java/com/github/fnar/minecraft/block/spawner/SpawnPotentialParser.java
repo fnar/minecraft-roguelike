@@ -1,11 +1,8 @@
-package greymerk.roguelike.worldgen.spawners;
+package com.github.fnar.minecraft.block.spawner;
 
 import com.google.common.collect.Lists;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-
-import net.minecraft.nbt.JsonToNBT;
-import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.List;
 
@@ -24,17 +21,13 @@ class SpawnPotentialParser {
   }
 
   private static SpawnPotential parse(JsonObject entry) throws Exception {
-    int weight = entry.has("weight") ? entry.get("weight").getAsInt() : 1;
     if (!entry.has("name")) {
       throw new Exception("Spawn potential missing name");
     }
-
     String name = entry.get("name").getAsString();
+    int weight = entry.has("weight") ? entry.get("weight").getAsInt() : 1;
     boolean equip = entry.has("equip") && entry.get("equip").getAsBoolean();
-
-    NBTTagCompound nbt = entry.has("nbt")
-        ? JsonToNBT.getTagFromJson(entry.get("nbt").getAsString())
-        : new NBTTagCompound();
-    return new SpawnPotential(name, equip, weight, nbt);
+    String nbt = entry.has("nbt") ? entry.get("nbt").getAsString() : "";
+    return new SpawnPotential(name).withEquip(equip).withWeight(weight).withNbt(nbt);
   }
 }

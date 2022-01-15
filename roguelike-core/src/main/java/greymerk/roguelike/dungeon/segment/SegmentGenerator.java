@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.DungeonLevel;
+import greymerk.roguelike.dungeon.segment.part.SegmentBase;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.util.WeightedChoice;
 import greymerk.roguelike.util.WeightedRandomizer;
@@ -101,11 +102,11 @@ public class SegmentGenerator {
     return segments;
   }
 
-  public List<ISegment> genSegment(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Coord pos) {
-    List<ISegment> segments = new ArrayList<>();
+  public List<SegmentBase> genSegment(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Coord pos) {
+    List<SegmentBase> segments = new ArrayList<>();
 
     for (Direction orthogonals : dir.orthogonals()) {
-      ISegment segment = pickSegment(rand, dir, pos);
+      SegmentBase segment = pickSegment(rand, dir, pos);
       if (segment == null) {
         return segments;
       }
@@ -120,7 +121,7 @@ public class SegmentGenerator {
     return segments;
   }
 
-  private ISegment pickSegment(Random random, Direction dir, Coord pos) {
+  private SegmentBase pickSegment(Random random, Direction dir, Coord pos) {
     int z = pos.getZ();
     if ((dir == Direction.NORTH || dir == Direction.SOUTH) && z % 3 == 0) {
       return pickSegment(z % 6 == 0, random);
@@ -134,7 +135,7 @@ public class SegmentGenerator {
     return null;
   }
 
-  private ISegment pickSegment(boolean isArch, Random random) {
+  private SegmentBase pickSegment(boolean isArch, Random random) {
     return isArch
         ? Segment.getSegment(getArch())
         : getSegments().isEmpty()

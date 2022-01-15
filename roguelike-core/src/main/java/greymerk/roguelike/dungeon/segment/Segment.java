@@ -4,6 +4,7 @@ import java.util.Random;
 
 import greymerk.roguelike.dungeon.segment.part.SegmentAnkh;
 import greymerk.roguelike.dungeon.segment.part.SegmentArch;
+import greymerk.roguelike.dungeon.segment.part.SegmentBase;
 import greymerk.roguelike.dungeon.segment.part.SegmentBooks;
 import greymerk.roguelike.dungeon.segment.part.SegmentCave;
 import greymerk.roguelike.dungeon.segment.part.SegmentChest;
@@ -82,7 +83,7 @@ public enum Segment {
       CELL, WALL, PLANT
   };
 
-  public static ISegment getSegment(Segment choice) {
+  public static SegmentBase getSegment(Segment choice) {
 
     switch (choice) {
       case ARCH:

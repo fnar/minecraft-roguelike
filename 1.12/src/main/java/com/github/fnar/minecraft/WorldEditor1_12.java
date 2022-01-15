@@ -9,6 +9,8 @@ import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.decorative.Plant;
 import com.github.fnar.minecraft.block.decorative.Skull;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.block.spawner.SpawnPotentialMapper1_12;
+import com.github.fnar.minecraft.block.spawner.Spawner;
 import com.github.fnar.minecraft.item.mapper.ItemMapper1_12;
 import com.github.fnar.minecraft.item.RldItemStack;
 
@@ -17,11 +19,14 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.MobSpawnerBaseLogic;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityBed;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.tileentity.TileEntityFlowerPot;
 import net.minecraft.tileentity.TileEntityLockableLoot;
+import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.tileentity.TileEntitySkull;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -425,4 +430,29 @@ public class WorldEditor1_12 implements WorldEditor {
   public boolean isEmptySlot(TreasureChest treasureChest, int slot) {
     return ((TileEntityLockableLoot) getTileEntity(treasureChest.getPos())).getStackInSlot(slot).isEmpty();
   }
+
+  public void generateSpawner(Spawner spawner, Coord cursor, int level) {
+    Coord pos = cursor.copy();
+
+    spawner.stroke(this, pos);
+
+    TileEntity tileentity = getTileEntity(pos);
+    if (!(tileentity instanceof TileEntityMobSpawner)) {
+      return;
+    }
+
+    NBTTagCompound nbt = new NBTTagCompound();
+    nbt.setInteger("x", pos.getX());
+    nbt.setInteger("y", pos.getY());
+    nbt.setInteger("z", pos.getZ());
+
+    nbt.setTag("SpawnPotentials", SpawnPotentialMapper1_12.mapToNbt(spawner.getPotentials(), getRandom(), level));
+
+    TileEntityMobSpawner tileEntity = (TileEntityMobSpawner) tileentity;
+    MobSpawnerBaseLogic spawnerLogic = tileEntity.getSpawnerBaseLogic();
+    spawnerLogic.readFromNBT(nbt);
+    spawnerLogic.updateSpawner();
+    tileentity.markDirty();
+  }
+
 }

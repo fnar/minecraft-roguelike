@@ -13,16 +13,14 @@ import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.base.SecretRoom;
 import greymerk.roguelike.dungeon.base.SecretsSetting;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
-import greymerk.roguelike.dungeon.segment.ISegment;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 
-public abstract class SegmentBase implements ISegment {
+public abstract class SegmentBase {
 
-  @Override
   public void generate(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Theme theme, Coord pos) {
     if (!level.hasNearbyNode(pos) && isValidWall(editor, dir, pos)) {
       genWall(editor, rand, level, dir, theme, pos);

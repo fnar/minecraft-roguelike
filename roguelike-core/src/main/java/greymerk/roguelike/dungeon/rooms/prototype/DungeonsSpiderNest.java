@@ -15,7 +15,7 @@ import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
-import greymerk.roguelike.worldgen.spawners.MobType;
+import com.github.fnar.minecraft.block.spawner.MobType;
 
 public class DungeonsSpiderNest extends BaseRoom {
   int originX;

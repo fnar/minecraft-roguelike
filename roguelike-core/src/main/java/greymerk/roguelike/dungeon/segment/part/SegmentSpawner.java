@@ -2,18 +2,19 @@ package greymerk.roguelike.dungeon.segment.part;
 
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
+import com.github.fnar.minecraft.block.spawner.MobType;
+import com.github.fnar.minecraft.block.spawner.Spawner;
 
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.DungeonLevel;
+import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
-import greymerk.roguelike.worldgen.spawners.MobType;
-import greymerk.roguelike.worldgen.spawners.SpawnerSettings;
 
 public class SegmentSpawner extends SegmentBase {
 
@@ -57,10 +58,10 @@ public class SegmentSpawner extends SegmentBase {
 
     int difficulty = level.getSettings().getDifficulty(spawnerCoord);
 
-    SpawnerSettings spawners = level.getSettings().getSpawners().isEmpty()
-        ? MobType.newSpawnerSetting(MobType.COMMON_MOBS)
-        : level.getSettings().getSpawners();
-    spawners.generateSpawner(editor, spawnerCoord, difficulty);
+    Spawner spawner = level.getSettings().getSpawnerSettings().isEmpty()
+        ? MobType.chooseAmong(MobType.COMMON_MOBS, rand).asSpawner()
+        : level.getSettings().getSpawnerSettings().getSpawners().get(editor.getRandom());
+    BaseRoom.generateSpawnerSafe(editor, spawner, spawnerCoord, difficulty);
 
     BlockBrush panelInFrontOfSpawner = rand.nextInt(Math.max(1, difficulty)) == 0
         ? BlockType.GLASS.getBrush()

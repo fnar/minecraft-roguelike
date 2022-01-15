@@ -16,7 +16,7 @@ import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
-import greymerk.roguelike.worldgen.spawners.MobType;
+import com.github.fnar.minecraft.block.spawner.MobType;
 
 public class DungeonsCreeperDen extends BaseRoom {
 
