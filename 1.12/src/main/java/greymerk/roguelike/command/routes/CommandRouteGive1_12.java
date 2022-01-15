@@ -12,7 +12,7 @@ import greymerk.roguelike.command.CommandRouteBase;
 import greymerk.roguelike.treasure.loot.provider.ItemNovelty;
 import greymerk.roguelike.util.ArgumentParser;
 
-public class CommandRouteGive extends CommandRouteBase {
+public class CommandRouteGive1_12 extends CommandRouteBase {
 
   @Override
   public void execute(CommandContext context, List<String> args) {

@@ -1,7 +1,7 @@
 package com.github.fnar.roguelike;
 
-import com.github.fnar.roguelike.command.CommandRoguelike;
-import com.github.fnar.roguelike.worldgen.DungeonGenerator;
+import com.github.fnar.roguelike.command.CommandRoguelike1_12;
+import com.github.fnar.roguelike.worldgen.DungeonGenerator1_12;
 
 import net.minecraft.command.ICommandManager;
 import net.minecraft.command.ServerCommandManager;
@@ -30,7 +30,7 @@ public class Roguelike {
   // Says where the client and server 'proxy' code is loaded.
   @SidedProxy(clientSide = "greymerk.roguelike.ClientProxy", serverSide = "greymerk.roguelike.CommonProxy")
   public static CommonProxy proxy;
-  public static DungeonGenerator worldGen = new DungeonGenerator();
+  public static DungeonGenerator1_12 worldGen = new DungeonGenerator1_12();
 
   @EventHandler
   public void preInit(FMLPreInitializationEvent event) {
@@ -47,6 +47,6 @@ public class Roguelike {
     MinecraftServer server = event.getServer();
     ICommandManager command = server.getCommandManager();
     ServerCommandManager serverCommand = ((ServerCommandManager) command);
-    serverCommand.registerCommand(new CommandRoguelike());
+    serverCommand.registerCommand(new CommandRoguelike1_12());
   }
 }

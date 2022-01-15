@@ -13,15 +13,15 @@ import javax.annotation.Nullable;
 
 import greymerk.roguelike.command.CommandContext;
 import greymerk.roguelike.command.ICommandRouter;
-import greymerk.roguelike.command.routes.CommandRouteRoguelike;
+import greymerk.roguelike.command.routes.CommandRouteRoguelike1_12;
 
 
-public class CommandRoguelike extends CommandBase {
+public class CommandRoguelike1_12 extends CommandBase {
 
   private ICommandRouter router;
 
-  public CommandRoguelike() {
-    this.router = new CommandRouteRoguelike();
+  public CommandRoguelike1_12() {
+    this.router = new CommandRouteRoguelike1_12();
   }
 
   @Nonnull

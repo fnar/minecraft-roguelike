@@ -52,20 +52,4 @@ public class SingleBlockBrush implements BlockBrush {
     return copy;
   }
 
-  public MetaBlock getMetaBlock() {
-    String name = BlockMapper1_12.map(this).getBlock().getRegistryName().toString();
-    return new MetaBlock(name);
-  }
-
-  static class MetaBlock {
-    String name;
-
-    public MetaBlock(String name) {
-      this.name = name;
-    }
-
-    public String getName() {
-      return name;
-    }
-  }
 }

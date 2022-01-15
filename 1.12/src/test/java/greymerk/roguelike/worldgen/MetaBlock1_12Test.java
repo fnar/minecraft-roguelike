@@ -12,7 +12,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-public class MetaBlockTest {
+public class MetaBlock1_12Test {
 
   @Before
   public void setup() {
