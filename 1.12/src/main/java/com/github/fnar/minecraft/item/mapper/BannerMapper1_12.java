@@ -28,7 +28,7 @@ public class BannerMapper1_12 extends BaseItemMapper1_12<Banner> {
 
     for (Design bannerDesign : banner.getDesigns()) {
       patternsAttributes.setInteger("Color", bannerDesign.getColor().toEnumDyeColor().getDyeDamage());
-      patternsAttributes.setString("Pattern", bannerDesign.getDesignPattern().toBannerPattern().getHashname());
+      patternsAttributes.setString("Pattern", new DesignMapper1_12().map(bannerDesign.getDesignPattern()).getHashname());
       patternsTag.appendTag(patternsAttributes);
     }
     return bannerItemStack;

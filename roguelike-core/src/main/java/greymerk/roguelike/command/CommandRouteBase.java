@@ -1,7 +1,5 @@
 package greymerk.roguelike.command;
 
-import net.minecraft.command.CommandBase;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -11,10 +9,12 @@ import java.util.Map;
 
 public abstract class CommandRouteBase implements ICommandRouter {
 
-  private Map<String, ICommandRouter> routes;
+  private final Map<String, ICommandRouter> routes;
+  protected final greymerk.roguelike.command.CommandBase commandBase;
 
-  public CommandRouteBase() {
+  public CommandRouteBase(greymerk.roguelike.command.CommandBase commandBase) {
     this.routes = new HashMap<>();
+    this.commandBase = commandBase;
   }
 
   protected void addRoute(String id, ICommandRouter route) {
@@ -22,7 +22,7 @@ public abstract class CommandRouteBase implements ICommandRouter {
   }
 
   @Override
-  public void execute(CommandContext context, List<String> args) {
+  public void execute(CommandContext1_12 context, List<String> args) {
     if (args.size() > 0) {
       if (this.routes.containsKey(args.get(0))) {
         List<String> tail = new ArrayList<>(args);
@@ -53,7 +53,7 @@ public abstract class CommandRouteBase implements ICommandRouter {
   protected List<String> getListTabOptions(String name, Collection<String> possibilities) {
     List<String> options = new ArrayList<>();
     for (String item : possibilities) {
-      if (CommandBase.doesStringStartWith(name, item)) {
+      if (commandBase.doesStringStartWith(name, item)) {
         options.add(item);
       }
     }

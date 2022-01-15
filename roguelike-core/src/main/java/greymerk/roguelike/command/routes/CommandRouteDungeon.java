@@ -1,12 +1,9 @@
 package greymerk.roguelike.command.routes;
 
-import net.minecraft.command.CommandBase;
-import net.minecraft.command.NumberInvalidException;
-
 import java.util.List;
 import java.util.Optional;
 
-import greymerk.roguelike.command.CommandContext;
+import greymerk.roguelike.command.CommandContext1_12;
 import greymerk.roguelike.command.CommandRouteBase;
 import greymerk.roguelike.command.routes.exception.NoValidLocationException;
 import greymerk.roguelike.command.routes.exception.SettingNameNotFoundException;
@@ -20,24 +17,28 @@ import greymerk.roguelike.worldgen.WorldEditor;
 
 public class CommandRouteDungeon extends CommandRouteBase {
 
-  public static Coord getLocation(CommandContext context, List<String> args) throws NumberInvalidException {
+  public CommandRouteDungeon(greymerk.roguelike.command.CommandBase commandBase) {
+    super(commandBase);
+  }
+
+  public Coord getLocation(CommandContext1_12 context, List<String> args) {
     ArgumentParser argumentParser = new ArgumentParser(args);
     if (argumentParser.match(0, "here") || argumentParser.match(0, "nearby")) {
       Coord coord = context.getPos();
       return new Coord(coord.getX(), 0, coord.getZ());
     }
     try {
-      int x = CommandBase.parseInt(argumentParser.get(0));
-      int z = CommandBase.parseInt(argumentParser.get(1));
+      int x = commandBase.parseInt(argumentParser.get(0));
+      int z = commandBase.parseInt(argumentParser.get(1));
       return new Coord(x, 0, z);
-    } catch (NumberInvalidException e) {
+    } catch (RuntimeException e) {
       context.sendFailure("Invalid Coords: X Z");
       throw (e);
     }
   }
 
   @Override
-  public void execute(CommandContext context, List<String> args) {
+  public void execute(CommandContext1_12 context, List<String> args) {
     ArgumentParser argumentParser = new ArgumentParser(args);
     if (!argumentParser.hasEntry(0)) {
       context.sendInfo("Usage: roguelike dungeon {X Z | here} [setting]");
@@ -84,7 +85,7 @@ public class CommandRouteDungeon extends CommandRouteBase {
         .orElseThrow(() -> new SettingNameNotFoundException(settingName));
   }
 
-  private void generateDungeon(CommandContext context, Coord coord, WorldEditor editor, DungeonSettings dungeonSettings) {
+  private void generateDungeon(CommandContext1_12 context, Coord coord, WorldEditor editor, DungeonSettings dungeonSettings) {
     Dungeon dungeon = new Dungeon(editor);
     dungeon.generate(dungeonSettings, coord);
     context.sendSuccess(String.format("Successfully generated dungeon with id %s at %s.%n", dungeonSettings.getId(), coord));
