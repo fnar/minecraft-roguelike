@@ -26,15 +26,15 @@ public class ArmourMapper1_12 extends RldBaseItemMapper1_12<Armour> {
   public Item map(Armour item, ArmourType armourType, Quality quality) {
     switch(armourType) {
       case HELMET:
-        return EquipmentMapper1_12.map(quality, Items.LEATHER_HELMET, Items.CHAINMAIL_HELMET, Items.GOLDEN_HELMET, Items.IRON_HELMET, Items.DIAMOND_HELMET);
+        return EquipmentMapper1_12.map(quality, Items.LEATHER_HELMET, Items.CHAINMAIL_HELMET, Items.IRON_HELMET, Items.GOLDEN_HELMET, Items.DIAMOND_HELMET);
       case CHESTPLATE:
-        return EquipmentMapper1_12.map(quality, Items.LEATHER_CHESTPLATE, Items.CHAINMAIL_CHESTPLATE, Items.GOLDEN_CHESTPLATE, Items.IRON_CHESTPLATE, Items.DIAMOND_CHESTPLATE);
+        return EquipmentMapper1_12.map(quality, Items.LEATHER_CHESTPLATE, Items.CHAINMAIL_CHESTPLATE, Items.IRON_CHESTPLATE, Items.GOLDEN_CHESTPLATE, Items.DIAMOND_CHESTPLATE);
       case HORSE:
         return EquipmentMapper1_12.map(quality, Items.SADDLE, Items.SADDLE, Items.IRON_HORSE_ARMOR, Items.GOLDEN_HORSE_ARMOR, Items.DIAMOND_HORSE_ARMOR);
       case LEGGINGS:
-        return EquipmentMapper1_12.map(quality, Items.LEATHER_LEGGINGS, Items.CHAINMAIL_LEGGINGS, Items.GOLDEN_LEGGINGS, Items.IRON_LEGGINGS, Items.DIAMOND_LEGGINGS);
+        return EquipmentMapper1_12.map(quality, Items.LEATHER_LEGGINGS, Items.CHAINMAIL_LEGGINGS, Items.IRON_LEGGINGS, Items.GOLDEN_LEGGINGS, Items.DIAMOND_LEGGINGS);
       case BOOTS:
-        return EquipmentMapper1_12.map(quality, Items.LEATHER_BOOTS, Items.CHAINMAIL_BOOTS, Items.GOLDEN_BOOTS, Items.IRON_BOOTS, Items.DIAMOND_BOOTS);
+        return EquipmentMapper1_12.map(quality, Items.LEATHER_BOOTS, Items.CHAINMAIL_BOOTS, Items.IRON_BOOTS, Items.GOLDEN_BOOTS, Items.DIAMOND_BOOTS);
     }
     throw new CouldNotMapItemException(item);
   }
