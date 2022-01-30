@@ -71,39 +71,39 @@ public enum Equipment {
       WeightedRandomizer<Quality> qualities = new WeightedRandomizer<>();
       switch (i) {
         case 0:
-          qualities.add(new WeightedChoice<>(Quality.WOOD, 60));
+          qualities.add(new WeightedChoice<>(Quality.WOOD, 70));
           qualities.add(new WeightedChoice<>(Quality.STONE, 20));
-          qualities.add(new WeightedChoice<>(Quality.IRON, 15));
+          qualities.add(new WeightedChoice<>(Quality.IRON, 5));
           qualities.add(new WeightedChoice<>(Quality.GOLD, 4));
           qualities.add(new WeightedChoice<>(Quality.DIAMOND, 1));
           break;
         case 1:
-          qualities.add(new WeightedChoice<>(Quality.WOOD, 25));
-          qualities.add(new WeightedChoice<>(Quality.STONE, 40));
-          qualities.add(new WeightedChoice<>(Quality.IRON, 20));
+          qualities.add(new WeightedChoice<>(Quality.WOOD, 50));
+          qualities.add(new WeightedChoice<>(Quality.STONE, 30));
+          qualities.add(new WeightedChoice<>(Quality.IRON, 15));
           qualities.add(new WeightedChoice<>(Quality.GOLD, 4));
           qualities.add(new WeightedChoice<>(Quality.DIAMOND, 1));
           break;
         case 2:
-          qualities.add(new WeightedChoice<>(Quality.WOOD, 25));
-          qualities.add(new WeightedChoice<>(Quality.STONE, 35));
-          qualities.add(new WeightedChoice<>(Quality.IRON, 35));
+          qualities.add(new WeightedChoice<>(Quality.WOOD, 30));
+          qualities.add(new WeightedChoice<>(Quality.STONE, 50));
+          qualities.add(new WeightedChoice<>(Quality.IRON, 25));
           qualities.add(new WeightedChoice<>(Quality.GOLD, 4));
           qualities.add(new WeightedChoice<>(Quality.DIAMOND, 1));
           break;
         case 3:
           qualities.add(new WeightedChoice<>(Quality.WOOD, 20));
-          qualities.add(new WeightedChoice<>(Quality.STONE, 25));
-          qualities.add(new WeightedChoice<>(Quality.IRON, 40));
+          qualities.add(new WeightedChoice<>(Quality.STONE, 30));
+          qualities.add(new WeightedChoice<>(Quality.IRON, 35));
           qualities.add(new WeightedChoice<>(Quality.GOLD, 10));
           qualities.add(new WeightedChoice<>(Quality.DIAMOND, 5));
           break;
         case 4:
-          qualities.add(new WeightedChoice<>(Quality.WOOD, 15));
-          qualities.add(new WeightedChoice<>(Quality.STONE, 15));
-          qualities.add(new WeightedChoice<>(Quality.IRON, 45));
-          qualities.add(new WeightedChoice<>(Quality.GOLD, 15));
-          qualities.add(new WeightedChoice<>(Quality.DIAMOND, 10));
+          qualities.add(new WeightedChoice<>(Quality.WOOD, 5));
+          qualities.add(new WeightedChoice<>(Quality.STONE, 20));
+          qualities.add(new WeightedChoice<>(Quality.IRON, 50));
+          qualities.add(new WeightedChoice<>(Quality.GOLD, 10));
+          qualities.add(new WeightedChoice<>(Quality.DIAMOND, 15));
           break;
       }
       Equipment.equipmentQuality.put(i, qualities);
