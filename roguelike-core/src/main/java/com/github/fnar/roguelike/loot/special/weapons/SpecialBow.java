@@ -32,18 +32,22 @@ public class SpecialBow extends SpecialEquipment {
       case IRON:
         withName("Laminated Bow");
         withLore("Highly polished", TextFormat.DARKGREEN);
+        break;
       case GOLD:
         if (random.nextBoolean()) {
           withEnchantment(Enchantment.Effect.INFINITY, 1);
           withName("Elven Bow");
           withLore("Beautifully crafted", TextFormat.DARKGREEN);
+          break;
         }
 
         if (random.nextBoolean()) {
           withEnchantment(Enchantment.Effect.MENDING, 1);
           withName("Faerie Bow");
-          withLore("Blessed by the fae", TextFormat.DARKGREEN);
+          withLore("Blessed by the Dreaming", TextFormat.DARKGREEN);
+          break;
         }
+
         withName("Recurve Bow");
         withLore("Curves outward toward the target", TextFormat.DARKGREEN);
         break;
