@@ -13,7 +13,6 @@ import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.Theme;
-import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -138,16 +137,13 @@ public class BrickRoom extends BaseRoom {
 
   public void generateChest(Coord origin, Coord spawnerLocation, Direction facing) {
     int difficulty = levelSettings.getDifficulty(origin);
-    ChestType[] chestTypes = getRoomSetting().getChestType()
-        .map(chestType -> new ChestType[]{chestType})
-        .orElse(ChestType.COMMON_TREASURES);
 
     boolean isChestBeneathSpawner = worldEditor.getRandom().nextInt(Math.max(1, difficulty) + 1) != 0;
     List<Coord> chestLocations = isChestBeneathSpawner
         ? Lists.newArrayList(spawnerLocation.copy().down())
         : chooseRandomLocations(1, getPotentialSpawnLocations(origin));
 
-    worldEditor.getTreasureChestEditor().createChests(chestLocations, false, difficulty, facing, chestTypes);
+    generateTrappableChests(chestLocations, facing);
   }
 
   public List<Coord> getPotentialSpawnLocations(Coord origin) {

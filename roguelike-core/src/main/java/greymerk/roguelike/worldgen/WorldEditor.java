@@ -16,8 +16,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 
-import greymerk.roguelike.TreasureChestEditor;
 import greymerk.roguelike.treasure.TreasureChest;
+import greymerk.roguelike.treasure.TreasureManager;
 import greymerk.roguelike.util.DyeColor;
 
 public interface WorldEditor {
@@ -60,8 +60,6 @@ public interface WorldEditor {
 
   Coord findNearestStructure(VanillaStructure type, Coord pos);
 
-  TreasureChestEditor getTreasureChestEditor();
-
   void setBedColorAt(Coord cursor, DyeColor color);
 
   void setItem(Coord pos, int slot, ItemStack item);
@@ -82,4 +80,5 @@ public interface WorldEditor {
 
   boolean isEmptySlot(TreasureChest treasureChest, int slot);
 
+  TreasureManager getTreasureManager();
 }

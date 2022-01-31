@@ -8,7 +8,6 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import java.util.List;
 
-import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
@@ -282,16 +281,16 @@ public class DungeonsSmithy extends BaseRoom {
   }
 
   private void smelter(WorldEditor editor, Direction dir, Coord origin) {
-    editor.getTreasureChestEditor().createChest(origin, false, 1, dir, ChestType.EMPTY);
+    Coord cursor = origin.copy();
+    generateChest(cursor, dir, ChestType.EMPTY);
 
-    Coord cursor;
-    cursor = origin.copy();
     cursor.translate(dir, 2);
     cursor.up(2);
-    editor.getTreasureChestEditor().createChest(cursor, false, 1, dir, ChestType.EMPTY);
+    generateChest(cursor, dir, ChestType.EMPTY);
+
     cursor.up();
     cursor.translate(dir.reverse());
-    editor.getTreasureChestEditor().createChest(cursor, false, 1, dir, ChestType.EMPTY);
+    generateChest(cursor, dir, ChestType.EMPTY);
 
     cursor = origin.copy();
     cursor.up();
@@ -460,7 +459,8 @@ public class DungeonsSmithy extends BaseRoom {
     stair.setUpsideDown(true).setFacing(dir.clockwise());
     RectSolid.newRect(start, end).fill(editor, stair);
     cursor.up();
-    editor.getTreasureChestEditor().createChest(cursor, false, Dungeon.getLevel(cursor.getY()), dir.antiClockwise(), getRoomSetting().getChestType().orElse(ChestType.SMITH));
+
+    generateChest(cursor, dir.antiClockwise(), ChestType.SMITH);
   }
 
 

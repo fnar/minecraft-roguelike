@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
@@ -68,7 +67,8 @@ public class CakeRoom extends BaseRoom {
     spaces.add(new Coord(x + WIDTH, y, z + LENGTH - 1));
 
     List<Coord> chestLocations = chooseRandomLocations(1, spaces);
-    worldEditor.getTreasureChestEditor().createChests(chestLocations, false, Dungeon.getLevel(y), entrances.get(0).reverse(), getRoomSetting().getChestType().orElse(ChestType.FOOD));
+
+    generateChests(chestLocations, entrances.get(0).reverse(), ChestType.FOOD);
 
     generateDoorways(origin, entrances);
     return this;

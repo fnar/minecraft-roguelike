@@ -2,16 +2,15 @@ package greymerk.roguelike.dungeon.rooms.prototype;
 
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
+import com.github.fnar.minecraft.block.spawner.MobType;
 
 import java.util.List;
 import java.util.Random;
 
-import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.Theme;
-import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
 import greymerk.roguelike.worldgen.Coord;
@@ -19,7 +18,6 @@ import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
-import com.github.fnar.minecraft.block.spawner.MobType;
 
 public class DungeonsNetherBrick extends BaseRoom {
 
@@ -58,7 +56,7 @@ public class DungeonsNetherBrick extends BaseRoom {
     RectSolid.newRect(new Coord(x - length, y + height, z - width), new Coord(x + length, y + height, z + width)).fill(worldEditor, ceiling);
 
     List<Coord> chestLocations = chooseRandomLocations(1, new RectSolid(new Coord(x - length, y, z - width), new Coord(x + length, y, z + width)).get());
-    worldEditor.getTreasureChestEditor().createChests(chestLocations, false, Dungeon.getLevel(y), entrances.get(0), getRoomSetting().getChestType().orElse(ChestType.chooseRandomAmong(random, ChestType.COMMON_TREASURES)));
+    generateTrappableChests(chestLocations, entrances.get(0));
 
     final Coord cursor = new Coord(x - length - 1, y + random.nextInt(2), z - width - 1);
     generateSpawner(cursor, MobType.COMMON_MOBS);

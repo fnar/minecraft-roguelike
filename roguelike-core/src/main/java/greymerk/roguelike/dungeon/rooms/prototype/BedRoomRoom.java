@@ -10,7 +10,6 @@ import com.github.fnar.minecraft.item.Material;
 import java.util.List;
 import java.util.Random;
 
-import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
@@ -144,7 +143,8 @@ public class BedRoomRoom extends BaseRoom {
     cursor.translate(dir);
     cursor.translate(side, 3);
 
-    worldEditor.getTreasureChestEditor().createChest(cursor.add(Direction.UP), false, Dungeon.getLevel(cursor.getY()), side, getRoomSetting().getChestType().orElse(ChestType.STARTER));
+    Coord chestLocation = cursor.add(Direction.UP);
+    generateChest(chestLocation, side, ChestType.STARTER);
 
     cursor.translate(side.reverse(), 6);
     if (rand.nextBoolean()) {

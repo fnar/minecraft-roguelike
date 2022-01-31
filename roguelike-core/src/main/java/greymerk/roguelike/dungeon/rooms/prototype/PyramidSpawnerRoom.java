@@ -5,12 +5,10 @@ import com.github.fnar.minecraft.block.SingleBlockBrush;
 import java.util.ArrayList;
 import java.util.List;
 
-import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.Theme;
-import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -115,8 +113,7 @@ public class PyramidSpawnerRoom extends BaseRoom {
     }
 
     List<Coord> chestLocations = chooseRandomLocations(1, space);
-    ChestType chestType = getRoomSetting().getChestType().orElse(ChestType.chooseRandomAmong(worldEditor.getRandom(), ChestType.COMMON_TREASURES));
-    worldEditor.getTreasureChestEditor().createChests(chestLocations, false, Dungeon.getLevel(origin.getY()), entrances.get(0).reverse(), chestType);
+    generateChests(chestLocations, entrances.get(0).reverse());
     final Coord cursor1 = new Coord(x, y, z);
     generateSpawner(cursor1, COMMON_MOBS);
     return this;

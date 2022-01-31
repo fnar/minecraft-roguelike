@@ -156,7 +156,7 @@ public class DungeonsMusic extends BaseRoom {
     levelSettings.getTheme().getPrimary().getLightBlock().stroke(worldEditor, cursor);
 
     List<Coord> chestLocations = chooseRandomLocations(1, chests);
-    worldEditor.getTreasureChestEditor().createChests(chestLocations, false, levelSettings.getDifficulty(origin), entrances.get(0).reverse(), getRoomSetting().getChestType().orElse(ChestType.MUSIC));
+    generateChests(chestLocations, entrances.get(0).reverse(), ChestType.MUSIC);
 
     generateDoorways(origin, entrances);
 

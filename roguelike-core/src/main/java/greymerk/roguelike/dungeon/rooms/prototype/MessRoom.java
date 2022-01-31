@@ -141,7 +141,7 @@ public class MessRoom extends BaseRoom {
         .translate(corners[1], 5)
         .up();
 
-    editor.getTreasureChestEditor().createChest(cursor, false, settings.getDifficulty(cursor), entranceDir.reverse(), ChestType.FOOD);
+    generateChest(cursor, entranceDir.reverse(), ChestType.FOOD);
 
     cursor = origin.copy()
         .translate(corners[0], 5)
@@ -347,7 +347,7 @@ public class MessRoom extends BaseRoom {
     cursor.translate(dir, 7);
     stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
     cursor.up();
-    editor.getTreasureChestEditor().createChest(cursor, false, settings.getDifficulty(origin), dir, getRoomSetting().getChestType().orElse(ChestType.FOOD));
+    generateChest(cursor, dir, ChestType.FOOD);
     cursor.translate(dir.antiClockwise());
     BlockType.FURNACE.getBrush().setFacing(dir).stroke(editor, cursor);
     cursor.translate(dir.clockwise(), 2);
