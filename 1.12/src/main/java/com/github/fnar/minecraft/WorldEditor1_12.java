@@ -211,7 +211,11 @@ public class WorldEditor1_12 implements WorldEditor {
       LogManager.getLogger(MOD_ID).error(npe);
     }
 
-    stats.merge(singleBlockBrush.getBlockType(), 1, Integer::sum);
+    BlockType blockType = singleBlockBrush.getBlockType();
+    // block type is null when it's a block from JSON
+    if (blockType != null) {
+      stats.merge(blockType, 1, Integer::sum);
+    }
 
     return true;
   }
