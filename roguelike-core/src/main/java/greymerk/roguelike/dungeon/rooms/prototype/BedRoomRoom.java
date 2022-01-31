@@ -8,12 +8,10 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.minecraft.item.Material;
 
 import java.util.List;
-import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.Coord;
@@ -30,31 +28,24 @@ public class BedRoomRoom extends BaseRoom {
     super(roomSetting, levelSettings, worldEditor);
   }
 
-  public void pillar(WorldEditor editor, Direction dir, Theme theme, final Coord base) {
+  public void pillar(Direction dir, final Coord base) {
     Coord start = base.copy();
     Coord end = base.copy();
 
     end.up(2);
-    RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getPillar());
-    StairsBlock stair = theme.getSecondary().getStair();
+    RectSolid.newRect(start, end).fill(worldEditor, pillars());
+    StairsBlock stair = secondaryStairs();
     stair.setUpsideDown(true).setFacing(dir.reverse());
     end.translate(dir.reverse());
-    stair.stroke(editor, end);
+    stair.stroke(worldEditor, end);
   }
 
   @Override
   public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    Random rand = worldEditor.getRandom();
-    Theme theme = levelSettings.getTheme();
+    Direction dir = getEntrance(entrances);
 
-    Coord cursor;
-    Coord start;
-    Coord end;
-
-    Direction dir = entrances.get(0);
-
-    start = origin.copy();
-    end = origin.copy();
+    Coord start = origin.copy();
+    Coord end = origin.copy();
 
     start.translate(dir.antiClockwise(), 4);
     end.translate(dir.clockwise(), 4);
@@ -63,7 +54,7 @@ public class BedRoomRoom extends BaseRoom {
     start.down();
     end.up(4);
 
-    RectHollow.newRect(start, end).fill(worldEditor, theme.getPrimary().getWall(), false, true);
+    RectHollow.newRect(start, end).fill(worldEditor, walls(), false, true);
 
     start = origin.copy();
     start.down();
@@ -73,10 +64,10 @@ public class BedRoomRoom extends BaseRoom {
     start.translate(dir.reverse(), 2);
     end.translate(dir, 2);
 
-    RectSolid.newRect(start, end).fill(worldEditor, theme.getSecondary().getWall());
+    RectSolid.newRect(start, end).fill(worldEditor, secondaryWalls());
 
     for (Direction o : dir.orthogonals()) {
-      StairsBlock stair = theme.getSecondary().getStair();
+      StairsBlock stair = secondaryStairs();
       stair.setUpsideDown(true).setFacing(o.reverse());
 
       start = origin.copy();
@@ -91,24 +82,24 @@ public class BedRoomRoom extends BaseRoom {
       RectSolid.newRect(start, end).fill(worldEditor, stair);
       start.up();
       end.up();
-      RectSolid.newRect(start, end).fill(worldEditor, theme.getPrimary().getWall());
+      RectSolid.newRect(start, end).fill(worldEditor, walls());
       start.translate(o.reverse());
       end.translate(o.reverse());
       RectSolid.newRect(start, end).fill(worldEditor, stair);
     }
 
     for (Direction o : dir.orthogonals()) {
-      cursor = origin.copy();
+      Coord cursor = origin.copy();
       cursor.translate(o, 3);
-      pillar(worldEditor, o, theme, cursor);
+      pillar(o, cursor);
       for (Direction p : o.orthogonals()) {
         Coord c = cursor.copy();
         c.translate(p, 3);
-        pillar(worldEditor, o, theme, c);
+        pillar(o, c);
       }
     }
 
-    cursor = origin.copy();
+    Coord cursor = origin.copy();
     cursor.up(3);
     cursor.translate(dir.reverse(), 3);
 
@@ -117,28 +108,28 @@ public class BedRoomRoom extends BaseRoom {
       end = cursor.copy();
       start.translate(dir.antiClockwise(), 2);
       end.translate(dir.clockwise(), 2);
-      RectSolid.newRect(start, end).fill(worldEditor, theme.getSecondary().getWall());
+      RectSolid.newRect(start, end).fill(worldEditor, secondaryWalls());
       cursor.translate(dir, 3);
     }
 
-    Direction side = rand.nextBoolean() ? dir.antiClockwise() : dir.clockwise();
+    Direction side = random().nextBoolean() ? dir.antiClockwise() : dir.clockwise();
 
     cursor = origin.copy();
     cursor.translate(dir, 3);
-    BedBlock.bed().setColor(DyeColor.chooseRandom(worldEditor.getRandom())).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+    BedBlock.bed().setColor(DyeColor.chooseRandom(random())).setFacing(dir.reverse()).stroke(worldEditor, cursor);
     cursor.translate(side, 2);
     BlockType.BOOKSHELF.getBrush().stroke(worldEditor, cursor);
     cursor.up();
-    FlowerPotBlock.flowerPot().withRandomContent(worldEditor.getRandom()).stroke(worldEditor, cursor);
+    FlowerPotBlock.flowerPot().withRandomContent(random()).stroke(worldEditor, cursor);
     cursor.translate(side.reverse(), 3);
     cursor.down();
-    StairsBlock stair = theme.getSecondary().getStair();
+    StairsBlock stair = secondaryStairs();
     stair.setUpsideDown(true).setFacing(dir.reverse());
     stair.stroke(worldEditor, cursor);
     cursor.up();
     TorchBlock.torch().setFacing(Direction.UP).stroke(worldEditor, cursor);
 
-    side = dir.orthogonals()[rand.nextBoolean() ? 1 : 0];
+    side = dir.orthogonals()[random().nextBoolean() ? 1 : 0];
     cursor = origin.copy();
     cursor.translate(dir);
     cursor.translate(side, 3);
@@ -147,7 +138,7 @@ public class BedRoomRoom extends BaseRoom {
     generateChest(chestLocation, side, ChestType.STARTER);
 
     cursor.translate(side.reverse(), 6);
-    if (rand.nextBoolean()) {
+    if (random().nextBoolean()) {
       cursor.up();
       TorchBlock.torch().setFacing(Direction.UP).stroke(worldEditor, cursor);
       cursor.down();
@@ -161,15 +152,15 @@ public class BedRoomRoom extends BaseRoom {
       cursor.down();
     }
 
-    side = rand.nextBoolean() ? dir.antiClockwise() : dir.clockwise();
+    side = random().nextBoolean() ? dir.antiClockwise() : dir.clockwise();
     cursor = origin.copy();
     cursor.translate(dir.reverse());
     cursor.translate(side, 3);
-    if (rand.nextBoolean()) {
+    if (random().nextBoolean()) {
       cursor.translate(dir.reverse());
     }
     BlockType.FURNACE.getBrush().setFacing(side.reverse()).stroke(worldEditor, cursor);
-    worldEditor.setItem(cursor, WorldEditor.FURNACE_FUEL_SLOT, Material.Type.COAL.asItemStack().withCount(2 + rand.nextInt(3)));
+    worldEditor.setItem(cursor, WorldEditor.FURNACE_FUEL_SLOT, Material.Type.COAL.asItemStack().withCount(2 + random().nextInt(3)));
     return this;
   }
 
@@ -179,7 +170,7 @@ public class BedRoomRoom extends BaseRoom {
   }
 
   @Override
-  public boolean validLocation(WorldEditor editor, Direction dir, Coord pos) {
+  public boolean isValidLocation(Direction dir, Coord pos) {
     Coord start;
     Coord end;
 
@@ -193,7 +184,7 @@ public class BedRoomRoom extends BaseRoom {
     end.up(3);
 
     for (Coord c : new RectHollow(start, end)) {
-      if (editor.isAirBlock(c)) {
+      if (worldEditor.isAirBlock(c)) {
         return false;
       }
     }

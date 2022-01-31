@@ -23,7 +23,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class SegmentTrap extends SegmentBase {
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
+  protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
 
     BlockBrush plate = BlockType.PRESSURE_PLATE_STONE.getBrush();
     BlockBrush wire = BlockType.REDSTONE_WIRE.getBrush();
@@ -33,13 +33,9 @@ public class SegmentTrap extends SegmentBase {
 
     Direction[] orth = dir.orthogonals();
 
-    Coord cursor;
-    Coord start;
-    Coord end;
-
-    start = origin.copy();
+    Coord start = origin.copy();
     start.translate(dir, 2);
-    end = start.copy();
+    Coord end = start.copy();
     start.translate(orth[0]);
     end.translate(orth[1]);
     end.up(2);
@@ -48,7 +44,7 @@ public class SegmentTrap extends SegmentBase {
     end.translate(dir);
     RectSolid.newRect(start, end).fill(editor, wall);
 
-    cursor = origin.copy();
+    Coord cursor = origin.copy();
     cursor.up();
     cursor.translate(dir, 3);
     SingleBlockBrush.AIR.stroke(editor, cursor);
@@ -81,7 +77,7 @@ public class SegmentTrap extends SegmentBase {
     cursor.up(2);
     TorchBlock.redstone().setFacing(Direction.UP).stroke(editor, cursor);
     cursor.up();
-    placeTrap(editor, rand, dir, cursor);
+    placeTrap(editor, editor.getRandom(), dir, cursor);
   }
 
   private void placeTrap(WorldEditor editor, Random rand, Direction dir, Coord cursor) {

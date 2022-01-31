@@ -2,16 +2,13 @@ package greymerk.roguelike.dungeon.rooms.prototype;
 
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
-import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -30,32 +27,17 @@ public class DungeonsMusic extends BaseRoom {
   }
 
   public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    Random rand = worldEditor.getRandom();
-
-    Theme theme = levelSettings.getTheme();
-    BlockBrush wall = theme.getPrimary().getWall();
-    StairsBlock stair = theme.getSecondary().getStair();
-    BlockBrush panel = theme.getSecondary().getWall();
-    BlockBrush pillar = theme.getSecondary().getPillar();
-    BlockBrush floor = theme.getSecondary().getFloor();
-
-    Coord start;
-    Coord end;
-    Coord cursor;
-
-    List<Coord> chests = new ArrayList<>();
-
-    start = origin.copy();
-    end = origin.copy();
+    Coord start = origin.copy();
+    Coord end = origin.copy();
     start.translate(new Coord(-6, -1, -6));
     end.translate(new Coord(6, 5, 6));
-    RectHollow.newRect(start, end).fill(worldEditor, wall, false, true);
+    RectHollow.newRect(start, end).fill(worldEditor, walls(), false, true);
 
     start = origin.copy();
     end = origin.copy();
     start.translate(new Coord(-6, 4, -6));
     end.translate(new Coord(6, 5, 6));
-    RectSolid.newRect(start, end).fill(worldEditor, panel);
+    RectSolid.newRect(start, end).fill(worldEditor, secondaryWalls());
 
     start = origin.copy();
     end = origin.copy();
@@ -67,30 +49,32 @@ public class DungeonsMusic extends BaseRoom {
     end = origin.copy();
     start.translate(new Coord(-3, -1, -3));
     end.translate(new Coord(3, -1, 3));
-    RectSolid.newRect(start, end).fill(worldEditor, floor);
+    RectSolid.newRect(start, end).fill(worldEditor, secondaryFloors());
 
     for (int i = 2; i >= 0; --i) {
       start = origin.copy();
       end = origin.copy();
       start.translate(new Coord(-i - 1, 0, -i - 1));
       end.translate(new Coord(i + 1, 0, i + 1));
-      BlockBrush carpet = carpet().setColor(DyeColor.chooseRandom(rand));
+      BlockBrush carpet = carpet().setColor(DyeColor.chooseRandom(random()));
       RectSolid.newRect(start, end).fill(worldEditor, carpet);
     }
 
+    List<Coord> chests = new ArrayList<>();
+    Coord cursor;
     for (Direction dir : Direction.CARDINAL) {
 
       cursor = origin.copy();
       cursor.translate(dir, 5);
       cursor.up(3);
-      panel.stroke(worldEditor, cursor);
+      secondaryWalls().stroke(worldEditor, cursor);
       cursor.translate(dir.reverse());
-      stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+      secondaryStairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
 
       cursor = origin.copy();
       cursor.translate(dir, 5);
       cursor.translate(dir.antiClockwise(), 5);
-      pillar(worldEditor, levelSettings, cursor);
+      pillar(cursor);
 
       start = origin.copy();
       start.up(4);
@@ -98,26 +82,26 @@ public class DungeonsMusic extends BaseRoom {
       end = start.copy();
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir.clockwise(), 3);
-      RectSolid.newRect(start, end).fill(worldEditor, pillar);
+      RectSolid.newRect(start, end).fill(worldEditor, secondaryPillars());
 
       cursor = origin.copy();
       cursor.up(4);
       cursor.translate(dir);
-      stair.setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
+      secondaryStairs().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
       cursor.translate(dir);
-      stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+      secondaryStairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
 
       for (Direction o : dir.orthogonals()) {
         cursor = origin.copy();
         cursor.translate(dir, 5);
         cursor.translate(o, 2);
-        pillar(worldEditor, levelSettings, cursor);
+        pillar(cursor);
 
         cursor = origin.copy();
         cursor.translate(dir, 4);
         cursor.up(3);
         cursor.translate(o);
-        stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+        secondaryStairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
 
         cursor = origin.copy();
         cursor.translate(dir, 5);
@@ -130,21 +114,21 @@ public class DungeonsMusic extends BaseRoom {
         cursor = origin.copy();
         cursor.translate(dir, 5);
         cursor.translate(o, 3);
-        stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+        secondaryStairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
         cursor.translate(o);
-        stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+        secondaryStairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
         cursor.up(2);
-        stair.setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
+        secondaryStairs().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
         cursor.translate(o.reverse());
-        stair.setUpsideDown(true).setFacing(o).stroke(worldEditor, cursor);
+        secondaryStairs().setUpsideDown(true).setFacing(o).stroke(worldEditor, cursor);
         cursor.up();
-        panel.stroke(worldEditor, cursor);
+        secondaryWalls().stroke(worldEditor, cursor);
         cursor.translate(o);
-        panel.stroke(worldEditor, cursor);
+        secondaryWalls().stroke(worldEditor, cursor);
         cursor.translate(dir.reverse());
-        stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+        secondaryStairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
         cursor.translate(o.reverse());
-        stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+        secondaryStairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
 
       }
     }
@@ -153,36 +137,27 @@ public class DungeonsMusic extends BaseRoom {
 
     cursor = origin.copy();
     cursor.up(4);
-    levelSettings.getTheme().getPrimary().getLightBlock().stroke(worldEditor, cursor);
+    lights().stroke(worldEditor, cursor);
 
     List<Coord> chestLocations = chooseRandomLocations(1, chests);
-    generateChests(chestLocations, entrances.get(0).reverse(), ChestType.MUSIC);
+    generateChests(chestLocations, getEntrance(entrances).reverse(), ChestType.MUSIC);
 
     generateDoorways(origin, entrances);
 
     return this;
   }
 
-  private void pillar(WorldEditor editor, LevelSettings settings, Coord origin) {
-    Theme theme = settings.getTheme();
-    StairsBlock stair = theme.getSecondary().getStair();
-    BlockBrush panel = theme.getSecondary().getWall();
-    BlockBrush pillar = theme.getSecondary().getPillar();
-
-    Coord start;
-    Coord end;
-    Coord cursor;
-
-    start = origin.copy();
-    end = start.copy();
+  private void pillar(Coord origin) {
+    Coord start = origin.copy();
+    Coord end = start.copy();
     end.up(2);
-    RectSolid.newRect(start, end).fill(editor, pillar);
+    RectSolid.newRect(start, end).fill(worldEditor, secondaryPillars());
     for (Direction dir : Direction.CARDINAL) {
-      cursor = end.copy();
+      Coord cursor = end.copy();
       cursor.translate(dir);
-      stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor, true, false);
+      secondaryStairs().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor, true, false);
       cursor.up();
-      panel.stroke(editor, cursor);
+      secondaryWalls().stroke(worldEditor, cursor);
     }
   }
 

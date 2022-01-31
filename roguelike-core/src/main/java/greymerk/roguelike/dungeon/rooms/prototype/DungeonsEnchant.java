@@ -10,7 +10,6 @@ import java.util.List;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -30,12 +29,11 @@ public class DungeonsEnchant extends BaseRoom {
 
   @Override
   public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    Direction dir = entrances.get(0);
-    Theme theme = levelSettings.getTheme();
-    BlockBrush wall = theme.getPrimary().getWall();
-    BlockBrush pillar = theme.getPrimary().getPillar();
+    Direction dir = getEntrance(entrances);
+    BlockBrush wall = theme().getPrimary().getWall();
+    BlockBrush pillar = pillars();
     BlockBrush panel = stainedHardenedClay().setColor(DyeColor.PURPLE);
-    StairsBlock stair = theme.getPrimary().getStair();
+    StairsBlock stair = theme().getPrimary().getStair();
 
     List<Coord> chests = new ArrayList<>();
 
@@ -83,7 +81,7 @@ public class DungeonsEnchant extends BaseRoom {
     end.translate(dir.clockwise(), 4);
     start.translate(dir.reverse(), 2);
     end.translate(dir, 2);
-    theme.getPrimary().getFloor().fill(worldEditor, new RectSolid(start, end));
+    theme().getPrimary().getFloor().fill(worldEditor, new RectSolid(start, end));
 
     start = origin.copy();
     start.translate(dir.reverse(), 4);
@@ -134,7 +132,7 @@ public class DungeonsEnchant extends BaseRoom {
     cursor.up(4);
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
     cursor.up();
-    levelSettings.getTheme().getPrimary().getLightBlock().stroke(worldEditor, cursor);
+    lights().stroke(worldEditor, cursor);
     cursor.down();
     cursor.translate(dir.reverse());
     stair.setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
@@ -299,13 +297,13 @@ public class DungeonsEnchant extends BaseRoom {
     BlockType.ENCHANTING_TABLE.getBrush().stroke(worldEditor, cursor);
 
     List<Coord> chestLocations = chooseRandomLocations(1, chests);
-    generateChests(chestLocations, dir, ChestType.ENCHANTING);
+    generateChests(chestLocations, getEntrance(entrances), ChestType.ENCHANTING);
 
     return this;
   }
 
   @Override
-  public boolean validLocation(WorldEditor editor, Direction dir, Coord pos) {
+  public boolean isValidLocation(Direction dir, Coord pos) {
     Coord start;
     Coord end;
 
@@ -319,7 +317,7 @@ public class DungeonsEnchant extends BaseRoom {
     end.up(2);
 
     for (Coord c : new RectHollow(start, end)) {
-      if (editor.isAirBlock(c)) {
+      if (worldEditor.isAirBlock(c)) {
         return false;
       }
     }

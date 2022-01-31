@@ -4,8 +4,6 @@ import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.ColoredBlock;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 
-import java.util.Random;
-
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.util.DyeColor;
@@ -18,27 +16,24 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class SegmentAnkh extends SegmentBase {
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Theme theme, Coord pos) {
-    Coord start;
-    Coord end;
-    Coord cursor;
-
+  protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord pos) {
     StairsBlock stair = theme.getSecondary().getStair();
-    DyeColor color = DyeColor.chooseRandom(rand);
+    DyeColor color = DyeColor.chooseRandom(editor.getRandom());
     BlockBrush glass = ColoredBlock.stainedGlass().setColor(color);
     BlockBrush back = ColoredBlock.stainedHardenedClay().setColor(color);
     BlockBrush light = theme.getSecondary().getLightBlock();
 
     Direction[] orthogonals = dir.orthogonals();
 
-    start = pos.copy();
+    Coord start = pos.copy();
     start.translate(dir, 2);
-    end = start.copy();
+    Coord end = start.copy();
     end.up(2);
 
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
 
+    Coord cursor;
     for (Direction o : orthogonals) {
 
       cursor = pos.copy();

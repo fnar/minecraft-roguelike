@@ -1,5 +1,6 @@
 package greymerk.roguelike.dungeon.base;
 
+import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.minecraft.block.spawner.MobType;
 import com.github.fnar.minecraft.block.spawner.Spawner;
 import com.github.fnar.minecraft.block.spawner.SpawnerSettings;
@@ -13,12 +14,15 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.loot.ChestType;
+import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
+import greymerk.roguelike.worldgen.shapes.RectSolid;
 import lombok.EqualsAndHashCode;
 
 import static java.util.Collections.shuffle;
@@ -63,6 +67,11 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
   protected void generateSpawner(Coord spawnerLocation, MobType... defaultMobs) {
     int difficulty = levelSettings.getDifficulty(spawnerLocation);
     generateSpawner(spawnerLocation, difficulty, defaultMobs);
+  }
+
+  protected void generateSpawner(Coord spawnerLocation) {
+    int difficulty = levelSettings.getDifficulty(spawnerLocation);
+    generateSpawner(spawnerLocation, difficulty, MobType.COMMON_MOBS);
   }
 
   private void generateSpawner(Coord spawnerLocation, int difficulty, MobType... defaultMobs) {
@@ -127,9 +136,17 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
     generateChest(cursor, dir, ChestType.chooseRandomAmong(worldEditor.getRandom(), defaultChestType));
   }
 
+  protected void generateChest(Coord cursor, Direction dir) {
+    generateChest(cursor, dir, ChestType.chooseRandomAmong(worldEditor.getRandom(), ChestType.COMMON_TREASURES));
+  }
+
   protected Optional<TreasureChest> generateChest(Coord cursor, Direction dir, ChestType defaultChestType) {
     return chest(cursor, dir, defaultChestType)
         .stroke();
+  }
+
+  protected void generateTrappedChest(Coord cursor, Direction dir, ChestType... defaultChestType) {
+    generateTrappedChest(cursor, dir, ChestType.chooseRandomAmong(worldEditor.getRandom(), defaultChestType));
   }
 
   protected Optional<TreasureChest> generateTrappedChest(Coord cursor, Direction dir, ChestType defaultChestType) {
@@ -163,16 +180,75 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
         .withFacing(dir);
   }
 
+  protected void theFloorIsLava(Coord origin, Direction front) {
+    RectSolid.newRect(
+        origin.copy().translate(front, getSize() - 1).translate(front.left(), getSize() - 1).down(),
+        origin.copy().translate(front.back(), getSize() - 1).translate(front.right(), getSize() - 1).down(2)
+    ).fill(worldEditor, liquid(), true, false);
+  }
+
+  protected Theme theme() {
+    return levelSettings.getTheme();
+  }
+
+  protected BlockBrush floors() {
+    return theme().getPrimary().getFloor();
+  }
+
+  protected BlockBrush lights() {
+    return theme().getPrimary().getLightBlock();
+  }
+
+  protected BlockBrush liquid() {
+    return theme().getPrimary().getLiquid();
+  }
+
+  protected BlockBrush pillars() {
+    return theme().getPrimary().getPillar();
+  }
+
+  protected StairsBlock stairs() {
+    return theme().getPrimary().getStair();
+  }
+
+  protected BlockBrush walls() {
+    return theme().getPrimary().getWall();
+  }
+
+  protected BlockBrush secondaryPillars() {
+    return theme().getSecondary().getPillar();
+  }
+
+  protected StairsBlock secondaryStairs() {
+    return theme().getSecondary().getStair();
+  }
+
+  protected BlockBrush secondaryWalls() {
+    return theme().getSecondary().getWall();
+  }
+
+  protected BlockBrush secondaryFloors() {
+    return theme().getSecondary().getFloor();
+  }
+
+  protected Random random() {
+    return worldEditor.getRandom();
+  }
+
+  protected Direction getEntrance(List<Direction> entrances) {
+    return entrances.get(0);
+  }
+
   public abstract int getSize();
 
-  public boolean validLocation(WorldEditor editor, Direction dir, Coord pos) {
+  public boolean isValidLocation(Direction dir, Coord pos) {
 
     int size = getSize();
     Coord start = new Coord(pos.getX() - size, pos.getY() - 2, pos.getZ() - size);
     Coord end = new Coord(pos.getX() + size, pos.getY() + 5, pos.getZ() + size);
 
     for (Coord cursor : new RectHollow(start, end)) {
-      if (!editor.isSolidBlock(cursor)) {
+      if (!worldEditor.isSolidBlock(cursor)) {
         return false;
       }
     }

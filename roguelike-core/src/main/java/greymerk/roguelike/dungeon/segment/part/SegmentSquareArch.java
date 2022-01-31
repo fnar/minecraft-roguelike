@@ -2,8 +2,6 @@ package greymerk.roguelike.dungeon.segment.part;
 
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 
-import java.util.Random;
-
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -15,16 +13,12 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class SegmentSquareArch extends SegmentBase {
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
-
-    Coord start;
-    Coord end;
-
+  protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
     BlockBrush pillar = level.getSettings().getTheme().getPrimary().getPillar();
 
-    start = origin.copy();
+    Coord start = origin.copy();
     start.translate(dir, 2);
-    end = start.copy();
+    Coord end = start.copy();
     end.up(2);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 

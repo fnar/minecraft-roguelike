@@ -6,8 +6,6 @@ import com.github.fnar.minecraft.block.decorative.TorchBlock;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.minecraft.block.redstone.LeverBlock;
 
-import java.util.Random;
-
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.util.DyeColor;
@@ -22,20 +20,16 @@ import static com.github.fnar.minecraft.block.normal.ColoredBlock.stainedHardene
 public class SegmentLamp extends SegmentBase {
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
+  protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
 
     StairsBlock stair = theme.getSecondary().getStair();
     BlockBrush wall = theme.getSecondary().getWall();
 
-    Coord cursor;
-    Coord start;
-    Coord end;
-
     Direction[] orthogonal = dir.orthogonals();
 
-    start = origin.copy();
+    Coord start = origin.copy();
     start.translate(dir, 2);
-    end = start.copy();
+    Coord end = start.copy();
     start.translate(orthogonal[0]);
     end.translate(orthogonal[1]);
     end.up(2);
@@ -64,6 +58,7 @@ public class SegmentLamp extends SegmentBase {
     start.translate(orthogonal[0], 2);
     RectSolid.newRect(start, end).fill(editor, wall);
 
+    Coord cursor;
     for (Direction side : orthogonal) {
 
       cursor = origin.copy();

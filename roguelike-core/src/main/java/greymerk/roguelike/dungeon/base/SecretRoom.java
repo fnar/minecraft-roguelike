@@ -27,13 +27,13 @@ public class SecretRoom extends BaseRoom {
   }
 
   @Override
-  public boolean validLocation(WorldEditor editor, Direction dir, Coord pos) {
+  public boolean isValidLocation(Direction dir, Coord pos) {
     if (getRoomSetting().getCount() <= 0) {
       return false;
     }
     Coord cursor = pos.copy();
     cursor.translate(dir, prototype.getSize() + 5);
-    return prototype.validLocation(editor, dir, cursor);
+    return prototype.isValidLocation(dir, cursor);
   }
 
   @Override
@@ -42,14 +42,14 @@ public class SecretRoom extends BaseRoom {
 
     Coord start = pos.copy();
     Coord end = pos.copy();
-    Direction entrance = entrances.get(0);
+    Direction entrance = getEntrance(entrances);
     start.translate(entrance.orthogonals()[0]);
     start.down();
     start.translate(entrance, 2);
     end.translate(entrance.orthogonals()[1]);
     end.translate(entrance, size + 5);
     end.up(2);
-    RectSolid.newRect(start, end).fill(worldEditor, levelSettings.getTheme().getPrimary().getWall(), false, true);
+    RectSolid.newRect(start, end).fill(worldEditor, walls(), false, true);
 
     end = pos.copy();
     end.translate(entrance, size + 5);

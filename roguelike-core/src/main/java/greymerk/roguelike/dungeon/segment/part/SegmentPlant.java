@@ -4,8 +4,6 @@ import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.decorative.TallPlant;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 
-import java.util.Random;
-
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.Coord;
@@ -16,7 +14,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class SegmentPlant extends SegmentBase {
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
+  protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
 
     StairsBlock stair = theme.getSecondary().getStair();
 

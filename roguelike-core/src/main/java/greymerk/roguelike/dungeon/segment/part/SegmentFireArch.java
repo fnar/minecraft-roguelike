@@ -3,8 +3,6 @@ package greymerk.roguelike.dungeon.segment.part;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 
-import java.util.Random;
-
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -17,26 +15,22 @@ public class SegmentFireArch extends SegmentBase {
 
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
+  protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
 
     StairsBlock stair = theme.getPrimary().getStair();
     BlockBrush walls = theme.getPrimary().getWall();
 
-    Coord start;
-    Coord end;
-    Coord cursor;
-
     Direction[] orthogonals = dir.orthogonals();
 
-    start = origin.copy();
+    Coord start = origin.copy();
     start.translate(dir, 3);
-    end = start.copy();
+    Coord end = start.copy();
     start.translate(orthogonals[0]);
     end.translate(orthogonals[0]);
     end.up(2);
     end.translate(dir);
     RectSolid.newRect(start, end).fill(editor, walls);
-    cursor = origin.copy();
+    Coord cursor = origin.copy();
     cursor.translate(dir, 2);
     stair.setUpsideDown(false).setFacing(dir.reverse()).stroke(editor, cursor);
     cursor.up(2);

@@ -6,7 +6,6 @@ import com.github.fnar.util.Pair;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.dungeon.base.BaseRoom;
@@ -23,9 +22,9 @@ import greymerk.roguelike.worldgen.WorldEditor;
 
 public abstract class SegmentBase {
 
-  public void generate(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Theme theme, Coord pos) {
+  public void generate(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord pos) {
     if (!level.hasNearbyNode(pos) && isValidWall(editor, dir, pos)) {
-      genWall(editor, rand, level, dir, theme, pos);
+      genWall(editor, level, dir, theme, pos);
     }
   }
 
@@ -46,7 +45,7 @@ public abstract class SegmentBase {
         .withFacing(dir);
   }
 
-  protected abstract void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Theme theme, Coord pos);
+  protected abstract void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord pos);
 
   protected boolean isValidWall(WorldEditor editor, Direction wallDirection, Coord pos) {
     return isValidNorthWall(wallDirection, editor, pos)
@@ -91,7 +90,7 @@ public abstract class SegmentBase {
     List<RoomSetting> secretRoomSettings = secretsSetting.getSecretRoomSettings();
     Optional<Pair<RoomSetting, SecretRoom>> first = secretRoomSettings.stream()
         .map(roomSetting -> new Pair<>(roomSetting, new SecretRoom(roomSetting, levelSettings, worldEditor)))
-        .filter(pair -> pair.getValue().validLocation(worldEditor, dir, pos))
+        .filter(pair -> pair.getValue().isValidLocation(dir, pos))
         .findFirst();
     first.ifPresent(pair -> secretRoomSettings.remove(pair.getKey()));
     return first.map(pair -> pair.getValue().generate(pos, Lists.newArrayList(dir)));

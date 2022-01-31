@@ -4,14 +4,12 @@ import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.decorative.PumpkinBlock;
 import com.github.fnar.minecraft.block.normal.ColoredBlock;
 import com.github.fnar.minecraft.block.normal.SlabBlock;
-import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import java.util.List;
 
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.util.mst.MinimumSpanningTree;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -30,22 +28,14 @@ public class TreethoRoom extends BaseRoom {
 
   @Override
   public BaseRoom generate(Coord origin, List<Direction> entrances) {
+    Direction dir = getEntrance(entrances);
 
-    Theme theme = levelSettings.getTheme();
-    BlockBrush wall = theme.getPrimary().getWall();
-    Direction dir = entrances.get(0);
-
-
-    Coord cursor;
-    Coord start;
-    Coord end;
-
-    start = origin.copy();
-    end = origin.copy();
+    Coord start = origin.copy();
+    Coord end = origin.copy();
     start.translate(new Coord(-11, -1, -11));
     end.translate(new Coord(11, 8, 11));
 
-    RectHollow.newRect(start, end).fill(worldEditor, wall, false, true);
+    RectHollow.newRect(start, end).fill(worldEditor, walls(), false, true);
 
     BlockBrush birchSlab = SlabBlock.birch().setTop(true).setFullBlock(false).setSeamless(false);
     BlockBrush pumpkin = PumpkinBlock.jackOLantern();
@@ -58,36 +48,25 @@ public class TreethoRoom extends BaseRoom {
     end.up();
     RectSolid.newRect(start, end).fill(worldEditor, pumpkin);
 
-    cursor = origin.copy();
+    Coord cursor = origin.copy();
     cursor.translate(new Coord(0, 8, 0));
-    ceiling(worldEditor, levelSettings, cursor);
+    ceiling(cursor);
 
     cursor = origin.copy();
-    treeFarm(worldEditor, cursor, dir);
+    treeFarm(cursor, dir);
 
     for (Direction o : dir.orthogonals()) {
       cursor = origin.copy();
       cursor.translate(o, 5);
-      treeFarm(worldEditor, cursor, dir);
+      treeFarm(cursor, dir);
     }
-
 
     return this;
   }
 
-  private void treeFarm(WorldEditor editor, Coord origin, Direction dir) {
-    Coord cursor;
-    Coord start;
-    Coord end;
-
-    BlockBrush slab = SlabBlock.sandstone();
-    BlockBrush light = PumpkinBlock.jackOLantern();
-    BlockBrush sapling = BlockType.BIRCH_SAPLING.getBrush();
-    BlockBrush glass = ColoredBlock.stainedGlass().setColor(DyeColor.YELLOW);
-    BlockBrush dirt = BlockType.DIRT.getBrush();
-
-    start = origin.copy();
-    end = origin.copy();
+  private void treeFarm(Coord origin, Direction dir) {
+    Coord start = origin.copy();
+    Coord end = origin.copy();
 
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
@@ -95,34 +74,34 @@ public class TreethoRoom extends BaseRoom {
     start.translate(dir.reverse(), 7);
     end.translate(dir, 7);
 
-    RectSolid.newRect(start, end).fill(editor, slab);
+    RectSolid.newRect(start, end).fill(worldEditor, SlabBlock.sandstone());
 
-    cursor = origin.copy();
+    Coord cursor = origin.copy();
 
     cursor.translate(dir.reverse(), 6);
     for (int i = 0; i <= 12; ++i) {
       if (i % 2 == 0) {
         Coord p = cursor.copy();
         if (i % 4 == 0) {
-          sapling.stroke(editor, p);
+          BlockType.BIRCH_SAPLING.getBrush().stroke(worldEditor, p);
           p.down();
-          dirt.stroke(editor, p);
+          BlockType.DIRT.getBrush().stroke(worldEditor, p);
         } else {
-          glass.stroke(editor, p);
+          ColoredBlock.stainedGlass().setColor(DyeColor.YELLOW).stroke(worldEditor, p);
           p.down();
-          light.stroke(editor, p);
+          PumpkinBlock.jackOLantern().stroke(worldEditor, p);
         }
       }
       cursor.translate(dir);
     }
   }
 
-  private void ceiling(WorldEditor editor, LevelSettings settings, Coord origin) {
+  private void ceiling(Coord origin) {
 
     BlockBrush fill = BlockType.SPRUCE_PLANK.getBrush();
 
-    MinimumSpanningTree tree = new MinimumSpanningTree(editor.getRandom(), 7, 3);
-    tree.generate(editor, fill, origin);
+    MinimumSpanningTree tree = new MinimumSpanningTree(worldEditor.getRandom(), 7, 3);
+    tree.generate(worldEditor, fill, origin);
 
     for (Direction dir : Direction.CARDINAL) {
       Coord start = origin.copy();
@@ -132,34 +111,29 @@ public class TreethoRoom extends BaseRoom {
       start.translate(dir.antiClockwise(), 9);
       end.translate(dir.clockwise(), 9);
 
-      RectSolid.newRect(start, end).fill(editor, fill);
+      RectSolid.newRect(start, end).fill(worldEditor, fill);
 
       Coord cursor = origin.copy();
       cursor.down();
       cursor.translate(dir, 10);
       cursor.translate(dir.antiClockwise(), 10);
       for (int i = 0; i < 5; ++i) {
-        pillar(editor, settings, cursor);
+        pillar(cursor);
         cursor.translate(dir.clockwise(), 4);
       }
     }
 
   }
 
-  private void pillar(WorldEditor editor, LevelSettings settings, Coord origin) {
-
-    Theme theme = settings.getTheme();
-    BlockBrush pillar = theme.getPrimary().getPillar();
-    StairsBlock stair = theme.getPrimary().getStair();
-
+  private void pillar(Coord origin) {
     Coord cursor = origin.copy();
-    editor.fillDown(cursor, pillar);
+    worldEditor.fillDown(cursor, pillars());
 
     for (Direction dir : Direction.CARDINAL) {
       cursor = origin.copy();
       cursor.translate(dir);
-      if (editor.isAirBlock(cursor)) {
-        stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor);
+      if (worldEditor.isAirBlock(cursor)) {
+        stairs().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
       }
     }
   }

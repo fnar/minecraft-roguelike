@@ -8,7 +8,6 @@ import com.github.fnar.minecraft.block.decorative.TorchBlock;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import java.util.List;
-import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
@@ -33,47 +32,38 @@ public class LibraryRoom extends BaseRoom {
 
   @Override
   public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    Random rand = worldEditor.getRandom();
     int x = origin.getX();
     int y = origin.getY();
     int z = origin.getZ();
-    BlockBrush walls = levelSettings.getTheme().getPrimary().getWall();
-
-    StairsBlock stair = levelSettings.getTheme().getPrimary().getStair();
-
-    Coord cursor;
-    Coord start;
-    Coord end;
-
 
     RectSolid.newRect(new Coord(x - 4, y, z - 4), new Coord(x + 4, y + 3, z + 4)).fill(worldEditor, SingleBlockBrush.AIR);
     RectSolid.newRect(new Coord(x - 3, y + 4, z - 3), new Coord(x + 3, y + 6, z + 3)).fill(worldEditor, SingleBlockBrush.AIR);
     RectSolid.newRect(new Coord(x - 2, y + 7, z - 2), new Coord(x + 2, y + 7, z + 2)).fill(worldEditor, SingleBlockBrush.AIR);
 
-    RectHollow.newRect(new Coord(x - 5, y, z - 5), new Coord(x + 5, y + 4, z + 5)).fill(worldEditor, walls, false, true);
-    RectHollow.newRect(new Coord(x - 4, y + 3, z - 4), new Coord(x + 4, y + 7, z + 4)).fill(worldEditor, walls, false, true);
-    RectHollow.newRect(new Coord(x - 3, y + 6, z - 3), new Coord(x + 3, y + 8, z + 3)).fill(worldEditor, walls, false, true);
+    RectHollow.newRect(new Coord(x - 5, y, z - 5), new Coord(x + 5, y + 4, z + 5)).fill(worldEditor, walls(), false, true);
+    RectHollow.newRect(new Coord(x - 4, y + 3, z - 4), new Coord(x + 4, y + 7, z + 4)).fill(worldEditor, walls(), false, true);
+    RectHollow.newRect(new Coord(x - 3, y + 6, z - 3), new Coord(x + 3, y + 8, z + 3)).fill(worldEditor, walls(), false, true);
 
-    RectSolid.newRect(new Coord(x - 5, y - 1, z - 5), new Coord(x + 5, y - 1, z + 5)).fill(worldEditor, levelSettings.getTheme().getPrimary().getFloor());
+    RectSolid.newRect(new Coord(x - 5, y - 1, z - 5), new Coord(x + 5, y - 1, z + 5)).fill(worldEditor, floors());
 
-    start = origin.copy();
+    Coord start = origin.copy();
     start.up(5);
     BlockType.REDSTONE_BLOCK.getBrush().stroke(worldEditor, start);
     start.down();
     BlockType.REDSTONE_LAMP_LIT.getBrush().stroke(worldEditor, start);
     start = origin.copy();
     start.up(6);
-    end = start.copy();
+    Coord end = start.copy();
     end.up();
-    RectSolid.newRect(start, end).fill(worldEditor, levelSettings.getTheme().getPrimary().getPillar());
+    RectSolid.newRect(start, end).fill(worldEditor, pillars());
 
 
     for (Direction dir : Direction.CARDINAL) {
       if (!entrances.contains(dir)) {
-        if (rand.nextBoolean()) {
-          desk(worldEditor, levelSettings.getTheme(), dir, origin);
+        if (random().nextBoolean()) {
+          desk(worldEditor, theme(), dir, origin);
         } else {
-          plants(worldEditor, levelSettings.getTheme(), dir, origin);
+          plants(worldEditor, theme(), dir, origin);
         }
       }
 
@@ -82,7 +72,7 @@ public class LibraryRoom extends BaseRoom {
       start.translate(dir.antiClockwise(), 4);
       end = start.copy();
       end.up(4);
-      RectSolid.newRect(start, end).fill(worldEditor, levelSettings.getTheme().getPrimary().getPillar());
+      RectSolid.newRect(start, end).fill(worldEditor, pillars());
 
       start = origin.copy();
       start.translate(dir, 3);
@@ -90,13 +80,13 @@ public class LibraryRoom extends BaseRoom {
       start.up(3);
       end = start.copy();
       end.up(3);
-      RectSolid.newRect(start, end).fill(worldEditor, levelSettings.getTheme().getPrimary().getPillar());
+      RectSolid.newRect(start, end).fill(worldEditor, pillars());
 
-      cursor = end.copy();
+      Coord cursor = end.copy();
       cursor.translate(dir.reverse());
       cursor.translate(dir.clockwise());
       cursor.up();
-      walls.stroke(worldEditor, cursor);
+      walls().stroke(worldEditor, cursor);
 
       for (Direction o : dir.orthogonals()) {
         cursor = origin.copy();
@@ -104,35 +94,35 @@ public class LibraryRoom extends BaseRoom {
         cursor.translate(o, 3);
         cursor.up(2);
 
-        stair.setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
+        stairs().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
         cursor.up();
-        walls.stroke(worldEditor, cursor);
+        walls().stroke(worldEditor, cursor);
         cursor.translate(o.reverse());
-        stair.setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
+        stairs().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
         cursor.up(3);
         cursor.translate(dir.reverse());
-        stair.setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
+        stairs().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
       }
 
       // Light fixture related stuff
       cursor = origin.copy();
       cursor.up(4);
       cursor.translate(dir);
-      stair.setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
+      stairs().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
       cursor.translate(dir, 2);
-      stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+      stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
       cursor.up();
       start = cursor.copy();
       end = cursor.copy();
       start.translate(dir.reverse(), 2);
-      RectSolid.newRect(start, end).fill(worldEditor, walls);
+      RectSolid.newRect(start, end).fill(worldEditor, walls());
       cursor.up();
-      walls.stroke(worldEditor, cursor);
+      walls().stroke(worldEditor, cursor);
       cursor.up();
       cursor.translate(dir.reverse());
-      stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+      stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
       cursor.translate(dir.reverse());
-      stair.setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
+      stairs().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
     }
 
     generateDoorways(origin, entrances);

@@ -2,16 +2,13 @@ package greymerk.roguelike.dungeon.rooms.prototype;
 
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
-import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.minecraft.block.spawner.MobType;
 
 import java.util.List;
-import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -25,17 +22,8 @@ public class DungeonsCrypt extends BaseRoom {
   }
 
   public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    Theme theme = levelSettings.getTheme();
-    StairsBlock stair = theme.getPrimary().getStair();
-    BlockBrush walls = theme.getPrimary().getWall();
-    BlockBrush floor = theme.getPrimary().getFloor();
-
-    Coord cursor;
-    Coord start;
-    Coord end;
-
-    start = origin.copy();
-    end = origin.copy();
+    Coord start = origin.copy();
+    Coord end = origin.copy();
     start.translate(new Coord(-3, 0, -3));
     end.translate(new Coord(3, 4, 3));
     RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
@@ -44,13 +32,13 @@ public class DungeonsCrypt extends BaseRoom {
     end = origin.copy();
     start.translate(new Coord(-9, -1, -9));
     end.translate(new Coord(9, -1, 9));
-    RectSolid.newRect(start, end).fill(worldEditor, floor);
+    RectSolid.newRect(start, end).fill(worldEditor, floors());
 
     start = origin.copy();
     end = origin.copy();
     start.translate(new Coord(-9, 5, -9));
     end.translate(new Coord(9, 6, 9));
-    RectSolid.newRect(start, end).fill(worldEditor, walls, false, true);
+    RectSolid.newRect(start, end).fill(worldEditor, walls(), false, true);
 
     for (Direction dir : Direction.CARDINAL) {
 
@@ -64,6 +52,7 @@ public class DungeonsCrypt extends BaseRoom {
         RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
       }
 
+      Coord cursor;
       if (entrances.contains(dir)) {
         // doorway air
         start = origin.copy();
@@ -83,7 +72,7 @@ public class DungeonsCrypt extends BaseRoom {
             cursor.translate(o, 3);
             cursor.up();
 
-            crypt(worldEditor, worldEditor.getRandom(), levelSettings, cursor, o);
+            crypt(cursor, o);
           } else {
 
             start = origin.copy();
@@ -100,20 +89,20 @@ public class DungeonsCrypt extends BaseRoom {
             cursor.translate(o, 3);
             cursor.up();
 
-            sarcophagus(worldEditor, worldEditor.getRandom(), levelSettings, cursor, o);
+            sarcophagus(cursor, o);
           }
         }
 
       } else {
         cursor = origin.copy();
         cursor.translate(dir, 4);
-        mausoleumWall(worldEditor, worldEditor.getRandom(), levelSettings, cursor, dir);
+        mausoleumWall(cursor, dir);
       }
 
       cursor = origin.copy();
       cursor.translate(dir, 3);
       cursor.translate(dir.antiClockwise(), 3);
-      pillar(worldEditor, levelSettings, cursor);
+      pillar(cursor);
 
       start = origin.copy();
       start.translate(dir, 8);
@@ -121,36 +110,26 @@ public class DungeonsCrypt extends BaseRoom {
       end = start.copy();
       start.translate(dir.antiClockwise(), 2);
       end.translate(dir.clockwise(), 2);
-      stair.setUpsideDown(true).setFacing(dir.reverse());
-      RectSolid.newRect(start, end).fill(worldEditor, stair, true, false);
+      stairs().setUpsideDown(true).setFacing(dir.reverse());
+      RectSolid.newRect(start, end).fill(worldEditor, stairs(), true, false);
     }
 
     return this;
   }
 
-  private void sarcophagus(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Direction dir) {
-
-    Theme theme = settings.getTheme();
-
-    BlockBrush walls = theme.getPrimary().getWall();
-    StairsBlock stair = theme.getPrimary().getStair();
-
-    Coord cursor;
-    Coord start;
-    Coord end;
-
-    start = origin.copy();
+  private void sarcophagus(Coord origin, Direction dir) {
+    Coord start = origin.copy();
     start.down();
     start.translate(dir, 5);
-    end = start.copy();
+    Coord end = start.copy();
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
-    RectSolid.newRect(start, end).fill(editor, walls);
+    RectSolid.newRect(start, end).fill(worldEditor, walls());
 
-    cursor = origin.copy();
+    Coord cursor = origin.copy();
     cursor.translate(dir, 5);
     cursor.up(3);
-    stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
+    stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
 
     for (Direction o : dir.orthogonals()) {
       start = origin.copy();
@@ -160,40 +139,40 @@ public class DungeonsCrypt extends BaseRoom {
       end = start.copy();
       end.translate(dir, 4);
       end.up(4);
-      RectSolid.newRect(start, end).fill(editor, walls);
+      RectSolid.newRect(start, end).fill(worldEditor, walls());
 
       cursor = origin.copy();
       cursor.down();
       cursor.translate(dir, 5);
       cursor.translate(o, 2);
-      pillar(editor, settings, cursor);
+      pillar(cursor);
 
       start = origin.copy();
       start.up(3);
       start.translate(o, 2);
       end = start.copy();
       end.translate(dir, 3);
-      stair.setUpsideDown(true).setFacing(o.reverse());
-      RectSolid.newRect(start, end).fill(editor, stair);
+      stairs().setUpsideDown(true).setFacing(o.reverse());
+      RectSolid.newRect(start, end).fill(worldEditor, stairs());
     }
 
     cursor = origin.copy();
-    tomb(editor, rand, settings, cursor, dir);
+    tomb(cursor, dir);
 
     cursor.up();
-    stair.setUpsideDown(false).setFacing(dir.reverse()).stroke(editor, cursor);
+    stairs().setUpsideDown(false).setFacing(dir.reverse()).stroke(worldEditor, cursor);
     cursor.down(2);
-    stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
+    stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
     cursor.translate(dir);
-    walls.stroke(editor, cursor);
+    walls().stroke(worldEditor, cursor);
     cursor.translate(dir);
-    walls.stroke(editor, cursor);
+    walls().stroke(worldEditor, cursor);
     cursor.translate(dir);
-    stair.setUpsideDown(false).setFacing(dir).stroke(editor, cursor);
+    stairs().setUpsideDown(false).setFacing(dir).stroke(worldEditor, cursor);
     cursor.up();
-    stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor);
+    stairs().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
     cursor.up();
-    stair.setUpsideDown(false).setFacing(dir).stroke(editor, cursor);
+    stairs().setUpsideDown(false).setFacing(dir).stroke(worldEditor, cursor);
 
     for (Direction o : dir.orthogonals()) {
       cursor = origin.copy();
@@ -202,58 +181,48 @@ public class DungeonsCrypt extends BaseRoom {
       start = cursor.copy();
       end = cursor.copy();
       end.translate(dir, 3);
-      stair.setUpsideDown(false).setFacing(o);
-      RectSolid.newRect(start, end).fill(editor, stair);
+      stairs().setUpsideDown(false).setFacing(o);
+      RectSolid.newRect(start, end).fill(worldEditor, stairs());
       start.up();
       end.up();
-      stair.setUpsideDown(true).setFacing(o);
-      RectSolid.newRect(start, end).fill(editor, stair);
+      stairs().setUpsideDown(true).setFacing(o);
+      RectSolid.newRect(start, end).fill(worldEditor, stairs());
       start.up();
       end.up();
-      stair.setUpsideDown(false).setFacing(o);
-      RectSolid.newRect(start, end).fill(editor, stair);
+      stairs().setUpsideDown(false).setFacing(o);
+      RectSolid.newRect(start, end).fill(worldEditor, stairs());
     }
 
   }
 
-  private void crypt(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Direction dir) {
-
-    Theme theme = settings.getTheme();
-
-    BlockBrush walls = theme.getPrimary().getWall();
-    StairsBlock stair = theme.getPrimary().getStair();
-
-    Coord cursor;
-    Coord start;
-    Coord end;
-
-    start = origin.copy();
+  private void crypt(Coord origin, Direction dir) {
+    Coord start = origin.copy();
     start.down();
     start.translate(dir.antiClockwise());
-    end = origin.copy();
+    Coord end = origin.copy();
     end.up(3);
     end.translate(dir.clockwise());
     end.translate(dir, 3);
 
-    RectSolid.newRect(start, end).fill(editor, walls);
+    RectSolid.newRect(start, end).fill(worldEditor, walls());
 
-    cursor = origin.copy();
+    Coord cursor = origin.copy();
     cursor.translate(dir.reverse());
     cursor.up(2);
-    stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
+    stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
     cursor.up();
-    walls.stroke(editor, cursor);
+    walls().stroke(worldEditor, cursor);
 
     for (Direction o : dir.orthogonals()) {
       cursor = origin.copy();
       cursor.translate(dir.reverse());
       cursor.up();
       cursor.translate(o);
-      stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
+      stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
       cursor.up();
-      walls.stroke(editor, cursor);
+      walls().stroke(worldEditor, cursor);
       cursor.up();
-      walls.stroke(editor, cursor);
+      walls().stroke(worldEditor, cursor);
 
       start = origin.copy();
       start.up(3);
@@ -261,8 +230,8 @@ public class DungeonsCrypt extends BaseRoom {
       start.translate(o, 2);
       end = start.copy();
       end.translate(dir, 7);
-      stair.setUpsideDown(true).setFacing(o);
-      RectSolid.newRect(start, end).fill(editor, stair, true, false);
+      stairs().setUpsideDown(true).setFacing(o);
+      RectSolid.newRect(start, end).fill(worldEditor, stairs(), true, false);
     }
 
     start = origin.copy();
@@ -271,100 +240,78 @@ public class DungeonsCrypt extends BaseRoom {
     end = start.copy();
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
-    stair.setUpsideDown(true).setFacing(dir.reverse());
-    RectSolid.newRect(start, end).fill(editor, stair);
+    stairs().setUpsideDown(true).setFacing(dir.reverse());
+    RectSolid.newRect(start, end).fill(worldEditor, stairs());
 
-    tomb(editor, rand, settings, origin, dir);
+    tomb(origin, dir);
   }
 
-  private void mausoleumWall(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Direction dir) {
-
-    Theme theme = settings.getTheme();
-    BlockBrush walls = theme.getPrimary().getWall();
-
-    Coord cursor;
-    Coord start;
-    Coord end;
-
-    start = origin.copy();
-    end = origin.copy();
+  private void mausoleumWall(Coord origin, Direction dir) {
+    Coord start = origin.copy();
+    Coord end = origin.copy();
     start.translate(dir.antiClockwise(), 3);
     end.translate(dir.clockwise(), 3);
     end.translate(dir, 4);
     end.up(4);
-    RectSolid.newRect(start, end).fill(editor, walls);
+    RectSolid.newRect(start, end).fill(worldEditor, walls());
 
-    cursor = origin.copy();
+    Coord cursor = origin.copy();
     cursor.up();
-    tomb(editor, rand, settings, cursor, dir);
+    tomb(cursor, dir);
 
     cursor.up(2);
-    tomb(editor, rand, settings, cursor, dir);
+    tomb(cursor, dir);
 
     for (Direction o : dir.orthogonals()) {
       cursor = origin.copy();
       cursor.up();
       cursor.translate(o, 2);
-      tomb(editor, rand, settings, cursor, dir);
+      tomb(cursor, dir);
 
       cursor.up(2);
-      tomb(editor, rand, settings, cursor, dir);
+      tomb(cursor, dir);
     }
 
   }
 
-  private void pillar(WorldEditor editor, LevelSettings settings, Coord origin) {
-
-    Theme theme = settings.getTheme();
-
-    BlockBrush walls = theme.getPrimary().getWall();
-    StairsBlock stair = theme.getPrimary().getStair();
-
-    Coord cursor;
-    Coord start;
-    Coord end;
-
-    start = origin.copy();
-    end = origin.copy();
+  private void pillar(Coord origin) {
+    Coord start = origin.copy();
+    Coord end = origin.copy();
     end.up(4);
-    RectSolid.newRect(start, end).fill(editor, walls);
+    RectSolid.newRect(start, end).fill(worldEditor, walls());
 
     for (Direction dir : Direction.CARDINAL) {
-      cursor = end.copy();
+      Coord cursor = end.copy();
       cursor.translate(dir);
-      stair.setUpsideDown(true).setFacing(dir);
-      stair.stroke(editor, cursor, true, false);
+      stairs().setUpsideDown(true).setFacing(dir);
+      stairs().stroke(worldEditor, cursor, true, false);
     }
   }
 
-  private void tomb(WorldEditor editor, Random rand, LevelSettings settings, Coord origin, Direction dir) {
+  private void tomb(Coord origin, Direction dir) {
 
-    Theme theme = settings.getTheme();
-    Coord cursor;
-
-    StairsBlock stair = theme.getPrimary().getStair();
     BlockBrush tombStone = BlockType.QUARTZ.getBrush();
 
-    cursor = origin.copy();
+    Coord cursor = origin.copy();
     cursor.translate(dir, 2);
     cursor.up();
-    stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
+    stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
 
     cursor.translate(dir.reverse());
-    stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor);
+    stairs().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
 
     cursor = origin.copy();
     cursor.translate(dir, 2);
-    RectSolid.newRect(origin, cursor).fill(editor, SingleBlockBrush.AIR);
+    RectSolid.newRect(origin, cursor).fill(worldEditor, SingleBlockBrush.AIR);
 
-    if (rand.nextInt(4) == 0) {
+    if (random().nextInt(4) == 0) {
       return;
     }
 
     cursor = origin.copy();
-    tombStone.stroke(editor, cursor);
+    tombStone.stroke(worldEditor, cursor);
 
-    if (rand.nextInt(5) != 0) {
+    if (random().nextInt(5) != 0) {
       return;
     }
 

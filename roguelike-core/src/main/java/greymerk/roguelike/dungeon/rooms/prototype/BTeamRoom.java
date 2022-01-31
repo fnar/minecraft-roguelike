@@ -50,14 +50,10 @@ public class BTeamRoom extends BaseRoom {
     BlockBrush cobble = BlockType.COBBLESTONE.getBrush();
     BlockBrush lamp = BlockType.REDSTONE_LAMP.getBrush();
 
-    Direction dir = entrances.get(0);
+    Direction dir = getEntrance(entrances);
 
-    Coord start;
-    Coord end;
-    Coord cursor;
-
-    start = origin.copy();
-    end = origin.copy();
+    Coord start = origin.copy();
+    Coord end = origin.copy();
     start.translate(dir, 5);
     end.translate(dir.reverse(), 4);
     start.translate(dir.antiClockwise(), 6);
@@ -93,11 +89,11 @@ public class BTeamRoom extends BaseRoom {
     end.translate(dir.clockwise(), 3);
     RectSolid.newRect(start, end).fill(worldEditor, slab);
 
-    cursor = origin.copy();
+    Coord cursor = origin.copy();
     cursor.translate(dir.reverse(), 4);
-    logWall(worldEditor, dir, cursor);
+    logWall(dir, cursor);
     cursor.translate(dir, 9);
-    logWall(worldEditor, dir.reverse(), cursor);
+    logWall(dir.reverse(), cursor);
 
     cursor = origin.copy();
     cursor.translate(dir.antiClockwise(), 6);
@@ -105,7 +101,7 @@ public class BTeamRoom extends BaseRoom {
 
     cursor = origin.copy();
     cursor.translate(dir.clockwise(), 6);
-    bWall(worldEditor, dir.clockwise(), cursor);
+    bWall(dir.clockwise(), cursor);
 
     table(worldEditor, dir, origin);
 
@@ -169,7 +165,7 @@ public class BTeamRoom extends BaseRoom {
     BlockType.BOOKSHELF.getBrush().stroke(worldEditor, cursor);
     cursor.up();
     BlockType.BREWING_STAND.getBrush().stroke(worldEditor, cursor);
-    worldEditor.setItem(cursor, BrewingStand.Slot.MIDDLE, PotionMixture.getPotionAsRldItemStack(worldEditor.getRandom(), PotionMixture.MOONSHINE));
+    worldEditor.setItem(cursor, BrewingStand.Slot.MIDDLE, PotionMixture.getPotionAsRldItemStack(random(), PotionMixture.MOONSHINE));
 
     placeStalChest(origin, dir);
     placeBDouble0Chest(origin, dir);
@@ -246,18 +242,16 @@ public class BTeamRoom extends BaseRoom {
     }
   }
 
-  private void lamp(WorldEditor editor, Direction dir, Coord origin) {
+  private void lamp(Direction dir, Coord origin) {
     BlockBrush fence = Wood.OAK.getFence();
     BlockBrush plank = Wood.SPRUCE.getPlanks();
 
-    Coord cursor;
-
-    cursor = origin.copy();
-    plank.stroke(editor, cursor);
+    Coord cursor = origin.copy();
+    plank.stroke(worldEditor, cursor);
     cursor.up();
-    fence.stroke(editor, cursor);
+    fence.stroke(worldEditor, cursor);
     cursor.up();
-    levelSettings.getTheme().getPrimary().getLightBlock().stroke(editor, cursor);
+    lights().stroke(worldEditor, cursor);
     for (Direction d : Direction.CARDINAL) {
       if (d == dir.reverse()) {
         continue;
@@ -269,26 +263,18 @@ public class BTeamRoom extends BaseRoom {
       TrapdoorBlock.wood()
           .setOpen()
           .setFacing(d.reverse())
-          .stroke(editor, c);
-
-//      Trapdoor.get(Trapdoor.OAK, d.reverse(), false, true).stroke(editor, c);
+          .stroke(worldEditor, c);
     }
     cursor.up();
-    fence.stroke(editor, cursor);
+    fence.stroke(worldEditor, cursor);
     cursor.up();
-    plank.stroke(editor, cursor);
+    plank.stroke(worldEditor, cursor);
     cursor.up();
-    plank.stroke(editor, cursor);
+    plank.stroke(worldEditor, cursor);
   }
 
-  private void logWall(WorldEditor editor, Direction dir, Coord origin) {
-
-    Coord start;
-    Coord end;
-    Coord cursor;
-
+  private void logWall(Direction dir, Coord origin) {
     Wood wood = Wood.SPRUCE;
-
     StairsBlock stair = wood.getStairs();
     BlockBrush plank = wood.getPlanks();
 
@@ -296,24 +282,24 @@ public class BTeamRoom extends BaseRoom {
         wood.getLog().setFacing(Direction.UP),
         wood.getLog().setFacing(dir.antiClockwise()));
 
-    start = origin.copy();
+    Coord start = origin.copy();
     start.up();
-    end = start.copy();
+    Coord end = start.copy();
     start.translate(dir.antiClockwise(), 4);
     end.translate(dir.clockwise(), 4);
     end.up(2);
-    RectSolid.newRect(start, end).fill(editor, checkers);
+    RectSolid.newRect(start, end).fill(worldEditor, checkers);
 
     start = origin.copy();
     end = start.copy();
     start.translate(dir.antiClockwise(), 5);
     end.translate(dir.clockwise(), 5);
-    RectSolid.newRect(start, end).fill(editor, plank);
+    RectSolid.newRect(start, end).fill(worldEditor, plank);
     start.translate(dir);
     end.translate(dir);
     start.up(4);
     end.up(4);
-    stair.setUpsideDown(true).setFacing(dir).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(true).setFacing(dir).fill(worldEditor, new RectSolid(start, end));
 
     for (Direction d : dir.orthogonals()) {
       start = origin.copy();
@@ -321,18 +307,18 @@ public class BTeamRoom extends BaseRoom {
       start.up();
       end = start.copy();
       end.up(2);
-      wood.getLog().setFacing(Direction.UP).fill(editor, new RectSolid(start, end));
+      wood.getLog().setFacing(Direction.UP).fill(worldEditor, new RectSolid(start, end));
 
-      cursor = origin.copy();
+      Coord cursor = origin.copy();
       cursor.translate(dir);
       cursor.translate(d, 3);
-      lamp(editor, dir, cursor);
+      lamp(dir, cursor);
     }
 
 
   }
 
-  private void bWall(WorldEditor editor, Direction dir, Coord origin) {
+  private void bWall(Direction dir, Coord origin) {
     BlockJumble bricks = new BlockJumble();
     bricks.addBlock(BlockType.STONE_BRICK.getBrush());
     bricks.addBlock(BlockType.STONE_BRICK_CRACKED.getBrush());
@@ -350,7 +336,7 @@ public class BTeamRoom extends BaseRoom {
     end = start.copy();
     start.translate(dir.clockwise(), 3);
     end.translate(dir.antiClockwise(), 4);
-    RectSolid.newRect(start, end).fill(editor, plank);
+    RectSolid.newRect(start, end).fill(worldEditor, plank);
 
     start = origin.copy();
     start.up();
@@ -358,7 +344,7 @@ public class BTeamRoom extends BaseRoom {
     start.translate(dir.clockwise(), 3);
     end.translate(dir.antiClockwise(), 4);
     end.up(3);
-    RectSolid.newRect(start, end).fill(editor, bricks);
+    RectSolid.newRect(start, end).fill(worldEditor, bricks);
 
     cursor = origin.copy();
     cursor.translate(dir.reverse());
@@ -368,13 +354,13 @@ public class BTeamRoom extends BaseRoom {
         start = cursor.copy();
         end = start.copy();
         end.translate(dir.antiClockwise(), 2);
-        RectSolid.newRect(start, end).fill(editor, b);
+        RectSolid.newRect(start, end).fill(worldEditor, b);
       } else {
         Coord c = cursor.copy();
         c.translate(dir.clockwise());
-        b.stroke(editor, c);
+        b.stroke(worldEditor, c);
         c.translate(dir.antiClockwise(), 3);
-        b.stroke(editor, c);
+        b.stroke(worldEditor, c);
       }
 
       cursor.up();

@@ -6,12 +6,10 @@ import com.github.fnar.minecraft.block.decorative.TorchBlock;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -19,7 +17,6 @@ import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 
 public class DungeonsPit extends BaseRoom {
-  Random rand;
   int originX;
   int originY;
   int originZ;
@@ -38,15 +35,11 @@ public class DungeonsPit extends BaseRoom {
   }
 
   public BaseRoom generate(Coord origin, List<Direction> entrances) {
-
-    Theme theme = levelSettings.getTheme();
-
-    rand = worldEditor.getRandom();
     originX = origin.getX();
     originY = origin.getY();
     originZ = origin.getZ();
 
-    blocks = theme.getPrimary().getWall();
+    blocks = walls();
 
     buildWalls();
     buildFloor();
@@ -55,7 +48,7 @@ public class DungeonsPit extends BaseRoom {
 
 
     for (Direction dir : Direction.CARDINAL) {
-      setTrap(worldEditor, levelSettings, dir, origin);
+      setTrap(dir, origin);
     }
 
     List<Coord> spaces = new ArrayList<>();
@@ -65,7 +58,7 @@ public class DungeonsPit extends BaseRoom {
     spaces.add(new Coord(originX + 2, originY, originZ + 2));
 
     List<Coord> chestLocations = chooseRandomLocations(1, spaces);
-    generateTrappableChests(chestLocations, entrances.get(0));
+    generateTrappableChests(chestLocations, getEntrance(entrances));
 
     return this;
   }
@@ -127,7 +120,7 @@ public class DungeonsPit extends BaseRoom {
             continue;
           }
 
-          if (y < rand.nextInt(5) && worldEditor.isBlockOfTypeAt(BlockType.BEDROCK, pos)) {
+          if (y < random().nextInt(5) && worldEditor.isBlockOfTypeAt(BlockType.BEDROCK, pos)) {
             continue;
           }
 
@@ -151,47 +144,42 @@ public class DungeonsPit extends BaseRoom {
     }
   }
 
-  private void setTrap(WorldEditor editor, LevelSettings settings, Direction dir, Coord origin) {
-    Theme theme = settings.getTheme();
-    BlockBrush walls = theme.getPrimary().getWall();
+  private void setTrap(Direction dir, Coord origin) {
     BlockBrush plate = BlockType.PRESSURE_PLATE_STONE.getBrush();
     BlockBrush wire = BlockType.REDSTONE_WIRE.getBrush();
-    Coord start;
-    Coord end;
-    Coord cursor;
 
-    start = origin.copy();
+    Coord start = origin.copy();
     start.translate(dir, 3);
     start.down();
     start.translate(dir.antiClockwise());
-    end = origin.copy();
+    Coord end = origin.copy();
     end.translate(dir, 6);
     end.up(3);
     end.translate(dir.clockwise());
 
     for (Coord cell : new RectHollow(start, end)) {
-      if (editor.isAirBlock(cell)) {
+      if (worldEditor.isAirBlock(cell)) {
         return;
       }
-      walls.stroke(editor, cell);
+      walls().stroke(worldEditor, cell);
     }
 
-    cursor = origin.copy();
+    Coord cursor = origin.copy();
     cursor.translate(dir, 2);
-    plate.stroke(editor, cursor);
+    plate.stroke(worldEditor, cursor);
 
     cursor = origin.copy();
     cursor.down();
     cursor.translate(dir, 3);
-    TorchBlock.redstone().setFacing(dir).stroke(editor, cursor);
+    TorchBlock.redstone().setFacing(dir).stroke(worldEditor, cursor);
     cursor.translate(dir);
-    wire.stroke(editor, cursor);
+    wire.stroke(worldEditor, cursor);
     cursor.up();
     cursor.translate(dir);
-    TorchBlock.redstone().extinguish().setFacing(Direction.UP).stroke(editor, cursor);
+    TorchBlock.redstone().extinguish().setFacing(Direction.UP).stroke(worldEditor, cursor);
     cursor.translate(dir.reverse());
     cursor.up();
-    BlockType.STICKY_PISTON.getBrush().setFacing(dir).stroke(editor, cursor);
+    BlockType.STICKY_PISTON.getBrush().setFacing(dir).stroke(worldEditor, cursor);
   }
 
   public int getSize() {

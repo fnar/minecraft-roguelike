@@ -8,7 +8,6 @@ import java.util.List;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
@@ -28,17 +27,12 @@ public class DungeonsCreeperDen extends BaseRoom {
 
   public BaseRoom generate(Coord origin, List<Direction> entrances) {
 
-    Theme theme = levelSettings.getTheme();
-
-    Coord start;
-    Coord end;
-
     BlockWeightedRandom mossy = new BlockWeightedRandom();
-    mossy.addBlock(theme.getPrimary().getWall(), 3);
+    mossy.addBlock(theme().getPrimary().getWall(), 3);
     mossy.addBlock(BlockType.COBBLESTONE_MOSSY.getBrush(), 1);
 
     BlockWeightedRandom floor = new BlockWeightedRandom();
-    floor.addBlock(theme.getPrimary().getFloor(), 1);
+    floor.addBlock(theme().getPrimary().getFloor(), 1);
     mossy.addBlock(BlockType.COBBLESTONE_MOSSY.getBrush(), 1);
     floor.addBlock(BlockType.GRAVEL.getBrush(), 3);
 
@@ -46,8 +40,8 @@ public class DungeonsCreeperDen extends BaseRoom {
     subfloor.addBlock(floor, 3);
     subfloor.addBlock(TNT_META_BLOCK, 1);
 
-    start = origin.copy();
-    end = origin.copy();
+    Coord start = origin.copy();
+    Coord end = origin.copy();
     start.translate(new Coord(-4, -4, -4));
     end.translate(new Coord(4, 5, 4));
     RectHollow.newRect(start, end).fill(worldEditor, mossy, false, true);
@@ -72,7 +66,7 @@ public class DungeonsCreeperDen extends BaseRoom {
     List<Coord> chestSpaces = new RectSolid(start, end).get();
     chooseRandomLocations(3, chestSpaces)
         .forEach(chestSpace ->
-            generateTrappedChest(chestSpace, entrances.get(0).reverse(), ChestType.ORE));
+            generateTrappedChest(chestSpace, getEntrance(entrances).reverse(), ChestType.ORE));
 
     final Coord cursor = origin.copy();
     generateSpawner(cursor, MobType.CREEPER);

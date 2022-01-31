@@ -5,8 +5,6 @@ import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.SlabBlock;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 
-import java.util.Random;
-
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -19,15 +17,11 @@ public class SegmentNetherStripes extends SegmentBase {
 
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
+  protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
 
     StairsBlock stair = theme.getSecondary().getStair();
 
-    Coord start;
-    Coord end;
-    Coord cursor;
-
-    cursor = origin.copy();
+    Coord cursor = origin.copy();
     cursor.translate(dir, 2);
     SingleBlockBrush.AIR.stroke(editor, cursor);
     cursor.up(1);
@@ -35,7 +29,7 @@ public class SegmentNetherStripes extends SegmentBase {
     cursor = origin.copy();
     cursor.translate(dir, 5);
     boolean isAir = editor.isAirBlock(cursor);
-    boolean isLava = rand.nextInt(5) == 0;
+    boolean isLava = editor.getRandom().nextInt(5) == 0;
 
 
     BlockBrush slab = SlabBlock.netherBrick();
@@ -48,9 +42,9 @@ public class SegmentNetherStripes extends SegmentBase {
     slab.stroke(editor, cursor);
 
     for (Direction orthogonal : dir.orthogonals()) {
-      start = origin.copy();
+      Coord start = origin.copy();
       start.translate(dir, 3);
-      end = start.copy();
+      Coord end = start.copy();
       start.translate(orthogonal, 1);
       start.up(3);
       end.down(2);
