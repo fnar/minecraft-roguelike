@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -31,10 +32,11 @@ public class NetherPortalRoom extends BaseRoom {
     theFloorsAreFloors(origin, front);
     generateCatwalks(origin);
     theFloorIsLava(origin, front);
-    createPathFromEachEntranceToTheCenterOverTheLiquid(origin, entrances);
+    createPathFromEachEntranceToTheCenterOverTheLiquid(origin, front);
     ceilingChan(origin, front);
     generateNetherPortalWithPlatform(origin, front);
     generateDoorways(origin, entrances, getSize());
+    generateChestInCorner(origin, front);
 
     return null;
   }
@@ -77,13 +79,12 @@ public class NetherPortalRoom extends BaseRoom {
     }
   }
 
-  private void createPathFromEachEntranceToTheCenterOverTheLiquid(Coord origin, List<Direction> entrances) {
-    Direction.cardinals().stream()
-        .filter(direction -> !entrances.contains(direction))
-        .forEach(direction -> RectSolid.newRect(
-            origin.copy().translate(direction.left()).down(),
-            origin.copy().translate(direction.right()).translate(direction, getSize()).down(2)
-        ).fill(worldEditor, floors()));
+  private void createPathFromEachEntranceToTheCenterOverTheLiquid(Coord origin, Direction front) {
+    Direction walkwayDirection = front.reverse();
+    RectSolid.newRect(
+        origin.copy().translate(walkwayDirection.left()).down(),
+        origin.copy().translate(walkwayDirection.right()).translate(walkwayDirection, getSize()).down(2)
+    ).fill(worldEditor, floors());
   }
 
   private void ceilingChan(Coord origin, Direction front) {
@@ -126,6 +127,18 @@ public class NetherPortalRoom extends BaseRoom {
     for (Direction orthogonal : front.orthogonals()) {
       generateSpawner(portalBase.copy().down().translate(orthogonal));
     }
+  }
+
+  private void generateChestInCorner(Coord origin, Direction front) {
+    if (random().nextInt(3) == 0) {
+      return;
+    }
+    int distanceFromOrigin = getSize()-2;
+    Coord cursor = origin.copy()
+        .up()
+        .translate(front.reverse(), distanceFromOrigin)
+        .translate(front.reverse().left(), distanceFromOrigin);
+    generateChest(cursor, front, ChestType.UNCOMMON_TREASURES);
   }
 
   private int getHeight() {

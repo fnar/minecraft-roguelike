@@ -2,10 +2,8 @@ package greymerk.roguelike.dungeon.settings.builtin;
 
 import com.google.common.collect.Lists;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
@@ -19,7 +17,6 @@ import static greymerk.roguelike.dungeon.base.RoomType.CAKE;
 import static greymerk.roguelike.dungeon.base.RoomType.CORNER;
 import static greymerk.roguelike.dungeon.base.RoomType.CREEPER;
 import static greymerk.roguelike.dungeon.base.RoomType.CRYPT;
-import static greymerk.roguelike.dungeon.base.RoomType.DARKHALL;
 import static greymerk.roguelike.dungeon.base.RoomType.ENDER;
 import static greymerk.roguelike.dungeon.base.RoomType.FIRE;
 import static greymerk.roguelike.dungeon.base.RoomType.NETHER;
@@ -112,28 +109,21 @@ public class BuiltinRoomsSettings extends DungeonSettings {
   }
 
   private List<RoomSetting> getLevel4Rooms() {
-    ArrayList<RoomSetting> rooms = Lists.newArrayList(
+    return Lists.newArrayList(
         REWARD.newSingleRoomSetting(),
         OBSIDIAN.newSingleRoomSetting(),
-        DARKHALL.newSingleRoomSetting(),
         NETHERFORT.newSingleRoomSetting(),
-
-        BRICK.newRandomRoomSetting(2),
-        CORNER.newRandomRoomSetting(2),
-        PLATFORMS.newRandomRoomSetting(2),
-        SLIME.newRandomRoomSetting(2),
-        NETHER.newRandomRoomSetting(2),
+        NETHER_PORTAL.newSingleRoomSetting(),
 
         BLAZE.newRandomRoomSetting(1),
+        BRICK.newRandomRoomSetting(1),
+        CRYPT.newRandomRoomSetting(1),
+        CORNER.newRandomRoomSetting(1),
+        PLATFORMS.newRandomRoomSetting(1),
+        NETHER.newRandomRoomSetting(1),
+        PRISON.newRandomRoomSetting(1),
         OBSIDIAN.newRandomRoomSetting(1),
-        NETHER_PORTAL.newRandomRoomSetting(1)
+        SLIME.newRandomRoomSetting(1)
     );
-
-    RoomType[] flavours = {BLAZE, BRICK, CRYPT, NETHER, PRISON, SLIME};
-    RoomType chosenFlavour = flavours[(int) (Math.random() * flavours.length)];
-
-    rooms.add(chosenFlavour.newRandomRoomSetting(10));
-
-    return rooms;
   }
 }
