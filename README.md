@@ -21,8 +21,8 @@ Clone the repository using
 
 Open a command window in the minecraft-roguelike directory
 
-type `gradlew setupDecompWorkspace eclipse`
-type `gradlew setupDevWorkspace eclipse`
+type `gradlew setupDecompWorkspace`
+type `gradlew setupDevWorkspace`
 
 ### Run MineCraft with the Mod
 
