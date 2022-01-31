@@ -31,3 +31,5 @@
 install.bat
 minecraft-roguelike.iml
 
+/.idea.backup/checkstyle-idea.xml
+/.idea.backup/workspace.xml
