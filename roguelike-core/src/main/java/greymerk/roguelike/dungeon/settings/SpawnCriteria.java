@@ -9,6 +9,7 @@ import net.minecraftforge.common.BiomeDictionary;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.worldgen.PositionInfo;
@@ -22,6 +23,7 @@ public class SpawnCriteria {
   private final List<ResourceLocation> biomes = new ArrayList<>();
   private final List<Type> biomeTypes = new ArrayList<>();
   private final List<Integer> validDimensions = new ArrayList<>();
+  private ArrayList<String> biomeStrings;
 
   public SpawnCriteria() {
     this(new JsonObject());
@@ -36,7 +38,8 @@ public class SpawnCriteria {
 
   public SpawnCriteria(JsonObject data) {
     weight = data.has("weight") ? data.get("weight").getAsInt() : 1;
-    addBiomeCriteria(data);
+    biomeStrings = parseBiomes(data);
+    biomes.addAll(biomeStrings.stream().map(ResourceLocation::new).collect(Collectors.toList()));
     addBiomeTypeCriteria(data);
     addDimensionCriteria(data);
   }
@@ -49,15 +52,18 @@ public class SpawnCriteria {
     return result;
   }
 
-  private void addBiomeCriteria(JsonObject data) {
-    if (data.has("biomes")) {
-      for (JsonElement biome : data.get("biomes").getAsJsonArray()) {
-        if (biome.isJsonNull()) {
-          continue;
-        }
-        biomes.add(new ResourceLocation(biome.getAsString()));
+  private static ArrayList<String> parseBiomes(JsonObject data) {
+    if (!data.has("biomes")) {
+      return new ArrayList<>();
+    }
+
+    ArrayList<String> biomes = new ArrayList<>();
+    for (JsonElement biome : data.get("biomes").getAsJsonArray()) {
+      if (!biome.isJsonNull()) {
+        biomes.add(biome.getAsString());
       }
     }
+    return biomes;
   }
 
   private void addBiomeTypeCriteria(JsonObject data) {
