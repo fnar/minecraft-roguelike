@@ -1171,16 +1171,18 @@ public class BlockMapper1_12 {
   }
 
   public static EnumFacing getFacing(Direction direction) {
+    // NOTE: I notice these are flipped but I'm not entirely sure why.
+    // *** If you "fix" them, then all of the blocks in the dungeon are reversed.
     switch (direction) {
       default:
       case NORTH:
-        return EnumFacing.NORTH;
-      case EAST:
-        return EnumFacing.EAST;
-      case SOUTH:
         return EnumFacing.SOUTH;
-      case WEST:
+      case EAST:
         return EnumFacing.WEST;
+      case SOUTH:
+        return EnumFacing.NORTH;
+      case WEST:
+        return EnumFacing.EAST;
       case UP:
         return EnumFacing.UP;
       case DOWN:
