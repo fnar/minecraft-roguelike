@@ -160,8 +160,6 @@ public class DungeonsFire extends BaseRoom {
       end.up(2).translate(dir.reverse());
       RectSolid.newRect(start, end).fill(worldEditor, walls());
 
-      stairs().setUpsideDown(true).setFacing(dir.reverse());
-
       cursor = end.copy();
       start = cursor.copy().translate(dir.antiClockwise(), 3);
       end.translate(dir.clockwise(), 3);
@@ -171,13 +169,13 @@ public class DungeonsFire extends BaseRoom {
       end = start.copy();
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir.clockwise(), 3);
-      RectSolid.newRect(start, end).fill(worldEditor, stairs(), true, false);
+      RectSolid.newRect(start, end).fill(worldEditor, stairs().setUpsideDown(true).setFacing(dir.reverse()), true, false);
 
       start = cursor.copy().translate(dir.reverse());
       end = start.copy();
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir.clockwise(), 3);
-      RectSolid.newRect(start, end).fill(worldEditor, stairs(), true, false);
+      RectSolid.newRect(start, end).fill(worldEditor, stairs().setUpsideDown(true).setFacing(dir.reverse()), true, false);
     }
 
     generateDoorways(origin, entrances);
