@@ -109,9 +109,7 @@ public class TreasureChest {
   }
 
   public Optional<TreasureChest> stroke() {
-    boolean success = innerStroke();
-    if (!success) {
-      new ChestPlacementException(String.format("Failed to place chest in world at %s", pos)).printStackTrace();
+    if (!innerStroke()) {
       return Optional.empty();
     }
     worldEditor.getTreasureManager().addChest(this);
