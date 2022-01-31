@@ -381,8 +381,7 @@ public class DungeonsSmithy extends BaseRoom {
     Coord end = start.copy();
     start.translate(dir, 2);
     end.translate(dir.reverse(), 2);
-    stairs().setUpsideDown(false).setFacing(dir.antiClockwise());
-    RectSolid.newRect(start, end).fill(worldEditor, stairs());
+    RectSolid.newRect(start, end).fill(worldEditor, stairs().setUpsideDown(false).setFacing(dir.antiClockwise()));
 
     cursor = origin.copy();
     cursor.translate(dir.clockwise(), 3);
@@ -398,8 +397,7 @@ public class DungeonsSmithy extends BaseRoom {
     end = start.copy();
     start.translate(dir);
     end.translate(dir.reverse());
-    stairs().setUpsideDown(true).setFacing(dir.clockwise());
-    RectSolid.newRect(start, end).fill(worldEditor, stairs());
+    RectSolid.newRect(start, end).fill(worldEditor, stairs().setUpsideDown(true).setFacing(dir.clockwise()));
     cursor.up();
 
     generateChest(cursor, dir.antiClockwise(), ChestType.SMITH);
@@ -415,7 +413,7 @@ public class DungeonsSmithy extends BaseRoom {
       cursor.translate(dir);
       stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
       cursor.translate(dir.antiClockwise());
-      stairs().stroke(worldEditor, cursor);
+      stairs().setUpsideDown(true).stroke(worldEditor, cursor);
     }
 
     cursor = origin.copy();

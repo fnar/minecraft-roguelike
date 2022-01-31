@@ -70,8 +70,7 @@ public class BlazeRoom extends BaseRoom {
       end = start.copy();
       start.translate(dir.antiClockwise(), 2);
       end.translate(dir.clockwise(), 2);
-      stairs().setUpsideDown(true).setFacing(dir);
-      RectSolid.newRect(start, end).fill(worldEditor, stairs(), true, false);
+      RectSolid.newRect(start, end).fill(worldEditor, stairs().setUpsideDown(true).setFacing(dir), true, false);
     }
 
     start = origin.copy();
@@ -181,8 +180,6 @@ public class BlazeRoom extends BaseRoom {
       end.translate(dir.reverse());
       RectSolid.newRect(start, end).fill(worldEditor, walls());
 
-      stairs().setUpsideDown(true).setFacing(dir.reverse());
-
       cursor = end.copy();
       start = cursor.copy();
       start.translate(dir.antiClockwise(), 3);
@@ -194,14 +191,14 @@ public class BlazeRoom extends BaseRoom {
       end = start.copy();
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir.clockwise(), 3);
-      RectSolid.newRect(start, end).fill(worldEditor, stairs(), true, false);
+      RectSolid.newRect(start, end).fill(worldEditor, stairs().setUpsideDown(true).setFacing(dir.reverse()), true, false);
 
       start = cursor.copy();
       start.translate(dir.reverse());
       end = start.copy();
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir.clockwise(), 3);
-      RectSolid.newRect(start, end).fill(worldEditor, stairs(), true, false);
+      RectSolid.newRect(start, end).fill(worldEditor, stairs().setUpsideDown(true).setFacing(dir.reverse()), true, false);
     }
 
     start = origin.copy();
