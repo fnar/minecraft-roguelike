@@ -46,27 +46,19 @@ public class EnikoRoom extends BaseRoom {
 
   @Override
   public BaseRoom generate(Coord origin, List<Direction> entrances) {
-
-    Theme theme = levelSettings.getTheme();
-    StairsBlock stair = theme.getPrimary().getStair();
-    BlockBrush walls = theme.getPrimary().getWall();
-    BlockBrush floor = theme.getPrimary().getFloor();
-    Coord start;
-    Coord end;
-    Coord cursor;
     List<Coord> chests = new ArrayList<>();
 
-    start = origin.copy();
-    end = origin.copy();
+    Coord start = origin.copy();
+    Coord end = origin.copy();
     start.translate(new Coord(6, -1, 6));
     end.translate(new Coord(-6, 4, -6));
-    RectHollow.newRect(start, end).fill(worldEditor, walls, false, true);
+    RectHollow.newRect(start, end).fill(worldEditor, walls(), false, true);
 
     start = origin.copy();
     end = origin.copy();
     start.translate(new Coord(6, 4, 6));
     end.translate(new Coord(-6, 5, -6));
-    RectSolid.newRect(start, end).fill(worldEditor, theme.getSecondary().getWall(), false, true);
+    RectSolid.newRect(start, end).fill(worldEditor, secondaryWalls(), false, true);
 
     start = origin.copy();
     end = origin.copy();
@@ -78,21 +70,21 @@ public class EnikoRoom extends BaseRoom {
     end = origin.copy();
     start.translate(new Coord(-3, -1, -3));
     end.translate(new Coord(3, -1, 3));
-    RectSolid.newRect(start, end).fill(worldEditor, floor);
+    RectSolid.newRect(start, end).fill(worldEditor, floors());
 
     for (Direction dir : Direction.CARDINAL) {
-      cursor = origin.copy();
+      Coord cursor = origin.copy();
       cursor.translate(dir, 5);
       for (Direction o : dir.orthogonals()) {
         Coord c = cursor.copy();
         c.translate(o, 2);
-        pillar(worldEditor, theme, c);
+        pillar(worldEditor, theme(), c);
 
         c = cursor.copy();
         c.translate(o, 3);
-        stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
+        stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
         c.translate(o);
-        stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
+        stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
         c.up();
         chests.add(c.copy());
         c.translate(o.reverse());
@@ -100,7 +92,7 @@ public class EnikoRoom extends BaseRoom {
       }
 
       cursor.translate(dir.antiClockwise(), 5);
-      pillar(worldEditor, theme, cursor);
+      pillar(worldEditor, theme(), cursor);
 
       if (entrances.contains(dir)) {
         start = origin.copy();
@@ -109,13 +101,13 @@ public class EnikoRoom extends BaseRoom {
         start.translate(dir.antiClockwise());
         end.translate(dir.clockwise());
         end.translate(dir, 6);
-        RectSolid.newRect(start, end).fill(worldEditor, floor);
+        RectSolid.newRect(start, end).fill(worldEditor, floors());
       }
     }
 
     generateSpawner(origin, COMMON_MOBS);
     List<Coord> chestLocations = chooseRandomLocations(1, chests);
-    generateChests(chestLocations, entrances.get(0));
+    generateChests(chestLocations, getEntrance(entrances));
 
     return this;
   }

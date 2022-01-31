@@ -199,15 +199,14 @@ public class LabRoom extends BaseRoom {
     int x = origin.getX();
     int y = origin.getY();
     int z = origin.getZ();
-    Theme theme = levelSettings.getTheme();
 
-    BlockBrush blocks = theme.getPrimary().getWall();
+    BlockBrush blocks = walls();
 
 
     // Air
     SingleBlockBrush.AIR.fill(worldEditor, new RectSolid(new Coord(x - 7, y, z - 7), new Coord(x + 7, y + 3, z + 7)));
 
-    BlockBrush roof = theme.getSecondary().getWall();
+    BlockBrush roof = secondaryWalls();
     // Wood upper Roof
     RectSolid.newRect(new Coord(x - 6, y + 5, z - 6), new Coord(x + 6, y + 5, z + 6)).fill(worldEditor, roof);
     RectSolid.newRect(new Coord(x - 1, y + 4, z - 1), new Coord(x + 1, y + 4, z + 1)).fill(worldEditor, SingleBlockBrush.AIR);
@@ -218,21 +217,21 @@ public class LabRoom extends BaseRoom {
 
     // shell
     RectHollow.newRect(new Coord(x - 8, y - 1, z - 8), new Coord(x + 8, y + 4, z + 8)).fill(worldEditor, blocks, false, true);
-    RectSolid.newRect(new Coord(x - 8, y - 1, z - 8), new Coord(x + 8, y - 1, z + 8)).fill(worldEditor, theme.getPrimary().getFloor(), false, true);
+    RectSolid.newRect(new Coord(x - 8, y - 1, z - 8), new Coord(x + 8, y - 1, z + 8)).fill(worldEditor, theme().getPrimary().getFloor(), false, true);
 
 
     // corner rooms
-    southWest(worldEditor, theme, x - 7, y, z + 2);
-    southEast(worldEditor, theme, x + 2, y, z + 2);
-    northWest(worldEditor, theme, x - 7, y, z - 7);
-    northEast(worldEditor, theme, x + 2, y, z - 7);
+    southWest(worldEditor, theme(), x - 7, y, z + 2);
+    southEast(worldEditor, theme(), x + 2, y, z + 2);
+    northWest(worldEditor, theme(), x - 7, y, z - 7);
+    northEast(worldEditor, theme(), x + 2, y, z - 7);
 
     // outer walls
     RectSolid.newRect(new Coord(x - 8, y, z - 7), new Coord(x - 8, y + 3, z - 7)).fill(worldEditor, blocks);
     RectSolid.newRect(new Coord(x + 8, y, z - 7), new Coord(x + 8, y + 3, z - 7)).fill(worldEditor, blocks);
     RectSolid.newRect(new Coord(x + 8, y, z - 7), new Coord(x + 8, y + 3, z - 7)).fill(worldEditor, blocks);
 
-    BlockBrush backWalls = theme.getSecondary().getWall();
+    BlockBrush backWalls = secondaryWalls();
 
     // wall planks
     RectSolid.newRect(new Coord(x - 8, y + 1, z - 6), new Coord(x - 8, y + 3, z - 3)).fill(worldEditor, backWalls);

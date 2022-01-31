@@ -3,8 +3,6 @@ package greymerk.roguelike.dungeon.segment.part;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 
-import java.util.Random;
-
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -15,19 +13,17 @@ import greymerk.roguelike.worldgen.WorldEditor;
 public class SegmentNetherArch extends SegmentBase {
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
+  protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
 
     StairsBlock stair = theme.getSecondary().getStair();
     stair.setUpsideDown(true).setFacing(dir.reverse());
     BlockBrush pillar = theme.getSecondary().getPillar();
 
+    boolean hasLava = editor.getRandom().nextInt(5) == 0;
 
-    Coord cursor;
-
-    boolean hasLava = rand.nextInt(5) == 0;
 
     for (Direction orthogonals : dir.orthogonals()) {
-      cursor = origin.copy();
+      Coord cursor = origin.copy();
       cursor.translate(dir, 1);
       cursor.translate(orthogonals, 1);
       cursor.up(2);
@@ -44,7 +40,7 @@ public class SegmentNetherArch extends SegmentBase {
     BlockBrush fence = BlockType.FENCE_NETHER_BRICK.getBrush();
     BlockBrush lava = BlockType.LAVA_FLOWING.getBrush();
 
-    cursor = origin.copy();
+    Coord cursor = origin.copy();
     cursor.translate(dir, 2);
     fence.stroke(editor, cursor);
     cursor.up(1);

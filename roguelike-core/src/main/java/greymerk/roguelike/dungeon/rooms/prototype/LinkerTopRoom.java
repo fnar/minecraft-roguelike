@@ -1,14 +1,10 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
-import com.github.fnar.minecraft.block.normal.StairsBlock;
-
 import java.util.List;
 
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.Theme;
-import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -24,32 +20,21 @@ public class LinkerTopRoom extends BaseRoom {
   @Override
   public BaseRoom generate(Coord origin, List<Direction> entrances) {
 
-    Theme theme = levelSettings.getTheme();
-
-    BlockBrush pillar = theme.getPrimary().getPillar();
-    BlockBrush wall = theme.getPrimary().getWall();
-    BlockBrush floor = theme.getPrimary().getFloor();
-    StairsBlock stair = theme.getPrimary().getStair();
-
-    Coord start;
-    Coord end;
-    Coord cursor;
-
-    start = origin.copy();
-    end = origin.copy();
+    Coord start = origin.copy();
+    Coord end = origin.copy();
     start.translate(new Coord(-4, -1, -4));
     end.translate(new Coord(4, 5, 4));
-    RectHollow.newRect(start, end).fill(worldEditor, wall, false, true);
+    RectHollow.newRect(start, end).fill(worldEditor, walls(), false, true);
 
-    cursor = origin.copy();
+    Coord cursor = origin.copy();
     cursor.up(5);
-    levelSettings.getTheme().getPrimary().getLightBlock().stroke(worldEditor, cursor);
+    lights().stroke(worldEditor, cursor);
 
     start = origin.copy();
     end = origin.copy();
     start.translate(new Coord(-4, -1, -4));
     end.translate(new Coord(4, -1, 4));
-    RectSolid.newRect(start, end).fill(worldEditor, floor);
+    RectSolid.newRect(start, end).fill(worldEditor, floors());
 
     for (Direction dir : Direction.CARDINAL) {
 
@@ -60,7 +45,7 @@ public class LinkerTopRoom extends BaseRoom {
       end.translate(dir, 4);
       end.translate(dir.antiClockwise(), 4);
       end.up(4);
-      RectSolid.newRect(start, end).fill(worldEditor, pillar);
+      RectSolid.newRect(start, end).fill(worldEditor, pillars());
 
       start = origin.copy();
       start.translate(dir, 3);
@@ -68,21 +53,21 @@ public class LinkerTopRoom extends BaseRoom {
       start.up(4);
       end = start.copy();
       end.translate(dir.clockwise(), 4);
-      RectSolid.newRect(start, end).fill(worldEditor, wall);
+      RectSolid.newRect(start, end).fill(worldEditor, walls());
       start.translate(dir.reverse());
       end.translate(dir.reverse());
-      RectSolid.newRect(start, end).fill(worldEditor, stair.setUpsideDown(true).setFacing(dir.reverse()));
+      RectSolid.newRect(start, end).fill(worldEditor, stairs().setUpsideDown(true).setFacing(dir.reverse()));
 
       for (Direction o : dir.orthogonals()) {
         cursor = origin.copy();
         cursor.translate(dir, 3);
         cursor.up(2);
         cursor.translate(o, 2);
-        stair.setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
+        stairs().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
         cursor.up();
-        wall.stroke(worldEditor, cursor);
+        walls().stroke(worldEditor, cursor);
         cursor.translate(o.reverse());
-        stair.setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
+        stairs().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
       }
     }
 

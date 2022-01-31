@@ -9,7 +9,6 @@ import java.util.List;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
@@ -23,77 +22,71 @@ public class StorageRoom extends BaseRoom {
     super(roomSetting, levelSettings, worldEditor);
   }
 
-  private static void pillarTop(WorldEditor editor, Theme theme, Coord cursor) {
-    StairsBlock stair = theme.getSecondary().getStair();
+  private void pillarTop(Coord cursor) {
+    StairsBlock stair = secondaryStairs();
     for (Direction dir : Direction.CARDINAL) {
-      stair.setUpsideDown(true).setFacing(dir);
       cursor.translate(dir, 1);
-      stair.stroke(editor, cursor, true, false);
+      stair.setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor, true, false);
       cursor.translate(dir.reverse(), 1);
     }
   }
 
-  private static void pillar(WorldEditor editor, Coord base, Theme theme, int height) {
+  private void pillar(Coord base, int height) {
     Coord top = base.copy();
     top.up(height);
-    RectSolid.newRect(base, top).fill(editor, theme.getSecondary().getPillar());
+    RectSolid.newRect(base, top).fill(worldEditor, pillars());
   }
 
   @Override
   public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    Theme theme = levelSettings.getTheme();
     List<Coord> chestSpaces = new ArrayList<>();
 
-    Direction front = entrances.get(0);
+    Direction front = getEntrance(entrances);
 
     generateCavity(origin, front);
     generateFloor(origin, front);
     generateCeiling(origin, front);
 
-    Coord cursor;
-    Coord start;
-    Coord end;
-    BlockBrush wall = theme.getPrimary().getWall();
     for (Direction dir : Direction.CARDINAL) {
       for (Direction orthogonals : dir.orthogonals()) {
 
-        cursor = origin.copy()
+        Coord cursor = origin.copy()
             .up(3)
             .translate(dir, 2)
             .translate(orthogonals, 2);
-        pillarTop(worldEditor, theme, cursor);
+        pillarTop(cursor);
         cursor.translate(dir, 3).translate(orthogonals, 3);
-        pillarTop(worldEditor, theme, cursor);
-        start = cursor.copy();
+        pillarTop(cursor);
+        Coord start = cursor.copy();
 
         cursor.down().translate(dir, 1);
-        pillarTop(worldEditor, theme, cursor);
+        pillarTop(cursor);
 
-        end = cursor.copy().down(3).translate(dir, 1).translate(orthogonals, 1);
-        RectSolid.newRect(start, end).fill(worldEditor, wall);
+        Coord end = cursor.copy().down(3).translate(dir, 1).translate(orthogonals, 1);
+        RectSolid.newRect(start, end).fill(worldEditor, walls());
 
         cursor = origin.copy().translate(dir, 2).translate(orthogonals, 2);
-        pillar(worldEditor, cursor, theme, 4);
+        pillar(cursor, 4);
 
         cursor.translate(dir, 4);
-        pillar(worldEditor, cursor, theme, 3);
+        pillar(cursor, 3);
 
         cursor.up(2);
-        pillarTop(worldEditor, theme, cursor);
+        pillarTop(cursor);
 
         cursor.up(1);
         cursor.translate(dir.reverse(), 1);
-        pillarTop(worldEditor, theme, cursor);
+        pillarTop(cursor);
 
         cursor.translate(dir.reverse(), 3);
-        pillarTop(worldEditor, theme, cursor);
+        pillarTop(cursor);
 
         generateWall(origin, dir, orthogonals);
 
         cursor = origin.copy();
         cursor.translate(dir, 6);
         cursor.translate(orthogonals, 3);
-        StairsBlock stair = theme.getSecondary().getStair();
+        StairsBlock stair = secondaryStairs();
         stair.setUpsideDown(true).setFacing(dir.reverse());
         stair.stroke(worldEditor, cursor);
         cursor.translate(orthogonals, 1);
@@ -110,12 +103,12 @@ public class StorageRoom extends BaseRoom {
         end = start.copy();
         end.translate(dir, 3);
         end.translate(orthogonals, 1);
-        RectSolid.newRect(start, end).fill(worldEditor, theme.getSecondary().getFloor());
+        RectSolid.newRect(start, end).fill(worldEditor, secondaryFloors());
 
         cursor = origin.copy();
         cursor.translate(dir, 5);
         cursor.translate(orthogonals, 5);
-        pillar(worldEditor, cursor, theme, 4);
+        pillar(cursor, 4);
 
       }
     }
@@ -129,14 +122,13 @@ public class StorageRoom extends BaseRoom {
   }
 
   private void generateWall(Coord origin, Direction dir, Direction orthogonals) {
-    BlockBrush wall = levelSettings.getTheme().getPrimary().getWall();
     Coord start = origin.copy().translate(dir, 6).up(3);
     Coord end = start.copy().translate(orthogonals, 5);
-    RectSolid.newRect(start, end).fill(worldEditor, wall);
+    RectSolid.newRect(start, end).fill(worldEditor, walls());
 
     start.translate(dir, 1);
     end.translate(dir, 1).down(3);
-    RectSolid.newRect(start, end).fill(worldEditor, wall, false, true);
+    RectSolid.newRect(start, end).fill(worldEditor, walls(), false, true);
   }
 
   private void generateCavity(Coord origin, Direction front) {
@@ -149,16 +141,15 @@ public class StorageRoom extends BaseRoom {
   }
 
   private void generateFloor(Coord origin, Direction front) {
-    BlockBrush floor = levelSettings.getTheme().getPrimary().getFloor();
     RectSolid floorRect = RectSolid.newRect(
         origin.copy().translate(front, getSize()).translate(front.left(), getSize()).down(),
         origin.copy().translate(front.reverse(), getSize()).translate(front.right(), getSize()).down()
     );
-    floor.fill(worldEditor, floorRect);
+    floors().fill(worldEditor, floorRect);
   }
 
   private void generateCeiling(Coord origin, Direction front) {
-    BlockBrush wall = levelSettings.getTheme().getPrimary().getWall();
+    BlockBrush wall = walls();
     RectSolid ceilingRect = RectSolid.newRect(
         origin.copy().translate(front, getSize()).translate(front.left(), getSize()).up(getCeilingHeight()),
         origin.copy().translate(front.reverse(), getSize()).translate(front.right(), getSize()).up(getCeilingHeight())

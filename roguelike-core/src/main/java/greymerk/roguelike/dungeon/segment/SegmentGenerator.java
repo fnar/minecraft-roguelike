@@ -110,7 +110,7 @@ public class SegmentGenerator {
       if (segment == null) {
         return segments;
       }
-      segment.generate(editor, rand, level, orthogonals, level.getSettings().getTheme(), pos.copy());
+      segment.generate(editor, level, orthogonals, level.getSettings().getTheme(), pos.copy());
       segments.add(segment);
     }
 

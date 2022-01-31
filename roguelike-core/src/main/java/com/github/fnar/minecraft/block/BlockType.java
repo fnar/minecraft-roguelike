@@ -227,7 +227,6 @@ public enum BlockType {
   public SingleBlockBrush getBrush() {
     switch (this) {
 
-
       // colored blocks
       case CARPET:
         return ColoredBlock.carpet();

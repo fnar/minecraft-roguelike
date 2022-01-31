@@ -60,9 +60,9 @@ public class DungeonsSpiderNest extends BaseRoom {
             continue;
           }
 
-          if (worldEditor.getRandom().nextInt(clearHeight) == 0) {
+          if (random().nextInt(clearHeight) == 0) {
             webs.stroke(worldEditor, new Coord(blockX, blockY, blockZ));
-          } else if (worldEditor.getRandom().nextInt(5) == 0) {
+          } else if (random().nextInt(5) == 0) {
             BlockType.GRAVEL.getBrush().stroke(worldEditor, new Coord(blockX, blockY, blockZ));
           }
         }
@@ -76,8 +76,8 @@ public class DungeonsSpiderNest extends BaseRoom {
         new Coord(originX - dungeonLength, originY - 1, originZ - dungeonWidth),
         new Coord(originX + dungeonLength, originY + 1, originZ + dungeonWidth)
     ).get();
-    List<Coord> chestLocations = chooseRandomLocations(1 + worldEditor.getRandom().nextInt(3), spaces);
-    generateChests(chestLocations, entrances.get(0), ChestType.UNCOMMON_TREASURES);
+    List<Coord> chestLocations = chooseRandomLocations(1 + random().nextInt(3), spaces);
+    generateChests(chestLocations, getEntrance(entrances), ChestType.UNCOMMON_TREASURES);
     return this;
   }
 

@@ -3,8 +3,6 @@ package greymerk.roguelike.dungeon.segment.part;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 
-import java.util.Random;
-
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -16,24 +14,16 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class SegmentSewerArch extends SegmentBase {
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
-
+  protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
     BlockBrush stair = theme.getSecondary().getStair().setUpsideDown(true).setFacing(dir.reverse());
-    BlockBrush water = BlockType.WATER_FLOWING.getBrush();
-    BlockBrush bars = BlockType.IRON_BAR.getBrush();
-    BlockBrush mossy = BlockType.COBBLESTONE_MOSSY.getBrush();
-
-    Coord cursor;
-    Coord start;
-    Coord end;
 
     Direction[] orthogonals = dir.orthogonals();
 
-    cursor = origin.copy();
+    Coord cursor = origin.copy();
     cursor.up(3);
-    mossy.stroke(editor, cursor, false, true);
+    BlockType.COBBLESTONE_MOSSY.getBrush().stroke(editor, cursor, false, true);
     cursor.up();
-    water.stroke(editor, cursor, false, true);
+    BlockType.WATER_FLOWING.getBrush().stroke(editor, cursor, false, true);
 
     cursor = origin.copy();
     cursor.translate(dir, 2);
@@ -45,19 +35,19 @@ public class SegmentSewerArch extends SegmentBase {
 
     cursor = origin.copy();
     cursor.translate(dir, 2);
-    bars.stroke(editor, cursor);
+    BlockType.IRON_BAR.getBrush().stroke(editor, cursor);
     cursor.up();
-    bars.stroke(editor, cursor);
+    BlockType.IRON_BAR.getBrush().stroke(editor, cursor);
 
-    start = origin.copy();
+    Coord start = origin.copy();
     start.down();
-    end = start.copy();
+    Coord end = start.copy();
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
     start.down();
     end.down();
-    RectSolid.newRect(start, end).fill(editor, water);
+    RectSolid.newRect(start, end).fill(editor, BlockType.WATER_FLOWING.getBrush());
 
     for (Direction o : orthogonals) {
       cursor = origin.copy();

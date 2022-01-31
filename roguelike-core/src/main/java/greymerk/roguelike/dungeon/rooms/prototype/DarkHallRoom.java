@@ -1,14 +1,12 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
 import com.github.fnar.minecraft.block.SingleBlockBrush;
-import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import java.util.List;
 
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -24,34 +22,27 @@ public class DarkHallRoom extends BaseRoom {
 
   @Override
   public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    Theme theme = levelSettings.getTheme();
-    BlockBrush outerWall = theme.getPrimary().getWall();
-    BlockBrush wall = theme.getSecondary().getWall();
-    BlockBrush floor = theme.getPrimary().getFloor();
-
-    BlockBrush pillar = theme.getSecondary().getPillar();
-    BlockBrush accentFloor = theme.getSecondary().getFloor();
 
     RectHollow r1 = RectHollow.newRect(
         origin.copy().north(7).west(7).down(),
         origin.copy().south(7).east(7).up(7));
-    outerWall.fill(worldEditor, r1, false, true);
+    walls().fill(worldEditor, r1, false, true);
 
     RectHollow r2 = RectHollow.newRect(
         origin.copy().north(4).west(4).up(6),
         origin.copy().south(4).east(4).up(9));
-    outerWall.fill(worldEditor, r2, false, true);
+    walls().fill(worldEditor, r2, false, true);
 
     RectSolid r3 = RectSolid.newRect(
         origin.copy().north(6).west(6).down(),
         origin.copy().south(6).east(6).down());
-    floor.fill(worldEditor, r3, false, true);
+    floors().fill(worldEditor, r3, false, true);
 
     for (Direction entrance : entrances) {
       RectSolid r4 = RectSolid.newRect(
           origin.copy().translate(entrance.left()),
           origin.copy().translate(entrance.right()).translate(entrance, 7));
-      accentFloor.fill(worldEditor, r4, false, true);
+      secondaryFloors().fill(worldEditor, r4, false, true);
     }
 
     for (Direction side : Direction.CARDINAL) {
@@ -61,22 +52,22 @@ public class DarkHallRoom extends BaseRoom {
       generateBeam(side, origin.copy().translate(side, 3).up(8), 7);
       generateBeam(side, origin.copy().up(8), 7);
 
-      pillar.stroke(worldEditor, origin.copy().translate(side, 3).up(7));
+      secondaryPillars().stroke(worldEditor, origin.copy().translate(side, 3).up(7));
 
       if (!entrances.contains(side)) {
-        pillar(worldEditor, levelSettings, side.reverse(), origin.copy().translate(side, 6));
+        pillar(side.reverse(), origin.copy().translate(side, 6));
       } else {
-        generateEntranceArchway(origin.copy().translate(side, 7), side, levelSettings);
+        generateEntranceArchway(origin.copy().translate(side, 7), side);
       }
 
-      wall.fill(worldEditor, RectSolid.newRect(
+      secondaryWalls().fill(worldEditor, RectSolid.newRect(
           origin.copy().translate(side, 6).up(6),
           origin.copy().translate(side, 4).up(6)));
 
       for (Direction orthogonal : side.orthogonals()) {
         Coord cursor = origin.copy().translate(side, 6).translate(orthogonal, 3);
-        pillar(worldEditor, levelSettings, side.reverse(), cursor);
-        wall.fill(worldEditor, RectSolid.newRect(
+        pillar(side.reverse(), cursor);
+        secondaryWalls().fill(worldEditor, RectSolid.newRect(
             cursor.copy().up(6),
             cursor.copy().up(6).translate(side.reverse(), 6)));
       }
@@ -87,30 +78,26 @@ public class DarkHallRoom extends BaseRoom {
     return this;
   }
 
-  private void generateEntranceArchway(Coord origin, Direction facing, LevelSettings levelSettings) {
-    BlockBrush wall = levelSettings.getTheme().getSecondary().getWall();
-    BlockBrush pillar = levelSettings.getTheme().getSecondary().getPillar();
-    StairsBlock stair = levelSettings.getTheme().getSecondary().getStair();
-
+  private void generateEntranceArchway(Coord origin, Direction facing) {
     Coord aboveOrigin = origin.copy().up(2);
 
-    wall.fill(worldEditor, RectSolid.newRect(
+    secondaryWalls().fill(worldEditor, RectSolid.newRect(
         aboveOrigin.copy().translate(facing.left(), 2),
         aboveOrigin.copy().translate(facing.right(), 2).up(3)));
 
     SingleBlockBrush.AIR.stroke(worldEditor, aboveOrigin);
 
     for (Direction orthogonal : facing.orthogonals()) {
-      stair.setUpsideDown(true).setFacing(orthogonal.reverse()).stroke(worldEditor, aboveOrigin.copy().translate(orthogonal));
-      pillar(worldEditor, levelSettings, orthogonal.reverse(), origin.copy().translate(facing.back()).translate(orthogonal, 3));
+      secondaryStairs().setUpsideDown(true).setFacing(orthogonal.reverse()).stroke(worldEditor, aboveOrigin.copy().translate(orthogonal));
+      pillar(orthogonal.reverse(), origin.copy().translate(facing.back()).translate(orthogonal, 3));
       Coord cursor = origin.copy().translate(orthogonal, 2);
-      pillar.stroke(worldEditor, cursor);
-      pillar.stroke(worldEditor, cursor.up());
+      secondaryPillars().stroke(worldEditor, cursor);
+      secondaryPillars().stroke(worldEditor, cursor.up());
     }
   }
 
   private void generateBeam(Direction dir, Coord origin, int width) {
-    BlockBrush wall = levelSettings.getTheme().getSecondary().getWall();
+    BlockBrush wall = secondaryWalls();
     int left = width / 2;
     int right = width - left - 1;
     Coord beamLeftAnchor = origin.copy().translate(dir.left(), left);
@@ -120,29 +107,25 @@ public class DarkHallRoom extends BaseRoom {
   }
 
   public void generateAccentPillar(Coord origin, int height) {
-    BlockBrush pillar = levelSettings.getTheme().getSecondary().getPillar();
     RectSolid.newRect(
         origin.copy(),
         origin.copy().up(height)
-    ).fill(worldEditor, pillar);
+    ).fill(worldEditor, pillars());
   }
 
-  private void pillar(WorldEditor editor, LevelSettings settings, Direction dir, Coord origin) {
-    BlockBrush wall = settings.getTheme().getSecondary().getWall();
-    StairsBlock stair = settings.getTheme().getSecondary().getStair();
-
+  private void pillar(Direction dir, Coord origin) {
     generateAccentPillar(origin, 5);
 
     Coord cursor = origin.copy().up(3).translate(dir);
-    stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor);
-    stair.setUpsideDown(false).setFacing(dir.reverse()).stroke(editor, cursor.up());
-    stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor.translate(dir));
-    stair.setUpsideDown(false).setFacing(dir.reverse()).stroke(editor, cursor.up());
+    secondaryStairs().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
+    secondaryStairs().setUpsideDown(false).setFacing(dir.reverse()).stroke(worldEditor, cursor.up());
+    secondaryStairs().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor.translate(dir));
+    secondaryStairs().setUpsideDown(false).setFacing(dir.reverse()).stroke(worldEditor, cursor.up());
     cursor.translate(dir);
-    if (editor.isAirBlock(cursor)) {
-      stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor);
+    if (worldEditor.isAirBlock(cursor)) {
+      secondaryStairs().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
     } else {
-      wall.stroke(editor, cursor);
+      secondaryWalls().stroke(worldEditor, cursor);
     }
   }
 

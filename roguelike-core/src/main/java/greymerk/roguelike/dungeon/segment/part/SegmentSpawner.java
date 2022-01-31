@@ -20,7 +20,7 @@ public class SegmentSpawner extends SegmentBase {
 
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
+  protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
     Direction[] orthogonals = dir.orthogonals();
 
     Coord start = origin.copy()
@@ -38,7 +38,7 @@ public class SegmentSpawner extends SegmentBase {
         .fill(editor, theme.getSecondary().getWall());
 
     generateDecorativeArch(editor, dir, origin, theme);
-    generateSpawner(editor, rand, level, dir, origin, theme);
+    generateSpawner(editor, editor.getRandom(), level, dir, origin, theme);
   }
 
   private void generateDecorativeArch(WorldEditor editor, Direction dir, Coord origin, Theme theme) {

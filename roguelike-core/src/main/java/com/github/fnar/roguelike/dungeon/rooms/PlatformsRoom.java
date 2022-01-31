@@ -18,7 +18,6 @@ import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
-import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class PlatformsRoom extends BaseRoom {
 
@@ -28,7 +27,7 @@ public class PlatformsRoom extends BaseRoom {
 
   @Override
   public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    Direction front = entrances.get(0);
+    Direction front = getEntrance(entrances);
 
     generateWalls(origin, front);
     generateDoorways(origin, entrances, getSize());
@@ -40,7 +39,7 @@ public class PlatformsRoom extends BaseRoom {
   }
 
   private void generateIslands(Coord origin, Direction front) {
-    BlockBrush pillar = levelSettings.getTheme().getPrimary().getPillar();
+    BlockBrush pillar = pillars();
 
     Map<Character, BlockBrush> blockBrushMap = Stream.of(new Object[][]{
         {'.', SingleBlockBrush.AIR},
@@ -62,7 +61,7 @@ public class PlatformsRoom extends BaseRoom {
         BlockPattern blockPattern = new BlockPattern(worldEditor, chooseRandomBlockPattern(), blockBrushMap);
         blockPattern.stroke(location, front, true, false);
         blockPattern.stroke(location.up(), front, true, false);
-        if (worldEditor.getRandom().nextBoolean()) {
+        if (random().nextBoolean()) {
           blockPattern.stroke(location.up(), front, true, false);
         }
       }
@@ -101,44 +100,35 @@ public class PlatformsRoom extends BaseRoom {
   }
 
   private void generateWalls(Coord origin, Direction front) {
-    int depth = worldEditor.getRandom().nextBoolean() ? 2 : 3;
-    BlockBrush walls = levelSettings.getTheme().getPrimary().getWall();
+    int depth = random().nextBoolean() ? 2 : 3;
     RectHollow.newRect(
         origin.copy().translate(front.left(), getSize()).translate(front, getSize()).copy().down(depth),
         origin.copy().translate(front.right(), getSize()).translate(front.back(), getSize()).copy().up(getHeight())
-    ).fill(worldEditor, walls);
-  }
-
-  private void theFloorIsLava(Coord origin, Direction front) {
-    BlockBrush liquid = levelSettings.getTheme().getPrimary().getLiquid();
-    RectSolid.newRect(
-        origin.copy().translate(front, getSize() - 1).translate(front.left(), getSize() - 1).down(),
-        origin.copy().translate(front.back(), getSize() - 1).translate(front.right(), getSize() - 1).down(2)
-    ).fill(worldEditor, liquid, true, false);
+    ).fill(worldEditor, walls());
   }
 
   private void generateCeilingDecoration(Coord origin) {
-    BlockBrush pillar = levelSettings.getTheme().getSecondary().getPillar();
-    StairsBlock stair = levelSettings.getTheme().getPrimary().getStair();
     Direction.cardinals()
         .forEach(direction -> {
+
+          StairsBlock stair = stairs();
 
           Coord beamStart = origin.copy().translate(direction, getSize() / 2 - 1).translate(direction.left(), getSize() - 1).up(getHeight() - 2);
           Coord beamEnd = origin.copy().translate(direction, getSize() / 2 - 1).translate(direction.right(), getSize() - 1).up(getHeight() - 2);
 
-          pillar.setFacing(direction.right());
-          new FnarLine(beamStart, beamEnd).fill(worldEditor, pillar);
+          secondaryPillars().setFacing(direction.right());
+          new FnarLine(beamStart, beamEnd).fill(worldEditor, secondaryPillars());
 
-          stair.setUpsideDown(true);
-          stair.setFacing(direction.right());
-          stair.stroke(worldEditor, beamStart.down(2));
-          pillar.stroke(worldEditor, beamStart.up());
+          stair.setUpsideDown(true)
+              .setFacing(direction.right())
+              .stroke(worldEditor, beamStart.down(2));
+          secondaryPillars().stroke(worldEditor, beamStart.up());
           stair.stroke(worldEditor, beamStart.translate(direction.right()));
 
-          stair.setUpsideDown(true);
-          stair.setFacing(direction.left());
-          stair.stroke(worldEditor, beamEnd.down(2));
-          pillar.stroke(worldEditor, beamEnd.up());
+          stair.setUpsideDown(true)
+              .setFacing(direction.left())
+              .stroke(worldEditor, beamEnd.down(2));
+          secondaryPillars().stroke(worldEditor, beamEnd.up());
           stair.stroke(worldEditor, beamEnd.translate(direction.left()));
         });
   }

@@ -37,19 +37,11 @@ public class FireworkRoom extends BaseRoom {
 
   @Override
   public BaseRoom generate(Coord origin, List<Direction> entrances) {
-
-    int x = origin.getX();
-    int y = origin.getY();
-    int z = origin.getZ();
     BlockBrush breadboard = stainedHardenedClay().setColor(DyeColor.GREEN);
 
-    Coord cursor;
-    Coord start;
-    Coord end;
-
-    Direction dir = entrances.get(0);
-    start = new Coord(x, y, z);
-    end = start.copy();
+    Direction dir = getEntrance(entrances);
+    Coord start = origin.copy();
+    Coord end = start.copy();
     start.translate(dir.reverse(), 9);
     end.translate(dir, 9);
     start.translate(dir.antiClockwise(), 4);
@@ -58,7 +50,7 @@ public class FireworkRoom extends BaseRoom {
     end.up(3);
     RectHollow.newRect(start, end).fill(worldEditor, stainedHardenedClay().setColor(DyeColor.ORANGE), false, true);
 
-    start = new Coord(x, y, z);
+    start = origin.copy();
     start.translate(dir.antiClockwise(), 2);
     end = start.copy();
     start.translate(dir.reverse(), 3);
@@ -74,7 +66,7 @@ public class FireworkRoom extends BaseRoom {
     end.translate(dir.clockwise(), 2);
     RectSolid.newRect(start, end).fill(worldEditor, breadboard);
 
-    cursor = new Coord(x, y, z);
+    Coord cursor = origin.copy();
     cursor.translate(dir.antiClockwise(), 2);
 
     launcher(worldEditor, dir, cursor);
@@ -89,7 +81,7 @@ public class FireworkRoom extends BaseRoom {
     cursor.translate(dir.antiClockwise(), 2);
     launcher(worldEditor, dir, cursor);
 
-    start = new Coord(x, y, z);
+    start = origin.copy();
     start.translate(dir, 4);
     end = start.copy();
     start.translate(dir.antiClockwise(), 2);
@@ -97,7 +89,7 @@ public class FireworkRoom extends BaseRoom {
     end.translate(dir, 2);
     RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
 
-    cursor = new Coord(x, y, z);
+    cursor = origin.copy();
     cursor.translate(dir, 2);
     RepeaterBlock.repeater().setFacing(dir).stroke(worldEditor, cursor);
     cursor.translate(dir.antiClockwise(), 2);
@@ -105,7 +97,7 @@ public class FireworkRoom extends BaseRoom {
     cursor.translate(dir.clockwise(), 4);
     RepeaterBlock.repeater().setFacing(dir).stroke(worldEditor, cursor);
 
-    cursor = new Coord(x, y, z);
+    cursor = origin.copy();
     cursor.translate(dir.reverse(), 3);
     cursor.translate(dir.antiClockwise());
     RepeaterBlock.repeater().setFacing(dir.antiClockwise()).stroke(worldEditor, cursor);
@@ -114,7 +106,7 @@ public class FireworkRoom extends BaseRoom {
 
     BlockBrush wire = BlockType.REDSTONE_WIRE.getBrush();
 
-    start = new Coord(x, y, z);
+    start = origin.copy();
     start.down(2);
     start.translate(dir.clockwise());
     start.translate(dir.reverse(), 2);
@@ -124,7 +116,7 @@ public class FireworkRoom extends BaseRoom {
     end.down(2);
     RectSolid.newRect(start, end).fill(worldEditor, BlockType.COBBLESTONE.getBrush());
 
-    cursor = new Coord(x, y, z);
+    cursor = origin.copy();
     cursor.translate(dir.reverse(), 3);
     cursor.down();
     TorchBlock.redstone().setFacing(Direction.UP).stroke(worldEditor, cursor);
@@ -154,8 +146,8 @@ public class FireworkRoom extends BaseRoom {
     cursor.up();
     LeverBlock.lever().setActive(true).setFacing(Direction.UP).stroke(worldEditor, cursor);
 
-    BlockBrush light = levelSettings.getTheme().getPrimary().getLightBlock();
-    cursor = new Coord(x, y, z);
+    BlockBrush light = lights();
+    cursor = origin.copy();
     cursor.translate(dir.reverse(), 5);
     cursor.up(3);
     light.stroke(worldEditor, cursor);
@@ -282,12 +274,10 @@ public class FireworkRoom extends BaseRoom {
   }
 
   @Override
-  public boolean validLocation(WorldEditor editor, Direction dir, Coord pos) {
-    Coord start;
-    Coord end;
+  public boolean isValidLocation(Direction dir, Coord pos) {
 
-    start = pos.copy();
-    end = start.copy();
+    Coord start = pos.copy();
+    Coord end = start.copy();
     start.translate(dir.reverse(), 9);
     end.translate(dir, 9);
     Direction[] orthogonal = dir.orthogonals();
@@ -297,7 +287,7 @@ public class FireworkRoom extends BaseRoom {
     end.up(3);
 
     for (Coord c : new RectHollow(start, end)) {
-      if (editor.isAirBlock(c)) {
+      if (worldEditor.isAirBlock(c)) {
         return false;
       }
     }

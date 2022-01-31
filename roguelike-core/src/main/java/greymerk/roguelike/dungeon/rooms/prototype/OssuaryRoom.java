@@ -2,15 +2,12 @@ package greymerk.roguelike.dungeon.rooms.prototype;
 
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.decorative.Skull;
-import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import java.util.List;
 
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.Theme;
-import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -25,9 +22,6 @@ public class OssuaryRoom extends BaseRoom {
 
   @Override
   public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    Theme theme = levelSettings.getTheme();
-    BlockBrush walls = theme.getPrimary().getWall();
-    StairsBlock stair = theme.getPrimary().getStair();
 
     Coord start;
     Coord end;
@@ -41,7 +35,7 @@ public class OssuaryRoom extends BaseRoom {
     end.south(8);
     end.west(8);
     end.up(6);
-    RectHollow.newRect(start, end).fill(worldEditor, walls, false, true);
+    RectHollow.newRect(start, end).fill(worldEditor, walls(), false, true);
 
     // entrance arches
     for (Direction dir : Direction.CARDINAL) {
@@ -53,7 +47,7 @@ public class OssuaryRoom extends BaseRoom {
         end = start.copy();
         end.up(5);
         end.translate(dir.reverse());
-        RectSolid.newRect(start, end).fill(worldEditor, walls);
+        RectSolid.newRect(start, end).fill(worldEditor, walls());
 
         start = cursor.copy();
         start.translate(o, 2);
@@ -61,20 +55,20 @@ public class OssuaryRoom extends BaseRoom {
         start.translate(dir.reverse(), 2);
         end = start.copy();
         end.up(3);
-        RectSolid.newRect(start, end).fill(worldEditor, walls);
-        stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, start);
+        RectSolid.newRect(start, end).fill(worldEditor, walls());
+        stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, start);
 
         start.translate(dir.reverse());
         start.up();
         end.translate(dir.reverse());
-        RectSolid.newRect(start, end).fill(worldEditor, walls);
-        stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, start);
+        RectSolid.newRect(start, end).fill(worldEditor, walls());
+        stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, start);
 
         start.translate(dir.reverse());
         start.up();
         end.translate(dir.reverse());
-        RectSolid.newRect(start, end).fill(worldEditor, walls);
-        stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, start);
+        RectSolid.newRect(start, end).fill(worldEditor, walls());
+        stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, start);
 
         start = cursor.copy();
         start.up(3);
@@ -82,36 +76,36 @@ public class OssuaryRoom extends BaseRoom {
         start.translate(dir.antiClockwise());
         end.translate(dir.clockwise());
         end.up(3);
-        RectSolid.newRect(start, end).fill(worldEditor, walls);
+        RectSolid.newRect(start, end).fill(worldEditor, walls());
         start.up();
         start.translate(dir.reverse());
         end.translate(dir.reverse());
-        RectSolid.newRect(start, end).fill(worldEditor, walls);
+        RectSolid.newRect(start, end).fill(worldEditor, walls());
         start.up();
         start.translate(dir.reverse());
         end.translate(dir.reverse());
-        RectSolid.newRect(start, end).fill(worldEditor, walls);
+        RectSolid.newRect(start, end).fill(worldEditor, walls());
 
         Coord c = cursor.copy();
         c.translate(o);
         c.up(2);
-        stair.setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, c);
+        stairs().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, c);
         c.translate(dir.reverse());
         c.up();
-        stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
+        stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
         c.translate(dir.reverse());
         c.up();
-        stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
+        stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
         c.translate(dir.reverse());
       }
 
       Coord c = origin.copy();
       c.translate(dir, 7);
       c.up(3);
-      stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
+      stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
       c.translate(dir.reverse());
       c.up();
-      stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
+      stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
     }
 
     for (Direction dir : Direction.CARDINAL) {
@@ -124,12 +118,12 @@ public class OssuaryRoom extends BaseRoom {
       end = cursor.copy();
       end.south();
       end.west();
-      RectSolid.newRect(start, end).fill(worldEditor, walls);
+      RectSolid.newRect(start, end).fill(worldEditor, walls());
       SingleBlockBrush.AIR.stroke(worldEditor, cursor);
       for (Direction d : Direction.CARDINAL) {
         Coord c = cursor.copy();
         c.translate(d);
-        stair.setUpsideDown(true).setFacing(d.reverse()).stroke(worldEditor, c);
+        stairs().setUpsideDown(true).setFacing(d.reverse()).stroke(worldEditor, c);
       }
     }
 
@@ -142,7 +136,7 @@ public class OssuaryRoom extends BaseRoom {
       end.translate(dir);
       end.translate(dir.antiClockwise());
       end.up(6);
-      RectSolid.newRect(start, end).fill(worldEditor, walls);
+      RectSolid.newRect(start, end).fill(worldEditor, walls());
     }
 
     // central ceiling
@@ -154,7 +148,7 @@ public class OssuaryRoom extends BaseRoom {
     end = cursor.copy();
     end.south(2);
     end.west(2);
-    RectSolid.newRect(start, end).fill(worldEditor, walls);
+    RectSolid.newRect(start, end).fill(worldEditor, walls());
     start.down();
     end.down();
     RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
@@ -162,7 +156,7 @@ public class OssuaryRoom extends BaseRoom {
     for (Direction d : Direction.CARDINAL) {
       Coord c = cursor.copy();
       c.translate(d);
-      stair.setUpsideDown(true).setFacing(d.reverse()).stroke(worldEditor, c);
+      stairs().setUpsideDown(true).setFacing(d.reverse()).stroke(worldEditor, c);
     }
 
     for (Direction dir : Direction.CARDINAL) {
@@ -174,10 +168,10 @@ public class OssuaryRoom extends BaseRoom {
       for (Direction o : orthogonal) {
         Coord c = cursor.copy();
         c.translate(o);
-        stair.setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, c);
+        stairs().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, c);
       }
       cursor.translate(orthogonal[0], 2);
-      walls.stroke(worldEditor, cursor);
+      walls().stroke(worldEditor, cursor);
     }
 
     for (Direction dir : Direction.CARDINAL) {
@@ -191,12 +185,12 @@ public class OssuaryRoom extends BaseRoom {
       end = cursor.copy();
       end.south();
       end.west();
-      RectSolid.newRect(start, end).fill(worldEditor, walls);
+      RectSolid.newRect(start, end).fill(worldEditor, walls());
       SingleBlockBrush.AIR.stroke(worldEditor, cursor);
       for (Direction d : Direction.CARDINAL) {
         Coord c = cursor.copy();
         c.translate(d);
-        stair.setUpsideDown(true).setFacing(d.reverse()).stroke(worldEditor, c);
+        stairs().setUpsideDown(true).setFacing(d.reverse()).stroke(worldEditor, c);
       }
 
       for (Direction d : new Direction[]{dir, dir.antiClockwise()}) {
@@ -209,7 +203,7 @@ public class OssuaryRoom extends BaseRoom {
         for (Direction o : d.orthogonals()) {
           Coord c = cursor.copy();
           c.translate(o);
-          stair.setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, c);
+          stairs().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, c);
         }
 
         start = origin.copy();
@@ -218,16 +212,16 @@ public class OssuaryRoom extends BaseRoom {
         start.translate(d, 3);
         end = start.copy();
         end.up(4);
-        RectSolid.newRect(start, end).fill(worldEditor, walls);
+        RectSolid.newRect(start, end).fill(worldEditor, walls());
         start = end.copy();
         start.translate(d.orthogonals()[0]);
         end.translate(d.orthogonals()[1]);
         end.up(2);
-        RectSolid.newRect(start, end).fill(worldEditor, walls);
+        RectSolid.newRect(start, end).fill(worldEditor, walls());
         start.translate(d.reverse());
         end.translate(d.reverse());
         start.up();
-        RectSolid.newRect(start, end).fill(worldEditor, walls);
+        RectSolid.newRect(start, end).fill(worldEditor, walls());
 
         for (Direction o : d.orthogonals()) {
           cursor = origin.copy();
@@ -235,16 +229,16 @@ public class OssuaryRoom extends BaseRoom {
           cursor.translate(dir.antiClockwise(), 4);
           cursor.translate(d, 3);
           cursor.translate(o);
-          walls.stroke(worldEditor, cursor);
+          walls().stroke(worldEditor, cursor);
           cursor.up();
           skull(worldEditor, d.reverse(), cursor);
           cursor.up();
-          walls.stroke(worldEditor, cursor);
+          walls().stroke(worldEditor, cursor);
           cursor.up();
           skull(worldEditor, d.reverse(), cursor);
           cursor.up();
           cursor.translate(d.reverse());
-          stair.setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
+          stairs().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
         }
       }
 

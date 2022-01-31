@@ -3,8 +3,6 @@ package greymerk.roguelike.dungeon.segment.part;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 
-import java.util.Random;
-
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.dungeon.segment.alcove.SilverfishNest;
 import greymerk.roguelike.theme.Theme;
@@ -16,20 +14,16 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class SegmentSilverfish extends SegmentBase {
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
-
+  protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
     StairsBlock stair = theme.getSecondary().getStair();
-
-    Coord cursor = origin.copy();
-    Coord start;
-    Coord end;
 
     Direction[] orthogonals = dir.orthogonals();
 
+    Coord cursor = origin.copy();
     cursor.translate(dir, 2);
-    start = cursor.copy();
+    Coord start = cursor.copy();
     start.translate(orthogonals[0], 1);
-    end = cursor.copy();
+    Coord end = cursor.copy();
     end.translate(orthogonals[1], 1);
     end.up(2);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
@@ -60,7 +54,7 @@ public class SegmentSilverfish extends SegmentBase {
     stair.setUpsideDown(true).setFacing(dir.reverse());
     stair.stroke(editor, cursor);
 
-    SilverfishNest.generate(new SilverfishNest(), editor, rand, level, dir, origin);
+    SilverfishNest.generate(new SilverfishNest(), editor, editor.getRandom(), level, dir, origin);
   }
 
 }

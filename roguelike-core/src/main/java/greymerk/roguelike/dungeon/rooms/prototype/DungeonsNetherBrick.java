@@ -2,7 +2,6 @@ package greymerk.roguelike.dungeon.rooms.prototype;
 
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
-import com.github.fnar.minecraft.block.spawner.MobType;
 
 import java.util.List;
 import java.util.Random;
@@ -10,7 +9,6 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
 import greymerk.roguelike.worldgen.Coord;
@@ -26,48 +24,70 @@ public class DungeonsNetherBrick extends BaseRoom {
   }
 
   public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    Random random = worldEditor.getRandom();
+    Random random = random();
 
     int x = origin.getX();
     int y = origin.getY();
     int z = origin.getZ();
-    Theme theme = levelSettings.getTheme();
 
-    int height = 3;
     int length = 2 + random.nextInt(3);
     int width = 2 + random.nextInt(3);
 
-    BlockBrush walls = theme.getPrimary().getWall();
-    RectHollow.newRect(new Coord(x - length - 1, y - 1, z - width - 1), new Coord(x + length + 1, y + height + 1, z + width + 1)).fill(worldEditor, walls, false, true);
+    generateWalls(x, y, z, length, width);
+    generateFloor(origin, x, y, z, length, width);
+    generateCeiling(x, y, z, length, width);
+    generateChests(entrances, x, y, z, length, width);
+    generateSpawners(origin, random, length, width);
 
+    return this;
+  }
 
-    BlockBrush floor = theme.getPrimary().getFloor();
+  private int getHeight() {
+    return 3;
+  }
+
+  private void generateWalls(int x, int y, int z, int length, int width) {
+    RectHollow.newRect(new Coord(x - length - 1, y - 1, z - width - 1), new Coord(x + length + 1, y + getHeight() + 1, z + width + 1)).fill(worldEditor, walls(), false, true);
+  }
+
+  private void generateFloor(Coord origin, int x, int y, int z, int length, int width) {
+    BlockBrush floor = floors();
     RectSolid.newRect(new Coord(x - length - 1, y - 1, z - width - 1), new Coord(x + length + 1, y - 1, z + width + 1)).fill(worldEditor, floor);
+    generateCrapUnderneath(origin, length, width);
+  }
 
-    // liquid crap under the floor
-    BlockWeightedRandom subFloor = new BlockWeightedRandom();
-    subFloor.addBlock(theme.getPrimary().getLiquid(), 8);
-    subFloor.addBlock(BlockType.OBSIDIAN.getBrush(), 3);
-    RectSolid.newRect(new Coord(x - length, y - 5, z - width), new Coord(x + length, y - 2, z + width)).fill(worldEditor, subFloor);
-
+  private void generateCeiling(int x, int y, int z, int length, int width) {
     BlockWeightedRandom ceiling = new BlockWeightedRandom();
     ceiling.addBlock(BlockType.FENCE_NETHER_BRICK.getBrush(), 10);
     ceiling.addBlock(SingleBlockBrush.AIR, 5);
-    RectSolid.newRect(new Coord(x - length, y + height, z - width), new Coord(x + length, y + height, z + width)).fill(worldEditor, ceiling);
+    RectSolid.newRect(new Coord(x - length, y + getHeight(), z - width), new Coord(x + length, y + getHeight(), z + width)).fill(worldEditor, ceiling);
+  }
 
+  private void generateCrapUnderneath(Coord origin, int length, int width) {
+    // liquid crap under the floor
+    BlockWeightedRandom subFloor = new BlockWeightedRandom();
+    subFloor.addBlock(liquid(), 8);
+    subFloor.addBlock(BlockType.OBSIDIAN.getBrush(), 3);
+    RectSolid.newRect(
+        origin.copy().translate(-length, -5, -width),
+        origin.copy().translate(length, -2, width)
+    ).fill(worldEditor, subFloor);
+  }
+
+  private void generateChests(List<Direction> entrances, int x, int y, int z, int length, int width) {
     List<Coord> chestLocations = chooseRandomLocations(1, new RectSolid(new Coord(x - length, y, z - width), new Coord(x + length, y, z + width)).get());
-    generateTrappableChests(chestLocations, entrances.get(0));
+    generateTrappableChests(chestLocations, getEntrance(entrances));
+  }
 
-    final Coord cursor = new Coord(x - length - 1, y + random.nextInt(2), z - width - 1);
-    generateSpawner(cursor, MobType.COMMON_MOBS);
-    final Coord cursor1 = new Coord(x - length - 1, y + random.nextInt(2), z + width + 1);
-    generateSpawner(cursor1, MobType.COMMON_MOBS);
-    final Coord cursor2 = new Coord(x + length + 1, y + random.nextInt(2), z - width - 1);
-    generateSpawner(cursor2, MobType.COMMON_MOBS);
-    final Coord cursor3 = new Coord(x + length + 1, y + random.nextInt(2), z + width + 1);
-    generateSpawner(cursor3, MobType.COMMON_MOBS);
-
-    return this;
+  private void generateSpawners(Coord origin, Random random, int length, int width) {
+    int negX = -length - 1;
+    int posX = length + 1;
+    int negZ = -width - 1;
+    int posZ = width + 1;
+    generateSpawner(origin.copy().translate(negX, random.nextInt(2), negZ));
+    generateSpawner(origin.copy().translate(negX, random.nextInt(2), posZ));
+    generateSpawner(origin.copy().translate(posX, random.nextInt(2), negZ));
+    generateSpawner(origin.copy().translate(posX, random.nextInt(2), posZ));
   }
 
   public int getSize() {

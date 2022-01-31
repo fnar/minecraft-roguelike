@@ -3,8 +3,6 @@ package greymerk.roguelike.dungeon.segment.part;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 
-import java.util.Random;
-
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.Coord;
@@ -16,18 +14,14 @@ public class SegmentInset extends SegmentBase {
 
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
+  protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
     StairsBlock stair = theme.getSecondary().getStair();
-
-    Coord cursor;
-    Coord start;
-    Coord end;
 
     Direction[] orthogonals = dir.orthogonals();
 
-    start = origin.copy();
+    Coord start = origin.copy();
     start.translate(dir, 2);
-    end = start.copy();
+    Coord end = start.copy();
     start.translate(orthogonals[0], 1);
     end.translate(orthogonals[1], 1);
     end.up(2);
@@ -36,6 +30,7 @@ public class SegmentInset extends SegmentBase {
     end.translate(dir, 1);
     RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall());
 
+    Coord cursor;
     for (Direction d : orthogonals) {
       cursor = origin.copy();
       cursor.up(2);

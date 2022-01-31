@@ -4,11 +4,8 @@ import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 
-import java.util.Random;
-
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.Theme;
-import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -18,27 +15,20 @@ public class SegmentSewerDrain extends SegmentBase {
 
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
-
-    BlockBrush water = BlockType.WATER_FLOWING.getBrush();
+  protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
     StairsBlock stair = theme.getSecondary().getStair();
-    BlockBrush bars = BlockType.IRON_BAR.getBrush();
-
-    Coord cursor;
-    Coord start;
-    Coord end;
 
     Direction[] orthogonals = dir.orthogonals();
 
-    start = origin.copy();
+    Coord start = origin.copy();
     start.down();
-    end = start.copy();
+    Coord end = start.copy();
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
     start.down();
     end.down();
-    RectSolid.newRect(start, end).fill(editor, water, false, true);
+    RectSolid.newRect(start, end).fill(editor, BlockType.WATER_FLOWING.getBrush(), false, true);
 
     start = origin.copy();
     start.translate(dir, 2);
@@ -51,13 +41,14 @@ public class SegmentSewerDrain extends SegmentBase {
     end.translate(dir);
     RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall());
 
+    Coord cursor;
     for (Direction o : orthogonals) {
       cursor = origin.copy();
       cursor.translate(dir, 2);
       cursor.translate(o);
       stair.setUpsideDown(false).setFacing(o.reverse()).stroke(editor, cursor);
       cursor.up();
-      bars.stroke(editor, cursor);
+      BlockType.IRON_BAR.getBrush().stroke(editor, cursor);
       cursor.up();
       stair.setUpsideDown(true).setFacing(o.reverse()).stroke(editor, cursor);
     }
@@ -67,7 +58,7 @@ public class SegmentSewerDrain extends SegmentBase {
     end = start.copy();
     end.translate(dir, 5);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
-    water.stroke(editor, end);
+    BlockType.WATER_FLOWING.getBrush().stroke(editor, end);
 
     cursor = origin.copy();
     cursor.down();

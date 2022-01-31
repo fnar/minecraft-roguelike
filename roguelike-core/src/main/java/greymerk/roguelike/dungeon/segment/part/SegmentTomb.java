@@ -23,15 +23,10 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class SegmentTomb extends SegmentBase {
 
   private static void tomb(WorldEditor editor, Random rand, LevelSettings level, Theme theme, Direction dir, Coord pos) {
-
-    Coord cursor;
-    Coord start;
-    Coord end;
-
     Direction[] orthogonals = dir.orthogonals();
-    start = pos.copy();
+    Coord start = pos.copy();
     start.translate(dir, 3);
-    end = start.copy();
+    Coord end = start.copy();
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
     end.up(3);
@@ -49,7 +44,7 @@ public class SegmentTomb extends SegmentBase {
     if (!(rand.nextInt(3) == 0)) {
       return;
     }
-    cursor = pos.copy();
+    Coord cursor = pos.copy();
     cursor.up();
     cursor.translate(dir, 4);
     Spawner spawner = level.getSpawnerSettings().isEmpty()
@@ -61,20 +56,18 @@ public class SegmentTomb extends SegmentBase {
   }
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
+  protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
 
     StairsBlock stair = theme.getPrimary().getStair();
 
     Coord cursor = origin.copy();
-    Coord start;
-    Coord end;
 
     Direction[] orthogonals = dir.orthogonals();
 
     cursor.translate(dir, 2);
-    start = cursor.copy();
+    Coord start = cursor.copy();
     start.translate(orthogonals[0], 1);
-    end = cursor.copy();
+    Coord end = cursor.copy();
     end.translate(orthogonals[1], 1);
     end.up(2);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
@@ -91,7 +84,7 @@ public class SegmentTomb extends SegmentBase {
       stair.stroke(editor, c);
     }
 
-    tomb(editor, rand, level.getSettings(), theme, dir, origin.copy());
+    tomb(editor, editor.getRandom(), level.getSettings(), theme, dir, origin.copy());
 
     cursor = origin.copy();
     cursor.up();

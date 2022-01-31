@@ -6,7 +6,6 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.minecraft.material.Wood;
 
 import java.util.Optional;
-import java.util.Random;
 
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.dungeon.base.BaseRoom;
@@ -21,7 +20,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class SegmentSewerDoor extends SegmentBase {
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
+  protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
 
     StairsBlock stair = theme.getSecondary().getStair();
     BlockBrush bars = BlockType.IRON_BAR.getBrush();
@@ -29,17 +28,13 @@ public class SegmentSewerDoor extends SegmentBase {
     BlockBrush leaves = Wood.SPRUCE.getLeaves();
     BlockBrush glowstone = theme.getSecondary().getLightBlock();
 
-    Coord cursor;
-    Coord start;
-    Coord end;
-
     Direction[] orthogonal = dir.orthogonals();
 
-    cursor = origin.copy();
+    Coord cursor = origin.copy();
     cursor.down();
     bars.stroke(editor, cursor);
-    start = cursor.copy();
-    end = start.copy();
+    Coord start = cursor.copy();
+    Coord end = start.copy();
     start.translate(orthogonal[0]);
     end.translate(orthogonal[1]);
     stair.setUpsideDown(true).setFacing(orthogonal[0]).stroke(editor, start);

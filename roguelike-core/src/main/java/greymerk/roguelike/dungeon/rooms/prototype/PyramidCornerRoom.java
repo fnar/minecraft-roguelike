@@ -7,8 +7,6 @@ import java.util.List;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.Theme;
-import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -27,23 +25,15 @@ public class PyramidCornerRoom extends BaseRoom {
     int x = origin.getX();
     int y = origin.getY();
     int z = origin.getZ();
-    Theme theme = levelSettings.getTheme();
 
-    BlockBrush blocks = theme.getPrimary().getWall();
-    BlockBrush pillar = theme.getPrimary().getPillar();
-
-    RectHollow.newRect(new Coord(x - 3, y - 1, z - 3), new Coord(x + 3, y + 3, z + 3)).fill(worldEditor, blocks, false, true);
-    RectSolid.newRect(new Coord(x - 2, y + 3, z - 2), new Coord(x + 2, y + 5, z + 2)).fill(worldEditor, blocks, false, true);
+    RectHollow.newRect(new Coord(x - 3, y - 1, z - 3), new Coord(x + 3, y + 3, z + 3)).fill(worldEditor, walls(), false, true);
+    RectSolid.newRect(new Coord(x - 2, y + 3, z - 2), new Coord(x + 2, y + 5, z + 2)).fill(worldEditor, walls(), false, true);
     RectSolid.newRect(new Coord(x - 1, y + 3, z - 1), new Coord(x + 1, y + 3, z + 1)).fill(worldEditor, SingleBlockBrush.AIR);
 
     // floor
-    RectSolid.newRect(new Coord(x - 3, y - 1, z - 3), new Coord(x + 3, y - 1, z + 3)).fill(worldEditor, theme.getPrimary().getFloor(), false, true);
+    RectSolid.newRect(new Coord(x - 3, y - 1, z - 3), new Coord(x + 3, y - 1, z + 3)).fill(worldEditor, theme().getPrimary().getFloor(), false, true);
 
-    Coord start;
-    Coord end;
-    Coord cursor;
-
-    cursor = new Coord(x, y, z);
+    Coord cursor = origin.copy();
     cursor.up(4);
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
     cursor.up(1);
@@ -52,18 +42,18 @@ public class PyramidCornerRoom extends BaseRoom {
 
     for (Direction dir : Direction.CARDINAL) {
 
-      cursor = new Coord(x, y, z);
+      cursor = origin.copy();
       cursor.up(4);
       cursor.translate(dir);
       SingleBlockBrush.AIR.stroke(worldEditor, cursor);
 
-      cursor = new Coord(x, y, z);
+      cursor = origin.copy();
       cursor.translate(dir, 2);
       cursor.translate(dir.orthogonals()[0], 2);
-      start = cursor.copy();
+      Coord start = cursor.copy();
       cursor.up(2);
-      end = cursor.copy();
-      RectSolid.newRect(start, end).fill(worldEditor, pillar);
+      Coord end = cursor.copy();
+      RectSolid.newRect(start, end).fill(worldEditor, pillars());
     }
 
     return this;

@@ -5,8 +5,6 @@ import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.material.Crop;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 
-import java.util.Random;
-
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockJumble;
@@ -19,21 +17,16 @@ public class SegmentWheat extends SegmentBase {
 
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
-
-    Coord cursor;
-    Coord start;
-    Coord end;
-
-    cursor = origin.copy();
+  protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
+    Coord cursor = origin.copy();
     cursor.down();
     cursor.translate(dir, 3);
     BlockType.WATER_FLOWING.getBrush().stroke(editor, cursor);
 
     Direction[] orthogonals = dir.orthogonals();
-    start = origin.copy();
+    Coord start = origin.copy();
     start.translate(dir, 2);
-    end = start.copy();
+    Coord end = start.copy();
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
     start.up(2);

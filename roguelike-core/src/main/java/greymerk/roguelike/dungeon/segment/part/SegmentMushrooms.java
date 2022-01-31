@@ -4,8 +4,6 @@ import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 
-import java.util.Random;
-
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
@@ -17,7 +15,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class SegmentMushrooms extends SegmentBase {
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction wallDirection, Theme theme, Coord origin) {
+  protected void genWall(WorldEditor editor, DungeonLevel level, Direction wallDirection, Theme theme, Coord origin) {
 
     StairsBlock stair = theme.getSecondary().getStair();
 
@@ -26,14 +24,10 @@ public class SegmentMushrooms extends SegmentBase {
     mushrooms.addBlock(BlockType.BROWN_MUSHROOM.getBrush(), 3);
     mushrooms.addBlock(SingleBlockBrush.AIR, 10);
 
-    Coord cursor;
-    Coord start;
-    Coord end;
-
     Direction[] orthogonals = wallDirection.orthogonals();
-    start = origin.copy();
+    Coord start = origin.copy();
     start.translate(wallDirection, 2);
-    end = start.copy();
+    Coord end = start.copy();
     start.translate(orthogonals[0], 1);
     end.translate(orthogonals[1], 1);
     end.up(1);
@@ -47,7 +41,7 @@ public class SegmentMushrooms extends SegmentBase {
     RectSolid.newRect(start, end).fill(editor, mushrooms);
 
     for (Direction d : orthogonals) {
-      cursor = origin.copy();
+      Coord cursor = origin.copy();
       cursor.translate(wallDirection, 2);
       cursor.translate(d, 1);
       cursor.up(1);
