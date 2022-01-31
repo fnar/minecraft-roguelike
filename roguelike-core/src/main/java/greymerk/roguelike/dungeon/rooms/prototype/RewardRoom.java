@@ -185,7 +185,8 @@ public class RewardRoom extends BaseRoom {
 
     cursor = new Coord(x, y, z);
     cursor.up();
-    worldEditor.getTreasureChestEditor().createChest(cursor, false, levelSettings.getDifficulty(cursor), entrances.get(0).reverse(), getRoomSetting().getChestType().orElse(ChestType.REWARD));
+    Direction chestFacing = entrances.get(0).reverse();
+    generateChest(cursor, chestFacing, getChestTypeOrUse(ChestType.REWARD));
 
     generateDoorways(origin, entrances);
 

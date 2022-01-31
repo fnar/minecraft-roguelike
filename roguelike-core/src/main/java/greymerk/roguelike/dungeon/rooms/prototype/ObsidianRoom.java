@@ -7,7 +7,6 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 import java.util.HashSet;
 import java.util.List;
 
-import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
@@ -310,8 +309,7 @@ public class ObsidianRoom extends BaseRoom {
         chestPos.translate(orthogonal, 2);
         chestPos.down(3);
 
-        ChestType chestType = getRoomSetting().getChestType().orElse(ChestType.chooseRandomAmong(worldEditor.getRandom(), ChestType.RARE_TREASURES));
-        worldEditor.getTreasureChestEditor().createChest(chestPos, false, Dungeon.getLevel(chestPos.getY()), orthogonal.reverse(), chestType);
+        generateTrappableChest(chestPos, orthogonal.reverse(), ChestType.RARE_TREASURES);
       }
     }
 

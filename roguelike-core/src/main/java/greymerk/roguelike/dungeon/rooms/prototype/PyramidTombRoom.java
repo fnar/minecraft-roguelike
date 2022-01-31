@@ -6,7 +6,6 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import java.util.List;
 
-import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
@@ -209,7 +208,9 @@ public class PyramidTombRoom extends BaseRoom {
 
     blocks.stroke(editor, cursor);
     cursor.up();
-    editor.getTreasureChestEditor().createChest(cursor, false, Dungeon.getLevel(cursor.getY()), dir, ChestType.ORE);
+
+    generateChest(cursor, dir, ChestType.ORE);
+
     cursor.up();
     blocks.stroke(editor, cursor);
 

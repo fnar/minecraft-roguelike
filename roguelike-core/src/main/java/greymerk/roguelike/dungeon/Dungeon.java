@@ -94,16 +94,16 @@ public class Dungeon {
   }
 
   public static int getLevel(int y) {
-    if (y < 15) {
-      return 4;
-    } else if (y < 25) {
-      return 3;
-    } else if (y < 35) {
-      return 2;
-    } else if (y < 45) {
-      return 1;
-    } else {
+    if (y >= 45) {
       return 0;
+    } else if (y >= 35) {
+      return 1;
+    } else if (y >= 25) {
+      return 2;
+    } else if (y >= 15) {
+      return 3;
+    } else {
+      return 4;
     }
   }
 

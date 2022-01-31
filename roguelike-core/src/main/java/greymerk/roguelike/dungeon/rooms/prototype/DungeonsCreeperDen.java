@@ -1,6 +1,7 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
 import com.github.fnar.minecraft.block.BlockType;
+import com.github.fnar.minecraft.block.spawner.MobType;
 
 import java.util.List;
 
@@ -16,7 +17,6 @@ import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
-import com.github.fnar.minecraft.block.spawner.MobType;
 
 public class DungeonsCreeperDen extends BaseRoom {
 
@@ -70,20 +70,14 @@ public class DungeonsCreeperDen extends BaseRoom {
     end.translate(new Coord(3, 0, 3));
 
     List<Coord> chestSpaces = new RectSolid(start, end).get();
-    chooseRandomLocations(3, chestSpaces).stream()
-        .peek(chestSpace -> worldEditor.getTreasureChestEditor().createChest(chestSpace, true, levelSettings.getDifficulty(chestSpace), entrances.get(0).reverse(), getRoomSetting().getChestType().orElse(ChestType.ORE)))
-        .forEach(chestSpace -> spawnTntBeneath(worldEditor, chestSpace));
+    chooseRandomLocations(3, chestSpaces)
+        .forEach(chestSpace ->
+            generateTrappedChest(chestSpace, entrances.get(0).reverse(), ChestType.ORE));
 
     final Coord cursor = origin.copy();
     generateSpawner(cursor, MobType.CREEPER);
 
     return this;
-  }
-
-  private void spawnTntBeneath(WorldEditor editor, Coord coord) {
-    Coord cursor = coord.copy();
-    cursor.down(2);
-    TNT_META_BLOCK.stroke(editor, cursor);
   }
 
   public int getSize() {

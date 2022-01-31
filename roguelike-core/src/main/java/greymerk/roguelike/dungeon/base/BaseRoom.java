@@ -13,6 +13,8 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.treasure.TreasureChest;
+import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -106,6 +108,59 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
     } catch (Exception e) {
       throw new RuntimeException("Tried to spawn empty spawner", e);
     }
+  }
+
+  protected ChestType getChestTypeOrUse(ChestType defaultChestType) {
+    return getRoomSetting().getChestType().orElse(defaultChestType);
+  }
+
+  protected void generateChests(List<Coord> chestLocations, Direction facing) {
+    generateChests(chestLocations, facing, ChestType.COMMON_TREASURES);
+  }
+
+  protected void generateChests(List<Coord> chestLocations, Direction facing, ChestType... defaultChestTypes) {
+    chestLocations.forEach(chestLocation ->
+        generateChest(chestLocation, facing, defaultChestTypes));
+  }
+
+  protected void generateChest(Coord cursor, Direction dir, ChestType... defaultChestType) {
+    generateChest(cursor, dir, ChestType.chooseRandomAmong(worldEditor.getRandom(), defaultChestType));
+  }
+
+  protected Optional<TreasureChest> generateChest(Coord cursor, Direction dir, ChestType defaultChestType) {
+    return chest(cursor, dir, defaultChestType)
+        .stroke();
+  }
+
+  protected Optional<TreasureChest> generateTrappedChest(Coord cursor, Direction dir, ChestType defaultChestType) {
+    return chest(cursor, dir, defaultChestType)
+        .withTrap(true)
+        .stroke();
+  }
+
+  protected void generateTrappableChests(List<Coord> chestLocations, Direction facing) {
+    generateTrappableChests(chestLocations, facing, ChestType.COMMON_TREASURES);
+  }
+
+  protected void generateTrappableChests(List<Coord> chestLocations, Direction facing, ChestType... defaultChestTypes) {
+    chestLocations.forEach(chestLocation ->
+        generateTrappableChest(chestLocation, facing, defaultChestTypes));
+  }
+
+  protected void generateTrappableChest(Coord cursor, Direction dir, ChestType... defaultChestType) {
+    generateTrappableChest(cursor, dir, ChestType.chooseRandomAmong(worldEditor.getRandom(), defaultChestType));
+  }
+
+  protected Optional<TreasureChest> generateTrappableChest(Coord cursor, Direction dir, ChestType defaultChestType) {
+    return chest(cursor, dir, defaultChestType)
+        .withTrapBasedOnDifficulty(levelSettings.getDifficulty(cursor))
+        .stroke();
+  }
+
+  private TreasureChest chest(Coord cursor, Direction dir, ChestType defaultChestType) {
+    return new TreasureChest(cursor, worldEditor)
+        .withChestType(getChestTypeOrUse(defaultChestType))
+        .withFacing(dir);
   }
 
   public abstract int getSize();

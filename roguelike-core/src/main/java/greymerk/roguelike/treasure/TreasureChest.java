@@ -1,15 +1,19 @@
 package greymerk.roguelike.treasure;
 
+import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.item.RldItemStack;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.treasure.loot.ChestType;
+import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
+import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 
 import static java.lang.Math.max;
@@ -17,17 +21,17 @@ import static java.lang.Math.min;
 
 public class TreasureChest {
 
-  private final ChestType chestType;
+  private ChestType chestType = ChestType.EMPTY;
   private final int level;
   private final Coord pos;
   private final WorldEditor worldEditor;
+  private boolean isTrapped;
+  private Direction facing;
 
   public TreasureChest(
-      ChestType chestType,
       Coord pos,
       WorldEditor worldEditor
   ) {
-    this.chestType = chestType;
     this.level = Dungeon.getLevel(pos.getY());
     this.pos = pos.copy();
     this.worldEditor = worldEditor;
@@ -51,7 +55,7 @@ public class TreasureChest {
     return chestType;
   }
 
-  public Coord getPos() {
+  public Coord getCoord() {
     return pos.copy();
   }
 
@@ -69,5 +73,72 @@ public class TreasureChest {
 
   private boolean isEmpty() {
     return chestType == null || getType().equals(ChestType.EMPTY);
+  }
+
+  public WorldEditor getWorldEditor() {
+    return this.worldEditor;
+  }
+
+  public TreasureChest withChestType(ChestType chestType) {
+    this.chestType = chestType;
+    return this;
+  }
+
+  public TreasureChest withTrapBasedOnDifficulty(int difficulty) {
+    this.isTrapped = worldEditor.getRandom().nextInt(30 / (Math.max(1, difficulty))) == 0;
+    return this;
+  }
+
+  public TreasureChest withTrap(boolean isTrapped) {
+    this.isTrapped = isTrapped;
+    return this;
+  }
+
+  public TreasureChest withFacing(Direction facing) {
+    this.facing = facing;
+    return this;
+  }
+
+  public boolean isValidChestSpace() {
+    return isNotNextToChest(getCoord(), getWorldEditor());
+  }
+
+  private boolean isNotNextToChest(Coord coord, WorldEditor worldEditor) {
+    return Direction.CARDINAL.stream().noneMatch(dir ->
+        worldEditor.isBlockOfTypeAt(BlockType.CHEST, coord.add(dir)));
+  }
+
+  public Optional<TreasureChest> stroke() {
+    boolean success = innerStroke();
+    if (!success) {
+      new ChestPlacementException(String.format("Failed to place chest in world at %s", pos)).printStackTrace();
+      return Optional.empty();
+    }
+    worldEditor.getTreasureManager().addChest(this);
+    return Optional.of(this);
+  }
+
+  private boolean innerStroke() {
+    if (!isValidChestSpace()) {
+      return false;
+    }
+    BlockBrush chestBlock = (isTrapped ? BlockType.TRAPPED_CHEST : BlockType.CHEST).getBrush().setFacing(facing);
+    boolean success = chestBlock.stroke(worldEditor, pos);
+    if (!success) {
+      return false;
+    }
+    strokeTrap();
+    return true;
+  }
+
+  private void strokeTrap() {
+    if (!isTrapped) {
+      return;
+    }
+    Coord tntCoord = getCoord().copy().down(2);
+    BlockType.TNT.getBrush().stroke(worldEditor, tntCoord);
+    if (worldEditor.getRandom().nextBoolean()) {
+      BlockType.TNT.getBrush().stroke(worldEditor, tntCoord.down());
+    }
   }
 }

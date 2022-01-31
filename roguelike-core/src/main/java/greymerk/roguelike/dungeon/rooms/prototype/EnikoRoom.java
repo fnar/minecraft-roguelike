@@ -10,7 +10,6 @@ import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.Theme;
-import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -116,8 +115,7 @@ public class EnikoRoom extends BaseRoom {
 
     generateSpawner(origin, COMMON_MOBS);
     List<Coord> chestLocations = chooseRandomLocations(1, chests);
-    ChestType chestType = getRoomSetting().getChestType().orElse(ChestType.chooseRandomAmong(worldEditor.getRandom(), ChestType.COMMON_TREASURES));
-    worldEditor.getTreasureChestEditor().createChests(chestLocations, false, levelSettings.getDifficulty(origin), entrances.get(0).reverse(), chestType);
+    generateChests(chestLocations, entrances.get(0));
 
     return this;
   }

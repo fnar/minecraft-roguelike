@@ -13,7 +13,6 @@ import com.github.fnar.minecraft.material.Crop;
 import java.util.List;
 
 import greymerk.roguelike.config.RogueConfig;
-import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
@@ -266,7 +265,8 @@ public class LabRoom extends BaseRoom {
       BlockType.BREWING_STAND.getBrush().stroke(editor, bs);
       editor.setItem(bs, BrewingStand.Slot.FUEL, Ingredient.Type.BLAZE_POWDER.asItemStack());
     }
-    editor.getTreasureChestEditor().createChest(new Coord(x, y + 1, z + 4), false, Dungeon.getLevel(y), Direction.WEST, getRoomSetting().getChestType().orElse(ChestType.BREWING));
+    Coord chestLocation = new Coord(x, y + 1, z + 4);
+    generateChest(chestLocation, Direction.WEST, ChestType.BREWING);
   }
 
   public int getSize() {

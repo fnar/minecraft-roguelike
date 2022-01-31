@@ -8,12 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.Theme;
-import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -67,7 +65,7 @@ public class DungeonsPit extends BaseRoom {
     spaces.add(new Coord(originX + 2, originY, originZ + 2));
 
     List<Coord> chestLocations = chooseRandomLocations(1, spaces);
-    worldEditor.getTreasureChestEditor().createChests(chestLocations, false, Dungeon.getLevel(originY), entrances.get(0), getRoomSetting().getChestType().orElse(ChestType.chooseRandomAmong(rand, ChestType.COMMON_TREASURES)));
+    generateTrappableChests(chestLocations, entrances.get(0));
 
     return this;
   }

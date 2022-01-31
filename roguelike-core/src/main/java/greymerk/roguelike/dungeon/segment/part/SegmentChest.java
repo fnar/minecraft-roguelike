@@ -1,12 +1,10 @@
 package greymerk.roguelike.dungeon.segment.part;
 
-import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import java.util.Random;
 
-import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.loot.ChestType;
@@ -20,7 +18,7 @@ import static greymerk.roguelike.worldgen.Direction.UP;
 public class SegmentChest extends SegmentBase {
 
   @Override
-  protected void genWall(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
+  protected void genWall(WorldEditor editor, Random random, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
     StairsBlock stair = theme.getSecondary().getStair();
 
     Coord cursor;
@@ -73,14 +71,7 @@ public class SegmentChest extends SegmentBase {
     }
 
     int difficulty = level.getSettings().getDifficulty(shelf);
-    boolean isTrapped = rand.nextInt(30 / (Math.max(1, difficulty))) == 0;
-    editor.getTreasureChestEditor().createChest(shelf, isTrapped, Dungeon.getLevel(origin.getY()), dir, ChestType.COMMON_TREASURES);
-    if (isTrapped) {
-      Coord tntCoord = shelf.copy().down(2);
-      BlockType.TNT.getBrush().stroke(editor, tntCoord);
-      if (rand.nextBoolean()) {
-        BlockType.TNT.getBrush().stroke(editor, tntCoord.down());
-      }
-    }
+    generateTrappableChest(editor, dir, shelf, difficulty, ChestType.COMMON_TREASURES);
   }
+
 }

@@ -44,8 +44,8 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import greymerk.roguelike.TreasureChestEditor;
 import greymerk.roguelike.treasure.TreasureChest;
+import greymerk.roguelike.treasure.TreasureManager;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
@@ -73,13 +73,13 @@ public class WorldEditor1_12 implements WorldEditor {
   );
   private final World world;
   private final Map<BlockType, Integer> stats = new HashMap<>();
-  private final TreasureChestEditor treasureChestEditor;
   private final Random random;
+  private final TreasureManager treasureManager;
 
   public WorldEditor1_12(World world) {
     this.world = world;
     random = new Random(Objects.hash(getSeed()));
-    treasureChestEditor = new TreasureChestEditor(this, random);
+    treasureManager = new TreasureManager(random);
   }
 
   public void setSkull(WorldEditor editor, Coord cursor, Direction dir, Skull type) {
@@ -331,11 +331,6 @@ public class WorldEditor1_12 implements WorldEditor {
   }
 
   @Override
-  public TreasureChestEditor getTreasureChestEditor() {
-    return treasureChestEditor;
-  }
-
-  @Override
   public void setBedColorAt(Coord cursor, DyeColor color) {
     TileEntity tileEntity = getTileEntity(cursor);
     if (tileEntity instanceof TileEntityBed) {
@@ -437,11 +432,11 @@ public class WorldEditor1_12 implements WorldEditor {
   }
 
   public int getCapacity(TreasureChest treasureChest) {
-    return ((TileEntityLockableLoot) getTileEntity(treasureChest.getPos())).getSizeInventory();
+    return ((TileEntityLockableLoot) getTileEntity(treasureChest.getCoord())).getSizeInventory();
   }
 
   public boolean isEmptySlot(TreasureChest treasureChest, int slot) {
-    return ((TileEntityLockableLoot) getTileEntity(treasureChest.getPos())).getStackInSlot(slot).isEmpty();
+    return ((TileEntityLockableLoot) getTileEntity(treasureChest.getCoord())).getStackInSlot(slot).isEmpty();
   }
 
   public void generateSpawner(Spawner spawner, Coord cursor, int level) {
@@ -468,4 +463,8 @@ public class WorldEditor1_12 implements WorldEditor {
     tileentity.markDirty();
   }
 
+  @Override
+  public TreasureManager getTreasureManager() {
+    return treasureManager;
+  }
 }

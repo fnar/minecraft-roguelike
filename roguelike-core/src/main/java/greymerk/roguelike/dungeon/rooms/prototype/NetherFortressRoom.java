@@ -92,7 +92,7 @@ public class NetherFortressRoom extends BaseRoom {
     cropsRectangle.fill(worldEditor, crop, true, true);
 
     List<Coord> chestLocations = chooseRandomLocations(worldEditor.getRandom().nextInt(3) + 1, cropsRectangle.get());
-    generateChests(origin, entrances, chestLocations);
+    generateTrappableChests(chestLocations, entrances.get(0).reverse(), ChestType.UNCOMMON_TREASURES);
 
     for (Direction dir : CARDINAL) {
 
@@ -140,15 +140,6 @@ public class NetherFortressRoom extends BaseRoom {
     generateDoorways(origin, entrances);
 
     return this;
-  }
-
-  private void generateChests(Coord origin, List<Direction> entrances, List<Coord> chestLocations) {
-    worldEditor.getTreasureChestEditor().createChests(chestLocations, false, levelSettings.getDifficulty(origin), entrances.get(0).reverse(), chooseRandomChestType(origin));
-  }
-
-  private ChestType chooseRandomChestType(Coord origin) {
-    return getRoomSetting().getChestType()
-        .orElse(ChestType.chooseRandomAmong(worldEditor.getRandom(), ChestType.RARE_TREASURES));
   }
 
   private boolean isHotGarden() {

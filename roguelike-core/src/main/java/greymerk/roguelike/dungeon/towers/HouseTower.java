@@ -11,7 +11,6 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 import java.util.Random;
 
 import greymerk.roguelike.theme.Theme;
-import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockStripes;
@@ -183,7 +182,9 @@ public class HouseTower implements ITower {
     cursor = origin.copy();
     cursor.up(4);
     cursor.translate(orthogonals[0], 8);
-    editor.getTreasureChestEditor().createChest(cursor, false, 0, dir, ChestType.STARTER);
+
+    chest(editor, dir, cursor);
+
     cursor.translate(dir.reverse());
     BlockType.BOOKSHELF.getBrush().stroke(editor, cursor);
     cursor.up();
@@ -206,7 +207,6 @@ public class HouseTower implements ITower {
     carpet.addBlock(carpet().setColor(DyeColor.chooseRandom(rand)));
     RectSolid.newRect(start, end).fill(editor, carpet);
   }
-
 
   private void windows(WorldEditor editor, Direction dir, Coord origin) {
     BlockBrush pane = stainedGlassPane().setColor(DyeColor.LIGHT_GRAY);

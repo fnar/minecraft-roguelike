@@ -2,10 +2,10 @@ package greymerk.roguelike.dungeon.rooms.prototype;
 
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
+import com.github.fnar.minecraft.block.spawner.MobType;
 
 import java.util.List;
 
-import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
@@ -15,7 +15,6 @@ import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
-import com.github.fnar.minecraft.block.spawner.MobType;
 
 public class DungeonsSpiderNest extends BaseRoom {
   int originX;
@@ -78,8 +77,7 @@ public class DungeonsSpiderNest extends BaseRoom {
         new Coord(originX + dungeonLength, originY + 1, originZ + dungeonWidth)
     ).get();
     List<Coord> chestLocations = chooseRandomLocations(1 + worldEditor.getRandom().nextInt(3), spaces);
-    ChestType chestType = getRoomSetting().getChestType().orElse(ChestType.chooseRandomAmong(worldEditor.getRandom(), ChestType.COMMON_TREASURES));
-    worldEditor.getTreasureChestEditor().createChests(chestLocations, false, Dungeon.getLevel(originY), entrances.get(0), chestType);
+    generateChests(chestLocations, entrances.get(0), ChestType.UNCOMMON_TREASURES);
     return this;
   }
 

@@ -121,17 +121,11 @@ public class StorageRoom extends BaseRoom {
     }
 
     chooseRandomLocations(2, chestSpaces)
-        .forEach(coord -> worldEditor.getTreasureChestEditor()
-            .createChest(coord, false, levelSettings.getDifficulty(origin), coord.dirTo(origin).reverse(), randomChestType()));
+        .forEach(coord -> generateChest(coord, coord.dirTo(origin).reverse(), ChestType.SUPPLIES_TREASURES));
 
     generateDoorways(origin, entrances, getSize() - 3);
 
     return this;
-  }
-
-  private ChestType randomChestType() {
-    return getRoomSetting().getChestType()
-        .orElse(ChestType.chooseRandomAmong(worldEditor.getRandom(), ChestType.SUPPLIES_TREASURES));
   }
 
   private void generateWall(Coord origin, Direction dir, Direction orthogonals) {
