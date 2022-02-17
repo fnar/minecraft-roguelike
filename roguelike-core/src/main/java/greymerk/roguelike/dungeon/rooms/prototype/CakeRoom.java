@@ -63,9 +63,7 @@ public class CakeRoom extends BaseRoom {
     spaces.add(new Coord(x + WIDTH, y, z - LENGTH + 1));
     spaces.add(new Coord(x + WIDTH, y, z + LENGTH - 1));
 
-    List<Coord> chestLocations = chooseRandomLocations(1, spaces);
-
-    generateChests(chestLocations, getEntrance(entrances).reverse(), ChestType.FOOD);
+    generateChest(randomFrom(spaces), getEntrance(entrances).reverse(), ChestType.FOOD);
 
     generateDoorways(origin, entrances);
     return this;

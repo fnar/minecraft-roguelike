@@ -28,20 +28,20 @@ public abstract class SegmentBase {
     }
   }
 
-  protected static void generateChest(WorldEditor editor, Direction dir, Coord cursor, ChestType[] defaultChestType) {
-    chest(editor, dir, cursor, defaultChestType)
-        .stroke();
+  protected static void generateChest(WorldEditor worldEditor, Direction dir, Coord coord, ChestType[] defaultChestType) {
+    chest(worldEditor, dir, coord, defaultChestType)
+        .stroke(worldEditor, coord);
   }
 
-  protected void generateTrappableChest(WorldEditor editor, Direction dir, Coord cursor, int difficulty, ChestType[] defaultChestType) {
-    chest(editor, dir, cursor, defaultChestType)
+  protected void generateTrappableChest(WorldEditor worldEditor, Direction dir, Coord coord, int difficulty, ChestType[] defaultChestType) {
+    chest(worldEditor, dir, coord, defaultChestType)
         .withTrapBasedOnDifficulty(difficulty)
-        .stroke();
+        .stroke(worldEditor, coord);
   }
 
-  private static TreasureChest chest(WorldEditor editor, Direction dir, Coord cursor, ChestType[] defaultChestType) {
-    return new TreasureChest(cursor, editor)
-        .withChestType(ChestType.chooseRandomAmong(editor.getRandom(), defaultChestType))
+  private static TreasureChest chest(WorldEditor worldEditor, Direction dir, Coord coord, ChestType[] defaultChestType) {
+    return new TreasureChest(coord, worldEditor)
+        .withChestType(ChestType.chooseRandomAmong(worldEditor.getRandom(), defaultChestType))
         .withFacing(dir);
   }
 

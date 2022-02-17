@@ -57,8 +57,7 @@ public class DungeonsPit extends BaseRoom {
     spaces.add(new Coord(originX + 2, originY, originZ - 2));
     spaces.add(new Coord(originX + 2, originY, originZ + 2));
 
-    List<Coord> chestLocations = chooseRandomLocations(1, spaces);
-    generateTrappableChests(chestLocations, getEntrance(entrances));
+    generateTrappableChest(randomFrom(spaces), getEntrance(entrances));
 
     return this;
   }

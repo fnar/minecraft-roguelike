@@ -1,12 +1,10 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
-import com.google.common.collect.Lists;
-
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
@@ -108,36 +106,38 @@ public class BrickRoom extends BaseRoom {
       walls().stroke(worldEditor, cursor, false, true);
     }
 
-    Direction randomDirection = Direction.randomCardinal(random());
-    Coord spawnerLocation = origin.copy()
-        .translate(randomDirection, random().nextInt(getSize()))
-        .translate(randomDirection.clockwise(), random().nextInt(getSize()));
+    Coord spawnerLocation = chooseSpawnerLocation(origin);
     generateSpawner(spawnerLocation);
-
     generateChest(origin, spawnerLocation, getEntrance(entrances));
 
     return this;
   }
 
-  public void generateChest(Coord origin, Coord spawnerLocation, Direction facing) {
-    int difficulty = levelSettings.getDifficulty(origin);
-
-    boolean isChestBeneathSpawner = random().nextInt(Math.max(1, difficulty) + 1) != 0;
-    List<Coord> chestLocations = isChestBeneathSpawner
-        ? Lists.newArrayList(spawnerLocation.copy().down())
-        : chooseRandomLocations(1, getPotentialSpawnLocations(origin));
-
-    generateTrappableChests(chestLocations, facing);
+  private Coord chooseSpawnerLocation(Coord origin) {
+    Direction randomDirection = Direction.randomCardinal(random());
+    return origin.copy()
+        .down()
+        .translate(randomDirection, random().nextInt(getSize()-1))
+        .translate(randomDirection.clockwise(), random().nextInt(getSize()-1));
   }
 
-  public List<Coord> getPotentialSpawnLocations(Coord origin) {
-    List<Coord> potentialChestLocations = new ArrayList<>();
-    CARDINAL.forEach(dir -> Arrays.stream(dir.orthogonals())
-        .map(orthogonal -> origin.copy()
-            .translate(dir, 3)
-            .translate(orthogonal, 2))
-        .forEach(potentialChestLocations::add));
-    return potentialChestLocations;
+  public void generateChest(Coord origin, Coord spawnerLocation, Direction facing) {
+    boolean isChestAboveSpawner = random().nextInt(Math.max(1, getDifficulty(origin)) + 1) != 0;
+    Coord chestLocation = isChestAboveSpawner
+        ? spawnerLocation.copy().up()
+        : randomFrom(getPotentialChestLocations(origin));
+
+    generateTrappableChest(chestLocation, facing);
+  }
+
+  public List<Coord> getPotentialChestLocations(Coord origin) {
+    return CARDINAL.stream()
+        .flatMap(dir ->
+            Arrays.stream(dir.orthogonals())
+                .map(orthogonal -> origin.copy()
+                    .translate(dir, 3)
+                    .translate(orthogonal, 2)))
+        .collect(Collectors.toList());
   }
 
   public int getSize() {

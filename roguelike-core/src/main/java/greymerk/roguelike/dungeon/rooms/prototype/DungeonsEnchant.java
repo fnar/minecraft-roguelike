@@ -296,8 +296,7 @@ public class DungeonsEnchant extends BaseRoom {
     cursor.translate(dir, 5);
     BlockType.ENCHANTING_TABLE.getBrush().stroke(worldEditor, cursor);
 
-    List<Coord> chestLocations = chooseRandomLocations(1, chests);
-    generateChests(chestLocations, getEntrance(entrances), ChestType.ENCHANTING);
+    generateChest(randomFrom(chests), getEntrance(entrances), ChestType.ENCHANTING);
 
     return this;
   }

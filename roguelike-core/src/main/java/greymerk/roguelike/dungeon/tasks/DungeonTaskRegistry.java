@@ -20,10 +20,9 @@ import static greymerk.roguelike.dungeon.DungeonStage.TUNNELS;
 public class DungeonTaskRegistry implements IDungeonTaskRegistry {
 
   public static DungeonTaskRegistry registry;
-  private Map<DungeonStage, List<IDungeonTask>> tasks;
+  private final Map<DungeonStage, List<IDungeonTask>> tasks = new HashMap<>();
 
   public DungeonTaskRegistry() {
-    tasks = new HashMap<>();
     addTask(new DungeonTaskLayout(), LAYOUT);
     addTask(new DungeonTaskEncase(), ENCASE);
     addTask(new DungeonTaskTunnels(), TUNNELS);

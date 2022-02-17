@@ -1,11 +1,18 @@
 package greymerk.roguelike.worldgen;
 
+import com.google.common.collect.Lists;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.Random;
 
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 import static greymerk.roguelike.worldgen.Direction.UP;
+import static java.util.Collections.shuffle;
+import static java.util.stream.Collectors.toList;
 
 public class Coord {
 
@@ -46,6 +53,19 @@ public class Coord {
       two.z = one.z;
       one.z = temp;
     }
+  }
+
+  public static Coord randomFrom(List<Coord> coords, Random random) {
+    return randomFrom(coords, 1, random).get(0);
+  }
+
+  public static List<Coord> randomFrom(List<Coord> coords, int limit, Random random) {
+    ArrayList<Coord> coordsShuffled = Lists.newArrayList(coords);
+    shuffle(coordsShuffled, random);
+
+    return coordsShuffled.stream()
+        .limit(limit)
+        .collect(toList());
   }
 
   public int getX() {
