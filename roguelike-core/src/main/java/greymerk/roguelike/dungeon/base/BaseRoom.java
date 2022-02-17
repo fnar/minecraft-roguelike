@@ -9,6 +9,7 @@ import com.github.fnar.minecraft.worldgen.generatables.Doorways;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
@@ -26,7 +27,6 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 import lombok.EqualsAndHashCode;
 
 import static java.util.Collections.shuffle;
-import static java.util.stream.Collectors.toList;
 
 @EqualsAndHashCode
 public abstract class BaseRoom implements Comparable<BaseRoom> {
@@ -41,18 +41,18 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
     this.worldEditor = worldEditor;
   }
 
-  public List<Coord> chooseRandomLocations(int limit, List<Coord> spaces) {
-    shuffle(spaces, worldEditor.getRandom());
+  public Coord randomFrom(List<Coord> spaces) {
+    return Coord.randomFrom(spaces, random());
+  }
 
-    return spaces.stream()
-        .limit(limit)
-        .collect(toList());
+  public List<Coord> randomFrom(List<Coord> spaces, int limit) {
+    return Coord.randomFrom(spaces, limit, random());
   }
 
   public abstract BaseRoom generate(Coord origin, List<Direction> entrances);
 
   protected void generateDoorways(Coord origin, List<Direction> entrances) {
-    generateDoorways(origin, entrances, getSize()-2);
+    generateDoorways(origin, entrances, getSize() - 2);
   }
 
   protected void generateDoorways(Coord origin, List<Direction> entrances, int distanceFromOrigin) {
@@ -65,17 +65,21 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
   }
 
   protected void generateSpawner(Coord spawnerLocation, MobType... defaultMobs) {
-    int difficulty = levelSettings.getDifficulty(spawnerLocation);
+    int difficulty = getDifficulty(spawnerLocation);
     generateSpawner(spawnerLocation, difficulty, defaultMobs);
   }
 
   protected void generateSpawner(Coord spawnerLocation) {
-    int difficulty = levelSettings.getDifficulty(spawnerLocation);
+    int difficulty = getDifficulty(spawnerLocation);
     generateSpawner(spawnerLocation, difficulty, MobType.COMMON_MOBS);
   }
 
+  protected int getDifficulty(Coord coord) {
+    return levelSettings.getDifficulty(coord);
+  }
+
   private void generateSpawner(Coord spawnerLocation, int difficulty, MobType... defaultMobs) {
-    Spawner spawner = chooseSpawner(difficulty, defaultMobs, worldEditor.getRandom());
+    Spawner spawner = chooseSpawner(difficulty, defaultMobs, random());
     generateSpawnerSafe(worldEditor, spawner, spawnerLocation, difficulty);
   }
 
@@ -86,7 +90,7 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
       return roomSpawnerSettings.get().chooseOneAtRandom(random);
     }
     if (!levelSpawnerSettings.isEmpty()) {
-      return levelSpawnerSettings.chooseOneAtRandom(worldEditor.getRandom());
+      return levelSpawnerSettings.chooseOneAtRandom(random());
     }
     return MobType.asSpawner(defaultMobs.length > 0 ? defaultMobs : MobType.COMMON_MOBS);
   }
@@ -106,7 +110,7 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
     }
     SpawnerSettings spawnerSettings = dungeonSettings.getLevelSettings(difficulty).getSpawnerSettings();
     if (spawnerSettings == null || spawnerSettings.isEmpty()) {
-       return Optional.empty();
+      return Optional.empty();
     }
     return Optional.of(spawnerSettings);
   }
@@ -133,45 +137,50 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
   }
 
   protected void generateChest(Coord cursor, Direction dir, ChestType... defaultChestType) {
-    generateChest(cursor, dir, ChestType.chooseRandomAmong(worldEditor.getRandom(), defaultChestType));
+    generateChest(cursor, dir, ChestType.chooseRandomAmong(random(), defaultChestType));
   }
 
   protected void generateChest(Coord cursor, Direction dir) {
-    generateChest(cursor, dir, ChestType.chooseRandomAmong(worldEditor.getRandom(), ChestType.COMMON_TREASURES));
+    generateChest(cursor, dir, ChestType.chooseRandomAmong(random(), ChestType.COMMON_TREASURES));
   }
 
-  protected Optional<TreasureChest> generateChest(Coord cursor, Direction dir, ChestType defaultChestType) {
-    return chest(cursor, dir, defaultChestType)
-        .stroke();
+  protected Optional<TreasureChest> generateChest(Coord coord, Direction dir, ChestType defaultChestType) {
+    return chest(coord, dir, defaultChestType)
+        .stroke(worldEditor, coord);
   }
 
   protected void generateTrappedChest(Coord cursor, Direction dir, ChestType... defaultChestType) {
-    generateTrappedChest(cursor, dir, ChestType.chooseRandomAmong(worldEditor.getRandom(), defaultChestType));
+    generateTrappedChest(cursor, dir, ChestType.chooseRandomAmong(random(), defaultChestType));
   }
 
   protected Optional<TreasureChest> generateTrappedChest(Coord cursor, Direction dir, ChestType defaultChestType) {
     return chest(cursor, dir, defaultChestType)
         .withTrap(true)
-        .stroke();
+        .stroke(worldEditor, cursor);
   }
 
-  protected void generateTrappableChests(List<Coord> chestLocations, Direction facing) {
-    generateTrappableChests(chestLocations, facing, ChestType.COMMON_TREASURES);
+  protected List<Optional<TreasureChest>> generateTrappableChests(List<Coord> chestLocations, Direction facing) {
+    return generateTrappableChests(chestLocations, facing, ChestType.COMMON_TREASURES);
   }
 
-  protected void generateTrappableChests(List<Coord> chestLocations, Direction facing, ChestType... defaultChestTypes) {
-    chestLocations.forEach(chestLocation ->
-        generateTrappableChest(chestLocation, facing, defaultChestTypes));
+  protected List<Optional<TreasureChest>> generateTrappableChests(List<Coord> chestLocations, Direction facing, ChestType... defaultChestTypes) {
+    return chestLocations.stream()
+        .map(chestLocation -> generateTrappableChest(chestLocation, facing, defaultChestTypes))
+        .collect(Collectors.toList());
   }
 
-  protected void generateTrappableChest(Coord cursor, Direction dir, ChestType... defaultChestType) {
-    generateTrappableChest(cursor, dir, ChestType.chooseRandomAmong(worldEditor.getRandom(), defaultChestType));
+  protected Optional<TreasureChest> generateTrappableChest(Coord cursor, Direction dir) {
+    return generateTrappableChest(cursor, dir, ChestType.COMMON_TREASURES);
+  }
+
+  protected Optional<TreasureChest> generateTrappableChest(Coord cursor, Direction dir, ChestType... defaultChestType) {
+    return generateTrappableChest(cursor, dir, ChestType.chooseRandomAmong(random(), defaultChestType));
   }
 
   protected Optional<TreasureChest> generateTrappableChest(Coord cursor, Direction dir, ChestType defaultChestType) {
     return chest(cursor, dir, defaultChestType)
-        .withTrapBasedOnDifficulty(levelSettings.getDifficulty(cursor))
-        .stroke();
+        .withTrapBasedOnDifficulty(getDifficulty(cursor))
+        .stroke(worldEditor, cursor);
   }
 
   private TreasureChest chest(Coord cursor, Direction dir, ChestType defaultChestType) {

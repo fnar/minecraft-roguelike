@@ -13,11 +13,11 @@ public interface ITower {
 
   void generate(WorldEditor editor, Random rand, Theme theme, Coord origin);
 
-  default void chest(WorldEditor editor, Direction dir, Coord cursor) {
-    new TreasureChest(cursor, editor)
+  default void chest(WorldEditor worldEditor, Direction dir, Coord coord) {
+    new TreasureChest(coord, worldEditor)
         .withChestType(ChestType.STARTER)
         .withTrap(false)
         .withFacing(dir)
-        .stroke();
+        .stroke(worldEditor, coord);
   }
 }

@@ -139,8 +139,7 @@ public class DungeonsMusic extends BaseRoom {
     cursor.up(4);
     lights().stroke(worldEditor, cursor);
 
-    List<Coord> chestLocations = chooseRandomLocations(1, chests);
-    generateChests(chestLocations, getEntrance(entrances).reverse(), ChestType.MUSIC);
+    generateChest(randomFrom(chests), getEntrance(entrances).reverse(), ChestType.MUSIC);
 
     generateDoorways(origin, entrances);
 

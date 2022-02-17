@@ -76,7 +76,7 @@ public class DungeonsSpiderNest extends BaseRoom {
         new Coord(originX - dungeonLength, originY - 1, originZ - dungeonWidth),
         new Coord(originX + dungeonLength, originY + 1, originZ + dungeonWidth)
     ).get();
-    List<Coord> chestLocations = chooseRandomLocations(1 + random().nextInt(3), spaces);
+    List<Coord> chestLocations = randomFrom(spaces, 1 + random().nextInt(3));
     generateChests(chestLocations, getEntrance(entrances), ChestType.UNCOMMON_TREASURES);
     return this;
   }

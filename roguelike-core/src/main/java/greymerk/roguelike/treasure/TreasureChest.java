@@ -100,33 +100,30 @@ public class TreasureChest {
   }
 
   public boolean isValidChestSpace() {
-    return isNotNextToChest(getCoord(), getWorldEditor());
+    return !isNextToChest();
   }
 
-  private boolean isNotNextToChest(Coord coord, WorldEditor worldEditor) {
-    return Direction.CARDINAL.stream().noneMatch(dir ->
-        worldEditor.isBlockOfTypeAt(BlockType.CHEST, coord.add(dir)));
+  private boolean isNextToChest() {
+    return Direction.CARDINAL.stream()
+        .anyMatch(this::containsChestBlock);
   }
 
-  public Optional<TreasureChest> stroke() {
-    if (!innerStroke()) {
+  private boolean containsChestBlock(Direction dir) {
+    return this.worldEditor.isBlockOfTypeAt(BlockType.CHEST, getCoord().add(dir));
+  }
+
+  // TODO: Could this class be a block brush?
+  public Optional<TreasureChest> stroke(WorldEditor worldEditor, Coord coord) {
+    if (!isValidChestSpace()) {
       return Optional.empty();
     }
-    worldEditor.getTreasureManager().addChest(this);
-    return Optional.of(this);
-  }
-
-  private boolean innerStroke() {
-    if (!isValidChestSpace()) {
-      return false;
-    }
     BlockBrush chestBlock = (isTrapped ? BlockType.TRAPPED_CHEST : BlockType.CHEST).getBrush().setFacing(facing);
-    boolean success = chestBlock.stroke(worldEditor, pos);
-    if (!success) {
-      return false;
+    if (!chestBlock.stroke(worldEditor, coord)) {
+      return Optional.empty();
     }
     strokeTrap();
-    return true;
+    this.worldEditor.getTreasureManager().addChest(this);
+    return Optional.of(this);
   }
 
   private void strokeTrap() {
