@@ -15,6 +15,7 @@ import com.github.fnar.minecraft.block.spawner.SpawnPotentialMapper1_12;
 import com.github.fnar.minecraft.block.spawner.Spawner;
 import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.minecraft.item.mapper.ItemMapper1_12;
+import com.github.fnar.roguelike.worldgen.SpiralStairStep;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -54,7 +55,6 @@ import greymerk.roguelike.worldgen.MetaBlock1_12;
 import greymerk.roguelike.worldgen.PositionInfo;
 import greymerk.roguelike.worldgen.VanillaStructure;
 import greymerk.roguelike.worldgen.WorldEditor;
-import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 import static greymerk.roguelike.dungeon.Dungeon.MOD_ID;
 
@@ -246,26 +246,7 @@ public class WorldEditor1_12 implements WorldEditor {
 
   @Override
   public void spiralStairStep(Random rand, Coord origin, StairsBlock stair, BlockBrush fill) {
-    Coord cursor;
-    Coord start;
-    Coord end;
-
-    start = origin.copy();
-    start.translate(new Coord(-1, 0, -1));
-    end = origin.copy();
-    end.translate(new Coord(1, 0, 1));
-
-    RectSolid.newRect(start, end).fill(this, SingleBlockBrush.AIR);
-    fill.stroke(this, origin);
-
-    Direction dir = Direction.CARDINAL.get(origin.getY() % 4);
-    cursor = origin.copy();
-    cursor.translate(dir);
-    stair.setUpsideDown(false).setFacing(dir.antiClockwise()).stroke(this, cursor);
-    cursor.translate(dir.clockwise());
-    stair.setUpsideDown(true).setFacing(dir.clockwise()).stroke(this, cursor);
-    cursor.translate(dir.reverse());
-    stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(this, cursor);
+    new SpiralStairStep(this, origin, stair, fill).generate();
   }
 
   @Override
