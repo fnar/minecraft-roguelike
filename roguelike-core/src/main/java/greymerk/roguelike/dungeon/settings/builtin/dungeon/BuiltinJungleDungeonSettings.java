@@ -10,7 +10,7 @@ import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.settings.builtin.BuiltinBaseSettings;
-import greymerk.roguelike.dungeon.towers.Tower;
+import greymerk.roguelike.dungeon.towers.TowerType;
 import greymerk.roguelike.theme.Themes;
 import greymerk.roguelike.treasure.loot.MinecraftItemLootItem;
 import greymerk.roguelike.treasure.loot.rule.SingleUseLootRule;
@@ -29,7 +29,7 @@ public class BuiltinJungleDungeonSettings extends DungeonSettings {
     setExclusive(true);
     getInherit().add(BuiltinBaseSettings.ID);
     getCriteria().setBiomeTypes(newArrayList(JUNGLE));
-    setTowerSettings(new TowerSettings(Tower.JUNGLE, Themes.JUNGLE));
+    setTowerSettings(new TowerSettings(TowerType.JUNGLE, Themes.JUNGLE));
 
     for (int i = 0; i < 5; ++i) {
       getLootRules().add(new SingleUseLootRule(new MinecraftItemLootItem(Material.Type.EMERALD.asItem(), 0, 1, 1 + i, 1), i, 6));

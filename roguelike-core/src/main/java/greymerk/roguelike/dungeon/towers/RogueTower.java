@@ -28,7 +28,7 @@ public class RogueTower implements ITower {
 
     StairsBlock stair = theme.getPrimary().getStair();
 
-    Coord floor = Tower.getBaseCoord(editor, dungeon);
+    Coord floor = TowerType.getBaseCoord(editor, dungeon);
     int ground = floor.getY() - 1;
     int main = floor.getY() + 4;
     int roof = floor.getY() + 9;

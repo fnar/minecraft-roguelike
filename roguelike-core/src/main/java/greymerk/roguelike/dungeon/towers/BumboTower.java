@@ -16,7 +16,7 @@ public class BumboTower implements ITower {
 
   @Override
   public void generate(WorldEditor editor, Random rand, Theme theme, Coord origin) {
-    Coord ground = Tower.getBaseCoord(editor, origin);
+    Coord ground = TowerType.getBaseCoord(editor, origin);
 
     Direction dir = Direction.randomCardinal(rand);
 

@@ -27,7 +27,7 @@ public class TreeTower implements ITower {
 
     Coord start;
     Coord end;
-    Coord ground = Tower.getBaseCoord(editor, origin);
+    Coord ground = TowerType.getBaseCoord(editor, origin);
     Coord upstairs = ground.copy();
     upstairs.up(7);
 

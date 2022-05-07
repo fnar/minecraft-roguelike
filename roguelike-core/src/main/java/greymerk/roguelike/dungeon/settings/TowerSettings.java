@@ -3,7 +3,7 @@ package greymerk.roguelike.dungeon.settings;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import greymerk.roguelike.dungeon.towers.Tower;
+import greymerk.roguelike.dungeon.towers.TowerType;
 import greymerk.roguelike.theme.Themes;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.theme.ThemeParser;
@@ -11,10 +11,10 @@ import greymerk.roguelike.theme.builtin.ThemeTower;
 
 public class TowerSettings {
 
-  private Tower type;
+  private TowerType type;
   private Theme theme;
 
-  public TowerSettings(Tower type, Themes theme) {
+  public TowerSettings(TowerType type, Themes theme) {
     this.type = type;
     this.theme = theme.getThemeBase();
   }
@@ -23,7 +23,7 @@ public class TowerSettings {
 
     JsonObject data = e.getAsJsonObject();
 
-    type = data.has("type") ? Tower.get(data.get("type").getAsString()) : null;
+    type = data.has("type") ? TowerType.get(data.get("type").getAsString()) : null;
     try {
       theme = data.has("theme") ? ThemeParser.parse(data.get("theme").getAsJsonObject()) : null;
     } catch (DungeonSettingParseException exception) {
@@ -54,9 +54,9 @@ public class TowerSettings {
     theme = toCopy.theme;
   }
 
-  public Tower getType() {
+  public TowerType getType() {
     if (type == null) {
-      return Tower.ROGUE;
+      return TowerType.ROGUE;
     }
 
     return type;

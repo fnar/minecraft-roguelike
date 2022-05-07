@@ -24,7 +24,7 @@ public class EniTower implements ITower {
 
     StairsBlock stair = theme.getPrimary().getStair();
 
-    Coord floor = Tower.getBaseCoord(editor, dungeon);
+    Coord floor = TowerType.getBaseCoord(editor, dungeon);
 
     int x = dungeon.getX();
     int z = dungeon.getZ();

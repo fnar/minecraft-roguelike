@@ -6,7 +6,7 @@ import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.settings.builtin.BuiltinBaseSettings;
-import greymerk.roguelike.dungeon.towers.Tower;
+import greymerk.roguelike.dungeon.towers.TowerType;
 import greymerk.roguelike.theme.Themes;
 
 import static com.google.common.collect.Lists.newArrayList;
@@ -21,7 +21,7 @@ public class BuiltinMesaDungeonSettings extends DungeonSettings {
     setExclusive(true);
     getInherit().add(BuiltinBaseSettings.ID);
     getCriteria().setBiomeTypes(newArrayList(MESA));
-    setTowerSettings(new TowerSettings(Tower.ETHO, Themes.ETHOTOWER));
+    setTowerSettings(new TowerSettings(TowerType.ETHO, Themes.ETHOTOWER));
 
     Themes[] themes = {Themes.ETHOTOWER, Themes.ETHOTOWER, Themes.CRYPT, Themes.CRYPT, Themes.NETHER};
     for (int i = 0; i < 5; ++i) {

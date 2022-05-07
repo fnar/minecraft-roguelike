@@ -22,7 +22,7 @@ import greymerk.roguelike.util.WeightedRandomizer;
 import greymerk.roguelike.worldgen.filter.Filter;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static greymerk.roguelike.dungeon.towers.Tower.WITCH;
+import static greymerk.roguelike.dungeon.towers.TowerType.WITCH;
 import static greymerk.roguelike.theme.Themes.DARKHALL;
 import static greymerk.roguelike.theme.Themes.DARKOAK;
 import static greymerk.roguelike.theme.Themes.MOSSY;

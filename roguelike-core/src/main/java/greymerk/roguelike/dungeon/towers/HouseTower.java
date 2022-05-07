@@ -28,7 +28,7 @@ public class HouseTower implements ITower {
   @Override
   public void generate(WorldEditor editor, Random rand, Theme theme, Coord dungeon) {
 
-    Coord floor = Tower.getBaseCoord(editor, dungeon);
+    Coord floor = TowerType.getBaseCoord(editor, dungeon);
 
     BlockBrush walls = theme.getPrimary().getWall();
     BlockBrush mainFloor = theme.getPrimary().getFloor();

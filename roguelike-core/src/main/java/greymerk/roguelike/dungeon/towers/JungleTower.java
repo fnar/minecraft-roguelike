@@ -22,7 +22,7 @@ public class JungleTower implements ITower {
   @Override
   public void generate(WorldEditor editor, Random rand, Theme theme, Coord dungeon) {
 
-    Coord origin = Tower.getBaseCoord(editor, dungeon);
+    Coord origin = TowerType.getBaseCoord(editor, dungeon);
     origin.up();
     BlockBrush pillar = theme.getPrimary().getPillar();
     BlockBrush walls = theme.getPrimary().getWall();

@@ -18,7 +18,7 @@ public class PyramidTower implements ITower {
   @Override
   public void generate(WorldEditor editor, Random rand, Theme theme, Coord dungeon) {
 
-    Coord floor = Tower.getBaseCoord(editor, dungeon);
+    Coord floor = TowerType.getBaseCoord(editor, dungeon);
     floor.up();
     BlockBrush blocks = theme.getPrimary().getWall();
     Coord cursor;
