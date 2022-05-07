@@ -5,7 +5,7 @@ import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.TowerSettings;
-import greymerk.roguelike.dungeon.towers.Tower;
+import greymerk.roguelike.dungeon.towers.TowerType;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.theme.Themes;
 
@@ -19,7 +19,7 @@ public class BuiltinThemeSettings extends DungeonSettings {
   public BuiltinThemeSettings() {
     super(ID);
 
-    setTowerSettings(new TowerSettings(Tower.ROGUE, Themes.TOWER));
+    setTowerSettings(new TowerSettings(TowerType.ROGUE, Themes.TOWER));
     for (int i = 0; i < 5; ++i) {
       LevelSettings level = new LevelSettings();
       Theme theme = i == 4 ? randomTheme().getThemeBase() : themes[i].getThemeBase();

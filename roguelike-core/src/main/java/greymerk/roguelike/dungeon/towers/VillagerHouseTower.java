@@ -15,7 +15,7 @@ public class VillagerHouseTower implements ITower {
   @Override
   public void generate(WorldEditor editor, Random random, Theme theme, Coord origin) {
     Direction facing = Direction.randomCardinal(random);
-    Coord base = Tower.getBaseCoord(editor, origin);
+    Coord base = TowerType.getBaseCoord(editor, origin);
     clearTowerArea(editor, base);
     createFoundation(editor, theme, origin, base, facing);
     createWalls(editor, theme, base, facing);

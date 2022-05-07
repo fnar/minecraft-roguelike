@@ -9,7 +9,7 @@ import greymerk.roguelike.command.CommandBase;
 import greymerk.roguelike.command.CommandContext1_12;
 import greymerk.roguelike.command.CommandRouteBase;
 import greymerk.roguelike.dungeon.towers.ITower;
-import greymerk.roguelike.dungeon.towers.Tower;
+import greymerk.roguelike.dungeon.towers.TowerType;
 import greymerk.roguelike.util.ArgumentParser;
 import greymerk.roguelike.util.EnumTools;
 import greymerk.roguelike.worldgen.Coord;
@@ -26,7 +26,7 @@ public class CommandRouteTower extends CommandRouteBase {
     ArgumentParser ap = new ArgumentParser(args);
 
     if (!ap.hasEntry(0)) {
-      List<String> towers = EnumTools.valuesToStrings(Tower.class)
+      List<String> towers = EnumTools.valuesToStrings(TowerType.class)
           .stream()
           .map(String::toLowerCase)
           .collect(Collectors.toList());
@@ -35,25 +35,25 @@ public class CommandRouteTower extends CommandRouteBase {
       return;
     }
     String towerName = ap.get(0);
-    Tower type;
+    TowerType type;
     try {
-      type = Tower.get(towerName.toUpperCase());
+      type = TowerType.get(towerName.toUpperCase());
     } catch (Exception e) {
       context.sendFailure("No such tower type: " + towerName);
       return;
     }
 
     Coord here = new Coord(context.getPos().getX(), 50, context.getPos().getZ());
-    ITower tower = Tower.get(type);
+    ITower tower = TowerType.get(type);
 
     WorldEditor editor = context.createEditor();
-    tower.generate(editor, editor.getRandom(), Tower.getDefaultTheme(type).getThemeBase(), here);
+    tower.generate(editor, editor.getRandom(), TowerType.getDefaultTheme(type).getThemeBase(), here);
     context.sendSuccess(towerName + " Tower generated at " + here.toString());
   }
 
   @Override
   public List<String> getTabCompletion(List<String> args) {
-    List<String> towers = EnumTools.valuesToStrings(Tower.class)
+    List<String> towers = EnumTools.valuesToStrings(TowerType.class)
         .stream()
         .map(String::toLowerCase)
         .collect(Collectors.toList());

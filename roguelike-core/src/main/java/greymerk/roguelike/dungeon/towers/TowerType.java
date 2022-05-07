@@ -6,7 +6,7 @@ import greymerk.roguelike.theme.Themes;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 
-public enum Tower {
+public enum TowerType {
 
   BUMBO,
   BUNKER,
@@ -23,7 +23,7 @@ public enum Tower {
   WITCH
   ;
 
-  public static ITower get(Tower type) {
+  public static ITower get(TowerType type) {
 
     switch (type) {
       default:
@@ -56,7 +56,7 @@ public enum Tower {
     }
   }
 
-  public static Themes getDefaultTheme(Tower type) {
+  public static Themes getDefaultTheme(TowerType type) {
     switch (type) {
       case ETHO:
         return Themes.ETHOTOWER;
@@ -97,7 +97,7 @@ public enum Tower {
     return new Coord(pos.getX(), pos.getY() + yOffset, pos.getZ());
   }
 
-  public static Tower get(String name) throws Exception {
+  public static TowerType get(String name) throws Exception {
     if (!contains(name.toUpperCase())) {
       throw new Exception("No such tower type: " + name);
     }
@@ -106,7 +106,7 @@ public enum Tower {
   }
 
   public static boolean contains(String name) {
-    for (Tower value : Tower.values()) {
+    for (TowerType value : TowerType.values()) {
       if (value.toString().equals(name)) {
         return true;
       }
@@ -114,8 +114,8 @@ public enum Tower {
     return false;
   }
 
-  public static Tower randomTower(Random rand) {
-    return Tower.values()[rand.nextInt(Tower.values().length)];
+  public static TowerType randomTower(Random rand) {
+    return TowerType.values()[rand.nextInt(TowerType.values().length)];
   }
 
 

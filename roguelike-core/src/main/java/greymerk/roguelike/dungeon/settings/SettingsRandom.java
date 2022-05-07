@@ -7,7 +7,7 @@ import greymerk.roguelike.dungeon.LevelGenerator;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.base.SecretsSetting;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
-import greymerk.roguelike.dungeon.towers.Tower;
+import greymerk.roguelike.dungeon.towers.TowerType;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.treasure.loot.Equipment;
 import greymerk.roguelike.treasure.loot.GreymerkChestType;
@@ -25,7 +25,7 @@ public class SettingsRandom extends DungeonSettings {
 
   public SettingsRandom(Random rand) {
 
-    setTowerSettings(new TowerSettings(Tower.randomTower(rand), randomTheme()));
+    setTowerSettings(new TowerSettings(TowerType.randomTower(rand), randomTheme()));
 
     IntStream.range(0, 5)
         .forEach(i -> getLevelSettings().put(i, createRandomLevel(rand, i)));

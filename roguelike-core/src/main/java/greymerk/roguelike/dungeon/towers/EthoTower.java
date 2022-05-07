@@ -23,7 +23,7 @@ public class EthoTower implements ITower {
 
     StairsBlock stair = theme.getSecondary().getStair();
 
-    Coord floor = Tower.getBaseCoord(editor, dungeon);
+    Coord floor = TowerType.getBaseCoord(editor, dungeon);
 
     Coord start = floor.copy();
     Coord end = start.copy();

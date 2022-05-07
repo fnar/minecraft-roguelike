@@ -19,7 +19,7 @@ public class HoleTower implements ITower {
   public void generate(WorldEditor editor, Random rand, Theme theme, Coord origin) {
 
     BlockBrush blocks = theme.getPrimary().getWall();
-    Coord floor = Tower.getBaseCoord(editor, origin);
+    Coord floor = TowerType.getBaseCoord(editor, origin);
 
     Coord start = floor.copy()
         .north()

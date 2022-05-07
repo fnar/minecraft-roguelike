@@ -10,7 +10,7 @@ import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.settings.builtin.BuiltinBaseSettings;
 
 import static com.google.common.collect.Lists.newArrayList;
-import static greymerk.roguelike.dungeon.towers.Tower.PYRAMID;
+import static greymerk.roguelike.dungeon.towers.TowerType.PYRAMID;
 import static greymerk.roguelike.theme.Themes.ICE;
 import static net.minecraftforge.common.BiomeDictionary.Type.SNOWY;
 

@@ -11,7 +11,7 @@ import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.settings.builtin.BuiltinBaseSettings;
-import greymerk.roguelike.dungeon.towers.Tower;
+import greymerk.roguelike.dungeon.towers.TowerType;
 import greymerk.roguelike.theme.Themes;
 import greymerk.roguelike.worldgen.filter.Filter;
 
@@ -27,7 +27,7 @@ public class BuiltinForestDungeonSettings extends DungeonSettings {
     setExclusive(true);
     getInherit().add(BuiltinBaseSettings.ID);
     getCriteria().setBiomeTypes(newArrayList(FOREST));
-    setTowerSettings(new TowerSettings(Tower.ROGUE, Themes.TOWER));
+    setTowerSettings(new TowerSettings(TowerType.ROGUE, Themes.TOWER));
 
     for (int i = 0; i < 5; ++i) {
 

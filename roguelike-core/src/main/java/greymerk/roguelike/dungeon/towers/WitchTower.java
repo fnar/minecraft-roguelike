@@ -26,7 +26,7 @@ public class WitchTower implements ITower {
     StairsBlock stair = theme.getPrimary().getStair();
     BlockBrush glass = stainedGlass().setColor(DyeColor.BLACK);
 
-    Coord main = Tower.getBaseCoord(editor, origin);
+    Coord main = TowerType.getBaseCoord(editor, origin);
 
     Coord cursor;
     Coord start;

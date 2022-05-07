@@ -19,7 +19,7 @@ public class RuinTower implements ITower {
 
     BlockBrush blocks = theme.getPrimary().getWall();
     StairsBlock stair = theme.getPrimary().getStair();
-    Coord floor = Tower.getBaseCoord(editor, origin);
+    Coord floor = TowerType.getBaseCoord(editor, origin);
 
     Coord cursor;
     Coord start;
