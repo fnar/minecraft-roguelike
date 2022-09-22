@@ -12,7 +12,7 @@ import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
-public class BumboTower implements ITower {
+public class BumboTower extends Tower {
 
   @Override
   public void generate(WorldEditor editor, Random rand, Theme theme, Coord origin) {
@@ -43,15 +43,12 @@ public class BumboTower implements ITower {
 
     rooms(editor, theme, ground);
 
-    pos = ground.copy();
-    pos.up(11);
-    for (Coord c : new RectSolid(origin, pos)) {
-      editor.spiralStairStep(rand, c, theme.getPrimary().getStair(), theme.getPrimary().getWall());
-    }
+    Coord topStep = new Coord(ground).up(12);
+    generateStaircase(editor, theme, topStep, origin);
   }
 
   private void stem(WorldEditor editor, Theme theme, Coord origin, Direction dir) {
-    BlockBrush green = theme.getPrimary().getWall();
+    BlockBrush green = getPillar(theme);
 
     Coord start;
     Coord end;
@@ -87,7 +84,7 @@ public class BumboTower implements ITower {
   }
 
   private void arm(WorldEditor editor, Theme theme, Coord origin, Direction dir) {
-    BlockBrush green = theme.getPrimary().getWall();
+    BlockBrush green = getPillar(theme);
 
     Coord start;
     Coord end;
@@ -238,7 +235,7 @@ public class BumboTower implements ITower {
     BlockBrush black = theme.getSecondary().getPillar();
     BlockBrush white = theme.getPrimary().getPillar();
     BlockBrush moustache = theme.getPrimary().getFloor();
-    BlockBrush green = theme.getPrimary().getWall();
+    BlockBrush green = getPillar(theme);
 
     Coord start;
     Coord end;

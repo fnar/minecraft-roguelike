@@ -3,6 +3,7 @@ package greymerk.roguelike.dungeon.towers;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.roguelike.worldgen.SpiralStairStep;
 
 import java.util.Random;
 
@@ -23,17 +24,14 @@ public class BunkerTower implements ITower {
   public void generate(WorldEditor editor, Random rand, Theme theme, Coord dungeon) {
     Coord origin = TowerType.getBaseCoord(editor, dungeon);
     origin.up();
-    Coord cursor;
-    Coord start;
-    Coord end;
 
     BlockBrush walls = theme.getPrimary().getWall();
     BlockBrush pillar = theme.getPrimary().getPillar();
     StairsBlock stair = theme.getPrimary().getStair();
     BlockBrush window = stainedGlassPane().setColor(DyeColor.GRAY);
 
-    start = origin.copy();
-    end = start.copy();
+    Coord start = origin.copy();
+    Coord end = start.copy();
     start.down();
     start.north(5);
     start.east(5);
@@ -70,6 +68,7 @@ public class BunkerTower implements ITower {
       RectSolid.newRect(start, end).fill(editor, walls);
     }
 
+    Coord cursor;
     for (Direction dir : Direction.CARDINAL) {
       cursor = origin.copy();
       cursor.translate(dir, 5);
@@ -311,16 +310,9 @@ public class BunkerTower implements ITower {
         c.translate(dir);
         stair.setUpsideDown(false).setFacing(o.reverse()).stroke(editor, c);
       }
-
-
     }
 
-    cursor = origin.copy();
-    cursor.up(4);
-    start = new Coord(cursor.getX(), dungeon.getY(), cursor.getZ());
-    end = cursor.copy();
-    for (Coord c : new RectSolid(start, end)) {
-      editor.spiralStairStep(rand, c, stair, pillar);
-    }
+    int height = origin.getY() - dungeon.getY() + 5;
+    new SpiralStairStep(editor, dungeon, stair, pillar).generate(height);
   }
 }

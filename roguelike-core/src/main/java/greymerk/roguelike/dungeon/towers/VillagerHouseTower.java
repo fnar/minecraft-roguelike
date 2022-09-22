@@ -1,10 +1,13 @@
 package greymerk.roguelike.dungeon.towers;
 
 import com.github.fnar.minecraft.block.BlockType;
+import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.roguelike.worldgen.SpiralStairStep;
 
 import java.util.Random;
 
 import greymerk.roguelike.theme.Theme;
+import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -78,8 +81,9 @@ public class VillagerHouseTower implements ITower {
   }
 
   public void createSpiralStaircase(WorldEditor editor, Theme theme, Coord origin, Coord base) {
-    for (Coord cursor = new Coord(base); origin.getY() <= cursor.getY(); cursor.down()) {
-      editor.spiralStairStep(editor.getRandom(), cursor, theme.getPrimary().getStair(), theme.getSecondary().getPillar());
-    }
+    StairsBlock stair = theme.getPrimary().getStair();
+    BlockBrush pillar = theme.getSecondary().getPillar();
+    int height = base.getY() - origin.getY() + 1;
+    new SpiralStairStep(editor, origin, stair, pillar).generate(height);
   }
 }

@@ -15,7 +15,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 import static com.github.fnar.minecraft.block.normal.ColoredBlock.stainedGlassPane;
 
-public class EniTower implements ITower {
+public class EniTower extends Tower {
 
   @Override
   public void generate(WorldEditor editor, Random rand, Theme theme, Coord dungeon) {
@@ -362,10 +362,8 @@ public class EniTower implements ITower {
     end = new Coord(x + 4, floor.getY(), z + 4);
     RectSolid.newRect(start, end).fill(editor, blocks);
 
-    for (int i = (floor.getY() + 22); i >= 50; --i) {
-      editor.spiralStairStep(rand, new Coord(x, i, z), stair, theme.getPrimary().getPillar());
-    }
-
+    Coord topStep = new Coord(floor).up(23);
+    generateStaircase(editor, theme, topStep, dungeon);
 
     for (Direction dir : Direction.CARDINAL) {
       cursor = floor.copy();
@@ -385,7 +383,6 @@ public class EniTower implements ITower {
         break;
       }
     }
-
-
   }
+
 }
