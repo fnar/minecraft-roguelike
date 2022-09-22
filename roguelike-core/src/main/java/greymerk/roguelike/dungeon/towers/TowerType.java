@@ -75,26 +75,23 @@ public enum TowerType {
     }
   }
 
-  public static Coord getBaseCoord(WorldEditor editor, Coord pos) {
+  public static Coord getBaseCoord(WorldEditor editor, Coord origin) {
 
-    Coord cursor = new Coord(pos.getX(), 128, pos.getZ());
+    Coord cursor = new Coord(origin.getX(), 128, origin.getZ());
 
-    while (cursor.getY() > 60) {
-      if (editor.validGroundBlock(cursor)) {
-        break;
-      }
+    while (cursor.getY() > 60 && !editor.validGroundBlock(cursor)) {
       cursor.down();
     }
 
     cursor.up();
 
-    int yOffset = cursor.getY() - pos.getY();
+    int yOffset = cursor.getY() - origin.getY();
 
     if (yOffset < 14) {
       yOffset = 14;
     }
 
-    return new Coord(pos.getX(), pos.getY() + yOffset, pos.getZ());
+    return new Coord(origin.getX(), origin.getY() + yOffset, origin.getZ());
   }
 
   public static TowerType get(String name) throws Exception {

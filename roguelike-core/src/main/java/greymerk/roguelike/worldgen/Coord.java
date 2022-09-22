@@ -30,6 +30,10 @@ public class Coord {
     this(toClone.x, toClone.y, toClone.z);
   }
 
+  public static Coord origin() {
+    return new Coord(0, 0, 0);
+  }
+
   // Arranges two coords so that the they create a positive cube.
   // used in fill routines.
   public static void correct(Coord one, Coord two) {
@@ -78,6 +82,21 @@ public class Coord {
 
   public int getZ() {
     return z;
+  }
+
+  public Coord setX(int x) {
+    this.x = x;
+    return this;
+  }
+
+  public Coord setY(int y) {
+    this.y = y;
+    return this;
+  }
+
+  public Coord setZ(int z) {
+    this.z = z;
+    return this;
   }
 
   public Coord copy() {

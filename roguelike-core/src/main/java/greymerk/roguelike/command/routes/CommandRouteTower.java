@@ -15,6 +15,8 @@ import greymerk.roguelike.util.EnumTools;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 
+import static greymerk.roguelike.dungeon.Dungeon.TOPLEVEL;
+
 public class CommandRouteTower extends CommandRouteBase {
 
   public CommandRouteTower(CommandBase commandBase) {
@@ -43,7 +45,7 @@ public class CommandRouteTower extends CommandRouteBase {
       return;
     }
 
-    Coord here = new Coord(context.getPos().getX(), 50, context.getPos().getZ());
+    Coord here = new Coord(context.getPos().getX(), TOPLEVEL, context.getPos().getZ());
     ITower tower = TowerType.get(type);
 
     WorldEditor editor = context.createEditor();

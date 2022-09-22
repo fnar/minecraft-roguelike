@@ -4,6 +4,7 @@ import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.decorative.TorchBlock;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.roguelike.worldgen.SpiralStairStep;
 
 import java.util.Random;
 
@@ -17,18 +18,16 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class RogueTower implements ITower {
 
-  public void generate(WorldEditor editor, Random rand, Theme theme, Coord dungeon) {
-
-
-    int x = dungeon.getX();
-    int y = dungeon.getY();
-    int z = dungeon.getZ();
+  public void generate(WorldEditor editor, Random rand, Theme theme, Coord origin) {
+    int x = origin.getX();
+    int y = origin.getY();
+    int z = origin.getZ();
 
     BlockBrush blocks = theme.getPrimary().getWall();
 
     StairsBlock stair = theme.getPrimary().getStair();
 
-    Coord floor = TowerType.getBaseCoord(editor, dungeon);
+    Coord floor = TowerType.getBaseCoord(editor, origin);
     int ground = floor.getY() - 1;
     int main = floor.getY() + 4;
     int roof = floor.getY() + 9;
@@ -37,13 +36,11 @@ public class RogueTower implements ITower {
 
     RectSolid.newRect(new Coord(x - 2, y + 10, z - 2), new Coord(x + 2, floor.getY() - 1, z + 2)).fill(editor, blocks, false, true);
 
-    Coord start;
-    Coord end;
-    Coord cursor;
-
     RectSolid.newRect(new Coord(x - 3, main, z - 3), new Coord(x + 3, main, z + 3)).fill(editor, theme.getSecondary().getWall());
     RectSolid.newRect(new Coord(x - 3, roof, z - 3), new Coord(x + 3, roof, z + 3)).fill(editor, blocks);
 
+    Coord start;
+    Coord end;
     for (Direction dir : Direction.CARDINAL) {
       for (Direction orthogonals : dir.orthogonals()) {
         // ground floor
@@ -59,7 +56,7 @@ public class RogueTower implements ITower {
         end.translate(orthogonals, 2);
         RectSolid.newRect(start, end).fill(editor, blocks);
 
-        cursor = floor.copy();
+        Coord cursor = floor.copy();
         cursor.translate(dir, 5);
         cursor.translate(orthogonals, 1);
         start = cursor.copy();
@@ -220,9 +217,7 @@ public class RogueTower implements ITower {
       }
     }
 
-    for (int i = main; i >= y; --i) {
-      editor.spiralStairStep(rand, new Coord(x, i, z), stair, theme.getPrimary().getPillar());
-    }
+    new SpiralStairStep(editor, origin, stair, theme.getPrimary().getPillar()).generate(main - y + 1);
   }
 
 

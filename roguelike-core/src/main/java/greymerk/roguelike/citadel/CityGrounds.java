@@ -17,6 +17,8 @@ import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
+import static greymerk.roguelike.dungeon.Dungeon.TOPLEVEL;
+
 public class CityGrounds {
 
   public static void generate(WorldEditor editor, MinimumSpanningTree mst, Theme theme, Coord pos) {
@@ -66,10 +68,7 @@ public class CityGrounds {
       c.translate(pos);
       Random rand = Citadel.getRandom(editor, c.getX(), c.getZ());
       ITower tower = TowerType.get(TowerType.values()[rand.nextInt(TowerType.values().length)]);
-      tower.generate(editor, rand, Themes.values()[rand.nextInt(Themes.values().length)].getThemeBase(), new Coord(c.getX(), 50, c.getZ()));
+      tower.generate(editor, rand, Themes.values()[rand.nextInt(Themes.values().length)].getThemeBase(), new Coord(c.getX(), TOPLEVEL, c.getZ()));
     }
-
   }
-
-
 }

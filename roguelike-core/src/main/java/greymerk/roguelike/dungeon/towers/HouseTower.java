@@ -7,6 +7,7 @@ import com.github.fnar.minecraft.block.decorative.FlowerPotBlock;
 import com.github.fnar.minecraft.block.decorative.TorchBlock;
 import com.github.fnar.minecraft.block.normal.SlabBlock;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.roguelike.worldgen.SpiralStairStep;
 
 import java.util.Random;
 
@@ -108,11 +109,10 @@ public class HouseTower implements ITower {
     windows(editor, dir, floor);
     decor(editor, rand, dir, floor);
 
-    cursor = floor.copy();
-    cursor.up(3);
-    for (int i = floor.getY() + 3; i >= y; --i) {
-      editor.spiralStairStep(rand, new Coord(x, i, z), stair, theme.getSecondary().getPillar());
-    }
+    BlockBrush pillar = theme.getSecondary().getPillar();
+    int secondStoryFloor = 4;
+    int stairHeight = floor.getY() - y + secondStoryFloor;
+    new SpiralStairStep(editor, dungeon.setY(y), stair, pillar).generate(stairHeight);
   }
 
   private void decor(WorldEditor editor, Random rand, Direction dir, Coord origin) {

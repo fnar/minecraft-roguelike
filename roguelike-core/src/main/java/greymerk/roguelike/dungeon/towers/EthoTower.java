@@ -13,7 +13,7 @@ import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
-public class EthoTower implements ITower {
+public class EthoTower extends Tower {
 
   @Override
   public void generate(WorldEditor editor, Random rand, Theme theme, Coord dungeon) {
@@ -212,10 +212,7 @@ public class EthoTower implements ITower {
 
     }
 
-
-    for (int i = floor.getY() - 1; i >= 50; --i) {
-      editor.spiralStairStep(rand, new Coord(x, i, z), stair, theme.getPrimary().getPillar());
-    }
+    generateStaircase(editor, theme, floor, dungeon);
   }
 
   private void step(WorldEditor editor, Theme theme, Direction dir, Coord origin) {
