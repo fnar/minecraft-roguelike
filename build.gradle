@@ -27,8 +27,9 @@ project(':1.12') {
         compile project(':roguelike-core')
     }
 }
-project(':1.14') {
-    dependencies {
-        compile project(':roguelike-core')
-    }
-}
+
+//project(':1.14') {
+//    dependencies {
+//        compile project(':roguelike-core')
+//    }
+//}
