@@ -30,7 +30,7 @@ public class ArmourLootItem extends LootItem {
 
   @Override
   public RldItemStack getLootItem(Random random) {
-    return isSpecial(random, level)
+    return isSpecial(random)
         ? SpecialArmour.createArmour(random, getQuality(random)).complete()
         : getArmourType(random)
             .asItem()

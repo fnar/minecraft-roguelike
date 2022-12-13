@@ -115,10 +115,24 @@ public class SpecialEquipment {
   }
 
   public void withMending(Random random) {
-    if (random.nextInt(20) == 0) {
-      withEnchantment(Enchantment.Effect.MENDING, 1);
-      withPrefix("Prideful");
+    if (random.nextDouble() >= .03) {
+      return;
     }
+
+    withEnchantment(Enchantment.Effect.MENDING, 1);
+
+    String[] descriptors = new String[]{
+        "Prideful",
+        "Forbidden",
+        "Fnar's Lucky",
+        "Greymerk's Lost",
+        "Cheater's",
+        "Quicksilver",
+        "Living",
+        "Autonomous"
+    };
+
+    withPrefix(descriptors[random.nextInt(descriptors.length)]);
   }
 
   public void withUnbreaking(Random random) {

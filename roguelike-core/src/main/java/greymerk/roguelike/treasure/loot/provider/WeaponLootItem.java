@@ -1,5 +1,6 @@
 package greymerk.roguelike.treasure.loot.provider;
 
+import com.github.fnar.minecraft.Difficulty;
 import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.minecraft.item.WeaponType;
 import com.github.fnar.roguelike.loot.special.weapons.SpecialBow;
@@ -43,8 +44,8 @@ public class WeaponLootItem extends LootItem {
   }
 
   public static RldItemStack getBow(Random random, int level, int difficulty) {
-    int enchantmentLevel = LootItem.isEnchanted(difficulty, random, level) ? LootItem.getEnchantmentLevel(random, level) : 0;
-    return isSpecial(random, level)
+    int enchantmentLevel = LootItem.isEnchanted(Difficulty.fromNumber(difficulty), random, level) ? LootItem.getEnchantmentLevel(random, level) : 0;
+    return isSpecial(random)
         ? new SpecialBow(random, level).complete()
         : WeaponType.BOW.asItem()
             .plzEnchantAtLevel(enchantmentLevel)
@@ -52,14 +53,14 @@ public class WeaponLootItem extends LootItem {
   }
 
   public static RldItemStack getSword(Random random, int level, int difficulty) {
-    boolean isEnchanted = LootItem.isEnchanted(difficulty, random, level);
+    boolean isEnchanted = LootItem.isEnchanted(Difficulty.fromNumber(difficulty), random, level);
     Quality quality = Equipment.rollQuality(random, level);
     return getSword(random, level, quality, isEnchanted);
   }
 
   private static RldItemStack getSword(Random random, int level, Quality quality, boolean isEnchanted) {
     int enchantmentLevel = isEnchanted ? LootItem.getEnchantmentLevel(random, level) : 0;
-    return LootItem.isSpecial(random, level)
+    return LootItem.isSpecial(random)
         ? new SpecialSword(random, level).complete()
         : WeaponType.SWORD.asItem()
             .withQuality(quality)
