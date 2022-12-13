@@ -12,6 +12,7 @@ import com.github.fnar.minecraft.item.RldItem;
 import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.minecraft.item.ToolType;
 import com.github.fnar.minecraft.item.WeaponType;
+import com.github.fnar.roguelike.loot.special.armour.SpecialArmour;
 import com.github.fnar.util.Color;
 
 import java.util.ArrayList;
@@ -22,7 +23,7 @@ import java.util.Random;
 
 import greymerk.roguelike.treasure.loot.Quality;
 import greymerk.roguelike.treasure.loot.Shield;
-import greymerk.roguelike.treasure.loot.provider.ArmourLootItem;
+import greymerk.roguelike.treasure.loot.provider.LootItem;
 import greymerk.roguelike.treasure.loot.provider.WeaponLootItem;
 
 import static greymerk.roguelike.treasure.loot.Equipment.rollQuality;
@@ -81,7 +82,24 @@ public class Mob {
         .filter(armourType -> !armourType.equals(ArmourType.HORSE))
         .forEach(armourType ->
             equip(armourType.asSlot(),
-                ArmourLootItem.get(rand, level, armourType, color, difficulty)));
+                createArmor(rand, level, armourType, color, difficulty)));
+  }
+
+  private RldItemStack createArmor(Random random, int level, ArmourType armourType, Color color, int difficulty) {
+    Quality quality = rollQuality(random, level);
+
+    if (LootItem.isSpecial(random, level)) {
+      return SpecialArmour.createArmour(random, quality).complete();
+    }
+
+    int enchantmentLevel = LootItem.isEnchanted(difficulty, random, level) ? LootItem.getEnchantmentLevel(random, level) : 0;
+
+    return armourType
+        .asItem()
+        .withQuality(quality)
+        .withColor(color)
+        .plzEnchantAtLevel(enchantmentLevel)
+        .asStack();
   }
 
   public void equipBow(Random random, int level, int difficulty) {

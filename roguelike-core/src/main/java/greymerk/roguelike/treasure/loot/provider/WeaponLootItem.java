@@ -30,7 +30,7 @@ public class WeaponLootItem extends LootItem {
   }
 
   @Override
-  public RldItemStack getLootItem(Random random, int level) {
+  public RldItemStack getLootItem(Random random) {
     Equipment type = Optional.ofNullable(this.type).orElseGet(() -> random.nextInt(8) == 0 ? Equipment.BOW : Equipment.SWORD);
     Quality quality = Optional.ofNullable(this.quality).orElseGet(() -> Equipment.rollQuality(random, level));
     switch (type) {

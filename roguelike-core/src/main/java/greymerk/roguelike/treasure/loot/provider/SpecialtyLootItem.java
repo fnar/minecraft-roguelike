@@ -41,7 +41,7 @@ public class SpecialtyLootItem extends LootItem {
   }
 
   @Override
-  public RldItemStack getLootItem(Random random, int level) {
+  public RldItemStack getLootItem(Random random) {
     // I think this isn't actually used.
     // The invoker of getLootItem() is the base class's get() method, which is overwritten here.
 //    Equipment equipmentType = Equipment.random(rand);

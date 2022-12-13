@@ -16,7 +16,7 @@ public class SupplyLootItem extends LootItem {
   }
 
   @Override
-  public RldItemStack getLootItem(Random random, int level) {
+  public RldItemStack getLootItem(Random random) {
 
     if (random.nextInt(20) == 0) {
       return Food.Type.CARROT.asItem().asStack().withCount(1);

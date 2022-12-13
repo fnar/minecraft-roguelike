@@ -28,7 +28,7 @@ public class ToolLootItem extends LootItem {
   }
 
   @Override
-  public RldItemStack getLootItem(Random random, int level) {
+  public RldItemStack getLootItem(Random random) {
     ToolType toolType = Optional.ofNullable(this.type).map(Equipment::asToolType).orElseGet(() -> ToolType.random(random));
     Quality quality = Optional.ofNullable(this.quality).orElseGet(() -> Equipment.rollQuality(random, level));
     return get(random, level, toolType, quality, this.enchant);

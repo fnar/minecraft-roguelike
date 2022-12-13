@@ -23,7 +23,7 @@ public class ItemJunk extends LootItem {
   }
 
   @Override
-  public RldItemStack getLootItem(Random random, int level) {
+  public RldItemStack getLootItem(Random random) {
 
     if (level > 0 && random.nextInt(200) == 0) {
       if (level > 2 && random.nextInt(10) == 0) {

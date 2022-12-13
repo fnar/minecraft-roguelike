@@ -29,30 +29,22 @@ public class ArmourLootItem extends LootItem {
   }
 
   @Override
-  public RldItemStack getLootItem(Random random, int level) {
-    ArmourType armourType = Optional.ofNullable(equipment).map(Equipment::asArmourType).orElseGet(() -> ArmourType.random(random));
-    Quality quality = Optional.ofNullable(this.quality).orElseGet(() -> Equipment.rollQuality(random, level));
-    return get(random, level, armourType, quality, Color.random(random), this.enchant);
-  }
-
-  public static RldItemStack get(Random rand, int level, ArmourType armourType, Color color, int difficulty) {
-    boolean isEnchanted = isEnchanted(difficulty, rand, level);
-    return get(rand, level, armourType, color, isEnchanted);
-  }
-
-  private static RldItemStack get(Random rand, int level, ArmourType armourType, Color color, boolean isEnchanted) {
-    Quality quality = Equipment.rollQuality(rand, level);
-    return get(rand, level, armourType, quality, color, isEnchanted);
-  }
-
-  private static RldItemStack get(Random rand, int level, ArmourType armourType, Quality quality, Color color, boolean isEnchanted) {
-    return isSpecial(rand, level)
-        ? SpecialArmour.createArmour(rand, quality).complete()
-        : armourType
+  public RldItemStack getLootItem(Random random) {
+    return isSpecial(random, level)
+        ? SpecialArmour.createArmour(random, getQuality(random)).complete()
+        : getArmourType(random)
             .asItem()
-            .withQuality(quality)
-            .withColor(color)
-            .plzEnchantAtLevel(isEnchanted ? getEnchantmentLevel(rand, level) : 0)
+            .withQuality(getQuality(random))
+            .withColor(Color.random(random))
+            .plzEnchantAtLevel(this.enchant ? getEnchantmentLevel(random, level) : 0)
             .asStack();
+  }
+
+  private Quality getQuality(Random random) {
+    return Optional.ofNullable(this.quality).orElseGet(() -> Equipment.rollQuality(random, level));
+  }
+
+  private ArmourType getArmourType(Random random) {
+    return Optional.ofNullable(equipment).map(Equipment::asArmourType).orElseGet(() -> ArmourType.random(random));
   }
 }

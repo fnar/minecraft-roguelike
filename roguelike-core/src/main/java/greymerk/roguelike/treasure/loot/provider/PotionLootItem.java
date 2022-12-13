@@ -12,7 +12,7 @@ public class PotionLootItem extends LootItem {
   }
 
   @Override
-  public RldItemStack getLootItem(Random random, int level) {
+  public RldItemStack getLootItem(Random random) {
     final Potion.Effect[] effects = new Potion.Effect[]{
         Potion.Effect.HEALING,
         Potion.Effect.STRENGTH,

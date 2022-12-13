@@ -51,13 +51,13 @@ public class EntityJoinWorld1_12 {
       return;
     }
 
-    Collection<?> effects = entityLiving.getActivePotionEffects();
-    for (Object buff : effects) {
-      if (!isMobFromRoguelikeSpawner((PotionEffect) buff)) {
+    Collection<PotionEffect> effects = entityLiving.getActivePotionEffects();
+    for (PotionEffect effect : effects) {
+      if (!isMobFromRoguelikeSpawner(effect)) {
         continue;
       }
 
-      int level = Ints.constrainToRange(((PotionEffect) buff).getAmplifier(), 0, 4);
+      int level = Ints.constrainToRange(effect.getAmplifier(), 0, 4);
 
       Random random = world.rand;
       int difficulty = world.getDifficulty().ordinal();
