@@ -35,7 +35,7 @@ public class SpecialTool extends SpecialEquipment {
   }
 
   protected void withFortune(Random random) {
-    if (random.nextInt(10) != 0) {
+    if (random.nextDouble() >= .15) {
       return;
     }
     int enchantmentLevel = random.nextInt(4);
@@ -43,15 +43,23 @@ public class SpecialTool extends SpecialEquipment {
       return;
     }
     withEnchantment(Enchantment.Effect.FORTUNE, enchantmentLevel);
-    withSuffix("of Prospecting");
+    if (random.nextBoolean()) {
+      withSuffix("of Prospecting");
+    } else {
+      withPrefix("Dwarven");
+    }
   }
 
   protected void withSilkTouch(Random random) {
-    if (random.nextInt(10) != 0) {
+    if (random.nextDouble() >= .15) {
       return;
     }
     withEnchantment(Enchantment.Effect.SILK_TOUCH, 1);
-    withPrefix("Precision");
+    if (random.nextBoolean()) {
+      withPrefix("Precision");
+    } else {
+      withPrefix("Elven");
+    }
   }
 
   protected void withEfficiency(Random random) {

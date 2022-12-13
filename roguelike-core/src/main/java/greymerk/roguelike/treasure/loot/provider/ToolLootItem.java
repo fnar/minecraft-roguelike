@@ -1,5 +1,6 @@
 package greymerk.roguelike.treasure.loot.provider;
 
+import com.github.fnar.minecraft.Difficulty;
 import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.minecraft.item.ToolType;
 import com.github.fnar.roguelike.loot.special.tools.SpecialTool;
@@ -35,7 +36,7 @@ public class ToolLootItem extends LootItem {
   }
 
   public static RldItemStack get(Random random, int level, int difficulty) {
-    boolean enchanted = isEnchanted(difficulty, random, level);
+    boolean enchanted = isEnchanted(Difficulty.fromNumber(difficulty), random, level);
     return get(random, level, enchanted);
   }
 
@@ -46,7 +47,7 @@ public class ToolLootItem extends LootItem {
   }
 
   private static RldItemStack get(Random random, int level, ToolType toolType, Quality quality, boolean enchant) {
-    return isSpecial(random, level)
+    return isSpecial(random)
         ? SpecialTool.createTool(random, quality)
         : toolType
             .asItem()

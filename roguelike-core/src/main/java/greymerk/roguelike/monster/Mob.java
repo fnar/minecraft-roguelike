@@ -3,6 +3,7 @@ package greymerk.roguelike.monster;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
+import com.github.fnar.minecraft.Difficulty;
 import com.github.fnar.minecraft.entity.Slot;
 import com.github.fnar.minecraft.item.Armour;
 import com.github.fnar.minecraft.item.ArmourType;
@@ -82,13 +83,13 @@ public class Mob {
         .filter(armourType -> !armourType.equals(ArmourType.HORSE))
         .forEach(armourType ->
             equip(armourType.asSlot(),
-                createArmor(rand, level, armourType, color, difficulty)));
+                createArmor(rand, level, armourType, color, Difficulty.fromNumber(difficulty))));
   }
 
-  private RldItemStack createArmor(Random random, int level, ArmourType armourType, Color color, int difficulty) {
+  private RldItemStack createArmor(Random random, int level, ArmourType armourType, Color color, Difficulty difficulty) {
     Quality quality = rollQuality(random, level);
 
-    if (LootItem.isSpecial(random, level)) {
+    if (LootItem.isSpecial(random)) {
       return SpecialArmour.createArmour(random, quality).complete();
     }
 
