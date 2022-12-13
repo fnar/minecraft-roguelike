@@ -12,7 +12,7 @@ public class RecordLootItem extends LootItem {
   }
 
   @Override
-  public RldItemStack getLootItem(Random random, int level) {
+  public RldItemStack getLootItem(Random random) {
     Record.Song song = Record.Song.chooseRandom(random);
     return Record.newRecord().withSong(song).asStack();
   }

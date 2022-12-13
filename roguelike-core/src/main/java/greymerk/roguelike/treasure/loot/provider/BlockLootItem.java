@@ -26,7 +26,7 @@ public class BlockLootItem extends LootItem {
   }
 
   @Override
-  public RldItemStack getLootItem(Random random, int level) {
+  public RldItemStack getLootItem(Random random) {
     return this.loot.get(random).asStack().withCount(8 + random.nextInt(24));
   }
 
