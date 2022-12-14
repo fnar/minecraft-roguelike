@@ -11,11 +11,11 @@ public enum Difficulty {
   DIFFICULT
   ;
 
-  public int asNumber() {
+  public int asInt() {
     return ordinal();
   }
 
-  public static Difficulty fromNumber(int number) {
-    return Arrays.stream(values()).filter((difficulty) -> difficulty.asNumber() == number).findFirst().orElseThrow(() -> new NoSuchElementException("No Difficulty with numerical equivalent of " + number));
+  public static Difficulty fromInt(int number) {
+    return Arrays.stream(values()).filter((difficulty) -> difficulty.asInt() == number).findFirst().orElseThrow(() -> new NoSuchElementException("No Difficulty with numerical equivalent of " + number));
   }
 }

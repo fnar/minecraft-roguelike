@@ -15,7 +15,7 @@ public class ProfileArcher implements MonsterProfile {
 
   @Override
   public Mob apply(Mob mob, int level, int difficulty, Random rand) {
-    mob.equipMainhand(WeaponLootItem.getBow(rand, level, LootItem.isEnchanted(Difficulty.fromNumber(difficulty), rand, level)));
+    mob.equipMainhand(WeaponLootItem.getBow(rand, level, LootItem.isEnchanted(Difficulty.fromInt(difficulty), rand, level)));
 
     boolean hasPoisonTippedArrows = rand.nextInt(10) == 0;
     if (hasPoisonTippedArrows) {

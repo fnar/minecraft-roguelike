@@ -40,7 +40,7 @@ public class TagParser {
   public ListTag parse(JsonArray array) {
     ListTag listTag = new ListTag();
     for (int i = 0; i < array.size(); i++) {
-      listTag.withTag(parse(array.get(i)));
+      listTag.withTags(parse(array.get(i)));
     }
 
     return listTag;

@@ -36,7 +36,7 @@ public class ToolLootItem extends LootItem {
   }
 
   public static RldItemStack get(Random random, int level, int difficulty) {
-    boolean enchanted = isEnchanted(Difficulty.fromNumber(difficulty), random, level);
+    boolean enchanted = isEnchanted(Difficulty.fromInt(difficulty), random, level);
     return get(random, level, enchanted);
   }
 

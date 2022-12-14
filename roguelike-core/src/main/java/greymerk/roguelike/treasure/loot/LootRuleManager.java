@@ -34,7 +34,13 @@ public class LootRuleManager {
   }
 
   public void process(TreasureManager treasure) {
-    this.rules.forEach(rule -> rule.process(treasure));
+    this.rules.forEach(rule -> {
+      try {
+        rule.process(treasure);
+      } catch (Exception e) {
+        e.printStackTrace();
+      }
+    });
   }
 
   public List<LootRule> getRules() {

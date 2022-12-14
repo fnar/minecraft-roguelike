@@ -83,7 +83,7 @@ public class Mob {
         .filter(armourType -> !armourType.equals(ArmourType.HORSE))
         .forEach(armourType ->
             equip(armourType.asSlot(),
-                createArmor(rand, level, armourType, color, Difficulty.fromNumber(difficulty))));
+                createArmor(rand, level, armourType, color, Difficulty.fromInt(difficulty))));
   }
 
   private RldItemStack createArmor(Random random, int level, ArmourType armourType, Color color, Difficulty difficulty) {
@@ -109,12 +109,12 @@ public class Mob {
 
   public static RldItemStack createSword(Random random, int level, int difficulty) {
     Quality quality = rollQuality(random, level);
-    boolean isEnchanted = LootItem.isEnchanted(Difficulty.fromNumber(difficulty), random, level);
+    boolean isEnchanted = LootItem.isEnchanted(Difficulty.fromInt(difficulty), random, level);
     return WeaponLootItem.getSword(random, level, quality, isEnchanted);
   }
 
   public void equipBow(Random random, int level, int difficulty) {
-    equipMainhand(WeaponLootItem.getBow(random, level, LootItem.isEnchanted(Difficulty.fromNumber(difficulty), random, level)));
+    equipMainhand(WeaponLootItem.getBow(random, level, LootItem.isEnchanted(Difficulty.fromInt(difficulty), random, level)));
   }
 
   public void equipArrows(Arrow arrow) {
