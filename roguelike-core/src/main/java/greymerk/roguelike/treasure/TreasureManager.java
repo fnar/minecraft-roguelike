@@ -2,9 +2,10 @@ package greymerk.roguelike.treasure;
 
 import com.github.fnar.minecraft.item.RldItemStack;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.IntStream;
 
@@ -15,7 +16,7 @@ import static java.util.stream.Collectors.toList;
 
 public class TreasureManager {
 
-  List<TreasureChest> chests = new ArrayList<>();
+  Set<TreasureChest> chests = new HashSet<>();
   private final Random random;
 
   public TreasureManager(Random random) {
