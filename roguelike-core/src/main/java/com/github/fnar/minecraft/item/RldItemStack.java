@@ -88,8 +88,8 @@ public class RldItemStack {
     return tag;
   }
 
-  public RldItemStack withDisplayLore(String lore) {
-    ensureCompoundTag("display").withTag("Lore", new ListTag().withTag(lore));
+  public RldItemStack withDisplayLore(String... lore) {
+    ensureCompoundTag("display").withTag("Lore", new ListTag().withTags(lore));
     return this;
   }
 

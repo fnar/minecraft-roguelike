@@ -1,6 +1,7 @@
 package greymerk.roguelike.treasure.loot.provider;
 
 import com.github.fnar.minecraft.Difficulty;
+import com.github.fnar.minecraft.item.Material;
 import com.github.fnar.minecraft.item.RldItemStack;
 
 import java.util.Random;
@@ -49,7 +50,19 @@ public abstract class LootItem implements IWeighted<RldItemStack> {
 
   @Override
   public RldItemStack get(Random rand) {
-    return getLootItem(rand);
+    try {
+      return getLootItem(rand);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return Material.Type.PAPER.asItemStack()
+          .withDisplayName("Report: Loot Item Generation Failure")
+          .withDisplayLore(
+              e.getClass().getName(),
+              e.getLocalizedMessage(),
+              "Check server logs for details",
+              "Consider submitting to https://github.com/fnar/minecraft-roguelike/issues"
+          );
+    }
   }
 
   public static int getEnchantmentLevel(Random random, int level) {

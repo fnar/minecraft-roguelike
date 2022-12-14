@@ -30,7 +30,7 @@ public class SpecialtyLootItem extends LootItem {
   }
 
   @Override
-  public RldItemStack get(Random random) {
+  public RldItemStack getLootItem(Random random) {
     Equipment equipmentType = Optional.ofNullable(this.type)
         .orElseGet(() -> Equipment.random(random));
 
@@ -38,17 +38,5 @@ public class SpecialtyLootItem extends LootItem {
         .orElseGet(() -> Equipment.rollQuality(random, level));
 
     return SpecialEquipment.getRandomEquipment(random, equipmentType, quality);
-  }
-
-  @Override
-  public RldItemStack getLootItem(Random random) {
-    // I think this isn't actually used.
-    // The invoker of getLootItem() is the base class's get() method, which is overwritten here.
-//    Equipment equipmentType = Equipment.random(rand);
-//    Quality quality = Quality.get(level);
-//    return getRandomItem(rand, equipmentType, quality);
-
-    throw new RuntimeException("Surprise! This code isn't dead after all!");
-//    return null;
   }
 }

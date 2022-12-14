@@ -2,6 +2,7 @@ package com.github.fnar.minecraft.tag;
 
 import com.google.common.collect.Lists;
 
+import java.util.Arrays;
 import java.util.List;
 
 import lombok.ToString;
@@ -22,16 +23,13 @@ public class ListTag implements Tag {
     return tags;
   }
 
-  public ListTag withTag(Tag tag) {
-    tags.add(tag);
+  public ListTag withTags(Tag... tags) {
+    this.tags.addAll(Arrays.asList(tags));
     return this;
   }
 
-  public ListTag withTag(int value) {
-    return this.withTag(new IntTag(value));
-  }
-
-  public ListTag withTag(String value) {
-    return this.withTag(new StringTag(value));
+  public ListTag withTags(String... values) {
+    Arrays.stream(values).forEach(value -> this.withTags(new StringTag(value)));
+    return this;
   }
 }
