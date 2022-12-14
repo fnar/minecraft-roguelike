@@ -103,8 +103,18 @@ public class Mob {
         .asStack();
   }
 
+  public void equipSword(int level, int difficulty, Random random) {
+    equipMainhand(createSword(random, level, difficulty));
+  }
+
+  public static RldItemStack createSword(Random random, int level, int difficulty) {
+    Quality quality = rollQuality(random, level);
+    boolean isEnchanted = LootItem.isEnchanted(Difficulty.fromNumber(difficulty), random, level);
+    return WeaponLootItem.getSword(random, level, quality, isEnchanted);
+  }
+
   public void equipBow(Random random, int level, int difficulty) {
-    equipMainhand(WeaponLootItem.getBow(random, level, difficulty));
+    equipMainhand(WeaponLootItem.getBow(random, level, LootItem.isEnchanted(Difficulty.fromNumber(difficulty), random, level)));
   }
 
   public void equipArrows(Arrow arrow) {
