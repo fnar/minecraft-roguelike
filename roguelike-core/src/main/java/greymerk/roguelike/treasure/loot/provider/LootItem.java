@@ -13,11 +13,6 @@ public abstract class LootItem implements IWeighted<RldItemStack> {
   int level;
   private final int weight;
 
-  public LootItem(int weight) {
-    this.weight = weight;
-    this.level = 0;
-  }
-
   public LootItem(int weight, int level) {
     this.weight = weight;
     this.level = level;

@@ -1,7 +1,5 @@
 package greymerk.roguelike.treasure.loot.provider;
 
-import com.google.gson.JsonObject;
-
 import com.github.fnar.minecraft.item.RldItemStack;
 
 import java.util.Random;
@@ -10,26 +8,15 @@ import greymerk.roguelike.treasure.loot.PotionMixture;
 
 public class ItemMixture extends LootItem {
 
-  private final PotionMixture type;
+  private final PotionMixture potionMixture;
 
-  public ItemMixture(JsonObject data, int weight) throws Exception {
+  public ItemMixture(int weight, PotionMixture potionMixture) {
     super(weight, 0);
-
-    if (!data.has("name")) {
-      throw new Exception("Mixture requires a name");
-    }
-
-    String name = data.get("name").getAsString();
-
-    try {
-      this.type = PotionMixture.valueOf(name.toUpperCase());
-    } catch (Exception e) {
-      throw new Exception("No such Mixture: " + name);
-    }
+    this.potionMixture = potionMixture;
   }
 
   @Override
   public RldItemStack getLootItem(Random random) {
-    return PotionMixture.getPotion(random, type);
+    return PotionMixture.getPotion(random, potionMixture);
   }
 }

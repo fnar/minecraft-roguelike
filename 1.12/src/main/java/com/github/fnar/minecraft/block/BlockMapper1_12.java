@@ -195,6 +195,8 @@ public class BlockMapper1_12 {
         return getQuartz(Quartz.SMOOTH, facing);
       case VINE:
         return createVine(facing);
+      case WHEAT:
+        return new MetaBlock1_12(Blocks.WHEAT);
       case CROP:
         return getCrop((CropBlock) block);
       case PUMPKIN:

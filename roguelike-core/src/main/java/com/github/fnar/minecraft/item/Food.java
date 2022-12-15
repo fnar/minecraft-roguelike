@@ -34,9 +34,10 @@ public class Food extends RldBaseItem {
     GOLDEN_CARROT,
     MILK_BUCKET,
     MUSHROOM_STEW,
+    POTATO,
     RAW_COD,
     ROTTEN_FLESH,
-    POTATO;
+    ;
 
     public Food asItem() {
       return new Food(this);
