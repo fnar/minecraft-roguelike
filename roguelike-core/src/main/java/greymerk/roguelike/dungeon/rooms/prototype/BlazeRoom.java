@@ -4,10 +4,12 @@ import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.spawner.MobType;
 
 import java.util.List;
+import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -210,15 +212,7 @@ public class BlazeRoom extends BaseRoom {
     end.down(4);
     RectHollow.newRect(start, end).fill(worldEditor, walls(), false, true);
 
-    start = origin.copy();
-    start.down(2);
-    end = start.copy();
-    end.down();
-    start.north(3);
-    start.east(3);
-    end.south(3);
-    end.west(3);
-    RectSolid.newRect(start, end).fill(worldEditor, liquid());
+    generateLiquidPit(origin);
 
     cursor = origin.copy();
     cursor.up(4);
@@ -235,6 +229,29 @@ public class BlazeRoom extends BaseRoom {
     generateDoorways(origin, entrances);
 
     return this;
+  }
+
+  private void generateLiquidPit(Coord origin) {
+    Coord topLeft = origin.copy().translate(-3, -3, -3);
+    Coord bottomRight = origin.copy().translate(3, -2, 3);
+    RectSolid liquidPit = RectSolid.newRect(topLeft, bottomRight);
+
+    liquid().fill(worldEditor, liquidPit);
+
+    generateLiquidPitChest(origin);
+  }
+
+  private void generateLiquidPitChest(Coord origin) {
+    Random random = worldEditor.getRandom();
+    if (!(random.nextDouble() < 0.1)) {
+      return;
+    }
+    int x = random.nextInt(5) - 2;
+    int y = -3;
+    int z = random.nextInt(5) - 2;
+    Coord chestCoord = origin.copy().translate(x, y, z);
+    Direction chestFacing = Direction.randomCardinal(random);
+    generateChest(chestCoord, chestFacing, ChestType.RARE_TREASURES);
   }
 
   public int getSize() {
