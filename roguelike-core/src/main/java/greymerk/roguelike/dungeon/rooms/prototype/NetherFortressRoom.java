@@ -80,7 +80,8 @@ public class NetherFortressRoom extends BaseRoom {
     cropsRectangle.fill(worldEditor, crop, true, true);
 
     List<Coord> chestLocations = randomFrom(cropsRectangle.get(), random().nextInt(3) + 1);
-    generateTrappableChests(chestLocations, getEntrance(entrances).reverse(), ChestType.UNCOMMON_TREASURES);
+    ChestType[] chestTypes = new ChestType[]{ChestType.GARDEN, ChestType.SUPPLIES, ChestType.TOOLS};
+    generateTrappableChests(chestLocations, getEntrance(entrances).reverse(), chestTypes);
 
     for (Direction dir : CARDINAL) {
 

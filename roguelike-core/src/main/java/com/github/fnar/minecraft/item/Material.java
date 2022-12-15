@@ -10,6 +10,10 @@ public class Material extends RldBaseItem {
     this.type = type;
   }
 
+  public static Material clayBall() {
+    return new Material(Type.CLAY_BALL);
+  }
+
   @Override
   public ItemType getItemType() {
     return ItemType.MATERIAL;
