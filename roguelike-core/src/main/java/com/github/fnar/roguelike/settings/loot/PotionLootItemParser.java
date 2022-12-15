@@ -8,7 +8,7 @@ import greymerk.roguelike.dungeon.settings.DungeonSettingParseException;
 
 public class PotionLootItemParser {
 
-  public Potion parsePotion(JsonObject data) throws DungeonSettingParseException {
+  public Potion parsePotion(JsonObject data) {
     if (!data.has("name")) {
       throw new DungeonSettingParseException("Potion missing name field");
     }

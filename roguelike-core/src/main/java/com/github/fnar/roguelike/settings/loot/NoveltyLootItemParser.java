@@ -10,7 +10,7 @@ import greymerk.roguelike.util.IWeighted;
 import greymerk.roguelike.util.WeightedChoice;
 
 public class NoveltyLootItemParser {
-  public static IWeighted<RldItemStack> parse(JsonObject data, int weight) throws Exception {
+  public static IWeighted<RldItemStack> parse(JsonObject data, int weight) {
     if (!data.has("name")) {
       throw new DungeonSettingParseException("Novelty item requires a name");
     }

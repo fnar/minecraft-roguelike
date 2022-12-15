@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import com.github.fnar.minecraft.item.RldItemStack;
+import com.github.fnar.roguelike.settings.loot.LootItemParser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,8 +60,8 @@ public class LootRulesParser {
 
   private LootRule newLootRule(WeightedRandomizer<RldItemStack> items, int amount, int level, boolean isEach, Optional<ChestType> chestType) {
     return chestType.map(type -> isEach
-        ? new TypedForEachLootRule(type, items, level, amount)
-        : new TypedSingleUseLootRule(type, items, level, amount))
+            ? new TypedForEachLootRule(type, items, level, amount)
+            : new TypedSingleUseLootRule(type, items, level, amount))
         .orElseGet(() -> isEach
             ? new ForEachLootRule(items, level, amount)
             : new SingleUseLootRule(items, level, amount));
@@ -77,7 +78,7 @@ public class LootRulesParser {
     JsonElement data = lootItem.get("data");
     if (data.isJsonObject()) {
       JsonObject dataAsJsonObject = data.getAsJsonObject();
-      return GreymerkChestType.parseLootItem(dataAsJsonObject, weight);
+      return LootItemParser.parseLootItem(dataAsJsonObject, weight);
     }
 
     WeightedRandomizer<RldItemStack> items = new WeightedRandomizer<>(weight);

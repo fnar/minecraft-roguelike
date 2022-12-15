@@ -10,6 +10,9 @@ public class ChestType {
   public static ChestType ARMOUR = new ChestType("ARMOUR");
   public static ChestType BLOCKS = new ChestType("BLOCKS");
   public static ChestType FOOD = new ChestType("FOOD");
+  public static ChestType GARDEN = new ChestType("GARDEN");
+  public static ChestType JUNK = new ChestType("JUNK");
+  public static ChestType MAGIC = new ChestType("MAGIC");
   public static ChestType ORE = new ChestType("ORE");
   public static ChestType POTIONS = new ChestType("POTIONS");
   public static ChestType REWARD = new ChestType("REWARD");
@@ -23,10 +26,11 @@ public class ChestType {
   public static ChestType MUSIC = new ChestType("MUSIC");
   public static ChestType SMITH = new ChestType("SMITH");
 
-  public static final ChestType[] COMMON_TREASURES = {ARMOUR, BLOCKS, FOOD, SUPPLIES, TOOLS, WEAPONS};
-  public static final ChestType[] UNCOMMON_TREASURES = {ARMOUR, TOOLS, WEAPONS, POTIONS};
-  public static final ChestType[] RARE_TREASURES = {ARMOUR, POTIONS, ENCHANTING, ORE, REWARD, TOOLS, WEAPONS};
-  public static final ChestType[] SUPPLIES_TREASURES = {BLOCKS, SUPPLIES};
+  public static final ChestType[] COMMON_TREASURES = {BLOCKS, FOOD, GARDEN, JUNK, SUPPLIES, TOOLS};
+  public static final ChestType[] UNCOMMON_TREASURES = {ARMOUR, ORE, POTIONS, TOOLS, WEAPONS};
+  public static final ChestType[] RARE_TREASURES = {ARMOUR, ENCHANTING, MAGIC, ORE, POTIONS, REWARD, TOOLS, WEAPONS};
+
+  public static final ChestType[] SUPPLIES_TREASURES = {ARMOUR, BLOCKS, FOOD, GARDEN, ORE, SUPPLIES, TOOLS, WEAPONS};
 
   private final String identity;
 

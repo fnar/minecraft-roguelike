@@ -217,8 +217,10 @@ public enum BlockType {
   WATER_FLOWING,
   WATER_STILL,
   WEB,
+  WHEAT,
   WOOL,
-  YELLOW_FLOWER;
+  YELLOW_FLOWER,
+  ;
 
   public BlockItem asItem() {
     return new BlockItem(this);
