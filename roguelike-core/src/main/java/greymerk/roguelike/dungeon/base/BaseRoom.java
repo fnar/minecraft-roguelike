@@ -136,25 +136,29 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
         generateChest(chestLocation, facing, defaultChestTypes));
   }
 
-  protected void generateChest(Coord cursor, Direction dir, ChestType... defaultChestType) {
-    generateChest(cursor, dir, ChestType.chooseRandomAmong(random(), defaultChestType));
+  protected void generateChest(Coord cursor, Direction facing, ChestType... defaultChestType) {
+    generateChest(cursor, facing, ChestType.chooseRandomAmong(random(), defaultChestType));
   }
 
-  protected void generateChest(Coord cursor, Direction dir) {
-    generateChest(cursor, dir, ChestType.chooseRandomAmong(random(), ChestType.COMMON_TREASURES));
+  protected void generateChest(Coord coord) {
+    generateChest(coord, Direction.randomCardinal(worldEditor.getRandom()));
   }
 
-  protected Optional<TreasureChest> generateChest(Coord coord, Direction dir, ChestType defaultChestType) {
-    return chest(coord, dir, defaultChestType)
+  protected void generateChest(Coord cursor, Direction facing) {
+    generateChest(cursor, facing, ChestType.chooseRandomAmong(random(), ChestType.COMMON_TREASURES));
+  }
+
+  protected Optional<TreasureChest> generateChest(Coord coord, Direction facing, ChestType defaultChestType) {
+    return chest(coord, facing, defaultChestType)
         .stroke(worldEditor, coord);
   }
 
-  protected void generateTrappedChest(Coord cursor, Direction dir, ChestType... defaultChestType) {
-    generateTrappedChest(cursor, dir, ChestType.chooseRandomAmong(random(), defaultChestType));
+  protected void generateTrappedChest(Coord cursor, Direction facing, ChestType... defaultChestType) {
+    generateTrappedChest(cursor, facing, ChestType.chooseRandomAmong(random(), defaultChestType));
   }
 
-  protected Optional<TreasureChest> generateTrappedChest(Coord cursor, Direction dir, ChestType defaultChestType) {
-    return chest(cursor, dir, defaultChestType)
+  protected Optional<TreasureChest> generateTrappedChest(Coord cursor, Direction facing, ChestType defaultChestType) {
+    return chest(cursor, facing, defaultChestType)
         .withTrap(true)
         .stroke(worldEditor, cursor);
   }
@@ -169,24 +173,24 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
         .collect(Collectors.toList());
   }
 
-  protected Optional<TreasureChest> generateTrappableChest(Coord cursor, Direction dir) {
-    return generateTrappableChest(cursor, dir, ChestType.COMMON_TREASURES);
+  protected Optional<TreasureChest> generateTrappableChest(Coord cursor, Direction facing) {
+    return generateTrappableChest(cursor, facing, ChestType.COMMON_TREASURES);
   }
 
-  protected Optional<TreasureChest> generateTrappableChest(Coord cursor, Direction dir, ChestType... defaultChestType) {
-    return generateTrappableChest(cursor, dir, ChestType.chooseRandomAmong(random(), defaultChestType));
+  protected Optional<TreasureChest> generateTrappableChest(Coord cursor, Direction facing, ChestType... defaultChestType) {
+    return generateTrappableChest(cursor, facing, ChestType.chooseRandomAmong(random(), defaultChestType));
   }
 
-  protected Optional<TreasureChest> generateTrappableChest(Coord cursor, Direction dir, ChestType defaultChestType) {
-    return chest(cursor, dir, defaultChestType)
+  protected Optional<TreasureChest> generateTrappableChest(Coord cursor, Direction facing, ChestType defaultChestType) {
+    return chest(cursor, facing, defaultChestType)
         .withTrapBasedOnDifficulty(getDifficulty(cursor))
         .stroke(worldEditor, cursor);
   }
 
-  private TreasureChest chest(Coord cursor, Direction dir, ChestType defaultChestType) {
+  private TreasureChest chest(Coord cursor, Direction facing, ChestType defaultChestType) {
     return new TreasureChest(cursor, worldEditor)
         .withChestType(getChestTypeOrUse(defaultChestType))
-        .withFacing(dir);
+        .withFacing(facing);
   }
 
   protected void theFloorIsLava(Coord origin, Direction front) {
