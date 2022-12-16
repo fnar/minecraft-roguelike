@@ -51,6 +51,7 @@ public class RogueConfig {
   public static final RogueConfig SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES = new RogueConfig("spawnMinimumDistanceFromVanillaStructures", 50);
   public static final RogueConfig UPPERLIMIT = new RogueConfig("upperLimit", 100);
   public static final RogueConfig VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM = new RogueConfig("vanillaStructuresToCheckMinimumDistanceFrom", VanillaStructure.getAllAsCommaDelimitedString());
+  public static final RogueConfig OVERRIDE_MOB_EQUIPMENT_ENCHANTMENT_LEVELS = new RogueConfig("overrideMobEquipmentEnchantmentLevels", Lists.newArrayList(-1,-1,-1,-1,-1));
 
   private static final boolean DEFAULT_BOOLEAN = false;
   private static final int DEFAULT_INT = 0;
@@ -165,6 +166,10 @@ public class RogueConfig {
 
     if (!instance.ContainsKey(VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM.getName())) {
       VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM.setString(VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM.defaultStringValue);
+    }
+
+    if (!instance.ContainsKey(OVERRIDE_MOB_EQUIPMENT_ENCHANTMENT_LEVELS.getName())) {
+      OVERRIDE_MOB_EQUIPMENT_ENCHANTMENT_LEVELS.setIntList(OVERRIDE_MOB_EQUIPMENT_ENCHANTMENT_LEVELS.defaultIntList);
     }
   }
 
