@@ -18,10 +18,12 @@ import com.github.fnar.util.Color;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
 
+import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.treasure.loot.Quality;
 import greymerk.roguelike.treasure.loot.Shield;
 import greymerk.roguelike.treasure.loot.provider.LootItem;
@@ -93,7 +95,8 @@ public class Mob {
       return SpecialArmour.createArmour(random, quality).complete();
     }
 
-    int enchantmentLevel = LootItem.isEnchanted(difficulty, random, level) ? LootItem.getEnchantmentLevel(random, level) : 0;
+    int enchantmentLevel = getEnchantmentLevel(random, level, difficulty);
+    System.out.println(enchantmentLevel);
 
     return armourType
         .asItem()
@@ -101,6 +104,24 @@ public class Mob {
         .withColor(color)
         .plzEnchantAtLevel(enchantmentLevel)
         .asStack();
+  }
+
+  private int getEnchantmentLevel(Random random, int level, Difficulty difficulty) {
+    return LootItem.isEnchanted(difficulty, random, level)
+        ? getLevelOverride(level).orElse(LootItem.getEnchantmentLevel(random, level))
+        : 0;
+  }
+
+  private Optional<Integer> getLevelOverride(int level) {
+    List<Integer> levelOverrides = RogueConfig.OVERRIDE_MOB_EQUIPMENT_ENCHANTMENT_LEVELS.getIntList();
+    if (levelOverrides.size() - 1 < level) {
+      return Optional.empty();
+    }
+    Integer levelOverride = levelOverrides.get(level);
+    if (levelOverride <= -1) {
+      return Optional.empty();
+    }
+    return Optional.of(levelOverride);
   }
 
   public void equipSword(int level, int difficulty, Random random) {
