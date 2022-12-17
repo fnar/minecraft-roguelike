@@ -10,15 +10,14 @@ import java.util.Set;
 import greymerk.roguelike.util.graph.Edge;
 import greymerk.roguelike.util.graph.Graph;
 import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 
 public class MinimumSpanningTree {
 
-  List<MSTPoint> points;
-  Set<Edge<MSTPoint>> mstEdges;
+  List<MSTPoint> points = new ArrayList<>();
+  Set<Edge<MSTPoint>> mstEdges = new HashSet<>();
 
   public MinimumSpanningTree(Random rand, int size, int edgeLength) {
     this(rand, size, edgeLength, new Coord(0, 0, 0));
@@ -26,10 +25,26 @@ public class MinimumSpanningTree {
 
   public MinimumSpanningTree(Random rand, int size, int edgeLength, Coord origin) {
 
-    points = new ArrayList<>();
-    mstEdges = new HashSet<>();
+    generatePoints(rand, size, edgeLength, origin);
 
+    ArrayList<Edge<MSTPoint>> edges = generateAllPossibleEdges();
 
+    Collections.sort(edges);
+
+    for (Edge<MSTPoint> edge : edges) {
+      MSTPoint start = edge.getStart();
+      MSTPoint end = edge.getEnd();
+
+      if (find(start) == find(end)) {
+        continue;
+      }
+      union(start, end);
+      mstEdges.add(edge);
+    }
+
+  }
+
+  private void generatePoints(Random rand, int size, int edgeLength, Coord origin) {
     int offset = size / 2 * edgeLength;
 
     for (int i = 0; i < size; ++i) {
@@ -44,7 +59,9 @@ public class MinimumSpanningTree {
         temp.east(edgeLength);
       }
     }
+  }
 
+  private ArrayList<Edge<MSTPoint>> generateAllPossibleEdges() {
     ArrayList<Edge<MSTPoint>> edges = new ArrayList<>();
     for (MSTPoint p : points) {
       for (MSTPoint o : points) {
@@ -54,21 +71,7 @@ public class MinimumSpanningTree {
         edges.add(new Edge<>(p, o, p.distance(o)));
       }
     }
-
-
-    Collections.sort(edges);
-
-    for (Edge<MSTPoint> e : edges) {
-      MSTPoint start = e.getStart();
-      MSTPoint end = e.getEnd();
-
-      if (find(start) == find(end)) {
-        continue;
-      }
-      union(start, end);
-      mstEdges.add(e);
-    }
-
+    return edges;
   }
 
 

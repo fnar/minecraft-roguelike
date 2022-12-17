@@ -10,7 +10,7 @@ import greymerk.roguelike.worldgen.filter.IFilter;
 
 public class DungeonLevel {
 
-  private LevelSettings settings;
+  private final LevelSettings settings;
   private ILevelGenerator generator;
 
   public DungeonLevel(LevelSettings settings) {

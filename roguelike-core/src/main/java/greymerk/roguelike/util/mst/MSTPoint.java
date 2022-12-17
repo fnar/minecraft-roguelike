@@ -9,7 +9,7 @@ public class MSTPoint {
 
   private Coord position;
   private Coord adjusted;
-  private int rank;
+  private int rank = 0;
   private MSTPoint parent;
 
   public MSTPoint(Coord pos, Random rand) {
@@ -17,7 +17,6 @@ public class MSTPoint {
     this.adjusted = pos.copy();
     this.adjusted.translate(Direction.randomCardinal(rand));
 
-    this.rank = 0;
     this.parent = this;
   }
 
