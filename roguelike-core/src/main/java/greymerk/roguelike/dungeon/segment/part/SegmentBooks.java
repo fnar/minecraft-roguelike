@@ -14,13 +14,13 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class SegmentBooks extends SegmentBase {
 
   @Override
-  protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
+  protected void genWall(WorldEditor editor, DungeonLevel level, Direction outward, Theme theme, Coord origin) {
     StairsBlock stair = theme.getSecondary().getStair();
 
-    Direction[] orthogonals = dir.orthogonals();
+    Direction[] orthogonals = outward.orthogonals();
 
     Coord cursor = origin.copy();
-    cursor.translate(dir, 2);
+    cursor.translate(outward, 2);
     Coord start = cursor.copy();
     start.translate(orthogonals[0], 1);
     Coord end = cursor.copy();
@@ -28,10 +28,10 @@ public class SegmentBooks extends SegmentBase {
     end.up(2);
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
-    generateSecret(level.getSettings().getSecrets(), editor, level.getSettings(), dir, origin.copy());
+    generateSecret(level.getSettings().getSecrets(), editor, level.getSettings(), outward, origin.copy());
 
-    start.translate(dir, 1);
-    end.translate(dir, 1);
+    start.translate(outward, 1);
+    end.translate(outward, 1);
     RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall(), false, true);
 
     cursor.up(2);
@@ -43,7 +43,7 @@ public class SegmentBooks extends SegmentBase {
     }
 
     cursor = origin.copy();
-    cursor.translate(dir, 3);
+    cursor.translate(outward, 3);
     BlockType.BOOKSHELF.getBrush().stroke(editor, cursor);
     cursor.up();
     BlockType.BOOKSHELF.getBrush().stroke(editor, cursor);
