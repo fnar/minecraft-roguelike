@@ -6,6 +6,7 @@ import java.util.Random;
 
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.DungeonLevel;
+import greymerk.roguelike.dungeon.DungeonNode;
 import greymerk.roguelike.dungeon.LevelLayout;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -25,7 +26,7 @@ public class DungeonTaskRooms implements IDungeonTask {
         .forEach(this::safelyGenerate);
   }
 
-  private void safelyGenerate(greymerk.roguelike.dungeon.DungeonNode dungeonNode) {
+  private void safelyGenerate(DungeonNode dungeonNode) {
     try {
       dungeonNode.generate();
     } catch (Exception exception) {
