@@ -57,7 +57,7 @@ public class SecretRoom extends BaseRoom {
     RectSolid.newRect(pos, end).fill(worldEditor, SingleBlockBrush.AIR);
 
     end.down();
-    return prototype.generate(end, Lists.newArrayList(entrance));
+    return prototype.generate(end, Lists.newArrayList(entrance.reverse()));
   }
 
   @Override

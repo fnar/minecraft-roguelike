@@ -17,12 +17,12 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 public class SegmentDoor extends SegmentBase {
 
   @Override
-  protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
+  protected void genWall(WorldEditor editor, DungeonLevel level, Direction outward, Theme theme, Coord origin) {
     StairsBlock stair = theme.getSecondary().getStair();
-    Direction[] orthogonal = dir.orthogonals();
+    Direction[] orthogonal = outward.orthogonals();
 
     Coord cursor = origin.copy();
-    cursor.translate(dir, 2);
+    cursor.translate(outward, 2);
     Coord start = cursor.copy();
     start.translate(orthogonal[0], 1);
     Coord end = cursor.copy();
@@ -31,10 +31,10 @@ public class SegmentDoor extends SegmentBase {
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
 
     SecretsSetting secrets = level.getSettings().getSecrets();
-    Optional<BaseRoom> secretMaybe = generateSecret(secrets, editor, level.getSettings(), dir, origin.copy());
+    Optional<BaseRoom> secretMaybe = generateSecret(secrets, editor, level.getSettings(), outward, origin.copy());
 
-    start.translate(dir, 1);
-    end.translate(dir, 1);
+    start.translate(outward, 1);
+    end.translate(outward, 1);
     RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall(), false, true);
 
     cursor.up(2);
@@ -47,8 +47,8 @@ public class SegmentDoor extends SegmentBase {
 
     if (secretMaybe.isPresent()) {
       cursor = origin.copy();
-      cursor.translate(dir, 3);
-      theme.getSecondary().getDoor().setFacing(dir.reverse()).stroke(editor, cursor);
+      cursor.translate(outward, 3);
+      theme.getSecondary().getDoor().setFacing(outward.reverse()).stroke(editor, cursor);
     }
   }
 }

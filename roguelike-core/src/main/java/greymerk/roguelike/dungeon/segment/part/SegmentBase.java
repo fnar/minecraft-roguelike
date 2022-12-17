@@ -86,14 +86,14 @@ public abstract class SegmentBase {
         && !editor.isAirBlock(southWest);
   }
 
-  public Optional<BaseRoom> generateSecret(SecretsSetting secretsSetting, WorldEditor worldEditor, LevelSettings levelSettings, Direction dir, Coord pos) {
+  public Optional<BaseRoom> generateSecret(SecretsSetting secretsSetting, WorldEditor worldEditor, LevelSettings levelSettings, Direction outwardFromSegment, Coord segmentCoord) {
     List<RoomSetting> secretRoomSettings = secretsSetting.getSecretRoomSettings();
     Optional<Pair<RoomSetting, SecretRoom>> first = secretRoomSettings.stream()
         .map(roomSetting -> new Pair<>(roomSetting, new SecretRoom(roomSetting, levelSettings, worldEditor)))
-        .filter(pair -> pair.getValue().isValidLocation(dir, pos))
+        .filter(pair -> pair.getValue().isValidLocation(outwardFromSegment, segmentCoord))
         .findFirst();
     first.ifPresent(pair -> secretRoomSettings.remove(pair.getKey()));
-    return first.map(pair -> pair.getValue().generate(pos, Lists.newArrayList(dir)));
+    return first.map(pair -> pair.getValue().generate(segmentCoord, Lists.newArrayList(outwardFromSegment)));
   }
 
 }
