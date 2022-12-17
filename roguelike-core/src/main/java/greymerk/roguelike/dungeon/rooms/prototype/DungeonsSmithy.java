@@ -7,6 +7,7 @@ import com.github.fnar.minecraft.block.normal.SlabBlock;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
@@ -26,7 +27,11 @@ public class DungeonsSmithy extends BaseRoom {
   }
 
   public BaseRoom generate(Coord origin, List<Direction> entrances) {
+    generateReversedBecauseEntrancesShouldBeOutwardFromRoomCenter(origin, entrances.stream().map(Direction::reverse).collect(Collectors.toList()));
+    return this;
+  }
 
+  private void generateReversedBecauseEntrancesShouldBeOutwardFromRoomCenter(Coord origin, List<Direction> entrances) {
     Direction entranceDirection = getEntrance(entrances);
 
     clearBoxes(entranceDirection, origin);
@@ -47,8 +52,6 @@ public class DungeonsSmithy extends BaseRoom {
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
 
     mainRoom(entranceDirection, origin);
-
-    return this;
   }
 
   private void sideRoom(Direction entranceDirection, Coord origin) {
