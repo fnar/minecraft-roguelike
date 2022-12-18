@@ -29,13 +29,18 @@ public class DungeonSettings {
   private final List<SettingIdentifier> inherit = new ArrayList<>();
   private boolean exclusive;
   private TowerSettings towerSettings;
-  private Map<Integer, LevelSettings> levels = new HashMap<>();
+  private final Map<Integer, LevelSettings> levels = new HashMap<>();
   private SpawnCriteria spawnCriteria = new SpawnCriteria();
   private final LootRuleManager lootRules = new LootRuleManager();
   private final List<LootTableRule> lootTables = new ArrayList<>();
   private final Set<SettingsType> overrides = new HashSet<>();
 
   public DungeonSettings() {
+    levels.put(0, new LevelSettings());
+    levels.put(1, new LevelSettings());
+    levels.put(2, new LevelSettings());
+    levels.put(3, new LevelSettings());
+    levels.put(4, new LevelSettings());
   }
 
   public DungeonSettings(String id) {
@@ -43,7 +48,8 @@ public class DungeonSettings {
   }
 
   public DungeonSettings(SettingIdentifier id) {
-    setId(id);
+    this();
+    withId(id);
   }
 
   public DungeonSettings inherit(DungeonSettings toInherit) {
@@ -112,6 +118,11 @@ public class DungeonSettings {
 
   public void setId(SettingIdentifier id) {
     this.id = id;
+  }
+
+  public DungeonSettings withId(SettingIdentifier id) {
+    this.id = id;
+    return this;
   }
 
   public String getNamespace() {

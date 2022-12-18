@@ -144,7 +144,7 @@ public class LevelSettings {
   }
 
   public RoomsSetting getRooms() {
-    return rooms != null ? rooms : new RoomsSetting();
+    return rooms;
   }
 
   public void setRooms(RoomsSetting rooms) {
@@ -152,7 +152,7 @@ public class LevelSettings {
   }
 
   public SecretsSetting getSecrets() {
-    return secrets != null ? secrets : new SecretsSetting();
+    return secrets;
   }
 
   public void setSecrets(SecretsSetting secrets) {

@@ -18,84 +18,72 @@ import greymerk.roguelike.worldgen.filter.Filter;
 import static com.google.common.collect.Lists.newArrayList;
 import static net.minecraftforge.common.BiomeDictionary.Type.FOREST;
 
-public class BuiltinForestDungeonSettings extends DungeonSettings {
+public class BuiltinForestDungeonSettings {
 
-  public static final SettingIdentifier ID = new SettingIdentifier(SettingsContainer.BUILTIN_NAMESPACE, "forest");
+  public static DungeonSettings create() {
+    DungeonSettings dungeonSettings = new DungeonSettings().withId(new SettingIdentifier(SettingsContainer.BUILTIN_NAMESPACE, "forest"));
+    dungeonSettings.setExclusive(true);
+    dungeonSettings.getInherit().add(BuiltinBaseSettings.ID);
+    dungeonSettings.getCriteria().setBiomeTypes(newArrayList(FOREST));
+    dungeonSettings.setTowerSettings(new TowerSettings(TowerType.ROGUE, Themes.TOWER));
 
-  public BuiltinForestDungeonSettings() {
-    super(ID);
-    setExclusive(true);
-    getInherit().add(BuiltinBaseSettings.ID);
-    getCriteria().setBiomeTypes(newArrayList(FOREST));
-    setTowerSettings(new TowerSettings(TowerType.ROGUE, Themes.TOWER));
+    level0(dungeonSettings);
+    level1(dungeonSettings);
+    level3(dungeonSettings);
 
-    for (int i = 0; i < 5; ++i) {
+    return dungeonSettings;
+  }
 
-      LevelSettings level = new LevelSettings();
-      SecretsSetting secrets;
-      RoomsSetting rooms;
-      SegmentGenerator segments;
+  private static void level0(DungeonSettings dungeonSettings) {
+    LevelSettings levelSettings = dungeonSettings.getLevelSettings(0);
+    RoomsSetting rooms = levelSettings.getRooms();
+    rooms.add(RoomType.CORNER.newRandomRoomSetting(8));
+    rooms.add(RoomType.BRICK.newRandomRoomSetting(3));
+    rooms.add(RoomType.CAKE.newSingleRoomSetting());
+    rooms.add(RoomType.DARKHALL.newSingleRoomSetting());
+    rooms.add(RoomType.LIBRARY.newSingleRoomSetting());
 
+    SecretsSetting secrets = levelSettings.getSecrets();
+    secrets.add(RoomType.SMITH.newSingleRoomSetting());
+    secrets.add(RoomType.BEDROOM.newSingleRoomSetting());
+    secrets.add(RoomType.BEDROOM.newSingleRoomSetting());
 
-      switch (i) {
-        case 0:
-          rooms = new RoomsSetting();
-          rooms.add(RoomType.CORNER.newRandomRoomSetting(8));
-          rooms.add(RoomType.BRICK.newRandomRoomSetting(3));
-          rooms.add(RoomType.CAKE.newSingleRoomSetting());
-          rooms.add(RoomType.DARKHALL.newSingleRoomSetting());
-          rooms.add(RoomType.LIBRARY.newSingleRoomSetting());
-          level.setRooms(rooms);
-          secrets = new SecretsSetting();
-          secrets.add(RoomType.SMITH.newSingleRoomSetting());
-          secrets.add(RoomType.BEDROOM.newSingleRoomSetting());
-          secrets.add(RoomType.BEDROOM.newSingleRoomSetting());
-          level.setSecrets(secrets);
-          level.setTheme(Themes.SPRUCE.getThemeBase());
-          segments = new SegmentGenerator(Segment.ARCH);
-          segments.add(Segment.DOOR, 8);
-          segments.add(Segment.LAMP, 2);
-          segments.add(Segment.WHEAT, 3);
-          segments.add(Segment.FLOWERS, 2);
-          segments.add(Segment.INSET, 1);
-          segments.add(Segment.PLANT, 2);
-          segments.add(Segment.SHELF, 1);
-          segments.add(Segment.CHEST, 1);
-          level.setSegments(segments);
-          break;
-        case 1:
-          rooms = new RoomsSetting();
-          rooms.add(RoomType.MUSIC.newSingleRoomSetting());
-          rooms.add(RoomType.PIT.newSingleRoomSetting());
-          rooms.add(RoomType.LAB.newSingleRoomSetting());
-          rooms.add(RoomType.SLIME.newSingleRoomSetting());
-          rooms.add(RoomType.SLIME.newSingleRoomSetting());
-          rooms.add(RoomType.CORNER.newRandomRoomSetting(10));
-          rooms.add(RoomType.BRICK.newRandomRoomSetting(3));
-          level.setRooms(rooms);
-          level.setTheme(Themes.DARKHALL.getThemeBase());
-          segments = new SegmentGenerator(Segment.ARCH);
-          segments.add(Segment.DOOR, 10);
-          segments.add(Segment.FLOWERS, 2);
-          segments.add(Segment.INSET, 2);
-          segments.add(Segment.PLANT, 2);
-          segments.add(Segment.SHELF, 2);
-          segments.add(Segment.CHEST, 1);
-          level.setSegments(segments);
-          break;
-        case 2:
-          break;
-        case 3:
-          break;
-        case 4:
-          break;
-        default:
-          break;
-      }
+    levelSettings.setTheme(Themes.SPRUCE.getThemeBase());
 
+    SegmentGenerator segments = levelSettings.getSegments();
+    segments.add(Segment.DOOR, 8);
+    segments.add(Segment.LAMP, 2);
+    segments.add(Segment.WHEAT, 3);
+    segments.add(Segment.FLOWERS, 2);
+    segments.add(Segment.INSET, 1);
+    segments.add(Segment.PLANT, 2);
+    segments.add(Segment.SHELF, 1);
+    segments.add(Segment.CHEST, 1);
+  }
 
-      getLevelSettings().put(i, level);
-    }
-    getLevelSettings().get(3).addFilter(Filter.VINE);
+  private static void level1(DungeonSettings dungeonSettings) {
+    LevelSettings levelSettings = dungeonSettings.getLevelSettings(1);
+    RoomsSetting rooms = levelSettings.getRooms();
+    rooms.add(RoomType.MUSIC.newSingleRoomSetting());
+    rooms.add(RoomType.PIT.newSingleRoomSetting());
+    rooms.add(RoomType.LAB.newSingleRoomSetting());
+    rooms.add(RoomType.SLIME.newSingleRoomSetting());
+    rooms.add(RoomType.SLIME.newSingleRoomSetting());
+    rooms.add(RoomType.CORNER.newRandomRoomSetting(10));
+    rooms.add(RoomType.BRICK.newRandomRoomSetting(3));
+
+    levelSettings.setTheme(Themes.DARKHALL.getThemeBase());
+
+    SegmentGenerator segments = levelSettings.getSegments();
+    segments.add(Segment.DOOR, 10);
+    segments.add(Segment.FLOWERS, 2);
+    segments.add(Segment.INSET, 2);
+    segments.add(Segment.PLANT, 2);
+    segments.add(Segment.SHELF, 2);
+    segments.add(Segment.CHEST, 1);
+  }
+
+  private static void level3(DungeonSettings dungeonSettings) {
+    dungeonSettings.getLevelSettings().get(3).addFilter(Filter.VINE);
   }
 }
