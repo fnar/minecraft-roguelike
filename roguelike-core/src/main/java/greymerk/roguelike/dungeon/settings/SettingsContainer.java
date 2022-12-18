@@ -50,7 +50,7 @@ public class SettingsContainer {
         new BuiltinJungleDungeonSettings(),
         new BuiltinSwampDungeonSettings(),
         new BuiltinMountainDungeonSettings(),
-        new BuiltinForestDungeonSettings(),
+        BuiltinForestDungeonSettings.create(),
         new BuiltinMesaDungeonSettings(),
         new BuiltinIceDungeonSettings()
     );

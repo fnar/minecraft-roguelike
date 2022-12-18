@@ -11,8 +11,8 @@ import greymerk.roguelike.theme.builtin.ThemeTower;
 
 public class TowerSettings {
 
-  private TowerType type;
-  private Theme theme;
+  private final TowerType type;
+  private final Theme theme;
 
   public TowerSettings(TowerType type, Themes theme) {
     this.type = type;
