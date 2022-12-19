@@ -5,7 +5,7 @@ import java.util.Objects;
 import greymerk.roguelike.treasure.loot.Quality;
 import lombok.ToString;
 
-@ToString
+@ToString(callSuper = true)
 public class Armour extends RldBaseItem {
 
   private final ArmourType armourType;

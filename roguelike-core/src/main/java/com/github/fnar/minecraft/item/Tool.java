@@ -5,7 +5,7 @@ import java.util.Objects;
 import greymerk.roguelike.treasure.loot.Quality;
 import lombok.ToString;
 
-@ToString
+@ToString(callSuper = true)
 public class Tool extends RldBaseItem {
 
   private final ToolType toolType;

@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 
 import com.github.fnar.minecraft.Difficulty;
+import com.github.fnar.minecraft.block.spawner.MobType;
 import com.github.fnar.minecraft.entity.Slot;
 import com.github.fnar.minecraft.item.Armour;
 import com.github.fnar.minecraft.item.ArmourType;
@@ -36,6 +37,7 @@ public class Mob {
   private boolean isChild = false;
   private final Map<Slot, RldItemStack> items = Maps.newEnumMap(Slot.class);
   private String name;
+  private MobType mobType = MobType.ZOMBIE;
 
   public Mob withRandomEquipment(int level, Random random) {
     RldBaseItem mainhand = chooseMainhand(random, level);
@@ -96,7 +98,6 @@ public class Mob {
     }
 
     int enchantmentLevel = getEnchantmentLevel(random, level, difficulty);
-    System.out.println(enchantmentLevel);
 
     return armourType
         .asItem()
@@ -114,7 +115,7 @@ public class Mob {
 
   private Optional<Integer> getLevelOverride(int level) {
     List<Integer> levelOverrides = RogueConfig.OVERRIDE_MOB_EQUIPMENT_ENCHANTMENT_LEVELS.getIntList();
-    if (levelOverrides.size() - 1 < level) {
+    if (level > levelOverrides.size() - 1) {
       return Optional.empty();
     }
     Integer levelOverride = levelOverrides.get(level);
@@ -207,5 +208,28 @@ public class Mob {
 
   public RldItem getHelmet() {
     return Optional.ofNullable(items.get(Slot.HEAD)).map(RldItemStack::getItem).orElse(null);
+  }
+
+  public void setMobType(MobType mobType) {
+    this.mobType = mobType;
+  }
+
+  public MobType getMobType() {
+    return mobType;
+  }
+
+  public Mob withMobType(MobType mobType) {
+    this.setMobType(mobType);
+    return this;
+  }
+
+  @Override
+  public String toString() {
+    return "Mob{" +
+        "isChild=" + isChild +
+        ", items=" + items +
+        ", name='" + name + '\'' +
+        ", mobType=" + mobType +
+        '}';
   }
 }

@@ -7,6 +7,9 @@ import com.github.fnar.util.Color;
 import java.util.List;
 import java.util.Objects;
 
+import lombok.ToString;
+
+@ToString
 public abstract class RldBaseItem implements RldItem {
 
   private Color color;
