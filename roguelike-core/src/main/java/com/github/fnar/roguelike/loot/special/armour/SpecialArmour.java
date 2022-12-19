@@ -1,5 +1,6 @@
 package com.github.fnar.roguelike.loot.special.armour;
 
+import com.github.fnar.minecraft.item.ArmourType;
 import com.github.fnar.minecraft.item.Enchantment;
 import com.github.fnar.roguelike.loot.special.SpecialEquipment;
 
@@ -9,15 +10,15 @@ import greymerk.roguelike.treasure.loot.Quality;
 
 public class SpecialArmour extends SpecialEquipment {
 
-  public static SpecialArmour createArmour(Random random, Quality quality) {
-    switch (random.nextInt(4)) {
-      case 0:
+  public static SpecialArmour createArmour(Random random, ArmourType armourType, Quality quality) {
+    switch (armourType) {
+      case HELMET:
         return new SpecialHelmet(random, quality);
-      case 1:
+      case CHESTPLATE:
         return new SpecialChestplate(random, quality);
-      case 2:
+      case LEGGINGS:
         return new SpecialLeggings(random, quality);
-      case 3:
+      case BOOTS:
       default:
         return new SpecialBoots(random, quality);
     }
