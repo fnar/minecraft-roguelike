@@ -50,7 +50,7 @@ public class EntityMapper1_12 {
     }
 
     EntityLiving newEntity = createNewInstance(mob.getMobType(), entityLiving.getEntityWorld());
-
+    entityLiving.getTags().forEach(newEntity::addTag);
     newEntity.copyLocationAndAnglesFrom(entityLiving);
 
     for (EntityEquipmentSlot slot : EntityEquipmentSlot.values()) {

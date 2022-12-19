@@ -94,7 +94,7 @@ public class Mob {
     Quality quality = rollQuality(random, level);
 
     if (LootItem.isSpecial(random)) {
-      return SpecialArmour.createArmour(random, quality).complete();
+      return SpecialArmour.createArmour(random, armourType, quality).complete();
     }
 
     int enchantmentLevel = getEnchantmentLevel(random, level, difficulty);
