@@ -21,6 +21,7 @@ import greymerk.roguelike.monster.profiles.ProfileWitherSkeleton;
 import greymerk.roguelike.monster.profiles.ProfileZombie;
 
 public enum MonsterProfileType {
+
   ARCHER(new ProfileArcher()),
   ASHLEA(new ProfileAshlea()),
   BABY(new ProfileBaby()),
@@ -49,4 +50,5 @@ public enum MonsterProfileType {
   public Mob apply(Mob mob, int level, int difficulty, Random rand) {
     return monsterProfile.apply(mob, level, difficulty, rand);
   }
+
 }

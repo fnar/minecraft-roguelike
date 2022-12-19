@@ -1,27 +1,43 @@
- package greymerk.roguelike.monster;
+package greymerk.roguelike.monster;
 
+import com.github.fnar.minecraft.block.spawner.MobType;
 import com.github.fnar.minecraft.entity.SlotMapper1_12;
 import com.github.fnar.minecraft.item.mapper.ItemMapper1_12;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.boss.EntityDragon;
+import net.minecraft.entity.boss.EntityWither;
+import net.minecraft.entity.monster.EntityBlaze;
+import net.minecraft.entity.monster.EntityCaveSpider;
 import net.minecraft.entity.monster.EntityCreeper;
+import net.minecraft.entity.monster.EntityElderGuardian;
+import net.minecraft.entity.monster.EntityEnderman;
+import net.minecraft.entity.monster.EntityEndermite;
 import net.minecraft.entity.monster.EntityEvoker;
+import net.minecraft.entity.monster.EntityGhast;
+import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.entity.monster.EntityHusk;
+import net.minecraft.entity.monster.EntityIllusionIllager;
+import net.minecraft.entity.monster.EntityMagmaCube;
 import net.minecraft.entity.monster.EntityPigZombie;
+import net.minecraft.entity.monster.EntityShulker;
+import net.minecraft.entity.monster.EntitySilverfish;
 import net.minecraft.entity.monster.EntitySkeleton;
+import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityStray;
+import net.minecraft.entity.monster.EntityVex;
 import net.minecraft.entity.monster.EntityVindicator;
 import net.minecraft.entity.monster.EntityWitch;
 import net.minecraft.entity.monster.EntityWitherSkeleton;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.monster.EntityZombieVillager;
+import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.Random;
 
 public class EntityMapper1_12 {
@@ -32,49 +48,92 @@ public class EntityMapper1_12 {
     if (mob == null) {
       return null;
     }
-    EntityLiving newMob;
-    try {
-      newMob = entityLiving.getClass().getConstructor(World.class).newInstance(entityLiving.world);
-    } catch (NoSuchMethodException e) {
-      e.printStackTrace();
-      return null;
-    } catch (InvocationTargetException e) {
-      e.printStackTrace();
-      return null;
-    } catch (InstantiationException e) {
-      e.printStackTrace();
-      return null;
-    } catch (IllegalAccessException e) {
-      e.printStackTrace();
-      return null;
-    }
 
-    newMob.copyLocationAndAnglesFrom(entityLiving);
+    EntityLiving newEntity = createNewInstance(mob.getMobType(), entityLiving.getEntityWorld());
 
-    mob.getItems().forEach((key, value) -> {
-      EntityEquipmentSlot slot = new SlotMapper1_12().map(key);
-      ItemStack item = new ItemMapper1_12().map(value);
-      newMob.setItemStackToSlot(slot, item);
-    });
-
-    if (newMob instanceof EntityZombie) {
-      ((EntityZombie) newMob).setChild(entityLiving.isChild() || mob.isChild());
-    }
+    newEntity.copyLocationAndAnglesFrom(entityLiving);
 
     for (EntityEquipmentSlot slot : EntityEquipmentSlot.values()) {
       ItemStack toTrade = entityLiving.getItemStackFromSlot(slot);
-      newMob.setItemStackToSlot(slot, toTrade);
+      newEntity.setItemStackToSlot(slot, toTrade);
     }
 
-    entityLiving.world.removeEntity(entityLiving);
-    newMob.world.spawnEntity(newMob);
+    mob.getItems().forEach((slot, rldItemStack) -> {
+      EntityEquipmentSlot equipmentSlot = new SlotMapper1_12().map(slot);
+      ItemStack item = new ItemMapper1_12().map(rldItemStack);
+      newEntity.setItemStackToSlot(equipmentSlot, item);
+    });
+
+    if (newEntity instanceof EntityZombie) {
+      ((EntityZombie) newEntity).setChild(entityLiving.isChild() || mob.isChild());
+    }
 
     if (mob.getName() != null) {
-      newMob.setCustomNameTag(mob.getName());
-      newMob.setAlwaysRenderNameTag(true);
+      newEntity.setCustomNameTag(mob.getName());
+      newEntity.setAlwaysRenderNameTag(true);
     }
 
-    return newMob;
+    return newEntity;
+  }
+
+  private static EntityLiving createNewInstance(MobType mobType, World world) {
+    switch (mobType) {
+      case BAT:
+        return new EntityBat(world);
+      case BLAZE:
+        return new EntityBlaze(world);
+      case CAVESPIDER:
+        return new EntityCaveSpider(world);
+      case CREEPER:
+        return new EntityCreeper(world);
+      case DRAGON:
+        return new EntityDragon(world);
+      case ELDER_GUARDIAN:
+        return new EntityElderGuardian(world);
+      case ENDERMAN:
+        return new EntityEnderman(world);
+      case ENDERMITE:
+        return new EntityEndermite(world);
+      case EVOKER:
+        return new EntityEvoker(world);
+      case GHAST:
+        return new EntityGhast(world);
+      case GUARDIAN:
+        return new EntityGuardian(world);
+      case HUSK:
+        return new EntityHusk(world);
+      case ILLUSIONER:
+        return new EntityIllusionIllager(world);
+      case MAGMA_CUBE:
+        return new EntityMagmaCube(world);
+      case PIGZOMBIE:
+        return new EntityPigZombie(world);
+      case SHULKER:
+        return new EntityShulker(world);
+      case SILVERFISH:
+        return new EntitySilverfish(world);
+      case SKELETON:
+        return new EntitySkeleton(world);
+      case SLIME:
+        return new EntitySlime(world);
+      case SPIDER:
+        return new EntitySpider(world);
+      case STRAY:
+        return new EntityStray(world);
+      case VEX:
+        return new EntityVex(world);
+      case VINDICATOR:
+        return new EntityVindicator(world);
+      case WITCH:
+        return new EntityWitch(world);
+      case WITHER:
+        return new EntityWither(world);
+      case WITHERSKELETON:
+        return new EntityWitherSkeleton(world);
+      case ZOMBIE:
+      default:
+        return new EntityZombie(world);
+    }
   }
 
   private static Mob applyProfile(EntityLiving entityLiving, int level, int difficulty, Random random) {

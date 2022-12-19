@@ -45,11 +45,12 @@ public class EntityJoinWorld1_12 {
       return;
     }
 
-    EntityLiving entityLiving = (EntityLiving) entity;
     if (entity.isDead) {
       event.setCanceled(true);
       return;
     }
+
+    EntityLiving entityLiving = (EntityLiving) entity;
 
     Collection<PotionEffect> effects = entityLiving.getActivePotionEffects();
     for (PotionEffect effect : effects) {
@@ -62,12 +63,13 @@ public class EntityJoinWorld1_12 {
       Random random = world.rand;
       int difficulty = world.getDifficulty().ordinal();
 
-      Entity map = EntityMapper1_12.map(entityLiving, level, random, difficulty);
-      if (map == null) {
+      Entity newEntity = EntityMapper1_12.map(entityLiving, level, random, difficulty);
+      if (newEntity == null) {
         continue;
       }
+      // Mob type might be changed by this mod, so it's important to respawn
       entityLiving.world.removeEntity(entityLiving);
-      entityLiving.world.spawnEntity(map);
+      newEntity.world.spawnEntity(newEntity);
     }
   }
 

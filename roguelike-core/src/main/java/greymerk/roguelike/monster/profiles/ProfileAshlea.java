@@ -13,7 +13,6 @@ public class ProfileAshlea implements MonsterProfile {
 
   @Override
   public Mob apply(Mob mob, int level, int difficulty, Random rand) {
-
     MonsterProfileType.ZOMBIE_VILLAGER.apply(mob, level, difficulty, rand);
     mob.setChild(true);
     mob.equipMainhand(ItemNovelty.ashleasOatmealCookie());

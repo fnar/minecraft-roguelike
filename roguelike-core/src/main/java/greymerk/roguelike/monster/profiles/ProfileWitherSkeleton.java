@@ -1,5 +1,6 @@
 package greymerk.roguelike.monster.profiles;
 
+import com.github.fnar.minecraft.block.spawner.MobType;
 import com.github.fnar.util.Color;
 
 import java.util.Random;
@@ -11,6 +12,7 @@ public class ProfileWitherSkeleton implements MonsterProfile {
 
   @Override
   public Mob apply(Mob mob, int level, int difficulty, Random rand) {
+    mob.setMobType(MobType.WITHERSKELETON);
     mob.equipSword(level, difficulty, rand);
     mob.equipArmor(rand, level, Color.random(), difficulty);
     return mob;

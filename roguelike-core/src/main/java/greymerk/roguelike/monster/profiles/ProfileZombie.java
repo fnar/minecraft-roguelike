@@ -1,5 +1,6 @@
 package greymerk.roguelike.monster.profiles;
 
+import com.github.fnar.minecraft.block.spawner.MobType;
 import com.github.fnar.util.Color;
 
 import java.util.Random;
@@ -13,7 +14,7 @@ public class ProfileZombie implements MonsterProfile {
 
   @Override
   public Mob apply(Mob mob, int level, int difficulty, Random rand) {
-
+    mob.setMobType(MobType.ZOMBIE);
 
     if (level == 4 && rand.nextInt(20) == 0) {
       return MonsterProfileType.PIG_ZOMBIE.apply(mob, level, difficulty, rand);

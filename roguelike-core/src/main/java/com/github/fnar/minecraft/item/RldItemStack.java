@@ -113,4 +113,15 @@ public class RldItemStack {
     return plzNbt;
   }
 
+  @Override
+  public String toString() {
+    return "RldItemStack{" +
+        "item=" + item +
+        ", count=" + count +
+        ", damage=" + damage +
+        ", tags=" + tags +
+        ", isPlzNbt=" + isPlzNbt +
+        ", plzNbt='" + plzNbt + '\'' +
+        '}';
+  }
 }
