@@ -50,9 +50,9 @@ public class EntityJoinWorld1_12 {
       return;
     }
 
-    EntityLiving entityLiving = (EntityLiving) entity;
+    EntityLiving oldEntity = (EntityLiving) entity;
 
-    Collection<PotionEffect> effects = entityLiving.getActivePotionEffects();
+    Collection<PotionEffect> effects = oldEntity.getActivePotionEffects();
     for (PotionEffect effect : effects) {
       if (!isMobFromRoguelikeSpawner(effect)) {
         continue;
@@ -63,12 +63,16 @@ public class EntityJoinWorld1_12 {
       Random random = world.rand;
       int difficulty = world.getDifficulty().ordinal();
 
-      Entity newEntity = EntityMapper1_12.map(entityLiving, level, random, difficulty);
+      Entity newEntity = EntityProfiler1_12.applyProfile(oldEntity, level, random, difficulty);
       if (newEntity == null) {
         continue;
       }
+      NBTTagCompound oldEntityData = oldEntity.getEntityData();
+      oldEntityData.getKeySet().forEach(key -> newEntity.getEntityData().setTag(key, oldEntityData.getTag(key)));
+      newEntity.copyLocationAndAnglesFrom(oldEntity);
+
       // Mob type might be changed by this mod, so it's important to respawn
-      entityLiving.world.removeEntity(entityLiving);
+      oldEntity.world.removeEntity(oldEntity);
       newEntity.world.spawnEntity(newEntity);
     }
   }
