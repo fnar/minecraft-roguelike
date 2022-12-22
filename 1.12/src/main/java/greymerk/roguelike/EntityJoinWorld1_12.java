@@ -9,6 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntitySlime;
+import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -16,9 +17,11 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Random;
 
+import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.monster.EntityProfiler1_12;
 
 public class EntityJoinWorld1_12 {
@@ -64,13 +67,16 @@ public class EntityJoinWorld1_12 {
       Random random = world.rand;
       int difficulty = world.getDifficulty().ordinal();
 
-      Entity newEntity = EntityProfiler1_12.applyProfile(oldEntity, level, random, difficulty);
+      EntityLiving newEntity = EntityProfiler1_12.applyProfile(oldEntity, level, random, difficulty);
       if (newEntity == null) {
         continue;
       }
       NBTTagCompound oldEntityData = oldEntity.getEntityData();
-      oldEntityData.getKeySet().forEach(key -> newEntity.getEntityData().setTag(key, oldEntityData.getTag(key)));
+
       newEntity.copyLocationAndAnglesFrom(oldEntity);
+      oldEntity.getTags().forEach(newEntity::addTag);
+      oldEntityData.getKeySet().forEach(key -> newEntity.getEntityData().setTag(key, oldEntityData.getTag(key)));
+      Arrays.stream(EntityEquipmentSlot.values()).forEach(value -> newEntity.setDropChance(value, (float) RogueConfig.LOOTING.getDouble()));
 
       // Mob type might be changed by this mod, so it's important to respawn
       oldEntity.world.removeEntity(oldEntity);

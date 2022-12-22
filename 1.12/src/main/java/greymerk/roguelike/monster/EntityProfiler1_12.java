@@ -42,7 +42,7 @@ import java.util.Random;
 
 public class EntityProfiler1_12 {
 
-  public static Entity applyProfile(EntityLiving oldEntity, int level, Random random, int difficulty) {
+  public static EntityLiving applyProfile(EntityLiving oldEntity, int level, Random random, int difficulty) {
     Mob mob = applyProfile(oldEntity, level, difficulty, random);
 
     if (mob == null) {
