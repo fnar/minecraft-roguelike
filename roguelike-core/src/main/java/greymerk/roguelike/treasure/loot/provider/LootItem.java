@@ -1,6 +1,5 @@
 package greymerk.roguelike.treasure.loot.provider;
 
-import com.github.fnar.minecraft.Difficulty;
 import com.github.fnar.minecraft.item.Material;
 import com.github.fnar.minecraft.item.RldItemStack;
 
@@ -16,24 +15,6 @@ public abstract class LootItem implements IWeighted<RldItemStack> {
   public LootItem(int weight, int level) {
     this.weight = weight;
     this.level = level;
-  }
-
-  public static boolean isSpecial(Random random) {
-    return random.nextDouble() < .05;
-  }
-
-  public static boolean isEnchanted(Difficulty difficulty, Random random, int level) {
-    switch (difficulty) {
-      default:
-      case PEACEFUL:
-        return false;
-      case EASY:
-        return random.nextDouble() < .05 + .01 * level;
-      case NORMAL:
-        return random.nextDouble() < .05 + .03 * level;
-      case DIFFICULT:
-        return random.nextDouble() < .10 + .05 * level;
-    }
   }
 
   public abstract RldItemStack getLootItem(Random random);

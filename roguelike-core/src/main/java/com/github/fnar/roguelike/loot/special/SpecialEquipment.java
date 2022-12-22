@@ -30,12 +30,12 @@ public class SpecialEquipment {
   private RldItem rldItem;
   private String lore;
 
-  public static RldItemStack getRandomEquipment(Random random, Equipment type, Quality quality) {
+  public static RldItemStack newRandomSpecialEquipment(Random random, Equipment type, Quality quality) {
     switch (type) {
       case SWORD:
-        return new SpecialSword(random, quality).complete();
+        return SpecialSword.newSpecialSword(random, quality);
       case BOW:
-        return new SpecialBow(random, quality).complete();
+        return SpecialBow.newSpecialBow(random, quality);
       case HELMET:
         return new SpecialHelmet(random, quality).complete();
       case CHEST:

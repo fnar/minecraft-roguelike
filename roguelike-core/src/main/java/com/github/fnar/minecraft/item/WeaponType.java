@@ -19,7 +19,7 @@ public enum WeaponType {
   }
 
   public Equipment asEquipment() {
-    switch(this) {
+    switch (this) {
       case BOW:
         return Equipment.BOW;
       case SWORD:

@@ -2,6 +2,7 @@ package greymerk.roguelike.treasure.loot;
 
 import com.github.fnar.minecraft.item.ArmourType;
 import com.github.fnar.minecraft.item.ToolType;
+import com.github.fnar.minecraft.item.WeaponType;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -38,6 +39,17 @@ public enum Equipment {
 
   public static Quality rollQuality(Random rand, int level) {
     return equipmentQuality.get(level).get(rand);
+  }
+
+  public static WeaponType asWeaponType(Equipment type) {
+    switch (type) {
+      case BOW:
+        return WeaponType.BOW;
+      case SWORD:
+        return WeaponType.SWORD;
+      default:
+        throw new IllegalArgumentException("Could not parse WeaponType from EquipmentType: " + type);
+    }
   }
 
   public ArmourType asArmourType() {

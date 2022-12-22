@@ -1,20 +1,16 @@
 package com.github.fnar.roguelike.loot.special.weapons;
 
 import com.github.fnar.minecraft.item.Enchantment;
+import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.minecraft.item.WeaponType;
 import com.github.fnar.roguelike.loot.special.SpecialEquipment;
 
 import java.util.Random;
 
-import greymerk.roguelike.treasure.loot.Equipment;
 import greymerk.roguelike.treasure.loot.Quality;
 import greymerk.roguelike.util.TextFormat;
 
 public class SpecialSword extends SpecialEquipment {
-
-  public SpecialSword(Random random, int level) {
-    this(random, Equipment.rollQuality(random, level));
-  }
 
   public SpecialSword(Random random, Quality quality) {
     withQuality(quality);
@@ -22,6 +18,10 @@ public class SpecialSword extends SpecialEquipment {
     withName(quality.getDescriptor() + " Blade");
     withSwordEnchantments(random);
     withCommonEnchantments(random);
+  }
+
+  public static RldItemStack newSpecialSword(Random random, Quality quality) {
+    return new SpecialSword(random, quality).complete();
   }
 
   public void withSwordEnchantments(Random random) {

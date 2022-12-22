@@ -5,14 +5,9 @@ import com.github.fnar.minecraft.item.ToolType;
 
 import java.util.Random;
 
-import greymerk.roguelike.treasure.loot.Equipment;
 import greymerk.roguelike.treasure.loot.Quality;
 
 public class SpecialAxe extends SpecialTool {
-
-  public SpecialAxe(Random random, int level) {
-    this(random, Equipment.rollQuality(random, level));
-  }
 
   public SpecialAxe(Random random, Quality quality) {
     withQuality(quality);
