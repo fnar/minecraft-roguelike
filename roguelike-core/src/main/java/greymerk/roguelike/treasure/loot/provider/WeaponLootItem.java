@@ -1,7 +1,6 @@
 package greymerk.roguelike.treasure.loot.provider;
 
 import com.github.fnar.minecraft.item.RldItemStack;
-import com.github.fnar.minecraft.item.WeaponType;
 import com.github.fnar.roguelike.loot.special.weapons.SpecialBow;
 import com.github.fnar.roguelike.loot.special.weapons.SpecialSword;
 
@@ -15,51 +14,42 @@ import greymerk.roguelike.treasure.loot.Quality;
 public class WeaponLootItem extends LootItem {
 
   private Equipment type;
-  private boolean enchant;
+  private boolean isEnchanted;
   private Quality quality;
 
   public WeaponLootItem(int weight, int level) {
     super(weight, level);
   }
 
-  public WeaponLootItem(int weight, int level, Equipment type, Quality quality, boolean enchant) {
+  public WeaponLootItem(int weight, int level, Equipment type, Quality quality, boolean isEnchanted) {
     super(weight, level);
     this.type = type;
-    this.enchant = enchant;
+    this.isEnchanted = isEnchanted;
     this.quality = quality;
   }
 
   @Override
   public RldItemStack getLootItem(Random random) {
-    Equipment type = Optional.ofNullable(this.type).orElseGet(() -> random.nextInt(8) == 0 ? Equipment.BOW : Equipment.SWORD);
-    Quality quality = Optional.ofNullable(this.quality).orElseGet(() -> Equipment.rollQuality(random, level));
-    switch (type) {
-      case BOW:
-        return getBow(random, level, enchant);
-      case SWORD:
-      default:
-        return getSword(random, level, quality, enchant);
-    }
+    return !SpecialtyLootItem.rollForSpecial(random)
+        ? Equipment.asWeaponType(getType(random))
+        .asItem()
+        .withQuality(getQuality(random))
+        .plzEnchantAtLevel(getEnchantLevel(random, level))
+        .asStack()
+        : random.nextBoolean()
+            ? SpecialBow.newSpecialBow(random, getQuality(random))
+            : SpecialSword.newSpecialSword(random, getQuality(random));
   }
 
-  public static RldItemStack getBow(Random random, int level, boolean isEnchanted) {
-    return isSpecial(random)
-        ? new SpecialBow(random, level).complete()
-        : WeaponType.BOW.asItem()
-            .plzEnchantAtLevel(getEnchantmentLevel(random, level, isEnchanted))
-            .asStack();
+  private Equipment getType(Random random) {
+    return Optional.ofNullable(this.type).orElseGet(() -> random.nextInt(8) == 0 ? Equipment.BOW : Equipment.SWORD);
   }
 
-  public static RldItemStack getSword(Random random, int level, Quality quality, boolean isEnchanted) {
-    return LootItem.isSpecial(random)
-        ? new SpecialSword(random, level).complete()
-        : WeaponType.SWORD.asItem()
-            .withQuality(quality)
-            .plzEnchantAtLevel(getEnchantmentLevel(random, level, isEnchanted))
-            .asStack();
+  private Quality getQuality(Random random) {
+    return Optional.ofNullable(this.quality).orElseGet(() -> Equipment.rollQuality(random, level));
   }
 
-  private static int getEnchantmentLevel(Random random, int level, boolean isEnchanted) {
+  private int getEnchantLevel(Random random, int level) {
     return isEnchanted ? LootItem.getEnchantmentLevel(random, level) : 0;
   }
 

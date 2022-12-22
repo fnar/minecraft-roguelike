@@ -6,15 +6,9 @@ import com.github.fnar.roguelike.loot.special.SpecialEquipment;
 
 import java.util.Random;
 
-import greymerk.roguelike.treasure.loot.Equipment;
 import greymerk.roguelike.treasure.loot.Quality;
 
 public class SpecialTool extends SpecialEquipment {
-
-  public static RldItemStack createTool(Random random, int level) {
-    Quality quality = Equipment.rollQuality(random, level);
-    return createTool(random, quality);
-  }
 
   public static RldItemStack createTool(Random random, Quality quality) {
     return chooseTool(random, quality).complete();

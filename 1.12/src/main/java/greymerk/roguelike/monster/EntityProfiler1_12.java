@@ -40,21 +40,19 @@ import net.minecraft.world.World;
 
 import java.util.Random;
 
-public class EntityMapper1_12 {
+public class EntityProfiler1_12 {
 
-  public static Entity map(EntityLiving entityLiving, int level, Random random, int difficulty) {
-    Mob mob = applyProfile(entityLiving, level, difficulty, random);
+  public static Entity applyProfile(EntityLiving oldEntity, int level, Random random, int difficulty) {
+    Mob mob = applyProfile(oldEntity, level, difficulty, random);
 
     if (mob == null) {
       return null;
     }
 
-    EntityLiving newEntity = createNewInstance(mob.getMobType(), entityLiving.getEntityWorld());
-    entityLiving.getTags().forEach(newEntity::addTag);
-    newEntity.copyLocationAndAnglesFrom(entityLiving);
+    EntityLiving newEntity = createNewInstance(mob.getMobType(), oldEntity.getEntityWorld());
 
     for (EntityEquipmentSlot slot : EntityEquipmentSlot.values()) {
-      ItemStack toTrade = entityLiving.getItemStackFromSlot(slot);
+      ItemStack toTrade = oldEntity.getItemStackFromSlot(slot);
       newEntity.setItemStackToSlot(slot, toTrade);
     }
 
@@ -65,7 +63,7 @@ public class EntityMapper1_12 {
     });
 
     if (newEntity instanceof EntityZombie) {
-      ((EntityZombie) newEntity).setChild(entityLiving.isChild() || mob.isChild());
+      ((EntityZombie) newEntity).setChild(oldEntity.isChild() || mob.isChild());
     }
 
     if (mob.getName() != null) {

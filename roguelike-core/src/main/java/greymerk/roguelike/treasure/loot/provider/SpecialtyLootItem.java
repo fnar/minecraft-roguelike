@@ -29,6 +29,10 @@ public class SpecialtyLootItem extends LootItem {
     this.quality = quality;
   }
 
+  public static boolean rollForSpecial(Random random) {
+    return random.nextDouble() < .05;
+  }
+
   @Override
   public RldItemStack getLootItem(Random random) {
     Equipment equipmentType = Optional.ofNullable(this.type)
@@ -37,6 +41,6 @@ public class SpecialtyLootItem extends LootItem {
     Quality quality = Optional.ofNullable(this.quality)
         .orElseGet(() -> Equipment.rollQuality(random, level));
 
-    return SpecialEquipment.getRandomEquipment(random, equipmentType, quality);
+    return SpecialEquipment.newRandomSpecialEquipment(random, equipmentType, quality);
   }
 }

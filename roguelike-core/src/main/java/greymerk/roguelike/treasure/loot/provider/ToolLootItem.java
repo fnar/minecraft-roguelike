@@ -1,6 +1,5 @@
 package greymerk.roguelike.treasure.loot.provider;
 
-import com.github.fnar.minecraft.Difficulty;
 import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.minecraft.item.ToolType;
 import com.github.fnar.roguelike.loot.special.tools.SpecialTool;
@@ -30,30 +29,25 @@ public class ToolLootItem extends LootItem {
 
   @Override
   public RldItemStack getLootItem(Random random) {
-    ToolType toolType = Optional.ofNullable(this.type).map(Equipment::asToolType).orElseGet(() -> ToolType.random(random));
-    Quality quality = Optional.ofNullable(this.quality).orElseGet(() -> Equipment.rollQuality(random, level));
-    return get(random, level, toolType, quality, this.enchant);
-  }
-
-  public static RldItemStack get(Random random, int level, int difficulty) {
-    boolean enchanted = isEnchanted(Difficulty.fromInt(difficulty), random, level);
-    return get(random, level, enchanted);
-  }
-
-  private static RldItemStack get(Random random, int level, boolean enchant) {
-    ToolType toolType = ToolType.random(random);
-    Quality quality = Equipment.rollQuality(random, level);
-    return get(random, level, toolType, quality, enchant);
-  }
-
-  private static RldItemStack get(Random random, int level, ToolType toolType, Quality quality, boolean enchant) {
-    return isSpecial(random)
-        ? SpecialTool.createTool(random, quality)
-        : toolType
+    return SpecialtyLootItem.rollForSpecial(random)
+        ? SpecialTool.createTool(random, getQuality(random))
+        : getToolType(random)
             .asItem()
-            .withQuality(quality)
-            .plzEnchantAtLevel(enchant ? LootItem.getEnchantmentLevel(random, level) : 0)
+            .withQuality(getQuality(random))
+            .plzEnchantAtLevel(getEnchantLevel(random))
             .asStack();
+  }
+
+  private int getEnchantLevel(Random random) {
+    return this.enchant ? LootItem.getEnchantmentLevel(random, level) : 0;
+  }
+
+  private Quality getQuality(Random random) {
+    return Optional.ofNullable(this.quality).orElseGet(() -> Equipment.rollQuality(random, level));
+  }
+
+  private ToolType getToolType(Random random) {
+    return Optional.ofNullable(this.type).map(Equipment::asToolType).orElseGet(() -> ToolType.random(random));
   }
 
 
