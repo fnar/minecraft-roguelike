@@ -16,6 +16,7 @@ import com.github.fnar.minecraft.block.normal.InfestedBlock;
 import com.github.fnar.minecraft.block.normal.Quartz;
 import com.github.fnar.minecraft.block.normal.SlabBlock;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.block.redstone.TripwireHookBlock;
 import com.github.fnar.minecraft.material.Stone;
 import com.github.fnar.minecraft.material.Wood;
 import com.github.fnar.minecraft.block.redstone.ComparatorBlock;
@@ -23,6 +24,7 @@ import com.github.fnar.minecraft.block.redstone.DoorBlock;
 import com.github.fnar.minecraft.block.redstone.LeverBlock;
 import com.github.fnar.minecraft.block.redstone.RepeaterBlock;
 import com.github.fnar.minecraft.block.redstone.TrapdoorBlock;
+import com.github.fnar.util.ReportThisIssueException;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockAnvil;
@@ -67,6 +69,8 @@ import net.minecraft.block.BlockStoneSlabNew;
 import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.BlockTorch;
 import net.minecraft.block.BlockTrapDoor;
+import net.minecraft.block.BlockTripWire;
+import net.minecraft.block.BlockTripWireHook;
 import net.minecraft.block.BlockVine;
 import net.minecraft.block.BlockWoodSlab;
 import net.minecraft.block.properties.PropertyEnum;
@@ -195,8 +199,6 @@ public class BlockMapper1_12 {
         return getQuartz(Quartz.SMOOTH, facing);
       case VINE:
         return createVine(facing);
-      case WHEAT:
-        return new MetaBlock1_12(Blocks.WHEAT);
       case CROP:
         return getCrop((CropBlock) block);
       case PUMPKIN:
@@ -256,9 +258,19 @@ public class BlockMapper1_12 {
       case NETHER_PORTAL:
         return new MetaBlock1_12(Blocks.PORTAL)
             .withProperty(BlockPortal.AXIS, enumFacing.getAxis());
+      case TRIPWIRE:
+        return new MetaBlock1_12(Blocks.TRIPWIRE);
+      case TRIPWIRE_HOOK:
+        return mapTripwireHook((TripwireHookBlock) block)
+            .withProperty(BlockTripWireHook.FACING, enumFacing);
       default:
         return map(block.getBlockType());
     }
+  }
+
+  private static MetaBlock1_12 mapTripwireHook(TripwireHookBlock block) {
+    return new MetaBlock1_12(Blocks.TRIPWIRE_HOOK)
+        .withProperty(BlockTripWire.ATTACHED, block.isAttached());
   }
 
   private static MetaBlock1_12 getCrop(CropBlock cropBlock) {
@@ -335,6 +347,8 @@ public class BlockMapper1_12 {
   // TODO: can all public calls to this be replaced with calls to map(SingleBlockBrush)?
   public static MetaBlock1_12 map(BlockType blockType) {
     switch (blockType) {
+      case AIR:
+        return new MetaBlock1_12(Blocks.AIR);
       case WATER_STILL:
         return new MetaBlock1_12(Blocks.WATER);
       case WATER_FLOWING:
@@ -589,9 +603,14 @@ public class BlockMapper1_12 {
         return map(BlockType.TORCH.getBrush());
       case REDSTONE_TORCH:
         return map(BlockType.REDSTONE_TORCH.getBrush());
-      case AIR:
+      case WHEAT:
+        return new MetaBlock1_12(Blocks.WHEAT);
+      case PUMPKIN:
+        return new MetaBlock1_12(Blocks.PUMPKIN);
+      case TRIPWIRE:
+        return new MetaBlock1_12(Blocks.TRIPWIRE);
       default:
-        return new MetaBlock1_12(Blocks.AIR);
+        throw new ReportThisIssueException(new UnmappedBlockException(blockType));
     }
   }
 
