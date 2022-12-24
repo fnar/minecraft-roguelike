@@ -22,41 +22,36 @@ public class BumboTower extends Tower {
 
     Direction dir = Direction.randomCardinal(editor.getRandom());
 
-    stem(editor, theme, ground, dir);
+    stem(ground, dir);
 
     Coord pos = ground.copy();
     pos.translate(dir.clockwise(), 5);
     pos.up(9);
-    arm(editor, theme, pos, dir.clockwise());
+    arm(pos, dir.clockwise());
 
     pos = ground.copy();
     pos.translate(dir.antiClockwise(), 5);
     pos.up(10);
-    arm(editor, theme, pos, dir.antiClockwise());
+    arm(pos, dir.antiClockwise());
 
     pos = ground.copy();
     pos.up(16);
-    hat(editor, theme, pos);
+    hat(pos);
 
     pos = ground.copy();
     pos.up(10);
     pos.translate(dir, 4);
-    face(editor, theme, pos, dir);
+    face(pos, dir);
 
-    rooms(editor, theme, ground);
+    rooms(ground);
 
     Coord topStep = new Coord(ground).up(12);
-    generateStaircase(editor, theme, topStep, origin);
+    generateStaircase(topStep, origin);
   }
 
-  private void stem(WorldEditor editor, Theme theme, Coord origin, Direction dir) {
-    BlockBrush green = getPillar(theme);
-
-    Coord start;
-    Coord end;
-
-    start = origin.copy();
-    end = origin.copy();
+  private void stem(Coord origin, Direction dir) {
+    Coord start = origin.copy();
+    Coord end = origin.copy();
     start.translate(dir, 4);
     start.translate(dir.antiClockwise(), 3);
     end.translate(dir.reverse(), 4);
@@ -64,7 +59,7 @@ public class BumboTower extends Tower {
     start.down(10);
     end.up(16);
 
-    RectSolid.newRect(start, end).fill(editor, green);
+    getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     end = origin.copy();
@@ -75,30 +70,24 @@ public class BumboTower extends Tower {
     start.down(10);
     end.up(16);
 
-    RectSolid.newRect(start, end).fill(editor, green);
+    getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
     start.translate(dir.clockwise(), 8);
     end.translate(dir.clockwise(), 8);
 
-    RectSolid.newRect(start, end).fill(editor, green);
-
-
+    getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
   }
 
-  private void arm(WorldEditor editor, Theme theme, Coord origin, Direction dir) {
-    BlockBrush green = getPillar(theme);
-
-    Coord start;
-    Coord end;
-    start = origin.copy();
-    end = origin.copy();
+  private void arm(Coord origin, Direction dir) {
+    Coord start = origin.copy();
+    Coord end = origin.copy();
 
     start.translate(dir, 5);
     start.down(4);
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
     end.down();
-    RectSolid.newRect(start, end).fill(editor, green);
+    getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     end = origin.copy();
@@ -107,23 +96,23 @@ public class BumboTower extends Tower {
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
     end.up(2);
-    RectSolid.newRect(start, end).fill(editor, green);
+    getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     end = origin.copy();
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
     end.translate(dir, 2);
-    RectSolid.newRect(start, end).fill(editor, green);
+    getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
     start.translate(dir, 2);
     end.up(2);
-    RectSolid.newRect(start, end).fill(editor, green);
+    getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
     start.down(3);
     start.translate(dir, 3);
     end.translate(dir, 3);
-    RectSolid.newRect(start, end).fill(editor, green);
+    getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     start.translate(dir, 6);
@@ -132,7 +121,7 @@ public class BumboTower extends Tower {
     end.down(4);
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
-    RectSolid.newRect(start, end).fill(editor, green);
+    getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     start.down(5);
@@ -140,7 +129,7 @@ public class BumboTower extends Tower {
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
     end.translate(dir, 5);
-    RectSolid.newRect(start, end).fill(editor, green);
+    getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     start.translate(dir, 3);
@@ -149,26 +138,19 @@ public class BumboTower extends Tower {
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
     end.translate(dir, 2);
-    RectSolid.newRect(start, end).fill(editor, green);
+    getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
   }
 
-  private void hat(WorldEditor editor, Theme theme, Coord origin) {
-    BlockBrush yellow = theme.getSecondary().getWall();
-    BlockBrush red = theme.getSecondary().getFloor();
-
+  private void hat(Coord origin) {
     Coord offset = new Coord(origin.getX(), 0, origin.getZ());
-    BlockBrush rim = new BlockCheckers(red, yellow, offset);
-    BlockBrush rim2 = new BlockCheckers(yellow, red, offset);
+    BlockBrush rim = new BlockCheckers(getSecondaryFloor(), getSecondaryWall(), offset);
+    BlockBrush rim2 = new BlockCheckers(getSecondaryWall(), getSecondaryFloor(), offset);
 
-    Coord start;
-    Coord end;
-    Coord pos;
-
-    start = origin.copy();
-    end = origin.copy();
+    Coord start = origin.copy();
+    Coord end = origin.copy();
     start.translate(new Coord(-2, 0, -2));
     end.translate(new Coord(2, 8, 2));
-    RectSolid.newRect(start, end).fill(editor, yellow);
+    getSecondaryWall().fill(editor, RectSolid.newRect(start, end));
 
     for (Direction dir : Direction.CARDINAL) {
       start = origin.copy();
@@ -177,7 +159,7 @@ public class BumboTower extends Tower {
       start.translate(dir.antiClockwise(), 2);
       end.translate(dir.clockwise(), 2);
       end.up(5);
-      RectSolid.newRect(start, end).fill(editor, yellow);
+      getSecondaryWall().fill(editor, RectSolid.newRect(start, end));
 
       start = origin.copy();
       start.translate(dir, 4);
@@ -185,14 +167,14 @@ public class BumboTower extends Tower {
       start.translate(dir.antiClockwise(), 2);
       end.translate(dir.clockwise(), 2);
       end.up(2);
-      RectSolid.newRect(start, end).fill(editor, yellow);
+      getSecondaryWall().fill(editor, RectSolid.newRect(start, end));
 
       start = origin.copy();
       start.translate(dir, 3);
       start.translate(dir.antiClockwise(), 3);
       end = start.copy();
       end.up(2);
-      RectSolid.newRect(start, end).fill(editor, yellow);
+      getSecondaryWall().fill(editor, RectSolid.newRect(start, end));
 
       for (Direction o : dir.orthogonals()) {
         start = origin.copy();
@@ -200,7 +182,7 @@ public class BumboTower extends Tower {
         end = start.copy();
         end.translate(dir, 3);
         end.translate(o, 5);
-        RectSolid.newRect(start, end).fill(editor, yellow);
+        getSecondaryWall().fill(editor, RectSolid.newRect(start, end));
       }
 
 
@@ -209,15 +191,15 @@ public class BumboTower extends Tower {
       end = start.copy();
       start.translate(dir.antiClockwise(), 4);
       end.translate(dir.clockwise(), 4);
-      RectSolid.newRect(start, end).fill(editor, rim2);
+      rim2.fill(editor, RectSolid.newRect(start, end));
       start.translate(dir);
       end.translate(dir);
       start.up();
       end.up();
-      RectSolid.newRect(start, end).fill(editor, rim);
+      rim.fill(editor, RectSolid.newRect(start, end));
 
       for (Direction o : dir.orthogonals()) {
-        pos = origin.copy();
+        Coord pos = origin.copy();
         pos.translate(dir, 5);
         pos.translate(o, 5);
         rim.stroke(editor, pos);
@@ -233,31 +215,22 @@ public class BumboTower extends Tower {
     }
   }
 
-  private void face(WorldEditor editor, Theme theme, Coord origin, Direction dir) {
-    BlockBrush black = theme.getSecondary().getPillar();
-    BlockBrush white = theme.getPrimary().getPillar();
-    BlockBrush moustache = theme.getPrimary().getFloor();
-    BlockBrush green = getPillar(theme);
-
-    Coord start;
-    Coord end;
-    Coord pos;
-
+  private void face(Coord origin, Direction dir) {
 
     // mouth
-    start = origin.copy();
-    end = origin.copy();
+    Coord start = origin.copy();
+    Coord end = origin.copy();
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
     end.translate(dir);
     end.down(3);
-    RectSolid.newRect(start, end).fill(editor, green);
+    getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
     start.translate(dir.clockwise());
     start.down();
     end.translate(dir.antiClockwise());
     end.up();
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
-    pos = origin.copy();
+    SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end));
+    Coord pos = origin.copy();
     pos.translate(dir);
     pos.translate(dir.clockwise(), 2);
     pos.down(3);
@@ -271,18 +244,18 @@ public class BumboTower extends Tower {
     end.translate(dir.clockwise());
     start.down();
     end.down(2);
-    RectSolid.newRect(start, end).fill(editor, black);
+    getSecondaryPillar().fill(editor, RectSolid.newRect(start, end));
 
     for (Direction o : dir.orthogonals()) {
       pos = origin.copy();
       pos.down();
       pos.translate(o);
-      white.stroke(editor, pos);
+      getPrimaryPillar().stroke(editor, pos);
     }
 
     pos = origin.copy();
     pos.translate(dir, 2);
-    moustache.stroke(editor, pos);
+    getPrimaryFloor().stroke(editor, pos);
 
     for (Direction o : dir.orthogonals()) {
       start = origin.copy();
@@ -291,10 +264,10 @@ public class BumboTower extends Tower {
       end.translate(o, 2);
       start.translate(o);
       start.up();
-      RectSolid.newRect(start, end).fill(editor, moustache);
+      getPrimaryFloor().fill(editor, RectSolid.newRect(start, end));
       start.translate(o, 4);
       start.down(2);
-      RectSolid.newRect(start, end).fill(editor, moustache);
+      getPrimaryFloor().fill(editor, RectSolid.newRect(start, end));
       pos = origin.copy();
       pos.translate(dir, 2);
       pos.translate(o, 4);
@@ -314,20 +287,16 @@ public class BumboTower extends Tower {
     }
   }
 
-  private void rooms(WorldEditor editor, Theme theme, Coord origin) {
-
-    Coord start;
-    Coord end;
-
-    start = origin.copy();
+  private void rooms(Coord origin) {
+    Coord start = origin.copy();
     start.up(7);
-    end = start.copy();
+    Coord end = start.copy();
     start.translate(new Coord(-3, 0, -3));
     end.translate(new Coord(3, 3, 3));
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end));
     start.up(5);
     end.up(5);
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end));
 
     for (Direction d : Direction.CARDINAL) {
       start = origin.copy();
@@ -336,7 +305,7 @@ public class BumboTower extends Tower {
       start.translate(d.antiClockwise(), 3);
       end = start.copy();
       end.up(10);
-      RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getFloor());
+      getPrimaryFloor().fill(editor, RectSolid.newRect(start, end));
     }
   }
 }

@@ -1,6 +1,7 @@
 package greymerk.roguelike.dungeon.towers;
 
 import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.block.redstone.DoorBlock;
 import com.github.fnar.roguelike.worldgen.SpiralStairStep;
 
 import greymerk.roguelike.theme.Theme;
@@ -21,17 +22,9 @@ public abstract class Tower {
     this.theme = theme;
   }
 
-  protected StairsBlock getStair(Theme theme) {
-    return theme.getPrimary().getStair();
-  }
-
-  protected BlockBrush getPillar(Theme theme) {
-    return theme.getPrimary().getWall();
-  }
-
-  protected void generateStaircase(WorldEditor editor, Theme theme, Coord topStep, Coord bottomStep) {
+  protected void generateStaircase(Coord topStep, Coord bottomStep) {
     int staircaseHeight = topStep.getY() - bottomStep.getY();
-    new SpiralStairStep(editor, bottomStep, getStair(theme), getPillar(theme)).generate(staircaseHeight);
+    new SpiralStairStep(editor, bottomStep, theme.getPrimary().getStair(), theme.getPrimary().getWall()).generate(staircaseHeight);
   }
 
   public void chest(WorldEditor worldEditor, Direction dir, Coord coord) {
@@ -44,4 +37,43 @@ public abstract class Tower {
 
   public abstract void generate(Coord origin);
 
+  protected BlockBrush getPrimaryWall() {
+    return theme.getPrimary().getWall();
+  }
+
+  protected BlockBrush getPrimaryPillar() {
+    return theme.getPrimary().getPillar();
+  }
+
+  protected StairsBlock getPrimaryStair() {
+    return theme.getPrimary().getStair();
+  }
+
+  protected DoorBlock getPrimaryDoor() {
+    return theme.getPrimary().getDoor();
+  }
+
+  protected BlockBrush getPrimaryFloor() {
+    return theme.getPrimary().getFloor();
+  }
+
+  protected BlockBrush getSecondaryFloor() {
+    return theme.getSecondary().getFloor();
+  }
+
+  protected BlockBrush getSecondaryPillar() {
+    return theme.getSecondary().getPillar();
+  }
+
+  protected StairsBlock getSecondaryStair() {
+    return theme.getSecondary().getStair();
+  }
+
+  protected BlockBrush getSecondaryWall() {
+    return theme.getSecondary().getWall();
+  }
+
+  protected BlockBrush getPrimaryLight() {
+    return theme.getPrimary().getLightBlock();
+  }
 }

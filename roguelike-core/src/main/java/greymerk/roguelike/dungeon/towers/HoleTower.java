@@ -20,24 +20,16 @@ public class HoleTower extends Tower {
   @Override
   public void generate(Coord origin) {
 
-    BlockBrush blocks = theme.getPrimary().getWall();
+    BlockBrush blocks = getPrimaryWall();
     Coord floor = TowerType.getBaseCoord(editor, origin);
 
-    Coord start = floor.copy()
-        .north()
-        .east()
-        .up(3);
+    Coord start = floor.copy().north().east().up(3);
 
-    Coord end = origin.copy()
-        .south()
-        .west();
+    Coord end = origin.copy().south().west();
     SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end));
 
-    start.north(2)
-        .east(2);
-    end.south(2)
-        .west(2)
-        .up();
+    start.north(2).east(2);
+    end.south(2).west(2).up();
     RectSolid.newRect(start, end)
         .fill(editor, getRubble(blocks), false, true)
         .fill(editor, VineBlock.vine());

@@ -25,10 +25,6 @@ public class RogueTower extends Tower {
     int y = origin.getY();
     int z = origin.getZ();
 
-    BlockBrush blocks = theme.getPrimary().getWall();
-
-    StairsBlock stair = theme.getPrimary().getStair();
-
     Coord floor = TowerType.getBaseCoord(editor, origin);
     int ground = floor.getY() - 1;
     int main = floor.getY() + 4;
@@ -36,10 +32,10 @@ public class RogueTower extends Tower {
 
     SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(new Coord(x - 3, ground, z - 3), new Coord(x + 3, floor.getY() + 12, z + 3)));
 
-    RectSolid.newRect(new Coord(x - 2, y + 10, z - 2), new Coord(x + 2, floor.getY() - 1, z + 2)).fill(editor, blocks, false, true);
+    getPrimaryWall().fill(editor, RectSolid.newRect(new Coord(x - 2, y + 10, z - 2), new Coord(x + 2, floor.getY() - 1, z + 2)), false, true);
 
-    theme.getSecondary().getWall().fill(editor, RectSolid.newRect(new Coord(x - 3, main, z - 3), new Coord(x + 3, main, z + 3)));
-    blocks.fill(editor, RectSolid.newRect(new Coord(x - 3, roof, z - 3), new Coord(x + 3, roof, z + 3)));
+    getSecondaryWall().fill(editor, RectSolid.newRect(new Coord(x - 3, main, z - 3), new Coord(x + 3, main, z + 3)));
+    getPrimaryWall().fill(editor, RectSolid.newRect(new Coord(x - 3, roof, z - 3), new Coord(x + 3, roof, z + 3)));
 
     Coord start;
     Coord end;
@@ -52,11 +48,11 @@ public class RogueTower extends Tower {
         end = start.copy();
         end.translate(dir, 3);
         end.translate(orthogonals, 1);
-        blocks.fill(editor, RectSolid.newRect(start, end));
+        getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
         start.translate(orthogonals, 2);
         end.translate(dir.reverse(), 2);
         end.translate(orthogonals, 2);
-        blocks.fill(editor, RectSolid.newRect(start, end));
+        getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
         Coord cursor = floor.copy();
         cursor.translate(dir, 5);
@@ -65,28 +61,27 @@ public class RogueTower extends Tower {
         end = cursor.copy();
         end.translate(dir.reverse(), 1);
         end.up(2);
-        blocks.fill(editor, RectSolid.newRect(start, end));
+        getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
         start = end.copy();
         start.translate(dir, 1);
         start.translate(orthogonals.reverse(), 1);
-        blocks.fill(editor, RectSolid.newRect(start, end));
+        getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
         cursor.up(2);
-        stair.setUpsideDown(false).setFacing(orthogonals);
-        stair.stroke(editor, cursor);
+        getPrimaryStair().setUpsideDown(false).setFacing(orthogonals).stroke(editor, cursor);
 
         start = floor.copy();
         start.translate(dir, 4);
         end = start.copy();
         end.up(9);
         end.translate(orthogonals, 2);
-        blocks.fill(editor, RectSolid.newRect(start, end));
+        getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
         start = floor.copy();
         start.translate(dir, 3);
         start.translate(orthogonals, 3);
         end = start.copy();
         end.up(9);
-        blocks.fill(editor, RectSolid.newRect(start, end));
+        getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
         start = floor.copy();
         start.translate(dir, 4);
@@ -99,93 +94,83 @@ public class RogueTower extends Tower {
         cursor.translate(dir, 3);
         cursor.translate(orthogonals, 2);
         cursor.up(3);
-        stair.setUpsideDown(true).setFacing(orthogonals.reverse());
-        stair.stroke(editor, cursor);
+        getPrimaryStair().setUpsideDown(true).setFacing(orthogonals.reverse()).stroke(editor, cursor);
         cursor.up(5);
-        stair.setUpsideDown(true).setFacing(orthogonals.reverse());
-        stair.stroke(editor, cursor);
+        getPrimaryStair().setUpsideDown(true).setFacing(orthogonals.reverse()).stroke(editor, cursor);
 
         start = floor.copy();
         start.translate(dir, 4);
         start.translate(orthogonals, 3);
         start.up(4);
-        stair.setUpsideDown(true).setFacing(orthogonals);
-        stair.stroke(editor, start);
+        getPrimaryStair().setUpsideDown(true).setFacing(orthogonals).stroke(editor, start);
 
         start.up(1);
         end = start.copy();
         end.up(4);
-        blocks.fill(editor, RectSolid.newRect(start, end));
+        getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
         start = floor.copy();
         start.translate(dir, 5);
         start.up(4);
-        stair.setUpsideDown(true).setFacing(dir);
-        stair.stroke(editor, start);
+        getPrimaryStair().setUpsideDown(true).setFacing(dir).stroke(editor, start);
 
         cursor = start.copy();
         cursor.translate(orthogonals, 1);
-        stair.setUpsideDown(true).setFacing(orthogonals);
-        stair.stroke(editor, cursor);
+        getPrimaryStair().setUpsideDown(true).setFacing(orthogonals).stroke(editor, cursor);
 
         start.up(3);
-        stair.setUpsideDown(true).setFacing(dir);
-        stair.stroke(editor, start);
+        getPrimaryStair().setUpsideDown(true).setFacing(dir).stroke(editor, start);
 
         cursor = start.copy();
         cursor.translate(orthogonals, 1);
-        stair.setUpsideDown(true).setFacing(orthogonals);
-        stair.stroke(editor, cursor);
+        getPrimaryStair().setUpsideDown(true).setFacing(orthogonals).stroke(editor, cursor);
 
         start.up(1);
         end = start.copy();
         end.translate(orthogonals, 1);
         end.up(1);
-        blocks.fill(editor, RectSolid.newRect(start, end));
+        getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
         cursor = end.copy();
         cursor.translate(orthogonals, 1);
         cursor.down();
-        stair.setUpsideDown(true).setFacing(orthogonals);
-        stair.stroke(editor, cursor);
+        getPrimaryStair().setUpsideDown(true).setFacing(orthogonals).stroke(editor, cursor);
         cursor.up(1);
         cursor.translate(orthogonals, 1);
-        stair.stroke(editor, cursor);
+        getPrimaryStair().setUpsideDown(true).setFacing(orthogonals).stroke(editor, cursor);
 
         cursor.translate(orthogonals.reverse(), 1);
-        blocks.stroke(editor, cursor);
+        getPrimaryWall().stroke(editor, cursor);
         cursor.up(1);
-        blocks.stroke(editor, cursor);
+        getPrimaryWall().stroke(editor, cursor);
         cursor.translate(orthogonals, 1);
-        blocks.stroke(editor, cursor);
+        getPrimaryWall().stroke(editor, cursor);
         cursor.up(1);
-        addCrenellation(editor, cursor, blocks);
+        addCrenellation(editor, cursor, getPrimaryWall());
 
         cursor.down(2);
         cursor.translate(dir.reverse(), 1);
         cursor.translate(orthogonals, 1);
-        blocks.stroke(editor, cursor);
+        getPrimaryWall().stroke(editor, cursor);
         cursor.down();
-        blocks.stroke(editor, cursor);
+        getPrimaryWall().stroke(editor, cursor);
 
         cursor = floor.copy();
         cursor.translate(dir, 6);
         cursor.up(9);
 
-        stair.setUpsideDown(true).setFacing(dir);
-        stair.stroke(editor, cursor);
+        getPrimaryStair().setUpsideDown(true).setFacing(dir).stroke(editor, cursor);
 
         cursor.translate(orthogonals, 1);
-        stair.setUpsideDown(true).setFacing(orthogonals);
-        stair.stroke(editor, cursor);
+        getPrimaryStair().setUpsideDown(true).setFacing(orthogonals).stroke(editor, cursor);
 
         cursor.translate(orthogonals.reverse(), 1);
         cursor.up(1);
-        blocks.stroke(editor, cursor);
+        getPrimaryWall().stroke(editor, cursor);
         cursor.translate(orthogonals, 1);
-        blocks.stroke(editor, cursor);
+        getPrimaryWall().stroke(editor, cursor);
         cursor.up(1);
-        addCrenellation(editor, cursor, blocks);
+        addCrenellation(editor, cursor, getPrimaryWall());
 
         cursor = floor.copy();
         cursor.translate(dir, 4);
@@ -207,19 +192,19 @@ public class RogueTower extends Tower {
         start.translate(orthogonals.reverse(), 2);
         end.translate(orthogonals, 2);
 
-        blocks.fill(editor, RectSolid.newRect(start, end));
+        getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
         start = new Coord(x, ground, z);
         start.translate(dir, 3);
         start.translate(orthogonals, 3);
         end = new Coord(x, 60, z);
         end.translate(dir, 3);
         end.translate(orthogonals, 3);
-        blocks.fill(editor, RectSolid.newRect(start, end));
+        getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
       }
     }
 
-    new SpiralStairStep(editor, origin, stair, theme.getPrimary().getPillar()).generate(main - y + 1);
+    new SpiralStairStep(editor, origin, getPrimaryStair(), getPrimaryPillar()).generate(main - y + 1);
   }
 
 

@@ -70,7 +70,7 @@ public class TreeTower extends Tower {
     start = upstairs.copy();
     start.down();
     for (Coord p : RectSolid.newRect(start, origin)) {
-      editor.spiralStairStep(editor.getRandom(), p, theme.getPrimary().getStair(), theme.getPrimary().getPillar());
+      editor.spiralStairStep(editor.getRandom(), p, getPrimaryStair(), getPrimaryPillar());
     }
   }
 
