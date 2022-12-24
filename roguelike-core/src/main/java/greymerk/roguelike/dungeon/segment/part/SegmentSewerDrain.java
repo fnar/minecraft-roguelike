@@ -16,7 +16,7 @@ public class SegmentSewerDrain extends SegmentBase {
 
   @Override
   protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
-    StairsBlock stair = theme.getSecondary().getStair();
+    StairsBlock stair = getSecondaryStairs(theme);
 
     Direction[] orthogonals = dir.orthogonals();
 
@@ -39,7 +39,7 @@ public class SegmentSewerDrain extends SegmentBase {
     RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
     start.translate(dir);
     end.translate(dir);
-    RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall());
+    RectSolid.newRect(start, end).fill(editor, getPrimaryWalls(theme));
 
     Coord cursor;
     for (Direction o : orthogonals) {

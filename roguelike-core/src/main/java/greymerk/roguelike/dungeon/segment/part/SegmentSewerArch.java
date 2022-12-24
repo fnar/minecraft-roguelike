@@ -15,7 +15,7 @@ public class SegmentSewerArch extends SegmentBase {
 
   @Override
   protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
-    BlockBrush stair = theme.getSecondary().getStair().setUpsideDown(true).setFacing(dir.reverse());
+    BlockBrush stair = getSecondaryStairs(theme).setUpsideDown(true).setFacing(dir.reverse());
 
     Direction[] orthogonals = dir.orthogonals();
 
@@ -53,11 +53,11 @@ public class SegmentSewerArch extends SegmentBase {
       cursor = origin.copy();
       cursor.translate(o, 1);
       cursor.translate(dir, 2);
-      theme.getSecondary().getPillar().stroke(editor, cursor);
+      getSecondaryPillar(theme).stroke(editor, cursor);
       cursor.up(1);
-      theme.getSecondary().getPillar().stroke(editor, cursor);
+      getSecondaryPillar(theme).stroke(editor, cursor);
       cursor.up(1);
-      theme.getPrimary().getWall().stroke(editor, cursor);
+      getPrimaryWalls(theme).stroke(editor, cursor);
       cursor.translate(dir.reverse(), 1);
       stair.stroke(editor, cursor);
     }

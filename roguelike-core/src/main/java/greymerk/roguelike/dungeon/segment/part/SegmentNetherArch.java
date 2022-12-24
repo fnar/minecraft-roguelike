@@ -15,9 +15,9 @@ public class SegmentNetherArch extends SegmentBase {
   @Override
   protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
 
-    StairsBlock stair = theme.getSecondary().getStair();
+    StairsBlock stair = getSecondaryStairs(theme);
     stair.setUpsideDown(true).setFacing(dir.reverse());
-    BlockBrush pillar = theme.getSecondary().getPillar();
+    BlockBrush pillar = getSecondaryPillar(theme);
 
     boolean hasLava = editor.getRandom().nextInt(5) == 0;
 

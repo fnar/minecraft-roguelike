@@ -15,7 +15,7 @@ public class SegmentShelf extends SegmentBase {
   @Override
   protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
 
-    StairsBlock stair = theme.getSecondary().getStair();
+    StairsBlock stair = getSecondaryStairs(theme);
 
     Coord cursor = origin.copy();
 
@@ -26,11 +26,11 @@ public class SegmentShelf extends SegmentBase {
     start.translate(orthogonals[0], 1);
     Coord end = cursor.copy();
     end.translate(orthogonals[1], 1);
-    RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall(), false, true);
+    RectSolid.newRect(start, end).fill(editor, getSecondaryWall(theme), false, true);
     start.translate(dir, 1);
     end.translate(dir, 1);
     end.up(2);
-    RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall(), false, true);
+    RectSolid.newRect(start, end).fill(editor, getSecondaryWall(theme), false, true);
     start.translate(dir.reverse(), 1);
     start.up(1);
     end.translate(dir.reverse(), 1);

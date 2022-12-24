@@ -17,8 +17,8 @@ public class SegmentFireArch extends SegmentBase {
   @Override
   protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
 
-    StairsBlock stair = theme.getPrimary().getStair();
-    BlockBrush walls = theme.getPrimary().getWall();
+    StairsBlock stair = getPrimaryStairs(theme);
+    BlockBrush walls = getPrimaryWalls(theme);
 
     Direction[] orthogonals = dir.orthogonals();
 

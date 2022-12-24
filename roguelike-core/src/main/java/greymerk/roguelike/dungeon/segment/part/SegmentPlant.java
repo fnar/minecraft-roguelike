@@ -2,7 +2,6 @@ package greymerk.roguelike.dungeon.segment.part;
 
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.decorative.TallPlant;
-import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.Theme;
@@ -16,32 +15,20 @@ public class SegmentPlant extends SegmentBase {
   @Override
   protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
 
-    StairsBlock stair = theme.getSecondary().getStair();
+    Coord cursor = origin.copy().translate(dir, 2);
+    Coord start = cursor.copy().translate(dir.left());
+    Coord end = cursor.copy().translate(dir.right()).up(2);
+    RectSolid wall = RectSolid.newRect(start, end);
+    wall.fill(editor, SingleBlockBrush.AIR);
 
-    Coord cursor = origin.copy();
-    Coord start;
-    Coord end;
-
-    Direction[] orthogonals = dir.orthogonals();
-
-    cursor.translate(dir, 2);
-    start = cursor.copy();
-    start.translate(orthogonals[0], 1);
-    end = cursor.copy();
-    end.translate(orthogonals[1], 1);
-    end.up(2);
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
-
-    start.translate(dir, 1);
-    end.translate(dir, 1);
-    RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall(), false, true);
+    wall.translate(dir, 1);
+    getSecondaryWall(theme).fill(editor, wall, false, true);
 
     cursor.up(2);
-    for (Direction d : orthogonals) {
+    for (Direction d : dir.orthogonals()) {
       Coord c = cursor.copy();
       c.translate(d, 1);
-      stair.setUpsideDown(true).setFacing(d.reverse());
-      stair.stroke(editor, c);
+      getSecondaryStairs(theme).setUpsideDown(true).setFacing(d.reverse()).stroke(editor, c);
     }
 
     cursor = origin.copy();

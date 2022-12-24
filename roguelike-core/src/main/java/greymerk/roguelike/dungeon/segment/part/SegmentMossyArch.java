@@ -19,7 +19,7 @@ public class SegmentMossyArch extends SegmentBase {
   @Override
   protected void genWall(WorldEditor editor, DungeonLevel level, Direction wallDirection, Theme theme, Coord origin) {
 
-    StairsBlock stair = theme.getSecondary().getStair();
+    StairsBlock stair = getSecondaryStairs(theme);
     stair.setUpsideDown(true).setFacing(wallDirection.reverse());
 
     generateSecret(level.getSettings().getSecrets(), editor, level.getSettings(), wallDirection, origin.copy());
@@ -36,11 +36,11 @@ public class SegmentMossyArch extends SegmentBase {
       cursor = origin.copy();
       cursor.translate(orthogonals, 1);
       cursor.translate(wallDirection, 2);
-      theme.getSecondary().getPillar().stroke(editor, cursor);
+      getSecondaryPillar(theme).stroke(editor, cursor);
       cursor.up(1);
-      theme.getSecondary().getPillar().stroke(editor, cursor);
+      getSecondaryPillar(theme).stroke(editor, cursor);
       cursor.up(1);
-      theme.getSecondary().getWall().stroke(editor, cursor);
+      getSecondaryWall(theme).stroke(editor, cursor);
       cursor.translate(wallDirection.reverse(), 1);
       stair.stroke(editor, cursor);
     }

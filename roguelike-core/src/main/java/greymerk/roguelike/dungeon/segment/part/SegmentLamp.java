@@ -22,8 +22,8 @@ public class SegmentLamp extends SegmentBase {
   @Override
   protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
 
-    StairsBlock stair = theme.getSecondary().getStair();
-    BlockBrush wall = theme.getSecondary().getWall();
+    StairsBlock stair = getSecondaryStairs(theme);
+    BlockBrush wall = getSecondaryWall(theme);
 
     Direction[] orthogonal = dir.orthogonals();
 
@@ -96,7 +96,7 @@ public class SegmentLamp extends SegmentBase {
 
   private void overheadLight(WorldEditor editor, Theme theme, Coord origin) {
 
-    StairsBlock stair = theme.getPrimary().getStair();
+    StairsBlock stair = getPrimaryStairs(theme);
 
     Coord cursor;
 

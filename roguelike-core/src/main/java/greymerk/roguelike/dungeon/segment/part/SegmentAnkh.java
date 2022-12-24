@@ -17,11 +17,11 @@ public class SegmentAnkh extends SegmentBase {
 
   @Override
   protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord pos) {
-    StairsBlock stair = theme.getSecondary().getStair();
+    StairsBlock stair = getSecondaryStairs(theme);
     DyeColor color = DyeColor.chooseRandom(editor.getRandom());
     BlockBrush glass = ColoredBlock.stainedGlass().setColor(color);
     BlockBrush back = ColoredBlock.stainedHardenedClay().setColor(color);
-    BlockBrush light = theme.getSecondary().getLightBlock();
+    BlockBrush light = getSecondaryLightBlock(theme);
 
     Direction[] orthogonals = dir.orthogonals();
 

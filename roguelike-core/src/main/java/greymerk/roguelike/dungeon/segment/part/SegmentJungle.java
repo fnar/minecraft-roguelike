@@ -18,7 +18,7 @@ public class SegmentJungle extends SegmentBase {
   @Override
   protected void genWall(WorldEditor editor, DungeonLevel level, Direction wallDirection, Theme theme, Coord origin) {
 
-    StairsBlock stair = theme.getSecondary().getStair();
+    StairsBlock stair = getSecondaryStairs(theme);
 
     Direction[] orthogonals = wallDirection.orthogonals();
     Coord start = origin.copy();

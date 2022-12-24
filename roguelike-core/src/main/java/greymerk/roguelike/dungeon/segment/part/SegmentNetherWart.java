@@ -17,8 +17,8 @@ public class SegmentNetherWart extends SegmentBase {
   @Override
   protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
 
-    StairsBlock stair = theme.getSecondary().getStair();
-    BlockBrush wall = theme.getSecondary().getWall();
+    StairsBlock stair = getSecondaryStairs(theme);
+    BlockBrush wall = getSecondaryWall(theme);
 
     Coord cursor = origin.copy();
     cursor.translate(dir, 2);

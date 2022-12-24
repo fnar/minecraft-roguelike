@@ -15,7 +15,7 @@ public class SegmentMineShaft extends SegmentBase {
   @Override
   protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
 
-    BlockBrush wall = theme.getSecondary().getWall();
+    BlockBrush wall = getSecondaryWall(theme);
 
     Direction[] orthogonal = dir.orthogonals();
 

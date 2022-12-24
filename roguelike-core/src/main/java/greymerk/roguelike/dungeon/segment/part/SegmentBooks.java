@@ -15,7 +15,7 @@ public class SegmentBooks extends SegmentBase {
 
   @Override
   protected void genWall(WorldEditor editor, DungeonLevel level, Direction outward, Theme theme, Coord origin) {
-    StairsBlock stair = theme.getSecondary().getStair();
+    StairsBlock stair = getSecondaryStairs(theme);
 
     Direction[] orthogonals = outward.orthogonals();
 
@@ -32,7 +32,7 @@ public class SegmentBooks extends SegmentBase {
 
     start.translate(outward, 1);
     end.translate(outward, 1);
-    RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall(), false, true);
+    RectSolid.newRect(start, end).fill(editor, getSecondaryWall(theme), false, true);
 
     cursor.up(2);
     for (Direction d : orthogonals) {

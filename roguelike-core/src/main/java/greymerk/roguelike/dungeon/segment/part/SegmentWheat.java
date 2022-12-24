@@ -31,7 +31,7 @@ public class SegmentWheat extends SegmentBase {
     end.translate(orthogonals[1]);
     start.up(2);
     end.translate(dir);
-    RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall());
+    RectSolid.newRect(start, end).fill(editor, getSecondaryWall(theme));
 
     start = origin.copy();
     start.translate(dir, 2);
@@ -55,9 +55,9 @@ public class SegmentWheat extends SegmentBase {
     cursor = origin.copy();
     cursor.translate(dir, 3);
     cursor.up(1);
-    theme.getSecondary().getLightBlock().setFacing(dir.reverse()).stroke(editor, cursor);
+    getSecondaryLightBlock(theme).setFacing(dir.reverse()).stroke(editor, cursor);
 
-    StairsBlock stair = theme.getSecondary().getStair();
+    StairsBlock stair = getSecondaryStairs(theme);
 
     for (Direction d : orthogonals) {
       cursor = origin.copy();

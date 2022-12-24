@@ -22,11 +22,11 @@ public class SegmentSewerDoor extends SegmentBase {
   @Override
   protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
 
-    StairsBlock stair = theme.getSecondary().getStair();
+    StairsBlock stair = getSecondaryStairs(theme);
     BlockBrush bars = BlockType.IRON_BAR.getBrush();
     BlockBrush water = BlockType.WATER_FLOWING.getBrush();
     BlockBrush leaves = Wood.SPRUCE.getLeaves();
-    BlockBrush glowstone = theme.getSecondary().getLightBlock();
+    BlockBrush glowstone = getSecondaryLightBlock(theme);
 
     Direction[] orthogonal = dir.orthogonals();
 
@@ -70,7 +70,7 @@ public class SegmentSewerDoor extends SegmentBase {
 
     start.translate(dir, 1);
     end.translate(dir, 1);
-    RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall(), false, true);
+    RectSolid.newRect(start, end).fill(editor, getSecondaryWall(theme), false, true);
 
     cursor.up(2);
     for (Direction d : orthogonal) {
@@ -83,7 +83,7 @@ public class SegmentSewerDoor extends SegmentBase {
     if (room.isPresent()) {
       cursor = origin.copy();
       cursor.translate(dir, 3);
-      theme.getSecondary().getDoor().setFacing(dir.reverse()).stroke(editor, cursor);
+      getSecondaryDoor(theme).setFacing(dir.reverse()).stroke(editor, cursor);
     }
   }
 }

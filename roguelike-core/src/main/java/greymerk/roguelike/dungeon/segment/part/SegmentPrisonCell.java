@@ -19,7 +19,7 @@ public class SegmentPrisonCell extends SegmentBase {
 
   @Override
   protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
-    StairsBlock stair = theme.getSecondary().getStair();
+    StairsBlock stair = getSecondaryStairs(theme);
 
     Direction[] orthogonal = dir.orthogonals();
 
@@ -37,7 +37,7 @@ public class SegmentPrisonCell extends SegmentBase {
 
     start.translate(dir, 1);
     end.translate(dir, 1);
-    RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall(), false, true);
+    RectSolid.newRect(start, end).fill(editor, getSecondaryWall(theme), false, true);
 
     cursor.up(2);
     for (Direction d : orthogonal) {
@@ -50,7 +50,7 @@ public class SegmentPrisonCell extends SegmentBase {
     if (room.isPresent()) {
       cursor = origin.copy();
       cursor.translate(dir, 3);
-      theme.getSecondary().getDoor().setFacing(dir.reverse()).stroke(editor, cursor);
+      getSecondaryDoor(theme).setFacing(dir.reverse()).stroke(editor, cursor);
     } else {
       PrisonCell.generate(editor, level.getSettings(), origin, dir);
     }

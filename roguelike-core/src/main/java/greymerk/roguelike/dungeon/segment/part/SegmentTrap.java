@@ -38,14 +38,14 @@ public class SegmentTrap extends SegmentBase {
     Coord facadeCorner1 = origin.copy().translate(dir.right()).up(2);
     RectSolid facade = RectSolid.newRect(facadeCorner0, facadeCorner1);
     facade.translate(dir, 3);
-    theme.getPrimary().getWall().fill(editor, facade);
+    getPrimaryWalls(theme).fill(editor, facade);
 
     // cover in vines
     facade.translate(dir.reverse(), 1);
     VineBlock.vine().fill(editor, facade);
 
     // stairs on corners
-    StairsBlock stair = theme.getPrimary().getStair();
+    StairsBlock stair = getPrimaryStairs(theme);
     for (Direction side : dir.orthogonals()) {
       Coord cursor = origin.copy()
           .translate(dir, 2)
