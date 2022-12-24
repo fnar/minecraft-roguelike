@@ -23,9 +23,6 @@ public class WitchTower extends Tower {
   @Override
   public void generate(Coord origin) {
 
-    BlockBrush blocks = theme.getPrimary().getWall();
-    BlockBrush pillar = theme.getPrimary().getPillar();
-    StairsBlock stair = theme.getPrimary().getStair();
     BlockBrush glass = stainedGlass().setColor(DyeColor.BLACK);
 
     Coord main = TowerType.getBaseCoord(editor, origin);
@@ -45,7 +42,7 @@ public class WitchTower extends Tower {
     end.east(3);
     end.up(3);
 
-    RectHollow.newRect(start, end).fill(editor, blocks);
+    RectHollow.newRect(start, end).fill(editor, getPrimaryWall());
 
     for (Direction dir : Direction.CARDINAL) {
 
@@ -58,7 +55,7 @@ public class WitchTower extends Tower {
       end = start.copy();
       end.up(3);
 
-      pillar.fill(editor, RectSolid.newRect(start, end));
+      getPrimaryPillar().fill(editor, RectSolid.newRect(start, end));
 
       for (Direction o : orthogonal) {
         start = main.copy();
@@ -68,14 +65,14 @@ public class WitchTower extends Tower {
         end = start.copy();
         end.up(3);
 
-        pillar.fill(editor, RectSolid.newRect(start, end));
+        getPrimaryPillar().fill(editor, RectSolid.newRect(start, end));
         cursor = end.copy();
         cursor.translate(dir);
-        stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor);
+        getPrimaryStair().setUpsideDown(true).setFacing(dir).stroke(editor, cursor);
         for (Direction d : orthogonal) {
           cursor = end.copy();
           cursor.translate(d);
-          stair.setUpsideDown(true).setFacing(d).stroke(editor, cursor);
+          getPrimaryStair().setUpsideDown(true).setFacing(d).stroke(editor, cursor);
         }
       }
     }
@@ -94,7 +91,7 @@ public class WitchTower extends Tower {
     end.east(4);
     end.up(6);
 
-    RectHollow.newRect(start, end).fill(editor, blocks);
+    RectHollow.newRect(start, end).fill(editor, getPrimaryWall());
 
     for (Direction dir : Direction.CARDINAL) {
 
@@ -125,7 +122,7 @@ public class WitchTower extends Tower {
         start.translate(o, 3);
         end = start.copy();
         end.up(3);
-        pillar.fill(editor, RectSolid.newRect(start, end));
+        getPrimaryPillar().fill(editor, RectSolid.newRect(start, end));
 
         start = secondFloor.copy();
         start.down();
@@ -133,15 +130,15 @@ public class WitchTower extends Tower {
         start.translate(o, 2);
         end = start.copy();
         end.up(4);
-        pillar.fill(editor, RectSolid.newRect(start, end));
+        getPrimaryPillar().fill(editor, RectSolid.newRect(start, end));
 
         cursor = end.copy();
         cursor.translate(dir);
-        stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor);
+        getPrimaryStair().setUpsideDown(true).setFacing(dir).stroke(editor, cursor);
         for (Direction d : orthogonal) {
           cursor = end.copy();
           cursor.translate(d);
-          stair.setUpsideDown(true).setFacing(d).stroke(editor, cursor);
+          getPrimaryStair().setUpsideDown(true).setFacing(d).stroke(editor, cursor);
         }
       }
     }
@@ -160,7 +157,7 @@ public class WitchTower extends Tower {
     end.east(3);
     end.up(4);
 
-    RectHollow.newRect(start, end).fill(editor, blocks);
+    RectHollow.newRect(start, end).fill(editor, getPrimaryWall());
 
     for (Direction dir : Direction.CARDINAL) {
 
@@ -169,14 +166,14 @@ public class WitchTower extends Tower {
       cursor = thirdFloor.copy();
       cursor.translate(dir, 3);
       cursor.up();
-      window(editor, theme, dir, cursor);
+      window(editor, dir, cursor);
 
       start = thirdFloor.copy();
       start.translate(dir, 2);
       end = start.copy();
       end.translate(dir, 4);
       end.down();
-      blocks.fill(editor, RectSolid.newRect(start, end));
+      getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
       start = thirdFloor.copy();
       start.translate(dir, 5);
@@ -185,7 +182,7 @@ public class WitchTower extends Tower {
       start.translate(orthogonal[0]);
       end.translate(orthogonal[1]);
       end.down();
-      blocks.fill(editor, RectSolid.newRect(start, end));
+      getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
       start = thirdFloor.copy();
       start.translate(dir, 3);
@@ -193,15 +190,15 @@ public class WitchTower extends Tower {
       start.down(2);
       end = start.copy();
       end.up(5);
-      pillar.fill(editor, RectSolid.newRect(start, end));
+      getPrimaryPillar().fill(editor, RectSolid.newRect(start, end));
 
       cursor = end.copy();
       cursor.translate(dir);
-      stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor);
+      getPrimaryStair().setUpsideDown(true).setFacing(dir).stroke(editor, cursor);
 
       cursor = end.copy();
       cursor.translate(orthogonal[0]);
-      stair.setUpsideDown(true).setFacing(orthogonal[0]).stroke(editor, cursor);
+      getPrimaryStair().setUpsideDown(true).setFacing(orthogonal[0]).stroke(editor, cursor);
 
       for (Direction o : orthogonal) {
 
@@ -221,8 +218,8 @@ public class WitchTower extends Tower {
           start.down(i);
           end = start.copy();
           end.translate(dir, 2);
-          stair.setUpsideDown(false).setFacing(o);
-          stair.fill(editor, RectSolid.newRect(start, end));
+          getPrimaryStair().setUpsideDown(false).setFacing(o);
+          getPrimaryStair().fill(editor, RectSolid.newRect(start, end));
 
           if (i < 3) {
             start = thirdFloor.copy();
@@ -231,7 +228,7 @@ public class WitchTower extends Tower {
             start.down(i + 1);
             end = start.copy();
             end.translate(dir, 2);
-            blocks.fill(editor, RectSolid.newRect(start, end));
+            getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
           }
 
           start = thirdFloor.copy();
@@ -240,20 +237,20 @@ public class WitchTower extends Tower {
           start.down(3);
           end = start.copy();
           end.translate(dir, 2);
-          blocks.fill(editor, RectSolid.newRect(start, end));
+          getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
           cursor = thirdFloor.copy();
           cursor.translate(dir, 6);
           cursor.translate(o);
           cursor.down(2);
-          stair.setUpsideDown(true).setFacing(o.reverse()).stroke(editor, cursor);
+          getPrimaryStair().setUpsideDown(true).setFacing(o.reverse()).stroke(editor, cursor);
         }
       }
     }
 
 
     for (int i = thirdFloor.getY() - 1; i >= 50; --i) {
-      editor.spiralStairStep(editor.getRandom(), new Coord(origin.getX(), i, origin.getZ()), theme.getPrimary().getStair(), theme.getPrimary().getPillar());
+      editor.spiralStairStep(editor.getRandom(), new Coord(origin.getX(), i, origin.getZ()), getPrimaryStair(), getPrimaryPillar());
     }
 
     // attic
@@ -270,7 +267,7 @@ public class WitchTower extends Tower {
     end.east(2);
     end.up(3);
 
-    RectHollow.newRect(start, end).fill(editor, blocks);
+    RectHollow.newRect(start, end).fill(editor, getPrimaryWall());
 
     start = attic.copy();
     start.up(4);
@@ -279,13 +276,13 @@ public class WitchTower extends Tower {
     start.west();
     end.south();
     end.east();
-    RectHollow.newRect(start, end).fill(editor, blocks);
+    RectHollow.newRect(start, end).fill(editor, getPrimaryWall());
 
     start = attic.copy();
     start.up(5);
     end = start.copy();
     end.up(2);
-    RectHollow.newRect(start, end).fill(editor, blocks);
+    RectHollow.newRect(start, end).fill(editor, getPrimaryWall());
 
     for (Direction dir : Direction.CARDINAL) {
 
@@ -294,9 +291,9 @@ public class WitchTower extends Tower {
       cursor = attic.copy();
       cursor.translate(dir, 2);
       cursor.up();
-      window(editor, theme, dir, cursor);
+      window(editor, dir, cursor);
 
-      stair.setUpsideDown(false).setFacing(dir);
+      getPrimaryStair().setUpsideDown(false).setFacing(dir);
 
       start = attic.copy();
       start.translate(dir, 3);
@@ -304,7 +301,7 @@ public class WitchTower extends Tower {
       start.translate(orthogonal[0], 3);
       end.translate(orthogonal[1], 3);
 
-      stair.fill(editor, RectSolid.newRect(start, end));
+      getPrimaryStair().fill(editor, RectSolid.newRect(start, end));
 
       start = attic.copy();
       start.translate(dir, 4);
@@ -313,7 +310,7 @@ public class WitchTower extends Tower {
       start.translate(orthogonal[0], 4);
       end.translate(orthogonal[1], 4);
 
-      stair.fill(editor, RectSolid.newRect(start, end));
+      getPrimaryStair().fill(editor, RectSolid.newRect(start, end));
 
       start = attic.copy();
       start.translate(dir, 3);
@@ -322,7 +319,7 @@ public class WitchTower extends Tower {
       start.translate(orthogonal[0], 3);
       end.translate(orthogonal[1], 3);
 
-      stair.fill(editor, RectSolid.newRect(start, end));
+      getPrimaryStair().fill(editor, RectSolid.newRect(start, end));
 
       start = attic.copy();
       start.translate(dir, 2);
@@ -331,7 +328,7 @@ public class WitchTower extends Tower {
       start.translate(orthogonal[0], 2);
       end.translate(orthogonal[1], 2);
 
-      stair.fill(editor, RectSolid.newRect(start, end));
+      getPrimaryStair().fill(editor, RectSolid.newRect(start, end));
 
     }
 
@@ -341,7 +338,7 @@ public class WitchTower extends Tower {
       if (editor.isAirBlock(cursor)) {
         cursor = main.copy();
         cursor.translate(dir, 3);
-        theme.getPrimary().getDoor().setFacing(dir).stroke(editor, cursor);
+        getPrimaryDoor().setFacing(dir).stroke(editor, cursor);
         cursor.translate(dir);
         start = cursor.copy();
         end = start.copy();
@@ -352,17 +349,17 @@ public class WitchTower extends Tower {
         cursor = main.copy();
         cursor.translate(dir, 4);
         cursor.down();
-        step(editor, theme, dir, cursor);
+        step(editor, dir, cursor);
         break;
       }
     }
   }
 
-  private void window(WorldEditor editor, Theme theme, Direction dir, Coord origin) {
+  private void window(WorldEditor editor, Direction dir, Coord origin) {
 
     Coord cursor;
 
-    StairsBlock stair = theme.getPrimary().getStair();
+    StairsBlock stair = getPrimaryStair();
 
     cursor = origin.copy();
     SingleBlockBrush.AIR.stroke(editor, cursor);
@@ -378,7 +375,7 @@ public class WitchTower extends Tower {
     }
   }
 
-  private void step(WorldEditor editor, Theme theme, Direction dir, Coord origin) {
+  private void step(WorldEditor editor, Direction dir, Coord origin) {
 
     if (editor.isOpaqueCubeBlock(origin)) {
       return;
@@ -387,8 +384,8 @@ public class WitchTower extends Tower {
     Coord start;
     Coord end;
 
-    StairsBlock stair = theme.getPrimary().getStair();
-    BlockBrush blocks = theme.getPrimary().getWall();
+    StairsBlock stair = getPrimaryStair();
+    BlockBrush blocks = getPrimaryWall();
 
     Direction[] orthogonal = dir.orthogonals();
 
@@ -408,6 +405,6 @@ public class WitchTower extends Tower {
 
     origin.down();
     origin.translate(dir);
-    step(editor, theme, dir, origin);
+    step(editor, dir, origin);
   }
 }

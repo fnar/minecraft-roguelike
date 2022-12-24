@@ -28,9 +28,7 @@ public class JungleTower extends Tower {
 
     Coord origin = TowerType.getBaseCoord(editor, dungeon);
     origin.up();
-    BlockBrush pillar = theme.getPrimary().getPillar();
-    BlockBrush walls = theme.getPrimary().getWall();
-    StairsBlock stair = theme.getPrimary().getStair();
+    StairsBlock stair = getPrimaryStair();
     BlockBrush grass = BlockType.GRASS.getBrush();
 
     Coord start;
@@ -51,32 +49,32 @@ public class JungleTower extends Tower {
         pillar(editor, theme, c);
         c.translate(dir);
         c.up();
-        walls.stroke(editor, c);
+        getPrimaryWall().stroke(editor, c);
         c.up();
-        walls.stroke(editor, c);
+        getPrimaryWall().stroke(editor, c);
         c.up();
         stair.setUpsideDown(false).setFacing(dir).stroke(editor, c);
         c.translate(dir.reverse());
-        walls.stroke(editor, c);
+        getPrimaryWall().stroke(editor, c);
       }
 
       cursor = origin.copy();
       cursor.up(4);
       cursor.translate(dir, 8);
-      walls.stroke(editor, cursor);
+      getPrimaryWall().stroke(editor, cursor);
       cursor.up();
-      walls.stroke(editor, cursor);
+      getPrimaryWall().stroke(editor, cursor);
       cursor.up();
       stair.setUpsideDown(false).setFacing(dir).stroke(editor, cursor);
       cursor.translate(dir.reverse());
-      walls.stroke(editor, cursor);
+      getPrimaryWall().stroke(editor, cursor);
 
       start = origin.copy();
       start.translate(dir, 2);
       start.translate(dir.antiClockwise(), 2);
       end = start.copy();
       end.up(3);
-      pillar.fill(editor, RectSolid.newRect(start, end));
+      getPrimaryPillar().fill(editor, RectSolid.newRect(start, end));
       cursor = end.copy();
       for (Direction d : new Direction[]{dir.reverse(), dir.clockwise()}) {
         Coord c = cursor.copy();
@@ -89,7 +87,7 @@ public class JungleTower extends Tower {
       cursor.up(6);
       cursor.translate(dir, 6);
       cursor.translate(dir.antiClockwise(), 6);
-      editor.fillDown(cursor.copy(), pillar);
+      editor.fillDown(cursor.copy(), getPrimaryPillar());
       for (Direction d : new Direction[]{dir, dir.antiClockwise()}) {
         start = cursor.copy();
         start.translate(d);
@@ -97,7 +95,7 @@ public class JungleTower extends Tower {
         start.down();
         end = start.copy();
         end.down(2);
-        walls.fill(editor, RectSolid.newRect(start, end));
+        getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
         end.down();
         stair.setUpsideDown(true).setFacing(d).stroke(editor, end);
       }
@@ -112,13 +110,13 @@ public class JungleTower extends Tower {
       end = cursor.copy();
       start.translate(dir.antiClockwise(), 5);
       end.translate(dir.clockwise(), 5);
-      walls.fill(editor, RectSolid.newRect(start, end));
+      getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
       start.up();
       end.up();
       grass.fill(editor, RectSolid.newRect(start, end));
       start.translate(dir.reverse());
       end.translate(dir.reverse());
-      walls.fill(editor, RectSolid.newRect(start, end));
+      getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
       start.translate(dir.reverse());
       end.translate(dir.reverse());
       stair.setUpsideDown(true).setFacing(dir.reverse()).fill(editor, RectSolid.newRect(start, end));
@@ -138,11 +136,11 @@ public class JungleTower extends Tower {
       start.translate(dir, 2);
       end = start.copy();
       end.translate(dir, 3);
-      walls.fill(editor, RectSolid.newRect(start, end));
+      getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
       end.translate(dir.antiClockwise(), 3);
       start = end.copy();
       start.translate(dir.reverse(), 10);
-      walls.fill(editor, RectSolid.newRect(start, end));
+      getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
       start = origin.copy();
       start.up(6);
@@ -151,7 +149,7 @@ public class JungleTower extends Tower {
       end = start.copy();
       end.translate(dir.clockwise(), 8);
       end.translate(dir, 3);
-      walls.fill(editor, RectSolid.newRect(start, end));
+      getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
       start = origin.copy();
       start.up(4);
@@ -160,7 +158,7 @@ public class JungleTower extends Tower {
       start.translate(dir.antiClockwise(), 2);
       end.translate(dir.clockwise());
       end.up(2);
-      walls.fill(editor, RectSolid.newRect(start, end));
+      getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
       start = origin.copy();
       start.up(4);
@@ -199,11 +197,11 @@ public class JungleTower extends Tower {
         pillar(editor, theme, c);
         c.translate(dir);
         c.up();
-        walls.stroke(editor, c);
+        getPrimaryWall().stroke(editor, c);
         c.up();
         stair.setUpsideDown(false).setFacing(dir).stroke(editor, c);
         c.translate(dir.reverse());
-        walls.stroke(editor, c);
+        getPrimaryWall().stroke(editor, c);
         c.up();
         stair.setUpsideDown(false).setFacing(dir).stroke(editor, c);
       }
@@ -213,7 +211,7 @@ public class JungleTower extends Tower {
         Coord c = cursor.copy();
         c.translate(d);
         c.up();
-        walls.stroke(editor, c);
+        getPrimaryWall().stroke(editor, c);
         c.up();
         stair.setUpsideDown(false).setFacing(d).stroke(editor, c);
       }
@@ -225,7 +223,7 @@ public class JungleTower extends Tower {
       start = cursor.copy();
       end = start.copy();
       end.down(3);
-      pillar.fill(editor, RectSolid.newRect(start, end));
+      getPrimaryPillar().fill(editor, RectSolid.newRect(start, end));
       for (Direction d : new Direction[]{dir.clockwise(), dir.reverse()}) {
         Coord c = cursor.copy();
         c.translate(d);
@@ -238,9 +236,9 @@ public class JungleTower extends Tower {
         c.translate(d);
         stair.setUpsideDown(true).setFacing(d).stroke(editor, c);
         c.up();
-        walls.stroke(editor, c);
+        getPrimaryWall().stroke(editor, c);
         c.translate(d);
-        walls.stroke(editor, c);
+        getPrimaryWall().stroke(editor, c);
       }
 
     }
@@ -252,7 +250,7 @@ public class JungleTower extends Tower {
       end = start.copy();
       start.translate(dir.antiClockwise(), 5);
       end.translate(dir.clockwise(), 4);
-      walls.fill(editor, RectSolid.newRect(start, end));
+      getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
       start = origin.copy();
       start.up(11);
@@ -261,7 +259,7 @@ public class JungleTower extends Tower {
       start.translate(dir.antiClockwise());
       end.translate(dir.clockwise(), 4);
       end.translate(dir, 2);
-      walls.fill(editor, RectSolid.newRect(start, end));
+      getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
       cursor = origin.copy();
       cursor.up(11);
@@ -291,13 +289,13 @@ public class JungleTower extends Tower {
       end = cursor.copy();
       start.translate(dir.antiClockwise(), 4);
       end.translate(dir.clockwise(), 4);
-      walls.fill(editor, RectSolid.newRect(start, end));
+      getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
       cursor = origin.copy();
       cursor.up(11);
       cursor.translate(dir, 5);
       cursor.translate(dir.antiClockwise(), 5);
-      walls.stroke(editor, cursor);
+      getPrimaryWall().stroke(editor, cursor);
     }
 
     for (Direction dir : Direction.CARDINAL) {
@@ -310,7 +308,7 @@ public class JungleTower extends Tower {
         Coord c = cursor.copy();
         c.translate(d);
         c.up();
-        walls.stroke(editor, c);
+        getPrimaryWall().stroke(editor, c);
         c.up();
         stair.setUpsideDown(false).setFacing(d).stroke(editor, c);
       }
@@ -321,7 +319,7 @@ public class JungleTower extends Tower {
       end = start.copy();
       start.translate(dir.antiClockwise());
       end.translate(dir.clockwise(), 2);
-      walls.fill(editor, RectSolid.newRect(start, end));
+      getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
       cursor = origin.copy();
       cursor.up(17);
@@ -332,7 +330,7 @@ public class JungleTower extends Tower {
       end.translate(dir.clockwise());
       grass.fill(editor, RectSolid.newRect(start, end));
       cursor.translate(dir.antiClockwise(), 2);
-      walls.stroke(editor, cursor);
+      getPrimaryWall().stroke(editor, cursor);
 
       start = origin.copy();
       start.up(17);
@@ -341,7 +339,7 @@ public class JungleTower extends Tower {
       start.translate(dir.antiClockwise());
       end.translate(dir.reverse());
       end.translate(dir.clockwise());
-      walls.fill(editor, RectSolid.newRect(start, end));
+      getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
       start.up();
       end.up();
       grass.fill(editor, RectSolid.newRect(start, end));
@@ -353,14 +351,14 @@ public class JungleTower extends Tower {
     end = new Coord(origin.getX(), dungeon.getY() + 10, origin.getZ());
     end.south(2);
     end.west(2);
-    walls.fill(editor, RectSolid.newRect(start, end), false, true);
+    getPrimaryWall().fill(editor, RectSolid.newRect(start, end), false, true);
 
     cursor = origin.copy();
     cursor.up(12);
     start = new Coord(cursor.getX(), dungeon.getY(), cursor.getZ());
     end = cursor.copy();
     for (Coord c : RectSolid.newRect(start, end)) {
-      editor.spiralStairStep(editor.getRandom(), c, stair, pillar);
+      editor.spiralStairStep(editor.getRandom(), c, stair, getPrimaryPillar());
     }
 
     decorate(editor, editor.getRandom(), origin);

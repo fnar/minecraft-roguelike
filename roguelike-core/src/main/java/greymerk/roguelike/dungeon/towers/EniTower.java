@@ -22,9 +22,7 @@ public class EniTower extends Tower {
   @Override
   public void generate(Coord dungeon) {
 
-    BlockBrush blocks = theme.getPrimary().getWall();
-
-    StairsBlock stair = theme.getPrimary().getStair();
+    StairsBlock stair = getPrimaryStair();
 
     Coord floor = TowerType.getBaseCoord(editor, dungeon);
 
@@ -39,7 +37,6 @@ public class EniTower extends Tower {
     Coord start;
     Coord end;
     Coord cursor;
-
     for (Direction dir : Direction.CARDINAL) {
       for (Direction orthogonals : dir.orthogonals()) {
 
@@ -47,7 +44,7 @@ public class EniTower extends Tower {
         end = start.copy();
         end.translate(dir, 4);
         end.translate(orthogonals, 2);
-        blocks.fill(editor, RectSolid.newRect(start, end));
+        getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
         start = floor.copy();
         start.translate(dir, 5);
@@ -55,7 +52,7 @@ public class EniTower extends Tower {
         start.translate(orthogonals);
         end.translate(orthogonals.reverse());
         end.up(2);
-        blocks.fill(editor, RectSolid.newRect(start, end));
+        getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
         start = floor.copy();
         start.translate(dir, 4);
@@ -63,19 +60,19 @@ public class EniTower extends Tower {
         end = start.copy();
         end.translate(orthogonals);
         end.up(3);
-        blocks.fill(editor, RectSolid.newRect(start, end));
+        getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
         start = floor.copy();
         start.translate(dir, 3);
         start.translate(orthogonals, 3);
         end = start.copy();
         end.up(3);
-        blocks.fill(editor, RectSolid.newRect(start, end));
+        getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
         cursor = floor.copy();
         cursor.translate(dir, 5);
         cursor.up(3);
-        blocks.stroke(editor, cursor);
+        getPrimaryWall().stroke(editor, cursor);
         cursor.translate(orthogonals);
         stair.setUpsideDown(false).setFacing(orthogonals).stroke(editor, cursor);
         cursor.translate(dir.reverse());
@@ -99,7 +96,7 @@ public class EniTower extends Tower {
         start.translate(orthogonals);
         end.translate(orthogonals.reverse());
         end.up(8);
-        blocks.fill(editor, RectSolid.newRect(start, end));
+        getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
         start = floor.copy();
         start.up(4);
@@ -108,7 +105,7 @@ public class EniTower extends Tower {
         end = start.copy();
         end.translate(orthogonals);
         end.up(8);
-        blocks.fill(editor, RectSolid.newRect(start, end));
+        getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
         cursor = floor.copy();
         cursor.up(13);
@@ -129,7 +126,7 @@ public class EniTower extends Tower {
         start.translate(orthogonals);
         end.translate(orthogonals.reverse());
         end.up(8);
-        blocks.fill(editor, RectSolid.newRect(start, end));
+        getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
         start = floor.copy();
         start.up(13);
@@ -137,7 +134,7 @@ public class EniTower extends Tower {
         start.translate(orthogonals, 2);
         end = start.copy();
         end.up(8);
-        blocks.fill(editor, RectSolid.newRect(start, end));
+        getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
         // section 4
 
@@ -148,7 +145,7 @@ public class EniTower extends Tower {
         start.translate(orthogonals, 2);
         end.translate(orthogonals.reverse(), 2);
         end.up(6);
-        RectSolid.newRect(start, end).fill(editor, blocks, true, false);
+        RectSolid.newRect(start, end).fill(editor, getPrimaryWall(), true, false);
 
         start = floor.copy();
         start.up(22);
@@ -156,14 +153,14 @@ public class EniTower extends Tower {
         start.translate(orthogonals, 2);
         end = start.copy();
         end.up(6);
-        blocks.fill(editor, RectSolid.newRect(start, end));
+        getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
         start = floor.copy();
         start.up(22);
         end = start.copy();
         end.translate(dir, 3);
         end.translate(orthogonals, 2);
-        blocks.fill(editor, RectSolid.newRect(start, end));
+        getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
         cursor = floor.copy();
         cursor.up(20);
@@ -171,19 +168,19 @@ public class EniTower extends Tower {
         cursor.translate(orthogonals, 2);
         stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor);
         cursor.up();
-        blocks.stroke(editor, cursor);
+        getPrimaryWall().stroke(editor, cursor);
         cursor.translate(dir);
         stair.setUpsideDown(true).setFacing(dir).stroke(editor, cursor);
 
         // section 4 roof
 
-        StairsBlock roof = theme.getSecondary().getStair();
+        StairsBlock roof = getSecondaryStair();
         start = floor.copy();
         start.up(29);
         start.translate(dir, 3);
         end = start.copy();
         end.translate(dir, 2);
-        theme.getSecondary().getWall().fill(editor, RectSolid.newRect(start, end));
+        getSecondaryWall().fill(editor, RectSolid.newRect(start, end));
         start.translate(orthogonals);
         end.translate(orthogonals);
         roof.setUpsideDown(false).setFacing(orthogonals).fill(editor, RectSolid.newRect(start, end));
@@ -206,7 +203,7 @@ public class EniTower extends Tower {
 
         cursor.translate(dir.reverse(), 3);
         cursor.translate(orthogonals);
-        theme.getSecondary().getWall().stroke(editor, cursor);
+        getSecondaryWall().stroke(editor, cursor);
 
         // tower top
         start = floor.copy();
@@ -217,7 +214,7 @@ public class EniTower extends Tower {
         end.translate(dir, 2);
         end.translate(orthogonals.reverse());
         end.up(3);
-        blocks.fill(editor, RectSolid.newRect(start, end));
+        getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
 
         cursor = floor.copy();
@@ -228,31 +225,31 @@ public class EniTower extends Tower {
         roof.setUpsideDown(false).setFacing(dir).stroke(editor, cursor);
         cursor.translate(dir.reverse());
         cursor.translate(orthogonals);
-        theme.getSecondary().getWall().stroke(editor, cursor);
+        getSecondaryWall().stroke(editor, cursor);
         cursor.translate(orthogonals.reverse());
         cursor.up();
         roof.setUpsideDown(false).setFacing(orthogonals).stroke(editor, cursor);
         cursor.translate(orthogonals.reverse());
-        theme.getSecondary().getWall().stroke(editor, cursor);
+        getSecondaryWall().stroke(editor, cursor);
         cursor.up();
         roof.setUpsideDown(false).setFacing(dir).stroke(editor, cursor);
         cursor.translate(dir.reverse());
-        theme.getSecondary().getWall().stroke(editor, cursor);
+        getSecondaryWall().stroke(editor, cursor);
         cursor.down();
-        theme.getSecondary().getWall().stroke(editor, cursor);
+        getSecondaryWall().stroke(editor, cursor);
         cursor.translate(orthogonals);
-        theme.getSecondary().getWall().stroke(editor, cursor);
+        getSecondaryWall().stroke(editor, cursor);
         cursor.up();
-        theme.getSecondary().getWall().stroke(editor, cursor);
+        getSecondaryWall().stroke(editor, cursor);
         cursor.up();
         cursor.translate(orthogonals.reverse());
-        theme.getSecondary().getWall().stroke(editor, cursor);
+        getSecondaryWall().stroke(editor, cursor);
         cursor.up();
         roof.setUpsideDown(false).setFacing(dir).stroke(editor, cursor);
         cursor.translate(dir.reverse());
-        theme.getSecondary().getWall().stroke(editor, cursor);
+        getSecondaryWall().stroke(editor, cursor);
         cursor.up();
-        theme.getSecondary().getWall().stroke(editor, cursor);
+        getSecondaryWall().stroke(editor, cursor);
       }
     }
 
@@ -265,13 +262,13 @@ public class EniTower extends Tower {
     end.south(3);
     end.west(3);
 
-    blocks.fill(editor, RectSolid.newRect(start, end));
+    getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
     start.up(3);
     end.up(3);
-    blocks.fill(editor, RectSolid.newRect(start, end));
+    getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
     start.up(3);
     end.up(3);
-    blocks.fill(editor, RectSolid.newRect(start, end));
+    getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
 
     for (Direction dir : Direction.CARDINAL) {
@@ -296,7 +293,7 @@ public class EniTower extends Tower {
       start.translate(dir.antiClockwise());
       end = cursor.copy();
       end.translate(dir.clockwise());
-      blocks.fill(editor, RectSolid.newRect(start, end));
+      getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
       // slit windows
       cursor = floor.copy();
@@ -345,27 +342,27 @@ public class EniTower extends Tower {
       start.translate(dir.antiClockwise());
       end = cursor.copy();
       end.translate(dir.clockwise());
-      blocks.fill(editor, RectSolid.newRect(start, end));
+      getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
       start.translate(dir.reverse());
       end.translate(dir.reverse());
       start.up();
       end.up();
-      blocks.fill(editor, RectSolid.newRect(start, end));
+      getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
       start.up();
       end.up();
-      blocks.fill(editor, RectSolid.newRect(start, end));
+      getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
       cursor.translate(dir.reverse());
       cursor.translate(dir.antiClockwise(), 2);
-      blocks.stroke(editor, cursor);
+      getPrimaryWall().stroke(editor, cursor);
     }
 
     start = new Coord(x - 4, 60, z - 4);
     end = new Coord(x + 4, floor.getY(), z + 4);
-    blocks.fill(editor, RectSolid.newRect(start, end));
+    getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
     Coord topStep = new Coord(floor).up(23);
-    generateStaircase(editor, theme, topStep, dungeon);
+    generateStaircase(topStep, dungeon);
 
     for (Direction dir : Direction.CARDINAL) {
       cursor = floor.copy();
@@ -375,7 +372,7 @@ public class EniTower extends Tower {
         cursor = floor.copy();
         cursor.up();
         cursor.translate(dir, 5);
-        theme.getPrimary().getDoor().setFacing(dir).stroke(editor, cursor);
+        getPrimaryDoor().setFacing(dir).stroke(editor, cursor);
         cursor.translate(dir);
         start = cursor.copy();
         end = start.copy();

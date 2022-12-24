@@ -4,7 +4,6 @@ import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 
 import greymerk.roguelike.theme.Theme;
-import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -22,61 +21,54 @@ public class PyramidTower extends Tower {
 
     Coord floor = TowerType.getBaseCoord(editor, dungeon);
     floor.up();
-    BlockBrush blocks = theme.getPrimary().getWall();
-    Coord cursor;
-    Coord start;
-    Coord end;
 
     int x = dungeon.getX();
     int y = dungeon.getY();
     int z = dungeon.getZ();
 
-    start = new Coord(x - 8, floor.getY() - 1, z - 8);
-    end = new Coord(x + 8, y + 10, z + 8);
-    blocks.fill(editor, RectSolid.newRect(start, end));
+    Coord start = new Coord(x - 8, floor.getY() - 1, z - 8);
+    Coord end = new Coord(x + 8, y + 10, z + 8);
+    getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
     start = new Coord(x - 6, floor.getY() - 1, z - 6);
     end = new Coord(x + 6, floor.getY() + 3, z + 6);
-    RectHollow.newRect(start, end).fill(editor, blocks);
+    RectHollow.newRect(start, end).fill(editor, getPrimaryWall());
 
+    Coord cursor;
     for (Direction dir : Direction.CARDINAL) {
       cursor = floor.copy();
       cursor.translate(dir, 6);
-      wall(editor, theme, dir, cursor);
+      wall(dir, cursor);
       cursor.translate(dir.antiClockwise(), 6);
-      corner(editor, theme, dir, cursor);
+      corner(dir, cursor);
     }
 
     // todo: Should the Entrance always be to the East?
     cursor = floor.copy();
     cursor.east(6);
-    entrance(editor, theme, Direction.EAST, cursor);
+    entrance(Direction.EAST, cursor);
 
     cursor = floor.copy();
     cursor.up(4);
-    spire(editor, theme, cursor);
+    spire(cursor);
 
     for (int i = floor.getY() + 3; i >= y; --i) {
-      editor.spiralStairStep(editor.getRandom(), new Coord(x, i, z), theme.getPrimary().getStair(), theme.getPrimary().getPillar());
+      editor.spiralStairStep(editor.getRandom(), new Coord(x, i, z), getPrimaryStair(), getPrimaryPillar());
     }
 
   }
 
-  private void entrance(WorldEditor editor, Theme theme, Direction dir, Coord origin) {
+  private void entrance(Direction dir, Coord origin) {
 
-    BlockBrush blocks = theme.getPrimary().getWall();
-    Coord cursor;
-    Coord start;
-    Coord end;
-
-    start = origin.copy();
+    Coord start = origin.copy();
     start.up(3);
-    end = start.copy();
+    Coord end = start.copy();
     end.translate(dir.reverse());
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
-    RectSolid.newRect(start, end).fill(editor, blocks);
+    getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
+    Coord cursor;
     for (Direction o : dir.orthogonals()) {
       start = origin.copy();
       start.translate(dir);
@@ -84,14 +76,14 @@ public class PyramidTower extends Tower {
       end = start.copy();
       end.translate(dir.reverse());
       end.up(3);
-      RectSolid.newRect(start, end).fill(editor, blocks);
+      getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
       cursor = origin.copy();
       cursor.translate(dir, 2);
       cursor.translate(o, 2);
-      blocks.stroke(editor, cursor);
+      getPrimaryWall().stroke(editor, cursor);
       cursor.up();
-      blocks.stroke(editor, cursor);
+      getPrimaryWall().stroke(editor, cursor);
     }
 
     // door
@@ -100,7 +92,7 @@ public class PyramidTower extends Tower {
     start.translate(dir.reverse());
     end.translate(dir);
     end.up();
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     start.translate(dir);
@@ -108,11 +100,11 @@ public class PyramidTower extends Tower {
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
     end.up(2);
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end));
 
     cursor = origin.copy();
     cursor.up(2);
-    blocks.stroke(editor, cursor);
+    getPrimaryWall().stroke(editor, cursor);
 
     // door cap
     start = origin.copy();
@@ -122,7 +114,7 @@ public class PyramidTower extends Tower {
     end.up(2);
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
-    RectSolid.newRect(start, end).fill(editor, blocks);
+    getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
     cursor = origin.copy();
     cursor.translate(dir);
@@ -130,17 +122,15 @@ public class PyramidTower extends Tower {
     BlockType.LAPIS_BLOCK.getBrush().stroke(editor, cursor);
 
     cursor.up(2);
-    blocks.stroke(editor, cursor);
+    getPrimaryWall().stroke(editor, cursor);
     cursor.up();
-    blocks.stroke(editor, cursor);
+    getPrimaryWall().stroke(editor, cursor);
   }
 
-  private void spire(WorldEditor editor, Theme theme, Coord origin) {
-    BlockBrush blocks = theme.getPrimary().getWall();
+  private void spire(Coord origin) {
     Coord cursor;
     Coord start;
     Coord end;
-
     for (Direction dir : Direction.CARDINAL) {
 
       // outer wall
@@ -150,7 +140,7 @@ public class PyramidTower extends Tower {
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir.clockwise(), 3);
       end.up(2);
-      RectSolid.newRect(start, end).fill(editor, blocks);
+      getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
       // doors
       cursor = origin.copy();
@@ -167,14 +157,14 @@ public class PyramidTower extends Tower {
       start.translate(dir.antiClockwise());
       end.translate(dir.clockwise());
       end.translate(dir);
-      RectSolid.newRect(start, end).fill(editor, blocks);
+      getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
       start = origin.copy();
       start.translate(dir);
       start.up(4);
       end = start.copy();
       end.translate(dir, 2);
-      RectSolid.newRect(start, end).fill(editor, blocks);
+      getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
       // corner spikes
       start = origin.copy();
@@ -183,7 +173,7 @@ public class PyramidTower extends Tower {
       start.up(3);
       end = start.copy();
       end.up();
-      RectSolid.newRect(start, end).fill(editor, blocks);
+      getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
       start = origin.copy();
       start.translate(dir, 2);
@@ -191,7 +181,7 @@ public class PyramidTower extends Tower {
       start.up(3);
       end = start.copy();
       end.up(4);
-      RectSolid.newRect(start, end).fill(editor, blocks);
+      getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
       start = origin.copy();
       start.translate(dir);
@@ -199,41 +189,35 @@ public class PyramidTower extends Tower {
       start.up(4);
       end = start.copy();
       end.up(3);
-      RectSolid.newRect(start, end).fill(editor, blocks);
+      getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
       start = origin.copy();
       start.translate(dir);
       start.up(7);
       end = start.copy();
       end.up(2);
-      RectSolid.newRect(start, end).fill(editor, blocks);
+      getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
     }
 
     start = origin.copy();
     start.up(7);
     end = start.copy();
     end.up(6);
-    RectSolid.newRect(start, end).fill(editor, blocks);
+    getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
     cursor = origin.copy();
     cursor.up(7);
-    theme.getPrimary().getLightBlock().stroke(editor, cursor);
-
+    getPrimaryLight().stroke(editor, cursor);
   }
 
-  private void wall(WorldEditor editor, Theme theme, Direction dir, Coord pos) {
-    BlockBrush blocks = theme.getPrimary().getWall();
-    Coord cursor;
-    Coord start;
-    Coord end;
-
+  private void wall(Direction dir, Coord pos) {
     // upper wall lip
-    start = pos.copy();
+    Coord start = pos.copy();
     start.up(4);
-    end = start.copy();
+    Coord end = start.copy();
     start.translate(dir.antiClockwise(), 5);
     end.translate(dir.clockwise(), 5);
-    RectSolid.newRect(start, end).fill(editor, blocks);
+    getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
     // inner wall
     start = pos.copy();
@@ -243,9 +227,9 @@ public class PyramidTower extends Tower {
     end.up(2);
     start.translate(dir.antiClockwise(), 4);
     end.translate(dir.clockwise(), 4);
-    RectSolid.newRect(start, end).fill(editor, blocks);
+    getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
-    cursor = pos.copy();
+    Coord cursor = pos.copy();
     cursor.translate(dir.reverse(), 2);
     SingleBlockBrush.AIR.stroke(editor, cursor);
     cursor.up();
@@ -257,19 +241,19 @@ public class PyramidTower extends Tower {
         if (i % 2 == 0) {
           cursor = c2.copy();
           cursor.up(5);
-          blocks.stroke(editor, cursor);
+          getPrimaryWall().stroke(editor, cursor);
 
           start = c2.copy();
           start.up();
           end = start.copy();
           end.up(2);
-          RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+          SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end));
         } else {
           cursor = c2.copy();
           cursor.translate(dir);
-          blocks.stroke(editor, cursor);
+          getPrimaryWall().stroke(editor, cursor);
           cursor.up();
-          blocks.stroke(editor, cursor);
+          getPrimaryWall().stroke(editor, cursor);
         }
         c2.translate(o);
       }
@@ -283,15 +267,12 @@ public class PyramidTower extends Tower {
     }
   }
 
-  private void corner(WorldEditor editor, Theme theme, Direction dir, Coord pos) {
-
-    BlockBrush blocks = theme.getPrimary().getWall();
-    Coord cursor;
-    Coord start;
-    Coord end;
+  private void corner(Direction dir, Coord pos) {
 
     Direction[] faces = {dir, dir.antiClockwise()};
 
+    Coord start;
+    Coord end;
     for (Direction face : faces) {
       start = pos.copy();
       start.translate(face);
@@ -299,27 +280,27 @@ public class PyramidTower extends Tower {
       end.translate(face.antiClockwise());
       start.translate(face.clockwise());
       end.up();
-      RectSolid.newRect(start, end).fill(editor, blocks);
+      getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
-      cursor = pos.copy();
+      Coord cursor = pos.copy();
       cursor.translate(face, 2);
-      blocks.stroke(editor, cursor);
+      getPrimaryWall().stroke(editor, cursor);
       cursor.up();
-      blocks.stroke(editor, cursor);
+      getPrimaryWall().stroke(editor, cursor);
 
       cursor = pos.copy();
       cursor.translate(face);
       cursor.up(2);
-      blocks.stroke(editor, cursor);
+      getPrimaryWall().stroke(editor, cursor);
       cursor.up();
-      blocks.stroke(editor, cursor);
+      getPrimaryWall().stroke(editor, cursor);
     }
 
     start = pos.copy();
     start.up(4);
     end = start.copy();
     end.up(2);
-    RectSolid.newRect(start, end).fill(editor, blocks);
+    getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
   }
 
 

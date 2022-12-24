@@ -19,8 +19,8 @@ public class RuinTower extends Tower {
   @Override
   public void generate(Coord origin) {
 
-    BlockBrush blocks = theme.getPrimary().getWall();
-    StairsBlock stair = theme.getPrimary().getStair();
+    BlockBrush blocks = getPrimaryWall();
+    StairsBlock stair = getPrimaryStair();
     Coord floor = TowerType.getBaseCoord(editor, origin);
 
     Coord cursor;
@@ -34,7 +34,7 @@ public class RuinTower extends Tower {
     RectSolid.newRect(new Coord(origin.getX() - 2, origin.getY() + 10, origin.getZ() - 2), new Coord(origin.getX() + 2, floor.getY() - 1, origin.getZ() + 2)).fill(editor, blocks, false, true);
 
     for (int i = floor.getY(); i >= origin.getY(); --i) {
-      editor.spiralStairStep(editor.getRandom(), new Coord(origin.getX(), i, origin.getZ()), stair, theme.getPrimary().getPillar());
+      editor.spiralStairStep(editor.getRandom(), new Coord(origin.getX(), i, origin.getZ()), stair, getPrimaryPillar());
     }
 
     for (Direction dir : Direction.CARDINAL) {
