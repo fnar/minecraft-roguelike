@@ -37,7 +37,7 @@ public class PyramidTombRoom extends BaseRoom {
     end.south(6);
     end.east(6);
     end.up(2);
-    RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     end = origin.copy();
@@ -48,7 +48,7 @@ public class PyramidTombRoom extends BaseRoom {
     end.south(4);
     end.east(4);
     end.up();
-    RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     end = origin.copy();
@@ -59,7 +59,7 @@ public class PyramidTombRoom extends BaseRoom {
     end.south(3);
     end.east(3);
     end.up();
-    RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     end = origin.copy();
@@ -70,7 +70,7 @@ public class PyramidTombRoom extends BaseRoom {
     end.south(2);
     end.east(2);
     end.up();
-    RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(start, end));
 
     // outer walls
     start = origin.copy();
@@ -91,7 +91,7 @@ public class PyramidTombRoom extends BaseRoom {
     start.west(6);
     end.south(6);
     end.east(6);
-    RectSolid.newRect(start, end).fill(worldEditor, floors());
+    floors().fill(worldEditor, RectSolid.newRect(start, end));
 
     // pillars
 
@@ -108,7 +108,7 @@ public class PyramidTombRoom extends BaseRoom {
       start.translate(dir.antiClockwise(), 5);
       end = start.copy();
       end.up(3);
-      RectSolid.newRect(start, end).fill(worldEditor, pillars());
+      pillars().fill(worldEditor, RectSolid.newRect(start, end));
 
       for (Direction o : dir.orthogonals()) {
         start = origin.copy();
@@ -116,12 +116,12 @@ public class PyramidTombRoom extends BaseRoom {
         start.translate(o);
         end = start.copy();
         end.up(3);
-        RectSolid.newRect(start, end).fill(worldEditor, pillars());
+        pillars().fill(worldEditor, RectSolid.newRect(start, end));
 
         start.translate(o, 2);
         end = start.copy();
         end.up(3);
-        RectSolid.newRect(start, end).fill(worldEditor, pillars());
+        pillars().fill(worldEditor, RectSolid.newRect(start, end));
       }
     }
 
@@ -133,7 +133,7 @@ public class PyramidTombRoom extends BaseRoom {
     start.west();
     end.south();
     end.east();
-    RectSolid.newRect(start, end).fill(worldEditor, walls());
+    walls().fill(worldEditor, RectSolid.newRect(start, end));
 
     sarcophagus(worldEditor, getEntrance(entrances), origin);
 

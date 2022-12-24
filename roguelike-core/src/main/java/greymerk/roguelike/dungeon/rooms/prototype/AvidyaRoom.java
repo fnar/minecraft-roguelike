@@ -48,13 +48,13 @@ public class AvidyaRoom extends BaseRoom {
     BlockBrush pillarQuartz = Quartz.PILLAR.getBrush().setFacing(Direction.UP);
 
     // clear space
-    RectSolid.newRect(new Coord(x - 8, y, z - 8), new Coord(x + 8, y + 5, z + 8)).fill(worldEditor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(new Coord(x - 8, y, z - 8), new Coord(x + 8, y + 5, z + 8)));
 
     // roof
-    RectSolid.newRect(new Coord(x - 6, y + 6, z - 6), new Coord(x + 6, y + 6, z + 6)).fill(worldEditor, redClay);
-    RectSolid.newRect(new Coord(x - 3, y + 6, z - 3), new Coord(x + 3, y + 6, z + 3)).fill(worldEditor, lights());
+    redClay.fill(worldEditor, RectSolid.newRect(new Coord(x - 6, y + 6, z - 6), new Coord(x + 6, y + 6, z + 6)));
+    lights().fill(worldEditor, RectSolid.newRect(new Coord(x - 3, y + 6, z - 3), new Coord(x + 3, y + 6, z + 3)));
 
-    RectSolid.newRect(new Coord(x - 7, y - 1, z - 7), new Coord(x + 7, y - 1, z + 7)).fill(worldEditor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(new Coord(x - 7, y - 1, z - 7), new Coord(x + 7, y - 1, z + 7)));
 
 
     // floor
@@ -62,7 +62,7 @@ public class AvidyaRoom extends BaseRoom {
     BlockBrush yang = stainedHardenedClay().setColor(DyeColor.WHITE);
 
     // ying
-    RectSolid.newRect(new Coord(x - 8, y - 2, z - 8), new Coord(x + 8, y - 2, z + 8)).fill(worldEditor, ying);
+    ying.fill(worldEditor, RectSolid.newRect(new Coord(x - 8, y - 2, z - 8), new Coord(x + 8, y - 2, z + 8)));
 
     // yang
     BlockBrush quartz = Quartz.SMOOTH.getBrush();
@@ -72,46 +72,46 @@ public class AvidyaRoom extends BaseRoom {
     Coord end = start.copy();
     start.north(2);
     end.south(2);
-    RectSolid.newRect(start, end).fill(worldEditor, yang);
+    yang.fill(worldEditor, RectSolid.newRect(start, end));
 
     start.east();
     end.east();
     start.north(2);
     end.south(2);
-    RectSolid.newRect(start, end).fill(worldEditor, yang);
+    yang.fill(worldEditor, RectSolid.newRect(start, end));
 
     start.east();
     end.east();
     end.north(3);
-    RectSolid.newRect(start, end).fill(worldEditor, yang);
+    yang.fill(worldEditor, RectSolid.newRect(start, end));
 
     start.east();
     end.east();
     start.north();
     end.north();
-    RectSolid.newRect(start, end).fill(worldEditor, yang);
+    yang.fill(worldEditor, RectSolid.newRect(start, end));
 
     start.east();
     end.east(3);
     end.north();
-    RectSolid.newRect(start, end).fill(worldEditor, yang);
+    yang.fill(worldEditor, RectSolid.newRect(start, end));
 
     start.east(3);
     end.east();
     start.south();
     end.north();
-    RectSolid.newRect(start, end).fill(worldEditor, yang);
+    yang.fill(worldEditor, RectSolid.newRect(start, end));
 
     start.west(3);
     end.west(2);
     end.north();
-    RectSolid.newRect(start, end).fill(worldEditor, yang);
+    yang.fill(worldEditor, RectSolid.newRect(start, end));
 
     start.east();
     end.east();
     start.south(7);
     end.south(7);
-    RectSolid.newRect(start, end).fill(worldEditor, yang);
+    yang.fill(worldEditor, RectSolid.newRect(start, end));
 
 
     for (Direction dir : Direction.CARDINAL) {
@@ -123,17 +123,17 @@ public class AvidyaRoom extends BaseRoom {
         start.up(4);
         end = start.copy();
         end.translate(orthogonals, 8);
-        RectSolid.newRect(start, end).fill(worldEditor, whiteClay);
+        whiteClay.fill(worldEditor, RectSolid.newRect(start, end));
         start.down(5);
         end.down(5);
-        RectSolid.newRect(start, end).fill(worldEditor, BlockType.STONE_BRICK.getBrush());
+        BlockType.STONE_BRICK.getBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
         start = new Coord(x, y, z);
         start.translate(dir, 7);
         start.up(5);
         end = start.copy();
         end.translate(orthogonals, 7);
-        RectSolid.newRect(start, end).fill(worldEditor, whiteClay);
+        whiteClay.fill(worldEditor, RectSolid.newRect(start, end));
 
         // ceiling details
         start = new Coord(x, y, z);
@@ -141,7 +141,7 @@ public class AvidyaRoom extends BaseRoom {
         start.up(5);
         end = start.copy();
         end.translate(orthogonals, 2);
-        RectSolid.newRect(start, end).fill(worldEditor, quartz);
+        quartz.fill(worldEditor, RectSolid.newRect(start, end));
 
         Coord cursor = end.copy();
         cursor.translate(dir, 1);
@@ -159,10 +159,10 @@ public class AvidyaRoom extends BaseRoom {
         start.translate(orthogonals, 2);
         end = start.copy();
         end.up(4);
-        RectSolid.newRect(start, end).fill(worldEditor, pillarQuartz);
+        pillarQuartz.fill(worldEditor, RectSolid.newRect(start, end));
         start.translate(orthogonals, 4);
         end.translate(orthogonals, 4);
-        RectSolid.newRect(start, end).fill(worldEditor, pillarQuartz);
+        pillarQuartz.fill(worldEditor, RectSolid.newRect(start, end));
 
         // pillar tops
         cursor = new Coord(x, y, z);

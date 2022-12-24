@@ -27,7 +27,7 @@ public class BlazeRoom extends BaseRoom {
     Coord start = origin.copy();
     Coord end = start.copy();
     end.up(2);
-    RectSolid.newRect(start, end).fill(worldEditor, BlockType.LAVA_STILL.getBrush());
+    BlockType.LAVA_STILL.getBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
     for (Direction dir : Direction.CARDINAL) {
 
@@ -121,7 +121,7 @@ public class BlazeRoom extends BaseRoom {
         start.translate(orthogonal, 2);
         end = start.copy();
         end.up(6);
-        RectSolid.newRect(start, end).fill(worldEditor, pillars());
+        pillars().fill(worldEditor, RectSolid.newRect(start, end));
 
         cursor = origin.copy();
         cursor.translate(dir, 8);
@@ -137,7 +137,7 @@ public class BlazeRoom extends BaseRoom {
         start.up();
         end = start.copy();
         end.up(3);
-        RectSolid.newRect(start, end).fill(worldEditor, pillars());
+        pillars().fill(worldEditor, RectSolid.newRect(start, end));
 
         cursor.translate(dir.reverse());
         cursor.translate(orthogonal);
@@ -147,7 +147,7 @@ public class BlazeRoom extends BaseRoom {
         start.up();
         end = start.copy();
         end.up(3);
-        RectSolid.newRect(start, end).fill(worldEditor, pillars());
+        pillars().fill(worldEditor, RectSolid.newRect(start, end));
 
         cursor.translate(dir);
         cursor.translate(orthogonal);
@@ -157,7 +157,7 @@ public class BlazeRoom extends BaseRoom {
         start.up();
         end = start.copy();
         end.up(3);
-        RectSolid.newRect(start, end).fill(worldEditor, pillars());
+        pillars().fill(worldEditor, RectSolid.newRect(start, end));
 
       }
 
@@ -173,14 +173,14 @@ public class BlazeRoom extends BaseRoom {
       start = cursor.copy();
       end = cursor.copy();
       end.translate(dir, 6);
-      RectSolid.newRect(start, end).fill(worldEditor, walls());
+      walls().fill(worldEditor, RectSolid.newRect(start, end));
       cursor.translate(dir.antiClockwise());
       walls().stroke(worldEditor, cursor);
 
       start = end.copy();
       end.up(2);
       end.translate(dir.reverse());
-      RectSolid.newRect(start, end).fill(worldEditor, walls());
+      walls().fill(worldEditor, RectSolid.newRect(start, end));
 
       cursor = end.copy();
       start = cursor.copy();
@@ -224,7 +224,7 @@ public class BlazeRoom extends BaseRoom {
     end.up();
     end.south();
     end.west();
-    RectSolid.newRect(start, end).fill(worldEditor, BlockType.OBSIDIAN.getBrush());
+    BlockType.OBSIDIAN.getBrush().fill(worldEditor, RectSolid.newRect(start, end));
     generateSpawner(cursor, MobType.NETHER_MOBS);
     generateDoorways(origin, entrances);
 

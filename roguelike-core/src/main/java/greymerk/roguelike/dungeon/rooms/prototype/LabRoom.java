@@ -131,8 +131,8 @@ public class LabRoom extends BaseRoom {
     stone.stroke(editor, new Coord(x + 1, y, z + 1));
 
     StairsBlock stair = StairsBlock.stoneBrick();
-    stair.setUpsideDown(false).setFacing(Direction.SOUTH).fill(editor, new RectSolid(new Coord(x + 2, y, z + 1), new Coord(x + 4, y, z + 1)));
-    stair.setUpsideDown(false).setFacing(Direction.EAST).fill(editor, new RectSolid(new Coord(x + 1, y, z + 2), new Coord(x + 1, y, z + 4)));
+    stair.setUpsideDown(false).setFacing(Direction.SOUTH).fill(editor, RectSolid.newRect(new Coord(x + 2, y, z + 1), new Coord(x + 4, y, z + 1)));
+    stair.setUpsideDown(false).setFacing(Direction.EAST).fill(editor, RectSolid.newRect(new Coord(x + 1, y, z + 2), new Coord(x + 1, y, z + 4)));
 
     redstone.stroke(editor, new Coord(x + 2, y - 1, z + 2));
     lamp.stroke(editor, new Coord(x + 3, y - 1, z + 2));
@@ -172,8 +172,8 @@ public class LabRoom extends BaseRoom {
 
     StairsBlock stair = StairsBlock.stoneBrick();
 
-    stair.setUpsideDown(false).setFacing(Direction.SOUTH).fill(editor, new RectSolid(new Coord(x + 1, y, z + 1), new Coord(x + 3, y, z + 1)));
-    stair.setUpsideDown(false).setFacing(Direction.WEST).fill(editor, new RectSolid(new Coord(x + 4, y, z + 2), new Coord(x + 4, y, z + 4)));
+    stair.setUpsideDown(false).setFacing(Direction.SOUTH).fill(editor, RectSolid.newRect(new Coord(x + 1, y, z + 1), new Coord(x + 3, y, z + 1)));
+    stair.setUpsideDown(false).setFacing(Direction.WEST).fill(editor, RectSolid.newRect(new Coord(x + 4, y, z + 2), new Coord(x + 4, y, z + 4)));
 
     redstone.stroke(editor, new Coord(x + 3, y - 1, z + 2));
     lamp.stroke(editor, new Coord(x + 2, y - 1, z + 2));
@@ -184,7 +184,7 @@ public class LabRoom extends BaseRoom {
 
   private static void pillar(WorldEditor editor, Theme theme, int x, int y, int z) {
 
-    theme.getSecondary().getPillar().fill(editor, new RectSolid(new Coord(x, y, z), new Coord(x, y + 2, z)));
+    theme.getSecondary().getPillar().fill(editor, RectSolid.newRect(new Coord(x, y, z), new Coord(x, y + 2, z)));
     theme.getPrimary().getWall().stroke(editor, new Coord(x, y + 3, z));
     StairsBlock stair = theme.getSecondary().getStair();
     stair.setUpsideDown(true).setFacing(Direction.EAST).stroke(editor, new Coord(x + 1, y + 3, z));
@@ -204,16 +204,16 @@ public class LabRoom extends BaseRoom {
 
 
     // Air
-    SingleBlockBrush.AIR.fill(worldEditor, new RectSolid(new Coord(x - 7, y, z - 7), new Coord(x + 7, y + 3, z + 7)));
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(new Coord(x - 7, y, z - 7), new Coord(x + 7, y + 3, z + 7)));
 
     BlockBrush roof = secondaryWalls();
     // Wood upper Roof
-    RectSolid.newRect(new Coord(x - 6, y + 5, z - 6), new Coord(x + 6, y + 5, z + 6)).fill(worldEditor, roof);
-    RectSolid.newRect(new Coord(x - 1, y + 4, z - 1), new Coord(x + 1, y + 4, z + 1)).fill(worldEditor, SingleBlockBrush.AIR);
-    RectSolid.newRect(new Coord(x - 5, y + 4, z - 1), new Coord(x - 3, y + 4, z + 1)).fill(worldEditor, SingleBlockBrush.AIR);
-    RectSolid.newRect(new Coord(x + 3, y + 4, z - 1), new Coord(x + 5, y + 4, z + 1)).fill(worldEditor, SingleBlockBrush.AIR);
-    RectSolid.newRect(new Coord(x - 1, y + 4, z - 5), new Coord(x + 1, y + 4, z - 3)).fill(worldEditor, SingleBlockBrush.AIR);
-    RectSolid.newRect(new Coord(x - 1, y + 4, z + 3), new Coord(x + 1, y + 4, z + 5)).fill(worldEditor, SingleBlockBrush.AIR);
+    roof.fill(worldEditor, RectSolid.newRect(new Coord(x - 6, y + 5, z - 6), new Coord(x + 6, y + 5, z + 6)));
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(new Coord(x - 1, y + 4, z - 1), new Coord(x + 1, y + 4, z + 1)));
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(new Coord(x - 5, y + 4, z - 1), new Coord(x - 3, y + 4, z + 1)));
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(new Coord(x + 3, y + 4, z - 1), new Coord(x + 5, y + 4, z + 1)));
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(new Coord(x - 1, y + 4, z - 5), new Coord(x + 1, y + 4, z - 3)));
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(new Coord(x - 1, y + 4, z + 3), new Coord(x + 1, y + 4, z + 5)));
 
     // shell
     RectHollow.newRect(new Coord(x - 8, y - 1, z - 8), new Coord(x + 8, y + 4, z + 8)).fill(worldEditor, blocks, false, true);
@@ -227,22 +227,22 @@ public class LabRoom extends BaseRoom {
     northEast(worldEditor, theme(), x + 2, y, z - 7);
 
     // outer walls
-    RectSolid.newRect(new Coord(x - 8, y, z - 7), new Coord(x - 8, y + 3, z - 7)).fill(worldEditor, blocks);
-    RectSolid.newRect(new Coord(x + 8, y, z - 7), new Coord(x + 8, y + 3, z - 7)).fill(worldEditor, blocks);
-    RectSolid.newRect(new Coord(x + 8, y, z - 7), new Coord(x + 8, y + 3, z - 7)).fill(worldEditor, blocks);
+    blocks.fill(worldEditor, RectSolid.newRect(new Coord(x - 8, y, z - 7), new Coord(x - 8, y + 3, z - 7)));
+    blocks.fill(worldEditor, RectSolid.newRect(new Coord(x + 8, y, z - 7), new Coord(x + 8, y + 3, z - 7)));
+    blocks.fill(worldEditor, RectSolid.newRect(new Coord(x + 8, y, z - 7), new Coord(x + 8, y + 3, z - 7)));
 
     BlockBrush backWalls = secondaryWalls();
 
     // wall planks
-    RectSolid.newRect(new Coord(x - 8, y + 1, z - 6), new Coord(x - 8, y + 3, z - 3)).fill(worldEditor, backWalls);
-    RectSolid.newRect(new Coord(x - 8, y + 1, z + 3), new Coord(x - 8, y + 3, z + 6)).fill(worldEditor, backWalls);
-    RectSolid.newRect(new Coord(x + 8, y + 1, z - 6), new Coord(x + 8, y + 3, z - 3)).fill(worldEditor, backWalls);
-    RectSolid.newRect(new Coord(x + 8, y + 1, z + 3), new Coord(x + 8, y + 3, z + 6)).fill(worldEditor, backWalls);
+    backWalls.fill(worldEditor, RectSolid.newRect(new Coord(x - 8, y + 1, z - 6), new Coord(x - 8, y + 3, z - 3)));
+    backWalls.fill(worldEditor, RectSolid.newRect(new Coord(x - 8, y + 1, z + 3), new Coord(x - 8, y + 3, z + 6)));
+    backWalls.fill(worldEditor, RectSolid.newRect(new Coord(x + 8, y + 1, z - 6), new Coord(x + 8, y + 3, z - 3)));
+    backWalls.fill(worldEditor, RectSolid.newRect(new Coord(x + 8, y + 1, z + 3), new Coord(x + 8, y + 3, z + 6)));
 
-    RectSolid.newRect(new Coord(x - 6, y + 1, z - 8), new Coord(x - 3, y + 3, z - 8)).fill(worldEditor, backWalls);
-    RectSolid.newRect(new Coord(x + 3, y + 1, z - 8), new Coord(x + 6, y + 3, z - 8)).fill(worldEditor, backWalls);
-    RectSolid.newRect(new Coord(x - 6, y + 1, z + 8), new Coord(x - 3, y + 3, z + 8)).fill(worldEditor, backWalls);
-    RectSolid.newRect(new Coord(x + 3, y + 1, z + 8), new Coord(x + 6, y + 3, z + 8)).fill(worldEditor, backWalls);
+    backWalls.fill(worldEditor, RectSolid.newRect(new Coord(x - 6, y + 1, z - 8), new Coord(x - 3, y + 3, z - 8)));
+    backWalls.fill(worldEditor, RectSolid.newRect(new Coord(x + 3, y + 1, z - 8), new Coord(x + 6, y + 3, z - 8)));
+    backWalls.fill(worldEditor, RectSolid.newRect(new Coord(x - 6, y + 1, z + 8), new Coord(x - 3, y + 3, z + 8)));
+    backWalls.fill(worldEditor, RectSolid.newRect(new Coord(x + 3, y + 1, z + 8), new Coord(x + 6, y + 3, z + 8)));
 
     generateDoorways(origin, entrances);
 

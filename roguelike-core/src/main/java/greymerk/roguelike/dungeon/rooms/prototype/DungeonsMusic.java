@@ -3,7 +3,6 @@ package greymerk.roguelike.dungeon.rooms.prototype;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import greymerk.roguelike.dungeon.base.BaseRoom;
@@ -37,19 +36,19 @@ public class DungeonsMusic extends BaseRoom {
     end = origin.copy();
     start.translate(new Coord(-6, 4, -6));
     end.translate(new Coord(6, 5, 6));
-    RectSolid.newRect(start, end).fill(worldEditor, secondaryWalls());
+    secondaryWalls().fill(worldEditor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     end = origin.copy();
     start.translate(new Coord(-3, 4, -3));
     end.translate(new Coord(3, 4, 3));
-    RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     end = origin.copy();
     start.translate(new Coord(-3, -1, -3));
     end.translate(new Coord(3, -1, 3));
-    RectSolid.newRect(start, end).fill(worldEditor, secondaryFloors());
+    secondaryFloors().fill(worldEditor, RectSolid.newRect(start, end));
 
     for (int i = 2; i >= 0; --i) {
       start = origin.copy();
@@ -57,7 +56,7 @@ public class DungeonsMusic extends BaseRoom {
       start.translate(new Coord(-i - 1, 0, -i - 1));
       end.translate(new Coord(i + 1, 0, i + 1));
       BlockBrush carpet = carpet().setColor(DyeColor.chooseRandom(random()));
-      RectSolid.newRect(start, end).fill(worldEditor, carpet);
+      carpet.fill(worldEditor, RectSolid.newRect(start, end));
     }
 
     Coord cursor;
@@ -81,7 +80,7 @@ public class DungeonsMusic extends BaseRoom {
       end = start.copy();
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir.clockwise(), 3);
-      RectSolid.newRect(start, end).fill(worldEditor, secondaryPillars());
+      secondaryPillars().fill(worldEditor, RectSolid.newRect(start, end));
 
       cursor = origin.copy();
       cursor.up(4);
@@ -150,7 +149,7 @@ public class DungeonsMusic extends BaseRoom {
     Coord start = origin.copy();
     Coord end = start.copy();
     end.up(2);
-    RectSolid.newRect(start, end).fill(worldEditor, secondaryPillars());
+    secondaryPillars().fill(worldEditor, RectSolid.newRect(start, end));
     for (Direction dir : Direction.CARDINAL) {
       Coord cursor = end.copy();
       cursor.translate(dir);

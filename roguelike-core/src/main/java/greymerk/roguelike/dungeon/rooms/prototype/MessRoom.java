@@ -52,7 +52,7 @@ public class MessRoom extends BaseRoom {
       start.translate(dir.antiClockwise(), 3);
       end = start.copy();
       end.up(3);
-      RectSolid.newRect(start, end).fill(worldEditor, pillars());
+      pillars().fill(worldEditor, RectSolid.newRect(start, end));
 
       for (Direction d : Direction.CARDINAL) {
         cursor = end.copy();
@@ -66,7 +66,7 @@ public class MessRoom extends BaseRoom {
       end = start.copy();
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir.clockwise(), 3);
-      RectSolid.newRect(start, end).fill(worldEditor, walls());
+      walls().fill(worldEditor, RectSolid.newRect(start, end));
 
 
       Direction[] corners = new Direction[]{dir, dir.antiClockwise()};
@@ -118,10 +118,10 @@ public class MessRoom extends BaseRoom {
 
     start = origin.copy().translate(corners[0], 7).translate(corners[1], 7);
     end = start.copy().up(4);
-    RectSolid.newRect(start, end).fill(worldEditor, wall);
+    wall.fill(worldEditor, RectSolid.newRect(start, end));
 
     start = origin.copy().translate(corners[0], 4).translate(corners[1], 4).up(4);
-    RectSolid.newRect(start, end).fill(worldEditor, secondaryWalls());
+    secondaryWalls().fill(worldEditor, RectSolid.newRect(start, end));
 
     cursor = origin.copy()
         .translate(corners[0], 7)
@@ -148,13 +148,13 @@ public class MessRoom extends BaseRoom {
         .translate(corners[0], 7)
         .translate(corners[1], 7);
     end = start.copy().up(4);
-    RectSolid.newRect(start, end).fill(worldEditor, walls());
+    walls().fill(worldEditor, RectSolid.newRect(start, end));
 
     start = origin.copy()
         .translate(corners[0], 4)
         .translate(corners[1], 4)
         .up(4);
-    RectSolid.newRect(start, end).fill(worldEditor, secondaryWalls());
+    secondaryWalls().fill(worldEditor, RectSolid.newRect(start, end));
 
     cursor = origin.copy()
         .translate(corners[0], 4)
@@ -183,7 +183,7 @@ public class MessRoom extends BaseRoom {
       Coord start = cursor.copy();
       Coord end = cursor.copy();
       end.up(3);
-      RectSolid.newRect(start, end).fill(worldEditor, pillar);
+      pillar.fill(worldEditor, RectSolid.newRect(start, end));
       cursor.up(3);
       cursor.translate(dir.reverse());
       wall.stroke(worldEditor, cursor);
@@ -197,7 +197,7 @@ public class MessRoom extends BaseRoom {
       start = cursor.copy();
       end = cursor.copy();
       end.translate(dir, 3);
-      RectSolid.newRect(start, end).fill(worldEditor, wall);
+      wall.fill(worldEditor, RectSolid.newRect(start, end));
 
       cursor = origin.copy();
       cursor.translate(entrances[0], 5);
@@ -207,14 +207,14 @@ public class MessRoom extends BaseRoom {
       start.translate(dir.antiClockwise());
       end = cursor.copy();
       end.translate(dir.clockwise());
-      stair.setUpsideDown(areSomeStairsUpsideDown).setFacing(dir.reverse()).fill(worldEditor, new RectSolid(start, end));
+      stair.setUpsideDown(areSomeStairsUpsideDown).setFacing(dir.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
       start.up(2);
       end.up(2);
       stair.setUpsideDown(true).setFacing(dir.clockwise()).stroke(worldEditor, start);
       stair.setUpsideDown(true).setFacing(dir.antiClockwise()).stroke(worldEditor, end);
       start.up();
       end.up();
-      RectSolid.newRect(start, end).fill(worldEditor, wall);
+      wall.fill(worldEditor, RectSolid.newRect(start, end));
       start.translate(dir);
       end.translate(dir);
       end.down(3);
@@ -226,7 +226,7 @@ public class MessRoom extends BaseRoom {
 
     Coord start = origin.copy().translate(dir, 7).up(3).translate(dir.left(), 2);
     Coord end = origin.copy().translate(dir, 7).up(4).translate(dir.right(), 2);
-    RectSolid.newRect(start, end).fill(worldEditor, walls());
+    walls().fill(worldEditor, RectSolid.newRect(start, end));
 
     Coord cursor;
     for (Direction o : dir.orthogonals()) {

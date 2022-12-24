@@ -33,7 +33,7 @@ public class DungeonsEnder extends BaseRoom {
     Coord end = origin.copy();
     start.translate(new Coord(-3, 0, -3));
     end.translate(new Coord(3, 2, 3));
-    RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(start, end));
     for (Direction dir : Direction.CARDINAL) {
 
       Direction[] orthogonals = dir.orthogonals();
@@ -55,7 +55,7 @@ public class DungeonsEnder extends BaseRoom {
     end.translate(new Coord(3, 10, 3));
 
     int top = end.getY() - start.getY() + 1;
-    for (Coord cell : new RectSolid(start, end)) {
+    for (Coord cell : RectSolid.newRect(start, end)) {
       boolean dissolve = random().nextInt((cell.getY() - start.getY()) + 1) < 2;
       ((BlockBrush) SingleBlockBrush.AIR).stroke(worldEditor, cell, false, dissolve);
       black.stroke(worldEditor, cell, false, random().nextInt(top - (cell.getY() - start.getY())) == 0 && !dissolve);
@@ -67,14 +67,14 @@ public class DungeonsEnder extends BaseRoom {
     end.translate(new Coord(4, -1, 4));
 
     BlockCheckers checkers = new BlockCheckers(black, white);
-    RectSolid.newRect(start, end).fill(worldEditor, checkers);
+    checkers.fill(worldEditor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     end = origin.copy();
     start.translate(new Coord(-4, 0, -4));
     end.translate(new Coord(4, 0, 4));
     if (RogueConfig.GENEROUS.getBoolean()) {
-      addEnderChest(new RectSolid(start, end));
+      addEnderChest(RectSolid.newRect(start, end));
     }
     generateSpawner(origin, MobType.ENDERMAN);
 

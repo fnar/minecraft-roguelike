@@ -47,7 +47,7 @@ public class OssuaryRoom extends BaseRoom {
         end = start.copy();
         end.up(5);
         end.translate(dir.reverse());
-        RectSolid.newRect(start, end).fill(worldEditor, walls());
+        walls().fill(worldEditor, RectSolid.newRect(start, end));
 
         start = cursor.copy();
         start.translate(o, 2);
@@ -55,19 +55,19 @@ public class OssuaryRoom extends BaseRoom {
         start.translate(dir.reverse(), 2);
         end = start.copy();
         end.up(3);
-        RectSolid.newRect(start, end).fill(worldEditor, walls());
+        walls().fill(worldEditor, RectSolid.newRect(start, end));
         stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, start);
 
         start.translate(dir.reverse());
         start.up();
         end.translate(dir.reverse());
-        RectSolid.newRect(start, end).fill(worldEditor, walls());
+        walls().fill(worldEditor, RectSolid.newRect(start, end));
         stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, start);
 
         start.translate(dir.reverse());
         start.up();
         end.translate(dir.reverse());
-        RectSolid.newRect(start, end).fill(worldEditor, walls());
+        walls().fill(worldEditor, RectSolid.newRect(start, end));
         stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, start);
 
         start = cursor.copy();
@@ -76,15 +76,15 @@ public class OssuaryRoom extends BaseRoom {
         start.translate(dir.antiClockwise());
         end.translate(dir.clockwise());
         end.up(3);
-        RectSolid.newRect(start, end).fill(worldEditor, walls());
+        walls().fill(worldEditor, RectSolid.newRect(start, end));
         start.up();
         start.translate(dir.reverse());
         end.translate(dir.reverse());
-        RectSolid.newRect(start, end).fill(worldEditor, walls());
+        walls().fill(worldEditor, RectSolid.newRect(start, end));
         start.up();
         start.translate(dir.reverse());
         end.translate(dir.reverse());
-        RectSolid.newRect(start, end).fill(worldEditor, walls());
+        walls().fill(worldEditor, RectSolid.newRect(start, end));
 
         Coord c = cursor.copy();
         c.translate(o);
@@ -118,7 +118,7 @@ public class OssuaryRoom extends BaseRoom {
       end = cursor.copy();
       end.south();
       end.west();
-      RectSolid.newRect(start, end).fill(worldEditor, walls());
+      walls().fill(worldEditor, RectSolid.newRect(start, end));
       SingleBlockBrush.AIR.stroke(worldEditor, cursor);
       for (Direction d : Direction.CARDINAL) {
         Coord c = cursor.copy();
@@ -136,7 +136,7 @@ public class OssuaryRoom extends BaseRoom {
       end.translate(dir);
       end.translate(dir.antiClockwise());
       end.up(6);
-      RectSolid.newRect(start, end).fill(worldEditor, walls());
+      walls().fill(worldEditor, RectSolid.newRect(start, end));
     }
 
     // central ceiling
@@ -148,10 +148,10 @@ public class OssuaryRoom extends BaseRoom {
     end = cursor.copy();
     end.south(2);
     end.west(2);
-    RectSolid.newRect(start, end).fill(worldEditor, walls());
+    walls().fill(worldEditor, RectSolid.newRect(start, end));
     start.down();
     end.down();
-    RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(start, end));
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
     for (Direction d : Direction.CARDINAL) {
       Coord c = cursor.copy();
@@ -185,7 +185,7 @@ public class OssuaryRoom extends BaseRoom {
       end = cursor.copy();
       end.south();
       end.west();
-      RectSolid.newRect(start, end).fill(worldEditor, walls());
+      walls().fill(worldEditor, RectSolid.newRect(start, end));
       SingleBlockBrush.AIR.stroke(worldEditor, cursor);
       for (Direction d : Direction.CARDINAL) {
         Coord c = cursor.copy();
@@ -212,16 +212,16 @@ public class OssuaryRoom extends BaseRoom {
         start.translate(d, 3);
         end = start.copy();
         end.up(4);
-        RectSolid.newRect(start, end).fill(worldEditor, walls());
+        walls().fill(worldEditor, RectSolid.newRect(start, end));
         start = end.copy();
         start.translate(d.orthogonals()[0]);
         end.translate(d.orthogonals()[1]);
         end.up(2);
-        RectSolid.newRect(start, end).fill(worldEditor, walls());
+        walls().fill(worldEditor, RectSolid.newRect(start, end));
         start.translate(d.reverse());
         end.translate(d.reverse());
         start.up();
-        RectSolid.newRect(start, end).fill(worldEditor, walls());
+        walls().fill(worldEditor, RectSolid.newRect(start, end));
 
         for (Direction o : d.orthogonals()) {
           cursor = origin.copy();

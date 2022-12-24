@@ -10,12 +10,12 @@ public interface BlockBrush {
     return stroke(editor, pos, true, true);
   }
 
-  default void fill(WorldEditor editor, IShape shape) {
-    fill(editor, shape, true, true);
+  default IShape fill(WorldEditor editor, IShape shape) {
+    return fill(editor, shape, true, true);
   }
 
-  default void fill(WorldEditor editor, IShape shape, boolean fillAir, boolean replaceSolid) {
-    shape.fill(editor, this, fillAir, replaceSolid);
+  default IShape fill(WorldEditor editor, IShape shape, boolean fillAir, boolean replaceSolid) {
+    return shape.fill(editor, this, fillAir, replaceSolid);
   }
 
   default BlockBrush setFacing(Direction direction) { return this; }

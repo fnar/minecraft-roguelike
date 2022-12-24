@@ -43,10 +43,10 @@ public class TreethoRoom extends BaseRoom {
     end = origin.copy();
     start.translate(new Coord(-9, 8, -9));
     end.translate(new Coord(9, 8, 9));
-    RectSolid.newRect(start, end).fill(worldEditor, birchSlab);
+    birchSlab.fill(worldEditor, RectSolid.newRect(start, end));
     start.up();
     end.up();
-    RectSolid.newRect(start, end).fill(worldEditor, pumpkin);
+    pumpkin.fill(worldEditor, RectSolid.newRect(start, end));
 
     Coord cursor = origin.copy();
     cursor.translate(new Coord(0, 8, 0));
@@ -74,7 +74,7 @@ public class TreethoRoom extends BaseRoom {
     start.translate(dir.reverse(), 7);
     end.translate(dir, 7);
 
-    RectSolid.newRect(start, end).fill(worldEditor, SlabBlock.sandstone());
+    SlabBlock.sandstone().fill(worldEditor, RectSolid.newRect(start, end));
 
     Coord cursor = origin.copy();
 
@@ -111,7 +111,7 @@ public class TreethoRoom extends BaseRoom {
       start.translate(dir.antiClockwise(), 9);
       end.translate(dir.clockwise(), 9);
 
-      RectSolid.newRect(start, end).fill(worldEditor, fill);
+      fill.fill(worldEditor, RectSolid.newRect(start, end));
 
       Coord cursor = origin.copy();
       cursor.down();

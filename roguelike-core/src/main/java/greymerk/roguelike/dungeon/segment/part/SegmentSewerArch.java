@@ -44,10 +44,10 @@ public class SegmentSewerArch extends SegmentBase {
     Coord end = start.copy();
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end));
     start.down();
     end.down();
-    RectSolid.newRect(start, end).fill(editor, BlockType.WATER_FLOWING.getBrush());
+    BlockType.WATER_FLOWING.getBrush().fill(editor, RectSolid.newRect(start, end));
 
     for (Direction o : orthogonals) {
       cursor = origin.copy();

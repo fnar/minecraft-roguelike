@@ -29,7 +29,7 @@ public class SegmentWall extends SegmentBase {
     Coord end = cursor.copy();
     end.translate(orthogonals[1], 1);
     end.up(2);
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end));
 
     SecretsSetting secrets = level.getSettings().getSecrets();
     Optional<BaseRoom> room = generateSecret(secrets, editor, level.getSettings(), dir, origin.copy());

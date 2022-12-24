@@ -37,7 +37,7 @@ public class SegmentNetherLava extends SegmentBase {
       start.up(2);
       end.down();
       if (!isAir) {
-        RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+        SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end));
         BlockType.LAVA_FLOWING.getBrush().stroke(editor, start);
         start.translate(orthogonals.reverse(), 1);
         BlockType.LAVA_FLOWING.getBrush().stroke(editor, start);

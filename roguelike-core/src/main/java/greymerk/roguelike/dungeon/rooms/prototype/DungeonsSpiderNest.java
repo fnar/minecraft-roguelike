@@ -72,10 +72,7 @@ public class DungeonsSpiderNest extends BaseRoom {
     final Coord cursor = new Coord(originX, originY, originZ);
     generateSpawner(cursor, MobType.CAVESPIDER);
 
-    List<Coord> spaces = new RectSolid(
-        new Coord(originX - dungeonLength, originY - 1, originZ - dungeonWidth),
-        new Coord(originX + dungeonLength, originY + 1, originZ + dungeonWidth)
-    ).get();
+    List<Coord> spaces = RectSolid.newRect(new Coord(originX - dungeonLength, originY - 1, originZ - dungeonWidth), new Coord(originX + dungeonLength, originY + 1, originZ + dungeonWidth)).get();
     List<Coord> chestLocations = Coord.randomFrom(spaces, 1 + random().nextInt(3), random());
     generateChests(chestLocations, getEntrance(entrances), ChestType.UNCOMMON_TREASURES);
     return this;

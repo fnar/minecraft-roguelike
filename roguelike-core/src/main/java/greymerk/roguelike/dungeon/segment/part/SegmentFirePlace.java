@@ -27,7 +27,7 @@ public class SegmentFirePlace extends SegmentBase {
     Coord end = cursor.copy();
     end.translate(orthogonals[1], 1);
     end.up(2);
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end));
 
     // front wall
     start.translate(dir, 1);

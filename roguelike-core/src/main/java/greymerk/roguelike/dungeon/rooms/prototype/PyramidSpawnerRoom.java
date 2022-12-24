@@ -2,7 +2,6 @@ package greymerk.roguelike.dungeon.rooms.prototype;
 
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import greymerk.roguelike.dungeon.base.BaseRoom;
@@ -29,13 +28,13 @@ public class PyramidSpawnerRoom extends BaseRoom {
     int z = origin.getZ();
 
     // fill air inside
-    RectSolid.newRect(new Coord(x - 3, y, z - 3), new Coord(x + 3, y + 3, z + 3)).fill(worldEditor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(new Coord(x - 3, y, z - 3), new Coord(x + 3, y + 3, z + 3)));
 
 
     // shell
     RectHollow.newRect(new Coord(x - 4, y - 1, z - 4), new Coord(x + 4, y + 4, z + 4)).fill(worldEditor, walls(), false, true);
     RectSolid.newRect(new Coord(x - 3, y + 4, z - 3), new Coord(x + 3, y + 6, z + 3)).fill(worldEditor, walls(), false, true);
-    RectSolid.newRect(new Coord(x - 2, y + 4, z - 2), new Coord(x + 2, y + 4, z + 2)).fill(worldEditor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(new Coord(x - 2, y + 4, z - 2), new Coord(x + 2, y + 4, z + 2)));
 
     RectSolid.newRect(new Coord(x - 4, y - 1, z - 4), new Coord(x + 4, y - 1, z + 4)).fill(worldEditor, theme().getPrimary().getFloor(), false, true);
 
@@ -60,7 +59,7 @@ public class PyramidSpawnerRoom extends BaseRoom {
       Coord start = cursor.copy();
       cursor.up(3);
       Coord end = cursor.copy();
-      RectSolid.newRect(start, end).fill(worldEditor, pillars());
+      pillars().fill(worldEditor, RectSolid.newRect(start, end));
       cursor.up();
       walls().stroke(worldEditor, cursor);
 

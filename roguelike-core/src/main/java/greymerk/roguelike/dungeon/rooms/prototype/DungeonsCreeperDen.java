@@ -46,16 +46,16 @@ public class DungeonsCreeperDen extends BaseRoom {
 
     start = origin.copy().translate(-3, -1, -3);
     end = origin.copy().translate(3, -1, 3);
-    RectSolid.newRect(start, end).fill(worldEditor, floor);
+    floor.fill(worldEditor, RectSolid.newRect(start, end));
 
     start = origin.copy().translate(-3, -3, -3);
     end = origin.copy().translate(3, -2, 3);
-    RectSolid.newRect(start, end).fill(worldEditor, subfloor);
+    subfloor.fill(worldEditor, RectSolid.newRect(start, end));
 
     start = origin.copy().translate(-3, 0, -3);
     end = origin.copy().translate(3, 0, 3);
 
-    List<Coord> chestSpaces = new RectSolid(start, end).get();
+    List<Coord> chestSpaces = RectSolid.newRect(start, end).get();
     Coord.randomFrom(chestSpaces, 3, random())
         .forEach(chestSpace ->
             generateTrappedChest(chestSpace, getEntrance(entrances).reverse(), ChestType.ORE));

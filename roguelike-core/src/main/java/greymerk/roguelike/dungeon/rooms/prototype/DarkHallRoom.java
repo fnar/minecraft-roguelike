@@ -107,10 +107,10 @@ public class DarkHallRoom extends BaseRoom {
   }
 
   public void generateAccentPillar(Coord origin, int height) {
-    RectSolid.newRect(
+    pillars().fill(worldEditor, RectSolid.newRect(
         origin.copy(),
         origin.copy().up(height)
-    ).fill(worldEditor, pillars());
+    ));
   }
 
   private void pillar(Direction dir, Coord origin) {

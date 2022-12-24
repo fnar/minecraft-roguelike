@@ -56,15 +56,15 @@ public class FireworkRoom extends BaseRoom {
     start.translate(dir.reverse(), 3);
     end.translate(dir, 7);
     end.up();
-    RectSolid.newRect(start, end).fill(worldEditor, breadboard);
+    breadboard.fill(worldEditor, RectSolid.newRect(start, end));
 
     start.translate(dir.clockwise(), 2);
     end.translate(dir.clockwise(), 2);
-    RectSolid.newRect(start, end).fill(worldEditor, breadboard);
+    breadboard.fill(worldEditor, RectSolid.newRect(start, end));
 
     start.translate(dir.clockwise(), 2);
     end.translate(dir.clockwise(), 2);
-    RectSolid.newRect(start, end).fill(worldEditor, breadboard);
+    breadboard.fill(worldEditor, RectSolid.newRect(start, end));
 
     Coord cursor = origin.copy();
     cursor.translate(dir.antiClockwise(), 2);
@@ -87,7 +87,7 @@ public class FireworkRoom extends BaseRoom {
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
     end.translate(dir, 2);
-    RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(start, end));
 
     cursor = origin.copy();
     cursor.translate(dir, 2);
@@ -114,7 +114,7 @@ public class FireworkRoom extends BaseRoom {
     end.translate(dir.antiClockwise(), 5);
     end.translate(dir.reverse(), 5);
     end.down(2);
-    RectSolid.newRect(start, end).fill(worldEditor, BlockType.COBBLESTONE.getBrush());
+    BlockType.COBBLESTONE.getBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
     cursor = origin.copy();
     cursor.translate(dir.reverse(), 3);
@@ -245,7 +245,7 @@ public class FireworkRoom extends BaseRoom {
     end.translate(dir);
     Coord above = end.copy();
     above.up(10);
-    for (Coord c : new RectSolid(cursor, above)) {
+    for (Coord c : RectSolid.newRect(cursor, above)) {
       if (editor.isSolidBlock(c)) {
         SingleBlockBrush.AIR.stroke(editor, c);
       }

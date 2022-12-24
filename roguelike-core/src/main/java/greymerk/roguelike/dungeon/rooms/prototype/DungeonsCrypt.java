@@ -26,13 +26,13 @@ public class DungeonsCrypt extends BaseRoom {
     Coord end = origin.copy();
     start.translate(new Coord(-3, 0, -3));
     end.translate(new Coord(3, 4, 3));
-    RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     end = origin.copy();
     start.translate(new Coord(-9, -1, -9));
     end.translate(new Coord(9, -1, 9));
-    RectSolid.newRect(start, end).fill(worldEditor, floors());
+    floors().fill(worldEditor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     end = origin.copy();
@@ -49,7 +49,7 @@ public class DungeonsCrypt extends BaseRoom {
         end.translate(dir.antiClockwise(), 5);
         end.translate(dir, 5);
         end.up(4);
-        RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
+        SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(start, end));
       }
 
       Coord cursor;
@@ -62,7 +62,7 @@ public class DungeonsCrypt extends BaseRoom {
         end.translate(dir, 8);
         end.translate(dir.clockwise(), 2);
         end.up(4);
-        RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
+        SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(start, end));
 
         for (Direction o : dir.orthogonals()) {
           if (entrances.contains(o)) {
@@ -82,7 +82,7 @@ public class DungeonsCrypt extends BaseRoom {
             end.translate(dir, 8);
             end.translate(o, 8);
             end.up(4);
-            RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
+            SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(start, end));
 
             cursor = origin.copy();
             cursor.translate(dir, 6);
@@ -123,7 +123,7 @@ public class DungeonsCrypt extends BaseRoom {
     Coord end = start.copy();
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
-    RectSolid.newRect(start, end).fill(worldEditor, walls());
+    walls().fill(worldEditor, RectSolid.newRect(start, end));
 
     Coord cursor = origin.copy();
     cursor.translate(dir, 5);
@@ -138,7 +138,7 @@ public class DungeonsCrypt extends BaseRoom {
       end = start.copy();
       end.translate(dir, 4);
       end.up(4);
-      RectSolid.newRect(start, end).fill(worldEditor, walls());
+      walls().fill(worldEditor, RectSolid.newRect(start, end));
 
       cursor = origin.copy();
       cursor.down();
@@ -151,7 +151,7 @@ public class DungeonsCrypt extends BaseRoom {
       start.translate(o, 2);
       end = start.copy();
       end.translate(dir, 3);
-      RectSolid.newRect(start, end).fill(worldEditor, stairs().setUpsideDown(true).setFacing(o.reverse()));
+      stairs().setUpsideDown(true).setFacing(o.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
     }
 
     cursor = origin.copy();
@@ -179,13 +179,13 @@ public class DungeonsCrypt extends BaseRoom {
       start = cursor.copy();
       end = cursor.copy();
       end.translate(dir, 3);
-      RectSolid.newRect(start, end).fill(worldEditor, stairs().setUpsideDown(false).setFacing(o));
+      stairs().setUpsideDown(false).setFacing(o).fill(worldEditor, RectSolid.newRect(start, end));
       start.up();
       end.up();
-      RectSolid.newRect(start, end).fill(worldEditor, stairs().setUpsideDown(true).setFacing(o));
+      stairs().setUpsideDown(true).setFacing(o).fill(worldEditor, RectSolid.newRect(start, end));
       start.up();
       end.up();
-      RectSolid.newRect(start, end).fill(worldEditor, stairs().setUpsideDown(false).setFacing(o));
+      stairs().setUpsideDown(false).setFacing(o).fill(worldEditor, RectSolid.newRect(start, end));
     }
 
   }
@@ -199,7 +199,7 @@ public class DungeonsCrypt extends BaseRoom {
     end.translate(dir.clockwise());
     end.translate(dir, 3);
 
-    RectSolid.newRect(start, end).fill(worldEditor, walls());
+    walls().fill(worldEditor, RectSolid.newRect(start, end));
 
     Coord cursor = origin.copy();
     cursor.translate(dir.reverse());
@@ -234,7 +234,7 @@ public class DungeonsCrypt extends BaseRoom {
     end = start.copy();
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
-    RectSolid.newRect(start, end).fill(worldEditor, stairs().setUpsideDown(true).setFacing(dir.reverse()));
+    stairs().setUpsideDown(true).setFacing(dir.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
 
     tomb(origin, dir);
   }
@@ -246,7 +246,7 @@ public class DungeonsCrypt extends BaseRoom {
     end.translate(dir.clockwise(), 3);
     end.translate(dir, 4);
     end.up(4);
-    RectSolid.newRect(start, end).fill(worldEditor, walls());
+    walls().fill(worldEditor, RectSolid.newRect(start, end));
 
     Coord cursor = origin.copy();
     cursor.up();
@@ -271,7 +271,7 @@ public class DungeonsCrypt extends BaseRoom {
     Coord start = origin.copy();
     Coord end = origin.copy();
     end.up(4);
-    RectSolid.newRect(start, end).fill(worldEditor, walls());
+    walls().fill(worldEditor, RectSolid.newRect(start, end));
 
     for (Direction dir : Direction.CARDINAL) {
       Coord cursor = end.copy();
@@ -294,7 +294,7 @@ public class DungeonsCrypt extends BaseRoom {
 
     cursor = origin.copy();
     cursor.translate(dir, 2);
-    RectSolid.newRect(origin, cursor).fill(worldEditor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(origin, cursor));
 
     if (random().nextInt(4) == 0) {
       return;
