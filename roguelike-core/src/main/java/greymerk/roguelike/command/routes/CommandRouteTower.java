@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 import greymerk.roguelike.command.CommandBase;
 import greymerk.roguelike.command.CommandContext1_12;
 import greymerk.roguelike.command.CommandRouteBase;
-import greymerk.roguelike.dungeon.towers.ITower;
+import greymerk.roguelike.dungeon.towers.Tower;
 import greymerk.roguelike.dungeon.towers.TowerType;
 import greymerk.roguelike.util.ArgumentParser;
 import greymerk.roguelike.util.EnumTools;
@@ -46,7 +46,7 @@ public class CommandRouteTower extends CommandRouteBase {
     }
 
     Coord here = new Coord(context.getPos().getX(), TOPLEVEL, context.getPos().getZ());
-    ITower tower = TowerType.get(type);
+    Tower tower = TowerType.get(type);
 
     WorldEditor editor = context.createEditor();
     tower.generate(editor, editor.getRandom(), TowerType.getDefaultTheme(type).getThemeBase(), here);

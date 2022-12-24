@@ -5,7 +5,7 @@ import com.github.fnar.minecraft.block.SingleBlockBrush;
 import java.util.List;
 import java.util.Random;
 
-import greymerk.roguelike.dungeon.towers.ITower;
+import greymerk.roguelike.dungeon.towers.Tower;
 import greymerk.roguelike.dungeon.towers.TowerType;
 import greymerk.roguelike.theme.Themes;
 import greymerk.roguelike.theme.Theme;
