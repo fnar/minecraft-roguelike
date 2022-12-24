@@ -24,7 +24,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 import static com.github.fnar.minecraft.block.normal.ColoredBlock.carpet;
 import static com.github.fnar.minecraft.block.normal.ColoredBlock.stainedGlassPane;
 
-public class HouseTower implements ITower {
+public class HouseTower extends Tower {
 
   @Override
   public void generate(WorldEditor editor, Random rand, Theme theme, Coord dungeon) {
