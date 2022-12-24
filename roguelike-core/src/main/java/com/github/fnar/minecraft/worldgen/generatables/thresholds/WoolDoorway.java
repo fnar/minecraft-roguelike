@@ -1,7 +1,8 @@
-package com.github.fnar.minecraft.worldgen.generatables;
+package com.github.fnar.minecraft.worldgen.generatables.thresholds;
 
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.ColoredBlock;
+import com.github.fnar.minecraft.worldgen.generatables.Generatable;
 
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.util.DyeColor;
