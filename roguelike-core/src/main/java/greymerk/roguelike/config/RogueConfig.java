@@ -14,6 +14,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -51,8 +52,8 @@ public class RogueConfig {
   public static final RogueConfig UPPERLIMIT = new RogueConfig("upperLimit", 100);
   public static final RogueConfig VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM = new RogueConfig("vanillaStructuresToCheckMinimumDistanceFrom", VanillaStructure.getAllAsCommaDelimitedString());
   public static final RogueConfig MOBS_ITEMS_DROP_CHANCE = new RogueConfig("mobs.items.dropChance", 0.0);
+  public static final RogueConfig MOBS_ITEMS_ENCHANTED_CHANCE = new RogueConfig("mobs.items.enchanted.chance", new Double[]{-1.0, -1.0, -1.0, -1.0, -1.0});
   public static final RogueConfig MOBS_ITEMS_ENCHANTMENTS_LEVELS = new RogueConfig("overrideMobEquipmentEnchantmentLevels", new Integer[]{-1, -1, -1, -1, -1});
-  public static final RogueConfig MOBS_ITEMS_ENCHANTMENTS_CHANCE = new RogueConfig("mobs.items.enchanted.chance", new Double[]{-1.0, -1.0, -1.0, -1.0, -1.0});
 
   private static final boolean DEFAULT_BOOLEAN = false;
   private static final String DEFAULT_STRING_VALUE = "";
@@ -180,6 +181,9 @@ public class RogueConfig {
     if (!instance.ContainsKey(MOBS_ITEMS_ENCHANTMENTS_LEVELS.getName())) {
       MOBS_ITEMS_ENCHANTMENTS_LEVELS.setIntList(MOBS_ITEMS_ENCHANTMENTS_LEVELS.intsValue);
     }
+    if (!instance.ContainsKey(MOBS_ITEMS_ENCHANTED_CHANCE.getName())) {
+      MOBS_ITEMS_ENCHANTED_CHANCE.setDoubleList(MOBS_ITEMS_ENCHANTED_CHANCE.doublesValue);
+    }
   }
 
   private static void init() {
@@ -291,6 +295,14 @@ public class RogueConfig {
     instance.set(name, value);
   }
 
+  public Optional<Integer> getIntAtIndex(int index) {
+    List<Integer> values = getIntList();
+    if (index >= values.size()) {
+      return Optional.empty();
+    }
+    return Optional.of(values.get(index));
+  }
+
   @SuppressWarnings("unchecked")
   public List<Double> getDoubleList() {
     if (testing) {
@@ -303,6 +315,14 @@ public class RogueConfig {
   public void setDoubleList(List<Double> value) {
     reload(false);
     instance.set(name, value.toArray(new Double[]{}));
+  }
+
+  public Optional<Double> getDoubleAtIndex(int index) {
+    List<Double> values = getDoubleList();
+    if (index >= values.size()) {
+      return Optional.empty();
+    }
+    return Optional.of(values.get(index));
   }
 
   public static Set<VanillaStructure> vanillaStructuresToCheckDistanceTo() {
