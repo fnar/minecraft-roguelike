@@ -2,6 +2,8 @@ package com.github.fnar.minecraft.worldgen.shape;
 
 import com.google.common.collect.Lists;
 
+import com.github.fnar.roguelike.worldgen.shape.FnarLine;
+
 import org.junit.Test;
 
 import java.util.Iterator;

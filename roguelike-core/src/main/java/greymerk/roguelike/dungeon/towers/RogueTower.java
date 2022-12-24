@@ -3,7 +3,7 @@ package greymerk.roguelike.dungeon.towers;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.decorative.TorchBlock;
-import com.github.fnar.roguelike.worldgen.SpiralStairStep;
+import com.github.fnar.roguelike.worldgen.generatables.SpiralStairStep;
 
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;

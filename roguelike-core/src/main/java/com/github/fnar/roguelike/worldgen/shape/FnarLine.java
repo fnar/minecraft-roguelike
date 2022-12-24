@@ -1,4 +1,4 @@
-package com.github.fnar.minecraft.worldgen.shape;
+package com.github.fnar.roguelike.worldgen.shape;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;

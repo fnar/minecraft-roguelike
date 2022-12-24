@@ -1,4 +1,4 @@
-package com.github.fnar.minecraft.worldgen.generatables;
+package com.github.fnar.roguelike.worldgen.generatables;
 
 import com.github.fnar.minecraft.block.normal.ColoredBlock;
 import com.github.fnar.minecraft.block.normal.StairsBlock;

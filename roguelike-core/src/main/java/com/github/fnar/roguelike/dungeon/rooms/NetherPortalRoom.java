@@ -2,7 +2,7 @@ package com.github.fnar.roguelike.dungeon.rooms;
 
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
-import com.github.fnar.minecraft.worldgen.generatables.NetherPortal;
+import com.github.fnar.roguelike.worldgen.generatables.NetherPortal;
 
 import java.util.List;
 import java.util.stream.Stream;

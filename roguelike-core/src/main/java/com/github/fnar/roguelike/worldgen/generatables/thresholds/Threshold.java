@@ -1,6 +1,6 @@
-package com.github.fnar.minecraft.worldgen.generatables.thresholds;
+package com.github.fnar.roguelike.worldgen.generatables.thresholds;
 
-import com.github.fnar.minecraft.worldgen.generatables.BaseGeneratable;
+import com.github.fnar.roguelike.worldgen.generatables.BaseGeneratable;
 
 import java.util.Random;
 

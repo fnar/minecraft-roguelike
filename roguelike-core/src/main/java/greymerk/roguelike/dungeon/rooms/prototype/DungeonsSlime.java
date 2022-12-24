@@ -2,7 +2,7 @@ package greymerk.roguelike.dungeon.rooms.prototype;
 
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
-import com.github.fnar.minecraft.worldgen.generatables.Pillar;
+import com.github.fnar.roguelike.worldgen.generatables.Pillar;
 
 import java.util.List;
 

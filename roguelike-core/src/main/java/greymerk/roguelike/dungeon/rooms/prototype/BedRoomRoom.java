@@ -8,7 +8,7 @@ import com.github.fnar.minecraft.block.decorative.FlowerPotBlock;
 import com.github.fnar.minecraft.block.decorative.TorchBlock;
 import com.github.fnar.minecraft.item.Material;
 import com.github.fnar.minecraft.item.RldItemStack;
-import com.github.fnar.minecraft.worldgen.generatables.Pillar;
+import com.github.fnar.roguelike.worldgen.generatables.Pillar;
 
 import java.util.List;
 

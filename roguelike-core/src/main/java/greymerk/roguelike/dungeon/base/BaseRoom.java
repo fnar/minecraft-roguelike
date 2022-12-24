@@ -4,7 +4,7 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.minecraft.block.spawner.MobType;
 import com.github.fnar.minecraft.block.spawner.Spawner;
 import com.github.fnar.minecraft.block.spawner.SpawnerSettings;
-import com.github.fnar.minecraft.worldgen.generatables.thresholds.Threshold;
+import com.github.fnar.roguelike.worldgen.generatables.thresholds.Threshold;
 
 import java.util.List;
 import java.util.Optional;

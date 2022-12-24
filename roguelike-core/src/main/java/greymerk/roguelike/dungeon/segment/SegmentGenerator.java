@@ -4,7 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import com.github.fnar.minecraft.worldgen.generatables.Pillar;
+import com.github.fnar.roguelike.worldgen.generatables.Pillar;
 
 import java.util.ArrayList;
 import java.util.List;

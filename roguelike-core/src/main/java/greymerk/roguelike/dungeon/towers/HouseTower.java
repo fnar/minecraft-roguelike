@@ -7,7 +7,7 @@ import com.github.fnar.minecraft.block.decorative.FlowerPotBlock;
 import com.github.fnar.minecraft.block.decorative.TorchBlock;
 import com.github.fnar.minecraft.block.normal.SlabBlock;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
-import com.github.fnar.roguelike.worldgen.SpiralStairStep;
+import com.github.fnar.roguelike.worldgen.generatables.SpiralStairStep;
 
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.util.DyeColor;

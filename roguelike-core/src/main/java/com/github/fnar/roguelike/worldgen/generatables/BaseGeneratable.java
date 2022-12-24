@@ -1,4 +1,4 @@
-package com.github.fnar.minecraft.worldgen.generatables;
+package com.github.fnar.roguelike.worldgen.generatables;
 
 import java.util.List;
 
