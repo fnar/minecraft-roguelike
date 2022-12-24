@@ -1,10 +1,11 @@
 package greymerk.roguelike.monster;
 
+import com.google.common.collect.Sets;
+
 import com.github.fnar.minecraft.block.spawner.MobType;
 import com.github.fnar.minecraft.entity.SlotMapper1_12;
 import com.github.fnar.minecraft.item.mapper.ItemMapper1_12;
 
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityWither;
@@ -39,13 +40,24 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import java.util.Random;
+import java.util.Set;
 
 public class EntityProfiler1_12 {
+
+  public static final Set<MobType> shouldEquipMobs = Sets.newHashSet(
+      MobType.HUSK,
+      MobType.PIGZOMBIE,
+      MobType.SKELETON,
+      MobType.STRAY,
+      MobType.WITHERSKELETON,
+      MobType.ZOMBIE,
+      MobType.ZOMBIE_VILLAGER
+  );
 
   public static EntityLiving applyProfile(EntityLiving oldEntity, int level, Random random, int difficulty) {
     Mob mob = applyProfile(oldEntity, level, difficulty, random);
 
-    if (mob == null) {
+    if (mob == null || !shouldEquipMobs.contains(mob.getMobType())) {
       return null;
     }
 
@@ -135,23 +147,59 @@ public class EntityProfiler1_12 {
   }
 
   private static Mob applyProfile(EntityLiving entityLiving, int level, int difficulty, Random random) {
+    if (entityLiving instanceof EntityBlaze) {
+      return new Mob().withMobType(MobType.BLAZE);
+    }
+    if (entityLiving instanceof EntityCaveSpider) {
+      return new Mob().withMobType(MobType.CAVESPIDER);
+    }
     if (entityLiving instanceof EntityCreeper) {
-      return new Mob();
+      return new Mob().withMobType(MobType.CREEPER);
+    }
+    if (entityLiving instanceof EntityEnderman) {
+      return new Mob().withMobType(MobType.ENDERMAN);
+    }
+    if (entityLiving instanceof EntityEndermite) {
+      return new Mob().withMobType(MobType.ENDERMITE);
     }
     if (entityLiving instanceof EntityEvoker) {
       return new Mob().apply(MonsterProfileType.EVOKER, level, difficulty, random);
     }
+    if (entityLiving instanceof EntityGhast) {
+      return new Mob().withMobType(MobType.GHAST);
+    }
+    if (entityLiving instanceof EntityGuardian) {
+      return new Mob().withMobType(MobType.GUARDIAN);
+    }
     if (entityLiving instanceof EntityHusk) {
       return new Mob().apply(MonsterProfileType.HUSK, level, difficulty, random);
+    }
+    if (entityLiving instanceof EntityIllusionIllager) {
+      return new Mob().withMobType(MobType.ILLUSIONER);
+    }
+    if (entityLiving instanceof EntityMagmaCube) {
+      return new Mob().withMobType(MobType.MAGMA_CUBE);
+    }
+    if (entityLiving instanceof EntityShulker) {
+      return new Mob().withMobType(MobType.SHULKER);
+    }
+    if (entityLiving instanceof EntitySilverfish) {
+      return new Mob().withMobType(MobType.SILVERFISH);
     }
     if (entityLiving instanceof EntitySkeleton) {
       return new Mob().apply(MonsterProfileType.SKELETON, level, difficulty, random);
     }
-    if (entityLiving instanceof EntityStray) {
-      return new Mob();
+    if (entityLiving instanceof EntitySlime) {
+      return new Mob().withMobType(MobType.SLIME);
     }
     if (entityLiving instanceof EntitySpider) {
-      return new Mob();
+      return new Mob().withMobType(MobType.SPIDER);
+    }
+    if (entityLiving instanceof EntityStray) {
+      return new Mob().withMobType(MobType.STRAY);
+    }
+    if (entityLiving instanceof EntityVex) {
+      return new Mob().withMobType(MobType.VEX);
     }
     if (entityLiving instanceof EntityVindicator) {
       return new Mob().apply(MonsterProfileType.VINDICATOR, level, difficulty, random);
@@ -171,7 +219,7 @@ public class EntityProfiler1_12 {
     if (entityLiving instanceof EntityZombie) {
       return new Mob().apply(MonsterProfileType.ZOMBIE, level, difficulty, random);
     }
-    return new Mob();
+    return null;
   }
 
 }
