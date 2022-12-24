@@ -107,6 +107,7 @@ public class BrickRoom extends BaseRoom {
     Coord spawnerLocation = chooseSpawnerLocation(origin);
     generateSpawner(spawnerLocation);
     generateChest(origin, spawnerLocation, getEntrance(entrances));
+    generateDoorways(origin, entrances);
 
     return this;
   }

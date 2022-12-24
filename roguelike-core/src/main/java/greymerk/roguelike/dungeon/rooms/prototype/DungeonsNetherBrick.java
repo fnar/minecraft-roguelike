@@ -38,6 +38,7 @@ public class DungeonsNetherBrick extends BaseRoom {
     generateCeiling(x, y, z, length, width);
     generateTrappableChest(generateChestLocation(origin), getEntrance(entrances));
     generateSpawners(origin, random, length, width);
+    generateDoorways(origin, entrances);
 
     return this;
   }
