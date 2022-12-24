@@ -79,7 +79,7 @@ public enum TowerType {
 
     Coord cursor = new Coord(origin.getX(), 128, origin.getZ());
 
-    while (cursor.getY() > 60 && !editor.validGroundBlock(cursor)) {
+    while (cursor.getY() > 60 && !editor.isValidGroundBlock(cursor)) {
       cursor.down();
     }
 

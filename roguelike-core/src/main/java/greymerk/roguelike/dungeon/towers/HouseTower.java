@@ -690,7 +690,7 @@ public class HouseTower implements ITower {
     cursor = origin.copy();
     cursor.down();
     cursor.translate(dir);
-    if (editor.validGroundBlock(cursor)) {
+    if (editor.isValidGroundBlock(cursor)) {
       return;
     }
     if (cursor.getY() <= 60) {

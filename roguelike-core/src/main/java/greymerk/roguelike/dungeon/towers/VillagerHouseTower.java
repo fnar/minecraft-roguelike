@@ -51,13 +51,13 @@ public class VillagerHouseTower implements ITower {
       fillBeneathStep(editor, theme, stairCoord);
 
       stairCoord.translate(facing).down();
-    } while (!editor.validGroundBlock(stairCoord));
+    } while (!editor.isValidGroundBlock(stairCoord));
   }
 
   private void fillBeneathStep(WorldEditor editor, Theme theme, Coord entrance) {
     Coord belowTop = entrance.copy().down();
     Coord belowBottom = belowTop.copy();
-    while (!editor.validGroundBlock(belowBottom)) {
+    while (!editor.isValidGroundBlock(belowBottom)) {
       belowBottom.down();
     }
     theme.getPrimary().getWall().fill(editor, new RectSolid(belowTop, belowBottom));

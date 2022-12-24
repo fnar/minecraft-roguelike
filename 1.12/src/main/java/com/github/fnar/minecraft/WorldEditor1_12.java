@@ -60,7 +60,7 @@ import static greymerk.roguelike.dungeon.Dungeon.MOD_ID;
 
 public class WorldEditor1_12 implements WorldEditor {
 
-  private static final Set<Material> valid = Sets.newHashSet(
+  private static final Set<Material> validGroundBlocks = Sets.newHashSet(
       Material.GRASS,
       Material.GROUND,
       Material.ROCK,
@@ -266,8 +266,8 @@ public class WorldEditor1_12 implements WorldEditor {
   }
 
   @Override
-  public boolean validGroundBlock(Coord pos) {
-    return valid.contains(getBlockStateAt(pos).getMaterial());
+  public boolean isValidGroundBlock(Coord pos) {
+    return validGroundBlocks.contains(getBlockStateAt(pos).getMaterial());
   }
 
   @Override
