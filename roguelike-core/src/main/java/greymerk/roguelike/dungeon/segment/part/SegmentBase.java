@@ -130,4 +130,5 @@ public abstract class SegmentBase {
   protected BlockBrush getSecondaryPillar(Theme theme) {
     return theme.getSecondary().getPillar();
   }
+
 }

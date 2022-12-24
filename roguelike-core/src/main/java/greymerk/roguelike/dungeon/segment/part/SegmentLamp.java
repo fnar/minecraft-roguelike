@@ -33,7 +33,7 @@ public class SegmentLamp extends SegmentBase {
     start.translate(orthogonal[0]);
     end.translate(orthogonal[1]);
     end.up(2);
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     start.up(3);
@@ -42,7 +42,7 @@ public class SegmentLamp extends SegmentBase {
     start.translate(orthogonal[0]);
     end.translate(dir.reverse());
     end.translate(orthogonal[1]);
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     start.translate(dir, 3);

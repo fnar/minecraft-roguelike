@@ -40,19 +40,19 @@ public class NetherFortressRoom extends BaseRoom {
     end = origin.copy();
     start.translate(new Coord(-4, 6, -4));
     end.translate(new Coord(4, 6, 4));
-    RectSolid.newRect(start, end).fill(worldEditor, walls());
+    walls().fill(worldEditor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     end = origin.copy();
     start.translate(new Coord(-3, 7, -3));
     end.translate(new Coord(3, 7, 3));
-    RectSolid.newRect(start, end).fill(worldEditor, walls());
+    walls().fill(worldEditor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     end = origin.copy();
     start.translate(new Coord(-2, 7, -2));
     end.translate(new Coord(2, 7, 2));
-    RectSolid.newRect(start, end).fill(worldEditor, liquid());
+    liquid().fill(worldEditor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     end = origin.copy();
@@ -68,7 +68,7 @@ public class NetherFortressRoom extends BaseRoom {
     SingleBlockBrush soil = isHotGarden()
         ? BlockType.SOUL_SAND.getBrush()
         : BlockType.FARMLAND.getBrush();
-    soil.fill(worldEditor, new RectSolid(start, end), true, true);
+    soil.fill(worldEditor, RectSolid.newRect(start, end), true, true);
     liquid().stroke(worldEditor, origin.copy().down(2));
 
     start = origin.copy();
@@ -91,7 +91,7 @@ public class NetherFortressRoom extends BaseRoom {
       end = start.copy();
       start.translate(dir.antiClockwise(), 6);
       end.translate(dir.clockwise(), 6);
-      RectSolid.newRect(start, end).fill(worldEditor, walls());
+      walls().fill(worldEditor, RectSolid.newRect(start, end));
 
       start = origin.copy();
       start.translate(UP, 5);
@@ -99,7 +99,7 @@ public class NetherFortressRoom extends BaseRoom {
       end = start.copy();
       start.translate(dir.antiClockwise(), 6);
       end.translate(dir.clockwise(), 6);
-      RectSolid.newRect(start, end).fill(worldEditor, walls());
+      walls().fill(worldEditor, RectSolid.newRect(start, end));
 
       start = origin.copy();
       start.translate(DOWN);
@@ -107,7 +107,7 @@ public class NetherFortressRoom extends BaseRoom {
       end = start.copy();
       start.translate(dir.antiClockwise(), 2);
       end.translate(dir.clockwise(), 2);
-      stairs().setUpsideDown(false).setFacing(dir.reverse()).fill(worldEditor, new RectSolid(start, end));
+      stairs().setUpsideDown(false).setFacing(dir.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
 
       Coord cursor = origin.copy();
       cursor.translate(dir, 4);
@@ -161,7 +161,7 @@ public class NetherFortressRoom extends BaseRoom {
       start.translate(dir);
       Coord end = start.copy();
       end.translate(UP, 5);
-      RectSolid.newRect(start, end).fill(worldEditor, pillars());
+      pillars().fill(worldEditor, RectSolid.newRect(start, end));
 
       Coord cursor = origin.copy();
       cursor.translate(dir, 2);
@@ -172,8 +172,8 @@ public class NetherFortressRoom extends BaseRoom {
     Coord start = origin.copy();
     Coord end = start.copy();
     end.translate(UP, 5);
-    RectSolid.newRect(start, end).fill(worldEditor, liquid());
-    List<Coord> core = new RectSolid(start, end).get();
+    liquid().fill(worldEditor, RectSolid.newRect(start, end));
+    List<Coord> core = RectSolid.newRect(start, end).get();
     Coord spawnerLocation = core.get(random().nextInt(core.size()));
     generateSpawner(spawnerLocation);
   }
@@ -182,7 +182,7 @@ public class NetherFortressRoom extends BaseRoom {
     Coord start = origin.copy();
     Coord end = start.copy();
     end.translate(UP, 5);
-    RectSolid.newRect(start, end).fill(worldEditor, pillars());
+    pillars().fill(worldEditor, RectSolid.newRect(start, end));
 
     for (Direction dir : CARDINAL) {
       Coord cursor = origin.copy();

@@ -20,7 +20,7 @@ public class SegmentSquareArch extends SegmentBase {
     start.translate(dir, 2);
     Coord end = start.copy();
     end.up(2);
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     start.translate(dir, 3);

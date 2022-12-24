@@ -27,12 +27,12 @@ public class RewardRoom extends BaseRoom {
     int y = origin.getY();
     int z = origin.getZ();
 
-    RectSolid.newRect(
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(
         new Coord(x - 7, y, z - 7),
         new Coord(x + 7, y + 5, z + 7)
-    ).fill(worldEditor, SingleBlockBrush.AIR);
+    ));
     RectHollow.newRect(new Coord(x - 8, y - 1, z - 8), new Coord(x + 8, y + 6, z + 8)).fill(worldEditor, walls(), false, true);
-    RectSolid.newRect(new Coord(x - 1, y + 4, z - 1), new Coord(x + 1, y + 5, z + 1)).fill(worldEditor, walls());
+    walls().fill(worldEditor, RectSolid.newRect(new Coord(x - 1, y + 4, z - 1), new Coord(x + 1, y + 5, z + 1)));
 
     Coord cursor;
     for (Direction dir : Direction.CARDINAL) {
@@ -45,7 +45,7 @@ public class RewardRoom extends BaseRoom {
         start = cursor.copy();
         end = start.copy();
         end.up(5);
-        RectSolid.newRect(start, end).fill(worldEditor, walls());
+        walls().fill(worldEditor, RectSolid.newRect(start, end));
         cursor.translate(dir.reverse());
         stairs().setUpsideDown(false).setFacing(dir.reverse()).stroke(worldEditor, cursor);
         cursor.up(2);
@@ -54,14 +54,14 @@ public class RewardRoom extends BaseRoom {
         start = cursor.copy();
         end = start.copy();
         end.up(2);
-        RectSolid.newRect(start, end).fill(worldEditor, walls());
+        walls().fill(worldEditor, RectSolid.newRect(start, end));
         cursor.translate(dir.reverse());
         stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
         cursor.up();
         start = cursor.copy();
         end = start.copy();
         end.up();
-        RectSolid.newRect(start, end).fill(worldEditor, walls());
+        walls().fill(worldEditor, RectSolid.newRect(start, end));
         cursor.up();
         cursor.translate(dir.reverse());
         stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
@@ -72,15 +72,15 @@ public class RewardRoom extends BaseRoom {
         end = start.copy();
         end.up(2);
         end.translate(orthogonal);
-        RectSolid.newRect(start, end).fill(worldEditor, walls());
+        walls().fill(worldEditor, RectSolid.newRect(start, end));
         start.translate(dir.reverse());
         start.up();
         end.translate(dir.reverse());
-        RectSolid.newRect(start, end).fill(worldEditor, walls());
+        walls().fill(worldEditor, RectSolid.newRect(start, end));
         start.translate(dir.reverse());
         start.up();
         end.translate(dir.reverse());
-        RectSolid.newRect(start, end).fill(worldEditor, walls());
+        walls().fill(worldEditor, RectSolid.newRect(start, end));
 
         cursor = origin.copy();
         cursor.translate(dir, 8);
@@ -108,12 +108,12 @@ public class RewardRoom extends BaseRoom {
         end = start.copy();
         end.up(2);
         end.translate(orthogonal, 2);
-        theme().getPrimary().getPillar().fill(worldEditor, new RectSolid(start, end));
+        theme().getPrimary().getPillar().fill(worldEditor, RectSolid.newRect(start, end));
 
         start.translate(dir.reverse());
         start.up();
         end.translate(dir.reverse());
-        RectSolid.newRect(start, end).fill(worldEditor, theme().getPrimary().getPillar());
+        theme().getPrimary().getPillar().fill(worldEditor, RectSolid.newRect(start, end));
 
         cursor = origin.copy();
         cursor.translate(dir, 7);
@@ -134,10 +134,10 @@ public class RewardRoom extends BaseRoom {
         cursor.up();
         end = cursor.copy();
         end.translate(orthogonal.reverse(), 2);
-        RectSolid.newRect(cursor, end).fill(worldEditor, stairs().setUpsideDown(true).setFacing(dir.reverse()));
+        stairs().setUpsideDown(true).setFacing(dir.reverse()).fill(worldEditor, RectSolid.newRect(cursor, end));
         cursor.up();
         end.up();
-        RectSolid.newRect(cursor, end).fill(worldEditor, walls());
+        walls().fill(worldEditor, RectSolid.newRect(cursor, end));
         end.translate(dir.reverse());
         stairs().setUpsideDown(true).setFacing(orthogonal).stroke(worldEditor, cursor);
 
@@ -158,7 +158,7 @@ public class RewardRoom extends BaseRoom {
       end.translate(dir);
       end.translate(o);
       end.up(5);
-      RectSolid.newRect(start, end).fill(worldEditor, theme().getPrimary().getPillar());
+      theme().getPrimary().getPillar().fill(worldEditor, RectSolid.newRect(start, end));
 
       cursor = origin.copy();
       walls().stroke(worldEditor, cursor);

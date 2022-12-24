@@ -34,7 +34,7 @@ public class StorageRoom extends BaseRoom {
   private void pillar(Coord base, int height) {
     Coord top = base.copy();
     top.up(height);
-    RectSolid.newRect(base, top).fill(worldEditor, pillars());
+    pillars().fill(worldEditor, RectSolid.newRect(base, top));
   }
 
   @Override
@@ -63,7 +63,7 @@ public class StorageRoom extends BaseRoom {
         pillarTop(cursor);
 
         Coord end = cursor.copy().down(3).translate(dir, 1).translate(orthogonals, 1);
-        RectSolid.newRect(start, end).fill(worldEditor, walls());
+        walls().fill(worldEditor, RectSolid.newRect(start, end));
 
         cursor = origin.copy().translate(dir, 2).translate(orthogonals, 2);
         pillar(cursor, 4);
@@ -103,7 +103,7 @@ public class StorageRoom extends BaseRoom {
         end = start.copy();
         end.translate(dir, 3);
         end.translate(orthogonals, 1);
-        RectSolid.newRect(start, end).fill(worldEditor, secondaryFloors());
+        secondaryFloors().fill(worldEditor, RectSolid.newRect(start, end));
 
         cursor = origin.copy();
         cursor.translate(dir, 5);
@@ -124,7 +124,7 @@ public class StorageRoom extends BaseRoom {
   private void generateWall(Coord origin, Direction dir, Direction orthogonals) {
     Coord start = origin.copy().translate(dir, 6).up(3);
     Coord end = start.copy().translate(orthogonals, 5);
-    RectSolid.newRect(start, end).fill(worldEditor, walls());
+    walls().fill(worldEditor, RectSolid.newRect(start, end));
 
     start.translate(dir, 1);
     end.translate(dir, 1).down(3);

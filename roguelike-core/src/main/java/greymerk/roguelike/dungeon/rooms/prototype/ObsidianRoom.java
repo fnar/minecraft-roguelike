@@ -47,22 +47,22 @@ public class ObsidianRoom extends BaseRoom {
   }
 
   private void generateHollowSpace(Coord origin) {
-    RectSolid.newRect(
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(
         origin.copy().translate(-10, -3, -10),
         origin.copy().translate(+10, +3, +10)
-    ).fill(worldEditor, SingleBlockBrush.AIR);
+    ));
   }
 
   private void generateRoof(Coord origin) {
-    RectSolid.newRect(origin.copy().translate(-7, 6, -7), origin.copy().translate(7, 6, 7)).fill(worldEditor, secondaryWalls());
-    RectSolid.newRect(origin.copy().translate(-8, 5, -8), origin.copy().translate(8, 5, 8)).fill(worldEditor, secondaryWalls());
-    RectSolid.newRect(origin.copy().translate(-9, 4, -9), origin.copy().translate(9, 4, 9)).fill(worldEditor, secondaryWalls());
-    RectSolid.newRect(origin.copy().translate(-1, 3, -1), origin.copy().translate(1, 5, 1)).fill(worldEditor, SingleBlockBrush.AIR);
+    secondaryWalls().fill(worldEditor, RectSolid.newRect(origin.copy().translate(-7, 6, -7), origin.copy().translate(7, 6, 7)));
+    secondaryWalls().fill(worldEditor, RectSolid.newRect(origin.copy().translate(-8, 5, -8), origin.copy().translate(8, 5, 8)));
+    secondaryWalls().fill(worldEditor, RectSolid.newRect(origin.copy().translate(-9, 4, -9), origin.copy().translate(9, 4, 9)));
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(origin.copy().translate(-1, 3, -1), origin.copy().translate(1, 5, 1)));
     secondaryWalls().stroke(worldEditor, origin.copy().translate(0, 5, 0));
   }
 
   private void generateFoundation(Coord origin) {
-    RectSolid.newRect(origin.copy().translate(-10, -4, -10), origin.copy().translate(10, -4, 10)).fill(worldEditor, secondaryWalls());
+    secondaryWalls().fill(worldEditor, RectSolid.newRect(origin.copy().translate(-10, -4, -10), origin.copy().translate(10, -4, 10)));
   }
 
   private HashSet<Coord> generateSpawnerHolesInCeiling(Coord origin) {
@@ -79,7 +79,7 @@ public class ObsidianRoom extends BaseRoom {
         end.up(2);
         end.translate(dir, 2);
         end.translate(orthogonal, 2);
-        RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
+        SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(start, end));
 
         start = origin.copy();
         start.translate(dir, 3);
@@ -88,7 +88,7 @@ public class ObsidianRoom extends BaseRoom {
         end.translate(dir, 2);
         start.translate(orthogonal, 1);
         end.up(2);
-        RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
+        SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(start, end));
 
         Coord cursor = origin.copy();
         cursor.up(4);
@@ -121,11 +121,11 @@ public class ObsidianRoom extends BaseRoom {
 
       start.down(4);
       end.down();
-      RectSolid.newRect(start, end).fill(worldEditor, secondaryWalls());
+      secondaryWalls().fill(worldEditor, RectSolid.newRect(start, end));
 
       start.up(4 + 3);
       end.up(1 + 3);
-      RectSolid.newRect(start, end).fill(worldEditor, secondaryWalls());
+      secondaryWalls().fill(worldEditor, RectSolid.newRect(start, end));
 
       // mid
       start = origin.copy();
@@ -134,7 +134,7 @@ public class ObsidianRoom extends BaseRoom {
       end = start.copy();
       start.translate(dir.antiClockwise(), 9);
       end.translate(dir.clockwise(), 9);
-      RectSolid.newRect(start, end).fill(worldEditor, secondaryWalls());
+      secondaryWalls().fill(worldEditor, RectSolid.newRect(start, end));
 
       // inner
       start = origin.copy();
@@ -143,7 +143,7 @@ public class ObsidianRoom extends BaseRoom {
       end = start.copy();
       start.translate(dir.antiClockwise(), 9);
       end.translate(dir.clockwise(), 9);
-      RectSolid.newRect(start, end).fill(worldEditor, secondaryWalls());
+      secondaryWalls().fill(worldEditor, RectSolid.newRect(start, end));
 
       // outer shell
       start = origin.copy();
@@ -179,10 +179,9 @@ public class ObsidianRoom extends BaseRoom {
   }
 
   private void generateOuterPillar(Coord pillarLocation, Direction dir, BlockBrush blockBrush) {
-    RectSolid.newRect(
+    blockBrush.fill(worldEditor, RectSolid.newRect(
             pillarLocation.copy().down(2),
-            pillarLocation.copy().up(3))
-        .fill(worldEditor, blockBrush);
+            pillarLocation.copy().up(3)));
 
     Coord blockLocation = pillarLocation.copy()
         .up(3)
@@ -207,7 +206,7 @@ public class ObsidianRoom extends BaseRoom {
       start.translate(dir, 9);
       start.translate(dir.antiClockwise(), 1);
       end.translate(dir.clockwise(), 1);
-      RectSolid.newRect(start, end).fill(worldEditor, primaryWall);
+      primaryWall.fill(worldEditor, RectSolid.newRect(start, end));
     }
   }
 
@@ -224,7 +223,7 @@ public class ObsidianRoom extends BaseRoom {
         end.translate(orthogonal, 9);
         end.down(2);
 
-        RectSolid.newRect(start, end).fill(worldEditor, primaryWall);
+        primaryWall.fill(worldEditor, RectSolid.newRect(start, end));
         StairsBlock stair = stairs();
         Coord stepCoord = origin.copy();
         stepCoord.translate(dir, 8);
@@ -272,22 +271,22 @@ public class ObsidianRoom extends BaseRoom {
         Coord pillar = origin.copy()
             .translate(dir, 2)
             .translate(orthogonal, 2);
-        RectSolid.newRect(
+        pillars().fill(worldEditor, RectSolid.newRect(
             pillar.copy().down(4),
             pillar.copy().up(4)
-        ).fill(worldEditor, pillars());
+        ));
 
         pillar.translate(dir, 4);
-        RectSolid.newRect(
+        secondaryPillars().fill(worldEditor, RectSolid.newRect(
             pillar.copy().down(4),
             pillar.copy().up(4)
-        ).fill(worldEditor, secondaryPillars());
+        ));
 
         pillar.translate(orthogonal, 3);
-        RectSolid.newRect(
+        secondaryPillars().fill(worldEditor, RectSolid.newRect(
             pillar.copy().down(4),
             pillar.copy().up(4)
-        ).fill(worldEditor, secondaryPillars());
+        ));
 
         Coord start = origin.copy();
         start.down();
@@ -295,7 +294,7 @@ public class ObsidianRoom extends BaseRoom {
         start.translate(dir, 2);
         Coord end = start.copy();
         end.translate(dir, 5);
-        RectSolid.newRect(start, end).fill(worldEditor, pillars());
+        pillars().fill(worldEditor, RectSolid.newRect(start, end));
 
         start = origin.copy();
         start.down();
@@ -307,7 +306,7 @@ public class ObsidianRoom extends BaseRoom {
         end.translate(dir.reverse(), 1);
         end.translate(orthogonal, 1);
         end.down();
-        RectSolid.newRect(start, end).fill(worldEditor, secondaryPillars());
+        secondaryPillars().fill(worldEditor, RectSolid.newRect(start, end));
       }
     }
   }
@@ -326,7 +325,7 @@ public class ObsidianRoom extends BaseRoom {
     start.east(6);
     end.south(6);
     end.west(6);
-    RectSolid.newRect(start, end).fill(worldEditor, crap);
+    crap.fill(worldEditor, RectSolid.newRect(start, end));
   }
 
   private void generateChests(Coord origin) {

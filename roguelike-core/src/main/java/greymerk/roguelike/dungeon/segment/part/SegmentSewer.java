@@ -28,16 +28,16 @@ public class SegmentSewer extends SegmentBase {
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
     stair.setUpsideDown(true).setFacing(dir.reverse());
-    RectSolid.newRect(start, end).fill(editor, stair);
+    stair.fill(editor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     start.down();
     end = start.copy();
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end));
     start.down();
     end.down();
-    RectSolid.newRect(start, end).fill(editor, BlockType.WATER_FLOWING.getBrush());
+    BlockType.WATER_FLOWING.getBrush().fill(editor, RectSolid.newRect(start, end));
   }
 }

@@ -32,8 +32,7 @@ public class SegmentSpawner extends SegmentBase {
         .translate(orthogonals[1], 1)
         .up(2);
 
-    RectSolid.newRect(start, end)
-        .fill(editor, SingleBlockBrush.AIR)
+    SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end))
         .translate(dir, 1)
         .fill(editor, getSecondaryWall(theme));
 

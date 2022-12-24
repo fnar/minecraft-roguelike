@@ -39,11 +39,11 @@ public class SegmentWheat extends SegmentBase {
     start.translate(orthogonals[0], 1);
     end.translate(orthogonals[1], 1);
     end.up(1);
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end));
     start.down();
     end.down(2);
 
-    RectSolid.newRect(start, end).fill(editor, BlockType.FARMLAND.getBrush());
+    BlockType.FARMLAND.getBrush().fill(editor, RectSolid.newRect(start, end));
     start.up(1);
     end.up(1);
     BlockJumble crops = new BlockJumble();

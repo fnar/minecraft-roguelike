@@ -23,7 +23,7 @@ public class SegmentFlowers extends SegmentShelf {
     Coord end = start.copy();
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
-    for (Coord c : new RectSolid(start, end)) {
+    for (Coord c : RectSolid.newRect(start, end)) {
       if (editor.getRandom().nextInt(3) == 0 && editor.isSolidBlock(c)) {
         FlowerPotBlock.flowerPot().withRandomContent(editor.getRandom()).stroke(editor, c);
       }

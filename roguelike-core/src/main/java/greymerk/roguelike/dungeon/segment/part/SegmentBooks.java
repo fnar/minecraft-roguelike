@@ -26,7 +26,7 @@ public class SegmentBooks extends SegmentBase {
     Coord end = cursor.copy();
     end.translate(orthogonals[1], 1);
     end.up(2);
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end));
 
     generateSecret(level.getSettings().getSecrets(), editor, level.getSettings(), outward, origin.copy());
 

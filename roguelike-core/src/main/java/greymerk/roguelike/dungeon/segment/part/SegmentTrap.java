@@ -78,7 +78,7 @@ public class SegmentTrap extends SegmentBase {
   private void placeTripwireTrigger(WorldEditor editor, Direction outward, Coord origin) {
     Coord start = origin.copy().translate(outward, 2);
     Coord end = origin.copy().translate(outward.reverse(), 2);
-    RectSolid wire = new RectSolid(start, end);
+    RectSolid wire = RectSolid.newRect(start, end);
     BlockType.TRIPWIRE.getBrush().fill(editor, wire);
     TripwireHookBlock tripwireHook = new TripwireHookBlock().withIsAttached(true);
     tripwireHook.setFacing(outward).stroke(editor, start.translate(outward));

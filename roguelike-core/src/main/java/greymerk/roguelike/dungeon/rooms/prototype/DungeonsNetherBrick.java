@@ -52,7 +52,7 @@ public class DungeonsNetherBrick extends BaseRoom {
 
   private void generateFloor(Coord origin, int x, int y, int z, int length, int width) {
     BlockBrush floor = floors();
-    RectSolid.newRect(new Coord(x - length - 1, y - 1, z - width - 1), new Coord(x + length + 1, y - 1, z + width + 1)).fill(worldEditor, floor);
+    floor.fill(worldEditor, RectSolid.newRect(new Coord(x - length - 1, y - 1, z - width - 1), new Coord(x + length + 1, y - 1, z + width + 1)));
     generateCrapUnderneath(origin, length, width);
   }
 
@@ -60,7 +60,7 @@ public class DungeonsNetherBrick extends BaseRoom {
     BlockWeightedRandom ceiling = new BlockWeightedRandom();
     ceiling.addBlock(BlockType.FENCE_NETHER_BRICK.getBrush(), 10);
     ceiling.addBlock(SingleBlockBrush.AIR, 5);
-    RectSolid.newRect(new Coord(x - length, y + getHeight(), z - width), new Coord(x + length, y + getHeight(), z + width)).fill(worldEditor, ceiling);
+    ceiling.fill(worldEditor, RectSolid.newRect(new Coord(x - length, y + getHeight(), z - width), new Coord(x + length, y + getHeight(), z + width)));
   }
 
   private void generateCrapUnderneath(Coord origin, int length, int width) {
@@ -68,10 +68,11 @@ public class DungeonsNetherBrick extends BaseRoom {
     BlockWeightedRandom subFloor = new BlockWeightedRandom();
     subFloor.addBlock(liquid(), 8);
     subFloor.addBlock(BlockType.OBSIDIAN.getBrush(), 3);
-    RectSolid.newRect(
+    RectSolid rect = RectSolid.newRect(
         origin.copy().translate(-length, -5, -width),
         origin.copy().translate(length, -2, width)
-    ).fill(worldEditor, subFloor);
+    );
+    subFloor.fill(worldEditor, rect);
   }
 
   @Override

@@ -19,7 +19,7 @@ public class SegmentPlant extends SegmentBase {
     Coord start = cursor.copy().translate(dir.left());
     Coord end = cursor.copy().translate(dir.right()).up(2);
     RectSolid wall = RectSolid.newRect(start, end);
-    wall.fill(editor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(editor, wall);
 
     wall.translate(dir, 1);
     getSecondaryWall(theme).fill(editor, wall, false, true);

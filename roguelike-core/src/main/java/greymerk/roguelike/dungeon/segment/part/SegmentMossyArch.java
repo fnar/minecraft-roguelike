@@ -56,10 +56,10 @@ public class SegmentMossyArch extends SegmentBase {
     VineBlock.vine().stroke(editor, cursor);
 
     if (!spawnHoleSet) {
-      RectSolid.newRect(new Coord(0, 2, 0).translate(origin), new Coord(0, 5, 0).translate(origin)).fill(editor, SingleBlockBrush.AIR);
+      SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(new Coord(0, 2, 0).translate(origin), new Coord(0, 5, 0).translate(origin)));
       final Coord translate = new Coord(0, 3, 0).translate(origin);
       final Coord translate1 = new Coord(0, 5, 0).translate(origin);
-      VineBlock.vine().fill(editor, new RectSolid(translate, translate1));
+      VineBlock.vine().fill(editor, RectSolid.newRect(translate, translate1));
 
       if (!editor.isAirBlock(new Coord(0, 6, 0).translate(origin))) {
         BlockType.WATER_FLOWING.getBrush().stroke(editor, new Coord(0, 7, 0).translate(origin));

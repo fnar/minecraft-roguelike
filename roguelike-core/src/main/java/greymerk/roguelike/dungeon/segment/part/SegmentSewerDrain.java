@@ -25,7 +25,7 @@ public class SegmentSewerDrain extends SegmentBase {
     Coord end = start.copy();
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end));
     start.down();
     end.down();
     RectSolid.newRect(start, end).fill(editor, BlockType.WATER_FLOWING.getBrush(), false, true);
@@ -36,7 +36,7 @@ public class SegmentSewerDrain extends SegmentBase {
     start.translate(orthogonals[0]);
     end.translate(orthogonals[1]);
     end.up(2);
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end));
     start.translate(dir);
     end.translate(dir);
     RectSolid.newRect(start, end).fill(editor, getPrimaryWalls(theme));
@@ -57,7 +57,7 @@ public class SegmentSewerDrain extends SegmentBase {
     start.up();
     end = start.copy();
     end.translate(dir, 5);
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end));
     BlockType.WATER_FLOWING.getBrush().stroke(editor, end);
 
     cursor = origin.copy();

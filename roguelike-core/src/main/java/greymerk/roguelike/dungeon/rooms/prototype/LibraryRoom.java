@@ -36,15 +36,15 @@ public class LibraryRoom extends BaseRoom {
     int y = origin.getY();
     int z = origin.getZ();
 
-    RectSolid.newRect(new Coord(x - 4, y, z - 4), new Coord(x + 4, y + 3, z + 4)).fill(worldEditor, SingleBlockBrush.AIR);
-    RectSolid.newRect(new Coord(x - 3, y + 4, z - 3), new Coord(x + 3, y + 6, z + 3)).fill(worldEditor, SingleBlockBrush.AIR);
-    RectSolid.newRect(new Coord(x - 2, y + 7, z - 2), new Coord(x + 2, y + 7, z + 2)).fill(worldEditor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(new Coord(x - 4, y, z - 4), new Coord(x + 4, y + 3, z + 4)));
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(new Coord(x - 3, y + 4, z - 3), new Coord(x + 3, y + 6, z + 3)));
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(new Coord(x - 2, y + 7, z - 2), new Coord(x + 2, y + 7, z + 2)));
 
     RectHollow.newRect(new Coord(x - 5, y, z - 5), new Coord(x + 5, y + 4, z + 5)).fill(worldEditor, walls(), false, true);
     RectHollow.newRect(new Coord(x - 4, y + 3, z - 4), new Coord(x + 4, y + 7, z + 4)).fill(worldEditor, walls(), false, true);
     RectHollow.newRect(new Coord(x - 3, y + 6, z - 3), new Coord(x + 3, y + 8, z + 3)).fill(worldEditor, walls(), false, true);
 
-    RectSolid.newRect(new Coord(x - 5, y - 1, z - 5), new Coord(x + 5, y - 1, z + 5)).fill(worldEditor, floors());
+    floors().fill(worldEditor, RectSolid.newRect(new Coord(x - 5, y - 1, z - 5), new Coord(x + 5, y - 1, z + 5)));
 
     Coord start = origin.copy();
     start.up(5);
@@ -55,7 +55,7 @@ public class LibraryRoom extends BaseRoom {
     start.up(6);
     Coord end = start.copy();
     end.up();
-    RectSolid.newRect(start, end).fill(worldEditor, pillars());
+    pillars().fill(worldEditor, RectSolid.newRect(start, end));
 
 
     for (Direction dir : Direction.CARDINAL) {
@@ -72,7 +72,7 @@ public class LibraryRoom extends BaseRoom {
       start.translate(dir.antiClockwise(), 4);
       end = start.copy();
       end.up(4);
-      RectSolid.newRect(start, end).fill(worldEditor, pillars());
+      pillars().fill(worldEditor, RectSolid.newRect(start, end));
 
       start = origin.copy();
       start.translate(dir, 3);
@@ -80,7 +80,7 @@ public class LibraryRoom extends BaseRoom {
       start.up(3);
       end = start.copy();
       end.up(3);
-      RectSolid.newRect(start, end).fill(worldEditor, pillars());
+      pillars().fill(worldEditor, RectSolid.newRect(start, end));
 
       Coord cursor = end.copy();
       cursor.translate(dir.reverse());
@@ -115,7 +115,7 @@ public class LibraryRoom extends BaseRoom {
       start = cursor.copy();
       end = cursor.copy();
       start.translate(dir.reverse(), 2);
-      RectSolid.newRect(start, end).fill(worldEditor, walls());
+      walls().fill(worldEditor, RectSolid.newRect(start, end));
       cursor.up();
       walls().stroke(worldEditor, cursor);
       cursor.up();
@@ -144,10 +144,10 @@ public class LibraryRoom extends BaseRoom {
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
     end.up(2);
-    SingleBlockBrush.AIR.fill(editor, new RectSolid(start, end));
+    SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end));
     start.translate(dir);
     end.translate(dir);
-    theme.getPrimary().getWall().fill(editor, new RectSolid(start, end), false, true);
+    theme.getPrimary().getWall().fill(editor, RectSolid.newRect(start, end), false, true);
 
     for (Direction o : dir.orthogonals()) {
       Coord c = cursor.copy();
@@ -196,11 +196,11 @@ public class LibraryRoom extends BaseRoom {
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
     end.up(2);
-    SingleBlockBrush.AIR.fill(editor, new RectSolid(start, end));
+    SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end));
 
     start.translate(dir);
     end.translate(dir).up();
-    theme.getPrimary().getWall().fill(editor, new RectSolid(start, end), false, true);
+    theme.getPrimary().getWall().fill(editor, RectSolid.newRect(start, end), false, true);
 
     for (Direction o : dir.orthogonals()) {
       Coord c = cursor.copy();
@@ -211,7 +211,7 @@ public class LibraryRoom extends BaseRoom {
 
     start = cursor.copy().translate(dir.antiClockwise());
     end = cursor.copy().translate(dir.clockwise());
-    RectSolid rect = new RectSolid(start, end);
+    RectSolid rect = RectSolid.newRect(start, end);
     for (Coord c : rect) {
       TallPlant.placePlant(editor, c, dir.reverse());
     }

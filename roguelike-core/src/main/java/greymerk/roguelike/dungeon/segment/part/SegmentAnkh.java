@@ -30,7 +30,7 @@ public class SegmentAnkh extends SegmentBase {
     Coord end = start.copy();
     end.up(2);
 
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end));
 
 
     Coord cursor;

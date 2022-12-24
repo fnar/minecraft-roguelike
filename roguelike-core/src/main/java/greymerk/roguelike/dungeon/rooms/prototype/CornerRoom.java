@@ -37,7 +37,7 @@ public class CornerRoom extends BaseRoom {
 
       Coord pillarStart = cursor.copy();
       Coord pillarEnd = cursor.copy().up(2);
-      RectSolid.newRect(pillarStart, pillarEnd).fill(worldEditor, pillars());
+      pillars().fill(worldEditor, RectSolid.newRect(pillarStart, pillarEnd));
 
       Coord pillarTop = cursor.copy().up();
       walls().stroke(worldEditor, pillarTop);
@@ -75,7 +75,7 @@ public class CornerRoom extends BaseRoom {
   private void createHollowCenter(Coord origin) {
     Coord hollowAirCorner0 = origin.add(-2, 0, -2);
     Coord hollowAirCorner1 = origin.add(2, 3, 2);
-    RectSolid.newRect(hollowAirCorner0, hollowAirCorner1).fill(worldEditor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(hollowAirCorner0, hollowAirCorner1));
   }
 
   private void createShell(Coord origin) {

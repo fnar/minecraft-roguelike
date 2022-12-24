@@ -69,7 +69,7 @@ public class BTeamRoom extends BaseRoom {
     end.translate(dir.reverse(), 3);
     start.translate(dir.antiClockwise(), 5);
     end.translate(dir.clockwise(), 5);
-    RectSolid.newRect(start, end).fill(worldEditor, cobble);
+    cobble.fill(worldEditor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     start.down();
@@ -78,7 +78,7 @@ public class BTeamRoom extends BaseRoom {
     end.translate(dir.reverse(), 2);
     start.translate(dir.antiClockwise(), 4);
     end.translate(dir.clockwise(), 4);
-    RectSolid.newRect(start, end).fill(worldEditor, cyan);
+    cyan.fill(worldEditor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     start.down();
@@ -87,7 +87,7 @@ public class BTeamRoom extends BaseRoom {
     end.translate(dir.reverse(), 1);
     start.translate(dir.antiClockwise(), 3);
     end.translate(dir.clockwise(), 3);
-    RectSolid.newRect(start, end).fill(worldEditor, slab);
+    slab.fill(worldEditor, RectSolid.newRect(start, end));
 
     Coord cursor = origin.copy();
     cursor.translate(dir.reverse(), 4);
@@ -111,7 +111,7 @@ public class BTeamRoom extends BaseRoom {
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
     end.up(2);
-    RectSolid.newRect(start, end).fill(worldEditor, cobble);
+    cobble.fill(worldEditor, RectSolid.newRect(start, end));
 
     cursor = origin.copy();
     cursor.translate(dir.reverse(), 4);
@@ -137,10 +137,10 @@ public class BTeamRoom extends BaseRoom {
     end = start.copy();
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
-    stair.setUpsideDown(true).setFacing(dir).fill(worldEditor, new RectSolid(start, end));
+    stair.setUpsideDown(true).setFacing(dir).fill(worldEditor, RectSolid.newRect(start, end));
     start.translate(dir, 3);
     end.translate(dir, 3);
-    stair.setUpsideDown(true).setFacing(dir.reverse()).fill(worldEditor, new RectSolid(start, end));
+    stair.setUpsideDown(true).setFacing(dir.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
 
     for (Direction d : dir.orthogonals()) {
       start = origin.copy();
@@ -148,7 +148,7 @@ public class BTeamRoom extends BaseRoom {
       start.translate(d, 3);
       end = start.copy();
       end.translate(dir);
-      stair.setUpsideDown(true).setFacing(d.reverse()).fill(worldEditor, new RectSolid(start, end));
+      stair.setUpsideDown(true).setFacing(d.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
     }
 
     start = origin.copy();
@@ -157,7 +157,7 @@ public class BTeamRoom extends BaseRoom {
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
     end.translate(dir);
-    RectSolid.newRect(start, end).fill(worldEditor, lamp);
+    lamp.fill(worldEditor, RectSolid.newRect(start, end));
 
     cursor = origin.copy();
     cursor.translate(dir, 4);
@@ -223,7 +223,7 @@ public class BTeamRoom extends BaseRoom {
       start.translate(d, 2);
       end = start.copy();
       end.translate(dir);
-      stair.setUpsideDown(true).setFacing(d).fill(editor, new RectSolid(start, end));
+      stair.setUpsideDown(true).setFacing(d).fill(editor, RectSolid.newRect(start, end));
     }
 
     cursor = origin.copy();
@@ -288,18 +288,18 @@ public class BTeamRoom extends BaseRoom {
     start.translate(dir.antiClockwise(), 4);
     end.translate(dir.clockwise(), 4);
     end.up(2);
-    RectSolid.newRect(start, end).fill(worldEditor, checkers);
+    checkers.fill(worldEditor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     end = start.copy();
     start.translate(dir.antiClockwise(), 5);
     end.translate(dir.clockwise(), 5);
-    RectSolid.newRect(start, end).fill(worldEditor, plank);
+    plank.fill(worldEditor, RectSolid.newRect(start, end));
     start.translate(dir);
     end.translate(dir);
     start.up(4);
     end.up(4);
-    stair.setUpsideDown(true).setFacing(dir).fill(worldEditor, new RectSolid(start, end));
+    stair.setUpsideDown(true).setFacing(dir).fill(worldEditor, RectSolid.newRect(start, end));
 
     for (Direction d : dir.orthogonals()) {
       start = origin.copy();
@@ -307,7 +307,7 @@ public class BTeamRoom extends BaseRoom {
       start.up();
       end = start.copy();
       end.up(2);
-      wood.getLog().setFacing(Direction.UP).fill(worldEditor, new RectSolid(start, end));
+      wood.getLog().setFacing(Direction.UP).fill(worldEditor, RectSolid.newRect(start, end));
 
       Coord cursor = origin.copy();
       cursor.translate(dir);
@@ -336,7 +336,7 @@ public class BTeamRoom extends BaseRoom {
     end = start.copy();
     start.translate(dir.clockwise(), 3);
     end.translate(dir.antiClockwise(), 4);
-    RectSolid.newRect(start, end).fill(worldEditor, plank);
+    plank.fill(worldEditor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     start.up();
@@ -344,7 +344,7 @@ public class BTeamRoom extends BaseRoom {
     start.translate(dir.clockwise(), 3);
     end.translate(dir.antiClockwise(), 4);
     end.up(3);
-    RectSolid.newRect(start, end).fill(worldEditor, bricks);
+    bricks.fill(worldEditor, RectSolid.newRect(start, end));
 
     cursor = origin.copy();
     cursor.translate(dir.reverse());
@@ -354,7 +354,7 @@ public class BTeamRoom extends BaseRoom {
         start = cursor.copy();
         end = start.copy();
         end.translate(dir.antiClockwise(), 2);
-        RectSolid.newRect(start, end).fill(worldEditor, b);
+        b.fill(worldEditor, RectSolid.newRect(start, end));
       } else {
         Coord c = cursor.copy();
         c.translate(dir.clockwise());

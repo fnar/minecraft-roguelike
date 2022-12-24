@@ -3,7 +3,6 @@ package greymerk.roguelike.dungeon.rooms.prototype;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import greymerk.roguelike.dungeon.base.BaseRoom;
@@ -62,13 +61,13 @@ public class EnikoRoom extends BaseRoom {
     end = origin.copy();
     start.translate(new Coord(3, 4, 3));
     end.translate(new Coord(-3, 4, -3));
-    RectSolid.newRect(start, end).fill(worldEditor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     end = origin.copy();
     start.translate(new Coord(-3, -1, -3));
     end.translate(new Coord(3, -1, 3));
-    RectSolid.newRect(start, end).fill(worldEditor, floors());
+    floors().fill(worldEditor, RectSolid.newRect(start, end));
 
     for (Direction dir : Direction.CARDINAL) {
       Coord cursor = origin.copy();
@@ -95,7 +94,7 @@ public class EnikoRoom extends BaseRoom {
         start.translate(dir.antiClockwise());
         end.translate(dir.clockwise());
         end.translate(dir, 6);
-        RectSolid.newRect(start, end).fill(worldEditor, floors());
+        floors().fill(worldEditor, RectSolid.newRect(start, end));
       }
     }
 

@@ -3,9 +3,7 @@ package greymerk.roguelike.dungeon.rooms.prototype;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
@@ -36,20 +34,19 @@ public class CakeRoom extends BaseRoom {
     length = random().nextInt(2) + 3;
     int height = 3;
 
-    RectSolid.newRect(
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(
         new Coord(x - width, y, z - length),
-        new Coord(x + width, y + height, z + length))
-        .fill(worldEditor, SingleBlockBrush.AIR);
+        new Coord(x + width, y + height, z + length)));
 
     RectHollow.newRect(
         origin.copy().west(width + 1).north(length + 1).down(),
         origin.copy().east(width + 1).south(length + 1).up(height + 1)
     ).fill(worldEditor, floors(), false, true);
 
-    RectSolid.newRect(new Coord(x - width, y, z - length), new Coord(x - width, y + height, z - length)).fill(worldEditor, pillars());
-    RectSolid.newRect(new Coord(x - width, y, z + length), new Coord(x - width, y + height, z + length)).fill(worldEditor, pillars());
-    RectSolid.newRect(new Coord(x + width, y, z - length), new Coord(x + width, y + height, z - length)).fill(worldEditor, pillars());
-    RectSolid.newRect(new Coord(x + width, y, z + length), new Coord(x + width, y + height, z + length)).fill(worldEditor, pillars());
+    pillars().fill(worldEditor, RectSolid.newRect(new Coord(x - width, y, z - length), new Coord(x - width, y + height, z - length)));
+    pillars().fill(worldEditor, RectSolid.newRect(new Coord(x - width, y, z + length), new Coord(x - width, y + height, z + length)));
+    pillars().fill(worldEditor, RectSolid.newRect(new Coord(x + width, y, z - length), new Coord(x + width, y + height, z - length)));
+    pillars().fill(worldEditor, RectSolid.newRect(new Coord(x + width, y, z + length), new Coord(x + width, y + height, z + length)));
 
     lights().stroke(worldEditor, new Coord(x - width + 1, y + height + 1, z - length + 1));
     lights().stroke(worldEditor, new Coord(x - width + 1, y + height + 1, z + length - 1));

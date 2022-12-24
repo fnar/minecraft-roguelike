@@ -28,7 +28,7 @@ public class PyramidCornerRoom extends BaseRoom {
 
     RectHollow.newRect(new Coord(x - 3, y - 1, z - 3), new Coord(x + 3, y + 3, z + 3)).fill(worldEditor, walls(), false, true);
     RectSolid.newRect(new Coord(x - 2, y + 3, z - 2), new Coord(x + 2, y + 5, z + 2)).fill(worldEditor, walls(), false, true);
-    RectSolid.newRect(new Coord(x - 1, y + 3, z - 1), new Coord(x + 1, y + 3, z + 1)).fill(worldEditor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(new Coord(x - 1, y + 3, z - 1), new Coord(x + 1, y + 3, z + 1)));
 
     // floor
     RectSolid.newRect(new Coord(x - 3, y - 1, z - 3), new Coord(x + 3, y - 1, z + 3)).fill(worldEditor, theme().getPrimary().getFloor(), false, true);
@@ -53,7 +53,7 @@ public class PyramidCornerRoom extends BaseRoom {
       Coord start = cursor.copy();
       cursor.up(2);
       Coord end = cursor.copy();
-      RectSolid.newRect(start, end).fill(worldEditor, pillars());
+      pillars().fill(worldEditor, RectSolid.newRect(start, end));
     }
 
     return this;

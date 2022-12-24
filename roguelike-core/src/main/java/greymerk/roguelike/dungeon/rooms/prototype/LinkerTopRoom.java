@@ -34,7 +34,7 @@ public class LinkerTopRoom extends BaseRoom {
     end = origin.copy();
     start.translate(new Coord(-4, -1, -4));
     end.translate(new Coord(4, -1, 4));
-    RectSolid.newRect(start, end).fill(worldEditor, floors());
+    floors().fill(worldEditor, RectSolid.newRect(start, end));
 
     for (Direction dir : Direction.CARDINAL) {
 
@@ -45,7 +45,7 @@ public class LinkerTopRoom extends BaseRoom {
       end.translate(dir, 4);
       end.translate(dir.antiClockwise(), 4);
       end.up(4);
-      RectSolid.newRect(start, end).fill(worldEditor, pillars());
+      pillars().fill(worldEditor, RectSolid.newRect(start, end));
 
       start = origin.copy();
       start.translate(dir, 3);
@@ -53,10 +53,10 @@ public class LinkerTopRoom extends BaseRoom {
       start.up(4);
       end = start.copy();
       end.translate(dir.clockwise(), 4);
-      RectSolid.newRect(start, end).fill(worldEditor, walls());
+      walls().fill(worldEditor, RectSolid.newRect(start, end));
       start.translate(dir.reverse());
       end.translate(dir.reverse());
-      RectSolid.newRect(start, end).fill(worldEditor, stairs().setUpsideDown(true).setFacing(dir.reverse()));
+      stairs().setUpsideDown(true).setFacing(dir.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
 
       for (Direction o : dir.orthogonals()) {
         cursor = origin.copy();

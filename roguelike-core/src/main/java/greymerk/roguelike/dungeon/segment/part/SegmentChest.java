@@ -27,7 +27,7 @@ public class SegmentChest extends SegmentBase {
     start.translate(orthogonals[0], 1);
     end.translate(orthogonals[1], 1);
     end.translate(UP, 2);
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end));
     start.translate(dir, 1);
     end.translate(dir, 1);
     RectSolid.newRect(start, end).fill(editor, getSecondaryWall(theme));
