@@ -283,14 +283,6 @@ public class DungeonsEnchant extends BaseRoom {
       wall.stroke(worldEditor, cursor);
       cursor.translate(entrance);
       stair.setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
-
-      start = origin.copy();
-      start.up();
-      start.translate(o, 4);
-      end = start.copy();
-      start.translate(o.antiClockwise());
-      end.translate(o.clockwise());
-      chests.addAll(new RectSolid(start, end).get());
     }
 
     cursor = origin.copy();
@@ -304,7 +296,16 @@ public class DungeonsEnchant extends BaseRoom {
     cursor.translate(entrance, 5);
     BlockType.ENCHANTING_TABLE.getBrush().stroke(worldEditor, cursor);
 
-    generateChest(Coord.randomFrom(chests, random()), getEntrance(entrances), ChestType.ENCHANTING);
+    generateChest(generateChestLocation(origin.copy().up()), getEntrance(entrances), ChestType.ENCHANTING);
+  }
+
+  @Override
+  protected Coord generateChestLocation(Coord origin) {
+    Direction dir0 = Direction.randomCardinal(random());
+    Direction dir1 = dir0.orthogonals()[random().nextBoolean() ? 0 : 1];
+    return origin.copy()
+        .translate(dir0, 4)
+        .translate(dir1, 1);
   }
 
   @Override

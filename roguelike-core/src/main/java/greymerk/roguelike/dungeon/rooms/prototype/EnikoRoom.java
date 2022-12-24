@@ -46,8 +46,6 @@ public class EnikoRoom extends BaseRoom {
 
   @Override
   public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    List<Coord> chests = new ArrayList<>();
-
     Coord start = origin.copy();
     Coord end = origin.copy();
     start.translate(new Coord(6, -1, 6));
@@ -85,10 +83,6 @@ public class EnikoRoom extends BaseRoom {
         stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
         c.translate(o);
         stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
-        c.up();
-        chests.add(c.copy());
-        c.translate(o.reverse());
-        chests.add(c.copy());
       }
 
       cursor.translate(dir.antiClockwise(), 5);
@@ -106,9 +100,18 @@ public class EnikoRoom extends BaseRoom {
     }
 
     generateSpawner(origin, COMMON_MOBS);
-    generateChest(Coord.randomFrom(chests, random()), getEntrance(entrances));
+    generateChest(generateChestLocation(origin.copy().up()), getEntrance(entrances));
 
     return this;
+  }
+
+  @Override
+  protected Coord generateChestLocation(Coord origin) {
+    Direction dir0 = Direction.randomCardinal(random());
+    Direction dir1 = dir0.orthogonals()[random().nextBoolean() ? 0 : 1];
+    return origin.copy()
+        .translate(dir0, 5)
+        .translate(dir1, 3 + (random().nextBoolean() ? 1 : 0));
   }
 
   public int getSize() {

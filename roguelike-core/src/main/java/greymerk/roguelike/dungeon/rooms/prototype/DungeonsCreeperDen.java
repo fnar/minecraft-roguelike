@@ -40,28 +40,20 @@ public class DungeonsCreeperDen extends BaseRoom {
     subfloor.addBlock(floor, 3);
     subfloor.addBlock(TNT_META_BLOCK, 1);
 
-    Coord start = origin.copy();
-    Coord end = origin.copy();
-    start.translate(new Coord(-4, -4, -4));
-    end.translate(new Coord(4, 5, 4));
+    Coord start = origin.copy().translate(-4, -4, -4);
+    Coord end = origin.copy().translate(4, 5, 4);
     RectHollow.newRect(start, end).fill(worldEditor, mossy, false, true);
 
-    start = origin.copy();
-    end = origin.copy();
-    start.translate(new Coord(-3, -1, -3));
-    end.translate(new Coord(3, -1, 3));
+    start = origin.copy().translate(-3, -1, -3);
+    end = origin.copy().translate(3, -1, 3);
     RectSolid.newRect(start, end).fill(worldEditor, floor);
 
-    start = origin.copy();
-    end = origin.copy();
-    start.translate(new Coord(-3, -3, -3));
-    end.translate(new Coord(3, -2, 3));
+    start = origin.copy().translate(-3, -3, -3);
+    end = origin.copy().translate(3, -2, 3);
     RectSolid.newRect(start, end).fill(worldEditor, subfloor);
 
-    start = origin.copy();
-    end = origin.copy();
-    start.translate(new Coord(-3, 0, -3));
-    end.translate(new Coord(3, 0, 3));
+    start = origin.copy().translate(-3, 0, -3);
+    end = origin.copy().translate(3, 0, 3);
 
     List<Coord> chestSpaces = new RectSolid(start, end).get();
     Coord.randomFrom(chestSpaces, 3, random())

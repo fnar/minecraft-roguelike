@@ -2,9 +2,7 @@ package greymerk.roguelike.dungeon.rooms.prototype;
 
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 
-import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
@@ -125,19 +123,9 @@ public class BrickRoom extends BaseRoom {
     boolean isChestAboveSpawner = random().nextInt(Math.max(1, getDifficulty(origin)) + 1) != 0;
     Coord chestLocation = isChestAboveSpawner
         ? spawnerLocation.copy().up()
-        : Coord.randomFrom(getPotentialChestLocations(origin), random());
+        : generateChestLocation(origin);
 
     generateTrappableChest(chestLocation, facing);
-  }
-
-  public List<Coord> getPotentialChestLocations(Coord origin) {
-    return CARDINAL.stream()
-        .flatMap(dir ->
-            Arrays.stream(dir.orthogonals())
-                .map(orthogonal -> origin.copy()
-                    .translate(dir, 3)
-                    .translate(orthogonal, 2)))
-        .collect(Collectors.toList());
   }
 
   public int getSize() {
