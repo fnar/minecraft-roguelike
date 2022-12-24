@@ -59,7 +59,7 @@ public class HouseTower extends Tower {
     end.up(8);
     end.translate(dir.reverse(), 7);
     end.translate(dir.antiClockwise(), 10);
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end));
 
     start = floor.copy();
     start.translate(dir.clockwise(), 2);
@@ -68,7 +68,7 @@ public class HouseTower extends Tower {
     end.up(3);
     end.translate(dir.antiClockwise(), 8);
     end.translate(dir.reverse(), 5);
-    RectSolid.newRect(new Coord(x - 2, floor.getY() + 3, z - 2), new Coord(x + 2, y + 10, z + 2)).fill(editor, walls);
+    walls.fill(editor, RectSolid.newRect(new Coord(x - 2, floor.getY() + 3, z - 2), new Coord(x + 2, y + 10, z + 2)));
     RectHollow.newRect(start, end).fill(editor, walls);
 
     cursor = floor.copy();
@@ -84,7 +84,7 @@ public class HouseTower extends Tower {
     end.down();
     end.translate(dir.reverse(), 4);
     end.translate(dir.antiClockwise(), 7);
-    RectSolid.newRect(start, end).fill(editor, mainFloor);
+    mainFloor.fill(editor, RectSolid.newRect(start, end));
 
     start = floor.copy();
     start.down(2);
@@ -93,7 +93,7 @@ public class HouseTower extends Tower {
     end = new Coord(floor.getX(), y + 10, floor.getZ());
     end.translate(dir.reverse(), 5);
     end.translate(dir.antiClockwise(), 8);
-    RectSolid.newRect(start, end).fill(editor, walls);
+    walls.fill(editor, RectSolid.newRect(start, end));
 
     cursor = floor.copy();
     cursor.translate(dir.reverse(), 5);
@@ -296,26 +296,26 @@ public class HouseTower extends Tower {
     start = cursor.copy();
     end = cursor.copy();
     end.translate(dir.reverse(), 10);
-    stair.setUpsideDown(false).setFacing(dir.clockwise()).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(false).setFacing(dir.clockwise()).fill(editor, RectSolid.newRect(start, end));
     start.translate(dir.antiClockwise());
     end.translate(dir.antiClockwise());
-    stair.setUpsideDown(true).setFacing(dir.antiClockwise()).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(true).setFacing(dir.antiClockwise()).fill(editor, RectSolid.newRect(start, end));
     start.up();
     end.up();
-    stair.setUpsideDown(false).setFacing(dir.clockwise()).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(false).setFacing(dir.clockwise()).fill(editor, RectSolid.newRect(start, end));
     start.translate(dir.antiClockwise());
     end.translate(dir.antiClockwise());
-    stair.setUpsideDown(true).setFacing(dir.antiClockwise()).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(true).setFacing(dir.antiClockwise()).fill(editor, RectSolid.newRect(start, end));
     start.up();
     end.up();
-    stair.setUpsideDown(false).setFacing(dir.clockwise()).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(false).setFacing(dir.clockwise()).fill(editor, RectSolid.newRect(start, end));
     start.translate(dir.antiClockwise());
     end.translate(dir.antiClockwise());
     end.translate(dir);
-    stair.setUpsideDown(true).setFacing(dir.antiClockwise()).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(true).setFacing(dir.antiClockwise()).fill(editor, RectSolid.newRect(start, end));
     start.up();
     end.up();
-    stair.setUpsideDown(false).setFacing(dir.clockwise()).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(false).setFacing(dir.clockwise()).fill(editor, RectSolid.newRect(start, end));
 
     start.translate(dir.antiClockwise());
     end.translate(dir.antiClockwise());
@@ -339,21 +339,21 @@ public class HouseTower extends Tower {
     start.translate(dir.antiClockwise());
     end.translate(dir.antiClockwise());
     end.translate(dir, 5);
-    stair.setUpsideDown(false).setFacing(dir.antiClockwise()).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(false).setFacing(dir.antiClockwise()).fill(editor, RectSolid.newRect(start, end));
     start.down();
     end.down();
-    stair.setUpsideDown(true).setFacing(dir.clockwise()).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(true).setFacing(dir.clockwise()).fill(editor, RectSolid.newRect(start, end));
     start.translate(dir.antiClockwise());
     end.translate(dir.antiClockwise());
     end.translate(dir);
-    stair.setUpsideDown(false).setFacing(dir.antiClockwise()).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(false).setFacing(dir.antiClockwise()).fill(editor, RectSolid.newRect(start, end));
     start.down();
     end.down();
-    stair.setUpsideDown(true).setFacing(dir.clockwise()).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(true).setFacing(dir.clockwise()).fill(editor, RectSolid.newRect(start, end));
     start.translate(dir.antiClockwise());
     end.translate(dir.antiClockwise());
     end.translate(dir);
-    stair.setUpsideDown(false).setFacing(dir.antiClockwise()).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(false).setFacing(dir.antiClockwise()).fill(editor, RectSolid.newRect(start, end));
 
     cursor = origin.copy();
     cursor.up(2);
@@ -362,34 +362,34 @@ public class HouseTower extends Tower {
     start = cursor.copy();
     end = cursor.copy();
     end.translate(dir.clockwise(), 6);
-    stair.setUpsideDown(false).setFacing(dir).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(false).setFacing(dir).fill(editor, RectSolid.newRect(start, end));
     start.translate(dir.reverse());
     end.translate(dir.reverse());
-    stair.setUpsideDown(true).setFacing(dir.reverse()).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(true).setFacing(dir.reverse()).fill(editor, RectSolid.newRect(start, end));
     start.up();
     end.up();
     end.translate(dir.clockwise());
-    stair.setUpsideDown(false).setFacing(dir).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(false).setFacing(dir).fill(editor, RectSolid.newRect(start, end));
     start.translate(dir.reverse());
     end.translate(dir.reverse());
-    stair.setUpsideDown(true).setFacing(dir.reverse()).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(true).setFacing(dir.reverse()).fill(editor, RectSolid.newRect(start, end));
     start.up();
     end.up();
     end.translate(dir.clockwise());
-    stair.setUpsideDown(false).setFacing(dir).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(false).setFacing(dir).fill(editor, RectSolid.newRect(start, end));
     start.translate(dir.reverse());
     end.translate(dir.reverse());
-    stair.setUpsideDown(true).setFacing(dir.reverse()).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(true).setFacing(dir.reverse()).fill(editor, RectSolid.newRect(start, end));
     start.up();
     end.up();
     end.translate(dir.clockwise());
-    stair.setUpsideDown(false).setFacing(dir).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(false).setFacing(dir).fill(editor, RectSolid.newRect(start, end));
     start.translate(dir.reverse());
     end.translate(dir.reverse());
-    stair.setUpsideDown(true).setFacing(dir.reverse()).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(true).setFacing(dir.reverse()).fill(editor, RectSolid.newRect(start, end));
     start.up();
     end.up();
-    stair.setUpsideDown(false).setFacing(dir).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(false).setFacing(dir).fill(editor, RectSolid.newRect(start, end));
 
     start.translate(dir.reverse());
     end.translate(dir.reverse());
@@ -401,41 +401,41 @@ public class HouseTower extends Tower {
     end.translate(dir.clockwise());
     start.translate(dir);
     end.translate(dir);
-    stair.setUpsideDown(false).setFacing(dir.clockwise()).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(false).setFacing(dir.clockwise()).fill(editor, RectSolid.newRect(start, end));
 
     cursor.translate(dir.reverse(), 10);
     start = cursor.copy();
     end = cursor.copy();
     end.translate(dir.clockwise(), 7);
-    stair.setUpsideDown(false).setFacing(dir.reverse()).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(false).setFacing(dir.reverse()).fill(editor, RectSolid.newRect(start, end));
     start.translate(dir);
     end.translate(dir);
-    stair.setUpsideDown(true).setFacing(dir).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(true).setFacing(dir).fill(editor, RectSolid.newRect(start, end));
     start.up();
     end.up();
     end.translate(dir.clockwise(), 5);
-    stair.setUpsideDown(false).setFacing(dir.reverse()).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(false).setFacing(dir.reverse()).fill(editor, RectSolid.newRect(start, end));
     start.translate(dir);
     end.translate(dir);
-    stair.setUpsideDown(true).setFacing(dir).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(true).setFacing(dir).fill(editor, RectSolid.newRect(start, end));
     end.translate(dir.antiClockwise());
     start.up();
     end.up();
-    stair.setUpsideDown(false).setFacing(dir.reverse()).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(false).setFacing(dir.reverse()).fill(editor, RectSolid.newRect(start, end));
     start.translate(dir);
     end.translate(dir);
-    stair.setUpsideDown(true).setFacing(dir).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(true).setFacing(dir).fill(editor, RectSolid.newRect(start, end));
     end.translate(dir.antiClockwise());
     start.up();
     end.up();
-    stair.setUpsideDown(false).setFacing(dir.reverse()).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(false).setFacing(dir.reverse()).fill(editor, RectSolid.newRect(start, end));
     start.translate(dir);
     end.translate(dir);
-    stair.setUpsideDown(true).setFacing(dir).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(true).setFacing(dir).fill(editor, RectSolid.newRect(start, end));
     end.translate(dir.antiClockwise());
     start.up();
     end.up();
-    stair.setUpsideDown(false).setFacing(dir.reverse()).fill(editor, new RectSolid(start, end));
+    stair.setUpsideDown(false).setFacing(dir.reverse()).fill(editor, RectSolid.newRect(start, end));
   }
 
   private void upperFloor(WorldEditor editor, Theme theme, Direction dir, Coord origin) {

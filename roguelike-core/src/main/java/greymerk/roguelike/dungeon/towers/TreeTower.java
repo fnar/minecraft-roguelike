@@ -50,7 +50,7 @@ public class TreeTower extends Tower {
     start.translate(new Coord(-3, -3, -3));
     end = ground.copy();
     end.translate(new Coord(3, 3, 3));
-    RectSolid.newRect(start, end).fill(editor, log);
+    log.fill(editor, RectSolid.newRect(start, end));
 
     carveRoom(editor, ground);
     carveRoom(editor, upstairs);
@@ -60,7 +60,7 @@ public class TreeTower extends Tower {
     end = ground.copy();
     end.up();
     end.translate(dir, 8);
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end));
 
     start = ground.copy();
     end = ground.copy();
@@ -69,7 +69,7 @@ public class TreeTower extends Tower {
 
     start = upstairs.copy();
     start.down();
-    for (Coord p : new RectSolid(start, origin)) {
+    for (Coord p : RectSolid.newRect(start, origin)) {
       editor.spiralStairStep(editor.getRandom(), p, theme.getPrimary().getStair(), theme.getPrimary().getPillar());
     }
   }
@@ -84,7 +84,7 @@ public class TreeTower extends Tower {
     start.translate(new Coord(-(size - 1), 0, -(size - 1)));
     end = origin.copy();
     end.translate(new Coord(size - 1, 2, size - 1));
-    SingleBlockBrush.AIR.fill(editor, new RectSolid(start, end));
+    SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     end = start.copy();
@@ -98,14 +98,14 @@ public class TreeTower extends Tower {
       start.translate(dir.antiClockwise(), size - 1);
       end = start.copy();
       end.up(size + 1);
-      new RectSolid(start, end).fill(editor, log);
+      RectSolid.newRect(start, end).fill(editor, log);
     }
 
     start = origin.copy();
     end = origin.copy();
     start.translate(new Coord(-(size - 1), -1, -(size - 1)));
     end.translate(new Coord(size - 1, -1, size - 1));
-    new RectSolid(start, end).fill(editor, log);
+    RectSolid.newRect(start, end).fill(editor, log);
   }
 
   private static class Branch {
