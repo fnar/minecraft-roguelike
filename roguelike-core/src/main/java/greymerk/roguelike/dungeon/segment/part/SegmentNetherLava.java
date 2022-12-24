@@ -17,7 +17,7 @@ public class SegmentNetherLava extends SegmentBase {
   @Override
   protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
 
-    StairsBlock stair = theme.getSecondary().getStair();
+    StairsBlock stair = getSecondaryStairs(theme);
 
     Coord cursor = origin.copy();
     cursor.translate(dir, 2);
@@ -27,7 +27,7 @@ public class SegmentNetherLava extends SegmentBase {
     cursor = origin.copy();
     cursor.translate(dir, 5);
     boolean isAir = editor.isAirBlock(cursor);
-    BlockBrush wall = theme.getSecondary().getWall();
+    BlockBrush wall = getSecondaryWall(theme);
 
     for (Direction orthogonals : dir.orthogonals()) {
       Coord start = origin.copy();

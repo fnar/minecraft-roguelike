@@ -15,7 +15,7 @@ public class SegmentArch extends SegmentBase {
   @Override
   protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
 
-    StairsBlock stair = theme.getSecondary().getStair();
+    StairsBlock stair = getSecondaryStairs(theme);
     stair.setUpsideDown(true).setFacing(dir.reverse());
 
     Coord cursor = origin.copy()
@@ -29,7 +29,7 @@ public class SegmentArch extends SegmentBase {
     for (Direction orthogonals : dir.orthogonals()) {
       Coord pillarBase = origin.copy().translate(dir, 2).translate(orthogonals, 1);
       Coord pillarTop = pillarBase.copy().up(2);
-      RectSolid.newRect(pillarBase, pillarTop).fill(editor, theme.getSecondary().getPillar());
+      RectSolid.newRect(pillarBase, pillarTop).fill(editor, getSecondaryPillar(theme));
       pillarTop.translate(dir.reverse(), 1);
       stair.stroke(editor, pillarTop);
     }

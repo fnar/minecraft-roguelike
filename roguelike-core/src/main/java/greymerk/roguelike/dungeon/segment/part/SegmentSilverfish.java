@@ -15,7 +15,7 @@ public class SegmentSilverfish extends SegmentBase {
 
   @Override
   protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
-    StairsBlock stair = theme.getSecondary().getStair();
+    StairsBlock stair = getSecondaryStairs(theme);
 
     Direction[] orthogonals = dir.orthogonals();
 
@@ -31,7 +31,7 @@ public class SegmentSilverfish extends SegmentBase {
     // front wall
     start.translate(dir, 1);
     end.translate(dir, 1);
-    RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall(), false, true);
+    RectSolid.newRect(start, end).fill(editor, getPrimaryWalls(theme), false, true);
 
     // stairs
     cursor.up(2);
@@ -42,7 +42,7 @@ public class SegmentSilverfish extends SegmentBase {
       stair.stroke(editor, c);
     }
 
-    stair = theme.getPrimary().getStair();
+    stair = getPrimaryStairs(theme);
 
     cursor = origin.copy();
     cursor.translate(dir, 3);

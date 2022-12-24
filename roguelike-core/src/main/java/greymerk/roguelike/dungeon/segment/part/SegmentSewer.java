@@ -17,7 +17,7 @@ public class SegmentSewer extends SegmentBase {
   @Override
   protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
 
-    StairsBlock stair = theme.getSecondary().getStair();
+    StairsBlock stair = getSecondaryStairs(theme);
 
     Direction[] orthogonals = dir.orthogonals();
 

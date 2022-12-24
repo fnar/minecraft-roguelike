@@ -17,7 +17,7 @@ public class SegmentMushrooms extends SegmentBase {
   @Override
   protected void genWall(WorldEditor editor, DungeonLevel level, Direction wallDirection, Theme theme, Coord origin) {
 
-    StairsBlock stair = theme.getSecondary().getStair();
+    StairsBlock stair = getSecondaryStairs(theme);
 
     BlockWeightedRandom mushrooms = new BlockWeightedRandom();
     mushrooms.addBlock(BlockType.RED_MUSHROOM.getBrush(), 3);

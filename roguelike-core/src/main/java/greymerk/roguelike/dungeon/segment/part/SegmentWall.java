@@ -19,7 +19,7 @@ public class SegmentWall extends SegmentBase {
 
   @Override
   protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
-    StairsBlock stair = theme.getSecondary().getStair();
+    StairsBlock stair = getSecondaryStairs(theme);
     Direction[] orthogonals = dir.orthogonals();
 
     Coord cursor = origin.copy();
@@ -36,7 +36,7 @@ public class SegmentWall extends SegmentBase {
 
     start.translate(dir, 1);
     end.translate(dir, 1);
-    RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall(), false, true);
+    RectSolid.newRect(start, end).fill(editor, getSecondaryWall(theme), false, true);
 
     cursor.up(2);
     for (Direction d : orthogonals) {
@@ -48,7 +48,7 @@ public class SegmentWall extends SegmentBase {
 
     if (room.isPresent()) {
       cursor = origin.copy();
-      BlockBrush wall = theme.getPrimary().getWall();
+      BlockBrush wall = getPrimaryWalls(theme);
       cursor.translate(dir, 3);
       wall.stroke(editor, cursor);
       cursor.up();

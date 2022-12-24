@@ -16,7 +16,7 @@ public class SegmentFirePlace extends SegmentBase {
 
   @Override
   protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
-    StairsBlock stair = theme.getSecondary().getStair();
+    StairsBlock stair = getSecondaryStairs(theme);
 
     Direction[] orthogonals = dir.orthogonals();
 
@@ -32,7 +32,7 @@ public class SegmentFirePlace extends SegmentBase {
     // front wall
     start.translate(dir, 1);
     end.translate(dir, 1);
-    RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall(), false, true);
+    RectSolid.newRect(start, end).fill(editor, getPrimaryWalls(theme), false, true);
 
     // stairs
     cursor.up(2);
@@ -43,7 +43,7 @@ public class SegmentFirePlace extends SegmentBase {
       stair.stroke(editor, c);
     }
 
-    stair = theme.getPrimary().getStair();
+    stair = getPrimaryStairs(theme);
 
     cursor = origin.copy();
     cursor.translate(dir, 3);
@@ -69,7 +69,7 @@ public class SegmentFirePlace extends SegmentBase {
       }
     }
 
-    RectSolid.newRect(start, end).fill(editor, theme.getPrimary().getWall());
+    RectSolid.newRect(start, end).fill(editor, getPrimaryWalls(theme));
 
     cursor = origin.copy();
     cursor.translate(dir, 4);

@@ -2,6 +2,8 @@ package greymerk.roguelike.dungeon.segment.part;
 
 import com.google.common.collect.Lists;
 
+import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.block.redstone.DoorBlock;
 import com.github.fnar.util.Pair;
 
 import java.util.List;
@@ -16,6 +18,7 @@ import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.loot.ChestType;
+import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -96,4 +99,35 @@ public abstract class SegmentBase {
     return first.map(pair -> pair.getValue().generate(segmentCoord, Lists.newArrayList(outwardFromSegment)));
   }
 
+  public StairsBlock getSecondaryStairs(Theme theme) {
+    return theme.getSecondary().getStair();
+  }
+
+  protected BlockBrush getSecondaryWall(Theme theme) {
+    return theme.getSecondary().getWall();
+  }
+
+  protected DoorBlock getSecondaryDoor(Theme theme) {
+    return theme.getSecondary().getDoor();
+  }
+
+  protected BlockBrush getSecondaryLightBlock(Theme theme) {
+    return theme.getSecondary().getLightBlock();
+  }
+
+  protected StairsBlock getPrimaryStairs(Theme theme) {
+    return theme.getPrimary().getStair();
+  }
+
+  protected static BlockBrush getPrimaryWalls(Theme theme) {
+    return theme.getPrimary().getWall();
+  }
+
+  protected BlockBrush getPrimaryPillar(Theme theme) {
+    return theme.getPrimary().getPillar();
+  }
+
+  protected BlockBrush getSecondaryPillar(Theme theme) {
+    return theme.getSecondary().getPillar();
+  }
 }

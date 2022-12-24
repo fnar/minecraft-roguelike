@@ -14,7 +14,7 @@ public class SegmentSquareArch extends SegmentBase {
 
   @Override
   protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
-    BlockBrush pillar = level.getSettings().getTheme().getPrimary().getPillar();
+    BlockBrush pillar = getPrimaryPillar(theme);
 
     Coord start = origin.copy();
     start.translate(dir, 2);

@@ -35,7 +35,7 @@ public class SegmentSpawner extends SegmentBase {
     RectSolid.newRect(start, end)
         .fill(editor, SingleBlockBrush.AIR)
         .translate(dir, 1)
-        .fill(editor, theme.getSecondary().getWall());
+        .fill(editor, getSecondaryWall(theme));
 
     generateDecorativeArch(editor, dir, origin, theme);
     generateSpawner(editor, editor.getRandom(), level, dir, origin, theme);
@@ -47,7 +47,7 @@ public class SegmentSpawner extends SegmentBase {
           .up(2)
           .translate(dir, 2)
           .translate(orthogonal, 1);
-      theme.getSecondary().getStair().setUpsideDown(true).setFacing(orthogonal.reverse()).stroke(editor, cursor);
+      getSecondaryStairs(theme).setUpsideDown(true).setFacing(orthogonal.reverse()).stroke(editor, cursor);
     }
   }
 
@@ -65,7 +65,7 @@ public class SegmentSpawner extends SegmentBase {
 
     BlockBrush panelInFrontOfSpawner = rand.nextInt(Math.max(1, difficulty)) == 0
         ? BlockType.GLASS.getBrush()
-        : theme.getSecondary().getWall();
+        : getSecondaryWall(theme);
     panelInFrontOfSpawner.stroke(editor, spawnerCoord.translate(dir.reverse()));
   }
 }

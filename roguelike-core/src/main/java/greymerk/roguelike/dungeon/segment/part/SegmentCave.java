@@ -15,7 +15,7 @@ public class SegmentCave extends SegmentBase {
 
   @Override
   protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
-    BlockBrush wall = theme.getPrimary().getWall();
+    BlockBrush wall = getPrimaryWalls(theme);
     BlockJumble fill = new BlockJumble();
     fill.addBlock(SingleBlockBrush.AIR);
     fill.addBlock(wall);

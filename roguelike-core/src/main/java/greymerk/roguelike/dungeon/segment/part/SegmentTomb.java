@@ -40,7 +40,7 @@ public class SegmentTomb extends SegmentBase {
       }
     }
 
-    RectHollow.newRect(start, end).fill(editor, theme.getPrimary().getWall());
+    RectHollow.newRect(start, end).fill(editor, getPrimaryWalls(theme));
     if (!(rand.nextInt(3) == 0)) {
       return;
     }
@@ -58,7 +58,7 @@ public class SegmentTomb extends SegmentBase {
   @Override
   protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
 
-    StairsBlock stair = theme.getPrimary().getStair();
+    StairsBlock stair = getPrimaryStairs(theme);
 
     Coord cursor = origin.copy();
 
@@ -74,7 +74,7 @@ public class SegmentTomb extends SegmentBase {
 
     start.translate(dir, 1);
     end.translate(dir, 1);
-    RectSolid.newRect(start, end).fill(editor, theme.getSecondary().getWall(), false, true);
+    RectSolid.newRect(start, end).fill(editor, getSecondaryWall(theme), false, true);
 
     cursor.up(2);
     for (Direction d : orthogonals) {
