@@ -51,9 +51,6 @@ public class PyramidSpawnerRoom extends BaseRoom {
     cursor.up();
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
 
-    // Chests
-    List<Coord> space = new ArrayList<>();
-
     for (Direction dir : Direction.CARDINAL) {
 
       // pillar
@@ -93,15 +90,10 @@ public class PyramidSpawnerRoom extends BaseRoom {
         cursor.up(4);
         cursor.translate(dir, 2);
         walls().stroke(worldEditor, cursor);
-
-        cursor = origin.copy();
-        cursor.translate(dir, 3);
-        cursor.translate(orthogonals, 2);
-        space.add(cursor);
       }
     }
 
-    generateChest(Coord.randomFrom(space, random()), getEntrance(entrances).reverse());
+    generateChest(generateChestLocation(origin), getEntrance(entrances).reverse());
     final Coord cursor1 = origin.copy();
     generateSpawner(cursor1, COMMON_MOBS);
     return this;

@@ -59,10 +59,6 @@ public class Coord {
     }
   }
 
-  public static Coord randomFrom(List<Coord> coords, Random random) {
-    return randomFrom(coords, 1, random).get(0);
-  }
-
   public static List<Coord> randomFrom(List<Coord> coords, int limit, Random random) {
     ArrayList<Coord> coordsShuffled = Lists.newArrayList(coords);
     shuffle(coordsShuffled, random);

@@ -4,7 +4,6 @@ import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.decorative.TorchBlock;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import greymerk.roguelike.dungeon.base.BaseRoom;
@@ -17,9 +16,7 @@ import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 
 public class DungeonsPit extends BaseRoom {
-  int originX;
-  int originY;
-  int originZ;
+  private Coord origin;
   byte dungeonHeight;
   int dungeonLength;
   int dungeonWidth;
@@ -34,10 +31,9 @@ public class DungeonsPit extends BaseRoom {
     dungeonWidth = 2;
   }
 
+  @Override
   public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    originX = origin.getX();
-    originY = origin.getY();
-    originZ = origin.getZ();
+    this.origin = origin;
 
     blocks = walls();
 
@@ -51,25 +47,23 @@ public class DungeonsPit extends BaseRoom {
       setTrap(dir, origin);
     }
 
-    List<Coord> spaces = new ArrayList<>();
-    spaces.add(new Coord(originX - 2, originY, originZ - 2));
-    spaces.add(new Coord(originX - 2, originY, originZ + 2));
-    spaces.add(new Coord(originX + 2, originY, originZ - 2));
-    spaces.add(new Coord(originX + 2, originY, originZ + 2));
+    Coord chestCoord = origin.copy()
+        .north(random().nextBoolean() ? 2 : -2)
+        .east(random().nextBoolean() ? 2 : -2);
 
-    generateTrappableChest(Coord.randomFrom(spaces, random()), getEntrance(entrances));
+    generateTrappableChest(chestCoord, getEntrance(entrances));
 
     return this;
   }
 
   protected void buildWalls() {
-    for (int blockX = originX - dungeonLength - 1; blockX <= originX + dungeonLength + 1; blockX++) {
-      for (int blockY = originY + dungeonHeight; blockY >= originY - 1; blockY--) {
-        for (int blockZ = originZ - dungeonWidth - 1; blockZ <= originZ + dungeonWidth + 1; blockZ++) {
-          if (blockX == originX - dungeonLength - 1
-              || blockZ == originZ - dungeonWidth - 1
-              || blockX == originX + dungeonLength + 1
-              || blockZ == originZ + dungeonWidth + 1) {
+    for (int blockX = origin.getX() - dungeonLength - 1; blockX <= origin.getX() + dungeonLength + 1; blockX++) {
+      for (int blockY = origin.getY() + dungeonHeight; blockY >= origin.getY() - 1; blockY--) {
+        for (int blockZ = origin.getY() - dungeonWidth - 1; blockZ <= origin.getY() + dungeonWidth + 1; blockZ++) {
+          if (blockX == origin.getX() - dungeonLength - 1
+              || blockZ == origin.getY() - dungeonWidth - 1
+              || blockX == origin.getX() + dungeonLength + 1
+              || blockZ == origin.getY() + dungeonWidth + 1) {
 
             if (blockY >= 0 && !worldEditor.isSolidBlock(new Coord(blockX, blockY - 1, blockZ))) {
               SingleBlockBrush.AIR.stroke(worldEditor, new Coord(blockX, blockY, blockZ));
@@ -92,16 +86,16 @@ public class DungeonsPit extends BaseRoom {
 
   protected void buildFloor() {
 
-    for (int blockX = originX - dungeonLength - 1; blockX <= originX + dungeonLength + 1; blockX++) {
-      for (int blockZ = originZ - dungeonWidth - 1; blockZ <= originZ + dungeonWidth + 1; blockZ++) {
-        blocks.stroke(worldEditor, new Coord(blockX, originY - 1, blockZ));
+    for (int blockX = origin.getX() - dungeonLength - 1; blockX <= origin.getX() + dungeonLength + 1; blockX++) {
+      for (int blockZ = origin.getY() - dungeonWidth - 1; blockZ <= origin.getY() + dungeonWidth + 1; blockZ++) {
+        blocks.stroke(worldEditor, new Coord(blockX, origin.getY() - 1, blockZ));
       }
     }
   }
 
   protected void buildRoof() {
-    for (int blockX = originX - dungeonLength - 1; blockX <= originX + dungeonLength + 1; blockX++) {
-      for (int blockZ = originZ - dungeonWidth - 1; blockZ <= originZ + dungeonWidth + 1; blockZ++) {
+    for (int blockX = origin.getX() - dungeonLength - 1; blockX <= origin.getX() + dungeonLength + 1; blockX++) {
+      for (int blockZ = origin.getY() - dungeonWidth - 1; blockZ <= origin.getY() + dungeonWidth + 1; blockZ++) {
         blocks.stroke(worldEditor, new Coord(blockX, dungeonHeight + 1, blockZ));
       }
     }
@@ -109,9 +103,9 @@ public class DungeonsPit extends BaseRoom {
 
   private void buildPit() {
 
-    for (int x = originX - 2; x <= originX + 2; x++) {
-      for (int z = originZ - 2; z <= originZ + 2; z++) {
-        for (int y = originY - 1; y > 0; y--) {
+    for (int x = origin.getX() - 2; x <= origin.getX() + 2; x++) {
+      for (int z = origin.getY() - 2; z <= origin.getY() + 2; z++) {
+        for (int y = origin.getY() - 1; y > 0; y--) {
 
           Coord pos = new Coord(x, y, z);
 
@@ -123,10 +117,10 @@ public class DungeonsPit extends BaseRoom {
             continue;
           }
 
-          if (x == originX - 2
-              || x == originX + 2
-              || z == originZ - 2
-              || z == originZ + 2) {
+          if (x == origin.getX() - 2
+              || x == origin.getX() + 2
+              || z == origin.getY() - 2
+              || z == origin.getY() + 2) {
 
             blocks.stroke(worldEditor, pos);
             continue;
@@ -147,14 +141,14 @@ public class DungeonsPit extends BaseRoom {
     BlockBrush plate = BlockType.PRESSURE_PLATE_STONE.getBrush();
     BlockBrush wire = BlockType.REDSTONE_WIRE.getBrush();
 
-    Coord start = origin.copy();
-    start.translate(dir, 3);
-    start.down();
-    start.translate(dir.antiClockwise());
-    Coord end = origin.copy();
-    end.translate(dir, 6);
-    end.up(3);
-    end.translate(dir.clockwise());
+    Coord start = origin.copy()
+        .translate(dir, 3)
+        .down()
+        .translate(dir.antiClockwise());
+    Coord end = origin.copy()
+        .translate(dir, 6)
+        .up(3)
+        .translate(dir.clockwise());
 
     for (Coord cell : new RectHollow(start, end)) {
       if (worldEditor.isAirBlock(cell)) {

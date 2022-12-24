@@ -60,7 +60,6 @@ public class DungeonsMusic extends BaseRoom {
       RectSolid.newRect(start, end).fill(worldEditor, carpet);
     }
 
-    List<Coord> chests = new ArrayList<>();
     Coord cursor;
     for (Direction dir : Direction.CARDINAL) {
 
@@ -106,14 +105,6 @@ public class DungeonsMusic extends BaseRoom {
         cursor = origin.copy();
         cursor.translate(dir, 5);
         cursor.translate(o, 3);
-        cursor.up();
-        chests.add(cursor.copy());
-        cursor.translate(o);
-        chests.add(cursor.copy());
-
-        cursor = origin.copy();
-        cursor.translate(dir, 5);
-        cursor.translate(o, 3);
         secondaryStairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
         cursor.translate(o);
         secondaryStairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
@@ -139,11 +130,20 @@ public class DungeonsMusic extends BaseRoom {
     cursor.up(4);
     lights().stroke(worldEditor, cursor);
 
-    generateChest(Coord.randomFrom(chests, random()), getEntrance(entrances).reverse(), ChestType.MUSIC);
+    generateChest(generateChestLocation(origin.copy().up()), getEntrance(entrances).reverse(), ChestType.MUSIC);
 
     generateDoorways(origin, entrances);
 
     return this;
+  }
+
+  @Override
+  protected Coord generateChestLocation(Coord origin) {
+    Direction dir0 = Direction.randomCardinal(random());
+    Direction dir1 = dir0.orthogonals()[random().nextBoolean() ? 0 : 1];
+    return origin.copy()
+        .translate(dir0, 5)
+        .translate(dir1, 3 + (random().nextBoolean() ? 1 : 0));
   }
 
   private void pillar(Coord origin) {

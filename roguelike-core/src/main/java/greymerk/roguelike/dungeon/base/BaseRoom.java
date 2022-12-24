@@ -242,6 +242,14 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
     return entrances.get(0);
   }
 
+  protected Coord generateChestLocation(Coord origin) {
+    Direction dir0 = Direction.randomCardinal(random());
+    Direction dir1 = dir0.orthogonals()[random().nextBoolean() ? 0 : 1];
+    return origin.copy()
+        .translate(dir0, 3)
+        .translate(dir1, 2);
+  }
+
   public abstract int getSize();
 
   public boolean isValidLocation(Direction dir, Coord pos) {

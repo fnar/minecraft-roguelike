@@ -36,7 +36,7 @@ public class DungeonsNetherBrick extends BaseRoom {
     generateWalls(x, y, z, length, width);
     generateFloor(origin, x, y, z, length, width);
     generateCeiling(x, y, z, length, width);
-    generateChests(entrances, x, y, z, length, width);
+    generateTrappableChest(generateChestLocation(origin), getEntrance(entrances));
     generateSpawners(origin, random, length, width);
 
     return this;
@@ -74,9 +74,13 @@ public class DungeonsNetherBrick extends BaseRoom {
     ).fill(worldEditor, subFloor);
   }
 
-  private void generateChests(List<Direction> entrances, int x, int y, int z, int length, int width) {
-    Coord chestLocation = Coord.randomFrom(new RectSolid(new Coord(x - length, y, z - width), new Coord(x + length, y, z + width)).get(), random());
-    generateTrappableChest(chestLocation, getEntrance(entrances));
+  @Override
+  protected Coord generateChestLocation(Coord origin) {
+    Direction dir0 = Direction.randomCardinal(random());
+    Direction dir1 = dir0.orthogonals()[random().nextBoolean() ? 0 : 1];
+    return origin.copy()
+        .translate(dir0, 3)
+        .translate(dir1, 2);
   }
 
   private void generateSpawners(Coord origin, Random random, int length, int width) {
