@@ -1,8 +1,10 @@
-package com.github.fnar.minecraft.worldgen.generatables;
+package com.github.fnar.minecraft.worldgen.generatables.thresholds;
 
 import com.google.common.collect.Maps;
 
+import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.worldgen.BlockPattern;
+import com.github.fnar.minecraft.worldgen.generatables.Generatable;
 
 import java.util.Map;
 
@@ -12,18 +14,17 @@ import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 
-public class Doorway implements Generatable {
+public class IronBarredEntryway implements Generatable {
 
   public void generate(WorldEditor worldEditor, LevelSettings levelSettings, Coord origin, Direction facing) {
     Map<Character, BlockBrush> blockBrushMap = Maps.newHashMap();
-    blockBrushMap.put('#', levelSettings.getTheme().getPrimary().getWall());
-    blockBrushMap.put('B', levelSettings.getTheme().getPrimary().getDoor().setFacing(facing));
-    blockBrushMap.put('T', levelSettings.getTheme().getPrimary().getDoor().setTop().setFacing(facing));
+    blockBrushMap.put('W', levelSettings.getTheme().getPrimary().getWall());
+    blockBrushMap.put('#', BlockType.IRON_BAR.getBrush());
 
     String pattern = "" +
-        "# # B # # \n\n" +
-        "# # T # # \n\n" +
-        "# # # # # \n";
+        "W # # # W \n\n" +
+        "W # # # W \n\n" +
+        "W # # # W \n";
 
     new BlockPattern(worldEditor, pattern, blockBrushMap)
         .stroke(origin.copy().translate(facing.left(), 2), facing);

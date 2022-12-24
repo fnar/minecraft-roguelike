@@ -4,7 +4,7 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.minecraft.block.spawner.MobType;
 import com.github.fnar.minecraft.block.spawner.Spawner;
 import com.github.fnar.minecraft.block.spawner.SpawnerSettings;
-import com.github.fnar.minecraft.worldgen.generatables.Doorways;
+import com.github.fnar.minecraft.worldgen.generatables.thresholds.Doorways;
 
 import java.util.List;
 import java.util.Optional;
@@ -25,8 +25,6 @@ import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import lombok.EqualsAndHashCode;
-
-import static java.util.Collections.shuffle;
 
 @EqualsAndHashCode
 public abstract class BaseRoom implements Comparable<BaseRoom> {
