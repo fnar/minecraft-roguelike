@@ -64,7 +64,7 @@ public class DungeonsCreeperDen extends BaseRoom {
     end.translate(new Coord(3, 0, 3));
 
     List<Coord> chestSpaces = new RectSolid(start, end).get();
-    randomFrom(chestSpaces, 3)
+    Coord.randomFrom(chestSpaces, 3, random())
         .forEach(chestSpace ->
             generateTrappedChest(chestSpace, getEntrance(entrances).reverse(), ChestType.ORE));
 

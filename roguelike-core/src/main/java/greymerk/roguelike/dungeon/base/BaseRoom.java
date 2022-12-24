@@ -39,14 +39,6 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
     this.worldEditor = worldEditor;
   }
 
-  public Coord randomFrom(List<Coord> spaces) {
-    return Coord.randomFrom(spaces, random());
-  }
-
-  public List<Coord> randomFrom(List<Coord> spaces, int limit) {
-    return Coord.randomFrom(spaces, limit, random());
-  }
-
   public abstract BaseRoom generate(Coord origin, List<Direction> entrances);
 
   protected void generateDoorways(Coord origin, List<Direction> entrances) {
