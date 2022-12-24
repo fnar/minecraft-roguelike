@@ -76,7 +76,7 @@ public class JungleTower extends Tower {
       start.translate(dir.antiClockwise(), 2);
       end = start.copy();
       end.up(3);
-      pillar.fill(editor, new RectSolid(start, end));
+      pillar.fill(editor, RectSolid.newRect(start, end));
       cursor = end.copy();
       for (Direction d : new Direction[]{dir.reverse(), dir.clockwise()}) {
         Coord c = cursor.copy();
@@ -97,7 +97,7 @@ public class JungleTower extends Tower {
         start.down();
         end = start.copy();
         end.down(2);
-        walls.fill(editor, new RectSolid(start, end));
+        walls.fill(editor, RectSolid.newRect(start, end));
         end.down();
         stair.setUpsideDown(true).setFacing(d).stroke(editor, end);
       }
@@ -112,16 +112,16 @@ public class JungleTower extends Tower {
       end = cursor.copy();
       start.translate(dir.antiClockwise(), 5);
       end.translate(dir.clockwise(), 5);
-      walls.fill(editor, new RectSolid(start, end));
+      walls.fill(editor, RectSolid.newRect(start, end));
       start.up();
       end.up();
-      grass.fill(editor, new RectSolid(start, end));
+      grass.fill(editor, RectSolid.newRect(start, end));
       start.translate(dir.reverse());
       end.translate(dir.reverse());
-      walls.fill(editor, new RectSolid(start, end));
+      walls.fill(editor, RectSolid.newRect(start, end));
       start.translate(dir.reverse());
       end.translate(dir.reverse());
-      stair.setUpsideDown(true).setFacing(dir.reverse()).fill(editor, new RectSolid(start, end));
+      stair.setUpsideDown(true).setFacing(dir.reverse()).fill(editor, RectSolid.newRect(start, end));
 
       cursor = origin.copy();
       cursor.up(4);
@@ -138,11 +138,11 @@ public class JungleTower extends Tower {
       start.translate(dir, 2);
       end = start.copy();
       end.translate(dir, 3);
-      walls.fill(editor, new RectSolid(start, end));
+      walls.fill(editor, RectSolid.newRect(start, end));
       end.translate(dir.antiClockwise(), 3);
       start = end.copy();
       start.translate(dir.reverse(), 10);
-      walls.fill(editor, new RectSolid(start, end));
+      walls.fill(editor, RectSolid.newRect(start, end));
 
       start = origin.copy();
       start.up(6);
@@ -151,7 +151,7 @@ public class JungleTower extends Tower {
       end = start.copy();
       end.translate(dir.clockwise(), 8);
       end.translate(dir, 3);
-      walls.fill(editor, new RectSolid(start, end));
+      walls.fill(editor, RectSolid.newRect(start, end));
 
       start = origin.copy();
       start.up(4);
@@ -160,7 +160,7 @@ public class JungleTower extends Tower {
       start.translate(dir.antiClockwise(), 2);
       end.translate(dir.clockwise());
       end.up(2);
-      walls.fill(editor, new RectSolid(start, end));
+      walls.fill(editor, RectSolid.newRect(start, end));
 
       start = origin.copy();
       start.up(4);
@@ -168,7 +168,7 @@ public class JungleTower extends Tower {
       end = start.copy();
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir.clockwise(), 2);
-      stair.setUpsideDown(true).setFacing(dir).fill(editor, new RectSolid(start, end));
+      stair.setUpsideDown(true).setFacing(dir).fill(editor, RectSolid.newRect(start, end));
     }
 
     // level 2 grass patches
@@ -181,10 +181,10 @@ public class JungleTower extends Tower {
         end = start.copy();
         end.translate(o);
         end.translate(dir);
-        grass.fill(editor, new RectSolid(start, end));
+        grass.fill(editor, RectSolid.newRect(start, end));
         start.translate(o, 3);
         end.translate(o, 3);
-        grass.fill(editor, new RectSolid(start, end));
+        grass.fill(editor, RectSolid.newRect(start, end));
       }
     }
 
@@ -225,7 +225,7 @@ public class JungleTower extends Tower {
       start = cursor.copy();
       end = start.copy();
       end.down(3);
-      pillar.fill(editor, new RectSolid(start, end));
+      pillar.fill(editor, RectSolid.newRect(start, end));
       for (Direction d : new Direction[]{dir.clockwise(), dir.reverse()}) {
         Coord c = cursor.copy();
         c.translate(d);
@@ -252,7 +252,7 @@ public class JungleTower extends Tower {
       end = start.copy();
       start.translate(dir.antiClockwise(), 5);
       end.translate(dir.clockwise(), 4);
-      walls.fill(editor, new RectSolid(start, end));
+      walls.fill(editor, RectSolid.newRect(start, end));
 
       start = origin.copy();
       start.up(11);
@@ -261,7 +261,7 @@ public class JungleTower extends Tower {
       start.translate(dir.antiClockwise());
       end.translate(dir.clockwise(), 4);
       end.translate(dir, 2);
-      walls.fill(editor, new RectSolid(start, end));
+      walls.fill(editor, RectSolid.newRect(start, end));
 
       cursor = origin.copy();
       cursor.up(11);
@@ -270,7 +270,7 @@ public class JungleTower extends Tower {
       end = start.copy();
       start.translate(dir.antiClockwise(), 4);
       end.translate(dir.clockwise(), 4);
-      grass.fill(editor, new RectSolid(start, end));
+      grass.fill(editor, RectSolid.newRect(start, end));
 
       cursor = origin.copy();
       cursor.up(12);
@@ -280,7 +280,7 @@ public class JungleTower extends Tower {
       end.translate(dir);
       start.translate(dir.antiClockwise());
       end.translate(dir.clockwise(), 4);
-      grass.fill(editor, new RectSolid(start, end));
+      grass.fill(editor, RectSolid.newRect(start, end));
     }
 
     for (Direction dir : Direction.CARDINAL) {
@@ -291,7 +291,7 @@ public class JungleTower extends Tower {
       end = cursor.copy();
       start.translate(dir.antiClockwise(), 4);
       end.translate(dir.clockwise(), 4);
-      walls.fill(editor, new RectSolid(start, end));
+      walls.fill(editor, RectSolid.newRect(start, end));
 
       cursor = origin.copy();
       cursor.up(11);
@@ -321,7 +321,7 @@ public class JungleTower extends Tower {
       end = start.copy();
       start.translate(dir.antiClockwise());
       end.translate(dir.clockwise(), 2);
-      walls.fill(editor, new RectSolid(start, end));
+      walls.fill(editor, RectSolid.newRect(start, end));
 
       cursor = origin.copy();
       cursor.up(17);
@@ -330,7 +330,7 @@ public class JungleTower extends Tower {
       end = cursor.copy();
       start.translate(dir.antiClockwise());
       end.translate(dir.clockwise());
-      grass.fill(editor, new RectSolid(start, end));
+      grass.fill(editor, RectSolid.newRect(start, end));
       cursor.translate(dir.antiClockwise(), 2);
       walls.stroke(editor, cursor);
 
@@ -341,10 +341,10 @@ public class JungleTower extends Tower {
       start.translate(dir.antiClockwise());
       end.translate(dir.reverse());
       end.translate(dir.clockwise());
-      walls.fill(editor, new RectSolid(start, end));
+      walls.fill(editor, RectSolid.newRect(start, end));
       start.up();
       end.up();
-      grass.fill(editor, new RectSolid(start, end));
+      grass.fill(editor, RectSolid.newRect(start, end));
     }
 
     start = origin.copy();
@@ -353,13 +353,13 @@ public class JungleTower extends Tower {
     end = new Coord(origin.getX(), dungeon.getY() + 10, origin.getZ());
     end.south(2);
     end.west(2);
-    walls.fill(editor, new RectSolid(start, end), false, true);
+    walls.fill(editor, RectSolid.newRect(start, end), false, true);
 
     cursor = origin.copy();
     cursor.up(12);
     start = new Coord(cursor.getX(), dungeon.getY(), cursor.getZ());
     end = cursor.copy();
-    for (Coord c : new RectSolid(start, end)) {
+    for (Coord c : RectSolid.newRect(start, end)) {
       editor.spiralStairStep(editor.getRandom(), c, stair, pillar);
     }
 
@@ -430,7 +430,7 @@ public class JungleTower extends Tower {
       end.translate(dir.reverse());
       start.translate(dir.antiClockwise());
       end.translate(dir.clockwise());
-      spots.addAll(new RectSolid(start, end).get());
+      spots.addAll(RectSolid.newRect(start, end).get());
     }
 
     for (Coord c : spots) {
@@ -448,7 +448,7 @@ public class JungleTower extends Tower {
         .south(8)
         .west(8);
 
-    VineBlock.vine().fill(editor, new RectSolid(start, end));
+    VineBlock.vine().fill(editor, RectSolid.newRect(start, end));
   }
 
   private void tree(WorldEditor editor, Random rand, Coord origin) {

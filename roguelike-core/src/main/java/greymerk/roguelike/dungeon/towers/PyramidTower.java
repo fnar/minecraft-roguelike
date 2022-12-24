@@ -33,7 +33,7 @@ public class PyramidTower extends Tower {
 
     start = new Coord(x - 8, floor.getY() - 1, z - 8);
     end = new Coord(x + 8, y + 10, z + 8);
-    RectSolid.newRect(start, end).fill(editor, blocks);
+    blocks.fill(editor, RectSolid.newRect(start, end));
 
     start = new Coord(x - 6, floor.getY() - 1, z - 6);
     end = new Coord(x + 6, floor.getY() + 3, z + 6);

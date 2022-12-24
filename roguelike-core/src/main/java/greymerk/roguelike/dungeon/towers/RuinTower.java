@@ -27,9 +27,9 @@ public class RuinTower extends Tower {
     Coord start;
     Coord end;
 
-    RectSolid.newRect(new Coord(origin.getX() - 4, floor.getY() + 1, origin.getZ() - 4), new Coord(origin.getX() + 4, floor.getY() + 3, origin.getZ() + 4)).fill(editor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(new Coord(origin.getX() - 4, floor.getY() + 1, origin.getZ() - 4), new Coord(origin.getX() + 4, floor.getY() + 3, origin.getZ() + 4)));
 
-    RectSolid.newRect(new Coord(origin.getX() - 3, floor.getY() - 5, origin.getZ() - 3), new Coord(origin.getX() + 3, floor.getY(), origin.getZ() + 3)).fill(editor, blocks);
+    blocks.fill(editor, RectSolid.newRect(new Coord(origin.getX() - 3, floor.getY() - 5, origin.getZ() - 3), new Coord(origin.getX() + 3, floor.getY(), origin.getZ() + 3)));
 
     RectSolid.newRect(new Coord(origin.getX() - 2, origin.getY() + 10, origin.getZ() - 2), new Coord(origin.getX() + 2, floor.getY() - 1, origin.getZ() + 2)).fill(editor, blocks, false, true);
 
@@ -42,9 +42,9 @@ public class RuinTower extends Tower {
         cursor = floor.copy();
         cursor.translate(dir, 4);
         cursor.translate(orthogonals);
-        RectSolid.newRect(cursor.copy(), new Coord(cursor.getX(), cursor.getY() + 1 + editor.getRandom().nextInt(3), cursor.getZ())).fill(editor, blocks);
+        blocks.fill(editor, RectSolid.newRect(cursor.copy(), new Coord(cursor.getX(), cursor.getY() + 1 + editor.getRandom().nextInt(3), cursor.getZ())));
         cursor.translate(orthogonals);
-        RectSolid.newRect(cursor.copy(), new Coord(cursor.getX(), cursor.getY() + 1 + editor.getRandom().nextInt(2), cursor.getZ())).fill(editor, blocks);
+        blocks.fill(editor, RectSolid.newRect(cursor.copy(), new Coord(cursor.getX(), cursor.getY() + 1 + editor.getRandom().nextInt(2), cursor.getZ())));
       }
 
       start = floor.copy();

@@ -60,7 +60,7 @@ public class EthoTower extends Tower {
       end = start.copy();
       end.up(6);
 
-      RectSolid.newRect(start, end).fill(editor, pillar);
+      pillar.fill(editor, RectSolid.newRect(start, end));
 
       for (Direction o : orthogonals) {
         start = floor.copy();
@@ -69,7 +69,7 @@ public class EthoTower extends Tower {
         end = start.copy();
         end.up(4);
         start.down(10);
-        RectSolid.newRect(start, end).fill(editor, pillar);
+        pillar.fill(editor, RectSolid.newRect(start, end));
 
         end.up();
         stair.setUpsideDown(false).setFacing(dir).stroke(editor, end);
@@ -80,13 +80,13 @@ public class EthoTower extends Tower {
         end.translate(o.reverse());
         start = end.copy();
         start.translate(o.reverse(), 2);
-        RectSolid.newRect(start, end).fill(editor, stair.setUpsideDown(false).setFacing(dir));
+        stair.setUpsideDown(false).setFacing(dir).fill(editor, RectSolid.newRect(start, end));
 
         end.translate(dir.reverse());
         end.up();
         start.translate(dir.reverse());
         start.up();
-        RectSolid.newRect(start, end).fill(editor, stair.setUpsideDown(false).setFacing(dir));
+        stair.setUpsideDown(false).setFacing(dir).fill(editor, RectSolid.newRect(start, end));
         stair.setUpsideDown(false).setFacing(o.reverse()).stroke(editor, end);
 
         start = floor.copy();
@@ -94,19 +94,19 @@ public class EthoTower extends Tower {
         start.up(4);
         end = start.copy();
         end.translate(o, 2);
-        RectSolid.newRect(start, end).fill(editor, stair.setUpsideDown(true).setFacing(dir.reverse()));
+        stair.setUpsideDown(true).setFacing(dir.reverse()).fill(editor, RectSolid.newRect(start, end));
         start.translate(dir.reverse());
         start.up();
         end = start.copy();
         end.translate(o, 2);
-        RectSolid.newRect(start, end).fill(editor, stair.setUpsideDown(true).setFacing(dir.reverse()));
+        stair.setUpsideDown(true).setFacing(dir.reverse()).fill(editor, RectSolid.newRect(start, end));
         start.up();
         end.up();
-        RectSolid.newRect(start, end).fill(editor, pillar);
+        pillar.fill(editor, RectSolid.newRect(start, end));
         cursor = end.copy();
         start = end.copy();
         start.up(3);
-        RectSolid.newRect(start, end).fill(editor, pillar);
+        pillar.fill(editor, RectSolid.newRect(start, end));
         cursor.translate(o.reverse());
         cursor.up();
         stair.setUpsideDown(false).setFacing(o.reverse()).stroke(editor, cursor);
@@ -115,7 +115,7 @@ public class EthoTower extends Tower {
         start.up();
         end = start.copy();
         end.translate(o.reverse(), 2);
-        RectSolid.newRect(start, end).fill(editor, stair.setUpsideDown(false).setFacing(dir));
+        stair.setUpsideDown(false).setFacing(dir).fill(editor, RectSolid.newRect(start, end));
         cursor = end.copy();
         cursor.translate(dir.reverse());
         stair.setUpsideDown(true).setFacing(dir.reverse()).stroke(editor, cursor);
@@ -188,7 +188,7 @@ public class EthoTower extends Tower {
         start.translate(orthogonals[0]);
         end.up(2);
         end.translate(orthogonals[1]);
-        RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+        SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end));
 
         cursor = floor.copy();
         cursor.translate(dir, 6);
@@ -205,7 +205,7 @@ public class EthoTower extends Tower {
         start.translate(dir, 5);
         end = start.copy();
         start.translate(o, 2);
-        RectSolid.newRect(start, end).fill(editor, stair.setUpsideDown(false).setFacing(dir));
+        stair.setUpsideDown(false).setFacing(dir).fill(editor, RectSolid.newRect(start, end));
         start.translate(o);
         stair.setUpsideDown(false).setFacing(o.reverse()).stroke(editor, start);
         start.down();

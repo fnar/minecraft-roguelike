@@ -49,7 +49,7 @@ public class BunkerTower extends Tower {
     start.east(5);
     end.south(5);
     end.west(5);
-    RectSolid.newRect(start, end).fill(editor, walls);
+    walls.fill(editor, RectSolid.newRect(start, end));
 
     for (Direction dir : Direction.CARDINAL) {
       start = origin.copy();
@@ -59,15 +59,15 @@ public class BunkerTower extends Tower {
       end.translate(dir.clockwise());
       start = new Coord(start.getX(), dungeon.getY() + 10, start.getZ());
       end.up(3);
-      RectSolid.newRect(start, end).fill(editor, walls);
+      walls.fill(editor, RectSolid.newRect(start, end));
       end.down();
       end.translate(dir);
       start.translate(dir);
-      RectSolid.newRect(start, end).fill(editor, walls);
+      walls.fill(editor, RectSolid.newRect(start, end));
       end.down();
       end.translate(dir);
       start.translate(dir);
-      RectSolid.newRect(start, end).fill(editor, walls);
+      walls.fill(editor, RectSolid.newRect(start, end));
     }
 
     Coord cursor;
@@ -82,13 +82,13 @@ public class BunkerTower extends Tower {
       end.translate(dir, 6);
       end.translate(dir.antiClockwise(), 6);
       end.up(2);
-      RectSolid.newRect(start, end).fill(editor, walls);
+      walls.fill(editor, RectSolid.newRect(start, end));
       start.translate(dir);
       start.translate(dir.antiClockwise());
       end.down();
       end.translate(dir);
       end.translate(dir.antiClockwise());
-      RectSolid.newRect(start, end).fill(editor, walls);
+      walls.fill(editor, RectSolid.newRect(start, end));
 
 
       for (Direction o : dir.orthogonals()) {
@@ -100,7 +100,7 @@ public class BunkerTower extends Tower {
         end.translate(o, 5);
         end.up(2);
         end.translate(o, 2);
-        RectSolid.newRect(start, end).fill(editor, walls);
+        walls.fill(editor, RectSolid.newRect(start, end));
       }
     }
 
@@ -113,13 +113,13 @@ public class BunkerTower extends Tower {
         start.up(3);
         end = start.copy();
         end.translate(o.reverse());
-        RectSolid.newRect(start, end).fill(editor, stair);
+        stair.fill(editor, RectSolid.newRect(start, end));
         start.down();
         start.translate(dir);
         start.translate(o);
         end = start.copy();
         end.translate(o.reverse(), 2);
-        RectSolid.newRect(start, end).fill(editor, stair);
+        stair.fill(editor, RectSolid.newRect(start, end));
       }
     }
 
@@ -151,7 +151,7 @@ public class BunkerTower extends Tower {
       end = start.copy();
       start.translate(dir.antiClockwise(), 5);
       end.translate(dir.clockwise(), 5);
-      stair.setUpsideDown(false).setFacing(dir).fill(editor, new RectSolid(start, end));
+      stair.setUpsideDown(false).setFacing(dir).fill(editor, RectSolid.newRect(start, end));
     }
 
     for (Direction dir : Direction.CARDINAL) {
@@ -184,15 +184,15 @@ public class BunkerTower extends Tower {
       end = start.copy();
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir.clockwise(), 3);
-      stair.setUpsideDown(false).setFacing(dir).fill(editor, new RectSolid(start, end));
+      stair.setUpsideDown(false).setFacing(dir).fill(editor, RectSolid.newRect(start, end));
       start.translate(dir.reverse());
       end.translate(dir.reverse());
-      stair.setUpsideDown(true).setFacing(dir.reverse()).fill(editor, new RectSolid(start, end));
+      stair.setUpsideDown(true).setFacing(dir.reverse()).fill(editor, RectSolid.newRect(start, end));
       start.up();
       end.up();
       start.translate(dir.clockwise());
       end.translate(dir.antiClockwise());
-      stair.setUpsideDown(false).setFacing(dir).fill(editor, new RectSolid(start, end));
+      stair.setUpsideDown(false).setFacing(dir).fill(editor, RectSolid.newRect(start, end));
       stair.setUpsideDown(false).setFacing(dir.antiClockwise()).stroke(editor, start);
       stair.setUpsideDown(false).setFacing(dir.clockwise()).stroke(editor, end);
       start.translate(dir.reverse());
@@ -201,7 +201,7 @@ public class BunkerTower extends Tower {
       end.up();
       start.translate(dir.clockwise());
       end.translate(dir.antiClockwise());
-      stair.setUpsideDown(false).setFacing(dir).fill(editor, new RectSolid(start, end));
+      stair.setUpsideDown(false).setFacing(dir).fill(editor, RectSolid.newRect(start, end));
       stair.setUpsideDown(false).setFacing(dir.antiClockwise()).stroke(editor, start);
       stair.setUpsideDown(false).setFacing(dir.clockwise()).stroke(editor, end);
     }
@@ -214,7 +214,7 @@ public class BunkerTower extends Tower {
     start.east(2);
     end.south(2);
     end.west(2);
-    RectSolid.newRect(start, end).fill(editor, walls);
+    walls.fill(editor, RectSolid.newRect(start, end));
     cursor.up();
     start = cursor.copy();
     end = cursor.copy();
@@ -222,7 +222,7 @@ public class BunkerTower extends Tower {
     start.east();
     end.south();
     end.west();
-    RectSolid.newRect(start, end).fill(editor, walls);
+    walls.fill(editor, RectSolid.newRect(start, end));
 
     for (Direction dir : Direction.CARDINAL) {
       start = origin.copy();
@@ -231,7 +231,7 @@ public class BunkerTower extends Tower {
       end = start.copy();
       start.translate(dir.antiClockwise(), 4);
       end.translate(dir.clockwise(), 4);
-      stair.setUpsideDown(true).setFacing(dir.reverse()).fill(editor, new RectSolid(start, end));
+      stair.setUpsideDown(true).setFacing(dir.reverse()).fill(editor, RectSolid.newRect(start, end));
     }
 
     for (Direction dir : Direction.CARDINAL) {
@@ -240,7 +240,7 @@ public class BunkerTower extends Tower {
       start.translate(dir.antiClockwise(), 4);
       end = start.copy();
       end.up(3);
-      RectSolid.newRect(start, end).fill(editor, pillar);
+      pillar.fill(editor, RectSolid.newRect(start, end));
     }
 
     for (Direction dir : Direction.CARDINAL) {
@@ -250,7 +250,7 @@ public class BunkerTower extends Tower {
       start.translate(dir.antiClockwise(), 3);
       end = start.copy();
       end.up(2);
-      RectSolid.newRect(start, end).fill(editor, pillar);
+      pillar.fill(editor, RectSolid.newRect(start, end));
     }
 
     for (Direction dir : Direction.CARDINAL) {
@@ -280,7 +280,7 @@ public class BunkerTower extends Tower {
       end = start.copy();
       end.up();
       end.translate(dir, 3);
-      RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+      SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end));
 
       cursor = start.copy();
       for (Direction o : dir.orthogonals()) {
@@ -289,18 +289,18 @@ public class BunkerTower extends Tower {
         start.up();
         end = start.copy();
         end.translate(o);
-        stair.setUpsideDown(false).setFacing(dir).fill(editor, new RectSolid(start, end));
+        stair.setUpsideDown(false).setFacing(dir).fill(editor, RectSolid.newRect(start, end));
         start.up();
         end.up();
-        RectSolid.newRect(start, end).fill(editor, window);
+        window.fill(editor, RectSolid.newRect(start, end));
         start.down(2);
         end.down(2);
         start.translate(dir.reverse());
         end.translate(dir.reverse());
-        RectSolid.newRect(start, end).fill(editor, walls);
+        walls.fill(editor, RectSolid.newRect(start, end));
         start.translate(dir.reverse());
         end.translate(dir.reverse());
-        stair.setUpsideDown(false).setFacing(dir.reverse()).fill(editor, new RectSolid(start, end));
+        stair.setUpsideDown(false).setFacing(dir.reverse()).fill(editor, RectSolid.newRect(start, end));
       }
 
       cursor = origin.copy();

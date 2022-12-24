@@ -62,7 +62,7 @@ public class VillagerHouseTower extends Tower {
     while (!editor.isValidGroundBlock(belowBottom)) {
       belowBottom.down();
     }
-    theme.getPrimary().getWall().fill(editor, new RectSolid(belowTop, belowBottom));
+    theme.getPrimary().getWall().fill(editor, RectSolid.newRect(belowTop, belowBottom));
   }
 
   private void createWalls(WorldEditor editor, Theme theme, Coord origin, Direction facing) {

@@ -31,7 +31,7 @@ public class HoleTower extends Tower {
     Coord end = origin.copy()
         .south()
         .west();
-    RectSolid.newRect(start, end).fill(editor, SingleBlockBrush.AIR);
+    SingleBlockBrush.AIR.fill(editor, RectSolid.newRect(start, end));
 
     start.north(2)
         .east(2);
