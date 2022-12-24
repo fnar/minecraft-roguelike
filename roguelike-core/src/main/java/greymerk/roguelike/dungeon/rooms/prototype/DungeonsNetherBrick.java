@@ -75,7 +75,7 @@ public class DungeonsNetherBrick extends BaseRoom {
   }
 
   private void generateChests(List<Direction> entrances, int x, int y, int z, int length, int width) {
-    Coord chestLocation = randomFrom(new RectSolid(new Coord(x - length, y, z - width), new Coord(x + length, y, z + width)).get());
+    Coord chestLocation = Coord.randomFrom(new RectSolid(new Coord(x - length, y, z - width), new Coord(x + length, y, z + width)).get(), random());
     generateTrappableChest(chestLocation, getEntrance(entrances));
   }
 

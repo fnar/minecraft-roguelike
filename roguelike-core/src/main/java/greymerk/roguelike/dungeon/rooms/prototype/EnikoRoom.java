@@ -106,7 +106,7 @@ public class EnikoRoom extends BaseRoom {
     }
 
     generateSpawner(origin, COMMON_MOBS);
-    generateChest(randomFrom(chests), getEntrance(entrances));
+    generateChest(Coord.randomFrom(chests, random()), getEntrance(entrances));
 
     return this;
   }

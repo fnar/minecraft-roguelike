@@ -113,7 +113,7 @@ public class StorageRoom extends BaseRoom {
       }
     }
 
-    randomFrom(chestSpaces, 2)
+    Coord.randomFrom(chestSpaces, 2, random())
         .forEach(coord -> generateChest(coord, coord.dirTo(origin).reverse(), ChestType.SUPPLIES_TREASURES));
 
     generateDoorways(origin, entrances, getSize() - 3);

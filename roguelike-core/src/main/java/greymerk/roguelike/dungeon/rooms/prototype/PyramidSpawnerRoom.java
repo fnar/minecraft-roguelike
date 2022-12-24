@@ -101,7 +101,7 @@ public class PyramidSpawnerRoom extends BaseRoom {
       }
     }
 
-    generateChest(randomFrom(space), getEntrance(entrances).reverse());
+    generateChest(Coord.randomFrom(space, random()), getEntrance(entrances).reverse());
     final Coord cursor1 = origin.copy();
     generateSpawner(cursor1, COMMON_MOBS);
     return this;

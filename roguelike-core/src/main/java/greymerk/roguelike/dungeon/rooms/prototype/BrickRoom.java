@@ -125,7 +125,7 @@ public class BrickRoom extends BaseRoom {
     boolean isChestAboveSpawner = random().nextInt(Math.max(1, getDifficulty(origin)) + 1) != 0;
     Coord chestLocation = isChestAboveSpawner
         ? spawnerLocation.copy().up()
-        : randomFrom(getPotentialChestLocations(origin));
+        : Coord.randomFrom(getPotentialChestLocations(origin), random());
 
     generateTrappableChest(chestLocation, facing);
   }
