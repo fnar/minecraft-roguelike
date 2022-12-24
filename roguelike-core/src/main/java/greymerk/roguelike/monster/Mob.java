@@ -22,7 +22,6 @@ import com.github.fnar.util.Color;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Random;
@@ -42,6 +41,12 @@ public class Mob {
   private MobType mobType = MobType.ZOMBIE;
 
   public static boolean rollForEnchanted(Difficulty difficulty, Random random, int level) {
+    Optional<Double> enchantedChanceOverride = getEnchantedChanceOverride(level);
+
+    if (enchantedChanceOverride.isPresent()) {
+      return random.nextDouble() < enchantedChanceOverride.get();
+    }
+
     switch (difficulty) {
       default:
       case PEACEFUL:
@@ -53,6 +58,14 @@ public class Mob {
       case DIFFICULT:
         return random.nextDouble() < .10 + .05 * level;
     }
+  }
+
+  public static Optional<Double> getEnchantedChanceOverride(int level) {
+    Optional<Double> value = RogueConfig.MOBS_ITEMS_ENCHANTED_CHANCE.getDoubleAtIndex(level);
+    if (!value.isPresent() || value.get() < 0) {
+      return Optional.empty();
+    }
+    return value;
   }
 
   public Mob withRandomEquipment(int level, Random random) {
@@ -124,15 +137,11 @@ public class Mob {
   }
 
   private static Optional<Integer> getLevelOverride(int level) {
-    List<Integer> levelOverrides = RogueConfig.MOBS_ITEMS_ENCHANTMENTS_LEVELS.getIntList();
-    if (level > levelOverrides.size() - 1) {
+    Optional<Integer> value = RogueConfig.MOBS_ITEMS_ENCHANTMENTS_LEVELS.getIntAtIndex(level);
+    if (!value.isPresent() || value.get() < 0) {
       return Optional.empty();
     }
-    Integer levelOverride = levelOverrides.get(level);
-    if (levelOverride <= -1) {
-      return Optional.empty();
-    }
-    return Optional.of(levelOverride);
+    return value;
   }
 
   public void equipSword(Random random, int level, Difficulty difficulty) {
