@@ -1,11 +1,14 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
+import com.google.common.collect.Lists;
+
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.decorative.BedBlock;
 import com.github.fnar.minecraft.block.decorative.FlowerPotBlock;
 import com.github.fnar.minecraft.block.decorative.TorchBlock;
 import com.github.fnar.minecraft.item.Material;
 import com.github.fnar.minecraft.item.RldItemStack;
+import com.github.fnar.minecraft.worldgen.generatables.Pillar;
 
 import java.util.List;
 
@@ -27,19 +30,6 @@ public class BedRoomRoom extends BaseRoom {
 
   public BedRoomRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
-  }
-
-  public void pillar(final Coord base, int height) {
-    Coord bottom = base.copy();
-    Coord top = base.copy().up(height);
-    RectSolid pillar = RectSolid.newRect(bottom, top);
-    pillars().fill(worldEditor, pillar);
-
-    top.down();
-    for (Direction cardinal: Direction.CARDINAL) {
-      Coord support = top.copy().translate(cardinal);
-      secondaryStairs().setUpsideDown(true).setFacing(cardinal).stroke(worldEditor, support, true, false);
-    }
   }
 
   @Override
@@ -130,16 +120,20 @@ public class BedRoomRoom extends BaseRoom {
   }
 
   private void generatePillars(Coord origin, Direction entranceDirection) {
+    List<Coord> pillarCoords = Lists.newArrayList();
     for (Direction orthogonal : entranceDirection.orthogonals()) {
-      Coord cursor = origin.copy();
-      cursor.translate(orthogonal, 3);
-      pillar(cursor, 3);
-      for (Direction p : orthogonal.orthogonals()) {
-        Coord c = cursor.copy();
-        c.translate(p, 3);
-        pillar(c, 3);
+      Coord pillar = origin.copy().translate(orthogonal, 3);
+      pillarCoords.add(pillar);
+      for (Direction orthogonalOrthogonal : orthogonal.orthogonals()) {
+        pillarCoords.add(pillar.copy().translate(orthogonalOrthogonal, 3));
       }
     }
+
+    Pillar.newPillar(worldEditor)
+        .withPillarBrush(pillars())
+        .withStairBrush(secondaryStairs())
+        .withHeight(3)
+        .generate(pillarCoords);
   }
 
   private void generateBed(Coord origin, Direction entranceDirection) {
