@@ -50,7 +50,7 @@ public interface WorldEditor {
 
   TileEntity getTileEntity(Coord pos);
 
-  boolean validGroundBlock(Coord pos);
+  boolean isValidGroundBlock(Coord pos);
 
   Map<BlockType, Integer> getStats();
 
