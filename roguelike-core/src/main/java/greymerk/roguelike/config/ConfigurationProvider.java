@@ -180,7 +180,7 @@ public abstract class ConfigurationProvider implements Iterable<Configuration> {
 
   }
 
-  public List<Integer> GetListInteger(String key, List<Integer> fallback) {
+  public List<Integer> getIntegers(String key, List<Integer> fallback) {
 
     String value = Get(key);
 
@@ -202,6 +202,28 @@ public abstract class ConfigurationProvider implements Iterable<Configuration> {
     return ints;
   }
 
+  public List<Double> getDoubles(String key, List<Double> fallback) {
+
+    String value = Get(key);
+
+    if (value == null) {
+      return fallback;
+    }
+
+    String[] values = value.split(",");
+
+    List<Double> ints = new ArrayList<>();
+
+    for (String s : values) {
+      try {
+        ints.add(Double.parseDouble(s));
+      } catch (NumberFormatException ignored) {
+      }
+    }
+
+    return ints;
+  }
+
 
   /**
    * Sets a configuration, creating it if it does not exist, updating it otherwise.
@@ -209,7 +231,7 @@ public abstract class ConfigurationProvider implements Iterable<Configuration> {
    * \param [in] key The key associated with the configuration to update or create. \param [in]
    * value The value to associate with \em key.
    */
-  public void Set(String key, String value) {
+  public void set(String key, String value) {
 
     //	If the key is null, pass, that's
     //	meaningless
@@ -239,9 +261,9 @@ public abstract class ConfigurationProvider implements Iterable<Configuration> {
    * \param [in] key The key associated with the configuration to update or create. \param [in]
    * value The value to associate with \em key.
    */
-  public void Set(String key, double value) {
+  public void set(String key, double value) {
 
-    Set(
+    set(
         key,
         Double.toString(value)
     );
@@ -254,9 +276,9 @@ public abstract class ConfigurationProvider implements Iterable<Configuration> {
    * \param [in] key The key associated with the configuration to update or create. \param [in]
    * value The value to associate with \em key.
    */
-  public void Set(String key, int value) {
+  public void set(String key, int value) {
 
-    Set(
+    set(
         key,
         Integer.toString(value)
     );
@@ -269,20 +291,21 @@ public abstract class ConfigurationProvider implements Iterable<Configuration> {
    * \param [in] key The key associated with the configuration to update or create. \param [in]
    * value The value to associate with \em key.
    */
-  public void Set(String key, boolean value) {
+  public void set(String key, boolean value) {
 
-    Set(
+    set(
         key,
         value ? true_string : false_string
     );
 
   }
 
+  public void set(String key, List<Integer> value) {
+    set(key, StringUtils.join(value, ","));
+  }
 
-  public void Set(String key, List<Integer> intList) {
-
-    Set(key, StringUtils.join(intList, ","));
-
+  public void set(String key, Double[] value) {
+    set(key, StringUtils.join(value, ","));
   }
 
   /**

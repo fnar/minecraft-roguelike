@@ -124,7 +124,7 @@ public class Mob {
   }
 
   private static Optional<Integer> getLevelOverride(int level) {
-    List<Integer> levelOverrides = RogueConfig.OVERRIDE_MOB_EQUIPMENT_ENCHANTMENT_LEVELS.getIntList();
+    List<Integer> levelOverrides = RogueConfig.MOBS_ITEMS_ENCHANTMENTS_LEVELS.getIntList();
     if (level > levelOverrides.size() - 1) {
       return Optional.empty();
     }
