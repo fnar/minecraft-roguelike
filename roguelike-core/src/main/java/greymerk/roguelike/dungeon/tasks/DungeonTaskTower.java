@@ -5,6 +5,7 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.dungeon.towers.TowerType;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 
@@ -15,10 +16,8 @@ public class DungeonTaskTower implements IDungeonTask {
     Coord pos = dungeon.getPosition();
 
     TowerType tower = settings.getTower().getType();
-    Random r = editor.getRandom();
-    TowerType.get(tower).generate(editor, r, settings.getTower().getTheme(), pos);
-
-
+    Theme theme = settings.getTower().getTheme();
+    TowerType.instantiate(tower, editor, theme).generate(pos);
   }
 
 }

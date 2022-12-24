@@ -3,8 +3,6 @@ package greymerk.roguelike.dungeon.towers;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.roguelike.worldgen.SpiralStairStep;
 
-import java.util.Random;
-
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.loot.ChestType;
@@ -14,6 +12,15 @@ import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 
 public abstract class Tower {
+
+  protected WorldEditor editor;
+  protected Theme theme;
+
+  public Tower(WorldEditor worldEditor, Theme theme) {
+    this.editor = worldEditor;
+    this.theme = theme;
+  }
+
   protected StairsBlock getStair(Theme theme) {
     return theme.getPrimary().getStair();
   }
@@ -35,5 +42,6 @@ public abstract class Tower {
         .stroke(worldEditor, coord);
   }
 
-  public abstract void generate(WorldEditor editor, Random rand, Theme theme, Coord origin);
+  public abstract void generate(Coord origin);
+
 }

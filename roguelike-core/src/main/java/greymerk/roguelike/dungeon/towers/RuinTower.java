@@ -3,8 +3,6 @@ package greymerk.roguelike.dungeon.towers;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 
-import java.util.Random;
-
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
@@ -14,8 +12,12 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class RuinTower extends Tower {
 
+  public RuinTower(WorldEditor worldEditor, Theme theme) {
+    super(worldEditor, theme);
+  }
+
   @Override
-  public void generate(WorldEditor editor, Random rand, Theme theme, Coord origin) {
+  public void generate(Coord origin) {
 
     BlockBrush blocks = theme.getPrimary().getWall();
     StairsBlock stair = theme.getPrimary().getStair();
@@ -32,7 +34,7 @@ public class RuinTower extends Tower {
     RectSolid.newRect(new Coord(origin.getX() - 2, origin.getY() + 10, origin.getZ() - 2), new Coord(origin.getX() + 2, floor.getY() - 1, origin.getZ() + 2)).fill(editor, blocks, false, true);
 
     for (int i = floor.getY(); i >= origin.getY(); --i) {
-      editor.spiralStairStep(rand, new Coord(origin.getX(), i, origin.getZ()), stair, theme.getPrimary().getPillar());
+      editor.spiralStairStep(editor.getRandom(), new Coord(origin.getX(), i, origin.getZ()), stair, theme.getPrimary().getPillar());
     }
 
     for (Direction dir : Direction.CARDINAL) {
@@ -40,9 +42,9 @@ public class RuinTower extends Tower {
         cursor = floor.copy();
         cursor.translate(dir, 4);
         cursor.translate(orthogonals);
-        RectSolid.newRect(cursor.copy(), new Coord(cursor.getX(), cursor.getY() + 1 + rand.nextInt(3), cursor.getZ())).fill(editor, blocks);
+        RectSolid.newRect(cursor.copy(), new Coord(cursor.getX(), cursor.getY() + 1 + editor.getRandom().nextInt(3), cursor.getZ())).fill(editor, blocks);
         cursor.translate(orthogonals);
-        RectSolid.newRect(cursor.copy(), new Coord(cursor.getX(), cursor.getY() + 1 + rand.nextInt(2), cursor.getZ())).fill(editor, blocks);
+        RectSolid.newRect(cursor.copy(), new Coord(cursor.getX(), cursor.getY() + 1 + editor.getRandom().nextInt(2), cursor.getZ())).fill(editor, blocks);
       }
 
       start = floor.copy();
@@ -56,7 +58,7 @@ public class RuinTower extends Tower {
       cursor = floor.copy();
       cursor.translate(dir, 3);
       cursor.translate(dir.antiClockwise(), 3);
-      RectSolid.newRect(new Coord(cursor.getX(), origin.getY() + 20, cursor.getZ()), new Coord(cursor.getX(), floor.getY() + 2 + rand.nextInt(4), cursor.getZ())).fill(editor, blocks, true, false);
+      RectSolid.newRect(new Coord(cursor.getX(), origin.getY() + 20, cursor.getZ()), new Coord(cursor.getX(), floor.getY() + 2 + editor.getRandom().nextInt(4), cursor.getZ())).fill(editor, blocks, true, false);
     }
   }
 }

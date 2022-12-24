@@ -26,8 +26,12 @@ import static com.github.fnar.minecraft.block.normal.ColoredBlock.stainedGlassPa
 
 public class HouseTower extends Tower {
 
+  public HouseTower(WorldEditor worldEditor, Theme theme) {
+    super(worldEditor, theme);
+  }
+
   @Override
-  public void generate(WorldEditor editor, Random rand, Theme theme, Coord dungeon) {
+  public void generate(Coord dungeon) {
 
     Coord floor = TowerType.getBaseCoord(editor, dungeon);
 
@@ -107,7 +111,7 @@ public class HouseTower extends Tower {
     roof(editor, theme, dir, new Coord(x, floor.getY() + 4, z));
     upperWalls(editor, theme, dir, new Coord(x, floor.getY() + 4, z));
     windows(editor, dir, floor);
-    decor(editor, rand, dir, floor);
+    decor(editor, editor.getRandom(), dir, floor);
 
     BlockBrush pillar = theme.getSecondary().getPillar();
     int secondStoryFloor = 4;
@@ -202,9 +206,9 @@ public class HouseTower extends Tower {
     end.translate(orthogonals[0], 5);
     end.translate(dir.reverse(), 3);
     BlockStripes carpet = new BlockStripes();
-    carpet.addBlock(carpet().setColor(DyeColor.chooseRandom(rand)));
-    carpet.addBlock(carpet().setColor(DyeColor.chooseRandom(rand)));
-    carpet.addBlock(carpet().setColor(DyeColor.chooseRandom(rand)));
+    carpet.addBlock(carpet().setColor(DyeColor.chooseRandom(editor.getRandom())));
+    carpet.addBlock(carpet().setColor(DyeColor.chooseRandom(editor.getRandom())));
+    carpet.addBlock(carpet().setColor(DyeColor.chooseRandom(editor.getRandom())));
     RectSolid.newRect(start, end).fill(editor, carpet);
   }
 

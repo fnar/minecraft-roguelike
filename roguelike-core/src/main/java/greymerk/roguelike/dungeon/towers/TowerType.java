@@ -2,6 +2,7 @@ package greymerk.roguelike.dungeon.towers;
 
 import java.util.Random;
 
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.theme.Themes;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -23,36 +24,36 @@ public enum TowerType {
   WITCH
   ;
 
-  public static Tower get(TowerType type) {
+  public static Tower instantiate(TowerType type, WorldEditor worldEditor, Theme theme) {
 
     switch (type) {
       default:
       case ROGUE:
-        return new RogueTower();
+        return new RogueTower(worldEditor, theme);
       case ENIKO:
-        return new EniTower();
+        return new EniTower(worldEditor, theme);
       case ETHO:
-        return new EthoTower();
+        return new EthoTower(worldEditor, theme);
       case PYRAMID:
-        return new PyramidTower();
+        return new PyramidTower(worldEditor, theme);
       case JUNGLE:
-        return new JungleTower();
+        return new JungleTower(worldEditor, theme);
       case WITCH:
-        return new WitchTower();
+        return new WitchTower(worldEditor, theme);
       case HOUSE:
-        return new HouseTower();
+        return new HouseTower(worldEditor, theme);
       case BUNKER:
-        return new BunkerTower();
+        return new BunkerTower(worldEditor, theme);
       case RUIN:
-        return new RuinTower();
+        return new RuinTower(worldEditor, theme);
       case HOLE:
-        return new HoleTower();
+        return new HoleTower(worldEditor, theme);
       case TREE:
-        return new TreeTower();
+        return new TreeTower(worldEditor, theme);
       case BUMBO:
-        return new BumboTower();
+        return new BumboTower(worldEditor, theme);
       case VILLAGER_HOUSE:
-        return new VillagerHouseTower();
+        return new VillagerHouseTower(worldEditor, theme);
     }
   }
 

@@ -3,8 +3,6 @@ package greymerk.roguelike.dungeon.towers;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 
-import java.util.Random;
-
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
@@ -15,8 +13,12 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class EthoTower extends Tower {
 
+  public EthoTower(WorldEditor worldEditor, Theme theme) {
+    super(worldEditor, theme);
+  }
+
   @Override
-  public void generate(WorldEditor editor, Random rand, Theme theme, Coord dungeon) {
+  public void generate(Coord dungeon) {
 
     BlockBrush primary = theme.getPrimary().getWall();
     BlockBrush pillar = theme.getSecondary().getPillar();

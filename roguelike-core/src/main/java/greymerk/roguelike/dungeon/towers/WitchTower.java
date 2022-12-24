@@ -3,8 +3,6 @@ package greymerk.roguelike.dungeon.towers;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 
-import java.util.Random;
-
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -18,8 +16,12 @@ import static com.github.fnar.minecraft.block.normal.ColoredBlock.stainedGlass;
 
 public class WitchTower extends Tower {
 
+  public WitchTower(WorldEditor worldEditor, Theme theme) {
+    super(worldEditor, theme);
+  }
+
   @Override
-  public void generate(WorldEditor editor, Random rand, Theme theme, Coord origin) {
+  public void generate(Coord origin) {
 
     BlockBrush blocks = theme.getPrimary().getWall();
     BlockBrush pillar = theme.getPrimary().getPillar();
@@ -251,7 +253,7 @@ public class WitchTower extends Tower {
 
 
     for (int i = thirdFloor.getY() - 1; i >= 50; --i) {
-      editor.spiralStairStep(rand, new Coord(origin.getX(), i, origin.getZ()), theme.getPrimary().getStair(), theme.getPrimary().getPillar());
+      editor.spiralStairStep(editor.getRandom(), new Coord(origin.getX(), i, origin.getZ()), theme.getPrimary().getStair(), theme.getPrimary().getPillar());
     }
 
     // attic

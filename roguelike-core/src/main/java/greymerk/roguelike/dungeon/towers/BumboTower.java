@@ -2,8 +2,6 @@ package greymerk.roguelike.dungeon.towers;
 
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 
-import java.util.Random;
-
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockCheckers;
@@ -14,11 +12,15 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class BumboTower extends Tower {
 
+  public BumboTower(WorldEditor worldEditor, Theme theme) {
+    super(worldEditor, theme);
+  }
+
   @Override
-  public void generate(WorldEditor editor, Random rand, Theme theme, Coord origin) {
+  public void generate(Coord origin) {
     Coord ground = TowerType.getBaseCoord(editor, origin);
 
-    Direction dir = Direction.randomCardinal(rand);
+    Direction dir = Direction.randomCardinal(editor.getRandom());
 
     stem(editor, theme, ground, dir);
 

@@ -5,8 +5,6 @@ import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.roguelike.worldgen.SpiralStairStep;
 
-import java.util.Random;
-
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -20,8 +18,12 @@ import static com.github.fnar.minecraft.block.normal.ColoredBlock.stainedGlassPa
 
 public class BunkerTower extends Tower {
 
+  public BunkerTower(WorldEditor worldEditor, Theme theme) {
+    super(worldEditor, theme);
+  }
+
   @Override
-  public void generate(WorldEditor editor, Random rand, Theme theme, Coord dungeon) {
+  public void generate(Coord dungeon) {
     Coord origin = TowerType.getBaseCoord(editor, dungeon);
     origin.up();
 
