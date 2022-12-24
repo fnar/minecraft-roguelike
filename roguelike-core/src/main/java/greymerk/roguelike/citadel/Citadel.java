@@ -13,7 +13,7 @@ public class Citadel {
 
   public static void generate(WorldEditor editor, int x, int z) {
 
-    Random rand = getRandom(editor, x, z);
+    Random rand = editor.getRandom();
 
     MinimumSpanningTree mst = new MinimumSpanningTree(rand, 7, EDGE_LENGTH);
     //mst.generate(world, rand, new MetaBlock(Blocks.glowstone), new Coord(x, 100, z));
@@ -21,11 +21,4 @@ public class Citadel {
     CityGrounds.generate(editor, mst, Themes.OAK.getThemeBase(), new Coord(x, 50, z));
   }
 
-
-  public static Random getRandom(WorldEditor editor, int x, int z) {
-    long seed = editor.getSeed() * x * z;
-    Random rand = new Random();
-    rand.setSeed(seed);
-    return rand;
-  }
 }
