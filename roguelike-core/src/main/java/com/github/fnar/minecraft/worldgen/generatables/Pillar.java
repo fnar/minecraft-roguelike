@@ -1,5 +1,6 @@
 package com.github.fnar.minecraft.worldgen.generatables;
 
+import com.github.fnar.minecraft.block.normal.ColoredBlock;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import greymerk.roguelike.dungeon.settings.LevelSettings;
@@ -12,36 +13,27 @@ public class Pillar extends BaseGeneratable {
 
   private int height = 3;
   private boolean withSupports = true;
-  private BlockBrush pillarBrush;
-  private StairsBlock stairBrush;
+  private BlockBrush pillarBrush = ColoredBlock.wool().red();
+  private StairsBlock stairBrush = StairsBlock.netherBrick();
 
   private Pillar(WorldEditor worldEditor) {
     super(worldEditor);
   }
 
   @Override
-  public BaseGeneratable generate(Coord at) {
+  public Pillar generate(Coord at) {
     Coord top = at.copy().up(height).down();
 
     worldEditor.fillDown(top, this.pillarBrush);
 
     if (withSupports) {
-      for (Direction cardinal: Direction.CARDINAL) {
+      for (Direction cardinal : Direction.CARDINAL) {
         Coord support = top.copy().translate(cardinal);
         stairBrush.setUpsideDown(true).setFacing(cardinal).stroke(worldEditor, support, true, false);
       }
     }
 
     return this;
-  }
-
-  @Override
-  public void generate(WorldEditor worldEditor, LevelSettings levelSettings, Coord origin, Direction facing) {
-    Pillar.newPillar(worldEditor)
-        .withPillarBrush(levelSettings.getTheme().getPrimary().getPillar())
-        .withStairBrush(levelSettings.getTheme().getSecondary().getStair())
-        .withLevelSettings(levelSettings)
-        .generate(origin);
   }
 
   public static Pillar newPillar(WorldEditor worldEditor) {
@@ -65,6 +57,14 @@ public class Pillar extends BaseGeneratable {
 
   public Pillar withStairBrush(StairsBlock stairBrush) {
     this.stairBrush = stairBrush;
+    return this;
+  }
+
+  @Override
+  public Pillar withLevelSettings(LevelSettings levelSettings) {
+    super.withLevelSettings(levelSettings);
+    withPillarBrush(levelSettings.getTheme().getPrimary().getPillar());
+    withPillarBrush(levelSettings.getTheme().getPrimary().getStair());
     return this;
   }
 }

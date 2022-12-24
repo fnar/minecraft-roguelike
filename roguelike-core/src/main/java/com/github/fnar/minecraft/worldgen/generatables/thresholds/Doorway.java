@@ -3,19 +3,21 @@ package com.github.fnar.minecraft.worldgen.generatables.thresholds;
 import com.google.common.collect.Maps;
 
 import com.github.fnar.minecraft.worldgen.BlockPattern;
-import com.github.fnar.minecraft.worldgen.generatables.Generatable;
+import com.github.fnar.minecraft.worldgen.generatables.BaseGeneratable;
 
 import java.util.Map;
 
-import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 
-public class Doorway implements Generatable {
+public class Doorway extends BaseGeneratable {
 
-  public void generate(WorldEditor worldEditor, LevelSettings levelSettings, Coord origin, Direction facing) {
+  public Doorway(WorldEditor worldEditor) {
+    super(worldEditor);
+  }
+
+  public Doorway generate(Coord at) {
     Map<Character, BlockBrush> blockBrushMap = Maps.newHashMap();
     blockBrushMap.put('#', levelSettings.getTheme().getPrimary().getWall());
     blockBrushMap.put('B', levelSettings.getTheme().getPrimary().getDoor().setFacing(facing));
@@ -27,6 +29,8 @@ public class Doorway implements Generatable {
         "# # # # # \n";
 
     new BlockPattern(worldEditor, pattern, blockBrushMap)
-        .stroke(origin.copy().translate(facing.left(), 2), facing);
+        .stroke(at.copy().translate(facing.left(), 2), facing);
+
+    return this;
   }
 }

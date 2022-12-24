@@ -104,6 +104,6 @@ public class VillagerHouseTower extends Tower {
 
   public void createSpiralStaircase(Coord origin, Coord base) {
     int height = base.getY() - origin.getY() + 1;
-    new SpiralStairStep(editor, origin, getPrimaryStair(), getPrimaryPillar()).generate(height);
+    new SpiralStairStep(editor, getPrimaryStair(), getPrimaryPillar()).withHeight(height).generate(origin);
   }
 }

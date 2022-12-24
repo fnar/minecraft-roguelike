@@ -246,7 +246,7 @@ public class WorldEditor1_12 implements WorldEditor {
 
   @Override
   public void spiralStairStep(Random rand, Coord origin, StairsBlock stair, BlockBrush fill) {
-    new SpiralStairStep(this, origin, stair, fill).generate();
+    new SpiralStairStep(this, stair, fill).generate(origin);
   }
 
   @Override
