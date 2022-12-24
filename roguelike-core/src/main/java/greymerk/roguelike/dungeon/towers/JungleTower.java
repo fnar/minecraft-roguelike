@@ -19,8 +19,12 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class JungleTower extends Tower {
 
+  public JungleTower(WorldEditor worldEditor, Theme theme) {
+    super(worldEditor, theme);
+  }
+
   @Override
-  public void generate(WorldEditor editor, Random rand, Theme theme, Coord dungeon) {
+  public void generate(Coord dungeon) {
 
     Coord origin = TowerType.getBaseCoord(editor, dungeon);
     origin.up();
@@ -356,10 +360,10 @@ public class JungleTower extends Tower {
     start = new Coord(cursor.getX(), dungeon.getY(), cursor.getZ());
     end = cursor.copy();
     for (Coord c : new RectSolid(start, end)) {
-      editor.spiralStairStep(rand, c, stair, pillar);
+      editor.spiralStairStep(editor.getRandom(), c, stair, pillar);
     }
 
-    decorate(editor, rand, origin);
+    decorate(editor, editor.getRandom(), origin);
   }
 
   private void decorate(WorldEditor editor, Random rand, Coord origin) {
@@ -430,8 +434,8 @@ public class JungleTower extends Tower {
     }
 
     for (Coord c : spots) {
-      if (rand.nextBoolean()) {
-        tree(editor, rand, c);
+      if (editor.getRandom().nextBoolean()) {
+        tree(editor, editor.getRandom(), c);
       }
     }
 
@@ -458,9 +462,9 @@ public class JungleTower extends Tower {
     for (Direction dir : Direction.CARDINAL) {
       Coord c = cursor.copy();
       c.translate(dir);
-      leafSpill(editor, rand, c, rand.nextInt(6));
+      leafSpill(editor, editor.getRandom(), c, editor.getRandom().nextInt(6));
     }
-    if (rand.nextBoolean()) {
+    if (editor.getRandom().nextBoolean()) {
       cursor.up();
       log.stroke(editor, cursor);
       for (Direction dir : Direction.CARDINAL) {
@@ -469,7 +473,7 @@ public class JungleTower extends Tower {
         leaves.stroke(editor, c, true, false);
       }
     }
-    if (rand.nextInt(3) == 0) {
+    if (editor.getRandom().nextInt(3) == 0) {
       cursor.up();
       log.stroke(editor, cursor);
       for (Direction dir : Direction.CARDINAL) {
@@ -492,8 +496,8 @@ public class JungleTower extends Tower {
     cursor.down();
     if (!editor.isOpaqueBlock(cursor)) {
       leaves.stroke(editor, origin);
-      if (rand.nextBoolean()) {
-        leafSpill(editor, rand, cursor, count - 1);
+      if (editor.getRandom().nextBoolean()) {
+        leafSpill(editor, editor.getRandom(), cursor, count - 1);
       }
       return;
     }
@@ -509,7 +513,7 @@ public class JungleTower extends Tower {
       if (editor.isOpaqueBlock(cursor)) {
         continue;
       }
-      leafSpill(editor, rand, cursor, count - 1);
+      leafSpill(editor, editor.getRandom(), cursor, count - 1);
     }
   }
 

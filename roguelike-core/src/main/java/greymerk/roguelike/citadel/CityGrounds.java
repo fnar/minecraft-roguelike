@@ -67,8 +67,9 @@ public class CityGrounds {
     for (Coord c : towers) {
       c.translate(pos);
       Random rand = editor.getRandom();
-      Tower tower = TowerType.get(TowerType.values()[rand.nextInt(TowerType.values().length)]);
-      tower.generate(editor, rand, Themes.values()[rand.nextInt(Themes.values().length)].getThemeBase(), new Coord(c.getX(), TOPLEVEL, c.getZ()));
+      Theme themeBase = Themes.values()[rand.nextInt(Themes.values().length)].getThemeBase();
+      Tower tower = TowerType.instantiate(TowerType.values()[rand.nextInt(TowerType.values().length)], editor, themeBase);
+      tower.generate(new Coord(c.getX(), TOPLEVEL, c.getZ()));
     }
   }
 }

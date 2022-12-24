@@ -3,8 +3,6 @@ package greymerk.roguelike.dungeon.towers;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 
-import java.util.Random;
-
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -17,8 +15,12 @@ import static com.github.fnar.minecraft.block.normal.ColoredBlock.stainedGlassPa
 
 public class EniTower extends Tower {
 
+  public EniTower(WorldEditor worldEditor, Theme theme) {
+    super(worldEditor, theme);
+  }
+
   @Override
-  public void generate(WorldEditor editor, Random rand, Theme theme, Coord dungeon) {
+  public void generate(Coord dungeon) {
 
     BlockBrush blocks = theme.getPrimary().getWall();
 
@@ -278,7 +280,7 @@ public class EniTower extends Tower {
       cursor = floor.copy();
       cursor.translate(dir, 4);
       cursor.up(4);
-      BlockBrush window = stainedGlassPane().setColor(DyeColor.chooseRandom(rand));
+      BlockBrush window = stainedGlassPane().setColor(DyeColor.chooseRandom(editor.getRandom()));
       for (int i = 0; i < 3; i++) {
         stair.setUpsideDown(false).setFacing(dir).stroke(editor, cursor);
         cursor.up();

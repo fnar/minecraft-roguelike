@@ -4,8 +4,6 @@ import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.roguelike.worldgen.SpiralStairStep;
 
-import java.util.Random;
-
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
@@ -15,9 +13,13 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class VillagerHouseTower extends Tower {
 
+  public VillagerHouseTower(WorldEditor worldEditor, Theme theme) {
+    super(worldEditor, theme);
+  }
+
   @Override
-  public void generate(WorldEditor editor, Random random, Theme theme, Coord origin) {
-    Direction facing = Direction.randomCardinal(random);
+  public void generate(Coord origin) {
+    Direction facing = Direction.randomCardinal(editor.getRandom());
     Coord base = TowerType.getBaseCoord(editor, origin);
     clearTowerArea(editor, base);
     createFoundation(editor, theme, origin, base, facing);

@@ -22,8 +22,12 @@ public class TreeTower extends Tower {
 
   public static final Wood WOOD_TYPE = Wood.OAK;
 
+  public TreeTower(WorldEditor worldEditor, Theme theme) {
+    super(worldEditor, theme);
+  }
+
   @Override
-  public void generate(WorldEditor editor, Random rand, Theme theme, Coord origin) {
+  public void generate(Coord origin) {
 
     Coord start;
     Coord end;
@@ -37,9 +41,9 @@ public class TreeTower extends Tower {
     start.down(10);
 
     // generate the tree
-    Branch tree = new Branch(rand, start);
+    Branch tree = new Branch(editor.getRandom(), start);
     tree.genWood(editor);
-    tree.genLeaves(editor, rand);
+    tree.genLeaves(editor, editor.getRandom());
 
 
     start = ground.copy();
@@ -51,7 +55,7 @@ public class TreeTower extends Tower {
     carveRoom(editor, ground);
     carveRoom(editor, upstairs);
 
-    Direction dir = Direction.randomCardinal(rand);
+    Direction dir = Direction.randomCardinal(editor.getRandom());
     start = ground.copy();
     end = ground.copy();
     end.up();
@@ -66,7 +70,7 @@ public class TreeTower extends Tower {
     start = upstairs.copy();
     start.down();
     for (Coord p : new RectSolid(start, origin)) {
-      editor.spiralStairStep(rand, p, theme.getPrimary().getStair(), theme.getPrimary().getPillar());
+      editor.spiralStairStep(editor.getRandom(), p, theme.getPrimary().getStair(), theme.getPrimary().getPillar());
     }
   }
 
@@ -191,7 +195,7 @@ public class TreeTower extends Tower {
 
     public void genLeaves(WorldEditor editor, Random rand) {
       MultiShape leafShape = new MultiShape();
-      getLeafShape(leafShape, rand);
+      getLeafShape(leafShape, editor.getRandom());
 
       BlockWeightedRandom leaves = new BlockWeightedRandom();
       leaves.addBlock(WOOD_TYPE.getLeaves(), 5);

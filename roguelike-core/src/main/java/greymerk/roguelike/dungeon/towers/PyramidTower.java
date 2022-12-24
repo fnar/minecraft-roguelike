@@ -3,8 +3,6 @@ package greymerk.roguelike.dungeon.towers;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 
-import java.util.Random;
-
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
@@ -15,8 +13,12 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class PyramidTower extends Tower {
 
+  public PyramidTower(WorldEditor worldEditor, Theme theme) {
+    super(worldEditor, theme);
+  }
+
   @Override
-  public void generate(WorldEditor editor, Random rand, Theme theme, Coord dungeon) {
+  public void generate(Coord dungeon) {
 
     Coord floor = TowerType.getBaseCoord(editor, dungeon);
     floor.up();
@@ -55,7 +57,7 @@ public class PyramidTower extends Tower {
     spire(editor, theme, cursor);
 
     for (int i = floor.getY() + 3; i >= y; --i) {
-      editor.spiralStairStep(rand, new Coord(x, i, z), theme.getPrimary().getStair(), theme.getPrimary().getPillar());
+      editor.spiralStairStep(editor.getRandom(), new Coord(x, i, z), theme.getPrimary().getStair(), theme.getPrimary().getPillar());
     }
 
   }
