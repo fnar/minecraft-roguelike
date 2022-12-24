@@ -32,15 +32,14 @@ public class RogueConfig {
   private static ConfigFile instance = null;
 
   public static final RogueConfig BREAK_IF_REQUIRED_MOD_IS_MISSING = new RogueConfig("breakIfRequiredModIsMissing", true);
-  public static final RogueConfig DIMENSIONBL = new RogueConfig("dimensionBL", Lists.newArrayList());
-  public static final RogueConfig DIMENSIONWL = new RogueConfig("dimensionWL", Lists.newArrayList(0));
+  public static final RogueConfig DIMENSIONBL = new RogueConfig("dimensionBL", new Integer[]{});
+  public static final RogueConfig DIMENSIONWL = new RogueConfig("dimensionWL", new Integer[]{0});
   public static final RogueConfig DONATURALSPAWN = new RogueConfig("doNaturalSpawn", true);
   public static final RogueConfig ENCASE = new RogueConfig("encase", false);
   public static final RogueConfig FURNITURE = new RogueConfig("furniture", true);
   public static final RogueConfig GENEROUS = new RogueConfig("generous", true);
   public static final RogueConfig LOOTING = new RogueConfig("looting", 0.085D);
   public static final RogueConfig LOWERLIMIT = new RogueConfig("lowerLimit", 60);
-  public static final RogueConfig MOBDROPS = new RogueConfig("mobDrops", 0.0);
   public static final RogueConfig PRECIOUSBLOCKS = new RogueConfig("preciousBlocks", true);
   public static final RogueConfig RANDOM = new RogueConfig("random", false);
   public static final RogueConfig ROGUESPAWNERS = new RogueConfig("rogueSpawners", true);
@@ -51,55 +50,65 @@ public class RogueConfig {
   public static final RogueConfig SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES = new RogueConfig("spawnMinimumDistanceFromVanillaStructures", 50);
   public static final RogueConfig UPPERLIMIT = new RogueConfig("upperLimit", 100);
   public static final RogueConfig VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM = new RogueConfig("vanillaStructuresToCheckMinimumDistanceFrom", VanillaStructure.getAllAsCommaDelimitedString());
-  public static final RogueConfig OVERRIDE_MOB_EQUIPMENT_ENCHANTMENT_LEVELS = new RogueConfig("overrideMobEquipmentEnchantmentLevels", Lists.newArrayList(-1,-1,-1,-1,-1));
+  public static final RogueConfig MOBS_ITEMS_DROP_CHANCE = new RogueConfig("mobs.items.dropChance", 0.0);
+  public static final RogueConfig MOBS_ITEMS_ENCHANTMENTS_LEVELS = new RogueConfig("overrideMobEquipmentEnchantmentLevels", new Integer[]{-1, -1, -1, -1, -1});
+  public static final RogueConfig MOBS_ITEMS_ENCHANTMENTS_CHANCE = new RogueConfig("mobs.items.enchanted.chance", new Double[]{-1.0, -1.0, -1.0, -1.0, -1.0});
 
   private static final boolean DEFAULT_BOOLEAN = false;
+  private static final String DEFAULT_STRING_VALUE = "";
   private static final int DEFAULT_INT = 0;
   private static final double DEFAULT_DOUBLE = 0.0;
   private static final List<Integer> DEFAULT_INT_LIST = Collections.unmodifiableList(Lists.newArrayList());
-  private static final String DEFAULT_STRING_VALUE = "";
+  private static final List<Double> DEFAULT_DOUBLE_LIST = Collections.unmodifiableList(Lists.newArrayList());
 
   private final String name;
-  private final Boolean defaultBoolean;
-  private final Integer defaultInt;
-  private final Double defaultDouble;
-  private final List<Integer> defaultIntList;
-  private final String defaultStringValue;
+  private final String stringValue;
+  private final Boolean booleanValue;
+  private final Integer intValue;
+  private final Double doubleValue;
+  private final List<Integer> intsValue;
+  private final List<Double> doublesValue;
 
   RogueConfig(String name, boolean value) {
-    this(name, value, DEFAULT_INT, DEFAULT_DOUBLE, null, DEFAULT_STRING_VALUE);
-  }
-
-  RogueConfig(String name, int value) {
-    this(name, DEFAULT_BOOLEAN, value, DEFAULT_DOUBLE, null, DEFAULT_STRING_VALUE);
-  }
-
-  RogueConfig(String name, double value) {
-    this(name, DEFAULT_BOOLEAN, DEFAULT_INT, value, null, DEFAULT_STRING_VALUE);
-  }
-
-  RogueConfig(String name, List<Integer> value) {
-    this(name, DEFAULT_BOOLEAN, DEFAULT_INT, DEFAULT_DOUBLE, value, DEFAULT_STRING_VALUE);
+    this(name, DEFAULT_STRING_VALUE, value, DEFAULT_INT, DEFAULT_DOUBLE, DEFAULT_INT_LIST, DEFAULT_DOUBLE_LIST);
   }
 
   RogueConfig(String name, String value) {
-    this(name, DEFAULT_BOOLEAN, DEFAULT_INT, DEFAULT_DOUBLE, DEFAULT_INT_LIST, value);
+    this(name, value, DEFAULT_BOOLEAN, DEFAULT_INT, DEFAULT_DOUBLE, DEFAULT_INT_LIST, DEFAULT_DOUBLE_LIST);
+  }
+
+  RogueConfig(String name, int value) {
+    this(name, DEFAULT_STRING_VALUE, DEFAULT_BOOLEAN, value, DEFAULT_DOUBLE, DEFAULT_INT_LIST, DEFAULT_DOUBLE_LIST);
+  }
+
+  RogueConfig(String name, double value) {
+    this(name, DEFAULT_STRING_VALUE, DEFAULT_BOOLEAN, DEFAULT_INT, value, DEFAULT_INT_LIST, DEFAULT_DOUBLE_LIST);
+  }
+
+  RogueConfig(String name, Integer[] value) {
+    this(name, DEFAULT_STRING_VALUE, DEFAULT_BOOLEAN, DEFAULT_INT, DEFAULT_DOUBLE, Lists.newArrayList(value), DEFAULT_DOUBLE_LIST);
+  }
+
+  RogueConfig(String name, Double[] value) {
+    this(name, DEFAULT_STRING_VALUE, DEFAULT_BOOLEAN, DEFAULT_INT, DEFAULT_DOUBLE, DEFAULT_INT_LIST, Lists.newArrayList(value));
   }
 
   RogueConfig(
       String name,
-      Boolean defaultBoolean,
-      Integer defaultInt,
-      Double defaultDouble,
-      List<Integer> defaultIntList,
-      String defaultStringValue
+      String stringValue,
+      Boolean booleanValue,
+      Integer intValue,
+      Double doubleValue,
+      List<Integer> intsValue,
+      List<Double> doublesValue
   ) {
     this.name = name;
-    this.defaultBoolean = defaultBoolean;
-    this.defaultInt = defaultInt;
-    this.defaultDouble = defaultDouble;
-    this.defaultIntList = defaultIntList;
-    this.defaultStringValue = defaultStringValue;
+    this.stringValue = stringValue;
+    this.booleanValue = booleanValue;
+    this.intValue = intValue;
+    this.doubleValue = doubleValue;
+    this.intsValue = intsValue;
+    this.doublesValue = doublesValue;
   }
 
   public String getName() {
@@ -109,73 +118,68 @@ public class RogueConfig {
   @SuppressWarnings("unchecked")
   private static void setDefaults() {
     if (!instance.ContainsKey(BREAK_IF_REQUIRED_MOD_IS_MISSING.name)) {
-      BREAK_IF_REQUIRED_MOD_IS_MISSING.setBoolean(BREAK_IF_REQUIRED_MOD_IS_MISSING.defaultBoolean);
+      BREAK_IF_REQUIRED_MOD_IS_MISSING.setBoolean(BREAK_IF_REQUIRED_MOD_IS_MISSING.booleanValue);
     }
 
     if (!instance.ContainsKey(DONATURALSPAWN.name)) {
-      DONATURALSPAWN.setBoolean(DONATURALSPAWN.defaultBoolean);
+      DONATURALSPAWN.setBoolean(DONATURALSPAWN.booleanValue);
     }
     if (!instance.ContainsKey(SPAWNFREQUENCY.name)) {
-      SPAWNFREQUENCY.setInt(SPAWNFREQUENCY.defaultInt);
+      SPAWNFREQUENCY.setInt(SPAWNFREQUENCY.intValue);
     }
     if (!instance.ContainsKey(SPAWNCHANCE.name)) {
-      setDouble(SPAWNCHANCE, SPAWNCHANCE.defaultDouble);
+      SPAWNCHANCE.setDouble(SPAWNCHANCE.doubleValue);
     }
     if (!instance.ContainsKey(GENEROUS.name)) {
-      GENEROUS.setBoolean(GENEROUS.defaultBoolean);
+      GENEROUS.setBoolean(GENEROUS.booleanValue);
     }
     if (!instance.ContainsKey(DIMENSIONWL.name)) {
-      DIMENSIONWL.setIntList(DIMENSIONWL.defaultIntList);
+      DIMENSIONWL.setIntList(DIMENSIONWL.intsValue);
     }
     if (!instance.ContainsKey(DIMENSIONBL.name)) {
-      DIMENSIONBL.setIntList(DIMENSIONBL.defaultIntList);
+      DIMENSIONBL.setIntList(DIMENSIONBL.intsValue);
     }
     if (!instance.ContainsKey(PRECIOUSBLOCKS.name)) {
-      PRECIOUSBLOCKS.setBoolean(PRECIOUSBLOCKS.defaultBoolean);
+      PRECIOUSBLOCKS.setBoolean(PRECIOUSBLOCKS.booleanValue);
     }
     if (!instance.ContainsKey(LOOTING.name)) {
-      setDouble(LOOTING, LOOTING.defaultDouble);
+      LOOTING.setDouble(LOOTING.doubleValue);
     }
     if (!instance.ContainsKey(UPPERLIMIT.name)) {
-      UPPERLIMIT.setInt(UPPERLIMIT.defaultInt);
+      UPPERLIMIT.setInt(UPPERLIMIT.intValue);
     }
     if (!instance.ContainsKey(LOWERLIMIT.name)) {
-      LOWERLIMIT.setInt(LOWERLIMIT.defaultInt);
+      LOWERLIMIT.setInt(LOWERLIMIT.intValue);
     }
     if (!instance.ContainsKey(ROGUESPAWNERS.name)) {
-      ROGUESPAWNERS.setBoolean(ROGUESPAWNERS.defaultBoolean);
+      ROGUESPAWNERS.setBoolean(ROGUESPAWNERS.booleanValue);
     }
     if (!instance.ContainsKey(ENCASE.name)) {
-      ENCASE.setBoolean(ENCASE.defaultBoolean);
+      ENCASE.setBoolean(ENCASE.booleanValue);
     }
     if (!instance.ContainsKey(FURNITURE.name)) {
-      FURNITURE.setBoolean(FURNITURE.defaultBoolean);
+      FURNITURE.setBoolean(FURNITURE.booleanValue);
     }
     if (!instance.ContainsKey(RANDOM.name)) {
-      RANDOM.setBoolean(RANDOM.defaultBoolean);
+      RANDOM.setBoolean(RANDOM.booleanValue);
     }
     if (!instance.ContainsKey(SPAWNBUILTIN.name)) {
-      SPAWNBUILTIN.setBoolean(SPAWNBUILTIN.defaultBoolean);
+      SPAWNBUILTIN.setBoolean(SPAWNBUILTIN.booleanValue);
     }
     if (!instance.ContainsKey(SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES.name)) {
-      SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES.setInt(SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES.defaultInt);
+      SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES.setInt(SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES.intValue);
     }
     if (!instance.ContainsKey(SPAWN_ATTEMPTS.name)) {
-      SPAWN_ATTEMPTS.setInt(SPAWN_ATTEMPTS.defaultInt);
+      SPAWN_ATTEMPTS.setInt(SPAWN_ATTEMPTS.intValue);
     }
 
     if (!instance.ContainsKey(VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM.getName())) {
-      VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM.setString(VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM.defaultStringValue);
+      VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM.setString(VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM.stringValue);
     }
 
-    if (!instance.ContainsKey(OVERRIDE_MOB_EQUIPMENT_ENCHANTMENT_LEVELS.getName())) {
-      OVERRIDE_MOB_EQUIPMENT_ENCHANTMENT_LEVELS.setIntList(OVERRIDE_MOB_EQUIPMENT_ENCHANTMENT_LEVELS.defaultIntList);
+    if (!instance.ContainsKey(MOBS_ITEMS_ENCHANTMENTS_LEVELS.getName())) {
+      MOBS_ITEMS_ENCHANTMENTS_LEVELS.setIntList(MOBS_ITEMS_ENCHANTMENTS_LEVELS.intsValue);
     }
-  }
-
-  public static void setDouble(RogueConfig option, double value) {
-    reload(false);
-    instance.Set(option.name, value);
   }
 
   private static void init() {
@@ -222,64 +226,83 @@ public class RogueConfig {
     }
   }
 
-  public double getDouble() {
+  public String getString() {
     if (testing) {
-      return defaultDouble;
+      return stringValue;
     }
+    return instance.GetString(name, stringValue);
+  }
+
+  private void setString(String defaultStringValue) {
     reload(false);
-    return instance.GetDouble(name, defaultDouble);
+    instance.set(name, defaultStringValue);
   }
 
   public boolean getBoolean() {
     if (testing) {
-      return defaultBoolean;
+      return booleanValue;
     }
     reload(false);
-    return instance.GetBoolean(name, defaultBoolean);
+    return instance.GetBoolean(name, booleanValue);
   }
 
   public void setBoolean(Boolean value) {
     reload(false);
-    instance.Set(name, value);
+    instance.set(name, value);
   }
 
   public int getInt() {
     if (testing) {
-      return defaultInt;
+      return intValue;
     }
     reload(false);
-    return instance.GetInteger(name, defaultInt);
+    return instance.GetInteger(name, intValue);
   }
 
   public void setInt(int value) {
     reload(false);
-    instance.Set(name, value);
+    instance.set(name, value);
+  }
+
+  public double getDouble() {
+    if (testing) {
+      return doubleValue;
+    }
+    reload(false);
+    return instance.GetDouble(name, doubleValue);
+  }
+
+  public void setDouble(double value) {
+    reload(false);
+    instance.set(name, value);
   }
 
   @SuppressWarnings("unchecked")
   public List<Integer> getIntList() {
     if (testing) {
-      return defaultIntList;
+      return intsValue;
     }
     reload(false);
-    return instance.GetListInteger(name, defaultIntList);
+    return instance.getIntegers(name, intsValue);
   }
 
   public void setIntList(List<Integer> value) {
     reload(false);
-    instance.Set(name, value);
+    instance.set(name, value);
   }
 
-  public String getString() {
+  @SuppressWarnings("unchecked")
+  public List<Double> getDoubleList() {
     if (testing) {
-      return defaultStringValue;
+      return doublesValue;
     }
-    return instance.GetString(name, defaultStringValue);
+    reload(false);
+    return instance.getDoubles(name, doublesValue);
   }
 
-  private void setString(String defaultStringValue) {
+  public void setDoubleList(List<Double> value) {
     reload(false);
-    instance.Set(name, defaultStringValue);
+    instance.set(name, value.toArray(new Double[]{}));
   }
 
   public static Set<VanillaStructure> vanillaStructuresToCheckDistanceTo() {
