@@ -13,7 +13,8 @@ public enum Shape {
   public static IShape get(Shape type, Coord start, Coord end) {
     switch (type) {
       case RECTSOLID:
-        return new RectSolid(start, end);
+      default:
+        return RectSolid.newRect(start, end);
       case RECTHOLLOW:
         return new RectHollow(start, end);
       case RECTPYRAMID:
@@ -22,8 +23,6 @@ public enum Shape {
         return new RectWireframe(start, end);
       case SPHERE:
         return new Sphere(start, end);
-      default:
-        return new RectSolid(start, end);
     }
   }
 }

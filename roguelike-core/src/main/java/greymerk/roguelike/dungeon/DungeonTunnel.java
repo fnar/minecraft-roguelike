@@ -34,7 +34,7 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
   public DungeonTunnel(Coord start, Coord end) {
     this.start = start;
     this.end = end;
-    tunnel = new RectSolid(start, end).get();
+    tunnel = RectSolid.newRect(start, end).get();
     segments = new ArrayList<>();
   }
 

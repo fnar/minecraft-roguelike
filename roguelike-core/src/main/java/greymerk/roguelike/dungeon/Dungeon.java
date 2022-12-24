@@ -217,7 +217,7 @@ public class Dungeon {
     Coord start = cursor.copy().translate(new Coord(-4, 4, -4));
     Coord end = cursor.copy().translate(new Coord(4, 4, 4));
 
-    for (Coord c : new RectSolid(start, end)) {
+    for (Coord c : RectSolid.newRect(start, end)) {
       if (editor.isValidGroundBlock(c)) {
         return false;
       }
@@ -229,7 +229,7 @@ public class Dungeon {
     Coord start1 = cursor.copy().translate(new Coord(-4, -3, -4));
     Coord end1 = cursor.copy().translate(new Coord(4, -3, 4));
     int airCount = 0;
-    for (Coord c : new RectSolid(start1, end1)) {
+    for (Coord c : RectSolid.newRect(start1, end1)) {
       if (!editor.isValidGroundBlock(c)) {
         airCount++;
       }
