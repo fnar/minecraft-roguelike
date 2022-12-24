@@ -27,7 +27,7 @@ public class VillagerHouseTower implements ITower {
   }
 
   private void clearTowerArea(WorldEditor editor, Coord origin) {
-    RectSolid rect = origin.newRect(4);
+    RectSolid rect = origin.newRect(2);
     for (int i = 0; i < 6; i++) {
       rect.fill(editor, BlockType.AIR.getBrush());
       rect.translate(Direction.UP, 1);
@@ -38,8 +38,29 @@ public class VillagerHouseTower implements ITower {
     for (Coord cursor = new Coord(base); origin.getY() + 10 <= cursor.getY(); cursor.down()) {
       cursor.newRect(2).fill(editor, theme.getPrimary().getFloor());
     }
-    Coord entrance = base.copy().translate(facing, 2);
-    theme.getPrimary().getStair().setUpsideDown(false).setFacing(facing).stroke(editor, entrance.translate(facing));
+
+    createOutsideStaircase(editor, theme, base, facing);
+  }
+
+  private void createOutsideStaircase(WorldEditor editor, Theme theme, Coord base, Direction facing) {
+    BlockBrush stairBlock = theme.getPrimary().getStair().setUpsideDown(false).setFacing(facing);
+    Coord stairCoord = base.copy().translate(facing, 3);
+    do {
+      stairBlock.stroke(editor, stairCoord);
+
+      fillBeneathStep(editor, theme, stairCoord);
+
+      stairCoord.translate(facing).down();
+    } while (!editor.validGroundBlock(stairCoord));
+  }
+
+  private void fillBeneathStep(WorldEditor editor, Theme theme, Coord entrance) {
+    Coord belowTop = entrance.copy().down();
+    Coord belowBottom = belowTop.copy();
+    while (!editor.validGroundBlock(belowBottom)) {
+      belowBottom.down();
+    }
+    theme.getPrimary().getWall().fill(editor, new RectSolid(belowTop, belowBottom));
   }
 
   private void createWalls(WorldEditor editor, Theme theme, Coord origin, Direction facing) {
