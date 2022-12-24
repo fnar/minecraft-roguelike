@@ -130,21 +130,22 @@ public class SpawnPotentialMapper1_12 {
   }
 
   private static void setLootingRateTags(NBTTagCompound entityNbt) {
-    float lootingChance = (float) RogueConfig.LOOTING.getDouble();
+    float mobItemsDropChance = (float) RogueConfig.MOBS_ITEMS_DROP_CHANCE.getDouble();
 
+    // order matters
     NBTTagList handDropChances = new NBTTagList();
-    NBTTagFloat mainHandDropChance = new NBTTagFloat(lootingChance);
-    NBTTagFloat offHandDropChance = new NBTTagFloat(lootingChance);
+    NBTTagFloat mainHandDropChance = new NBTTagFloat(mobItemsDropChance);
+    NBTTagFloat offHandDropChance = new NBTTagFloat(mobItemsDropChance);
     handDropChances.appendTag(mainHandDropChance);
     handDropChances.appendTag(offHandDropChance);
     entityNbt.setTag("HandDropChances", handDropChances);
 
-
+    // order matters
     NBTTagList armorDropChances = new NBTTagList();
-    NBTTagFloat feetDropChance = new NBTTagFloat(lootingChance);
-    NBTTagFloat legsDropChance = new NBTTagFloat(lootingChance);
-    NBTTagFloat chestDropChance = new NBTTagFloat(lootingChance);
-    NBTTagFloat headDropChance = new NBTTagFloat(lootingChance);
+    NBTTagFloat feetDropChance = new NBTTagFloat(mobItemsDropChance);
+    NBTTagFloat legsDropChance = new NBTTagFloat(mobItemsDropChance);
+    NBTTagFloat chestDropChance = new NBTTagFloat(mobItemsDropChance);
+    NBTTagFloat headDropChance = new NBTTagFloat(mobItemsDropChance);
     armorDropChances.appendTag(feetDropChance);
     armorDropChances.appendTag(legsDropChance);
     armorDropChances.appendTag(chestDropChance);

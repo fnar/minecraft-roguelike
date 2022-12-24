@@ -39,7 +39,6 @@ public class RogueConfig {
   public static final RogueConfig ENCASE = new RogueConfig("encase", false);
   public static final RogueConfig FURNITURE = new RogueConfig("furniture", true);
   public static final RogueConfig GENEROUS = new RogueConfig("generous", true);
-  public static final RogueConfig LOOTING = new RogueConfig("looting", 0.085D);
   public static final RogueConfig LOWERLIMIT = new RogueConfig("lowerLimit", 60);
   public static final RogueConfig PRECIOUSBLOCKS = new RogueConfig("preciousBlocks", true);
   public static final RogueConfig RANDOM = new RogueConfig("random", false);
@@ -51,7 +50,7 @@ public class RogueConfig {
   public static final RogueConfig SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES = new RogueConfig("spawnMinimumDistanceFromVanillaStructures", 50);
   public static final RogueConfig UPPERLIMIT = new RogueConfig("upperLimit", 100);
   public static final RogueConfig VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM = new RogueConfig("vanillaStructuresToCheckMinimumDistanceFrom", VanillaStructure.getAllAsCommaDelimitedString());
-  public static final RogueConfig MOBS_ITEMS_DROP_CHANCE = new RogueConfig("mobs.items.dropChance", 0.0);
+  public static final RogueConfig MOBS_ITEMS_DROP_CHANCE = new RogueConfig("mobs.items.dropChance", 0.085);
   public static final RogueConfig MOBS_ITEMS_ENCHANTMENTS_CHANCE = new RogueConfig("mobs.items.enchantments.chance", new Double[]{-1.0, -1.0, -1.0, -1.0, -1.0});
   public static final RogueConfig MOBS_ITEMS_ENCHANTMENTS_LEVELS = new RogueConfig("mobs.items.enchantments.levels", new Integer[]{-1, -1, -1, -1, -1});
 
@@ -143,9 +142,19 @@ public class RogueConfig {
     if (!instance.ContainsKey(PRECIOUSBLOCKS.name)) {
       PRECIOUSBLOCKS.setBoolean(PRECIOUSBLOCKS.booleanValue);
     }
-    if (!instance.ContainsKey(LOOTING.name)) {
-      LOOTING.setDouble(LOOTING.doubleValue);
+
+    if (!instance.ContainsKey(MOBS_ITEMS_DROP_CHANCE.getName())) {
+      MOBS_ITEMS_DROP_CHANCE.setDouble(MOBS_ITEMS_DROP_CHANCE.doubleValue);
     }
+
+    if (!instance.ContainsKey(MOBS_ITEMS_ENCHANTMENTS_CHANCE.getName())) {
+      MOBS_ITEMS_ENCHANTMENTS_CHANCE.setDoubleList(MOBS_ITEMS_ENCHANTMENTS_CHANCE.doublesValue);
+    }
+
+    if (!instance.ContainsKey(MOBS_ITEMS_ENCHANTMENTS_LEVELS.getName())) {
+      MOBS_ITEMS_ENCHANTMENTS_LEVELS.setIntList(MOBS_ITEMS_ENCHANTMENTS_LEVELS.intsValue);
+    }
+
     if (!instance.ContainsKey(UPPERLIMIT.name)) {
       UPPERLIMIT.setInt(UPPERLIMIT.intValue);
     }
@@ -176,13 +185,6 @@ public class RogueConfig {
 
     if (!instance.ContainsKey(VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM.getName())) {
       VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM.setString(VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM.stringValue);
-    }
-
-    if (!instance.ContainsKey(MOBS_ITEMS_ENCHANTMENTS_LEVELS.getName())) {
-      MOBS_ITEMS_ENCHANTMENTS_LEVELS.setIntList(MOBS_ITEMS_ENCHANTMENTS_LEVELS.intsValue);
-    }
-    if (!instance.ContainsKey(MOBS_ITEMS_ENCHANTMENTS_CHANCE.getName())) {
-      MOBS_ITEMS_ENCHANTMENTS_CHANCE.setDoubleList(MOBS_ITEMS_ENCHANTMENTS_CHANCE.doublesValue);
     }
   }
 

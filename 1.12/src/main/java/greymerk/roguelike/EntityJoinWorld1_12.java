@@ -76,7 +76,7 @@ public class EntityJoinWorld1_12 {
       newEntity.copyLocationAndAnglesFrom(oldEntity);
       oldEntity.getTags().forEach(newEntity::addTag);
       oldEntityData.getKeySet().forEach(key -> newEntity.getEntityData().setTag(key, oldEntityData.getTag(key)));
-      Arrays.stream(EntityEquipmentSlot.values()).forEach(value -> newEntity.setDropChance(value, (float) RogueConfig.LOOTING.getDouble()));
+      Arrays.stream(EntityEquipmentSlot.values()).forEach(value -> newEntity.setDropChance(value, (float) RogueConfig.MOBS_ITEMS_DROP_CHANCE.getDouble()));
 
       // Mob type might be changed by this mod, so it's important to respawn
       oldEntity.world.removeEntity(oldEntity);
