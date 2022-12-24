@@ -1,7 +1,7 @@
 package greymerk.roguelike.dungeon;
 
 import com.github.fnar.minecraft.block.normal.StairsBlock;
-import com.github.fnar.roguelike.worldgen.SpiralStairStep;
+import com.github.fnar.roguelike.worldgen.generatables.SpiralStairStep;
 
 import java.util.Random;
 

@@ -1,8 +1,7 @@
-package com.github.fnar.roguelike.worldgen;
+package com.github.fnar.roguelike.worldgen.generatables;
 
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
-import com.github.fnar.minecraft.worldgen.generatables.BaseGeneratable;
 
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;

@@ -1,4 +1,4 @@
-package com.github.fnar.minecraft.worldgen;
+package com.github.fnar.roguelike.worldgen;
 
 import java.util.Arrays;
 import java.util.Collections;

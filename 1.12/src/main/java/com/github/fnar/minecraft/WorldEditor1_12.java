@@ -15,7 +15,7 @@ import com.github.fnar.minecraft.block.spawner.SpawnPotentialMapper1_12;
 import com.github.fnar.minecraft.block.spawner.Spawner;
 import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.minecraft.item.mapper.ItemMapper1_12;
-import com.github.fnar.roguelike.worldgen.SpiralStairStep;
+import com.github.fnar.roguelike.worldgen.generatables.SpiralStairStep;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
