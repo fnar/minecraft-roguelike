@@ -61,7 +61,7 @@ public class Mob {
   }
 
   public static Optional<Double> getEnchantedChanceOverride(int level) {
-    Optional<Double> value = RogueConfig.MOBS_ITEMS_ENCHANTED_CHANCE.getDoubleAtIndex(level);
+    Optional<Double> value = RogueConfig.MOBS_ITEMS_ENCHANTMENTS_CHANCE.getDoubleAtIndex(level);
     if (!value.isPresent() || value.get() < 0) {
       return Optional.empty();
     }
