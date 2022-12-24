@@ -38,7 +38,7 @@ public class SilverfishNest {
     int y = centre.getY();
     int z = centre.getZ();
 
-    List<Coord> toCheck = new RectSolid(new Coord(x - 2, y + 1, z - 2), new Coord(x + 2, y + 1, z + 2)).get();
+    List<Coord> toCheck = RectSolid.newRect(new Coord(x - 2, y + 1, z - 2), new Coord(x + 2, y + 1, z + 2)).get();
 
     for (Coord c : toCheck) {
       if (editor.isAirBlock(c)) {

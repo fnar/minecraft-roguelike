@@ -61,7 +61,7 @@ public class PrisonCell {
     int y = centre.getY();
     int z = centre.getZ();
 
-    for (Coord c : new RectSolid(new Coord(x - 2, y, z - 2), new Coord(x + 2, y, z + 2))) {
+    for (Coord c : RectSolid.newRect(new Coord(x - 2, y, z - 2), new Coord(x + 2, y, z + 2))) {
       if (editor.isAirBlock(c)) {
         return false;
       }
