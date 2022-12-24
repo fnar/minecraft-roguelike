@@ -23,7 +23,7 @@ public enum TowerType {
   WITCH
   ;
 
-  public static ITower get(TowerType type) {
+  public static Tower get(TowerType type) {
 
     switch (type) {
       default:
