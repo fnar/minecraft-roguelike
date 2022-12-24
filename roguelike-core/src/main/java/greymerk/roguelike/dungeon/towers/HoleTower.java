@@ -13,7 +13,7 @@ import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
-public class HoleTower implements ITower {
+public class HoleTower extends Tower {
 
   @Override
   public void generate(WorldEditor editor, Random rand, Theme theme, Coord origin) {

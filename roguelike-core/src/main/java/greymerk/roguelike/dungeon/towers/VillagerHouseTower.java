@@ -13,7 +13,7 @@ import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
-public class VillagerHouseTower implements ITower {
+public class VillagerHouseTower extends Tower {
 
   @Override
   public void generate(WorldEditor editor, Random random, Theme theme, Coord origin) {

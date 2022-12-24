@@ -18,7 +18,7 @@ import greymerk.roguelike.worldgen.shapes.MultiShape;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.shapes.Sphere;
 
-public class TreeTower implements ITower {
+public class TreeTower extends Tower {
 
   public static final Wood WOOD_TYPE = Wood.OAK;
 

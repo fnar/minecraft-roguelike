@@ -16,7 +16,7 @@ import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 
-public class RogueTower implements ITower {
+public class RogueTower extends Tower {
 
   public void generate(WorldEditor editor, Random rand, Theme theme, Coord origin) {
     int x = origin.getX();
