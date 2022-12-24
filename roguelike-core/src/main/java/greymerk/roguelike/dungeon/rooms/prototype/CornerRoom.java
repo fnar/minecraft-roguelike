@@ -26,6 +26,7 @@ public class CornerRoom extends BaseRoom {
     fillFloor(origin);
     createCornerWalls(origin);
     createCeiling(origin);
+    generateDoorways(origin, entrances);
     return this;
   }
 
