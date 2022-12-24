@@ -1,7 +1,7 @@
 package com.github.fnar.minecraft;
 
 
-import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
 import com.google.gson.JsonElement;
 
 import com.github.fnar.minecraft.block.BlockMapper1_12;
@@ -39,10 +39,10 @@ import net.minecraft.world.gen.ChunkProviderServer;
 import org.apache.logging.log4j.LogManager;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import greymerk.roguelike.treasure.TreasureChest;
@@ -60,17 +60,17 @@ import static greymerk.roguelike.dungeon.Dungeon.MOD_ID;
 
 public class WorldEditor1_12 implements WorldEditor {
 
-  private static final List<Material> invalid = Lists.newArrayList(
-      Material.AIR,
-      Material.WOOD,
-      Material.WATER,
-      Material.CACTUS,
-      Material.SNOW,
+  private static final Set<Material> valid = Sets.newHashSet(
       Material.GRASS,
-      Material.GOURD,
-      Material.LEAVES,
-      Material.PLANTS
+      Material.GROUND,
+      Material.ROCK,
+      Material.SAND,
+      Material.ICE,
+      Material.PACKED_ICE,
+      Material.SNOW,
+      Material.CLAY
   );
+
   private final World world;
   private final Map<BlockType, Integer> stats = new HashMap<>();
   private final Random random;
@@ -267,7 +267,7 @@ public class WorldEditor1_12 implements WorldEditor {
 
   @Override
   public boolean validGroundBlock(Coord pos) {
-    return !invalid.contains(getBlockStateAt(pos).getMaterial());
+    return valid.contains(getBlockStateAt(pos).getMaterial());
   }
 
   @Override
