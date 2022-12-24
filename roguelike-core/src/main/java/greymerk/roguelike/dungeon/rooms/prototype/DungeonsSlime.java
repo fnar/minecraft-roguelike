@@ -2,6 +2,7 @@ package greymerk.roguelike.dungeon.rooms.prototype;
 
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
+import com.github.fnar.minecraft.worldgen.generatables.Pillar;
 
 import java.util.List;
 
@@ -63,14 +64,12 @@ public class DungeonsSlime extends BaseRoom {
       Coord start = origin.copy()
           .translate(dir, 2)
           .translate(dir.antiClockwise(), 2);
-      Coord end = start.copy().up(3);
-      pillars().fill(worldEditor, RectSolid.newRect(start, end));
 
-      for (Direction d : Direction.CARDINAL) {
-        Coord cursor = end.copy();
-        cursor.translate(d);
-        stairs().setUpsideDown(true).setFacing(d).stroke(worldEditor, cursor, true, false);
-      }
+      Pillar.newPillar(worldEditor)
+          .withPillarBrush(pillars())
+          .withStairBrush(stairs())
+          .withHeight(4)
+          .generate(start);
     }
   }
 

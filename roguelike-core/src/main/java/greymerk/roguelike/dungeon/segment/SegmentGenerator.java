@@ -4,7 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.worldgen.generatables.Pillar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -114,8 +114,9 @@ public class SegmentGenerator {
       segments.add(segment);
     }
 
+    // todo: Can this be removed? It seems to have no effect.
     if (!level.hasNearbyNode(pos) && rand.nextInt(3) == 0) {
-      addSupport(editor, level.getSettings().getTheme(), pos.copy());
+      addSupport(editor, level.getSettings().getTheme(), pos.copy().down(2));
     }
 
     return segments;
@@ -144,17 +145,13 @@ public class SegmentGenerator {
   }
 
   private void addSupport(WorldEditor editor, Theme theme, Coord origin) {
-    Coord beneathWalkway = origin.copy().down(2);
-    if (!editor.isAirBlock(beneathWalkway)) {
+    if (!editor.isAirBlock(origin)) {
       return;
     }
 
-    editor.fillDown(beneathWalkway, theme.getPrimary().getPillar());
-
-    StairsBlock stair = theme.getPrimary().getStair().setUpsideDown(true);
-    stair.setFacing(Direction.WEST).stroke(editor, beneathWalkway.copy().west());
-    stair.setFacing(Direction.EAST).stroke(editor, beneathWalkway.copy().east());
-    stair.setFacing(Direction.SOUTH).stroke(editor, beneathWalkway.copy().south());
-    stair.setFacing(Direction.NORTH).stroke(editor, beneathWalkway.copy().north());
+    Pillar.newPillar(editor)
+        .withPillarBrush(theme.getPrimary().getPillar())
+        .withStairBrush(theme.getPrimary().getStair())
+        .generate(origin);
   }
 }
