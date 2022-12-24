@@ -1,20 +1,22 @@
 package com.github.fnar.minecraft.worldgen.generatables.thresholds;
 
-import com.github.fnar.minecraft.worldgen.generatables.Generatable;
+import com.github.fnar.minecraft.worldgen.generatables.BaseGeneratable;
 
-import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.BlockSet;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
-public class WalledDoorway implements Generatable {
+public class WalledDoorway extends BaseGeneratable {
 
-  public void generate(WorldEditor worldEditor, LevelSettings levelSettings, Coord origin, Direction facing) {
+  public WalledDoorway(WorldEditor worldEditor) {
+    super(worldEditor);
+  }
+
+  public WalledDoorway generate(Coord at) {
     RectSolid rect = RectSolid.newRect(
-        origin.copy().translate(facing.left(), 2),
-        origin.copy().translate(facing.right(), 2).up(2)
+        at.copy().translate(facing.left(), 2),
+        at.copy().translate(facing.right(), 2).up(2)
     );
 
     BlockSet blockSet = worldEditor.getRandom().nextBoolean()
@@ -22,5 +24,7 @@ public class WalledDoorway implements Generatable {
         : levelSettings.getTheme().getSecondary();
 
     blockSet.getWall().fill(worldEditor, rect);
+
+    return this;
   }
 }

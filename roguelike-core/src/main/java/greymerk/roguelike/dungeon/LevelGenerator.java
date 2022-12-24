@@ -47,6 +47,6 @@ public enum LevelGenerator {
     BlockBrush pillar = settings.getTheme().getPrimary().getPillar();
     int length = end.getPosition().getY() - start.getPosition().getY();
 
-    new SpiralStairStep(editor, cursor, stair, pillar).generate(length);
+    new SpiralStairStep(editor, stair, pillar).withHeight(length).generate(cursor);
   }
 }

@@ -3,7 +3,6 @@ package greymerk.roguelike.dungeon.towers;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.decorative.TorchBlock;
-import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.roguelike.worldgen.SpiralStairStep;
 
 import greymerk.roguelike.theme.Theme;
@@ -204,7 +203,7 @@ public class RogueTower extends Tower {
       }
     }
 
-    new SpiralStairStep(editor, origin, getPrimaryStair(), getPrimaryPillar()).generate(main - y + 1);
+    new SpiralStairStep(editor, getPrimaryStair(), getPrimaryPillar()).withHeight(main - y + 1).generate(origin);
   }
 
 

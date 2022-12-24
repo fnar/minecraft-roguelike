@@ -113,7 +113,7 @@ public class HouseTower extends Tower {
     BlockBrush pillar = getSecondaryPillar();
     int secondStoryFloor = 4;
     int stairHeight = floor.getY() - y + secondStoryFloor;
-    new SpiralStairStep(editor, dungeon.setY(y), stair, pillar).generate(stairHeight);
+    new SpiralStairStep(editor, stair, pillar).withHeight(stairHeight).generate(dungeon);
   }
 
   private void decor(Direction dir, Coord origin) {

@@ -24,7 +24,7 @@ public abstract class Tower {
 
   protected void generateStaircase(Coord topStep, Coord bottomStep) {
     int staircaseHeight = topStep.getY() - bottomStep.getY();
-    new SpiralStairStep(editor, bottomStep, theme.getPrimary().getStair(), theme.getPrimary().getWall()).generate(staircaseHeight);
+    new SpiralStairStep(editor, theme.getPrimary().getStair(), theme.getPrimary().getWall()).withHeight(staircaseHeight).generate(bottomStep);
   }
 
   public void chest(WorldEditor worldEditor, Direction dir, Coord coord) {

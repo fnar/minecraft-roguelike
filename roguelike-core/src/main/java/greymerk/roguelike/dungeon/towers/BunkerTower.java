@@ -313,6 +313,6 @@ public class BunkerTower extends Tower {
     }
 
     int height = origin.getY() - dungeon.getY() + 5;
-    new SpiralStairStep(editor, dungeon, stair, getPrimaryPillar()).generate(height);
+    new SpiralStairStep(editor, stair, getPrimaryPillar()).withHeight(height).generate(dungeon);
   }
 }
