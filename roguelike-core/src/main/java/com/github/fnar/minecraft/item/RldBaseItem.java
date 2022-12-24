@@ -14,7 +14,6 @@ public abstract class RldBaseItem implements RldItem {
 
   private Color color;
   private final List<Enchantment> enchantments = Lists.newArrayList();
-  private boolean isPlzEnchant = false;
   private int plzEnchantLevel = 0;
 
   public void addEnchantment(Enchantment enchantment) {
@@ -31,7 +30,7 @@ public abstract class RldBaseItem implements RldItem {
   }
 
   public boolean isPlzEnchant() {
-    return isPlzEnchant;
+    return plzEnchantLevel != 0;
   }
 
   public int getPlzEnchantLevel() {
@@ -39,7 +38,6 @@ public abstract class RldBaseItem implements RldItem {
   }
 
   public RldBaseItem plzEnchantAtLevel(int level) {
-    this.isPlzEnchant = true;
     this.plzEnchantLevel = level;
     return this;
   }
@@ -62,11 +60,11 @@ public abstract class RldBaseItem implements RldItem {
       return false;
     }
     RldBaseItem that = (RldBaseItem) o;
-    return isPlzEnchant == that.isPlzEnchant && plzEnchantLevel == that.plzEnchantLevel && color.equals(that.color) && enchantments.equals(that.enchantments);
+    return plzEnchantLevel == that.plzEnchantLevel && color.equals(that.color) && enchantments.equals(that.enchantments);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(color, enchantments, isPlzEnchant, plzEnchantLevel);
+    return Objects.hash(color, enchantments, plzEnchantLevel);
   }
 }
