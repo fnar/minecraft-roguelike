@@ -1,5 +1,7 @@
 package greymerk.roguelike.worldgen.shapes;
 
+import com.google.common.collect.Lists;
+
 import java.util.List;
 import java.util.Set;
 
@@ -28,6 +30,14 @@ public interface IShape extends Iterable<Coord> {
   default IShape translate(Direction direction, int amount) {
     getAnchors().forEach(coord -> coord.translate(direction, amount));
     return this;
+  }
+
+  default List<Coord> asList() {
+    List<Coord> coords = Lists.newArrayList();
+    for(Coord c : this) {
+      coords.add(c);
+    }
+    return coords;
   }
 
 }
