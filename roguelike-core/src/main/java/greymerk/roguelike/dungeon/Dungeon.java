@@ -34,9 +34,11 @@ import static java.lang.Math.sin;
 public class Dungeon {
 
 
+  public static final int NUM_LAYERS = 5;
   public static final int VERTICAL_SPACING = 10;
   public static final int TOPLEVEL = 50;
   public static final int CHUNK_SIZE = 16;
+  public static final int BOTTOM_OF_WORLD_HEIGHT = 5;
 
   public static SettingsResolver settingsResolver;
 
