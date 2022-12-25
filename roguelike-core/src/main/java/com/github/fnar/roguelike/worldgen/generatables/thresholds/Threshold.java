@@ -4,6 +4,7 @@ import com.github.fnar.roguelike.worldgen.generatables.BaseGeneratable;
 
 import java.util.Random;
 
+import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -24,8 +25,13 @@ public abstract class Threshold {
       return values[random.nextInt(values.length)];
     }
 
+    private static Type randomBlocking(Random random) {
+      Type[] values = new Type[]{DOORWAY, IRON_BARRED, WALLED};
+      return values[random.nextInt(values.length)];
+    }
+
     public BaseGeneratable toThreshold(WorldEditor worldEditor) {
-      switch(this) {
+      switch (this) {
         case ENTRYWAY:
         default:
           return new Entryway(worldEditor);
@@ -41,17 +47,25 @@ public abstract class Threshold {
 
   public static void generateDoorway(WorldEditor worldEditor, LevelSettings levelSettings, Coord origin, Direction facing) {
     // new WoolDoorway() // for debugging
-    getDoorwayType(worldEditor, origin, facing)
+    int level = levelSettings.getLevel(origin);
+    getDoorwayType(worldEditor, level, origin, facing)
         .withLevelSettings(levelSettings)
         .withFacing(facing)
         .generate(origin);
   }
 
-  private static BaseGeneratable getDoorwayType(WorldEditor worldEditor, Coord origin, Direction facing) {
-    if (!worldEditor.getRandom().nextBoolean() || !isNextToAir(worldEditor, origin, facing)) {
-      return new Entryway(worldEditor);
-    }
-    return Type.random(worldEditor.getRandom()).toThreshold(worldEditor);
+  private static BaseGeneratable getDoorwayType(WorldEditor worldEditor, int level, Coord origin, Direction facing) {
+    return rollForDoor(worldEditor.getRandom(), level) && isNextToAir(worldEditor, origin, facing)
+        ? Type.randomBlocking(worldEditor.getRandom()).toThreshold(worldEditor)
+        : new Entryway(worldEditor);
+  }
+
+  private static Boolean rollForDoor(Random random, int level) {
+    return random.nextDouble() < getDoorChance(level);
+  }
+
+  private static Double getDoorChance(int level) {
+    return RogueConfig.DUNGEON_GENERATION_THRESHOLD_CHANCE.getDoubleAtIndexIfNonNegative(level).orElse(0.0);
   }
 
   private static boolean isNextToAir(WorldEditor worldEditor, Coord origin, Direction facing) {

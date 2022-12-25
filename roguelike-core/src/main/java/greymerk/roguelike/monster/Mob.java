@@ -149,7 +149,7 @@ public class Mob {
 
   private static int getEnchantmentLevel(Random random, int level, Difficulty difficulty) {
     return rollForEnchanted(random, level, difficulty)
-        ? RogueConfig.getMobItemsEnchantmentsLevelOverride(level).orElse(LootItem.getEnchantmentLevel(random, level))
+        ? RogueConfig.MOBS_ITEMS_ENCHANTMENTS_LEVELS.getIntAtIndexIfNonNegative(level).orElse(LootItem.getEnchantmentLevel(random, level))
         : 0;
   }
 
@@ -159,7 +159,7 @@ public class Mob {
   }
 
   private static Double getEnchantmentChance(int level, Difficulty difficulty) {
-    return RogueConfig.getMobItemsEnchantmentsChanceOverride(level)
+    return RogueConfig.MOBS_ITEMS_ENCHANTMENTS_CHANCE.getDoubleAtIndexIfNonNegative(level)
         .orElseGet(() -> .05 + getEnchantmentChanceGrowth(difficulty) * level);
   }
 
