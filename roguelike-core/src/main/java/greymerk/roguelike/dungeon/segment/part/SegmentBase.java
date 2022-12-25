@@ -36,9 +36,9 @@ public abstract class SegmentBase {
         .stroke(worldEditor, coord);
   }
 
-  protected void generateTrappableChest(WorldEditor worldEditor, Direction dir, Coord coord, int difficulty, ChestType[] defaultChestType) {
+  protected void generateTrappableChest(WorldEditor worldEditor, Direction dir, Coord coord, int level, ChestType[] defaultChestType) {
     chest(worldEditor, dir, coord, defaultChestType)
-        .withTrapBasedOnDifficulty(difficulty)
+        .withTrap(level)
         .stroke(worldEditor, coord);
   }
 

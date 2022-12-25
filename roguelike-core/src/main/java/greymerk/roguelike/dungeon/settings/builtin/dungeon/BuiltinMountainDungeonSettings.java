@@ -86,7 +86,7 @@ public class BuiltinMountainDungeonSettings extends DungeonSettings {
       }
 
       if (i == 2) {
-        level.setDifficulty(4);
+        level.setLevel(4);
 
         SegmentGenerator segments = new SegmentGenerator(Segment.SEWERARCH);
         segments.add(Segment.SEWER, 7);

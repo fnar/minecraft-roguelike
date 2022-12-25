@@ -16,7 +16,7 @@ import static greymerk.roguelike.worldgen.Direction.UP;
 public class SegmentChest extends SegmentBase {
 
   @Override
-  protected void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord origin) {
+  protected void genWall(WorldEditor editor, DungeonLevel dungeonLevel, Direction dir, Theme theme, Coord origin) {
     StairsBlock stair = getSecondaryStairs(theme);
 
     Direction[] orthogonals = dir.orthogonals();
@@ -65,8 +65,8 @@ public class SegmentChest extends SegmentBase {
       return;
     }
 
-    int difficulty = level.getSettings().getDifficulty(shelf);
-    generateTrappableChest(editor, dir, shelf, difficulty, ChestType.COMMON_TREASURES);
+    int level = dungeonLevel.getSettings().getLevel(shelf);
+    generateTrappableChest(editor, dir, shelf, level, ChestType.COMMON_TREASURES);
   }
 
 }

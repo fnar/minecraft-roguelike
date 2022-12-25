@@ -46,7 +46,7 @@ public class PrisonCell {
       Spawner spawner = levelSettings.getSpawnerSettings().isEmpty()
           ? MobType.ZOMBIE.asSpawner()
           : levelSettings.getSpawnerSettings().getSpawners().get(editor.getRandom());
-      BaseRoom.generateSpawnerSafe(editor, spawner, cursor, levelSettings.getDifficulty(cursor));
+      BaseRoom.generateSpawnerSafe(editor, spawner, cursor, levelSettings.getLevel(cursor));
     }
 
     cursor = origin.copy();

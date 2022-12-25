@@ -55,26 +55,26 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
   }
 
   protected void generateSpawner(Coord spawnerLocation, MobType... defaultMobs) {
-    int difficulty = getDifficulty(spawnerLocation);
-    generateSpawner(spawnerLocation, difficulty, defaultMobs);
+    int level = getLevel(spawnerLocation);
+    generateSpawner(spawnerLocation, level, defaultMobs);
   }
 
   protected void generateSpawner(Coord spawnerLocation) {
-    int difficulty = getDifficulty(spawnerLocation);
-    generateSpawner(spawnerLocation, difficulty, MobType.COMMON_MOBS);
+    int level = getLevel(spawnerLocation);
+    generateSpawner(spawnerLocation, level, MobType.COMMON_MOBS);
   }
 
-  protected int getDifficulty(Coord coord) {
-    return levelSettings.getDifficulty(coord);
+  protected int getLevel(Coord coord) {
+    return levelSettings.getLevel(coord);
   }
 
-  private void generateSpawner(Coord spawnerLocation, int difficulty, MobType... defaultMobs) {
-    Spawner spawner = chooseSpawner(difficulty, defaultMobs, random());
-    generateSpawnerSafe(worldEditor, spawner, spawnerLocation, difficulty);
+  private void generateSpawner(Coord spawnerLocation, int level, MobType... defaultMobs) {
+    Spawner spawner = chooseSpawner(level, defaultMobs, random());
+    generateSpawnerSafe(worldEditor, spawner, spawnerLocation, level);
   }
 
-  private Spawner chooseSpawner(int difficulty, MobType[] defaultMobs, Random random) {
-    Optional<SpawnerSettings> roomSpawnerSettings = getSpawnerSettings(roomSetting.getSpawnerId(), difficulty);
+  private Spawner chooseSpawner(int level, MobType[] defaultMobs, Random random) {
+    Optional<SpawnerSettings> roomSpawnerSettings = getSpawnerSettings(roomSetting.getSpawnerId(), level);
     SpawnerSettings levelSpawnerSettings = levelSettings.getSpawnerSettings();
     if (roomSpawnerSettings.isPresent()) {
       return roomSpawnerSettings.get().chooseOneAtRandom(random);
@@ -85,7 +85,7 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
     return MobType.asSpawner(defaultMobs.length > 0 ? defaultMobs : MobType.COMMON_MOBS);
   }
 
-  private static Optional<SpawnerSettings> getSpawnerSettings(String spawnerId, int difficulty) {
+  private static Optional<SpawnerSettings> getSpawnerSettings(String spawnerId, int level) {
     if (spawnerId == null) {
       return Optional.empty();
     }
@@ -98,16 +98,16 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
     if (dungeonSettings == null) {
       return Optional.empty();
     }
-    SpawnerSettings spawnerSettings = dungeonSettings.getLevelSettings(difficulty).getSpawnerSettings();
+    SpawnerSettings spawnerSettings = dungeonSettings.getLevelSettings(level).getSpawnerSettings();
     if (spawnerSettings == null || spawnerSettings.isEmpty()) {
       return Optional.empty();
     }
     return Optional.of(spawnerSettings);
   }
 
-  public static void generateSpawnerSafe(WorldEditor editor, Spawner spawner, Coord cursor, int difficulty) {
+  public static void generateSpawnerSafe(WorldEditor editor, Spawner spawner, Coord cursor, int level) {
     try {
-      editor.generateSpawner(spawner, cursor, difficulty);
+      editor.generateSpawner(spawner, cursor, level);
     } catch (Exception e) {
       throw new RuntimeException("Tried to spawn empty spawner", e);
     }
@@ -173,7 +173,7 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
 
   protected Optional<TreasureChest> generateTrappableChest(Coord cursor, Direction facing, ChestType defaultChestType) {
     return chest(cursor, facing, defaultChestType)
-        .withTrapBasedOnDifficulty(getDifficulty(cursor))
+        .withTrap(getLevel(cursor))
         .stroke(worldEditor, cursor);
   }
 

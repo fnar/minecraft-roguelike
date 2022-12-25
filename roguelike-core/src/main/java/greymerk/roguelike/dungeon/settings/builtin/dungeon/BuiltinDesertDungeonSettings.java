@@ -44,7 +44,7 @@ public class BuiltinDesertDungeonSettings extends DungeonSettings {
       level.setTheme(themes[i].getThemeBase());
 
       if (i == 0) {
-        level.setDifficulty(2);
+        level.setLevel(2);
         SegmentGenerator segments = new SegmentGenerator(Segment.SQUAREARCH);
         segments.add(Segment.WALL, 10);
         segments.add(Segment.ANKH, 5);
@@ -66,7 +66,7 @@ public class BuiltinDesertDungeonSettings extends DungeonSettings {
       }
 
       if (i == 1) {
-        level.setDifficulty(2);
+        level.setLevel(2);
         SegmentGenerator segments = new SegmentGenerator(Segment.SQUAREARCH);
         segments.add(Segment.SPAWNER, 1);
         segments.add(Segment.WALL, 10);
@@ -88,7 +88,7 @@ public class BuiltinDesertDungeonSettings extends DungeonSettings {
       }
 
       if (i == 2) {
-        level.setDifficulty(2);
+        level.setLevel(2);
         SegmentGenerator segments = new SegmentGenerator(Segment.SQUAREARCH);
         segments.add(Segment.SPAWNER, 1);
         segments.add(Segment.WALL, 10);
@@ -113,7 +113,7 @@ public class BuiltinDesertDungeonSettings extends DungeonSettings {
       }
 
       if (i == 3) {
-        level.setDifficulty(2);
+        level.setLevel(2);
         SegmentGenerator segments = new SegmentGenerator(Segment.SQUAREARCH);
         segments.add(Segment.SPAWNER, 1);
         segments.add(Segment.WALL, 10);

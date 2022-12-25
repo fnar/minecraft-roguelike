@@ -50,7 +50,7 @@ public class SegmentTomb extends SegmentBase {
     Spawner spawner = level.getSpawnerSettings().isEmpty()
         ? MobType.asSpawner(MobType.UNDEAD_MOBS)
         : level.getSpawnerSettings().getSpawners().get(editor.getRandom());
-    BaseRoom.generateSpawnerSafe(editor, spawner, cursor, level.getDifficulty(cursor));
+    BaseRoom.generateSpawnerSafe(editor, spawner, cursor, level.getLevel(cursor));
     cursor.translate(dir);
     generateChest(editor, dir, cursor, ChestType.COMMON_TREASURES);
   }

@@ -55,7 +55,7 @@ public class SegmentSpawner extends SegmentBase {
         .translate(dir, 4)
         .up(1);
 
-    int difficulty = level.getSettings().getDifficulty(spawnerCoord);
+    int difficulty = level.getSettings().getLevel(spawnerCoord);
 
     Spawner spawner = level.getSettings().getSpawnerSettings().isEmpty()
         ? MobType.chooseAmong(MobType.COMMON_MOBS, rand).asSpawner()

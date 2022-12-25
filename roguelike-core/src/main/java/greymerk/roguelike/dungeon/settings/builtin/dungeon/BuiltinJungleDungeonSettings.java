@@ -43,7 +43,7 @@ public class BuiltinJungleDungeonSettings extends DungeonSettings {
     for (int i = 0; i < 5; ++i) {
       LevelSettings level = new LevelSettings();
       if (i < 4) {
-        level.setDifficulty(3);
+        level.setLevel(3);
         segments = new SegmentGenerator(Segment.MOSSYARCH);
         segments.add(Segment.SHELF, 2);
         segments.add(Segment.INSET, 2);

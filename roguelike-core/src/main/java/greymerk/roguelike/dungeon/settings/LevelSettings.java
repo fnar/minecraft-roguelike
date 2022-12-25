@@ -30,11 +30,12 @@ public class LevelSettings {
   private static final int NUM_ROOMS = 12;
   private static final int LEVEL_RANGE = 80;
   private static final int MINIMUM_SCATTER = 12;
+  private static final int DEFAULT_LEVEL = -1;
 
   private int numRooms = NUM_ROOMS;
   private int range = LEVEL_RANGE;
   private int scatter = MINIMUM_SCATTER;
-  private int levelDifficulty = -1;
+  private int level = DEFAULT_LEVEL;
   private RoomsSetting rooms = new RoomsSetting();
   private SecretsSetting secrets = new SecretsSetting();
   private Theme theme;
@@ -63,9 +64,9 @@ public class LevelSettings {
         ? scatter
         : parent.scatter);
 
-    levelDifficulty = (parent.levelDifficulty != levelDifficulty && levelDifficulty != -1) || parent.levelDifficulty == -1
-        ? levelDifficulty
-        : parent.levelDifficulty;
+    level = (parent.level != level && level != -1) || parent.level == -1
+        ? level
+        : parent.level;
 
     rooms = overrides.contains(ROOMS) ? new RoomsSetting(rooms) : rooms.inherit(parent.rooms);
 
@@ -96,7 +97,7 @@ public class LevelSettings {
     numRooms = toCopy.numRooms;
     range = toCopy.range;
     scatter = toCopy.scatter;
-    levelDifficulty = toCopy.levelDifficulty;
+    level = toCopy.level;
     rooms = toCopy.rooms != null ? new RoomsSetting(toCopy.rooms) : null;
     secrets = toCopy.secrets != null ? new SecretsSetting(toCopy.secrets) : null;
     theme = toCopy.theme;
@@ -130,17 +131,15 @@ public class LevelSettings {
     numRooms = num;
   }
 
-  public int getDifficulty(Coord pos) {
-
-    if (levelDifficulty == -1) {
-      return Dungeon.getLevel(pos.getY());
+  public int getLevel(Coord pos) {
+    if (level == -1) {
+      level = Dungeon.getLevel(pos.getY());
     }
-
-    return levelDifficulty;
+    return level;
   }
 
-  public void setDifficulty(int num) {
-    levelDifficulty = num;
+  public void setLevel(int num) {
+    level = num;
   }
 
   public RoomsSetting getRooms() {
