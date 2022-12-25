@@ -20,6 +20,8 @@ public class StorageRoom extends BaseRoom {
 
   public StorageRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.size = 10;
+    this.height = 5;
   }
 
   private void pillarTop(Coord cursor) {
@@ -157,12 +159,4 @@ public class StorageRoom extends BaseRoom {
     wall.fill(worldEditor, ceilingRect);
   }
 
-  private int getCeilingHeight() {
-    return 4;
-  }
-
-  @Override
-  public int getSize() {
-    return 10;
-  }
 }
