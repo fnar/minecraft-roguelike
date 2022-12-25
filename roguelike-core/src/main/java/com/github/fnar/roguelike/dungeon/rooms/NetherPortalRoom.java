@@ -23,19 +23,18 @@ public class NetherPortalRoom extends BaseRoom {
   public NetherPortalRoom(RoomSetting roomsSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomsSetting, levelSettings, worldEditor);
     this.size = 10;
-    this.height = 7;
+    this.height = 8;
   }
 
   @Override
   public BaseRoom generate(Coord origin, List<Direction> entrances) {
+    super.generate(origin, entrances);
+
     Direction front = getEntrance(entrances);
 
-    generateWalls(origin, front);
-    theFloorsAreFloors(origin, front);
     generateCatwalks(origin);
-    theFloorIsLava(origin, front);
+    theFloorIsLava(origin);
     createPathFromEachEntranceToTheCenterOverTheLiquid(origin, front);
-    ceilingChan(origin, front);
     generateNetherPortalWithPlatform(origin, front);
     generateDoorways(origin, entrances);
     generateChestInCorner(origin, front);
@@ -43,17 +42,19 @@ public class NetherPortalRoom extends BaseRoom {
     return null;
   }
 
-  private void generateWalls(Coord origin, Direction front) {
-    RectHollow.newRect(
-        origin.copy().translate(front.left(), getSize()).translate(front, getSize()).copy().down(3),
-        origin.copy().translate(front.right(), getSize()).translate(front.back(), getSize()).copy().up(getHeight())
-    ).fill(worldEditor, walls());
+  @Override
+  protected void generateWalls(Coord at) {
+    walls().fill(worldEditor, RectHollow.newRect(
+        at.copy().north(getWallDist()).west(getWallDist()).up(getCeilingHeight()),
+        at.copy().south(getWallDist()).east(getWallDist()).down(3)
+    ));
   }
 
-  private void theFloorsAreFloors(Coord origin, Direction front) {
+  @Override
+  protected void generateFloor(Coord at) {
     floors().fill(worldEditor, RectSolid.newRect(
-        origin.copy().translate(front.left(), 3).translate(front, 3).down(),
-        origin.copy().translate(front.right(), 3).translate(front.back(), 3).down(2)
+        at.copy().north(3).west(3).down(),
+        at.copy().south(3).east(3).down(2)
     ));
   }
 
@@ -61,10 +62,10 @@ public class NetherPortalRoom extends BaseRoom {
     StairsBlock stair = stairs();
 
     for (Direction side : Direction.cardinals()) {
-      Coord catwalkOrigin = origin.copy().translate(side, getSize() - 1);
+      Coord catwalkOrigin = origin.copy().translate(side, getWallDist() - 1);
       floors().fill(worldEditor, RectSolid.newRect(
-          catwalkOrigin.copy().translate(side.left(), getSize()),
-          catwalkOrigin.copy().translate(side.right(), getSize()).translate(side.back()).down(2)
+          catwalkOrigin.copy().translate(side.left(), getWallDist()),
+          catwalkOrigin.copy().translate(side.right(), getWallDist()).translate(side.back()).down(2)
       ));
 
       SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(
@@ -85,15 +86,7 @@ public class NetherPortalRoom extends BaseRoom {
     Direction walkwayDirection = front.reverse();
     floors().fill(worldEditor, RectSolid.newRect(
         origin.copy().translate(walkwayDirection.left()).down(),
-        origin.copy().translate(walkwayDirection.right()).translate(walkwayDirection, getSize()).down(2)
-    ));
-  }
-
-  private void ceilingChan(Coord origin, Direction front) {
-    // ceiling-chan >///<
-    floors().fill(worldEditor, RectSolid.newRect(
-        origin.copy().translate(front.left(), getSize()).translate(front, getSize()).up(getHeight()),
-        origin.copy().translate(front.right(), getSize()).translate(front.back(), getSize()).up(getHeight())
+        origin.copy().translate(walkwayDirection.right()).translate(walkwayDirection, getWallDist()).down(2)
     ));
   }
 
@@ -135,7 +128,7 @@ public class NetherPortalRoom extends BaseRoom {
     if (random().nextInt(3) == 0) {
       return;
     }
-    int distanceFromOrigin = getSize()-2;
+    int distanceFromOrigin = getWallDist() - 2;
     Coord cursor = origin.copy()
         .up()
         .translate(front.reverse(), distanceFromOrigin)

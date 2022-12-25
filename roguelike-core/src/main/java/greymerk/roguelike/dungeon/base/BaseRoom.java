@@ -50,26 +50,24 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
   }
 
   protected void generateWalls(Coord at) {
-    int wallDist = getWallDist();
-    Coord nwCorner = at.copy().north(wallDist).west(wallDist).down();
-    Coord seCorner = at.copy().south(wallDist).east(wallDist).up(getCeilingHeight());
-    walls().fill(worldEditor, RectHollow.newRect(nwCorner, seCorner));
+    walls().fill(worldEditor, RectHollow.newRect(
+        at.copy().north(getWallDist()).west(getWallDist()).up(getCeilingHeight()),
+        at.copy().south(getWallDist()).east(getWallDist()).down()
+    ));
   }
 
   protected void generateFloor(Coord at) {
-    int wallDist = getWallDist();
-    Coord floor = at.copy().down();
-    Coord nwCorner = floor.copy().north(wallDist).west(wallDist);
-    Coord seCorner = floor.copy().south(wallDist).east(wallDist);
-    floors().fill(worldEditor, RectSolid.newRect(nwCorner, seCorner));
+    floors().fill(worldEditor, RectSolid.newRect(
+        at.copy().north(getWallDist()).west(getWallDist()).down(),
+        at.copy().south(getWallDist()).east(getWallDist()).down()
+    ));
   }
 
   protected void generateCeiling(Coord at) {
-    int wallDist = getWallDist();
-    Coord ceiling = at.copy().up(getCeilingHeight());
-    Coord nwCorner = ceiling.copy().north(wallDist).west(wallDist);
-    Coord seCorner = ceiling.copy().south(wallDist).east(wallDist);
-    walls().fill(worldEditor, RectSolid.newRect(nwCorner, seCorner));
+    walls().fill(worldEditor, RectSolid.newRect(
+        at.copy().north(getWallDist()).west(getWallDist()).up(getCeilingHeight()),
+        at.copy().south(getWallDist()).east(getWallDist()).up(getCeilingHeight())
+    ));
   }
 
   protected void generateDoorways(Coord origin, List<Direction> entrances) {
@@ -214,11 +212,11 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
         .withFacing(facing);
   }
 
-  protected void theFloorIsLava(Coord origin, Direction front) {
-    RectSolid.newRect(
-        origin.copy().translate(front, getSize() - 1).translate(front.left(), getSize() - 1).down(),
-        origin.copy().translate(front.back(), getSize() - 1).translate(front.right(), getSize() - 1).down(2)
-    ).fill(worldEditor, liquid(), true, false);
+  protected void theFloorIsLava(Coord origin) {
+    liquid().fill(worldEditor, RectSolid.newRect(
+        origin.copy().north(getWallDist()).west(getWallDist()).down(),
+        origin.copy().south(getWallDist()).east(getWallDist()).down(2)
+    ), true, false);
   }
 
   protected Theme theme() {
@@ -288,7 +286,7 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
 
   protected final int getWallDist() {
     // encasing happens at getSize(), so walls should be -1
-    return getSize() -1;
+    return getSize() - 1;
   }
 
   public final int getHeight() {

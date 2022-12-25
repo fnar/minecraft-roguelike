@@ -18,13 +18,14 @@ import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
+import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class PlatformsRoom extends BaseRoom {
 
   public PlatformsRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
-    this.size = 7;
-    this.height = 6;
+    this.size = 8;
+    this.height = 7;
   }
 
   @Override
@@ -32,10 +33,8 @@ public class PlatformsRoom extends BaseRoom {
     super.generate(origin, entrances);
 
     Direction front = getEntrance(entrances);
-    generateWalls(origin, front);
-    generateDoorways(origin, entrances);
     generateIslands(origin, front);
-    theFloorIsLava(origin, front);
+    theFloorIsLava(origin);
     generateCeilingDecoration(origin);
 
     return null;
@@ -102,12 +101,22 @@ public class PlatformsRoom extends BaseRoom {
     };
   }
 
-  private void generateWalls(Coord origin, Direction front) {
-    int depth = random().nextBoolean() ? 2 : 3;
-    RectHollow.newRect(
-        origin.copy().translate(front.left(), getSize()).translate(front, getSize()).copy().down(depth),
-        origin.copy().translate(front.right(), getSize()).translate(front.back(), getSize()).copy().up(getHeight())
-    ).fill(worldEditor, walls());
+  @Override
+  protected void generateWalls(Coord at) {
+    int floor = 3;
+    walls().fill(worldEditor, RectHollow.newRect(
+        at.copy().north(getWallDist()).west(getWallDist()).up(getCeilingHeight()),
+        at.copy().south(getWallDist()).east(getWallDist()).down(floor)
+    ));
+  }
+
+  @Override
+  protected void generateFloor(Coord at) {
+    int floor = random().nextBoolean() ? 2 : 3;
+    floors().fill(worldEditor, RectSolid.newRect(
+        at.copy().north(getWallDist()).west(getWallDist()).down(floor - 1),
+        at.copy().south(getWallDist()).east(getWallDist()).down(floor)
+    ));
   }
 
   private void generateCeilingDecoration(Coord origin) {
@@ -116,8 +125,8 @@ public class PlatformsRoom extends BaseRoom {
 
           StairsBlock stair = stairs();
 
-          Coord beamStart = origin.copy().translate(direction, getSize() / 2 - 1).translate(direction.left(), getSize() - 1).up(getHeight() - 2);
-          Coord beamEnd = origin.copy().translate(direction, getSize() / 2 - 1).translate(direction.right(), getSize() - 1).up(getHeight() - 2);
+          Coord beamStart = origin.copy().translate(direction, getWallDist() / 2 - 1).translate(direction.left(), getWallDist() - 1).up(getCeilingHeight() - 2);
+          Coord beamEnd = origin.copy().translate(direction, getWallDist() / 2 - 1).translate(direction.right(), getWallDist() - 1).up(getCeilingHeight() - 2);
 
           secondaryPillars().setFacing(direction.right());
           new FnarLine(beamStart, beamEnd).fill(worldEditor, secondaryPillars());
