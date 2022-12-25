@@ -112,8 +112,9 @@ public enum TowerType {
     return false;
   }
 
-  public static TowerType randomTower(Random rand) {
-    return TowerType.values()[rand.nextInt(TowerType.values().length)];
+  public static TowerType random(Random random) {
+    TowerType[] values = TowerType.values();
+    return values[random.nextInt(values.length)];
   }
 
 

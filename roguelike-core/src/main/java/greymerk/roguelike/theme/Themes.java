@@ -85,7 +85,6 @@ public enum Themes {
   TERRACOTTA(new ThemeTerracotta()),
   TOWER(new ThemeTower());
 
-  private static final Random random = new Random();
   private final Theme theme;
 
   Themes(Theme theme) {
@@ -96,8 +95,9 @@ public enum Themes {
     return theme;
   }
 
-  public static Themes randomTheme() {
-    return values()[random.nextInt(values().length)];
+  public static Themes random(Random random) {
+    Themes[] values = values();
+    return values[random.nextInt(values.length)];
   }
 
 }

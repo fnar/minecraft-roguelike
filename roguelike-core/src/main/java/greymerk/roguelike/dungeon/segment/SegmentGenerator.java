@@ -52,14 +52,6 @@ public class SegmentGenerator {
     }
   }
 
-  public static SegmentGenerator getRandom(Random rand, int count) {
-    SegmentGenerator segments = new SegmentGenerator(Segment.ARCH);
-    for (int i = 0; i < count; ++i) {
-      segments.add(Segment.getRandom(rand), 1);
-    }
-    return segments;
-  }
-
   public void add(JsonObject entry) {
 
     String segType = entry.get("type").getAsString();
@@ -154,4 +146,10 @@ public class SegmentGenerator {
         .withStairBrush(theme.getPrimary().getStair())
         .generate(origin);
   }
+
+  public SegmentGenerator with(Segment segment, int weight) {
+    add(segment, weight);
+    return this;
+  }
+
 }
