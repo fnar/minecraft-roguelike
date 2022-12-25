@@ -22,6 +22,8 @@ public class NetherPortalRoom extends BaseRoom {
 
   public NetherPortalRoom(RoomSetting roomsSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomsSetting, levelSettings, worldEditor);
+    this.size = 10;
+    this.height = 7;
   }
 
   @Override
@@ -35,7 +37,7 @@ public class NetherPortalRoom extends BaseRoom {
     createPathFromEachEntranceToTheCenterOverTheLiquid(origin, front);
     ceilingChan(origin, front);
     generateNetherPortalWithPlatform(origin, front);
-    generateDoorways(origin, entrances, getSize());
+    generateDoorways(origin, entrances);
     generateChestInCorner(origin, front);
 
     return null;
@@ -141,12 +143,4 @@ public class NetherPortalRoom extends BaseRoom {
     generateChest(cursor, front, ChestType.UNCOMMON_TREASURES);
   }
 
-  private int getHeight() {
-    return 8;
-  }
-
-  @Override
-  public int getSize() {
-    return 10;
-  }
 }

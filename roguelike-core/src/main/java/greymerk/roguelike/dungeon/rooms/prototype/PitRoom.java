@@ -21,14 +21,13 @@ public class PitRoom extends BaseRoom {
 
   public PitRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.size = 4;
   }
 
   @Override
   public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    generateWalls(origin);
-    generateFloor(origin);
-    generateCeiling(origin);
-    generateDoorways(origin, entrances, getSize()-1);
+    super.generate(origin, entrances);
+
     generatePit(origin);
     generateTraps(origin, entrances);
     generateChest(origin, entrances);
@@ -41,37 +40,6 @@ public class PitRoom extends BaseRoom {
         .east(random().nextBoolean() ? 2 : -2);
 
     generateTrappableChest(chest, getEntrance(entrances));
-  }
-
-  protected void generateWalls(Coord at) {
-    int size = getSize();
-
-    Coord hollow = at.copy();
-    Coord hollowNWCorner = hollow.copy().north(size - 2).west(size - 2);
-    Coord hollowSECorner = hollow.copy().south(size - 2).east(size - 2).up(size);
-    List<Coord> hollowCoords = RectSolid.newRect(hollowNWCorner, hollowSECorner).asList();
-    SingleBlockBrush.AIR.fill(worldEditor, hollowCoords);
-
-    Coord walls = at.copy().down();
-    Coord wallsNWCorner = walls.copy().north(size - 1).west(size - 1);
-    Coord wallsSECorner = walls.copy().south(size - 1).east(size - 1).up(size);
-    List<Coord> wallsCoords = RectSolid.newRect(wallsNWCorner, wallsSECorner).asList();
-    wallsCoords.removeAll(hollowCoords);
-    walls().fill(worldEditor, wallsCoords, false, true);
-  }
-
-  protected void generateFloor(Coord at) {
-    Coord floor = at.copy().down();
-    Coord nwCorner = floor.copy().north(getSize()).west(getSize());
-    Coord seCorner = floor.copy().south(getSize()).east(getSize());
-    floors().fill(worldEditor, RectSolid.newRect(nwCorner, seCorner));
-  }
-
-  protected void generateCeiling(Coord at) {
-    Coord ceiling = at.copy().up(getSize());
-    Coord nwCorner = ceiling.copy().north(getSize()).west(getSize());
-    Coord seCorner = ceiling.copy().south(getSize()).east(getSize());
-    walls().fill(worldEditor, RectSolid.newRect(nwCorner, seCorner));
   }
 
   private void generatePit(Coord at) {
@@ -139,7 +107,4 @@ public class PitRoom extends BaseRoom {
     BlockType.STICKY_PISTON.getBrush().setFacing(outward).stroke(worldEditor, cursor);
   }
 
-  public int getSize() {
-    return 4;
-  }
 }

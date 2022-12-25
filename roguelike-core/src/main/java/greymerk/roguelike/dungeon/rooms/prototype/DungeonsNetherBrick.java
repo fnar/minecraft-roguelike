@@ -21,6 +21,7 @@ public class DungeonsNetherBrick extends BaseRoom {
 
   public DungeonsNetherBrick(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.height = 3;
   }
 
   public BaseRoom generate(Coord origin, List<Direction> entrances) {
@@ -41,10 +42,6 @@ public class DungeonsNetherBrick extends BaseRoom {
     generateDoorways(origin, entrances);
 
     return this;
-  }
-
-  private int getHeight() {
-    return 3;
   }
 
   private void generateWalls(int x, int y, int z, int length, int width) {

@@ -23,14 +23,17 @@ public class PlatformsRoom extends BaseRoom {
 
   public PlatformsRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.size = 7;
+    this.height = 6;
   }
 
   @Override
   public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    Direction front = getEntrance(entrances);
+    super.generate(origin, entrances);
 
+    Direction front = getEntrance(entrances);
     generateWalls(origin, front);
-    generateDoorways(origin, entrances, getSize());
+    generateDoorways(origin, entrances);
     generateIslands(origin, front);
     theFloorIsLava(origin, front);
     generateCeilingDecoration(origin);
@@ -133,12 +136,4 @@ public class PlatformsRoom extends BaseRoom {
         });
   }
 
-  private int getHeight() {
-    return 7;
-  }
-
-  @Override
-  public int getSize() {
-    return 7;
-  }
 }

@@ -12,22 +12,21 @@ import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
-import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class DungeonsSlime extends BaseRoom {
 
   public DungeonsSlime(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.size = 9;
+    this.height = 6;
   }
 
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    Coord start = origin.copy().translate(new Coord(-8, -1, -8));
-    Coord end = origin.copy().translate(new Coord(8, 5, 8));
-    walls().fill(worldEditor, RectHollow.newRect(start, end), false, true);
+  @Override
+  public DungeonsSlime generate(Coord origin, List<Direction> entrances) {
+    super.generate(origin, entrances);
 
     generateCorners(origin);
-    generateWalls(origin);
     generateWaterways(origin, entrances);
     generateRailings(origin, entrances);
     generatePipes(origin, entrances);
@@ -42,6 +41,8 @@ public class DungeonsSlime extends BaseRoom {
       cornerCoord.translate(dir.antiClockwise(), 5);
       generateCorner(cornerCoord);
     }
+
+    generateBeams(origin);
   }
 
   private void generateCorner(Coord origin) {
@@ -74,7 +75,7 @@ public class DungeonsSlime extends BaseRoom {
   }
 
   private void generateCornerExternalRailings(Coord origin) {
-    for (Direction dir: Direction.CARDINAL) {
+    for (Direction dir : Direction.CARDINAL) {
       Coord start = origin.copy().translate(dir, 2).translate(dir.antiClockwise());
       Coord end = origin.copy().translate(dir, 2).translate(dir.clockwise());
       RectSolid railingCoords = RectSolid.newRect(start, end);
@@ -82,10 +83,10 @@ public class DungeonsSlime extends BaseRoom {
     }
   }
 
-  private void generateWalls(Coord origin) {
+  private void generateBeams(Coord at) {
     for (Direction dir : Direction.CARDINAL) {
-      Coord start = origin.copy().up(4).translate(dir, 3).translate(dir.antiClockwise(), 8);
-      Coord end = origin.copy().up(4).translate(dir, 3).translate(dir.clockwise(), 8);
+      Coord start = at.copy().up(4).translate(dir, 3).translate(dir.antiClockwise(), 8);
+      Coord end = at.copy().up(4).translate(dir, 3).translate(dir.clockwise(), 8);
       RectSolid wall = RectSolid.newRect(start, end);
       walls().fill(worldEditor, wall);
 
@@ -168,7 +169,4 @@ public class DungeonsSlime extends BaseRoom {
     BlockType.IRON_BAR.getBrush().fill(worldEditor, RectSolid.newRect(start, end));
   }
 
-  public int getSize() {
-    return 8;
-  }
 }

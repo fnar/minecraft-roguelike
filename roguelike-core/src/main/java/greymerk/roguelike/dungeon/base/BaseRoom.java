@@ -32,6 +32,8 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
   private final RoomSetting roomSetting;
   protected final LevelSettings levelSettings;
   protected final WorldEditor worldEditor;
+  protected int size = 5;
+  protected int height = 5;
 
   public BaseRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     this.roomSetting = roomSetting;
@@ -39,10 +41,39 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
     this.worldEditor = worldEditor;
   }
 
-  public abstract BaseRoom generate(Coord origin, List<Direction> entrances);
+  public BaseRoom generate(Coord origin, List<Direction> entrances) {
+    generateWalls(origin);
+    generateFloor(origin);
+    generateCeiling(origin);
+    generateDoorways(origin, entrances);
+    return this;
+  }
+
+  protected void generateWalls(Coord at) {
+    int wallDist = getWallDist();
+    Coord nwCorner = at.copy().north(wallDist).west(wallDist).down();
+    Coord seCorner = at.copy().south(wallDist).east(wallDist).up(getCeilingHeight());
+    walls().fill(worldEditor, RectHollow.newRect(nwCorner, seCorner));
+  }
+
+  protected void generateFloor(Coord at) {
+    int wallDist = getWallDist();
+    Coord floor = at.copy().down();
+    Coord nwCorner = floor.copy().north(wallDist).west(wallDist);
+    Coord seCorner = floor.copy().south(wallDist).east(wallDist);
+    floors().fill(worldEditor, RectSolid.newRect(nwCorner, seCorner));
+  }
+
+  protected void generateCeiling(Coord at) {
+    int wallDist = getWallDist();
+    Coord ceiling = at.copy().up(getCeilingHeight());
+    Coord nwCorner = ceiling.copy().north(wallDist).west(wallDist);
+    Coord seCorner = ceiling.copy().south(wallDist).east(wallDist);
+    walls().fill(worldEditor, RectSolid.newRect(nwCorner, seCorner));
+  }
 
   protected void generateDoorways(Coord origin, List<Direction> entrances) {
-    generateDoorways(origin, entrances, getSize() - 2);
+    generateDoorways(origin, entrances, getWallDist());
   }
 
   protected void generateDoorways(Coord origin, List<Direction> entrances, int distanceFromOrigin) {
@@ -250,7 +281,23 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
         .translate(dir1, 2);
   }
 
-  public abstract int getSize();
+  public int getSize() {
+    // encasing happens at getSize(), so walls should be -1
+    return size;
+  }
+
+  protected final int getWallDist() {
+    // encasing happens at getSize(), so walls should be -1
+    return getSize() -1;
+  }
+
+  public final int getHeight() {
+    return height;
+  }
+
+  protected final int getCeilingHeight() {
+    return getHeight() - 1;
+  }
 
   public boolean isValidLocation(Direction dir, Coord pos) {
 
