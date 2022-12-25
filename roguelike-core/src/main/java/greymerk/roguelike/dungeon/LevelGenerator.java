@@ -29,7 +29,7 @@ public enum LevelGenerator {
     }
   }
 
-  public static void generateLevelLink(WorldEditor editor, Random rand, LevelSettings settings, DungeonNode start, DungeonNode end) {
+  public static void generateLevelLink(WorldEditor editor, LevelSettings settings, DungeonNode start, DungeonNode end) {
 
     BaseRoom downstairs = RoomType.LINKER.newSingleRoomSetting().instantiate(settings, editor);
     downstairs.generate(start.getPosition(), Direction.CARDINAL);
