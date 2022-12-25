@@ -40,48 +40,40 @@ import greymerk.roguelike.dungeon.segment.part.SegmentWheat;
 
 public enum Segment {
 
+  ANKH,
   ARCH,
+  ARROW,
+  BOOKS,
+  CAVE,
+  CELL,
+  CHEST,
+  DOOR,
   FIREARCH,
   FIREPLACE,
-  SHELF,
+  FLOWERS,
   INSET,
+  JUNGLE,
+  LAMP,
+  MINESHAFT,
   MOSSYARCH,
   MUSHROOM,
   NETHERARCH,
+  NETHERLAVA,
   NETHERSTRIPE,
   NETHERWART,
-  NETHERLAVA,
-  JUNGLE,
-  BOOKS,
-  SPAWNER,
-  WHEAT,
-  TOMB,
-  CHEST,
-  SILVERFISH,
-  SKULL,
-  FLOWERS,
-  DOOR,
-  ANKH,
-  CAVE,
+  PLANT,
   SEWER,
   SEWERARCH,
   SEWERDOOR,
   SEWERDRAIN,
-  MINESHAFT,
-  LAMP,
-  ARROW,
+  SHELF,
+  SILVERFISH,
+  SKULL,
+  SPAWNER,
   SQUAREARCH,
-  CELL,
+  TOMB,
   WALL,
-  PLANT;
-
-  public static Segment[] segments = {
-      FIREPLACE, SHELF, INSET, MOSSYARCH, MUSHROOM,
-      NETHERSTRIPE, NETHERWART, NETHERLAVA, JUNGLE, BOOKS, SPAWNER,
-      WHEAT, TOMB, CHEST, SILVERFISH, SKULL, FLOWERS, DOOR, ANKH, CAVE,
-      SEWER, SEWERARCH, SEWERDOOR, SEWERDRAIN, MINESHAFT, LAMP, ARROW, SQUAREARCH,
-      CELL, WALL, PLANT
-  };
+  WHEAT;
 
   public static SegmentBase getSegment(Segment choice) {
 
@@ -161,6 +153,7 @@ public enum Segment {
   }
 
   public static Segment getRandom(Random rand) {
-    return segments[rand.nextInt(segments.length)];
+    Segment[] values = values();
+    return values[rand.nextInt(values.length)];
   }
 }
