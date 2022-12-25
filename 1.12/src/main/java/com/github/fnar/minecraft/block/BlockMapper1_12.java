@@ -323,11 +323,7 @@ public class BlockMapper1_12 {
     Direction dir = leverBlock.getFacing();
     return new MetaBlock1_12(Blocks.LEVER)
         .withProperty(BlockLever.POWERED, leverBlock.isActive())
-        .withProperty(BlockLever.FACING, dir == Direction.UP
-            ? BlockLever.EnumOrientation.UP_X
-            : dir == Direction.DOWN
-                ? BlockLever.EnumOrientation.DOWN_X
-                : getLeverOrientation(dir.reverse()));
+        .withProperty(BlockLever.FACING, getLeverOrientation(dir));
   }
 
   public static BlockLever.EnumOrientation getLeverOrientation(Direction direction) {
