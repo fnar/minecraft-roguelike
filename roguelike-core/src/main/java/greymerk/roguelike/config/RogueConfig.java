@@ -50,6 +50,7 @@ public class RogueConfig {
   public static final RogueConfig SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES = new RogueConfig("spawnMinimumDistanceFromVanillaStructures", 50);
   public static final RogueConfig UPPERLIMIT = new RogueConfig("upperLimit", 100);
   public static final RogueConfig VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM = new RogueConfig("vanillaStructuresToCheckMinimumDistanceFrom", VanillaStructure.getAllAsCommaDelimitedString());
+  public static final RogueConfig DUNGEON_GENERATION_THRESHOLD_CHANCE = new RogueConfig("dungeon.generation.threshold.chance", new Double[]{0.10, 0.10, 0.10, 0.10, 0.10});
   public static final RogueConfig MOBS_ITEMS_DROP_CHANCE = new RogueConfig("mobs.items.dropChance", 0.085);
   public static final RogueConfig MOBS_ITEMS_ENCHANTMENTS_CHANCE = new RogueConfig("mobs.items.enchantments.chance", new Double[]{-1.0, -1.0, -1.0, -1.0, -1.0});
   public static final RogueConfig MOBS_ITEMS_ENCHANTMENTS_LEVELS = new RogueConfig("mobs.items.enchantments.levels", new Integer[]{-1, -1, -1, -1, -1});
@@ -111,13 +112,13 @@ public class RogueConfig {
     this.doublesValue = doublesValue;
   }
 
-  public static Optional<Double> getMobItemsEnchantmentsChanceOverride(int level) {
-    Optional<Double> value = MOBS_ITEMS_ENCHANTMENTS_CHANCE.getDoubleAtIndex(level);
+  public Optional<Integer> getIntAtIndexIfNonNegative(int level) {
+    Optional<Integer> value = getIntAtIndex(level);
     return value.isPresent() && value.get() >= 0 ? value : Optional.empty();
   }
 
-  public static Optional<Integer> getMobItemsEnchantmentsLevelOverride(int level) {
-    Optional<Integer> value = MOBS_ITEMS_ENCHANTMENTS_LEVELS.getIntAtIndex(level);
+  public Optional<Double> getDoubleAtIndexIfNonNegative(int level) {
+    Optional<Double> value = getDoubleAtIndex(level);
     return value.isPresent() && value.get() >= 0 ? value : Optional.empty();
   }
 
@@ -151,6 +152,10 @@ public class RogueConfig {
     }
     if (!instance.ContainsKey(PRECIOUSBLOCKS.name)) {
       PRECIOUSBLOCKS.setBoolean(PRECIOUSBLOCKS.booleanValue);
+    }
+
+    if (!instance.ContainsKey(DUNGEON_GENERATION_THRESHOLD_CHANCE.getName())) {
+      DUNGEON_GENERATION_THRESHOLD_CHANCE.setDoubleList(DUNGEON_GENERATION_THRESHOLD_CHANCE.doublesValue);
     }
 
     if (!instance.ContainsKey(MOBS_ITEMS_DROP_CHANCE.getName())) {
