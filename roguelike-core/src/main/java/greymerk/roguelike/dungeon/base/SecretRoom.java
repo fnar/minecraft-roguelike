@@ -27,13 +27,13 @@ public class SecretRoom extends BaseRoom {
   }
 
   @Override
-  public boolean isValidLocation(Direction dir, Coord pos) {
+  public boolean isValidLocation(Coord at, Direction facing) {
     if (getRoomSetting().getCount() <= 0) {
       return false;
     }
-    Coord cursor = pos.copy();
-    cursor.translate(dir, prototype.getSize() + 5);
-    return prototype.isValidLocation(dir, cursor);
+    int connectionLength = 5;
+    Coord cursor = at.copy().translate(facing, prototype.getSize() + connectionLength);
+    return prototype.isValidLocation(cursor, facing.reverse());
   }
 
   @Override

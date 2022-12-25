@@ -93,7 +93,7 @@ public abstract class SegmentBase {
     List<RoomSetting> secretRoomSettings = secretsSetting.getSecretRoomSettings();
     Optional<Pair<RoomSetting, SecretRoom>> first = secretRoomSettings.stream()
         .map(roomSetting -> new Pair<>(roomSetting, new SecretRoom(roomSetting, levelSettings, worldEditor)))
-        .filter(pair -> pair.getValue().isValidLocation(outwardFromSegment, segmentCoord))
+        .filter(pair -> pair.getValue().isValidLocation(segmentCoord, outwardFromSegment))
         .findFirst();
     first.ifPresent(pair -> secretRoomSettings.remove(pair.getKey()));
     return first.map(pair -> pair.getValue().generate(segmentCoord, Lists.newArrayList(outwardFromSegment)));

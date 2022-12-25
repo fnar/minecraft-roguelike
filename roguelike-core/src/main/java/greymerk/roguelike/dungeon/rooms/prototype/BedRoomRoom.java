@@ -208,31 +208,4 @@ public class BedRoomRoom extends BaseRoom {
     worldEditor.setItem(furnace, WorldEditor.FURNACE_FUEL_SLOT, coal);
   }
 
-  @Override
-  public int getSize() {
-    return 5;
-  }
-
-  @Override
-  public boolean isValidLocation(Direction dir, Coord pos) {
-    Coord start;
-    Coord end;
-
-    start = pos.copy();
-    end = start.copy();
-    start.translate(dir.reverse(), 5);
-    end.translate(dir, 5);
-    start.translate(dir.antiClockwise(), 5);
-    end.translate(dir.clockwise(), 5);
-    start.down();
-    end.up(3);
-
-    for (Coord c : new RectHollow(start, end)) {
-      if (worldEditor.isAirBlock(c)) {
-        return false;
-      }
-    }
-
-    return true;
-  }
 }
