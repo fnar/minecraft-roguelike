@@ -22,7 +22,7 @@ public class DungeonTaskLinks implements IDungeonTask {
     for (DungeonLevel level : levels) {
       DungeonNode upper = previous == null ? null : previous.getLayout().getEnd();
       DungeonNode lower = level.getLayout().getStart();
-      LevelGenerator.generateLevelLink(editor, random, level.getSettings(), lower, upper);
+      LevelGenerator.generateLevelLink(editor, level.getSettings(), lower, upper);
       previous = level;
     }
 
