@@ -40,8 +40,14 @@ public class BTeamRoom extends BaseRoom {
   }
 
   @Override
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
 
+    Direction entrance = getEntrance(entrances);
+
+    return generateReversedBecauseEntrancesShouldBeOutwardFromRoomCenter(at, entrance.reverse());
+  }
+
+  private BTeamRoom generateReversedBecauseEntrancesShouldBeOutwardFromRoomCenter(Coord at, Direction entrance) {
     StairsBlock stair = StairsBlock.spruce();
     BlockBrush log = Wood.OAK.getLog();
     BlockBrush stonebrick = BlockType.STONE_BRICK.getBrush();
@@ -50,126 +56,124 @@ public class BTeamRoom extends BaseRoom {
     BlockBrush cobble = BlockType.COBBLESTONE.getBrush();
     BlockBrush lamp = BlockType.REDSTONE_LAMP.getBrush();
 
-    Direction dir = getEntrance(entrances);
-
-    Coord start = origin.copy();
-    Coord end = origin.copy();
-    start.translate(dir, 5);
-    end.translate(dir.reverse(), 4);
-    start.translate(dir.antiClockwise(), 6);
-    end.translate(dir.clockwise(), 6);
+    Coord start = at.copy();
+    Coord end = at.copy();
+    start.translate(entrance, 5);
+    end.translate(entrance.reverse(), 4);
+    start.translate(entrance.antiClockwise(), 6);
+    end.translate(entrance.clockwise(), 6);
     end.up(5);
     start.down();
     RectHollow.newRect(start, end).fill(worldEditor, stonebrick);
 
-    start = origin.copy();
+    start = at.copy();
     start.down();
     end = start.copy();
-    start.translate(dir, 4);
-    end.translate(dir.reverse(), 3);
-    start.translate(dir.antiClockwise(), 5);
-    end.translate(dir.clockwise(), 5);
+    start.translate(entrance, 4);
+    end.translate(entrance.reverse(), 3);
+    start.translate(entrance.antiClockwise(), 5);
+    end.translate(entrance.clockwise(), 5);
     cobble.fill(worldEditor, RectSolid.newRect(start, end));
 
-    start = origin.copy();
+    start = at.copy();
     start.down();
     end = start.copy();
-    start.translate(dir, 3);
-    end.translate(dir.reverse(), 2);
-    start.translate(dir.antiClockwise(), 4);
-    end.translate(dir.clockwise(), 4);
+    start.translate(entrance, 3);
+    end.translate(entrance.reverse(), 2);
+    start.translate(entrance.antiClockwise(), 4);
+    end.translate(entrance.clockwise(), 4);
     cyan.fill(worldEditor, RectSolid.newRect(start, end));
 
-    start = origin.copy();
+    start = at.copy();
     start.down();
     end = start.copy();
-    start.translate(dir, 2);
-    end.translate(dir.reverse(), 1);
-    start.translate(dir.antiClockwise(), 3);
-    end.translate(dir.clockwise(), 3);
+    start.translate(entrance, 2);
+    end.translate(entrance.reverse(), 1);
+    start.translate(entrance.antiClockwise(), 3);
+    end.translate(entrance.clockwise(), 3);
     slab.fill(worldEditor, RectSolid.newRect(start, end));
 
-    Coord cursor = origin.copy();
-    cursor.translate(dir.reverse(), 4);
-    logWall(dir, cursor);
-    cursor.translate(dir, 9);
-    logWall(dir.reverse(), cursor);
+    Coord cursor = at.copy();
+    cursor.translate(entrance.reverse(), 4);
+    logWall(entrance, cursor);
+    cursor.translate(entrance, 9);
+    logWall(entrance.reverse(), cursor);
 
-    cursor = origin.copy();
-    cursor.translate(dir.antiClockwise(), 6);
-    tvWall(worldEditor, dir.antiClockwise(), cursor);
+    cursor = at.copy();
+    cursor.translate(entrance.antiClockwise(), 6);
+    tvWall(worldEditor, entrance.antiClockwise(), cursor);
 
-    cursor = origin.copy();
-    cursor.translate(dir.clockwise(), 6);
-    bWall(dir.clockwise(), cursor);
+    cursor = at.copy();
+    cursor.translate(entrance.clockwise(), 6);
+    bWall(entrance.clockwise(), cursor);
 
-    table(worldEditor, dir, origin);
+    table(worldEditor, entrance, at);
 
-    start = origin.copy();
-    start.translate(dir.reverse(), 4);
+    start = at.copy();
+    start.translate(entrance.reverse(), 4);
     end = start.copy();
-    start.translate(dir.antiClockwise());
-    end.translate(dir.clockwise());
+    start.translate(entrance.antiClockwise());
+    end.translate(entrance.clockwise());
     end.up(2);
     cobble.fill(worldEditor, RectSolid.newRect(start, end));
 
-    cursor = origin.copy();
-    cursor.translate(dir.reverse(), 4);
+    cursor = at.copy();
+    cursor.translate(entrance.reverse(), 4);
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
     cursor.up();
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
 
-    cursor = origin.copy();
-    cursor.translate(dir.reverse());
-    cursor.translate(dir.antiClockwise(), 3);
+    cursor = at.copy();
+    cursor.translate(entrance.reverse());
+    cursor.translate(entrance.antiClockwise(), 3);
     cursor.up(5);
     log.stroke(worldEditor, cursor);
-    cursor.translate(dir, 3);
+    cursor.translate(entrance, 3);
     log.stroke(worldEditor, cursor);
-    cursor.translate(dir.clockwise(), 6);
+    cursor.translate(entrance.clockwise(), 6);
     log.stroke(worldEditor, cursor);
-    cursor.translate(dir.reverse(), 3);
+    cursor.translate(entrance.reverse(), 3);
     log.stroke(worldEditor, cursor);
 
-    start = origin.copy();
-    start.translate(dir.reverse());
+    start = at.copy();
+    start.translate(entrance.reverse());
     start.up(5);
     end = start.copy();
-    start.translate(dir.antiClockwise(), 2);
-    end.translate(dir.clockwise(), 2);
-    stair.setUpsideDown(true).setFacing(dir).fill(worldEditor, RectSolid.newRect(start, end));
-    start.translate(dir, 3);
-    end.translate(dir, 3);
-    stair.setUpsideDown(true).setFacing(dir.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
+    start.translate(entrance.antiClockwise(), 2);
+    end.translate(entrance.clockwise(), 2);
+    stair.setUpsideDown(true).setFacing(entrance).fill(worldEditor, RectSolid.newRect(start, end));
+    start.translate(entrance, 3);
+    end.translate(entrance, 3);
+    stair.setUpsideDown(true).setFacing(entrance.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
 
-    for (Direction d : dir.orthogonals()) {
-      start = origin.copy();
+    for (Direction d : entrance.orthogonals()) {
+      start = at.copy();
       start.up(5);
       start.translate(d, 3);
       end = start.copy();
-      end.translate(dir);
+      end.translate(entrance);
       stair.setUpsideDown(true).setFacing(d.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
     }
 
-    start = origin.copy();
+    start = at.copy();
     start.up(5);
     end = start.copy();
-    start.translate(dir.antiClockwise(), 2);
-    end.translate(dir.clockwise(), 2);
-    end.translate(dir);
+    start.translate(entrance.antiClockwise(), 2);
+    end.translate(entrance.clockwise(), 2);
+    end.translate(entrance);
     lamp.fill(worldEditor, RectSolid.newRect(start, end));
 
-    cursor = origin.copy();
-    cursor.translate(dir, 4);
-    cursor.translate(dir.clockwise(), 5);
+    cursor = at.copy();
+    cursor.translate(entrance, 4);
+    cursor.translate(entrance.clockwise(), 5);
     BlockType.BOOKSHELF.getBrush().stroke(worldEditor, cursor);
     cursor.up();
     BlockType.BREWING_STAND.getBrush().stroke(worldEditor, cursor);
     worldEditor.setItem(cursor, BrewingStand.Slot.MIDDLE, PotionMixture.getPotionAsRldItemStack(random(), PotionMixture.MOONSHINE));
 
-    placeStalChest(origin, dir);
-    placeBDouble0Chest(origin, dir);
-    placeGenerikBChest(origin, dir);
+    placeStalChest(at, entrance);
+    placeBDouble0Chest(at, entrance);
+    placeGenerikBChest(at, entrance);
     return this;
   }
 
