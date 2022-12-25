@@ -1,7 +1,7 @@
 package greymerk.roguelike.dungeon.towers;
 
 import com.github.fnar.minecraft.block.BlockType;
-import com.github.fnar.roguelike.worldgen.generatables.SpiralStairStep;
+import com.github.fnar.roguelike.worldgen.generatables.SpiralStaircase;
 
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -104,6 +104,6 @@ public class VillagerHouseTower extends Tower {
 
   public void createSpiralStaircase(Coord origin, Coord base) {
     int height = base.getY() - origin.getY() + 1;
-    SpiralStairStep.newStairSteps(editor).withHeight(height).withStairs(getPrimaryStair()).withPillar(getPrimaryPillar()).generate(origin);
+    SpiralStaircase.newStaircase(editor).withHeight(height).withStairs(getPrimaryStair()).withPillar(getPrimaryPillar()).generate(origin);
   }
 }

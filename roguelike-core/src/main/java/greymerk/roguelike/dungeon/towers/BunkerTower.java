@@ -3,7 +3,7 @@ package greymerk.roguelike.dungeon.towers;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
-import com.github.fnar.roguelike.worldgen.generatables.SpiralStairStep;
+import com.github.fnar.roguelike.worldgen.generatables.SpiralStaircase;
 
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.util.DyeColor;
@@ -313,6 +313,6 @@ public class BunkerTower extends Tower {
     }
 
     int height = origin.getY() - dungeon.getY() + 5;
-    SpiralStairStep.newStairSteps(editor).withHeight(height).withStairs(stair).withPillar(getPrimaryPillar()).generate(dungeon);
+    SpiralStaircase.newStaircase(editor).withHeight(height).withStairs(stair).withPillar(getPrimaryPillar()).generate(dungeon);
   }
 }

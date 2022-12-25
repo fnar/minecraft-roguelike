@@ -2,7 +2,7 @@ package greymerk.roguelike.dungeon.towers;
 
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
-import com.github.fnar.roguelike.worldgen.generatables.SpiralStairStep;
+import com.github.fnar.roguelike.worldgen.generatables.SpiralStaircase;
 
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.util.DyeColor;
@@ -252,7 +252,7 @@ public class WitchTower extends Tower {
 
     for (int i = thirdFloor.getY() - 1; i >= 50; --i) {
       Coord at = new Coord(origin.getX(), i, origin.getZ());
-      SpiralStairStep.newStairSteps(editor).withHeight(1).withStairs(getPrimaryStair()).withPillar(getPrimaryPillar()).generate(at);
+      SpiralStaircase.newStaircase(editor).withHeight(1).withStairs(getPrimaryStair()).withPillar(getPrimaryPillar()).generate(at);
     }
 
     // attic
