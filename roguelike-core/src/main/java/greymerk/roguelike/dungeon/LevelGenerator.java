@@ -1,6 +1,7 @@
 package greymerk.roguelike.dungeon;
 
 import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.roguelike.worldgen.generatables.LadderPillar;
 import com.github.fnar.roguelike.worldgen.generatables.SpiralStairStep;
 
 import java.util.Random;
@@ -45,8 +46,9 @@ public enum LevelGenerator {
 
     Coord cursor = start.getPosition().copy();
     BlockBrush pillar = settings.getTheme().getPrimary().getPillar();
-    int length = end.getPosition().getY() - start.getPosition().getY();
+    int height = end.getPosition().getY() - start.getPosition().getY();
 
-    new SpiralStairStep(editor, stair, pillar).withHeight(length).generate(cursor);
+    SpiralStairStep.newStairSteps(editor).withHeight(height).withStairs(stair).withPillar(pillar).generate(cursor);
+//    LadderPillar.newLadderPillar(editor).withHeight(height).withStairs(stair).withPillar(pillar).generate(cursor);
   }
 }

@@ -44,8 +44,6 @@ public interface WorldEditor {
 
   long getSeed();
 
-  void spiralStairStep(Random rand, Coord origin, StairsBlock stair, BlockBrush fill);
-
   void fillDown(Coord origin, BlockBrush blocks);
 
   TileEntity getTileEntity(Coord pos);

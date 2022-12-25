@@ -4,6 +4,7 @@ import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.decorative.VineBlock;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.minecraft.material.Wood;
+import com.github.fnar.roguelike.worldgen.generatables.SpiralStairStep;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -358,7 +359,7 @@ public class JungleTower extends Tower {
     start = new Coord(cursor.getX(), dungeon.getY(), cursor.getZ());
     end = cursor.copy();
     for (Coord c : RectSolid.newRect(start, end)) {
-      editor.spiralStairStep(editor.getRandom(), c, stair, getPrimaryPillar());
+      SpiralStairStep.newStairSteps(editor).withStairs(stair).withPillar(getPrimaryPillar()).generate(origin);
     }
 
     decorate(editor, editor.getRandom(), origin);

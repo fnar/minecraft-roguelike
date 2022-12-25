@@ -203,7 +203,7 @@ public class RogueTower extends Tower {
       }
     }
 
-    new SpiralStairStep(editor, getPrimaryStair(), getPrimaryPillar()).withHeight(main - y + 1).generate(origin);
+    SpiralStairStep.newStairSteps(editor).withHeight(main - y + 1).withStairs(getPrimaryStair()).withPillar(getPrimaryPillar()).generate(origin);
   }
 
 

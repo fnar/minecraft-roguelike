@@ -245,13 +245,7 @@ public class WorldEditor1_12 implements WorldEditor {
   }
 
   @Override
-  public void spiralStairStep(Random rand, Coord origin, StairsBlock stair, BlockBrush fill) {
-    new SpiralStairStep(this, stair, fill).generate(origin);
-  }
-
-  @Override
   public void fillDown(Coord origin, BlockBrush blocks) {
-
     Coord cursor = origin.copy();
 
     while (!isOpaqueCubeBlock(cursor) && cursor.getY() > 1) {

@@ -2,6 +2,7 @@ package greymerk.roguelike.dungeon.towers;
 
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.roguelike.worldgen.generatables.SpiralStairStep;
 
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -34,7 +35,8 @@ public class RuinTower extends Tower {
     RectSolid.newRect(new Coord(origin.getX() - 2, origin.getY() + 10, origin.getZ() - 2), new Coord(origin.getX() + 2, floor.getY() - 1, origin.getZ() + 2)).fill(editor, blocks, false, true);
 
     for (int i = floor.getY(); i >= origin.getY(); --i) {
-      editor.spiralStairStep(editor.getRandom(), new Coord(origin.getX(), i, origin.getZ()), stair, getPrimaryPillar());
+      Coord at = new Coord(origin.getX(), i, origin.getZ());
+      SpiralStairStep.newStairSteps(editor).withHeight(1).withStairs(getPrimaryStair()).withPillar(getPrimaryPillar()).generate(at);
     }
 
     for (Direction dir : Direction.CARDINAL) {

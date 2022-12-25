@@ -28,7 +28,7 @@ public class VillagerHouseTower extends Tower {
   }
 
   private void clearTowerArea(WorldEditor editor, Coord origin) {
-    RectSolid rect = origin.newRect(2);
+    RectSolid rect = origin.newRect(3);
     for (int i = 0; i < 6; i++) {
       rect.fill(editor, BlockType.AIR.getBrush());
       rect.translate(Direction.UP, 1);
@@ -37,7 +37,7 @@ public class VillagerHouseTower extends Tower {
 
   private void createFoundation(Coord origin, Coord base, Direction facing) {
     for (Coord cursor = new Coord(base); origin.getY() + 10 <= cursor.getY(); cursor.down()) {
-      cursor.newRect(2).fill(editor, theme.getPrimary().getFloor());
+      cursor.newRect(3).fill(editor, theme.getPrimary().getFloor());
     }
 
     createOutsideStaircase(base, facing);
@@ -94,16 +94,16 @@ public class VillagerHouseTower extends Tower {
 
   public void createRoof(Coord origin) {
     Coord center = origin.copy().up(4);
-    getSecondaryPillar().fill(editor, center.newRect(2));
-    getSecondaryFloor().fill(editor, center.newRect(1));
+    getSecondaryPillar().fill(editor, center.newRect(3));
+    getSecondaryFloor().fill(editor, center.newRect(2));
 
     center.up();
-    BlockType.OAK_FENCE.getBrush().fill(editor, center.newRect(2));
-    BlockType.AIR.getBrush().fill(editor, center.newRect(1));
+    BlockType.OAK_FENCE.getBrush().fill(editor, center.newRect(3));
+    BlockType.AIR.getBrush().fill(editor, center.newRect(2));
   }
 
   public void createSpiralStaircase(Coord origin, Coord base) {
     int height = base.getY() - origin.getY() + 1;
-    new SpiralStairStep(editor, getPrimaryStair(), getPrimaryPillar()).withHeight(height).generate(origin);
+    SpiralStairStep.newStairSteps(editor).withHeight(height).withStairs(getPrimaryStair()).withPillar(getPrimaryPillar()).generate(origin);
   }
 }
