@@ -13,7 +13,7 @@ import greymerk.roguelike.dungeon.base.RoomIterator;
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.rooms.prototype.CornerRoom;
-import greymerk.roguelike.dungeon.rooms.prototype.DungeonsPit;
+import greymerk.roguelike.dungeon.rooms.prototype.PitRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.CakeRoom;
 import greymerk.roguelike.worldgen.WorldEditor;
 
@@ -135,6 +135,6 @@ public class RoomsSettingTest {
     roomSettings.add(RoomType.PIT.newSingleRoomSetting());
     levelSettings = new LevelSettings();
     levelSettings.setRooms(roomSettings);
-    assertThat(new RoomIterator(levelSettings, editor).getDungeonRoom()).isInstanceOf(DungeonsPit.class);
+    assertThat(new RoomIterator(levelSettings, editor).getDungeonRoom()).isInstanceOf(PitRoom.class);
   }
 }

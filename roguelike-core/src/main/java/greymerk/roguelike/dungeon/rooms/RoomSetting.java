@@ -24,7 +24,7 @@ import greymerk.roguelike.dungeon.rooms.prototype.DungeonsEnder;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsFire;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsMusic;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsNetherBrick;
-import greymerk.roguelike.dungeon.rooms.prototype.DungeonsPit;
+import greymerk.roguelike.dungeon.rooms.prototype.PitRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsPrison;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsSlime;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsSmithy;
@@ -152,7 +152,7 @@ public class RoomSetting {
       case OSSUARY:
         return new OssuaryRoom(this, levelSettings, worldEditor);
       case PIT:
-        return new DungeonsPit(this, levelSettings, worldEditor);
+        return new PitRoom(this, levelSettings, worldEditor);
       case PLATFORMS:
         return new PlatformsRoom(this, levelSettings, worldEditor);
       case PRISON:
