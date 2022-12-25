@@ -84,8 +84,8 @@ public class TreasureChest {
     return this;
   }
 
-  public TreasureChest withTrapBasedOnDifficulty(int difficulty) {
-    this.isTrapped = worldEditor.getRandom().nextInt(30 / (Math.max(1, difficulty))) == 0;
+  public TreasureChest withTrap(int level) {
+    this.isTrapped = worldEditor.getRandom().nextInt(30 / (Math.max(1, level))) == 0;
     return this;
   }
 

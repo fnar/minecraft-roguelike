@@ -66,7 +66,7 @@ public class SettingsRandom extends DungeonSettings {
 
   private LevelSettings createRandomLevel(Random rand, int i) {
     LevelSettings level = new LevelSettings();
-    level.setDifficulty(i);
+    level.setLevel(i);
     level.setGenerator(LevelGenerator.CLASSIC);
     level.setNumRooms(15);
     level.setRange(60);
