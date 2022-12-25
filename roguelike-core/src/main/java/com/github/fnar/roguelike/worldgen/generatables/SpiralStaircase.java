@@ -5,25 +5,24 @@ import com.github.fnar.minecraft.block.SingleBlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
-import greymerk.roguelike.worldgen.shapes.RectSolid;
 
-public class SpiralStairStep extends BaseGeneratable {
+public class SpiralStaircase extends BaseGeneratable {
 
   private final WorldEditor worldEditor;
 
   private int height = 1;
 
-  protected SpiralStairStep(WorldEditor worldEditor) {
+  protected SpiralStaircase(WorldEditor worldEditor) {
     super(worldEditor);
     this.worldEditor = worldEditor;
   }
 
-  public static SpiralStairStep newStairSteps(WorldEditor worldEditor) {
-    return new SpiralStairStep(worldEditor);
+  public static SpiralStaircase newStaircase(WorldEditor worldEditor) {
+    return new SpiralStaircase(worldEditor);
   }
 
   @Override
-  public SpiralStairStep generate(Coord at) {
+  public SpiralStaircase generate(Coord at) {
     Coord layer = at.copy();
     for (int i = 0; i < height; i++) {
       SingleBlockBrush.AIR.fill(worldEditor, layer.newRect(2));
@@ -46,7 +45,7 @@ public class SpiralStairStep extends BaseGeneratable {
     return this;
   }
 
-  public SpiralStairStep withHeight(int height) {
+  public SpiralStaircase withHeight(int height) {
     this.height = height;
     return this;
   }

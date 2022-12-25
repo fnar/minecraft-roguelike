@@ -7,7 +7,7 @@ import com.github.fnar.minecraft.block.decorative.FlowerPotBlock;
 import com.github.fnar.minecraft.block.decorative.TorchBlock;
 import com.github.fnar.minecraft.block.normal.SlabBlock;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
-import com.github.fnar.roguelike.worldgen.generatables.SpiralStairStep;
+import com.github.fnar.roguelike.worldgen.generatables.SpiralStaircase;
 
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.util.DyeColor;
@@ -113,7 +113,7 @@ public class HouseTower extends Tower {
     BlockBrush pillar = getSecondaryPillar();
     int secondStoryFloor = 4;
     int stairHeight = floor.getY() - y + secondStoryFloor;
-    SpiralStairStep.newStairSteps(editor).withHeight(stairHeight).withStairs(stair).withPillar(pillar).generate(dungeon);
+    SpiralStaircase.newStaircase(editor).withHeight(stairHeight).withStairs(stair).withPillar(pillar).generate(dungeon);
   }
 
   private void decor(Direction dir, Coord origin) {

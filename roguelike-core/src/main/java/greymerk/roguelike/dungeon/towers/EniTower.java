@@ -2,7 +2,7 @@ package greymerk.roguelike.dungeon.towers;
 
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
-import com.github.fnar.roguelike.worldgen.generatables.SpiralStairStep;
+import com.github.fnar.roguelike.worldgen.generatables.SpiralStaircase;
 
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.util.DyeColor;
@@ -363,7 +363,7 @@ public class EniTower extends Tower {
     getPrimaryWall().fill(editor, RectSolid.newRect(start, end));
 
     Coord topStep = new Coord(floor).up(23);
-    SpiralStairStep.newStairSteps(editor).withHeight(topStep.getY() - dungeon.getY()).withStairs(getPrimaryStair()).withPillar(getPrimaryWall()).generate(dungeon);
+    SpiralStaircase.newStaircase(editor).withHeight(topStep.getY() - dungeon.getY()).withStairs(getPrimaryStair()).withPillar(getPrimaryWall()).generate(dungeon);
 
     for (Direction dir : Direction.CARDINAL) {
       cursor = floor.copy();
