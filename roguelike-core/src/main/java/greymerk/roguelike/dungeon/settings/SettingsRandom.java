@@ -1,11 +1,12 @@
 package greymerk.roguelike.dungeon.settings;
 
+import java.util.Arrays;
 import java.util.Random;
 import java.util.stream.IntStream;
 
 import greymerk.roguelike.dungeon.LevelGenerator;
-import greymerk.roguelike.dungeon.base.RoomsSetting;
-import greymerk.roguelike.dungeon.base.SecretsSetting;
+import greymerk.roguelike.dungeon.base.RoomType;
+import greymerk.roguelike.dungeon.segment.Segment;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
 import greymerk.roguelike.dungeon.towers.TowerType;
 import greymerk.roguelike.treasure.loot.ChestType;
@@ -19,16 +20,16 @@ import greymerk.roguelike.treasure.loot.rule.ForEachLootRule;
 import greymerk.roguelike.treasure.loot.rule.SingleUseLootRule;
 import greymerk.roguelike.treasure.loot.rule.TypedForEachLootRule;
 
-import static greymerk.roguelike.theme.Themes.randomTheme;
+import static greymerk.roguelike.theme.Themes.random;
 
 public class SettingsRandom extends DungeonSettings {
 
-  public SettingsRandom(Random rand) {
+  public SettingsRandom(Random random) {
 
-    setTowerSettings(new TowerSettings(TowerType.randomTower(rand), randomTheme()));
+    setTowerSettings(new TowerSettings(TowerType.random(random), random(random)));
 
     IntStream.range(0, 5)
-        .forEach(i -> getLevelSettings().put(i, createRandomLevel(rand, i)));
+        .forEach(i -> getLevelSettings().put(i, createRandomLevel(random, i)));
 
     GreymerkLootProvider loot = new GreymerkLootProvider();
     getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, loot.get(GreymerkChestType.WEAPON, 0), 0, 2));
@@ -64,17 +65,20 @@ public class SettingsRandom extends DungeonSettings {
     }
   }
 
-  private LevelSettings createRandomLevel(Random rand, int i) {
+  private LevelSettings createRandomLevel(Random random, int i) {
     LevelSettings level = new LevelSettings();
     level.setLevel(i);
-    level.setGenerator(LevelGenerator.CLASSIC);
+    level.setGenerator(i % 2 == 0 ? LevelGenerator.CLASSIC : LevelGenerator.MST);
     level.setNumRooms(15);
     level.setRange(60);
-    level.setRooms(RoomsSetting.getRandom(rand, 8));
     level.setScatter(15);
-    level.setSecrets(SecretsSetting.getRandom(rand, 2));
-    level.setSegments(SegmentGenerator.getRandom(rand, 12));
-    level.setTheme(randomTheme());
+
+    level.setTheme(random(random));
+    RoomType.getIntersections().stream().map(roomType -> roomType.newRandomRoomSetting(1)).forEach(level.getRooms()::add);
+    RoomType.getSecrets().stream().map(roomType -> roomType.newRandomRoomSetting(1)).forEach(level.getSecrets()::add);
+    Arrays.stream(Segment.values()).map(segment -> new SegmentGenerator().with(segment, 1)).forEach(level.getSegments()::add);
+
     return level;
   }
+
 }

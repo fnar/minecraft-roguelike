@@ -97,13 +97,13 @@ public enum RoomType {
     return intersections.get(random.nextInt(intersections.size()));
   }
 
-  private static List<RoomType> getSecrets() {
+  public static List<RoomType> getSecrets() {
     return Arrays.stream(values())
         .filter(RoomType::isSecret)
         .collect(Collectors.toList());
   }
 
-  private static List<RoomType> getIntersections() {
+  public static List<RoomType> getIntersections() {
     return Arrays.stream(values())
         .filter(RoomType::isIntersection)
         .collect(Collectors.toList());
