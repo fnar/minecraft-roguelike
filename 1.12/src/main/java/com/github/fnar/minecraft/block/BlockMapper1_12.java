@@ -40,6 +40,7 @@ import net.minecraft.block.BlockDropper;
 import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockFurnace;
 import net.minecraft.block.BlockHopper;
+import net.minecraft.block.BlockLadder;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLever;
 import net.minecraft.block.BlockLog;
@@ -263,6 +264,9 @@ public class BlockMapper1_12 {
       case TRIPWIRE_HOOK:
         return mapTripwireHook((TripwireHookBlock) block)
             .withProperty(BlockTripWireHook.FACING, enumFacing);
+      case LADDER:
+        return new MetaBlock1_12(Blocks.LADDER)
+            .withProperty(BlockLadder.FACING, enumFacing);
       default:
         return map(block.getBlockType());
     }
