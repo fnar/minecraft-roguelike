@@ -17,9 +17,9 @@ import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
-public class DungeonsPit extends BaseRoom {
+public class PitRoom extends BaseRoom {
 
-  public DungeonsPit(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+  public PitRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
   }
 
