@@ -111,6 +111,16 @@ public class RogueConfig {
     this.doublesValue = doublesValue;
   }
 
+  public static Optional<Double> getMobItemsEnchantmentsChanceOverride(int level) {
+    Optional<Double> value = MOBS_ITEMS_ENCHANTMENTS_CHANCE.getDoubleAtIndex(level);
+    return value.isPresent() && value.get() >= 0 ? value : Optional.empty();
+  }
+
+  public static Optional<Integer> getMobItemsEnchantmentsLevelOverride(int level) {
+    Optional<Integer> value = MOBS_ITEMS_ENCHANTMENTS_LEVELS.getIntAtIndex(level);
+    return value.isPresent() && value.get() >= 0 ? value : Optional.empty();
+  }
+
   public String getName() {
     return name;
   }

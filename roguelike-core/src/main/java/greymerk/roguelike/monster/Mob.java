@@ -40,34 +40,6 @@ public class Mob {
   private String name;
   private MobType mobType = MobType.ZOMBIE;
 
-  public static boolean rollForEnchanted(Difficulty difficulty, Random random, int level) {
-    Optional<Double> enchantedChanceOverride = getEnchantedChanceOverride(level);
-
-    if (enchantedChanceOverride.isPresent()) {
-      return random.nextDouble() < enchantedChanceOverride.get();
-    }
-
-    switch (difficulty) {
-      default:
-      case PEACEFUL:
-        return false;
-      case EASY:
-        return random.nextDouble() < .05 + .01 * level;
-      case NORMAL:
-        return random.nextDouble() < .05 + .03 * level;
-      case DIFFICULT:
-        return random.nextDouble() < .10 + .05 * level;
-    }
-  }
-
-  public static Optional<Double> getEnchantedChanceOverride(int level) {
-    Optional<Double> value = RogueConfig.MOBS_ITEMS_ENCHANTMENTS_CHANCE.getDoubleAtIndex(level);
-    if (!value.isPresent() || value.get() < 0) {
-      return Optional.empty();
-    }
-    return value;
-  }
-
   public Mob withRandomEquipment(int level, Random random) {
     RldBaseItem mainhand = chooseMainhand(random, level);
     if (mainhand != null) {
@@ -120,7 +92,7 @@ public class Mob {
   }
 
   private RldItemStack createArmor(Random random, int level, ArmourType armourType, Color color, Difficulty difficulty) {
-    return SpecialtyLootItem.rollForSpecial(random)
+    return rollForSpecial(random, level, difficulty)
         ? SpecialArmour.createArmour(random, armourType, rollQuality(random, level)).complete()
         : armourType
             .asItem()
@@ -130,26 +102,12 @@ public class Mob {
             .asStack();
   }
 
-  private static int getEnchantmentLevel(Random random, int level, Difficulty difficulty) {
-    return rollForEnchanted(difficulty, random, level)
-        ? getLevelOverride(level).orElse(LootItem.getEnchantmentLevel(random, level))
-        : 0;
-  }
-
-  private static Optional<Integer> getLevelOverride(int level) {
-    Optional<Integer> value = RogueConfig.MOBS_ITEMS_ENCHANTMENTS_LEVELS.getIntAtIndex(level);
-    if (!value.isPresent() || value.get() < 0) {
-      return Optional.empty();
-    }
-    return value;
-  }
-
   public void equipSword(Random random, int level, Difficulty difficulty) {
     equipMainhand(createSword(random, level, difficulty));
   }
 
   private static RldItemStack createSword(Random random, int level, Difficulty difficulty) {
-    return SpecialtyLootItem.rollForSpecial(random)
+    return rollForSpecial(random, level, difficulty)
         ? SpecialSword.newSpecialSword(random, rollQuality(random, level))
         : WeaponType.SWORD.asItem()
             .withQuality(rollQuality(random, level))
@@ -162,7 +120,7 @@ public class Mob {
   }
 
   private RldItemStack createBow(Random random, int level, Difficulty difficulty) {
-    return SpecialtyLootItem.rollForSpecial(random)
+    return rollForSpecial(random, level, difficulty)
         ? SpecialBow.newSpecialBow(random, rollQuality(random, level))
         : WeaponType.BOW
             .asItem()
@@ -176,13 +134,47 @@ public class Mob {
   }
 
   private static RldItemStack createTool(Random random, int level, Difficulty difficulty) {
-    return SpecialtyLootItem.rollForSpecial(random)
+    return rollForSpecial(random, level, difficulty)
         ? SpecialTool.createTool(random, rollQuality(random, level))
         : ToolType.random(random)
             .asItem()
             .withQuality(rollQuality(random, level))
             .plzEnchantAtLevel(getEnchantmentLevel(random, level, difficulty))
             .asStack();
+  }
+
+  private static boolean rollForSpecial(Random random, int level, Difficulty difficulty) {
+    return SpecialtyLootItem.rollForSpecial(random) && rollForEnchanted(random, level, difficulty);
+  }
+
+  private static int getEnchantmentLevel(Random random, int level, Difficulty difficulty) {
+    return rollForEnchanted(random, level, difficulty)
+        ? RogueConfig.getMobItemsEnchantmentsLevelOverride(level).orElse(LootItem.getEnchantmentLevel(random, level))
+        : 0;
+  }
+
+  public static boolean rollForEnchanted(Random random, int level, Difficulty difficulty) {
+    double roll = random.nextDouble();
+    return roll < getEnchantmentChance(level, difficulty);
+  }
+
+  private static Double getEnchantmentChance(int level, Difficulty difficulty) {
+    return RogueConfig.getMobItemsEnchantmentsChanceOverride(level)
+        .orElseGet(() -> .05 + getEnchantmentChanceGrowth(difficulty) * level);
+  }
+
+  private static double getEnchantmentChanceGrowth(Difficulty difficulty) {
+    switch (difficulty) {
+      default:
+      case PEACEFUL:
+        return 0.0;
+      case EASY:
+        return .01;
+      case NORMAL:
+        return .02;
+      case DIFFICULT:
+        return .03;
+    }
   }
 
   public void equipArrows(Arrow arrow) {
