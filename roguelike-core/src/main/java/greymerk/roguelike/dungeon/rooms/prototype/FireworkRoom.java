@@ -37,124 +37,129 @@ public class FireworkRoom extends BaseRoom {
   }
 
   @Override
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
+    Direction entrance = getEntrance(entrances);
+
+    return generateReversedBecauseEntrancesShouldBeOutwardFromRoomCenter(at, entrance.reverse());
+  }
+
+  private FireworkRoom generateReversedBecauseEntrancesShouldBeOutwardFromRoomCenter(Coord at, Direction entrance) {
     BlockBrush breadboard = stainedHardenedClay().setColor(DyeColor.GREEN);
 
-    Direction dir = getEntrance(entrances);
-    Coord start = origin.copy();
+    Coord start = at.copy();
     Coord end = start.copy();
-    start.translate(dir.reverse(), 9);
-    end.translate(dir, 9);
-    start.translate(dir.antiClockwise(), 4);
-    end.translate(dir.clockwise(), 4);
+    start.translate(entrance.reverse(), 9);
+    end.translate(entrance, 9);
+    start.translate(entrance.antiClockwise(), 4);
+    end.translate(entrance.clockwise(), 4);
     start.down();
     end.up(3);
     RectHollow.newRect(start, end).fill(worldEditor, stainedHardenedClay().setColor(DyeColor.ORANGE), false, true);
 
-    start = origin.copy();
-    start.translate(dir.antiClockwise(), 2);
+    start = at.copy();
+    start.translate(entrance.antiClockwise(), 2);
     end = start.copy();
-    start.translate(dir.reverse(), 3);
-    end.translate(dir, 7);
+    start.translate(entrance.reverse(), 3);
+    end.translate(entrance, 7);
     end.up();
     breadboard.fill(worldEditor, RectSolid.newRect(start, end));
 
-    start.translate(dir.clockwise(), 2);
-    end.translate(dir.clockwise(), 2);
+    start.translate(entrance.clockwise(), 2);
+    end.translate(entrance.clockwise(), 2);
     breadboard.fill(worldEditor, RectSolid.newRect(start, end));
 
-    start.translate(dir.clockwise(), 2);
-    end.translate(dir.clockwise(), 2);
+    start.translate(entrance.clockwise(), 2);
+    end.translate(entrance.clockwise(), 2);
     breadboard.fill(worldEditor, RectSolid.newRect(start, end));
 
-    Coord cursor = origin.copy();
-    cursor.translate(dir.antiClockwise(), 2);
+    Coord cursor = at.copy();
+    cursor.translate(entrance.antiClockwise(), 2);
 
-    launcher(worldEditor, dir, cursor);
-    cursor.translate(dir.clockwise(), 2);
-    launcher(worldEditor, dir, cursor);
-    cursor.translate(dir.clockwise(), 2);
-    launcher(worldEditor, dir, cursor);
-    cursor.translate(dir, 6);
-    launcher(worldEditor, dir, cursor);
-    cursor.translate(dir.antiClockwise(), 2);
-    launcher(worldEditor, dir, cursor);
-    cursor.translate(dir.antiClockwise(), 2);
-    launcher(worldEditor, dir, cursor);
+    launcher(worldEditor, entrance, cursor);
+    cursor.translate(entrance.clockwise(), 2);
+    launcher(worldEditor, entrance, cursor);
+    cursor.translate(entrance.clockwise(), 2);
+    launcher(worldEditor, entrance, cursor);
+    cursor.translate(entrance, 6);
+    launcher(worldEditor, entrance, cursor);
+    cursor.translate(entrance.antiClockwise(), 2);
+    launcher(worldEditor, entrance, cursor);
+    cursor.translate(entrance.antiClockwise(), 2);
+    launcher(worldEditor, entrance, cursor);
 
-    start = origin.copy();
-    start.translate(dir, 4);
+    start = at.copy();
+    start.translate(entrance, 4);
     end = start.copy();
-    start.translate(dir.antiClockwise(), 2);
-    end.translate(dir.clockwise(), 2);
-    end.translate(dir, 2);
+    start.translate(entrance.antiClockwise(), 2);
+    end.translate(entrance.clockwise(), 2);
+    end.translate(entrance, 2);
     SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(start, end));
 
-    cursor = origin.copy();
-    cursor.translate(dir, 2);
-    RepeaterBlock.repeater().setFacing(dir).stroke(worldEditor, cursor);
-    cursor.translate(dir.antiClockwise(), 2);
-    RepeaterBlock.repeater().setFacing(dir).stroke(worldEditor, cursor);
-    cursor.translate(dir.clockwise(), 4);
-    RepeaterBlock.repeater().setFacing(dir).stroke(worldEditor, cursor);
+    cursor = at.copy();
+    cursor.translate(entrance, 2);
+    RepeaterBlock.repeater().setFacing(entrance).stroke(worldEditor, cursor);
+    cursor.translate(entrance.antiClockwise(), 2);
+    RepeaterBlock.repeater().setFacing(entrance).stroke(worldEditor, cursor);
+    cursor.translate(entrance.clockwise(), 4);
+    RepeaterBlock.repeater().setFacing(entrance).stroke(worldEditor, cursor);
 
-    cursor = origin.copy();
-    cursor.translate(dir.reverse(), 3);
-    cursor.translate(dir.antiClockwise());
-    RepeaterBlock.repeater().setFacing(dir.antiClockwise()).stroke(worldEditor, cursor);
-    cursor.translate(dir.clockwise(), 2);
-    RepeaterBlock.repeater().setFacing(dir.clockwise()).stroke(worldEditor, cursor);
+    cursor = at.copy();
+    cursor.translate(entrance.reverse(), 3);
+    cursor.translate(entrance.antiClockwise());
+    RepeaterBlock.repeater().setFacing(entrance.antiClockwise()).stroke(worldEditor, cursor);
+    cursor.translate(entrance.clockwise(), 2);
+    RepeaterBlock.repeater().setFacing(entrance.clockwise()).stroke(worldEditor, cursor);
 
     BlockBrush wire = BlockType.REDSTONE_WIRE.getBrush();
 
-    start = origin.copy();
+    start = at.copy();
     start.down(2);
-    start.translate(dir.clockwise());
-    start.translate(dir.reverse(), 2);
+    start.translate(entrance.clockwise());
+    start.translate(entrance.reverse(), 2);
     end = start.copy();
-    end.translate(dir.antiClockwise(), 5);
-    end.translate(dir.reverse(), 5);
+    end.translate(entrance.antiClockwise(), 5);
+    end.translate(entrance.reverse(), 5);
     end.down(2);
     BlockType.COBBLESTONE.getBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
-    cursor = origin.copy();
-    cursor.translate(dir.reverse(), 3);
+    cursor = at.copy();
+    cursor.translate(entrance.reverse(), 3);
     cursor.down();
     TorchBlock.redstone().setFacing(Direction.UP).stroke(worldEditor, cursor);
     cursor.down();
     breadboard.stroke(worldEditor, cursor);
-    cursor.translate(dir.antiClockwise());
-    TorchBlock.redstone().setFacing(dir.antiClockwise()).stroke(worldEditor, cursor);
-    cursor.translate(dir.antiClockwise());
+    cursor.translate(entrance.antiClockwise());
+    TorchBlock.redstone().setFacing(entrance.antiClockwise()).stroke(worldEditor, cursor);
+    cursor.translate(entrance.antiClockwise());
     wire.stroke(worldEditor, cursor);
-    cursor.translate(dir.reverse());
+    cursor.translate(entrance.reverse());
     wire.stroke(worldEditor, cursor);
-    cursor.translate(dir.reverse());
+    cursor.translate(entrance.reverse());
     wire.stroke(worldEditor, cursor);
-    cursor.translate(dir.clockwise());
+    cursor.translate(entrance.clockwise());
     wire.stroke(worldEditor, cursor);
-    cursor.translate(dir.clockwise());
+    cursor.translate(entrance.clockwise());
     wire.stroke(worldEditor, cursor);
-    cursor.translate(dir);
+    cursor.translate(entrance);
     RepeaterBlock.repeater()
         .setDelay(RepeaterBlock.Delay.FOUR)
         .setPowered(true)
-        .setFacing(dir)
+        .setFacing(entrance)
         .stroke(worldEditor, cursor);
     cursor.up();
-    cursor.translate(dir.reverse());
+    cursor.translate(entrance.reverse());
     stainedHardenedClay().setColor(DyeColor.RED).stroke(worldEditor, cursor);
     cursor.up();
     LeverBlock.lever().setActive(true).setFacing(Direction.UP).stroke(worldEditor, cursor);
 
     BlockBrush light = lights();
-    cursor = origin.copy();
-    cursor.translate(dir.reverse(), 5);
+    cursor = at.copy();
+    cursor.translate(entrance.reverse(), 5);
     cursor.up(3);
     light.stroke(worldEditor, cursor);
-    cursor.translate(dir, 4);
+    cursor.translate(entrance, 4);
     light.stroke(worldEditor, cursor);
-    cursor.translate(dir, 6);
+    cursor.translate(entrance, 6);
     light.stroke(worldEditor, cursor);
 
     return this;
