@@ -2,7 +2,6 @@ package greymerk.roguelike.dungeon.towers;
 
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.minecraft.block.redstone.DoorBlock;
-import com.github.fnar.roguelike.worldgen.generatables.SpiralStairStep;
 
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.TreasureChest;
@@ -20,11 +19,6 @@ public abstract class Tower {
   public Tower(WorldEditor worldEditor, Theme theme) {
     this.editor = worldEditor;
     this.theme = theme;
-  }
-
-  protected void generateStaircase(Coord topStep, Coord bottomStep) {
-    int staircaseHeight = topStep.getY() - bottomStep.getY();
-    new SpiralStairStep(editor, theme.getPrimary().getStair(), theme.getPrimary().getWall()).withHeight(staircaseHeight).generate(bottomStep);
   }
 
   public void chest(WorldEditor worldEditor, Direction dir, Coord coord) {

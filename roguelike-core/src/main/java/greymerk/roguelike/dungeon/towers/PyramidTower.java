@@ -2,6 +2,7 @@ package greymerk.roguelike.dungeon.towers;
 
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
+import com.github.fnar.roguelike.worldgen.generatables.SpiralStairStep;
 
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.Coord;
@@ -53,7 +54,7 @@ public class PyramidTower extends Tower {
     spire(cursor);
 
     for (int i = floor.getY() + 3; i >= y; --i) {
-      editor.spiralStairStep(editor.getRandom(), new Coord(x, i, z), getPrimaryStair(), getPrimaryPillar());
+      SpiralStairStep.newStairSteps(editor).withHeight(1).withStairs(getPrimaryStair()).withPillar(getPrimaryPillar()).generate(new Coord(x, i, z));
     }
 
   }

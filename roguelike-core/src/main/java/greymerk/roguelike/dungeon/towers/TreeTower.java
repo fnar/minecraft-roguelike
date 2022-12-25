@@ -2,6 +2,7 @@ package greymerk.roguelike.dungeon.towers;
 
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.material.Wood;
+import com.github.fnar.roguelike.worldgen.generatables.SpiralStairStep;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -69,8 +70,8 @@ public class TreeTower extends Tower {
 
     start = upstairs.copy();
     start.down();
-    for (Coord p : RectSolid.newRect(start, origin)) {
-      editor.spiralStairStep(editor.getRandom(), p, getPrimaryStair(), getPrimaryPillar());
+    for (Coord at : RectSolid.newRect(start, origin)) {
+      SpiralStairStep.newStairSteps(editor).withHeight(1).withStairs(getPrimaryStair()).withPillar(getPrimaryPillar()).generate(at);
     }
   }
 

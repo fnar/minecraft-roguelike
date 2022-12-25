@@ -1,6 +1,7 @@
 package greymerk.roguelike.dungeon.towers;
 
 import com.github.fnar.minecraft.block.SingleBlockBrush;
+import com.github.fnar.roguelike.worldgen.generatables.SpiralStairStep;
 
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -46,7 +47,7 @@ public class BumboTower extends Tower {
     rooms(ground);
 
     Coord topStep = new Coord(ground).up(12);
-    generateStaircase(topStep, origin);
+    SpiralStairStep.newStairSteps(editor).withHeight(topStep.getY() - origin.getY()).withStairs(getPrimaryStair()).withPillar(getPrimaryWall()).generate(origin);
   }
 
   private void stem(Coord origin, Direction dir) {
