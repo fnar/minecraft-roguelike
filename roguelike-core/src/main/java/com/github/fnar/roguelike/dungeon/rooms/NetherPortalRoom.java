@@ -1,8 +1,11 @@
 package com.github.fnar.roguelike.dungeon.rooms;
 
+import com.google.common.collect.Lists;
+
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.roguelike.worldgen.generatables.NetherPortal;
+import com.github.fnar.roguelike.worldgen.generatables.Pillar;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -36,7 +39,7 @@ public class NetherPortalRoom extends BaseRoom {
     theFloorIsLava(origin);
     createPathFromEachEntranceToTheCenterOverTheLiquid(origin, front);
     generateNetherPortalWithPlatform(origin, front);
-    generateDoorways(origin, entrances);
+    generateDecorations(origin);
     generateChestInCorner(origin, front);
 
     return null;
@@ -74,7 +77,7 @@ public class NetherPortalRoom extends BaseRoom {
       ));
 
       for (Direction orthogonal : side.orthogonals()) {
-        Coord place = catwalkOrigin.copy().translate(orthogonal, 3);
+        Coord place = catwalkOrigin.copy().translate(orthogonal, 2);
         stair.setUpsideDown(false).setFacing(orthogonal.reverse());
         stair.stroke(worldEditor, place);
         stair.stroke(worldEditor, place.translate(side.back()));
@@ -91,37 +94,57 @@ public class NetherPortalRoom extends BaseRoom {
   }
 
   private void generateNetherPortalWithPlatform(Coord origin, Direction front) {
+    int portalHeight = 7;
+    int portalWidth = 5;
+    Coord portalBase = origin.copy().down(2);
+
+    // encasing
     BlockBrush pillar = pillars();
     pillar.fill(worldEditor, RectSolid.newRect(
-        origin.copy().translate(front).translate(front.left(), 3),
-        origin.copy().translate(front.back()).translate(front.right(), 3).up(getHeight() - 1)
+        portalBase.copy().translate(front).translate(front.left(), 3),
+        portalBase.copy().translate(front.back()).translate(front.right(), 3).up(portalHeight)
     ));
 
     // portal platform
     pillar.fill(worldEditor, RectSolid.newRect(
-        origin.copy().translate(front.left(), 2).translate(front, 2),
-        origin.copy().translate(front.right(), 2).translate(front.back(), 2)
+        portalBase.copy().translate(front.left(), 2).translate(front, 2).up(),
+        portalBase.copy().translate(front.right(), 2).translate(front.back(), 2)
     ));
 
     StairsBlock stairsBrush = stairs();
     Stream.of(front, front.reverse())
         .forEach(side -> {
-          Coord platformStairs = origin.copy().translate(side, 2);
+          Coord platformStairs = portalBase.copy().translate(side, 2).up();
           stairsBrush.setUpsideDown(false);
-          stairsBrush.setFacing(side);
+          stairsBrush.setFacing(side.reverse());
           stairsBrush.stroke(worldEditor, platformStairs);
           stairsBrush.stroke(worldEditor, platformStairs.copy().translate(front.left()));
           stairsBrush.stroke(worldEditor, platformStairs.copy().translate(front.right()));
         });
 
     // nether portal, atop the portal platform
-    Coord portalBase = origin.copy();
-    new NetherPortal(worldEditor).generate(portalBase, front, 5, 7);
+    new NetherPortal(worldEditor).generate(portalBase, front, portalWidth, portalHeight);
 
     // 2x cheeky spawners beneath of portal
     for (Direction orthogonal : front.orthogonals()) {
       generateSpawner(portalBase.copy().down().translate(orthogonal));
     }
+  }
+
+  private void generateDecorations(Coord origin) {
+    List<Coord> pillarCoords = Lists.newArrayList();
+    for (Direction c : Direction.cardinals()) {
+      Direction l = c.left();
+      Direction r = c.right();
+      pillarCoords.add(origin.copy().translate(l, 3).translate(c, 8));
+      pillarCoords.add(origin.copy().translate(r, 3).translate(c, 8));
+      pillarCoords.add(origin.copy().translate(l, 8).translate(c, 8));
+    }
+    Pillar pillar = Pillar.newPillar(worldEditor)
+        .withHeight(getCeilingHeight())
+        .withStairBrush(stairs())
+        .withPillarBrush(secondaryPillars());
+    pillarCoords.forEach(pillar::generate);
   }
 
   private void generateChestInCorner(Coord origin, Direction front) {
