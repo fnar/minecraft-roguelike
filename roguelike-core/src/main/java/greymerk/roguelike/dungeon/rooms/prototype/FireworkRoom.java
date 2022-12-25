@@ -33,6 +33,7 @@ public class FireworkRoom extends BaseRoom {
 
   public FireworkRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.size = 10;
   }
 
   @Override
@@ -266,33 +267,6 @@ public class FireworkRoom extends BaseRoom {
             .withTrail(random.nextBoolean())
             .withColors(Firework.randomColors(random)))
         .withFlightLength(Firework.FlightLength.chooseRandom(random)).asStack().withCount(stackSize);
-  }
-
-  @Override
-  public int getSize() {
-    return 10;
-  }
-
-  @Override
-  public boolean isValidLocation(Direction dir, Coord pos) {
-
-    Coord start = pos.copy();
-    Coord end = start.copy();
-    start.translate(dir.reverse(), 9);
-    end.translate(dir, 9);
-    Direction[] orthogonal = dir.orthogonals();
-    start.translate(orthogonal[0], 5);
-    end.translate(orthogonal[1], 5);
-    start.down();
-    end.up(3);
-
-    for (Coord c : new RectHollow(start, end)) {
-      if (worldEditor.isAirBlock(c)) {
-        return false;
-      }
-    }
-
-    return true;
   }
 
 }

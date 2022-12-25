@@ -297,19 +297,12 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
     return getHeight() - 1;
   }
 
-  public boolean isValidLocation(Direction dir, Coord pos) {
-
+  public boolean isValidLocation(Coord at, Direction facing) {
     int size = getSize();
-    Coord start = new Coord(pos.getX() - size, pos.getY() - 2, pos.getZ() - size);
-    Coord end = new Coord(pos.getX() + size, pos.getY() + 5, pos.getZ() + size);
-
-    for (Coord cursor : new RectHollow(start, end)) {
-      if (!worldEditor.isSolidBlock(cursor)) {
-        return false;
-      }
-    }
-
-    return true;
+    Coord cornerNW = at.copy().north(size).west(size).up(getHeight());
+    Coord cornerSE = at.copy().south(size).east(size).down(2);
+    RectHollow bounds = RectHollow.newRect(cornerNW, cornerSE);
+    return bounds.asList().stream().allMatch(worldEditor::isSolidBlock);
   }
 
   @Override

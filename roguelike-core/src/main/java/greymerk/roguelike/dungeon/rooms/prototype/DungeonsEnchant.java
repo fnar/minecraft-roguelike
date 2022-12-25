@@ -16,7 +16,6 @@ import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
-import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 import static com.github.fnar.minecraft.block.normal.ColoredBlock.stainedHardenedClay;
@@ -25,6 +24,7 @@ public class DungeonsEnchant extends BaseRoom {
 
   public DungeonsEnchant(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.size = 8;
   }
 
   @Override
@@ -308,30 +308,4 @@ public class DungeonsEnchant extends BaseRoom {
         .translate(dir1, 1);
   }
 
-  @Override
-  public boolean isValidLocation(Direction dir, Coord pos) {
-    Coord start;
-    Coord end;
-
-    start = pos.copy();
-    end = start.copy();
-    start.translate(dir.reverse(), 4);
-    end.translate(dir, 8);
-    start.translate(dir.antiClockwise(), 5);
-    end.translate(dir.clockwise(), 5);
-    start.down();
-    end.up(2);
-
-    for (Coord c : new RectHollow(start, end)) {
-      if (worldEditor.isAirBlock(c)) {
-        return false;
-      }
-    }
-
-    return true;
-  }
-
-  public int getSize() {
-    return 6;
-  }
 }
