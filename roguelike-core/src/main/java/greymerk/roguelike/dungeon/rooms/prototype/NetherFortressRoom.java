@@ -20,7 +20,6 @@ import greymerk.roguelike.worldgen.BlockWeightedRandom;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
-import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 import static com.github.fnar.minecraft.block.BlockType.LAVA_FLOWING;
@@ -32,33 +31,13 @@ public class NetherFortressRoom extends BaseRoom {
 
   public NetherFortressRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.size = 9;
+    this.height = 8;
   }
 
   @Override
   public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    Coord start = origin.copy();
-    Coord end = origin.copy();
-    start.translate(new Coord(-8, -1, -8));
-    end.translate(new Coord(8, 6, 8));
-    RectHollow.newRect(start, end).fill(worldEditor, walls(), false, true);
-
-    start = origin.copy();
-    end = origin.copy();
-    start.translate(new Coord(-4, 6, -4));
-    end.translate(new Coord(4, 6, 4));
-    walls().fill(worldEditor, RectSolid.newRect(start, end));
-
-    walls().fill(worldEditor, origin.copy().up(7).newRect(3));
-
-    liquid().fill(worldEditor, origin.copy().up(7).newRect(2));
-
-    start = origin.copy();
-    end = origin.copy();
-    start.translate(new Coord(-4, -1, -4));
-    end.translate(new Coord(4, -3, 4));
-    RectSolid.newRect(start, end).fill(worldEditor, walls(), false, true);
-
-    generateGardenWithCrops(origin.copy().down(2));
+    super.generate(origin, entrances);
 
     RectSolid chestRectangle = origin.copy().down().newRect(2);
     List<Coord> chestLocations = Coord.randomFrom(chestRectangle.get(), random().nextInt(3) + 1, random());
@@ -75,7 +54,18 @@ public class NetherFortressRoom extends BaseRoom {
   }
 
   @Override
+  protected void generateCeiling(Coord at) {
+    super.generateCeiling(at);
+
+    Coord ceilingLiquid = at.copy().up(7);
+    walls().fill(worldEditor, ceilingLiquid.newRect(4).withHeight(2));
+    liquid().fill(worldEditor, ceilingLiquid.newRect(3));
+  }
+
+  @Override
   protected void generateDecorations(Coord origin) {
+    generateGardenWithCrops(origin.copy().down(2));
+
     for (Direction cardinal : CARDINAL) {
       Coord start = origin.copy().up(5);
       start.translate(cardinal, 4);
@@ -196,10 +186,6 @@ public class NetherFortressRoom extends BaseRoom {
       cursor.translate(UP);
       walls().stroke(worldEditor, cursor);
     }
-  }
-
-  public int getSize() {
-    return 10;
   }
 
 }
