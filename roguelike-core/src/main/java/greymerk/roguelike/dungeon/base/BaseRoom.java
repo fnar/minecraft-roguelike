@@ -51,24 +51,15 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
   }
 
   protected void generateWalls(Coord at) {
-    walls().fill(worldEditor, RectHollow.newRect(
-        at.copy().north(getWallDist()).west(getWallDist()).up(getCeilingHeight()),
-        at.copy().south(getWallDist()).east(getWallDist()).down()
-    ));
+    walls().fill(worldEditor, at.copy().down().newHollowRect(getWallDist()).withHeight(getCeilingHeight()));
   }
 
   protected void generateFloor(Coord at) {
-    floors().fill(worldEditor, RectSolid.newRect(
-        at.copy().north(getWallDist()).west(getWallDist()).down(),
-        at.copy().south(getWallDist()).east(getWallDist()).down()
-    ));
+    floors().fill(worldEditor, at.newRect(getWallDist()).down());
   }
 
   protected void generateCeiling(Coord at) {
-    walls().fill(worldEditor, RectSolid.newRect(
-        at.copy().north(getWallDist()).west(getWallDist()).up(getCeilingHeight()),
-        at.copy().south(getWallDist()).east(getWallDist()).up(getCeilingHeight())
-    ));
+    walls().fill(worldEditor, at.newRect(getWallDist()).up(getCeilingHeight()));
   }
 
   protected void generateDecorations(Coord origin) {
