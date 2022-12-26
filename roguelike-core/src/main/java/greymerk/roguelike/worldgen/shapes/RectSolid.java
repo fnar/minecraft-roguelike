@@ -28,7 +28,7 @@ public class RectSolid implements IShape {
   public RectSolid withHeight(int height) {
     Coord lower = start.getY() < end.getY() ? start : end;
     start.setY(lower.getY());
-    end.setY(lower.getY() + Math.max(0, height - 1));
+    end.setY(lower.getY() + Math.max(0, height));
     return this;
   }
 
