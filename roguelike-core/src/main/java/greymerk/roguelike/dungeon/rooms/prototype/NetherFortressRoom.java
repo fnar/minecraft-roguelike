@@ -1,16 +1,21 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
+import com.google.common.collect.Sets;
+
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
-import com.github.fnar.minecraft.block.decorative.CropBlock;
 import com.github.fnar.minecraft.material.Crop;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.treasure.loot.ChestType;
+import greymerk.roguelike.worldgen.BlockBrush;
+import greymerk.roguelike.worldgen.BlockJumble;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -29,6 +34,7 @@ public class NetherFortressRoom extends BaseRoom {
     super(roomSetting, levelSettings, worldEditor);
   }
 
+  @Override
   public BaseRoom generate(Coord origin, List<Direction> entrances) {
     Coord start = origin.copy();
     Coord end = origin.copy();
@@ -42,17 +48,9 @@ public class NetherFortressRoom extends BaseRoom {
     end.translate(new Coord(4, 6, 4));
     walls().fill(worldEditor, RectSolid.newRect(start, end));
 
-    start = origin.copy();
-    end = origin.copy();
-    start.translate(new Coord(-3, 7, -3));
-    end.translate(new Coord(3, 7, 3));
-    walls().fill(worldEditor, RectSolid.newRect(start, end));
+    walls().fill(worldEditor, origin.copy().up(7).newRect(3));
 
-    start = origin.copy();
-    end = origin.copy();
-    start.translate(new Coord(-2, 7, -2));
-    end.translate(new Coord(2, 7, 2));
-    liquid().fill(worldEditor, RectSolid.newRect(start, end));
+    liquid().fill(worldEditor, origin.copy().up(7).newRect(2));
 
     start = origin.copy();
     end = origin.copy();
@@ -60,75 +58,78 @@ public class NetherFortressRoom extends BaseRoom {
     end.translate(new Coord(4, -3, 4));
     RectSolid.newRect(start, end).fill(worldEditor, walls(), false, true);
 
-    start = origin.copy();
-    end = origin.copy();
-    start.translate(new Coord(-3, -2, -3));
-    end.translate(new Coord(3, -2, 3));
+    generateGardenWithCrops(origin.copy().down(2));
 
-    SingleBlockBrush soil = isHotGarden()
-        ? BlockType.SOUL_SAND.getBrush()
-        : BlockType.FARMLAND.getBrush();
-    soil.fill(worldEditor, RectSolid.newRect(start, end), true, true);
-    liquid().stroke(worldEditor, origin.copy().down(2));
-
-    start = origin.copy();
-    end = origin.copy();
-    start.translate(new Coord(-3, -1, -3));
-    end.translate(new Coord(3, -1, 3));
-    BlockWeightedRandom crop = getCrops();
-    RectSolid cropsRectangle = RectSolid.newRect(start, end);
-    cropsRectangle.fill(worldEditor, crop, true, true);
-
-    List<Coord> chestLocations = Coord.randomFrom(cropsRectangle.get(), random().nextInt(3) + 1, random());
+    RectSolid chestRectangle = origin.copy().down().newRect(2);
+    List<Coord> chestLocations = Coord.randomFrom(chestRectangle.get(), random().nextInt(3) + 1, random());
     ChestType[] chestTypes = new ChestType[]{ChestType.GARDEN, ChestType.SUPPLIES, ChestType.TOOLS};
     generateTrappableChests(chestLocations, getEntrance(entrances).reverse(), chestTypes);
 
-    for (Direction dir : CARDINAL) {
-
-      start = origin.copy();
-      start.translate(UP, 5);
-      start.translate(dir, 4);
-      end = start.copy();
-      start.translate(dir.antiClockwise(), 6);
-      end.translate(dir.clockwise(), 6);
-      walls().fill(worldEditor, RectSolid.newRect(start, end));
-
-      start = origin.copy();
-      start.translate(UP, 5);
-      start.translate(dir, 6);
-      end = start.copy();
-      start.translate(dir.antiClockwise(), 6);
-      end.translate(dir.clockwise(), 6);
-      walls().fill(worldEditor, RectSolid.newRect(start, end));
-
-      start = origin.copy();
-      start.translate(DOWN);
-      start.translate(dir, 4);
-      end = start.copy();
-      start.translate(dir.antiClockwise(), 2);
-      end.translate(dir.clockwise(), 2);
-      stairs().setUpsideDown(false).setFacing(dir.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
-
-      Coord cursor = origin.copy();
-      cursor.translate(dir, 4);
-      cursor.translate(dir.antiClockwise(), 4);
-      supportPillar(cursor);
-
-      for (Direction o : dir.orthogonals()) {
-        cursor = origin.copy();
-        cursor.translate(dir, 7);
-        cursor.translate(o, 2);
-        pillar(cursor);
-        cursor.translate(o);
-        cursor.translate(o);
-        cursor.translate(o);
-        pillar(cursor);
-      }
-    }
+    generateDecorations(origin);
 
     generateDoorways(origin, entrances);
 
     return this;
+  }
+
+  private void generateDecorations(Coord origin) {
+    for (Direction cardinal : CARDINAL) {
+      Coord start = origin.copy().up(5);
+      start.translate(cardinal, 4);
+      Coord end = start.copy();
+      start.translate(cardinal.antiClockwise(), 6);
+      end.translate(cardinal.clockwise(), 6);
+      walls().fill(worldEditor, RectSolid.newRect(start, end));
+
+      start = origin.copy();
+      start.translate(UP, 5);
+      start.translate(cardinal, 6);
+      end = start.copy();
+      start.translate(cardinal.antiClockwise(), 6);
+      end.translate(cardinal.clockwise(), 6);
+      walls().fill(worldEditor, RectSolid.newRect(start, end));
+
+      start = origin.copy();
+      start.translate(DOWN);
+      start.translate(cardinal, 4);
+      end = start.copy();
+      start.translate(cardinal.antiClockwise(), 2);
+      end.translate(cardinal.clockwise(), 2);
+      stairs().setUpsideDown(false).setFacing(cardinal.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
+
+      Coord cursor = origin.copy();
+      cursor.translate(cardinal, 4);
+      cursor.translate(cardinal.antiClockwise(), 4);
+      supportPillar(cursor);
+
+      for (Direction orthogonal : cardinal.orthogonals()) {
+        cursor = origin.copy();
+        cursor.translate(cardinal, 7);
+        cursor.translate(orthogonal, 2);
+        pillar(cursor);
+        cursor.translate(orthogonal);
+        cursor.translate(orthogonal);
+        cursor.translate(orthogonal);
+        pillar(cursor);
+      }
+    }
+  }
+
+  private void generateGardenWithCrops(Coord gardenLocation) {
+    RectSolid cropRectangle = gardenLocation.copy().up().newRect(4);
+    SingleBlockBrush.AIR.fill(worldEditor, cropRectangle);
+
+    RectSolid gardenRectangle = gardenLocation.newRect(4);
+    getSoil().fill(worldEditor, gardenRectangle);
+    getCrops().fill(worldEditor, cropRectangle);
+    liquid().stroke(worldEditor, gardenLocation);
+    SingleBlockBrush.AIR.stroke(worldEditor, gardenLocation.copy().up());
+  }
+
+  private SingleBlockBrush getSoil() {
+    return isHotGarden()
+        ? BlockType.SOUL_SAND.getBrush()
+        : BlockType.FARMLAND.getBrush();
   }
 
   private boolean isHotGarden() {
@@ -145,12 +146,12 @@ public class NetherFortressRoom extends BaseRoom {
     return crops;
   }
 
-  private CropBlock selectCrop() {
+  private BlockBrush selectCrop() {
     if (isHotGarden()) {
       return Crop.NETHER_WART.getBrush();
     } else {
-      Crop[] eligibleCrops = {Crop.CARROTS, Crop.POTATOES, Crop.WHEAT};
-      return eligibleCrops[random().nextInt(eligibleCrops.length)].getBrush();
+      Set<Crop> eligibleCrops = Sets.newHashSet(Crop.CARROTS, Crop.POTATOES, Crop.WHEAT);
+      return new BlockJumble(eligibleCrops.stream().map(Crop::getBrush).collect(Collectors.toList()));
     }
   }
 
