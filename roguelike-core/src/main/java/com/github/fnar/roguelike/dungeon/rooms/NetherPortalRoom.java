@@ -14,11 +14,9 @@ import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.treasure.loot.ChestType;
-import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
-import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class NetherPortalRoom extends BaseRoom {
@@ -35,8 +33,6 @@ public class NetherPortalRoom extends BaseRoom {
 
     Direction front = getEntrance(entrances);
 
-    generateCatwalks(origin);
-    theFloorIsLava(origin);
     createPathFromEachEntranceToTheCenterOverTheLiquid(origin, front);
     generateNetherPortalWithPlatform(origin, front);
     generateChestInCorner(origin, front);
@@ -46,18 +42,15 @@ public class NetherPortalRoom extends BaseRoom {
 
   @Override
   protected void generateWalls(Coord at) {
-    walls().fill(worldEditor, RectHollow.newRect(
-        at.copy().north(getWallDist()).west(getWallDist()).up(getCeilingHeight()),
-        at.copy().south(getWallDist()).east(getWallDist()).down(3)
-    ));
+    int depth = 3;
+    walls().fill(worldEditor, at.copy().down(depth).newHollowRect(getWallDist()).withHeight(depth + getCeilingHeight()));
   }
 
   @Override
   protected void generateFloor(Coord at) {
-    floors().fill(worldEditor, RectSolid.newRect(
-        at.copy().north(3).west(3).down(),
-        at.copy().south(3).east(3).down(2)
-    ));
+    floors().fill(worldEditor, at.copy().down(2).newRect(4).withHeight(1));
+    generateCatwalks(at);
+    theFloorIsLava(at);
   }
 
   private void generateCatwalks(Coord origin) {
@@ -98,16 +91,9 @@ public class NetherPortalRoom extends BaseRoom {
     Coord portalBase = origin.copy().down(2);
 
     // encasing
-    BlockBrush pillar = pillars();
-    pillar.fill(worldEditor, RectSolid.newRect(
+    pillars().fill(worldEditor, RectSolid.newRect(
         portalBase.copy().translate(front).translate(front.left(), 3),
         portalBase.copy().translate(front.back()).translate(front.right(), 3).up(portalHeight)
-    ));
-
-    // portal platform
-    pillar.fill(worldEditor, RectSolid.newRect(
-        portalBase.copy().translate(front.left(), 2).translate(front, 2).up(),
-        portalBase.copy().translate(front.right(), 2).translate(front.back(), 2)
     ));
 
     StairsBlock stairsBrush = stairs();
