@@ -11,6 +11,7 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.dungeon.settings.SettingsRandom;
 import greymerk.roguelike.dungeon.settings.SettingsResolver;
+import greymerk.roguelike.dungeon.settings.TestDungeonSettings;
 import greymerk.roguelike.util.ArgumentParser;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -59,6 +60,8 @@ public class CommandRouteDungeon extends CommandRouteBase {
   private DungeonSettings chooseDungeonSettings(String settingName, Coord pos, WorldEditor editor) throws Exception {
     if (settingName == null) {
       return resolveAnyCustomDungeonSettings(pos, editor);
+    } else if (settingName.equals("test")) {
+      return resolveTestDungeon(editor);
     } else if (settingName.equals("random")) {
       return resolveRandomDungeon(editor);
     } else {
@@ -71,6 +74,11 @@ public class CommandRouteDungeon extends CommandRouteBase {
     Optional<DungeonSettings> dungeonSettings = settingsResolver.chooseDungeonSetting(editor, pos);
     return dungeonSettings
         .orElseThrow(() -> new NoValidLocationException(pos));
+  }
+
+  private DungeonSettings resolveTestDungeon(WorldEditor editor) throws Exception {
+    Dungeon.initResolver();
+    return new TestDungeonSettings(editor.getRandom());
   }
 
   private DungeonSettings resolveRandomDungeon(WorldEditor editor) throws Exception {
