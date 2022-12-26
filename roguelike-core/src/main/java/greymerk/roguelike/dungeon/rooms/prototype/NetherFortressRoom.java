@@ -56,47 +56,30 @@ public class NetherFortressRoom extends BaseRoom {
   }
 
   @Override
-  protected void generateDecorations(Coord origin) {
-    generateGardenWithCrops(origin.copy().down(2));
+  protected void generateDecorations(Coord at) {
+    generateGardenWithCrops(at.copy().down(2));
 
     for (Direction cardinal : CARDINAL) {
-      Coord start = origin.copy().up(5);
-      start.translate(cardinal, 4);
-      Coord end = start.copy();
-      start.translate(cardinal.antiClockwise(), 6);
-      end.translate(cardinal.clockwise(), 6);
-      walls().fill(worldEditor, RectSolid.newRect(start, end));
+      walls().fill(worldEditor, RectSolid.newRect(
+          at.copy().up(5).translate(cardinal, 4).translate(cardinal.left(), 6),
+          at.copy().up(5).translate(cardinal, 4).translate(cardinal.right(), 6)
+      ));
 
-      start = origin.copy();
-      start.translate(UP, 5);
-      start.translate(cardinal, 6);
-      end = start.copy();
-      start.translate(cardinal.antiClockwise(), 6);
-      end.translate(cardinal.clockwise(), 6);
-      walls().fill(worldEditor, RectSolid.newRect(start, end));
+      walls().fill(worldEditor, RectSolid.newRect(
+          at.copy().up(5).translate(cardinal, 6).translate(cardinal.left(), 6),
+          at.copy().up(5).translate(cardinal, 6).translate(cardinal.right(), 6)
+      ));
 
-      start = origin.copy();
-      start.translate(DOWN);
-      start.translate(cardinal, 4);
-      end = start.copy();
-      start.translate(cardinal.antiClockwise(), 2);
-      end.translate(cardinal.clockwise(), 2);
-      stairs().setUpsideDown(false).setFacing(cardinal.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
+      stairs().setUpsideDown(false).setFacing(cardinal.reverse()).fill(worldEditor, RectSolid.newRect(
+          at.copy().down().translate(cardinal, 4).translate(cardinal.left(), 2),
+          at.copy().down().translate(cardinal, 4).translate(cardinal.right(), 2)
+      ));
 
-      Coord cursor = origin.copy();
-      cursor.translate(cardinal, 4);
-      cursor.translate(cardinal.antiClockwise(), 4);
-      supportPillar(cursor);
+      supportPillar(at.copy().translate(cardinal, 4).translate(cardinal.antiClockwise(), 4));
 
       for (Direction orthogonal : cardinal.orthogonals()) {
-        cursor = origin.copy();
-        cursor.translate(cardinal, 7);
-        cursor.translate(orthogonal, 2);
-        pillar(cursor);
-        cursor.translate(orthogonal);
-        cursor.translate(orthogonal);
-        cursor.translate(orthogonal);
-        pillar(cursor);
+        pillar(at.copy().translate(cardinal, 7).translate(orthogonal, 2));
+        pillar(at.copy().translate(cardinal, 7).translate(orthogonal, 2).translate(orthogonal, 3));
       }
     }
   }
@@ -141,22 +124,22 @@ public class NetherFortressRoom extends BaseRoom {
     }
   }
 
-  private void supportPillar(Coord origin) {
+  private void supportPillar(Coord at) {
 
     for (Direction dir : CARDINAL) {
-      Coord start = origin.copy();
+      Coord start = at.copy();
       start.translate(dir);
       Coord end = start.copy();
       end.translate(UP, 5);
       pillars().fill(worldEditor, RectSolid.newRect(start, end));
 
-      Coord cursor = origin.copy();
+      Coord cursor = at.copy();
       cursor.translate(dir, 2);
       cursor.translate(UP, 4);
       stairs().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
     }
 
-    Coord start = origin.copy();
+    Coord start = at.copy();
     Coord end = start.copy();
     end.translate(UP, 5);
     liquid().fill(worldEditor, RectSolid.newRect(start, end));
