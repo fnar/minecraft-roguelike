@@ -24,7 +24,8 @@ public class NetherPortalRoom extends BaseRoom {
   public NetherPortalRoom(RoomSetting roomsSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomsSetting, levelSettings, worldEditor);
     this.size = 10;
-    this.height = 8;
+    this.height = 11;
+    this.depth = 3;
   }
 
   @Override
@@ -41,14 +42,8 @@ public class NetherPortalRoom extends BaseRoom {
   }
 
   @Override
-  protected void generateWalls(Coord at) {
-    int depth = 3;
-    walls().fill(worldEditor, at.copy().down(depth).newHollowRect(getWallDist()).withHeight(depth + getCeilingHeight()));
-  }
-
-  @Override
   protected void generateFloor(Coord at) {
-    floors().fill(worldEditor, at.copy().down(2).newRect(4).withHeight(1));
+    floors().fill(worldEditor, at.copy().down(2).newRect(4).withHeight(2));
     generateCatwalks(at);
     theFloorIsLava(at);
   }
@@ -112,7 +107,7 @@ public class NetherPortalRoom extends BaseRoom {
 
     // 2x cheeky spawners beneath of portal
     for (Direction orthogonal : front.orthogonals()) {
-      generateSpawner(portalBase.copy().down().translate(orthogonal));
+      generateSpawner(portalBase.copy().translate(orthogonal, 2));
     }
   }
 

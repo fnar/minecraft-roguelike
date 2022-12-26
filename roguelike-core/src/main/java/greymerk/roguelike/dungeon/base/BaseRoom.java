@@ -29,11 +29,14 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode
 public abstract class BaseRoom implements Comparable<BaseRoom> {
 
+  public static final int ENCASING_SIZE = 1;
+
   private final RoomSetting roomSetting;
   protected final LevelSettings levelSettings;
   protected final WorldEditor worldEditor;
   protected int size = 5;
-  protected int height = 5;
+  protected int height = Dungeon.VERTICAL_SPACING;
+  protected int depth = 2;
 
   public BaseRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     this.roomSetting = roomSetting;
@@ -51,7 +54,7 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
   }
 
   protected void generateWalls(Coord at) {
-    walls().fill(worldEditor, at.copy().down().newHollowRect(getWallDist()).withHeight(getCeilingHeight()));
+    walls().fill(worldEditor, at.copy().down(depth).newHollowRect(getWallDist()).withHeight(getHeight()));
   }
 
   protected void generateFloor(Coord at) {
@@ -276,21 +279,24 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
   }
 
   public int getSize() {
-    // encasing happens at getSize(), so walls should be -1
     return size;
   }
 
   protected final int getWallDist() {
-    // encasing happens at getSize(), so walls should be -1
-    return getSize() - 1;
+    return getSize() - ENCASING_SIZE;
   }
 
   public final int getHeight() {
+    // todo: break dependents on getHeight(), specifically NetherBrick room
+    // todo: return getCeilingHeight() + depth + ENCASING_SIZE;
     return height;
   }
 
   protected final int getCeilingHeight() {
-    return getHeight() - 1;
+    // TODO: this relationship should be inverted.
+    // Currently, if the depth is increased, the ceiling will fall.
+    // Instead, if the depth is increased, the ceiling should remain where it is and the room height should increase.
+    return getHeight() - depth - ENCASING_SIZE;
   }
 
   public boolean isValidLocation(Coord at, Direction facing) {

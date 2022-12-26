@@ -32,7 +32,6 @@ public class NetherFortressRoom extends BaseRoom {
   public NetherFortressRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
     this.size = 9;
-    this.height = 8;
   }
 
   @Override
@@ -44,12 +43,6 @@ public class NetherFortressRoom extends BaseRoom {
     ChestType[] chestTypes = new ChestType[]{ChestType.GARDEN, ChestType.SUPPLIES, ChestType.TOOLS};
     generateTrappableChests(chestLocations, getEntrance(entrances).reverse(), chestTypes);
 
-    // todo: super.generate(origin) would place the decorations automatically
-    generateDecorations(origin);
-
-    // todo: super.generate(origin) would place the doorways automatically
-    generateDoorways(origin, entrances);
-
     return this;
   }
 
@@ -57,8 +50,8 @@ public class NetherFortressRoom extends BaseRoom {
   protected void generateCeiling(Coord at) {
     super.generateCeiling(at);
 
-    Coord ceilingLiquid = at.copy().up(7);
-    walls().fill(worldEditor, ceilingLiquid.newRect(4).withHeight(2));
+    Coord ceilingLiquid = at.copy().up(getCeilingHeight());
+    walls().fill(worldEditor, ceilingLiquid.newRect(getWallDist()).down());
     liquid().fill(worldEditor, ceilingLiquid.newRect(3));
   }
 

@@ -30,7 +30,7 @@ public class RectHollow implements IShape {
   public RectHollow withHeight(int height) {
     Coord lower = start.getY() < end.getY() ? start : end;
     start.setY(lower.getY());
-    end.setY(lower.getY() + Math.max(0, height));
+    end.setY(lower.getY() + Math.max(0, height - 1));
     return this;
   }
 
