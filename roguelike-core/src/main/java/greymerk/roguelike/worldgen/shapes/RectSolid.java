@@ -16,7 +16,6 @@ public class RectSolid implements IShape {
   private final Coord start;
   private final Coord end;
 
-  // todo: make private
   private RectSolid(Coord start, Coord end) {
     this.start = start.copy();
     this.end = end.copy();
@@ -24,6 +23,13 @@ public class RectSolid implements IShape {
 
   public static RectSolid newRect(Coord start, Coord end) {
     return new RectSolid(start, end);
+  }
+
+  public RectSolid withHeight(int height) {
+    Coord lower = start.getY() < end.getY() ? start : end;
+    start.setY(lower.getY());
+    end.setY(lower.getY() + Math.max(0, height - 1));
+    return this;
   }
 
   @Override
