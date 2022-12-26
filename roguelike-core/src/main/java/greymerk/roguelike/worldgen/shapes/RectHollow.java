@@ -15,8 +15,8 @@ import greymerk.roguelike.worldgen.WorldEditor;
 
 public class RectHollow implements IShape {
 
-  private Coord start;
-  private Coord end;
+  private final Coord start;
+  private final Coord end;
 
   public RectHollow(Coord start, Coord end) {
     this.start = start.copy();
@@ -26,6 +26,14 @@ public class RectHollow implements IShape {
   public static RectHollow newRect(Coord start, Coord end) {
     return new RectHollow(start, end);
   }
+
+  public RectHollow withHeight(int height) {
+    Coord lower = start.getY() < end.getY() ? start : end;
+    start.setY(lower.getY());
+    end.setY(lower.getY() + Math.max(0, height));
+    return this;
+  }
+
 
   @Override
   public IShape fill(WorldEditor editor, BlockBrush block, boolean fillAir, boolean replaceSolid) {
