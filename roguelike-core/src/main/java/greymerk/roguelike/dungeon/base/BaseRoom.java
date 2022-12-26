@@ -45,6 +45,7 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
     generateWalls(origin);
     generateFloor(origin);
     generateCeiling(origin);
+    generateDecorations(origin);
     generateDoorways(origin, entrances);
     return this;
   }
@@ -68,6 +69,10 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
         at.copy().north(getWallDist()).west(getWallDist()).up(getCeilingHeight()),
         at.copy().south(getWallDist()).east(getWallDist()).up(getCeilingHeight())
     ));
+  }
+
+  protected void generateDecorations(Coord origin) {
+
   }
 
   protected void generateDoorways(Coord origin, List<Direction> entrances) {

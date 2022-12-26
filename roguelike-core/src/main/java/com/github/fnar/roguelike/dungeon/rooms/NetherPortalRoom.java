@@ -39,7 +39,6 @@ public class NetherPortalRoom extends BaseRoom {
     theFloorIsLava(origin);
     createPathFromEachEntranceToTheCenterOverTheLiquid(origin, front);
     generateNetherPortalWithPlatform(origin, front);
-    generateDecorations(origin);
     generateChestInCorner(origin, front);
 
     return null;
@@ -131,7 +130,8 @@ public class NetherPortalRoom extends BaseRoom {
     }
   }
 
-  private void generateDecorations(Coord origin) {
+  @Override
+  protected void generateDecorations(Coord origin) {
     List<Coord> pillarCoords = Lists.newArrayList();
     for (Direction c : Direction.cardinals()) {
       Direction l = c.left();

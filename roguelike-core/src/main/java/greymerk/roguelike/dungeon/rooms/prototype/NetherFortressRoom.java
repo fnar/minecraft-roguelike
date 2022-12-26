@@ -65,14 +65,17 @@ public class NetherFortressRoom extends BaseRoom {
     ChestType[] chestTypes = new ChestType[]{ChestType.GARDEN, ChestType.SUPPLIES, ChestType.TOOLS};
     generateTrappableChests(chestLocations, getEntrance(entrances).reverse(), chestTypes);
 
+    // todo: super.generate(origin) would place the decorations automatically
     generateDecorations(origin);
 
+    // todo: super.generate(origin) would place the doorways automatically
     generateDoorways(origin, entrances);
 
     return this;
   }
 
-  private void generateDecorations(Coord origin) {
+  @Override
+  protected void generateDecorations(Coord origin) {
     for (Direction cardinal : CARDINAL) {
       Coord start = origin.copy().up(5);
       start.translate(cardinal, 4);
