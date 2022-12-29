@@ -5,6 +5,7 @@ import com.google.common.collect.Sets;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.material.Crop;
+import com.github.fnar.roguelike.worldgen.generatables.Pillar;
 
 import java.util.List;
 import java.util.Set;
@@ -24,7 +25,6 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 import static com.github.fnar.minecraft.block.BlockType.LAVA_FLOWING;
 import static greymerk.roguelike.worldgen.Direction.CARDINAL;
-import static greymerk.roguelike.worldgen.Direction.DOWN;
 import static greymerk.roguelike.worldgen.Direction.UP;
 
 public class NetherFortressRoom extends BaseRoom {
@@ -78,8 +78,9 @@ public class NetherFortressRoom extends BaseRoom {
       supportPillar(at.copy().translate(cardinal, 4).translate(cardinal.antiClockwise(), 4));
 
       for (Direction orthogonal : cardinal.orthogonals()) {
-        pillar(at.copy().translate(cardinal, 7).translate(orthogonal, 2));
-        pillar(at.copy().translate(cardinal, 7).translate(orthogonal, 2).translate(orthogonal, 3));
+        Coord pillar = at.copy().translate(cardinal, 7).translate(orthogonal, 2);
+        pillar(pillar);
+        pillar(pillar.translate(orthogonal, 3));
       }
     }
   }
@@ -127,16 +128,13 @@ public class NetherFortressRoom extends BaseRoom {
   private void supportPillar(Coord at) {
 
     for (Direction dir : CARDINAL) {
-      Coord start = at.copy();
-      start.translate(dir);
-      Coord end = start.copy();
-      end.translate(UP, 5);
-      pillars().fill(worldEditor, RectSolid.newRect(start, end));
+      pillars().fill(worldEditor, RectSolid.newRect(
+              at.copy(),
+              at.copy().translate(UP, 5))
+          .translate(dir)
+      );
 
-      Coord cursor = at.copy();
-      cursor.translate(dir, 2);
-      cursor.translate(UP, 4);
-      stairs().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
+      stairs().setUpsideDown(true).setFacing(dir).stroke(worldEditor, at.copy().translate(dir, 2).translate(UP, 4));
     }
 
     Coord start = at.copy();
@@ -149,19 +147,7 @@ public class NetherFortressRoom extends BaseRoom {
   }
 
   private void pillar(Coord origin) {
-    Coord start = origin.copy();
-    Coord end = start.copy();
-    end.translate(UP, 5);
-    pillars().fill(worldEditor, RectSolid.newRect(start, end));
-
-    for (Direction dir : CARDINAL) {
-      Coord cursor = origin.copy();
-      cursor.translate(UP, 4);
-      cursor.translate(dir);
-      stairs().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor, true, false);
-      cursor.translate(UP);
-      walls().stroke(worldEditor, cursor);
-    }
+     Pillar.newPillar(worldEditor).withStairBrush(stairs()).withPillarBrush(pillars()).withHeight(5).generate(origin);
   }
 
 }
