@@ -47,6 +47,7 @@ public enum RoomType {
   OSSUARY(true, false),
   PIT(true, false),
   PLATFORMS(true, false),
+  PLATFORMS_2(true, false),
   PRISON(true, false),
   PYRAMIDCORNER(true, false),
   PYRAMIDSPAWNER(false, false),
@@ -57,7 +58,7 @@ public enum RoomType {
   SMITH(false, true),
   SPIDER(true, false),
   STORAGE(true, false),
-  TREETHO(false, false),
+  TREETHO(false, false)
   ;
 
   private final boolean isIntersection;

@@ -2,6 +2,7 @@ package greymerk.roguelike.dungeon.rooms;
 
 import com.github.fnar.roguelike.dungeon.rooms.FountainRoom;
 import com.github.fnar.roguelike.dungeon.rooms.NetherPortalRoom;
+import com.github.fnar.roguelike.dungeon.rooms.Platforms2Room;
 import com.github.fnar.roguelike.dungeon.rooms.PlatformsRoom;
 import com.github.fnar.roguelike.dungeon.rooms.SmallLiquidPitRoom;
 
@@ -159,6 +160,8 @@ public class RoomSetting {
         return new PitRoom(this, levelSettings, worldEditor);
       case PLATFORMS:
         return new PlatformsRoom(this, levelSettings, worldEditor);
+      case PLATFORMS_2:
+        return new Platforms2Room(this, levelSettings, worldEditor);
       case PRISON:
         return new DungeonsPrison(this, levelSettings, worldEditor);
       case PYRAMIDCORNER:
