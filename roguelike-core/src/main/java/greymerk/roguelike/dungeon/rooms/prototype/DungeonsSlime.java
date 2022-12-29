@@ -67,8 +67,8 @@ public class DungeonsSlime extends BaseRoom {
           .translate(dir.antiClockwise(), 2);
 
       Pillar.newPillar(worldEditor)
-          .withPillarBrush(pillars())
-          .withStairBrush(stairs())
+          .withPillar(pillars())
+          .withStairs(stairs())
           .withHeight(4)
           .generate(start);
     }

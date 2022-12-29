@@ -130,8 +130,8 @@ public class BedRoomRoom extends BaseRoom {
     }
 
     Pillar.newPillar(worldEditor)
-        .withPillarBrush(pillars())
-        .withStairBrush(secondaryStairs())
+        .withPillar(pillars())
+        .withStairs(secondaryStairs())
         .withHeight(3)
         .generate(pillarCoords);
   }

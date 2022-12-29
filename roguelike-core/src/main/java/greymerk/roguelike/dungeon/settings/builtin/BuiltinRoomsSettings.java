@@ -29,6 +29,7 @@ import static greymerk.roguelike.dungeon.base.RoomType.PLATFORMS;
 import static greymerk.roguelike.dungeon.base.RoomType.PRISON;
 import static greymerk.roguelike.dungeon.base.RoomType.REWARD;
 import static greymerk.roguelike.dungeon.base.RoomType.SLIME;
+import static greymerk.roguelike.dungeon.base.RoomType.SMALL_LIQUID_PIT;
 import static greymerk.roguelike.dungeon.base.RoomType.SPIDER;
 
 public class BuiltinRoomsSettings extends DungeonSettings {
@@ -72,7 +73,8 @@ public class BuiltinRoomsSettings extends DungeonSettings {
         REWARD.newSingleRoomSetting(),
 
         BRICK.newRandomRoomSetting(3),
-        CORNER.newRandomRoomSetting(10)
+        CORNER.newRandomRoomSetting(10),
+        SMALL_LIQUID_PIT.newRandomRoomSetting(1)
     );
   }
 
