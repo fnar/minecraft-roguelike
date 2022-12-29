@@ -22,7 +22,7 @@ public class Pillar extends BaseGeneratable {
 
   @Override
   public Pillar generate(Coord at) {
-    Coord top = at.copy().up(height).down();
+    Coord top = at.copy().up(getHeight() - 1);
 
     worldEditor.fillDown(top, this.pillarBrush);
 
@@ -40,8 +40,12 @@ public class Pillar extends BaseGeneratable {
     return new Pillar(worldEditor);
   }
 
+  public int getHeight() {
+    return Math.max(1, height);
+  }
+
   public Pillar withHeight(int height) {
-    this.height = Math.max(2, height);
+    this.height = Math.max(1, height);
     return this;
   }
 
