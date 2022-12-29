@@ -1,5 +1,6 @@
 package com.github.fnar.roguelike.dungeon.rooms;
 
+import com.github.fnar.roguelike.worldgen.generatables.Generatable;
 import com.github.fnar.roguelike.worldgen.generatables.Pillar;
 
 import java.util.List;
@@ -33,7 +34,7 @@ public class SmallLiquidPitRoom extends BaseRoom {
   }
 
   private void generatePillars(Coord at) {
-    Pillar pillar = Pillar.newPillar(worldEditor).withTheme(theme()).withHeight(getCeilingHeight());
+    Generatable pillar = Pillar.newPillar(worldEditor).withHeight(getCeilingHeight()).withTheme(theme());
     if (size >= 2) {
       for (Direction cardinal : Direction.cardinals()) {
         int pillarDist = getWallDist() - 1;

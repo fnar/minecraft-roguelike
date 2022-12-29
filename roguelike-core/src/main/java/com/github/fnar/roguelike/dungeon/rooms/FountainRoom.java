@@ -1,6 +1,7 @@
 package com.github.fnar.roguelike.dungeon.rooms;
 
 import com.github.fnar.roguelike.worldgen.generatables.Fountain;
+import com.github.fnar.roguelike.worldgen.generatables.Generatable;
 import com.github.fnar.roguelike.worldgen.generatables.Pillar;
 
 import java.util.List;
@@ -24,7 +25,7 @@ public class FountainRoom extends BaseRoom {
   protected void generateDecorations(Coord at, List<Direction> entrances) {
     Fountain.newFountain(worldEditor).generate(at);
 
-    Pillar pillar = Pillar.newPillar(worldEditor).withTheme(theme()).withHeight(getCeilingHeight());
+    Generatable pillar = Pillar.newPillar(worldEditor).withHeight(getCeilingHeight()).withTheme(theme());
     for (Direction cardinal : Direction.cardinals()) {
       int pillarDist = getWallDist() - 1;
       pillar.generate(at.copy().translate(cardinal, pillarDist).translate(cardinal.left(), pillarDist));
