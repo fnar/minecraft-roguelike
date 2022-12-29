@@ -11,10 +11,10 @@ public class DungeonSettingsParserTest {
   @Test
   public void segmentsInherit() {
     DungeonSettings parent0 = new DungeonSettings();
-    parent0.getLevelSettings().put(0, new LevelSettings());
+    parent0.getLevelSettings().put(0, new LevelSettings(0));
     parent0.getLevelSettings(0).getSegments().add(Segment.BOOKS, 1);
     DungeonSettings parent1 = new DungeonSettings();
-    parent1.getLevelSettings().put(0, new LevelSettings());
+    parent1.getLevelSettings().put(0, new LevelSettings(0));
     parent1.getLevelSettings(0).getSegments().add(Segment.ARROW, 1);
 
     DungeonSettings child = new DungeonSettings().inherit(parent0);

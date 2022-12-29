@@ -44,9 +44,6 @@ public class LevelSettings {
   private LevelGenerator generator;
   private Set<Filter> filters = new HashSet<>();
 
-  public LevelSettings() {
-  }
-
   public LevelSettings(int level) {
     this.level = level;
   }
