@@ -33,6 +33,7 @@ public enum RoomType {
   ETHO(false, false),
   FIRE(true, false),
   FIREWORK(false, false),
+  FOUNTAIN(true, false),
   LAB(true, false),
   LIBRARY(false, false),
   LINKER(false, false),
