@@ -26,8 +26,8 @@ public class DungeonTaskRegistry implements IDungeonTaskRegistry {
     addTask(new DungeonTaskLayout(), LAYOUT);
     addTask(new DungeonTaskEncase(), ENCASE);
     addTask(new DungeonTaskTunnels(), TUNNELS);
-    addTask(new DungeonTaskRooms(), ROOMS);
     addTask(new DungeonTaskSegments(), SEGMENTS);
+    addTask(new DungeonTaskRooms(), ROOMS);
     addTask(new DungeonTaskLinks(), LINKS);
     addTask(new DungeonTaskTower(), TOWER);
     addTask(new DungeonTaskFilters(), FILTERS);
