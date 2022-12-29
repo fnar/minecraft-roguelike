@@ -117,14 +117,14 @@ public class RoomsSettingTest {
     when(editor.getRandom()).thenReturn(new Random());
 
     RoomsSetting roomSettings = new RoomsSetting();
-    LevelSettings levelSettings = new LevelSettings();
+    LevelSettings levelSettings = new LevelSettings(0);
     levelSettings.setRooms(roomSettings);
     assertThat(new RoomIterator(levelSettings, editor).getDungeonRoom()).isInstanceOf(CornerRoom.class);
 
     roomSettings = new RoomsSetting();
     roomSettings.add(RoomType.CAKE.newSingleRoomSetting());
     roomSettings.add(RoomType.CAKE.newSingleRoomSetting());
-    levelSettings = new LevelSettings();
+    levelSettings = new LevelSettings(0);
     levelSettings.setRooms(roomSettings);
     RoomIterator roomIterator = new RoomIterator(levelSettings, editor);
     assertThat(roomIterator.getDungeonRoom()).isInstanceOf(CakeRoom.class);
@@ -133,7 +133,7 @@ public class RoomsSettingTest {
 
     roomSettings = new RoomsSetting();
     roomSettings.add(RoomType.PIT.newSingleRoomSetting());
-    levelSettings = new LevelSettings();
+    levelSettings = new LevelSettings(0);
     levelSettings.setRooms(roomSettings);
     assertThat(new RoomIterator(levelSettings, editor).getDungeonRoom()).isInstanceOf(PitRoom.class);
   }

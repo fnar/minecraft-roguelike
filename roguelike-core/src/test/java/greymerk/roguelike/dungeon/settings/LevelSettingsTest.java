@@ -32,9 +32,9 @@ public class LevelSettingsTest {
 
   @Test
   public void testEquals() {
-    LevelSettings base = new LevelSettings();
+    LevelSettings base = new LevelSettings(0);
     base.setGenerator(LevelGenerator.CLASSIC);
-    LevelSettings other = new LevelSettings();
+    LevelSettings other = new LevelSettings(0);
     assertThat(base).isNotEqualTo(other);
 
     other.setGenerator(LevelGenerator.CLASSIC);
@@ -59,11 +59,11 @@ public class LevelSettingsTest {
 
   @Test
   public void levelSettingsInheritRooms() {
-    LevelSettings parent = new LevelSettings();
+    LevelSettings parent = new LevelSettings(0);
     RoomSetting cakeRoomSetting = RoomType.CAKE.newSingleRoomSetting();
     parent.getRooms().add(cakeRoomSetting);
 
-    List<RoomSetting> actual = new LevelSettings().inherit(parent, EMPTY_OVERRIDES).getRooms().getSingleRoomSettings();
+    List<RoomSetting> actual = new LevelSettings(0).inherit(parent, EMPTY_OVERRIDES).getRooms().getSingleRoomSettings();
 
     assertThat(actual).containsOnly(cakeRoomSetting);
   }
@@ -73,11 +73,11 @@ public class LevelSettingsTest {
     RoomSetting bedroomSecret0 = RoomType.BEDROOM.newSingleRoomSetting();
     RoomSetting bedroomSecret1 = RoomType.BEDROOM.newSingleRoomSetting();
 
-    LevelSettings parent = new LevelSettings();
+    LevelSettings parent = new LevelSettings(0);
     parent.getSecrets().add(bedroomSecret0);
     parent.getSecrets().add(bedroomSecret1);
 
-    LevelSettings actual = new LevelSettings().inherit(parent, EMPTY_OVERRIDES);
+    LevelSettings actual = new LevelSettings(0).inherit(parent, EMPTY_OVERRIDES);
 
     assertThat(actual.getSecrets().getSecretRoomSettings()).containsOnly(bedroomSecret0, bedroomSecret1);
   }
@@ -99,8 +99,8 @@ public class LevelSettingsTest {
 
   @Test
   public void childRetainsLevelGeneratorType_WhenChildHasLevelGenerator() {
-    LevelSettings parent = new LevelSettings();
-    LevelSettings child = new LevelSettings();
+    LevelSettings parent = new LevelSettings(0);
+    LevelSettings child = new LevelSettings(0);
 
     child.setGenerator(LevelGenerator.CLASSIC);
 
@@ -110,8 +110,8 @@ public class LevelSettingsTest {
 
   @Test
   public void childInheritsLevelGenerator_WhenChildHasNoLevelGenerator() {
-    LevelSettings parent = new LevelSettings();
-    LevelSettings child = new LevelSettings();
+    LevelSettings parent = new LevelSettings(0);
+    LevelSettings child = new LevelSettings(0);
 
     parent.setGenerator(LevelGenerator.CLASSIC);
 
@@ -121,8 +121,8 @@ public class LevelSettingsTest {
 
   @Test
   public void childrenPreferTheirOwnLevelGenerator_EvenWhenAParentHasALevelGenerator() {
-    LevelSettings parent = new LevelSettings();
-    LevelSettings child = new LevelSettings();
+    LevelSettings parent = new LevelSettings(0);
+    LevelSettings child = new LevelSettings(0);
 
     parent.setGenerator(LevelGenerator.MST);
     child.setGenerator(LevelGenerator.CLASSIC);
@@ -133,11 +133,11 @@ public class LevelSettingsTest {
 
   @Test
   public void levelSettingsInheritLevelGeneratorsFromTheirParents_WhenParentHasLevelGenerator() {
-    LevelSettings expected = new LevelSettings();
+    LevelSettings expected = new LevelSettings(0);
     expected.setGenerator(LevelGenerator.CLASSIC);
 
-    LevelSettings parent = new LevelSettings();
-    LevelSettings child = new LevelSettings();
+    LevelSettings parent = new LevelSettings(0);
+    LevelSettings child = new LevelSettings(0);
 
     assertThat(child).isNotEqualTo(expected);
 
@@ -150,11 +150,11 @@ public class LevelSettingsTest {
 
   @Test
   public void levelSettingsRetainTheirLevelGeneratorDespiteInheritance_WhenParentHasNone() {
-    LevelSettings expected = new LevelSettings();
+    LevelSettings expected = new LevelSettings(0);
     expected.setGenerator(LevelGenerator.CLASSIC);
 
-    LevelSettings parent = new LevelSettings();
-    LevelSettings child = new LevelSettings();
+    LevelSettings parent = new LevelSettings(0);
+    LevelSettings child = new LevelSettings(0);
 
     assertThat(child).isNotEqualTo(expected);
 
@@ -167,11 +167,11 @@ public class LevelSettingsTest {
 
   @Test
   public void levelSettingsRetainTheirLevelGeneratorDespiteInheritance_EvenWhenParentHasALevelGenerator() {
-    LevelSettings expected = new LevelSettings();
+    LevelSettings expected = new LevelSettings(0);
     expected.setGenerator(LevelGenerator.CLASSIC);
 
-    LevelSettings parent = new LevelSettings();
-    LevelSettings child = new LevelSettings();
+    LevelSettings parent = new LevelSettings(0);
+    LevelSettings child = new LevelSettings(0);
 
     assertThat(child).isNotEqualTo(expected);
 
@@ -185,8 +185,8 @@ public class LevelSettingsTest {
 
   @Test
   public void filtersAreInheritedFromParents_WhenParentsHaveFilters() {
-    LevelSettings child = new LevelSettings();
-    LevelSettings parent = new LevelSettings();
+    LevelSettings child = new LevelSettings(0);
+    LevelSettings parent = new LevelSettings(0);
     parent.addFilter(Filter.VINE);
 
     LevelSettings actual = child.inherit(parent, EMPTY_OVERRIDES);
@@ -196,8 +196,8 @@ public class LevelSettingsTest {
 
   @Test
   public void filtersAreKept_WhenParentsHaveNoFilters() {
-    LevelSettings child = new LevelSettings();
-    LevelSettings parent = new LevelSettings();
+    LevelSettings child = new LevelSettings(0);
+    LevelSettings parent = new LevelSettings(0);
     child.addFilter(Filter.VINE);
 
     LevelSettings actual = child.inherit(parent, EMPTY_OVERRIDES);
@@ -207,9 +207,9 @@ public class LevelSettingsTest {
 
   @Test
   public void childrenMergeFiltersFromTheirParentsWithTheirOwnFilters() {
-    LevelSettings child = new LevelSettings();
+    LevelSettings child = new LevelSettings(0);
     child.addFilter(Filter.VINE);
-    LevelSettings parent = new LevelSettings();
+    LevelSettings parent = new LevelSettings(0);
     parent.addFilter(Filter.COBWEB);
 
     LevelSettings actual = child.inherit(parent, EMPTY_OVERRIDES);
