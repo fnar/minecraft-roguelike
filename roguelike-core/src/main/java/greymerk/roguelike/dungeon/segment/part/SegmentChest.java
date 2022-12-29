@@ -65,8 +65,7 @@ public class SegmentChest extends SegmentBase {
       return;
     }
 
-    int level = dungeonLevel.getSettings().getLevel(shelf);
-    generateTrappableChest(editor, dir, shelf, level, ChestType.COMMON_TREASURES);
+    generateTrappableChest(editor, dir, shelf, dungeonLevel.getSettings().getLevel(), ChestType.COMMON_TREASURES);
   }
 
 }

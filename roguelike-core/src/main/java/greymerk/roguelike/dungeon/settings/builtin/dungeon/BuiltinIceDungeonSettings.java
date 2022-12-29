@@ -3,7 +3,6 @@ package greymerk.roguelike.dungeon.settings.builtin.dungeon;
 import java.util.stream.IntStream;
 
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
-import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.TowerSettings;
@@ -24,15 +23,9 @@ public class BuiltinIceDungeonSettings extends DungeonSettings {
     getInherit().add(BuiltinBaseSettings.ID);
     getCriteria().setBiomeTypes(newArrayList(SNOWY));
     setTowerSettings(new TowerSettings(PYRAMID, ICE));
-    IntStream.range(0, 5)
-        .forEach(i -> getLevelSettings().put(i, generateLevelSettings(i)));
+    IntStream.range(0, MAXIMUM_COUNT_OF_LEVELS)
+        .mapToObj(this::getLevelSettings)
+        .forEach(levelSettings -> levelSettings.setTheme(ICE));
   }
 
-  private LevelSettings generateLevelSettings(int i) {
-    LevelSettings levelSettings = new LevelSettings();
-
-    levelSettings.setTheme(ICE);
-
-    return levelSettings;
-  }
 }

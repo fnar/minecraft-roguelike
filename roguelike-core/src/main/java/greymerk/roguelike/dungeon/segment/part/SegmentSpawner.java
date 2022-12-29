@@ -55,14 +55,12 @@ public class SegmentSpawner extends SegmentBase {
         .translate(dir, 4)
         .up(1);
 
-    int difficulty = level.getSettings().getLevel(spawnerCoord);
-
     Spawner spawner = level.getSettings().getSpawnerSettings().isEmpty()
         ? MobType.chooseAmong(MobType.COMMON_MOBS, rand).asSpawner()
         : level.getSettings().getSpawnerSettings().getSpawners().get(editor.getRandom());
-    BaseRoom.generateSpawnerSafe(editor, spawner, spawnerCoord, difficulty);
+    BaseRoom.generateSpawnerSafe(editor, spawner, spawnerCoord);
 
-    BlockBrush panelInFrontOfSpawner = rand.nextInt(Math.max(1, difficulty)) == 0
+    BlockBrush panelInFrontOfSpawner = rand.nextInt(Math.max(1, level.getSettings().getLevel())) == 0
         ? BlockType.GLASS.getBrush()
         : getSecondaryWall(theme);
     panelInFrontOfSpawner.stroke(editor, spawnerCoord.translate(dir.reverse()));

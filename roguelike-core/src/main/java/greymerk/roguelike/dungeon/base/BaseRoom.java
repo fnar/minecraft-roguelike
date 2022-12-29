@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
-import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.TreasureChest;
@@ -86,59 +85,39 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
   }
 
   protected void generateSpawner(Coord spawnerLocation, MobType... defaultMobs) {
-    int level = getLevel(spawnerLocation);
-    generateSpawner(spawnerLocation, level, defaultMobs);
+    MobType[] mobTypes = defaultMobs.length > 0 ? defaultMobs : MobType.COMMON_MOBS;
+    Spawner spawner = chooseSpawner(mobTypes);
+    generateSpawnerSafe(worldEditor, spawner, spawnerLocation);
   }
 
-  protected void generateSpawner(Coord spawnerLocation) {
-    int level = getLevel(spawnerLocation);
-    generateSpawner(spawnerLocation, level, MobType.COMMON_MOBS);
-  }
-
-  protected int getLevel(Coord coord) {
-    return levelSettings.getLevel(coord);
-  }
-
-  private void generateSpawner(Coord spawnerLocation, int level, MobType... defaultMobs) {
-    Spawner spawner = chooseSpawner(level, defaultMobs, random());
-    generateSpawnerSafe(worldEditor, spawner, spawnerLocation, level);
-  }
-
-  private Spawner chooseSpawner(int level, MobType[] defaultMobs, Random random) {
-    Optional<SpawnerSettings> roomSpawnerSettings = getSpawnerSettings(roomSetting.getSpawnerId(), level);
-    SpawnerSettings levelSpawnerSettings = levelSettings.getSpawnerSettings();
+  private Spawner chooseSpawner(MobType[] mobTypes) {
+    Optional<SpawnerSettings> roomSpawnerSettings = getSpawnerSettings(roomSetting.getSpawnerId());
     if (roomSpawnerSettings.isPresent()) {
-      return roomSpawnerSettings.get().chooseOneAtRandom(random);
+      return roomSpawnerSettings.get().chooseOneAtRandom(random());
     }
+    SpawnerSettings levelSpawnerSettings = levelSettings.getSpawnerSettings();
     if (!levelSpawnerSettings.isEmpty()) {
       return levelSpawnerSettings.chooseOneAtRandom(random());
     }
-    return MobType.asSpawner(defaultMobs.length > 0 ? defaultMobs : MobType.COMMON_MOBS);
+    return MobType.asSpawner(mobTypes);
   }
 
-  private static Optional<SpawnerSettings> getSpawnerSettings(String spawnerId, int level) {
-    if (spawnerId == null) {
-      return Optional.empty();
-    }
-    DungeonSettings dungeonSettings = null;
+  private Optional<SpawnerSettings> getSpawnerSettings(String spawnerId) {
     try {
-      dungeonSettings = Dungeon.settingsResolver.getByName(spawnerId);
+      if (spawnerId != null) {
+        return Optional.ofNullable(Dungeon.settingsResolver.getByName(spawnerId))
+            .map(dungeonSettings -> dungeonSettings.getLevelSettings(levelSettings.getLevel()))
+            .map(LevelSettings::getSpawnerSettings);
+      }
     } catch (Exception e) {
       e.printStackTrace();
     }
-    if (dungeonSettings == null) {
-      return Optional.empty();
-    }
-    SpawnerSettings spawnerSettings = dungeonSettings.getLevelSettings(level).getSpawnerSettings();
-    if (spawnerSettings == null || spawnerSettings.isEmpty()) {
-      return Optional.empty();
-    }
-    return Optional.of(spawnerSettings);
+    return Optional.empty();
   }
 
-  public static void generateSpawnerSafe(WorldEditor editor, Spawner spawner, Coord cursor, int level) {
+  public static void generateSpawnerSafe(WorldEditor editor, Spawner spawner, Coord cursor) {
     try {
-      editor.generateSpawner(spawner, cursor, level);
+      editor.generateSpawner(spawner, cursor);
     } catch (Exception e) {
       throw new RuntimeException("Tried to spawn empty spawner", e);
     }
@@ -204,7 +183,7 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
 
   protected Optional<TreasureChest> generateTrappableChest(Coord cursor, Direction facing, ChestType defaultChestType) {
     return chest(cursor, facing, defaultChestType)
-        .withTrap(getLevel(cursor))
+        .withTrap(levelSettings.getLevel())
         .stroke(worldEditor, cursor);
   }
 
