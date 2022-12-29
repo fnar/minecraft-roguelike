@@ -3,7 +3,6 @@ package com.github.fnar.roguelike.worldgen.generatables;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -49,12 +48,6 @@ public class Pillar extends BaseGeneratable {
 
   public Pillar withSupports(boolean withSupports) {
     this.withSupports = withSupports;
-    return this;
-  }
-
-  public Pillar withTheme(Theme theme) {
-    withStairs(theme.getPrimary().getStair());
-    withPillar(theme.getPrimary().getPillar());
     return this;
   }
 

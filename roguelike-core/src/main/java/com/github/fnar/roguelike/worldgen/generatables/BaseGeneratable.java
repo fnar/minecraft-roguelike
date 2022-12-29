@@ -1,11 +1,13 @@
 package com.github.fnar.roguelike.worldgen.generatables;
 
+import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.normal.ColoredBlock;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import java.util.List;
 
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -19,6 +21,7 @@ public abstract class BaseGeneratable implements Generatable {
 
   protected StairsBlock stairs = StairsBlock.netherBrick();
   protected BlockBrush pillar = ColoredBlock.wool().red();
+  protected BlockBrush walls = BlockType.STONE_BRICK.getBrush();
 
   protected BaseGeneratable(WorldEditor worldEditor) {
     this.worldEditor = worldEditor;
@@ -41,8 +44,20 @@ public abstract class BaseGeneratable implements Generatable {
     return this;
   }
 
+  public BaseGeneratable withWalls(BlockBrush walls) {
+    this.walls = walls;
+    return this;
+  }
+
   public BaseGeneratable withStairs(StairsBlock stairs) {
     this.stairs = stairs;
+    return this;
+  }
+
+  public BaseGeneratable withTheme(Theme theme) {
+    withWalls(theme.getPrimary().getWall());
+    withStairs(theme.getPrimary().getStair());
+    withPillar(theme.getPrimary().getPillar());
     return this;
   }
 
