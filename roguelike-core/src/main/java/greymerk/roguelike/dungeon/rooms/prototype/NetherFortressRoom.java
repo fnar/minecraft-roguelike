@@ -32,6 +32,7 @@ public class NetherFortressRoom extends BaseRoom {
   public NetherFortressRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
     this.size = 9;
+    this.height = 8;
   }
 
   @Override
@@ -47,42 +48,21 @@ public class NetherFortressRoom extends BaseRoom {
   }
 
   @Override
+  protected void generateFloor(Coord at) {
+    super.generateFloor(at);
+
+    floors().fill(worldEditor, at.newRect(getWallDist()).down());
+
+    generateGardenWithCrops(at.copy().down(2));
+  }
+
+  @Override
   protected void generateCeiling(Coord at) {
     super.generateCeiling(at);
 
     Coord ceilingLiquid = at.copy().up(getCeilingHeight());
     walls().fill(worldEditor, ceilingLiquid.newRect(getWallDist()).down());
     liquid().fill(worldEditor, ceilingLiquid.newRect(3));
-  }
-
-  @Override
-  protected void generateDecorations(Coord at) {
-    generateGardenWithCrops(at.copy().down(2));
-
-    for (Direction cardinal : CARDINAL) {
-      walls().fill(worldEditor, RectSolid.newRect(
-          at.copy().up(5).translate(cardinal, 4).translate(cardinal.left(), 6),
-          at.copy().up(5).translate(cardinal, 4).translate(cardinal.right(), 6)
-      ));
-
-      walls().fill(worldEditor, RectSolid.newRect(
-          at.copy().up(5).translate(cardinal, 6).translate(cardinal.left(), 6),
-          at.copy().up(5).translate(cardinal, 6).translate(cardinal.right(), 6)
-      ));
-
-      stairs().setUpsideDown(false).setFacing(cardinal.reverse()).fill(worldEditor, RectSolid.newRect(
-          at.copy().down().translate(cardinal, 4).translate(cardinal.left(), 2),
-          at.copy().down().translate(cardinal, 4).translate(cardinal.right(), 2)
-      ));
-
-      supportPillar(at.copy().translate(cardinal, 4).translate(cardinal.antiClockwise(), 4));
-
-      for (Direction orthogonal : cardinal.orthogonals()) {
-        Coord pillar = at.copy().translate(cardinal, 7).translate(orthogonal, 2);
-        pillar(pillar);
-        pillar(pillar.translate(orthogonal, 3));
-      }
-    }
   }
 
   private void generateGardenWithCrops(Coord gardenLocation) {
@@ -125,6 +105,34 @@ public class NetherFortressRoom extends BaseRoom {
     }
   }
 
+  @Override
+  protected void generateDecorations(Coord at) {
+    for (Direction cardinal : CARDINAL) {
+      walls().fill(worldEditor, RectSolid.newRect(
+          at.copy().up(5).translate(cardinal, 4).translate(cardinal.left(), 6),
+          at.copy().up(5).translate(cardinal, 4).translate(cardinal.right(), 6)
+      ));
+
+      walls().fill(worldEditor, RectSolid.newRect(
+          at.copy().up(5).translate(cardinal, 6).translate(cardinal.left(), 6),
+          at.copy().up(5).translate(cardinal, 6).translate(cardinal.right(), 6)
+      ));
+
+      stairs().setUpsideDown(false).setFacing(cardinal.reverse()).fill(worldEditor, RectSolid.newRect(
+          at.copy().down().translate(cardinal, 4).translate(cardinal.left(), 2),
+          at.copy().down().translate(cardinal, 4).translate(cardinal.right(), 2)
+      ));
+
+      supportPillar(at.copy().translate(cardinal, 4).translate(cardinal.antiClockwise(), 4));
+
+      for (Direction orthogonal : cardinal.orthogonals()) {
+        Coord pillar = at.copy().translate(cardinal, 7).translate(orthogonal, 2);
+        pillar(pillar);
+        pillar(pillar.translate(orthogonal, 3));
+      }
+    }
+  }
+
   private void supportPillar(Coord at) {
 
     for (Direction dir : CARDINAL) {
@@ -147,7 +155,7 @@ public class NetherFortressRoom extends BaseRoom {
   }
 
   private void pillar(Coord origin) {
-     Pillar.newPillar(worldEditor).withStairBrush(stairs()).withPillarBrush(pillars()).withHeight(5).generate(origin);
+     Pillar.newPillar(worldEditor).withStairs(stairs()).withPillar(pillars()).withHeight(5).generate(origin);
   }
 
 }

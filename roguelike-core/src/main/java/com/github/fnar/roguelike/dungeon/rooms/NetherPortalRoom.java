@@ -24,7 +24,7 @@ public class NetherPortalRoom extends BaseRoom {
   public NetherPortalRoom(RoomSetting roomsSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomsSetting, levelSettings, worldEditor);
     this.size = 10;
-    this.height = 11;
+    this.height = 8;
     this.depth = 3;
   }
 
@@ -112,19 +112,19 @@ public class NetherPortalRoom extends BaseRoom {
   }
 
   @Override
-  protected void generateDecorations(Coord origin) {
+  protected void generateDecorations(Coord at) {
     List<Coord> pillarCoords = Lists.newArrayList();
     for (Direction c : Direction.cardinals()) {
       Direction l = c.left();
       Direction r = c.right();
-      pillarCoords.add(origin.copy().translate(l, 3).translate(c, 8));
-      pillarCoords.add(origin.copy().translate(r, 3).translate(c, 8));
-      pillarCoords.add(origin.copy().translate(l, 8).translate(c, 8));
+      pillarCoords.add(at.copy().translate(l, 3).translate(c, 8));
+      pillarCoords.add(at.copy().translate(r, 3).translate(c, 8));
+      pillarCoords.add(at.copy().translate(l, 8).translate(c, 8));
     }
     Pillar pillar = Pillar.newPillar(worldEditor)
         .withHeight(getCeilingHeight())
-        .withStairBrush(stairs())
-        .withPillarBrush(secondaryPillars());
+        .withStairs(stairs())
+        .withPillar(secondaryPillars());
     pillarCoords.forEach(pillar::generate);
   }
 

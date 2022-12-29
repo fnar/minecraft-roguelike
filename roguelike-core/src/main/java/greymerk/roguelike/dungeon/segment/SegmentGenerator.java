@@ -142,8 +142,8 @@ public class SegmentGenerator {
     }
 
     Pillar.newPillar(editor)
-        .withPillarBrush(theme.getPrimary().getPillar())
-        .withStairBrush(theme.getPrimary().getStair())
+        .withPillar(theme.getPrimary().getPillar())
+        .withStairs(theme.getPrimary().getStair())
         .generate(origin);
   }
 

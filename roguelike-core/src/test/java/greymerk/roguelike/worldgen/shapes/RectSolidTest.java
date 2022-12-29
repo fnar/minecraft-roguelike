@@ -10,6 +10,7 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -76,6 +77,44 @@ public class RectSolidTest {
   @Test
   public void withHeight10Contains10Points() {
     assertThat(new Coord(0, 0, 0).newRect(0).withHeight(10).get().size()).isEqualTo(10);
+  }
+
+  @Test
+  public void twoRectanglesAreTheSame() {
+    Coord origin = new Coord(0, 0, 0);
+    RectSolid r0 = origin.newRect(2);
+    RectSolid r1 = origin.newRect(2).withHeight(1);
+    assertThat(r0).isEqualTo(r1);
+  }
+
+  @Test
+  public void iteratorsProvideEqualValuesWhenHeightIsUsed() {
+    Coord origin = new Coord(0, 0, 0);
+    RectSolid r0 = origin.newRect(2);
+    RectSolid r1 = origin.newRect(2).withHeight(1);
+    asserThatIteratorsAreEqual(r0, r1);
+    asserThatIteratorsAreEqual(r1, r0);
+  }
+
+  private void asserThatIteratorsAreEqual(RectSolid r0, RectSolid r1) {
+    Iterator<Coord> r0Iterator = r0.iterator();
+    Iterator<Coord> r1Iterator = r1.iterator();
+
+    while (r0Iterator.hasNext()) {
+      Coord c = r0Iterator.next();
+      Coord d = r1Iterator.next();
+      assertThat(c).isEqualTo(d);
+    }
+    assertThat(r1Iterator.hasNext()).isFalse();
+  }
+
+  @Test
+  public void asListProvidesEqualCoordsWhenHeightIsUsed() {
+    Coord origin = new Coord(0, 0, 0);
+    RectSolid r0 = origin.newRect(2);
+    RectSolid r1 = origin.newRect(2).withHeight(1);
+    assertThat(r0.asList()).isEqualTo(r1.asList());
+    assertThat(r1.asList()).isEqualTo(r0.asList());
   }
 
   @Test

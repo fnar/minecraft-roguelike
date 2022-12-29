@@ -10,7 +10,9 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 import greymerk.roguelike.worldgen.Coord;
+import lombok.EqualsAndHashCode;
 
+@EqualsAndHashCode
 public class RectSolid implements IShape {
 
   private final Coord start;

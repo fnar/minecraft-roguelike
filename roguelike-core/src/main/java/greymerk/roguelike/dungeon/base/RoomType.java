@@ -51,6 +51,7 @@ public enum RoomType {
   PYRAMIDSPAWNER(false, false),
   PYRAMIDTOMB(true, false),
   REWARD(false, false),
+  SMALL_LIQUID_PIT(true, false),
   SLIME(true, false),
   SMITH(false, true),
   SPIDER(true, false),

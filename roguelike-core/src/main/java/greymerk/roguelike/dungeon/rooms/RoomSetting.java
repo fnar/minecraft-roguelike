@@ -2,6 +2,7 @@ package greymerk.roguelike.dungeon.rooms;
 
 import com.github.fnar.roguelike.dungeon.rooms.NetherPortalRoom;
 import com.github.fnar.roguelike.dungeon.rooms.PlatformsRoom;
+import com.github.fnar.roguelike.dungeon.rooms.SmallLiquidPitRoom;
 
 import java.util.List;
 import java.util.Optional;
@@ -167,6 +168,8 @@ public class RoomSetting {
         return new RewardRoom(this, levelSettings, worldEditor);
       case SLIME:
         return new DungeonsSlime(this, levelSettings, worldEditor);
+      case SMALL_LIQUID_PIT:
+        return new SmallLiquidPitRoom(this, levelSettings, worldEditor);
       case SMITH:
         return new DungeonsSmithy(this, levelSettings, worldEditor);
       case SPIDER:

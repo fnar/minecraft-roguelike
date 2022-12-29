@@ -4,16 +4,17 @@ import com.google.common.collect.Lists;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
+import lombok.EqualsAndHashCode;
 
 import static greymerk.roguelike.worldgen.Direction.UP;
 import static java.util.Collections.shuffle;
 import static java.util.stream.Collectors.toList;
 
+@EqualsAndHashCode
 public class Coord {
 
   private int x;
@@ -218,30 +219,12 @@ public class Coord {
   }
 
   @Override
-  public int hashCode() {
-    return Objects.hash(x, y, z);
-  }
-
-  @Override
   public String toString() {
     return String.format("{\"x\": %d, \"y\": %d, \"z\": %d}", x, y, z);
   }
 
-  @Override
-  public boolean equals(Object o) {
-    Coord other = (Coord) o;
-
-    if (x != other.x) {
-      return false;
-    }
-    if (y != other.y) {
-      return false;
-    }
-    return z == other.z;
-  }
-
   public RectSolid newRect(int radius) {
-    int newRadius = radius >= 1 ? radius - 1 : 0;
+    int newRadius = Math.max(0, radius - 1);
     Coord corner0 = copy().north(newRadius).east(newRadius);
     Coord corner1 = copy().south(newRadius).west(newRadius);
     return RectSolid.newRect(corner0, corner1);

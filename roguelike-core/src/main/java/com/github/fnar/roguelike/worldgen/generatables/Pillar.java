@@ -1,9 +1,9 @@
 package com.github.fnar.roguelike.worldgen.generatables;
 
-import com.github.fnar.minecraft.block.normal.ColoredBlock;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -13,8 +13,6 @@ public class Pillar extends BaseGeneratable {
 
   private int height = 3;
   private boolean withSupports = true;
-  private BlockBrush pillarBrush = ColoredBlock.wool().red();
-  private StairsBlock stairBrush = StairsBlock.netherBrick();
 
   private Pillar(WorldEditor worldEditor) {
     super(worldEditor);
@@ -24,12 +22,12 @@ public class Pillar extends BaseGeneratable {
   public Pillar generate(Coord at) {
     Coord top = at.copy().up(getHeight() - 1);
 
-    worldEditor.fillDown(top, this.pillarBrush);
+    worldEditor.fillDown(top, this.pillar);
 
     if (withSupports) {
       for (Direction cardinal : Direction.CARDINAL) {
         Coord support = top.copy().translate(cardinal);
-        stairBrush.setUpsideDown(true).setFacing(cardinal).stroke(worldEditor, support, true, false);
+        stairs.setUpsideDown(true).setFacing(cardinal).stroke(worldEditor, support, true, false);
       }
     }
 
@@ -54,21 +52,28 @@ public class Pillar extends BaseGeneratable {
     return this;
   }
 
-  public Pillar withPillarBrush(BlockBrush pillarBrush) {
-    this.pillarBrush = pillarBrush;
+  public Pillar withTheme(Theme theme) {
+    withStairs(theme.getPrimary().getStair());
+    withPillar(theme.getPrimary().getPillar());
     return this;
   }
 
-  public Pillar withStairBrush(StairsBlock stairBrush) {
-    this.stairBrush = stairBrush;
+  @Override
+  public Pillar withPillar(BlockBrush pillarBrush) {
+    super.withPillar(pillarBrush);
+    return this;
+  }
+
+  @Override
+  public Pillar withStairs(StairsBlock stairBrush) {
+    super.withStairs(stairBrush);
     return this;
   }
 
   @Override
   public Pillar withLevelSettings(LevelSettings levelSettings) {
     super.withLevelSettings(levelSettings);
-    withPillarBrush(levelSettings.getTheme().getPrimary().getPillar());
-    withPillarBrush(levelSettings.getTheme().getPrimary().getStair());
+    withTheme(levelSettings.getTheme());
     return this;
   }
 }

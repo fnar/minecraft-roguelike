@@ -34,9 +34,12 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
   private final RoomSetting roomSetting;
   protected final LevelSettings levelSettings;
   protected final WorldEditor worldEditor;
+  // size is how far out to go to draw the walls (+1 for encasing)
   protected int size = 5;
-  protected int height = Dungeon.VERTICAL_SPACING;
-  protected int depth = 2;
+  // depth is how far down to move to draw the floor
+  protected int depth = 1;
+  // height is the distance from the center origin to ceiling (+1, for encasing)
+  protected int height = Dungeon.VERTICAL_SPACING - depth;
 
   public BaseRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     this.roomSetting = roomSetting;
@@ -54,18 +57,18 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
   }
 
   protected void generateWalls(Coord at) {
-    walls().fill(worldEditor, at.copy().down(depth).newHollowRect(getWallDist()).withHeight(getHeight()));
+    walls().fill(worldEditor, at.newHollowRect(getWallDist()).withHeight(height + depth).down(depth));
   }
 
   protected void generateFloor(Coord at) {
-    floors().fill(worldEditor, at.newRect(getWallDist()).down());
+    floors().fill(worldEditor, at.newRect(getWallDist()).down(depth));
   }
 
   protected void generateCeiling(Coord at) {
     walls().fill(worldEditor, at.newRect(getWallDist()).up(getCeilingHeight()));
   }
 
-  protected void generateDecorations(Coord origin) {
+  protected void generateDecorations(Coord at) {
 
   }
 
@@ -293,10 +296,7 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
   }
 
   protected final int getCeilingHeight() {
-    // TODO: this relationship should be inverted.
-    // Currently, if the depth is increased, the ceiling will fall.
-    // Instead, if the depth is increased, the ceiling should remain where it is and the room height should increase.
-    return getHeight() - depth - ENCASING_SIZE;
+    return getHeight() - ENCASING_SIZE;
   }
 
   public boolean isValidLocation(Coord at, Direction facing) {
