@@ -14,11 +14,11 @@ public class BuiltinSegmentsSettings extends DungeonSettings {
   public BuiltinSegmentsSettings() {
     super(ID);
 
-    for (int i = 0; i < 5; ++i) {
+    for (int level = 0; level < 5; ++level) {
 
       SegmentGenerator segments;
 
-      switch (i) {
+      switch (level) {
         case 0:
           segments = new SegmentGenerator(Segment.ARCH);
           segments.add(Segment.DOOR, 8);
@@ -77,9 +77,9 @@ public class BuiltinSegmentsSettings extends DungeonSettings {
           break;
       }
 
-      LevelSettings level = new LevelSettings();
-      level.setSegments(segments);
-      getLevelSettings().put(i, level);
+      LevelSettings levelSettings = new LevelSettings(level);
+      levelSettings.setSegments(segments);
+      getLevelSettings().put(level, levelSettings);
 
     }
   }

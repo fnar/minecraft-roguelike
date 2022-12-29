@@ -61,9 +61,9 @@ public class DungeonSettingsParser {
 
     DungeonSettings dungeonSettings = new DungeonSettings();
     // set up level settings objects
-    for (int i = 0; i < DungeonSettings.getMaxNumLevels(); ++i) {
-      LevelSettings setting = new LevelSettings();
-      dungeonSettings.getLevelSettings().put(i, setting);
+    for (int level = 0; level < DungeonSettings.MAXIMUM_COUNT_OF_LEVELS; ++level) {
+      LevelSettings setting = new LevelSettings(level);
+      dungeonSettings.getLevelSettings().put(level, setting);
     }
 
     parseId(root, dungeonSettings);

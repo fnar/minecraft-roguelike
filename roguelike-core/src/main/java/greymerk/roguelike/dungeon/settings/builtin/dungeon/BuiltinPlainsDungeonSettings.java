@@ -29,18 +29,18 @@ public class BuiltinPlainsDungeonSettings extends DungeonSettings {
 
     setTowerSettings(new TowerSettings(TowerType.HOUSE, Themes.HOUSE));
 
-    for (int i = 0; i < 5; ++i) {
+    for (int level = 0; level < DungeonSettings.MAXIMUM_COUNT_OF_LEVELS; level++) {
 
-      LevelSettings level = new LevelSettings();
+      LevelSettings levelSettings = getLevelSettings(level);
       SecretsSetting secrets = new SecretsSetting();
       RoomsSetting rooms = new RoomsSetting();
 
-      switch (i) {
+      switch (level) {
         case 0:
           secrets.add(RoomType.BEDROOM.newSingleRoomSetting());
           secrets.add(RoomType.SMITH.newSingleRoomSetting());
           secrets.add(RoomType.FIREWORK.newSingleRoomSetting());
-          level.setSecrets(secrets);
+          levelSettings.setSecrets(secrets);
           break;
         case 1:
           secrets.add(RoomType.BTEAM.newSingleRoomSetting());
@@ -50,8 +50,8 @@ public class BuiltinPlainsDungeonSettings extends DungeonSettings {
           rooms.add(RoomType.LAB.newSingleRoomSetting());
           rooms.add(RoomType.CORNER.newRandomRoomSetting(10));
           rooms.add(RoomType.BRICK.newRandomRoomSetting(3));
-          level.setSecrets(secrets);
-          level.setRooms(rooms);
+          levelSettings.setSecrets(secrets);
+          levelSettings.setRooms(rooms);
           break;
         case 2:
           break;
@@ -62,7 +62,7 @@ public class BuiltinPlainsDungeonSettings extends DungeonSettings {
         default:
           break;
       }
-      getLevelSettings().put(i, level);
+      getLevelSettings().put(level, levelSettings);
     }
 
     getLevelSettings().get(3).addFilter(Filter.VINE);

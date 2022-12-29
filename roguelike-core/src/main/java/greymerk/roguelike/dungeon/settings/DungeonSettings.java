@@ -24,7 +24,7 @@ import static java.util.Optional.ofNullable;
 
 public class DungeonSettings {
 
-  private static final int MAX_NUM_LEVELS = 5;
+  public static final int MAXIMUM_COUNT_OF_LEVELS = 5;
   private SettingIdentifier id;
   private final List<SettingIdentifier> inherit = new ArrayList<>();
   private boolean exclusive;
@@ -36,11 +36,9 @@ public class DungeonSettings {
   private final Set<SettingsType> overrides = new HashSet<>();
 
   public DungeonSettings() {
-    levels.put(0, new LevelSettings());
-    levels.put(1, new LevelSettings());
-    levels.put(2, new LevelSettings());
-    levels.put(3, new LevelSettings());
-    levels.put(4, new LevelSettings());
+    IntStream.range(0, 5)
+        .mapToObj(LevelSettings::new)
+        .forEach(level -> levels.put(level.getLevel(), level));
   }
 
   public DungeonSettings(String id) {
@@ -66,14 +64,14 @@ public class DungeonSettings {
     }
     dungeonSettings.towerSettings = dungeonSettings.getTowerSettings(toInherit, this);
     dungeonSettings.spawnCriteria = this.spawnCriteria.inherit(toInherit.spawnCriteria);
-    IntStream.range(0, getMaxNumLevels())
+    IntStream.range(0, MAXIMUM_COUNT_OF_LEVELS)
         .forEach(level -> {
           LevelSettings parent = toInherit.levels.get(level);
           LevelSettings child = levels.get(level);
           dungeonSettings.levels.put(level, parent == null
               ? child == null
-              ? new LevelSettings()
-              : new LevelSettings(child)
+              ? new LevelSettings(level)
+              : new LevelSettings(child).withLevel(level)
               : child == null
                   ? new LevelSettings(parent)
                   : new LevelSettings(child).inherit(parent, dungeonSettings.overrides));
@@ -99,17 +97,12 @@ public class DungeonSettings {
     exclusive = toCopy.exclusive;
     lootRules.merge(toCopy.lootRules);
     lootTables.addAll(toCopy.lootTables);
-    for (int i = 0; i < getMaxNumLevels(); ++i) {
-      LevelSettings level = toCopy.levels.get(i);
-      LevelSettings levelSettings = Optional.ofNullable(level).map(LevelSettings::new).orElse(new LevelSettings());
-      levels.put(i, levelSettings);
+    for (int level = 0; level < MAXIMUM_COUNT_OF_LEVELS; level++) {
+      LevelSettings levelSettings = toCopy.levels.get(level);
+      levels.put(level, Optional.ofNullable(levelSettings).map(LevelSettings::new).orElse(new LevelSettings(level)));
     }
     spawnCriteria = new SpawnCriteria(toCopy.spawnCriteria);
     towerSettings = toCopy.towerSettings != null ? new TowerSettings(toCopy.towerSettings) : null;
-  }
-
-  public static int getMaxNumLevels() {
-    return MAX_NUM_LEVELS;
   }
 
   public SettingIdentifier getId() {
@@ -155,7 +148,7 @@ public class DungeonSettings {
   }
 
   public int getNumLevels() {
-    return getMaxNumLevels();
+    return MAXIMUM_COUNT_OF_LEVELS;
   }
 
   public Set<SettingsType> getOverrides() {

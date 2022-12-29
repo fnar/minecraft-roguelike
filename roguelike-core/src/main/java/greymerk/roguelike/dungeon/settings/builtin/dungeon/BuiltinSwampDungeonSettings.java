@@ -53,37 +53,37 @@ public class BuiltinSwampDungeonSettings extends DungeonSettings {
       getLootRules().add(new ForEachLootRule(brewing, i, 2));
       getLootRules().add(new SingleUseLootRule(new MinecraftItemLootItem(Material.Type.SLIME_BALL.asItem(), 0, 1, 1 + i, 1), i, 4 + i * 3));
     }
-    for (int i = 0; i < 5; ++i) {
+    for (int level = 0; level < DungeonSettings.MAXIMUM_COUNT_OF_LEVELS; level++) {
 
-      LevelSettings level = new LevelSettings();
-      level.setTheme(themes[i].getThemeBase());
+      LevelSettings levelSettings = getLevelSettings(level);
+      levelSettings.setTheme(themes[level].getThemeBase());
 
-      if (i == 0) {
+      if (level == 0) {
 
         SegmentGenerator segments = new SegmentGenerator(Segment.ARCH);
         segments.add(Segment.DOOR, 8);
         segments.add(Segment.LAMP, 2);
         segments.add(Segment.FLOWERS, 1);
         segments.add(Segment.MUSHROOM, 2);
-        level.setSegments(segments);
+        levelSettings.setSegments(segments);
 
         RoomsSetting factory = new RoomsSetting();
         factory.add(RoomType.CAKE.newSingleRoomSetting());
         factory.add(RoomType.DARKHALL.newSingleRoomSetting());
         factory.add(RoomType.BRICK.newRandomRoomSetting(10));
         factory.add(RoomType.CORNER.newRandomRoomSetting(3));
-        level.setRooms(factory);
-        level.addFilter(Filter.MUD);
+        levelSettings.setRooms(factory);
+        levelSettings.addFilter(Filter.MUD);
       }
 
-      if (i == 1) {
+      if (level == 1) {
 
         SegmentGenerator segments = new SegmentGenerator(Segment.ARCH);
         segments.add(Segment.DOOR, 8);
         segments.add(Segment.SHELF, 4);
         segments.add(Segment.INSET, 4);
         segments.add(Segment.MUSHROOM, 3);
-        level.setSegments(segments);
+        levelSettings.setSegments(segments);
 
         RoomsSetting factory = new RoomsSetting();
         factory.add(RoomType.CAKE.newSingleRoomSetting());
@@ -93,14 +93,12 @@ public class BuiltinSwampDungeonSettings extends DungeonSettings {
         factory.add(RoomType.PRISON.newSingleRoomSetting());
         factory.add(RoomType.BRICK.newRandomRoomSetting(10));
         factory.add(RoomType.CORNER.newRandomRoomSetting(3));
-        level.setRooms(factory);
-        level.addFilter(Filter.MUD);
+        levelSettings.setRooms(factory);
+        levelSettings.addFilter(Filter.MUD);
       }
-
-      getLevelSettings().put(i, level);
     }
 
-    getLevelSettings().get(2).addFilter(Filter.VINE);
-    getLevelSettings().get(3).addFilter(Filter.VINE);
+    getLevelSettings(2).addFilter(Filter.VINE);
+    getLevelSettings(3).addFilter(Filter.VINE);
   }
 }

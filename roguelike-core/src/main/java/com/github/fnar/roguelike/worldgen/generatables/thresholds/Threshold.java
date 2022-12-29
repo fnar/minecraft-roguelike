@@ -47,7 +47,7 @@ public abstract class Threshold {
 
   public static void generateDoorway(WorldEditor worldEditor, LevelSettings levelSettings, Coord origin, Direction facing) {
     // new WoolDoorway() // for debugging
-    int level = levelSettings.getLevel(origin);
+    int level = levelSettings.getLevel();
     getDoorwayType(worldEditor, level, origin, facing)
         .withLevelSettings(levelSettings)
         .withFacing(facing)

@@ -24,13 +24,13 @@ public class BuiltinLayoutSettings extends DungeonSettings {
         LevelGenerator.CLASSIC
     };
 
-    for (int i = 0; i < 5; ++i) {
-      LevelSettings level = new LevelSettings();
-      level.setNumRooms(numRooms[i]);
-      level.setRange(range[i]);
-      level.setScatter(scatter[i]);
-      level.setGenerator(generator[i]);
-      getLevelSettings().put(i, level);
+    for (int level = 0; level < DungeonSettings.MAXIMUM_COUNT_OF_LEVELS; level++) {
+      LevelSettings levelSettings = new LevelSettings(level);
+      levelSettings.setNumRooms(numRooms[level]);
+      levelSettings.setRange(range[level]);
+      levelSettings.setScatter(scatter[level]);
+      levelSettings.setGenerator(generator[level]);
+      getLevelSettings().put(level, levelSettings);
     }
   }
 

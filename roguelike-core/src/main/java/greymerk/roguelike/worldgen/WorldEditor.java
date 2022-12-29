@@ -5,7 +5,6 @@ import com.github.fnar.minecraft.block.Material;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.decorative.Plant;
 import com.github.fnar.minecraft.block.decorative.Skull;
-import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.minecraft.block.spawner.Spawner;
 import com.github.fnar.minecraft.item.RldItemStack;
 
@@ -24,7 +23,7 @@ public interface WorldEditor {
 
   int FURNACE_FUEL_SLOT = 1;
 
-  void generateSpawner(Spawner spawner, Coord cursor, int level);
+  void generateSpawner(Spawner spawner, Coord cursor);
 
   boolean isSolidBlock(Coord coord);
 

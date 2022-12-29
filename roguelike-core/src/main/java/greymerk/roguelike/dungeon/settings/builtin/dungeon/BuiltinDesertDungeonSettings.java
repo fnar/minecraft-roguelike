@@ -38,35 +38,35 @@ public class BuiltinDesertDungeonSettings extends DungeonSettings {
 
     Themes[] themes = {Themes.PYRAMID, Themes.SANDSTONE, Themes.SANDSTONERED, Themes.ENDER, Themes.NETHER};
 
-    for (int i = 0; i < 5; ++i) {
+    for (int level = 0; level < MAXIMUM_COUNT_OF_LEVELS; level++) {
 
-      LevelSettings level = new LevelSettings();
-      level.setTheme(themes[i].getThemeBase());
+      LevelSettings levelSettings = new LevelSettings(level);
+      levelSettings.setTheme(themes[level].getThemeBase());
 
-      if (i == 0) {
-        level.setLevel(2);
+      if (level == 0) {
+        levelSettings.setLevel(2);
         SegmentGenerator segments = new SegmentGenerator(Segment.SQUAREARCH);
         segments.add(Segment.WALL, 10);
         segments.add(Segment.ANKH, 5);
         segments.add(Segment.SKULL, 2);
         segments.add(Segment.TOMB, 1);
-        level.setSegments(segments);
+        levelSettings.setSegments(segments);
 
         RoomsSetting factory = new RoomsSetting();
         factory.add(RoomType.PYRAMIDTOMB.newSingleRoomSetting());
         factory.add(RoomType.PYRAMIDSPAWNER.newRandomRoomSetting(5));
         factory.add(RoomType.PYRAMIDCORNER.newRandomRoomSetting(3));
-        level.setRooms(factory);
+        levelSettings.setRooms(factory);
 
         SecretsSetting secrets = new SecretsSetting();
         secrets.add(RoomType.PYRAMIDTOMB.newSingleRoomSetting());
-        level.setSecrets(secrets);
+        levelSettings.setSecrets(secrets);
 
-        level.setGenerator(LevelGenerator.CLASSIC);
+        levelSettings.setGenerator(LevelGenerator.CLASSIC);
       }
 
-      if (i == 1) {
-        level.setLevel(2);
+      if (level == 1) {
+        levelSettings.setLevel(2);
         SegmentGenerator segments = new SegmentGenerator(Segment.SQUAREARCH);
         segments.add(Segment.SPAWNER, 1);
         segments.add(Segment.WALL, 10);
@@ -76,19 +76,19 @@ public class BuiltinDesertDungeonSettings extends DungeonSettings {
         segments.add(Segment.ANKH, 1);
         segments.add(Segment.SKULL, 2);
         segments.add(Segment.TOMB, 1);
-        level.setSegments(segments);
+        levelSettings.setSegments(segments);
 
         RoomsSetting factory = new RoomsSetting();
         factory.add(RoomType.PYRAMIDTOMB.newRandomRoomSetting(2));
         factory.add(RoomType.PYRAMIDSPAWNER.newRandomRoomSetting(10));
         factory.add(RoomType.PYRAMIDCORNER.newRandomRoomSetting(5));
-        level.setRooms(factory);
+        levelSettings.setRooms(factory);
 
-        level.setGenerator(LevelGenerator.CLASSIC);
+        levelSettings.setGenerator(LevelGenerator.CLASSIC);
       }
 
-      if (i == 2) {
-        level.setLevel(2);
+      if (level == 2) {
+        levelSettings.setLevel(2);
         SegmentGenerator segments = new SegmentGenerator(Segment.SQUAREARCH);
         segments.add(Segment.SPAWNER, 1);
         segments.add(Segment.WALL, 10);
@@ -97,7 +97,7 @@ public class BuiltinDesertDungeonSettings extends DungeonSettings {
         segments.add(Segment.CHEST, 1);
         segments.add(Segment.SKULL, 2);
         segments.add(Segment.TOMB, 1);
-        level.setSegments(segments);
+        levelSettings.setSegments(segments);
 
         RoomsSetting factory = new RoomsSetting();
         factory.add(RoomType.PYRAMIDTOMB.newRandomRoomSetting(1));
@@ -107,13 +107,13 @@ public class BuiltinDesertDungeonSettings extends DungeonSettings {
         factory.add(RoomType.PYRAMIDSPAWNER.newRandomRoomSetting(5));
         factory.add(RoomType.PYRAMIDCORNER.newRandomRoomSetting(4));
 
-        level.setRooms(factory);
+        levelSettings.setRooms(factory);
 
-        level.setGenerator(LevelGenerator.CLASSIC);
+        levelSettings.setGenerator(LevelGenerator.CLASSIC);
       }
 
-      if (i == 3) {
-        level.setLevel(2);
+      if (level == 3) {
+        levelSettings.setLevel(2);
         SegmentGenerator segments = new SegmentGenerator(Segment.SQUAREARCH);
         segments.add(Segment.SPAWNER, 1);
         segments.add(Segment.WALL, 10);
@@ -122,7 +122,7 @@ public class BuiltinDesertDungeonSettings extends DungeonSettings {
         segments.add(Segment.CHEST, 1);
         segments.add(Segment.SKULL, 2);
         segments.add(Segment.TOMB, 1);
-        level.setSegments(segments);
+        levelSettings.setSegments(segments);
 
         RoomsSetting factory = new RoomsSetting();
         factory.add(RoomType.PYRAMIDTOMB.newRandomRoomSetting(1));
@@ -131,12 +131,12 @@ public class BuiltinDesertDungeonSettings extends DungeonSettings {
         factory.add(RoomType.PYRAMIDSPAWNER.newRandomRoomSetting(5));
         factory.add(RoomType.PYRAMIDCORNER.newRandomRoomSetting(4));
         factory.add(RoomType.SPIDER.newRandomRoomSetting(2));
-        level.setRooms(factory);
+        levelSettings.setRooms(factory);
 
-        level.setGenerator(LevelGenerator.CLASSIC);
+        levelSettings.setGenerator(LevelGenerator.CLASSIC);
       }
 
-      getLevelSettings().put(i, level);
+      getLevelSettings().put(level, levelSettings);
     }
   }
 }

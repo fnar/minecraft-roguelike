@@ -47,14 +47,8 @@ public class BuiltinRoomsSettings extends DungeonSettings {
     addRoomsToLevel(4, getLevel4Rooms());
   }
 
-  private void addRoomsToLevel(int i, List<RoomSetting> rooms) {
-    RoomsSetting roomSetting = new RoomsSetting();
-    rooms.forEach(roomSetting::add);
-
-    LevelSettings level = new LevelSettings();
-    level.setRooms(roomSetting);
-
-    getLevelSettings().put(i, level);
+  private void addRoomsToLevel(int level, List<RoomSetting> rooms) {
+    rooms.forEach(getLevelSettings().get(level).getRooms()::add);
   }
 
   private List<RoomSetting> getLevel0Rooms() {

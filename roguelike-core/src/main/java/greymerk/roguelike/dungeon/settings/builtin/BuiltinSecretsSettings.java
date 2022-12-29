@@ -13,11 +13,11 @@ public class BuiltinSecretsSettings extends DungeonSettings {
   public BuiltinSecretsSettings() {
     super(ID);
 
-    for (int i = 0; i < 5; ++i) {
+    for (int level = 0; level < 5; ++level) {
 
       SecretsSetting factory = new SecretsSetting();
 
-      switch (i) {
+      switch (level) {
         case 0:
           break;
         case 1:
@@ -32,9 +32,9 @@ public class BuiltinSecretsSettings extends DungeonSettings {
           break;
       }
 
-      LevelSettings level = new LevelSettings();
-      level.setSecrets(factory);
-      getLevelSettings().put(i, level);
+      LevelSettings levelSettings = new LevelSettings(level);
+      levelSettings.setSecrets(factory);
+      getLevelSettings().put(level, levelSettings);
     }
   }
 }

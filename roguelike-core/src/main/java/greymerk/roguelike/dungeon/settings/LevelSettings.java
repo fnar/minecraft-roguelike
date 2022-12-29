@@ -47,6 +47,10 @@ public class LevelSettings {
   public LevelSettings() {
   }
 
+  public LevelSettings(int level) {
+    this.level = level;
+  }
+
   public LevelSettings(LevelSettings toCopy) {
     init(toCopy);
   }
@@ -131,15 +135,21 @@ public class LevelSettings {
     numRooms = num;
   }
 
-  public int getLevel(Coord pos) {
-    if (level == -1) {
-      level = Dungeon.getLevel(pos.getY());
-    }
+  public int getLevel() {
     return level;
   }
 
   public void setLevel(int num) {
     level = num;
+  }
+
+  public void setLevel(Coord coord) {
+    level = Dungeon.getLevel(coord.getY());
+  }
+
+  public LevelSettings withLevel(int level) {
+    this.level = level;
+    return this;
   }
 
   public RoomsSetting getRooms() {

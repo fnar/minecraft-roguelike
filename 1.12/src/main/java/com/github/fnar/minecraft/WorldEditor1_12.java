@@ -56,6 +56,7 @@ import greymerk.roguelike.worldgen.VanillaStructure;
 import greymerk.roguelike.worldgen.WorldEditor;
 
 import static greymerk.roguelike.dungeon.Dungeon.MOD_ID;
+import static greymerk.roguelike.dungeon.Dungeon.getLevel;
 
 public class WorldEditor1_12 implements WorldEditor {
 
@@ -417,7 +418,7 @@ public class WorldEditor1_12 implements WorldEditor {
     return ((TileEntityLockableLoot) getTileEntity(treasureChest.getCoord())).getStackInSlot(slot).isEmpty();
   }
 
-  public void generateSpawner(Spawner spawner, Coord cursor, int level) {
+  public void generateSpawner(Spawner spawner, Coord cursor) {
     Coord pos = cursor.copy();
 
     spawner.stroke(this, pos);
@@ -432,7 +433,7 @@ public class WorldEditor1_12 implements WorldEditor {
     nbt.setInteger("y", pos.getY());
     nbt.setInteger("z", pos.getZ());
 
-    nbt.setTag("SpawnPotentials", SpawnPotentialMapper1_12.mapToNbt(spawner.getPotentials(), getRandom(), level));
+    nbt.setTag("SpawnPotentials", SpawnPotentialMapper1_12.mapToNbt(spawner.getPotentials(), getRandom(), getLevel(pos.getY())));
 
     TileEntityMobSpawner tileEntity = (TileEntityMobSpawner) tileentity;
     MobSpawnerBaseLogic spawnerLogic = tileEntity.getSpawnerBaseLogic();

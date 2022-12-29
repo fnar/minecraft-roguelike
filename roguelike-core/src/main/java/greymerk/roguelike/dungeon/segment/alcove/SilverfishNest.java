@@ -68,7 +68,7 @@ public class SilverfishNest {
     Spawner spawner = settings.getSpawnerSettings().isEmpty()
             ? MobType.SILVERFISH.asSpawner()
             : settings.getSpawnerSettings().getSpawners().get(editor.getRandom());
-    BaseRoom.generateSpawnerSafe(editor, spawner, centre, settings.getLevel(centre));
+    BaseRoom.generateSpawnerSafe(editor, spawner, centre);
   }
 
   private void nest(WorldEditor editor, Random rand, int x, int y, int z) {

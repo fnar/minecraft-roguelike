@@ -31,14 +31,14 @@ public class BuiltinMountainDungeonSettings extends DungeonSettings {
 
     Themes[] themes = {Themes.ENIKO, Themes.ENIKO2, Themes.SEWER, Themes.MOSSY, Themes.NETHER};
 
-    for (int i = 0; i < 5; ++i) {
-      LevelSettings level = new LevelSettings();
-      level.setTheme(themes[i].getThemeBase());
+    for (int level = 0; level < DungeonSettings.MAXIMUM_COUNT_OF_LEVELS; level++) {
+      LevelSettings levelSettings = getLevelSettings(level);
+      levelSettings.setTheme(themes[level].getThemeBase());
 
-      if (i == 0) {
-        level.setScatter(16);
-        level.setRange(60);
-        level.setNumRooms(10);
+      if (level == 0) {
+        levelSettings.setScatter(16);
+        levelSettings.setRange(60);
+        levelSettings.setNumRooms(10);
 
         RoomsSetting factory;
 
@@ -47,13 +47,13 @@ public class BuiltinMountainDungeonSettings extends DungeonSettings {
         factory.add(RoomType.FIRE.newSingleRoomSetting());
         RoomType.ENIKO.newRandomRoomSetting(10);
         RoomType.CORNER.newRandomRoomSetting(3);
-        level.setRooms(factory);
+        levelSettings.setRooms(factory);
 
         SecretsSetting secrets = new SecretsSetting();
         secrets.add(RoomType.BEDROOM.newSingleRoomSetting());
         secrets.add(RoomType.BEDROOM.newSingleRoomSetting());
         secrets.add(RoomType.SMITH.newSingleRoomSetting());
-        level.setSecrets(secrets);
+        levelSettings.setSecrets(secrets);
 
         SegmentGenerator segments = new SegmentGenerator(Segment.ARCH);
         segments.add(Segment.DOOR, 7);
@@ -61,13 +61,13 @@ public class BuiltinMountainDungeonSettings extends DungeonSettings {
         segments.add(Segment.PLANT, 3);
         segments.add(Segment.LAMP, 1);
         segments.add(Segment.FLOWERS, 1);
-        level.setSegments(segments);
+        levelSettings.setSegments(segments);
       }
 
-      if (i == 1) {
-        level.setScatter(16);
-        level.setRange(80);
-        level.setNumRooms(20);
+      if (level == 1) {
+        levelSettings.setScatter(16);
+        levelSettings.setRange(80);
+        levelSettings.setNumRooms(20);
 
         RoomsSetting factory;
         factory = new RoomsSetting();
@@ -77,22 +77,22 @@ public class BuiltinMountainDungeonSettings extends DungeonSettings {
         factory.add(RoomType.LAB.newSingleRoomSetting());
         factory.add(RoomType.ENIKO.newRandomRoomSetting(10));
         factory.add(RoomType.CORNER.newRandomRoomSetting(3));
-        level.setRooms(factory);
+        levelSettings.setRooms(factory);
 
         SecretsSetting secrets = new SecretsSetting();
         secrets.add(RoomType.ENCHANT.newSingleRoomSetting());
-        level.setSecrets(secrets);
+        levelSettings.setSecrets(secrets);
 
       }
 
-      if (i == 2) {
-        level.setLevel(4);
+      if (level == 2) {
+        levelSettings.setLevel(4);
 
         SegmentGenerator segments = new SegmentGenerator(Segment.SEWERARCH);
         segments.add(Segment.SEWER, 7);
         segments.add(Segment.SEWERDRAIN, 4);
         segments.add(Segment.SEWERDOOR, 2);
-        level.setSegments(segments);
+        levelSettings.setSegments(segments);
 
         RoomsSetting factory;
         factory = new RoomsSetting();
@@ -102,10 +102,9 @@ public class BuiltinMountainDungeonSettings extends DungeonSettings {
         factory.add(RoomType.SPIDER.newRandomRoomSetting(2));
         factory.add(RoomType.PIT.newRandomRoomSetting(2));
         factory.add(RoomType.PRISON.newRandomRoomSetting(3));
-        level.setRooms(factory);
+        levelSettings.setRooms(factory);
       }
 
-      getLevelSettings().put(i, level);
     }
     getLevelSettings().get(3).addFilter(Filter.VINE);
   }

@@ -121,7 +121,7 @@ public class BrickRoom extends BaseRoom {
   }
 
   public void generateChest(Coord origin, Coord spawnerLocation, Direction facing) {
-    boolean isChestAboveSpawner = random().nextInt(Math.max(1, getLevel(origin)) + 1) != 0;
+    boolean isChestAboveSpawner = random().nextInt(Math.max(1, levelSettings.getLevel()) + 1) != 0;
     Coord chestLocation = isChestAboveSpawner
         ? spawnerLocation.copy().up()
         : generateChestLocation(origin);
