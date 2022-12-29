@@ -102,7 +102,7 @@ public class PlatformsRoom extends BaseRoom {
   }
 
   @Override
-  protected void generateWalls(Coord at) {
+  protected void generateWalls(Coord at, List<Direction> entrances) {
     int floor = 3;
     walls().fill(worldEditor, RectHollow.newRect(
         at.copy().north(getWallDist()).west(getWallDist()).up(getCeilingHeight()),
@@ -111,7 +111,7 @@ public class PlatformsRoom extends BaseRoom {
   }
 
   @Override
-  protected void generateFloor(Coord at) {
+  protected void generateFloor(Coord at, List<Direction> entrances) {
     int floor = random().nextBoolean() ? 2 : 3;
     floors().fill(worldEditor, RectSolid.newRect(
         at.copy().north(getWallDist()).west(getWallDist()).down(floor - 1),
