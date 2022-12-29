@@ -1,5 +1,6 @@
 package greymerk.roguelike.dungeon.rooms;
 
+import com.github.fnar.roguelike.dungeon.rooms.FountainRoom;
 import com.github.fnar.roguelike.dungeon.rooms.NetherPortalRoom;
 import com.github.fnar.roguelike.dungeon.rooms.PlatformsRoom;
 import com.github.fnar.roguelike.dungeon.rooms.SmallLiquidPitRoom;
@@ -130,6 +131,8 @@ public class RoomSetting {
         return new DungeonsFire(this, levelSettings, worldEditor);
       case FIREWORK:
         return new FireworkRoom(this, levelSettings, worldEditor);
+      case FOUNTAIN:
+        return new FountainRoom(this, levelSettings, worldEditor);
       case LAB:
         return new LabRoom(this, levelSettings, worldEditor);
       case LIBRARY:

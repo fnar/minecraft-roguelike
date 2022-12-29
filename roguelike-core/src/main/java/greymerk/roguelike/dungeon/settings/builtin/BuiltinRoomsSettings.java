@@ -19,6 +19,7 @@ import static greymerk.roguelike.dungeon.base.RoomType.CREEPER;
 import static greymerk.roguelike.dungeon.base.RoomType.CRYPT;
 import static greymerk.roguelike.dungeon.base.RoomType.ENDER;
 import static greymerk.roguelike.dungeon.base.RoomType.FIRE;
+import static greymerk.roguelike.dungeon.base.RoomType.FOUNTAIN;
 import static greymerk.roguelike.dungeon.base.RoomType.NETHER;
 import static greymerk.roguelike.dungeon.base.RoomType.NETHERFORT;
 import static greymerk.roguelike.dungeon.base.RoomType.NETHER_PORTAL;
@@ -104,6 +105,7 @@ public class BuiltinRoomsSettings extends DungeonSettings {
         PRISON.newRandomRoomSetting(3),
         PLATFORMS.newRandomRoomSetting(2),
         CREEPER.newRandomRoomSetting(1),
+        FOUNTAIN.newRandomRoomSetting(1),
         SPIDER.newRandomRoomSetting(1),
         PIT.newRandomRoomSetting(1),
         ENDER.newRandomRoomSetting(1)
