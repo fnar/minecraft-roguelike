@@ -2,6 +2,7 @@ package greymerk.roguelike.command.routes;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 import greymerk.roguelike.command.CommandContext1_12;
 import greymerk.roguelike.command.CommandRouteBase;
@@ -61,9 +62,9 @@ public class CommandRouteDungeon extends CommandRouteBase {
     if (settingName == null) {
       return resolveAnyCustomDungeonSettings(pos, editor);
     } else if (settingName.equals("test")) {
-      return resolveTestDungeon(editor);
+      return resolveTestDungeon(editor, pos);
     } else if (settingName.equals("random")) {
-      return resolveRandomDungeon(editor);
+      return resolveRandomDungeon(editor, pos);
     } else {
       return resolveNamedDungeonSettings(settingName);
     }
@@ -76,14 +77,18 @@ public class CommandRouteDungeon extends CommandRouteBase {
         .orElseThrow(() -> new NoValidLocationException(pos));
   }
 
-  private DungeonSettings resolveTestDungeon(WorldEditor editor) throws Exception {
+  private DungeonSettings resolveTestDungeon(WorldEditor editor, Coord pos) throws Exception {
     Dungeon.initResolver();
-    return new TestDungeonSettings(editor.getRandom());
+    Random random = editor.getRandom();
+    random.setSeed(editor.getSeed(pos));
+    return new TestDungeonSettings(random);
   }
 
-  private DungeonSettings resolveRandomDungeon(WorldEditor editor) throws Exception {
+  private DungeonSettings resolveRandomDungeon(WorldEditor editor, Coord pos) throws Exception {
     Dungeon.initResolver();
-    return new SettingsRandom(editor.getRandom());
+    Random random = editor.getRandom();
+    random.setSeed(editor.getSeed(pos));
+    return new SettingsRandom(random);
   }
 
   private DungeonSettings resolveNamedDungeonSettings(String settingName) throws Exception {
