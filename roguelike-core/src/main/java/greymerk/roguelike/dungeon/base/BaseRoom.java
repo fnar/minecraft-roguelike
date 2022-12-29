@@ -47,27 +47,27 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
   }
 
   public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    generateWalls(origin);
-    generateFloor(origin);
-    generateCeiling(origin);
-    generateDecorations(origin);
+    generateWalls(origin, entrances);
+    generateFloor(origin, entrances);
+    generateCeiling(origin, entrances);
+    generateDecorations(origin, entrances);
     generateDoorways(origin, entrances);
     return this;
   }
 
-  protected void generateWalls(Coord at) {
+  protected void generateWalls(Coord at, List<Direction> entrances) {
     walls().fill(worldEditor, at.newHollowRect(getWallDist()).withHeight(height + depth).down(depth));
   }
 
-  protected void generateFloor(Coord at) {
+  protected void generateFloor(Coord at, List<Direction> entrances) {
     floors().fill(worldEditor, at.newRect(getWallDist()).down(depth));
   }
 
-  protected void generateCeiling(Coord at) {
+  protected void generateCeiling(Coord at, List<Direction> entrances) {
     walls().fill(worldEditor, at.newRect(getWallDist()).up(getCeilingHeight()));
   }
 
-  protected void generateDecorations(Coord at) {
+  protected void generateDecorations(Coord at, List<Direction> entrances) {
 
   }
 

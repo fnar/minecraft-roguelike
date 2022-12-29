@@ -48,8 +48,8 @@ public class NetherFortressRoom extends BaseRoom {
   }
 
   @Override
-  protected void generateFloor(Coord at) {
-    super.generateFloor(at);
+  protected void generateFloor(Coord at, List<Direction> entrances) {
+    super.generateFloor(at, entrances);
 
     floors().fill(worldEditor, at.newRect(getWallDist()).down());
 
@@ -57,8 +57,8 @@ public class NetherFortressRoom extends BaseRoom {
   }
 
   @Override
-  protected void generateCeiling(Coord at) {
-    super.generateCeiling(at);
+  protected void generateCeiling(Coord at, List<Direction> entrances) {
+    super.generateCeiling(at, entrances);
 
     Coord ceilingLiquid = at.copy().up(getCeilingHeight());
     walls().fill(worldEditor, ceilingLiquid.newRect(getWallDist()).down());
@@ -106,7 +106,7 @@ public class NetherFortressRoom extends BaseRoom {
   }
 
   @Override
-  protected void generateDecorations(Coord at) {
+  protected void generateDecorations(Coord at, List<Direction> entrances) {
     for (Direction cardinal : CARDINAL) {
       walls().fill(worldEditor, RectSolid.newRect(
           at.copy().up(5).translate(cardinal, 4).translate(cardinal.left(), 6),

@@ -3,6 +3,8 @@ package com.github.fnar.roguelike.dungeon.rooms;
 import com.github.fnar.roguelike.worldgen.generatables.Fountain;
 import com.github.fnar.roguelike.worldgen.generatables.Pillar;
 
+import java.util.List;
+
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
@@ -19,7 +21,7 @@ public class FountainRoom extends BaseRoom {
   }
 
   @Override
-  protected void generateDecorations(Coord at) {
+  protected void generateDecorations(Coord at, List<Direction> entrances) {
     Fountain.newFountain(worldEditor).generate(at);
 
     Pillar pillar = Pillar.newPillar(worldEditor).withTheme(theme()).withHeight(getCeilingHeight());

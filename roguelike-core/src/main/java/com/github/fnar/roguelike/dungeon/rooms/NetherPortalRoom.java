@@ -42,7 +42,7 @@ public class NetherPortalRoom extends BaseRoom {
   }
 
   @Override
-  protected void generateFloor(Coord at) {
+  protected void generateFloor(Coord at, List<Direction> entrances) {
     floors().fill(worldEditor, at.copy().down(2).newRect(4).withHeight(2));
     generateCatwalks(at);
     theFloorIsLava(at);
@@ -112,7 +112,7 @@ public class NetherPortalRoom extends BaseRoom {
   }
 
   @Override
-  protected void generateDecorations(Coord at) {
+  protected void generateDecorations(Coord at, List<Direction> entrances) {
     List<Coord> pillarCoords = Lists.newArrayList();
     for (Direction c : Direction.cardinals()) {
       Direction l = c.left();

@@ -2,6 +2,8 @@ package com.github.fnar.roguelike.dungeon.rooms;
 
 import com.github.fnar.roguelike.worldgen.generatables.Pillar;
 
+import java.util.List;
+
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
@@ -18,7 +20,7 @@ public class SmallLiquidPitRoom extends BaseRoom {
   }
 
   @Override
-  protected void generateDecorations(Coord at) {
+  protected void generateDecorations(Coord at, List<Direction> entrances) {
     generateLiquid(at);
     generatePillars(at);
     generateSpawners(at);
