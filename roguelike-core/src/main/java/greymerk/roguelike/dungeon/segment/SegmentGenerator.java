@@ -107,7 +107,7 @@ public class SegmentGenerator {
     }
 
     // todo: Can this be removed? It seems to have no effect.
-    if (!level.hasNearbyNode(pos) && rand.nextInt(3) == 0) {
+    if (!level.hasNodeContaining(pos) && rand.nextInt(3) == 0) {
       addSupport(editor, level.getSettings().getTheme(), pos.copy().down(2));
     }
 

@@ -1,5 +1,6 @@
 package greymerk.roguelike.dungeon;
 
+import java.util.Optional;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.settings.LevelSettings;
@@ -30,27 +31,28 @@ public class DungeonLevel {
     return settings;
   }
 
-  public boolean hasNearbyNode(Coord pos) {
+  public boolean hasNodeContaining(Coord pos) {
+    return findNodeContaining(pos).isPresent();
+  }
+
+  public Optional<DungeonNode> findNodeContaining(Coord pos) {
     return generator
         .getLayout()
         .getNodes().stream()
-        .anyMatch(node -> isNearby(pos, node));
-  }
-
-  private boolean isNearby(Coord pos, DungeonNode node) {
-    return (int) node.getPosition().distance(pos) < node.getSize();
+        .filter(node -> node.contains(pos))
+        .findFirst();
   }
 
   public LevelLayout getLayout() {
     return generator.getLayout();
   }
 
-  public void encase(WorldEditor editor, Random rand) {
-    encaseNodes(editor, rand);
-    encaseTunnels(editor, rand);
+  public void encase(WorldEditor editor) {
+    encaseNodes(editor);
+    encaseTunnels(editor);
   }
 
-  private void encaseNodes(WorldEditor editor, Random rand) {
+  private void encaseNodes(WorldEditor editor) {
     DungeonNode start = generator.getLayout().getStart();
     DungeonNode end = generator.getLayout().getEnd();
 
@@ -59,7 +61,7 @@ public class DungeonLevel {
         .forEach(node -> node.encase(editor, settings.getTheme()));
   }
 
-  private void encaseTunnels(WorldEditor editor, Random rand) {
+  private void encaseTunnels(WorldEditor editor) {
     generator.getLayout()
         .getTunnels()
         .forEach(t -> t.encase(editor, settings.getTheme()));

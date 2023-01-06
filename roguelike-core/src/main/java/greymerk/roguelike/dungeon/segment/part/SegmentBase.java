@@ -26,7 +26,7 @@ import greymerk.roguelike.worldgen.WorldEditor;
 public abstract class SegmentBase {
 
   public void generate(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord pos) {
-    if (!level.hasNearbyNode(pos) && isValidWall(editor, dir, pos)) {
+    if (!level.hasNodeContaining(pos) && isValidWall(editor, dir, pos)) {
       genWall(editor, level, dir, theme, pos);
     }
   }
