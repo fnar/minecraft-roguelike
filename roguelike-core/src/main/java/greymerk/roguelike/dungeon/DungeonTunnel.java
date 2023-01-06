@@ -14,10 +14,9 @@ import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockJumble;
-import greymerk.roguelike.worldgen.BoundingBox;
+import greymerk.roguelike.worldgen.Bounded;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
-import greymerk.roguelike.worldgen.Bounded;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.IShape;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
@@ -138,17 +137,15 @@ public class DungeonTunnel implements Iterable<Coord>, Bounded {
     return segments;
   }
 
-  public BoundingBox getBoundingBox() {
-    Coord s;
-    Coord e;
+  private Bounded getBoundingBox() {
     Direction dir = getDirection();
-    s = start.copy();
-    e = end.copy();
-    s.translate(dir.antiClockwise(), 2);
-    s.up(3);
-    e.translate(dir.clockwise(), 2);
-    e.down();
-    return new BoundingBox(s, e);
+    Coord start = this.start.copy()
+        .translate(dir.left(), 2)
+        .down();
+    Coord end = this.end.copy()
+        .translate(dir.right(), 2);
+
+    return RectSolid.newRect(start, end).withHeight(Dungeon.VERTICAL_SPACING);
   }
 
   public boolean hasEnd(Coord pos) {

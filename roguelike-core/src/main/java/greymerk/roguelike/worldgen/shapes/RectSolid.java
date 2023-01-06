@@ -9,11 +9,12 @@ import java.util.Set;
 
 import javax.annotation.Nonnull;
 
+import greymerk.roguelike.worldgen.Bounded;
 import greymerk.roguelike.worldgen.Coord;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode
-public class RectSolid implements IShape {
+public class RectSolid implements IShape, Bounded {
 
   private final Coord start;
   private final Coord end;
@@ -54,6 +55,21 @@ public class RectSolid implements IShape {
   @Override
   public Iterator<Coord> iterator() {
     return new RectSolidIterator(this.start, this.end);
+  }
+
+  @Override
+  public IShape getShape(Shape type) {
+    return this;
+  }
+
+  @Override
+  public Coord getStart() {
+    return start;
+  }
+
+  @Override
+  public Coord getEnd() {
+    return end;
   }
 
   private static class RectSolidIterator implements Iterator<Coord> {
