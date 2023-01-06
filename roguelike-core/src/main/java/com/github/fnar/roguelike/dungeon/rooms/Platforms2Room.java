@@ -56,7 +56,7 @@ public class Platforms2Room extends BaseRoom {
   }
 
   private void generate3x3Platform(Coord at) {
-    (random().nextBoolean() ? floors() : secondaryFloors()).fill(worldEditor, at.copy().newRect(2).withHeight(2));
+    (random().nextBoolean() ? primaryFloorBrush() : secondaryFloorBrush()).fill(worldEditor, at.copy().newRect(2).withHeight(2));
     if (random().nextDouble() < 0.20) {
       generateSpawner(at);
     }
@@ -88,12 +88,12 @@ public class Platforms2Room extends BaseRoom {
   }
 
   private Pillar pillar() {
-    return Pillar.newPillar(worldEditor).withHeight(getCeilingHeight()).withPillar(secondaryPillars()).withStairs(secondaryStairs());
+    return Pillar.newPillar(worldEditor).withHeight(getCeilingHeight()).withPillar(secondaryPillarBrush()).withStairs(secondaryStairBrush());
   }
 
   private void fillWithLiquid(Coord at) {
     if (random().nextDouble() < 0.50) {
-      liquid().fill(worldEditor, at.newRect(getWallDist()).withHeight(1 + random().nextInt(2)), true, false);
+      primaryLiquidBrush().fill(worldEditor, at.newRect(getWallDist()).withHeight(1 + random().nextInt(2)), true, false);
     }
   }
 

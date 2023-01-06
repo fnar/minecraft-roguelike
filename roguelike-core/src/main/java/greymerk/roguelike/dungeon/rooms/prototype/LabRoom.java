@@ -200,13 +200,13 @@ public class LabRoom extends BaseRoom {
     int y = origin.getY();
     int z = origin.getZ();
 
-    BlockBrush blocks = walls();
+    BlockBrush blocks = primaryWallBrush();
 
 
     // Air
     SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(new Coord(x - 7, y, z - 7), new Coord(x + 7, y + 3, z + 7)));
 
-    BlockBrush roof = secondaryWalls();
+    BlockBrush roof = secondaryWallBrush();
     // Wood upper Roof
     roof.fill(worldEditor, RectSolid.newRect(new Coord(x - 6, y + 5, z - 6), new Coord(x + 6, y + 5, z + 6)));
     SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(new Coord(x - 1, y + 4, z - 1), new Coord(x + 1, y + 4, z + 1)));
@@ -231,7 +231,7 @@ public class LabRoom extends BaseRoom {
     blocks.fill(worldEditor, RectSolid.newRect(new Coord(x + 8, y, z - 7), new Coord(x + 8, y + 3, z - 7)));
     blocks.fill(worldEditor, RectSolid.newRect(new Coord(x + 8, y, z - 7), new Coord(x + 8, y + 3, z - 7)));
 
-    BlockBrush backWalls = secondaryWalls();
+    BlockBrush backWalls = secondaryWallBrush();
 
     // wall planks
     backWalls.fill(worldEditor, RectSolid.newRect(new Coord(x - 8, y + 1, z - 6), new Coord(x - 8, y + 3, z - 3)));

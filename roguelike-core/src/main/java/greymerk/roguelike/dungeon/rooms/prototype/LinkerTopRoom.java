@@ -24,17 +24,17 @@ public class LinkerTopRoom extends BaseRoom {
     Coord end = origin.copy();
     start.translate(new Coord(-4, -1, -4));
     end.translate(new Coord(4, 5, 4));
-    RectHollow.newRect(start, end).fill(worldEditor, walls(), false, true);
+    RectHollow.newRect(start, end).fill(worldEditor, primaryWallBrush(), false, true);
 
     Coord cursor = origin.copy();
     cursor.up(5);
-    lights().stroke(worldEditor, cursor);
+    primaryLightBrush().stroke(worldEditor, cursor);
 
     start = origin.copy();
     end = origin.copy();
     start.translate(new Coord(-4, -1, -4));
     end.translate(new Coord(4, -1, 4));
-    floors().fill(worldEditor, RectSolid.newRect(start, end));
+    primaryFloorBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
     for (Direction dir : Direction.CARDINAL) {
 
@@ -45,7 +45,7 @@ public class LinkerTopRoom extends BaseRoom {
       end.translate(dir, 4);
       end.translate(dir.antiClockwise(), 4);
       end.up(4);
-      pillars().fill(worldEditor, RectSolid.newRect(start, end));
+      primaryPillarBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
       start = origin.copy();
       start.translate(dir, 3);
@@ -53,21 +53,21 @@ public class LinkerTopRoom extends BaseRoom {
       start.up(4);
       end = start.copy();
       end.translate(dir.clockwise(), 4);
-      walls().fill(worldEditor, RectSolid.newRect(start, end));
+      primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
       start.translate(dir.reverse());
       end.translate(dir.reverse());
-      stairs().setUpsideDown(true).setFacing(dir.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
+      primaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
 
       for (Direction o : dir.orthogonals()) {
         cursor = origin.copy();
         cursor.translate(dir, 3);
         cursor.up(2);
         cursor.translate(o, 2);
-        stairs().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
+        primaryStairBrush().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
         cursor.up();
-        walls().stroke(worldEditor, cursor);
+        primaryWallBrush().stroke(worldEditor, cursor);
         cursor.translate(o.reverse());
-        stairs().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
+        primaryStairBrush().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
       }
     }
 

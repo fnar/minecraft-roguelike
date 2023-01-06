@@ -59,7 +59,7 @@ public class BedRoomRoom extends BaseRoom {
         .translate(entranceDirection.reverse(), 4)
         .up(4);
     RectHollow walls = RectHollow.newRect(start, end);
-    walls().fill(worldEditor, walls, false, true);
+    primaryWallBrush().fill(worldEditor, walls, false, true);
   }
 
   private void generateFloorDecorationPattern(Coord origin, Direction entranceDirection) {
@@ -72,12 +72,12 @@ public class BedRoomRoom extends BaseRoom {
         .translate(entranceDirection.clockwise(), 1)
         .translate(entranceDirection.reverse(), 2);
     RectSolid floorPattern = RectSolid.newRect(start, end);
-    secondaryWalls().fill(worldEditor, floorPattern);
+    secondaryWallBrush().fill(worldEditor, floorPattern);
   }
 
   private void generateCeiling(Coord origin, Direction entranceDirection) {
     for (Direction outward : entranceDirection.orthogonals()) {
-      BlockBrush stair = secondaryStairs().setUpsideDown(true).setFacing(outward.reverse());
+      BlockBrush stair = secondaryStairBrush().setUpsideDown(true).setFacing(outward.reverse());
 
       Coord rowStart = origin.copy().translate(outward, 3).translate(outward.antiClockwise(), 2);
       Coord rowEnd = rowStart.copy().translate(outward.clockwise(), 4);
@@ -86,7 +86,7 @@ public class BedRoomRoom extends BaseRoom {
       stair.fill(worldEditor, row);
 
       row.translate(Direction.UP, 1);
-      walls().fill(worldEditor, row);
+      primaryWallBrush().fill(worldEditor, row);
 
       row.translate(outward.reverse(), 1);
       stair.fill(worldEditor, row);
@@ -103,14 +103,14 @@ public class BedRoomRoom extends BaseRoom {
     RectSolid beam = RectSolid.newRect(beamStart, beamEnd);
 
     for (int i = 0; i < 3; i++) {
-      secondaryWalls().fill(worldEditor, beam);
+      secondaryWallBrush().fill(worldEditor, beam);
       beam.translate(entranceDirection.reverse(), 3);
     }
   }
 
   private void generateShelves(Coord origin, Direction entranceDirection) {
     for (Direction outward : entranceDirection.orthogonals()) {
-      BlockBrush stair = secondaryStairs().setUpsideDown(true).setFacing(outward.reverse());
+      BlockBrush stair = secondaryStairBrush().setUpsideDown(true).setFacing(outward.reverse());
 
       Coord shelfStart = origin.copy().translate(outward, 3).translate(outward.antiClockwise(), 2);
       Coord shelfEnd = shelfStart.copy().translate(outward.clockwise(), 4);
@@ -130,8 +130,8 @@ public class BedRoomRoom extends BaseRoom {
     }
 
     Pillar.newPillar(worldEditor)
-        .withPillar(pillars())
-        .withStairs(secondaryStairs())
+        .withPillar(primaryPillarBrush())
+        .withStairs(secondaryStairBrush())
         .withHeight(3)
         .generate(pillarCoords);
   }
@@ -152,7 +152,7 @@ public class BedRoomRoom extends BaseRoom {
     // bedside nightstand with torch atop
     cursor.translate(side.reverse(), 3);
     cursor.down();
-    secondaryStairs().setUpsideDown(true).setFacing(entranceDirection).stroke(worldEditor, cursor);
+    secondaryStairBrush().setUpsideDown(true).setFacing(entranceDirection).stroke(worldEditor, cursor);
     cursor.up();
     TorchBlock.torch().setFacing(Direction.UP).stroke(worldEditor, cursor);
   }

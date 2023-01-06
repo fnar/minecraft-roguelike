@@ -81,7 +81,7 @@ public class PyramidTombRoom extends BaseRoom {
     end.east(7);
     start.down();
     end.up(3);
-    RectHollow.newRect(start, end).fill(worldEditor, walls(), false, true);
+    RectHollow.newRect(start, end).fill(worldEditor, primaryWallBrush(), false, true);
 
     // floor
     start = origin.copy();
@@ -91,7 +91,7 @@ public class PyramidTombRoom extends BaseRoom {
     start.west(6);
     end.south(6);
     end.east(6);
-    floors().fill(worldEditor, RectSolid.newRect(start, end));
+    primaryFloorBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
     // pillars
 
@@ -108,7 +108,7 @@ public class PyramidTombRoom extends BaseRoom {
       start.translate(dir.antiClockwise(), 5);
       end = start.copy();
       end.up(3);
-      pillars().fill(worldEditor, RectSolid.newRect(start, end));
+      primaryPillarBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
       for (Direction o : dir.orthogonals()) {
         start = origin.copy();
@@ -116,12 +116,12 @@ public class PyramidTombRoom extends BaseRoom {
         start.translate(o);
         end = start.copy();
         end.up(3);
-        pillars().fill(worldEditor, RectSolid.newRect(start, end));
+        primaryPillarBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
         start.translate(o, 2);
         end = start.copy();
         end.up(3);
-        pillars().fill(worldEditor, RectSolid.newRect(start, end));
+        primaryPillarBrush().fill(worldEditor, RectSolid.newRect(start, end));
       }
     }
 
@@ -133,7 +133,7 @@ public class PyramidTombRoom extends BaseRoom {
     start.west();
     end.south();
     end.east();
-    walls().fill(worldEditor, RectSolid.newRect(start, end));
+    primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
     sarcophagus(worldEditor, getEntrance(entrances), origin);
 

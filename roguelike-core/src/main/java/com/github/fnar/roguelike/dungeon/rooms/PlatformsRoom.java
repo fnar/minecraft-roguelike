@@ -36,7 +36,7 @@ public class PlatformsRoom extends BaseRoom {
   }
 
   private void generateIslands(Coord origin, Direction front) {
-    BlockBrush pillar = pillars();
+    BlockBrush pillar = primaryPillarBrush();
 
     Map<Character, BlockBrush> blockBrushMap = Stream.of(new Object[][]{
         {'.', SingleBlockBrush.AIR},
@@ -100,24 +100,24 @@ public class PlatformsRoom extends BaseRoom {
     Direction.cardinals()
         .forEach(direction -> {
 
-          StairsBlock stair = stairs();
+          StairsBlock stair = primaryStairBrush();
 
           Coord beamStart = origin.copy().translate(direction, getWallDist() / 2 - 1).translate(direction.left(), getWallDist() - 1).up(getCeilingHeight() - 2);
           Coord beamEnd = origin.copy().translate(direction, getWallDist() / 2 - 1).translate(direction.right(), getWallDist() - 1).up(getCeilingHeight() - 2);
 
-          secondaryPillars().setFacing(direction.right());
-          new FnarLine(beamStart, beamEnd).fill(worldEditor, secondaryPillars());
+          secondaryPillarBrush().setFacing(direction.right());
+          new FnarLine(beamStart, beamEnd).fill(worldEditor, secondaryPillarBrush());
 
           stair.setUpsideDown(true)
               .setFacing(direction.right())
               .stroke(worldEditor, beamStart.down(2));
-          secondaryPillars().stroke(worldEditor, beamStart.up());
+          secondaryPillarBrush().stroke(worldEditor, beamStart.up());
           stair.stroke(worldEditor, beamStart.translate(direction.right()));
 
           stair.setUpsideDown(true)
               .setFacing(direction.left())
               .stroke(worldEditor, beamEnd.down(2));
-          secondaryPillars().stroke(worldEditor, beamEnd.up());
+          secondaryPillarBrush().stroke(worldEditor, beamEnd.up());
           stair.stroke(worldEditor, beamEnd.translate(direction.left()));
         });
   }

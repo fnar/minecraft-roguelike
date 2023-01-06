@@ -34,17 +34,17 @@ public class MessRoom extends BaseRoom {
     start.translate(-8, -1, -8);
     Coord end = origin.copy();
     end.translate(8, 5, 8);
-    RectHollow.newRect(start, end).fill(worldEditor, walls(), false, true);
+    RectHollow.newRect(start, end).fill(worldEditor, primaryWallBrush(), false, true);
 
     start = origin.copy();
     start.translate(-2, 5, -2);
     end = origin.copy();
     end.translate(2, 5, 2);
-    RectSolid.newRect(start, end).fill(worldEditor, secondaryWalls(), false, true);
+    RectSolid.newRect(start, end).fill(worldEditor, secondaryWallBrush(), false, true);
 
     Coord cursor = origin.copy();
     cursor.up(4);
-    lights().stroke(worldEditor, cursor);
+    primaryLightBrush().stroke(worldEditor, cursor);
 
     for (Direction dir : Direction.CARDINAL) {
       start = origin.copy();
@@ -52,12 +52,12 @@ public class MessRoom extends BaseRoom {
       start.translate(dir.antiClockwise(), 3);
       end = start.copy();
       end.up(3);
-      pillars().fill(worldEditor, RectSolid.newRect(start, end));
+      primaryPillarBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
       for (Direction d : Direction.CARDINAL) {
         cursor = end.copy();
         cursor.translate(d);
-        stairs().setUpsideDown(true).setFacing(d).stroke(worldEditor, cursor);
+        primaryStairBrush().setUpsideDown(true).setFacing(d).stroke(worldEditor, cursor);
       }
 
       start = origin.copy();
@@ -66,7 +66,7 @@ public class MessRoom extends BaseRoom {
       end = start.copy();
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir.clockwise(), 3);
-      walls().fill(worldEditor, RectSolid.newRect(start, end));
+      primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
 
       Direction[] corners = new Direction[]{dir, dir.antiClockwise()};
@@ -81,9 +81,9 @@ public class MessRoom extends BaseRoom {
       cursor = origin.copy()
           .up(4)
           .translate(dir);
-      stairs().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
+      primaryStairBrush().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
       cursor.translate(dir);
-      stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+      primaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
     }
 
     List<Direction> nonDoors = new ArrayList<>();
@@ -121,7 +121,7 @@ public class MessRoom extends BaseRoom {
     wall.fill(worldEditor, RectSolid.newRect(start, end));
 
     start = origin.copy().translate(corners[0], 4).translate(corners[1], 4).up(4);
-    secondaryWalls().fill(worldEditor, RectSolid.newRect(start, end));
+    secondaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
     cursor = origin.copy()
         .translate(corners[0], 7)
@@ -139,7 +139,7 @@ public class MessRoom extends BaseRoom {
   }
 
   private void corner(Direction[] corners, Coord origin) {
-    StairsBlock table = secondaryStairs();
+    StairsBlock table = secondaryStairBrush();
     Coord cursor;
     Coord start;
     Coord end;
@@ -148,13 +148,13 @@ public class MessRoom extends BaseRoom {
         .translate(corners[0], 7)
         .translate(corners[1], 7);
     end = start.copy().up(4);
-    walls().fill(worldEditor, RectSolid.newRect(start, end));
+    primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
     start = origin.copy()
         .translate(corners[0], 4)
         .translate(corners[1], 4)
         .up(4);
-    secondaryWalls().fill(worldEditor, RectSolid.newRect(start, end));
+    secondaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
     cursor = origin.copy()
         .translate(corners[0], 4)
@@ -218,7 +218,7 @@ public class MessRoom extends BaseRoom {
       start.translate(dir);
       end.translate(dir);
       end.down(3);
-      RectSolid.newRect(start, end).fill(worldEditor, secondaryWalls(), false, true);
+      RectSolid.newRect(start, end).fill(worldEditor, secondaryWallBrush(), false, true);
     }
   }
 
@@ -226,7 +226,7 @@ public class MessRoom extends BaseRoom {
 
     Coord start = origin.copy().translate(dir, 7).up(3).translate(dir.left(), 2);
     Coord end = origin.copy().translate(dir, 7).up(4).translate(dir.right(), 2);
-    walls().fill(worldEditor, RectSolid.newRect(start, end));
+    primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
     Coord cursor;
     for (Direction o : dir.orthogonals()) {
@@ -234,25 +234,25 @@ public class MessRoom extends BaseRoom {
       cursor.translate(dir, 7);
       cursor.translate(o, 2);
       cursor.up(2);
-      stairs().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
+      primaryStairBrush().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
 
       cursor.translate(dir.reverse());
       cursor.up(2);
-      stairs().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
+      primaryStairBrush().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
       cursor.translate(o.reverse());
-      stairs().setUpsideDown(true).setFacing(o).stroke(worldEditor, cursor);
+      primaryStairBrush().setUpsideDown(true).setFacing(o).stroke(worldEditor, cursor);
     }
 
     cursor = origin.copy();
     cursor.translate(dir, 6);
     cursor.up(3);
-    stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+    primaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
     cursor.up();
-    walls().stroke(worldEditor, cursor);
+    primaryWallBrush().stroke(worldEditor, cursor);
     cursor.translate(dir.reverse());
-    stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+    primaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
     cursor.translate(dir.reverse());
-    stairs().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
+    primaryStairBrush().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
 
     start = origin.copy();
     start.up(5);
@@ -261,14 +261,14 @@ public class MessRoom extends BaseRoom {
     end.translate(dir);
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
-    RectSolid.newRect(start, end).fill(worldEditor, secondaryWalls(), false, true);
+    RectSolid.newRect(start, end).fill(worldEditor, secondaryWallBrush(), false, true);
   }
 
   private void fireplace(Direction dir, Coord origin) {
     RectSolid behindMantle = RectSolid.newRect(
         origin.copy().translate(dir, 7).translate(dir.left(), 2),
         origin.copy().translate(dir, 8).translate(dir.right(), 2).up(2));
-    walls().fill(worldEditor, behindMantle);
+    primaryWallBrush().fill(worldEditor, behindMantle);
 
     RectSolid fireArea = RectSolid.newRect(
         origin.copy().translate(dir, 7).translate(dir.left()),
@@ -288,7 +288,7 @@ public class MessRoom extends BaseRoom {
     cursor.up();
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
     cursor.translate(dir.reverse());
-    stairs().setUpsideDown(false).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+    primaryStairBrush().setUpsideDown(false).setFacing(dir.reverse()).stroke(worldEditor, cursor);
 
     for (Direction o : dir.orthogonals()) {
       cursor = origin.copy().translate(dir, 6).translate(o);
@@ -296,13 +296,13 @@ public class MessRoom extends BaseRoom {
       cursor.translate(o);
       theme().getPrimary().getWall().stroke(worldEditor, cursor);
       cursor.up();
-      stairs().setUpsideDown(false).setFacing(o).stroke(worldEditor, cursor);
+      primaryStairBrush().setUpsideDown(false).setFacing(o).stroke(worldEditor, cursor);
       cursor.translate(o.reverse());
-      stairs().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
+      primaryStairBrush().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
       cursor.translate(dir);
-      stairs().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
+      primaryStairBrush().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
       cursor.up().translate(dir.reverse());
-      stairs().setUpsideDown(false).setFacing(o).stroke(worldEditor, cursor);
+      primaryStairBrush().setUpsideDown(false).setFacing(o).stroke(worldEditor, cursor);
 
       cursor = origin.copy().translate(dir, 6).translate(o);
       BlockType.IRON_BAR.getBrush().stroke(worldEditor, cursor);
@@ -339,7 +339,7 @@ public class MessRoom extends BaseRoom {
   }
 
   private void sideTable(Direction dir, Coord origin) {
-    StairsBlock table = secondaryStairs();
+    StairsBlock table = secondaryStairBrush();
     Coord cursor = origin.copy();
 
     cursor.translate(dir, 5);

@@ -52,7 +52,7 @@ public class PitRoom extends BaseRoom {
     Coord wallsCorner0 = pit.copy().north(2).west(2);
     Coord wallsCorner1 = pit.copy().south(2).east(2).setY(bottomOfPit);
     RectSolid wallsRect = RectSolid.newRect(wallsCorner0, wallsCorner1);
-    walls().fill(worldEditor, wallsRect, false, true);
+    primaryWallBrush().fill(worldEditor, wallsRect, false, true);
 
     Coord pitCorner0 = pit.copy().north().west();
     Coord pitCorner1 = pit.copy().south().east().setY(bottomOfPit);
@@ -64,7 +64,7 @@ public class PitRoom extends BaseRoom {
       Coord waterCorner0 = pit.copy().north().west().setY(bottomOfPit + liquidBlocksDepth);
       Coord waterCorner1 = pit.copy().south().east().setY(bottomOfPit);
       RectSolid waterRect = RectSolid.newRect(waterCorner0, waterCorner1);
-      liquid().fill(worldEditor, waterRect);
+      primaryLiquidBrush().fill(worldEditor, waterRect);
     }
   }
 
@@ -89,7 +89,7 @@ public class PitRoom extends BaseRoom {
       return;
     }
 
-    trapCoords.forEach(block -> walls().stroke(worldEditor, block));
+    trapCoords.forEach(block -> primaryWallBrush().stroke(worldEditor, block));
 
     Coord cursor = at.copy().translate(outward, 2);
     BlockType.PRESSURE_PLATE_STONE.getBrush().stroke(worldEditor, cursor);

@@ -38,24 +38,24 @@ public class CornerRoom extends BaseRoom {
 
       Coord pillarStart = cursor.copy();
       Coord pillarEnd = cursor.copy().up(2);
-      pillars().fill(worldEditor, RectSolid.newRect(pillarStart, pillarEnd));
+      primaryPillarBrush().fill(worldEditor, RectSolid.newRect(pillarStart, pillarEnd));
 
       Coord pillarTop = cursor.copy().up();
-      walls().stroke(worldEditor, pillarTop);
+      primaryWallBrush().stroke(worldEditor, pillarTop);
     }
   }
 
   private void createCeiling(Coord origin) {
     SingleBlockBrush.AIR.stroke(worldEditor, origin.copy().up(4));
 
-    walls().stroke(worldEditor, origin.copy().up(5));
+    primaryWallBrush().stroke(worldEditor, origin.copy().up(5));
 
     for (Direction dir : Direction.CARDINAL) {
       Coord ceiling = origin.copy()
           .translate(dir, 1)
           .up(4);
 
-      stairs()
+      primaryStairBrush()
           .setUpsideDown(true)
           .setFacing(dir.reverse())
           .stroke(worldEditor, ceiling);
@@ -65,7 +65,7 @@ public class CornerRoom extends BaseRoom {
             .translate(dir, 2)
             .translate(orthogonal, 1)
             .up(3);
-        stairs()
+        primaryStairBrush()
             .setUpsideDown(true)
             .setFacing(orthogonal.reverse())
             .stroke(worldEditor, decorativeCeiling);
@@ -82,13 +82,13 @@ public class CornerRoom extends BaseRoom {
   private void createShell(Coord origin) {
     Coord roomShellCorner0 = origin.add(-3, -1, -3);
     Coord roomShellCorner1 = origin.add(3, 4, 3);
-    RectHollow.newRect(roomShellCorner0, roomShellCorner1).fill(worldEditor, walls(), false, true);
+    RectHollow.newRect(roomShellCorner0, roomShellCorner1).fill(worldEditor, primaryWallBrush(), false, true);
   }
 
   private void fillFloor(Coord origin) {
     Coord floorCorner0 = origin.add(-3, -1, -3);
     Coord floorCorner1 = origin.add(3, -1, 3);
-    RectSolid.newRect(floorCorner0, floorCorner1).fill(worldEditor, floors(), false, true);
+    RectSolid.newRect(floorCorner0, floorCorner1).fill(worldEditor, primaryFloorBrush(), false, true);
   }
 
   public int getSize() {

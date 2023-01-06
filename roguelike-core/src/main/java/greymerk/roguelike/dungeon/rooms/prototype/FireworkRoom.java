@@ -152,7 +152,7 @@ public class FireworkRoom extends BaseRoom {
     cursor.up();
     LeverBlock.lever().setActive(true).setFacing(Direction.UP).stroke(worldEditor, cursor);
 
-    BlockBrush light = lights();
+    BlockBrush light = primaryLightBrush();
     cursor = at.copy();
     cursor.translate(entrance.reverse(), 5);
     cursor.up(3);

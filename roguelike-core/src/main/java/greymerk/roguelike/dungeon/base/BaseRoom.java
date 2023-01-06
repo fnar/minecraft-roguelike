@@ -15,6 +15,7 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.DungeonNode;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.theme.BlockSet;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.loot.ChestType;
@@ -58,15 +59,15 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
     IShape wallsRect = at.newHollowRect(getWallDist())
         .withHeight(getHeight())
         .down(getDepth());
-    walls().fill(worldEditor, wallsRect, false, true);
+    primaryWallBrush().fill(worldEditor, wallsRect, false, true);
   }
 
   protected void generateFloor(Coord at, List<Direction> entrances) {
-    floors().fill(worldEditor, at.newRect(getWallDist()).down(getDepth()));
+    primaryFloorBrush().fill(worldEditor, at.newRect(getWallDist()).down(getDepth()));
   }
 
   protected void generateCeiling(Coord at, List<Direction> entrances) {
-    walls().fill(worldEditor, at.newRect(getWallDist()).up(getCeilingHeight()));
+    primaryWallBrush().fill(worldEditor, at.newRect(getWallDist()).up(getCeilingHeight()));
   }
 
   protected void generateDecorations(Coord at, List<Direction> entrances) {
@@ -196,7 +197,7 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
   }
 
   protected void theFloorIsLava(Coord origin) {
-    liquid().fill(worldEditor, RectSolid.newRect(
+    primaryLiquidBrush().fill(worldEditor, RectSolid.newRect(
         origin.copy().north(getWallDist()).west(getWallDist()).down(),
         origin.copy().south(getWallDist()).east(getWallDist()).down(2)
     ), true, false);
@@ -206,44 +207,60 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
     return levelSettings.getTheme();
   }
 
-  protected BlockBrush floors() {
-    return theme().getPrimary().getFloor();
+  protected BlockBrush primaryFloorBrush() {
+    return primaryTheme().getFloor();
   }
 
-  protected BlockBrush lights() {
-    return theme().getPrimary().getLightBlock();
+  private BlockSet primaryTheme() {
+    return theme().getPrimary();
   }
 
-  protected BlockBrush liquid() {
-    return theme().getPrimary().getLiquid();
+  private BlockSet secondaryTheme() {
+    return theme().getSecondary();
   }
 
-  protected BlockBrush pillars() {
-    return theme().getPrimary().getPillar();
+  protected BlockBrush primaryLightBrush() {
+    return primaryTheme().getLightBlock();
   }
 
-  protected StairsBlock stairs() {
-    return theme().getPrimary().getStair();
+  protected BlockBrush primaryLiquidBrush() {
+    return primaryTheme().getLiquid();
   }
 
-  protected BlockBrush walls() {
-    return theme().getPrimary().getWall();
+  protected BlockBrush primaryPillarBrush() {
+    return primaryTheme().getPillar();
   }
 
-  protected BlockBrush secondaryPillars() {
-    return theme().getSecondary().getPillar();
+  protected StairsBlock primaryStairBrush() {
+    return primaryTheme().getStair();
   }
 
-  protected StairsBlock secondaryStairs() {
-    return theme().getSecondary().getStair();
+  protected BlockBrush primaryWallBrush() {
+    return primaryTheme().getWall();
   }
 
-  protected BlockBrush secondaryWalls() {
-    return theme().getSecondary().getWall();
+  protected BlockBrush secondaryFloorBrush() {
+    return secondaryTheme().getFloor();
   }
 
-  protected BlockBrush secondaryFloors() {
-    return theme().getSecondary().getFloor();
+  protected BlockBrush secondaryLightBrush() {
+    return secondaryTheme().getLightBlock();
+  }
+
+  protected BlockBrush secondaryLiquidBrush() {
+    return secondaryTheme().getLiquid();
+  }
+
+  protected BlockBrush secondaryPillarBrush() {
+    return secondaryTheme().getPillar();
+  }
+
+  protected StairsBlock secondaryStairBrush() {
+    return secondaryTheme().getStair();
+  }
+
+  protected BlockBrush secondaryWallBrush() {
+    return secondaryTheme().getWall();
   }
 
   protected Random random() {

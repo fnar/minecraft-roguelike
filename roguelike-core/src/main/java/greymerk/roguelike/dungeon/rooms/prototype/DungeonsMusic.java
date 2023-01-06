@@ -30,13 +30,13 @@ public class DungeonsMusic extends BaseRoom {
     Coord end = origin.copy();
     start.translate(new Coord(-6, -1, -6));
     end.translate(new Coord(6, 5, 6));
-    RectHollow.newRect(start, end).fill(worldEditor, walls(), false, true);
+    RectHollow.newRect(start, end).fill(worldEditor, primaryWallBrush(), false, true);
 
     start = origin.copy();
     end = origin.copy();
     start.translate(new Coord(-6, 4, -6));
     end.translate(new Coord(6, 5, 6));
-    secondaryWalls().fill(worldEditor, RectSolid.newRect(start, end));
+    secondaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     end = origin.copy();
@@ -48,7 +48,7 @@ public class DungeonsMusic extends BaseRoom {
     end = origin.copy();
     start.translate(new Coord(-3, -1, -3));
     end.translate(new Coord(3, -1, 3));
-    secondaryFloors().fill(worldEditor, RectSolid.newRect(start, end));
+    secondaryFloorBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
     for (int i = 2; i >= 0; --i) {
       start = origin.copy();
@@ -65,9 +65,9 @@ public class DungeonsMusic extends BaseRoom {
       cursor = origin.copy();
       cursor.translate(dir, 5);
       cursor.up(3);
-      secondaryWalls().stroke(worldEditor, cursor);
+      secondaryWallBrush().stroke(worldEditor, cursor);
       cursor.translate(dir.reverse());
-      secondaryStairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+      secondaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
 
       cursor = origin.copy();
       cursor.translate(dir, 5);
@@ -80,14 +80,14 @@ public class DungeonsMusic extends BaseRoom {
       end = start.copy();
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir.clockwise(), 3);
-      secondaryPillars().fill(worldEditor, RectSolid.newRect(start, end));
+      secondaryPillarBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
       cursor = origin.copy();
       cursor.up(4);
       cursor.translate(dir);
-      secondaryStairs().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
+      secondaryStairBrush().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
       cursor.translate(dir);
-      secondaryStairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+      secondaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
 
       for (Direction o : dir.orthogonals()) {
         cursor = origin.copy();
@@ -99,26 +99,26 @@ public class DungeonsMusic extends BaseRoom {
         cursor.translate(dir, 4);
         cursor.up(3);
         cursor.translate(o);
-        secondaryStairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+        secondaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
 
         cursor = origin.copy();
         cursor.translate(dir, 5);
         cursor.translate(o, 3);
-        secondaryStairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+        secondaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
         cursor.translate(o);
-        secondaryStairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+        secondaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
         cursor.up(2);
-        secondaryStairs().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
+        secondaryStairBrush().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
         cursor.translate(o.reverse());
-        secondaryStairs().setUpsideDown(true).setFacing(o).stroke(worldEditor, cursor);
+        secondaryStairBrush().setUpsideDown(true).setFacing(o).stroke(worldEditor, cursor);
         cursor.up();
-        secondaryWalls().stroke(worldEditor, cursor);
+        secondaryWallBrush().stroke(worldEditor, cursor);
         cursor.translate(o);
-        secondaryWalls().stroke(worldEditor, cursor);
+        secondaryWallBrush().stroke(worldEditor, cursor);
         cursor.translate(dir.reverse());
-        secondaryStairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+        secondaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
         cursor.translate(o.reverse());
-        secondaryStairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+        secondaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
 
       }
     }
@@ -127,7 +127,7 @@ public class DungeonsMusic extends BaseRoom {
 
     cursor = origin.copy();
     cursor.up(4);
-    lights().stroke(worldEditor, cursor);
+    primaryLightBrush().stroke(worldEditor, cursor);
 
     generateChest(generateChestLocation(origin.copy().up()), getEntrance(entrances).reverse(), ChestType.MUSIC);
 
@@ -149,13 +149,13 @@ public class DungeonsMusic extends BaseRoom {
     Coord start = origin.copy();
     Coord end = start.copy();
     end.up(2);
-    secondaryPillars().fill(worldEditor, RectSolid.newRect(start, end));
+    secondaryPillarBrush().fill(worldEditor, RectSolid.newRect(start, end));
     for (Direction dir : Direction.CARDINAL) {
       Coord cursor = end.copy();
       cursor.translate(dir);
-      secondaryStairs().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor, true, false);
+      secondaryStairBrush().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor, true, false);
       cursor.up();
-      secondaryWalls().stroke(worldEditor, cursor);
+      secondaryWallBrush().stroke(worldEditor, cursor);
     }
   }
 

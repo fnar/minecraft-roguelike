@@ -31,8 +31,8 @@ public class RewardRoom extends BaseRoom {
         new Coord(x - 7, y, z - 7),
         new Coord(x + 7, y + 5, z + 7)
     ));
-    RectHollow.newRect(new Coord(x - 8, y - 1, z - 8), new Coord(x + 8, y + 6, z + 8)).fill(worldEditor, walls(), false, true);
-    walls().fill(worldEditor, RectSolid.newRect(new Coord(x - 1, y + 4, z - 1), new Coord(x + 1, y + 5, z + 1)));
+    RectHollow.newRect(new Coord(x - 8, y - 1, z - 8), new Coord(x + 8, y + 6, z + 8)).fill(worldEditor, primaryWallBrush(), false, true);
+    primaryWallBrush().fill(worldEditor, RectSolid.newRect(new Coord(x - 1, y + 4, z - 1), new Coord(x + 1, y + 5, z + 1)));
 
     Coord cursor;
     for (Direction dir : Direction.CARDINAL) {
@@ -45,26 +45,26 @@ public class RewardRoom extends BaseRoom {
         start = cursor.copy();
         end = start.copy();
         end.up(5);
-        walls().fill(worldEditor, RectSolid.newRect(start, end));
+        primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
         cursor.translate(dir.reverse());
-        stairs().setUpsideDown(false).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+        primaryStairBrush().setUpsideDown(false).setFacing(dir.reverse()).stroke(worldEditor, cursor);
         cursor.up(2);
-        stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+        primaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
         cursor.up();
         start = cursor.copy();
         end = start.copy();
         end.up(2);
-        walls().fill(worldEditor, RectSolid.newRect(start, end));
+        primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
         cursor.translate(dir.reverse());
-        stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+        primaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
         cursor.up();
         start = cursor.copy();
         end = start.copy();
         end.up();
-        walls().fill(worldEditor, RectSolid.newRect(start, end));
+        primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
         cursor.up();
         cursor.translate(dir.reverse());
-        stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+        primaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
 
         start = origin.copy();
         start.translate(dir, 7);
@@ -72,34 +72,34 @@ public class RewardRoom extends BaseRoom {
         end = start.copy();
         end.up(2);
         end.translate(orthogonal);
-        walls().fill(worldEditor, RectSolid.newRect(start, end));
+        primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
         start.translate(dir.reverse());
         start.up();
         end.translate(dir.reverse());
-        walls().fill(worldEditor, RectSolid.newRect(start, end));
+        primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
         start.translate(dir.reverse());
         start.up();
         end.translate(dir.reverse());
-        walls().fill(worldEditor, RectSolid.newRect(start, end));
+        primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
         cursor = origin.copy();
         cursor.translate(dir, 8);
         cursor.up(2);
         cursor.translate(orthogonal);
-        stairs().setUpsideDown(true).setFacing(orthogonal.reverse()).stroke(worldEditor, cursor, true, false);
+        primaryStairBrush().setUpsideDown(true).setFacing(orthogonal.reverse()).stroke(worldEditor, cursor, true, false);
         cursor.translate(dir.reverse());
-        stairs().setUpsideDown(true).setFacing(orthogonal.reverse()).stroke(worldEditor, cursor);
-        cursor.translate(dir.reverse());
-        cursor.up();
-        stairs().setUpsideDown(true).setFacing(orthogonal.reverse()).stroke(worldEditor, cursor);
+        primaryStairBrush().setUpsideDown(true).setFacing(orthogonal.reverse()).stroke(worldEditor, cursor);
         cursor.translate(dir.reverse());
         cursor.up();
-        stairs().setUpsideDown(true).setFacing(orthogonal.reverse()).stroke(worldEditor, cursor);
+        primaryStairBrush().setUpsideDown(true).setFacing(orthogonal.reverse()).stroke(worldEditor, cursor);
         cursor.translate(dir.reverse());
         cursor.up();
-        stairs().setUpsideDown(true).setFacing(orthogonal.reverse()).stroke(worldEditor, cursor);
+        primaryStairBrush().setUpsideDown(true).setFacing(orthogonal.reverse()).stroke(worldEditor, cursor);
+        cursor.translate(dir.reverse());
+        cursor.up();
+        primaryStairBrush().setUpsideDown(true).setFacing(orthogonal.reverse()).stroke(worldEditor, cursor);
         cursor.translate(dir.reverse(), 2);
-        stairs().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
+        primaryStairBrush().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
 
         start = origin.copy();
         start.translate(dir, 7);
@@ -118,34 +118,34 @@ public class RewardRoom extends BaseRoom {
         cursor = origin.copy();
         cursor.translate(dir, 7);
         cursor.translate(orthogonal, 3);
-        stairs().setUpsideDown(false).setFacing(orthogonal).stroke(worldEditor, cursor);
+        primaryStairBrush().setUpsideDown(false).setFacing(orthogonal).stroke(worldEditor, cursor);
         cursor.translate(orthogonal, 2);
-        stairs().setUpsideDown(false).setFacing(orthogonal.reverse()).stroke(worldEditor, cursor);
+        primaryStairBrush().setUpsideDown(false).setFacing(orthogonal.reverse()).stroke(worldEditor, cursor);
         cursor.up(2);
-        stairs().setUpsideDown(true).setFacing(orthogonal.reverse()).stroke(worldEditor, cursor);
+        primaryStairBrush().setUpsideDown(true).setFacing(orthogonal.reverse()).stroke(worldEditor, cursor);
         cursor.translate(orthogonal.reverse(), 2);
-        stairs().setUpsideDown(true).setFacing(orthogonal).stroke(worldEditor, cursor);
+        primaryStairBrush().setUpsideDown(true).setFacing(orthogonal).stroke(worldEditor, cursor);
         cursor.translate(dir.reverse());
         cursor.up();
-        stairs().setUpsideDown(true).setFacing(orthogonal).stroke(worldEditor, cursor);
+        primaryStairBrush().setUpsideDown(true).setFacing(orthogonal).stroke(worldEditor, cursor);
         cursor.translate(orthogonal, 2);
-        stairs().setUpsideDown(true).setFacing(orthogonal.reverse()).stroke(worldEditor, cursor);
+        primaryStairBrush().setUpsideDown(true).setFacing(orthogonal.reverse()).stroke(worldEditor, cursor);
         cursor.translate(dir.reverse());
         cursor.up();
         end = cursor.copy();
         end.translate(orthogonal.reverse(), 2);
-        stairs().setUpsideDown(true).setFacing(dir.reverse()).fill(worldEditor, RectSolid.newRect(cursor, end));
+        primaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).fill(worldEditor, RectSolid.newRect(cursor, end));
         cursor.up();
         end.up();
-        walls().fill(worldEditor, RectSolid.newRect(cursor, end));
+        primaryWallBrush().fill(worldEditor, RectSolid.newRect(cursor, end));
         end.translate(dir.reverse());
-        stairs().setUpsideDown(true).setFacing(orthogonal).stroke(worldEditor, cursor);
+        primaryStairBrush().setUpsideDown(true).setFacing(orthogonal).stroke(worldEditor, cursor);
 
         cursor = origin.copy();
         cursor.translate(dir, 7);
         cursor.translate(orthogonal, 4);
         cursor.down();
-        lights().stroke(worldEditor, cursor);
+        primaryLightBrush().stroke(worldEditor, cursor);
 
       }
 
@@ -161,21 +161,21 @@ public class RewardRoom extends BaseRoom {
       theme().getPrimary().getPillar().fill(worldEditor, RectSolid.newRect(start, end));
 
       cursor = origin.copy();
-      walls().stroke(worldEditor, cursor);
+      primaryWallBrush().stroke(worldEditor, cursor);
       cursor.translate(dir);
-      stairs().setUpsideDown(false).setFacing(dir).stroke(worldEditor, cursor);
+      primaryStairBrush().setUpsideDown(false).setFacing(dir).stroke(worldEditor, cursor);
       cursor.translate(o);
-      stairs().setUpsideDown(false).setFacing(dir).stroke(worldEditor, cursor);
+      primaryStairBrush().setUpsideDown(false).setFacing(dir).stroke(worldEditor, cursor);
       cursor.up(4);
-      stairs().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
+      primaryStairBrush().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
       cursor.translate(o.reverse());
-      stairs().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
+      primaryStairBrush().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
 
     }
 
     cursor = origin.copy();
     cursor.up(4);
-    lights().stroke(worldEditor, cursor);
+    primaryLightBrush().stroke(worldEditor, cursor);
 
     cursor = origin.copy();
     cursor.up();

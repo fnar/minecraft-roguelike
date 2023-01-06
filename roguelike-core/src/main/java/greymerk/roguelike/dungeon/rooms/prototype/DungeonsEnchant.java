@@ -2,9 +2,7 @@ package greymerk.roguelike.dungeon.rooms.prototype;
 
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
-import com.github.fnar.minecraft.block.normal.StairsBlock;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import greymerk.roguelike.dungeon.base.BaseRoom;
@@ -12,7 +10,6 @@ import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.util.DyeColor;
-import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -68,7 +65,7 @@ public class DungeonsEnchant extends BaseRoom {
     end.translate(entrance, 3);
     start.translate(entrance.antiClockwise(), 3);
     end.translate(entrance.clockwise(), 3);
-    walls().fill(worldEditor, RectSolid.newRect(start, end));
+    primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
     start = at.copy();
     start.down();
@@ -85,7 +82,7 @@ public class DungeonsEnchant extends BaseRoom {
     end.up(3);
     start.translate(entrance.antiClockwise());
     end.translate(entrance.clockwise());
-    RectSolid.newRect(start, end).fill(worldEditor, walls(), false, true);
+    RectSolid.newRect(start, end).fill(worldEditor, primaryWallBrush(), false, true);
 
     Coord cursor = at.copy();
     cursor.translate(entrance, 5);
@@ -95,7 +92,7 @@ public class DungeonsEnchant extends BaseRoom {
       start.translate(d.antiClockwise(), 2);
       end = start.copy();
       end.up(3);
-      pillars().fill(worldEditor, RectSolid.newRect(start, end));
+      primaryPillarBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
       if (d == entrance.reverse()) {
         continue;
@@ -115,12 +112,12 @@ public class DungeonsEnchant extends BaseRoom {
       end = start.copy();
       start.translate(d.antiClockwise());
       end.translate(d.clockwise());
-      stairs().setUpsideDown(true).setFacing(d.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
+      primaryStairBrush().setUpsideDown(true).setFacing(d.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
       start.translate(d.reverse());
       start.up();
       end.translate(d.reverse());
       end.up();
-      stairs().setUpsideDown(true).setFacing(d.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
+      primaryStairBrush().setUpsideDown(true).setFacing(d.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
     }
 
     cursor = at.copy();
@@ -128,20 +125,20 @@ public class DungeonsEnchant extends BaseRoom {
     cursor.up(4);
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
     cursor.up();
-    lights().stroke(worldEditor, cursor);
+    primaryLightBrush().stroke(worldEditor, cursor);
     cursor.down();
     cursor.translate(entrance.reverse());
-    stairs().setUpsideDown(true).setFacing(entrance).stroke(worldEditor, cursor);
+    primaryStairBrush().setUpsideDown(true).setFacing(entrance).stroke(worldEditor, cursor);
     cursor.translate(entrance.reverse());
-    walls().stroke(worldEditor, cursor);
+    primaryWallBrush().stroke(worldEditor, cursor);
     cursor.translate(entrance.reverse());
-    stairs().setUpsideDown(true).setFacing(entrance.reverse()).stroke(worldEditor, cursor);
+    primaryStairBrush().setUpsideDown(true).setFacing(entrance.reverse()).stroke(worldEditor, cursor);
 
     cursor = at.copy();
     cursor.up(5);
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
     cursor.up();
-    walls().stroke(worldEditor, cursor);
+    primaryWallBrush().stroke(worldEditor, cursor);
 
     for (Direction d : Direction.CARDINAL) {
 
@@ -162,7 +159,7 @@ public class DungeonsEnchant extends BaseRoom {
         Coord e = end.copy();
         s.translate(o);
         e.translate(o);
-        stairs().setUpsideDown(true).setFacing(o.reverse()).fill(worldEditor, RectSolid.newRect(s, e));
+        primaryStairBrush().setUpsideDown(true).setFacing(o.reverse()).fill(worldEditor, RectSolid.newRect(s, e));
       }
 
       Coord s = start.copy();
@@ -170,14 +167,14 @@ public class DungeonsEnchant extends BaseRoom {
       Coord e = end.copy();
       s.up();
       e.up();
-      walls().fill(worldEditor, RectSolid.newRect(s, e));
+      primaryWallBrush().fill(worldEditor, RectSolid.newRect(s, e));
 
       cursor = at.copy();
       cursor.up(5);
       cursor.translate(d);
-      stairs().setUpsideDown(true).setFacing(d.reverse()).stroke(worldEditor, cursor);
+      primaryStairBrush().setUpsideDown(true).setFacing(d.reverse()).stroke(worldEditor, cursor);
       cursor.translate(d.antiClockwise());
-      walls().stroke(worldEditor, cursor);
+      primaryWallBrush().stroke(worldEditor, cursor);
 
     }
 
@@ -197,38 +194,38 @@ public class DungeonsEnchant extends BaseRoom {
       end = start.copy();
       end.translate(entrance.reverse());
       end.up(3);
-      pillars().fill(worldEditor, RectSolid.newRect(start, end));
+      primaryPillarBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
       start = at.copy();
       start.translate(entrance, 3);
       start.translate(o, 3);
       end = start.copy();
       end.up(3);
-      walls().fill(worldEditor, RectSolid.newRect(start, end));
+      primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
       cursor = end.copy();
       cursor.translate(entrance.reverse());
-      stairs().setUpsideDown(true).setFacing(entrance.reverse()).stroke(worldEditor, cursor);
+      primaryStairBrush().setUpsideDown(true).setFacing(entrance.reverse()).stroke(worldEditor, cursor);
       cursor.translate(o.reverse());
-      stairs().setUpsideDown(true).setFacing(entrance.reverse()).stroke(worldEditor, cursor);
+      primaryStairBrush().setUpsideDown(true).setFacing(entrance.reverse()).stroke(worldEditor, cursor);
       cursor.translate(o.reverse());
-      stairs().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
+      primaryStairBrush().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
       cursor.translate(entrance);
-      stairs().setUpsideDown(true).setFacing(entrance).stroke(worldEditor, cursor);
+      primaryStairBrush().setUpsideDown(true).setFacing(entrance).stroke(worldEditor, cursor);
 
       start = at.copy();
       start.translate(o, 4);
       end = start.copy();
       start.translate(o.antiClockwise());
       end.translate(o.clockwise());
-      stairs().setUpsideDown(true).setFacing(o.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
+      primaryStairBrush().setUpsideDown(true).setFacing(o.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
       start.up(3);
       end.up(3);
-      stairs().setUpsideDown(true).setFacing(o.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
+      primaryStairBrush().setUpsideDown(true).setFacing(o.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
       start.translate(o.reverse());
       start.up();
       end.translate(o.reverse());
       end.up();
-      stairs().setUpsideDown(true).setFacing(o.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
+      primaryStairBrush().setUpsideDown(true).setFacing(o.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
 
       for (Direction r : o.orthogonals()) {
         start = at.copy();
@@ -236,7 +233,7 @@ public class DungeonsEnchant extends BaseRoom {
         start.translate(r, 2);
         end = start.copy();
         end.up(3);
-        pillars().fill(worldEditor, RectSolid.newRect(start, end));
+        primaryPillarBrush().fill(worldEditor, RectSolid.newRect(start, end));
       }
 
       start = at.copy();
@@ -253,32 +250,32 @@ public class DungeonsEnchant extends BaseRoom {
       start.translate(o, 2);
       end = start.copy();
       end.up(3);
-      pillars().fill(worldEditor, RectSolid.newRect(start, end));
+      primaryPillarBrush().fill(worldEditor, RectSolid.newRect(start, end));
       cursor = end.copy();
       cursor.translate(o.reverse());
-      stairs().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
+      primaryStairBrush().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
       cursor.translate(entrance);
-      stairs().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
+      primaryStairBrush().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
       cursor.translate(o);
-      stairs().setUpsideDown(true).setFacing(entrance).stroke(worldEditor, cursor);
+      primaryStairBrush().setUpsideDown(true).setFacing(entrance).stroke(worldEditor, cursor);
       cursor.translate(o);
-      stairs().setUpsideDown(true).setFacing(entrance).stroke(worldEditor, cursor);
+      primaryStairBrush().setUpsideDown(true).setFacing(entrance).stroke(worldEditor, cursor);
 
       cursor = at.copy();
       cursor.translate(entrance.reverse(), 2);
       cursor.translate(o);
       cursor.up(4);
-      walls().stroke(worldEditor, cursor);
+      primaryWallBrush().stroke(worldEditor, cursor);
       cursor.translate(entrance);
-      stairs().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
+      primaryStairBrush().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
     }
 
     cursor = at.copy();
     cursor.translate(entrance.reverse(), 2);
     cursor.up(4);
-    stairs().setUpsideDown(true).setFacing(entrance).stroke(worldEditor, cursor);
+    primaryStairBrush().setUpsideDown(true).setFacing(entrance).stroke(worldEditor, cursor);
     cursor.translate(entrance.reverse());
-    walls().stroke(worldEditor, cursor);
+    primaryWallBrush().stroke(worldEditor, cursor);
 
     cursor = at.copy();
     cursor.translate(entrance, 5);

@@ -52,7 +52,7 @@ public class AvidyaRoom extends BaseRoom {
 
     // roof
     redClay.fill(worldEditor, RectSolid.newRect(new Coord(x - 6, y + 6, z - 6), new Coord(x + 6, y + 6, z + 6)));
-    lights().fill(worldEditor, RectSolid.newRect(new Coord(x - 3, y + 6, z - 3), new Coord(x + 3, y + 6, z + 3)));
+    primaryLightBrush().fill(worldEditor, RectSolid.newRect(new Coord(x - 3, y + 6, z - 3), new Coord(x + 3, y + 6, z + 3)));
 
     SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(new Coord(x - 7, y - 1, z - 7), new Coord(x + 7, y - 1, z + 7)));
 
@@ -244,11 +244,11 @@ public class AvidyaRoom extends BaseRoom {
         cursor.translate(dir.reverse(), 1);
         BlockType.COBBLESTONE.getBrush().stroke(worldEditor, cursor);
         cursor.translate(orthogonals.reverse(), 1);
-        lights().stroke(worldEditor, cursor);
+        primaryLightBrush().stroke(worldEditor, cursor);
         cursor.translate(orthogonals, 2);
         SingleBlockBrush.AIR.stroke(worldEditor, cursor);
         cursor.down();
-        lights().stroke(worldEditor, cursor);
+        primaryLightBrush().stroke(worldEditor, cursor);
         cursor.up(1);
         cursor.translate(dir.reverse(), 1);
         BlockType.COBBLESTONE.getBrush().stroke(worldEditor, cursor);

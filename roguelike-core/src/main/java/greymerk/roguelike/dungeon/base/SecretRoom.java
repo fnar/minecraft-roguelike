@@ -49,7 +49,7 @@ public class SecretRoom extends BaseRoom {
     end.translate(entrance.orthogonals()[1]);
     end.translate(entrance, size + 5);
     end.up(2);
-    RectSolid.newRect(start, end).fill(worldEditor, walls(), false, true);
+    RectSolid.newRect(start, end).fill(worldEditor, primaryWallBrush(), false, true);
 
     end = pos.copy();
     end.translate(entrance, size + 5);
