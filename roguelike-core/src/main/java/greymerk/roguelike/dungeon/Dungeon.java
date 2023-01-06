@@ -23,9 +23,12 @@ import greymerk.roguelike.dungeon.settings.SettingsResolver;
 import greymerk.roguelike.dungeon.settings.SpawnCriteria;
 import greymerk.roguelike.dungeon.tasks.DungeonTaskRegistry;
 import greymerk.roguelike.dungeon.tasks.IDungeonTask;
+import greymerk.roguelike.dungeon.towers.TowerType;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.VanillaStructure;
 import greymerk.roguelike.worldgen.WorldEditor;
+import greymerk.roguelike.worldgen.filter.Filter;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 import static java.lang.Math.PI;
@@ -265,5 +268,38 @@ public class Dungeon {
     for (DungeonLevel level : getLevels()) {
       start = level.generateLayout(editor, start).down(Dungeon.VERTICAL_SPACING);
     }
+  }
+
+  public void encase(WorldEditor editor) {
+    if (RogueConfig.ENCASE.getBoolean()) {
+      getLevels().forEach(level -> level.filter(editor, Filter.get(Filter.ENCASE)));
+    }
+  }
+
+  public void tunnel(WorldEditor editor) {
+    getLevels().forEach(level -> level.tunnel(editor));
+  }
+
+  public void generateSegments(WorldEditor editor) {
+    getLevels().forEach(level -> level.generateSegments(editor));
+  }
+
+  public void generateRooms() {
+    getLevels().forEach(DungeonLevel::generateRooms);
+  }
+
+  public void linkLevels(WorldEditor editor) {
+    getLevels().stream().reduce(null, (prev, level) -> level.generateLinkers(editor, prev));
+  }
+
+  public void generateTower(WorldEditor editor, DungeonSettings settings) {
+    TowerType tower = settings.getTower().getType();
+    Theme theme = settings.getTower().getTheme();
+    Coord at = getPosition();
+    TowerType.instantiate(tower, editor, theme).generate(at);
+  }
+
+  public void applyFilters(WorldEditor editor) {
+    getLevels().forEach(level -> level.applyFilters(editor));
   }
 }

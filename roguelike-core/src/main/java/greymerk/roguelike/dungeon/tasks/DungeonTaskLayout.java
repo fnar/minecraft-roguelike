@@ -8,11 +8,7 @@ public class DungeonTaskLayout implements IDungeonTask {
 
   @Override
   public void execute(WorldEditor editor, Dungeon dungeon, DungeonSettings settings) {
-    try {
-      dungeon.generateLayout(editor);
-    } catch (Exception e) {
-      e.printStackTrace();
-    }
+    dungeon.generateLayout(editor);
   }
 
 }

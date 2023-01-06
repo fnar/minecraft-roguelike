@@ -23,22 +23,22 @@ public final class DungeonTaskRegistry {
   private final Map<DungeonStage, List<IDungeonTask>> tasks = new HashMap<>();
 
   private DungeonTaskRegistry() {
-    addTask(new DungeonTaskLayout(), LAYOUT);
-    addTask(new DungeonTaskEncase(), ENCASE);
-    addTask(new DungeonTaskTunnels(), TUNNELS);
-    addTask(new DungeonTaskSegments(), SEGMENTS);
-    addTask(new DungeonTaskRooms(), ROOMS);
-    addTask(new DungeonTaskLinks(), LINKS);
-    addTask(new DungeonTaskTower(), TOWER);
-    addTask(new DungeonTaskFilters(), FILTERS);
-    addTask(new DungeonTaskLoot(), LOOT);
+    addTask(LAYOUT, new DungeonTaskLayout());
+    addTask(ENCASE, new DungeonTaskEncase());
+    addTask(TUNNELS, new DungeonTaskTunnels());
+    addTask(SEGMENTS, new DungeonTaskSegments());
+    addTask(ROOMS, new DungeonTaskRooms());
+    addTask(LINKS, new DungeonTaskLinks());
+    addTask(TOWER, new DungeonTaskTower());
+    addTask(FILTERS, new DungeonTaskFilters());
+    addTask(LOOT, new DungeonTaskLoot());
   }
 
   public static DungeonTaskRegistry getInstance() {
     return singleton;
   }
 
-  public void addTask(IDungeonTask task, DungeonStage stage) {
+  public void addTask(DungeonStage stage, IDungeonTask task) {
     if (!tasks.containsKey(stage)) {
       tasks.put(stage, new ArrayList<>());
     }

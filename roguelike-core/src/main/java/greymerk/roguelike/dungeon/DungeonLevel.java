@@ -1,12 +1,16 @@
 package greymerk.roguelike.dungeon;
 
+import com.github.fnar.roguelike.worldgen.generatables.BaseGeneratable;
+import com.github.fnar.roguelike.worldgen.generatables.LadderPillar;
+import com.github.fnar.roguelike.worldgen.generatables.SpiralStaircase;
+
 import java.util.Optional;
-import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.base.RoomIterator;
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.filter.Filter;
@@ -92,4 +96,46 @@ public class DungeonLevel {
     layout.getEnd().setDungeon(RoomType.LINKERTOP.newSingleRoomSetting().instantiate(settings, editor));
   }
 
+  public DungeonLevel generateLinkers(WorldEditor editor, DungeonLevel previous) {
+    DungeonNode lower = getLayout().getStart();
+
+    lower.generate();
+
+    if (previous != null) {
+      DungeonNode upper = previous.getLayout().getEnd();
+      upper.generate();
+
+      generateStairsOrLadder(editor, lower, upper);
+    }
+
+    return this;
+  }
+
+  private void generateStairsOrLadder(WorldEditor editor, DungeonNode lower, DungeonNode upper) {
+    Theme theme = getSettings().getTheme();
+
+    int height = upper.getPosition().getY() - lower.getPosition().getY();
+
+    BaseGeneratable linker = (editor.getRandom().nextDouble() < 0.75)
+        ? SpiralStaircase.newStaircase(editor).withHeight(height)
+        : LadderPillar.newLadderPillar(editor).withHeight(height);
+
+    linker.withTheme(theme).generate(lower.getPosition());
+  }
+
+  public void generateRooms() {
+    LevelLayout layout = getLayout();
+    layout.getNodes().stream()
+        .filter(node -> !layout.isStartOrEnd(node))
+        .forEach(DungeonNode::generate);
+  }
+
+  public void tunnel(WorldEditor editor) {
+    getLayout().getTunnels()
+        .forEach(tunnel -> tunnel.construct(editor, getSettings()));
+  }
+
+  public void generateSegments(WorldEditor editor) {
+    getLayout().getTunnels().forEach(tunnel -> tunnel.genSegments(editor, this));
+  }
 }
