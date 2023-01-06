@@ -23,6 +23,7 @@ public class DungeonsEnder extends BaseRoom {
 
   public DungeonsEnder(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.wallDist = 6;
   }
 
   public BaseRoom generate(Coord at, List<Direction> entrances) {
@@ -100,8 +101,4 @@ public class DungeonsEnder extends BaseRoom {
     }
   }
 
-
-  public int getSize() {
-    return 7;
-  }
 }

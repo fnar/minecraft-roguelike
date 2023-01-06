@@ -1,6 +1,5 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
-import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import java.util.ArrayList;
@@ -10,7 +9,6 @@ import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.treasure.loot.ChestType;
-import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -20,7 +18,7 @@ public class StorageRoom extends BaseRoom {
 
   public StorageRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
-    this.size = 10;
+    this.wallDist = 7;
     this.ceilingHeight = 4;
   }
 
@@ -41,14 +39,9 @@ public class StorageRoom extends BaseRoom {
 
   @Override
   public BaseRoom generate(Coord at, List<Direction> entrances) {
+    super.generate(at, entrances);
+
     List<Coord> chestSpaces = new ArrayList<>();
-
-    Direction front = getEntrance(entrances);
-
-    generateCavity(at, front);
-    generateFloor(at, front);
-    generateCeiling(at, front);
-
     for (Direction dir : Direction.CARDINAL) {
       for (Direction orthogonals : dir.orthogonals()) {
 
@@ -118,7 +111,7 @@ public class StorageRoom extends BaseRoom {
     Coord.randomFrom(chestSpaces, 2, random())
         .forEach(coord -> generateChest(coord, coord.dirTo(at).reverse(), ChestType.SUPPLIES_TREASURES));
 
-    generateDoorways(at, entrances, getSize() - 3);
+    generateDoorways(at, entrances);
 
     return this;
   }
@@ -131,32 +124,6 @@ public class StorageRoom extends BaseRoom {
     start.translate(dir, 1);
     end.translate(dir, 1).down(3);
     RectSolid.newRect(start, end).fill(worldEditor, primaryWallBrush(), false, true);
-  }
-
-  private void generateCavity(Coord origin, Direction front) {
-    int size = getSize() - 4; // 6
-    RectSolid roomRect = RectSolid.newRect(
-        origin.copy().translate(front, size).translate(front.left(), size).down(),
-        origin.copy().translate(front.reverse(), size).translate(front.right(), size).up(getCeilingHeight())
-    );
-    SingleBlockBrush.AIR.fill(worldEditor, roomRect);
-  }
-
-  private void generateFloor(Coord origin, Direction front) {
-    RectSolid floorRect = RectSolid.newRect(
-        origin.copy().translate(front, getSize()).translate(front.left(), getSize()).down(),
-        origin.copy().translate(front.reverse(), getSize()).translate(front.right(), getSize()).down()
-    );
-    primaryFloorBrush().fill(worldEditor, floorRect);
-  }
-
-  private void generateCeiling(Coord origin, Direction front) {
-    BlockBrush wall = primaryWallBrush();
-    RectSolid ceilingRect = RectSolid.newRect(
-        origin.copy().translate(front, getSize()).translate(front.left(), getSize()).up(getCeilingHeight()),
-        origin.copy().translate(front.reverse(), getSize()).translate(front.right(), getSize()).up(getCeilingHeight())
-    );
-    wall.fill(worldEditor, ceilingRect);
   }
 
 }

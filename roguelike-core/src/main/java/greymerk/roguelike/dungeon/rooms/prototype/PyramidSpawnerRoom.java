@@ -19,8 +19,10 @@ public class PyramidSpawnerRoom extends BaseRoom {
 
   public PyramidSpawnerRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.wallDist = 3;
   }
 
+  @Override
   public BaseRoom generate(Coord at, List<Direction> entrances) {
 
     int x = at.getX();
@@ -98,7 +100,4 @@ public class PyramidSpawnerRoom extends BaseRoom {
     return this;
   }
 
-  public int getSize() {
-    return 4;
-  }
 }

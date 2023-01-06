@@ -24,6 +24,7 @@ public class TreethoRoom extends BaseRoom {
 
   public TreethoRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.wallDist = 11;
   }
 
   @Override
@@ -136,11 +137,6 @@ public class TreethoRoom extends BaseRoom {
         primaryStairBrush().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
       }
     }
-  }
-
-  @Override
-  public int getSize() {
-    return 12;
   }
 
 }

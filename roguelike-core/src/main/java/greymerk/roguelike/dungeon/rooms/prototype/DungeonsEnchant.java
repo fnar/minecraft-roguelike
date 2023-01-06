@@ -21,7 +21,7 @@ public class DungeonsEnchant extends BaseRoom {
 
   public DungeonsEnchant(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
-    this.size = 8;
+    this.wallDist = 7;
   }
 
   @Override

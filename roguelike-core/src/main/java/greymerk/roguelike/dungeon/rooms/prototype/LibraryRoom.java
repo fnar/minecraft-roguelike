@@ -28,6 +28,7 @@ public class LibraryRoom extends BaseRoom {
 
   public LibraryRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.wallDist = 7;
   }
 
   @Override
@@ -215,11 +216,6 @@ public class LibraryRoom extends BaseRoom {
     for (Coord c : rect) {
       TallPlant.placePlant(editor, c, dir.reverse());
     }
-  }
-
-  @Override
-  public int getSize() {
-    return 8;
   }
 
 }

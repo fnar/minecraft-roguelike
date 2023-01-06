@@ -22,10 +22,14 @@ public class ObsidianRoom extends BaseRoom {
 
   public ObsidianRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.wallDist = 11;
+    this.ceilingHeight = 6;
   }
 
   @Override
   public BaseRoom generate(Coord at, List<Direction> entrances) {
+    super.generate(at, entrances);
+
     generateHollowSpace(at);
     generateRoof(at);
     generateFoundation(at);
@@ -359,11 +363,6 @@ public class ObsidianRoom extends BaseRoom {
     fence.stroke(editor, cursor);
     cursor.up(1);
     fence.stroke(editor, cursor);
-  }
-
-  @Override
-  public int getSize() {
-    return 13;
   }
 
 }

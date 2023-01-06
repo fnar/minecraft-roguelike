@@ -21,6 +21,7 @@ public class DungeonsFire extends BaseRoom {
 
   public DungeonsFire(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.wallDist = 9;
   }
 
   public static void genFire(WorldEditor editor, Theme theme, Coord origin) {
@@ -181,10 +182,6 @@ public class DungeonsFire extends BaseRoom {
     generateDoorways(at, entrances);
 
     return this;
-  }
-
-  public int getSize() {
-    return 10;
   }
 
 }

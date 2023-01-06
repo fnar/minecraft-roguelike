@@ -23,6 +23,7 @@ public class DungeonsMusic extends BaseRoom {
 
   public DungeonsMusic(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.wallDist = 7;
   }
 
   public BaseRoom generate(Coord at, List<Direction> entrances) {
@@ -157,10 +158,6 @@ public class DungeonsMusic extends BaseRoom {
       cursor.up();
       secondaryWallBrush().stroke(worldEditor, cursor);
     }
-  }
-
-  public int getSize() {
-    return 8;
   }
 
 }

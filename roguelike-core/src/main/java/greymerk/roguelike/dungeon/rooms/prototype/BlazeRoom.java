@@ -21,6 +21,7 @@ public class BlazeRoom extends BaseRoom {
 
   public BlazeRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.wallDist = 9;
   }
 
   public void genFire(Coord origin) {
@@ -252,10 +253,6 @@ public class BlazeRoom extends BaseRoom {
     Coord chestCoord = origin.copy().translate(x, y, z);
     Direction chestFacing = Direction.randomCardinal(random);
     generateChest(chestCoord, chestFacing, ChestType.RARE_TREASURES);
-  }
-
-  public int getSize() {
-    return 10;
   }
 
 }

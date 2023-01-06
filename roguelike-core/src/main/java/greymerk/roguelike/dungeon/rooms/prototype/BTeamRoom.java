@@ -37,6 +37,7 @@ public class BTeamRoom extends BaseRoom {
 
   public BTeamRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.wallDist = 7;
   }
 
   @Override
@@ -433,10 +434,6 @@ public class BTeamRoom extends BaseRoom {
     cursor.translate(dir.reverse());
     bean.stroke(editor, cursor);
 
-  }
-
-  public int getSize() {
-    return 8;
   }
 
 }

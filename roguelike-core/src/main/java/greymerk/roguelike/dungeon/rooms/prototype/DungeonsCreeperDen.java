@@ -23,6 +23,7 @@ public class DungeonsCreeperDen extends BaseRoom {
 
   public DungeonsCreeperDen(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.wallDist = 6;
   }
 
   public BaseRoom generate(Coord at, List<Direction> entrances) {
@@ -66,7 +67,4 @@ public class DungeonsCreeperDen extends BaseRoom {
     return this;
   }
 
-  public int getSize() {
-    return 7;
-  }
 }

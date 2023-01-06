@@ -17,6 +17,7 @@ public class CornerRoom extends BaseRoom {
 
   public CornerRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.wallDist = 3;
   }
 
   @Override
@@ -89,10 +90,6 @@ public class CornerRoom extends BaseRoom {
     Coord floorCorner0 = origin.add(-3, -1, -3);
     Coord floorCorner1 = origin.add(3, -1, 3);
     RectSolid.newRect(floorCorner0, floorCorner1).fill(worldEditor, primaryFloorBrush(), false, true);
-  }
-
-  public int getSize() {
-    return 4;
   }
 
 }

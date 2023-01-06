@@ -12,7 +12,6 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import greymerk.roguelike.dungeon.Dungeon;
-import greymerk.roguelike.dungeon.DungeonNode;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.BlockSet;
@@ -33,8 +32,8 @@ public abstract class BaseRoom {
   private final RoomSetting roomSetting;
   protected final LevelSettings levelSettings;
   protected final WorldEditor worldEditor;
-  // size is how far out to go to draw the walls (+1 for encasing)
-  protected int size = 5;
+  // wallsDist is how far out to go to draw the walls
+  protected int wallDist = 9;
   // depth is how far down to move to draw the floor
   protected int depth = 1;
   // ceiling height is the distance from the center origin to ceiling
@@ -279,16 +278,20 @@ public abstract class BaseRoom {
         .translate(dir1, 2);
   }
 
-  public int getSize() {
-    return size;
+  public final int getSize() {
+    // the 1 here is the center origin of the room
+    return 1 + getWallDist();
   }
 
   protected final int getWallDist() {
-    return getSize() - DungeonNode.ENCASING_SIZE;
+    return wallDist;
   }
 
   public final int getHeight() {
-    return getCeilingHeight() + 1 + getDepth() + 1;
+    int depth = getDepth();
+    int ceilingHeight = getCeilingHeight();
+    return depth + (depth > 0 ? 1 : 0) +
+        ceilingHeight + (ceilingHeight > 0 ? 1 : 0);
   }
 
   protected final int getCeilingHeight() {

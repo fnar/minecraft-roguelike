@@ -24,6 +24,7 @@ public class PyramidTombRoom extends BaseRoom {
 
   public PyramidTombRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.wallDist = 7;
   }
 
   @Override
@@ -251,11 +252,5 @@ public class PyramidTombRoom extends BaseRoom {
       }
     }
   }
-
-  @Override
-  public int getSize() {
-    return 8;
-  }
-
 
 }

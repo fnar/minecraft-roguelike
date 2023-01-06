@@ -19,6 +19,7 @@ public class DungeonsCrypt extends BaseRoom {
 
   public DungeonsCrypt(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.wallDist = 9;
   }
 
   public BaseRoom generate(Coord at, List<Direction> entrances) {
@@ -314,7 +315,4 @@ public class DungeonsCrypt extends BaseRoom {
     generateChest(cursor, dir);
   }
 
-  public int getSize() {
-    return 10;
-  }
 }

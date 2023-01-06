@@ -17,6 +17,7 @@ public class PyramidCornerRoom extends BaseRoom {
 
   public PyramidCornerRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.wallDist = 3;
   }
 
   @Override
@@ -57,10 +58,6 @@ public class PyramidCornerRoom extends BaseRoom {
     }
 
     return this;
-  }
-
-  public int getSize() {
-    return 4;
   }
 
 }

@@ -33,7 +33,7 @@ public class FireworkRoom extends BaseRoom {
 
   public FireworkRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
-    this.size = 10;
+    this.wallDist = 9;
   }
 
   @Override

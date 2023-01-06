@@ -24,6 +24,7 @@ public class AvidyaRoom extends BaseRoom {
 
   public AvidyaRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.wallDist = 9;
   }
 
   private static void pillarTop(WorldEditor editor, Coord cursor) {
@@ -269,8 +270,4 @@ public class AvidyaRoom extends BaseRoom {
     return this;
   }
 
-  @Override
-  public int getSize() {
-    return 10;
-  }
 }

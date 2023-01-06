@@ -23,6 +23,7 @@ public class CakeRoom extends BaseRoom {
 
   public CakeRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.wallDist = 5;
   }
 
   @Override
@@ -74,10 +75,6 @@ public class CakeRoom extends BaseRoom {
     Coord cakeStand = origin.copy();
     pillar.stroke(worldEditor, cakeStand);
     BlockType.CAKE.getBrush().stroke(worldEditor, cakeStand.up());
-  }
-
-  public int getSize() {
-    return 6;
   }
 
 }

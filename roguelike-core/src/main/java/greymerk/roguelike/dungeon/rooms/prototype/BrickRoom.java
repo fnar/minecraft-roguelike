@@ -20,6 +20,7 @@ public class BrickRoom extends BaseRoom {
 
   public BrickRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.wallDist = 5;
   }
 
   public BaseRoom generate(Coord at, List<Direction> entrances) {
@@ -116,8 +117,8 @@ public class BrickRoom extends BaseRoom {
     Direction randomDirection = Direction.randomCardinal(random());
     return origin.copy()
         .down()
-        .translate(randomDirection, random().nextInt(getSize()-1))
-        .translate(randomDirection.clockwise(), random().nextInt(getSize()-1));
+        .translate(randomDirection, random().nextInt(getWallDist() -1))
+        .translate(randomDirection.clockwise(), random().nextInt(getWallDist() -1));
   }
 
   public void generateChest(Coord origin, Coord spawnerLocation, Direction facing) {
@@ -129,7 +130,4 @@ public class BrickRoom extends BaseRoom {
     generateTrappableChest(chestLocation, facing);
   }
 
-  public int getSize() {
-    return 6;
-  }
 }

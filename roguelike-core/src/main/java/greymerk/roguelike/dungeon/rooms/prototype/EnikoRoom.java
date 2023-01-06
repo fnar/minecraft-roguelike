@@ -23,6 +23,7 @@ public class EnikoRoom extends BaseRoom {
 
   public EnikoRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.wallDist = 6;
   }
 
   private static void pillar(WorldEditor editor, Theme theme, Coord origin) {
@@ -113,7 +114,4 @@ public class EnikoRoom extends BaseRoom {
         .translate(dir1, 3 + (random().nextBoolean() ? 1 : 0));
   }
 
-  public int getSize() {
-    return 7;
-  }
 }

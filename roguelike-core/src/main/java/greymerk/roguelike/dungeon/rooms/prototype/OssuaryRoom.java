@@ -18,6 +18,7 @@ public class OssuaryRoom extends BaseRoom {
 
   public OssuaryRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.wallDist = 9;
   }
 
   @Override
@@ -263,8 +264,4 @@ public class OssuaryRoom extends BaseRoom {
     editor.setSkull(editor, origin, dir, skull);
   }
 
-  @Override
-  public int getSize() {
-    return 10;
-  }
 }

@@ -24,6 +24,7 @@ public class MessRoom extends BaseRoom {
 
   public MessRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.wallDist = 9;
   }
 
   @Override
@@ -357,7 +358,4 @@ public class MessRoom extends BaseRoom {
     }
   }
 
-  public int getSize() {
-    return 10;
-  }
 }
