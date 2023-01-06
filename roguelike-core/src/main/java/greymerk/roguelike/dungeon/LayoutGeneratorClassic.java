@@ -7,7 +7,7 @@ import java.util.Random;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 
-public class LevelGeneratorClassic implements ILevelGenerator {
+public class LayoutGeneratorClassic implements LayoutGenerator {
 
   private static final int MIN_ROOMS = 6;
 
@@ -17,7 +17,7 @@ public class LevelGeneratorClassic implements ILevelGenerator {
   private final int scatter;
   private final int range;
 
-  public LevelGeneratorClassic(int numRooms, int scatter, int range) {
+  public LayoutGeneratorClassic(int numRooms, int scatter, int range) {
     layout = new LevelLayout();
     this.numRooms = numRooms;
     this.scatter = scatter;

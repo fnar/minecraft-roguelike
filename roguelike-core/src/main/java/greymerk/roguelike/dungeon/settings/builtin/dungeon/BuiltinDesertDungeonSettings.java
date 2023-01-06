@@ -2,7 +2,7 @@ package greymerk.roguelike.dungeon.settings.builtin.dungeon;
 
 import com.github.fnar.minecraft.item.Material;
 
-import greymerk.roguelike.dungeon.LevelGenerator;
+import greymerk.roguelike.dungeon.LayoutGenerator;
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.base.SecretsSetting;
@@ -62,7 +62,7 @@ public class BuiltinDesertDungeonSettings extends DungeonSettings {
         secrets.add(RoomType.PYRAMIDTOMB.newSingleRoomSetting());
         levelSettings.setSecrets(secrets);
 
-        levelSettings.setGenerator(LevelGenerator.CLASSIC);
+        levelSettings.setGenerator(LayoutGenerator.Type.CLASSIC);
       }
 
       if (level == 1) {
@@ -84,7 +84,7 @@ public class BuiltinDesertDungeonSettings extends DungeonSettings {
         factory.add(RoomType.PYRAMIDCORNER.newRandomRoomSetting(5));
         levelSettings.setRooms(factory);
 
-        levelSettings.setGenerator(LevelGenerator.CLASSIC);
+        levelSettings.setGenerator(LayoutGenerator.Type.CLASSIC);
       }
 
       if (level == 2) {
@@ -109,7 +109,7 @@ public class BuiltinDesertDungeonSettings extends DungeonSettings {
 
         levelSettings.setRooms(factory);
 
-        levelSettings.setGenerator(LevelGenerator.CLASSIC);
+        levelSettings.setGenerator(LayoutGenerator.Type.CLASSIC);
       }
 
       if (level == 3) {
@@ -133,7 +133,7 @@ public class BuiltinDesertDungeonSettings extends DungeonSettings {
         factory.add(RoomType.SPIDER.newRandomRoomSetting(2));
         levelSettings.setRooms(factory);
 
-        levelSettings.setGenerator(LevelGenerator.CLASSIC);
+        levelSettings.setGenerator(LayoutGenerator.Type.CLASSIC);
       }
 
       getLevelSettings().put(level, levelSettings);

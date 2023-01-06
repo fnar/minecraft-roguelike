@@ -12,14 +12,14 @@ import greymerk.roguelike.util.mst.MinimumSpanningTree;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 
-public class LevelGeneratorMST implements ILevelGenerator {
+public class LayoutGeneratorMST implements LayoutGenerator {
 
   private final LevelLayout layout;
   private final int length;
   private final int scatter;
 
 
-  public LevelGeneratorMST(int numRooms, int scatter) {
+  public LayoutGeneratorMST(int numRooms, int scatter) {
     this.length = (int) Math.ceil(Math.sqrt(numRooms));
     this.scatter = scatter % 2 == 0 ? scatter + 1 : scatter;
     this.layout = new LevelLayout();

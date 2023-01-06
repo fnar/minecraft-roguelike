@@ -10,8 +10,7 @@ import java.util.List;
 import java.util.Set;
 
 import greymerk.roguelike.dungeon.Dungeon;
-import greymerk.roguelike.dungeon.ILevelGenerator;
-import greymerk.roguelike.dungeon.LevelGenerator;
+import greymerk.roguelike.dungeon.LayoutGenerator;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.base.SecretsSetting;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
@@ -42,7 +41,7 @@ public class LevelSettings {
   private Theme theme;
   private SegmentGenerator segments = new SegmentGenerator();
   private SpawnerSettings spawners = new SpawnerSettings();
-  private LevelGenerator generator;
+  private LayoutGenerator.Type generator;
   private Set<Filter> filters = new HashSet<>();
 
   public LevelSettings(int level) {
@@ -109,11 +108,11 @@ public class LevelSettings {
     generator = toCopy.generator;
   }
 
-  public LevelGenerator getGeneratorType() {
-    return generator != null ? generator : LevelGenerator.CLASSIC;
+  public LayoutGenerator.Type getGeneratorType() {
+    return generator != null ? generator : LayoutGenerator.Type.CLASSIC;
   }
 
-  public void setGenerator(LevelGenerator type) {
+  public void setGenerator(LayoutGenerator.Type type) {
     generator = type;
   }
 
@@ -221,7 +220,7 @@ public class LevelSettings {
     return rooms.equals(other.rooms);
   }
 
-  public ILevelGenerator getLayoutGenerator() {
+  public LayoutGenerator getLayoutGenerator() {
     return getGeneratorType().instantiate(this);
   }
 }

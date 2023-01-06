@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 import greymerk.roguelike.config.RogueConfig;
-import greymerk.roguelike.dungeon.LevelGenerator;
+import greymerk.roguelike.dungeon.LayoutGenerator;
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
@@ -33,11 +33,11 @@ public class LevelSettingsTest {
   @Test
   public void testEquals() {
     LevelSettings base = new LevelSettings(0);
-    base.setGenerator(LevelGenerator.CLASSIC);
+    base.setGenerator(LayoutGenerator.Type.CLASSIC);
     LevelSettings other = new LevelSettings(0);
     assertThat(base).isNotEqualTo(other);
 
-    other.setGenerator(LevelGenerator.CLASSIC);
+    other.setGenerator(LayoutGenerator.Type.CLASSIC);
     assertThat(base).isEqualTo(other);
 
     RoomsSetting baseRooms = new RoomsSetting();
@@ -102,10 +102,10 @@ public class LevelSettingsTest {
     LevelSettings parent = new LevelSettings(0);
     LevelSettings child = new LevelSettings(0);
 
-    child.setGenerator(LevelGenerator.CLASSIC);
+    child.setGenerator(LayoutGenerator.Type.CLASSIC);
 
     child.inherit(parent, EMPTY_OVERRIDES);
-    assertThat(child.getGeneratorType()).isEqualTo(LevelGenerator.CLASSIC);
+    assertThat(child.getGeneratorType()).isEqualTo(LayoutGenerator.Type.CLASSIC);
   }
 
   @Test
@@ -113,10 +113,10 @@ public class LevelSettingsTest {
     LevelSettings parent = new LevelSettings(0);
     LevelSettings child = new LevelSettings(0);
 
-    parent.setGenerator(LevelGenerator.CLASSIC);
+    parent.setGenerator(LayoutGenerator.Type.CLASSIC);
 
     child.inherit(parent, EMPTY_OVERRIDES);
-    assertThat(child.getGeneratorType()).isEqualTo(LevelGenerator.CLASSIC);
+    assertThat(child.getGeneratorType()).isEqualTo(LayoutGenerator.Type.CLASSIC);
   }
 
   @Test
@@ -124,24 +124,24 @@ public class LevelSettingsTest {
     LevelSettings parent = new LevelSettings(0);
     LevelSettings child = new LevelSettings(0);
 
-    parent.setGenerator(LevelGenerator.MST);
-    child.setGenerator(LevelGenerator.CLASSIC);
+    parent.setGenerator(LayoutGenerator.Type.MST);
+    child.setGenerator(LayoutGenerator.Type.CLASSIC);
 
     child.inherit(parent, EMPTY_OVERRIDES);
-    assertThat(child.getGeneratorType()).isEqualTo(LevelGenerator.CLASSIC);
+    assertThat(child.getGeneratorType()).isEqualTo(LayoutGenerator.Type.CLASSIC);
   }
 
   @Test
   public void levelSettingsInheritLevelGeneratorsFromTheirParents_WhenParentHasLevelGenerator() {
     LevelSettings expected = new LevelSettings(0);
-    expected.setGenerator(LevelGenerator.CLASSIC);
+    expected.setGenerator(LayoutGenerator.Type.CLASSIC);
 
     LevelSettings parent = new LevelSettings(0);
     LevelSettings child = new LevelSettings(0);
 
     assertThat(child).isNotEqualTo(expected);
 
-    parent.setGenerator(LevelGenerator.CLASSIC);
+    parent.setGenerator(LayoutGenerator.Type.CLASSIC);
 
     assertThat(parent).isEqualTo(expected);
     assertThat(child).isNotEqualTo(expected);
@@ -151,14 +151,14 @@ public class LevelSettingsTest {
   @Test
   public void levelSettingsRetainTheirLevelGeneratorDespiteInheritance_WhenParentHasNone() {
     LevelSettings expected = new LevelSettings(0);
-    expected.setGenerator(LevelGenerator.CLASSIC);
+    expected.setGenerator(LayoutGenerator.Type.CLASSIC);
 
     LevelSettings parent = new LevelSettings(0);
     LevelSettings child = new LevelSettings(0);
 
     assertThat(child).isNotEqualTo(expected);
 
-    child.setGenerator(LevelGenerator.CLASSIC);
+    child.setGenerator(LayoutGenerator.Type.CLASSIC);
 
     assertThat(parent).isNotEqualTo(expected);
     assertThat(child).isEqualTo(expected);
@@ -168,15 +168,15 @@ public class LevelSettingsTest {
   @Test
   public void levelSettingsRetainTheirLevelGeneratorDespiteInheritance_EvenWhenParentHasALevelGenerator() {
     LevelSettings expected = new LevelSettings(0);
-    expected.setGenerator(LevelGenerator.CLASSIC);
+    expected.setGenerator(LayoutGenerator.Type.CLASSIC);
 
     LevelSettings parent = new LevelSettings(0);
     LevelSettings child = new LevelSettings(0);
 
     assertThat(child).isNotEqualTo(expected);
 
-    parent.setGenerator(LevelGenerator.MST);
-    child.setGenerator(LevelGenerator.CLASSIC);
+    parent.setGenerator(LayoutGenerator.Type.MST);
+    child.setGenerator(LayoutGenerator.Type.CLASSIC);
 
     assertThat(parent).isNotEqualTo(expected);
     assertThat(child).isEqualTo(expected);
