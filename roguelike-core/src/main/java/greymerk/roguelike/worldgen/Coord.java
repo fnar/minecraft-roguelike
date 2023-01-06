@@ -225,8 +225,8 @@ public class Coord {
 
   public RectSolid newRect(int radius) {
     int newRadius = Math.max(0, radius - 1);
-    Coord corner0 = copy().north(newRadius).east(newRadius);
-    Coord corner1 = copy().south(newRadius).west(newRadius);
+    Coord corner0 = copy().north(newRadius).west(newRadius);
+    Coord corner1 = copy().south(newRadius).east(newRadius);
     return RectSolid.newRect(corner0, corner1);
   }
 

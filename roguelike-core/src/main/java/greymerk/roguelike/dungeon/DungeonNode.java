@@ -4,10 +4,9 @@ import java.util.List;
 
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.theme.Theme;
-import greymerk.roguelike.worldgen.BoundingBox;
+import greymerk.roguelike.worldgen.Bounded;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
-import greymerk.roguelike.worldgen.Bounded;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.IShape;
 import greymerk.roguelike.worldgen.shapes.Shape;
@@ -56,22 +55,11 @@ public class DungeonNode implements Bounded {
     return toGenerate;
   }
 
-  public BoundingBox getBoundingBox(int size) {
-    Coord start = pos.copy();
-    Coord end = pos.copy();
-
-    start.north(size);
-    start.west(size);
-    start.down();
-
-    end.south(size);
-    end.east(size);
-    end.up(8);
-
-    return new BoundingBox(start, end);
+  private Bounded getBoundingBox(int size) {
+    return pos.copy().down().newRect(size).withHeight(Dungeon.VERTICAL_SPACING);
   }
 
-  public BoundingBox getBoundingBox() {
+  private Bounded getBoundingBox() {
     return getBoundingBox(getSize());
   }
 
