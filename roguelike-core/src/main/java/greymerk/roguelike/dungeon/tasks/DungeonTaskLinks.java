@@ -8,6 +8,7 @@ import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.dungeon.DungeonNode;
 import greymerk.roguelike.dungeon.LevelGenerator;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
+import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.WorldEditor;
 
 public class DungeonTaskLinks implements IDungeonTask {
@@ -22,7 +23,9 @@ public class DungeonTaskLinks implements IDungeonTask {
     for (DungeonLevel level : levels) {
       DungeonNode upper = previous == null ? null : previous.getLayout().getEnd();
       DungeonNode lower = level.getLayout().getStart();
-      LevelGenerator.generateLevelLink(editor, level.getSettings(), lower, upper);
+      LevelSettings lowerSettings = level.getSettings();
+      LevelSettings upperSettings = previous != null ? previous.getSettings() : null;
+      LevelGenerator.generateLevelLink(editor, lower, lowerSettings, upper, upperSettings);
       previous = level;
     }
 
