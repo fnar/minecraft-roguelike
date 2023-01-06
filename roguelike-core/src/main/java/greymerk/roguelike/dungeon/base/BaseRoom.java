@@ -28,7 +28,7 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode
-public abstract class BaseRoom implements Comparable<BaseRoom> {
+public abstract class BaseRoom {
 
   private final RoomSetting roomSetting;
   protected final LevelSettings levelSettings;
@@ -305,11 +305,6 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
         .down(getDepth())
         .asList().stream()
         .allMatch(worldEditor::isSolidBlock);
-  }
-
-  @Override
-  public int compareTo(BaseRoom other) {
-    return getSize() - other.getSize();
   }
 
   protected RoomSetting getRoomSetting() {
