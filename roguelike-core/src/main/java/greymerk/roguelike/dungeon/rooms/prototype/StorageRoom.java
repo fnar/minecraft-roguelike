@@ -40,19 +40,19 @@ public class StorageRoom extends BaseRoom {
   }
 
   @Override
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
     List<Coord> chestSpaces = new ArrayList<>();
 
     Direction front = getEntrance(entrances);
 
-    generateCavity(origin, front);
-    generateFloor(origin, front);
-    generateCeiling(origin, front);
+    generateCavity(at, front);
+    generateFloor(at, front);
+    generateCeiling(at, front);
 
     for (Direction dir : Direction.CARDINAL) {
       for (Direction orthogonals : dir.orthogonals()) {
 
-        Coord cursor = origin.copy()
+        Coord cursor = at.copy()
             .up(3)
             .translate(dir, 2)
             .translate(orthogonals, 2);
@@ -67,7 +67,7 @@ public class StorageRoom extends BaseRoom {
         Coord end = cursor.copy().down(3).translate(dir, 1).translate(orthogonals, 1);
         primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
-        cursor = origin.copy().translate(dir, 2).translate(orthogonals, 2);
+        cursor = at.copy().translate(dir, 2).translate(orthogonals, 2);
         pillar(cursor, 4);
 
         cursor.translate(dir, 4);
@@ -83,9 +83,9 @@ public class StorageRoom extends BaseRoom {
         cursor.translate(dir.reverse(), 3);
         pillarTop(cursor);
 
-        generateWall(origin, dir, orthogonals);
+        generateWall(at, dir, orthogonals);
 
-        cursor = origin.copy();
+        cursor = at.copy();
         cursor.translate(dir, 6);
         cursor.translate(orthogonals, 3);
         StairsBlock stair = secondaryStairBrush();
@@ -98,7 +98,7 @@ public class StorageRoom extends BaseRoom {
         cursor.translate(orthogonals.reverse(), 1);
         chestSpaces.add(cursor.copy());
 
-        start = origin.copy();
+        start = at.copy();
         start.down();
         start.translate(dir, 3);
         start.translate(orthogonals, 3);
@@ -107,7 +107,7 @@ public class StorageRoom extends BaseRoom {
         end.translate(orthogonals, 1);
         secondaryFloorBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
-        cursor = origin.copy();
+        cursor = at.copy();
         cursor.translate(dir, 5);
         cursor.translate(orthogonals, 5);
         pillar(cursor, 4);
@@ -116,9 +116,9 @@ public class StorageRoom extends BaseRoom {
     }
 
     Coord.randomFrom(chestSpaces, 2, random())
-        .forEach(coord -> generateChest(coord, coord.dirTo(origin).reverse(), ChestType.SUPPLIES_TREASURES));
+        .forEach(coord -> generateChest(coord, coord.dirTo(at).reverse(), ChestType.SUPPLIES_TREASURES));
 
-    generateDoorways(origin, entrances, getSize() - 3);
+    generateDoorways(at, entrances, getSize() - 3);
 
     return this;
   }

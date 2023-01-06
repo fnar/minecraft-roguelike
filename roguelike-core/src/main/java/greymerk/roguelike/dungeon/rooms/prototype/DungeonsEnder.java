@@ -25,12 +25,12 @@ public class DungeonsEnder extends BaseRoom {
     super(roomSetting, levelSettings, worldEditor);
   }
 
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
     BlockBrush black = BlockType.OBSIDIAN.getBrush();
     BlockBrush white = Quartz.SMOOTH.getBrush();
 
-    Coord start = origin.copy();
-    Coord end = origin.copy();
+    Coord start = at.copy();
+    Coord end = at.copy();
     start.translate(new Coord(-3, 0, -3));
     end.translate(new Coord(3, 2, 3));
     SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(start, end));
@@ -38,7 +38,7 @@ public class DungeonsEnder extends BaseRoom {
 
       Direction[] orthogonals = dir.orthogonals();
 
-      start = origin.copy();
+      start = at.copy();
       start.translate(dir, 4);
       end = start.copy();
       start.translate(orthogonals[0], 4);
@@ -49,8 +49,8 @@ public class DungeonsEnder extends BaseRoom {
 
     }
 
-    start = origin.copy();
-    end = origin.copy();
+    start = at.copy();
+    end = at.copy();
     start.translate(new Coord(-3, 2, -3));
     end.translate(new Coord(3, 10, 3));
 
@@ -61,22 +61,22 @@ public class DungeonsEnder extends BaseRoom {
       black.stroke(worldEditor, cell, false, random().nextInt(top - (cell.getY() - start.getY())) == 0 && !dissolve);
     }
 
-    start = origin.copy();
-    end = origin.copy();
+    start = at.copy();
+    end = at.copy();
     start.translate(new Coord(-4, -1, -4));
     end.translate(new Coord(4, -1, 4));
 
     BlockCheckers checkers = new BlockCheckers(black, white);
     checkers.fill(worldEditor, RectSolid.newRect(start, end));
 
-    start = origin.copy();
-    end = origin.copy();
+    start = at.copy();
+    end = at.copy();
     start.translate(new Coord(-4, 0, -4));
     end.translate(new Coord(4, 0, 4));
     if (RogueConfig.GENEROUS.getBoolean()) {
       addEnderChest(RectSolid.newRect(start, end));
     }
-    generateSpawner(origin, MobType.ENDERMAN);
+    generateSpawner(at, MobType.ENDERMAN);
 
     return this;
   }

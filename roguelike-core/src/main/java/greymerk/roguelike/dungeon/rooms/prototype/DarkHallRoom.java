@@ -21,51 +21,51 @@ public class DarkHallRoom extends BaseRoom {
   }
 
   @Override
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
 
     RectHollow r1 = RectHollow.newRect(
-        origin.copy().north(7).west(7).down(),
-        origin.copy().south(7).east(7).up(7));
+        at.copy().north(7).west(7).down(),
+        at.copy().south(7).east(7).up(7));
     primaryWallBrush().fill(worldEditor, r1, false, true);
 
     RectHollow r2 = RectHollow.newRect(
-        origin.copy().north(4).west(4).up(6),
-        origin.copy().south(4).east(4).up(9));
+        at.copy().north(4).west(4).up(6),
+        at.copy().south(4).east(4).up(9));
     primaryWallBrush().fill(worldEditor, r2, false, true);
 
     RectSolid r3 = RectSolid.newRect(
-        origin.copy().north(6).west(6).down(),
-        origin.copy().south(6).east(6).down());
+        at.copy().north(6).west(6).down(),
+        at.copy().south(6).east(6).down());
     primaryFloorBrush().fill(worldEditor, r3, false, true);
 
     for (Direction entrance : entrances) {
       RectSolid r4 = RectSolid.newRect(
-          origin.copy().translate(entrance.left()),
-          origin.copy().translate(entrance.right()).translate(entrance, 7));
+          at.copy().translate(entrance.left()),
+          at.copy().translate(entrance.right()).translate(entrance, 7));
       secondaryFloorBrush().fill(worldEditor, r4, false, true);
     }
 
     for (Direction side : Direction.CARDINAL) {
-      generateAccentPillar(origin.copy().translate(side, 6).translate(side.left(), 6), 5);
-      generateBeam(side, origin.copy().translate(side, 6).up(6), 13);
-      generateBeam(side, origin.copy().translate(side, 3).up(6), 7);
-      generateBeam(side, origin.copy().translate(side, 3).up(8), 7);
-      generateBeam(side, origin.copy().up(8), 7);
+      generateAccentPillar(at.copy().translate(side, 6).translate(side.left(), 6), 5);
+      generateBeam(side, at.copy().translate(side, 6).up(6), 13);
+      generateBeam(side, at.copy().translate(side, 3).up(6), 7);
+      generateBeam(side, at.copy().translate(side, 3).up(8), 7);
+      generateBeam(side, at.copy().up(8), 7);
 
-      secondaryPillarBrush().stroke(worldEditor, origin.copy().translate(side, 3).up(7));
+      secondaryPillarBrush().stroke(worldEditor, at.copy().translate(side, 3).up(7));
 
       if (!entrances.contains(side)) {
-        pillar(side.reverse(), origin.copy().translate(side, 6));
+        pillar(side.reverse(), at.copy().translate(side, 6));
       } else {
-        generateEntranceArchway(origin.copy().translate(side, 7), side);
+        generateEntranceArchway(at.copy().translate(side, 7), side);
       }
 
       secondaryWallBrush().fill(worldEditor, RectSolid.newRect(
-          origin.copy().translate(side, 6).up(6),
-          origin.copy().translate(side, 4).up(6)));
+          at.copy().translate(side, 6).up(6),
+          at.copy().translate(side, 4).up(6)));
 
       for (Direction orthogonal : side.orthogonals()) {
-        Coord cursor = origin.copy().translate(side, 6).translate(orthogonal, 3);
+        Coord cursor = at.copy().translate(side, 6).translate(orthogonal, 3);
         pillar(side.reverse(), cursor);
         secondaryWallBrush().fill(worldEditor, RectSolid.newRect(
             cursor.copy().up(6),
@@ -73,7 +73,7 @@ public class DarkHallRoom extends BaseRoom {
       }
     }
 
-    generateDoorways(origin, entrances);
+    generateDoorways(at, entrances);
 
     return this;
   }

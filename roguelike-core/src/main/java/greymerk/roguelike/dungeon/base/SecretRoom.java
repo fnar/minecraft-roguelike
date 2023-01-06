@@ -37,11 +37,11 @@ public class SecretRoom extends BaseRoom {
   }
 
   @Override
-  public BaseRoom generate(Coord pos, List<Direction> entrances) {
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
     int size = prototype.getSize();
 
-    Coord start = pos.copy();
-    Coord end = pos.copy();
+    Coord start = at.copy();
+    Coord end = at.copy();
     Direction entrance = getEntrance(entrances);
     start.translate(entrance.orthogonals()[0]);
     start.down();
@@ -51,10 +51,10 @@ public class SecretRoom extends BaseRoom {
     end.up(2);
     RectSolid.newRect(start, end).fill(worldEditor, primaryWallBrush(), false, true);
 
-    end = pos.copy();
+    end = at.copy();
     end.translate(entrance, size + 5);
     end.up();
-    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(pos, end));
+    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(at, end));
 
     end.down();
     return prototype.generate(end, Lists.newArrayList(entrance.reverse()));

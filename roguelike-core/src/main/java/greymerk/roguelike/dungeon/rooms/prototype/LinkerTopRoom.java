@@ -18,28 +18,28 @@ public class LinkerTopRoom extends BaseRoom {
   }
 
   @Override
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
 
-    Coord start = origin.copy();
-    Coord end = origin.copy();
+    Coord start = at.copy();
+    Coord end = at.copy();
     start.translate(new Coord(-4, -1, -4));
     end.translate(new Coord(4, 5, 4));
     RectHollow.newRect(start, end).fill(worldEditor, primaryWallBrush(), false, true);
 
-    Coord cursor = origin.copy();
+    Coord cursor = at.copy();
     cursor.up(5);
     primaryLightBrush().stroke(worldEditor, cursor);
 
-    start = origin.copy();
-    end = origin.copy();
+    start = at.copy();
+    end = at.copy();
     start.translate(new Coord(-4, -1, -4));
     end.translate(new Coord(4, -1, 4));
     primaryFloorBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
     for (Direction dir : Direction.CARDINAL) {
 
-      start = origin.copy();
-      end = origin.copy();
+      start = at.copy();
+      end = at.copy();
       start.translate(dir, 3);
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir, 4);
@@ -47,7 +47,7 @@ public class LinkerTopRoom extends BaseRoom {
       end.up(4);
       primaryPillarBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
-      start = origin.copy();
+      start = at.copy();
       start.translate(dir, 3);
       start.translate(dir.antiClockwise(), 2);
       start.up(4);
@@ -59,7 +59,7 @@ public class LinkerTopRoom extends BaseRoom {
       primaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
 
       for (Direction o : dir.orthogonals()) {
-        cursor = origin.copy();
+        cursor = at.copy();
         cursor.translate(dir, 3);
         cursor.up(2);
         cursor.translate(o, 2);
@@ -71,7 +71,7 @@ public class LinkerTopRoom extends BaseRoom {
       }
     }
 
-    generateDoorways(origin, entrances);
+    generateDoorways(at, entrances);
 
     return this;
   }

@@ -25,7 +25,7 @@ public class DungeonsCreeperDen extends BaseRoom {
     super(roomSetting, levelSettings, worldEditor);
   }
 
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
 
     BlockWeightedRandom mossy = new BlockWeightedRandom();
     mossy.addBlock(theme().getPrimary().getWall(), 3);
@@ -40,27 +40,27 @@ public class DungeonsCreeperDen extends BaseRoom {
     subfloor.addBlock(floor, 3);
     subfloor.addBlock(TNT_META_BLOCK, 1);
 
-    Coord start = origin.copy().translate(-4, -4, -4);
-    Coord end = origin.copy().translate(4, 5, 4);
+    Coord start = at.copy().translate(-4, -4, -4);
+    Coord end = at.copy().translate(4, 5, 4);
     RectHollow.newRect(start, end).fill(worldEditor, mossy, false, true);
 
-    start = origin.copy().translate(-3, -1, -3);
-    end = origin.copy().translate(3, -1, 3);
+    start = at.copy().translate(-3, -1, -3);
+    end = at.copy().translate(3, -1, 3);
     floor.fill(worldEditor, RectSolid.newRect(start, end));
 
-    start = origin.copy().translate(-3, -3, -3);
-    end = origin.copy().translate(3, -2, 3);
+    start = at.copy().translate(-3, -3, -3);
+    end = at.copy().translate(3, -2, 3);
     subfloor.fill(worldEditor, RectSolid.newRect(start, end));
 
-    start = origin.copy().translate(-3, 0, -3);
-    end = origin.copy().translate(3, 0, 3);
+    start = at.copy().translate(-3, 0, -3);
+    end = at.copy().translate(3, 0, 3);
 
     List<Coord> chestSpaces = RectSolid.newRect(start, end).get();
     Coord.randomFrom(chestSpaces, 3, random())
         .forEach(chestSpace ->
             generateTrappedChest(chestSpace, getEntrance(entrances).reverse(), ChestType.ORE));
 
-    final Coord cursor = origin.copy();
+    final Coord cursor = at.copy();
     generateSpawner(cursor, MobType.CREEPER);
 
     return this;

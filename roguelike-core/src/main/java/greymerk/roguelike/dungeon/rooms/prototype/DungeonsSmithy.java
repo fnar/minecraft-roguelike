@@ -26,8 +26,8 @@ public class DungeonsSmithy extends BaseRoom {
     super(roomSetting, levelSettings, worldEditor);
   }
 
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    generateReversedBecauseEntrancesShouldBeOutwardFromRoomCenter(origin, entrances.stream().map(Direction::reverse).collect(Collectors.toList()));
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
+    generateReversedBecauseEntrancesShouldBeOutwardFromRoomCenter(at, entrances.stream().map(Direction::reverse).collect(Collectors.toList()));
     return this;
   }
 

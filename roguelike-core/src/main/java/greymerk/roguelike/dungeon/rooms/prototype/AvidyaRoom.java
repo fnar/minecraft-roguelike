@@ -37,11 +37,11 @@ public class AvidyaRoom extends BaseRoom {
   }
 
   @Override
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
 
-    int x = origin.getX();
-    int y = origin.getY();
-    int z = origin.getZ();
+    int x = at.getX();
+    int y = at.getY();
+    int z = at.getZ();
 
     BlockBrush redClay = stainedHardenedClay().setColor(DyeColor.RED);
     BlockBrush whiteClay = stainedHardenedClay().setColor(DyeColor.WHITE);

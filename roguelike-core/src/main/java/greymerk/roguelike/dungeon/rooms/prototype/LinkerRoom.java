@@ -20,28 +20,28 @@ public class LinkerRoom extends BaseRoom {
   }
 
   @Override
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    Coord start = origin.copy();
-    Coord end = origin.copy();
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
+    Coord start = at.copy();
+    Coord end = at.copy();
     start.translate(new Coord(-4, -1, -4));
     end.translate(new Coord(4, 9, 4));
     RectHollow.newRect(start, end).fill(worldEditor, primaryWallBrush(), false, true);
 
-    start = origin.copy();
-    end = origin.copy();
+    start = at.copy();
+    end = at.copy();
     start.translate(new Coord(-4, 9, -4));
     end.translate(new Coord(4, 9, 4));
     primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
-    start = origin.copy();
-    end = origin.copy();
+    start = at.copy();
+    end = at.copy();
     start.translate(new Coord(-4, -1, -4));
     end.translate(new Coord(4, -1, 4));
     primaryFloorBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
     for (Direction dir : Direction.CARDINAL) {
 
-      start = origin.copy();
+      start = at.copy();
       start.translate(dir, 4);
       end = start.copy();
       end.up(8);
@@ -50,8 +50,8 @@ public class LinkerRoom extends BaseRoom {
       end.translate(dir.clockwise(), 4);
       RectSolid.newRect(start, end).fill(worldEditor, BlockType.IRON_BAR.getBrush(), true, false);
 
-      start = origin.copy();
-      end = origin.copy();
+      start = at.copy();
+      end = at.copy();
       start.translate(dir, 3);
       start.translate(dir.antiClockwise(), 3);
       end.translate(dir, 4);

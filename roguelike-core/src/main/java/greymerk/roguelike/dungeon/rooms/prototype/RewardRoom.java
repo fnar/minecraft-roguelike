@@ -21,11 +21,11 @@ public class RewardRoom extends BaseRoom {
   }
 
   @Override
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
 
-    int x = origin.getX();
-    int y = origin.getY();
-    int z = origin.getZ();
+    int x = at.getX();
+    int y = at.getY();
+    int z = at.getZ();
 
     SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(
         new Coord(x - 7, y, z - 7),
@@ -39,7 +39,7 @@ public class RewardRoom extends BaseRoom {
       Coord start;
       Coord end;
       for (Direction orthogonal : dir.orthogonals()) {
-        cursor = origin.copy();
+        cursor = at.copy();
         cursor.translate(dir, 7);
         cursor.translate(orthogonal, 2);
         start = cursor.copy();
@@ -66,7 +66,7 @@ public class RewardRoom extends BaseRoom {
         cursor.translate(dir.reverse());
         primaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
 
-        start = origin.copy();
+        start = at.copy();
         start.translate(dir, 7);
         start.up(3);
         end = start.copy();
@@ -82,7 +82,7 @@ public class RewardRoom extends BaseRoom {
         end.translate(dir.reverse());
         primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
-        cursor = origin.copy();
+        cursor = at.copy();
         cursor.translate(dir, 8);
         cursor.up(2);
         cursor.translate(orthogonal);
@@ -101,7 +101,7 @@ public class RewardRoom extends BaseRoom {
         cursor.translate(dir.reverse(), 2);
         primaryStairBrush().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
 
-        start = origin.copy();
+        start = at.copy();
         start.translate(dir, 7);
         start.translate(orthogonal, 3);
         start.up(3);
@@ -115,7 +115,7 @@ public class RewardRoom extends BaseRoom {
         end.translate(dir.reverse());
         theme().getPrimary().getPillar().fill(worldEditor, RectSolid.newRect(start, end));
 
-        cursor = origin.copy();
+        cursor = at.copy();
         cursor.translate(dir, 7);
         cursor.translate(orthogonal, 3);
         primaryStairBrush().setUpsideDown(false).setFacing(orthogonal).stroke(worldEditor, cursor);
@@ -141,7 +141,7 @@ public class RewardRoom extends BaseRoom {
         end.translate(dir.reverse());
         primaryStairBrush().setUpsideDown(true).setFacing(orthogonal).stroke(worldEditor, cursor);
 
-        cursor = origin.copy();
+        cursor = at.copy();
         cursor.translate(dir, 7);
         cursor.translate(orthogonal, 4);
         cursor.down();
@@ -151,7 +151,7 @@ public class RewardRoom extends BaseRoom {
 
       Direction o = dir.antiClockwise();
 
-      start = origin.copy();
+      start = at.copy();
       start.translate(dir, 6);
       start.translate(o, 6);
       end = start.copy();
@@ -160,7 +160,7 @@ public class RewardRoom extends BaseRoom {
       end.up(5);
       theme().getPrimary().getPillar().fill(worldEditor, RectSolid.newRect(start, end));
 
-      cursor = origin.copy();
+      cursor = at.copy();
       primaryWallBrush().stroke(worldEditor, cursor);
       cursor.translate(dir);
       primaryStairBrush().setUpsideDown(false).setFacing(dir).stroke(worldEditor, cursor);
@@ -173,16 +173,16 @@ public class RewardRoom extends BaseRoom {
 
     }
 
-    cursor = origin.copy();
+    cursor = at.copy();
     cursor.up(4);
     primaryLightBrush().stroke(worldEditor, cursor);
 
-    cursor = origin.copy();
+    cursor = at.copy();
     cursor.up();
     Direction chestFacing = getEntrance(entrances).reverse();
     generateChest(cursor, chestFacing, getChestTypeOrUse(ChestType.REWARD));
 
-    generateDoorways(origin, entrances);
+    generateDoorways(at, entrances);
 
     return this;
   }

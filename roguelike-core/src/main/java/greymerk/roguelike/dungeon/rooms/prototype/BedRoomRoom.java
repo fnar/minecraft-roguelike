@@ -33,18 +33,18 @@ public class BedRoomRoom extends BaseRoom {
   }
 
   @Override
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
     Direction entranceDirection = getEntrance(entrances);
-    generateWalls(origin, entranceDirection);
-    generateFloorDecorationPattern(origin, entranceDirection);
-    generateShelves(origin, entranceDirection);
-    generateCeiling(origin, entranceDirection);
-    generatePillars(origin, entranceDirection);
-    generateCrossbeams(origin, entranceDirection);
-    generateBed(origin, entranceDirection);
-    generateChestz(origin, entranceDirection);
-    generateCraftingTable(origin, entranceDirection);
-    generateFurnace(origin, entranceDirection);
+    generateWalls(at, entranceDirection);
+    generateFloorDecorationPattern(at, entranceDirection);
+    generateShelves(at, entranceDirection);
+    generateCeiling(at, entranceDirection);
+    generatePillars(at, entranceDirection);
+    generateCrossbeams(at, entranceDirection);
+    generateBed(at, entranceDirection);
+    generateChestz(at, entranceDirection);
+    generateCraftingTable(at, entranceDirection);
+    generateFurnace(at, entranceDirection);
 
     return this;
   }

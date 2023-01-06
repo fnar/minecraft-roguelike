@@ -23,13 +23,13 @@ public class DungeonsSlime extends BaseRoom {
   }
 
   @Override
-  public DungeonsSlime generate(Coord origin, List<Direction> entrances) {
-    super.generate(origin, entrances);
+  public DungeonsSlime generate(Coord at, List<Direction> entrances) {
+    super.generate(at, entrances);
 
-    generateCorners(origin);
-    generateWaterways(origin, entrances);
-    generateRailings(origin, entrances);
-    generatePipes(origin, entrances);
+    generateCorners(at);
+    generateWaterways(at, entrances);
+    generateRailings(at, entrances);
+    generatePipes(at, entrances);
 
     return this;
   }

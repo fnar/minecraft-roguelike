@@ -21,21 +21,21 @@ public class DungeonsCrypt extends BaseRoom {
     super(roomSetting, levelSettings, worldEditor);
   }
 
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    Coord start = origin.copy();
-    Coord end = origin.copy();
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
+    Coord start = at.copy();
+    Coord end = at.copy();
     start.translate(new Coord(-3, 0, -3));
     end.translate(new Coord(3, 4, 3));
     SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(start, end));
 
-    start = origin.copy();
-    end = origin.copy();
+    start = at.copy();
+    end = at.copy();
     start.translate(new Coord(-9, -1, -9));
     end.translate(new Coord(9, -1, 9));
     primaryFloorBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
-    start = origin.copy();
-    end = origin.copy();
+    start = at.copy();
+    end = at.copy();
     start.translate(new Coord(-9, 5, -9));
     end.translate(new Coord(9, 6, 9));
     RectSolid.newRect(start, end).fill(worldEditor, primaryWallBrush(), false, true);
@@ -43,8 +43,8 @@ public class DungeonsCrypt extends BaseRoom {
     for (Direction dir : Direction.CARDINAL) {
 
       if (entrances.contains(dir) && entrances.contains(dir.antiClockwise())) {
-        start = origin.copy();
-        end = origin.copy();
+        start = at.copy();
+        end = at.copy();
         start.translate(dir, 3);
         end.translate(dir.antiClockwise(), 5);
         end.translate(dir, 5);
@@ -55,8 +55,8 @@ public class DungeonsCrypt extends BaseRoom {
       Coord cursor;
       if (entrances.contains(dir)) {
         // doorway air
-        start = origin.copy();
-        end = origin.copy();
+        start = at.copy();
+        end = at.copy();
         start.translate(dir, 3);
         start.translate(dir.antiClockwise(), 2);
         end.translate(dir, 8);
@@ -67,7 +67,7 @@ public class DungeonsCrypt extends BaseRoom {
         for (Direction o : dir.orthogonals()) {
           if (entrances.contains(o)) {
 
-            cursor = origin.copy();
+            cursor = at.copy();
             cursor.translate(dir, 7);
             cursor.translate(o, 3);
             cursor.up();
@@ -75,8 +75,8 @@ public class DungeonsCrypt extends BaseRoom {
             crypt(cursor, o);
           } else {
 
-            start = origin.copy();
-            end = origin.copy();
+            start = at.copy();
+            end = at.copy();
             start.translate(dir, 4);
             start.translate(o, 3);
             end.translate(dir, 8);
@@ -84,7 +84,7 @@ public class DungeonsCrypt extends BaseRoom {
             end.up(4);
             SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(start, end));
 
-            cursor = origin.copy();
+            cursor = at.copy();
             cursor.translate(dir, 6);
             cursor.translate(o, 3);
             cursor.up();
@@ -94,17 +94,17 @@ public class DungeonsCrypt extends BaseRoom {
         }
 
       } else {
-        cursor = origin.copy();
+        cursor = at.copy();
         cursor.translate(dir, 4);
         mausoleumWall(cursor, dir);
       }
 
-      cursor = origin.copy();
+      cursor = at.copy();
       cursor.translate(dir, 3);
       cursor.translate(dir.antiClockwise(), 3);
       pillar(cursor);
 
-      start = origin.copy();
+      start = at.copy();
       start.translate(dir, 8);
       start.up(4);
       end = start.copy();

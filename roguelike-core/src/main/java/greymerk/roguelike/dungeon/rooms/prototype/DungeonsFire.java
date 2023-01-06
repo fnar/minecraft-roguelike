@@ -100,14 +100,14 @@ public class DungeonsFire extends BaseRoom {
   }
 
   @Override
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
 
-    Coord start = origin.copy().north(8).west(8).down();
-    Coord end = origin.copy().south(8).east(8).up(7);
+    Coord start = at.copy().north(8).west(8).down();
+    Coord end = at.copy().south(8).east(8).up(7);
 
     RectHollow.newRect(start, end).fill(worldEditor, primaryWallBrush(), false, true);
 
-    start = origin.copy().down();
+    start = at.copy().down();
     end = start.copy();
     start.north(8).west(8);
     end.south(8).east(8);
@@ -116,11 +116,11 @@ public class DungeonsFire extends BaseRoom {
     for (Direction dir : Direction.CARDINAL) {
       Coord cursor;
       for (Direction orth : dir.orthogonals()) {
-        start = origin.copy().translate(dir, 7).translate(orth, 2);
+        start = at.copy().translate(dir, 7).translate(orth, 2);
         end = start.copy().up(6);
         primaryPillarBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
-        cursor = origin.copy().translate(dir, 8).translate(orth).up(2);
+        cursor = at.copy().translate(dir, 8).translate(orth).up(2);
         primaryStairBrush().setUpsideDown(true).setFacing(orth.reverse()).stroke(worldEditor, cursor, true, false);
 
         cursor.translate(dir.reverse()).up();
@@ -145,11 +145,11 @@ public class DungeonsFire extends BaseRoom {
         primaryPillarBrush().fill(worldEditor, RectSolid.newRect(start, end));
       }
 
-      cursor = origin.copy().translate(dir, 6).translate(dir.antiClockwise(), 6);
+      cursor = at.copy().translate(dir, 6).translate(dir.antiClockwise(), 6);
 
       genFire(worldEditor, theme(), cursor);
 
-      cursor = origin.copy().up(4).translate(dir);
+      cursor = at.copy().up(4).translate(dir);
       start = cursor.copy();
       end = cursor.copy().translate(dir, 6);
       primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
@@ -178,7 +178,7 @@ public class DungeonsFire extends BaseRoom {
       RectSolid.newRect(start, end).fill(worldEditor, primaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()), true, false);
     }
 
-    generateDoorways(origin, entrances);
+    generateDoorways(at, entrances);
 
     return this;
   }

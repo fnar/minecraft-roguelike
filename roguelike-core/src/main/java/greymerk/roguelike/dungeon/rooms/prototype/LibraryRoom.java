@@ -31,10 +31,10 @@ public class LibraryRoom extends BaseRoom {
   }
 
   @Override
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    int x = origin.getX();
-    int y = origin.getY();
-    int z = origin.getZ();
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
+    int x = at.getX();
+    int y = at.getY();
+    int z = at.getZ();
 
     SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(new Coord(x - 4, y, z - 4), new Coord(x + 4, y + 3, z + 4)));
     SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(new Coord(x - 3, y + 4, z - 3), new Coord(x + 3, y + 6, z + 3)));
@@ -46,12 +46,12 @@ public class LibraryRoom extends BaseRoom {
 
     primaryFloorBrush().fill(worldEditor, RectSolid.newRect(new Coord(x - 5, y - 1, z - 5), new Coord(x + 5, y - 1, z + 5)));
 
-    Coord start = origin.copy();
+    Coord start = at.copy();
     start.up(5);
     BlockType.REDSTONE_BLOCK.getBrush().stroke(worldEditor, start);
     start.down();
     BlockType.REDSTONE_LAMP_LIT.getBrush().stroke(worldEditor, start);
-    start = origin.copy();
+    start = at.copy();
     start.up(6);
     Coord end = start.copy();
     end.up();
@@ -61,20 +61,20 @@ public class LibraryRoom extends BaseRoom {
     for (Direction dir : Direction.CARDINAL) {
       if (!entrances.contains(dir)) {
         if (random().nextBoolean()) {
-          desk(worldEditor, theme(), dir, origin);
+          desk(worldEditor, theme(), dir, at);
         } else {
-          plants(worldEditor, theme(), dir, origin);
+          plants(worldEditor, theme(), dir, at);
         }
       }
 
-      start = origin.copy();
+      start = at.copy();
       start.translate(dir, 4);
       start.translate(dir.antiClockwise(), 4);
       end = start.copy();
       end.up(4);
       primaryPillarBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
-      start = origin.copy();
+      start = at.copy();
       start.translate(dir, 3);
       start.translate(dir.antiClockwise(), 3);
       start.up(3);
@@ -89,7 +89,7 @@ public class LibraryRoom extends BaseRoom {
       primaryWallBrush().stroke(worldEditor, cursor);
 
       for (Direction o : dir.orthogonals()) {
-        cursor = origin.copy();
+        cursor = at.copy();
         cursor.translate(dir, 4);
         cursor.translate(o, 3);
         cursor.up(2);
@@ -105,7 +105,7 @@ public class LibraryRoom extends BaseRoom {
       }
 
       // Light fixture related stuff
-      cursor = origin.copy();
+      cursor = at.copy();
       cursor.up(4);
       cursor.translate(dir);
       primaryStairBrush().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
@@ -125,7 +125,7 @@ public class LibraryRoom extends BaseRoom {
       primaryStairBrush().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
     }
 
-    generateDoorways(origin, entrances);
+    generateDoorways(at, entrances);
 
     return this;
   }

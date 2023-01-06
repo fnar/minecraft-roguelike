@@ -21,14 +21,14 @@ public class OssuaryRoom extends BaseRoom {
   }
 
   @Override
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
 
     Coord start;
     Coord end;
     Coord cursor;
 
-    start = origin.copy();
-    end = origin.copy();
+    start = at.copy();
+    end = at.copy();
     start.down();
     start.north(8);
     start.east(8);
@@ -39,7 +39,7 @@ public class OssuaryRoom extends BaseRoom {
 
     // entrance arches
     for (Direction dir : Direction.CARDINAL) {
-      cursor = origin.copy();
+      cursor = at.copy();
       cursor.translate(dir, 7);
       for (Direction o : dir.orthogonals()) {
         start = cursor.copy();
@@ -99,7 +99,7 @@ public class OssuaryRoom extends BaseRoom {
         c.translate(dir.reverse());
       }
 
-      Coord c = origin.copy();
+      Coord c = at.copy();
       c.translate(dir, 7);
       c.up(3);
       primaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
@@ -109,7 +109,7 @@ public class OssuaryRoom extends BaseRoom {
     }
 
     for (Direction dir : Direction.CARDINAL) {
-      cursor = origin.copy();
+      cursor = at.copy();
       cursor.translate(dir, 4);
       cursor.up(5);
       start = cursor.copy();
@@ -129,7 +129,7 @@ public class OssuaryRoom extends BaseRoom {
 
     // corner pillars
     for (Direction dir : Direction.CARDINAL) {
-      start = origin.copy();
+      start = at.copy();
       start.translate(dir, 6);
       start.translate(dir.antiClockwise(), 6);
       end = start.copy();
@@ -140,7 +140,7 @@ public class OssuaryRoom extends BaseRoom {
     }
 
     // central ceiling
-    cursor = origin.copy();
+    cursor = at.copy();
     cursor.up(6);
     start = cursor.copy();
     start.north(2);
@@ -161,7 +161,7 @@ public class OssuaryRoom extends BaseRoom {
 
     for (Direction dir : Direction.CARDINAL) {
       Direction[] orthogonal = dir.orthogonals();
-      cursor = origin.copy();
+      cursor = at.copy();
       cursor.up(5);
       cursor.translate(dir, 2);
       SingleBlockBrush.AIR.stroke(worldEditor, cursor);
@@ -175,7 +175,7 @@ public class OssuaryRoom extends BaseRoom {
     }
 
     for (Direction dir : Direction.CARDINAL) {
-      cursor = origin.copy();
+      cursor = at.copy();
       cursor.translate(dir, 4);
       cursor.translate(dir.antiClockwise(), 4);
       cursor.up(5);
@@ -194,7 +194,7 @@ public class OssuaryRoom extends BaseRoom {
       }
 
       for (Direction d : new Direction[]{dir, dir.antiClockwise()}) {
-        cursor = origin.copy();
+        cursor = at.copy();
         cursor.translate(dir, 4);
         cursor.translate(dir.antiClockwise(), 4);
         cursor.up(4);
@@ -206,7 +206,7 @@ public class OssuaryRoom extends BaseRoom {
           primaryStairBrush().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, c);
         }
 
-        start = origin.copy();
+        start = at.copy();
         start.translate(dir, 4);
         start.translate(dir.antiClockwise(), 4);
         start.translate(d, 3);
@@ -224,7 +224,7 @@ public class OssuaryRoom extends BaseRoom {
         primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
         for (Direction o : d.orthogonals()) {
-          cursor = origin.copy();
+          cursor = at.copy();
           cursor.translate(dir, 4);
           cursor.translate(dir.antiClockwise(), 4);
           cursor.translate(d, 3);
