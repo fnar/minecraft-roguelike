@@ -18,9 +18,9 @@ public class DungeonLevel {
     this.settings = settings;
   }
 
-  public void generate(ILevelGenerator generator, Coord start) {
+  public LevelLayout generate(ILevelGenerator generator, Coord start, Random random) {
     this.generator = generator;
-    generator.generate(start);
+    return generator.generate(start, random);
   }
 
   public int nodeCount() {
