@@ -22,7 +22,6 @@ import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
-import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.IShape;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import lombok.EqualsAndHashCode;
@@ -37,8 +36,8 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
   protected int size = 5;
   // depth is how far down to move to draw the floor
   protected int depth = 1;
-  // height is the distance from the center origin to ceiling (+1, for encasing)
-  protected int height = Dungeon.VERTICAL_SPACING - depth;
+  // ceiling height is the distance from the center origin to ceiling
+  protected int ceilingHeight = Dungeon.VERTICAL_SPACING - depth - 1;
 
   public BaseRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     this.roomSetting = roomSetting;
@@ -57,7 +56,7 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
 
   protected void generateWalls(Coord at, List<Direction> entrances) {
     IShape wallsRect = at.newHollowRect(getWallDist())
-        .withHeight(getCeilingHeight() + 1 + getDepth() + 1)
+        .withHeight(getHeight())
         .down(getDepth());
     walls().fill(worldEditor, wallsRect, false, true);
   }
@@ -272,13 +271,11 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
   }
 
   public final int getHeight() {
-    // todo: break dependents on getHeight(), specifically NetherBrick room
-    // todo: return getCeilingHeight() + depth + ENCASING_SIZE;
-    return height;
+    return getCeilingHeight() + 1 + getDepth() + 1;
   }
 
   protected final int getCeilingHeight() {
-    return getHeight() - DungeonNode.ENCASING_SIZE;
+    return ceilingHeight;
   }
 
   protected final int getDepth() {
@@ -286,11 +283,11 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
   }
 
   public boolean isValidLocation(Coord at, Direction facing) {
-    int size = getSize();
-    Coord cornerNW = at.copy().north(size).west(size).up(getHeight());
-    Coord cornerSE = at.copy().south(size).east(size).down(2);
-    RectHollow bounds = RectHollow.newRect(cornerNW, cornerSE);
-    return bounds.asList().stream().allMatch(worldEditor::isSolidBlock);
+    return at.newHollowRect(getWallDist())
+        .withHeight(getHeight())
+        .down(getDepth())
+        .asList().stream()
+        .allMatch(worldEditor::isSolidBlock);
   }
 
   @Override

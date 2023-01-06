@@ -32,7 +32,7 @@ public class NetherFortressRoom extends BaseRoom {
   public NetherFortressRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
     this.size = 9;
-    this.height = 8;
+    this.ceilingHeight = 7;
   }
 
   @Override

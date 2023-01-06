@@ -19,7 +19,7 @@ public class DungeonsSlime extends BaseRoom {
   public DungeonsSlime(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
     this.size = 9;
-    this.height = 6;
+    this.ceilingHeight = 5;
   }
 
   @Override

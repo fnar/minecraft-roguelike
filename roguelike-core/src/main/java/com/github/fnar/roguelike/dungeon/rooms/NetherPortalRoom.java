@@ -24,7 +24,7 @@ public class NetherPortalRoom extends BaseRoom {
   public NetherPortalRoom(RoomSetting roomsSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomsSetting, levelSettings, worldEditor);
     this.size = 10;
-    this.height = 8;
+    this.ceilingHeight = 7;
     this.depth = 3;
   }
 

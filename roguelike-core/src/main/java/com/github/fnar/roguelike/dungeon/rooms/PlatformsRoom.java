@@ -17,27 +17,22 @@ import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
-import greymerk.roguelike.worldgen.shapes.RectHollow;
-import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class PlatformsRoom extends BaseRoom {
 
   public PlatformsRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
     this.size = 8;
-    this.height = 7;
+    this.ceilingHeight = 6;
+    this.depth = random().nextBoolean() ? 2 : 3;
   }
 
   @Override
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    super.generate(origin, entrances);
-
+  public void generateDecorations(Coord origin, List<Direction> entrances) {
     Direction front = getEntrance(entrances);
     generateIslands(origin, front);
     theFloorIsLava(origin);
     generateCeilingDecoration(origin);
-
-    return null;
   }
 
   private void generateIslands(Coord origin, Direction front) {
@@ -99,24 +94,6 @@ public class PlatformsRoom extends BaseRoom {
         squarePatternString,
         diamondPatternString
     };
-  }
-
-  @Override
-  protected void generateWalls(Coord at, List<Direction> entrances) {
-    int floor = 3;
-    walls().fill(worldEditor, RectHollow.newRect(
-        at.copy().north(getWallDist()).west(getWallDist()).up(getCeilingHeight()),
-        at.copy().south(getWallDist()).east(getWallDist()).down(floor)
-    ));
-  }
-
-  @Override
-  protected void generateFloor(Coord at, List<Direction> entrances) {
-    int floor = random().nextBoolean() ? 2 : 3;
-    floors().fill(worldEditor, RectSolid.newRect(
-        at.copy().north(getWallDist()).west(getWallDist()).down(floor - 1),
-        at.copy().south(getWallDist()).east(getWallDist()).down(floor)
-    ));
   }
 
   private void generateCeilingDecoration(Coord origin) {

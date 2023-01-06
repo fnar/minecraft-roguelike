@@ -17,7 +17,7 @@ public class SmallLiquidPitRoom extends BaseRoom {
   public SmallLiquidPitRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
     this.size = 3 + random().nextInt(4);
-    this.height = Math.max(4, size);
+    this.ceilingHeight = Math.max(4, size);
   }
 
   @Override
