@@ -23,6 +23,7 @@ public class DungeonsPrison extends BaseRoom {
 
   public DungeonsPrison(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.wallDist = 11;
   }
 
   @Override
@@ -312,7 +313,4 @@ public class DungeonsPrison extends BaseRoom {
     }
   }
 
-  public int getSize() {
-    return 12;
-  }
 }

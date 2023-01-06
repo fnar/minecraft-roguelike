@@ -15,6 +15,7 @@ public class LinkerTopRoom extends BaseRoom {
 
   public LinkerTopRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.wallDist = 5;
   }
 
   @Override
@@ -74,11 +75,6 @@ public class LinkerTopRoom extends BaseRoom {
     generateDoorways(at, entrances);
 
     return this;
-  }
-
-  @Override
-  public int getSize() {
-    return 6;
   }
 
 }

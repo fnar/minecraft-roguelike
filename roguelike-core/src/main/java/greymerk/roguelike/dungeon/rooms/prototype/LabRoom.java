@@ -32,6 +32,7 @@ public class LabRoom extends BaseRoom {
 
   public LabRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.wallDist = 9;
   }
 
   private static void corner(WorldEditor editor, Theme theme, int x, int y, int z) {
@@ -266,10 +267,6 @@ public class LabRoom extends BaseRoom {
     }
     Coord chestLocation = new Coord(x, y + 1, z + 4);
     generateChest(chestLocation, Direction.WEST, ChestType.BREWING);
-  }
-
-  public int getSize() {
-    return 10;
   }
 
 }

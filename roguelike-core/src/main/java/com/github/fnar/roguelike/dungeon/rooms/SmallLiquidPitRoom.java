@@ -16,8 +16,8 @@ public class SmallLiquidPitRoom extends BaseRoom {
 
   public SmallLiquidPitRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
-    this.size = 3 + random().nextInt(4);
-    this.ceilingHeight = Math.max(4, size);
+    this.wallDist = 3 + random().nextInt(4);
+    this.ceilingHeight = Math.max(4, wallDist);
   }
 
   @Override
@@ -35,14 +35,14 @@ public class SmallLiquidPitRoom extends BaseRoom {
 
   private void generatePillars(Coord at) {
     Generatable pillar = Pillar.newPillar(worldEditor).withHeight(getCeilingHeight()).withTheme(theme());
-    if (size >= 2) {
+    if (getWallDist() >= 2) {
       for (Direction cardinal : Direction.cardinals()) {
         int pillarDist = getWallDist() - 1;
         pillar.generate(at.copy().translate(cardinal, pillarDist).translate(cardinal.left(), pillarDist));
       }
     }
 
-    if (size >= 6 && random().nextBoolean()) {
+    if (getWallDist() >= 6 && random().nextBoolean()) {
       for (Direction cardinal : Direction.cardinals()) {
         pillar.generate(at.copy().translate(cardinal).translate(cardinal.left()));
       }

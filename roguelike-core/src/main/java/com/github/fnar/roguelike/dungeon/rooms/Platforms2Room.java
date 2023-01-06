@@ -17,9 +17,9 @@ public class Platforms2Room extends BaseRoom {
 
   public Platforms2Room(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
-    size = 9;
-    ceilingHeight = 4;
-    depth = 3;
+    this.wallDist = 8;
+    this.ceilingHeight = 4;
+    this.depth = 3;
   }
 
   @Override

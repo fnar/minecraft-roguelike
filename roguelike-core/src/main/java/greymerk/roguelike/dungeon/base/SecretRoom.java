@@ -24,6 +24,7 @@ public class SecretRoom extends BaseRoom {
   public SecretRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
     prototype = getRoomSetting().instantiate(this.levelSettings, this.worldEditor);
+    this.wallDist = prototype.getWallDist();
   }
 
   @Override
@@ -32,37 +33,26 @@ public class SecretRoom extends BaseRoom {
       return false;
     }
     int connectionLength = 5;
-    Coord cursor = at.copy().translate(facing, prototype.getSize() + connectionLength);
+    Coord cursor = at.copy().translate(facing, prototype.getWallDist() + connectionLength);
     return prototype.isValidLocation(cursor, facing.reverse());
   }
 
   @Override
   public BaseRoom generate(Coord at, List<Direction> entrances) {
-    int size = prototype.getSize();
-
-    Coord start = at.copy();
-    Coord end = at.copy();
     Direction entrance = getEntrance(entrances);
-    start.translate(entrance.orthogonals()[0]);
-    start.down();
-    start.translate(entrance, 2);
-    end.translate(entrance.orthogonals()[1]);
-    end.translate(entrance, size + 5);
-    end.up(2);
-    RectSolid.newRect(start, end).fill(worldEditor, primaryWallBrush(), false, true);
+    int inset = prototype.getWallDist() + 5;
+    Coord secretRoomOrigin = at.copy().translate(entrance, inset);
 
-    end = at.copy();
-    end.translate(entrance, size + 5);
-    end.up();
-    SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(at, end));
+    RectSolid hallwayWallsRect = RectSolid.newRect(
+        at.copy().translate(entrance.left()).translate(entrance, 2).down(),
+        at.copy().translate(entrance.right()).translate(entrance, inset).up(2)
+    );
+    primaryWallBrush().fill(worldEditor, hallwayWallsRect, false, true);
 
-    end.down();
-    return prototype.generate(end, Lists.newArrayList(entrance.reverse()));
-  }
+    RectSolid hallwayHollowRect = RectSolid.newRect(at, secretRoomOrigin.copy().up());
+    SingleBlockBrush.AIR.fill(worldEditor, hallwayHollowRect);
 
-  @Override
-  public int getSize() {
-    return prototype.getSize();
+    return prototype.generate(secretRoomOrigin, Lists.newArrayList(entrance.reverse()));
   }
 
 }

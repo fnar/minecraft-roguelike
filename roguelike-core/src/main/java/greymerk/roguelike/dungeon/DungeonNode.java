@@ -33,11 +33,11 @@ public class DungeonNode implements IBounded {
       return 10;
     }
 
-    return toGenerate.getSize();
+    return toGenerate.getSize() + ENCASING_SIZE;
   }
 
   public void encase(WorldEditor editor, Theme theme) {
-    int size = getSize() + ENCASING_SIZE;
+    int size = getSize();
     int height = 8 + ENCASING_SIZE;
     int depth = 3 + ENCASING_SIZE;
     IShape caseRect = getPosition().copy().newHollowRect(size).withHeight(height + depth).down(depth);

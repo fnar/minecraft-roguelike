@@ -24,6 +24,7 @@ public class DungeonsSmithy extends BaseRoom {
 
   public DungeonsSmithy(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.wallDist = 8;
   }
 
   public BaseRoom generate(Coord at, List<Direction> entrances) {
@@ -424,10 +425,6 @@ public class DungeonsSmithy extends BaseRoom {
     BlockType.REDSTONE_BLOCK.getBrush().stroke(worldEditor, cursor);
     cursor.down();
     BlockType.REDSTONE_LAMP_LIT.getBrush().stroke(worldEditor, cursor);
-  }
-
-  public int getSize() {
-    return 9;
   }
 
 }

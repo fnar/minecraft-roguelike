@@ -18,6 +18,7 @@ public class DarkHallRoom extends BaseRoom {
 
   public DarkHallRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
+    this.wallDist = 9;
   }
 
   @Override
@@ -128,11 +129,5 @@ public class DarkHallRoom extends BaseRoom {
       secondaryWallBrush().stroke(worldEditor, cursor);
     }
   }
-
-  @Override
-  public int getSize() {
-    return 10;
-  }
-
 
 }

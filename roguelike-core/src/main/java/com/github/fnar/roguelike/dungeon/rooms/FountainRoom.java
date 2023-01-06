@@ -17,7 +17,7 @@ public class FountainRoom extends BaseRoom {
 
   public FountainRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
-    this.size = 6;
+    this.wallDist = 5;
     this.ceilingHeight = 5;
   }
 

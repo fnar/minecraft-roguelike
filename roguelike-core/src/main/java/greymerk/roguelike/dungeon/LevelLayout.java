@@ -97,7 +97,7 @@ public class LevelLayout {
     return getNodes().stream()
         .filter(this::isNotEdgeNode)
         .filter(DungeonNode::isNotYetGenerated)
-        .filter(node -> !node.hasOverlappingNode(room.getSize(), getNodes()))
+        .filter(node -> !node.hasOverlappingNode(room.getSize() + DungeonNode.ENCASING_SIZE, getNodes()))
         .findFirst();
   }
 

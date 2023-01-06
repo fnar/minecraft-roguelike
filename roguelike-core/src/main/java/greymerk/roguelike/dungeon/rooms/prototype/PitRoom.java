@@ -21,7 +21,7 @@ public class PitRoom extends BaseRoom {
 
   public PitRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
-    this.size = 4;
+    this.wallDist = 3;
   }
 
   @Override

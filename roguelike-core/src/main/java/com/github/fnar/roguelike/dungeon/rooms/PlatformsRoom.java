@@ -22,7 +22,7 @@ public class PlatformsRoom extends BaseRoom {
 
   public PlatformsRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
-    this.size = 8;
+    this.wallDist = 7;
     this.ceilingHeight = 6;
     this.depth = random().nextBoolean() ? 2 : 3;
   }
@@ -46,8 +46,8 @@ public class PlatformsRoom extends BaseRoom {
     for (int x = 0; x < 2; x++) {
       for (int z = 0; z < 2; z++) {
 
-        int xOffset = (x == 0 ? -1 : 1) * (getSize() / 2);
-        int zOffset = (z == 0 ? -1 : 1) * (getSize() / 2);
+        int xOffset = (x == 0 ? -1 : 1) * (getWallDist() / 2);
+        int zOffset = (z == 0 ? -1 : 1) * (getWallDist() / 2);
 
         Coord location = origin.copy()
             .down(2)
