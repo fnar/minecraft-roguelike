@@ -199,7 +199,7 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
   protected void theFloorIsLava(Coord origin) {
     primaryLiquidBrush().fill(worldEditor, RectSolid.newRect(
         origin.copy().north(getWallDist()).west(getWallDist()).down(),
-        origin.copy().south(getWallDist()).east(getWallDist()).down(2)
+        origin.copy().south(getWallDist()).east(getWallDist()).down(depth)
     ), true, false);
   }
 
