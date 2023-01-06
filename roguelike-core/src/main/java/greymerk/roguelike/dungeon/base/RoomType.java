@@ -16,7 +16,6 @@ import lombok.Getter;
 @Getter
 public enum RoomType {
 
-  ASHLEA(false, false),
   AVIDYA(false, false),
   BEDROOM(false, true),
   BLAZE(true, false),
@@ -30,7 +29,6 @@ public enum RoomType {
   ENCHANT(false, true),
   ENDER(true, false),
   ENIKO(false, false),
-  ETHO(false, false),
   FIRE(true, false),
   FIREWORK(false, false),
   FOUNTAIN(true, false),

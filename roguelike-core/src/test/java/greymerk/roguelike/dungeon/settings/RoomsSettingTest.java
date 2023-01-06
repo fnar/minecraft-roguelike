@@ -66,7 +66,7 @@ public class RoomsSettingTest {
     expected.add(RoomType.BLAZE.newRandomRoomSetting(5));
     expected.add(RoomType.CAKE.newRandomRoomSetting(1));
     expected.add(RoomType.SLIME.newRandomRoomSetting(2));
-    expected.add(RoomType.ASHLEA.newRandomRoomSetting(5));
+    expected.add(RoomType.BRICK.newRandomRoomSetting(5));
     expected.add(RoomType.ETHO.newRandomRoomSetting(1));
     expected.add(RoomType.AVIDYA.newRandomRoomSetting(2));
 
@@ -76,7 +76,7 @@ public class RoomsSettingTest {
     parent0.add(RoomType.SLIME.newRandomRoomSetting(2));
 
     RoomsSetting parent1 = new RoomsSetting();
-    parent1.add(RoomType.ASHLEA.newRandomRoomSetting(5));
+    parent1.add(RoomType.BRICK.newRandomRoomSetting(5));
     parent1.add(RoomType.ETHO.newRandomRoomSetting(1));
     parent1.add(RoomType.AVIDYA.newRandomRoomSetting(2));
 
