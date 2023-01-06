@@ -43,7 +43,6 @@ public class ObsidianRoom extends BaseRoom {
     for (Coord space : spawnerLocations) {
       generateSpawner(space);
     }
-    generateCrapUnderneath(at);
     generateDoorways(at, entrances);
     generateChests(at);
 
@@ -313,23 +312,6 @@ public class ObsidianRoom extends BaseRoom {
         secondaryPillarBrush().fill(worldEditor, RectSolid.newRect(start, end));
       }
     }
-  }
-
-  private void generateCrapUnderneath(Coord origin) {
-    BlockJumble crap = new BlockJumble();
-    crap.addBlock(primaryLiquidBrush());
-    crap.addBlock(BlockType.SOUL_SAND.getBrush());
-    crap.addBlock(BlockType.OBSIDIAN.getBrush());
-
-    Coord start = origin.copy();
-    Coord end = start.copy();
-    start.down(6);
-    end.down(8);
-    start.north(6);
-    start.east(6);
-    end.south(6);
-    end.west(6);
-    crap.fill(worldEditor, RectSolid.newRect(start, end));
   }
 
   private void generateChests(Coord origin) {
