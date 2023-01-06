@@ -259,4 +259,11 @@ public class Dungeon {
   public List<DungeonLevel> getLevels() {
     return levels;
   }
+
+  public void generateLayout(WorldEditor editor, Random random) {
+    Coord start = getPosition();
+    for (DungeonLevel level : getLevels()) {
+      start = level.generateLayout(editor, random, start).down(Dungeon.VERTICAL_SPACING);
+    }
+  }
 }
