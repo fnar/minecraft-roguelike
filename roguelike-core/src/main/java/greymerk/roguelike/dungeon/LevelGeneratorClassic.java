@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 
@@ -12,25 +11,27 @@ public class LevelGeneratorClassic implements ILevelGenerator {
 
   private static final int MIN_ROOMS = 6;
 
-  private Random random;
-  private LevelLayout layout;
-  private LevelSettings settings;
+  private final LevelLayout layout;
   private Coord start;
+  private final int numRooms;
+  private final int scatter;
+  private final int range;
 
-  public LevelGeneratorClassic(Random random, LevelSettings settings) {
-    this.random = random;
+  public LevelGeneratorClassic(int numRooms, int scatter, int range) {
     layout = new LevelLayout();
-    this.settings = settings;
+    this.numRooms = numRooms;
+    this.scatter = scatter;
+    this.range = range;
   }
 
-  public void generate(Coord start) {
+  public LevelLayout generate(Coord start, Random random) {
     this.start = start;
     List<Node> gNodes = new ArrayList<>();
     Node startNode = new Node(Direction.randomCardinal(random), start);
     gNodes.add(startNode);
 
     while (!isDone(gNodes)) {
-      update(gNodes);
+      update(gNodes, random);
     }
 
     for (Node n : gNodes) {
@@ -49,12 +50,14 @@ public class LevelGeneratorClassic implements ILevelGenerator {
     }
 
     layout.setStartEnd(random, startDungeonNode);
+
+    return layout;
   }
 
-  public void update(List<Node> nodes) {
+  public void update(List<Node> nodes, Random random) {
     if (!full(nodes)) {
       for (int i = 0; i < nodes.size(); i++) {
-        nodes.get(i).update(nodes);
+        nodes.get(i).update(nodes, random);
       }
     }
   }
@@ -72,7 +75,7 @@ public class LevelGeneratorClassic implements ILevelGenerator {
   }
 
   private boolean full(List<Node> nodes) {
-    return nodes.size() >= Math.max(settings.getNumRooms(), MIN_ROOMS);
+    return nodes.size() >= Math.max(numRooms, MIN_ROOMS);
   }
 
   public void spawnNode(List<Node> nodes, Tunneler tunneler) {
@@ -98,9 +101,9 @@ public class LevelGeneratorClassic implements ILevelGenerator {
   private class Tunneler {
 
     private boolean done;
-    private Direction dir;
-    private Coord start;
-    private Coord end;
+    private final Direction dir;
+    private final Coord start;
+    private final Coord end;
     private int extend;
 
     public Tunneler(Direction dir, Coord start) {
@@ -108,15 +111,15 @@ public class LevelGeneratorClassic implements ILevelGenerator {
       this.dir = dir;
       this.start = start.copy();
       end = start.copy();
-      extend = settings.getScatter() * 2;
+      extend = scatter * 2;
     }
 
-    public void update(List<Node> nodes) {
+    public void update(List<Node> nodes, Random random) {
       if (done) {
         return;
       }
 
-      if (hasNearbyNode(nodes, end, settings.getScatter())) {
+      if (hasNearbyNode(nodes, end, scatter)) {
         end.translate(dir);
       } else {
         if (random.nextInt(extend) == 0) {
@@ -149,8 +152,8 @@ public class LevelGeneratorClassic implements ILevelGenerator {
   private class Node {
 
     private List<Tunneler> tunnelers;
-    private Direction direction;
-    private Coord pos;
+    private final Direction direction;
+    private final Coord pos;
 
     public Node(Direction direction, Coord pos) {
       tunnelers = new ArrayList<>();
@@ -162,7 +165,7 @@ public class LevelGeneratorClassic implements ILevelGenerator {
 
     private void spawnTunnelers() {
 
-      if (start.distance(pos) > settings.getRange()) {
+      if (start.distance(pos) > range) {
         return;
       }
 
@@ -176,9 +179,9 @@ public class LevelGeneratorClassic implements ILevelGenerator {
       }
     }
 
-    public void update(List<Node> nodes) {
+    public void update(List<Node> nodes, Random random) {
       for (Tunneler tunneler : tunnelers) {
-        tunneler.update(nodes);
+        tunneler.update(nodes, random);
       }
     }
 

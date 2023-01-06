@@ -7,7 +7,6 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.dungeon.DungeonNode;
 import greymerk.roguelike.dungeon.ILevelGenerator;
-import greymerk.roguelike.dungeon.LevelGenerator;
 import greymerk.roguelike.dungeon.LevelLayout;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.base.RoomIterator;
@@ -27,16 +26,13 @@ public class DungeonTaskLayout implements IDungeonTask {
 
     // generate level layouts
     for (DungeonLevel level : levels) {
-      ILevelGenerator generator = LevelGenerator.getGenerator(editor, editor.getRandom(), level.getSettings().getGenerator(), level);
-
       try {
-        level.generate(generator, start);
+        ILevelGenerator generator = level.getSettings().getLayoutGenerator();
+        LevelLayout layout = level.generate(generator, start, random);
+        start = layout.getEnd().getPosition().copy().down(Dungeon.VERTICAL_SPACING);
       } catch (Exception e) {
         e.printStackTrace();
       }
-
-      LevelLayout layout = generator.getLayout();
-      start = layout.getEnd().getPosition().copy().down(Dungeon.VERTICAL_SPACING);
     }
 
 

@@ -105,7 +105,7 @@ public class LevelSettingsTest {
     child.setGenerator(LevelGenerator.CLASSIC);
 
     child.inherit(parent, EMPTY_OVERRIDES);
-    assertThat(child.getGenerator()).isEqualTo(LevelGenerator.CLASSIC);
+    assertThat(child.getGeneratorType()).isEqualTo(LevelGenerator.CLASSIC);
   }
 
   @Test
@@ -116,7 +116,7 @@ public class LevelSettingsTest {
     parent.setGenerator(LevelGenerator.CLASSIC);
 
     child.inherit(parent, EMPTY_OVERRIDES);
-    assertThat(child.getGenerator()).isEqualTo(LevelGenerator.CLASSIC);
+    assertThat(child.getGeneratorType()).isEqualTo(LevelGenerator.CLASSIC);
   }
 
   @Test
@@ -128,7 +128,7 @@ public class LevelSettingsTest {
     child.setGenerator(LevelGenerator.CLASSIC);
 
     child.inherit(parent, EMPTY_OVERRIDES);
-    assertThat(child.getGenerator()).isEqualTo(LevelGenerator.CLASSIC);
+    assertThat(child.getGeneratorType()).isEqualTo(LevelGenerator.CLASSIC);
   }
 
   @Test

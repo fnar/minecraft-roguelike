@@ -1,22 +1,22 @@
 package greymerk.roguelike.dungeon;
 
-import java.util.Random;
-
-import greymerk.roguelike.worldgen.WorldEditor;
+import greymerk.roguelike.dungeon.settings.LevelSettings;
 
 public enum LevelGenerator {
 
   CLASSIC,
   MST;
 
-  public static ILevelGenerator getGenerator(WorldEditor editor, Random rand, LevelGenerator type, DungeonLevel level) {
-    switch (type) {
+  public ILevelGenerator instantiate(LevelSettings levelSettings) {
+    int numRooms = levelSettings.getNumRooms();
+    int scatter = levelSettings.getScatter();
+    int range = levelSettings.getRange();
+    switch (this) {
       case CLASSIC:
       default:
-        return new LevelGeneratorClassic(rand, level.getSettings());
+        return new LevelGeneratorClassic(numRooms, scatter, range);
       case MST:
-        return new LevelGeneratorMST(editor, rand, level.getSettings());
+        return new LevelGeneratorMST(numRooms, scatter);
     }
   }
-
 }

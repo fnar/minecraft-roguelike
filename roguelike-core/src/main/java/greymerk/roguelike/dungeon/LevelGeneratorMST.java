@@ -6,36 +6,28 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.util.graph.Edge;
 import greymerk.roguelike.util.graph.Graph;
 import greymerk.roguelike.util.mst.MinimumSpanningTree;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.WorldEditor;
 
 public class LevelGeneratorMST implements ILevelGenerator {
 
-  WorldEditor editor;
-  Random rand;
-  LevelSettings settings;
-  private LevelLayout layout;
-  private int length;
-  private int scatter;
+  private final LevelLayout layout;
+  private final int length;
+  private final int scatter;
 
 
-  public LevelGeneratorMST(WorldEditor editor, Random rand, LevelSettings settings) {
-    this.editor = editor;
-    this.rand = rand;
-    this.settings = settings;
-    this.length = (int) Math.ceil(Math.sqrt(settings.getNumRooms()));
-    this.scatter = settings.getScatter() % 2 == 0 ? settings.getScatter() + 1 : settings.getScatter();
+  public LevelGeneratorMST(int numRooms, int scatter) {
+    this.length = (int) Math.ceil(Math.sqrt(numRooms));
+    this.scatter = scatter % 2 == 0 ? scatter + 1 : scatter;
     this.layout = new LevelLayout();
   }
 
   @Override
-  public void generate(Coord start) {
-    MinimumSpanningTree mst = new MinimumSpanningTree(rand, length, scatter, start.copy());
+  public LevelLayout generate(Coord start, Random random) {
+    MinimumSpanningTree mst = new MinimumSpanningTree(random, length, scatter, start.copy());
     Graph<Coord> layout = mst.getGraph();
     List<Edge<Coord>> edges = layout.getEdges();
     List<Coord> vertices = layout.getPoints();
@@ -53,8 +45,9 @@ public class LevelGeneratorMST implements ILevelGenerator {
       }
     }
 
-    this.layout.setStartEnd(rand, startDungeonNode);
+    this.layout.setStartEnd(random, startDungeonNode);
 
+    return this.layout;
   }
 
   private List<Direction> findEntrances(Coord vertex) {
