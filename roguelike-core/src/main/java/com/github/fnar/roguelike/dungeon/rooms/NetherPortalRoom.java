@@ -43,17 +43,17 @@ public class NetherPortalRoom extends BaseRoom {
 
   @Override
   protected void generateFloor(Coord at, List<Direction> entrances) {
-    floors().fill(worldEditor, at.copy().down(2).newRect(4).withHeight(2));
+    primaryFloorBrush().fill(worldEditor, at.copy().down(2).newRect(4).withHeight(2));
     generateCatwalks(at);
     theFloorIsLava(at);
   }
 
   private void generateCatwalks(Coord origin) {
-    StairsBlock stair = stairs();
+    StairsBlock stair = primaryStairBrush();
 
     for (Direction side : Direction.cardinals()) {
       Coord catwalkOrigin = origin.copy().translate(side, getWallDist() - 1);
-      floors().fill(worldEditor, RectSolid.newRect(
+      primaryFloorBrush().fill(worldEditor, RectSolid.newRect(
           catwalkOrigin.copy().translate(side.left(), getWallDist()),
           catwalkOrigin.copy().translate(side.right(), getWallDist()).translate(side.back()).down(2)
       ));
@@ -74,7 +74,7 @@ public class NetherPortalRoom extends BaseRoom {
 
   private void createPathFromEachEntranceToTheCenterOverTheLiquid(Coord origin, Direction front) {
     Direction walkwayDirection = front.reverse();
-    floors().fill(worldEditor, RectSolid.newRect(
+    primaryFloorBrush().fill(worldEditor, RectSolid.newRect(
         origin.copy().translate(walkwayDirection.left()).down(),
         origin.copy().translate(walkwayDirection.right()).translate(walkwayDirection, getWallDist()).down(2)
     ));
@@ -86,12 +86,12 @@ public class NetherPortalRoom extends BaseRoom {
     Coord portalBase = origin.copy().down(2);
 
     // encasing
-    pillars().fill(worldEditor, RectSolid.newRect(
+    primaryPillarBrush().fill(worldEditor, RectSolid.newRect(
         portalBase.copy().translate(front).translate(front.left(), 3),
         portalBase.copy().translate(front.back()).translate(front.right(), 3).up(portalHeight)
     ));
 
-    StairsBlock stairsBrush = stairs();
+    StairsBlock stairsBrush = primaryStairBrush();
     Stream.of(front, front.reverse())
         .forEach(side -> {
           Coord platformStairs = portalBase.copy().translate(side, 2).up();
@@ -123,8 +123,8 @@ public class NetherPortalRoom extends BaseRoom {
     }
     Pillar pillar = Pillar.newPillar(worldEditor)
         .withHeight(getCeilingHeight())
-        .withStairs(stairs())
-        .withPillar(secondaryPillars());
+        .withStairs(primaryStairBrush())
+        .withPillar(secondaryPillarBrush());
     pillarCoords.forEach(pillar::generate);
   }
 

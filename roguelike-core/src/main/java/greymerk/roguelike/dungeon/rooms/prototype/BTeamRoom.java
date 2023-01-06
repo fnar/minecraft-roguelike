@@ -255,7 +255,7 @@ public class BTeamRoom extends BaseRoom {
     cursor.up();
     fence.stroke(worldEditor, cursor);
     cursor.up();
-    lights().stroke(worldEditor, cursor);
+    primaryLightBrush().stroke(worldEditor, cursor);
     for (Direction d : Direction.CARDINAL) {
       if (d == dir.reverse()) {
         continue;

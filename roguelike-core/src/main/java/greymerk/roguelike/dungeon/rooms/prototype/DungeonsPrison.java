@@ -78,7 +78,7 @@ public class DungeonsPrison extends BaseRoom {
     start.east(3);
     end.south(3);
     end.west(3);
-    RectSolid.newRect(start, end).fill(worldEditor, walls(), false, true);
+    RectSolid.newRect(start, end).fill(worldEditor, primaryWallBrush(), false, true);
 
     BlockBrush floor = theme().getPrimary().getFloor();
     start = origin.copy();
@@ -135,14 +135,14 @@ public class DungeonsPrison extends BaseRoom {
       for (Direction o : dir.orthogonals()) {
         Coord c = cursor.copy();
         c.translate(o);
-        stairs().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, c);
+        primaryStairBrush().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, c);
       }
 
       cursor = origin.copy();
       cursor.up(6);
       SingleBlockBrush.AIR.stroke(worldEditor, cursor);
       cursor.translate(dir, 1);
-      stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+      primaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
     }
   }
 
@@ -156,7 +156,7 @@ public class DungeonsPrison extends BaseRoom {
     start.east(3);
     end.south(3);
     end.west(3);
-    RectSolid.newRect(start, end).fill(worldEditor, walls(), false, true);
+    RectSolid.newRect(start, end).fill(worldEditor, primaryWallBrush(), false, true);
 
     start = origin.copy();
     start.down();
@@ -165,7 +165,7 @@ public class DungeonsPrison extends BaseRoom {
     start.east(3);
     end.south(3);
     end.west(3);
-    RectSolid.newRect(start, end).fill(worldEditor, floors(), false, true);
+    RectSolid.newRect(start, end).fill(worldEditor, primaryFloorBrush(), false, true);
 
     start = origin.copy();
     end = origin.copy();
@@ -219,7 +219,7 @@ public class DungeonsPrison extends BaseRoom {
       end = start.copy();
       start.translate(d.antiClockwise(), 3);
       end.translate(d.clockwise(), 3);
-      stairs().setUpsideDown(true).setFacing(d.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
+      primaryStairBrush().setUpsideDown(true).setFacing(d.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
 
       cursor.up(1);
       start = cursor.copy();
@@ -227,7 +227,7 @@ public class DungeonsPrison extends BaseRoom {
       end = start.copy();
       start.translate(d.antiClockwise(), 3);
       end.translate(d.clockwise(), 3);
-      stairs().setUpsideDown(true).setFacing(d.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
+      primaryStairBrush().setUpsideDown(true).setFacing(d.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
     }
 
 
@@ -238,7 +238,7 @@ public class DungeonsPrison extends BaseRoom {
     end = start.copy();
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
-    stairs().setUpsideDown(true).setFacing(dir.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
+    primaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
 
     cursor.up(1);
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
@@ -247,18 +247,18 @@ public class DungeonsPrison extends BaseRoom {
     end = start.copy();
     start.translate(dir.antiClockwise(), 1);
     end.translate(dir.clockwise(), 1);
-    stairs().setUpsideDown(true).setFacing(dir.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
+    primaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
   }
 
   private void pillar(Coord origin, int height) {
     Coord cursor = origin.copy();
     cursor.up(height - 1);
-    worldEditor.fillDown(cursor.copy(), pillars());
+    worldEditor.fillDown(cursor.copy(), primaryPillarBrush());
     cursor.up();
-    pillars().stroke(worldEditor, cursor);
+    primaryPillarBrush().stroke(worldEditor, cursor);
     for (Direction dir : Direction.CARDINAL) {
       cursor.translate(dir);
-      stairs().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor, true, false);
+      primaryStairBrush().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor, true, false);
     }
   }
 
@@ -279,7 +279,7 @@ public class DungeonsPrison extends BaseRoom {
     end.south(2);
     end.east(2);
     end.up(4);
-    RectHollow.newRect(start, end).fill(worldEditor, walls(), false, true);
+    RectHollow.newRect(start, end).fill(worldEditor, primaryWallBrush(), false, true);
 
     start = origin.copy();
     start.down();
@@ -288,7 +288,7 @@ public class DungeonsPrison extends BaseRoom {
     start.east();
     end.south();
     end.west();
-    RectSolid.newRect(start, end).fill(worldEditor, floors(), false, true);
+    RectSolid.newRect(start, end).fill(worldEditor, primaryFloorBrush(), false, true);
 
     for (Direction dir : entrances) {
       cursor = origin.copy();

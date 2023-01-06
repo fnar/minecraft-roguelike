@@ -25,19 +25,19 @@ public class LinkerRoom extends BaseRoom {
     Coord end = origin.copy();
     start.translate(new Coord(-4, -1, -4));
     end.translate(new Coord(4, 9, 4));
-    RectHollow.newRect(start, end).fill(worldEditor, walls(), false, true);
+    RectHollow.newRect(start, end).fill(worldEditor, primaryWallBrush(), false, true);
 
     start = origin.copy();
     end = origin.copy();
     start.translate(new Coord(-4, 9, -4));
     end.translate(new Coord(4, 9, 4));
-    walls().fill(worldEditor, RectSolid.newRect(start, end));
+    primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     end = origin.copy();
     start.translate(new Coord(-4, -1, -4));
     end.translate(new Coord(4, -1, 4));
-    floors().fill(worldEditor, RectSolid.newRect(start, end));
+    primaryFloorBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
     for (Direction dir : Direction.CARDINAL) {
 
@@ -57,7 +57,7 @@ public class LinkerRoom extends BaseRoom {
       end.translate(dir, 4);
       end.translate(dir.antiClockwise(), 4);
       end.up(8);
-      pillars().fill(worldEditor, RectSolid.newRect(start, end));
+      primaryPillarBrush().fill(worldEditor, RectSolid.newRect(start, end));
     }
 
 

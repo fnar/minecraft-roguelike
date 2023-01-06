@@ -35,7 +35,7 @@ public class TreethoRoom extends BaseRoom {
     start.translate(new Coord(-11, -1, -11));
     end.translate(new Coord(11, 8, 11));
 
-    RectHollow.newRect(start, end).fill(worldEditor, walls(), false, true);
+    RectHollow.newRect(start, end).fill(worldEditor, primaryWallBrush(), false, true);
 
     BlockBrush birchSlab = SlabBlock.birch().setTop(true).setFullBlock(false).setSeamless(false);
     BlockBrush pumpkin = PumpkinBlock.jackOLantern();
@@ -127,13 +127,13 @@ public class TreethoRoom extends BaseRoom {
 
   private void pillar(Coord origin) {
     Coord cursor = origin.copy();
-    worldEditor.fillDown(cursor, pillars());
+    worldEditor.fillDown(cursor, primaryPillarBrush());
 
     for (Direction dir : Direction.CARDINAL) {
       cursor = origin.copy();
       cursor.translate(dir);
       if (worldEditor.isAirBlock(cursor)) {
-        stairs().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
+        primaryStairBrush().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
       }
     }
   }

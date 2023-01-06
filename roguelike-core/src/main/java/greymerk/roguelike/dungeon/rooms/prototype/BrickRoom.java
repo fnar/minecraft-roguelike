@@ -33,16 +33,16 @@ public class BrickRoom extends BaseRoom {
     SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(new Coord(x - 1, y + 4, z - 1), new Coord(x + 1, y + 4, z + 1)));
 
     // shell
-    RectHollow.newRect(new Coord(x - 4, y - 1, z - 4), new Coord(x + 4, y + 4, z + 4)).fill(worldEditor, walls(), false, true);
+    RectHollow.newRect(new Coord(x - 4, y - 1, z - 4), new Coord(x + 4, y + 4, z + 4)).fill(worldEditor, primaryWallBrush(), false, true);
 
-    RectSolid.newRect(new Coord(x - 4, y - 1, z - 4), new Coord(x + 4, y - 1, z + 4)).fill(worldEditor, floors(), false, true);
+    RectSolid.newRect(new Coord(x - 4, y - 1, z - 4), new Coord(x + 4, y - 1, z + 4)).fill(worldEditor, primaryFloorBrush(), false, true);
 
 
     Coord cursor = new Coord(x, y, z);
     cursor.translate(UP, 5);
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
     cursor.translate(UP, 1);
-    walls().stroke(worldEditor, cursor);
+    primaryWallBrush().stroke(worldEditor, cursor);
 
 
     for (Direction dir : CARDINAL) {
@@ -51,16 +51,16 @@ public class BrickRoom extends BaseRoom {
       cursor = new Coord(x, y, z);
       cursor.translate(dir, 1);
       cursor.translate(UP, 5);
-      stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor, false, true);
+      primaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor, false, true);
       cursor.translate(dir.antiClockwise(), 1);
-      walls().stroke(worldEditor, cursor, false, true);
+      primaryWallBrush().stroke(worldEditor, cursor, false, true);
 
       cursor = new Coord(x, y, z);
       cursor.translate(dir, 2);
       cursor.translate(UP, 4);
       SingleBlockBrush.AIR.stroke(worldEditor, cursor);
       cursor.translate(UP, 1);
-      walls().stroke(worldEditor, cursor, false, true);
+      primaryWallBrush().stroke(worldEditor, cursor, false, true);
 
       // pillar
       cursor = new Coord(x, y, z);
@@ -69,9 +69,9 @@ public class BrickRoom extends BaseRoom {
       Coord start = cursor.copy();
       cursor.translate(UP, 2);
       Coord end = cursor.copy();
-      pillars().fill(worldEditor, RectSolid.newRect(start, end));
+      primaryPillarBrush().fill(worldEditor, RectSolid.newRect(start, end));
       cursor.translate(UP, 1);
-      walls().stroke(worldEditor, cursor);
+      primaryWallBrush().stroke(worldEditor, cursor);
 
       // pillar stairs
       for (Direction orthogonals : dir.orthogonals()) {
@@ -79,7 +79,7 @@ public class BrickRoom extends BaseRoom {
         cursor.translate(dir, 3);
         cursor.translate(orthogonals, 2);
         cursor.translate(UP, 3);
-        stairs().setUpsideDown(true).setFacing(orthogonals.reverse()).stroke(worldEditor, cursor);
+        primaryStairBrush().setUpsideDown(true).setFacing(orthogonals.reverse()).stroke(worldEditor, cursor);
       }
 
       // layer above pillars
@@ -87,21 +87,21 @@ public class BrickRoom extends BaseRoom {
       cursor.translate(dir, 2);
       cursor.translate(dir.antiClockwise(), 2);
       cursor.translate(UP, 4);
-      walls().stroke(worldEditor, cursor, false, true);
+      primaryWallBrush().stroke(worldEditor, cursor, false, true);
 
       for (Direction orthogonals : dir.orthogonals()) {
         cursor = new Coord(x, y, z);
         cursor.translate(UP, 4);
         cursor.translate(dir, 2);
         cursor.translate(orthogonals, 1);
-        stairs().setUpsideDown(true).setFacing(orthogonals.reverse()).stroke(worldEditor, cursor, false, true);
+        primaryStairBrush().setUpsideDown(true).setFacing(orthogonals.reverse()).stroke(worldEditor, cursor, false, true);
       }
 
       cursor = new Coord(x, y, z);
       cursor.translate(dir, 1);
       cursor.translate(dir.antiClockwise(), 1);
       cursor.translate(UP, 5);
-      walls().stroke(worldEditor, cursor, false, true);
+      primaryWallBrush().stroke(worldEditor, cursor, false, true);
     }
 
     Coord spawnerLocation = chooseSpawnerLocation(origin);

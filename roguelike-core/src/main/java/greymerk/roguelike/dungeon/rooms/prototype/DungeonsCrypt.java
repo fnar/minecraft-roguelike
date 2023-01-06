@@ -32,13 +32,13 @@ public class DungeonsCrypt extends BaseRoom {
     end = origin.copy();
     start.translate(new Coord(-9, -1, -9));
     end.translate(new Coord(9, -1, 9));
-    floors().fill(worldEditor, RectSolid.newRect(start, end));
+    primaryFloorBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
     start = origin.copy();
     end = origin.copy();
     start.translate(new Coord(-9, 5, -9));
     end.translate(new Coord(9, 6, 9));
-    RectSolid.newRect(start, end).fill(worldEditor, walls(), false, true);
+    RectSolid.newRect(start, end).fill(worldEditor, primaryWallBrush(), false, true);
 
     for (Direction dir : Direction.CARDINAL) {
 
@@ -110,7 +110,7 @@ public class DungeonsCrypt extends BaseRoom {
       end = start.copy();
       start.translate(dir.antiClockwise(), 2);
       end.translate(dir.clockwise(), 2);
-      RectSolid.newRect(start, end).fill(worldEditor, stairs().setUpsideDown(true).setFacing(dir.reverse()), true, false);
+      RectSolid.newRect(start, end).fill(worldEditor, primaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()), true, false);
     }
 
     return this;
@@ -123,12 +123,12 @@ public class DungeonsCrypt extends BaseRoom {
     Coord end = start.copy();
     start.translate(dir.antiClockwise(), 2);
     end.translate(dir.clockwise(), 2);
-    walls().fill(worldEditor, RectSolid.newRect(start, end));
+    primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
     Coord cursor = origin.copy();
     cursor.translate(dir, 5);
     cursor.up(3);
-    stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+    primaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
 
     for (Direction o : dir.orthogonals()) {
       start = origin.copy();
@@ -138,7 +138,7 @@ public class DungeonsCrypt extends BaseRoom {
       end = start.copy();
       end.translate(dir, 4);
       end.up(4);
-      walls().fill(worldEditor, RectSolid.newRect(start, end));
+      primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
       cursor = origin.copy();
       cursor.down();
@@ -151,26 +151,26 @@ public class DungeonsCrypt extends BaseRoom {
       start.translate(o, 2);
       end = start.copy();
       end.translate(dir, 3);
-      stairs().setUpsideDown(true).setFacing(o.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
+      primaryStairBrush().setUpsideDown(true).setFacing(o.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
     }
 
     cursor = origin.copy();
     tomb(cursor, dir);
 
     cursor.up();
-    stairs().setUpsideDown(false).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+    primaryStairBrush().setUpsideDown(false).setFacing(dir.reverse()).stroke(worldEditor, cursor);
     cursor.down(2);
-    stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+    primaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
     cursor.translate(dir);
-    walls().stroke(worldEditor, cursor);
+    primaryWallBrush().stroke(worldEditor, cursor);
     cursor.translate(dir);
-    walls().stroke(worldEditor, cursor);
+    primaryWallBrush().stroke(worldEditor, cursor);
     cursor.translate(dir);
-    stairs().setUpsideDown(false).setFacing(dir).stroke(worldEditor, cursor);
+    primaryStairBrush().setUpsideDown(false).setFacing(dir).stroke(worldEditor, cursor);
     cursor.up();
-    stairs().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
+    primaryStairBrush().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
     cursor.up();
-    stairs().setUpsideDown(false).setFacing(dir).stroke(worldEditor, cursor);
+    primaryStairBrush().setUpsideDown(false).setFacing(dir).stroke(worldEditor, cursor);
 
     for (Direction o : dir.orthogonals()) {
       cursor = origin.copy();
@@ -179,13 +179,13 @@ public class DungeonsCrypt extends BaseRoom {
       start = cursor.copy();
       end = cursor.copy();
       end.translate(dir, 3);
-      stairs().setUpsideDown(false).setFacing(o).fill(worldEditor, RectSolid.newRect(start, end));
+      primaryStairBrush().setUpsideDown(false).setFacing(o).fill(worldEditor, RectSolid.newRect(start, end));
       start.up();
       end.up();
-      stairs().setUpsideDown(true).setFacing(o).fill(worldEditor, RectSolid.newRect(start, end));
+      primaryStairBrush().setUpsideDown(true).setFacing(o).fill(worldEditor, RectSolid.newRect(start, end));
       start.up();
       end.up();
-      stairs().setUpsideDown(false).setFacing(o).fill(worldEditor, RectSolid.newRect(start, end));
+      primaryStairBrush().setUpsideDown(false).setFacing(o).fill(worldEditor, RectSolid.newRect(start, end));
     }
 
   }
@@ -199,25 +199,25 @@ public class DungeonsCrypt extends BaseRoom {
     end.translate(dir.clockwise());
     end.translate(dir, 3);
 
-    walls().fill(worldEditor, RectSolid.newRect(start, end));
+    primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
     Coord cursor = origin.copy();
     cursor.translate(dir.reverse());
     cursor.up(2);
-    stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+    primaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
     cursor.up();
-    walls().stroke(worldEditor, cursor);
+    primaryWallBrush().stroke(worldEditor, cursor);
 
     for (Direction o : dir.orthogonals()) {
       cursor = origin.copy();
       cursor.translate(dir.reverse());
       cursor.up();
       cursor.translate(o);
-      stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+      primaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
       cursor.up();
-      walls().stroke(worldEditor, cursor);
+      primaryWallBrush().stroke(worldEditor, cursor);
       cursor.up();
-      walls().stroke(worldEditor, cursor);
+      primaryWallBrush().stroke(worldEditor, cursor);
 
       start = origin.copy();
       start.up(3);
@@ -225,7 +225,7 @@ public class DungeonsCrypt extends BaseRoom {
       start.translate(o, 2);
       end = start.copy();
       end.translate(dir, 7);
-      RectSolid.newRect(start, end).fill(worldEditor, stairs().setUpsideDown(true).setFacing(o), true, false);
+      RectSolid.newRect(start, end).fill(worldEditor, primaryStairBrush().setUpsideDown(true).setFacing(o), true, false);
     }
 
     start = origin.copy();
@@ -234,7 +234,7 @@ public class DungeonsCrypt extends BaseRoom {
     end = start.copy();
     start.translate(dir.antiClockwise());
     end.translate(dir.clockwise());
-    stairs().setUpsideDown(true).setFacing(dir.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
+    primaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
 
     tomb(origin, dir);
   }
@@ -246,7 +246,7 @@ public class DungeonsCrypt extends BaseRoom {
     end.translate(dir.clockwise(), 3);
     end.translate(dir, 4);
     end.up(4);
-    walls().fill(worldEditor, RectSolid.newRect(start, end));
+    primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
     Coord cursor = origin.copy();
     cursor.up();
@@ -271,12 +271,12 @@ public class DungeonsCrypt extends BaseRoom {
     Coord start = origin.copy();
     Coord end = origin.copy();
     end.up(4);
-    walls().fill(worldEditor, RectSolid.newRect(start, end));
+    primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
     for (Direction dir : Direction.CARDINAL) {
       Coord cursor = end.copy();
       cursor.translate(dir);
-      stairs().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor, true, false);
+      primaryStairBrush().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor, true, false);
     }
   }
 
@@ -287,10 +287,10 @@ public class DungeonsCrypt extends BaseRoom {
     Coord cursor = origin.copy();
     cursor.translate(dir, 2);
     cursor.up();
-    stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+    primaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
 
     cursor.translate(dir.reverse());
-    stairs().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
+    primaryStairBrush().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
 
     cursor = origin.copy();
     cursor.translate(dir, 2);

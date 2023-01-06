@@ -51,7 +51,7 @@ public class NetherFortressRoom extends BaseRoom {
   protected void generateFloor(Coord at, List<Direction> entrances) {
     super.generateFloor(at, entrances);
 
-    floors().fill(worldEditor, at.newRect(getWallDist()).down());
+    primaryFloorBrush().fill(worldEditor, at.newRect(getWallDist()).down());
 
     generateGardenWithCrops(at.copy().down(2));
   }
@@ -61,8 +61,8 @@ public class NetherFortressRoom extends BaseRoom {
     super.generateCeiling(at, entrances);
 
     Coord ceilingLiquid = at.copy().up(getCeilingHeight());
-    walls().fill(worldEditor, ceilingLiquid.newRect(getWallDist()).down());
-    liquid().fill(worldEditor, ceilingLiquid.newRect(3));
+    primaryWallBrush().fill(worldEditor, ceilingLiquid.newRect(getWallDist()).down());
+    primaryLiquidBrush().fill(worldEditor, ceilingLiquid.newRect(3));
   }
 
   private void generateGardenWithCrops(Coord gardenLocation) {
@@ -72,7 +72,7 @@ public class NetherFortressRoom extends BaseRoom {
     RectSolid gardenRectangle = gardenLocation.newRect(4);
     getSoil().fill(worldEditor, gardenRectangle);
     getCrops().fill(worldEditor, cropRectangle);
-    liquid().stroke(worldEditor, gardenLocation);
+    primaryLiquidBrush().stroke(worldEditor, gardenLocation);
     SingleBlockBrush.AIR.stroke(worldEditor, gardenLocation.copy().up());
   }
 
@@ -83,7 +83,7 @@ public class NetherFortressRoom extends BaseRoom {
   }
 
   private boolean isHotGarden() {
-    SingleBlockBrush liquid = (SingleBlockBrush) liquid();
+    SingleBlockBrush liquid = (SingleBlockBrush) primaryLiquidBrush();
     boolean isBlockTypeLava = liquid.getBlockType() != null && liquid.getBlockType().equals(LAVA_FLOWING);
     boolean hasJsonLava = liquid.getJson() != null && liquid.getJson().toString().toLowerCase().contains("lava");
     return isBlockTypeLava || hasJsonLava;
@@ -108,17 +108,17 @@ public class NetherFortressRoom extends BaseRoom {
   @Override
   protected void generateDecorations(Coord at, List<Direction> entrances) {
     for (Direction cardinal : CARDINAL) {
-      walls().fill(worldEditor, RectSolid.newRect(
+      primaryWallBrush().fill(worldEditor, RectSolid.newRect(
           at.copy().up(5).translate(cardinal, 4).translate(cardinal.left(), 6),
           at.copy().up(5).translate(cardinal, 4).translate(cardinal.right(), 6)
       ));
 
-      walls().fill(worldEditor, RectSolid.newRect(
+      primaryWallBrush().fill(worldEditor, RectSolid.newRect(
           at.copy().up(5).translate(cardinal, 6).translate(cardinal.left(), 6),
           at.copy().up(5).translate(cardinal, 6).translate(cardinal.right(), 6)
       ));
 
-      stairs().setUpsideDown(false).setFacing(cardinal.reverse()).fill(worldEditor, RectSolid.newRect(
+      primaryStairBrush().setUpsideDown(false).setFacing(cardinal.reverse()).fill(worldEditor, RectSolid.newRect(
           at.copy().down().translate(cardinal, 4).translate(cardinal.left(), 2),
           at.copy().down().translate(cardinal, 4).translate(cardinal.right(), 2)
       ));
@@ -136,26 +136,26 @@ public class NetherFortressRoom extends BaseRoom {
   private void supportPillar(Coord at) {
 
     for (Direction dir : CARDINAL) {
-      pillars().fill(worldEditor, RectSolid.newRect(
+      primaryPillarBrush().fill(worldEditor, RectSolid.newRect(
               at.copy(),
               at.copy().translate(UP, 5))
           .translate(dir)
       );
 
-      stairs().setUpsideDown(true).setFacing(dir).stroke(worldEditor, at.copy().translate(dir, 2).translate(UP, 4));
+      primaryStairBrush().setUpsideDown(true).setFacing(dir).stroke(worldEditor, at.copy().translate(dir, 2).translate(UP, 4));
     }
 
     Coord start = at.copy();
     Coord end = start.copy();
     end.translate(UP, 5);
-    liquid().fill(worldEditor, RectSolid.newRect(start, end));
+    primaryLiquidBrush().fill(worldEditor, RectSolid.newRect(start, end));
     List<Coord> core = RectSolid.newRect(start, end).get();
     Coord spawnerLocation = core.get(random().nextInt(core.size()));
     generateSpawner(spawnerLocation);
   }
 
   private void pillar(Coord origin) {
-     Pillar.newPillar(worldEditor).withStairs(stairs()).withPillar(pillars()).withHeight(5).generate(origin);
+     Pillar.newPillar(worldEditor).withStairs(primaryStairBrush()).withPillar(primaryPillarBrush()).withHeight(5).generate(origin);
   }
 
 }

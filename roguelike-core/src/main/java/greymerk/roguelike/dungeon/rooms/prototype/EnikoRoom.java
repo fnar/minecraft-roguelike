@@ -49,13 +49,13 @@ public class EnikoRoom extends BaseRoom {
     Coord end = origin.copy();
     start.translate(new Coord(6, -1, 6));
     end.translate(new Coord(-6, 4, -6));
-    RectHollow.newRect(start, end).fill(worldEditor, walls(), false, true);
+    RectHollow.newRect(start, end).fill(worldEditor, primaryWallBrush(), false, true);
 
     start = origin.copy();
     end = origin.copy();
     start.translate(new Coord(6, 4, 6));
     end.translate(new Coord(-6, 5, -6));
-    RectSolid.newRect(start, end).fill(worldEditor, secondaryWalls(), false, true);
+    RectSolid.newRect(start, end).fill(worldEditor, secondaryWallBrush(), false, true);
 
     start = origin.copy();
     end = origin.copy();
@@ -67,7 +67,7 @@ public class EnikoRoom extends BaseRoom {
     end = origin.copy();
     start.translate(new Coord(-3, -1, -3));
     end.translate(new Coord(3, -1, 3));
-    floors().fill(worldEditor, RectSolid.newRect(start, end));
+    primaryFloorBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
     for (Direction dir : Direction.CARDINAL) {
       Coord cursor = origin.copy();
@@ -79,9 +79,9 @@ public class EnikoRoom extends BaseRoom {
 
         c = cursor.copy();
         c.translate(o, 3);
-        stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
+        primaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
         c.translate(o);
-        stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
+        primaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, c);
       }
 
       cursor.translate(dir.antiClockwise(), 5);
@@ -94,7 +94,7 @@ public class EnikoRoom extends BaseRoom {
         start.translate(dir.antiClockwise());
         end.translate(dir.clockwise());
         end.translate(dir, 6);
-        floors().fill(worldEditor, RectSolid.newRect(start, end));
+        primaryFloorBrush().fill(worldEditor, RectSolid.newRect(start, end));
       }
     }
 

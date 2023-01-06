@@ -30,7 +30,7 @@ public class SmallLiquidPitRoom extends BaseRoom {
   private void generateLiquid(Coord at) {
     int liquidHeight = 1 + random().nextInt(3);
     int radius = Math.max(1, getWallDist() - (random().nextBoolean() ? 1 : 0) - random().nextInt(getWallDist() / 2));
-    liquid().fill(worldEditor, at.newRect(radius).withHeight(liquidHeight).down(liquidHeight));
+    primaryLiquidBrush().fill(worldEditor, at.newRect(radius).withHeight(liquidHeight).down(liquidHeight));
   }
 
   private void generatePillars(Coord at) {

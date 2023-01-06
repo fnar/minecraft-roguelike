@@ -65,12 +65,12 @@ public class DungeonsSmithy extends BaseRoom {
       start.translate(entranceDirection.reverse(), 2);
       end.translate(side, 3);
       end.translate(entranceDirection, 2);
-      walls().fill(worldEditor, RectSolid.newRect(start, end));
+      primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
       start.translate(entranceDirection);
       end = start.copy();
       end.translate(entranceDirection, 2);
-      stairs().setUpsideDown(true).setFacing(side.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
+      primaryStairBrush().setUpsideDown(true).setFacing(side.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
 
       for (Direction o : side.orthogonals()) {
         start = origin.copy();
@@ -78,18 +78,18 @@ public class DungeonsSmithy extends BaseRoom {
         start.translate(o, 2);
         end = start.copy();
         end.up(2);
-        pillars().fill(worldEditor, RectSolid.newRect(start, end));
+        primaryPillarBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
         cursor = end.copy();
         cursor.translate(side.reverse());
-        stairs().setUpsideDown(true).setFacing(side.reverse()).stroke(worldEditor, cursor);
+        primaryStairBrush().setUpsideDown(true).setFacing(side.reverse()).stroke(worldEditor, cursor);
         cursor.up();
         cursor.translate(side.reverse());
-        stairs().setUpsideDown(true).setFacing(side.reverse()).stroke(worldEditor, cursor);
+        primaryStairBrush().setUpsideDown(true).setFacing(side.reverse()).stroke(worldEditor, cursor);
 
         cursor = end.copy();
         cursor.translate(o.reverse());
-        stairs().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
+        primaryStairBrush().setUpsideDown(true).setFacing(o.reverse()).stroke(worldEditor, cursor);
       }
     }
 
@@ -113,7 +113,7 @@ public class DungeonsSmithy extends BaseRoom {
     end.translate(entranceDirection.reverse(), 3);
     end.translate(entranceDirection.clockwise(), 4);
 
-    RectHollow.newRect(start, end).fill(worldEditor, walls());
+    RectHollow.newRect(start, end).fill(worldEditor, primaryWallBrush());
 
     // entrance
     cursor = origin.copy();
@@ -129,7 +129,7 @@ public class DungeonsSmithy extends BaseRoom {
     end.translate(entranceDirection.reverse(), 3);
     end.translate(entranceDirection.clockwise(), 4);
 
-    RectHollow.newRect(start, end).fill(worldEditor, walls());
+    RectHollow.newRect(start, end).fill(worldEditor, primaryWallBrush());
 
     // middle
 
@@ -143,7 +143,7 @@ public class DungeonsSmithy extends BaseRoom {
     end.translate(entranceDirection.clockwise(), 6);
     end.translate(entranceDirection, 4);
 
-    RectHollow.newRect(start, end).fill(worldEditor, walls(), false, true);
+    RectHollow.newRect(start, end).fill(worldEditor, primaryWallBrush(), false, true);
 
   }
 
@@ -155,10 +155,10 @@ public class DungeonsSmithy extends BaseRoom {
     start.translate(entranceDirection.antiClockwise(), 5);
     end.translate(entranceDirection.clockwise(), 5);
     end.up();
-    walls().fill(worldEditor, RectSolid.newRect(start, end));
+    primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
     start.translate(entranceDirection.reverse(), 6);
     end.translate(entranceDirection.reverse(), 6);
-    walls().fill(worldEditor, RectSolid.newRect(start, end));
+    primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
     Coord cursor;
     for (Direction side : entranceDirection.orthogonals()) {
@@ -185,32 +185,32 @@ public class DungeonsSmithy extends BaseRoom {
     Coord start = origin.copy();
     Coord end = origin.copy();
     end.up(3);
-    pillars().fill(worldEditor, RectSolid.newRect(start, end));
+    primaryPillarBrush().fill(worldEditor, RectSolid.newRect(start, end));
     Coord cursor = end.copy();
     cursor.translate(entranceDirection.antiClockwise());
-    stairs().setUpsideDown(true).setFacing(entranceDirection.antiClockwise()).stroke(worldEditor, cursor);
+    primaryStairBrush().setUpsideDown(true).setFacing(entranceDirection.antiClockwise()).stroke(worldEditor, cursor);
     cursor = end.copy();
     cursor.translate(entranceDirection.clockwise());
-    stairs().setUpsideDown(true).setFacing(entranceDirection.clockwise()).stroke(worldEditor, cursor);
+    primaryStairBrush().setUpsideDown(true).setFacing(entranceDirection.clockwise()).stroke(worldEditor, cursor);
     cursor = end.copy();
     cursor.translate(entranceDirection.reverse());
-    stairs().setUpsideDown(true).setFacing(entranceDirection.reverse()).stroke(worldEditor, cursor);
+    primaryStairBrush().setUpsideDown(true).setFacing(entranceDirection.reverse()).stroke(worldEditor, cursor);
     cursor.up();
-    walls().stroke(worldEditor, cursor);
+    primaryWallBrush().stroke(worldEditor, cursor);
     cursor.translate(entranceDirection.reverse());
-    stairs().setUpsideDown(true).setFacing(entranceDirection.reverse()).stroke(worldEditor, cursor);
+    primaryStairBrush().setUpsideDown(true).setFacing(entranceDirection.reverse()).stroke(worldEditor, cursor);
     cursor.translate(entranceDirection.reverse());
     cursor.up();
     start = cursor.copy();
     end = cursor.copy();
     end.translate(entranceDirection, 2);
-    walls().fill(worldEditor, RectSolid.newRect(start, end));
+    primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
     cursor = end.copy();
     cursor.translate(entranceDirection.antiClockwise());
-    stairs().setUpsideDown(true).setFacing(entranceDirection.antiClockwise()).stroke(worldEditor, cursor);
+    primaryStairBrush().setUpsideDown(true).setFacing(entranceDirection.antiClockwise()).stroke(worldEditor, cursor);
     cursor = end.copy();
     cursor.translate(entranceDirection.clockwise());
-    stairs().setUpsideDown(true).setFacing(entranceDirection.clockwise()).stroke(worldEditor, cursor);
+    primaryStairBrush().setUpsideDown(true).setFacing(entranceDirection.clockwise()).stroke(worldEditor, cursor);
   }
 
 
@@ -220,10 +220,10 @@ public class DungeonsSmithy extends BaseRoom {
     Coord end = start.copy();
     start.translate(entranceDirection.antiClockwise(), 2);
     end.translate(entranceDirection.clockwise(), 2);
-    walls().fill(worldEditor, RectSolid.newRect(start, end));
+    primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
     start.translate(entranceDirection.reverse());
     end.translate(entranceDirection.reverse());
-    stairs().setUpsideDown(false).setFacing(entranceDirection.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
+    primaryStairBrush().setUpsideDown(false).setFacing(entranceDirection.reverse()).fill(worldEditor, RectSolid.newRect(start, end));
 
 
     for (Direction o : entranceDirection.orthogonals()) {
@@ -233,9 +233,9 @@ public class DungeonsSmithy extends BaseRoom {
       smelter(entranceDirection, cursor);
 
       cursor.translate(o, 2);
-      walls().stroke(worldEditor, cursor);
+      primaryWallBrush().stroke(worldEditor, cursor);
       cursor.translate(entranceDirection);
-      walls().stroke(worldEditor, cursor);
+      primaryWallBrush().stroke(worldEditor, cursor);
     }
   }
 
@@ -384,11 +384,11 @@ public class DungeonsSmithy extends BaseRoom {
     Coord end = start.copy();
     start.translate(entranceDirection, 2);
     end.translate(entranceDirection.reverse(), 2);
-    stairs().setUpsideDown(false).setFacing(entranceDirection.antiClockwise()).fill(worldEditor, RectSolid.newRect(start, end));
+    primaryStairBrush().setUpsideDown(false).setFacing(entranceDirection.antiClockwise()).fill(worldEditor, RectSolid.newRect(start, end));
 
     cursor = origin.copy();
     cursor.translate(entranceDirection.clockwise(), 3);
-    walls().stroke(worldEditor, cursor);
+    primaryWallBrush().stroke(worldEditor, cursor);
     cursor.translate(entranceDirection);
     BlockType.WATER_FLOWING.getBrush().stroke(worldEditor, cursor);
     cursor.translate(entranceDirection.reverse(), 2);
@@ -400,7 +400,7 @@ public class DungeonsSmithy extends BaseRoom {
     end = start.copy();
     start.translate(entranceDirection);
     end.translate(entranceDirection.reverse());
-    stairs().setUpsideDown(true).setFacing(entranceDirection.clockwise()).fill(worldEditor, RectSolid.newRect(start, end));
+    primaryStairBrush().setUpsideDown(true).setFacing(entranceDirection.clockwise()).fill(worldEditor, RectSolid.newRect(start, end));
     cursor.up();
 
     generateChest(cursor, entranceDirection.antiClockwise(), ChestType.SMITH);
@@ -414,9 +414,9 @@ public class DungeonsSmithy extends BaseRoom {
     for (Direction dir : Direction.CARDINAL) {
       cursor = origin.copy();
       cursor.translate(dir);
-      stairs().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
+      primaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
       cursor.translate(dir.antiClockwise());
-      stairs().setUpsideDown(true).stroke(worldEditor, cursor);
+      primaryStairBrush().setUpsideDown(true).stroke(worldEditor, cursor);
     }
 
     cursor = origin.copy();

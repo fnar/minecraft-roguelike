@@ -55,9 +55,9 @@ public class DungeonsSlime extends BaseRoom {
     Coord start = origin.copy().translate(-1, -1, -1);
     Coord end = origin.copy().translate(1, -1, 1);
     RectSolid poolCoords = RectSolid.newRect(start, end);
-    liquid().fill(worldEditor, poolCoords);
+    primaryLiquidBrush().fill(worldEditor, poolCoords);
     poolCoords.translate(Direction.DOWN, 1);
-    walls().fill(worldEditor, poolCoords);
+    primaryWallBrush().fill(worldEditor, poolCoords);
   }
 
   private void generateCornerPillars(Coord origin) {
@@ -67,8 +67,8 @@ public class DungeonsSlime extends BaseRoom {
           .translate(dir.antiClockwise(), 2);
 
       Pillar.newPillar(worldEditor)
-          .withPillar(pillars())
-          .withStairs(stairs())
+          .withPillar(primaryPillarBrush())
+          .withStairs(primaryStairBrush())
           .withHeight(4)
           .generate(start);
     }
@@ -88,10 +88,10 @@ public class DungeonsSlime extends BaseRoom {
       Coord start = at.copy().up(4).translate(dir, 3).translate(dir.antiClockwise(), 8);
       Coord end = at.copy().up(4).translate(dir, 3).translate(dir.clockwise(), 8);
       RectSolid wall = RectSolid.newRect(start, end);
-      walls().fill(worldEditor, wall);
+      primaryWallBrush().fill(worldEditor, wall);
 
       wall.translate(dir, 4);
-      walls().fill(worldEditor, wall);
+      primaryWallBrush().fill(worldEditor, wall);
     }
   }
 
@@ -111,10 +111,10 @@ public class DungeonsSlime extends BaseRoom {
     SingleBlockBrush.AIR.fill(worldEditor, waterway);
 
     waterway.translate(Direction.DOWN, 1);
-    liquid().fill(worldEditor, waterway);
+    primaryLiquidBrush().fill(worldEditor, waterway);
 
     waterway.translate(Direction.DOWN, 1);
-    walls().fill(worldEditor, waterway);
+    primaryWallBrush().fill(worldEditor, waterway);
   }
 
   private void generatePipes(Coord origin, List<Direction> entrances) {
@@ -128,14 +128,14 @@ public class DungeonsSlime extends BaseRoom {
   private void generatePipe(Coord origin, Direction dir) {
     Coord cursor = origin.copy();
     cursor.translate(dir, 7);
-    walls().stroke(worldEditor, cursor);
+    primaryWallBrush().stroke(worldEditor, cursor);
 
     cursor.up(2);
-    walls().stroke(worldEditor, cursor);
+    primaryWallBrush().stroke(worldEditor, cursor);
 
     cursor.down();
     cursor.translate(dir);
-    liquid().stroke(worldEditor, cursor);
+    primaryLiquidBrush().stroke(worldEditor, cursor);
 
     generatePipeOpening(origin, dir);
   }
@@ -145,11 +145,11 @@ public class DungeonsSlime extends BaseRoom {
       Coord cursor = origin.copy();
       cursor.translate(dir, 7);
       cursor.translate(o);
-      stairs().setUpsideDown(true).setFacing(o).stroke(worldEditor, cursor);
+      primaryStairBrush().setUpsideDown(true).setFacing(o).stroke(worldEditor, cursor);
       cursor.up();
-      walls().stroke(worldEditor, cursor);
+      primaryWallBrush().stroke(worldEditor, cursor);
       cursor.up();
-      stairs().setUpsideDown(false).setFacing(o).stroke(worldEditor, cursor);
+      primaryStairBrush().setUpsideDown(false).setFacing(o).stroke(worldEditor, cursor);
     }
   }
 

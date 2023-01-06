@@ -41,19 +41,19 @@ public class CakeRoom extends BaseRoom {
     RectHollow.newRect(
         origin.copy().west(width + 1).north(length + 1).down(),
         origin.copy().east(width + 1).south(length + 1).up(height + 1)
-    ).fill(worldEditor, floors(), false, true);
+    ).fill(worldEditor, primaryFloorBrush(), false, true);
 
-    pillars().fill(worldEditor, RectSolid.newRect(new Coord(x - width, y, z - length), new Coord(x - width, y + height, z - length)));
-    pillars().fill(worldEditor, RectSolid.newRect(new Coord(x - width, y, z + length), new Coord(x - width, y + height, z + length)));
-    pillars().fill(worldEditor, RectSolid.newRect(new Coord(x + width, y, z - length), new Coord(x + width, y + height, z - length)));
-    pillars().fill(worldEditor, RectSolid.newRect(new Coord(x + width, y, z + length), new Coord(x + width, y + height, z + length)));
+    primaryPillarBrush().fill(worldEditor, RectSolid.newRect(new Coord(x - width, y, z - length), new Coord(x - width, y + height, z - length)));
+    primaryPillarBrush().fill(worldEditor, RectSolid.newRect(new Coord(x - width, y, z + length), new Coord(x - width, y + height, z + length)));
+    primaryPillarBrush().fill(worldEditor, RectSolid.newRect(new Coord(x + width, y, z - length), new Coord(x + width, y + height, z - length)));
+    primaryPillarBrush().fill(worldEditor, RectSolid.newRect(new Coord(x + width, y, z + length), new Coord(x + width, y + height, z + length)));
 
-    lights().stroke(worldEditor, new Coord(x - width + 1, y + height + 1, z - length + 1));
-    lights().stroke(worldEditor, new Coord(x - width + 1, y + height + 1, z + length - 1));
-    lights().stroke(worldEditor, new Coord(x + width - 1, y + height + 1, z - length + 1));
-    lights().stroke(worldEditor, new Coord(x + width - 1, y + height + 1, z + length - 1));
+    primaryLightBrush().stroke(worldEditor, new Coord(x - width + 1, y + height + 1, z - length + 1));
+    primaryLightBrush().stroke(worldEditor, new Coord(x - width + 1, y + height + 1, z + length - 1));
+    primaryLightBrush().stroke(worldEditor, new Coord(x + width - 1, y + height + 1, z - length + 1));
+    primaryLightBrush().stroke(worldEditor, new Coord(x + width - 1, y + height + 1, z + length - 1));
 
-    placeCake(origin, pillars());
+    placeCake(origin, primaryPillarBrush());
 
     generateChest(generateChestLocation(origin), getEntrance(entrances).reverse(), ChestType.FOOD);
 
