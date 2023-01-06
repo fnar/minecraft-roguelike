@@ -1,5 +1,7 @@
 package greymerk.roguelike.dungeon;
 
+import com.github.fnar.util.ReportThisIssueException;
+
 import java.util.List;
 
 import greymerk.roguelike.dungeon.base.BaseRoom;
@@ -100,7 +102,11 @@ public class DungeonNode implements Bounded {
   }
 
   public void generate() {
-    getRoom().generate(getPosition(), getEntrances());
+    try {
+      getRoom().generate(getPosition(), getEntrances());
+    } catch (Exception exception) {
+      new ReportThisIssueException(exception).printStackTrace();
+    }
   }
 
   boolean hasOverlappingNode(int size, List<DungeonNode> nodes) {
