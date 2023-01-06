@@ -22,30 +22,9 @@ public class DungeonsNetherBrick extends BaseRoom {
     this.height = 4;
   }
 
-  public BaseRoom generate(Coord at, List<Direction> entrances) {
-    generateWalls(at);
-    generateFloor(at);
-    generateCeiling(at);
-    generateTrappableChest(generateChestLocation(at), getEntrance(entrances));
-    generateSpawners(at);
-    generateDoorways(at, entrances);
-
-    return this;
-  }
-
-  private void generateWalls(Coord at) {
-    IShape wallsRect = at.newHollowRect(getWallDist()).withHeight(getCeilingHeight() + 1 + getDepth() + 1).down(getDepth());
-    walls().fill(worldEditor, wallsRect, false, true);
-  }
-
-  private void generateFloor(Coord at) {
-    IShape floorRect = at.newRect(getWallDist()).down(depth);
-    floors().fill(worldEditor, floorRect);
-  }
-
-  private void generateCeiling(Coord at) {
-    IShape ceilingRect = at.newRect(getWallDist()).up(getCeilingHeight());
-    ceilingBrush().fill(worldEditor, ceilingRect);
+  @Override
+  protected void generateCeiling(Coord at, List<Direction> entrances) {
+    ceilingBrush().fill(worldEditor, at.newRect(getWallDist()).up(getCeilingHeight()));
   }
 
   private BlockWeightedRandom ceilingBrush() {
@@ -56,12 +35,9 @@ public class DungeonsNetherBrick extends BaseRoom {
   }
 
   @Override
-  protected Coord generateChestLocation(Coord at) {
-    Direction dir0 = Direction.randomCardinal(random());
-    Direction dir1 = dir0.orthogonals()[random().nextBoolean() ? 0 : 1];
-    return at.copy()
-        .translate(dir0, 3)
-        .translate(dir1, 2);
+  protected void generateDecorations(Coord at, List<Direction> entrances) {
+    generateTrappableChest(generateChestLocation(at), getEntrance(entrances));
+    generateSpawners(at);
   }
 
   private void generateSpawners(Coord at) {
