@@ -4,7 +4,7 @@ buildscript {
         maven { url = "http://files.minecraftforge.net/maven" }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
+        classpath "net.minecraftforge.gradle:ForgeGradle:${forgegradle_version}"
     }
 }
 apply plugin: 'net.minecraftforge.gradle.forge'
@@ -13,7 +13,7 @@ apply plugin: 'java'
 
 version = "2.4.3"
 group = "com.github.fnar"
-archivesBaseName = "RoguelikeDungeonsFnarEdition-1.12.2"
+archivesBaseName = "RoguelikeDungeonsFnarEdition-${minecraft_version}"
 
 sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 compileJava {
@@ -21,7 +21,7 @@ compileJava {
 }
 
 minecraft {
-    version = "1.12.2-14.23.5.2768"
+    version = "${minecraft_version}-${forge_version}"
     runDir = "run"
     mappings = "snapshot_20171003"
     makeObfSourceJar = false
