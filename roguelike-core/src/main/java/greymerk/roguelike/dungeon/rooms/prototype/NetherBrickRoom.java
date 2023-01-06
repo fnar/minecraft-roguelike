@@ -13,9 +13,9 @@ import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 
-public class DungeonsNetherBrick extends BaseRoom {
+public class NetherBrickRoom extends BaseRoom {
 
-  public DungeonsNetherBrick(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
+  public NetherBrickRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
     this.size = 6;
     this.ceilingHeight = 4;

@@ -26,7 +26,7 @@ import greymerk.roguelike.dungeon.rooms.prototype.DungeonsEnchant;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsEnder;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsFire;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsMusic;
-import greymerk.roguelike.dungeon.rooms.prototype.DungeonsNetherBrick;
+import greymerk.roguelike.dungeon.rooms.prototype.NetherBrickRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.PitRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsPrison;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsSlime;
@@ -147,7 +147,7 @@ public class RoomSetting {
       case MUSIC:
         return new DungeonsMusic(this, levelSettings, worldEditor);
       case NETHER:
-        return new DungeonsNetherBrick(this, levelSettings, worldEditor);
+        return new NetherBrickRoom(this, levelSettings, worldEditor);
       case NETHERFORT:
         return new NetherFortressRoom(this, levelSettings, worldEditor);
       case NETHER_PORTAL:
