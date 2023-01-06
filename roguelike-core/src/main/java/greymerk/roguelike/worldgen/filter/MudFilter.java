@@ -12,14 +12,14 @@ import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockJumble;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
-import greymerk.roguelike.worldgen.IBounded;
+import greymerk.roguelike.worldgen.Bounded;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.Shape;
 
 public class MudFilter implements IFilter {
 
   @Override
-  public void apply(WorldEditor editor, Random rand, Theme theme, IBounded box) {
+  public void apply(WorldEditor editor, Random rand, Theme theme, Bounded box) {
     for (Coord pos : box.getShape(Shape.RECTSOLID)) {
       if (rand.nextInt(40) != 0) {
         continue;
