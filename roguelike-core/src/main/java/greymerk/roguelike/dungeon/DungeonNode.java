@@ -7,12 +7,12 @@ import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BoundingBox;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
-import greymerk.roguelike.worldgen.IBounded;
+import greymerk.roguelike.worldgen.Bounded;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.IShape;
 import greymerk.roguelike.worldgen.shapes.Shape;
 
-public class DungeonNode implements IBounded {
+public class DungeonNode implements Bounded {
 
   public static final int ENCASING_SIZE = 1;
   private final Coord pos;
@@ -80,7 +80,7 @@ public class DungeonNode implements IBounded {
   }
 
   @Override
-  public boolean collide(IBounded other) {
+  public boolean collide(Bounded other) {
     return getBoundingBox().collide(other);
   }
 

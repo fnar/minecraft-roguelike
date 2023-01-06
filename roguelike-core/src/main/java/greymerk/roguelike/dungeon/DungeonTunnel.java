@@ -17,14 +17,14 @@ import greymerk.roguelike.worldgen.BlockJumble;
 import greymerk.roguelike.worldgen.BoundingBox;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
-import greymerk.roguelike.worldgen.IBounded;
+import greymerk.roguelike.worldgen.Bounded;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.IShape;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.shapes.Shape;
 
-public class DungeonTunnel implements Iterable<Coord>, IBounded {
+public class DungeonTunnel implements Iterable<Coord>, Bounded {
 
   private final Coord start;
   private final Coord end;
@@ -156,7 +156,7 @@ public class DungeonTunnel implements Iterable<Coord>, IBounded {
   }
 
   @Override
-  public boolean collide(IBounded other) {
+  public boolean collide(Bounded other) {
     return getBoundingBox().collide(other);
   }
 

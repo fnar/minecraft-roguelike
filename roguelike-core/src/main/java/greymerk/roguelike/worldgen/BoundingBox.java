@@ -3,7 +3,7 @@ package greymerk.roguelike.worldgen;
 import greymerk.roguelike.worldgen.shapes.IShape;
 import greymerk.roguelike.worldgen.shapes.Shape;
 
-public class BoundingBox implements IBounded {
+public class BoundingBox implements Bounded {
 
   private Coord start;
   private Coord end;
@@ -19,7 +19,7 @@ public class BoundingBox implements IBounded {
     return this;
   }
 
-  public boolean collide(IBounded other) {
+  public boolean collide(Bounded other) {
 
     BoundingBox otherBox = other.getBoundingBox();
 
