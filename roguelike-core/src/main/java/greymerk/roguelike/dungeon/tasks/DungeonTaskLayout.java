@@ -36,8 +36,7 @@ public class DungeonTaskLayout implements IDungeonTask {
       }
 
       LevelLayout layout = generator.getLayout();
-      start = layout.getEnd().getPosition().copy();
-      start.down(Dungeon.VERTICAL_SPACING);
+      start = layout.getEnd().getPosition().copy().down(Dungeon.VERTICAL_SPACING);
     }
 
 
