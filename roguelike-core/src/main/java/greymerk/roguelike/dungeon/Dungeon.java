@@ -122,7 +122,7 @@ public class Dungeon {
           .forEach(levels::add);
 
       Arrays.stream(DungeonStage.values())
-          .flatMap(stage -> DungeonTaskRegistry.getTaskRegistry().getTasks(stage).stream())
+          .flatMap(stage -> DungeonTaskRegistry.getInstance().getTasks(stage).stream())
           .forEach(task -> performTaskSafely(dungeonSettings, random, task));
 
       logger.info("Successfully generated dungeon with id {} at {}.", dungeonSettings.getId(), coord);
