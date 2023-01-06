@@ -27,6 +27,7 @@ import static greymerk.roguelike.dungeon.base.RoomType.OBSIDIAN;
 import static greymerk.roguelike.dungeon.base.RoomType.OSSUARY;
 import static greymerk.roguelike.dungeon.base.RoomType.PIT;
 import static greymerk.roguelike.dungeon.base.RoomType.PLATFORMS;
+import static greymerk.roguelike.dungeon.base.RoomType.PLATFORMS_2;
 import static greymerk.roguelike.dungeon.base.RoomType.PRISON;
 import static greymerk.roguelike.dungeon.base.RoomType.REWARD;
 import static greymerk.roguelike.dungeon.base.RoomType.SLIME;
@@ -69,6 +70,7 @@ public class BuiltinRoomsSettings extends DungeonSettings {
 
         BRICK.newRandomRoomSetting(3),
         CORNER.newRandomRoomSetting(10),
+        PLATFORMS_2.newRandomRoomSetting(1),
         SMALL_LIQUID_PIT.newRandomRoomSetting(1)
     );
   }
@@ -118,6 +120,7 @@ public class BuiltinRoomsSettings extends DungeonSettings {
         CRYPT.newRandomRoomSetting(1),
         CORNER.newRandomRoomSetting(1),
         PLATFORMS.newRandomRoomSetting(1),
+        PLATFORMS_2.newRandomRoomSetting(1),
         NETHER.newRandomRoomSetting(1),
         PRISON.newRandomRoomSetting(1),
         OBSIDIAN.newRandomRoomSetting(1),
