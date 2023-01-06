@@ -23,6 +23,7 @@ import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.RectHollow;
+import greymerk.roguelike.worldgen.shapes.IShape;
 import greymerk.roguelike.worldgen.shapes.RectSolid;
 import lombok.EqualsAndHashCode;
 
@@ -55,11 +56,14 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
   }
 
   protected void generateWalls(Coord at, List<Direction> entrances) {
-    walls().fill(worldEditor, at.newHollowRect(getWallDist()).withHeight(height + depth).down(depth));
+    IShape wallsRect = at.newHollowRect(getWallDist())
+        .withHeight(getCeilingHeight() + 1 + getDepth() + 1)
+        .down(getDepth());
+    walls().fill(worldEditor, wallsRect, false, true);
   }
 
   protected void generateFloor(Coord at, List<Direction> entrances) {
-    floors().fill(worldEditor, at.newRect(getWallDist()).down(depth));
+    floors().fill(worldEditor, at.newRect(getWallDist()).down(getDepth()));
   }
 
   protected void generateCeiling(Coord at, List<Direction> entrances) {
@@ -275,6 +279,10 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
 
   protected final int getCeilingHeight() {
     return getHeight() - DungeonNode.ENCASING_SIZE;
+  }
+
+  protected final int getDepth() {
+    return depth;
   }
 
   public boolean isValidLocation(Coord at, Direction facing) {
