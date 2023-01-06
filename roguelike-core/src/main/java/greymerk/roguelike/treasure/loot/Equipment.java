@@ -74,6 +74,8 @@ public enum Equipment {
         return ToolType.AXE;
       case SHOVEL:
         return ToolType.SHOVEL;
+      case HOE:
+        return ToolType.HOE;
     }
     return null;
   }

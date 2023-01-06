@@ -13,6 +13,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
+import greymerk.roguelike.treasure.loot.Equipment;
+import greymerk.roguelike.treasure.loot.Quality;
 import greymerk.roguelike.util.DyeColor;
 
 public class GardenLootItem extends LootItem {
@@ -30,6 +32,7 @@ public class GardenLootItem extends LootItem {
     items.add(BlockType.WHEAT.asItem().asStack());
     items.add(Material.clayBall().asStack());
     items.add(new Dye(DyeColor.WHITE).asStack());
+    items.add(Equipment.HOE.asToolType().asItem().withQuality(Quality.get(level)).asStack());
 
     return items.get(random.nextInt(items.size()));
   }

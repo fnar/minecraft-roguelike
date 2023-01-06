@@ -1,6 +1,7 @@
 package greymerk.roguelike.treasure.loot;
 
 import java.util.Arrays;
+import java.util.Random;
 
 public enum Quality {
 
@@ -30,6 +31,11 @@ public enum Quality {
 
   public String getToolName() {
     return toolName;
+  }
+
+  public static Quality random(Random random) {
+    Quality[] values = values();
+    return values[random.nextInt(values.length)];
   }
 
   public static Quality get(int level) {
