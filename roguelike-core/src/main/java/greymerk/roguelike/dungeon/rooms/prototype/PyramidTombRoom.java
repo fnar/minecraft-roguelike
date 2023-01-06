@@ -27,10 +27,10 @@ public class PyramidTombRoom extends BaseRoom {
   }
 
   @Override
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
 
-    Coord start = origin.copy();
-    Coord end = origin.copy();
+    Coord start = at.copy();
+    Coord end = at.copy();
 
     start.north(6);
     start.west(6);
@@ -39,8 +39,8 @@ public class PyramidTombRoom extends BaseRoom {
     end.up(2);
     SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(start, end));
 
-    start = origin.copy();
-    end = origin.copy();
+    start = at.copy();
+    end = at.copy();
 
     start.up(3);
     start.north(4);
@@ -50,8 +50,8 @@ public class PyramidTombRoom extends BaseRoom {
     end.up();
     SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(start, end));
 
-    start = origin.copy();
-    end = origin.copy();
+    start = at.copy();
+    end = at.copy();
 
     start.up(5);
     start.north(3);
@@ -61,8 +61,8 @@ public class PyramidTombRoom extends BaseRoom {
     end.up();
     SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(start, end));
 
-    start = origin.copy();
-    end = origin.copy();
+    start = at.copy();
+    end = at.copy();
 
     start.up(7);
     start.north(2);
@@ -73,8 +73,8 @@ public class PyramidTombRoom extends BaseRoom {
     SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(start, end));
 
     // outer walls
-    start = origin.copy();
-    end = origin.copy();
+    start = at.copy();
+    end = at.copy();
     start.north(7);
     start.west(7);
     end.south(7);
@@ -84,7 +84,7 @@ public class PyramidTombRoom extends BaseRoom {
     RectHollow.newRect(start, end).fill(worldEditor, primaryWallBrush(), false, true);
 
     // floor
-    start = origin.copy();
+    start = at.copy();
     start.down();
     end = start.copy();
     start.north(6);
@@ -98,12 +98,12 @@ public class PyramidTombRoom extends BaseRoom {
     for (Direction dir : Direction.CARDINAL) {
 
 
-      Coord cursor = origin.copy();
+      Coord cursor = at.copy();
       cursor.translate(dir, 5);
       cursor.up(3);
       ceilingTiles(worldEditor, theme(), 9, dir.reverse(), cursor);
 
-      start = origin.copy();
+      start = at.copy();
       start.translate(dir, 5);
       start.translate(dir.antiClockwise(), 5);
       end = start.copy();
@@ -111,7 +111,7 @@ public class PyramidTombRoom extends BaseRoom {
       primaryPillarBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
       for (Direction o : dir.orthogonals()) {
-        start = origin.copy();
+        start = at.copy();
         start.translate(dir, 5);
         start.translate(o);
         end = start.copy();
@@ -126,7 +126,7 @@ public class PyramidTombRoom extends BaseRoom {
     }
 
     // ceiling top
-    start = origin.copy();
+    start = at.copy();
     start.up(8);
     end = start.copy();
     start.north();
@@ -135,7 +135,7 @@ public class PyramidTombRoom extends BaseRoom {
     end.east();
     primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
-    sarcophagus(worldEditor, getEntrance(entrances), origin);
+    sarcophagus(worldEditor, getEntrance(entrances), at);
 
     return this;
   }

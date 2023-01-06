@@ -27,11 +27,11 @@ public class TreethoRoom extends BaseRoom {
   }
 
   @Override
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
     Direction dir = getEntrance(entrances);
 
-    Coord start = origin.copy();
-    Coord end = origin.copy();
+    Coord start = at.copy();
+    Coord end = at.copy();
     start.translate(new Coord(-11, -1, -11));
     end.translate(new Coord(11, 8, 11));
 
@@ -39,8 +39,8 @@ public class TreethoRoom extends BaseRoom {
 
     BlockBrush birchSlab = SlabBlock.birch().setTop(true).setFullBlock(false).setSeamless(false);
     BlockBrush pumpkin = PumpkinBlock.jackOLantern();
-    start = origin.copy();
-    end = origin.copy();
+    start = at.copy();
+    end = at.copy();
     start.translate(new Coord(-9, 8, -9));
     end.translate(new Coord(9, 8, 9));
     birchSlab.fill(worldEditor, RectSolid.newRect(start, end));
@@ -48,15 +48,15 @@ public class TreethoRoom extends BaseRoom {
     end.up();
     pumpkin.fill(worldEditor, RectSolid.newRect(start, end));
 
-    Coord cursor = origin.copy();
+    Coord cursor = at.copy();
     cursor.translate(new Coord(0, 8, 0));
     ceiling(cursor);
 
-    cursor = origin.copy();
+    cursor = at.copy();
     treeFarm(cursor, dir);
 
     for (Direction o : dir.orthogonals()) {
-      cursor = origin.copy();
+      cursor = at.copy();
       cursor.translate(o, 5);
       treeFarm(cursor, dir);
     }

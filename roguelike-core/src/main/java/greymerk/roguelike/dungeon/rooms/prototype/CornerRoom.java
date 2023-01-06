@@ -20,13 +20,13 @@ public class CornerRoom extends BaseRoom {
   }
 
   @Override
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    createHollowCenter(origin);
-    createShell(origin);
-    fillFloor(origin);
-    createCornerWalls(origin);
-    createCeiling(origin);
-    generateDoorways(origin, entrances);
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
+    createHollowCenter(at);
+    createShell(at);
+    fillFloor(at);
+    createCornerWalls(at);
+    createCeiling(at);
+    generateDoorways(at, entrances);
     return this;
   }
 

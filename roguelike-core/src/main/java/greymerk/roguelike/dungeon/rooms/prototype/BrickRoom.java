@@ -22,11 +22,11 @@ public class BrickRoom extends BaseRoom {
     super(roomSetting, levelSettings, worldEditor);
   }
 
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
 
-    int x = origin.getX();
-    int y = origin.getY();
-    int z = origin.getZ();
+    int x = at.getX();
+    int y = at.getY();
+    int z = at.getZ();
 
     // fill air inside
     SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(new Coord(x - 3, y, z - 3), new Coord(x + 3, y + 3, z + 3)));
@@ -104,10 +104,10 @@ public class BrickRoom extends BaseRoom {
       primaryWallBrush().stroke(worldEditor, cursor, false, true);
     }
 
-    Coord spawnerLocation = chooseSpawnerLocation(origin);
+    Coord spawnerLocation = chooseSpawnerLocation(at);
     generateSpawner(spawnerLocation);
-    generateChest(origin, spawnerLocation, getEntrance(entrances));
-    generateDoorways(origin, entrances);
+    generateChest(at, spawnerLocation, getEntrance(entrances));
+    generateDoorways(at, entrances);
 
     return this;
   }

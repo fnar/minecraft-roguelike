@@ -31,11 +31,11 @@ public class DungeonsSpiderNest extends BaseRoom {
     dungeonWidth = 3;
   }
 
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
 
-    originX = origin.getX();
-    originY = origin.getY();
-    originZ = origin.getZ();
+    originX = at.getX();
+    originY = at.getY();
+    originZ = at.getZ();
 
     BlockWeightedRandom webs = new BlockWeightedRandom();
     webs.addBlock(BlockType.WEB.getBrush(), 3);

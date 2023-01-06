@@ -44,33 +44,33 @@ public class EnikoRoom extends BaseRoom {
   }
 
   @Override
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    Coord start = origin.copy();
-    Coord end = origin.copy();
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
+    Coord start = at.copy();
+    Coord end = at.copy();
     start.translate(new Coord(6, -1, 6));
     end.translate(new Coord(-6, 4, -6));
     RectHollow.newRect(start, end).fill(worldEditor, primaryWallBrush(), false, true);
 
-    start = origin.copy();
-    end = origin.copy();
+    start = at.copy();
+    end = at.copy();
     start.translate(new Coord(6, 4, 6));
     end.translate(new Coord(-6, 5, -6));
     RectSolid.newRect(start, end).fill(worldEditor, secondaryWallBrush(), false, true);
 
-    start = origin.copy();
-    end = origin.copy();
+    start = at.copy();
+    end = at.copy();
     start.translate(new Coord(3, 4, 3));
     end.translate(new Coord(-3, 4, -3));
     SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(start, end));
 
-    start = origin.copy();
-    end = origin.copy();
+    start = at.copy();
+    end = at.copy();
     start.translate(new Coord(-3, -1, -3));
     end.translate(new Coord(3, -1, 3));
     primaryFloorBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
     for (Direction dir : Direction.CARDINAL) {
-      Coord cursor = origin.copy();
+      Coord cursor = at.copy();
       cursor.translate(dir, 5);
       for (Direction o : dir.orthogonals()) {
         Coord c = cursor.copy();
@@ -88,7 +88,7 @@ public class EnikoRoom extends BaseRoom {
       pillar(worldEditor, theme(), cursor);
 
       if (entrances.contains(dir)) {
-        start = origin.copy();
+        start = at.copy();
         start.down();
         end = start.copy();
         start.translate(dir.antiClockwise());
@@ -98,8 +98,8 @@ public class EnikoRoom extends BaseRoom {
       }
     }
 
-    generateSpawner(origin, COMMON_MOBS);
-    generateChest(generateChestLocation(origin.copy().up()), getEntrance(entrances));
+    generateSpawner(at, COMMON_MOBS);
+    generateChest(generateChestLocation(at.copy().up()), getEntrance(entrances));
 
     return this;
   }

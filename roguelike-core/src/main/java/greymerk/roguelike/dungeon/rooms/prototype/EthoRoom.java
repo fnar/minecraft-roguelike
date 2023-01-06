@@ -16,7 +16,7 @@ public class EthoRoom extends BaseRoom {
   }
 
   @Override
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
     return null;
   }
 

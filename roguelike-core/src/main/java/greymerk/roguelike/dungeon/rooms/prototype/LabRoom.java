@@ -195,10 +195,10 @@ public class LabRoom extends BaseRoom {
   }
 
   @Override
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    int x = origin.getX();
-    int y = origin.getY();
-    int z = origin.getZ();
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
+    int x = at.getX();
+    int y = at.getY();
+    int z = at.getZ();
 
     BlockBrush blocks = primaryWallBrush();
 
@@ -244,7 +244,7 @@ public class LabRoom extends BaseRoom {
     backWalls.fill(worldEditor, RectSolid.newRect(new Coord(x - 6, y + 1, z + 8), new Coord(x - 3, y + 3, z + 8)));
     backWalls.fill(worldEditor, RectSolid.newRect(new Coord(x + 3, y + 1, z + 8), new Coord(x + 6, y + 3, z + 8)));
 
-    generateDoorways(origin, entrances);
+    generateDoorways(at, entrances);
 
     return this;
   }

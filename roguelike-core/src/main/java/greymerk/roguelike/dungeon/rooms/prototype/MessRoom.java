@@ -27,27 +27,27 @@ public class MessRoom extends BaseRoom {
   }
 
   @Override
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
 
     // clear air
-    Coord start = origin.copy();
+    Coord start = at.copy();
     start.translate(-8, -1, -8);
-    Coord end = origin.copy();
+    Coord end = at.copy();
     end.translate(8, 5, 8);
     RectHollow.newRect(start, end).fill(worldEditor, primaryWallBrush(), false, true);
 
-    start = origin.copy();
+    start = at.copy();
     start.translate(-2, 5, -2);
-    end = origin.copy();
+    end = at.copy();
     end.translate(2, 5, 2);
     RectSolid.newRect(start, end).fill(worldEditor, secondaryWallBrush(), false, true);
 
-    Coord cursor = origin.copy();
+    Coord cursor = at.copy();
     cursor.up(4);
     primaryLightBrush().stroke(worldEditor, cursor);
 
     for (Direction dir : Direction.CARDINAL) {
-      start = origin.copy();
+      start = at.copy();
       start.translate(dir, 3);
       start.translate(dir.antiClockwise(), 3);
       end = start.copy();
@@ -60,7 +60,7 @@ public class MessRoom extends BaseRoom {
         primaryStairBrush().setUpsideDown(true).setFacing(d).stroke(worldEditor, cursor);
       }
 
-      start = origin.copy();
+      start = at.copy();
       start.translate(dir, 3);
       start.up(4);
       end = start.copy();
@@ -71,14 +71,14 @@ public class MessRoom extends BaseRoom {
 
       Direction[] corners = new Direction[]{dir, dir.antiClockwise()};
       if (entrances.size() == 4 && dir == getEntrance(entrances)) {
-        supplyCorner(corners, origin, dir);
+        supplyCorner(corners, at, dir);
       } else {
-        corner(corners, origin);
+        corner(corners, at);
       }
 
-      generateWallDecor(dir, origin);
+      generateWallDecor(dir, at);
 
-      cursor = origin.copy()
+      cursor = at.copy()
           .up(4)
           .translate(dir);
       primaryStairBrush().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
@@ -97,15 +97,15 @@ public class MessRoom extends BaseRoom {
 
     switch (nonDoors.size()) {
       case 3:
-        sideTable(nonDoors.get(2), origin);
+        sideTable(nonDoors.get(2), at);
       case 2:
-        fireplace(nonDoors.get(1), origin);
+        fireplace(nonDoors.get(1), at);
       case 1:
-        supplies(getEntrance(nonDoors), origin);
+        supplies(getEntrance(nonDoors), at);
       default:
     }
 
-    generateDoorways(origin, entrances);
+    generateDoorways(at, entrances);
 
     return this;
   }

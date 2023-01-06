@@ -25,23 +25,23 @@ public class ObsidianRoom extends BaseRoom {
   }
 
   @Override
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    generateHollowSpace(origin);
-    generateRoof(origin);
-    generateFoundation(origin);
-    HashSet<Coord> spawnerLocations = generateSpawnerHolesInCeiling(origin);
-    generateCeilingTrimAndOuterWalls(origin);
-    generateOuterPillars(origin);
-    generateUpperMidFloor(origin);
-    generateMidOuterFloors(origin);
-    generateInnerPillars(origin);
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
+    generateHollowSpace(at);
+    generateRoof(at);
+    generateFoundation(at);
+    HashSet<Coord> spawnerLocations = generateSpawnerHolesInCeiling(at);
+    generateCeilingTrimAndOuterWalls(at);
+    generateOuterPillars(at);
+    generateUpperMidFloor(at);
+    generateMidOuterFloors(at);
+    generateInnerPillars(at);
 
     for (Coord space : spawnerLocations) {
       generateSpawner(space);
     }
-    generateCrapUnderneath(origin);
-    generateDoorways(origin, entrances);
-    generateChests(origin);
+    generateCrapUnderneath(at);
+    generateDoorways(at, entrances);
+    generateChests(at);
 
     return this;
   }

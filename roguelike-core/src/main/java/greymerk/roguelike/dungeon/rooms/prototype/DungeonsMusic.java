@@ -25,34 +25,34 @@ public class DungeonsMusic extends BaseRoom {
     super(roomSetting, levelSettings, worldEditor);
   }
 
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    Coord start = origin.copy();
-    Coord end = origin.copy();
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
+    Coord start = at.copy();
+    Coord end = at.copy();
     start.translate(new Coord(-6, -1, -6));
     end.translate(new Coord(6, 5, 6));
     RectHollow.newRect(start, end).fill(worldEditor, primaryWallBrush(), false, true);
 
-    start = origin.copy();
-    end = origin.copy();
+    start = at.copy();
+    end = at.copy();
     start.translate(new Coord(-6, 4, -6));
     end.translate(new Coord(6, 5, 6));
     secondaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
-    start = origin.copy();
-    end = origin.copy();
+    start = at.copy();
+    end = at.copy();
     start.translate(new Coord(-3, 4, -3));
     end.translate(new Coord(3, 4, 3));
     SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(start, end));
 
-    start = origin.copy();
-    end = origin.copy();
+    start = at.copy();
+    end = at.copy();
     start.translate(new Coord(-3, -1, -3));
     end.translate(new Coord(3, -1, 3));
     secondaryFloorBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
     for (int i = 2; i >= 0; --i) {
-      start = origin.copy();
-      end = origin.copy();
+      start = at.copy();
+      end = at.copy();
       start.translate(new Coord(-i - 1, 0, -i - 1));
       end.translate(new Coord(i + 1, 0, i + 1));
       BlockBrush carpet = carpet().setColor(DyeColor.chooseRandom(random()));
@@ -62,19 +62,19 @@ public class DungeonsMusic extends BaseRoom {
     Coord cursor;
     for (Direction dir : Direction.CARDINAL) {
 
-      cursor = origin.copy();
+      cursor = at.copy();
       cursor.translate(dir, 5);
       cursor.up(3);
       secondaryWallBrush().stroke(worldEditor, cursor);
       cursor.translate(dir.reverse());
       secondaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
 
-      cursor = origin.copy();
+      cursor = at.copy();
       cursor.translate(dir, 5);
       cursor.translate(dir.antiClockwise(), 5);
       pillar(cursor);
 
-      start = origin.copy();
+      start = at.copy();
       start.up(4);
       start.translate(dir, 3);
       end = start.copy();
@@ -82,7 +82,7 @@ public class DungeonsMusic extends BaseRoom {
       end.translate(dir.clockwise(), 3);
       secondaryPillarBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
-      cursor = origin.copy();
+      cursor = at.copy();
       cursor.up(4);
       cursor.translate(dir);
       secondaryStairBrush().setUpsideDown(true).setFacing(dir).stroke(worldEditor, cursor);
@@ -90,18 +90,18 @@ public class DungeonsMusic extends BaseRoom {
       secondaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
 
       for (Direction o : dir.orthogonals()) {
-        cursor = origin.copy();
+        cursor = at.copy();
         cursor.translate(dir, 5);
         cursor.translate(o, 2);
         pillar(cursor);
 
-        cursor = origin.copy();
+        cursor = at.copy();
         cursor.translate(dir, 4);
         cursor.up(3);
         cursor.translate(o);
         secondaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
 
-        cursor = origin.copy();
+        cursor = at.copy();
         cursor.translate(dir, 5);
         cursor.translate(o, 3);
         secondaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
@@ -123,15 +123,15 @@ public class DungeonsMusic extends BaseRoom {
       }
     }
 
-    BlockType.JUKEBOX.getBrush().stroke(worldEditor, origin);
+    BlockType.JUKEBOX.getBrush().stroke(worldEditor, at);
 
-    cursor = origin.copy();
+    cursor = at.copy();
     cursor.up(4);
     primaryLightBrush().stroke(worldEditor, cursor);
 
-    generateChest(generateChestLocation(origin.copy().up()), getEntrance(entrances).reverse(), ChestType.MUSIC);
+    generateChest(generateChestLocation(at.copy().up()), getEntrance(entrances).reverse(), ChestType.MUSIC);
 
-    generateDoorways(origin, entrances);
+    generateDoorways(at, entrances);
 
     return this;
   }

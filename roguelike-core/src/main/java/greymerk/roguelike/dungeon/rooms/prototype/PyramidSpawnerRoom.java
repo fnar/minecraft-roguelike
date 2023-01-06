@@ -21,11 +21,11 @@ public class PyramidSpawnerRoom extends BaseRoom {
     super(roomSetting, levelSettings, worldEditor);
   }
 
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
 
-    int x = origin.getX();
-    int y = origin.getY();
-    int z = origin.getZ();
+    int x = at.getX();
+    int y = at.getY();
+    int z = at.getZ();
 
     // fill air inside
     SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(new Coord(x - 3, y, z - 3), new Coord(x + 3, y + 3, z + 3)));
@@ -38,13 +38,13 @@ public class PyramidSpawnerRoom extends BaseRoom {
 
     RectSolid.newRect(new Coord(x - 4, y - 1, z - 4), new Coord(x + 4, y - 1, z + 4)).fill(worldEditor, theme().getPrimary().getFloor(), false, true);
 
-    Coord cursor = origin.copy();
+    Coord cursor = at.copy();
     cursor.up(5);
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
     cursor.up();
     primaryWallBrush().stroke(worldEditor, cursor);
 
-    cursor = origin.copy();
+    cursor = at.copy();
     cursor.up(5);
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
     cursor.up();
@@ -53,7 +53,7 @@ public class PyramidSpawnerRoom extends BaseRoom {
     for (Direction dir : Direction.CARDINAL) {
 
       // pillar
-      cursor = origin.copy();
+      cursor = at.copy();
       cursor.translate(dir, 3);
       cursor.translate(dir.antiClockwise(), 3);
       Coord start = cursor.copy();
@@ -63,14 +63,14 @@ public class PyramidSpawnerRoom extends BaseRoom {
       cursor.up();
       primaryWallBrush().stroke(worldEditor, cursor);
 
-      cursor = origin.copy();
+      cursor = at.copy();
       cursor.up(4);
       cursor.translate(dir, 2);
       primaryWallBrush().stroke(worldEditor, cursor);
       cursor.translate(dir.antiClockwise(), 2);
       primaryWallBrush().stroke(worldEditor, cursor);
 
-      cursor = origin.copy();
+      cursor = at.copy();
       cursor.up(5);
       cursor.translate(dir.antiClockwise());
       SingleBlockBrush.AIR.stroke(worldEditor, cursor);
@@ -79,21 +79,21 @@ public class PyramidSpawnerRoom extends BaseRoom {
 
       for (Direction orthogonals : dir.orthogonals()) {
 
-        cursor = origin.copy();
+        cursor = at.copy();
         cursor.up(3);
         cursor.translate(orthogonals);
         cursor.translate(dir, 3);
         primaryWallBrush().stroke(worldEditor, cursor);
 
-        cursor = origin.copy();
+        cursor = at.copy();
         cursor.up(4);
         cursor.translate(dir, 2);
         primaryWallBrush().stroke(worldEditor, cursor);
       }
     }
 
-    generateChest(generateChestLocation(origin), getEntrance(entrances).reverse());
-    final Coord cursor1 = origin.copy();
+    generateChest(generateChestLocation(at), getEntrance(entrances).reverse());
+    final Coord cursor1 = at.copy();
     generateSpawner(cursor1, COMMON_MOBS);
     return this;
   }

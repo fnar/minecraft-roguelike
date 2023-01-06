@@ -25,12 +25,12 @@ public class PitRoom extends BaseRoom {
   }
 
   @Override
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    super.generate(origin, entrances);
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
+    super.generate(at, entrances);
 
-    generatePit(origin);
-    generateTraps(origin, entrances);
-    generateChest(origin, entrances);
+    generatePit(at);
+    generateTraps(at, entrances);
+    generateChest(at, entrances);
     return this;
   }
 

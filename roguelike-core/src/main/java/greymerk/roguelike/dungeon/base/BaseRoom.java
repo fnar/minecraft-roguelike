@@ -46,12 +46,12 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
     this.worldEditor = worldEditor;
   }
 
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    generateWalls(origin, entrances);
-    generateFloor(origin, entrances);
-    generateCeiling(origin, entrances);
-    generateDecorations(origin, entrances);
-    generateDoorways(origin, entrances);
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
+    generateWalls(at, entrances);
+    generateFloor(at, entrances);
+    generateCeiling(at, entrances);
+    generateDecorations(at, entrances);
+    generateDoorways(at, entrances);
     return this;
   }
 

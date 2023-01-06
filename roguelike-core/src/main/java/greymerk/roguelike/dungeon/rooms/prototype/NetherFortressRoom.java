@@ -36,10 +36,10 @@ public class NetherFortressRoom extends BaseRoom {
   }
 
   @Override
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    super.generate(origin, entrances);
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
+    super.generate(at, entrances);
 
-    RectSolid chestRectangle = origin.copy().down().newRect(2);
+    RectSolid chestRectangle = at.copy().down().newRect(2);
     List<Coord> chestLocations = Coord.randomFrom(chestRectangle.get(), random().nextInt(3) + 1, random());
     ChestType[] chestTypes = new ChestType[]{ChestType.GARDEN, ChestType.SUPPLIES, ChestType.TOOLS};
     generateTrappableChests(chestLocations, getEntrance(entrances).reverse(), chestTypes);

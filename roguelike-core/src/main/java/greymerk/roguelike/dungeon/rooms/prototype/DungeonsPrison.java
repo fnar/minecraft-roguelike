@@ -26,19 +26,19 @@ public class DungeonsPrison extends BaseRoom {
   }
 
   @Override
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
 
-    largeRoom(origin);
+    largeRoom(at);
 
     Coord cursor;
     for (Direction dir : entrances) {
-      cursor = origin.copy();
+      cursor = at.copy();
       cursor.translate(dir, 6);
       sideRoom(cursor, dir);
     }
 
     for (Direction dir : Direction.CARDINAL) {
-      cursor = origin.copy();
+      cursor = at.copy();
       cursor.translate(dir, 3);
       cursor.translate(dir.antiClockwise(), 3);
       pillar(cursor, 4);
@@ -59,7 +59,7 @@ public class DungeonsPrison extends BaseRoom {
         continue;
       }
 
-      cursor = origin.copy();
+      cursor = at.copy();
       cursor.translate(dir, 6);
       cursor.translate(dir.antiClockwise(), 6);
 

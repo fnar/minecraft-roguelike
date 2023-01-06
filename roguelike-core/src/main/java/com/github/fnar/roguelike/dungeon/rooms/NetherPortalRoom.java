@@ -29,14 +29,14 @@ public class NetherPortalRoom extends BaseRoom {
   }
 
   @Override
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    super.generate(origin, entrances);
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
+    super.generate(at, entrances);
 
     Direction front = getEntrance(entrances);
 
-    createPathFromEachEntranceToTheCenterOverTheLiquid(origin, front);
-    generateNetherPortalWithPlatform(origin, front);
-    generateChestInCorner(origin, front);
+    createPathFromEachEntranceToTheCenterOverTheLiquid(at, front);
+    generateNetherPortalWithPlatform(at, front);
+    generateChestInCorner(at, front);
 
     return null;
   }

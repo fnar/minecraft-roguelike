@@ -20,11 +20,11 @@ public class PyramidCornerRoom extends BaseRoom {
   }
 
   @Override
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
 
-    int x = origin.getX();
-    int y = origin.getY();
-    int z = origin.getZ();
+    int x = at.getX();
+    int y = at.getY();
+    int z = at.getZ();
 
     RectHollow.newRect(new Coord(x - 3, y - 1, z - 3), new Coord(x + 3, y + 3, z + 3)).fill(worldEditor, primaryWallBrush(), false, true);
     RectSolid.newRect(new Coord(x - 2, y + 3, z - 2), new Coord(x + 2, y + 5, z + 2)).fill(worldEditor, primaryWallBrush(), false, true);
@@ -33,7 +33,7 @@ public class PyramidCornerRoom extends BaseRoom {
     // floor
     RectSolid.newRect(new Coord(x - 3, y - 1, z - 3), new Coord(x + 3, y - 1, z + 3)).fill(worldEditor, theme().getPrimary().getFloor(), false, true);
 
-    Coord cursor = origin.copy();
+    Coord cursor = at.copy();
     cursor.up(4);
     SingleBlockBrush.AIR.stroke(worldEditor, cursor);
     cursor.up(1);
@@ -42,12 +42,12 @@ public class PyramidCornerRoom extends BaseRoom {
 
     for (Direction dir : Direction.CARDINAL) {
 
-      cursor = origin.copy();
+      cursor = at.copy();
       cursor.up(4);
       cursor.translate(dir);
       SingleBlockBrush.AIR.stroke(worldEditor, cursor);
 
-      cursor = origin.copy();
+      cursor = at.copy();
       cursor.translate(dir, 2);
       cursor.translate(dir.orthogonals()[0], 2);
       Coord start = cursor.copy();

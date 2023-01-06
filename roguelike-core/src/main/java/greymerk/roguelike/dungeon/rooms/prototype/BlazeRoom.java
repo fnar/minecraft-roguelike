@@ -89,23 +89,23 @@ public class BlazeRoom extends BaseRoom {
   }
 
   @Override
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
 
     Coord cursor;
     Coord start;
     Coord end;
 
-    start = origin.copy();
+    start = at.copy();
     start.north(8);
     start.west(8);
     start.down();
-    end = origin.copy();
+    end = at.copy();
     end.south(8);
     end.east(8);
     end.up(7);
     RectHollow.newRect(start, end).fill(worldEditor, primaryWallBrush(), false, true);
 
-    start = origin.copy();
+    start = at.copy();
     start.down();
     end = start.copy();
     start.north(8);
@@ -116,14 +116,14 @@ public class BlazeRoom extends BaseRoom {
 
     for (Direction dir : Direction.CARDINAL) {
       for (Direction orthogonal : dir.orthogonals()) {
-        start = origin.copy();
+        start = at.copy();
         start.translate(dir, 7);
         start.translate(orthogonal, 2);
         end = start.copy();
         end.up(6);
         primaryPillarBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
-        cursor = origin.copy();
+        cursor = at.copy();
         cursor.translate(dir, 8);
         cursor.translate(orthogonal);
         cursor.up(2);
@@ -161,13 +161,13 @@ public class BlazeRoom extends BaseRoom {
 
       }
 
-      cursor = origin.copy();
+      cursor = at.copy();
       cursor.translate(dir, 6);
       cursor.translate(dir.antiClockwise(), 6);
 
       genFire(cursor);
 
-      cursor = origin.copy();
+      cursor = at.copy();
       cursor.up(4);
       cursor.translate(dir);
       start = cursor.copy();
@@ -203,8 +203,8 @@ public class BlazeRoom extends BaseRoom {
       RectSolid.newRect(start, end).fill(worldEditor, primaryStairBrush().setUpsideDown(true).setFacing(dir.reverse()), true, false);
     }
 
-    start = origin.copy();
-    end = origin.copy();
+    start = at.copy();
+    end = at.copy();
     start.north(4);
     start.east(4);
     end.south(4);
@@ -212,9 +212,9 @@ public class BlazeRoom extends BaseRoom {
     end.down(4);
     RectHollow.newRect(start, end).fill(worldEditor, primaryWallBrush(), false, true);
 
-    generateLiquidPit(origin);
+    generateLiquidPit(at);
 
-    cursor = origin.copy();
+    cursor = at.copy();
     cursor.up(4);
     start = cursor.copy();
     start.down();
@@ -226,7 +226,7 @@ public class BlazeRoom extends BaseRoom {
     end.west();
     BlockType.OBSIDIAN.getBrush().fill(worldEditor, RectSolid.newRect(start, end));
     generateSpawner(cursor, MobType.NETHER_MOBS);
-    generateDoorways(origin, entrances);
+    generateDoorways(at, entrances);
 
     return this;
   }

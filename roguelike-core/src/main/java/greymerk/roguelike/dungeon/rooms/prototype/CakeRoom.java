@@ -26,10 +26,10 @@ public class CakeRoom extends BaseRoom {
   }
 
   @Override
-  public BaseRoom generate(Coord origin, List<Direction> entrances) {
-    int x = origin.getX();
-    int y = origin.getY();
-    int z = origin.getZ();
+  public BaseRoom generate(Coord at, List<Direction> entrances) {
+    int x = at.getX();
+    int y = at.getY();
+    int z = at.getZ();
     width = random().nextInt(2) + 2;
     length = random().nextInt(2) + 3;
     int height = 3;
@@ -39,8 +39,8 @@ public class CakeRoom extends BaseRoom {
         new Coord(x + width, y + height, z + length)));
 
     RectHollow.newRect(
-        origin.copy().west(width + 1).north(length + 1).down(),
-        origin.copy().east(width + 1).south(length + 1).up(height + 1)
+        at.copy().west(width + 1).north(length + 1).down(),
+        at.copy().east(width + 1).south(length + 1).up(height + 1)
     ).fill(worldEditor, primaryFloorBrush(), false, true);
 
     primaryPillarBrush().fill(worldEditor, RectSolid.newRect(new Coord(x - width, y, z - length), new Coord(x - width, y + height, z - length)));
@@ -53,11 +53,11 @@ public class CakeRoom extends BaseRoom {
     primaryLightBrush().stroke(worldEditor, new Coord(x + width - 1, y + height + 1, z - length + 1));
     primaryLightBrush().stroke(worldEditor, new Coord(x + width - 1, y + height + 1, z + length - 1));
 
-    placeCake(origin, primaryPillarBrush());
+    placeCake(at, primaryPillarBrush());
 
-    generateChest(generateChestLocation(origin), getEntrance(entrances).reverse(), ChestType.FOOD);
+    generateChest(generateChestLocation(at), getEntrance(entrances).reverse(), ChestType.FOOD);
 
-    generateDoorways(origin, entrances);
+    generateDoorways(at, entrances);
     return this;
   }
 
