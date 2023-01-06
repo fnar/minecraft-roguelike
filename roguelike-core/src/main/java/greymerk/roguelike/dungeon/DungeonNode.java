@@ -10,11 +10,11 @@ import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.IBounded;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.IShape;
-import greymerk.roguelike.worldgen.shapes.RectSolid;
 import greymerk.roguelike.worldgen.shapes.Shape;
 
 public class DungeonNode implements IBounded {
 
+  public static final int ENCASING_SIZE = 1;
   private final Coord pos;
   private BaseRoom toGenerate;
   private final List<Direction> entrances;
@@ -37,16 +37,11 @@ public class DungeonNode implements IBounded {
   }
 
   public void encase(WorldEditor editor, Theme theme) {
-    int size = getSize();
-    Coord s = getPosition().copy();
-    Coord e = s.copy();
-    s.north(size);
-    s.west(size);
-    s.down(3);
-    e.south(size);
-    e.east(size);
-    e.up(8);
-    RectSolid.newRect(s, e).fill(editor, theme.getPrimary().getWall());
+    int size = getSize() + ENCASING_SIZE;
+    int height = 8 + ENCASING_SIZE;
+    int depth = 3 + ENCASING_SIZE;
+    IShape caseRect = getPosition().copy().newHollowRect(size).withHeight(height + depth).down(depth);
+    theme.getPrimary().getWall().fill(editor, caseRect);
   }
 
   public List<Direction> getEntrances() {
@@ -123,5 +118,13 @@ public class DungeonNode implements IBounded {
   boolean hasOverlappingNode(int size, List<DungeonNode> nodes) {
     return nodes.stream()
         .anyMatch(other -> overlaps(size, other));
+  }
+
+  boolean contains(Coord pos) {
+    return (int) getPosition().distance(pos) < getSize();
+  }
+
+  public double getDistance(DungeonNode end) {
+    return getPosition().distance(end.getPosition());
   }
 }

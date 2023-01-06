@@ -12,6 +12,7 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import greymerk.roguelike.dungeon.Dungeon;
+import greymerk.roguelike.dungeon.DungeonNode;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.Theme;
@@ -27,8 +28,6 @@ import lombok.EqualsAndHashCode;
 
 @EqualsAndHashCode
 public abstract class BaseRoom implements Comparable<BaseRoom> {
-
-  public static final int ENCASING_SIZE = 1;
 
   private final RoomSetting roomSetting;
   protected final LevelSettings levelSettings;
@@ -265,7 +264,7 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
   }
 
   protected final int getWallDist() {
-    return getSize() - ENCASING_SIZE;
+    return getSize() - DungeonNode.ENCASING_SIZE;
   }
 
   public final int getHeight() {
@@ -275,7 +274,7 @@ public abstract class BaseRoom implements Comparable<BaseRoom> {
   }
 
   protected final int getCeilingHeight() {
-    return getHeight() - ENCASING_SIZE;
+    return getHeight() - DungeonNode.ENCASING_SIZE;
   }
 
   public boolean isValidLocation(Coord at, Direction facing) {
