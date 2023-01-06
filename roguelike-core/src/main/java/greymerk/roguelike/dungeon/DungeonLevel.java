@@ -73,7 +73,11 @@ public class DungeonLevel {
   public Coord generateLayout(WorldEditor editor, Coord start) {
     layout = settings.getLayoutGenerator().generate(start, editor.getRandom());
     Coord end = layout.getEnd().getPosition().copy();
+    assignRooms(editor);
+    return end;
+  }
 
+  private void assignRooms(WorldEditor editor) {
     RoomIterator roomIterator = new RoomIterator(settings, editor);
     int count = 0;
     while (layout.hasEmptyRooms()) {
@@ -84,7 +88,8 @@ public class DungeonLevel {
       node.setDungeon(toGenerate);
       ++count;
     }
-    return end;
+    layout.getStart().setDungeon(RoomType.LINKER.newSingleRoomSetting().instantiate(settings, editor));
+    layout.getEnd().setDungeon(RoomType.LINKERTOP.newSingleRoomSetting().instantiate(settings, editor));
   }
 
 }
