@@ -58,12 +58,29 @@ public class LevelLayout {
 
   public void setStartEnd(Random rand, DungeonNode start) {
     this.start = start;
+    this.end = start;
 
     int attempts = 0;
     do {
       end = nodes.get(rand.nextInt(nodes.size()));
       attempts++;
-    } while (end == this.start || end.getPosition().distance(start.getPosition()) > (16 + attempts * 2));
+    } while (end == this.start || start.getDistance(end) > (16 + attempts * 2));
+
+
+    // todo: experiment with alternative layout start selection
+//    end = nodes.stream().filter(node -> node != start).max(Comparator.comparingDouble(node -> node.getDistance(start))).orElse(start);
+//    end = nodes.stream().filter(node -> node != start)
+//        .max(Comparator.comparingDouble(node -> largestXZDistance(start, node))).orElse(start);
+
+//    int attemptsRemaining = 3;
+//    while (end == start && attemptsRemaining > 0) {
+//      attemptsRemaining--;
+//      end = nodes.get(nodes.size() - 1);
+//    }
+  }
+
+  private int largestXZDistance(DungeonNode start, DungeonNode node) {
+    return Math.abs(start.getPosition().getX() - node.getPosition().getX()) + Math.abs(start.getPosition().getZ() - node.getPosition().getZ());
   }
 
   private boolean anyTunnelsOverlap(DungeonNode node, int size) {
