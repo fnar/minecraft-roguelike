@@ -17,7 +17,7 @@ import static greymerk.roguelike.dungeon.DungeonStage.SEGMENTS;
 import static greymerk.roguelike.dungeon.DungeonStage.TOWER;
 import static greymerk.roguelike.dungeon.DungeonStage.TUNNELS;
 
-public class DungeonTaskRegistry implements IDungeonTaskRegistry {
+public class DungeonTaskRegistry {
 
   public static DungeonTaskRegistry registry;
   private final Map<DungeonStage, List<IDungeonTask>> tasks = new HashMap<>();
@@ -34,7 +34,7 @@ public class DungeonTaskRegistry implements IDungeonTaskRegistry {
     addTask(new DungeonTaskLoot(), LOOT);
   }
 
-  public static IDungeonTaskRegistry getTaskRegistry() {
+  public static DungeonTaskRegistry getTaskRegistry() {
     if (registry == null) {
       registry = new DungeonTaskRegistry();
     }
