@@ -59,19 +59,19 @@ public class DungeonLevel {
         .forEach(t -> t.encase(editor, settings.getTheme()));
   }
 
-  public void applyFilters(WorldEditor editor, Random rand) {
+  public void applyFilters(WorldEditor editor) {
     settings.getFilters().stream()
         .map(Filter::get)
-        .forEach(filter -> filter(editor, rand, filter));
+        .forEach(filter -> filter(editor, filter));
   }
 
-  public void filter(WorldEditor editor, Random rand, IFilter filter) {
+  public void filter(WorldEditor editor, IFilter filter) {
     layout.getBoundingBoxes()
-        .forEach(box -> filter.apply(editor, rand, settings.getTheme(), box));
+        .forEach(box -> filter.apply(editor, settings.getTheme(), box));
   }
 
-  public Coord generateLayout(WorldEditor editor, Random random, Coord start) {
-    layout = settings.getLayoutGenerator().generate(start, random);
+  public Coord generateLayout(WorldEditor editor, Coord start) {
+    layout = settings.getLayoutGenerator().generate(start, editor.getRandom());
     Coord end = layout.getEnd().getPosition().copy();
 
     RoomIterator roomIterator = new RoomIterator(settings, editor);

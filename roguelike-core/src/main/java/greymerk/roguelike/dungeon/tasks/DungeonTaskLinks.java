@@ -5,7 +5,6 @@ import com.github.fnar.roguelike.worldgen.generatables.LadderPillar;
 import com.github.fnar.roguelike.worldgen.generatables.SpiralStaircase;
 
 import java.util.List;
-import java.util.Random;
 
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.DungeonLevel;
@@ -20,11 +19,10 @@ import greymerk.roguelike.worldgen.WorldEditor;
 public class DungeonTaskLinks implements IDungeonTask {
 
   @Override
-  public void execute(WorldEditor editor, Random random, Dungeon dungeon, DungeonSettings settings) {
+  public void execute(WorldEditor editor, Dungeon dungeon, DungeonSettings settings) {
 
     List<DungeonLevel> levels = dungeon.getLevels();
 
-    // generate level links
     DungeonLevel previous = null;
     for (DungeonLevel level : levels) {
       DungeonNode upper = previous == null ? null : previous.getLayout().getEnd();

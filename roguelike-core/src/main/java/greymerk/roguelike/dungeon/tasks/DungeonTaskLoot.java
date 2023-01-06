@@ -1,7 +1,5 @@
 package greymerk.roguelike.dungeon.tasks;
 
-import java.util.Random;
-
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.treasure.TreasureManager;
@@ -15,7 +13,7 @@ import static greymerk.roguelike.treasure.TreasureManager.ofType;
 public class DungeonTaskLoot implements IDungeonTask {
 
   @Override
-  public void execute(WorldEditor editor, Random random, Dungeon dungeon, DungeonSettings settings) {
+  public void execute(WorldEditor editor, Dungeon dungeon, DungeonSettings settings) {
     TreasureManager treasureManager = editor.getTreasureManager();
     settings.processLoot(treasureManager);
     treasureManager.addItem(ofType(ChestType.STARTER), new WeightedChoice<>(new BookStatistics(editor).asStack(), 0), 1);

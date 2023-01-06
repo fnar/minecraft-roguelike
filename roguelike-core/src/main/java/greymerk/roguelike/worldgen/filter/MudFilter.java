@@ -5,7 +5,6 @@ import com.google.common.collect.Lists;
 import com.github.fnar.minecraft.block.BlockType;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -19,30 +18,30 @@ import greymerk.roguelike.worldgen.shapes.Shape;
 public class MudFilter implements IFilter {
 
   @Override
-  public void apply(WorldEditor editor, Random rand, Theme theme, Bounded box) {
+  public void apply(WorldEditor editor, Theme theme, Bounded box) {
     for (Coord pos : box.getShape(Shape.RECTSOLID)) {
-      if (rand.nextInt(40) != 0) {
+      if (editor.getRandom().nextInt(40) != 0) {
         continue;
       }
       if (!validLocation(editor, pos)) {
         continue;
       }
-      generate(editor, rand, pos, rand.nextInt(3) + 2);
+      generate(editor, pos, editor.getRandom().nextInt(3) + 2);
     }
   }
 
-  private void generate(WorldEditor editor, Random rand, Coord pos, int counter) {
+  private void generate(WorldEditor editor, Coord pos, int counter) {
     if (counter <= 0) {
       return;
     }
 
     for (Direction dir : Direction.CARDINAL) {
-      if (rand.nextBoolean()) {
+      if (editor.getRandom().nextBoolean()) {
         continue;
       }
       Coord next = pos.copy();
       next.translate(dir);
-      generate(editor, rand, next, counter - 1);
+      generate(editor, next, counter - 1);
     }
 
     if (!validLocation(editor, pos)) {
@@ -66,7 +65,7 @@ public class MudFilter implements IFilter {
       case 4:
         BlockType.DIRT.getBrush().stroke(editor, pos);
       case 3:
-        if (rand.nextBoolean()) {
+        if (editor.getRandom().nextBoolean()) {
           BlockType.DIRT_COARSE.getBrush().stroke(editor, pos);
           break;
         }
@@ -74,7 +73,7 @@ public class MudFilter implements IFilter {
         wet.stroke(editor, pos);
         break;
       case 1:
-        if (rand.nextBoolean()) {
+        if (editor.getRandom().nextBoolean()) {
           wet.stroke(editor, pos);
           break;
         }
@@ -84,7 +83,7 @@ public class MudFilter implements IFilter {
     }
 
 
-    if (rand.nextInt(6) != 0) {
+    if (editor.getRandom().nextInt(6) != 0) {
       return;
     }
 
