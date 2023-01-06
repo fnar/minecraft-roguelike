@@ -1,6 +1,5 @@
 package greymerk.roguelike.dungeon;
 
-import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.roguelike.worldgen.generatables.BaseGeneratable;
 import com.github.fnar.roguelike.worldgen.generatables.LadderPillar;
 import com.github.fnar.roguelike.worldgen.generatables.SpiralStaircase;
@@ -10,8 +9,6 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.worldgen.BlockBrush;
-import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
 
@@ -31,28 +28,24 @@ public enum LevelGenerator {
     }
   }
 
-  public static void generateLevelLink(WorldEditor editor, LevelSettings settings, DungeonNode start, DungeonNode end) {
+  public static void generateLevelLink(WorldEditor editor, DungeonNode lower, LevelSettings lowerSettings, DungeonNode upper, LevelSettings upperSettings) {
 
-    BaseRoom downstairs = RoomType.LINKER.newSingleRoomSetting().instantiate(settings, editor);
-    downstairs.generate(start.getPosition(), Direction.CARDINAL);
+    BaseRoom downstairs = RoomType.LINKER.newSingleRoomSetting().instantiate(lowerSettings, editor);
+    downstairs.generate(lower.getPosition(), Direction.CARDINAL);
 
-    if (end == null) {
+    if (upper == null) {
       return;
     }
 
-    BaseRoom upstairs = RoomType.LINKERTOP.newSingleRoomSetting().instantiate(settings, editor);
-    upstairs.generate(end.getPosition(), end.getEntrances());
+    BaseRoom upstairs = RoomType.LINKERTOP.newSingleRoomSetting().instantiate(upperSettings, editor);
+    upstairs.generate(upper.getPosition(), upper.getEntrances());
 
-    StairsBlock stair = settings.getTheme().getPrimary().getStair();
-
-    Coord cursor = start.getPosition().copy();
-    BlockBrush pillar = settings.getTheme().getPrimary().getPillar();
-    int height = end.getPosition().getY() - start.getPosition().getY();
+    int height = upper.getPosition().getY() - lower.getPosition().getY();  // should equal Dungeon.VERTICAL_SPACING
 
     BaseGeneratable linker = (editor.getRandom().nextDouble() < 0.75)
         ? SpiralStaircase.newStaircase(editor).withHeight(height)
         : LadderPillar.newLadderPillar(editor).withHeight(height);
 
-    linker.withStairs(stair).withPillar(pillar).generate(cursor);
+    linker.withTheme(lowerSettings.getTheme()).generate(lower.getPosition());
   }
 }
