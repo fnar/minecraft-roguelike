@@ -3,6 +3,9 @@ package greymerk.roguelike.dungeon;
 import java.util.Optional;
 import java.util.Random;
 
+import greymerk.roguelike.dungeon.base.BaseRoom;
+import greymerk.roguelike.dungeon.base.RoomIterator;
+import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -12,19 +15,10 @@ import greymerk.roguelike.worldgen.filter.IFilter;
 public class DungeonLevel {
 
   private final LevelSettings settings;
-  private LayoutGenerator generator;
+  private LevelLayout layout;
 
   public DungeonLevel(LevelSettings settings) {
     this.settings = settings;
-  }
-
-  public LevelLayout generate(LayoutGenerator generator, Coord start, Random random) {
-    this.generator = generator;
-    return generator.generate(start, random);
-  }
-
-  public int nodeCount() {
-    return generator.getLayout().getNodes().size();
   }
 
   public LevelSettings getSettings() {
@@ -36,15 +30,14 @@ public class DungeonLevel {
   }
 
   public Optional<DungeonNode> findNodeContaining(Coord pos) {
-    return generator
-        .getLayout()
+    return layout
         .getNodes().stream()
         .filter(node -> node.contains(pos))
         .findFirst();
   }
 
   public LevelLayout getLayout() {
-    return generator.getLayout();
+    return layout;
   }
 
   public void encase(WorldEditor editor) {
@@ -53,17 +46,16 @@ public class DungeonLevel {
   }
 
   private void encaseNodes(WorldEditor editor) {
-    DungeonNode start = generator.getLayout().getStart();
-    DungeonNode end = generator.getLayout().getEnd();
+    DungeonNode start = layout.getStart();
+    DungeonNode end = layout.getEnd();
 
-    generator.getLayout().getNodes().stream()
+    layout.getNodes().stream()
         .filter(node -> node != start && node != end)
         .forEach(node -> node.encase(editor, settings.getTheme()));
   }
 
   private void encaseTunnels(WorldEditor editor) {
-    generator.getLayout()
-        .getTunnels()
+    layout.getTunnels()
         .forEach(t -> t.encase(editor, settings.getTheme()));
   }
 
@@ -74,8 +66,25 @@ public class DungeonLevel {
   }
 
   public void filter(WorldEditor editor, Random rand, IFilter filter) {
-    generator.getLayout()
-        .getBoundingBoxes()
+    layout.getBoundingBoxes()
         .forEach(box -> filter.apply(editor, rand, settings.getTheme(), box));
   }
+
+  public Coord generateLayout(WorldEditor editor, Random random, Coord start) {
+    layout = settings.getLayoutGenerator().generate(start, random);
+    Coord end = layout.getEnd().getPosition().copy();
+
+    RoomIterator roomIterator = new RoomIterator(settings, editor);
+    int count = 0;
+    while (layout.hasEmptyRooms()) {
+      BaseRoom toGenerate = count < settings.getNumRooms()
+          ? roomIterator.getDungeonRoom()
+          : RoomType.CORNER.newSingleRoomSetting().instantiate(settings, editor);
+      DungeonNode node = layout.getBestFit(toGenerate);
+      node.setDungeon(toGenerate);
+      ++count;
+    }
+    return end;
+  }
+
 }
