@@ -18,7 +18,7 @@ public class Platforms2Room extends BaseRoom {
   public Platforms2Room(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
     size = 9;
-    height = 5;
+    ceilingHeight = 4;
     depth = 3;
   }
 
