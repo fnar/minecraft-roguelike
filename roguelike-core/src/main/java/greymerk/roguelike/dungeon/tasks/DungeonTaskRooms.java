@@ -2,8 +2,6 @@ package greymerk.roguelike.dungeon.tasks;
 
 import com.github.fnar.util.ReportThisIssueException;
 
-import java.util.Random;
-
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.dungeon.DungeonNode;
@@ -14,7 +12,7 @@ import greymerk.roguelike.worldgen.WorldEditor;
 public class DungeonTaskRooms implements IDungeonTask {
 
   @Override
-  public void execute(WorldEditor editor, Random random, Dungeon dungeon, DungeonSettings settings) {
+  public void execute(WorldEditor editor, Dungeon dungeon, DungeonSettings settings) {
     dungeon.getLevels()
         .forEach(this::generateLevel);
   }

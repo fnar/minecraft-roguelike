@@ -2,8 +2,6 @@ package greymerk.roguelike.worldgen.filter;
 
 import com.github.fnar.minecraft.block.BlockType;
 
-import java.util.Random;
-
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -14,9 +12,9 @@ import greymerk.roguelike.worldgen.shapes.Shape;
 public class CobwebFilter implements IFilter {
 
   @Override
-  public void apply(WorldEditor editor, Random rand, Theme theme, Bounded box) {
+  public void apply(WorldEditor editor, Theme theme, Bounded box) {
     for (Coord pos : box.getShape(Shape.RECTSOLID)) {
-      if (rand.nextInt(60) != 0) {
+      if (editor.getRandom().nextInt(60) != 0) {
         continue;
       }
       if (!editor.isAirBlock(pos)) {
@@ -26,7 +24,7 @@ public class CobwebFilter implements IFilter {
         continue;
       }
 
-      generate(editor, rand, pos, rand.nextInt(2) + 2);
+      generate(editor, pos, editor.getRandom().nextInt(2) + 2);
     }
   }
 
@@ -41,7 +39,7 @@ public class CobwebFilter implements IFilter {
     return false;
   }
 
-  private void generate(WorldEditor editor, Random rand, Coord pos, int count) {
+  private void generate(WorldEditor editor, Coord pos, int count) {
     if (!editor.isAirBlock(pos)) {
       return;
     }
@@ -52,10 +50,10 @@ public class CobwebFilter implements IFilter {
     BlockType.WEB.getBrush().stroke(editor, pos);
 
     for (int i = 0; i < 2; ++i) {
-      Direction dir = Direction.values()[rand.nextInt(Direction.values().length)];
+      Direction dir = Direction.values()[editor.getRandom().nextInt(Direction.values().length)];
       Coord cursor = pos.copy();
       cursor.translate(dir);
-      generate(editor, rand, cursor, count - 1);
+      generate(editor, cursor, count - 1);
     }
   }
 }

@@ -94,11 +94,11 @@ public class SegmentGenerator {
     return segments;
   }
 
-  public List<SegmentBase> genSegment(WorldEditor editor, Random rand, DungeonLevel level, Direction dir, Coord pos) {
+  public List<SegmentBase> genSegment(WorldEditor editor, DungeonLevel level, Direction dir, Coord pos) {
     List<SegmentBase> segments = new ArrayList<>();
 
     for (Direction orthogonals : dir.orthogonals()) {
-      SegmentBase segment = pickSegment(rand, dir, pos);
+      SegmentBase segment = pickSegment(editor.getRandom(), dir, pos);
       if (segment == null) {
         return segments;
       }
@@ -107,7 +107,7 @@ public class SegmentGenerator {
     }
 
     // todo: Can this be removed? It seems to have no effect.
-    if (!level.hasNodeContaining(pos) && rand.nextInt(3) == 0) {
+    if (!level.hasNodeContaining(pos) && editor.getRandom().nextInt(3) == 0) {
       addSupport(editor, level.getSettings().getTheme(), pos.copy().down(2));
     }
 

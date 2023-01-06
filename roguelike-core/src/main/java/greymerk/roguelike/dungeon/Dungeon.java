@@ -22,6 +22,7 @@ import greymerk.roguelike.dungeon.settings.SettingsRandom;
 import greymerk.roguelike.dungeon.settings.SettingsResolver;
 import greymerk.roguelike.dungeon.settings.SpawnCriteria;
 import greymerk.roguelike.dungeon.tasks.DungeonTaskRegistry;
+import greymerk.roguelike.dungeon.tasks.IDungeonTask;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.VanillaStructure;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -112,7 +113,6 @@ public class Dungeon {
   public void generate(DungeonSettings dungeonSettings, Coord coord) {
     logger.info("Trying to spawn dungeon with id {} at {}...", dungeonSettings.getId(), coord);
     try {
-      Random random = editor.getRandom();
 
       origin = new Coord(coord.getX(), TOPLEVEL, coord.getZ());
 
@@ -123,7 +123,7 @@ public class Dungeon {
 
       Arrays.stream(DungeonStage.values())
           .flatMap(stage -> DungeonTaskRegistry.getInstance().getTasks(stage).stream())
-          .forEach(task -> performTaskSafely(dungeonSettings, random, task));
+          .forEach(task -> performTaskSafely(dungeonSettings, task));
 
       logger.info("Successfully generated dungeon with id {} at {}.", dungeonSettings.getId(), coord);
 
@@ -132,9 +132,9 @@ public class Dungeon {
     }
   }
 
-  private void performTaskSafely(DungeonSettings dungeonSettings, Random random, greymerk.roguelike.dungeon.tasks.IDungeonTask task) {
+  private void performTaskSafely(DungeonSettings dungeonSettings, IDungeonTask task) {
     try {
-      task.execute(editor, random, this, dungeonSettings);
+      task.execute(editor, this, dungeonSettings);
     } catch (Exception exception) {
       new ReportThisIssueException(exception).printStackTrace();
     }
@@ -260,10 +260,10 @@ public class Dungeon {
     return levels;
   }
 
-  public void generateLayout(WorldEditor editor, Random random) {
+  public void generateLayout(WorldEditor editor) {
     Coord start = getPosition();
     for (DungeonLevel level : getLevels()) {
-      start = level.generateLayout(editor, random, start).down(Dungeon.VERTICAL_SPACING);
+      start = level.generateLayout(editor, start).down(Dungeon.VERTICAL_SPACING);
     }
   }
 }

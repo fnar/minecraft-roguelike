@@ -124,11 +124,11 @@ public class DungeonTunnel implements Iterable<Coord>, Bounded {
     return start.dirTo(end);
   }
 
-  public void genSegments(WorldEditor editor, Random rand, DungeonLevel level) {
+  public void genSegments(WorldEditor editor, DungeonLevel level) {
     LevelSettings settings = level.getSettings();
     SegmentGenerator segGen = settings.getSegments();
     for (Coord c : this) {
-      segments.addAll(segGen.genSegment(editor, rand, level, getDirection(), c));
+      segments.addAll(segGen.genSegment(editor, level, getDirection(), c));
     }
 
   }

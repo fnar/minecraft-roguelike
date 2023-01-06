@@ -1,7 +1,5 @@
 package greymerk.roguelike.dungeon.tasks;
 
-import java.util.Random;
-
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -9,9 +7,9 @@ import greymerk.roguelike.worldgen.WorldEditor;
 public class DungeonTaskLayout implements IDungeonTask {
 
   @Override
-  public void execute(WorldEditor editor, Random random, Dungeon dungeon, DungeonSettings settings) {
+  public void execute(WorldEditor editor, Dungeon dungeon, DungeonSettings settings) {
     try {
-      dungeon.generateLayout(editor, random);
+      dungeon.generateLayout(editor);
     } catch (Exception e) {
       e.printStackTrace();
     }
