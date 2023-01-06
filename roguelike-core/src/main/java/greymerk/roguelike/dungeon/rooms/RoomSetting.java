@@ -11,7 +11,6 @@ import java.util.Optional;
 
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.base.RoomType;
-import greymerk.roguelike.dungeon.rooms.prototype.AshleaRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.AvidyaRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.BTeamRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.BedRoomRoom;
@@ -26,23 +25,22 @@ import greymerk.roguelike.dungeon.rooms.prototype.DungeonsEnchant;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsEnder;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsFire;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsMusic;
-import greymerk.roguelike.dungeon.rooms.prototype.NetherBrickRoom;
-import greymerk.roguelike.dungeon.rooms.prototype.PitRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsPrison;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsSlime;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsSmithy;
 import greymerk.roguelike.dungeon.rooms.prototype.DungeonsSpiderNest;
 import greymerk.roguelike.dungeon.rooms.prototype.EnikoRoom;
-import greymerk.roguelike.dungeon.rooms.prototype.EthoRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.FireworkRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.LabRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.LibraryRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.LinkerRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.LinkerTopRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.MessRoom;
+import greymerk.roguelike.dungeon.rooms.prototype.NetherBrickRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.NetherFortressRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.ObsidianRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.OssuaryRoom;
+import greymerk.roguelike.dungeon.rooms.prototype.PitRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.PyramidCornerRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.PyramidSpawnerRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.PyramidTombRoom;
@@ -100,8 +98,6 @@ public class RoomSetting {
       default:
       case BRICK:
         return new BrickRoom(this, levelSettings, worldEditor);
-      case ASHLEA:
-        return new AshleaRoom(this, levelSettings, worldEditor);
       case AVIDYA:
         return new AvidyaRoom(this, levelSettings, worldEditor);
       case BEDROOM:
@@ -126,8 +122,6 @@ public class RoomSetting {
         return new DungeonsEnder(this, levelSettings, worldEditor);
       case ENIKO:
         return new EnikoRoom(this, levelSettings, worldEditor);
-      case ETHO:
-        return new EthoRoom(this, levelSettings, worldEditor);
       case FIRE:
         return new DungeonsFire(this, levelSettings, worldEditor);
       case FIREWORK:
