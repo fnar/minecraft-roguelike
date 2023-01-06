@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-import greymerk.roguelike.dungeon.LevelGenerator;
+import greymerk.roguelike.dungeon.LayoutGenerator;
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.segment.Segment;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
@@ -67,7 +67,7 @@ public class SettingsRandom extends DungeonSettings {
 
   private LevelSettings createRandomLevel(Random random, int i) {
     LevelSettings level = new LevelSettings(i);
-    level.setGenerator(i % 2 == 0 ? LevelGenerator.CLASSIC : LevelGenerator.MST);
+    level.setGenerator(i % 2 == 0 ? LayoutGenerator.Type.CLASSIC : LayoutGenerator.Type.MST);
     level.setNumRooms(15);
     level.setRange(60);
     level.setScatter(15);

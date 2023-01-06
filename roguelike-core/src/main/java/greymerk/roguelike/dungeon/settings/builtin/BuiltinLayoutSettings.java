@@ -1,6 +1,6 @@
 package greymerk.roguelike.dungeon.settings.builtin;
 
-import greymerk.roguelike.dungeon.LevelGenerator;
+import greymerk.roguelike.dungeon.LayoutGenerator;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.dungeon.settings.SettingIdentifier;
@@ -16,12 +16,12 @@ public class BuiltinLayoutSettings extends DungeonSettings {
     int[] scatter = {15, 15, 17, 12, 15};
     int[] range = {50, 50, 80, 70, 50};
 
-    LevelGenerator[] generator = {
-        LevelGenerator.CLASSIC,
-        LevelGenerator.CLASSIC,
-        LevelGenerator.MST,
-        LevelGenerator.CLASSIC,
-        LevelGenerator.CLASSIC
+    LayoutGenerator.Type[] generator = {
+        LayoutGenerator.Type.CLASSIC,
+        LayoutGenerator.Type.CLASSIC,
+        LayoutGenerator.Type.MST,
+        LayoutGenerator.Type.CLASSIC,
+        LayoutGenerator.Type.CLASSIC
     };
 
     for (int level = 0; level < DungeonSettings.MAXIMUM_COUNT_OF_LEVELS; level++) {

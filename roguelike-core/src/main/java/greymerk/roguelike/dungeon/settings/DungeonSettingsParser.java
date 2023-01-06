@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Optional;
 
 import greymerk.roguelike.config.RogueConfig;
-import greymerk.roguelike.dungeon.LevelGenerator;
+import greymerk.roguelike.dungeon.LayoutGenerator;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.base.SecretsSetting;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
@@ -237,7 +237,7 @@ public class DungeonSettingsParser {
         for (Integer level : levels) {
           if (dungeonSettings.getLevelSettings().containsKey(level)) {
             LevelSettings setting = dungeonSettings.getLevelSettings().get(level);
-            setting.setGenerator(LevelGenerator.valueOf(layout.get("type").getAsString().toUpperCase()));
+            setting.setGenerator(LayoutGenerator.Type.valueOf(layout.get("type").getAsString().toUpperCase()));
           }
         }
       }

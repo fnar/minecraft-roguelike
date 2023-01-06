@@ -12,13 +12,13 @@ import greymerk.roguelike.worldgen.filter.IFilter;
 public class DungeonLevel {
 
   private final LevelSettings settings;
-  private ILevelGenerator generator;
+  private LayoutGenerator generator;
 
   public DungeonLevel(LevelSettings settings) {
     this.settings = settings;
   }
 
-  public LevelLayout generate(ILevelGenerator generator, Coord start, Random random) {
+  public LevelLayout generate(LayoutGenerator generator, Coord start, Random random) {
     this.generator = generator;
     return generator.generate(start, random);
   }
