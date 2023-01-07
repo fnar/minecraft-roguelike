@@ -16,8 +16,6 @@ import greymerk.roguelike.dungeon.base.SecretsSetting;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.Theme;
-import greymerk.roguelike.treasure.TreasureChest;
-import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -29,23 +27,6 @@ public abstract class SegmentBase {
     if (!level.hasNodeContaining(pos) && isValidWall(editor, dir, pos)) {
       genWall(editor, level, dir, theme, pos);
     }
-  }
-
-  protected static void generateChest(WorldEditor worldEditor, Direction dir, Coord coord, ChestType[] defaultChestType) {
-    chest(worldEditor, dir, coord, defaultChestType)
-        .stroke(worldEditor, coord);
-  }
-
-  protected void generateTrappableChest(WorldEditor worldEditor, Direction dir, Coord coord, int level, ChestType[] defaultChestType) {
-    chest(worldEditor, dir, coord, defaultChestType)
-        .withTrap(level)
-        .stroke(worldEditor, coord);
-  }
-
-  private static TreasureChest chest(WorldEditor worldEditor, Direction dir, Coord coord, ChestType[] defaultChestType) {
-    return new TreasureChest(coord, worldEditor)
-        .withChestType(ChestType.chooseRandomAmong(worldEditor.getRandom(), defaultChestType))
-        .withFacing(dir);
   }
 
   protected abstract void genWall(WorldEditor editor, DungeonLevel level, Direction dir, Theme theme, Coord pos);

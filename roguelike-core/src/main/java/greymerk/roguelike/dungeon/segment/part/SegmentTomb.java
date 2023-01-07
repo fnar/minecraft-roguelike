@@ -13,6 +13,7 @@ import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.Theme;
+import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -52,7 +53,11 @@ public class SegmentTomb extends SegmentBase {
         : level.getSpawnerSettings().getSpawners().get(editor.getRandom());
     BaseRoom.generateSpawnerSafe(editor, spawner, cursor);
     cursor.translate(dir);
-    generateChest(editor, dir, cursor, ChestType.COMMON_TREASURES);
+    new TreasureChest(cursor, editor)
+        .withChestType(ChestType.chooseRandomAmong(editor.getRandom(), ChestType.COMMON_TREASURES))
+        .withFacing(dir)
+        .withTrap(false)
+        .stroke(editor, cursor);
   }
 
   @Override

@@ -7,6 +7,8 @@ import java.util.List;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.treasure.TreasureChest;
+import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -94,7 +96,12 @@ public class PyramidSpawnerRoom extends BaseRoom {
       }
     }
 
-    generateChest(generateChestLocation(at), getEntrance(entrances).reverse());
+    Coord coord = generateChestLocation(at);
+    new TreasureChest(coord, worldEditor)
+        .withChestType(getChestTypeOrUse(ChestType.chooseRandomAmong(random(), ChestType.COMMON_TREASURES)))
+        .withFacing(getEntrance(entrances).reverse())
+        .withTrap(false)
+        .stroke(worldEditor, coord);
     final Coord cursor1 = at.copy();
     generateSpawner(cursor1, COMMON_MOBS);
     return this;

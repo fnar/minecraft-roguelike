@@ -12,6 +12,8 @@ import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.treasure.TreasureChest;
+import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -39,7 +41,11 @@ public class PitRoom extends BaseRoom {
         .north(random().nextBoolean() ? 2 : -2)
         .east(random().nextBoolean() ? 2 : -2);
 
-    generateTrappableChest(chest, getEntrance(entrances));
+    new TreasureChest(chest, worldEditor)
+        .withChestType(getChestTypeOrUse(ChestType.chooseRandomAmong(random(), ChestType.COMMON_TREASURES)))
+        .withFacing(getEntrance(entrances))
+        .withTrap(TreasureChest.shouldBeTrapped(random(), levelSettings.getLevel()))
+        .stroke(worldEditor, chest);
   }
 
   private void generatePit(Coord at) {

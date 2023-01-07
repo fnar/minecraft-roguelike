@@ -9,6 +9,7 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -252,7 +253,11 @@ public class BlazeRoom extends BaseRoom {
     int z = random.nextInt(5) - 2;
     Coord chestCoord = origin.copy().translate(x, y, z);
     Direction chestFacing = Direction.randomCardinal(random);
-    generateChest(chestCoord, chestFacing, ChestType.RARE_TREASURES);
+    new TreasureChest(chestCoord, worldEditor)
+        .withChestType(getChestTypeOrUse(ChestType.chooseRandomAmong(random(), ChestType.RARE_TREASURES)))
+        .withFacing(chestFacing)
+        .withTrap(false)
+        .stroke(worldEditor, chestCoord);
   }
 
 }

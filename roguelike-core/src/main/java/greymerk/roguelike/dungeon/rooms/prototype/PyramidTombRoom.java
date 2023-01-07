@@ -10,6 +10,7 @@ import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.Theme;
+import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
@@ -199,7 +200,11 @@ public class PyramidTombRoom extends BaseRoom {
     blocks.stroke(editor, cursor);
     cursor.up();
 
-    generateChest(cursor, dir, ChestType.ORE);
+    new TreasureChest(cursor, worldEditor)
+        .withChestType(getChestTypeOrUse(ChestType.ORE))
+        .withFacing(dir)
+        .withTrap(false)
+        .stroke(worldEditor, cursor);
 
     cursor.up();
     blocks.stroke(editor, cursor);

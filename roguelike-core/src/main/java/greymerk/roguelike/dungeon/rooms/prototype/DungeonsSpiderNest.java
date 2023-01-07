@@ -9,6 +9,7 @@ import java.util.List;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
 import greymerk.roguelike.worldgen.Coord;
@@ -74,8 +75,12 @@ public class DungeonsSpiderNest extends BaseRoom {
     generateSpawner(cursor, MobType.CAVESPIDER);
 
     List<Coord> spaces = RectSolid.newRect(new Coord(originX - dungeonLength, originY - 1, originZ - dungeonWidth), new Coord(originX + dungeonLength, originY + 1, originZ + dungeonWidth)).get();
-    List<Coord> chestLocations = Coord.randomFrom(spaces, 1 + random().nextInt(3), random());
-    generateChests(chestLocations, getEntrance(entrances), ChestType.UNCOMMON_TREASURES);
+    Coord.randomFrom(spaces, 1 + random().nextInt(3), random())
+        .forEach(chestLocation -> new TreasureChest(chestLocation, worldEditor)
+            .withChestType(getChestTypeOrUse(ChestType.chooseRandomAmong(random(), ChestType.UNCOMMON_TREASURES)))
+            .withFacing(getEntrance(entrances))
+            .withTrap(false)
+            .stroke(worldEditor, chestLocation));
     return this;
   }
 

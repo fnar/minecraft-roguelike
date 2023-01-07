@@ -8,6 +8,7 @@ import java.util.List;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
@@ -58,8 +59,11 @@ public class DungeonsCreeperDen extends BaseRoom {
 
     List<Coord> chestSpaces = RectSolid.newRect(start, end).get();
     Coord.randomFrom(chestSpaces, 3, random())
-        .forEach(chestSpace ->
-            generateTrappedChest(chestSpace, getEntrance(entrances).reverse(), ChestType.ORE));
+        .forEach(chestSpace -> new TreasureChest(chestSpace, worldEditor)
+            .withChestType(getChestTypeOrUse(ChestType.ORE))
+            .withFacing(getEntrance(entrances).reverse())
+            .withTrap(true)
+            .stroke(worldEditor, chestSpace));
 
     final Coord cursor = at.copy();
     generateSpawner(cursor, MobType.CREEPER);

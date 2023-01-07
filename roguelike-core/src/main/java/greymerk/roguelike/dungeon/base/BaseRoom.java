@@ -9,14 +9,12 @@ import com.github.fnar.roguelike.worldgen.generatables.thresholds.Threshold;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.BlockSet;
 import greymerk.roguelike.theme.Theme;
-import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
@@ -129,72 +127,6 @@ public abstract class BaseRoom {
     return getRoomSetting().getChestType().orElse(defaultChestType);
   }
 
-  protected void generateChests(List<Coord> chestLocations, Direction facing) {
-    generateChests(chestLocations, facing, ChestType.COMMON_TREASURES);
-  }
-
-  protected void generateChests(List<Coord> chestLocations, Direction facing, ChestType... defaultChestTypes) {
-    chestLocations.forEach(chestLocation ->
-        generateChest(chestLocation, facing, defaultChestTypes));
-  }
-
-  protected void generateChest(Coord cursor, Direction facing, ChestType... defaultChestType) {
-    generateChest(cursor, facing, ChestType.chooseRandomAmong(random(), defaultChestType));
-  }
-
-  protected void generateChest(Coord coord) {
-    generateChest(coord, Direction.randomCardinal(worldEditor.getRandom()));
-  }
-
-  protected void generateChest(Coord cursor, Direction facing) {
-    generateChest(cursor, facing, ChestType.chooseRandomAmong(random(), ChestType.COMMON_TREASURES));
-  }
-
-  protected Optional<TreasureChest> generateChest(Coord coord, Direction facing, ChestType defaultChestType) {
-    return chest(coord, facing, defaultChestType)
-        .stroke(worldEditor, coord);
-  }
-
-  protected void generateTrappedChest(Coord cursor, Direction facing, ChestType... defaultChestType) {
-    generateTrappedChest(cursor, facing, ChestType.chooseRandomAmong(random(), defaultChestType));
-  }
-
-  protected Optional<TreasureChest> generateTrappedChest(Coord cursor, Direction facing, ChestType defaultChestType) {
-    return chest(cursor, facing, defaultChestType)
-        .withTrap(true)
-        .stroke(worldEditor, cursor);
-  }
-
-  protected List<Optional<TreasureChest>> generateTrappableChests(List<Coord> chestLocations, Direction facing) {
-    return generateTrappableChests(chestLocations, facing, ChestType.COMMON_TREASURES);
-  }
-
-  protected List<Optional<TreasureChest>> generateTrappableChests(List<Coord> chestLocations, Direction facing, ChestType... defaultChestTypes) {
-    return chestLocations.stream()
-        .map(chestLocation -> generateTrappableChest(chestLocation, facing, defaultChestTypes))
-        .collect(Collectors.toList());
-  }
-
-  protected Optional<TreasureChest> generateTrappableChest(Coord cursor, Direction facing) {
-    return generateTrappableChest(cursor, facing, ChestType.COMMON_TREASURES);
-  }
-
-  protected Optional<TreasureChest> generateTrappableChest(Coord cursor, Direction facing, ChestType... defaultChestType) {
-    return generateTrappableChest(cursor, facing, ChestType.chooseRandomAmong(random(), defaultChestType));
-  }
-
-  protected Optional<TreasureChest> generateTrappableChest(Coord cursor, Direction facing, ChestType defaultChestType) {
-    return chest(cursor, facing, defaultChestType)
-        .withTrap(levelSettings.getLevel())
-        .stroke(worldEditor, cursor);
-  }
-
-  private TreasureChest chest(Coord cursor, Direction facing, ChestType defaultChestType) {
-    return new TreasureChest(cursor, worldEditor)
-        .withChestType(getChestTypeOrUse(defaultChestType))
-        .withFacing(facing);
-  }
-
   protected void theFloorIsLava(Coord origin) {
     primaryLiquidBrush().fill(worldEditor, RectSolid.newRect(
         origin.copy().north(getWallDist()).west(getWallDist()).down(),
@@ -206,16 +138,16 @@ public abstract class BaseRoom {
     return levelSettings.getTheme();
   }
 
-  protected BlockBrush primaryFloorBrush() {
-    return primaryTheme().getFloor();
-  }
-
-  private BlockSet primaryTheme() {
+  protected BlockSet primaryTheme() {
     return theme().getPrimary();
   }
 
-  private BlockSet secondaryTheme() {
+  protected BlockSet secondaryTheme() {
     return theme().getSecondary();
+  }
+
+  protected BlockBrush primaryFloorBrush() {
+    return primaryTheme().getFloor();
   }
 
   protected BlockBrush primaryLightBrush() {

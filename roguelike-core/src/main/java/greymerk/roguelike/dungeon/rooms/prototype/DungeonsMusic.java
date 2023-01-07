@@ -8,6 +8,7 @@ import java.util.List;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -130,7 +131,12 @@ public class DungeonsMusic extends BaseRoom {
     cursor.up(4);
     primaryLightBrush().stroke(worldEditor, cursor);
 
-    generateChest(generateChestLocation(at.copy().up()), getEntrance(entrances).reverse(), ChestType.MUSIC);
+    Coord coord = generateChestLocation(at.copy().up());
+    new TreasureChest(coord, worldEditor)
+        .withChestType(getChestTypeOrUse(ChestType.MUSIC))
+        .withFacing(getEntrance(entrances).reverse())
+        .withTrap(false)
+        .stroke(worldEditor, coord);
 
     generateDoorways(at, entrances);
 

@@ -5,6 +5,7 @@ import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.Theme;
+import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -65,7 +66,11 @@ public class SegmentChest extends SegmentBase {
       return;
     }
 
-    generateTrappableChest(editor, dir, shelf, dungeonLevel.getSettings().getLevel(), ChestType.COMMON_TREASURES);
+    new TreasureChest(shelf, editor)
+        .withChestType(ChestType.chooseRandomAmong(editor.getRandom(), ChestType.COMMON_TREASURES))
+        .withFacing(dir)
+        .withTrap(TreasureChest.shouldBeTrapped(editor.getRandom(), dungeonLevel.getSettings().getLevel()))
+        .stroke(editor, shelf);
   }
 
 }
