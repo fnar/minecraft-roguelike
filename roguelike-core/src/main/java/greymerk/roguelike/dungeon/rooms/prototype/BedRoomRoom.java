@@ -15,6 +15,7 @@ import java.util.List;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -164,7 +165,11 @@ public class BedRoomRoom extends BaseRoom {
         .translate(side, 3);
 
     Coord chestLocation = cursor.add(Direction.UP);
-    generateChest(chestLocation, side, ChestType.STARTER);
+    new TreasureChest(chestLocation, worldEditor)
+        .withChestType(getChestTypeOrUse(ChestType.STARTER))
+        .withFacing(side)
+        .withTrap(false)
+        .stroke(worldEditor, chestLocation);
   }
 
   private void generateCraftingTable(Coord origin, Direction entranceDirection) {

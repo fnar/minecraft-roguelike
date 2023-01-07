@@ -8,6 +8,7 @@ import java.util.List;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.Coord;
@@ -281,7 +282,12 @@ public class DungeonsEnchant extends BaseRoom {
     cursor.translate(entrance, 5);
     BlockType.ENCHANTING_TABLE.getBrush().stroke(worldEditor, cursor);
 
-    generateChest(generateChestLocation(at.copy().up()), getEntrance(entrances), ChestType.ENCHANTING);
+    Coord coord = generateChestLocation(at.copy().up());
+    new TreasureChest(coord, worldEditor)
+        .withChestType(getChestTypeOrUse(ChestType.ENCHANTING))
+        .withFacing(getEntrance(entrances))
+        .withTrap(false)
+        .stroke(worldEditor, coord);
   }
 
   @Override

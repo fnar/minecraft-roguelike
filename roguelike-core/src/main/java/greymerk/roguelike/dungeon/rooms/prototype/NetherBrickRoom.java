@@ -8,6 +8,8 @@ import java.util.List;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.treasure.TreasureChest;
+import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -35,7 +37,12 @@ public class NetherBrickRoom extends BaseRoom {
 
   @Override
   protected void generateDecorations(Coord at, List<Direction> entrances) {
-    generateTrappableChest(generateChestLocation(at), getEntrance(entrances));
+    Coord coord = generateChestLocation(at);
+    new TreasureChest(coord, worldEditor)
+        .withChestType(getChestTypeOrUse(ChestType.chooseRandomAmong(random(), ChestType.COMMON_TREASURES)))
+        .withFacing(getEntrance(entrances))
+        .withTrap(TreasureChest.shouldBeTrapped(random(), levelSettings.getLevel()))
+        .stroke(worldEditor, coord);
     generateSpawners(at);
   }
 

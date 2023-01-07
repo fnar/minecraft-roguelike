@@ -8,6 +8,7 @@ import java.util.List;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -109,7 +110,11 @@ public class StorageRoom extends BaseRoom {
     }
 
     Coord.randomFrom(chestSpaces, 2, random())
-        .forEach(coord -> generateChest(coord, coord.dirTo(at).reverse(), ChestType.SUPPLIES_TREASURES));
+        .forEach(coord -> new TreasureChest(coord, worldEditor)
+            .withChestType(getChestTypeOrUse(ChestType.chooseRandomAmong(random(), ChestType.SUPPLIES_TREASURES)))
+            .withFacing(coord.dirTo(at).reverse())
+            .withTrap(false)
+            .stroke(worldEditor, coord));
 
     generateDoorways(at, entrances);
 

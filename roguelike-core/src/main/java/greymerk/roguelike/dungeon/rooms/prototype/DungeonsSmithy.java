@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
@@ -242,15 +243,27 @@ public class DungeonsSmithy extends BaseRoom {
 
   private void smelter(Direction entranceDirection, Coord origin) {
     Coord cursor = origin.copy();
-    generateChest(cursor, entranceDirection, ChestType.EMPTY);
+    new TreasureChest(cursor, worldEditor)
+        .withChestType(getChestTypeOrUse(ChestType.EMPTY))
+        .withFacing(entranceDirection)
+        .withTrap(false)
+        .stroke(worldEditor, cursor);
 
     cursor.translate(entranceDirection, 2);
     cursor.up(2);
-    generateChest(cursor, entranceDirection, ChestType.EMPTY);
+    new TreasureChest(cursor, worldEditor)
+        .withChestType(getChestTypeOrUse(ChestType.EMPTY))
+        .withFacing(entranceDirection)
+        .withTrap(false)
+        .stroke(worldEditor, cursor);
 
     cursor.up();
     cursor.translate(entranceDirection.reverse());
-    generateChest(cursor, entranceDirection, ChestType.EMPTY);
+    new TreasureChest(cursor, worldEditor)
+        .withChestType(getChestTypeOrUse(ChestType.EMPTY))
+        .withFacing(entranceDirection)
+        .withTrap(false)
+        .stroke(worldEditor, cursor);
 
     cursor = origin.copy();
     cursor.up();
@@ -404,7 +417,11 @@ public class DungeonsSmithy extends BaseRoom {
     primaryStairBrush().setUpsideDown(true).setFacing(entranceDirection.clockwise()).fill(worldEditor, RectSolid.newRect(start, end));
     cursor.up();
 
-    generateChest(cursor, entranceDirection.antiClockwise(), ChestType.SMITH);
+    new TreasureChest(cursor, worldEditor)
+        .withChestType(getChestTypeOrUse(ChestType.SMITH))
+        .withFacing(entranceDirection.antiClockwise())
+        .withTrap(false)
+        .stroke(worldEditor, cursor);
   }
 
 

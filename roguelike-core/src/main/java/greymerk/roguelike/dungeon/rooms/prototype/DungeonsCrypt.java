@@ -9,6 +9,8 @@ import java.util.List;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.treasure.TreasureChest;
+import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -312,7 +314,11 @@ public class DungeonsCrypt extends BaseRoom {
     generateSpawner(cursor, MobType.UNDEAD_MOBS);
 
     cursor.translate(dir);
-    generateChest(cursor, dir);
+    new TreasureChest(cursor, worldEditor)
+        .withChestType(getChestTypeOrUse(ChestType.chooseRandomAmong(random(), ChestType.COMMON_TREASURES)))
+        .withFacing(dir)
+        .withTrap(false)
+        .stroke(worldEditor, cursor);
   }
 
 }

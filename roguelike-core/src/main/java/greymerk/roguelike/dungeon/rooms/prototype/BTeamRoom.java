@@ -17,6 +17,7 @@ import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.treasure.loot.PotionMixture;
 import greymerk.roguelike.treasure.loot.provider.ItemNovelty;
@@ -185,7 +186,11 @@ public class BTeamRoom extends BaseRoom {
     cursor.translate(dir.antiClockwise(), 4);
     BlockType.JUKEBOX.getBrush().stroke(worldEditor, cursor);
     cursor.translate(dir.antiClockwise());
-    generateChest(cursor, dir, ChestType.EMPTY).ifPresent(stal -> stal.setSlot(worldEditor.getCapacity(stal) / 2, Record.Song.STAL.asItem().asStack()));
+    new TreasureChest(cursor, worldEditor)
+        .withChestType(getChestTypeOrUse(ChestType.EMPTY))
+        .withFacing(dir)
+        .withTrap(false)
+        .stroke(worldEditor, cursor).ifPresent(stal -> stal.setSlot(worldEditor.getCapacity(stal) / 2, Record.Song.STAL.asItem().asStack()));
   }
 
   private void placeBDouble0Chest(Coord origin, Direction dir) {
@@ -193,7 +198,11 @@ public class BTeamRoom extends BaseRoom {
     cursor = origin.copy();
     cursor.translate(dir.reverse(), 3);
     cursor.translate(dir.antiClockwise(), 4);
-    generateChest(cursor, dir, ChestType.EMPTY).ifPresent(bdub -> {
+    new TreasureChest(cursor, worldEditor)
+        .withChestType(getChestTypeOrUse(ChestType.EMPTY))
+        .withFacing(dir)
+        .withTrap(false)
+        .stroke(worldEditor, cursor).ifPresent(bdub -> {
       bdub.setSlot((worldEditor.getCapacity(bdub) / 2) - 2, ItemNovelty.bDoubleOsDigJob());
       bdub.setSlot((worldEditor.getCapacity(bdub) / 2) + 2, ItemNovelty.bDoubleOspinkSweater());
     });
@@ -204,7 +213,11 @@ public class BTeamRoom extends BaseRoom {
     cursor = origin.copy();
     cursor.translate(dir.reverse(), 3);
     cursor.translate(dir.clockwise(), 4);
-    generateChest(cursor, dir, ChestType.EMPTY).ifPresent(genny -> genny.setSlot(worldEditor.getCapacity(genny) / 2, ItemNovelty.generikBsHotPotato()));
+    new TreasureChest(cursor, worldEditor)
+        .withChestType(getChestTypeOrUse(ChestType.EMPTY))
+        .withFacing(dir)
+        .withTrap(false)
+        .stroke(worldEditor, cursor).ifPresent(genny -> genny.setSlot(worldEditor.getCapacity(genny) / 2, ItemNovelty.generikBsHotPotato()));
   }
 
   private void table(WorldEditor editor, Direction dir, Coord origin) {

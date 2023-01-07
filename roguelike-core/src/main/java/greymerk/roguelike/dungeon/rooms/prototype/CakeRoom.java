@@ -8,6 +8,7 @@ import java.util.List;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
@@ -56,7 +57,12 @@ public class CakeRoom extends BaseRoom {
 
     placeCake(at, primaryPillarBrush());
 
-    generateChest(generateChestLocation(at), getEntrance(entrances).reverse(), ChestType.FOOD);
+    Coord coord = generateChestLocation(at);
+    new TreasureChest(coord, worldEditor)
+        .withChestType(getChestTypeOrUse(ChestType.FOOD))
+        .withFacing(getEntrance(entrances).reverse())
+        .withTrap(false)
+        .stroke(worldEditor, coord);
 
     generateDoorways(at, entrances);
     return this;

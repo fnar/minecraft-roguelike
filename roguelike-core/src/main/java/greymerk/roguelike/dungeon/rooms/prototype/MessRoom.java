@@ -12,6 +12,7 @@ import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.BlockSet;
+import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
@@ -129,7 +130,11 @@ public class MessRoom extends BaseRoom {
         .translate(corners[1], 5)
         .up();
 
-    generateChest(cursor, entranceDir.reverse(), ChestType.FOOD);
+    new TreasureChest(cursor, worldEditor)
+        .withChestType(getChestTypeOrUse(ChestType.FOOD))
+        .withFacing(entranceDir.reverse())
+        .withTrap(false)
+        .stroke(worldEditor, cursor);
 
     cursor = origin.copy()
         .translate(corners[0], 5)
@@ -319,7 +324,11 @@ public class MessRoom extends BaseRoom {
     cursor.translate(dir, 7);
     theme().getPrimary().getStair().setUpsideDown(true).setFacing(dir.reverse()).stroke(worldEditor, cursor);
     cursor.up();
-    generateChest(cursor, dir, ChestType.FOOD);
+    new TreasureChest(cursor, worldEditor)
+        .withChestType(getChestTypeOrUse(ChestType.FOOD))
+        .withFacing(dir)
+        .withTrap(false)
+        .stroke(worldEditor, cursor);
     cursor.translate(dir.antiClockwise());
     BlockType.FURNACE.getBrush().setFacing(dir).stroke(worldEditor, cursor);
     cursor.translate(dir.clockwise(), 2);

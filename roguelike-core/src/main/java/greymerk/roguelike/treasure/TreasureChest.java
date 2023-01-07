@@ -6,6 +6,7 @@ import com.github.fnar.minecraft.item.RldItemStack;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -84,9 +85,8 @@ public class TreasureChest {
     return this;
   }
 
-  public TreasureChest withTrap(int level) {
-    this.isTrapped = worldEditor.getRandom().nextInt(30 / (Math.max(1, level))) == 0;
-    return this;
+  public static boolean shouldBeTrapped(Random random, int level) {
+    return random.nextInt(30 / (max(1, level))) == 0;
   }
 
   public TreasureChest withTrap(boolean isTrapped) {

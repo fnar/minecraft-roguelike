@@ -14,6 +14,7 @@ import java.util.stream.Collectors;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockJumble;
@@ -39,10 +40,14 @@ public class NetherFortressRoom extends BaseRoom {
   public BaseRoom generate(Coord at, List<Direction> entrances) {
     super.generate(at, entrances);
 
-    RectSolid chestRectangle = at.copy().down().newRect(2);
-    List<Coord> chestLocations = Coord.randomFrom(chestRectangle.get(), random().nextInt(3) + 1, random());
     ChestType[] chestTypes = new ChestType[]{ChestType.GARDEN, ChestType.SUPPLIES, ChestType.TOOLS};
-    generateTrappableChests(chestLocations, getEntrance(entrances).reverse(), chestTypes);
+    Coord.randomFrom(at.copy().down().newRect(2).get(), random().nextInt(3) + 1, random())
+        .forEach(chestLocation ->
+            new TreasureChest(chestLocation, worldEditor)
+                .withChestType(getChestTypeOrUse(ChestType.chooseRandomAmong(random(), chestTypes)))
+                .withFacing(getEntrance(entrances).reverse())
+                .withTrap(TreasureChest.shouldBeTrapped(random(), levelSettings.getLevel()))
+                .stroke(worldEditor, chestLocation));
 
     return this;
   }
@@ -155,7 +160,7 @@ public class NetherFortressRoom extends BaseRoom {
   }
 
   private void pillar(Coord origin) {
-     Pillar.newPillar(worldEditor).withStairs(primaryStairBrush()).withPillar(primaryPillarBrush()).withHeight(5).generate(origin);
+    Pillar.newPillar(worldEditor).withStairs(primaryStairBrush()).withPillar(primaryPillarBrush()).withHeight(5).generate(origin);
   }
 
 }

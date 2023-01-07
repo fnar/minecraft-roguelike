@@ -17,6 +17,7 @@ import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.Theme;
+import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
@@ -266,7 +267,11 @@ public class LabRoom extends BaseRoom {
       editor.setItem(bs, BrewingStand.Slot.FUEL, Ingredient.Type.BLAZE_POWDER.asItemStack());
     }
     Coord chestLocation = new Coord(x, y + 1, z + 4);
-    generateChest(chestLocation, Direction.WEST, ChestType.BREWING);
+    new TreasureChest(chestLocation, worldEditor)
+        .withChestType(getChestTypeOrUse(ChestType.BREWING))
+        .withFacing(Direction.WEST)
+        .withTrap(false)
+        .stroke(worldEditor, chestLocation);
   }
 
 }
