@@ -55,6 +55,8 @@ public class RogueConfig {
   public static final RogueConfig MOBS_ITEMS_ENCHANTMENTS_CHANCE = new RogueConfig("mobs.items.enchantments.chance", new Double[]{-1.0, -1.0, -1.0, -1.0, -1.0});
   public static final RogueConfig MOBS_ITEMS_ENCHANTMENTS_LEVELS = new RogueConfig("mobs.items.enchantments.levels", new Integer[]{-1, -1, -1, -1, -1});
 
+  public static final RogueConfig DEPRECATED_LOOTING = new RogueConfig("looting", 0.085D);
+
   private static final boolean DEFAULT_BOOLEAN = false;
   private static final String DEFAULT_STRING_VALUE = "";
   private static final int DEFAULT_INT = 0;
@@ -126,7 +128,15 @@ public class RogueConfig {
     return name;
   }
 
-  @SuppressWarnings("unchecked")
+  private static void migrate() {
+    if (instance.ContainsKey(DEPRECATED_LOOTING.name)) {
+      if (!instance.ContainsKey(MOBS_ITEMS_DROP_CHANCE.name)) {
+        MOBS_ITEMS_DROP_CHANCE.setDouble(DEPRECATED_LOOTING.doubleValue);
+      }
+      instance.Unset(DEPRECATED_LOOTING.name);
+    }
+  }
+
   private static void setDefaults() {
     if (!instance.ContainsKey(BREAK_IF_REQUIRED_MOD_IS_MISSING.name)) {
       BREAK_IF_REQUIRED_MOD_IS_MISSING.setBoolean(BREAK_IF_REQUIRED_MOD_IS_MISSING.booleanValue);
@@ -231,6 +241,8 @@ public class RogueConfig {
     } catch (Exception e) {
       e.printStackTrace();
     }
+
+    migrate();
 
     setDefaults();
 
