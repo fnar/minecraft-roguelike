@@ -29,7 +29,7 @@ public class RogueConfig {
   public static final String CONFIG_FILE = CONFIG_DIRECTORY + "/" + CONFIG_FILE_NAME;
 
   public static boolean testing = false;
-  private static ConfigFile instance = null;
+  private static ConfigurationMap instance = null;
 
   public static final RogueConfig BREAK_IF_REQUIRED_MOD_IS_MISSING = new RogueConfig("breakIfRequiredModIsMissing").withValue(true);
   public static final RogueConfig DIMENSIONBL = new RogueConfig("dimensionBL").withValue(new Integer[]{});
@@ -191,8 +191,8 @@ public class RogueConfig {
 
     // read in configs
     try {
-      instance = new ConfigFile();
-      instance.read(CONFIG_FILE);
+      instance = new ConfigurationMap();
+      ConfigFile.read(instance, CONFIG_FILE);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -202,7 +202,7 @@ public class RogueConfig {
     setDefaults();
 
     try {
-      instance.write(CONFIG_FILE);
+      ConfigFile.write(instance, CONFIG_FILE);
     } catch (Exception e) {
       e.printStackTrace();
     }
