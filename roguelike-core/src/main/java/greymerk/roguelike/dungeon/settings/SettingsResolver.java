@@ -40,7 +40,7 @@ public class SettingsResolver {
   }
 
   public static SettingsResolver initSettingsResolver() throws Exception {
-    File settingsDirectoryFile = new File(RogueConfig.configDirName + "/settings");
+    File settingsDirectoryFile = new File(RogueConfig.CONFIG_DIRECTORY + "/settings");
 
     if (settingsDirectoryFile.exists() && !settingsDirectoryFile.isDirectory()) {
       throw new Exception("Settings directory is a file");

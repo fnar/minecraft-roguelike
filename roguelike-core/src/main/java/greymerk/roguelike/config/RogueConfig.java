@@ -24,8 +24,9 @@ public class RogueConfig {
 
   private static final Logger logger = LogManager.getLogger(MOD_ID);
 
-  public static final String configDirName = "config/roguelike_dungeons";
-  public static final String configFileName = "roguelike.cfg";
+  public static final String CONFIG_DIRECTORY = "config/roguelike_dungeons";
+  public static final String CONFIG_FILE_NAME = "roguelike.cfg";
+  public static final String CONFIG_FILE = CONFIG_DIRECTORY + "/" + CONFIG_FILE_NAME;
 
   public static boolean testing = false;
   private static ConfigFile instance = null;
@@ -173,12 +174,12 @@ public class RogueConfig {
     }
 
     // make sure file exists
-    File configDir = new File(configDirName);
+    File configDir = new File(CONFIG_DIRECTORY);
     if (!configDir.exists()) {
       configDir.mkdir();
     }
 
-    File cfile = new File(configDirName + "/" + configFileName);
+    File cfile = new File(CONFIG_FILE);
 
     if (!cfile.exists()) {
       try {
@@ -190,7 +191,8 @@ public class RogueConfig {
 
     // read in configs
     try {
-      instance = new ConfigFile(configDirName + "/" + configFileName, new INIParser());
+      instance = new ConfigFile();
+      instance.read(CONFIG_FILE);
     } catch (Exception e) {
       e.printStackTrace();
     }
@@ -200,7 +202,7 @@ public class RogueConfig {
     setDefaults();
 
     try {
-      instance.Write();
+      instance.write(CONFIG_FILE);
     } catch (Exception e) {
       e.printStackTrace();
     }
