@@ -15,6 +15,10 @@ public class ConfigurationMap {
 
   protected Map<String, Configuration> configurationsByName = new HashMap<>();
 
+  public void remove(String name) {
+    this.configurationsByName.remove(name);
+  }
+
   public void put(String key, String value) {
     configurationsByName.put(key, new Configuration(key, value));
   }
