@@ -1,6 +1,8 @@
 package greymerk.roguelike.config;
 
 
+import com.google.common.collect.Lists;
+
 import com.github.fnar.util.Strings;
 
 import org.apache.commons.lang3.StringUtils;
@@ -17,6 +19,8 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import greymerk.roguelike.config.migration.LootingToMobsItemsDropChanceMigration;
+import greymerk.roguelike.config.migration.RogueConfigMigration;
 import greymerk.roguelike.worldgen.VanillaStructure;
 
 import static greymerk.roguelike.dungeon.Dungeon.MOD_ID;
@@ -55,7 +59,9 @@ public class RogueConfig {
   public static final RogueConfig MOBS_ITEMS_ENCHANTMENTS_CHANCE = new RogueConfig("mobs.items.enchantments.chance").withValue(new Double[]{-1.0, -1.0, -1.0, -1.0, -1.0});
   public static final RogueConfig MOBS_ITEMS_ENCHANTMENTS_LEVELS = new RogueConfig("mobs.items.enchantments.levels").withValue(new Integer[]{-1, -1, -1, -1, -1});
 
-  public static final RogueConfig DEPRECATED_LOOTING = new RogueConfig("looting").withValue(0.085D);
+  private static final List<RogueConfigMigration> migrations = Lists.newArrayList(
+      new LootingToMobsItemsDropChanceMigration()
+  );
 
   private final String name;
   private String stringValue;
@@ -83,87 +89,82 @@ public class RogueConfig {
     return name;
   }
 
-  private static void migrate() {
-    if (instance.containsKey(DEPRECATED_LOOTING.name)) {
-      if (!instance.containsKey(MOBS_ITEMS_DROP_CHANCE.name)) {
-        MOBS_ITEMS_DROP_CHANCE.setDouble(DEPRECATED_LOOTING.doubleValue);
-      }
-      instance.configurationsByName.remove(DEPRECATED_LOOTING.name);
-    }
+  private static void migrate(ConfigurationMap configurationMap) {
+    migrations.forEach(migration -> migration.accept(configurationMap));
   }
 
-  private static void setDefaults() {
-    if (!instance.containsKey(BREAK_IF_REQUIRED_MOD_IS_MISSING.name)) {
+  private static void setDefaults(ConfigurationMap configurationMap) {
+    if (!configurationMap.containsKey(BREAK_IF_REQUIRED_MOD_IS_MISSING.name)) {
       BREAK_IF_REQUIRED_MOD_IS_MISSING.setBoolean(BREAK_IF_REQUIRED_MOD_IS_MISSING.booleanValue);
     }
 
-    if (!instance.containsKey(DONATURALSPAWN.name)) {
+    if (!configurationMap.containsKey(DONATURALSPAWN.name)) {
       DONATURALSPAWN.setBoolean(DONATURALSPAWN.booleanValue);
     }
-    if (!instance.containsKey(SPAWNFREQUENCY.name)) {
+    if (!configurationMap.containsKey(SPAWNFREQUENCY.name)) {
       SPAWNFREQUENCY.setInt(SPAWNFREQUENCY.intValue);
     }
-    if (!instance.containsKey(SPAWNCHANCE.name)) {
+    if (!configurationMap.containsKey(SPAWNCHANCE.name)) {
       SPAWNCHANCE.setDouble(SPAWNCHANCE.doubleValue);
     }
-    if (!instance.containsKey(GENEROUS.name)) {
+    if (!configurationMap.containsKey(GENEROUS.name)) {
       GENEROUS.setBoolean(GENEROUS.booleanValue);
     }
-    if (!instance.containsKey(DIMENSIONWL.name)) {
+    if (!configurationMap.containsKey(DIMENSIONWL.name)) {
       DIMENSIONWL.setIntList(DIMENSIONWL.intsValue);
     }
-    if (!instance.containsKey(DIMENSIONBL.name)) {
+    if (!configurationMap.containsKey(DIMENSIONBL.name)) {
       DIMENSIONBL.setIntList(DIMENSIONBL.intsValue);
     }
-    if (!instance.containsKey(PRECIOUSBLOCKS.name)) {
+    if (!configurationMap.containsKey(PRECIOUSBLOCKS.name)) {
       PRECIOUSBLOCKS.setBoolean(PRECIOUSBLOCKS.booleanValue);
     }
 
-    if (!instance.containsKey(DUNGEON_GENERATION_THRESHOLD_CHANCE.getName())) {
+    if (!configurationMap.containsKey(DUNGEON_GENERATION_THRESHOLD_CHANCE.getName())) {
       DUNGEON_GENERATION_THRESHOLD_CHANCE.setDoubleList(DUNGEON_GENERATION_THRESHOLD_CHANCE.doublesValue);
     }
 
-    if (!instance.containsKey(MOBS_ITEMS_DROP_CHANCE.getName())) {
+    if (!configurationMap.containsKey(MOBS_ITEMS_DROP_CHANCE.getName())) {
       MOBS_ITEMS_DROP_CHANCE.setDouble(MOBS_ITEMS_DROP_CHANCE.doubleValue);
     }
 
-    if (!instance.containsKey(MOBS_ITEMS_ENCHANTMENTS_CHANCE.getName())) {
+    if (!configurationMap.containsKey(MOBS_ITEMS_ENCHANTMENTS_CHANCE.getName())) {
       MOBS_ITEMS_ENCHANTMENTS_CHANCE.setDoubleList(MOBS_ITEMS_ENCHANTMENTS_CHANCE.doublesValue);
     }
 
-    if (!instance.containsKey(MOBS_ITEMS_ENCHANTMENTS_LEVELS.getName())) {
+    if (!configurationMap.containsKey(MOBS_ITEMS_ENCHANTMENTS_LEVELS.getName())) {
       MOBS_ITEMS_ENCHANTMENTS_LEVELS.setIntList(MOBS_ITEMS_ENCHANTMENTS_LEVELS.intsValue);
     }
 
-    if (!instance.containsKey(UPPERLIMIT.name)) {
+    if (!configurationMap.containsKey(UPPERLIMIT.name)) {
       UPPERLIMIT.setInt(UPPERLIMIT.intValue);
     }
-    if (!instance.containsKey(LOWERLIMIT.name)) {
+    if (!configurationMap.containsKey(LOWERLIMIT.name)) {
       LOWERLIMIT.setInt(LOWERLIMIT.intValue);
     }
-    if (!instance.containsKey(ROGUESPAWNERS.name)) {
+    if (!configurationMap.containsKey(ROGUESPAWNERS.name)) {
       ROGUESPAWNERS.setBoolean(ROGUESPAWNERS.booleanValue);
     }
-    if (!instance.containsKey(ENCASE.name)) {
+    if (!configurationMap.containsKey(ENCASE.name)) {
       ENCASE.setBoolean(ENCASE.booleanValue);
     }
-    if (!instance.containsKey(FURNITURE.name)) {
+    if (!configurationMap.containsKey(FURNITURE.name)) {
       FURNITURE.setBoolean(FURNITURE.booleanValue);
     }
-    if (!instance.containsKey(RANDOM.name)) {
+    if (!configurationMap.containsKey(RANDOM.name)) {
       RANDOM.setBoolean(RANDOM.booleanValue);
     }
-    if (!instance.containsKey(SPAWNBUILTIN.name)) {
+    if (!configurationMap.containsKey(SPAWNBUILTIN.name)) {
       SPAWNBUILTIN.setBoolean(SPAWNBUILTIN.booleanValue);
     }
-    if (!instance.containsKey(SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES.name)) {
+    if (!configurationMap.containsKey(SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES.name)) {
       SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES.setInt(SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES.intValue);
     }
-    if (!instance.containsKey(SPAWN_ATTEMPTS.name)) {
+    if (!configurationMap.containsKey(SPAWN_ATTEMPTS.name)) {
       SPAWN_ATTEMPTS.setInt(SPAWN_ATTEMPTS.intValue);
     }
 
-    if (!instance.containsKey(VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM.getName())) {
+    if (!configurationMap.containsKey(VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM.getName())) {
       VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM.setString(VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM.stringValue);
     }
   }
@@ -198,9 +199,9 @@ public class RogueConfig {
       e.printStackTrace();
     }
 
-    migrate();
+    setDefaults(instance);
 
-    setDefaults();
+    migrate(instance);
 
     try {
       ConfigFile.write(instance, CONFIG_FILE);
