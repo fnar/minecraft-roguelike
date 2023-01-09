@@ -14,11 +14,11 @@ import java.nio.file.Paths;
 
 import static greymerk.roguelike.dungeon.Dungeon.MOD_ID;
 
-public class ConfigFile extends ConfigurationMap {
+public class ConfigFile {
 
   private static final Logger logger = LogManager.getLogger(MOD_ID);
 
-  public void read(String filename) {
+  public static void read(ConfigurationMap configFile, String filename) {
     try {
       BufferedReader reader = new BufferedReader(new InputStreamReader(Files.newInputStream(Paths.get(filename))));
       while (true) {
@@ -26,21 +26,21 @@ public class ConfigFile extends ConfigurationMap {
         if (config == null) {
           break;
         }
-        configurationsByName.put(config.key, config.value);
+        configFile.configurationsByName.put(config.key, config.value);
       }
     } catch (Exception exception) {
       logger.error("Error while reading config file. : ", exception);
     }
   }
 
-  public void write(String filename) throws Exception {
+  public static void write(ConfigurationMap configFile, String filename) throws Exception {
     FileOutputStream stream = new FileOutputStream(filename, true);
 
     stream.getChannel().truncate(0);
 
     BufferedWriter buffered = new BufferedWriter(new OutputStreamWriter(stream));
 
-    for (Configuration configuration : asList()) {
+    for (Configuration configuration : configFile.asList()) {
       INIParser.write(configuration, buffered);
     }
 
