@@ -1,92 +1,50 @@
 package greymerk.roguelike.config;
 
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.io.BufferedReader;
-import java.io.FileInputStream;
+import java.io.BufferedWriter;
+import java.io.FileOutputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
+import static greymerk.roguelike.dungeon.Dungeon.MOD_ID;
 
-/**
- * Provides configuration information from a file.
- */
-public class ConfigFile extends ConfigurationProvider {
+public class ConfigFile extends ConfigurationMap {
 
+  private static final Logger logger = LogManager.getLogger(MOD_ID);
 
-  private String filename;
-  private ConfigurationParser parser;
-
-
-  /**
-   * Creates a configuration file by parsing a certain file.
-   *
-   * \param [in] filename The name of the file to read. \param [in] parser A ConfigurationParser
-   * which will be used to parse the data in the given file.
-   */
-  public ConfigFile(String filename, ConfigurationParser parser) throws Exception {
-
-    this.filename = filename;
-    this.parser = parser;
-
-    //	Open a stream to the file-in-question
-    FileInputStream stream;
+  public void read(String filename) {
     try {
-
-      stream = new FileInputStream(filename);
-
-    } catch (Exception e) {
-
-      //	If the file could not be opened,
-      //	we just create an empty set of
-      //	configurations
-      return;
-
-    }
-
-    //	Create an input stream reader
-    //	to read from the specified file
-    //	stream
-    BufferedReader reader = new BufferedReader(
-        new InputStreamReader(stream)
-    );
-
-    //	Loop until all settings have
-    //	been extracted
-    for (; ; ) {
-
-      //	Attempt to extract setting
-      Configuration config = parser.Parse(reader);
-
-      //	If setting could not be extracted,
-      //	the file is done, break
-      if (config == null) {
-        break;
+      BufferedReader reader = new BufferedReader(new InputStreamReader(Files.newInputStream(Paths.get(filename))));
+      while (true) {
+        Configuration config = INIParser.readLine(reader);
+        if (config == null) {
+          break;
+        }
+        configurationsByName.put(config.key, config.value);
       }
+    } catch (Exception exception) {
+      logger.error("Error while reading config file. : ", exception);
+    }
+  }
 
-      //	We extracted a setting, insert it
-      //	into the hash map
-      kvp.put(
-          config.Key,
-          config.Value
-      );
+  public void write(String filename) throws Exception {
+    FileOutputStream stream = new FileOutputStream(filename, true);
 
+    stream.getChannel().truncate(0);
+
+    BufferedWriter buffered = new BufferedWriter(new OutputStreamWriter(stream));
+
+    for (Configuration configuration : asList()) {
+      INIParser.write(configuration, buffered);
     }
 
+    buffered.close();
   }
-
-
-  /**
-   * Writes configurations back to the file from which they were originally drawn, according to the
-   * strategy used to parse them.
-   */
-  public void Write() throws Exception {
-
-    ConfigFileWriter.Write(
-        filename,
-        this,
-        parser
-    );
-
-  }
-
 
 }
