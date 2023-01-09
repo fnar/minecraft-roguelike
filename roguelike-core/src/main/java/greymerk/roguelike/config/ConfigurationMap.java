@@ -1,55 +1,47 @@
 package greymerk.roguelike.config;
 
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Optional;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 public class ConfigurationMap {
 
-  private static final String true_regex = "^\\s*(?:t(?:rue)?|y(?:es)?)\\s*$";
-  private static final String false_regex = "^\\s*(?:f(?:alse)?|no?)\\s*$";
-  private static final String true_string = "true";
-  private static final String false_string = "false";
-  protected Map<String, String> configurationsByName = new HashMap<>();
-  private final Pattern true_pattern = Pattern.compile(true_regex);
-  private final Pattern false_pattern = Pattern.compile(false_regex);
+  private static final Pattern TRUE_PATTERN = Pattern.compile("^\\s*(?:t(?:rue)?|y(?:es)?)\\s*$");
+  private static final Pattern FALSE_PATTERN = Pattern.compile("^\\s*(?:f(?:alse)?|no?)\\s*$");
 
-  public boolean ContainsKey(String key) {
-    if (key == null) {
-      return false;
-    }
+  protected Map<String, Configuration> configurationsByName = new HashMap<>();
 
-    return configurationsByName.get(key) != null;
+  public void put(String key, String value) {
+    configurationsByName.put(key, new Configuration(key, value));
   }
 
-  public String Get(String key) {
+  public boolean containsKey(String key) {
+    return configurationsByName.containsKey(key);
+  }
 
+  public String get(String key) {
     if (key == null) {
       return null;
     }
 
-    return configurationsByName.get(key);
+    return configurationsByName.get(key).getValue();
   }
 
-  public String Get(String key, String fallback) {
+  public String get(String key, String fallback) {
 
-    String value = Get(key);
+    String value = get(key);
 
     return (value == null) ? fallback : value;
 
   }
 
-  public double GetDouble(String key, double fallback) {
+  public double getDouble(String key, double fallback) {
 
-    String value = Get(key);
+    String value = get(key);
 
     if (value == null) {
       return fallback;
@@ -66,38 +58,33 @@ public class ConfigurationMap {
 
   }
 
-  public int GetInteger(String key, int fallback) {
-
-    String value = Get(key);
+  public int getInteger(String key, int fallback) {
+    String value = get(key);
 
     if (value == null) {
       return fallback;
     }
 
     try {
-
       return Integer.parseInt(value);
-
     } catch (NumberFormatException ignored) {
     }
-
     return fallback;
-
   }
 
   public boolean GetBoolean(String key, boolean fallback) {
 
-    String value = Get(key);
+    String value = get(key);
 
     if (value == null) {
       return fallback;
     }
 
-    if (true_pattern.matcher(value).find()) {
+    if (TRUE_PATTERN.matcher(value).find()) {
       return true;
     }
 
-    if (false_pattern.matcher(value).find()) {
+    if (FALSE_PATTERN.matcher(value).find()) {
       return false;
     }
 
@@ -107,7 +94,7 @@ public class ConfigurationMap {
 
   public List<Integer> getIntegers(String key, List<Integer> fallback) {
 
-    String value = Get(key);
+    String value = get(key);
 
     if (value == null) {
       return fallback;
@@ -129,7 +116,7 @@ public class ConfigurationMap {
 
   public List<Double> getDoubles(String key, List<Double> fallback) {
 
-    String value = Get(key);
+    String value = get(key);
 
     if (value == null) {
       return fallback;
@@ -149,62 +136,8 @@ public class ConfigurationMap {
     return ints;
   }
 
-
-  public void set(String key, String value) {
-    if (key == null) {
-      return;
-    }
-
-    if (value == null) {
-
-      configurationsByName.remove(key);
-
-      return;
-    }
-
-    configurationsByName.put(key, value);
-
-  }
-
-  public void set(String key, double value) {
-    set(key, Double.toString(value));
-  }
-
-  public void set(String key, int value) {
-    set(key, Integer.toString(value));
-
-  }
-
-  public void set(String key, boolean value) {
-    set(key, value ? true_string : false_string);
-  }
-
-  public void set(String key, List<Integer> value) {
-    set(key, StringUtils.join(value, ","));
-  }
-
-  public void set(String key, Double[] value) {
-    set(key, StringUtils.join(value, ","));
-  }
-
-  public void Unset(String key) {
-    if (key == null) {
-      return;
-    }
-
-    configurationsByName.remove(key);
-  }
-
-  public String GetString(String name, String defaultValue) {
-    return Optional.ofNullable(Get(name, defaultValue))
-        .orElse(defaultValue);
-  }
-
   public List<Configuration> asList() {
-    return configurationsByName.entrySet().stream()
-        .sorted(Entry.comparingByKey())
-        .map(entry -> new Configuration(entry.getKey(), entry.getValue()))
-        .collect(Collectors.toList());
+    return configurationsByName.values().stream().sorted().collect(Collectors.toList());
   }
 
 }

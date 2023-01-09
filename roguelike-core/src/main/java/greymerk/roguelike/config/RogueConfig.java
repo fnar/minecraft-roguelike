@@ -3,6 +3,7 @@ package greymerk.roguelike.config;
 
 import com.github.fnar.util.Strings;
 
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -83,86 +84,86 @@ public class RogueConfig {
   }
 
   private static void migrate() {
-    if (instance.ContainsKey(DEPRECATED_LOOTING.name)) {
-      if (!instance.ContainsKey(MOBS_ITEMS_DROP_CHANCE.name)) {
+    if (instance.containsKey(DEPRECATED_LOOTING.name)) {
+      if (!instance.containsKey(MOBS_ITEMS_DROP_CHANCE.name)) {
         MOBS_ITEMS_DROP_CHANCE.setDouble(DEPRECATED_LOOTING.doubleValue);
       }
-      instance.Unset(DEPRECATED_LOOTING.name);
+      instance.configurationsByName.remove(DEPRECATED_LOOTING.name);
     }
   }
 
   private static void setDefaults() {
-    if (!instance.ContainsKey(BREAK_IF_REQUIRED_MOD_IS_MISSING.name)) {
+    if (!instance.containsKey(BREAK_IF_REQUIRED_MOD_IS_MISSING.name)) {
       BREAK_IF_REQUIRED_MOD_IS_MISSING.setBoolean(BREAK_IF_REQUIRED_MOD_IS_MISSING.booleanValue);
     }
 
-    if (!instance.ContainsKey(DONATURALSPAWN.name)) {
+    if (!instance.containsKey(DONATURALSPAWN.name)) {
       DONATURALSPAWN.setBoolean(DONATURALSPAWN.booleanValue);
     }
-    if (!instance.ContainsKey(SPAWNFREQUENCY.name)) {
+    if (!instance.containsKey(SPAWNFREQUENCY.name)) {
       SPAWNFREQUENCY.setInt(SPAWNFREQUENCY.intValue);
     }
-    if (!instance.ContainsKey(SPAWNCHANCE.name)) {
+    if (!instance.containsKey(SPAWNCHANCE.name)) {
       SPAWNCHANCE.setDouble(SPAWNCHANCE.doubleValue);
     }
-    if (!instance.ContainsKey(GENEROUS.name)) {
+    if (!instance.containsKey(GENEROUS.name)) {
       GENEROUS.setBoolean(GENEROUS.booleanValue);
     }
-    if (!instance.ContainsKey(DIMENSIONWL.name)) {
+    if (!instance.containsKey(DIMENSIONWL.name)) {
       DIMENSIONWL.setIntList(DIMENSIONWL.intsValue);
     }
-    if (!instance.ContainsKey(DIMENSIONBL.name)) {
+    if (!instance.containsKey(DIMENSIONBL.name)) {
       DIMENSIONBL.setIntList(DIMENSIONBL.intsValue);
     }
-    if (!instance.ContainsKey(PRECIOUSBLOCKS.name)) {
+    if (!instance.containsKey(PRECIOUSBLOCKS.name)) {
       PRECIOUSBLOCKS.setBoolean(PRECIOUSBLOCKS.booleanValue);
     }
 
-    if (!instance.ContainsKey(DUNGEON_GENERATION_THRESHOLD_CHANCE.getName())) {
+    if (!instance.containsKey(DUNGEON_GENERATION_THRESHOLD_CHANCE.getName())) {
       DUNGEON_GENERATION_THRESHOLD_CHANCE.setDoubleList(DUNGEON_GENERATION_THRESHOLD_CHANCE.doublesValue);
     }
 
-    if (!instance.ContainsKey(MOBS_ITEMS_DROP_CHANCE.getName())) {
+    if (!instance.containsKey(MOBS_ITEMS_DROP_CHANCE.getName())) {
       MOBS_ITEMS_DROP_CHANCE.setDouble(MOBS_ITEMS_DROP_CHANCE.doubleValue);
     }
 
-    if (!instance.ContainsKey(MOBS_ITEMS_ENCHANTMENTS_CHANCE.getName())) {
+    if (!instance.containsKey(MOBS_ITEMS_ENCHANTMENTS_CHANCE.getName())) {
       MOBS_ITEMS_ENCHANTMENTS_CHANCE.setDoubleList(MOBS_ITEMS_ENCHANTMENTS_CHANCE.doublesValue);
     }
 
-    if (!instance.ContainsKey(MOBS_ITEMS_ENCHANTMENTS_LEVELS.getName())) {
+    if (!instance.containsKey(MOBS_ITEMS_ENCHANTMENTS_LEVELS.getName())) {
       MOBS_ITEMS_ENCHANTMENTS_LEVELS.setIntList(MOBS_ITEMS_ENCHANTMENTS_LEVELS.intsValue);
     }
 
-    if (!instance.ContainsKey(UPPERLIMIT.name)) {
+    if (!instance.containsKey(UPPERLIMIT.name)) {
       UPPERLIMIT.setInt(UPPERLIMIT.intValue);
     }
-    if (!instance.ContainsKey(LOWERLIMIT.name)) {
+    if (!instance.containsKey(LOWERLIMIT.name)) {
       LOWERLIMIT.setInt(LOWERLIMIT.intValue);
     }
-    if (!instance.ContainsKey(ROGUESPAWNERS.name)) {
+    if (!instance.containsKey(ROGUESPAWNERS.name)) {
       ROGUESPAWNERS.setBoolean(ROGUESPAWNERS.booleanValue);
     }
-    if (!instance.ContainsKey(ENCASE.name)) {
+    if (!instance.containsKey(ENCASE.name)) {
       ENCASE.setBoolean(ENCASE.booleanValue);
     }
-    if (!instance.ContainsKey(FURNITURE.name)) {
+    if (!instance.containsKey(FURNITURE.name)) {
       FURNITURE.setBoolean(FURNITURE.booleanValue);
     }
-    if (!instance.ContainsKey(RANDOM.name)) {
+    if (!instance.containsKey(RANDOM.name)) {
       RANDOM.setBoolean(RANDOM.booleanValue);
     }
-    if (!instance.ContainsKey(SPAWNBUILTIN.name)) {
+    if (!instance.containsKey(SPAWNBUILTIN.name)) {
       SPAWNBUILTIN.setBoolean(SPAWNBUILTIN.booleanValue);
     }
-    if (!instance.ContainsKey(SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES.name)) {
+    if (!instance.containsKey(SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES.name)) {
       SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES.setInt(SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES.intValue);
     }
-    if (!instance.ContainsKey(SPAWN_ATTEMPTS.name)) {
+    if (!instance.containsKey(SPAWN_ATTEMPTS.name)) {
       SPAWN_ATTEMPTS.setInt(SPAWN_ATTEMPTS.intValue);
     }
 
-    if (!instance.ContainsKey(VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM.getName())) {
+    if (!instance.containsKey(VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM.getName())) {
       VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM.setString(VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM.stringValue);
     }
   }
@@ -218,12 +219,13 @@ public class RogueConfig {
     if (testing) {
       return stringValue;
     }
-    return instance.GetString(name, stringValue);
+    return Optional.ofNullable(instance.get(name, stringValue))
+        .orElse(stringValue);
   }
 
   private void setString(String defaultStringValue) {
     reload(false);
-    instance.set(name, defaultStringValue);
+    instance.put(name, defaultStringValue);
   }
 
   public boolean getBoolean() {
@@ -236,7 +238,7 @@ public class RogueConfig {
 
   public void setBoolean(Boolean value) {
     reload(false);
-    instance.set(name, value);
+    instance.put(name, value ? "true" : "false");
   }
 
   public int getInt() {
@@ -244,12 +246,12 @@ public class RogueConfig {
       return intValue;
     }
     reload(false);
-    return instance.GetInteger(name, intValue);
+    return instance.getInteger(name, intValue);
   }
 
   public void setInt(int value) {
     reload(false);
-    instance.set(name, value);
+    instance.put(name, Integer.toString(value));
   }
 
   public double getDouble() {
@@ -257,12 +259,12 @@ public class RogueConfig {
       return doubleValue;
     }
     reload(false);
-    return instance.GetDouble(name, doubleValue);
+    return instance.getDouble(name, doubleValue);
   }
 
   public void setDouble(double value) {
     reload(false);
-    instance.set(name, value);
+    instance.put(name, Double.toString(value));
   }
 
   @SuppressWarnings("unchecked")
@@ -276,7 +278,7 @@ public class RogueConfig {
 
   public void setIntList(List<Integer> value) {
     reload(false);
-    instance.set(name, value);
+    instance.put(name, StringUtils.join(value, ","));
   }
 
   public Optional<Integer> getIntAtIndex(int index) {
@@ -298,7 +300,7 @@ public class RogueConfig {
 
   public void setDoubleList(List<Double> value) {
     reload(false);
-    instance.set(name, value.toArray(new Double[]{}));
+    instance.put(name, StringUtils.join(value.toArray(new Double[]{}), ","));
   }
 
   public Optional<Double> getDoubleAtIndex(int index) {

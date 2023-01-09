@@ -11,4 +11,7 @@ public class Configuration {
     this.value = value;
   }
 
+  public String getValue() {
+    return value;
+  }
 }

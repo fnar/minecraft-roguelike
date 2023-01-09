@@ -26,7 +26,7 @@ public class ConfigFile {
         if (config == null) {
           break;
         }
-        configFile.configurationsByName.put(config.key, config.value);
+        configFile.put(config.key, config.value);
       }
     } catch (Exception exception) {
       logger.error("Error while reading config file. : ", exception);
