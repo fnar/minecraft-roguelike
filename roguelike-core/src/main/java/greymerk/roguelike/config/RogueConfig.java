@@ -1,8 +1,6 @@
 package greymerk.roguelike.config;
 
 
-import com.google.common.collect.Lists;
-
 import com.github.fnar.util.Strings;
 
 import org.apache.logging.log4j.LogManager;
@@ -10,7 +8,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Collections;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -32,86 +30,41 @@ public class RogueConfig {
   public static boolean testing = false;
   private static ConfigFile instance = null;
 
-  public static final RogueConfig BREAK_IF_REQUIRED_MOD_IS_MISSING = new RogueConfig("breakIfRequiredModIsMissing", true);
-  public static final RogueConfig DIMENSIONBL = new RogueConfig("dimensionBL", new Integer[]{});
-  public static final RogueConfig DIMENSIONWL = new RogueConfig("dimensionWL", new Integer[]{0});
-  public static final RogueConfig DONATURALSPAWN = new RogueConfig("doNaturalSpawn", true);
-  public static final RogueConfig ENCASE = new RogueConfig("encase", false);
-  public static final RogueConfig FURNITURE = new RogueConfig("furniture", true);
-  public static final RogueConfig GENEROUS = new RogueConfig("generous", true);
-  public static final RogueConfig LOWERLIMIT = new RogueConfig("lowerLimit", 60);
-  public static final RogueConfig PRECIOUSBLOCKS = new RogueConfig("preciousBlocks", true);
-  public static final RogueConfig RANDOM = new RogueConfig("random", false);
-  public static final RogueConfig ROGUESPAWNERS = new RogueConfig("rogueSpawners", true);
-  public static final RogueConfig SPAWNBUILTIN = new RogueConfig("doBuiltinSpawn", true);
-  public static final RogueConfig SPAWNCHANCE = new RogueConfig("spawnChance", 1.0);
-  public static final RogueConfig SPAWNFREQUENCY = new RogueConfig("spawnFrequency", 10);
-  public static final RogueConfig SPAWN_ATTEMPTS = new RogueConfig("spawnAttempts", 10);
-  public static final RogueConfig SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES = new RogueConfig("spawnMinimumDistanceFromVanillaStructures", 50);
-  public static final RogueConfig UPPERLIMIT = new RogueConfig("upperLimit", 100);
-  public static final RogueConfig VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM = new RogueConfig("vanillaStructuresToCheckMinimumDistanceFrom", VanillaStructure.getAllAsCommaDelimitedString());
-  public static final RogueConfig DUNGEON_GENERATION_THRESHOLD_CHANCE = new RogueConfig("dungeon.generation.threshold.chance", new Double[]{0.10, 0.10, 0.10, 0.10, 0.10});
-  public static final RogueConfig MOBS_ITEMS_DROP_CHANCE = new RogueConfig("mobs.items.dropChance", 0.085);
-  public static final RogueConfig MOBS_ITEMS_ENCHANTMENTS_CHANCE = new RogueConfig("mobs.items.enchantments.chance", new Double[]{-1.0, -1.0, -1.0, -1.0, -1.0});
-  public static final RogueConfig MOBS_ITEMS_ENCHANTMENTS_LEVELS = new RogueConfig("mobs.items.enchantments.levels", new Integer[]{-1, -1, -1, -1, -1});
+  public static final RogueConfig BREAK_IF_REQUIRED_MOD_IS_MISSING = new RogueConfig("breakIfRequiredModIsMissing").withValue(true);
+  public static final RogueConfig DIMENSIONBL = new RogueConfig("dimensionBL").withValue(new Integer[]{});
+  public static final RogueConfig DIMENSIONWL = new RogueConfig("dimensionWL").withValue(new Integer[]{0});
+  public static final RogueConfig DONATURALSPAWN = new RogueConfig("doNaturalSpawn").withValue(true);
+  public static final RogueConfig ENCASE = new RogueConfig("encase").withValue(false);
+  public static final RogueConfig FURNITURE = new RogueConfig("furniture").withValue(true);
+  public static final RogueConfig GENEROUS = new RogueConfig("generous").withValue(true);
+  public static final RogueConfig LOWERLIMIT = new RogueConfig("lowerLimit").withValue(60);
+  public static final RogueConfig PRECIOUSBLOCKS = new RogueConfig("preciousBlocks").withValue(true);
+  public static final RogueConfig RANDOM = new RogueConfig("random").withValue(false);
+  public static final RogueConfig ROGUESPAWNERS = new RogueConfig("rogueSpawners").withValue(true);
+  public static final RogueConfig SPAWNBUILTIN = new RogueConfig("doBuiltinSpawn").withValue(true);
+  public static final RogueConfig SPAWNCHANCE = new RogueConfig("spawnChance").withValue(1.0);
+  public static final RogueConfig SPAWNFREQUENCY = new RogueConfig("spawnFrequency").withValue(10);
+  public static final RogueConfig SPAWN_ATTEMPTS = new RogueConfig("spawnAttempts").withValue(10);
+  public static final RogueConfig SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES = new RogueConfig("spawnMinimumDistanceFromVanillaStructures").withValue(50);
+  public static final RogueConfig UPPERLIMIT = new RogueConfig("upperLimit").withValue(100);
+  public static final RogueConfig VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM = new RogueConfig("vanillaStructuresToCheckMinimumDistanceFrom").withValue(VanillaStructure.getAllAsCommaDelimitedString());
+  public static final RogueConfig DUNGEON_GENERATION_THRESHOLD_CHANCE = new RogueConfig("dungeon.generation.threshold.chance").withValue(new Double[]{0.10, 0.10, 0.10, 0.10, 0.10});
+  public static final RogueConfig MOBS_ITEMS_DROP_CHANCE = new RogueConfig("mobs.items.dropChance").withValue(0.085);
+  public static final RogueConfig MOBS_ITEMS_ENCHANTMENTS_CHANCE = new RogueConfig("mobs.items.enchantments.chance").withValue(new Double[]{-1.0, -1.0, -1.0, -1.0, -1.0});
+  public static final RogueConfig MOBS_ITEMS_ENCHANTMENTS_LEVELS = new RogueConfig("mobs.items.enchantments.levels").withValue(new Integer[]{-1, -1, -1, -1, -1});
 
-  public static final RogueConfig DEPRECATED_LOOTING = new RogueConfig("looting", 0.085D);
-
-  private static final boolean DEFAULT_BOOLEAN = false;
-  private static final String DEFAULT_STRING_VALUE = "";
-  private static final int DEFAULT_INT = 0;
-  private static final double DEFAULT_DOUBLE = 0.0;
-  private static final List<Integer> DEFAULT_INT_LIST = Collections.unmodifiableList(Lists.newArrayList());
-  private static final List<Double> DEFAULT_DOUBLE_LIST = Collections.unmodifiableList(Lists.newArrayList());
+  public static final RogueConfig DEPRECATED_LOOTING = new RogueConfig("looting").withValue(0.085D);
 
   private final String name;
-  private final String stringValue;
-  private final Boolean booleanValue;
-  private final Integer intValue;
-  private final Double doubleValue;
-  private final List<Integer> intsValue;
-  private final List<Double> doublesValue;
+  private String stringValue;
+  private Boolean booleanValue;
+  private Integer intValue;
+  private Double doubleValue;
+  private List<Integer> intsValue;
+  private List<Double> doublesValue;
 
-  RogueConfig(String name, boolean value) {
-    this(name, DEFAULT_STRING_VALUE, value, DEFAULT_INT, DEFAULT_DOUBLE, DEFAULT_INT_LIST, DEFAULT_DOUBLE_LIST);
-  }
-
-  RogueConfig(String name, String value) {
-    this(name, value, DEFAULT_BOOLEAN, DEFAULT_INT, DEFAULT_DOUBLE, DEFAULT_INT_LIST, DEFAULT_DOUBLE_LIST);
-  }
-
-  RogueConfig(String name, int value) {
-    this(name, DEFAULT_STRING_VALUE, DEFAULT_BOOLEAN, value, DEFAULT_DOUBLE, DEFAULT_INT_LIST, DEFAULT_DOUBLE_LIST);
-  }
-
-  RogueConfig(String name, double value) {
-    this(name, DEFAULT_STRING_VALUE, DEFAULT_BOOLEAN, DEFAULT_INT, value, DEFAULT_INT_LIST, DEFAULT_DOUBLE_LIST);
-  }
-
-  RogueConfig(String name, Integer[] value) {
-    this(name, DEFAULT_STRING_VALUE, DEFAULT_BOOLEAN, DEFAULT_INT, DEFAULT_DOUBLE, Lists.newArrayList(value), DEFAULT_DOUBLE_LIST);
-  }
-
-  RogueConfig(String name, Double[] value) {
-    this(name, DEFAULT_STRING_VALUE, DEFAULT_BOOLEAN, DEFAULT_INT, DEFAULT_DOUBLE, DEFAULT_INT_LIST, Lists.newArrayList(value));
-  }
-
-  RogueConfig(
-      String name,
-      String stringValue,
-      Boolean booleanValue,
-      Integer intValue,
-      Double doubleValue,
-      List<Integer> intsValue,
-      List<Double> doublesValue
-  ) {
+  public RogueConfig(String name) {
     this.name = name;
-    this.stringValue = stringValue;
-    this.booleanValue = booleanValue;
-    this.intValue = intValue;
-    this.doubleValue = doubleValue;
-    this.intsValue = intsValue;
-    this.doublesValue = doublesValue;
   }
 
   public Optional<Integer> getIntAtIndexIfNonNegative(int level) {
@@ -369,4 +322,35 @@ public class RogueConfig {
         .filter(Objects::nonNull)
         .collect(Collectors.toSet());
   }
+
+  public RogueConfig withValue(String value) {
+    this.stringValue = value;
+    return this;
+  }
+
+  public RogueConfig withValue(boolean value) {
+    this.booleanValue = value;
+    return this;
+  }
+
+  public RogueConfig withValue(int value) {
+    this.intValue = value;
+    return this;
+  }
+
+  public RogueConfig withValue(double value) {
+    this.doubleValue = value;
+    return this;
+  }
+
+  public RogueConfig withValue(Integer[] value) {
+    this.intsValue = Arrays.asList(value);
+    return this;
+  }
+
+  public RogueConfig withValue(Double[] value) {
+    this.doublesValue = Arrays.asList(value);
+    return this;
+  }
+
 }
