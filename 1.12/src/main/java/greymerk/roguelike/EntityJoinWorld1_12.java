@@ -3,6 +3,7 @@ package greymerk.roguelike;
 import com.google.common.primitives.Ints;
 
 import com.github.fnar.minecraft.EffectType;
+import com.github.fnar.util.Pair;
 import com.github.fnar.util.ReportThisIssueException;
 
 import net.minecraft.entity.Entity;
@@ -10,7 +11,6 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.world.World;
@@ -18,8 +18,6 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Random;
 
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.monster.EntityProfiler1_12;
@@ -36,7 +34,7 @@ public class EntityJoinWorld1_12 {
     }
   }
 
-  private void equipMobIfSpawnedByRoguelikeSpawner(EntityJoinWorldEvent event) {
+  private static void equipMobIfSpawnedByRoguelikeSpawner(EntityJoinWorldEvent event) {
     World world = event.getWorld();
     if (world.isRemote) {
       return;
@@ -54,40 +52,69 @@ public class EntityJoinWorld1_12 {
       return;
     }
 
-    EntityLiving oldEntity = (EntityLiving) entity;
+    EntityLiving entityLiving = (EntityLiving) entity;
 
-    Collection<PotionEffect> effects = oldEntity.getActivePotionEffects();
-    for (PotionEffect effect : effects) {
-      if (!isMobFromRoguelikeSpawner(effect)) {
-        continue;
-      }
+    if (!isMobFromRoguelikeSpawner(entityLiving)) {
+      return;
+    }
 
-      int level = Ints.constrainToRange(effect.getAmplifier(), 0, 4);
+    handleDespawning(entityLiving);
 
-      Random random = world.rand;
-      int difficulty = world.getDifficulty().ordinal();
-
-      EntityLiving newEntity = EntityProfiler1_12.applyProfile(oldEntity, level, random, difficulty);
-      if (newEntity == null) {
-        continue;
-      }
-      NBTTagCompound oldEntityData = oldEntity.getEntityData();
-
-      newEntity.copyLocationAndAnglesFrom(oldEntity);
-      oldEntity.getTags().forEach(newEntity::addTag);
-      oldEntityData.getKeySet().forEach(key -> newEntity.getEntityData().setTag(key, oldEntityData.getTag(key)));
-      Arrays.stream(EntityEquipmentSlot.values()).forEach(value -> newEntity.setDropChance(value, (float) RogueConfig.MOBS_ITEMS_DROP_CHANCE.getDouble()));
-      if (!RogueConfig.MOBS_DESPAWN_ENABLED.getBoolean()) {
-        newEntity.enablePersistence();
-      }
-
-      // Mob type might be changed by this mod, so it's important to respawn
-      oldEntity.world.removeEntity(oldEntity);
-      newEntity.world.spawnEntity(newEntity);
+    if (RogueConfig.MOBS_PROFILES_ENABLED.getBoolean()) {
+      applyMobProfile(world, entityLiving);
     }
   }
 
-  private boolean isMobFromRoguelikeSpawner(PotionEffect buff) {
+  private static boolean isMobFromRoguelikeSpawner(EntityLiving entity) {
+    return entity.getActivePotionEffects().stream().anyMatch(EntityJoinWorld1_12::isRoguelikeTag);
+  }
+
+  private static void applyMobProfile(World world, EntityLiving entity) {
+    int level = Ints.constrainToRange(getRoguelikeLevel(entity), 0, 4);
+
+    int difficulty = world.getDifficulty().ordinal();
+
+    EntityLiving newEntity = EntityProfiler1_12.applyProfile(entity, level, world.rand, difficulty);
+    if (newEntity == null) {
+      return;
+    }
+
+    newEntity.copyLocationAndAnglesFrom(entity);
+    copyTags(entity, newEntity);
+    Arrays.stream(EntityEquipmentSlot.values()).forEach(value -> newEntity.setDropChance(value, (float) RogueConfig.MOBS_ITEMS_DROP_CHANCE.getDouble()));
+
+    // Mob type might be changed by this mod, so it's important to respawn
+    entity.world.removeEntity(entity);
+    newEntity.world.spawnEntity(newEntity);
+  }
+
+  private static int getRoguelikeLevel(EntityLiving entity) {
+    return entity.getActivePotionEffects().stream()
+        .filter(EntityJoinWorld1_12::isRoguelikeTag).findFirst()
+        .map(PotionEffect::getAmplifier)
+        .orElse(0);
+  }
+
+  private static boolean isRoguelikeTag(PotionEffect buff) {
     return Potion.getIdFromPotion(buff.getPotion()) == EffectType.FATIGUE.getEffectID();
+  }
+
+  private static void copyTags(EntityLiving from, EntityLiving to) {
+    // have to duplicate logic for despawning since this tag doesn't carry over ?? Forge, why?
+    handleDespawning(to);
+    from.getTags().forEach(to::addTag);
+    copyEntityData(from, to);
+  }
+
+  private static void handleDespawning(EntityLiving entityLiving) {
+    if (!RogueConfig.MOBS_DESPAWN_ENABLED.getBoolean()) {
+      entityLiving.enablePersistence();
+    }
+  }
+
+  private static void copyEntityData(EntityLiving from, EntityLiving to) {
+    from.getEntityData().getKeySet().stream()
+        .map(tag -> new Pair<>(tag, from.getEntityData().getTag(tag)))
+        .forEach(tagPair -> to.getEntityData().setTag(tagPair.getKey(), tagPair.getValue()));
   }
 }

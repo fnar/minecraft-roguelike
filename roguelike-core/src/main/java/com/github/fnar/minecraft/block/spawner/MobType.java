@@ -1,7 +1,10 @@
 package com.github.fnar.minecraft.block.spawner;
 
+import com.google.common.collect.Sets;
+
 import java.util.Arrays;
 import java.util.Random;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public enum MobType {
@@ -38,6 +41,16 @@ public enum MobType {
   DRAGON("dragon"),
   ;
 
+  public static final Set<MobType> EQUIPPABLE_MOB_TYPES = Sets.newHashSet(
+      HUSK,
+      PIGZOMBIE,
+      SKELETON,
+      STRAY,
+      WITHERSKELETON,
+      ZOMBIE,
+      ZOMBIE_VILLAGER
+  );
+
   public static final MobType[] COMMON_MOBS = {SKELETON, SPIDER, ZOMBIE};
   public static final MobType[] UNCOMMON_MOBS = {CAVESPIDER, CREEPER};
   public static final MobType[] RARE_MOBS = {ENDERMAN, SLIME, WITCH};
@@ -62,6 +75,10 @@ public enum MobType {
 
   public String getName() {
     return name;
+  }
+
+  public boolean isEquippable() {
+    return EQUIPPABLE_MOB_TYPES.contains(this);
   }
 
   public Spawner asSpawner() {

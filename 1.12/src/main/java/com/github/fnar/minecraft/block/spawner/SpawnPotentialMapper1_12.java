@@ -38,16 +38,16 @@ public class SpawnPotentialMapper1_12 {
   }
 
   private static NBTTagCompound mapToNbt(SpawnPotential spawnPotential, int level, Mob mob) {
-    NBTTagCompound entityNbt = createEntityNbt(level, jsonToNbt(spawnPotential.getNbt()), spawnPotential.getName(), spawnPotential.isEquip());
+    NBTTagCompound entityNbt = createEntityNbt(level, jsonToNbt(spawnPotential.getNbt()), spawnPotential.getName());
     addHandTags(entityNbt, mob.getMainhand(), mob.getOffhand());
     addArmourTags(entityNbt, mob.getBoots(), mob.getLeggings(), mob.getChestplate(), mob.getHelmet());
     return buildSpawnPotentialNbt(entityNbt, spawnPotential.getWeight());
   }
 
-  private static NBTTagCompound createEntityNbt(int level, NBTTagCompound entityNbt, String entityName, boolean doEquip) {
+  private static NBTTagCompound createEntityNbt(int level, NBTTagCompound entityNbt, String entityName) {
     // This copy of entityNbt is non-obvious but important. It's so that there can be a variety of spawn potentials for Zombies/skeletons/whatever
     NBTTagCompound entityNbtCopy = entityNbt.copy();
-    addRoguelikeNbtData(entityNbtCopy, entityName, level, doEquip);
+    addRoguelikeNbtData(entityNbtCopy, entityName, level);
     return entityNbtCopy;
   }
 
@@ -98,18 +98,10 @@ public class SpawnPotentialMapper1_12 {
     parent.appendTag(itemTag);
   }
 
-  private static void addRoguelikeNbtData(NBTTagCompound entityNbt, String type, int level, boolean doEquip) {
+  private static void addRoguelikeNbtData(NBTTagCompound entityNbt, String type, int level) {
     entityNbt.setString("id", type);
-
-    if (areRoguelikeSpawnersEnabled(doEquip)) {
-      tagEntityAsFromRoguelikeSpawner(entityNbt, level);
-    }
-
+    tagEntityAsFromRoguelikeSpawner(entityNbt, level);
     setLootingRateTags(entityNbt);
-  }
-
-  private static boolean areRoguelikeSpawnersEnabled(boolean equip) {
-    return RogueConfig.MOBS_PROFILES_ENABLED.getBoolean() && equip;
   }
 
   private static void tagEntityAsFromRoguelikeSpawner(NBTTagCompound entityNbt, int level) {
