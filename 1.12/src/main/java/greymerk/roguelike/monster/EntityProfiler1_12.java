@@ -1,7 +1,5 @@
 package greymerk.roguelike.monster;
 
-import com.google.common.collect.Sets;
-
 import com.github.fnar.minecraft.block.spawner.MobType;
 import com.github.fnar.minecraft.entity.SlotMapper1_12;
 import com.github.fnar.minecraft.item.mapper.ItemMapper1_12;
@@ -40,47 +38,38 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 import java.util.Random;
-import java.util.Set;
 
 public class EntityProfiler1_12 {
-
-  public static final Set<MobType> shouldEquipMobs = Sets.newHashSet(
-      MobType.HUSK,
-      MobType.PIGZOMBIE,
-      MobType.SKELETON,
-      MobType.STRAY,
-      MobType.WITHERSKELETON,
-      MobType.ZOMBIE,
-      MobType.ZOMBIE_VILLAGER
-  );
 
   public static EntityLiving applyProfile(EntityLiving oldEntity, int level, Random random, int difficulty) {
     Mob mob = applyProfile(oldEntity, level, difficulty, random);
 
-    if (mob == null || !shouldEquipMobs.contains(mob.getMobType())) {
+    if (mob == null) {
       return null;
     }
 
     EntityLiving newEntity = createNewInstance(mob.getMobType(), oldEntity.getEntityWorld());
 
-    for (EntityEquipmentSlot slot : EntityEquipmentSlot.values()) {
-      ItemStack toTrade = oldEntity.getItemStackFromSlot(slot);
-      newEntity.setItemStackToSlot(slot, toTrade);
+    if (mob.getName() != null) {
+      newEntity.setCustomNameTag(mob.getName());
+      newEntity.setAlwaysRenderNameTag(true);
     }
-
-    mob.getItems().forEach((slot, rldItemStack) -> {
-      EntityEquipmentSlot equipmentSlot = new SlotMapper1_12().map(slot);
-      ItemStack item = new ItemMapper1_12().map(rldItemStack);
-      newEntity.setItemStackToSlot(equipmentSlot, item);
-    });
 
     if (newEntity instanceof EntityZombie) {
       ((EntityZombie) newEntity).setChild(oldEntity.isChild() || mob.isChild());
     }
 
-    if (mob.getName() != null) {
-      newEntity.setCustomNameTag(mob.getName());
-      newEntity.setAlwaysRenderNameTag(true);
+    if (mob.isEquippable()) {
+      for (EntityEquipmentSlot slot : EntityEquipmentSlot.values()) {
+        ItemStack toTrade = oldEntity.getItemStackFromSlot(slot);
+        newEntity.setItemStackToSlot(slot, toTrade);
+      }
+
+      mob.getItems().forEach((slot, rldItemStack) -> {
+        EntityEquipmentSlot equipmentSlot = new SlotMapper1_12().map(slot);
+        ItemStack item = new ItemMapper1_12().map(rldItemStack);
+        newEntity.setItemStackToSlot(equipmentSlot, item);
+      });
     }
 
     return newEntity;

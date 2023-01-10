@@ -41,14 +41,17 @@ public class Mob {
   private MobType mobType = MobType.ZOMBIE;
 
   public Mob withRandomEquipment(int level, Random random) {
-    RldBaseItem mainhand = chooseMainhand(random, level);
-    if (mainhand != null) {
-      equipMainhand(mainhand.asStack());
+    if (!isEquippable()) {
+      return this;
+    }
+    RldBaseItem mainHand = chooseMainhand(random, level);
+    if (mainHand != null) {
+      equipMainhand(mainHand.asStack());
     }
 
-    RldBaseItem offhand = chooseOffhand(random);
-    if (offhand != null) {
-      equipOffhand(offhand.asStack());
+    RldBaseItem offHand = chooseOffhand(random);
+    if (offHand != null) {
+      equipOffhand(offHand.asStack());
     }
 
     equip(Slot.FEET, chooseArmourItem(random, level, ArmourType.BOOTS).asStack());
@@ -69,6 +72,10 @@ public class Mob {
 
   public String getName() {
     return name;
+  }
+
+  public boolean isEquippable() {
+    return getMobType().isEquippable();
   }
 
   public void equip(Slot slot, RldItemStack rldItemStack) {
