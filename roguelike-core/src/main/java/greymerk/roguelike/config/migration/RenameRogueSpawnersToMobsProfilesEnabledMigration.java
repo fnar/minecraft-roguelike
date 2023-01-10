@@ -11,7 +11,7 @@ public class RenameRogueSpawnersToMobsProfilesEnabledMigration implements RogueC
   public void accept(ConfigurationMap configurationMap) {
     if (configurationMap.containsKey(DEPRECATED_ROGUESPAWNERS.getName())) {
       if (!configurationMap.containsKey(RogueConfig.MOBS_PROFILES_ENABLED.getName())) {
-        RogueConfig.MOBS_PROFILES_ENABLED.setDouble(DEPRECATED_ROGUESPAWNERS.getDouble());
+        RogueConfig.MOBS_PROFILES_ENABLED.setBoolean(DEPRECATED_ROGUESPAWNERS.getBoolean());
       }
       configurationMap.remove(DEPRECATED_ROGUESPAWNERS.getName());
     }
