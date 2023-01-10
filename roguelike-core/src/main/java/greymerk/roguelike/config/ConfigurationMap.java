@@ -2,6 +2,7 @@ package greymerk.roguelike.config;
 
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,11 @@ public class ConfigurationMap {
       return null;
     }
 
-    return configurationsByName.get(key).getValue();
+    Configuration configuration = configurationsByName.get(key);
+    if (configuration == null) {
+      return null;
+    }
+    return configuration.getValue();
   }
 
   public String get(String key, String fallback) {
@@ -141,7 +146,7 @@ public class ConfigurationMap {
   }
 
   public List<Configuration> asList() {
-    return configurationsByName.values().stream().sorted().collect(Collectors.toList());
+    return configurationsByName.values().stream().sorted(Comparator.comparing(Configuration::getKey)).collect(Collectors.toList());
   }
 
 }
