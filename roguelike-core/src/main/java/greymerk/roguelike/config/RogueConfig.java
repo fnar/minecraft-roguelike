@@ -20,6 +20,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import greymerk.roguelike.config.migration.LootingToMobsItemsDropChanceMigration;
+import greymerk.roguelike.config.migration.RenameDoNaturalSpawnToDungeonsSpawnEnabledMigration;
 import greymerk.roguelike.config.migration.RenameSpawnAttemptsToDungeonsSpawnAttempts;
 import greymerk.roguelike.config.migration.RenameSpawnChanceToDungeonsSpawnChanceMigration;
 import greymerk.roguelike.config.migration.RenameSpawnFrequencyToDungeonsSpawnFrequency;
@@ -43,7 +44,6 @@ public class RogueConfig {
   public static final RogueConfig BREAK_IF_REQUIRED_MOD_IS_MISSING = new RogueConfig("breakIfRequiredModIsMissing").withValue(true);
   public static final RogueConfig DIMENSIONBL = new RogueConfig("dimensionBL").withValue(new Integer[]{});
   public static final RogueConfig DIMENSIONWL = new RogueConfig("dimensionWL").withValue(new Integer[]{0});
-  public static final RogueConfig DONATURALSPAWN = new RogueConfig("doNaturalSpawn").withValue(true);
   public static final RogueConfig ENCASE = new RogueConfig("encase").withValue(false);
   public static final RogueConfig FURNITURE = new RogueConfig("furniture").withValue(true);
   public static final RogueConfig GENEROUS = new RogueConfig("generous").withValue(true);
@@ -57,6 +57,7 @@ public class RogueConfig {
   public static final RogueConfig DUNGEONS_GENERATION_THRESHOLD_CHANCE = new RogueConfig("dungeons.generation.threshold.chance").withValue(new Double[]{0.10, 0.10, 0.10, 0.10, 0.10});
   public static final RogueConfig DUNGEONS_SPAWN_ATTEMPTS = new RogueConfig("dungeons.spawn.attempts").withValue(10);
   public static final RogueConfig DUNGEONS_SPAWN_CHANCE = new RogueConfig("dungeons.spawn.chance").withValue(1.0);
+  public static final RogueConfig DUNGEONS_SPAWN_ENABLED = new RogueConfig("dungeons.spawn.enabled").withValue(true);
   public static final RogueConfig DUNGEONS_SPAWN_FREQUENCY = new RogueConfig("dungeons.spawn.frequency").withValue(10);
   public static final RogueConfig MOBS_ITEMS_DROP_CHANCE = new RogueConfig("mobs.items.dropChance").withValue(0.085);
   public static final RogueConfig MOBS_ITEMS_ENCHANTMENTS_CHANCE = new RogueConfig("mobs.items.enchantments.chance").withValue(new Double[]{-1.0, -1.0, -1.0, -1.0, -1.0});
@@ -66,6 +67,7 @@ public class RogueConfig {
   private static final List<RogueConfigMigration> migrations = Lists.newArrayList(
       new RenameSpawnAttemptsToDungeonsSpawnAttempts(),
       new RenameSpawnChanceToDungeonsSpawnChanceMigration(),
+      new RenameDoNaturalSpawnToDungeonsSpawnEnabledMigration(),
       new RenameSpawnFrequencyToDungeonsSpawnFrequency(),
       new LootingToMobsItemsDropChanceMigration(),
       new RenameRogueSpawnersToMobsProfilesEnabledMigration()
@@ -106,8 +108,8 @@ public class RogueConfig {
       BREAK_IF_REQUIRED_MOD_IS_MISSING.setBoolean(BREAK_IF_REQUIRED_MOD_IS_MISSING.booleanValue);
     }
 
-    if (!configurationMap.containsKey(DONATURALSPAWN.name)) {
-      DONATURALSPAWN.setBoolean(DONATURALSPAWN.booleanValue);
+    if (!configurationMap.containsKey(DUNGEONS_SPAWN_ENABLED.name)) {
+      DUNGEONS_SPAWN_ENABLED.setBoolean(DUNGEONS_SPAWN_ENABLED.booleanValue);
     }
     if (!configurationMap.containsKey(DUNGEONS_SPAWN_FREQUENCY.name)) {
       DUNGEONS_SPAWN_FREQUENCY.setInt(DUNGEONS_SPAWN_FREQUENCY.intValue);
