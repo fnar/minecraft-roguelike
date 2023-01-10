@@ -65,7 +65,7 @@ public abstract class Threshold {
   }
 
   private static Double getDoorChance(int level) {
-    return RogueConfig.DUNGEON_GENERATION_THRESHOLD_CHANCE.getDoubleAtIndexIfNonNegative(level).orElse(0.0);
+    return RogueConfig.DUNGEONS_GENERATION_THRESHOLD_CHANCE.getDoubleAtIndexIfNonNegative(level).orElse(0.0);
   }
 
   private static boolean isNextToAir(WorldEditor worldEditor, Coord origin, Direction facing) {
