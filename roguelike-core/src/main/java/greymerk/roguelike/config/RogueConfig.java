@@ -59,6 +59,7 @@ public class RogueConfig {
   public static final RogueConfig DUNGEONS_SPAWN_CHANCE = new RogueConfig("dungeons.spawn.chance").withValue(1.0);
   public static final RogueConfig DUNGEONS_SPAWN_ENABLED = new RogueConfig("dungeons.spawn.enabled").withValue(true);
   public static final RogueConfig DUNGEONS_SPAWN_FREQUENCY = new RogueConfig("dungeons.spawn.frequency").withValue(10);
+  public static final RogueConfig MOBS_DESPAWN_ENABLED = new RogueConfig("mobs.despawn.enabled").withValue(true);
   public static final RogueConfig MOBS_ITEMS_DROP_CHANCE = new RogueConfig("mobs.items.dropChance").withValue(0.085);
   public static final RogueConfig MOBS_ITEMS_ENCHANTMENTS_CHANCE = new RogueConfig("mobs.items.enchantments.chance").withValue(new Double[]{-1.0, -1.0, -1.0, -1.0, -1.0});
   public static final RogueConfig MOBS_ITEMS_ENCHANTMENTS_LEVELS = new RogueConfig("mobs.items.enchantments.levels").withValue(new Integer[]{-1, -1, -1, -1, -1});
@@ -132,6 +133,10 @@ public class RogueConfig {
 
     if (!configurationMap.containsKey(DUNGEONS_GENERATION_THRESHOLD_CHANCE.getName())) {
       DUNGEONS_GENERATION_THRESHOLD_CHANCE.setDoubleList(DUNGEONS_GENERATION_THRESHOLD_CHANCE.doublesValue);
+    }
+
+    if (!configurationMap.containsKey(MOBS_DESPAWN_ENABLED.getName())) {
+      MOBS_DESPAWN_ENABLED.setBoolean(MOBS_DESPAWN_ENABLED.getBoolean());
     }
 
     if (!configurationMap.containsKey(MOBS_ITEMS_DROP_CHANCE.getName())) {
