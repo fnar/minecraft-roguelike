@@ -99,7 +99,7 @@ public class RogueConfig {
     migrations.forEach(migration -> migration.accept(configurationMap));
   }
 
-  private static void setDefaults(ConfigurationMap configurationMap) {
+  private static void addEachConfigurationIfMissing(ConfigurationMap configurationMap) {
     if (!configurationMap.containsKey(BREAK_IF_REQUIRED_MOD_IS_MISSING.name)) {
       BREAK_IF_REQUIRED_MOD_IS_MISSING.setBoolean(BREAK_IF_REQUIRED_MOD_IS_MISSING.booleanValue);
     }
@@ -207,7 +207,7 @@ public class RogueConfig {
 
     migrate(instance);
 
-    setDefaults(instance);
+    addEachConfigurationIfMissing(instance);
 
     try {
       ConfigFile.write(instance, CONFIG_FILE);
