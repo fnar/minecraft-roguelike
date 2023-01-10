@@ -158,7 +158,7 @@ public class Dungeon {
   }
 
   private Optional<Coord> selectLocation(Random rand, int x, int z) {
-    int attempts = RogueConfig.SPAWN_ATTEMPTS.getInt();
+    int attempts = RogueConfig.DUNGEONS_SPAWN_ATTEMPTS.getInt();
     return IntStream.range(0, attempts)
         .mapToObj(i -> getNearbyCoord(rand, x, z))
         .filter(this::canGenerateDungeonHere)
