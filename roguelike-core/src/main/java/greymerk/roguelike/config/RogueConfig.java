@@ -54,7 +54,7 @@ public class RogueConfig {
   public static final RogueConfig SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES = new RogueConfig("spawnMinimumDistanceFromVanillaStructures").withValue(50);
   public static final RogueConfig UPPERLIMIT = new RogueConfig("upperLimit").withValue(100);
   public static final RogueConfig VANILLA_STRUCTURES_TO_CHECK_MINIMUM_DISTANCE_FROM = new RogueConfig("vanillaStructuresToCheckMinimumDistanceFrom").withValue(VanillaStructure.getAllAsCommaDelimitedString());
-  public static final RogueConfig DUNGEON_GENERATION_THRESHOLD_CHANCE = new RogueConfig("dungeon.generation.threshold.chance").withValue(new Double[]{0.10, 0.10, 0.10, 0.10, 0.10});
+  public static final RogueConfig DUNGEONS_GENERATION_THRESHOLD_CHANCE = new RogueConfig("dungeons.generation.threshold.chance").withValue(new Double[]{0.10, 0.10, 0.10, 0.10, 0.10});
   public static final RogueConfig MOBS_ITEMS_DROP_CHANCE = new RogueConfig("mobs.items.dropChance").withValue(0.085);
   public static final RogueConfig MOBS_ITEMS_ENCHANTMENTS_CHANCE = new RogueConfig("mobs.items.enchantments.chance").withValue(new Double[]{-1.0, -1.0, -1.0, -1.0, -1.0});
   public static final RogueConfig MOBS_ITEMS_ENCHANTMENTS_LEVELS = new RogueConfig("mobs.items.enchantments.levels").withValue(new Integer[]{-1, -1, -1, -1, -1});
@@ -122,8 +122,8 @@ public class RogueConfig {
       PRECIOUSBLOCKS.setBoolean(PRECIOUSBLOCKS.booleanValue);
     }
 
-    if (!configurationMap.containsKey(DUNGEON_GENERATION_THRESHOLD_CHANCE.getName())) {
-      DUNGEON_GENERATION_THRESHOLD_CHANCE.setDoubleList(DUNGEON_GENERATION_THRESHOLD_CHANCE.doublesValue);
+    if (!configurationMap.containsKey(DUNGEONS_GENERATION_THRESHOLD_CHANCE.getName())) {
+      DUNGEONS_GENERATION_THRESHOLD_CHANCE.setDoubleList(DUNGEONS_GENERATION_THRESHOLD_CHANCE.doublesValue);
     }
 
     if (!configurationMap.containsKey(MOBS_ITEMS_DROP_CHANCE.getName())) {
