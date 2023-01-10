@@ -90,7 +90,7 @@ public class Dungeon {
   }
 
   private static int getSpawnFrequency() {
-    return 3 * Math.max(2, RogueConfig.SPAWNFREQUENCY.getInt());
+    return 3 * Math.max(2, RogueConfig.DUNGEONS_SPAWN_FREQUENCY.getInt());
   }
 
   private static boolean isSpawnChanceHit(int chunkX, int chunkZ) {
