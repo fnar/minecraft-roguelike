@@ -109,7 +109,7 @@ public class SpawnPotentialMapper1_12 {
   }
 
   private static boolean areRoguelikeSpawnersEnabled(boolean equip) {
-    return RogueConfig.ROGUESPAWNERS.getBoolean() && equip;
+    return RogueConfig.MOBS_PROFILES_ENABLED.getBoolean() && equip;
   }
 
   private static void tagEntityAsFromRoguelikeSpawner(NBTTagCompound entityNbt, int level) {
