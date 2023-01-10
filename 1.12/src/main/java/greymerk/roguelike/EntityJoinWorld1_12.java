@@ -77,6 +77,9 @@ public class EntityJoinWorld1_12 {
       oldEntity.getTags().forEach(newEntity::addTag);
       oldEntityData.getKeySet().forEach(key -> newEntity.getEntityData().setTag(key, oldEntityData.getTag(key)));
       Arrays.stream(EntityEquipmentSlot.values()).forEach(value -> newEntity.setDropChance(value, (float) RogueConfig.MOBS_ITEMS_DROP_CHANCE.getDouble()));
+      if (!RogueConfig.MOBS_DESPAWN_ENABLED.getBoolean()) {
+        newEntity.enablePersistence();
+      }
 
       // Mob type might be changed by this mod, so it's important to respawn
       oldEntity.world.removeEntity(oldEntity);
