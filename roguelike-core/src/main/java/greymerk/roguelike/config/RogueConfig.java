@@ -205,9 +205,9 @@ public class RogueConfig {
       e.printStackTrace();
     }
 
-    setDefaults(instance);
-
     migrate(instance);
+
+    setDefaults(instance);
 
     try {
       ConfigFile.write(instance, CONFIG_FILE);
