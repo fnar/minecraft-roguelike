@@ -10,7 +10,6 @@ public enum ToolType {
   HOE,
   PICKAXE,
   SHEARS,
-  SHIELD,
   SHOVEL,
   ;
 

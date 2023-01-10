@@ -58,8 +58,6 @@ public class ToolMapper1_12 extends RldBaseItemMapper1_12<Tool> {
         return EquipmentMapper1_12.map(quality, WOODEN_PICKAXE, STONE_PICKAXE, IRON_PICKAXE, GOLDEN_PICKAXE, DIAMOND_PICKAXE);
       case SHEARS:
         return Items.SHEARS;
-      case SHIELD:
-        return Items.SHIELD;
       case SHOVEL:
         return EquipmentMapper1_12.map(quality, WOODEN_SHOVEL, STONE_SHOVEL, IRON_SHOVEL, GOLDEN_SHOVEL, DIAMOND_SHOVEL);
     }
