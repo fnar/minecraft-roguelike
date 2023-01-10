@@ -11,7 +11,7 @@ apply plugin: 'net.minecraftforge.gradle.forge'
 apply plugin: 'idea'
 apply plugin: 'java'
 
-version = "2.4.3"
+version = "2.4.4-snapshot"
 group = "com.github.fnar"
 archivesBaseName = "RoguelikeDungeonsFnarEdition-${minecraft_version}"
 
