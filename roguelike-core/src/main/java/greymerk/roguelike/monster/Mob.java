@@ -143,7 +143,7 @@ public class Mob {
   private static RldItemStack createTool(Random random, int level, Difficulty difficulty) {
     return rollForSpecial(random, level, difficulty)
         ? SpecialTool.createTool(random, rollQuality(random, level))
-        : ToolType.random(random)
+        : ToolType.randomAmong(random, someTools())
             .asItem()
             .withQuality(rollQuality(random, level))
             .plzEnchantAtLevel(getEnchantmentLevel(random, level, difficulty))
