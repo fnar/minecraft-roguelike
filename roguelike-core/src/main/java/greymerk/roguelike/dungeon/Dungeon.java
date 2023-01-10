@@ -94,7 +94,7 @@ public class Dungeon {
   }
 
   private static boolean isSpawnChanceHit(int chunkX, int chunkZ) {
-    double spawnChance = RogueConfig.SPAWNCHANCE.getDouble();
+    double spawnChance = RogueConfig.DUNGEONS_SPAWN_CHANCE.getDouble();
     Random rand = new Random(Objects.hash(chunkX, chunkZ, 31));
     return rand.nextFloat() < spawnChance;
   }
