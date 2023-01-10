@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 
 import greymerk.roguelike.config.migration.LootingToMobsItemsDropChanceMigration;
 import greymerk.roguelike.config.migration.RogueConfigMigration;
+import greymerk.roguelike.config.migration.RenameRogueSpawnersToMobsProfilesEnabledMigration;
 import greymerk.roguelike.worldgen.VanillaStructure;
 
 import static greymerk.roguelike.dungeon.Dungeon.MOD_ID;
@@ -46,7 +47,6 @@ public class RogueConfig {
   public static final RogueConfig LOWERLIMIT = new RogueConfig("lowerLimit").withValue(60);
   public static final RogueConfig PRECIOUSBLOCKS = new RogueConfig("preciousBlocks").withValue(true);
   public static final RogueConfig RANDOM = new RogueConfig("random").withValue(false);
-  public static final RogueConfig ROGUESPAWNERS = new RogueConfig("rogueSpawners").withValue(true);
   public static final RogueConfig SPAWNBUILTIN = new RogueConfig("doBuiltinSpawn").withValue(true);
   public static final RogueConfig SPAWNCHANCE = new RogueConfig("spawnChance").withValue(1.0);
   public static final RogueConfig SPAWNFREQUENCY = new RogueConfig("spawnFrequency").withValue(10);
@@ -58,9 +58,11 @@ public class RogueConfig {
   public static final RogueConfig MOBS_ITEMS_DROP_CHANCE = new RogueConfig("mobs.items.dropChance").withValue(0.085);
   public static final RogueConfig MOBS_ITEMS_ENCHANTMENTS_CHANCE = new RogueConfig("mobs.items.enchantments.chance").withValue(new Double[]{-1.0, -1.0, -1.0, -1.0, -1.0});
   public static final RogueConfig MOBS_ITEMS_ENCHANTMENTS_LEVELS = new RogueConfig("mobs.items.enchantments.levels").withValue(new Integer[]{-1, -1, -1, -1, -1});
+  public static final RogueConfig MOBS_PROFILES_ENABLED = new RogueConfig("mobs.profiles.enabled").withValue(true);
 
   private static final List<RogueConfigMigration> migrations = Lists.newArrayList(
-      new LootingToMobsItemsDropChanceMigration()
+      new LootingToMobsItemsDropChanceMigration(),
+      new RenameRogueSpawnersToMobsProfilesEnabledMigration()
   );
 
   private final String name;
@@ -142,8 +144,8 @@ public class RogueConfig {
     if (!configurationMap.containsKey(LOWERLIMIT.name)) {
       LOWERLIMIT.setInt(LOWERLIMIT.intValue);
     }
-    if (!configurationMap.containsKey(ROGUESPAWNERS.name)) {
-      ROGUESPAWNERS.setBoolean(ROGUESPAWNERS.booleanValue);
+    if (!configurationMap.containsKey(MOBS_PROFILES_ENABLED.name)) {
+      MOBS_PROFILES_ENABLED.setBoolean(MOBS_PROFILES_ENABLED.booleanValue);
     }
     if (!configurationMap.containsKey(ENCASE.name)) {
       ENCASE.setBoolean(ENCASE.booleanValue);
