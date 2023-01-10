@@ -71,7 +71,7 @@ public class Dungeon {
   }
 
   public static boolean canSpawnInChunk(int chunkX, int chunkZ, WorldEditor editor) {
-    return RogueConfig.DONATURALSPAWN.getBoolean()
+    return RogueConfig.DUNGEONS_SPAWN_ENABLED.getBoolean()
         && SpawnCriteria.isValidDimension(getDimension(chunkX, chunkZ, editor))
 //        && isVillageChunk(editor, chunkX, chunkZ)
         && isSpawnFrequencyHit(chunkX, chunkZ)
