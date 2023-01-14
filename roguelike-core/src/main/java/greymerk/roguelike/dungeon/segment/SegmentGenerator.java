@@ -144,6 +144,7 @@ public class SegmentGenerator {
     Pillar.newPillar(editor)
         .withPillar(theme.getPrimary().getPillar())
         .withStairs(theme.getPrimary().getStair())
+        .withHeight(1) // start at given location and generate downward
         .generate(origin);
   }
 
