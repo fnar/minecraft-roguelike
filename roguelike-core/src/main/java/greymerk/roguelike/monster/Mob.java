@@ -12,6 +12,7 @@ import com.github.fnar.minecraft.item.Arrow;
 import com.github.fnar.minecraft.item.RldBaseItem;
 import com.github.fnar.minecraft.item.RldItem;
 import com.github.fnar.minecraft.item.RldItemStack;
+import com.github.fnar.minecraft.item.Shield;
 import com.github.fnar.minecraft.item.ToolType;
 import com.github.fnar.minecraft.item.WeaponType;
 import com.github.fnar.roguelike.loot.special.armour.SpecialArmour;
@@ -27,7 +28,6 @@ import java.util.Optional;
 import java.util.Random;
 
 import greymerk.roguelike.config.RogueConfig;
-import greymerk.roguelike.treasure.loot.Shield;
 import greymerk.roguelike.treasure.loot.provider.LootItem;
 import greymerk.roguelike.treasure.loot.provider.SpecialtyLootItem;
 
@@ -141,13 +141,19 @@ public class Mob {
   }
 
   private static RldItemStack createTool(Random random, int level, Difficulty difficulty) {
-    return rollForSpecial(random, level, difficulty)
-        ? SpecialTool.createTool(random, rollQuality(random, level))
-        : ToolType.randomAmong(random, someTools())
-            .asItem()
-            .withQuality(rollQuality(random, level))
-            .plzEnchantAtLevel(getEnchantmentLevel(random, level, difficulty))
-            .asStack();
+    if (rollForSpecial(random, level, difficulty)) {
+      return SpecialTool.createTool(random, rollQuality(random, level));
+    }
+
+    if (RogueConfig.MOBS_ITEMS_TIEFIGHTERS_ENABLED.getBoolean() && random.nextDouble() < .10) {
+      return createPatternedShield(random).asStack();
+    }
+
+    return ToolType.random(random)
+        .asItem()
+        .withQuality(rollQuality(random, level))
+        .plzEnchantAtLevel(getEnchantmentLevel(random, level, difficulty))
+        .asStack();
   }
 
   private static boolean rollForSpecial(Random random, int level, Difficulty difficulty) {
@@ -189,7 +195,7 @@ public class Mob {
   }
 
   public void equipShield(Random rand) {
-    equipOffhand(Shield.get(rand));
+    equipOffhand(createPatternedShield(rand).asStack());
   }
 
   public void equipOffhand(RldItemStack item) {
@@ -205,15 +211,25 @@ public class Mob {
   }
 
   private static RldBaseItem chooseMainhand(Random random, int level) {
-    return random.nextBoolean()
-        ? random.nextBoolean()
-        ? null
-        : ToolType.randomAmong(random, someTools()).asItem().withQuality(rollQuality(random, level))
-        : WeaponType.random(random).asItem().withQuality(rollQuality(random, level));
+    if (random.nextBoolean()) {
+      return WeaponType.random(random).asItem().withQuality(rollQuality(random, level));
+    }
+
+    if (random.nextBoolean()) {
+      return ToolType.random(random)
+          .asItem()
+          .withQuality(rollQuality(random, level));
+    }
+
+    return null;
+  }
+
+  private static Shield createPatternedShield(Random random) {
+    return Shield.newShield().withRandomPatterns(random, 1 + random.nextInt(8));
   }
 
   private RldBaseItem chooseOffhand(Random random) {
-    return random.nextBoolean() ? new com.github.fnar.minecraft.item.Shield() : null;
+    return random.nextBoolean() ? createPatternedShield(random) : null;
   }
 
   private static ArrayList<ToolType> someTools() {
