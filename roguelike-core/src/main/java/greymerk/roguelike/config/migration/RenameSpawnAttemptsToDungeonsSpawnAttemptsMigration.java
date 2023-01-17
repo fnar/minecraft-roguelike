@@ -3,7 +3,7 @@ package greymerk.roguelike.config.migration;
 import greymerk.roguelike.config.ConfigurationMap;
 import greymerk.roguelike.config.RogueConfig;
 
-public class RenameSpawnAttemptsToDungeonsSpawnAttempts implements RogueConfigMigration {
+public class RenameSpawnAttemptsToDungeonsSpawnAttemptsMigration implements RogueConfigMigration {
 
   public static final RogueConfig DEPRECATED_SPAWN_ATTEMPTS = new RogueConfig("spawnFrequency").withValue(10);
 

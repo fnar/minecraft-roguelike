@@ -21,9 +21,9 @@ import java.util.stream.Collectors;
 
 import greymerk.roguelike.config.migration.LootingToMobsItemsDropChanceMigration;
 import greymerk.roguelike.config.migration.RenameDoNaturalSpawnToDungeonsSpawnEnabledMigration;
-import greymerk.roguelike.config.migration.RenameSpawnAttemptsToDungeonsSpawnAttempts;
+import greymerk.roguelike.config.migration.RenameSpawnAttemptsToDungeonsSpawnAttemptsMigration;
 import greymerk.roguelike.config.migration.RenameSpawnChanceToDungeonsSpawnChanceMigration;
-import greymerk.roguelike.config.migration.RenameSpawnFrequencyToDungeonsSpawnFrequency;
+import greymerk.roguelike.config.migration.RenameSpawnFrequencyToDungeonsSpawnFrequencyMigration;
 import greymerk.roguelike.config.migration.RogueConfigMigration;
 import greymerk.roguelike.config.migration.RenameRogueSpawnersToMobsProfilesEnabledMigration;
 import greymerk.roguelike.worldgen.VanillaStructure;
@@ -66,10 +66,10 @@ public class RogueConfig {
   public static final RogueConfig MOBS_PROFILES_ENABLED = new RogueConfig("mobs.profiles.enabled").withValue(true);
 
   private static final List<RogueConfigMigration> migrations = Lists.newArrayList(
-      new RenameSpawnAttemptsToDungeonsSpawnAttempts(),
+      new RenameSpawnAttemptsToDungeonsSpawnAttemptsMigration(),
       new RenameSpawnChanceToDungeonsSpawnChanceMigration(),
       new RenameDoNaturalSpawnToDungeonsSpawnEnabledMigration(),
-      new RenameSpawnFrequencyToDungeonsSpawnFrequency(),
+      new RenameSpawnFrequencyToDungeonsSpawnFrequencyMigration(),
       new LootingToMobsItemsDropChanceMigration(),
       new RenameRogueSpawnersToMobsProfilesEnabledMigration()
   );
