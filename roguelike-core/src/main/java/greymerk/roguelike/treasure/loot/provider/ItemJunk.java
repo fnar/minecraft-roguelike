@@ -9,11 +9,11 @@ import com.github.fnar.minecraft.item.Material;
 import com.github.fnar.minecraft.item.Miscellaneous;
 import com.github.fnar.minecraft.item.Potion;
 import com.github.fnar.minecraft.item.RldItemStack;
+import com.github.fnar.minecraft.item.Shield;
 
 import java.util.Random;
 
 import greymerk.roguelike.treasure.loot.PotionMixture;
-import greymerk.roguelike.treasure.loot.Shield;
 import greymerk.roguelike.util.DyeColor;
 
 public class ItemJunk extends LootItem {
@@ -51,7 +51,9 @@ public class ItemJunk extends LootItem {
     }
 
     if (random.nextInt(80) == 0) {
-      return Shield.get(random);
+      return Shield.newShield()
+          .withRandomPatterns(random, 1 + random.nextInt(8) + 1)
+          .asStack();
     }
 
     if (level > 1 && random.nextInt(60) == 0) {
