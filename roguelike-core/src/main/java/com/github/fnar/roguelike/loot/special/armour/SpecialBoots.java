@@ -25,7 +25,7 @@ public class SpecialBoots extends SpecialArmour {
     withBootsEnchantments(random);
     withCommonEnchantments(random);
     withArmourPrefix();
-    withRandomColourIfWood();
+    withRandomColour(random);
   }
 
   private void withBootsEnchantments(Random random) {

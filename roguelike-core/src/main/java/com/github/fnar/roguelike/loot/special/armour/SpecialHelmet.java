@@ -23,7 +23,7 @@ public class SpecialHelmet extends SpecialArmour {
     withHelmetEnchantments(random);
     withCommonEnchantments(random);
     withArmourPrefix();
-    withRandomColourIfWood();
+    withRandomColour(random);
   }
 
   private void withHelmetEnchantments(Random random) {

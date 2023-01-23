@@ -1,8 +1,10 @@
 package com.github.fnar.roguelike.loot.special.armour;
 
+import com.github.fnar.minecraft.item.Armour;
 import com.github.fnar.minecraft.item.ArmourType;
 import com.github.fnar.minecraft.item.Enchantment;
 import com.github.fnar.roguelike.loot.special.SpecialEquipment;
+import com.github.fnar.util.Color;
 
 import java.util.Random;
 
@@ -46,9 +48,9 @@ public class SpecialArmour extends SpecialEquipment {
     }
   }
 
-  protected void withRandomColourIfWood() {
+  protected void withRandomColour(Random random) {
     if (quality == Quality.WOOD) {
-      withRandomColor();
+      ((Armour) rldItem).withColor(Color.random(random));
     }
   }
 

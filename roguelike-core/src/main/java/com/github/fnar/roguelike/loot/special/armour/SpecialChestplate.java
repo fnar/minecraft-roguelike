@@ -21,7 +21,7 @@ public class SpecialChestplate extends SpecialArmour {
     withChestplateEnchantments(random);
     withCommonEnchantments(random);
     withArmourPrefix();
-    withRandomColourIfWood();
+    withRandomColour(random);
   }
 
   private void withChestplateEnchantments(Random random) {
