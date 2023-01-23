@@ -1,7 +1,8 @@
 package com.github.fnar.roguelike.loot.special.weapons;
 
 import com.github.fnar.minecraft.item.Enchantment;
-import com.github.fnar.minecraft.item.RldItemStack;
+import com.github.fnar.minecraft.item.RldItem;
+import com.github.fnar.minecraft.item.Weapon;
 import com.github.fnar.minecraft.item.WeaponType;
 import com.github.fnar.roguelike.loot.special.SpecialEquipment;
 
@@ -12,74 +13,90 @@ import greymerk.roguelike.util.TextFormat;
 
 public class SpecialSword extends SpecialEquipment {
 
-  public SpecialSword(Random random, Quality quality) {
-    withQuality(quality);
-    withRldItem(WeaponType.SWORD.asItem().withQuality(quality));
-    withName(quality.getDescriptor() + " Blade");
-    withSwordEnchantments(random);
-    withCommonEnchantments(random);
+  private static Weapon getItem() {
+    return WeaponType.SWORD.asItem();
   }
 
-  public static RldItemStack newSpecialSword(Random random, Quality quality) {
-    return new SpecialSword(random, quality).complete();
+  @Override
+  protected SpecialSword withQuality(Quality quality) {
+    super.withQuality(quality);
+    return this;
   }
 
-  public void withSwordEnchantments(Random random) {
-    withSharpness(random);
-    withLooting(random);
-    withFiery(random);
+  @Override
+  protected SpecialSword withRldItem(RldItem rldItem) {
+    super.withRldItem(rldItem);
+    return this;
   }
 
-  public void withSharpness(Random random) {
+  public static SpecialEquipment newSpecialSword(Random random, Quality quality) {
+    return new SpecialSword()
+        .withQuality(quality)
+        .withRldItem(getItem().withQuality(quality))
+        .withSwordEnchantments(random)
+        .withCommonEnchantments(random)
+        .withName(quality.getDescriptor() + " Blade");
+  }
+
+  public SpecialSword withSwordEnchantments(Random random) {
+    return this.withSharpness(random)
+        .withLooting(random)
+        .withFiery(random);
+  }
+
+  public SpecialSword withSharpness(Random random) {
     if (random.nextBoolean()) {
-      return;
+      return this;
     }
     int enchantmentLevel = random.nextInt(6);
     if (enchantmentLevel <= 0) {
-      return;
+      return this;
     }
-    withEnchantment(Enchantment.Effect.SHARPNESS, enchantmentLevel);
+    withEnchantment(Enchantment.Effect.SHARPNESS.atLevel(enchantmentLevel));
+    return this;
   }
 
-  public void withLooting(Random random) {
+  public SpecialSword withLooting(Random random) {
     if (random.nextBoolean()) {
-      return;
+      return this;
     }
     int enchantmentLevel = random.nextInt(4);
     if (enchantmentLevel <= 0) {
-      return;
+      return this;
     }
-    withEnchantment(Enchantment.Effect.LOOTING, enchantmentLevel);
+    withEnchantment(Enchantment.Effect.LOOTING.atLevel(enchantmentLevel));
     if (enchantmentLevel < 3) {
       withPrefix("Burglar's");
     } else {
       withLore("Once belonged to a king of hidden desert thieves.", TextFormat.DARKGREEN);
       withPrefix("Bandit King's");
     }
+    return this;
   }
 
-  public void withFiery(Random random) {
+  public SpecialSword withFiery(Random random) {
     if (random.nextBoolean()) {
-      return;
+      return this;
     }
     int enchantmentLevel = random.nextInt(4);
     if (enchantmentLevel <= 0) {
-      return;
+      return this;
     }
-    withEnchantment(Enchantment.Effect.FIRE_ASPECT, enchantmentLevel);
+    withEnchantment(Enchantment.Effect.FIRE_ASPECT.atLevel(enchantmentLevel));
     if (enchantmentLevel == 1) {
       withLore("Warm to the touch", TextFormat.YELLOW);
       withPrefix("Ember");
-      return;
+      return this;
     }
 
     if (enchantmentLevel == 2) {
       withLore("Almost too hot to hold", TextFormat.RED);
       withPrefix("Fiery");
-      return;
+      return this;
     }
     withLore("From the fiery depths", TextFormat.DARKRED);
     withSuffix("of the Inferno");
+    return this;
   }
 
 }

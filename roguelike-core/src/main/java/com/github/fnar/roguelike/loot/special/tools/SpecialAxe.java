@@ -22,7 +22,7 @@ public class SpecialAxe extends SpecialTool {
   }
 
   private RldItem getItem() {
-    return ToolType.AXE.asItem().withQuality(quality);
+    return ToolType.AXE.asItem().withQuality(getQuality());
   }
 
 }

@@ -3,7 +3,7 @@ package com.github.fnar.minecraft.item;
 public class Enchantment {
 
   private Effect effect;
-  private int level;
+  private int level = 1;
 
   public Effect getEnchant() {
     return effect;
@@ -58,6 +58,10 @@ public class Enchantment {
 
     public Enchantment asEnchantment() {
       return new Enchantment().withEffect(this);
+    }
+
+    public Enchantment atLevel(int level) {
+      return asEnchantment().withLevel(level);
     }
   }
 }

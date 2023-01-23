@@ -26,13 +26,29 @@ public class SpecialArmour extends SpecialEquipment {
     }
   }
 
+  public static int getProtectionLevel(Quality quality, Random random) {
+    switch (quality) {
+      case WOOD:
+        return 1 + (random.nextDouble() < 0.33 ? 1 : 0);
+      case STONE:
+        return 1 + (random.nextDouble() < 0.5 ? 1 : 0);
+      case IRON:
+      case GOLD:
+        return 1 + random.nextInt(3);
+      case DIAMOND:
+        return 1 + 2 + random.nextInt(2);
+      default:
+        return 1;
+    }
+  }
+
   protected SpecialArmour withArmourPrefix() {
     withPrefix(getArmourPrefix());
     return this;
   }
 
   private String getArmourPrefix() {
-    switch (quality) {
+    switch (getQuality()) {
       case WOOD:
         return "Surplus";
       case STONE:
@@ -49,28 +65,32 @@ public class SpecialArmour extends SpecialEquipment {
   }
 
   protected void withRandomColour(Random random) {
-    if (quality == Quality.WOOD) {
+    if (getQuality() == Quality.WOOD) {
       ((Armour) rldItem).withColor(Color.random(random));
     }
   }
 
   protected void withProtection(Random random) {
-    withEnchantment(Enchantment.Effect.PROTECTION, SpecialEquipment.getProtectionLevel(quality, random));
+    int level = getProtectionLevel(getQuality(), random);
+    withEnchantment(Enchantment.Effect.PROTECTION.atLevel(level));
     withSuffix("of Defense");
   }
 
   protected void withProjectileProtection(Random random) {
-    withEnchantment(Enchantment.Effect.PROJECTILE_PROTECTION, SpecialEquipment.getProtectionLevel(quality, random));
+    int level = getProtectionLevel(getQuality(), random);
+    withEnchantment(Enchantment.Effect.PROJECTILE_PROTECTION.atLevel(level));
     withSuffix("of Deflection");
   }
 
   protected void withBlastProtection(Random random) {
-    withEnchantment(Enchantment.Effect.BLAST_PROTECTION, SpecialEquipment.getProtectionLevel(quality, random));
+    int level = getProtectionLevel(getQuality(), random);
+    withEnchantment(Enchantment.Effect.BLAST_PROTECTION.atLevel(level));
     withSuffix("of Integrity");
   }
 
   protected void withFlameProtection(Random random) {
-    withEnchantment(Enchantment.Effect.FIRE_PROTECTION, SpecialEquipment.getProtectionLevel(quality, random));
+    int level = getProtectionLevel(getQuality(), random);
+    withEnchantment(Enchantment.Effect.FIRE_PROTECTION.atLevel(level));
     withSuffix("of Flamewarding");
   }
 

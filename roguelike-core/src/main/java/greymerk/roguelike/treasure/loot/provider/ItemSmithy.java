@@ -15,6 +15,6 @@ public class ItemSmithy extends LootItem {
 
   @Override
   public RldItemStack getLootItem(Random random) {
-    return new SpecialSword(random, Quality.IRON).complete();
+    return SpecialSword.newSpecialSword(random, Quality.IRON).asStack();
   }
 }

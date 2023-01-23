@@ -14,7 +14,7 @@ public class ProfileVindicator implements MonsterProfile {
   @Override
   public Mob apply(Mob mob, int level, int difficulty, Random random) {
     mob.setMobType(MobType.VINDICATOR);
-    mob.equipMainhand(new SpecialAxe(random, Equipment.rollQuality(random, level)).complete());
+    mob.equipMainhand(new SpecialAxe(random, Equipment.rollQuality(random, level)).asStack());
     return mob;
   }
 
