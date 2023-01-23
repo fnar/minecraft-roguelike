@@ -1,5 +1,7 @@
 package com.github.fnar.minecraft.item;
 
+import com.github.fnar.util.Color;
+
 import java.util.Objects;
 
 import greymerk.roguelike.treasure.loot.Quality;
@@ -10,6 +12,7 @@ public class Armour extends RldBaseItem {
 
   private final ArmourType armourType;
   private Quality quality = Quality.WOOD;
+  private Color color = null;
 
   public Armour(ArmourType armourType) {
     this.armourType = armourType;
@@ -30,6 +33,15 @@ public class Armour extends RldBaseItem {
 
   public Armour withQuality(Quality quality) {
     this.quality = quality;
+    return this;
+  }
+
+  public Color getColor() {
+    return color;
+  }
+
+  public Armour withColor(Color color) {
+    this.color = color;
     return this;
   }
 
@@ -71,11 +83,11 @@ public class Armour extends RldBaseItem {
       return false;
     }
     Armour armour = (Armour) o;
-    return armourType == armour.armourType && quality == armour.quality;
+    return armourType == armour.armourType && color == armour.color && quality == armour.quality;
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(super.hashCode(), armourType, quality);
+    return Objects.hash(super.hashCode(), armourType, color, quality);
   }
 }

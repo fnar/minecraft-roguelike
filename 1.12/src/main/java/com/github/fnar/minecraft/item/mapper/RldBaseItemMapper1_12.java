@@ -32,12 +32,6 @@ public abstract class RldBaseItemMapper1_12<T extends RldBaseItem> extends BaseI
         .forEach(enchantment ->
             finalItemStack.addEnchantment(enchantmentMapper.map(enchantment), enchantment.getLevel()));
 
-
-    Color color = rldItem.getColor();
-    if (color != null) {
-      dyeArmor(finalItemStack, color);
-    }
-
     return finalItemStack;
   }
 
@@ -69,21 +63,4 @@ public abstract class RldBaseItemMapper1_12<T extends RldBaseItem> extends BaseI
     return item;
   }
 
-  private static void dyeArmor(ItemStack armor, Color color) {
-    NBTTagCompound tags = armor.getTagCompound();
-
-    if (tags == null) {
-      tags = new NBTTagCompound();
-      armor.setTagCompound(tags);
-    }
-
-    NBTTagCompound displayTag = tags.getCompoundTag("display");
-
-    if (!tags.hasKey("display")) {
-      tags.setTag("display", displayTag);
-    }
-
-    displayTag.setInteger("color", color.asInt());
-
-  }
 }

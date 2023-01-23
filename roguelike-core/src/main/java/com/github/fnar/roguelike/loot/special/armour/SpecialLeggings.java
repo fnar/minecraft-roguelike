@@ -21,7 +21,7 @@ public class SpecialLeggings extends SpecialArmour {
     withLeggingsEnchantments(random);
     withCommonEnchantments(random);
     withArmourPrefix();
-    withRandomColourIfWood();
+    withRandomColour(random);
   }
 
   private void withLeggingsEnchantments(Random random) {

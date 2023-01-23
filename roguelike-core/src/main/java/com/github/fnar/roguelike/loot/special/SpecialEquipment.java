@@ -14,7 +14,6 @@ import com.github.fnar.roguelike.loot.special.tools.SpecialPickaxe;
 import com.github.fnar.roguelike.loot.special.tools.SpecialShovel;
 import com.github.fnar.roguelike.loot.special.weapons.SpecialBow;
 import com.github.fnar.roguelike.loot.special.weapons.SpecialSword;
-import com.github.fnar.util.Color;
 
 import java.util.Random;
 
@@ -27,7 +26,7 @@ public class SpecialEquipment {
   private final StringBuilder canonicalName = new StringBuilder();
   private final StringBuilder suffix = new StringBuilder();
   protected Quality quality;
-  private RldItem rldItem;
+  protected RldItem rldItem;
   private String lore;
 
   public static RldItemStack newRandomSpecialEquipment(Random random, Equipment type, Quality quality) {
@@ -90,16 +89,6 @@ public class SpecialEquipment {
 
   protected SpecialEquipment withLore(String s, TextFormat textFormatColor) {
     lore = textFormatColor.apply(s);
-    return this;
-  }
-
-  public SpecialEquipment withRandomColor() {
-    withColor(Color.random());
-    return this;
-  }
-
-  public SpecialEquipment withColor(Color color) {
-    ((RldBaseItem) rldItem).withColor(color);
     return this;
   }
 
