@@ -18,7 +18,7 @@ public class SpecialPickaxe extends SpecialTool {
   }
 
   private RldItem getItem() {
-    return ToolType.PICKAXE.asItem().withQuality(quality);
+    return ToolType.PICKAXE.asItem().withQuality(getQuality());
   }
 
 }

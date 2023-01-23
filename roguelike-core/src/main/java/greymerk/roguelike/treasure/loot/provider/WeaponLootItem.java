@@ -30,15 +30,19 @@ public class WeaponLootItem extends LootItem {
 
   @Override
   public RldItemStack getLootItem(Random random) {
-    return !SpecialtyLootItem.rollForSpecial(random)
-        ? Equipment.asWeaponType(getType(random))
-        .asItem()
-        .withQuality(getQuality(random))
-        .plzEnchantAtLevel(getEnchantLevel(random, level))
-        .asStack()
-        : random.nextBoolean()
-            ? SpecialBow.newSpecialBow(random, getQuality(random))
-            : SpecialSword.newSpecialSword(random, getQuality(random));
+    return SpecialtyLootItem.rollForSpecial(random)
+        ? createSpecialWeapon(random)
+        : Equipment.asWeaponType(getType(random))
+            .asItem()
+            .withQuality(getQuality(random))
+            .plzEnchantAtLevel(getEnchantLevel(random, level))
+            .asStack();
+  }
+
+  private RldItemStack createSpecialWeapon(Random random) {
+    return random.nextBoolean()
+        ? SpecialBow.newSpecialBow(random, getQuality(random)).asStack()
+        : SpecialSword.newSpecialSword(random, getQuality(random)).asStack();
   }
 
   private Equipment getType(Random random) {

@@ -3,27 +3,21 @@ package com.github.fnar.roguelike.loot.special.armour;
 import com.github.fnar.minecraft.item.ArmourType;
 import com.github.fnar.minecraft.item.Enchantment;
 import com.github.fnar.minecraft.item.RldItem;
-import com.github.fnar.roguelike.loot.special.SpecialEquipment;
 
 import java.util.Random;
 
 import greymerk.roguelike.treasure.loot.Quality;
 
 import static greymerk.roguelike.treasure.loot.Quality.DIAMOND;
-import static greymerk.roguelike.treasure.loot.Equipment.rollQuality;
 
 public class SpecialBoots extends SpecialArmour {
-
-  public SpecialBoots(Random random, int level) {
-    this(random, rollQuality(random, level));
-  }
 
   public SpecialBoots(Random random, Quality quality) {
     withQuality(quality);
     withRldItem(getItem());
-    withName(getSpecialBootsName());
     withBootsEnchantments(random);
     withCommonEnchantments(random);
+    withName(getSpecialBootsName());
     withArmourPrefix();
     withRandomColour(random);
   }
@@ -37,17 +31,18 @@ public class SpecialBoots extends SpecialArmour {
   }
 
   private void withFeatherFalling(Random random) {
-    withEnchantment(Enchantment.Effect.FEATHER_FALLING, quality == DIAMOND ? 4 : 1 + random.nextInt(3));
-    withEnchantment(Enchantment.Effect.PROTECTION, SpecialEquipment.getProtectionLevel(quality, random));
+    int level = getQuality() == DIAMOND ? 4 : 1 + random.nextInt(3);
+    withEnchantment(Enchantment.Effect.FEATHER_FALLING.atLevel(level));
+    withEnchantment(Enchantment.Effect.PROTECTION.atLevel(SpecialArmour.getProtectionLevel(getQuality(), random)));
     withSuffix("of Lightness");
   }
 
   private RldItem getItem() {
-    return ArmourType.BOOTS.asItem().withQuality(quality);
+    return ArmourType.BOOTS.asItem().withQuality(getQuality());
   }
 
   private String getSpecialBootsName() {
-    switch (quality) {
+    switch (getQuality()) {
       case DIAMOND:
         return "Boots";
       case GOLD:

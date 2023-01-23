@@ -22,6 +22,10 @@ public abstract class RldBaseItem implements RldItem {
     return this;
   }
 
+  public RldBaseItem withEnchantment(Enchantment.Effect effect) {
+    return this.withEnchantment(effect.asEnchantment());
+  }
+
   public List<Enchantment> getEnchantments() {
     return enchantments;
   }

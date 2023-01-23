@@ -11,7 +11,7 @@ import greymerk.roguelike.treasure.loot.Quality;
 public class SpecialTool extends SpecialEquipment {
 
   public static RldItemStack createTool(Random random, Quality quality) {
-    return chooseTool(random, quality).complete();
+    return chooseTool(random, quality).asStack();
   }
 
   private static SpecialTool chooseTool(Random random, Quality quality) {
@@ -36,7 +36,7 @@ public class SpecialTool extends SpecialEquipment {
     if (enchantmentLevel <= 0) {
       return;
     }
-    withEnchantment(Enchantment.Effect.FORTUNE, enchantmentLevel);
+    withEnchantment(Enchantment.Effect.FORTUNE.atLevel(enchantmentLevel));
     if (random.nextBoolean()) {
       withSuffix("of Prospecting");
     } else {
@@ -48,7 +48,7 @@ public class SpecialTool extends SpecialEquipment {
     if (random.nextDouble() >= .15) {
       return;
     }
-    withEnchantment(Enchantment.Effect.SILK_TOUCH, 1);
+    withEnchantment(Enchantment.Effect.SILK_TOUCH);
     if (random.nextBoolean()) {
       withPrefix("Precision");
     } else {
@@ -61,7 +61,7 @@ public class SpecialTool extends SpecialEquipment {
     if (enchantmentLevel <= 0) {
       return;
     }
-    withEnchantment(Enchantment.Effect.EFFICIENCY, enchantmentLevel);
+    withEnchantment(Enchantment.Effect.EFFICIENCY.atLevel(enchantmentLevel));
     if (enchantmentLevel >= 3) {
       withPrefix("Artisan's");
     }

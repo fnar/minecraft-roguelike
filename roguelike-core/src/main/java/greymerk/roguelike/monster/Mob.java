@@ -100,7 +100,7 @@ public class Mob {
 
   private RldItemStack createArmor(Random random, int level, ArmourType armourType, Color color, Difficulty difficulty) {
     return rollForSpecial(random, level, difficulty)
-        ? SpecialArmour.createArmour(random, armourType, rollQuality(random, level)).complete()
+        ? SpecialArmour.createArmour(random, armourType, rollQuality(random, level)).asStack()
         : armourType
             .asItem()
             .withQuality(rollQuality(random, level))
@@ -115,7 +115,7 @@ public class Mob {
 
   private static RldItemStack createSword(Random random, int level, Difficulty difficulty) {
     return rollForSpecial(random, level, difficulty)
-        ? SpecialSword.newSpecialSword(random, rollQuality(random, level))
+        ? SpecialSword.newSpecialSword(random, rollQuality(random, level)).asStack()
         : WeaponType.SWORD.asItem()
             .withQuality(rollQuality(random, level))
             .plzEnchantAtLevel(getEnchantmentLevel(random, level, difficulty))
@@ -128,7 +128,7 @@ public class Mob {
 
   private RldItemStack createBow(Random random, int level, Difficulty difficulty) {
     return rollForSpecial(random, level, difficulty)
-        ? SpecialBow.newSpecialBow(random, rollQuality(random, level))
+        ? SpecialBow.newSpecialBow(random, rollQuality(random, level)).asStack()
         : WeaponType.BOW
             .asItem()
             .withQuality(rollQuality(random, level))

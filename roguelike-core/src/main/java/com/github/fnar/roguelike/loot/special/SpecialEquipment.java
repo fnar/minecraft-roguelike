@@ -22,63 +22,48 @@ import greymerk.roguelike.treasure.loot.Quality;
 import greymerk.roguelike.util.TextFormat;
 
 public class SpecialEquipment {
+
   private final StringBuilder prefix = new StringBuilder();
   private final StringBuilder canonicalName = new StringBuilder();
   private final StringBuilder suffix = new StringBuilder();
-  protected Quality quality;
+  private Quality quality;
   protected RldItem rldItem;
   private String lore;
 
   public static RldItemStack newRandomSpecialEquipment(Random random, Equipment type, Quality quality) {
     switch (type) {
       case SWORD:
-        return SpecialSword.newSpecialSword(random, quality);
+        return SpecialSword.newSpecialSword(random, quality).asStack();
       case BOW:
-        return SpecialBow.newSpecialBow(random, quality);
+        return SpecialBow.newSpecialBow(random, quality).asStack();
       case HELMET:
-        return new SpecialHelmet(random, quality).complete();
+        return new SpecialHelmet(random, quality).asStack();
       case CHEST:
-        return new SpecialChestplate(random, quality).complete();
+        return new SpecialChestplate(random, quality).asStack();
       case LEGS:
-        return new SpecialLeggings(random, quality).complete();
+        return new SpecialLeggings(random, quality).asStack();
       case FEET:
-        return new SpecialBoots(random, quality).complete();
+        return new SpecialBoots(random, quality).asStack();
       case PICK:
-        return new SpecialPickaxe(random, quality).complete();
+        return new SpecialPickaxe(random, quality).asStack();
       case AXE:
-        return new SpecialAxe(random, quality).complete();
+        return new SpecialAxe(random, quality).asStack();
       case SHOVEL:
-        return new SpecialShovel(random, quality).complete();
+        return new SpecialShovel(random, quality).asStack();
       case HOE:
-        return new SpecialHoe(random, quality).complete();
+        return new SpecialHoe(random, quality).asStack();
       default:
         return null;
     }
   }
 
-  public static int getProtectionLevel(Quality quality, Random rand) {
-    switch (quality) {
-      case WOOD:
-        return 1 + (rand.nextInt(3) == 0 ? 1 : 0);
-      case STONE:
-        return 1 + (rand.nextBoolean() ? 1 : 0);
-      case IRON:
-      case GOLD:
-        return 1 + rand.nextInt(3);
-      case DIAMOND:
-        return 1 + 2 + rand.nextInt(2);
-      default:
-        return 1;
-    }
-  }
-
-  public SpecialEquipment withRldItem(RldItem rldItem) {
+  protected SpecialEquipment withRldItem(RldItem rldItem) {
     this.rldItem = rldItem;
     return this;
   }
 
-  public SpecialEquipment withQuality(Quality quality) {
-    this.quality = quality;
+  protected SpecialEquipment withQuality(Quality quality) {
+    this.setQuality(quality);
     return this;
   }
 
@@ -87,30 +72,35 @@ public class SpecialEquipment {
     return this;
   }
 
-  protected SpecialEquipment withLore(String s, TextFormat textFormatColor) {
+  public SpecialEquipment withLore(String s, TextFormat textFormatColor) {
     lore = textFormatColor.apply(s);
     return this;
   }
 
-  public SpecialEquipment withEnchantment(Enchantment.Effect enchantment, int level) {
-    ((RldBaseItem) rldItem).withEnchantment(enchantment.asEnchantment().withLevel(level));
+  protected SpecialEquipment withEnchantment(Enchantment.Effect effect) {
+    return this.withEnchantment(effect.asEnchantment());
+  }
+
+  protected SpecialEquipment withEnchantment(Enchantment enchantment) {
+    ((RldBaseItem) rldItem).withEnchantment(enchantment);
     return this;
   }
 
   public SpecialEquipment withCommonEnchantments(Random random) {
-    withMending(random);
-    withUnbreaking(random);
-    return this;
+    return this
+        .withMending(random)
+        .withUnbreaking(random);
   }
 
-  public void withMending(Random random) {
+  protected SpecialEquipment withMending(Random random) {
     if (random.nextDouble() >= .03) {
-      return;
+      return this;
     }
 
-    withEnchantment(Enchantment.Effect.MENDING, 1);
+    withEnchantment(Enchantment.Effect.MENDING);
 
     String[] descriptors = new String[]{
+        "Alchemical",
         "Prideful",
         "Forbidden",
         "Fnar's Lucky",
@@ -122,36 +112,39 @@ public class SpecialEquipment {
     };
 
     withPrefix(descriptors[random.nextInt(descriptors.length)]);
+    return this;
   }
 
-  public void withUnbreaking(Random random) {
+  public SpecialEquipment withUnbreaking(Random random) {
     int enchantmentLevel = random.nextInt(5) - 1;
     if (enchantmentLevel > 0) {
-      withEnchantment(Enchantment.Effect.UNBREAKING, enchantmentLevel);
+      withEnchantment(Enchantment.Effect.UNBREAKING.atLevel(enchantmentLevel));
 
       if (enchantmentLevel >= 3) {
         withPrefix("Masterwork");
       }
       if (enchantmentLevel == 2) {
         withPrefix("Tempered");
+        withLore("Highly Durable", TextFormat.DARKGREEN);
       }
       if (enchantmentLevel == 1) {
         withPrefix("Reinforced");
       }
     }
+    return this;
   }
 
-  public SpecialEquipment withPrefix(String prefix) {
+  protected SpecialEquipment withPrefix(String prefix) {
     this.prefix.append(prefix).append(" ");
     return this;
   }
 
-  public SpecialEquipment withSuffix(String suffix) {
+  protected SpecialEquipment withSuffix(String suffix) {
     this.suffix.append(" ").append(suffix);
     return this;
   }
 
-  public RldItemStack complete() {
+  public RldItemStack asStack() {
     String name = String.valueOf(prefix) + canonicalName + suffix;
 
     RldItemStack rldItemStack = rldItem.asStack().withDisplayName(name);
@@ -159,5 +152,13 @@ public class SpecialEquipment {
       return rldItemStack.withDisplayLore(lore);
     }
     return rldItemStack;
+  }
+
+  protected Quality getQuality() {
+    return quality;
+  }
+
+  protected void setQuality(Quality quality) {
+    this.quality = quality;
   }
 }

@@ -5,14 +5,9 @@ import com.github.fnar.minecraft.item.RldItem;
 
 import java.util.Random;
 
-import greymerk.roguelike.treasure.loot.Equipment;
 import greymerk.roguelike.treasure.loot.Quality;
 
 public class SpecialLeggings extends SpecialArmour {
-
-  public SpecialLeggings(Random random, int level) {
-    this(random, Equipment.rollQuality(random, level));
-  }
 
   public SpecialLeggings(Random random, Quality quality) {
     withQuality(quality);
@@ -29,11 +24,11 @@ public class SpecialLeggings extends SpecialArmour {
   }
 
   private RldItem getSpecialLeggingsItem() {
-    return ArmourType.LEGGINGS.asItem().withQuality(quality);
+    return ArmourType.LEGGINGS.asItem().withQuality(getQuality());
   }
 
   private String getSpecialLeggingsName() {
-    switch (quality) {
+    switch (getQuality()) {
       case DIAMOND:
         return "Leggings";
       case GOLD:
