@@ -21,7 +21,7 @@ public class ProfileSwordsman implements MonsterProfile {
     }
 
     mob.equipShield(random);
-    mob.equipArmor(random, level, Color.random(), difficulty);
+    mob.equipArmor(random, level, Color.random(random), difficulty);
     return mob;
   }
 

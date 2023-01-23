@@ -16,7 +16,7 @@ public class ProfilePigZombie implements MonsterProfile {
     mob.setMobType(MobType.PIGZOMBIE);
     mob.equipSword(random, level, Difficulty.fromInt(difficulty));
     mob.equipShield(random);
-    mob.equipArmor(random, level, Color.random(), difficulty);
+    mob.equipArmor(random, level, Color.random(random), difficulty);
     return mob;
   }
 

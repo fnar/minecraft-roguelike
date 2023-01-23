@@ -16,7 +16,7 @@ public class ProfileJohnny implements MonsterProfile {
   public Mob apply(Mob mob, int level, int difficulty, Random random) {
     mob.setMobType(MobType.VINDICATOR);
     mob.equipMainhand(new SpecialAxe(random, Equipment.rollQuality(random, 4)).complete());
-    mob.equipArmor(random, level, Color.random(), difficulty);
+    mob.equipArmor(random, level, Color.random(random), difficulty);
     mob.setName("Johnny");
     return mob;
   }

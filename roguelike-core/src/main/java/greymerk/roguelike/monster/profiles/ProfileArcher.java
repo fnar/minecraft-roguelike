@@ -19,7 +19,7 @@ public class ProfileArcher implements MonsterProfile {
     if (hasPoisonTippedArrows) {
       mob.equipArrows(Arrow.newRandomHarmful(random));
     }
-    mob.equipArmor(random, level, Color.random(), difficulty);
+    mob.equipArmor(random, level, Color.random(random), difficulty);
     return mob;
   }
 

@@ -37,15 +37,6 @@ public class Color {
     this.blue = blue;
   }
 
-  public static Color random() {
-    Random random = new Random();
-    return new Color(
-        random.nextInt(BOUND),
-        random.nextInt(BOUND),
-        random.nextInt(BOUND)
-    );
-  }
-
   public static Color random(Random random) {
     return new Color(
         random.nextInt(BOUND),

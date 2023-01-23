@@ -16,7 +16,7 @@ public class ProfileZombieVillager implements MonsterProfile {
     mob.setMobType(MobType.ZOMBIE_VILLAGER);
     mob.equipTool(random, level, Difficulty.fromInt(difficulty));
     mob.equipShield(random);
-    mob.equipArmor(random, level, Color.random(), difficulty);
+    mob.equipArmor(random, level, Color.random(random), difficulty);
     return mob;
   }
 
