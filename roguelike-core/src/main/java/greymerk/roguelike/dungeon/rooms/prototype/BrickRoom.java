@@ -107,28 +107,15 @@ public class BrickRoom extends BaseRoom {
       primaryWallBrush().stroke(worldEditor, cursor, false, true);
     }
 
-    Coord spawnerLocation = chooseSpawnerLocation(at);
-    generateSpawner(spawnerLocation);
-    generateChest(at, spawnerLocation, getEntrance(entrances));
+    generateSpawner(at);
+    generateChest(at, getEntrance(entrances).reverse());
     generateDoorways(at, entrances);
 
     return this;
   }
 
-  private Coord chooseSpawnerLocation(Coord origin) {
-    Direction randomDirection = Direction.randomCardinal(random());
-    return origin.copy()
-        .down()
-        .translate(randomDirection, random().nextInt(getWallDist() -1))
-        .translate(randomDirection.clockwise(), random().nextInt(getWallDist() -1));
-  }
-
-  public void generateChest(Coord origin, Coord spawnerLocation, Direction facing) {
-    boolean isChestAboveSpawner = random().nextInt(Math.max(1, levelSettings.getLevel()) + 1) != 0;
-    Coord chestLocation = isChestAboveSpawner
-        ? spawnerLocation.copy().up()
-        : generateChestLocation(origin);
-
+  private void generateChest(Coord origin, Direction facing) {
+    Coord chestLocation = generateChestLocation(origin);
     new TreasureChest(chestLocation, worldEditor)
         .withChestType(getChestTypeOrUse(ChestType.chooseRandomAmong(random(), ChestType.COMMON_TREASURES)))
         .withFacing(facing)
