@@ -4,8 +4,6 @@ import com.github.fnar.roguelike.worldgen.generatables.BaseGeneratable;
 import com.github.fnar.roguelike.worldgen.generatables.LadderPillar;
 import com.github.fnar.roguelike.worldgen.generatables.SpiralStaircase;
 
-import java.util.Optional;
-
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.base.RoomIterator;
 import greymerk.roguelike.dungeon.base.RoomType;
@@ -21,7 +19,7 @@ import greymerk.roguelike.worldgen.filter.IFilter;
 public class DungeonLevel {
 
   private final LevelSettings settings;
-  private LevelLayout layout;
+  public LevelLayout layout;
 
   public DungeonLevel(LevelSettings settings) {
     this.settings = settings;
@@ -29,17 +27,6 @@ public class DungeonLevel {
 
   public LevelSettings getSettings() {
     return settings;
-  }
-
-  public boolean hasNodeContaining(Coord pos) {
-    return findNodeContaining(pos).isPresent();
-  }
-
-  public Optional<DungeonNode> findNodeContaining(Coord pos) {
-    return layout
-        .getNodes().stream()
-        .filter(node -> node.contains(pos))
-        .findFirst();
   }
 
   public LevelLayout getLayout() {
@@ -139,5 +126,9 @@ public class DungeonLevel {
 
   public void generateSegments(WorldEditor editor) {
     getLayout().getTunnels().forEach(tunnel -> tunnel.genSegments(editor, this));
+  }
+
+  public boolean containsRoomAt(Coord coord) {
+    return layout.containsRoomAt(coord);
   }
 }
