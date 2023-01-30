@@ -9,6 +9,8 @@ import java.util.Optional;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.base.RoomIterator;
 import greymerk.roguelike.dungeon.base.RoomType;
+import greymerk.roguelike.dungeon.layout.DungeonNode;
+import greymerk.roguelike.dungeon.layout.LevelLayout;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.Coord;

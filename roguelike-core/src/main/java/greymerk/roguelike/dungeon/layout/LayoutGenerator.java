@@ -1,4 +1,4 @@
-package greymerk.roguelike.dungeon;
+package greymerk.roguelike.dungeon.layout;
 
 import java.util.Random;
 

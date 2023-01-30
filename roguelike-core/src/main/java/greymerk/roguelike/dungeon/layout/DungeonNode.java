@@ -1,9 +1,10 @@
-package greymerk.roguelike.dungeon;
+package greymerk.roguelike.dungeon.layout;
 
 import com.github.fnar.util.ReportThisIssueException;
 
 import java.util.List;
 
+import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.Bounded;
@@ -89,15 +90,15 @@ public class DungeonNode implements Bounded {
     return getBoundingBox().getEnd();
   }
 
-  boolean overlaps(int size, DungeonNode other) {
+  public boolean overlaps(int size, DungeonNode other) {
     return this != other && getBoundingBox(size).collide(other);
   }
 
-  boolean overlaps(int size, DungeonTunnel tunnel) {
+  public boolean overlaps(int size, DungeonTunnel tunnel) {
     return !connectsTo(tunnel) && getBoundingBox(size).collide(tunnel);
   }
 
-  boolean isNotYetGenerated() {
+  public boolean isNotYetGenerated() {
     return getRoom() == null;
   }
 
@@ -109,12 +110,12 @@ public class DungeonNode implements Bounded {
     }
   }
 
-  boolean hasOverlappingNode(int size, List<DungeonNode> nodes) {
+  public boolean hasOverlappingNode(int size, List<DungeonNode> nodes) {
     return nodes.stream()
         .anyMatch(other -> overlaps(size, other));
   }
 
-  boolean contains(Coord pos) {
+  public boolean contains(Coord pos) {
     return (int) getPosition().distance(pos) < getSize();
   }
 
