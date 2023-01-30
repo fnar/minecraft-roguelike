@@ -10,7 +10,6 @@ import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.loot.ChestType;
-import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -19,18 +18,20 @@ import greymerk.roguelike.worldgen.shapes.RectSolid;
 
 public class CakeRoom extends BaseRoom {
 
-  private int width;
-  private int length;
+  private final int width;
+  private final int length;
 
   public CakeRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
     width = random().nextInt(2) + 2;
     length = random().nextInt(2) + 3;
     this.wallDist = Math.max(width, length);
+    this.ceilingHeight = 4;
   }
 
   @Override
   public BaseRoom generate(Coord at, List<Direction> entrances) {
+    super.generate(at, entrances);
     int x = at.getX();
     int y = at.getY();
     int z = at.getZ();
@@ -41,22 +42,20 @@ public class CakeRoom extends BaseRoom {
         new Coord(x - width, y, z - length),
         new Coord(x + width, y + height, z + length)));
 
-    RectHollow.newRect(
+    RectHollow floorAccentRect = RectHollow.newRect(
         at.copy().west(width + 1).north(length + 1).down(),
         at.copy().east(width + 1).south(length + 1).up(height + 1)
-    ).fill(worldEditor, primaryFloorBrush(), false, true);
+    );
+    secondaryFloorBrush().fill(worldEditor, floorAccentRect, false, true);
 
-    primaryPillarBrush().fill(worldEditor, RectSolid.newRect(new Coord(x - width, y, z - length), new Coord(x - width, y + height, z - length)));
-    primaryPillarBrush().fill(worldEditor, RectSolid.newRect(new Coord(x - width, y, z + length), new Coord(x - width, y + height, z + length)));
-    primaryPillarBrush().fill(worldEditor, RectSolid.newRect(new Coord(x + width, y, z - length), new Coord(x + width, y + height, z - length)));
-    primaryPillarBrush().fill(worldEditor, RectSolid.newRect(new Coord(x + width, y, z + length), new Coord(x + width, y + height, z + length)));
+    secondaryPillarBrush().fill(worldEditor, RectSolid.newRect(new Coord(x - width, y, z - length), new Coord(x - width, y + height, z - length)));
+    secondaryPillarBrush().fill(worldEditor, RectSolid.newRect(new Coord(x - width, y, z + length), new Coord(x - width, y + height, z + length)));
+    secondaryPillarBrush().fill(worldEditor, RectSolid.newRect(new Coord(x + width, y, z - length), new Coord(x + width, y + height, z - length)));
+    secondaryPillarBrush().fill(worldEditor, RectSolid.newRect(new Coord(x + width, y, z + length), new Coord(x + width, y + height, z + length)));
 
-    primaryLightBrush().stroke(worldEditor, new Coord(x - width + 1, y + height + 1, z - length + 1));
-    primaryLightBrush().stroke(worldEditor, new Coord(x - width + 1, y + height + 1, z + length - 1));
-    primaryLightBrush().stroke(worldEditor, new Coord(x + width - 1, y + height + 1, z - length + 1));
-    primaryLightBrush().stroke(worldEditor, new Coord(x + width - 1, y + height + 1, z + length - 1));
+    generateLightAccents(at, getEntrance(entrances));
 
-    placeCake(at, primaryPillarBrush());
+    placeCake(at);
 
     Coord coord = generateChestLocation(at);
     new TreasureChest(coord, worldEditor)
@@ -65,23 +64,24 @@ public class CakeRoom extends BaseRoom {
         .withTrap(false)
         .stroke(worldEditor, coord);
 
-    generateDoorways(at, entrances);
     return this;
   }
 
-  @Override
-  protected Coord generateChestLocation(Coord origin) {
-    Direction dir0 = Direction.randomCardinal(random());
-    Direction dir1 = dir0.orthogonals()[random().nextBoolean() ? 0 : 1];
-    return origin.copy()
-        .translate(dir0, width)
-        .translate(dir1, length);
+  private void generateLightAccents(Coord at, Direction entrance) {
+    for (Direction orthogonal : entrance.orthogonals()) {
+      Coord lightCoord = at.copy().translate(orthogonal, width - 1).down();
+      Coord leftLight = lightCoord.copy().translate(orthogonal.left(), length - 1);
+      Coord rightLight = lightCoord.copy().translate(orthogonal.right(), length - 1);
+      primaryLightBrush().stroke(worldEditor, leftLight);
+      primaryLightBrush().stroke(worldEditor, rightLight);
+      primaryLightBrush().stroke(worldEditor, leftLight.copy().up(1 + ceilingHeight));
+      primaryLightBrush().stroke(worldEditor, rightLight.copy().up(1 + ceilingHeight));
+    }
   }
 
-  public void placeCake(Coord origin, BlockBrush pillar) {
-    Coord cakeStand = origin.copy();
-    pillar.stroke(worldEditor, cakeStand);
-    BlockType.CAKE.getBrush().stroke(worldEditor, cakeStand.up());
+  private void placeCake(Coord at) {
+    primaryPillarBrush().stroke(worldEditor, at);
+    BlockType.CAKE.getBrush().stroke(worldEditor, at.copy().up());
   }
 
 }
