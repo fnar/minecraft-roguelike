@@ -2,6 +2,8 @@ package greymerk.roguelike.dungeon.layout;
 
 import java.util.Random;
 
+import greymerk.roguelike.dungeon.layout.classic.LayoutGeneratorClassic;
+import greymerk.roguelike.dungeon.layout.mst.LayoutGeneratorMST;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.Coord;
 

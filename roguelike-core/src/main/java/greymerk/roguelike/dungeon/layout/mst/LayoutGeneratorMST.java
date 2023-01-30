@@ -1,4 +1,4 @@
-package greymerk.roguelike.dungeon.layout;
+package greymerk.roguelike.dungeon.layout.mst;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,6 +6,10 @@ import java.util.Optional;
 import java.util.Random;
 import java.util.stream.Collectors;
 
+import greymerk.roguelike.dungeon.layout.DungeonNode;
+import greymerk.roguelike.dungeon.layout.DungeonTunnel;
+import greymerk.roguelike.dungeon.layout.LayoutGenerator;
+import greymerk.roguelike.dungeon.layout.LevelLayout;
 import greymerk.roguelike.util.graph.Edge;
 import greymerk.roguelike.util.graph.Graph;
 import greymerk.roguelike.util.mst.MinimumSpanningTree;

@@ -174,7 +174,7 @@ public class DungeonTunnel implements Iterable<Coord>, Bounded {
     return getBoundingBox().getEnd();
   }
 
-  Optional<Direction> getEntrance(Coord vertex) {
+  public Optional<Direction> getEntrance(Coord vertex) {
     Coord start = this.start;
     Coord end = this.end;
     if (vertex.equals(start)) {
