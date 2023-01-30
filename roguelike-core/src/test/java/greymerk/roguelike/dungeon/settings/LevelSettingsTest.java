@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Set;
 
 import greymerk.roguelike.config.RogueConfig;
-import greymerk.roguelike.dungeon.LayoutGenerator;
+import greymerk.roguelike.dungeon.layout.LayoutGenerator;
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;

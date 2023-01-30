@@ -2,7 +2,7 @@ package greymerk.roguelike.dungeon.settings.builtin.dungeon;
 
 import com.github.fnar.minecraft.item.Material;
 
-import greymerk.roguelike.dungeon.LayoutGenerator;
+import greymerk.roguelike.dungeon.layout.LayoutGenerator;
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.base.SecretsSetting;

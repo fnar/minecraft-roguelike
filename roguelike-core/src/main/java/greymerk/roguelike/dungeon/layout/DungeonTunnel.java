@@ -1,4 +1,4 @@
-package greymerk.roguelike.dungeon;
+package greymerk.roguelike.dungeon.layout;
 
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 
@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
+import greymerk.roguelike.dungeon.Dungeon;
+import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
 import greymerk.roguelike.dungeon.segment.part.SegmentBase;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
