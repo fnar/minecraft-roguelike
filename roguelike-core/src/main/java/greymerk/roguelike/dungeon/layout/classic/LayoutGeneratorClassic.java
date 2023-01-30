@@ -7,8 +7,8 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.layout.DungeonNode;
 import greymerk.roguelike.dungeon.layout.LayoutGenerator;
 import greymerk.roguelike.dungeon.layout.LevelLayout;
-import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
+import greymerk.roguelike.worldgen.Direction;
 
 public class LayoutGeneratorClassic implements LayoutGenerator {
 
@@ -19,6 +19,7 @@ public class LayoutGeneratorClassic implements LayoutGenerator {
   private final int numRooms;
   private final int scatter;
   private final int range;
+  private List<Node> graphNodes;
 
   public LayoutGeneratorClassic(int numRooms, int scatter, int range) {
     layout = new LevelLayout();
@@ -29,27 +30,35 @@ public class LayoutGeneratorClassic implements LayoutGenerator {
 
   public LevelLayout generate(Coord start, Random random) {
     this.setStart(start);
-    List<Node> gNodes = new ArrayList<>();
-    Node startNode = new Node(this, Direction.randomCardinal(random), start);
-    gNodes.add(startNode);
+    Node startNode = new Node(this, start, Direction.randomCardinal(random));
+    List<Node> gNodes = generateGraph(startNode, random);
 
-    while (!isDone(gNodes)) {
-      update(gNodes, random);
+    return generateLayoutFromGraph(gNodes, startNode, random);
+  }
+
+  private List<Node> generateGraph(Node startNode, Random random) {
+    graphNodes = new ArrayList<>();
+    graphNodes.add(startNode);
+
+    while (!isDone(graphNodes)) {
+      update(graphNodes, random);
     }
 
-    for (Node n : gNodes) {
-      n.cull();
-    }
+    graphNodes.forEach(Node::cull);
 
+    return graphNodes;
+  }
+
+  private LevelLayout generateLayoutFromGraph(List<Node> graphNodes, Node startNode, Random random) {
     DungeonNode startDungeonNode = null;
 
-    for (Node n : gNodes) {
-      DungeonNode nToAdd = n.createNode();
-      if (n == startNode) {
-        startDungeonNode = nToAdd;
+    for (Node node : graphNodes) {
+      DungeonNode dungeonNode = node.asDungeonNode();
+      if (node == startNode) {
+        startDungeonNode = dungeonNode;
       }
-      layout.addNode(nToAdd);
-      layout.addTunnels(n.createTunnels());
+      layout.addNode(dungeonNode);
+      layout.addTunnels(node.createTunnels());
     }
 
     layout.setStartEnd(random, startDungeonNode);
@@ -58,42 +67,30 @@ public class LayoutGeneratorClassic implements LayoutGenerator {
   }
 
   public void update(List<Node> nodes, Random random) {
-    if (!full(nodes)) {
+    if (!isFull(nodes)) {
       for (int i = 0; i < nodes.size(); i++) {
-        nodes.get(i).update(nodes, random);
+        nodes.get(i).update(random);
       }
     }
   }
 
   private boolean isDone(List<Node> nodes) {
-    boolean allDone = true;
-
-    for (Node node : nodes) {
-      if (!node.isDone()) {
-        allDone = false;
-      }
-    }
-
-    return allDone || full(nodes);
+    return nodes.stream().allMatch(Node::isDone) || isFull(nodes);
   }
 
-  private boolean full(List<Node> nodes) {
+  private boolean isFull(List<Node> nodes) {
     return nodes.size() >= Math.max(numRooms, MIN_ROOMS);
   }
 
-  public void spawnNode(List<Node> nodes, Tunneler tunneler) {
-    Node toAdd = new Node(this, tunneler.getDirection(), tunneler.getPosition());
-    nodes.add(toAdd);
+  void spawnNode(Edge edge) {
+    graphNodes.add(new Node(this, edge.getEnd(), edge.getDirection()));
   }
 
-  public boolean hasNearbyNode(List<Node> nodes, Coord pos, int min) {
-    for (Node node : nodes) {
-      int dist = (int) node.getPos().distance(pos);
-      if (dist < min) {
-        return true;
-      }
-    }
-    return false;
+  boolean hasNodeNearby(Coord coord) {
+    return graphNodes.stream()
+        .map(Node::getPos)
+        .mapToInt(coord::distanceAsInt)
+        .anyMatch(distance -> distance < scatter);
   }
 
   @Override

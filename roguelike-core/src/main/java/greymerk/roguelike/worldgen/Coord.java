@@ -235,4 +235,8 @@ public class Coord {
     Coord corner1 = copy().south(radius).west(radius);
     return RectHollow.newRect(corner0, corner1);
   }
+
+  public int distanceAsInt(Coord other) {
+    return (int) other.distance(this);
+  }
 }
