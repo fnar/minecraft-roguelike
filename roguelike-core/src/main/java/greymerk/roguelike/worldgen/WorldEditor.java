@@ -37,6 +37,8 @@ public interface WorldEditor {
 
   Random getRandom();
 
+  Random getRandom(Coord pos);
+
   boolean setBlock(Coord pos, SingleBlockBrush singleBlockBrush, boolean fillAir, boolean replaceSolid);
 
   boolean isAirBlock(Coord pos);

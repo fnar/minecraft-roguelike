@@ -184,6 +184,12 @@ public class WorldEditor1_12 implements WorldEditor {
     return random;
   }
 
+  @Override
+  public Random getRandom(Coord pos) {
+    random.setSeed(getSeed(pos));
+    return random;
+  }
+
   private BlockPos getBlockPos(Coord pos) {
     return new BlockPos(pos.getX(), pos.getY(), pos.getZ());
   }

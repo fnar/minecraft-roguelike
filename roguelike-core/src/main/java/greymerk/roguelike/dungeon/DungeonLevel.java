@@ -75,7 +75,7 @@ public class DungeonLevel {
   }
 
   public Coord generateLayout(WorldEditor editor, Coord start) {
-    layout = settings.getLayoutGenerator().generate(start, editor.getRandom());
+    layout = settings.getLayoutGenerator().generate(start, editor.getRandom(start));
     Coord end = layout.getEnd().getPosition().copy();
     assignRooms(editor);
     return end;
