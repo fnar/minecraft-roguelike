@@ -7,16 +7,14 @@ import java.util.Random;
 
 import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.worldgen.Bounded;
+import greymerk.roguelike.worldgen.Coord;
 
 public class LevelLayout {
 
-  private List<DungeonNode> nodes = new ArrayList<>();
-  private List<DungeonTunnel> tunnels = new ArrayList<>();
+  private final List<DungeonNode> nodes = new ArrayList<>();
+  private final List<DungeonTunnel> tunnels = new ArrayList<>();
   private DungeonNode start;
   private DungeonNode end;
-
-  public LevelLayout() {
-  }
 
   public DungeonNode getStart() {
     return start;
@@ -137,4 +135,9 @@ public class LevelLayout {
   public boolean isStartOrEnd(DungeonNode node) {
     return getStart() == node || node == getEnd();
   }
+
+  public boolean containsRoomAt(Coord coord) {
+    return getNodes().stream().anyMatch(node -> node.contains(coord));
+  }
+
 }

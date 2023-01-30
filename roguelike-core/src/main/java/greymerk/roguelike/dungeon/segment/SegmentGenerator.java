@@ -106,8 +106,7 @@ public class SegmentGenerator {
       segments.add(segment);
     }
 
-    // todo: Can this be removed? It seems to have no effect.
-    if (!level.hasNodeContaining(pos) && editor.getRandom().nextInt(3) == 0) {
+    if (!level.containsRoomAt(pos) && editor.getRandom().nextInt(3) == 0) {
       addSupport(editor, level.getSettings().getTheme(), pos.copy().down(2));
     }
 
