@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.layout.DungeonNode;
-import greymerk.roguelike.dungeon.layout.DungeonTunnel;
 import greymerk.roguelike.dungeon.layout.LayoutGenerator;
 import greymerk.roguelike.dungeon.layout.LevelLayout;
 import greymerk.roguelike.worldgen.Direction;
@@ -29,9 +28,9 @@ public class LayoutGeneratorClassic implements LayoutGenerator {
   }
 
   public LevelLayout generate(Coord start, Random random) {
-    this.start = start;
+    this.setStart(start);
     List<Node> gNodes = new ArrayList<>();
-    Node startNode = new Node(Direction.randomCardinal(random), start);
+    Node startNode = new Node(this, Direction.randomCardinal(random), start);
     gNodes.add(startNode);
 
     while (!isDone(gNodes)) {
@@ -83,7 +82,7 @@ public class LayoutGeneratorClassic implements LayoutGenerator {
   }
 
   public void spawnNode(List<Node> nodes, Tunneler tunneler) {
-    Node toAdd = new Node(tunneler.getDirection(), tunneler.getPosition());
+    Node toAdd = new Node(this, tunneler.getDirection(), tunneler.getPosition());
     nodes.add(toAdd);
   }
 
@@ -102,133 +101,20 @@ public class LayoutGeneratorClassic implements LayoutGenerator {
     return layout;
   }
 
-  private class Tunneler {
-
-    private boolean done;
-    private final Direction dir;
-    private final Coord start;
-    private final Coord end;
-    private int extend;
-
-    public Tunneler(Direction dir, Coord start) {
-      done = false;
-      this.dir = dir;
-      this.start = start.copy();
-      end = start.copy();
-      extend = scatter * 2;
-    }
-
-    public void update(List<Node> nodes, Random random) {
-      if (done) {
-        return;
-      }
-
-      if (hasNearbyNode(nodes, end, scatter)) {
-        end.translate(dir);
-      } else {
-        if (random.nextInt(extend) == 0) {
-          spawnNode(nodes, this);
-          done = true;
-        } else {
-          end.translate(dir);
-          extend--;
-        }
-      }
-    }
-
-    public boolean isDone() {
-      return done;
-    }
-
-    public Direction getDirection() {
-      return dir;
-    }
-
-    public Coord getPosition() {
-      return end.copy();
-    }
-
-    public DungeonTunnel createTunnel() {
-      return new DungeonTunnel(start.copy(), end.copy());
-    }
+  public int getScatter() {
+    return scatter;
   }
 
-  private class Node {
-
-    private List<Tunneler> tunnelers;
-    private final Direction direction;
-    private final Coord pos;
-
-    public Node(Direction direction, Coord pos) {
-      tunnelers = new ArrayList<>();
-      this.direction = direction;
-      this.pos = pos;
-
-      spawnTunnelers();
-    }
-
-    private void spawnTunnelers() {
-
-      if (start.distance(pos) > range) {
-        return;
-      }
-
-      for (Direction dir : Direction.CARDINAL) {
-
-        if (dir.equals(direction.reverse())) {
-          continue;
-        }
-
-        tunnelers.add(new Tunneler(dir, pos.copy()));
-      }
-    }
-
-    public void update(List<Node> nodes, Random random) {
-      for (Tunneler tunneler : tunnelers) {
-        tunneler.update(nodes, random);
-      }
-    }
-
-    public boolean isDone() {
-      for (Tunneler tunneler : tunnelers) {
-        if (!tunneler.isDone()) {
-          return false;
-        }
-      }
-      return true;
-    }
-
-    public Coord getPos() {
-      return pos.copy();
-    }
-
-    public List<Direction> getEntrances() {
-      List<Direction> entrances = new ArrayList<>();
-      entrances.add(direction.reverse());
-      tunnelers.stream().map(tunneler -> tunneler.dir).forEach(entrances::add);
-      return entrances;
-    }
-
-    public List<DungeonTunnel> createTunnels() {
-      List<DungeonTunnel> tunnels = new ArrayList<>();
-      for (Tunneler t : tunnelers) {
-        tunnels.add(t.createTunnel());
-      }
-      return tunnels;
-    }
-
-    public DungeonNode createNode() {
-      return new DungeonNode(getEntrances(), pos);
-    }
-
-    public void cull() {
-      List<Tunneler> toKeep = new ArrayList<>();
-      for (Tunneler t : tunnelers) {
-        if (t.done) {
-          toKeep.add(t);
-        }
-      }
-      tunnelers = toKeep;
-    }
+  public Coord getStart() {
+    return start;
   }
+
+  public void setStart(Coord start) {
+    this.start = start;
+  }
+
+  public int getRange() {
+    return range;
+  }
+
 }
