@@ -19,7 +19,7 @@ public class RewardRoom extends BaseRoom {
 
   public RewardRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
-    this.wallDist = 10;
+    this.wallDist = 7;
   }
 
   @Override

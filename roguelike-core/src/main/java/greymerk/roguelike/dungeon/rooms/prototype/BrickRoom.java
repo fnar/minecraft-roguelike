@@ -22,7 +22,7 @@ public class BrickRoom extends BaseRoom {
 
   public BrickRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
-    this.wallDist = 5;
+    this.wallDist = 4;
   }
 
   public BaseRoom generate(Coord at, List<Direction> entrances) {
