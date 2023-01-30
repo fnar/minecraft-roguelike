@@ -15,7 +15,7 @@ public class LinkerTopRoom extends BaseRoom {
 
   public LinkerTopRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
-    this.wallDist = 5;
+    this.wallDist = 4;
   }
 
   @Override

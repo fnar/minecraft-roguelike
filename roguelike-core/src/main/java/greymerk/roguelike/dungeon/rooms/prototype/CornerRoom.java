@@ -17,7 +17,7 @@ public class CornerRoom extends BaseRoom {
 
   public CornerRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
-    this.wallDist = 3;
+    this.wallDist = 2;
   }
 
   @Override

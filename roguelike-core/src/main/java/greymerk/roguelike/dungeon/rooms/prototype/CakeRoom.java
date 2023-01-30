@@ -24,7 +24,9 @@ public class CakeRoom extends BaseRoom {
 
   public CakeRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
-    this.wallDist = 5;
+    width = random().nextInt(2) + 2;
+    length = random().nextInt(2) + 3;
+    this.wallDist = Math.max(width, length);
   }
 
   @Override
@@ -32,8 +34,7 @@ public class CakeRoom extends BaseRoom {
     int x = at.getX();
     int y = at.getY();
     int z = at.getZ();
-    width = random().nextInt(2) + 2;
-    length = random().nextInt(2) + 3;
+
     int height = 3;
 
     SingleBlockBrush.AIR.fill(worldEditor, RectSolid.newRect(

@@ -24,7 +24,7 @@ public class DungeonsMusic extends BaseRoom {
 
   public DungeonsMusic(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
-    this.wallDist = 7;
+    this.wallDist = 6;
   }
 
   public BaseRoom generate(Coord at, List<Direction> entrances) {

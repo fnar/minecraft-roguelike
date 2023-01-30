@@ -18,7 +18,7 @@ public class DarkHallRoom extends BaseRoom {
 
   public DarkHallRoom(RoomSetting roomSetting, LevelSettings levelSettings, WorldEditor worldEditor) {
     super(roomSetting, levelSettings, worldEditor);
-    this.wallDist = 9;
+    this.wallDist = 7;
   }
 
   @Override
