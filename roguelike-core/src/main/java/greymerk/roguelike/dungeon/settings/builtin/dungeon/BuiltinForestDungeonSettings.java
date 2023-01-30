@@ -37,28 +37,23 @@ public class BuiltinForestDungeonSettings {
   private static void level0(DungeonSettings dungeonSettings) {
     LevelSettings levelSettings = dungeonSettings.getLevelSettings(0);
     RoomsSetting rooms = levelSettings.getRooms();
-    rooms.add(RoomType.CORNER.newRandomRoomSetting(8));
-    rooms.add(RoomType.BRICK.newRandomRoomSetting(3));
-    rooms.add(RoomType.CAKE.newSingleRoomSetting());
     rooms.add(RoomType.DARKHALL.newSingleRoomSetting());
     rooms.add(RoomType.LIBRARY.newSingleRoomSetting());
 
+    rooms.add(RoomType.BRICK.newRandomRoomSetting(1));
+    rooms.add(RoomType.CORNER.newRandomRoomSetting(6));
+
     SecretsSetting secrets = levelSettings.getSecrets();
     secrets.add(RoomType.SMITH.newSingleRoomSetting());
-    secrets.add(RoomType.BEDROOM.newSingleRoomSetting());
     secrets.add(RoomType.BEDROOM.newSingleRoomSetting());
 
     levelSettings.setTheme(Themes.SPRUCE.getThemeBase());
 
     SegmentGenerator segments = levelSettings.getSegments();
-    segments.add(Segment.DOOR, 8);
-    segments.add(Segment.LAMP, 2);
-    segments.add(Segment.WHEAT, 3);
-    segments.add(Segment.FLOWERS, 2);
+    segments.add(Segment.CHEST, 1);
     segments.add(Segment.INSET, 1);
     segments.add(Segment.PLANT, 2);
-    segments.add(Segment.SHELF, 1);
-    segments.add(Segment.CHEST, 1);
+    segments.add(Segment.WHEAT, 2);
   }
 
   private static void level1(DungeonSettings dungeonSettings) {
@@ -69,18 +64,14 @@ public class BuiltinForestDungeonSettings {
     rooms.add(RoomType.LAB.newSingleRoomSetting());
     rooms.add(RoomType.SLIME.newSingleRoomSetting());
     rooms.add(RoomType.SLIME.newSingleRoomSetting());
-    rooms.add(RoomType.CORNER.newRandomRoomSetting(10));
-    rooms.add(RoomType.BRICK.newRandomRoomSetting(3));
 
     levelSettings.setTheme(Themes.DARKHALL.getThemeBase());
 
     SegmentGenerator segments = levelSettings.getSegments();
     segments.add(Segment.DOOR, 10);
     segments.add(Segment.FLOWERS, 2);
-    segments.add(Segment.INSET, 2);
     segments.add(Segment.PLANT, 2);
-    segments.add(Segment.SHELF, 2);
-    segments.add(Segment.CHEST, 1);
+    segments.add(Segment.SHELF, 1);
   }
 
   private static void level3(DungeonSettings dungeonSettings) {
