@@ -82,7 +82,7 @@ public class LayoutGeneratorClassic implements LayoutGenerator {
     return nodes.size() >= Math.max(numRooms, MIN_ROOMS);
   }
 
-  void spawnNode(Edge edge) {
+  void createNode(Edge edge) {
     graphNodes.add(new Node(this, edge.getEnd(), edge.getDirection()));
   }
 
