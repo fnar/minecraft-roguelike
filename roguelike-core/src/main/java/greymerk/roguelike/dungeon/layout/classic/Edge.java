@@ -12,32 +12,32 @@ public class Edge {
   private final Coord start;
   private final Coord end;
   private final Direction dir;
+  private final int scatter;
   private boolean done = false;
-  private int extend;
+  private int extensionsRemaining;
 
   public Edge(LayoutGeneratorClassic layoutGeneratorClassic, Coord start, Direction dir) {
-//    System.out.printf("Generating edge at %s%n", start);
     this.layoutGeneratorClassic = layoutGeneratorClassic;
     this.start = start.copy();
     this.end = start.copy();
     this.dir = dir;
-    this.extend = layoutGeneratorClassic.getScatter() * 2;
+    this.scatter = layoutGeneratorClassic.getScatter();
+    this.extensionsRemaining = 2;
   }
 
   public void update(Random random) {
-    if (done) {
+    if (isDone()) {
       return;
     }
 
     if (layoutGeneratorClassic.hasNodeNearby(end)) {
-      end.translate(getDir());
-    } else if (random.nextInt(extend) == 0) {
-      layoutGeneratorClassic.spawnNode(this);
-//      System.out.printf("Finishing edge from %s to %s%n", start, end);
-      this.done = true;
+      end.translate(getDir(), scatter);
+    } else if (random.nextInt(1 + extensionsRemaining) > 0) {
+      end.translate(getDir(), scatter);
+      extensionsRemaining--;
     } else {
-      end.translate(getDir());
-      extend--;
+      layoutGeneratorClassic.createNode(this);
+      this.done = true;
     }
   }
 
