@@ -36,6 +36,7 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.gen.ChunkProviderServer;
 
 import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -59,6 +60,8 @@ import static greymerk.roguelike.dungeon.Dungeon.MOD_ID;
 import static greymerk.roguelike.dungeon.Dungeon.getLevel;
 
 public class WorldEditor1_12 implements WorldEditor {
+
+  private static final Logger logger = LogManager.getLogger(MOD_ID);
 
   private static final Set<Material> validGroundBlocks = Sets.newHashSet(
       Material.GRASS,
@@ -321,7 +324,7 @@ public class WorldEditor1_12 implements WorldEditor {
     if (tileEntity instanceof TileEntityBed) {
       ((TileEntityBed) tileEntity).setColor(BlockMapper1_12.toEnumDyeColor(color));
     } else {
-      System.out.printf("Failed to paint bed at position %s to become color %s. Current block at position is %s%n", cursor, color, getBlockStateAt(cursor));
+      logger.error("Failed to paint bed at position {} to become color {}. Current block at position is {}.", cursor, color, getBlockStateAt(cursor));
     }
   }
 
@@ -342,7 +345,7 @@ public class WorldEditor1_12 implements WorldEditor {
     try {
       ((TileEntityLockableLoot) tileEntity).setInventorySlotContents(slot, itemStack);
     } catch (NullPointerException nullPointerException) {
-      System.out.printf("Could not place item %s at position %s. BlockState at pos: %s%n", itemStack, pos, getBlockStateAt(pos));
+      logger.error("Could not place item {} at position {}. BlockState at pos: {}.", itemStack, pos, getBlockStateAt(pos));
     }
   }
 
