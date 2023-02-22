@@ -107,8 +107,10 @@ public class BrickRoom extends BaseRoom {
       primaryWallBrush().stroke(worldEditor, cursor, false, true);
     }
 
-    generateSpawner(at);
-    generateChest(at, getEntrance(entrances).reverse());
+    Direction entrance = getEntrance(entrances);
+    Coord spawnerCoord = at.copy().translate(entrance, random().nextInt(3) - 1).translate(entrance.right(), random().nextInt(3) - 1);
+    generateSpawner(spawnerCoord);
+    generateChest(at, entrance.reverse());
     generateDoorways(at, entrances);
 
     return this;
