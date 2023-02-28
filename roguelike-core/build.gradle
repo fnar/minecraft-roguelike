@@ -12,7 +12,7 @@ apply plugin: 'idea'
 apply plugin: 'java'
 apply plugin: 'java-library'
 
-version = "2.4.4-snapshot"
+version = "2.4.4"
 group = "com.github.fnar"
 archivesBaseName = "RoguelikeCore"
 
