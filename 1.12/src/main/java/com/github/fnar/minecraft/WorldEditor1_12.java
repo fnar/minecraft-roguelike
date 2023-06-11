@@ -33,6 +33,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.ChunkProviderServer;
 
 import org.apache.logging.log4j.LogManager;
@@ -52,7 +53,6 @@ import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.MetaBlock1_12;
-import greymerk.roguelike.worldgen.PositionInfo;
 import greymerk.roguelike.worldgen.VanillaStructure;
 import greymerk.roguelike.worldgen.WorldEditor;
 
@@ -286,11 +286,6 @@ public class WorldEditor1_12 implements WorldEditor {
   }
 
   @Override
-  public PositionInfo getInfo(Coord pos) {
-    return new PositionInfo1_12(world, pos);
-  }
-
-  @Override
   public Coord findNearestStructure(VanillaStructure type, Coord pos) {
 
     ChunkProviderServer chunkProvider = ((WorldServer) world).getChunkProvider();
@@ -454,5 +449,15 @@ public class WorldEditor1_12 implements WorldEditor {
   @Override
   public TreasureManager getTreasureManager() {
     return treasureManager;
+  }
+
+  @Override
+  public Biome getBiomeAt(Coord coord) {
+    return world.getBiome(new BlockPos(coord.getX(), coord.getY(), coord.getZ()));
+  }
+
+  @Override
+  public int getDimension() {
+    return world.provider.getDimension();
   }
 }

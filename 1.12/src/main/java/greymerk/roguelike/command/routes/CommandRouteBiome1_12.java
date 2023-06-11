@@ -33,7 +33,7 @@ public class CommandRouteBiome1_12 extends CommandRouteBase {
     context.sendSpecial("Biome Information for " + pos);
 
     WorldEditor editor = context.createEditor();
-    Biome biome = editor.getInfo(pos).getBiome();
+    Biome biome = editor.getBiomeAt(pos);
     context.sendSpecial(biome.getBiomeName());
 
     Set<BiomeDictionary.Type> biomeTypes = BiomeDictionary.getTypes(biome);
