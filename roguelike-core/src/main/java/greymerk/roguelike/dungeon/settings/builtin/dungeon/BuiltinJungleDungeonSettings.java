@@ -1,6 +1,9 @@
 package greymerk.roguelike.dungeon.settings.builtin.dungeon;
 
 import com.github.fnar.minecraft.item.Material;
+import com.github.fnar.util.Strings;
+
+import java.util.Collections;
 
 import greymerk.roguelike.dungeon.segment.Segment;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
@@ -28,7 +31,7 @@ public class BuiltinJungleDungeonSettings extends DungeonSettings {
     super(ID);
     setExclusive(true);
     getInherit().add(BuiltinBaseSettings.ID);
-    getCriteria().setBiomeTypes(newArrayList(JUNGLE));
+    getCriteria().setBiomeTypes(Strings.asStrings(Collections.singleton(newArrayList(JUNGLE))));
     setTowerSettings(new TowerSettings(TowerType.JUNGLE, Themes.JUNGLE));
 
     for (int i = 0; i < 5; ++i) {

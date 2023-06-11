@@ -35,6 +35,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.ChunkProviderServer;
+import net.minecraftforge.common.BiomeDictionary;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -42,6 +43,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -459,5 +461,20 @@ public class WorldEditor1_12 implements WorldEditor {
   @Override
   public int getDimension() {
     return world.provider.getDimension();
+  }
+
+  @Override
+  public boolean isBiomeTypeAt(String biomeType, Coord coord) {
+    return BiomeDictionary.hasType(getBiomeAt(coord), BiomeDictionary.Type.getType(biomeType));
+  }
+
+  @Override
+  public String getBiomeName(Coord coord) {
+    ResourceLocation registryName = getBiomeAt(coord).getRegistryName();
+    if (Optional.ofNullable(registryName).isPresent()) {
+      return registryName.toString();
+    }
+    // TODO: Consider if returning empty string is appropriate, or default biome instead
+    return "";
   }
 }
