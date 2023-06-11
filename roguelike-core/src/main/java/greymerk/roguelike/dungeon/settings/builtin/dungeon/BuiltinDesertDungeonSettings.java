@@ -1,6 +1,9 @@
 package greymerk.roguelike.dungeon.settings.builtin.dungeon;
 
 import com.github.fnar.minecraft.item.Material;
+import com.github.fnar.util.Strings;
+
+import java.util.Collections;
 
 import greymerk.roguelike.dungeon.layout.LayoutGenerator;
 import greymerk.roguelike.dungeon.base.RoomType;
@@ -30,7 +33,7 @@ public class BuiltinDesertDungeonSettings extends DungeonSettings {
     super(ID);
     setExclusive(true);
     getInherit().add(BuiltinBaseSettings.ID);
-    getCriteria().setBiomeTypes(newArrayList(SANDY));
+    getCriteria().setBiomeTypes(Strings.asStrings(Collections.singleton(newArrayList(SANDY))));
     setTowerSettings(new TowerSettings(TowerType.PYRAMID, Themes.PYRAMID));
     for (int i = 0; i < 5; ++i) {
       getLootRules().add(new SingleUseLootRule(new MinecraftItemLootItem(Material.Type.GOLD_INGOT.asItem(), 0, 1, 1 + i, 1), i, 6));
