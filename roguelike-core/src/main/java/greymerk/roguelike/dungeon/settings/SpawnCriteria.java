@@ -4,18 +4,20 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import greymerk.roguelike.config.RogueConfig;
-import greymerk.roguelike.worldgen.PositionInfo;
+import greymerk.roguelike.worldgen.Coord;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 import static net.minecraftforge.common.BiomeDictionary.Type;
-import static net.minecraftforge.common.BiomeDictionary.hasType;
 
 public class SpawnCriteria {
 
@@ -23,7 +25,7 @@ public class SpawnCriteria {
   private final List<ResourceLocation> biomes = new ArrayList<>();
   private final List<Type> biomeTypes = new ArrayList<>();
   private final List<Integer> validDimensions = new ArrayList<>();
-  private ArrayList<String> biomeStrings;
+  private Set<String> biomeStrings = new HashSet<>();
 
   public SpawnCriteria() {
     this(new JsonObject());
@@ -34,6 +36,7 @@ public class SpawnCriteria {
     this.biomes.addAll(spawnCriteria.biomes);
     this.biomeTypes.addAll(spawnCriteria.biomeTypes);
     this.validDimensions.addAll(spawnCriteria.validDimensions);
+    this.biomeStrings.addAll(spawnCriteria.biomeStrings);
   }
 
   public SpawnCriteria(JsonObject data) {
@@ -44,20 +47,34 @@ public class SpawnCriteria {
     addDimensionCriteria(data);
   }
 
+  public static boolean matchesBiomeType(Type biomeType, WorldEditor worldEditor, Coord coord) {
+    return BiomeDictionary.hasType(worldEditor.getBiomeAt(coord), biomeType);
+  }
+
+  public static String getBiomeName(WorldEditor worldEditor, Coord coord) {
+    ResourceLocation registryName = worldEditor.getBiomeAt(coord).getRegistryName();
+    if (Optional.ofNullable(registryName).isPresent()) {
+      return registryName.toString();
+    }
+    // TODO: Consider if returning empty string is appropriate, or default biome instead
+    return "";
+  }
+
   public SpawnCriteria inherit(SpawnCriteria toInherit) {
     SpawnCriteria result = new SpawnCriteria(this);
     result.biomes.addAll(toInherit.biomes);
+    result.biomeStrings.addAll(toInherit.biomeStrings);
     result.biomeTypes.addAll(toInherit.biomeTypes);
     result.validDimensions.addAll(toInherit.validDimensions);
     return result;
   }
 
-  private static ArrayList<String> parseBiomes(JsonObject data) {
+  private static Set<String> parseBiomes(JsonObject data) {
     if (!data.has("biomes")) {
-      return new ArrayList<>();
+      return new HashSet<>();
     }
 
-    ArrayList<String> biomes = new ArrayList<>();
+    Set<String> biomes = new HashSet<>();
     for (JsonElement biome : data.get("biomes").getAsJsonArray()) {
       if (!biome.isJsonNull()) {
         biomes.add(biome.getAsString());
@@ -111,35 +128,32 @@ public class SpawnCriteria {
     this.biomeTypes.addAll(biomeTypes);
   }
 
-  public boolean isValid(PositionInfo positionInfo) {
-    return isBiomeValid(positionInfo)
-        && isBiomeTypeValid(positionInfo)
-        && isDimensionValid(positionInfo);
+  public boolean isValid(WorldEditor worldEditor, Coord coord) {
+    return isBiomeValid(worldEditor, coord) && isBiomeTypeValid(worldEditor, coord) && isDimensionValid(worldEditor);
   }
 
-  private boolean isBiomeValid(PositionInfo positionInfo) {
-    return biomes.isEmpty() || includesBiome(positionInfo);
+  private boolean isBiomeValid(WorldEditor worldEditor, Coord coord) {
+    return biomeStrings.isEmpty() || includesBiome(worldEditor, coord);
   }
 
-  private boolean includesBiome(PositionInfo positionInfo) {
-    return biomes.contains(positionInfo.getBiome().getRegistryName());
+  private boolean includesBiome(WorldEditor worldEditor, Coord coord) {
+    return biomeStrings.contains(getBiomeName(worldEditor, coord));
   }
 
-  private boolean isBiomeTypeValid(PositionInfo positionInfo) {
-    return biomeTypes.isEmpty() || includesBiomeType(positionInfo);
+  private boolean isBiomeTypeValid(WorldEditor worldEditor, Coord coord) {
+    return biomeTypes.isEmpty() || includesBiomeType(worldEditor, coord);
   }
 
-  private boolean includesBiomeType(PositionInfo positionInfo) {
-    Biome biomeHere = positionInfo.getBiome();
-    return biomeTypes.stream().anyMatch(biomeType -> hasType(biomeHere, biomeType));
+  private boolean includesBiomeType(WorldEditor worldEditor, Coord coord) {
+    return biomeTypes.stream().anyMatch(biomeType -> matchesBiomeType(biomeType, worldEditor, coord));
   }
 
-  private boolean isDimensionValid(PositionInfo positionInfo) {
-    return isValidDimension(positionInfo.getDimension()) && validDimensions.isEmpty() || includesDimension(positionInfo);
+  private boolean isDimensionValid(WorldEditor worldEditor) {
+    return isValidDimension(worldEditor.getDimension()) && validDimensions.isEmpty() || includesDimension(worldEditor);
   }
 
-  private boolean includesDimension(PositionInfo positionInfo) {
-    return validDimensions.contains(positionInfo.getDimension());
+  private boolean includesDimension(WorldEditor worldEditor) {
+    return validDimensions.contains(worldEditor.getDimension());
   }
 
   public List<ResourceLocation> getBiomes() {

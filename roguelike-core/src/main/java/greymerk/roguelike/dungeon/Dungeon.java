@@ -72,15 +72,10 @@ public class Dungeon {
 
   public static boolean canSpawnInChunk(int chunkX, int chunkZ, WorldEditor editor) {
     return RogueConfig.DUNGEONS_SPAWN_ENABLED.getBoolean()
-        && SpawnCriteria.isValidDimension(getDimension(chunkX, chunkZ, editor))
+        && SpawnCriteria.isValidDimension(editor.getDimension())
 //        && isVillageChunk(editor, chunkX, chunkZ)
         && isSpawnFrequencyHit(chunkX, chunkZ)
         && isSpawnChanceHit(chunkX, chunkZ);
-  }
-
-  private static int getDimension(int chunkX, int chunkZ, WorldEditor editor) {
-    final Coord coord = new Coord(chunkX * CHUNK_SIZE, 0, chunkZ * CHUNK_SIZE);
-    return editor.getInfo(coord).getDimension();
   }
 
   private static boolean isSpawnFrequencyHit(int chunkX, int chunkZ) {

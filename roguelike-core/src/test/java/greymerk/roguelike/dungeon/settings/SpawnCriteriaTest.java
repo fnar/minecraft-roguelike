@@ -19,23 +19,30 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.List;
 
-import greymerk.roguelike.worldgen.PositionInfo;
+import greymerk.roguelike.config.RogueConfig;
+import greymerk.roguelike.worldgen.Coord;
+import greymerk.roguelike.worldgen.WorldEditor;
 
 import static net.minecraftforge.common.BiomeDictionary.Type.SNOWY;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class SpawnCriteriaTest {
 
   @Mock
-  private PositionInfo mockPositionInfo;
+  private WorldEditor worldEditor;
+
+  @Mock
+  private Coord coord;
 
   @BeforeClass
   public static void beforeClass() {
     Bootstrap.register();
+    RogueConfig.testing = true;
   }
 
   @Test
@@ -81,40 +88,36 @@ public class SpawnCriteriaTest {
 
   @Test
   public void isValid_ReturnsTrue_WhenBothBiomeCriteriaAndBiomeTypeCriteriaArePresentAndSatisfied() {
-    Biome biome = Biomes.ICE_MOUNTAINS;
-    BiomeDictionary.Type biomeType = SNOWY;
-    when(mockPositionInfo.getBiome()).thenReturn(biome);
+    when(worldEditor.getBiomeAt(any(Coord.class))).thenReturn(Biomes.ICE_MOUNTAINS);
 
-    assertThat(newSpawnCriteria(biome, biomeType).isValid(mockPositionInfo)).isTrue();
+    assertThat(newSpawnCriteria(Biomes.ICE_MOUNTAINS, SNOWY).isValid(worldEditor, coord)).isTrue();
   }
 
   @Test
   public void isValid_ReturnsTrue_WhenOnlyBiomeCriteriaIsPresentAndSatisfied() {
-    Biome biome = Biomes.ICE_MOUNTAINS;
-    when(mockPositionInfo.getBiome()).thenReturn(biome);
-
-    assertThat(newSpawnCriteria(biome).isValid(mockPositionInfo)).isTrue();
+    when(worldEditor.getBiomeAt(any(Coord.class))).thenReturn(Biomes.ICE_MOUNTAINS);
+    assertThat(newSpawnCriteria(Biomes.ICE_MOUNTAINS).isValid(worldEditor, coord)).isTrue();
   }
 
   @Test
   public void isValid_ReturnsFalse_WhenOnlyBiomeCriteriaIsPresentAndIsNotSatisfied() {
-    when(mockPositionInfo.getBiome()).thenReturn(Biomes.BEACH);
+    when(worldEditor.getBiomeAt(any(Coord.class))).thenReturn(Biomes.BEACH);
 
-    assertThat(newSpawnCriteria(Biomes.ICE_MOUNTAINS).isValid(mockPositionInfo)).isFalse();
+    assertThat(newSpawnCriteria(Biomes.ICE_MOUNTAINS).isValid(worldEditor, coord)).isFalse();
   }
 
   @Test
   public void isValid_ReturnsTrue_WhenOnlyBiomeTypeCriteriaIsProvidedAndSatisfied() {
-    when(mockPositionInfo.getBiome()).thenReturn(Biomes.ICE_MOUNTAINS);
+    when(worldEditor.getBiomeAt(any(Coord.class))).thenReturn(Biomes.ICE_MOUNTAINS);
 
-    assertThat(newSpawnCriteria(SNOWY).isValid(mockPositionInfo)).isTrue();
+    assertThat(newSpawnCriteria(SNOWY).isValid(worldEditor, coord)).isTrue();
   }
 
   @Test
   public void isValid_ReturnsFalse_WhenOnlyBiomeTypeCriteriaIsProvidedAndIsNotSatisfied() {
-    when(mockPositionInfo.getBiome()).thenReturn(Biomes.BEACH);
+    when(worldEditor.getBiomeAt(any(Coord.class))).thenReturn(Biomes.BEACH);
 
-    assertThat(newSpawnCriteria(SNOWY).isValid(mockPositionInfo)).isFalse();
+    assertThat(newSpawnCriteria(SNOWY).isValid(worldEditor, coord)).isFalse();
   }
 
   private JsonArray newBiomeTypeCriteriaJson(BiomeDictionary.Type biomeType) {

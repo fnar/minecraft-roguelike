@@ -10,6 +10,7 @@ import com.github.fnar.minecraft.item.RldItemStack;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.world.biome.Biome;
 
 import java.util.Map;
 import java.util.Objects;
@@ -55,8 +56,6 @@ public interface WorldEditor {
 
   boolean canPlace(SingleBlockBrush block, Coord pos, Direction dir);
 
-  PositionInfo getInfo(Coord pos);
-
   Coord findNearestStructure(VanillaStructure type, Coord pos);
 
   void setBedColorAt(Coord cursor, DyeColor color);
@@ -80,4 +79,9 @@ public interface WorldEditor {
   boolean isEmptySlot(TreasureChest treasureChest, int slot);
 
   TreasureManager getTreasureManager();
+
+  Biome getBiomeAt(Coord coord);
+
+  int getDimension();
+
 }
