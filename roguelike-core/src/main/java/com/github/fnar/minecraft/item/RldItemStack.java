@@ -4,6 +4,7 @@ package com.github.fnar.minecraft.item;
 import com.github.fnar.minecraft.tag.CompoundTag;
 import com.github.fnar.minecraft.tag.ListTag;
 
+import com.github.fnar.minecraft.tag.StringTag;
 import greymerk.roguelike.treasure.loot.ItemHideFlags;
 
 public class RldItemStack {
@@ -89,7 +90,11 @@ public class RldItemStack {
   }
 
   public RldItemStack withDisplayLore(String... lore) {
-    ensureCompoundTag("display").withTag("Lore", new ListTag().withTags(lore));
+    //ensureCompoundTag("display").withTag("Lore", new ListTag().withTags(lore));
+
+    String translLore = "{\"translate\":\"" + lore[0] + "\"}";
+    ensureCompoundTag("display").withTag("Lore", new ListTag().withTags(translLore));
+
     return this;
   }
 
