@@ -14,6 +14,7 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import greymerk.roguelike.ItemTooltip;
 
 import greymerk.roguelike.EntityJoinWorld1_12;
 
@@ -35,6 +36,7 @@ public class Roguelike {
   @EventHandler
   public void modInit(FMLInitializationEvent event) {
     MinecraftForge.EVENT_BUS.register(new EntityJoinWorld1_12());
+    MinecraftForge.EVENT_BUS.register(new ItemTooltip());
   }
 
   @EventHandler
