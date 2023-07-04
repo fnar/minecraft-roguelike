@@ -61,7 +61,8 @@ public class SpecialBow extends SpecialEquipment {
         .withRldItem(getItem())
         .withCommonEnchantments(random)
         .withName("Yew Longbow")
-        .withLore("Superior craftsmanship", TextFormat.DARKGREEN);
+        //.withLore("Superior craftsmanship", TextFormat.DARKGREEN);
+        .withLore("lore.roguelike.yew_bow");
   }
 
   private static SpecialEquipment laminatedBow(Random random) {
@@ -71,7 +72,8 @@ public class SpecialBow extends SpecialEquipment {
         .withPower(random)
         .withCommonEnchantments(random)
         .withName("Laminated Bow")
-        .withLore("Highly polished", TextFormat.DARKGREEN);
+        //.withLore("Highly polished", TextFormat.DARKGREEN);
+        .withLore("lore.roguelike.laminated_bow");
   }
 
   private static SpecialEquipment elvenBow(Random random) {
@@ -82,7 +84,8 @@ public class SpecialBow extends SpecialEquipment {
         .withEnchantment(Enchantment.Effect.INFINITY)
         .withCommonEnchantments(random)
         .withName("Elven Bow")
-        .withLore("Beautifully crafted", TextFormat.DARKGREEN);
+        //.withLore("Beautifully crafted", TextFormat.DARKGREEN);
+        .withLore("lore.roguelike.elven_bow");
   }
 
   private static SpecialEquipment faerieBow(Random random) {
@@ -93,7 +96,8 @@ public class SpecialBow extends SpecialEquipment {
         .withEnchantment(Enchantment.Effect.MENDING)
         .withCommonEnchantments(random)
         .withName("Faerie Bow")
-        .withLore("Blessed by the Dreaming", TextFormat.DARKGREEN);
+        //.withLore("Blessed by the Dreaming", TextFormat.DARKGREEN);
+        .withLore("lore.roguelike.faerie_bow");
   }
 
   private static SpecialEquipment recurveBow(Random random) {
@@ -103,7 +107,8 @@ public class SpecialBow extends SpecialEquipment {
         .withPower(random)
         .withCommonEnchantments(random)
         .withName("Recurve Bow")
-        .withLore("Curves outward toward the target", TextFormat.DARKGREEN);
+        //.withLore("Curves outward toward the target", TextFormat.DARKGREEN);
+        .withLore("lore.roguelike.recurve_bow");
   }
 
   private static SpecialEquipment eldritchBow(Random random) {
@@ -114,7 +119,8 @@ public class SpecialBow extends SpecialEquipment {
         .withEnchantment(Enchantment.Effect.FLAME)
         .withCommonEnchantments(random)
         .withName("Eldritch Bow")
-        .withLore("Warm to the touch", TextFormat.DARKGREEN);
+        //.withLore("Warm to the touch", TextFormat.DARKGREEN);
+        .withLore("lore.roguelike.eldritch_bow");
   }
 
 }
