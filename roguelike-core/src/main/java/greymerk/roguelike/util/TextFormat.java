@@ -37,7 +37,8 @@ public enum TextFormat {
   }
 
   public String apply(String text) {
-    return String.format("§%s%s", getCodeChar(), text);
+    //return String.format("§%s%s", getCodeChar(), text);
+    return getCodeChar() + text;
   }
 
 }

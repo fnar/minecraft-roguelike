@@ -72,6 +72,10 @@ public class SpecialEquipment {
     return this;
   }
 
+  public SpecialEquipment withLore(String langkey) {
+    lore = langkey;
+    return this;
+  }
   public SpecialEquipment withLore(String s, TextFormat textFormatColor) {
     lore = textFormatColor.apply(s);
     return this;
@@ -125,7 +129,8 @@ public class SpecialEquipment {
       }
       if (enchantmentLevel == 2) {
         withPrefix("Tempered");
-        withLore("Highly Durable", TextFormat.DARKGREEN);
+        //withLore("Highly Durable", TextFormat.DARKGREEN);
+        withLore("lore.roguelike.unbreaking2");
       }
       if (enchantmentLevel == 1) {
         withPrefix("Reinforced");
