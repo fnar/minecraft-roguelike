@@ -181,7 +181,8 @@ public class FireworkRoom extends BaseRoom {
 
       RldItemStack stick = Material.Type.STICK.asItem().asStack()
           .withDisplayName(Integer.toString(i))
-          .withDisplayLore(TextFormat.DARKGRAY.apply("Random logic unit"));
+          //.withDisplayLore(TextFormat.DARKGRAY.apply("Random logic unit"));
+          .withDisplayLore("lore.roguelike.stick_rlu");
       editor.setItem(cursor, i, stick);
     }
     editor.setItem(cursor, 8, ToolType.HOE.asItem().withQuality(Quality.WOOD).asStack());

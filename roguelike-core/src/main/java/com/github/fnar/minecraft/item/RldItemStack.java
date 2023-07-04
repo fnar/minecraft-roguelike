@@ -92,8 +92,8 @@ public class RldItemStack {
   public RldItemStack withDisplayLore(String... lore) {
     //ensureCompoundTag("display").withTag("Lore", new ListTag().withTags(lore));
 
-    String translLore = "{\"translate\":\"" + lore[0] + "\"}";
-    ensureCompoundTag("display").withTag("Lore", new ListTag().withTags(translLore));
+//    String translLore = "{\"translate\":\"" + lore[0] + "\"}";
+    ensureCompoundTag("display").withTag("rldLocLore", new ListTag().withTags(lore));
 
     return this;
   }
