@@ -162,9 +162,9 @@ public enum ItemNovelty {
         .withEnchantment(Enchantment.Effect.KNOCKBACK)
         .withEnchantment(Enchantment.Effect.UNBREAKING.atLevel(2))
         .asStack()
-        .withDisplayName("Greymerk's Hatchet")
+        .withDisplayName("novelty.roguelike.greymerk.name")
         //.withDisplayLore(TextFormat.DARKGREEN.apply("Pointlessly sharp"));
-        .withDisplayLore("lore.roguelike.greymerks_hatchet");
+        .withDisplayLore("novelty.roguelike.greymerk.lore");
   }
 
   public static RldItemStack nebrisCrown() {
@@ -172,7 +172,8 @@ public enum ItemNovelty {
         .withEnchantment(Enchantment.Effect.PROTECTION.atLevel(4))
         .withEnchantment(Enchantment.Effect.UNBREAKING.atLevel(3))
         .asStack()
-        .withDisplayName("Nebrian Crown of Justice").withDisplayLore(TextFormat.DARKGREEN.apply("Adorned with precious gemstones"));
+        .withDisplayName("novelty.roguelike.nebriscrown.name")
+        .withDisplayLore("novelty.roguelike.nebriscrown.lore");
   }
 
   public static RldItemStack nullPointer() {
@@ -181,9 +182,9 @@ public enum ItemNovelty {
         .withEnchantment(Enchantment.Effect.KNOCKBACK.atLevel(2))
         .withEnchantment(Enchantment.Effect.UNBREAKING.atLevel(3))
         .asStack()
-        .withDisplayName("Null Pointer")
+        .withDisplayName("novelty.roguelike.nebrissword.name")
         //.withDisplayLore(TextFormat.DARKGREEN.apply("Exceptional"));
-        .withDisplayLore("lore.roguelike.null_pointer");
+        .withDisplayLore("novelty.roguelike.nebrissword.lore");
   }
 
   public static RldItemStack manPants() {
@@ -192,9 +193,9 @@ public enum ItemNovelty {
         .withEnchantment(Enchantment.Effect.FIRE_PROTECTION.atLevel(4))
         .withEnchantment(Enchantment.Effect.UNBREAKING.atLevel(3))
         .asStack()
-        .withDisplayName("Man Pants")
+        .withDisplayName("novelty.roguelike.zisteaupants.name")
         //.withDisplayLore(TextFormat.DARKGREEN.apply("Yessss, Manpants!"));
-        .withDisplayLore("lore.roguelike.man_pants");
+        .withDisplayLore("novelty.roguelike.zisteaupants.lore");
   }
 
   public static RldItemStack zisteauSign() {
@@ -203,9 +204,10 @@ public enum ItemNovelty {
         .withEnchantment(Enchantment.Effect.KNOCKBACK.atLevel(3))
         .withEnchantment(Enchantment.Effect.FIRE_ASPECT)
         .asStack()
-        .withDisplayName(TextFormat.DARKPURPLE.apply("Battle Sign"))
+        //.withDisplayName(TextFormat.DARKPURPLE.apply("Battle Sign"))
+        .withDisplayName("novelty.roguelike.zisteausign.name")
         //.withDisplayLore(TextFormat.DARKGREEN.apply("\"That's what you get!\""));
-        .withDisplayLore("lore.roguelike.battle_sign");
+        .withDisplayLore("novelty.roguelike.zisteausign.lore");
   }
 
   public static RldItemStack avidyasWhiteRussian() {
@@ -214,9 +216,9 @@ public enum ItemNovelty {
         .withEnchantment(Enchantment.Effect.KNOCKBACK)
         .withEnchantment(Enchantment.Effect.FIRE_ASPECT)
         .asStack()
-        .withDisplayName(TextFormat.DARKPURPLE.apply("White Russian"))
+        .withDisplayName("novelty.roguelike.avidya.name")
         //.withDisplayLore(TextFormat.DARKGREEN.apply("The dude's favourite"));
-        .withDisplayLore("lore.roguelike.white_russian");
+        .withDisplayLore("novelty.roguelike.avidya.lore");
   }
 
   public static RldItemStack ashleasOatmealCookie() {
@@ -224,9 +226,10 @@ public enum ItemNovelty {
         .withEnchantment(Enchantment.Effect.SHARPNESS.atLevel(2))
         .withEnchantment(Enchantment.Effect.KNOCKBACK)
         .asStack()
-        .withDisplayName(TextFormat.DARKPURPLE.apply("Ashlea's Oatmeal Cookie"))
+        //.withDisplayName(TextFormat.DARKPURPLE.apply("Ashlea's Oatmeal Cookie"))
+        .withDisplayName("novelty.roguelike.ashlea.name")
         //.withDisplayLore(TextFormat.DARKGREEN.apply("Perfect for elevensies"));
-        .withDisplayLore("lore.roguelike.oatmeal_cookie");
+        .withDisplayLore("novelty.roguelike.ashlea.lore");
   }
 
   public static RldItemStack farlandTravellers() {
@@ -237,9 +240,9 @@ public enum ItemNovelty {
         .withEnchantment(Enchantment.Effect.FEATHER_FALLING.atLevel(2))
         .withEnchantment(Enchantment.Effect.UNBREAKING.atLevel(3))
         .asStack()
-        .withDisplayName("Farland Travellers")
+        .withDisplayName("novelty.roguelike.kurt.name")
         //.withDisplayLore(TextFormat.DARKGREEN.apply("Indeed!"));
-        .withDisplayLore("lore.roguelike.farland_travellers");
+        .withDisplayLore("novelty.roguelike.kurt.lore");
   }
 
   public static RldItemStack lascerator() {
@@ -248,9 +251,9 @@ public enum ItemNovelty {
         .withEnchantment(Enchantment.Effect.KNOCKBACK.atLevel(2))
         .withEnchantment(Enchantment.Effect.FIRE_ASPECT)
         .asStack()
-        .withDisplayName("Lascerator")
+        .withDisplayName("novelty.roguelike.amlp.name")
         //.withDisplayLore(TextFormat.DARKGREEN.apply("The wool collector"));
-        .withDisplayLore("lore.roguelike.lascerator");
+        .withDisplayLore("novelty.roguelike.amlp.lore");
   }
 
   public static RldItemStack cleophianDiggingFeesh() {
@@ -260,9 +263,9 @@ public enum ItemNovelty {
         .withEnchantment(Enchantment.Effect.FORTUNE.atLevel(5))
         .withEnchantment(Enchantment.Effect.UNBREAKING.atLevel(10))
         .asStack()
-        .withDisplayName(TextFormat.DARKPURPLE.apply("Cleophian Digging Feesh"))
+        .withDisplayName("novelty.roguelike.cleo.name")
         //.withDisplayLore(TextFormat.DARKGREEN.apply("Feesh are not efeeshent for digging"));
-        .withDisplayLore("lore.roguelike.digging_feesh");
+        .withDisplayLore("novelty.roguelike.cleo.lore");
   }
 
   public static RldItemStack bDoubleOspinkSweater() {
@@ -270,9 +273,9 @@ public enum ItemNovelty {
         .withQuality(Quality.WOOD)
         .withColor(Color.CHINESE_RED)
         .asStack()
-        .withDisplayName("Pink Sweater")
+        .withDisplayName("novelty.roguelike.pinksweater.name")
         //.withDisplayLore("\"It's chinese red!\"");
-        .withDisplayLore("lore.roguelike.pink_sweater");
+        .withDisplayLore("novelty.roguelike.pinksweater.lore");
   }
 
   public static RldItemStack bDoubleOsDigJob() {
@@ -280,9 +283,9 @@ public enum ItemNovelty {
         .withEnchantment(Enchantment.Effect.EFFICIENCY.atLevel(5))
         .withEnchantment(Enchantment.Effect.UNBREAKING.atLevel(3))
         .asStack()
-        .withDisplayName("Dig Job")
+        .withDisplayName("novelty.roguelike.bdoubleo.name")
         //.withDisplayLore(TextFormat.DARKGREEN.apply("Recovered from hell's blazes"));
-        .withDisplayLore("lore.roguelike.dig_job");
+        .withDisplayLore("novelty.roguelike.bdoubleo.lore");
   }
 
   public static RldItemStack boulderfistianGoldenRecord() {
@@ -291,9 +294,9 @@ public enum ItemNovelty {
         .withEnchantment(Enchantment.Effect.KNOCKBACK)
         .withEnchantment(Enchantment.Effect.BLAST_PROTECTION.atLevel(3))
         .asStack()
-        .withDisplayName(TextFormat.DARKPURPLE.apply("Boulderfistian Golden Record"))
+        .withDisplayName("novelty.roguelike.guude.name")
         //.withDisplayLore(TextFormat.DARKGREEN.apply("\"You're Watching Guude Boulderfist...\""));
-        .withDisplayLore("lore.roguelike.golden_record");
+        .withDisplayLore("novelty.roguelike.guude.lore");
   }
 
   public static RldItemStack rleahianBattleSub() {
@@ -302,9 +305,9 @@ public enum ItemNovelty {
         .withEnchantment(Enchantment.Effect.KNOCKBACK)
         .withEnchantment(Enchantment.Effect.FIRE_ASPECT.atLevel(2))
         .asStack()
-        .withDisplayName(TextFormat.DARKPURPLE.apply("Rleahian battle sub"))
+        .withDisplayName("novelty.roguelike.rleahy.name")
         //.withDisplayLore(TextFormat.DARKGREEN.apply("With extra pastrami"));
-        .withDisplayLore("lore.roguelike.battle_sub");
+        .withDisplayLore("novelty.roguelike.rleahy.lore");
   }
 
   public static RldItemStack ethosYourMomJoke() {
@@ -312,9 +315,9 @@ public enum ItemNovelty {
         .withEnchantment(Enchantment.Effect.EFFICIENCY.atLevel(5))
         .withEnchantment(Enchantment.Effect.UNBREAKING.atLevel(3))
         .asStack()
-        .withDisplayName("Your Mum")
+        .withDisplayName("novelty.roguelike.etho.name")
         //.withDisplayLore(TextFormat.DARKGREEN.apply("The original"));
-        .withDisplayLore("lore.roguelike.your_mum");
+        .withDisplayLore("novelty.roguelike.etho.lore");
   }
 
   public static RldItemStack enikosStringTheory() {
@@ -324,9 +327,9 @@ public enum ItemNovelty {
         .withEnchantment(Enchantment.Effect.INFINITY)
         .withEnchantment(Enchantment.Effect.UNBREAKING.atLevel(3))
         .asStack()
-        .withDisplayName("Eniko's String Theory")
+        .withDisplayName("novelty.roguelike.enikobow.name")
         //.withDisplayLore(TextFormat.DARKGREEN.apply("For Science!"));
-        .withDisplayLore("lore.roguelike.string_theory");
+        .withDisplayLore("novelty.roguelike.enikobow.lore");
   }
 
   public static RldItemStack enikosEarring() {
@@ -335,9 +338,9 @@ public enum ItemNovelty {
         .withEnchantment(Enchantment.Effect.LOOTING.atLevel(3))
         .withEnchantment(Enchantment.Effect.UNBREAKING.atLevel(3))
         .asStack()
-        .withDisplayName("Eniko's Earring")
+        .withDisplayName("novelty.roguelike.enikosword.name")
         //.withDisplayLore(TextFormat.DARKGREEN.apply("\"She do the loot take boogie\""));
-        .withDisplayLore("lore.roguelike.enikos_earring");
+        .withDisplayLore("novelty.roguelike.enikosword.lore");
   }
 
   public static RldItemStack bajsLastResort() {
@@ -346,9 +349,9 @@ public enum ItemNovelty {
         .withEnchantment(Enchantment.Effect.KNOCKBACK)
         .withEnchantment(Enchantment.Effect.FORTUNE.atLevel(5))
         .asStack()
-        .withDisplayName(TextFormat.DARKPURPLE.apply("Baj's Last Resort"))
+        .withDisplayName("novelty.roguelike.baj.name")
         //.withDisplayLore(TextFormat.DARKGREEN.apply("\"Starvation could be fatal\""));
-        .withDisplayLore("lore.roguelike.last_resort");
+        .withDisplayLore("novelty.roguelike.baj.lore");
   }
 
   public static RldItemStack docmRodOfCommand() {
@@ -356,9 +359,9 @@ public enum ItemNovelty {
         .withEnchantment(Enchantment.Effect.SHARPNESS.atLevel(3))
         .withEnchantment(Enchantment.Effect.KNOCKBACK)
         .asStack()
-        .withDisplayName(TextFormat.DARKPURPLE.apply("Rod of Command"))
+        .withDisplayName("novelty.roguelike.docm.name")
         //.withDisplayLore(TextFormat.DARKGREEN.apply("\"Get to the dang land!\""));
-        .withDisplayLore("lore.roguelike.rod_command");
+        .withDisplayLore("novelty.roguelike.docm.lore");
   }
 
   public static RldItemStack gingerSpiceChicken() {
@@ -367,18 +370,18 @@ public enum ItemNovelty {
         .withEnchantment(Enchantment.Effect.UNBREAKING.atLevel(3))
         .withEnchantment(Enchantment.Effect.SHARPNESS)
         .asStack()
-        .withDisplayName(TextFormat.DARKPURPLE.apply("Spice Chicken"))
+        .withDisplayName("novelty.roguelike.ginger.name")
         //.withDisplayLore(TextFormat.DARKGREEN.apply("\"Kung Pao!\""));
-        .withDisplayLore("lore.roguelike.spice_chicken");
+        .withDisplayLore("novelty.roguelike.ginger.lore");
   }
 
   public static RldItemStack vechsLegendaryStick() {
     return Material.Type.STICK.asItem()
         .withEnchantment(Enchantment.Effect.UNBREAKING)
         .asStack()
-        .withDisplayName(TextFormat.DARKPURPLE.apply("Legendary Stick"))
+        .withDisplayName("novelty.roguelike.vechs.name")
         //.withDisplayLore(TextFormat.DARKGREEN.apply("\"Really?!\""));
-        .withDisplayLore("lore.roguelike.legendary_stick");
+        .withDisplayLore("novelty.roguelike.vechs.lore");
   }
 
   public static RldItemStack notchsApple() {
@@ -386,18 +389,18 @@ public enum ItemNovelty {
         .withEnchantment(Enchantment.Effect.SHARPNESS.atLevel(10))
         .withEnchantment(Enchantment.Effect.KNOCKBACK.atLevel(10))
         .asStack()
-        .withDisplayName(TextFormat.DARKPURPLE.apply("Notch's apple"))
+        .withDisplayName("novelty.roguelike.notch.name")
         //.withDisplayLore(TextFormat.DARKGREEN.apply("Imbued with the creator's power"));
-        .withDisplayLore("lore.roguelike.notch_apple");
+        .withDisplayLore("novelty.roguelike.notch.lore");
   }
 
   public static RldItemStack quantumleapsSwissCheese() {
     return BlockType.SPONGE.asItem()
         .withEnchantment(Enchantment.Effect.SHARPNESS.atLevel(4))
         .asStack()
-        .withDisplayName(TextFormat.DARKPURPLE.apply("QuantumLeap's Swiss Cheese"))
+        .withDisplayName("novelty.roguelike.quantumleap.name")
         //.withDisplayLore(TextFormat.DARKGREEN.apply("\"Oh boy\""));
-        .withDisplayLore("lore.roguelike.swiss_cheese");
+        .withDisplayLore("novelty.roguelike.quantumleap.lore");
   }
 
   public static RldItemStack generikBsHotPotato() {
@@ -406,9 +409,9 @@ public enum ItemNovelty {
         .withEnchantment(Enchantment.Effect.SHARPNESS.atLevel(2))
         .withEnchantment(Enchantment.Effect.KNOCKBACK)
         .asStack()
-        .withDisplayName(TextFormat.DARKPURPLE.apply("Hot Potato"))
+        .withDisplayName("novelty.roguelike.generikb.name")
         //.withDisplayLore(TextFormat.DARKGREEN.apply("All a hermit needs"));
-        .withDisplayLore("lore.roguelike.hot_potato");
+        .withDisplayLore("novelty.roguelike.generikb.lore");
   }
 
   public static RldItemStack fourlesDarkroastBeans() {
@@ -416,9 +419,9 @@ public enum ItemNovelty {
         .withEnchantment(Enchantment.Effect.FIRE_ASPECT.atLevel(2))
         .withEnchantment(Enchantment.Effect.SHARPNESS.atLevel(2))
         .asStack()
-        .withDisplayName(TextFormat.DARKPURPLE.apply("Fourles Darkroast Beans"))
+        .withDisplayName("novelty.roguelike.fourles.name")
         //.withDisplayLore(TextFormat.DARKGREEN.apply("\"Mmmm... Dark Roast\""));
-        .withDisplayLore("lore.roguelike.darkroast_beans");
+        .withDisplayLore("novelty.roguelike.fourles.lore");
   }
 
   public static RldItemStack oldDinnerbone() {
@@ -426,9 +429,9 @@ public enum ItemNovelty {
         .withEnchantment(Enchantment.Effect.SHARPNESS.atLevel(3))
         .withEnchantment(Enchantment.Effect.FIRE_ASPECT.atLevel(2))
         .asStack()
-        .withDisplayName(TextFormat.DARKPURPLE.apply("Old Dinnerbone"))
+        .withDisplayName("novelty.roguelike.dinnerbone.name")
         //.withDisplayLore(TextFormat.DARKGREEN.apply("\"Dang Skellies!\""));
-        .withDisplayLore("lore.roguelike.old_dinnerbone");
+        .withDisplayLore("novelty.roguelike.dinnerbone.lore");
   }
 
   public static RldItemStack grimChewToy() {
@@ -436,9 +439,9 @@ public enum ItemNovelty {
         .withEnchantment(Enchantment.Effect.SMITE.atLevel(2))
         .withEnchantment(Enchantment.Effect.LOOTING)
         .asStack()
-        .withDisplayName(TextFormat.DARKPURPLE.apply("Grim chew-toy"))
+        .withDisplayName("novelty.roguelike.grim.name")
         //.withDisplayLore(TextFormat.DARKGREEN.apply("\"Come on Grim, let's do this!\""));
-        .withDisplayLore("lore.roguelike.chew_toy");
+        .withDisplayLore("novelty.roguelike.grim.lore");
   }
 
   public static RldItemStack mmillssSpiderBane() {
@@ -447,9 +450,9 @@ public enum ItemNovelty {
         .withEnchantment(Enchantment.Effect.THORNS.atLevel(2))
         .withEnchantment(Enchantment.Effect.LOOTING)
         .asStack()
-        .withDisplayName(TextFormat.DARKPURPLE.apply("MMillssian spider bane"))
+        .withDisplayName("novelty.roguelike.mmillss.name")
         //.withDisplayLore(TextFormat.DARKGREEN.apply("\"I really don't need anymore string...\""));
-        .withDisplayLore("lore.roguelike.spider_bane");
+        .withDisplayLore("novelty.roguelike.mmillss.lore");
   }
 
   public static RldItemStack valandrahsKiss() {
@@ -459,9 +462,9 @@ public enum ItemNovelty {
         .withEnchantment(Enchantment.Effect.KNOCKBACK)
         .withEnchantment(Enchantment.Effect.UNBREAKING.atLevel(2))
         .asStack()
-        .withDisplayName("Valandrah's Kiss")
+        .withDisplayName("novelty.roguelike.valandrah.name")
         //.withDisplayLore(TextFormat.DARKGREEN.apply("\"Feel the kiss of my blade\""));
-        .withDisplayLore("lore.roguelike.valandrahs_kiss");
+        .withDisplayLore("novelty.roguelike.valandrah.lore");
   }
 
 }

@@ -30,7 +30,7 @@ public class CommandRouteBiome1_12 extends CommandRouteBase {
       return;
     }
 
-    context.sendSpecial("Biome Information for " + pos);
+    context.sendSpecial("notif.roguelike.biomeinfo",pos.toString());
 
     WorldEditor editor = context.createEditor();
     Biome biome = editor.getBiomeAt(pos);
@@ -57,7 +57,7 @@ public class CommandRouteBiome1_12 extends CommandRouteBase {
         x = CommandBase.parseInt(ap.get(0));
         z = CommandBase.parseInt(ap.get(1));
       } catch (NumberInvalidException e) {
-        context.sendFailure("Invalid Coords: X Z");
+        context.sendFailure("invalidcoords", "X Z");
         return null;
       }
       pos = new Coord(x, 0, z);

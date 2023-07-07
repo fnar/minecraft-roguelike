@@ -19,10 +19,10 @@ public class CommandRouteConfig extends CommandRouteBase {
     ArgumentParser ap = new ArgumentParser(args);
 
     if (!ap.hasEntry(0)) {
-      context.sendInfo("Usage: roguelike config reload");
+      context.sendInfo("notif.roguelike.usage_", "roguelike config reload");
     } else if (ap.match(0, "reload")) {
       RogueConfig.reload(true);
-      context.sendSuccess("Configurations Reloaded");
+      context.sendSuccess("configreloaded");
     }
   }
 
