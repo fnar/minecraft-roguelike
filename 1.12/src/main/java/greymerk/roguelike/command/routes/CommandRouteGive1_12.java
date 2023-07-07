@@ -21,18 +21,18 @@ public class CommandRouteGive1_12 extends CommandRouteBase {
     ArgumentParser ap = new ArgumentParser(args);
 
     if (!ap.hasEntry(0)) {
-      context.sendInfo("Usage: roguelike give novelty_name");
+      context.sendInfo("notif.roguelike.usage_", "roguelike give novelty_name");
       return;
     }
 
     String name = ap.get(0);
     RldItemStack item = ItemNovelty.getItemByName(name);
     if (item == null) {
-      context.sendFailure("No such item");
+      context.sendFailure("nosuchitem");
       return;
     }
 
     context.give(item);
-    context.sendSuccess("Given " + name);
+    context.sendSuccess("given", name);
   }
 }

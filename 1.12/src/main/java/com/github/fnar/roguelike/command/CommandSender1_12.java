@@ -9,7 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.*;
 
 import greymerk.roguelike.command.CommandSender;
 import greymerk.roguelike.command.MessageType;
@@ -26,9 +26,18 @@ public class CommandSender1_12 implements CommandSender {
 
   @Override
   public void sendMessage(String message, MessageType type) {
-    String formattedMessage = type.apply(message);
-    TextComponentString text = new TextComponentString(formattedMessage);
-    commandSender.sendMessage(text);
+    //String formattedMessage = type.apply(message);
+    //TextComponentString text = new TextComponentString(formattedMessage);
+    //commandSender.sendMessage(text);
+
+    ITextComponent formattedMessage = new TextComponentTranslation(message).setStyle(new Style().setColor(type.getTextFormat().toTextFormatting()));
+    commandSender.sendMessage(formattedMessage);
+  }
+
+  @Override
+  public void sendMessage(String message, String details, MessageType type) {
+    ITextComponent formattedMessage = (new TextComponentTranslation(message).setStyle(new Style().setColor(type.getTextFormat().toTextFormatting()))).appendText(" " + details);
+    commandSender.sendMessage(formattedMessage);
   }
 
   @Override

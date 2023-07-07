@@ -75,7 +75,8 @@ public class RldItemStack {
   }
 
   public RldItemStack withDisplayName(String name) {
-    ensureCompoundTag("display").withTag("Name", name);
+    //ensureCompoundTag("display").withTag("Name", name);
+    ensureCompoundTag("display").withTag("LocName", name);
     return this;
   }
 

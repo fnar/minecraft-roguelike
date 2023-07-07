@@ -33,7 +33,7 @@ public class CommandRouteTower extends CommandRouteBase {
           .stream()
           .map(String::toLowerCase)
           .collect(Collectors.toList());
-      context.sendInfo("Tower types: " + StringUtils.join(towers, " "));
+      context.sendInfo("notif.roguelike.towertypes", StringUtils.join(towers, " "));
 
       return;
     }
@@ -42,7 +42,7 @@ public class CommandRouteTower extends CommandRouteBase {
     try {
       type = TowerType.get(towerName.toUpperCase());
     } catch (Exception e) {
-      context.sendFailure("No such tower type: " + towerName);
+      context.sendFailure("nosuchtower", towerName);
       return;
     }
 
@@ -52,7 +52,8 @@ public class CommandRouteTower extends CommandRouteBase {
     Theme theme = TowerType.getDefaultTheme(type).getThemeBase();
     Tower tower = TowerType.instantiate(type, worldEditor, theme);
     tower.generate(here);
-    context.sendSuccess(towerName + " Tower generated at " + here);
+    //context.sendSuccess(towerName + " Tower generated at " + here);
+    context.sendSuccess(towerName + "_generated",here.toString());
   }
 
   @Override

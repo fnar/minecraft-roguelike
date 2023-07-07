@@ -19,23 +19,43 @@ public class CommandContext1_12 {
   }
 
   public void sendFailure(String message) {
-    sendMessage("Failure: " + message, MessageType.ERROR);
+    sendMessage("notif.roguelike.failure_" + message, MessageType.ERROR);
+  }
+
+  public void sendFailure(String message, String details) {
+    sendMessage("notif.roguelike.failure_" + message, details, MessageType.ERROR);
   }
 
   public void sendInfo(String message) {
     sendMessage(message, MessageType.INFO);
   }
 
+  public void sendInfo(String message, String details) {
+    sendMessage(message, details, MessageType.INFO);
+  }
+
   public void sendSpecial(String message) {
     sendMessage(message, MessageType.SPECIAL);
   }
 
+  public void sendSpecial(String message, String details) {
+    sendMessage(message, details, MessageType.SPECIAL);
+  }
+
   public void sendSuccess(String message) {
-    sendMessage("Success: " + message, MessageType.SUCCESS);
+    sendMessage("notif.roguelike.success_" + message, MessageType.SUCCESS);
+  }
+
+  public void sendSuccess(String message, String details) {
+    sendMessage("notif.roguelike.success_" + message, details, MessageType.SUCCESS);
   }
 
   public void sendMessage(String message, MessageType type) {
     commandSender.sendMessage(message, type);
+  }
+
+  public void sendMessage(String message, String details, MessageType type) {
+    commandSender.sendMessage(message, details, type);
   }
 
   public WorldEditor createEditor() {
