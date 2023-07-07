@@ -22,7 +22,8 @@ public class CommandRouteRoguelike1_12 extends CommandRouteBase {
   @Override
   public void execute(CommandContext1_12 context, List<String> args) {
     if (args.size() == 0) {
-      context.sendInfo("Usage: roguelike [dungeon | give | config | settings | tower]");
+      //context.sendInfo("Usage: roguelike [dungeon | give | config | settings | tower]");
+      context.sendInfo("notif.roguelike.usage_", "roguelike [dungeon | give | config | settings | tower]");
     }
 
     super.execute(context, args);

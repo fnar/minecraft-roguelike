@@ -34,7 +34,7 @@ public class CommandRouteDungeon extends CommandRouteBase {
       int z = commandBase.parseInt(argumentParser.get(1));
       return new Coord(x, 0, z);
     } catch (RuntimeException e) {
-      context.sendFailure("Invalid Coords: X Z");
+      context.sendFailure("invalidcoords", "X Z");
       throw (e);
     }
   }
@@ -43,7 +43,7 @@ public class CommandRouteDungeon extends CommandRouteBase {
   public void execute(CommandContext1_12 context, List<String> args) {
     ArgumentParser argumentParser = new ArgumentParser(args);
     if (!argumentParser.hasEntry(0)) {
-      context.sendInfo("Usage: roguelike dungeon {X Z | here} [setting]");
+      context.sendInfo("notif.roguelike.usage_", "roguelike dungeon {X Z | here} [setting]");
       return;
     }
     String settingName = getSettingName(argumentParser);
@@ -101,7 +101,7 @@ public class CommandRouteDungeon extends CommandRouteBase {
   private void generateDungeon(CommandContext1_12 context, Coord coord, WorldEditor editor, DungeonSettings dungeonSettings) {
     Dungeon dungeon = new Dungeon(editor);
     dungeon.generate(dungeonSettings, coord);
-    context.sendSuccess(String.format("Successfully generated dungeon with id %s at %s.%n", dungeonSettings.getId(), coord));
+    context.sendSuccess("generateddungeon", String.format("%s at %s.%n", dungeonSettings.getId(), coord));
   }
 
   private String getSettingName(ArgumentParser argumentParser) {

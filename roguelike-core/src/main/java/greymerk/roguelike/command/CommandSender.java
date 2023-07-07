@@ -9,6 +9,8 @@ public interface CommandSender {
 
   void sendMessage(String message, MessageType type);
 
+  void sendMessage(String message, String details, MessageType type);
+
   void give(RldItemStack item);
 
   WorldEditor createWorldEditor();
