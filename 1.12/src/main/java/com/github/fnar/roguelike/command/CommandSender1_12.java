@@ -36,7 +36,8 @@ public class CommandSender1_12 implements CommandSender {
 
   @Override
   public void sendMessage(String message, String details, MessageType type) {
-    ITextComponent formattedMessage = (new TextComponentTranslation(message).setStyle(new Style().setColor(type.getTextFormat().toTextFormatting()))).appendText(" " + details);
+    ITextComponent formattedMessage = (new TextComponentTranslation(message).setStyle(new Style().setColor(type.getTextFormat().toTextFormatting())))
+            .appendText(" ").appendSibling(new TextComponentString(details));
     commandSender.sendMessage(formattedMessage);
   }
 

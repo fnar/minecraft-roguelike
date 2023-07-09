@@ -12,13 +12,7 @@ lore.roguelike.fire_aspect1=§e§oWarm to the touch
 lore.roguelike.fire_aspect2=§c§oAlmost too hot to hold
 lore.roguelike.fire_aspect3=§4§oFrom the fiery depths
 lore.roguelike.stick_rlu=§8§oRandom logic unit
-lore.roguelike.laudanum=§5§oA medicinal tincture.
-lore.roguelike.animus=§5§oAn unstable mixture.
-lore.roguelike.vitae=§5§oEssence of life.
-lore.roguelike.stout=§5§o"It's Good for You"
-lore.roguelike.nectar=§5§oA Floral extract.
-lore.roguelike.coffee=§5§oA darkroast bean brew.
-lore.roguelike.luma=§5§oA glowstone extract.
+
 
 # Novelty items
 novelty.roguelike.greymerk.name=§oGreymerk's Hatchet
@@ -107,3 +101,33 @@ notif.roguelike.success_villager_house_generated=Success: Villager House Tower g
 notif.roguelike.success_witch_generated=Success: Witch Tower generated at
 notif.roguelike.success_configreloaded=Configurations Reloaded
 notif.roguelike.success_generateddungeon=Success: Successfully generated dungeon with id
+notif.roguelike.success_settingsreloaded=Success: Settings reloaded successfully.
+notif.roguelike.success_settingslisted=Success: Settings listed successfully.
+
+# Potions Mixtures
+mixture.roguelike.absinthe.name=§oAbsinthe
+mixture.roguelike.absinthe.lore=
+mixture.roguelike.aura.name=§oLuma
+mixture.roguelike.aura.lore=§5§oA glowstone extract.
+mixture.roguelike.coffee.name=§oCoffee
+mixture.roguelike.coffee.lore=§5§oA darkroast bean brew.
+mixture.roguelike.laudanum.name=§oLaudanum
+mixture.roguelike.laudanum.lore=§5§oA medicinal tincture.
+mixture.roguelike.moonshine.name=§oMoonshine
+mixture.roguelike.moonshine.lore=
+mixture.roguelike.nectar.name=§oNectar
+mixture.roguelike.nectar.lore=§5§oA Floral extract.
+mixture.roguelike.rage.name=§oAnimus
+mixture.roguelike.rage.lore=§5§oAn unstable mixture.
+mixture.roguelike.stamina.name=§oVitae
+mixture.roguelike.stamina.lore=§5§oEssence of life.
+mixture.roguelike.stout.name=§oStout
+mixture.roguelike.stout.lore=§5§o"It's Good for You"
+mixture.roguelike.tequila.name=§oTequila
+mixture.roguelike.tequila.lore=
+mixture.roguelike.vile.name=§oVile Mixture
+mixture.roguelike.vile.lore=
+
+
+
+
