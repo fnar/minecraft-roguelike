@@ -79,7 +79,8 @@ public enum PotionMixture {
         .withEffect(Effect.newEffect(EffectType.FATIGUE, 0, 30 + random.nextInt(60)))
         .withColor(Color.POPCORN)
         .asStack()
-        .withDisplayName("Tequila")
+        //.withDisplayName("Tequila")
+        .withDisplayName("mixture.roguelike.tequila.name")
         .withHideFlag(ItemHideFlags.EFFECTS);
   }
 
@@ -92,9 +93,10 @@ public enum PotionMixture {
         .withEffect(Effect.newEffect(EffectType.NAUSEA, 0, 5))
         .withColor(Color.SPLIT_PEA_SOUP)
         .asStack()
-        .withDisplayName("Laudanum")
+        //.withDisplayName("Laudanum")
+        .withDisplayName("mixture.roguelike.laudanum.name")
         //.withDisplayLore("A medicinal tincture.")
-        .withDisplayLore("lore.roguelike.laudanum")
+        .withDisplayLore("mixture.roguelike.laudanum.lore")
         .withHideFlag(ItemHideFlags.EFFECTS);
   }
 
@@ -106,7 +108,8 @@ public enum PotionMixture {
             .withEffect(Effect.newEffect(EffectType.RESISTANCE, 1, 30 + random.nextInt(30)))
             .withColor(Color.ICE_FISHING)
             .asStack()
-            .withDisplayName("Moonshine")
+            //.withDisplayName("Moonshine")
+            .withDisplayName("mixture.roguelike.moonshine.name")
             .withHideFlag(ItemHideFlags.EFFECTS);
   }
 
@@ -118,7 +121,8 @@ public enum PotionMixture {
             .withEffect(Effect.newEffect(EffectType.JUMP, 2, 120))
             .withColor(Color.ADVERTISING_GREEN)
             .asStack()
-            .withDisplayName("Absinthe")
+            //.withDisplayName("Absinthe")
+            .withDisplayName("mixture.roguelike.absinthe.name")
             .withHideFlag(ItemHideFlags.EFFECTS);
   }
 
@@ -141,7 +145,8 @@ public enum PotionMixture {
                 .withDuration(getSuggestedDuration(random, randomEffect1)))
             .withColor(Color.random(random))
             .asStack()
-            .withDisplayName("Vile Mixture")
+            //.withDisplayName("Vile Mixture")
+            .withDisplayName("mixture.roguelike.vile.name")
             .withHideFlag(ItemHideFlags.EFFECTS);
   }
 
@@ -153,9 +158,10 @@ public enum PotionMixture {
             .withEffect(Effect.newEffect(EffectType.WITHER, 0, 3))
             .withColor(Color.BLUE)
             .asStack()
-            .withDisplayName("Animus")
+            //.withDisplayName("Animus")
+            .withDisplayName("mixture.roguelike.rage.name")
             //.withDisplayLore("An unstable mixture.")
-            .withDisplayLore("lore.roguelike.animus")
+            .withDisplayLore("mixture.roguelike.rage.lore")
             .withHideFlag(ItemHideFlags.EFFECTS);
   }
 
@@ -168,9 +174,10 @@ public enum PotionMixture {
             .withEffect(Effect.newEffect(EffectType.JUMP, 2, 120))
             .withColor(Color.WHITE)
             .asStack()
-            .withDisplayName("Vitae")
+            //.withDisplayName("Vitae")
+            .withDisplayName("mixture.roguelike.stamina.name")
             //.withDisplayLore("Essence of life.")
-            .withDisplayLore("lore.roguelike.vitae")
+            .withDisplayLore("mixture.roguelike.stamina.lore")
             .withHideFlag(ItemHideFlags.EFFECTS);
   }
 
@@ -183,9 +190,10 @@ public enum PotionMixture {
             .withEffect(Effect.newEffect(EffectType.RESISTANCE, 0, 120))
             .withColor(Color.ENGLISH_BREAKFAST)
             .asStack()
-            .withDisplayName("Stout")
+            //.withDisplayName("Stout")
+            .withDisplayName("mixture.roguelike.stout.name")
             //.withDisplayLore("\"It's Good for You\"")
-            .withDisplayLore("lore.roguelike.stout")
+            .withDisplayLore("mixture.roguelike.stout.lore")
             .withHideFlag(ItemHideFlags.EFFECTS);
   }
 
@@ -197,9 +205,10 @@ public enum PotionMixture {
             .withEffect(Effect.newEffect(EffectType.HEALTH, 1, 1))
             .withColor(Color.SUNNY_MOOD)
             .asStack()
-            .withDisplayName("Nectar")
+            //.withDisplayName("Nectar")
+            .withDisplayName("mixture.roguelike.nectar.name")
             //.withDisplayLore("A Floral extract.")
-            .withDisplayLore("lore.roguelike.nectar")
+            .withDisplayLore("mixture.roguelike.nectar.lore")
             .withHideFlag(ItemHideFlags.EFFECTS);
   }
 
@@ -210,9 +219,10 @@ public enum PotionMixture {
             .withEffect(Effect.newEffect(EffectType.SPEED, 0, 600))
             .withColor(Color.COFFEE)
             .asStack()
-            .withDisplayName("Coffee")
+            //.withDisplayName("Coffee")
+            .withDisplayName("mixture.roguelike.coffee.name")
             //.withDisplayLore("A darkroast bean brew.")
-            .withDisplayLore("lore.roguelike.coffee")
+            .withDisplayLore("mixture.roguelike.coffee.lore")
             .withHideFlag(ItemHideFlags.EFFECTS);
   }
 
@@ -222,9 +232,10 @@ public enum PotionMixture {
             .withEffect(Effect.newEffect(EffectType.GLOWING, 0, 600))
             .withColor(Color.DELAYED_YELLOW)
             .asStack()
-            .withDisplayName("Luma")
+            //.withDisplayName("Luma")
+            .withDisplayName("mixture.roguelike.aura.name")
             //.withDisplayLore("A glowstone extract.")
-            .withDisplayLore("lore.roguelike.luma")
+            .withDisplayLore("mixture.roguelike.aura.lore")
             .withHideFlag(ItemHideFlags.EFFECTS);
   }
 

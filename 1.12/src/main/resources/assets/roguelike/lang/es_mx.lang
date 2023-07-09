@@ -13,13 +13,6 @@ lore.roguelike.fire_aspect1=§e§oCálido al tacto
 lore.roguelike.fire_aspect2=§c§oTan caliente que casi te quema la mano
 lore.roguelike.fire_aspect3=§4§oDe las profundidades del infierno
 lore.roguelike.stick_rlu=§8§oUnidad de lógica aleatoria
-lore.roguelike.laudanum=§5§oUna tintura medicinal.
-lore.roguelike.animus=§5§oUna mezcla inestable.
-lore.roguelike.vitae=§5§oLa esencia de la vida.
-lore.roguelike.stout=§5§o"Es buena para tí"
-lore.roguelike.nectar=§5§oUn extracto floral.
-lore.roguelike.coffee=§5§oDestilado de granos tostados.
-lore.roguelike.luma=§5§oUn extracto de piedra brillante.
 
 # Novelty items
 novelty.roguelike.greymerk.name=§oHacha de Greymerk
@@ -108,3 +101,29 @@ notif.roguelike.success_villager_house_generated=Exito: Torre Villager House gen
 notif.roguelike.success_witch_generated=Exito: Torre Witch generada en
 notif.roguelike.success_configreloaded=Configuraciones recargadas
 notif.roguelike.success_generateddungeon=Exito: Calabozo generado satisfactoriamente con el ID
+notif.roguelike.success_settingsreloaded=Exito: Las configuraciones se volvieron a cargar satisfactoriamente.
+notif.roguelike.success_settingslisted=Exito: Configuraciones enlistadas satisfactoriamente.
+
+# Potions Mixtures
+mixture.roguelike.absinthe.name=§oAbsinthe
+mixture.roguelike.absinthe.lore=
+mixture.roguelike.aura.name=§oLuma
+mixture.roguelike.aura.lore=§5§oUn extracto de piedra brillante.
+mixture.roguelike.coffee.name=§oCafé
+mixture.roguelike.coffee.lore=§5§oDestilado de granos tostados.
+mixture.roguelike.laudanum.name=§oLaudanio
+mixture.roguelike.laudanum.lore=§5§oUna tintura medicinal.
+mixture.roguelike.moonshine.name=§oBrillo lunar
+mixture.roguelike.moonshine.lore=
+mixture.roguelike.nectar.name=§oNéctar
+mixture.roguelike.nectar.lore=§5§oUn extracto floral.
+mixture.roguelike.rage.name=§oAnimus
+mixture.roguelike.rage.lore=§5§oUna mezcla inestable.
+mixture.roguelike.stamina.name=§oVitae
+mixture.roguelike.stamina.lore=§5§oLa esencia de la vida.
+mixture.roguelike.stout.name=§oStout
+mixture.roguelike.stout.lore=§5§o"Es buena para tí"
+mixture.roguelike.tequila.name=§oTequila
+mixture.roguelike.tequila.lore=
+mixture.roguelike.vile.name=§oMezcla vil
+mixture.roguelike.vile.lore=

@@ -23,13 +23,13 @@ public class CommandRouteSettings extends CommandRouteBase {
     ArgumentParser argumentParser = new ArgumentParser(args);
 
     if (!argumentParser.hasEntry(0)) {
-      context.sendInfo("Usage: roguelike settings [reload | list]");
+      context.sendInfo("notif.roguelike.usage_", "roguelike settings [reload | list]");
       return;
     }
 
     if (argumentParser.match(0, "reload")) {
       new ReloadSettingsCommand(
-          () -> context.sendSuccess("Settings reloaded successfully."),
+          () -> context.sendSuccess("settingsreloaded"),
           context::sendFailure
       ).run();
     }
@@ -38,7 +38,7 @@ public class CommandRouteSettings extends CommandRouteBase {
       String namespace = argumentParser.hasEntry(1) ? argumentParser.get(1) : "";
 
       Consumer<Exception> onException = context::sendFailure;
-      Runnable onSuccess = () -> context.sendSuccess("Settings listed successfully.");
+      Runnable onSuccess = () -> context.sendSuccess("settingslisted");
       Runnable onRun = () -> {
         try {
           SettingsResolver settingsResolver = SettingsResolver.initSettingsResolver();
