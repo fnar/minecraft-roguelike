@@ -11,7 +11,8 @@ public class SpecialPickaxe extends SpecialTool {
 
   public SpecialPickaxe(Random random, Quality quality) {
     withQuality(quality);
-    withName(quality.getDescriptor() + " Pick");
+    //withName(quality.getDescriptor() + " Pick");
+    withName(quality.getDescriptor() + "." + "pick");
     withRldItem(getItem());
     withToolEnchantments(random);
     withCommonEnchantments(random);

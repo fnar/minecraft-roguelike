@@ -32,7 +32,8 @@ public class SpecialHelmet extends SpecialArmour {
     withEnchantment(Enchantment.Effect.RESPIRATION.atLevel(3));
     withEnchantment(Enchantment.Effect.AQUA_AFFINITY);
     withEnchantment(Enchantment.Effect.PROTECTION.atLevel(SpecialArmour.getProtectionLevel(getQuality(), random)));
-    withSuffix("of Diving");
+    //withSuffix("of Diving");
+    withSuffix("diving");
   }
 
   private RldItem getItem() {
@@ -40,7 +41,7 @@ public class SpecialHelmet extends SpecialArmour {
   }
 
   private String getSpecialHelmetName() {
-    switch (getQuality()) {
+    /*switch (getQuality()) {
       case DIAMOND:
         return "Helm";
       case GOLD:
@@ -52,6 +53,7 @@ public class SpecialHelmet extends SpecialArmour {
       case WOOD:
       default:
         return "Skullcap";
-    }
+    }*/
+    return "helmet";
   }
 }

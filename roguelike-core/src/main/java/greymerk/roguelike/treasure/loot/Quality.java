@@ -5,11 +5,11 @@ import java.util.Random;
 
 public enum Quality {
 
-  WOOD("Hand-carved", "leather", "wooden"),
-  STONE("Stonecut", "chainmail", "stone"),
-  IRON("Iron", "iron", "iron"),
-  GOLD("Gilded", "golden", "golden"),
-  DIAMOND("Crystal", "diamond", "diamond");
+  WOOD("wood", "leather", "wooden"), // WOOD("Hand-carved", "leather", "wooden"),
+  STONE("stone", "chainmail", "stone"), // STONE("Stonecut", "chainmail", "stone"),
+  IRON("iron", "iron", "iron"), // IRON("Iron", "iron", "iron"),
+  GOLD("gold", "golden", "golden"), // GOLD("Gilded", "golden", "golden"),
+  DIAMOND("diamond", "diamond", "diamond"); // DIAMOND("Crystal", "diamond", "diamond");
 
   Quality(String descriptor, String armorName, String toolName) {
     this.descriptor = descriptor;

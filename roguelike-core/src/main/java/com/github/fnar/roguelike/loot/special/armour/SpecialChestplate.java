@@ -28,7 +28,7 @@ public class SpecialChestplate extends SpecialArmour {
   }
 
   private String getChestplateName() {
-    switch (getQuality()) {
+    /*switch (getQuality()) {
       case DIAMOND:
         return "Plate";
       case GOLD:
@@ -39,7 +39,8 @@ public class SpecialChestplate extends SpecialArmour {
       case WOOD:
       default:
         return "Tunic";
-    }
+    }*/
+    return "chestplate";
   }
 
 }
