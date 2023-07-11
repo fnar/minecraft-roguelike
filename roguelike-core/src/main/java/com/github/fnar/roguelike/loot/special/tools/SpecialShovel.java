@@ -10,7 +10,8 @@ import greymerk.roguelike.treasure.loot.Quality;
 public class SpecialShovel extends SpecialTool {
 
   public SpecialShovel(Random random, Quality quality) {
-    withName(quality == Quality.IRON ? "Grave Spade" : quality.getDescriptor() + " Spade");
+    //withName(quality == Quality.IRON ? "Grave Spade" : quality.getDescriptor() + " Spade");
+    withName(quality.getDescriptor() + "." + "shovel");
     withRldItem(getItem(quality));
     withToolEnchantments(random);
     withCommonEnchantments(random);

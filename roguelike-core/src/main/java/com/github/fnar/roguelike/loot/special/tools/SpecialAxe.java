@@ -11,11 +11,12 @@ public class SpecialAxe extends SpecialTool {
 
   public SpecialAxe(Random random, Quality quality) {
     withQuality(quality);
-    if (quality == Quality.IRON) {
-      withName("Woodland Hatchet");
-    } else {
-      withName(quality.getDescriptor() + " Axe");
-    }
+    //if (quality == Quality.IRON) {
+      //withName("Woodland Hatchet");
+    //} else {
+      //withName(quality.getDescriptor() + " Axe");
+      withName(quality.getDescriptor() + "." + "axe");
+    //}
     withRldItem(getItem());
     withToolEnchantments(random);
     withCommonEnchantments(random);

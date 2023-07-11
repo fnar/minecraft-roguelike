@@ -11,7 +11,8 @@ import greymerk.roguelike.util.TextFormat;
 public class SpecialHoe extends SpecialTool {
 
   public SpecialHoe(Random random, Quality quality) {
-    withName(quality == Quality.DIAMOND ? "Useless Hoe" : quality.getDescriptor() + " Hoe");
+    //withName(quality == Quality.DIAMOND ? "Useless Hoe" : quality.getDescriptor() + " Hoe");
+    withName(quality.getDescriptor() + "." + "hoe");
     withRldItem(getItem(quality));
     withToolEnchantments(random);
     withCommonEnchantments(random);
