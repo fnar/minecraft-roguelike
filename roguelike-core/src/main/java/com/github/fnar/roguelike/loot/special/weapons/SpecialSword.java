@@ -35,7 +35,8 @@ public class SpecialSword extends SpecialEquipment {
         .withRldItem(getItem().withQuality(quality))
         .withSwordEnchantments(random)
         .withCommonEnchantments(random)
-        .withName(quality.getDescriptor() + " Blade");
+        //.withName(quality.getDescriptor() + " Blade");
+        .withName(quality.getDescriptor() + "." + "sword");
   }
 
   public SpecialSword withSwordEnchantments(Random random) {
@@ -66,11 +67,13 @@ public class SpecialSword extends SpecialEquipment {
     }
     withEnchantment(Enchantment.Effect.LOOTING.atLevel(enchantmentLevel));
     if (enchantmentLevel < 3) {
-      withPrefix("Burglar's");
+      //withPrefix("Burglar's");
+      withPrefix("loot2");
     } else {
-      //withLore("Once belonged to a king of hidden desert thieves.", TextFormat.DARKGREEN);
+      //withPrefix("Bandit King's");
+      withPrefix("loot3");
+      // withLore("Once belonged to a king of hidden desert thieves.", TextFormat.DARKGREEN);
       withLore("lore.roguelike.looting3");
-      withPrefix("Bandit King's");
     }
     return this;
   }
@@ -85,21 +88,24 @@ public class SpecialSword extends SpecialEquipment {
     }
     withEnchantment(Enchantment.Effect.FIRE_ASPECT.atLevel(enchantmentLevel));
     if (enchantmentLevel == 1) {
+      //withPrefix("Ember");
+      withPrefix("fire1");
       //withLore("Warm to the touch", TextFormat.YELLOW);
       withLore("lore.roguelike.fire_aspect1");
-      withPrefix("Ember");
       return this;
     }
 
     if (enchantmentLevel == 2) {
+      //withPrefix("Fiery");
+      withPrefix("fire2");
       //withLore("Almost too hot to hold", TextFormat.RED);
       withLore("lore.roguelike.fire_aspect2");
-      withPrefix("Fiery");
       return this;
     }
+    //withSuffix("of the Inferno");
+    withSuffix("fire3");
     //withLore("From the fiery depths", TextFormat.DARKRED);
     withLore("lore.roguelike.fire_aspect3");
-    withSuffix("of the Inferno");
     return this;
   }
 

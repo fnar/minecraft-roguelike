@@ -28,7 +28,7 @@ public class SpecialLeggings extends SpecialArmour {
   }
 
   private String getSpecialLeggingsName() {
-    switch (getQuality()) {
+    /*switch (getQuality()) {
       case DIAMOND:
         return "Leggings";
       case GOLD:
@@ -39,6 +39,7 @@ public class SpecialLeggings extends SpecialArmour {
       case WOOD:
       default:
         return "Pantaloons";
-    }
+    }*/
+    return "leggings";
   }
 }

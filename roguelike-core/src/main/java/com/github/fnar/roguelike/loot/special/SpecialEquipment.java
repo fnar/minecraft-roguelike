@@ -104,15 +104,15 @@ public class SpecialEquipment {
     withEnchantment(Enchantment.Effect.MENDING);
 
     String[] descriptors = new String[]{
-        "Alchemical",
-        "Prideful",
-        "Forbidden",
-        "Fnar's Lucky",
-        "Greymerk's Lost",
-        "Cheater's",
-        "Quicksilver",
-        "Living",
-        "Autonomous"
+        "mend_0", // "Alchemical",
+        "mend_1", // "Prideful",
+        "mend_2", // "Forbidden",
+        "mend_3", // "Fnar's Lucky",
+        "mend_4", // "Greymerk's Lost",
+        "mend_5", // "Cheater's",
+        "mend_6", // "Quicksilver",
+        "mend_7", // "Living",
+        "mend_8", // "Autonomous"
     };
 
     withPrefix(descriptors[random.nextInt(descriptors.length)]);
@@ -125,32 +125,35 @@ public class SpecialEquipment {
       withEnchantment(Enchantment.Effect.UNBREAKING.atLevel(enchantmentLevel));
 
       if (enchantmentLevel >= 3) {
-        withPrefix("Masterwork");
+        //withPrefix("Masterwork");
+        withPrefix("unbr3");
       }
       if (enchantmentLevel == 2) {
-        withPrefix("Tempered");
+        //withPrefix("Tempered");
+        withPrefix("unbr2");
         //withLore("Highly Durable", TextFormat.DARKGREEN);
         withLore("lore.roguelike.unbreaking2");
       }
       if (enchantmentLevel == 1) {
-        withPrefix("Reinforced");
+        //withPrefix("Reinforced");
+        withPrefix("unbr1");
       }
     }
     return this;
   }
 
   protected SpecialEquipment withPrefix(String prefix) {
-    this.prefix.append(prefix).append(" ");
+    this.prefix.append(prefix).append(".");
     return this;
   }
 
   protected SpecialEquipment withSuffix(String suffix) {
-    this.suffix.append(" ").append(suffix);
+    this.suffix.append(".").append(suffix);
     return this;
   }
 
   public RldItemStack asStack() {
-    String name = String.valueOf(prefix) + canonicalName + suffix;
+    String name = "item.roguelike." + String.valueOf(prefix) + canonicalName + suffix;
 
     RldItemStack rldItemStack = rldItem.asStack().withDisplayName(name);
     if (lore != null) {

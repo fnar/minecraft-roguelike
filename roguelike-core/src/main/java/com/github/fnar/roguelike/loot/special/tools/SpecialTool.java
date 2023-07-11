@@ -38,9 +38,11 @@ public class SpecialTool extends SpecialEquipment {
     }
     withEnchantment(Enchantment.Effect.FORTUNE.atLevel(enchantmentLevel));
     if (random.nextBoolean()) {
-      withSuffix("of Prospecting");
+      //withSuffix("of Prospecting");
+      withSuffix("fortune_0");
     } else {
-      withPrefix("Dwarven");
+      //withPrefix("Dwarven");
+      withPrefix("fortune_1");
     }
   }
 
@@ -50,9 +52,11 @@ public class SpecialTool extends SpecialEquipment {
     }
     withEnchantment(Enchantment.Effect.SILK_TOUCH);
     if (random.nextBoolean()) {
-      withPrefix("Precision");
+      //withPrefix("Precision");
+      withPrefix("silk_0");
     } else {
-      withPrefix("Elven");
+      //withPrefix("Elven");
+      withPrefix("silk_1");
     }
   }
 
@@ -63,7 +67,8 @@ public class SpecialTool extends SpecialEquipment {
     }
     withEnchantment(Enchantment.Effect.EFFICIENCY.atLevel(enchantmentLevel));
     if (enchantmentLevel >= 3) {
-      withPrefix("Artisan's");
+      //withPrefix("Artisan's");
+      withPrefix("eff3");
     }
   }
 

@@ -50,17 +50,23 @@ public class SpecialArmour extends SpecialEquipment {
   private String getArmourPrefix() {
     switch (getQuality()) {
       case WOOD:
-        return "Surplus";
+        //return "Surplus";
+        return "leather";
       case STONE:
-        return "Riveted";
+        //return "Riveted";
+        return "chainmail";
       case IRON:
-        return "Gothic";
+        //return "Gothic";
+        return "iron";
       case GOLD:
-        return "Jewelled";
+        //return "Jewelled";
+        return "gold";
       case DIAMOND:
-        return "Crystal";
+        //return "Crystal";
+        return "diamond";
       default:
-        return "Strange";
+        //return "Strange";
+        return "strange";
     }
   }
 
@@ -73,25 +79,29 @@ public class SpecialArmour extends SpecialEquipment {
   protected void withProtection(Random random) {
     int level = getProtectionLevel(getQuality(), random);
     withEnchantment(Enchantment.Effect.PROTECTION.atLevel(level));
-    withSuffix("of Defense");
+    //withSuffix("of Defense");
+    withSuffix("prot");
   }
 
   protected void withProjectileProtection(Random random) {
     int level = getProtectionLevel(getQuality(), random);
     withEnchantment(Enchantment.Effect.PROJECTILE_PROTECTION.atLevel(level));
-    withSuffix("of Deflection");
+    //withSuffix("of Deflection");
+    withSuffix("projprot");
   }
 
   protected void withBlastProtection(Random random) {
     int level = getProtectionLevel(getQuality(), random);
     withEnchantment(Enchantment.Effect.BLAST_PROTECTION.atLevel(level));
-    withSuffix("of Integrity");
+    //withSuffix("of Integrity");
+    withSuffix("blastprot");
   }
 
   protected void withFlameProtection(Random random) {
     int level = getProtectionLevel(getQuality(), random);
     withEnchantment(Enchantment.Effect.FIRE_PROTECTION.atLevel(level));
-    withSuffix("of Flamewarding");
+    //withSuffix("of Flamewarding");
+    withSuffix("fireprot");
   }
 
   protected void withArmorEnchantments(Random random) {

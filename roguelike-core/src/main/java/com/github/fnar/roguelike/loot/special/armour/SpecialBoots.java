@@ -34,7 +34,8 @@ public class SpecialBoots extends SpecialArmour {
     int level = getQuality() == DIAMOND ? 4 : 1 + random.nextInt(3);
     withEnchantment(Enchantment.Effect.FEATHER_FALLING.atLevel(level));
     withEnchantment(Enchantment.Effect.PROTECTION.atLevel(SpecialArmour.getProtectionLevel(getQuality(), random)));
-    withSuffix("of Lightness");
+    //withSuffix("of Lightness");
+    withSuffix("feather");
   }
 
   private RldItem getItem() {
@@ -42,7 +43,7 @@ public class SpecialBoots extends SpecialArmour {
   }
 
   private String getSpecialBootsName() {
-    switch (getQuality()) {
+    /*switch (getQuality()) {
       case DIAMOND:
         return "Boots";
       case GOLD:
@@ -53,7 +54,8 @@ public class SpecialBoots extends SpecialArmour {
       case WOOD:
       default:
         return "Shoes";
-    }
+    }*/
+    return "boots";
   }
 
 }
