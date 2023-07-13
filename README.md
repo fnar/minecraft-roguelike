@@ -1,8 +1,8 @@
 Roguelike Dungeons: _Fnar Edition_
 ===================
 
-[![CurseForge Downloads](http://cf.way2muchnoise.eu/fnars-roguelike-dungeons.svg)](https://www.curseforge.com/minecraft/mc-mods/fnars-roguelike-dungeons)
-[![CurseForge Versions](http://cf.way2muchnoise.eu/versions/fnars-roguelike-dungeons.svg)](https://www.curseforge.com/minecraft/mc-mods/fnars-roguelike-dungeons)  
+[![CurseForge Downloads](https://cf.way2muchnoise.eu/fnars-roguelike-dungeons.svg)](https://www.curseforge.com/minecraft/mc-mods/fnars-roguelike-dungeons)
+[![CurseForge Versions](https://cf.way2muchnoise.eu/versions/fnars-roguelike-dungeons.svg)](https://www.curseforge.com/minecraft/mc-mods/fnars-roguelike-dungeons)  
 [![Support me on Patreon](https://img.shields.io/endpoint.svg?url=https%3A%2F%2Fshieldsio-patreon.vercel.app%2Fapi%3Fusername%3Dfnar%26type%3Dpatrons&style=flat)](https://patreon.com/fnar)
 
 This is a mod for minecraft that adds randomly generated dungeon complexes. This version is a fork of [Greymerk's masterpeice](http://github.com/greymerk/minecraft-roguelike).
