@@ -27,8 +27,8 @@ public class BuiltinIceDungeonSettings extends DungeonSettings {
     getCriteria().setBiomeTypes(Strings.asStrings(Collections.singleton(newArrayList(SNOWY))));
     setTowerSettings(new TowerSettings(PYRAMID, ICE));
     IntStream.range(0, MAXIMUM_COUNT_OF_LEVELS)
-        .mapToObj(this::getLevelSettings)
-        .forEach(levelSettings -> levelSettings.setTheme(ICE));
+            .mapToObj(this::getLevelSettings)
+            .forEach(levelSettings -> levelSettings.setTheme(ICE));
   }
 
 }
