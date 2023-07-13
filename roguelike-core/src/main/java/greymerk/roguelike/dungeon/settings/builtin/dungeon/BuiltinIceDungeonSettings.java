@@ -1,5 +1,8 @@
 package greymerk.roguelike.dungeon.settings.builtin.dungeon;
 
+import com.github.fnar.util.Strings;
+
+import java.util.Collections;
 import java.util.stream.IntStream;
 
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
@@ -21,11 +24,11 @@ public class BuiltinIceDungeonSettings extends DungeonSettings {
     super(ID);
     setExclusive(true);
     getInherit().add(BuiltinBaseSettings.ID);
-    getCriteria().setBiomeTypes(newArrayList(SNOWY));
+    getCriteria().setBiomeTypes(Strings.asStrings(Collections.singleton(newArrayList(SNOWY))));
     setTowerSettings(new TowerSettings(PYRAMID, ICE));
     IntStream.range(0, MAXIMUM_COUNT_OF_LEVELS)
-        .mapToObj(this::getLevelSettings)
-        .forEach(levelSettings -> levelSettings.setTheme(ICE));
+            .mapToObj(this::getLevelSettings)
+            .forEach(levelSettings -> levelSettings.setTheme(ICE));
   }
 
 }

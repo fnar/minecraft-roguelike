@@ -28,6 +28,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -89,6 +90,8 @@ public class SpawnCriteriaTest {
   @Test
   public void isValid_ReturnsTrue_WhenBothBiomeCriteriaAndBiomeTypeCriteriaArePresentAndSatisfied() {
     when(worldEditor.getBiomeAt(any(Coord.class))).thenReturn(Biomes.ICE_MOUNTAINS);
+    when(worldEditor.getBiomeName(any(Coord.class))).thenReturn(Biomes.ICE_MOUNTAINS.getRegistryName().toString());
+    when(worldEditor.isBiomeTypeAt(eq(SNOWY.toString()), any(Coord.class))).thenReturn(true);
 
     assertThat(newSpawnCriteria(Biomes.ICE_MOUNTAINS, SNOWY).isValid(worldEditor, coord)).isTrue();
   }
@@ -96,6 +99,8 @@ public class SpawnCriteriaTest {
   @Test
   public void isValid_ReturnsTrue_WhenOnlyBiomeCriteriaIsPresentAndSatisfied() {
     when(worldEditor.getBiomeAt(any(Coord.class))).thenReturn(Biomes.ICE_MOUNTAINS);
+    when(worldEditor.getBiomeName(any(Coord.class))).thenReturn(Biomes.ICE_MOUNTAINS.getRegistryName().toString());
+
     assertThat(newSpawnCriteria(Biomes.ICE_MOUNTAINS).isValid(worldEditor, coord)).isTrue();
   }
 
@@ -109,6 +114,7 @@ public class SpawnCriteriaTest {
   @Test
   public void isValid_ReturnsTrue_WhenOnlyBiomeTypeCriteriaIsProvidedAndSatisfied() {
     when(worldEditor.getBiomeAt(any(Coord.class))).thenReturn(Biomes.ICE_MOUNTAINS);
+    when(worldEditor.isBiomeTypeAt(eq(SNOWY.toString()), any(Coord.class))).thenReturn(true);
 
     assertThat(newSpawnCriteria(SNOWY).isValid(worldEditor, coord)).isTrue();
   }

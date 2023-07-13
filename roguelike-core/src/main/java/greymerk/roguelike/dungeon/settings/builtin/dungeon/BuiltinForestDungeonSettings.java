@@ -1,5 +1,9 @@
 package greymerk.roguelike.dungeon.settings.builtin.dungeon;
 
+import com.github.fnar.util.Strings;
+
+import java.util.Collections;
+
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.base.SecretsSetting;
@@ -24,7 +28,7 @@ public class BuiltinForestDungeonSettings {
     DungeonSettings dungeonSettings = new DungeonSettings().withId(new SettingIdentifier(SettingsContainer.BUILTIN_NAMESPACE, "forest"));
     dungeonSettings.setExclusive(true);
     dungeonSettings.getInherit().add(BuiltinBaseSettings.ID);
-    dungeonSettings.getCriteria().setBiomeTypes(newArrayList(FOREST));
+    dungeonSettings.getCriteria().setBiomeTypes(Strings.asStrings(Collections.singleton(newArrayList(FOREST))));
     dungeonSettings.setTowerSettings(new TowerSettings(TowerType.ROGUE, Themes.TOWER));
 
     level0(dungeonSettings);

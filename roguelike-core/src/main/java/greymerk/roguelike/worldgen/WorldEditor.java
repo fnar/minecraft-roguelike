@@ -84,4 +84,7 @@ public interface WorldEditor {
 
   int getDimension();
 
+  boolean isBiomeTypeAt(String biomeType, Coord coord);
+
+  String getBiomeName(Coord coord);
 }

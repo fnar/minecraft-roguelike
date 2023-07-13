@@ -3,6 +3,9 @@ package greymerk.roguelike.dungeon.settings.builtin.dungeon;
 import com.github.fnar.minecraft.item.Ingredient;
 import com.github.fnar.minecraft.item.Material;
 import com.github.fnar.minecraft.item.RldItemStack;
+import com.github.fnar.util.Strings;
+
+import java.util.Collections;
 
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
@@ -38,7 +41,7 @@ public class BuiltinSwampDungeonSettings extends DungeonSettings {
     super(ID);
     setExclusive(true);
     getInherit().add(BuiltinBaseSettings.ID);
-    getCriteria().setBiomeTypes(newArrayList(SWAMP));
+    getCriteria().setBiomeTypes(Strings.asStrings(Collections.singleton(newArrayList(SWAMP))));
     setTowerSettings(new TowerSettings(WITCH, DARKOAK));
 
     Themes[] themes = {DARKHALL, DARKHALL, MUDDY, MOSSY, NETHER};
