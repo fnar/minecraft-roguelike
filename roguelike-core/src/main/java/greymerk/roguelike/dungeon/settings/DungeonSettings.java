@@ -62,7 +62,7 @@ public class DungeonSettings {
       dungeonSettings.lootTables.addAll(toInherit.lootTables);
     }
     dungeonSettings.towerSettings = dungeonSettings.getTowerSettings(toInherit, this);
-    dungeonSettings.spawnCriteria = this.spawnCriteria.inherit(toInherit.spawnCriteria);
+    dungeonSettings.spawnCriteria = new SpawnCriteria().inherit(this.spawnCriteria).inherit(toInherit.spawnCriteria);
     IntStream.range(0, MAXIMUM_COUNT_OF_LEVELS)
         .forEach(level -> {
           LevelSettings parent = toInherit.levels.get(level);
@@ -100,7 +100,7 @@ public class DungeonSettings {
       LevelSettings levelSettings = toCopy.levels.get(level);
       levels.put(level, Optional.ofNullable(levelSettings).map(LevelSettings::new).orElse(new LevelSettings(level)));
     }
-    spawnCriteria = new SpawnCriteria(toCopy.spawnCriteria);
+    spawnCriteria = new SpawnCriteria().inherit(toCopy.spawnCriteria);
     towerSettings = toCopy.towerSettings != null ? new TowerSettings(toCopy.towerSettings) : null;
   }
 
