@@ -1,4 +1,4 @@
-package greymerk.roguelike.dungeon.settings.parsing;
+package greymerk.roguelike.dungeon.settings.parsing.spawncriteria;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class BiomeTagParser {
 
-  public static Set<BiomeTag> parseBiomeTags(JsonObject data) {
+  public static Set<BiomeTag> parse(JsonObject data) {
     Set<BiomeTag> biomeTags = new HashSet<>();
     if (data.has("biomeTypes")) {
       for (JsonElement biomeTagsJson : data.get("biomeTypes").getAsJsonArray()) {

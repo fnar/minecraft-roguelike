@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import greymerk.roguelike.config.RogueConfig;
+import greymerk.roguelike.dungeon.settings.parsing.spawncriteria.SpawnCriteriaParser;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 
@@ -153,7 +154,7 @@ public class SpawnCriteriaTest {
   }
 
   private SpawnCriteria newSpawnCriteria(Biome biome) {
-    return new SpawnCriteria(newSpawnCriteriaJson(biome));
+    return SpawnCriteriaParser.parse(newSpawnCriteriaJson(biome));
   }
 
   private JsonObject newSpawnCriteriaJson(Biome biome) {
@@ -163,10 +164,10 @@ public class SpawnCriteriaTest {
   }
 
   private SpawnCriteria newSpawnCriteria(Biome biome, BiomeDictionary.Type biomeType) {
-    return new SpawnCriteria(newSpawnCriteriaJson(biome, biomeType));
+    return SpawnCriteriaParser.parse(newSpawnCriteriaJson(biome, biomeType));
   }
 
   private SpawnCriteria newSpawnCriteria(BiomeDictionary.Type biomeType) {
-    return new SpawnCriteria(newSpawnCriteriaJson(newBiomeTypeCriteriaJson(biomeType)));
+    return SpawnCriteriaParser.parse(newSpawnCriteriaJson(newBiomeTypeCriteriaJson(biomeType)));
   }
 }
