@@ -4,13 +4,10 @@ import com.google.common.base.Charsets;
 import com.google.common.collect.Lists;
 import com.google.common.io.Files;
 
-import net.minecraft.client.Minecraft;
-
 import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -96,9 +93,7 @@ public class SettingsResolver {
       DungeonSettings dungeonSettings = settingsContainer.get(id);
       return processInheritance(dungeonSettings);
     } catch (Exception e) {
-      Minecraft.getMinecraft().player.sendChatMessage(Arrays.toString(e.getStackTrace()));
       throw new RuntimeException(e);
-//      throw new RuntimeException("Malformed Setting ID String: " + name);
     }
   }
 
