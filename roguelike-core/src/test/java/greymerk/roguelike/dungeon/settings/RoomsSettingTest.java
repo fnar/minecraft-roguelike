@@ -1,9 +1,14 @@
 package greymerk.roguelike.dungeon.settings;
 
+import com.github.fnar.forge.ModLoader;
+
 import net.minecraft.init.Bootstrap;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Random;
 
@@ -21,7 +26,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class RoomsSettingTest {
+
+  @Mock
+  private ModLoader modLoader;
 
   @Before
   public void setUp() {
@@ -112,7 +121,7 @@ public class RoomsSettingTest {
 
   @Test
   public void testGetSingle() {
-    Dungeon.settingsResolver = new SettingsResolver(new SettingsContainer());
+    Dungeon.settingsResolver = new SettingsResolver(new SettingsContainer(modLoader));
     WorldEditor editor = mock(WorldEditor.class);
     when(editor.getRandom()).thenReturn(new Random());
 

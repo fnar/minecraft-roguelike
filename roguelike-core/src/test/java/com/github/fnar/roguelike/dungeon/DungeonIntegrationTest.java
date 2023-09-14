@@ -1,5 +1,6 @@
 package com.github.fnar.roguelike.dungeon;
 
+import com.github.fnar.forge.ModLoader;
 import com.github.fnar.roguelike.dungeon.settings.fixture.Layout;
 import com.github.fnar.roguelike.dungeon.settings.fixture.Theme;
 
@@ -18,6 +19,8 @@ public class DungeonIntegrationTest {
 
   private SettingsResolver settingsResolver;
 
+  private final ModLoader modLoader = requiredModName -> false;
+
   @Before
   public void setUp() throws Exception {
     Bootstrap.register();
@@ -29,7 +32,7 @@ public class DungeonIntegrationTest {
   }
 
   private SettingsContainer populatedSettingsContainer() throws Exception {
-    SettingsContainer settingsContainer = new SettingsContainer();
+    SettingsContainer settingsContainer = new SettingsContainer(modLoader);
 
     settingsContainer.put(com.github.fnar.roguelike.dungeon.settings.fixture.Dungeon.dungeonGenericSettingsJson());
     settingsContainer.put(com.github.fnar.roguelike.dungeon.settings.fixture.Dungeon.dungeonCaveSettingsJson());
