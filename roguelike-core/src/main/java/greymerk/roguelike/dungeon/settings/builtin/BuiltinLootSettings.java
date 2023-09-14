@@ -1,8 +1,5 @@
 package greymerk.roguelike.dungeon.settings.builtin;
 
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.storage.loot.LootTableList;
-
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
@@ -78,9 +75,9 @@ public class BuiltinLootSettings extends DungeonSettings {
       getLootRules().add(new TypedForEachLootRule(ChestType.MUSIC, loot.get(GreymerkChestType.MUSIC, level), level, 1));
 
       getLootRules().add(new TypedForEachLootRule(ChestType.REWARD, loot.get(GreymerkChestType.REWARD, level), level, 1));
-      
+
       getLootRules().add(new ForEachLootRule(loot.get(GreymerkChestType.JUNK, level), level, 6));
-      
+
       getLootRules().add(new SingleUseLootRule(new SpecialtyLootItem(1, level, Quality.get(level)), level, 3));
       getLootRules().add(new SingleUseLootRule(new EnchantedBookLootItem(1, level), level, level * 2 + 5));
     }
@@ -98,15 +95,15 @@ public class BuiltinLootSettings extends DungeonSettings {
   }
 
   private void addRewardLoot() {
-    useLootTableForLevel(LootTableList.CHESTS_SIMPLE_DUNGEON, 0);
-    useLootTableForLevel(LootTableList.CHESTS_DESERT_PYRAMID, 1);
-    useLootTableForLevel(LootTableList.CHESTS_JUNGLE_TEMPLE, 2);
-    useLootTableForLevel(LootTableList.CHESTS_NETHER_BRIDGE, 3);
-    useLootTableForLevel(LootTableList.CHESTS_END_CITY_TREASURE, 4);
+    useLootTableForLevel(0, "chests/simple_dungeon");
+    useLootTableForLevel(1, "chests/desert_pyramid");
+    useLootTableForLevel(2, "chests/jungle_temple");
+    useLootTableForLevel(3, "chests/nether_bridge");
+    useLootTableForLevel(4, "chests/end_city_treasure");
   }
 
-  private void useLootTableForLevel(ResourceLocation chestsSimpleDungeon, int level) {
-    getLootTables().add(new LootTableRule(newArrayList(level), chestsSimpleDungeon.getResourcePath(), newArrayList(ChestType.REWARD)));
+  private void useLootTableForLevel(int level, String resourcePath) {
+    getLootTables().add(new LootTableRule(newArrayList(level), resourcePath, newArrayList(ChestType.REWARD)));
   }
 
   private void addStarterLoot(GreymerkLootProvider loot) {
