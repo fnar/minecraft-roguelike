@@ -43,6 +43,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
@@ -455,7 +456,6 @@ public class WorldEditor1_12 implements WorldEditor {
     return treasureManager;
   }
 
-  @Override
   public Biome getBiomeAt(Coord coord) {
     return world.getBiome(new BlockPos(coord.getX(), coord.getY(), coord.getZ()));
   }
@@ -479,4 +479,12 @@ public class WorldEditor1_12 implements WorldEditor {
     // TODO: Consider if returning empty string is appropriate, or default biome instead
     return "";
   }
+
+  @Override
+  public List<String> getBiomeTagNames(Coord pos) {
+    return BiomeDictionary.getTypes(getBiomeAt(pos)).stream()
+        .map(type -> type.getName() + " ")
+        .collect(Collectors.toList());
+  }
+
 }

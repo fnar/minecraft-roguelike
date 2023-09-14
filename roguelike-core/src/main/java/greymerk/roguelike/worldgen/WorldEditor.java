@@ -11,8 +11,8 @@ import com.github.fnar.minecraft.world.BiomeTag;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.world.biome.Biome;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
@@ -81,11 +81,11 @@ public interface WorldEditor {
 
   TreasureManager getTreasureManager();
 
-  Biome getBiomeAt(Coord coord);
-
   int getDimension();
 
   boolean isBiomeTypeAt(BiomeTag biomeTag, Coord coord);
 
   String getBiomeName(Coord coord);
+
+  List<String> getBiomeTagNames(Coord coord);
 }

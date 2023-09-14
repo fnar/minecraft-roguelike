@@ -7,12 +7,6 @@ import com.google.gson.JsonPrimitive;
 
 import com.github.fnar.minecraft.world.BiomeTag;
 
-import net.minecraft.init.Biomes;
-import net.minecraft.init.Bootstrap;
-import net.minecraft.world.biome.Biome;
-import net.minecraftforge.common.BiomeDictionary;
-
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -21,7 +15,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.ArrayList;
 import java.util.List;
 
-import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.dungeon.settings.parsing.spawncriteria.SpawnCriteriaParser;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -41,12 +34,6 @@ public class SpawnCriteriaTest {
 
   @Mock
   private Coord coord;
-
-  @BeforeClass
-  public static void beforeClass() {
-    Bootstrap.register();
-    RogueConfig.testing = true;
-  }
 
   @Test
   public void overworld() {
@@ -91,60 +78,64 @@ public class SpawnCriteriaTest {
 
   @Test
   public void isValid_ReturnsTrue_WhenBothBiomeCriteriaAndBiomeTypeCriteriaArePresentAndSatisfied() {
-    when(worldEditor.getBiomeAt(any(Coord.class))).thenReturn(Biomes.ICE_MOUNTAINS);
-    when(worldEditor.getBiomeName(any(Coord.class))).thenReturn(Biomes.ICE_MOUNTAINS.getRegistryName().toString());
+    when(worldEditor.getBiomeName(any(Coord.class))).thenReturn("minecraft:ice_mountains");
     when(worldEditor.isBiomeTypeAt(eq(BiomeTag.SNOWY), any(Coord.class))).thenReturn(true);
 
-    assertThat(newSpawnCriteria(Biomes.ICE_MOUNTAINS, BiomeDictionary.Type.SNOWY).isValid(worldEditor, coord)).isTrue();
+    assertThat(newSpawnCriteria("minecraft:ice_mountains", "snowy").isValid(worldEditor, coord)).isTrue();
   }
 
   @Test
   public void isValid_ReturnsTrue_WhenOnlyBiomeCriteriaIsPresentAndSatisfied() {
-    when(worldEditor.getBiomeAt(any(Coord.class))).thenReturn(Biomes.ICE_MOUNTAINS);
-    when(worldEditor.getBiomeName(any(Coord.class))).thenReturn(Biomes.ICE_MOUNTAINS.getRegistryName().toString());
+    when(worldEditor.getBiomeName(any(Coord.class))).thenReturn("minecraft:ice_mountains");
 
-    assertThat(newSpawnCriteria(Biomes.ICE_MOUNTAINS).isValid(worldEditor, coord)).isTrue();
+    assertThat(newSpawnCriteriaWithBiome("minecraft:ice_mountains").isValid(worldEditor, coord)).isTrue();
   }
 
   @Test
   public void isValid_ReturnsFalse_WhenOnlyBiomeCriteriaIsPresentAndIsNotSatisfied() {
-    when(worldEditor.getBiomeAt(any(Coord.class))).thenReturn(Biomes.BEACH);
+    when(worldEditor.getBiomeName(any(Coord.class))).thenReturn("minecraft:beach");
 
-    assertThat(newSpawnCriteria(Biomes.ICE_MOUNTAINS).isValid(worldEditor, coord)).isFalse();
+    assertThat(newSpawnCriteriaWithBiome("minecraft:ice_mountains").isValid(worldEditor, coord)).isFalse();
   }
 
   @Test
   public void isValid_ReturnsTrue_WhenOnlyBiomeTypeCriteriaIsProvidedAndSatisfied() {
-    when(worldEditor.getBiomeAt(any(Coord.class))).thenReturn(Biomes.ICE_MOUNTAINS);
+    when(worldEditor.getBiomeName(any(Coord.class))).thenReturn("minecraft:ice_mountains");
     when(worldEditor.isBiomeTypeAt(eq(BiomeTag.SNOWY), any(Coord.class))).thenReturn(true);
 
-    assertThat(newSpawnCriteria(BiomeDictionary.Type.SNOWY).isValid(worldEditor, coord)).isTrue();
+    assertThat(newSpawnCriteriaWithBiomeTag("snowy").isValid(worldEditor, coord)).isTrue();
   }
 
   @Test
   public void isValid_ReturnsFalse_WhenOnlyBiomeTypeCriteriaIsProvidedAndIsNotSatisfied() {
-    when(worldEditor.getBiomeAt(any(Coord.class))).thenReturn(Biomes.BEACH);
+    when(worldEditor.getBiomeName(any(Coord.class))).thenReturn("minecraft:beach");
 
-    assertThat(newSpawnCriteria(BiomeDictionary.Type.SNOWY).isValid(worldEditor, coord)).isFalse();
+    assertThat(newSpawnCriteriaWithBiomeTag("snowy").isValid(worldEditor, coord)).isFalse();
   }
 
-  private JsonArray newBiomeTypeCriteriaJson(BiomeDictionary.Type biomeType) {
-    JsonArray criteriaBiomeTypes = new JsonArray();
-    criteriaBiomeTypes.add(new JsonPrimitive(biomeType.toString()));
-    return criteriaBiomeTypes;
+  private SpawnCriteria newSpawnCriteria(String biomeName, String biomeTag) {
+    return SpawnCriteriaParser.parse(newSpawnCriteriaJson(biomeName, biomeTag));
   }
 
-  private JsonArray newBiomeCriteriaJson(Biome biome) {
-    JsonArray criteriaBiomes = new JsonArray();
-    criteriaBiomes.add(new JsonPrimitive(biome.getRegistryName().toString()));
-    return criteriaBiomes;
-  }
-
-  private JsonObject newSpawnCriteriaJson(Biome biome, BiomeDictionary.Type biomeType) {
+  private JsonObject newSpawnCriteriaJson(String biomeName, String biomeTag) {
     JsonObject spawnCriteriaJson = new JsonObject();
-    spawnCriteriaJson.add("biomes", newBiomeCriteriaJson(biome));
-    spawnCriteriaJson.add("biomeTypes", newBiomeTypeCriteriaJson(biomeType));
+    spawnCriteriaJson.add("biomes", newJsonArrayContaining(biomeName));
+    spawnCriteriaJson.add("biomeTypes", newJsonArrayContaining(biomeTag));
     return spawnCriteriaJson;
+  }
+
+  private SpawnCriteria newSpawnCriteriaWithBiome(String biome) {
+    return SpawnCriteriaParser.parse(newSpawnCriteriaJson(biome));
+  }
+
+  private JsonObject newSpawnCriteriaJson(String biome) {
+    JsonObject spawnCriteriaJson = new JsonObject();
+    spawnCriteriaJson.add("biomes", newJsonArrayContaining(biome));
+    return spawnCriteriaJson;
+  }
+
+  private SpawnCriteria newSpawnCriteriaWithBiomeTag(String biomeTag) {
+    return SpawnCriteriaParser.parse(newSpawnCriteriaJson(newJsonArrayContaining(biomeTag)));
   }
 
   private JsonObject newSpawnCriteriaJson(JsonArray criteriaBiomeTypes) {
@@ -153,21 +144,9 @@ public class SpawnCriteriaTest {
     return spawnCriteriaJson;
   }
 
-  private SpawnCriteria newSpawnCriteria(Biome biome) {
-    return SpawnCriteriaParser.parse(newSpawnCriteriaJson(biome));
-  }
-
-  private JsonObject newSpawnCriteriaJson(Biome biome) {
-    JsonObject spawnCriteriaJson = new JsonObject();
-    spawnCriteriaJson.add("biomes", newBiomeCriteriaJson(biome));
-    return spawnCriteriaJson;
-  }
-
-  private SpawnCriteria newSpawnCriteria(Biome biome, BiomeDictionary.Type biomeType) {
-    return SpawnCriteriaParser.parse(newSpawnCriteriaJson(biome, biomeType));
-  }
-
-  private SpawnCriteria newSpawnCriteria(BiomeDictionary.Type biomeType) {
-    return SpawnCriteriaParser.parse(newSpawnCriteriaJson(newBiomeTypeCriteriaJson(biomeType)));
+  private JsonArray newJsonArrayContaining(String element) {
+    JsonArray criteriaBiomes = new JsonArray();
+    criteriaBiomes.add(new JsonPrimitive(element));
+    return criteriaBiomes;
   }
 }
