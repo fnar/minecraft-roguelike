@@ -20,7 +20,6 @@ import greymerk.roguelike.treasure.loot.rule.SingleUseLootRule;
 import greymerk.roguelike.util.WeightedChoice;
 import greymerk.roguelike.worldgen.filter.Filter;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static net.minecraftforge.common.BiomeDictionary.Type.JUNGLE;
 
 public class BuiltinJungleDungeonSettings extends DungeonSettings {
@@ -31,7 +30,7 @@ public class BuiltinJungleDungeonSettings extends DungeonSettings {
     super(ID);
     setExclusive(true);
     getInherit().add(BuiltinBaseSettings.ID);
-    getCriteria().setBiomeTypes(Strings.asStrings(Collections.singleton(newArrayList(JUNGLE))));
+    getCriteria().setBiomeTypes(Strings.asStrings(Collections.singleton(JUNGLE)));
     setTowerSettings(new TowerSettings(TowerType.JUNGLE, Themes.JUNGLE));
 
     for (int i = 0; i < 5; ++i) {

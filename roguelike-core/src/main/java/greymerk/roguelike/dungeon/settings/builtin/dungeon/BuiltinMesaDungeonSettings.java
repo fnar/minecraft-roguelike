@@ -13,7 +13,6 @@ import greymerk.roguelike.dungeon.settings.builtin.BuiltinBaseSettings;
 import greymerk.roguelike.dungeon.towers.TowerType;
 import greymerk.roguelike.theme.Themes;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static net.minecraftforge.common.BiomeDictionary.Type.MESA;
 
 public class BuiltinMesaDungeonSettings extends DungeonSettings {
@@ -24,7 +23,7 @@ public class BuiltinMesaDungeonSettings extends DungeonSettings {
     super(ID);
     setExclusive(true);
     getInherit().add(BuiltinBaseSettings.ID);
-    getCriteria().setBiomeTypes(Strings.asStrings(Collections.singleton(newArrayList(MESA))));
+    getCriteria().setBiomeTypes(Strings.asStrings(Collections.singleton(MESA)));
     setTowerSettings(new TowerSettings(TowerType.ETHO, Themes.ETHOTOWER));
 
     Themes[] themes = {Themes.ETHOTOWER, Themes.ETHOTOWER, Themes.CRYPT, Themes.CRYPT, Themes.NETHER};
