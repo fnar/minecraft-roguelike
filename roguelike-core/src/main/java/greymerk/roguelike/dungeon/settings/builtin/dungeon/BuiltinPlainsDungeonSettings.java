@@ -17,7 +17,6 @@ import greymerk.roguelike.dungeon.towers.TowerType;
 import greymerk.roguelike.theme.Themes;
 import greymerk.roguelike.worldgen.filter.Filter;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static net.minecraftforge.common.BiomeDictionary.Type.PLAINS;
 
 public class BuiltinPlainsDungeonSettings extends DungeonSettings {
@@ -29,7 +28,7 @@ public class BuiltinPlainsDungeonSettings extends DungeonSettings {
     super(ID);
     setExclusive(true);
     getInherit().add(BuiltinBaseSettings.ID);
-    getCriteria().setBiomeTypes(Strings.asStrings(Collections.singleton(newArrayList(PLAINS))));
+    getCriteria().setBiomeTypes(Strings.asStrings(Collections.singleton(PLAINS)));
 
     setTowerSettings(new TowerSettings(TowerType.HOUSE, Themes.HOUSE));
 

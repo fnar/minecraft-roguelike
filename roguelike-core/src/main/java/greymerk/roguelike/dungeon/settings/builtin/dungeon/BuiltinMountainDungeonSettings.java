@@ -19,7 +19,6 @@ import greymerk.roguelike.dungeon.towers.TowerType;
 import greymerk.roguelike.theme.Themes;
 import greymerk.roguelike.worldgen.filter.Filter;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static net.minecraftforge.common.BiomeDictionary.Type.MOUNTAIN;
 
 public class BuiltinMountainDungeonSettings extends DungeonSettings {
@@ -30,7 +29,7 @@ public class BuiltinMountainDungeonSettings extends DungeonSettings {
     super(ID);
     setExclusive(true);
     getInherit().add(BuiltinBaseSettings.ID);
-    getCriteria().setBiomeTypes(Strings.asStrings(Collections.singleton(newArrayList(MOUNTAIN))));
+    getCriteria().setBiomeTypes(Strings.asStrings(Collections.singleton(MOUNTAIN)));
     setTowerSettings(new TowerSettings(TowerType.ENIKO, Themes.OAK));
 
     Themes[] themes = {Themes.ENIKO, Themes.ENIKO2, Themes.SEWER, Themes.MOSSY, Themes.NETHER};

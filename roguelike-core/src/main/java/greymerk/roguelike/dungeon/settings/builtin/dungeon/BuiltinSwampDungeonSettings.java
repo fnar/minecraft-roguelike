@@ -24,7 +24,6 @@ import greymerk.roguelike.treasure.loot.rule.SingleUseLootRule;
 import greymerk.roguelike.util.WeightedRandomizer;
 import greymerk.roguelike.worldgen.filter.Filter;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static greymerk.roguelike.dungeon.towers.TowerType.WITCH;
 import static greymerk.roguelike.theme.Themes.DARKHALL;
 import static greymerk.roguelike.theme.Themes.DARKOAK;
@@ -41,7 +40,7 @@ public class BuiltinSwampDungeonSettings extends DungeonSettings {
     super(ID);
     setExclusive(true);
     getInherit().add(BuiltinBaseSettings.ID);
-    getCriteria().setBiomeTypes(Strings.asStrings(Collections.singleton(newArrayList(SWAMP))));
+    getCriteria().setBiomeTypes(Strings.asStrings(Collections.singleton(SWAMP)));
     setTowerSettings(new TowerSettings(WITCH, DARKOAK));
 
     Themes[] themes = {DARKHALL, DARKHALL, MUDDY, MOSSY, NETHER};

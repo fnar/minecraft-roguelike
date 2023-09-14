@@ -19,7 +19,6 @@ import greymerk.roguelike.dungeon.towers.TowerType;
 import greymerk.roguelike.theme.Themes;
 import greymerk.roguelike.worldgen.filter.Filter;
 
-import static com.google.common.collect.Lists.newArrayList;
 import static net.minecraftforge.common.BiomeDictionary.Type.FOREST;
 
 public class BuiltinForestDungeonSettings {
@@ -28,7 +27,7 @@ public class BuiltinForestDungeonSettings {
     DungeonSettings dungeonSettings = new DungeonSettings().withId(new SettingIdentifier(SettingsContainer.BUILTIN_NAMESPACE, "forest"));
     dungeonSettings.setExclusive(true);
     dungeonSettings.getInherit().add(BuiltinBaseSettings.ID);
-    dungeonSettings.getCriteria().setBiomeTypes(Strings.asStrings(Collections.singleton(newArrayList(FOREST))));
+    dungeonSettings.getCriteria().setBiomeTypes(Strings.asStrings(Collections.singleton(FOREST)));
     dungeonSettings.setTowerSettings(new TowerSettings(TowerType.ROGUE, Themes.TOWER));
 
     level0(dungeonSettings);
