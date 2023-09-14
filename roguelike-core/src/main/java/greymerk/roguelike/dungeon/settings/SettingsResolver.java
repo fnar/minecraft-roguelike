@@ -18,6 +18,9 @@ import static java.util.stream.Collectors.toList;
 
 public class SettingsResolver {
 
+  // TODO: Convert to instance
+  public static SettingsResolver instance;
+
   private final SettingsContainer settingsContainer;
 
   public SettingsResolver(SettingsContainer settingsContainer) {

@@ -46,9 +46,6 @@ public class Dungeon {
   public static final int CHUNK_SIZE = 16;
   public static final int BOTTOM_OF_WORLD_HEIGHT = 5;
 
-  // TODO: convert to instance field?
-  public static SettingsResolver settingsResolver;
-
   public static final String MOD_ID = "roguelike";
   private static final Logger logger = LogManager.getLogger(MOD_ID);
 
@@ -60,9 +57,8 @@ public class Dungeon {
     this.editor = editor;
     try {
       RogueConfig.reload(false);
-      SettingsContainer settingsContainer = new SettingsContainer(modLoader);
-      settingsContainer.loadFiles();
-      Dungeon.settingsResolver = new SettingsResolver(settingsContainer);
+      SettingsContainer settingsContainer = new SettingsContainer(modLoader).loadFiles();
+      SettingsResolver.instance = new SettingsResolver(settingsContainer);
     } catch (Exception e) {
       // do nothing
     }
@@ -242,10 +238,10 @@ public class Dungeon {
     if (RogueConfig.RANDOM.getBoolean()) {
       return Optional.of(new SettingsRandom(editor.getRandom()));
     }
-    if (settingsResolver == null) {
+    if (SettingsResolver.instance == null) {
       return Optional.empty();
     }
-    return settingsResolver.chooseDungeonSetting(editor, coord);
+    return SettingsResolver.instance.chooseDungeonSetting(editor, coord);
   }
 
   public Coord getPosition() {
