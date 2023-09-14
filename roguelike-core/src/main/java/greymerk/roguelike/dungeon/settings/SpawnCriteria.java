@@ -3,12 +3,17 @@ package greymerk.roguelike.dungeon.settings;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import com.github.fnar.minecraft.world.BiomeTag;
+
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import greymerk.roguelike.config.RogueConfig;
+import greymerk.roguelike.dungeon.settings.parsing.BiomeTagParser;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 
@@ -17,7 +22,7 @@ public class SpawnCriteria {
   private int weight;
   private final List<Integer> validDimensions = new ArrayList<>();
   private Set<String> biomeStrings = new HashSet<>();
-  private final Set<String> biomeTypes = new HashSet<>();
+  private final Set<BiomeTag> biomeTags = new HashSet<>();
 
   public SpawnCriteria() {
     this(new JsonObject());
@@ -27,19 +32,20 @@ public class SpawnCriteria {
     this.weight = spawnCriteria.weight;
     this.validDimensions.addAll(spawnCriteria.validDimensions);
     this.biomeStrings.addAll(spawnCriteria.biomeStrings);
-    this.biomeTypes.addAll(spawnCriteria.biomeTypes);
+    this.biomeTags.addAll(spawnCriteria.biomeTags);
   }
 
   public SpawnCriteria(JsonObject data) {
     weight = data.has("weight") ? data.get("weight").getAsInt() : 1;
     biomeStrings = parseBiomes(data);
-    addBiomeTypeCriteria(data);
+    addBiomeTags(BiomeTagParser.parseBiomeTags(data));
     addDimensionCriteria(data);
   }
 
   public SpawnCriteria inherit(SpawnCriteria toInherit) {
     SpawnCriteria result = new SpawnCriteria(this);
     result.biomeStrings.addAll(toInherit.biomeStrings);
+    result.biomeTags.addAll(toInherit.biomeTags);
     result.validDimensions.addAll(toInherit.validDimensions);
     return result;
   }
@@ -56,17 +62,6 @@ public class SpawnCriteria {
       }
     }
     return biomes;
-  }
-
-  private void addBiomeTypeCriteria(JsonObject data) {
-    if (data.has("biomeTypes")) {
-      for (JsonElement biomeType : data.get("biomeTypes").getAsJsonArray()) {
-        if (biomeType.isJsonNull()) {
-          continue;
-        }
-        biomeTypes.add(biomeType.getAsString().toUpperCase());
-      }
-    }
   }
 
   private void addDimensionCriteria(JsonObject data) {
@@ -96,8 +91,12 @@ public class SpawnCriteria {
     this.weight = weight;
   }
 
-  public void setBiomeTypes(List<String> types) {
-    this.biomeTypes.addAll(types);
+  public void addBiomeTags(BiomeTag... biomeTags) {
+    Collections.addAll(this.biomeTags, biomeTags);
+  }
+
+  public void addBiomeTags(Collection<BiomeTag> biomeTags) {
+    this.biomeTags.addAll(biomeTags);
   }
 
   public boolean isValid(WorldEditor worldEditor, Coord coord) {
@@ -113,11 +112,11 @@ public class SpawnCriteria {
   }
 
   private boolean isBiomeTypeValid(WorldEditor worldEditor, Coord coord) {
-    return biomeTypes.isEmpty() || includesBiomeType(worldEditor, coord);
+    return biomeTags.isEmpty() || includesBiomeType(worldEditor, coord);
   }
 
   private boolean includesBiomeType(WorldEditor worldEditor, Coord coord) {
-    return biomeTypes.stream().anyMatch(biomeType -> worldEditor.isBiomeTypeAt(biomeType, coord));
+    return biomeTags.stream().anyMatch(biomeType -> worldEditor.isBiomeTypeAt(biomeType, coord));
   }
 
   private boolean isDimensionValid(WorldEditor worldEditor) {
