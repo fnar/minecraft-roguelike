@@ -1,8 +1,7 @@
 package greymerk.roguelike.dungeon.settings.builtin.dungeon;
 
-import com.github.fnar.util.Strings;
+import com.github.fnar.minecraft.world.BiomeTag;
 
-import java.util.Collections;
 import java.util.stream.IntStream;
 
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
@@ -10,10 +9,8 @@ import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.settings.builtin.BuiltinBaseSettings;
-
-import static greymerk.roguelike.dungeon.towers.TowerType.PYRAMID;
-import static greymerk.roguelike.theme.Themes.ICE;
-import static net.minecraftforge.common.BiomeDictionary.Type.SNOWY;
+import greymerk.roguelike.dungeon.towers.TowerType;
+import greymerk.roguelike.theme.Themes;
 
 public class BuiltinIceDungeonSettings extends DungeonSettings {
 
@@ -23,11 +20,11 @@ public class BuiltinIceDungeonSettings extends DungeonSettings {
     super(ID);
     setExclusive(true);
     getInherit().add(BuiltinBaseSettings.ID);
-    getCriteria().setBiomeTypes(Strings.asStrings(Collections.singleton(SNOWY)));
-    setTowerSettings(new TowerSettings(PYRAMID, ICE));
+    getCriteria().addBiomeTags(BiomeTag.SNOWY);
+    setTowerSettings(new TowerSettings(TowerType.PYRAMID, Themes.ICE));
     IntStream.range(0, MAXIMUM_COUNT_OF_LEVELS)
-            .mapToObj(this::getLevelSettings)
-            .forEach(levelSettings -> levelSettings.setTheme(ICE));
+        .mapToObj(this::getLevelSettings)
+        .forEach(levelSettings -> levelSettings.setTheme(Themes.ICE));
   }
 
 }

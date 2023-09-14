@@ -3,9 +3,7 @@ package greymerk.roguelike.dungeon.settings.builtin.dungeon;
 import com.github.fnar.minecraft.item.Ingredient;
 import com.github.fnar.minecraft.item.Material;
 import com.github.fnar.minecraft.item.RldItemStack;
-import com.github.fnar.util.Strings;
-
-import java.util.Collections;
+import com.github.fnar.minecraft.world.BiomeTag;
 
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
@@ -17,20 +15,13 @@ import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.settings.builtin.BuiltinBaseSettings;
+import greymerk.roguelike.dungeon.towers.TowerType;
 import greymerk.roguelike.theme.Themes;
 import greymerk.roguelike.treasure.loot.MinecraftItemLootItem;
 import greymerk.roguelike.treasure.loot.rule.ForEachLootRule;
 import greymerk.roguelike.treasure.loot.rule.SingleUseLootRule;
 import greymerk.roguelike.util.WeightedRandomizer;
 import greymerk.roguelike.worldgen.filter.Filter;
-
-import static greymerk.roguelike.dungeon.towers.TowerType.WITCH;
-import static greymerk.roguelike.theme.Themes.DARKHALL;
-import static greymerk.roguelike.theme.Themes.DARKOAK;
-import static greymerk.roguelike.theme.Themes.MOSSY;
-import static greymerk.roguelike.theme.Themes.MUDDY;
-import static greymerk.roguelike.theme.Themes.NETHER;
-import static net.minecraftforge.common.BiomeDictionary.Type.SWAMP;
 
 public class BuiltinSwampDungeonSettings extends DungeonSettings {
 
@@ -40,10 +31,16 @@ public class BuiltinSwampDungeonSettings extends DungeonSettings {
     super(ID);
     setExclusive(true);
     getInherit().add(BuiltinBaseSettings.ID);
-    getCriteria().setBiomeTypes(Strings.asStrings(Collections.singleton(SWAMP)));
-    setTowerSettings(new TowerSettings(WITCH, DARKOAK));
+    getCriteria().addBiomeTags(BiomeTag.SWAMP);
+    setTowerSettings(new TowerSettings(TowerType.WITCH, Themes.DARKOAK));
 
-    Themes[] themes = {DARKHALL, DARKHALL, MUDDY, MOSSY, NETHER};
+    Themes[] themes = {
+        Themes.DARKHALL,
+        Themes.DARKHALL,
+        Themes.MUDDY,
+        Themes.MOSSY,
+        Themes.NETHER
+    };
 
     WeightedRandomizer<RldItemStack> brewing = new WeightedRandomizer<>();
     brewing.add(new MinecraftItemLootItem(Ingredient.Type.GLASS_BOTTLE.asItem(), 0, 1, 3, 3));

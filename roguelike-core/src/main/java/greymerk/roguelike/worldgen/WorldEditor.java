@@ -7,6 +7,7 @@ import com.github.fnar.minecraft.block.decorative.Plant;
 import com.github.fnar.minecraft.block.decorative.Skull;
 import com.github.fnar.minecraft.block.spawner.Spawner;
 import com.github.fnar.minecraft.item.RldItemStack;
+import com.github.fnar.minecraft.world.BiomeTag;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -84,7 +85,7 @@ public interface WorldEditor {
 
   int getDimension();
 
-  boolean isBiomeTypeAt(String biomeType, Coord coord);
+  boolean isBiomeTypeAt(BiomeTag biomeTag, Coord coord);
 
   String getBiomeName(Coord coord);
 }

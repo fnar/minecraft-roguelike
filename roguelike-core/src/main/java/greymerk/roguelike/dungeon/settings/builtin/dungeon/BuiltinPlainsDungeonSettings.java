@@ -1,8 +1,6 @@
 package greymerk.roguelike.dungeon.settings.builtin.dungeon;
 
-import com.github.fnar.util.Strings;
-
-import java.util.Collections;
+import com.github.fnar.minecraft.world.BiomeTag;
 
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
@@ -17,8 +15,6 @@ import greymerk.roguelike.dungeon.towers.TowerType;
 import greymerk.roguelike.theme.Themes;
 import greymerk.roguelike.worldgen.filter.Filter;
 
-import static net.minecraftforge.common.BiomeDictionary.Type.PLAINS;
-
 public class BuiltinPlainsDungeonSettings extends DungeonSettings {
 
   public static final SettingIdentifier ID = new SettingIdentifier(SettingsContainer.BUILTIN_NAMESPACE, "grassland");
@@ -28,7 +24,7 @@ public class BuiltinPlainsDungeonSettings extends DungeonSettings {
     super(ID);
     setExclusive(true);
     getInherit().add(BuiltinBaseSettings.ID);
-    getCriteria().setBiomeTypes(Strings.asStrings(Collections.singleton(PLAINS)));
+    getCriteria().addBiomeTags(BiomeTag.PLAINS);
 
     setTowerSettings(new TowerSettings(TowerType.HOUSE, Themes.HOUSE));
 

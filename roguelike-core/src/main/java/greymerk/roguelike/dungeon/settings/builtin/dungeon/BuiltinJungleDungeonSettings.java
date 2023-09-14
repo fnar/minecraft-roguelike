@@ -1,9 +1,7 @@
 package greymerk.roguelike.dungeon.settings.builtin.dungeon;
 
 import com.github.fnar.minecraft.item.Material;
-import com.github.fnar.util.Strings;
-
-import java.util.Collections;
+import com.github.fnar.minecraft.world.BiomeTag;
 
 import greymerk.roguelike.dungeon.segment.Segment;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
@@ -20,8 +18,6 @@ import greymerk.roguelike.treasure.loot.rule.SingleUseLootRule;
 import greymerk.roguelike.util.WeightedChoice;
 import greymerk.roguelike.worldgen.filter.Filter;
 
-import static net.minecraftforge.common.BiomeDictionary.Type.JUNGLE;
-
 public class BuiltinJungleDungeonSettings extends DungeonSettings {
 
   public static final SettingIdentifier ID = new SettingIdentifier(SettingsContainer.BUILTIN_NAMESPACE, "jungle");
@@ -30,7 +26,7 @@ public class BuiltinJungleDungeonSettings extends DungeonSettings {
     super(ID);
     setExclusive(true);
     getInherit().add(BuiltinBaseSettings.ID);
-    getCriteria().setBiomeTypes(Strings.asStrings(Collections.singleton(JUNGLE)));
+    getCriteria().addBiomeTags(BiomeTag.JUNGLE);
     setTowerSettings(new TowerSettings(TowerType.JUNGLE, Themes.JUNGLE));
 
     for (int i = 0; i < 5; ++i) {
@@ -39,7 +35,13 @@ public class BuiltinJungleDungeonSettings extends DungeonSettings {
     }
 
 
-    Themes[] themes = {Themes.JUNGLE, Themes.JUNGLE, Themes.MOSSY, Themes.MOSSY, Themes.NETHER};
+    Themes[] themes = {
+        Themes.JUNGLE,
+        Themes.JUNGLE,
+        Themes.MOSSY,
+        Themes.MOSSY,
+        Themes.NETHER
+    };
 
     SegmentGenerator segments;
     for (int level = 0; level < MAXIMUM_COUNT_OF_LEVELS; level++) {

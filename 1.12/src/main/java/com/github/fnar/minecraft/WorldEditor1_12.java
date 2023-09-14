@@ -15,6 +15,8 @@ import com.github.fnar.minecraft.block.spawner.SpawnPotentialMapper1_12;
 import com.github.fnar.minecraft.block.spawner.Spawner;
 import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.minecraft.item.mapper.ItemMapper1_12;
+import com.github.fnar.minecraft.world.BiomeTagMapper1_12;
+import com.github.fnar.minecraft.world.BiomeTag;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -464,8 +466,8 @@ public class WorldEditor1_12 implements WorldEditor {
   }
 
   @Override
-  public boolean isBiomeTypeAt(String biomeType, Coord coord) {
-    return BiomeDictionary.hasType(getBiomeAt(coord), BiomeDictionary.Type.getType(biomeType));
+  public boolean isBiomeTypeAt(BiomeTag biomeTag, Coord coord) {
+    return BiomeDictionary.hasType(getBiomeAt(coord), BiomeTagMapper1_12.toBiomeDictionaryType(biomeTag));
   }
 
   @Override

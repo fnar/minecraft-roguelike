@@ -5,6 +5,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 
+import com.github.fnar.minecraft.world.BiomeTag;
+
 import net.minecraft.init.Biomes;
 import net.minecraft.init.Bootstrap;
 import net.minecraft.world.biome.Biome;
@@ -23,7 +25,6 @@ import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 
-import static net.minecraftforge.common.BiomeDictionary.Type.SNOWY;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -91,9 +92,9 @@ public class SpawnCriteriaTest {
   public void isValid_ReturnsTrue_WhenBothBiomeCriteriaAndBiomeTypeCriteriaArePresentAndSatisfied() {
     when(worldEditor.getBiomeAt(any(Coord.class))).thenReturn(Biomes.ICE_MOUNTAINS);
     when(worldEditor.getBiomeName(any(Coord.class))).thenReturn(Biomes.ICE_MOUNTAINS.getRegistryName().toString());
-    when(worldEditor.isBiomeTypeAt(eq(SNOWY.toString()), any(Coord.class))).thenReturn(true);
+    when(worldEditor.isBiomeTypeAt(eq(BiomeTag.SNOWY), any(Coord.class))).thenReturn(true);
 
-    assertThat(newSpawnCriteria(Biomes.ICE_MOUNTAINS, SNOWY).isValid(worldEditor, coord)).isTrue();
+    assertThat(newSpawnCriteria(Biomes.ICE_MOUNTAINS, BiomeDictionary.Type.SNOWY).isValid(worldEditor, coord)).isTrue();
   }
 
   @Test
@@ -114,16 +115,16 @@ public class SpawnCriteriaTest {
   @Test
   public void isValid_ReturnsTrue_WhenOnlyBiomeTypeCriteriaIsProvidedAndSatisfied() {
     when(worldEditor.getBiomeAt(any(Coord.class))).thenReturn(Biomes.ICE_MOUNTAINS);
-    when(worldEditor.isBiomeTypeAt(eq(SNOWY.toString()), any(Coord.class))).thenReturn(true);
+    when(worldEditor.isBiomeTypeAt(eq(BiomeTag.SNOWY), any(Coord.class))).thenReturn(true);
 
-    assertThat(newSpawnCriteria(SNOWY).isValid(worldEditor, coord)).isTrue();
+    assertThat(newSpawnCriteria(BiomeDictionary.Type.SNOWY).isValid(worldEditor, coord)).isTrue();
   }
 
   @Test
   public void isValid_ReturnsFalse_WhenOnlyBiomeTypeCriteriaIsProvidedAndIsNotSatisfied() {
     when(worldEditor.getBiomeAt(any(Coord.class))).thenReturn(Biomes.BEACH);
 
-    assertThat(newSpawnCriteria(SNOWY).isValid(worldEditor, coord)).isFalse();
+    assertThat(newSpawnCriteria(BiomeDictionary.Type.SNOWY).isValid(worldEditor, coord)).isFalse();
   }
 
   private JsonArray newBiomeTypeCriteriaJson(BiomeDictionary.Type biomeType) {

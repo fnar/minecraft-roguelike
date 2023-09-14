@@ -1,9 +1,7 @@
 package greymerk.roguelike.dungeon.settings.builtin.dungeon;
 
 import com.github.fnar.minecraft.item.Material;
-import com.github.fnar.util.Strings;
-
-import java.util.Collections;
+import com.github.fnar.minecraft.world.BiomeTag;
 
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
@@ -22,8 +20,6 @@ import greymerk.roguelike.theme.Themes;
 import greymerk.roguelike.treasure.loot.MinecraftItemLootItem;
 import greymerk.roguelike.treasure.loot.rule.SingleUseLootRule;
 
-import static net.minecraftforge.common.BiomeDictionary.Type.SANDY;
-
 public class BuiltinDesertDungeonSettings extends DungeonSettings {
 
   public static final SettingIdentifier ID = new SettingIdentifier(SettingsContainer.BUILTIN_NAMESPACE, "desert");
@@ -32,7 +28,7 @@ public class BuiltinDesertDungeonSettings extends DungeonSettings {
     super(ID);
     setExclusive(true);
     getInherit().add(BuiltinBaseSettings.ID);
-    getCriteria().setBiomeTypes(Strings.asStrings(Collections.singleton(SANDY)));
+    getCriteria().addBiomeTags(BiomeTag.SANDY);
     setTowerSettings(new TowerSettings(TowerType.PYRAMID, Themes.PYRAMID));
     for (int i = 0; i < 5; ++i) {
       getLootRules().add(new SingleUseLootRule(new MinecraftItemLootItem(Material.Type.GOLD_INGOT.asItem(), 0, 1, 1 + i, 1), i, 6));
