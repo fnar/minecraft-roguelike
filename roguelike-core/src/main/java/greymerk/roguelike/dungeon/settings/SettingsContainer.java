@@ -73,8 +73,7 @@ public class SettingsContainer {
     this.dungeonSettingsParser = new DungeonSettingsParser(modLoader);
   }
 
-  // TODO: move call to constructor ?
-  public void loadFiles() throws Exception {
+  public SettingsContainer loadFiles() throws Exception {
     File settingsDirectoryFile = new File(RogueConfig.CONFIG_DIRECTORY + "/settings");
 
     if (settingsDirectoryFile.exists() && !settingsDirectoryFile.isDirectory()) {
@@ -87,6 +86,7 @@ public class SettingsContainer {
 
     Map<String, String> fileByName = collectSettingsFiles(settingsDirectoryFile);
     put(fileByName);
+    return this;
   }
 
   private Map<String, String> collectSettingsFiles(File settingsDirectory) {

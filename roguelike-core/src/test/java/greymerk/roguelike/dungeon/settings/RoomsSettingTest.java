@@ -13,7 +13,6 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.Random;
 
 import greymerk.roguelike.config.RogueConfig;
-import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.base.RoomIterator;
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
@@ -121,7 +120,7 @@ public class RoomsSettingTest {
 
   @Test
   public void testGetSingle() {
-    Dungeon.settingsResolver = new SettingsResolver(new SettingsContainer(modLoader));
+    SettingsResolver.instance = new SettingsResolver(new SettingsContainer(modLoader));
     WorldEditor editor = mock(WorldEditor.class);
     when(editor.getRandom()).thenReturn(new Random());
 

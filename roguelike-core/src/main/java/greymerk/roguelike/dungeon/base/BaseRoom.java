@@ -13,6 +13,7 @@ import java.util.Random;
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.dungeon.settings.SettingsResolver;
 import greymerk.roguelike.theme.BlockSet;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.loot.ChestType;
@@ -105,7 +106,7 @@ public abstract class BaseRoom {
   private Optional<SpawnerSettings> getSpawnerSettings(String spawnerId) {
     try {
       if (spawnerId != null) {
-        return Optional.ofNullable(Dungeon.settingsResolver.getByName(spawnerId))
+        return Optional.ofNullable(SettingsResolver.instance.getByName(spawnerId))
             .map(dungeonSettings -> dungeonSettings.getLevelSettings(levelSettings.getLevel()))
             .map(LevelSettings::getSpawnerSettings);
       }

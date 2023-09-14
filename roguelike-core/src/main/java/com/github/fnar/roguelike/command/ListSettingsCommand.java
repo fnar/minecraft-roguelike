@@ -4,12 +4,14 @@ import greymerk.roguelike.command.CommandContext1_12;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.SettingsResolver;
 
-public class ReloadSettingsCommand implements RoguelikeCommand {
+public class ListSettingsCommand implements RoguelikeCommand {
 
-  protected final CommandContext1_12 commandContext;
+  private final CommandContext1_12 commandContext;
+  private final String namespace;
 
-  public ReloadSettingsCommand(CommandContext1_12 commandContext) {
+  public ListSettingsCommand(CommandContext1_12 commandContext, String namespace) {
     this.commandContext = commandContext;
+    this.namespace = namespace;
   }
 
   @Override
@@ -17,6 +19,12 @@ public class ReloadSettingsCommand implements RoguelikeCommand {
     try {
       SettingsContainer settingsContainer = new SettingsContainer(commandContext.getModLoader()).loadFiles();
       SettingsResolver.instance = new SettingsResolver(settingsContainer);
+
+      if (namespace.isEmpty()) {
+        commandContext.sendInfo(SettingsResolver.instance.toString());
+      } else {
+        commandContext.sendInfo(SettingsResolver.instance.toString(namespace));
+      }
     } catch (Exception exception) {
       onException(exception);
       return;
@@ -26,11 +34,12 @@ public class ReloadSettingsCommand implements RoguelikeCommand {
 
   @Override
   public void onSuccess() {
-    commandContext.sendSuccess("settingsreloaded");
+    commandContext.sendSuccess("settingslisted");
   }
 
   @Override
   public void onException(Exception exception) {
     commandContext.sendFailure(exception);
   }
+
 }

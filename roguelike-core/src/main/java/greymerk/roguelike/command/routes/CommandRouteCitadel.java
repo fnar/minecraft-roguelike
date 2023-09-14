@@ -14,10 +14,10 @@ public class CommandRouteCitadel extends CommandRouteDungeon {
   }
 
   @Override
-  public void execute(CommandContext1_12 context, List<String> args) {
+  public void execute(CommandContext1_12 commandContext, List<String> args) {
     try {
-      Coord pos = getLocation(context, args);
-      Citadel.generate(context.createEditor(), pos.getX(), pos.getZ());
+      Coord pos = getLocation(commandContext, args);
+      Citadel.generate(commandContext.createEditor(), pos.getX(), pos.getZ());
     } catch (Exception ignored) {
     }
   }
