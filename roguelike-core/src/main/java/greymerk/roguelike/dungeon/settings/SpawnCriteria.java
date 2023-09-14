@@ -15,28 +15,18 @@ import greymerk.roguelike.worldgen.WorldEditor;
 
 public class SpawnCriteria {
 
-  private int weight;
+  private int weight = 1;
   private final List<Integer> validDimensions = new ArrayList<>();
-  private final Set<String> biomeStrings = new HashSet<>();
+  private final Set<String> biomes = new HashSet<>();
   private final Set<BiomeTag> biomeTags = new HashSet<>();
 
-  public SpawnCriteria() {
-  }
-
-  public SpawnCriteria(SpawnCriteria spawnCriteria) {
-    this.setWeight(spawnCriteria.weight);
-    this.addDimensions(spawnCriteria.validDimensions);
-    this.addBiomeStrings(spawnCriteria.biomeStrings);
-    this.addBiomeTags(spawnCriteria.biomeTags);
-  }
 
   public SpawnCriteria inherit(SpawnCriteria toInherit) {
-    SpawnCriteria result = new SpawnCriteria(this);
-    result.setWeight(toInherit.getWeight());
-    result.addBiomeStrings(toInherit.biomeStrings);
-    result.addBiomeTags(toInherit.biomeTags);
-    result.addDimensions(toInherit.getValidDimensions());
-    return result;
+    this.setWeight(toInherit.getWeight());
+    this.addBiomes(toInherit.biomes);
+    this.addBiomeTags(toInherit.biomeTags);
+    this.addDimensions(toInherit.getValidDimensions());
+    return this;
   }
 
   public static boolean isValidDimension(int dimension) {
@@ -55,8 +45,8 @@ public class SpawnCriteria {
     this.weight = weight;
   }
 
-  public void addBiomeStrings(Collection<String> biomes) {
-    this.biomeStrings.addAll(biomes);
+  public void addBiomes(Collection<String> biomes) {
+    this.biomes.addAll(biomes);
   }
 
   public void addBiomeTags(BiomeTag... biomeTags) {
@@ -76,11 +66,11 @@ public class SpawnCriteria {
   }
 
   private boolean isBiomeValid(WorldEditor worldEditor, Coord coord) {
-    return biomeStrings.isEmpty() || includesBiome(worldEditor, coord);
+    return biomes.isEmpty() || includesBiome(worldEditor, coord);
   }
 
   private boolean includesBiome(WorldEditor worldEditor, Coord coord) {
-    return biomeStrings.contains(worldEditor.getBiomeName(coord));
+    return biomes.contains(worldEditor.getBiomeName(coord));
   }
 
   private boolean isBiomeTypeValid(WorldEditor worldEditor, Coord coord) {
