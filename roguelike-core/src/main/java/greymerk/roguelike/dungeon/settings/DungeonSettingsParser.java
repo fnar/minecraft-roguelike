@@ -7,20 +7,19 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
+import com.github.fnar.forge.ModLoader;
 import com.github.fnar.minecraft.block.spawner.Spawner;
 import com.github.fnar.minecraft.block.spawner.SpawnerSettings;
 import com.github.fnar.roguelike.settings.RequiredModMissingException;
-
-import net.minecraftforge.fml.common.Loader;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import greymerk.roguelike.config.RogueConfig;
-import greymerk.roguelike.dungeon.layout.LayoutGenerator;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.base.SecretsSetting;
+import greymerk.roguelike.dungeon.layout.LayoutGenerator;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.rooms.RoomSettingParser;
 import greymerk.roguelike.dungeon.settings.level.LevelsParser;
@@ -37,7 +36,13 @@ public class DungeonSettingsParser {
 
   private static final String REQUIRES_KEY = "requires";
 
-  public static Optional<DungeonSettings> parseJson(String content) throws Exception {
+  private final ModLoader modLoader;
+
+  public DungeonSettingsParser(ModLoader modLoader) {
+    this.modLoader = modLoader;
+  }
+
+  public Optional<DungeonSettings> parseJson(String content) throws Exception {
     try {
       JsonParser jsonParser = new JsonParser();
       JsonObject parse;
@@ -54,7 +59,7 @@ public class DungeonSettingsParser {
     }
   }
 
-  public static Optional<DungeonSettings> parseDungeonSettings(JsonObject root) throws Exception {
+  public Optional<DungeonSettings> parseDungeonSettings(JsonObject root) throws Exception {
     boolean hasRequiredMods = parseRequires(root);
     if (!hasRequiredMods) {
       return Optional.empty();
@@ -86,13 +91,14 @@ public class DungeonSettingsParser {
     return Optional.of(dungeonSettings);
   }
 
-  private static boolean parseRequires(JsonObject root) throws Exception {
-
+  private boolean parseRequires(JsonObject root) throws Exception {
+    if (!RogueConfig.BREAK_IF_REQUIRED_MOD_IS_MISSING.getBoolean()) {
+      return true;
+    }
     if (!root.has(REQUIRES_KEY)) {
       return true;
     }
     JsonElement requiresElement = root.get(REQUIRES_KEY);
-
     if (requiresElement.isJsonObject()) {
       throw new DungeonSettingParseException("Expected field '" + REQUIRES_KEY + "' to be list of modid's but instead found a single object.");
     }
@@ -102,12 +108,10 @@ public class DungeonSettingsParser {
     JsonArray requiresArray = requiresElement.getAsJsonArray();
     for (JsonElement requiredModElement : requiresArray) {
       String requiredModName = requiredModElement.getAsString();
-      if (!Loader.isModLoaded(requiredModName)) {
-        if (RogueConfig.BREAK_IF_REQUIRED_MOD_IS_MISSING.getBoolean()) {
-          throw new RequiredModMissingException(requiredModName);
-        }
-        return false;
+      if (!modLoader.isModLoaded(requiredModName)) {
+        throw new RequiredModMissingException(requiredModName);
       }
+      return false;
     }
     return true;
   }

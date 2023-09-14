@@ -1,5 +1,6 @@
 package greymerk.roguelike.dungeon;
 
+import com.github.fnar.forge.ModLoader;
 import com.github.fnar.minecraft.block.Material;
 import com.github.fnar.util.ReportThisIssueException;
 
@@ -18,6 +19,7 @@ import java.util.stream.IntStream;
 
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
+import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.SettingsRandom;
 import greymerk.roguelike.dungeon.settings.SettingsResolver;
 import greymerk.roguelike.dungeon.settings.SpawnCriteria;
@@ -44,16 +46,8 @@ public class Dungeon {
   public static final int CHUNK_SIZE = 16;
   public static final int BOTTOM_OF_WORLD_HEIGHT = 5;
 
+  // TODO: convert to instance field?
   public static SettingsResolver settingsResolver;
-
-  static {
-    try {
-      RogueConfig.reload(false);
-      initResolver();
-    } catch (Exception e) {
-      // do nothing
-    }
-  }
 
   public static final String MOD_ID = "roguelike";
   private static final Logger logger = LogManager.getLogger(MOD_ID);
@@ -62,12 +56,16 @@ public class Dungeon {
   private final List<DungeonLevel> levels = new ArrayList<>();
   private final WorldEditor editor;
 
-  public Dungeon(WorldEditor editor) {
+  public Dungeon(WorldEditor editor, ModLoader modLoader) {
     this.editor = editor;
-  }
-
-  public static void initResolver() throws Exception {
-    Dungeon.settingsResolver = SettingsResolver.initSettingsResolver();
+    try {
+      RogueConfig.reload(false);
+      SettingsContainer settingsContainer = new SettingsContainer(modLoader);
+      settingsContainer.loadFiles();
+      Dungeon.settingsResolver = new SettingsResolver(settingsContainer);
+    } catch (Exception e) {
+      // do nothing
+    }
   }
 
   public static boolean canSpawnInChunk(int chunkX, int chunkZ, WorldEditor editor) {

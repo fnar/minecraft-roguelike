@@ -2,6 +2,7 @@ package greymerk.roguelike.dungeon.settings;
 
 import com.google.gson.JsonObject;
 
+import com.github.fnar.forge.ModLoader;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.item.ItemType;
 import com.github.fnar.minecraft.item.Material;
@@ -49,6 +50,9 @@ public class SettingsResolverTest {
   @Mock
   private TreasureChest mockTreasureChest;
 
+  @Mock
+  private ModLoader modLoader;
+
   @Captor
   private ArgumentCaptor<RldItemStack> itemStackCaptor;
 
@@ -57,7 +61,7 @@ public class SettingsResolverTest {
     Bootstrap.register();
     RogueConfig.testing = true;
 
-    settingsContainer = new SettingsContainer();
+    settingsContainer = new SettingsContainer(modLoader);
     treasureManager = new TreasureManager(new Random());
     treasureManager.addChest(mockTreasureChest);
     settingsResolver = new SettingsResolver(settingsContainer);

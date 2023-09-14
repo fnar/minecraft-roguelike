@@ -3,6 +3,7 @@ package greymerk.roguelike.dungeon.settings;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import com.github.fnar.forge.ModLoader;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.item.Food;
 import com.github.fnar.minecraft.item.Material;
@@ -47,6 +48,9 @@ public class DungeonSettingsTest {
 
   @Mock
   private TreasureChest mockTreasureChest;
+
+  @Mock
+  private ModLoader modLoader;
 
   @Captor
   private ArgumentCaptor<RldItemStack> itemStackCaptor;
@@ -136,7 +140,7 @@ public class DungeonSettingsTest {
 
     dungeonJson.add("themes", themes);
 
-    Optional<DungeonSettings> dungeonSettings = DungeonSettingsParser.parseDungeonSettings(dungeonJson);
+    Optional<DungeonSettings> dungeonSettings = new DungeonSettingsParser(modLoader).parseDungeonSettings(dungeonJson);
     if (!dungeonSettings.isPresent()) {
       fail("Expected DungeonSettings to be found but it was not.");
     }

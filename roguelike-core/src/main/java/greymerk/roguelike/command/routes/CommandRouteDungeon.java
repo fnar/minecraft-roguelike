@@ -10,6 +10,7 @@ import greymerk.roguelike.command.routes.exception.NoValidLocationException;
 import greymerk.roguelike.command.routes.exception.SettingNameNotFoundException;
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
+import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.SettingsRandom;
 import greymerk.roguelike.dungeon.settings.SettingsResolver;
 import greymerk.roguelike.dungeon.settings.TestDungeonSettings;
@@ -51,55 +52,67 @@ public class CommandRouteDungeon extends CommandRouteBase {
     try {
       Coord pos = getLocation(context, args);
       WorldEditor editor = context.createEditor();
-      DungeonSettings dungeonSettings = chooseDungeonSettings(settingName, pos, editor);
+      DungeonSettings dungeonSettings = chooseDungeonSettings(settingName, pos, editor, context);
       generateDungeon(context, pos, editor, dungeonSettings);
     } catch (Exception e) {
       context.sendFailure(e);
     }
   }
 
-  private DungeonSettings chooseDungeonSettings(String settingName, Coord pos, WorldEditor editor) throws Exception {
+  private DungeonSettings chooseDungeonSettings(String settingName, Coord pos, WorldEditor editor, CommandContext1_12 commandContext) throws Exception {
     if (settingName == null) {
-      return resolveAnyCustomDungeonSettings(pos, editor);
+      return resolveAnyCustomDungeonSettings(pos, editor, commandContext);
     } else if (settingName.equals("test")) {
-      return resolveTestDungeon(editor, pos);
+      return resolveTestDungeon(editor, pos, commandContext);
     } else if (settingName.equals("random")) {
-      return resolveRandomDungeon(editor, pos);
+      return resolveRandomDungeon(editor, pos, commandContext);
     } else {
-      return resolveNamedDungeonSettings(settingName);
+      return resolveNamedDungeonSettings(settingName, commandContext);
     }
   }
 
-  private DungeonSettings resolveAnyCustomDungeonSettings(Coord pos, WorldEditor editor) throws Exception {
-    SettingsResolver settingsResolver = SettingsResolver.initSettingsResolver();
+  private DungeonSettings resolveAnyCustomDungeonSettings(Coord pos, WorldEditor editor, CommandContext1_12 commandContext) throws Exception {
+    SettingsContainer settingsContainer = new SettingsContainer(commandContext.getModLoader());
+    settingsContainer.loadFiles();
+    SettingsResolver settingsResolver = new SettingsResolver(settingsContainer);
+
     Optional<DungeonSettings> dungeonSettings = settingsResolver.chooseDungeonSetting(editor, pos);
     return dungeonSettings
         .orElseThrow(() -> new NoValidLocationException(pos));
   }
 
-  private DungeonSettings resolveTestDungeon(WorldEditor editor, Coord pos) throws Exception {
-    Dungeon.initResolver();
+  private DungeonSettings resolveTestDungeon(WorldEditor editor, Coord pos, CommandContext1_12 commandContext) throws Exception {
+    SettingsContainer settingsContainer = new SettingsContainer(commandContext.getModLoader());
+    settingsContainer.loadFiles();
+    Dungeon.settingsResolver = new SettingsResolver(settingsContainer);
+
     Random random = editor.getRandom();
     random.setSeed(editor.getSeed(pos));
     return new TestDungeonSettings(random);
   }
 
-  private DungeonSettings resolveRandomDungeon(WorldEditor editor, Coord pos) throws Exception {
-    Dungeon.initResolver();
+  private DungeonSettings resolveRandomDungeon(WorldEditor editor, Coord pos, CommandContext1_12 commandContext) throws Exception {
+    SettingsContainer settingsContainer = new SettingsContainer(commandContext.getModLoader());
+    settingsContainer.loadFiles();
+    Dungeon.settingsResolver = new SettingsResolver(settingsContainer);
+
     Random random = editor.getRandom();
     random.setSeed(editor.getSeed(pos));
     return new SettingsRandom(random);
   }
 
-  private DungeonSettings resolveNamedDungeonSettings(String settingName) throws Exception {
-    Dungeon.initResolver();
-    DungeonSettings dungeonSettings = SettingsResolver.initSettingsResolver().getByName(settingName);
+  private DungeonSettings resolveNamedDungeonSettings(String settingName, CommandContext1_12 commandContext) throws Exception {
+    SettingsContainer settingsContainer = new SettingsContainer(commandContext.getModLoader());
+    settingsContainer.loadFiles();
+    SettingsResolver settingsResolver = new SettingsResolver(settingsContainer);
+
+    DungeonSettings dungeonSettings = settingsResolver.getByName(settingName);
     return Optional.ofNullable(dungeonSettings)
         .orElseThrow(() -> new SettingNameNotFoundException(settingName));
   }
 
   private void generateDungeon(CommandContext1_12 context, Coord coord, WorldEditor editor, DungeonSettings dungeonSettings) {
-    Dungeon dungeon = new Dungeon(editor);
+    Dungeon dungeon = new Dungeon(editor, context.getModLoader());
     dungeon.generate(dungeonSettings, coord);
     context.sendSuccess("generateddungeon", String.format("%s at %s.", dungeonSettings.getId(), coord));
   }

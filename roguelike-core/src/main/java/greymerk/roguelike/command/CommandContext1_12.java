@@ -1,5 +1,6 @@
 package greymerk.roguelike.command;
 
+import com.github.fnar.forge.ModLoader;
 import com.github.fnar.minecraft.item.RldItemStack;
 
 import greymerk.roguelike.worldgen.Coord;
@@ -70,5 +71,9 @@ public class CommandContext1_12 {
 
   public void give(RldItemStack item) {
     commandSender.give(item);
+  }
+
+  public ModLoader getModLoader() {
+    return requiredModName -> false;
   }
 }
