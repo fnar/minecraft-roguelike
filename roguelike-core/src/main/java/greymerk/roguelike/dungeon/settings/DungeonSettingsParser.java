@@ -24,6 +24,7 @@ import greymerk.roguelike.dungeon.base.SecretsSetting;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.rooms.RoomSettingParser;
 import greymerk.roguelike.dungeon.settings.level.LevelsParser;
+import greymerk.roguelike.dungeon.settings.parsing.spawncriteria.SpawnCriteriaParser;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.theme.ThemeParser;
 import greymerk.roguelike.treasure.loot.LootRulesParser;
@@ -133,7 +134,7 @@ public class DungeonSettingsParser {
 
   private static void parseCriteria(JsonObject root, DungeonSettings dungeonSettings) {
     if (root.has("criteria")) {
-      dungeonSettings.setSpawnCriteria(new SpawnCriteria(root.get("criteria").getAsJsonObject()));
+      dungeonSettings.setSpawnCriteria(SpawnCriteriaParser.parse(root.get("criteria").getAsJsonObject()));
     }
   }
 
