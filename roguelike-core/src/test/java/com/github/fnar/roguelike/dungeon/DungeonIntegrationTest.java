@@ -4,12 +4,9 @@ import com.github.fnar.forge.ModLoader;
 import com.github.fnar.roguelike.dungeon.settings.fixture.Layout;
 import com.github.fnar.roguelike.dungeon.settings.fixture.Theme;
 
-import net.minecraft.init.Bootstrap;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.SettingsResolver;
 
@@ -23,9 +20,6 @@ public class DungeonIntegrationTest {
 
   @Before
   public void setUp() throws Exception {
-    Bootstrap.register();
-    RogueConfig.testing = true;
-
     SettingsContainer settingsContainer = populatedSettingsContainer();
 
     settingsResolver = new SettingsResolver(settingsContainer);
