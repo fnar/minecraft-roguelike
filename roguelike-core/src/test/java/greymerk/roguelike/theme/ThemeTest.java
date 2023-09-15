@@ -6,22 +6,11 @@ import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 
-import net.minecraft.init.Bootstrap;
-
-import org.junit.Before;
 import org.junit.Test;
-
-import greymerk.roguelike.config.RogueConfig;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class ThemeTest {
-
-  @Before
-  public void setUp() {
-    Bootstrap.register();
-    RogueConfig.testing = true;
-  }
 
   @Test
   public void noBase() {

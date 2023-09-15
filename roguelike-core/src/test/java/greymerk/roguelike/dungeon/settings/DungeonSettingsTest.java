@@ -11,8 +11,6 @@ import com.github.fnar.minecraft.item.RldItem;
 import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.minecraft.item.ToolType;
 
-import net.minecraft.init.Bootstrap;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -27,7 +25,6 @@ import java.util.Random;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.TreasureManager;
 import greymerk.roguelike.treasure.loot.ChestType;
@@ -57,9 +54,6 @@ public class DungeonSettingsTest {
 
   @Before
   public void before() {
-    RogueConfig.testing = true;
-    Bootstrap.register();
-
     when(mockTreasureChest.getType()).thenReturn(ChestType.STARTER);
     when(mockTreasureChest.getLevel()).thenReturn(0);
   }

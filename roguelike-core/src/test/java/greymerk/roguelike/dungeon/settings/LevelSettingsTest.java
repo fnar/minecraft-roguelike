@@ -2,19 +2,15 @@ package greymerk.roguelike.dungeon.settings;
 
 import com.google.common.collect.Sets;
 
-import net.minecraft.init.Bootstrap;
-
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
-import greymerk.roguelike.config.RogueConfig;
-import greymerk.roguelike.dungeon.layout.LayoutGenerator;
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
+import greymerk.roguelike.dungeon.layout.LayoutGenerator;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.worldgen.filter.Filter;
 
@@ -23,12 +19,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class LevelSettingsTest {
 
   public static final Set<SettingsType> EMPTY_OVERRIDES = Collections.unmodifiableSet(Sets.newHashSet());
-
-  @Before
-  public void setUp() {
-    Bootstrap.register();
-    RogueConfig.testing = true;
-  }
 
   @Test
   public void testEquals() {

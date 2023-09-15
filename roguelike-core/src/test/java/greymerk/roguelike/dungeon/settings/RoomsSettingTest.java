@@ -2,9 +2,6 @@ package greymerk.roguelike.dungeon.settings;
 
 import com.github.fnar.forge.ModLoader;
 
-import net.minecraft.init.Bootstrap;
-
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -12,13 +9,12 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.Random;
 
-import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.dungeon.base.RoomIterator;
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
+import greymerk.roguelike.dungeon.rooms.prototype.CakeRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.CornerRoom;
 import greymerk.roguelike.dungeon.rooms.prototype.PitRoom;
-import greymerk.roguelike.dungeon.rooms.prototype.CakeRoom;
 import greymerk.roguelike.worldgen.WorldEditor;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -30,12 +26,6 @@ public class RoomsSettingTest {
 
   @Mock
   private ModLoader modLoader;
-
-  @Before
-  public void setUp() {
-    Bootstrap.register();
-    RogueConfig.testing = true;
-  }
 
   @Test
   public void testEquals() {

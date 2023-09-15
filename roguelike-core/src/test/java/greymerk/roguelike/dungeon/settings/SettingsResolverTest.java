@@ -58,9 +58,6 @@ public class SettingsResolverTest {
 
   @Before
   public void setUp() {
-    Bootstrap.register();
-    RogueConfig.testing = true;
-
     settingsContainer = new SettingsContainer(modLoader);
     treasureManager = new TreasureManager(new Random());
     treasureManager.addChest(mockTreasureChest);

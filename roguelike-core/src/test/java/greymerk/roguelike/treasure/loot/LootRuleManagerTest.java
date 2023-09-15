@@ -40,8 +40,6 @@ public class LootRuleManagerTest {
 
   @Before
   public void setUp() {
-    Bootstrap.register();
-
     when(mockTreasureChest.getType()).thenReturn(ChestType.STARTER);
     when(mockTreasureChest.getLevel()).thenReturn(0);
   }

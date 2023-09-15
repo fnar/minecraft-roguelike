@@ -3,9 +3,6 @@ package greymerk.roguelike.treasure;
 import com.github.fnar.minecraft.item.Material;
 import com.github.fnar.minecraft.item.RldItemStack;
 
-import net.minecraft.init.Bootstrap;
-
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -27,11 +24,6 @@ public class TreasureManagerTest {
 
   @Mock
   private TreasureChest mockTreasureChest;
-
-  @Before
-  public void setup() {
-    Bootstrap.register();
-  }
 
   @Test
   public void addItem() {
