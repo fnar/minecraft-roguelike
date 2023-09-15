@@ -98,7 +98,7 @@ public class WorldEditor1_12 implements WorldEditor {
       return;
     }
 
-    TileEntity tileEntity = editor.getTileEntity(cursor);
+    TileEntity tileEntity = getTileEntity(cursor);
     if (tileEntity == null) {
       return;
     }
@@ -268,7 +268,6 @@ public class WorldEditor1_12 implements WorldEditor {
     }
   }
 
-  @Override
   public TileEntity getTileEntity(Coord pos) {
     return world.getTileEntity(getBlockPos(pos));
   }
