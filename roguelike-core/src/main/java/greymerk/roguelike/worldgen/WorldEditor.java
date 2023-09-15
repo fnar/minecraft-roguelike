@@ -9,8 +9,6 @@ import com.github.fnar.minecraft.block.spawner.Spawner;
 import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.minecraft.world.BiomeTag;
 
-import net.minecraft.tileentity.TileEntity;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -47,8 +45,6 @@ public interface WorldEditor {
   long getSeed();
 
   void fillDown(Coord origin, BlockBrush blocks);
-
-  TileEntity getTileEntity(Coord pos);
 
   boolean isValidGroundBlock(Coord pos);
 
