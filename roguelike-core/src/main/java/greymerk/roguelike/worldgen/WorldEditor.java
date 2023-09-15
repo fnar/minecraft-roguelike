@@ -9,7 +9,6 @@ import com.github.fnar.minecraft.block.spawner.Spawner;
 import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.minecraft.world.BiomeTag;
 
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 
 import java.util.List;
@@ -60,8 +59,6 @@ public interface WorldEditor {
   Coord findNearestStructure(VanillaStructure type, Coord pos);
 
   void setBedColorAt(Coord cursor, DyeColor color);
-
-  void setItem(Coord pos, int slot, ItemStack item);
 
   void setItem(Coord pos, int slot, RldItemStack itemStack);
 

@@ -330,11 +330,6 @@ public class WorldEditor1_12 implements WorldEditor {
 
   @Override
   public void setItem(Coord pos, int slot, RldItemStack itemStack) {
-    setItem(pos, slot, new ItemMapper1_12().map(itemStack));
-  }
-
-  @Override
-  public void setItem(Coord pos, int slot, ItemStack itemStack) {
     TileEntity tileEntity = getTileEntity(pos);
     if (tileEntity == null) {
       return;
@@ -342,10 +337,11 @@ public class WorldEditor1_12 implements WorldEditor {
     if (!(tileEntity instanceof TileEntityLockableLoot)) {
       return;
     }
+    ItemStack forgeItemStack = new ItemMapper1_12().map(itemStack);
     try {
-      ((TileEntityLockableLoot) tileEntity).setInventorySlotContents(slot, itemStack);
+      ((TileEntityLockableLoot) tileEntity).setInventorySlotContents(slot, forgeItemStack);
     } catch (NullPointerException nullPointerException) {
-      logger.error("Could not place item {} at position {}. BlockState at pos: {}.", itemStack, pos, getBlockStateAt(pos));
+      logger.error("Could not place item {} at position {}. BlockState at pos: {}.", forgeItemStack, pos, getBlockStateAt(pos));
     }
   }
 
