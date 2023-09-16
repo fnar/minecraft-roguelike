@@ -1,14 +1,14 @@
 package com.github.fnar.roguelike.command;
 
-import greymerk.roguelike.command.CommandContext1_12;
+import greymerk.roguelike.command.CommandContext;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.SettingsResolver;
 
 public class ReloadSettingsCommand implements RoguelikeCommand {
 
-  protected final CommandContext1_12 commandContext;
+  protected final CommandContext commandContext;
 
-  public ReloadSettingsCommand(CommandContext1_12 commandContext) {
+  public ReloadSettingsCommand(CommandContext commandContext) {
     this.commandContext = commandContext;
   }
 

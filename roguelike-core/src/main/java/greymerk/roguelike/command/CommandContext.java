@@ -6,19 +6,16 @@ import com.github.fnar.minecraft.item.RldItemStack;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 
-public class CommandContext1_12 {
+public class CommandContext {
 
   private final CommandSender commandSender;
 
-  public CommandContext1_12(CommandSender commandSender) {
+  public CommandContext(CommandSender commandSender) {
     this.commandSender = commandSender;
   }
 
   public void sendFailure(Exception e) {
-    //sendFailure(e.getMessage());
-
     sendFailure("", e.getLocalizedMessage());
-    e.printStackTrace();
   }
 
   public void sendFailure(String message) {

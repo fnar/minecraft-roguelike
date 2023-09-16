@@ -3,7 +3,7 @@ package greymerk.roguelike.command.routes;
 import java.util.List;
 
 import greymerk.roguelike.command.CommandBase1_12;
-import greymerk.roguelike.command.CommandContext1_12;
+import greymerk.roguelike.command.CommandContext;
 import greymerk.roguelike.command.CommandRouteBase;
 
 public class CommandRouteRoguelike1_12 extends CommandRouteBase {
@@ -20,7 +20,7 @@ public class CommandRouteRoguelike1_12 extends CommandRouteBase {
   }
 
   @Override
-  public void execute(CommandContext1_12 context, List<String> args) {
+  public void execute(CommandContext context, List<String> args) {
     if (args.size() == 0) {
       //context.sendInfo("Usage: roguelike [dungeon | give | config | settings | tower]");
       context.sendInfo("notif.roguelike.usage_", "roguelike [dungeon | give | config | settings | tower]");

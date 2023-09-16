@@ -4,7 +4,7 @@ import java.util.List;
 
 import greymerk.roguelike.citadel.Citadel;
 import greymerk.roguelike.command.CommandBase;
-import greymerk.roguelike.command.CommandContext1_12;
+import greymerk.roguelike.command.CommandContext;
 import greymerk.roguelike.worldgen.Coord;
 
 public class CommandRouteCitadel extends CommandRouteDungeon {
@@ -14,7 +14,7 @@ public class CommandRouteCitadel extends CommandRouteDungeon {
   }
 
   @Override
-  public void execute(CommandContext1_12 commandContext, List<String> args) {
+  public void execute(CommandContext commandContext, List<String> args) {
     try {
       Coord pos = getLocation(commandContext, args);
       Citadel.generate(commandContext.createEditor(), pos.getX(), pos.getZ());

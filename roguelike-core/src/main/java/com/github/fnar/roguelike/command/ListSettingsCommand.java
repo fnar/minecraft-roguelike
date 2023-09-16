@@ -1,15 +1,15 @@
 package com.github.fnar.roguelike.command;
 
-import greymerk.roguelike.command.CommandContext1_12;
+import greymerk.roguelike.command.CommandContext;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.SettingsResolver;
 
 public class ListSettingsCommand implements RoguelikeCommand {
 
-  private final CommandContext1_12 commandContext;
+  private final CommandContext commandContext;
   private final String namespace;
 
-  public ListSettingsCommand(CommandContext1_12 commandContext, String namespace) {
+  public ListSettingsCommand(CommandContext commandContext, String namespace) {
     this.commandContext = commandContext;
     this.namespace = namespace;
   }
