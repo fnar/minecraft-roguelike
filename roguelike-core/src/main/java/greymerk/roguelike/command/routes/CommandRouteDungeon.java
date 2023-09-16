@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-import greymerk.roguelike.command.CommandContext1_12;
+import greymerk.roguelike.command.CommandContext;
 import greymerk.roguelike.command.CommandRouteBase;
 import greymerk.roguelike.command.routes.exception.NoValidLocationException;
 import greymerk.roguelike.command.routes.exception.SettingNameNotFoundException;
@@ -24,7 +24,7 @@ public class CommandRouteDungeon extends CommandRouteBase {
     super(commandBase);
   }
 
-  public Coord getLocation(CommandContext1_12 context, List<String> args) {
+  public Coord getLocation(CommandContext context, List<String> args) {
     ArgumentParser argumentParser = new ArgumentParser(args);
     if (argumentParser.match(0, "here") || argumentParser.match(0, "nearby")) {
       Coord coord = context.getPos();
@@ -41,7 +41,7 @@ public class CommandRouteDungeon extends CommandRouteBase {
   }
 
   @Override
-  public void execute(CommandContext1_12 commandContext, List<String> args) {
+  public void execute(CommandContext commandContext, List<String> args) {
     ArgumentParser argumentParser = new ArgumentParser(args);
     if (!argumentParser.hasEntry(0)) {
       commandContext.sendInfo("notif.roguelike.usage_", "roguelike dungeon {X Z | here} [setting]");
@@ -97,7 +97,7 @@ public class CommandRouteDungeon extends CommandRouteBase {
         .orElseThrow(() -> new SettingNameNotFoundException(settingName));
   }
 
-  private void generateDungeon(CommandContext1_12 context, Coord coord, WorldEditor editor, DungeonSettings dungeonSettings) {
+  private void generateDungeon(CommandContext context, Coord coord, WorldEditor editor, DungeonSettings dungeonSettings) {
     Dungeon dungeon = new Dungeon(editor, context.getModLoader());
     dungeon.generate(dungeonSettings, coord);
     context.sendSuccess("generateddungeon", String.format("%s at %s.", dungeonSettings.getId(), coord));

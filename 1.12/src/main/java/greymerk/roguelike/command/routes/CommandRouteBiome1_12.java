@@ -5,7 +5,7 @@ import net.minecraft.command.NumberInvalidException;
 
 import java.util.List;
 
-import greymerk.roguelike.command.CommandContext1_12;
+import greymerk.roguelike.command.CommandContext;
 import greymerk.roguelike.command.CommandRouteBase;
 import greymerk.roguelike.util.ArgumentParser;
 import greymerk.roguelike.worldgen.Coord;
@@ -18,7 +18,7 @@ public class CommandRouteBiome1_12 extends CommandRouteBase {
   }
 
   @Override
-  public void execute(CommandContext1_12 context, List<String> args) {
+  public void execute(CommandContext context, List<String> args) {
     Coord pos = getCoord(context, args);
     if (pos == null) {
       return;
@@ -33,7 +33,7 @@ public class CommandRouteBiome1_12 extends CommandRouteBase {
     context.sendSpecial(String.join("", typeNames));
   }
 
-  private Coord getCoord(CommandContext1_12 context, List<String> args) {
+  private Coord getCoord(CommandContext context, List<String> args) {
     ArgumentParser ap = new ArgumentParser(args);
 
     Coord pos;

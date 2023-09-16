@@ -6,7 +6,7 @@ import com.github.fnar.roguelike.command.ReloadSettingsCommand;
 import java.util.List;
 
 import greymerk.roguelike.command.CommandBase;
-import greymerk.roguelike.command.CommandContext1_12;
+import greymerk.roguelike.command.CommandContext;
 import greymerk.roguelike.command.CommandRouteBase;
 import greymerk.roguelike.util.ArgumentParser;
 
@@ -17,7 +17,7 @@ public class CommandRouteSettings extends CommandRouteBase {
   }
 
   @Override
-  public void execute(CommandContext1_12 commandContext, List<String> args) {
+  public void execute(CommandContext commandContext, List<String> args) {
     ArgumentParser argumentParser = new ArgumentParser(args);
 
     if (!argumentParser.hasEntry(0)) {
