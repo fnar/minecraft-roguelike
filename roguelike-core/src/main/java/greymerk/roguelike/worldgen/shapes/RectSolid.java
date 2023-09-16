@@ -7,8 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import greymerk.roguelike.worldgen.Bounded;
 import greymerk.roguelike.worldgen.Coord;
 import lombok.EqualsAndHashCode;
@@ -51,7 +49,6 @@ public class RectSolid implements IShape, Bounded {
     return Sets.newHashSet(start, end);
   }
 
-  @Nonnull
   @Override
   public Iterator<Coord> iterator() {
     return new RectSolidIterator(this.start, this.end);

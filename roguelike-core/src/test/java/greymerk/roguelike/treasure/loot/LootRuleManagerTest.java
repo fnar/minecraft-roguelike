@@ -5,8 +5,6 @@ import com.github.fnar.minecraft.item.RldItem;
 import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.minecraft.item.ToolType;
 
-import net.minecraft.init.Bootstrap;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

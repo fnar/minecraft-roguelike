@@ -7,8 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.Coord;
 
@@ -22,7 +20,6 @@ public class Ellipsoid implements IShape {
     this.end = end.copy();
   }
 
-  @Nonnull
   @Override
   public Iterator<Coord> iterator() {
     return new EllipsoidIterator(start, end);
