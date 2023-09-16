@@ -11,8 +11,6 @@ import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.roguelike.dungeon.settings.fixture.Dungeon;
 import com.github.fnar.roguelike.dungeon.settings.fixture.Theme;
 
-import net.minecraft.init.Bootstrap;
-
 import org.assertj.core.util.Lists;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +24,6 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.TreasureManager;
 import greymerk.roguelike.treasure.loot.ChestType;
@@ -249,8 +246,8 @@ public class SettingsResolverTest {
     String settingsName = "loot:potions";
     String potionLootSettings = "" +
         "{\n" +
-        "  \"name\": \"" + settingsName +"\",\n" +
-        "  \"lootRules\": [" + potionLootRules +"]" +
+        "  \"name\": \"" + settingsName + "\",\n" +
+        "  \"lootRules\": [" + potionLootRules + "]" +
         "}";
 
     settingsContainer.put(potionLootSettings);

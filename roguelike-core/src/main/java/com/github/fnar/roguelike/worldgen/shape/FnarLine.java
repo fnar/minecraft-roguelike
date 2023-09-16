@@ -7,8 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.shapes.IShape;
 
@@ -31,7 +29,6 @@ public class FnarLine implements IShape {
     return Sets.newHashSet(start.copy(), end.copy());
   }
 
-  @Nonnull
   @Override
   public Iterator<Coord> iterator() {
     return new FnarLineIterator(start.copy(), end.copy());

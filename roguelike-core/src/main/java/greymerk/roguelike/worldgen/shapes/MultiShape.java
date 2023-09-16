@@ -7,8 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
-import javax.annotation.Nonnull;
-
 import greymerk.roguelike.worldgen.Coord;
 
 import static java.util.stream.Collectors.toList;
@@ -27,7 +25,6 @@ public class MultiShape implements IShape {
     }
   }
 
-  @Nonnull
   @Override
   public Iterator<Coord> iterator() {
     return shape.iterator();
