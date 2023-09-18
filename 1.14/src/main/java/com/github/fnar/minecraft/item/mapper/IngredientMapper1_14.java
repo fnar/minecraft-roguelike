@@ -4,11 +4,11 @@ import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.item.CouldNotMapItemException;
 import com.github.fnar.minecraft.item.Ingredient;
 
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 
-public class IngredientMapper1_12 extends BaseItemMapper1_12<Ingredient> {
+public class IngredientMapper1_14 extends BaseItemMapper1_14<Ingredient> {
   @Override
   public Class<Ingredient> getClazz() {
     return Ingredient.class;
@@ -16,9 +16,6 @@ public class IngredientMapper1_12 extends BaseItemMapper1_12<Ingredient> {
 
   @Override
   public ItemStack map(Ingredient item) {
-    if (Ingredient.Type.PUFFERFISH.equals(item.getType())) {
-      return new ItemStack(Items.FISH, 3);
-    }
     return new ItemStack(mapItem(item));
   }
 
@@ -27,17 +24,15 @@ public class IngredientMapper1_12 extends BaseItemMapper1_12<Ingredient> {
       case BLAZE_POWDER:
         return Items.BLAZE_POWDER;
       case BROWN_MUSHROOM:
-        return new BlockMapper1_12().map(BlockType.BROWN_MUSHROOM.asItem().asStack()).getItem();
+        return new BlockMapper1_14().map(BlockType.BROWN_MUSHROOM.asItem().asStack()).getItem();
       case FERMENTED_SPIDER_EYE:
         return Items.FERMENTED_SPIDER_EYE;
-      case PUFFERFISH:
-        return Items.FISH;
       case GHAST_TEAR:
         return Items.GHAST_TEAR;
       case GLASS_BOTTLE:
         return Items.GLASS_BOTTLE;
       case GLISTERING_MELON_SLICE:
-        return Items.SPECKLED_MELON;
+        return Items.GLISTERING_MELON_SLICE;
       case GLOWSTONE_DUST:
         return Items.GLOWSTONE_DUST;
       case GUNPOWDER:
@@ -46,12 +41,14 @@ public class IngredientMapper1_12 extends BaseItemMapper1_12<Ingredient> {
         return Items.MAGMA_CREAM;
       case NETHER_WART:
         return Items.NETHER_WART;
+      case PUFFERFISH:
+        return Items.PUFFERFISH;
       case RABBIT_FOOT:
         return Items.RABBIT_FOOT;
       case REDSTONE:
         return Items.REDSTONE;
       case RED_MUSHROOM:
-        return new BlockMapper1_12().map(BlockType.RED_MUSHROOM.asItem().asStack()).getItem();
+        return new BlockMapper1_14().map(BlockType.RED_MUSHROOM.asItem().asStack()).getItem();
       case SPIDER_EYE:
         return Items.SPIDER_EYE;
       case SUGAR:

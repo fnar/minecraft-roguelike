@@ -5,7 +5,7 @@ public class Enchantment {
   private Effect effect;
   private int level = 1;
 
-  public Effect getEnchant() {
+  public Effect getEffect() {
     return effect;
   }
 
@@ -31,7 +31,9 @@ public class Enchantment {
 
     AQUA_AFFINITY,
     BANE_OF_ARTHROPODS,
+    BINDING_CURSE,
     BLAST_PROTECTION,
+    CHANNELING,
     DEPTH_STRIDER,
     EFFICIENCY,
     FEATHER_FALLING,
@@ -39,22 +41,31 @@ public class Enchantment {
     FIRE_PROTECTION,
     FLAME,
     FORTUNE,
+    FROST_WALKER,
+    IMPALING,
     INFINITY,
     KNOCKBACK,
     LOOTING,
+    LOYALTY,
     LUCK_OF_THE_SEA,
     LURE,
     MENDING,
+    MULTISHOT,
+    PIERCING,
     POWER,
     PROJECTILE_PROTECTION,
     PROTECTION,
     PUNCH,
+    QUICK_CHARGE,
     RESPIRATION,
+    RIPTIDE,
     SHARPNESS,
     SILK_TOUCH,
     SMITE,
+    SWEEPING,
     THORNS,
-    UNBREAKING;
+    UNBREAKING,
+    VANISHING_CURSE;
 
     public Enchantment asEnchantment() {
       return new Enchantment().withEffect(this);

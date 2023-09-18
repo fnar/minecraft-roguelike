@@ -13,7 +13,7 @@ public class ProfileWitherSkeleton implements MonsterProfile {
 
   @Override
   public Mob apply(Mob mob, int level, int difficulty, Random rand) {
-    mob.setMobType(MobType.WITHERSKELETON);
+    mob.setMobType(MobType.WITHER_SKELETON);
     mob.equipSword(rand, level, Difficulty.fromInt(difficulty));
     mob.equipArmor(rand, level, Color.random(rand), difficulty);
     return mob;

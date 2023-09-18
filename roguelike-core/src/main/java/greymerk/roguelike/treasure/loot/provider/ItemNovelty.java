@@ -18,7 +18,6 @@ import java.util.Map;
 
 import greymerk.roguelike.treasure.loot.Quality;
 import greymerk.roguelike.util.DyeColor;
-import greymerk.roguelike.util.TextFormat;
 
 public enum ItemNovelty {
 
@@ -257,7 +256,7 @@ public enum ItemNovelty {
   }
 
   public static RldItemStack cleophianDiggingFeesh() {
-    return Food.Type.RAW_COD.asItem()
+    return Food.Type.COD.asItem()
         .withEnchantment(Enchantment.Effect.EFFICIENCY.atLevel(10))
         .withEnchantment(Enchantment.Effect.KNOCKBACK.atLevel(5))
         .withEnchantment(Enchantment.Effect.FORTUNE.atLevel(5))

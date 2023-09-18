@@ -24,12 +24,12 @@ public class ItemBrewing extends LootItem {
     this.items.add(new MinecraftItemLootItem(Ingredient.Type.REDSTONE.asItem(), 0, 1, 3, 1));
     this.items.add(new MinecraftItemLootItem(Ingredient.Type.GLOWSTONE_DUST.asItem(), 0, 1, 3, 1));
     this.items.add(new MinecraftItemLootItem(Ingredient.Type.SUGAR.asItem(), 0, 1, 3, 1));
-    this.items.add(new MinecraftItemLootItem(Ingredient.Type.SPECKLED_MELON.asItem(), 0, 1, 3, 1));
+    this.items.add(new MinecraftItemLootItem(Ingredient.Type.GLISTERING_MELON_SLICE.asItem(), 0, 1, 3, 1));
     this.items.add(new MinecraftItemLootItem(Ingredient.Type.FERMENTED_SPIDER_EYE.asItem(), 0, 1, 3, 1));
     this.items.add(new MinecraftItemLootItem(Ingredient.Type.BROWN_MUSHROOM.asItem(), 0, 1, 3, 1));
     this.items.add(new MinecraftItemLootItem(Ingredient.Type.RED_MUSHROOM.asItem(), 0, 1, 3, 1));
     this.items.add(new MinecraftItemLootItem(Ingredient.Type.RABBIT_FOOT.asItem(), 0, 1, 3, 1));
-    this.items.add(new MinecraftItemLootItem(Ingredient.Type.FISH.asItem(), 3, 1, 3, 1));
+    this.items.add(new MinecraftItemLootItem(Ingredient.Type.PUFFERFISH.asItem(), 3, 1, 3, 1));
     this.items.add(new MinecraftItemLootItem(Ingredient.Type.GLASS_BOTTLE.asItem(), 0, 3, 12, 1));
   }
 

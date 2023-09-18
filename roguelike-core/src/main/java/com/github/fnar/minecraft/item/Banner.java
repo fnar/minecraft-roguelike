@@ -9,9 +9,16 @@ import greymerk.roguelike.util.DyeColor;
 
 public class Banner extends RldBaseItem {
 
+  private DyeColor baseColor = DyeColor.WHITE;
   private final List<Design> designs = Lists.newArrayList();
 
-  public Banner() {
+  public DyeColor getBaseColor() {
+    return baseColor;
+  }
+
+  public Banner withBaseColor(DyeColor baseColor) {
+    this.baseColor = baseColor;
+    return this;
   }
 
   @Override
