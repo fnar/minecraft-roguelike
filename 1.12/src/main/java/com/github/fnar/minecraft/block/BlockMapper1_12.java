@@ -16,14 +16,14 @@ import com.github.fnar.minecraft.block.normal.InfestedBlock;
 import com.github.fnar.minecraft.block.normal.Quartz;
 import com.github.fnar.minecraft.block.normal.SlabBlock;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
-import com.github.fnar.minecraft.block.redstone.TripwireHookBlock;
-import com.github.fnar.minecraft.material.Stone;
-import com.github.fnar.minecraft.material.Wood;
 import com.github.fnar.minecraft.block.redstone.ComparatorBlock;
 import com.github.fnar.minecraft.block.redstone.DoorBlock;
 import com.github.fnar.minecraft.block.redstone.LeverBlock;
 import com.github.fnar.minecraft.block.redstone.RepeaterBlock;
 import com.github.fnar.minecraft.block.redstone.TrapdoorBlock;
+import com.github.fnar.minecraft.block.redstone.TripwireHookBlock;
+import com.github.fnar.minecraft.material.Stone;
+import com.github.fnar.minecraft.material.Wood;
 import com.github.fnar.util.ReportThisIssueException;
 
 import net.minecraft.block.Block;
@@ -1061,28 +1061,28 @@ public class BlockMapper1_12 {
     switch (type) {
       case POPPY:
         return new MetaBlock1_12(Blocks.RED_FLOWER);
-      case ORCHID:
+      case BLUE_ORCHID:
         return new MetaBlock1_12(Blocks.RED_FLOWER)
             .withProperty(Blocks.RED_FLOWER.getTypeProperty(), BlockFlower.EnumFlowerType.BLUE_ORCHID);
       case ALLIUM:
         return new MetaBlock1_12(Blocks.RED_FLOWER)
             .withProperty(Blocks.RED_FLOWER.getTypeProperty(), BlockFlower.EnumFlowerType.ALLIUM);
-      case BLUET:
+      case AZURE_BLUET:
         return new MetaBlock1_12(Blocks.RED_FLOWER)
             .withProperty(Blocks.RED_FLOWER.getTypeProperty(), BlockFlower.EnumFlowerType.HOUSTONIA);
-      case REDTULIP:
+      case RED_TULIP:
         return new MetaBlock1_12(Blocks.RED_FLOWER)
             .withProperty(Blocks.RED_FLOWER.getTypeProperty(), BlockFlower.EnumFlowerType.RED_TULIP);
-      case ORANGETULIP:
+      case ORANGE_TULIP:
         return new MetaBlock1_12(Blocks.RED_FLOWER)
             .withProperty(Blocks.RED_FLOWER.getTypeProperty(), BlockFlower.EnumFlowerType.ORANGE_TULIP);
-      case WHITETULIP:
+      case WHITE_TULIP:
         return new MetaBlock1_12(Blocks.RED_FLOWER)
             .withProperty(Blocks.RED_FLOWER.getTypeProperty(), BlockFlower.EnumFlowerType.WHITE_TULIP);
-      case PINKTULIP:
+      case PINK_TULIP:
         return new MetaBlock1_12(Blocks.RED_FLOWER)
             .withProperty(Blocks.RED_FLOWER.getTypeProperty(), BlockFlower.EnumFlowerType.PINK_TULIP);
-      case DAISY:
+      case OXEYE_DAISY:
         return new MetaBlock1_12(Blocks.RED_FLOWER)
             .withProperty(Blocks.RED_FLOWER.getTypeProperty(), BlockFlower.EnumFlowerType.OXEYE_DAISY);
       case RED_MUSHROOM:
@@ -1101,9 +1101,9 @@ public class BlockMapper1_12 {
         return getSapling(Wood.JUNGLE);
       case ACACIA_SAPLING:
         return getSapling(Wood.ACACIA);
-      case DARKOAK_SAPLING:
+      case DARK_OAK_SAPLING:
         return getSapling(Wood.DARK_OAK);
-      case SHRUB:
+      case DEAD_BUSH:
         return new MetaBlock1_12(Blocks.TALLGRASS)
             .withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.DEAD_BUSH);
       case FERN:

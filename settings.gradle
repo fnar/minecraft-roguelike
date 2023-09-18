@@ -1,5 +1,4 @@
 rootProject.name = 'minecraft-roguelike'
 include 'roguelike-core'
 include '1.12'
-//include '1.14'
-
+include '1.14'

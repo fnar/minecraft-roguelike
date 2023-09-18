@@ -15,12 +15,13 @@ import com.github.fnar.minecraft.block.spawner.SpawnPotentialMapper1_12;
 import com.github.fnar.minecraft.block.spawner.Spawner;
 import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.minecraft.item.mapper.ItemMapper1_12;
-import com.github.fnar.minecraft.world.BiomeTagMapper1_12;
+import com.github.fnar.minecraft.item.mapper.PlantMapper1_12;
 import com.github.fnar.minecraft.world.BiomeTag;
+import com.github.fnar.minecraft.world.BiomeTagMapper1_12;
+import com.github.fnar.minecraft.world.BlockPosMapper1_12;
 
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.MobSpawnerBaseLogic;
@@ -39,6 +40,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.ChunkProviderServer;
 import net.minecraftforge.common.BiomeDictionary;
 
+import org.apache.commons.lang3.NotImplementedException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -90,6 +92,7 @@ public class WorldEditor1_12 implements WorldEditor {
     treasureManager = new TreasureManager(random);
   }
 
+  @Override
   public void setSkull(WorldEditor editor, Coord cursor, Direction dir, Skull type) {
     SingleBlockBrush skullBlock = BlockType.SKULL.getBrush();
     // Makes the skull sit flush against the block below it.
@@ -164,7 +167,7 @@ public class WorldEditor1_12 implements WorldEditor {
   }
 
   private IBlockState getBlockStateAt(Coord coord) {
-    return world.getBlockState(getBlockPos(coord));
+    return world.getBlockState(BlockPosMapper1_12.map(coord));
   }
 
   @Override
@@ -184,7 +187,8 @@ public class WorldEditor1_12 implements WorldEditor {
 
   @Override
   public boolean isMaterialAt(com.github.fnar.minecraft.block.Material material, Coord coord) {
-    return false;
+    // TODO: implement
+    throw new NotImplementedException("Bad Fnar, bad!");
   }
 
   @Override
@@ -193,18 +197,13 @@ public class WorldEditor1_12 implements WorldEditor {
   }
 
   @Override
-  public Random getRandom(Coord pos) {
-    random.setSeed(getSeed(pos));
+  public Random getRandom(Coord coord) {
+    random.setSeed(getSeed(coord));
     return random;
-  }
-
-  private BlockPos getBlockPos(Coord pos) {
-    return new BlockPos(pos.getX(), pos.getY(), pos.getZ());
   }
 
   @Override
   public boolean setBlock(Coord coord, SingleBlockBrush singleBlockBrush, boolean fillAir, boolean replaceSolid) {
-
     if (isBlockOfTypeAt(BlockType.CHEST, coord) ||
         isBlockOfTypeAt(BlockType.TRAPPED_CHEST, coord) ||
         isBlockOfTypeAt(BlockType.MOB_SPAWNER, coord)) {
@@ -220,7 +219,7 @@ public class WorldEditor1_12 implements WorldEditor {
 
     MetaBlock1_12 metaBlock = getMetaBlock(singleBlockBrush);
     try {
-      world.setBlockState(getBlockPos(coord), metaBlock.getState(), metaBlock.getFlag());
+      world.setBlockState(BlockPosMapper1_12.map(coord), metaBlock.getState(), metaBlock.getFlag());
     } catch (NullPointerException npe) {
       LogManager.getLogger(MOD_ID).error(npe);
     }
@@ -249,8 +248,8 @@ public class WorldEditor1_12 implements WorldEditor {
   }
 
   @Override
-  public boolean isAirBlock(Coord pos) {
-    return world.isAirBlock(getBlockPos(pos));
+  public boolean isAirBlock(Coord coord) {
+    return world.isAirBlock(BlockPosMapper1_12.map(coord));
   }
 
   @Override
@@ -269,12 +268,12 @@ public class WorldEditor1_12 implements WorldEditor {
   }
 
   public TileEntity getTileEntity(Coord pos) {
-    return world.getTileEntity(getBlockPos(pos));
+    return world.getTileEntity(BlockPosMapper1_12.map(pos));
   }
 
   @Override
-  public boolean isValidGroundBlock(Coord pos) {
-    return validGroundBlocks.contains(getBlockStateAt(pos).getMaterial());
+  public boolean isValidGroundBlock(Coord coord) {
+    return validGroundBlocks.contains(getBlockStateAt(coord).getMaterial());
   }
 
   @Override
@@ -283,38 +282,18 @@ public class WorldEditor1_12 implements WorldEditor {
   }
 
   @Override
-  public boolean canPlace(SingleBlockBrush block, Coord pos, Direction dir) {
+  public boolean canPlace(SingleBlockBrush block, Coord coord, Direction dir) {
     // todo: can we map the `block` here instead of block.getType()?
-    return isAirBlock(pos)
-        && BlockMapper1_12.map(block.getBlockType()).getBlock().canPlaceBlockOnSide(world, getBlockPos(pos), BlockMapper1_12.getFacing(dir));
+    return isAirBlock(coord)
+        && BlockMapper1_12.map(block.getBlockType()).getBlock().canPlaceBlockOnSide(world, BlockPosMapper1_12.map(coord), BlockMapper1_12.getFacing(dir));
   }
 
   @Override
-  public Coord findNearestStructure(VanillaStructure type, Coord pos) {
-
+  public Coord findNearestStructure(VanillaStructure type, Coord coord, int radius) {
     ChunkProviderServer chunkProvider = ((WorldServer) world).getChunkProvider();
     String structureName = VanillaStructure.getName(type);
-
-    BlockPos structurebp = null;
-
-    try {
-      structurebp = chunkProvider.getNearestStructurePos(world, structureName, getBlockPos(pos), false);
-    } catch (NullPointerException e) {
-      // happens for some reason if structure type is disabled in Chunk Generator Settings
-    }
-
-    if (structurebp == null) {
-      return null;
-    }
-
-    return new Coord(structurebp.getX(), structurebp.getY(), structurebp.getZ());
-  }
-
-  @Override
-  public String toString() {
-    return stats.entrySet().stream()
-        .map(pair -> pair.getKey().toString() + ": " + pair.getValue() + "\n")
-        .collect(Collectors.joining());
+    BlockPos structureBlockPosition = chunkProvider.getNearestStructurePos(world, structureName, BlockPosMapper1_12.map(coord), false);
+    return Optional.ofNullable(structureBlockPosition).map(BlockPosMapper1_12::map).orElse(null);
   }
 
   @Override
@@ -328,8 +307,8 @@ public class WorldEditor1_12 implements WorldEditor {
   }
 
   @Override
-  public void setItem(Coord pos, int slot, RldItemStack itemStack) {
-    TileEntity tileEntity = getTileEntity(pos);
+  public void setItem(Coord coord, int slot, RldItemStack itemStack) {
+    TileEntity tileEntity = getTileEntity(coord);
     if (tileEntity == null) {
       return;
     }
@@ -340,13 +319,13 @@ public class WorldEditor1_12 implements WorldEditor {
     try {
       ((TileEntityLockableLoot) tileEntity).setInventorySlotContents(slot, forgeItemStack);
     } catch (NullPointerException nullPointerException) {
-      logger.error("Could not place item {} at position {}. BlockState at pos: {}.", forgeItemStack, pos, getBlockStateAt(pos));
+      logger.error("Could not place item {} at position {}. BlockState at pos: {}.", forgeItemStack, coord, getBlockStateAt(coord));
     }
   }
 
   @Override
-  public void setFlowerPotContent(Coord pos, Plant choice) {
-    TileEntity potEntity = getTileEntity(pos);
+  public void setFlowerPotContent(Coord coord, Plant choice) {
+    TileEntity potEntity = getTileEntity(coord);
 
     if (potEntity == null) {
       return;
@@ -357,71 +336,26 @@ public class WorldEditor1_12 implements WorldEditor {
 
     TileEntityFlowerPot flowerPot = (TileEntityFlowerPot) potEntity;
 
-    ItemStack flowerItem = getFlowerItem(choice);
+    ItemStack flowerItem = new PlantMapper1_12().map(choice);
     flowerPot.setItemStack(flowerItem);
   }
 
-  private static ItemStack getFlowerItem(Plant type) {
-    switch (type) {
-      case POPPY:
-        return new ItemStack(Blocks.RED_FLOWER, 1, 0);
-      case ORCHID:
-        return new ItemStack(Blocks.RED_FLOWER, 1, 1);
-      case ALLIUM:
-        return new ItemStack(Blocks.RED_FLOWER, 1, 2);
-      case BLUET:
-        return new ItemStack(Blocks.RED_FLOWER, 1, 3);
-      case REDTULIP:
-        return new ItemStack(Blocks.RED_FLOWER, 1, 4);
-      case ORANGETULIP:
-        return new ItemStack(Blocks.RED_FLOWER, 1, 5);
-      case WHITETULIP:
-        return new ItemStack(Blocks.RED_FLOWER, 1, 6);
-      case PINKTULIP:
-        return new ItemStack(Blocks.RED_FLOWER, 1, 7);
-      case DAISY:
-        return new ItemStack(Blocks.RED_FLOWER, 1, 8);
-      case RED_MUSHROOM:
-        return new ItemStack(Blocks.RED_MUSHROOM);
-      case BROWN_MUSHROOM:
-        return new ItemStack(Blocks.BROWN_MUSHROOM);
-      case CACTUS:
-        return new ItemStack(Blocks.CACTUS);
-      case OAK_SAPLING:
-        return new ItemStack(Blocks.SAPLING, 1, 0);
-      case SPRUCE_SAPLING:
-        return new ItemStack(Blocks.SAPLING, 1, 1);
-      case BIRCH_SAPLING:
-        return new ItemStack(Blocks.SAPLING, 1, 2);
-      case JUNGLE_SAPLING:
-        return new ItemStack(Blocks.SAPLING, 1, 3);
-      case ACACIA_SAPLING:
-        return new ItemStack(Blocks.SAPLING, 1, 4);
-      case DARKOAK_SAPLING:
-        return new ItemStack(Blocks.SAPLING, 1, 5);
-      case SHRUB:
-        return new ItemStack(Blocks.TALLGRASS, 1, 0);
-      case FERN:
-        return new ItemStack(Blocks.TALLGRASS, 1, 2);
-      case DANDELION:
-      default:
-        return new ItemStack(Blocks.YELLOW_FLOWER);
-    }
+  @Override
+  public void setLootTable(Coord coord, String table) {
+    ((TileEntityChest) getTileEntity(coord)).setLootTable(new ResourceLocation(table), getSeed(coord));
   }
 
   @Override
-  public void setLootTable(Coord pos, String table) {
-    ((TileEntityChest) getTileEntity(pos)).setLootTable(new ResourceLocation(table), getSeed(pos));
-  }
-
   public int getCapacity(TreasureChest treasureChest) {
     return ((TileEntityLockableLoot) getTileEntity(treasureChest.getCoord())).getSizeInventory();
   }
 
+  @Override
   public boolean isEmptySlot(TreasureChest treasureChest, int slot) {
     return ((TileEntityLockableLoot) getTileEntity(treasureChest.getCoord())).getStackInSlot(slot).isEmpty();
   }
 
+  @Override
   public void generateSpawner(Spawner spawner, Coord cursor) {
     Coord pos = cursor.copy();
 
@@ -451,10 +385,6 @@ public class WorldEditor1_12 implements WorldEditor {
     return treasureManager;
   }
 
-  public Biome getBiomeAt(Coord coord) {
-    return world.getBiome(new BlockPos(coord.getX(), coord.getY(), coord.getZ()));
-  }
-
   @Override
   public int getDimension() {
     return world.provider.getDimension();
@@ -480,6 +410,17 @@ public class WorldEditor1_12 implements WorldEditor {
     return BiomeDictionary.getTypes(getBiomeAt(pos)).stream()
         .map(type -> type.getName() + " ")
         .collect(Collectors.toList());
+  }
+
+  public Biome getBiomeAt(Coord coord) {
+    return world.getBiome(BlockPosMapper1_12.map(coord));
+  }
+
+  @Override
+  public String toString() {
+    return stats.entrySet().stream()
+        .map(pair -> pair.getKey().toString() + ": " + pair.getValue() + "\n")
+        .collect(Collectors.joining());
   }
 
 }
