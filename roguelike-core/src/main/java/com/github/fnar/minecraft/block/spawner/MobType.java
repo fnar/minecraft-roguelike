@@ -10,20 +10,19 @@ import java.util.stream.Collectors;
 public enum MobType {
 
   BAT("bat"),
-
   BLAZE("blaze"),
   CAVESPIDER("cave_spider"),
   CREEPER("creeper"),
   ELDER_GUARDIAN("elder_guardian"),
   ENDERMAN("enderman"),
   ENDERMITE("endermite"),
+  ENDER_DRAGON("dragon"),
   EVOKER("evocation_illager"),
   GHAST("ghast"),
   GUARDIAN("guardian"),
   HUSK("husk"),
   ILLUSIONER("illusion_illager"),
   MAGMA_CUBE("magma_cube"),
-  PIGZOMBIE("zombie_pigman"),
   SHULKER("shulker"),
   SILVERFISH("silverfish"),
   SKELETON("skeleton"),
@@ -33,20 +32,19 @@ public enum MobType {
   VEX("vex"),
   VINDICATOR("vindication_illager"),
   WITCH("witch"),
-  WITHERSKELETON("wither_skeleton"),
-  ZOMBIE("zombie"),
-  ZOMBIE_VILLAGER("zombie_villager"),
-
   WITHER("wither"),
-  DRAGON("dragon"),
+  WITHER_SKELETON("wither_skeleton"),
+  ZOMBIE("zombie"),
+  ZOMBIE_PIGMAN("zombie_pigman"),
+  ZOMBIE_VILLAGER("zombie_villager"),
   ;
 
   public static final Set<MobType> EQUIPPABLE_MOB_TYPES = Sets.newHashSet(
       HUSK,
-      PIGZOMBIE,
+      ZOMBIE_PIGMAN,
       SKELETON,
       STRAY,
-      WITHERSKELETON,
+      WITHER_SKELETON,
       ZOMBIE,
       ZOMBIE_VILLAGER
   );
@@ -54,13 +52,13 @@ public enum MobType {
   public static final MobType[] COMMON_MOBS = {SKELETON, SPIDER, ZOMBIE};
   public static final MobType[] UNCOMMON_MOBS = {CAVESPIDER, CREEPER};
   public static final MobType[] RARE_MOBS = {ENDERMAN, SLIME, WITCH};
-  public static final MobType[] EPIC_MOBS = {DRAGON, WITHER};
+  public static final MobType[] EPIC_MOBS = {ENDER_DRAGON, WITHER};
   public static final MobType[] LEGENDARY_MOBS = {};
 
 
   public static final MobType[] HUMANOID_MOBS = {SKELETON, WITCH, ZOMBIE};
   public static final MobType[] UNDEAD_MOBS = {SKELETON, ZOMBIE};
-  public static final MobType[] NETHER_MOBS = {BLAZE, MAGMA_CUBE, PIGZOMBIE, WITHERSKELETON};
+  public static final MobType[] NETHER_MOBS = {BLAZE, MAGMA_CUBE, ZOMBIE_PIGMAN, WITHER_SKELETON};
   public static final MobType[] ILLAGERS = {EVOKER, ILLUSIONER, VINDICATOR};
 
   private final String name;

@@ -45,7 +45,7 @@ public class BuiltinSwampDungeonSettings extends DungeonSettings {
     WeightedRandomizer<RldItemStack> brewing = new WeightedRandomizer<>();
     brewing.add(new MinecraftItemLootItem(Ingredient.Type.GLASS_BOTTLE.asItem(), 0, 1, 3, 3));
     brewing.add(new MinecraftItemLootItem(Ingredient.Type.MAGMA_CREAM.asItem(), 0, 1, 2, 1));
-    brewing.add(new MinecraftItemLootItem(Ingredient.Type.SPECKLED_MELON.asItem(), 0, 1, 3, 1));
+    brewing.add(new MinecraftItemLootItem(Ingredient.Type.GLISTERING_MELON_SLICE.asItem(), 0, 1, 3, 1));
     brewing.add(new MinecraftItemLootItem(Ingredient.Type.BLAZE_POWDER.asItem(), 0, 1, 3, 1));
     brewing.add(new MinecraftItemLootItem(Ingredient.Type.SUGAR.asItem(), 0, 1, 3, 1));
     for (int i = 0; i < 5; ++i) {

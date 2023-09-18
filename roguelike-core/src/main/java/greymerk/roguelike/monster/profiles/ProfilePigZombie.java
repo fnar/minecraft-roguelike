@@ -13,7 +13,7 @@ public class ProfilePigZombie implements MonsterProfile {
 
   @Override
   public Mob apply(Mob mob, int level, int difficulty, Random random) {
-    mob.setMobType(MobType.PIGZOMBIE);
+    mob.setMobType(MobType.ZOMBIE_PIGMAN);
     mob.equipSword(random, level, Difficulty.fromInt(difficulty));
     mob.equipShield(random);
     mob.equipArmor(random, level, Color.random(random), difficulty);

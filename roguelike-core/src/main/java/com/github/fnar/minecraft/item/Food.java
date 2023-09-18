@@ -24,19 +24,21 @@ public class Food extends RldBaseItem {
     BAKED_POTATO,
     BREAD,
     CARROT,
+    COD,
     COOKED_BEEF,
     COOKED_CHICKEN,
-    COOKED_FISH,
+    COOKED_COD,
     COOKED_MUTTON,
     COOKED_PORKCHOP,
+    COOKED_SALMON,
     COOKIE,
     GOLDEN_APPLE,
     GOLDEN_CARROT,
     MILK_BUCKET,
     MUSHROOM_STEW,
     POTATO,
-    RAW_COD,
     ROTTEN_FLESH,
+    SALMON,
     ;
 
     public Food asItem() {

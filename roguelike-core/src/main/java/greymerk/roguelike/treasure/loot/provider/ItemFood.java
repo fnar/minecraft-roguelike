@@ -13,7 +13,7 @@ import greymerk.roguelike.util.WeightedRandomizer;
 
 public class ItemFood extends LootItem {
 
-  private Map<Integer, WeightedRandomizer<RldItemStack>> loot;
+  private final Map<Integer, WeightedRandomizer<RldItemStack>> loot;
 
   public ItemFood(int weight, int level) {
     super(weight, level);
@@ -46,14 +46,14 @@ public class ItemFood extends LootItem {
           break;
         case 1:
           randomizer.add(new MinecraftItemLootItem(Food.Type.BREAD.asItem(), 0, 1, 3, 5));
-          randomizer.add(new MinecraftItemLootItem(Food.Type.COOKED_FISH.asItem(), 0, 1, 3, 5));
+          randomizer.add(new MinecraftItemLootItem(Food.Type.COOKED_COD.asItem(), 0, 1, 3, 5));
           randomizer.add(new MinecraftItemLootItem(Food.Type.APPLE.asItem(), 0, 1, 3, 2));
           randomizer.add(new MinecraftItemLootItem(Food.Type.COOKED_CHICKEN.asItem(), 0, 1, 2, 2));
           randomizer.add(new MinecraftItemLootItem(Food.Type.BAKED_POTATO.asItem(), 0, 1, 2, 2));
           break;
         case 0:
           randomizer.add(new MinecraftItemLootItem(Food.Type.BREAD.asItem(), 0, 1, 2, 5));
-          randomizer.add(new MinecraftItemLootItem(Food.Type.COOKED_FISH.asItem(), 0, 1, 2, 5));
+          randomizer.add(new MinecraftItemLootItem(Food.Type.COOKED_COD.asItem(), 0, 1, 2, 5));
           randomizer.add(new MinecraftItemLootItem(Food.Type.APPLE.asItem(), 0, 1, 2, 5));
           randomizer.add(new MinecraftItemLootItem(Food.Type.COOKIE.asItem(), 0, 1, 4, 1));
           break;
