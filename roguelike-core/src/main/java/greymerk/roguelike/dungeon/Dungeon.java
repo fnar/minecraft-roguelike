@@ -186,7 +186,7 @@ public class Dungeon {
 
   private boolean hasStructureTooCloseBy(Coord coord, VanillaStructure structure) {
     int minimumDistanceRequired = RogueConfig.SPAWN_MINIMUM_DISTANCE_FROM_VANILLA_STRUCTURES.getInt();
-    Coord structureCoord = editor.findNearestStructure(structure, coord);
+    Coord structureCoord = editor.findNearestStructure(structure, coord, minimumDistanceRequired);
     if (structureCoord == null) {
       logger.info("Did not detect structure \"{}\" within {} blocks of potential spawn location {}.", structure.name(), minimumDistanceRequired, coord);
       return false;

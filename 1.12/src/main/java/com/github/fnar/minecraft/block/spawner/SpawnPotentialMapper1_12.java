@@ -30,10 +30,10 @@ public class SpawnPotentialMapper1_12 {
 
   private static NBTTagList mapToNbt(SpawnPotential spawnPotential, Random random, int level) {
     NBTTagList potentials = new NBTTagList();
-      range(0, 12)
-          .mapToObj(i -> spawnPotential.generateMob(random, level))
-          .map(mob -> mapToNbt(spawnPotential, level, mob))
-          .forEach(potentials::appendTag);
+    range(0, 12)
+        .mapToObj(i -> spawnPotential.generateMob(random, level))
+        .map(mob -> mapToNbt(spawnPotential, level, mob))
+        .forEach(potentials::appendTag);
     return potentials;
   }
 

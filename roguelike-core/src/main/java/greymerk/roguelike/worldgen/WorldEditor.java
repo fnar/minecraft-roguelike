@@ -36,33 +36,33 @@ public interface WorldEditor {
 
   Random getRandom();
 
-  Random getRandom(Coord pos);
+  Random getRandom(Coord coord);
 
-  boolean setBlock(Coord pos, SingleBlockBrush singleBlockBrush, boolean fillAir, boolean replaceSolid);
+  boolean setBlock(Coord coord, SingleBlockBrush singleBlockBrush, boolean fillAir, boolean replaceSolid);
 
-  boolean isAirBlock(Coord pos);
+  boolean isAirBlock(Coord coord);
 
   long getSeed();
 
   void fillDown(Coord origin, BlockBrush blocks);
 
-  boolean isValidGroundBlock(Coord pos);
+  boolean isValidGroundBlock(Coord coord);
 
   Map<BlockType, Integer> getStats();
 
-  boolean canPlace(SingleBlockBrush block, Coord pos, Direction dir);
+  boolean canPlace(SingleBlockBrush block, Coord coord, Direction dir);
 
-  Coord findNearestStructure(VanillaStructure type, Coord pos);
+  Coord findNearestStructure(VanillaStructure type, Coord coord, int radius);
 
   void setBedColorAt(Coord cursor, DyeColor color);
 
-  void setItem(Coord pos, int slot, RldItemStack itemStack);
+  void setItem(Coord coord, int slot, RldItemStack itemStack);
 
-  void setFlowerPotContent(Coord pos, Plant choice);
+  void setFlowerPotContent(Coord coord, Plant choice);
 
   void setSkull(WorldEditor editor, Coord cursor, Direction dir, Skull type);
 
-  void setLootTable(Coord pos, String table);
+  void setLootTable(Coord coord, String table);
 
   default int getSeed(Coord coord) {
     return Objects.hash(coord.hashCode(), getSeed());
