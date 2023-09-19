@@ -1,11 +1,11 @@
 package com.github.fnar.minecraft.item.mapper;
 
+import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.item.BlockItem;
 
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
-import greymerk.roguelike.worldgen.MetaBlock1_12;
 
 public class BlockMapper1_12 extends BaseItemMapper1_12<BlockItem> {
 
@@ -15,9 +15,10 @@ public class BlockMapper1_12 extends BaseItemMapper1_12<BlockItem> {
   }
 
   @Override
-  public ItemStack map(BlockItem block) {
-    MetaBlock1_12 metaBlock = com.github.fnar.minecraft.block.BlockMapper1_12.map(block.getBlockType());
-    Item item = Item.getItemFromBlock(metaBlock.getBlock());
+  public ItemStack map(BlockItem blockItem) {
+    SingleBlockBrush brush = blockItem.getBlockType().getBrush();
+    Block block = com.github.fnar.minecraft.block.BlockMapper1_12.mapToState(brush).getBlock();
+    Item item = Item.getItemFromBlock(block);
     return new ItemStack(item);
   }
 }

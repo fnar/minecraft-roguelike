@@ -5,6 +5,7 @@ import com.google.common.collect.Sets;
 import com.google.gson.JsonElement;
 
 import com.github.fnar.minecraft.block.BlockMapper1_12;
+import com.github.fnar.minecraft.block.BlockParser1_12;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.decorative.Plant;
@@ -59,7 +60,6 @@ import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
-import greymerk.roguelike.worldgen.MetaBlock1_12;
 import greymerk.roguelike.worldgen.VanillaStructure;
 import greymerk.roguelike.worldgen.WorldEditor;
 
@@ -182,7 +182,7 @@ public class WorldEditor1_12 implements WorldEditor {
 
   @Override
   public boolean isBlockOfTypeAt(BlockType blockType, Coord coord) {
-    return BlockMapper1_12.map(blockType).getBlock() == getBlockStateAt(coord).getBlock();
+    return BlockMapper1_12.mapToState(blockType.getBrush()).getBlock() == getBlockStateAt(coord).getBlock();
   }
 
   @Override
@@ -217,12 +217,8 @@ public class WorldEditor1_12 implements WorldEditor {
       return false;
     }
 
-    MetaBlock1_12 metaBlock = getMetaBlock(singleBlockBrush);
-    try {
-      world.setBlockState(BlockPosMapper1_12.map(coord), metaBlock.getState(), metaBlock.getFlag());
-    } catch (NullPointerException npe) {
-      LogManager.getLogger(MOD_ID).error(npe);
-    }
+    IBlockState state = gitState(singleBlockBrush);
+    world.setBlockState(BlockPosMapper1_12.map(coord), state, 2);
 
     BlockType blockType = singleBlockBrush.getBlockType();
     // block type is null when it's a block from JSON
@@ -233,18 +229,18 @@ public class WorldEditor1_12 implements WorldEditor {
     return true;
   }
 
-  private static MetaBlock1_12 getMetaBlock(SingleBlockBrush singleBlockBrush) {
+  private static IBlockState gitState(SingleBlockBrush singleBlockBrush) {
     JsonElement json = singleBlockBrush.getJson();
     if (json == null) {
-      return BlockMapper1_12.map(singleBlockBrush);
+      return BlockMapper1_12.mapToState(singleBlockBrush);
     }
     if (singleBlockBrush instanceof StairsBlock) {
-      return BlockMapper1_12.mapStairs((StairsBlock) singleBlockBrush);
+      return BlockMapper1_12.mapStairsToState((StairsBlock) singleBlockBrush);
     }
     if (singleBlockBrush instanceof DoorBlock) {
-      return BlockMapper1_12.mapDoor((DoorBlock) singleBlockBrush);
+      return BlockMapper1_12.mapDoorToState((DoorBlock) singleBlockBrush);
     }
-    return new MetaBlock1_12(json);
+    return BlockParser1_12.parse(json);
   }
 
   @Override
@@ -284,8 +280,7 @@ public class WorldEditor1_12 implements WorldEditor {
   @Override
   public boolean canPlace(SingleBlockBrush block, Coord coord, Direction dir) {
     // todo: can we map the `block` here instead of block.getType()?
-    return isAirBlock(coord)
-        && BlockMapper1_12.map(block.getBlockType()).getBlock().canPlaceBlockOnSide(world, BlockPosMapper1_12.map(coord), BlockMapper1_12.getFacing(dir));
+    return isAirBlock(coord) && BlockMapper1_12.mapToState(block.getBlockType().getBrush()).getBlock().canPlaceBlockOnSide(world, BlockPosMapper1_12.map(coord), BlockMapper1_12.getFacing(dir));
   }
 
   @Override
