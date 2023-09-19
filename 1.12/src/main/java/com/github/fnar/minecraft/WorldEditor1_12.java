@@ -182,7 +182,7 @@ public class WorldEditor1_12 implements WorldEditor {
 
   @Override
   public boolean isBlockOfTypeAt(BlockType blockType, Coord coord) {
-    return BlockMapper1_12.mapToState(blockType.getBrush()).getBlock() == getBlockStateAt(coord).getBlock();
+    return BlockMapper1_12.map(blockType.getBrush()).getBlock() == getBlockStateAt(coord).getBlock();
   }
 
   @Override
@@ -232,13 +232,13 @@ public class WorldEditor1_12 implements WorldEditor {
   private static IBlockState gitState(SingleBlockBrush singleBlockBrush) {
     JsonElement json = singleBlockBrush.getJson();
     if (json == null) {
-      return BlockMapper1_12.mapToState(singleBlockBrush);
+      return BlockMapper1_12.map(singleBlockBrush);
     }
     if (singleBlockBrush instanceof StairsBlock) {
-      return BlockMapper1_12.mapStairsToState((StairsBlock) singleBlockBrush);
+      return BlockMapper1_12.map(singleBlockBrush);
     }
     if (singleBlockBrush instanceof DoorBlock) {
-      return BlockMapper1_12.mapDoorToState((DoorBlock) singleBlockBrush);
+      return BlockMapper1_12.map(singleBlockBrush);
     }
     return BlockParser1_12.parse(json);
   }
@@ -280,7 +280,7 @@ public class WorldEditor1_12 implements WorldEditor {
   @Override
   public boolean canPlace(SingleBlockBrush block, Coord coord, Direction dir) {
     // todo: can we map the `block` here instead of block.getType()?
-    return isAirBlock(coord) && BlockMapper1_12.mapToState(block.getBlockType().getBrush()).getBlock().canPlaceBlockOnSide(world, BlockPosMapper1_12.map(coord), BlockMapper1_12.getFacing(dir));
+    return isAirBlock(coord) && BlockMapper1_12.map(block.getBlockType().getBrush()).getBlock().canPlaceBlockOnSide(world, BlockPosMapper1_12.map(coord), BlockMapper1_12.getFacing(dir));
   }
 
   @Override
