@@ -44,7 +44,7 @@ public class SeedMapper1_12 extends BaseItemMapper1_12<Seed> {
   }
 
   private Item asItem(SingleBlockBrush brush) {
-    return BlockMapper1_12.map(brush).asItem();
+    return Item.getItemFromBlock(BlockMapper1_12.mapToState(brush).getBlock());
   }
 
 }

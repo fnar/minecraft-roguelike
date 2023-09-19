@@ -75,6 +75,7 @@ import net.minecraft.block.BlockTripWireHook;
 import net.minecraft.block.BlockVine;
 import net.minecraft.block.BlockWoodSlab;
 import net.minecraft.block.properties.PropertyEnum;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.EnumFacing;
@@ -86,12 +87,18 @@ import greymerk.roguelike.worldgen.MetaBlock1_12;
 
 public class BlockMapper1_12 {
 
+  public static IBlockState mapToState(SingleBlockBrush blockBrush) {
+    return map(blockBrush).getState();
+  }
+
   public static MetaBlock1_12 map(SingleBlockBrush block) {
     Direction facing = block.getFacing();
 
     EnumFacing enumFacing = getFacing(facing);
 
-    switch (block.getBlockType()) {
+    BlockType blockType = block.getBlockType();
+
+    switch (blockType) {
       case ANVIL:
         return getAnvil((AnvilBlock) block);
       case ACACIA_LOG:
@@ -191,6 +198,7 @@ public class BlockMapper1_12 {
       case ACACIA_DOOR:
       case DARK_OAK_DOOR:
       case WARPED_DOOR:
+      case CRIMSON_DOOR:
         return mapDoor((DoorBlock) block);
       case CHISELED_QUARTZ:
         return getQuartz(Quartz.CHISELED, facing);
@@ -203,7 +211,7 @@ public class BlockMapper1_12 {
       case CROP:
         return getCrop((CropBlock) block);
       case PUMPKIN:
-        return getPumpkin((PumpkinBlock) block);
+        return block instanceof PumpkinBlock ? getPumpkin((PumpkinBlock) block) : new MetaBlock1_12(Blocks.PUMPKIN);
       case FLOWER_POT:
         return new MetaBlock1_12(Blocks.FLOWER_POT);
       case BROWN_MUSHROOM:
@@ -238,6 +246,8 @@ public class BlockMapper1_12 {
       case HOPPER:
         return new MetaBlock1_12(Blocks.HOPPER)
             .withProperty(BlockHopper.FACING, enumFacing);
+      case COCOA_BEANS:
+        return new MetaBlock1_12(Blocks.COCOA);
       case COMPARATOR:
         return getComparator((ComparatorBlock) block);
       case REPEATER:
@@ -267,9 +277,232 @@ public class BlockMapper1_12 {
       case LADDER:
         return new MetaBlock1_12(Blocks.LADDER)
             .withProperty(BlockLadder.FACING, enumFacing);
-      default:
-        return map(block.getBlockType());
+      case AIR:
+        return new MetaBlock1_12(Blocks.AIR);
+      case WATER_STILL:
+        return new MetaBlock1_12(Blocks.WATER);
+      case WATER_FLOWING:
+        return new MetaBlock1_12(Blocks.FLOWING_WATER);
+      case LAVA_STILL:
+        return new MetaBlock1_12(Blocks.LAVA);
+      case LAVA_FLOWING:
+        return new MetaBlock1_12(Blocks.FLOWING_LAVA);
+      case FIRE:
+        return new MetaBlock1_12(Blocks.FIRE);
+      case IRON_BAR:
+        return new MetaBlock1_12(Blocks.IRON_BARS);
+      case STONE_SMOOTH:
+        return new MetaBlock1_12(Blocks.STONE);
+      case GRANITE:
+        return new MetaBlock1_12(Blocks.STONE).withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE);
+      case GRANITE_POLISHED:
+        return new MetaBlock1_12(Blocks.STONE).withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE_SMOOTH);
+      case DIORITE:
+        return new MetaBlock1_12(Blocks.STONE).withProperty(BlockStone.VARIANT, BlockStone.EnumType.DIORITE);
+      case DIORITE_POLISHED:
+        return new MetaBlock1_12(Blocks.STONE).withProperty(BlockStone.VARIANT, BlockStone.EnumType.DIORITE_SMOOTH);
+      case ANDESITE:
+        return new MetaBlock1_12(Blocks.STONE).withProperty(BlockStone.VARIANT, BlockStone.EnumType.ANDESITE);
+      case ANDESITE_POLISHED:
+        return new MetaBlock1_12(Blocks.STONE).withProperty(BlockStone.VARIANT, BlockStone.EnumType.ANDESITE_SMOOTH);
+      case GRASS:
+        return new MetaBlock1_12(Blocks.GRASS);
+      case DIRT:
+        return new MetaBlock1_12(Blocks.DIRT);
+      case DIRT_COARSE:
+        return new MetaBlock1_12(Blocks.DIRT).withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT);
+      case DIRT_PODZOL:
+        return new MetaBlock1_12(Blocks.DIRT).withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL);
+      case COBBLESTONE:
+        return new MetaBlock1_12(Blocks.COBBLESTONE);
+      case COBBLESTONE_WALL:
+        return new MetaBlock1_12(Blocks.COBBLESTONE_WALL);
+      case BEDROCK:
+        return new MetaBlock1_12(Blocks.BEDROCK);
+      case SAND:
+        return new MetaBlock1_12(Blocks.SAND);
+      case SAND_RED:
+        return new MetaBlock1_12(Blocks.SAND).withProperty(BlockSand.VARIANT, BlockSand.EnumType.RED_SAND);
+      case GRAVEL:
+        return new MetaBlock1_12(Blocks.GRAVEL);
+      case ORE_GOLD:
+        return new MetaBlock1_12(Blocks.GOLD_ORE);
+      case ORE_IRON:
+        return new MetaBlock1_12(Blocks.IRON_ORE);
+      case ORE_COAL:
+        return new MetaBlock1_12(Blocks.COAL_BLOCK);
+      case GLASS:
+        return new MetaBlock1_12(Blocks.GLASS);
+      case GLASS_PANE:
+        return new MetaBlock1_12(Blocks.GLASS_PANE);
+      case ORE_LAPIS:
+        return new MetaBlock1_12(Blocks.LAPIS_ORE);
+      case LAPIS_BLOCK:
+        return new MetaBlock1_12(Blocks.LAPIS_BLOCK);
+      case ORE_EMERALD:
+        return new MetaBlock1_12(Blocks.EMERALD_ORE);
+      case SANDSTONE:
+        return new MetaBlock1_12(Blocks.SANDSTONE);
+      case CHISELED_SANDSTONE:
+        return new MetaBlock1_12(Blocks.SANDSTONE).withProperty(BlockSandStone.TYPE, BlockSandStone.EnumType.CHISELED);
+      case SANDSTONE_SMOOTH:
+        return new MetaBlock1_12(Blocks.SANDSTONE).withProperty(BlockSandStone.TYPE, BlockSandStone.EnumType.SMOOTH);
+      case GOLD_BLOCK:
+        return new MetaBlock1_12(Blocks.GOLD_BLOCK);
+      case IRON_BLOCK:
+        return new MetaBlock1_12(Blocks.IRON_BLOCK);
+      case BRICK:
+        return new MetaBlock1_12(Blocks.BRICK_BLOCK);
+      case COBBLESTONE_MOSSY:
+        return new MetaBlock1_12(Blocks.MOSSY_COBBLESTONE);
+      case OBSIDIAN:
+        return new MetaBlock1_12(Blocks.OBSIDIAN);
+      case ORE_DIAMOND:
+        return new MetaBlock1_12(Blocks.DIAMOND_ORE);
+      case DIAMOND_BLOCK:
+        return new MetaBlock1_12(Blocks.DIAMOND_BLOCK);
+      case FARMLAND:
+        return new MetaBlock1_12(Blocks.FARMLAND);
+      case ORE_REDSTONE:
+        return new MetaBlock1_12(Blocks.REDSTONE_ORE);
+      case ICE:
+        return new MetaBlock1_12(Blocks.ICE);
+      case SNOW:
+        return new MetaBlock1_12(Blocks.SNOW);
+      case CLAY:
+        return new MetaBlock1_12(Blocks.CLAY);
+      case NETHERRACK:
+        return new MetaBlock1_12(Blocks.NETHERRACK);
+      case SOUL_SAND:
+        return new MetaBlock1_12(Blocks.SOUL_SAND);
+      case GLOWSTONE:
+        return new MetaBlock1_12(Blocks.GLOWSTONE);
+      case STONE_BRICK:
+        return new MetaBlock1_12(Blocks.STONEBRICK);
+      case STONE_BRICK_MOSSY:
+        return new MetaBlock1_12(Blocks.STONEBRICK).withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.MOSSY);
+      case STONE_BRICK_CRACKED:
+        return new MetaBlock1_12(Blocks.STONEBRICK).withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.CRACKED);
+      case STONE_BRICK_CHISELED:
+        return new MetaBlock1_12(Blocks.STONEBRICK).withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.CHISELED);
+      case MYCELIUM:
+        return new MetaBlock1_12(Blocks.MYCELIUM);
+      case NETHERBRICK:
+        return new MetaBlock1_12(Blocks.NETHER_BRICK);
+      case END_STONE:
+        return new MetaBlock1_12(Blocks.END_STONE);
+      case EMERALD_BLOCK:
+        return new MetaBlock1_12(Blocks.EMERALD_BLOCK);
+      case ORE_QUARTZ:
+        return new MetaBlock1_12(Blocks.QUARTZ_ORE);
+      case PRISMITE:
+        return new MetaBlock1_12(Blocks.PRISMARINE).withProperty(BlockPrismarine.VARIANT, BlockPrismarine.EnumType.ROUGH);
+      case PRISMARINE:
+        return new MetaBlock1_12(Blocks.PRISMARINE).withProperty(BlockPrismarine.VARIANT, BlockPrismarine.EnumType.BRICKS);
+      case PRISMARINE_DARK:
+        return new MetaBlock1_12(Blocks.PRISMARINE).withProperty(BlockPrismarine.VARIANT, BlockPrismarine.EnumType.DARK);
+      case SEA_LANTERN:
+        return new MetaBlock1_12(Blocks.SEA_LANTERN);
+      case COAL_BLOCK:
+        return new MetaBlock1_12(Blocks.COAL_BLOCK);
+      case ICE_PACKED:
+        return new MetaBlock1_12(Blocks.PACKED_ICE);
+      case RED_SANDSTONE:
+        return new MetaBlock1_12(Blocks.RED_SANDSTONE);
+      case CHISELED_RED_SANDSTONE:
+        return new MetaBlock1_12(Blocks.RED_SANDSTONE).withProperty(BlockRedSandstone.TYPE, BlockRedSandstone.EnumType.CHISELED);
+      case SMOOTH_RED_SANDSTONE:
+        return new MetaBlock1_12(Blocks.RED_SANDSTONE).withProperty(BlockRedSandstone.TYPE, BlockRedSandstone.EnumType.SMOOTH);
+      case QUARTZ:
+        return new MetaBlock1_12(Blocks.QUARTZ_BLOCK);
+      case REDSTONE_BLOCK:
+        return new MetaBlock1_12(Blocks.REDSTONE_BLOCK);
+      case PRESSURE_PLATE_STONE:
+        return new MetaBlock1_12(Blocks.STONE_PRESSURE_PLATE);
+      case PRESSURE_PLATE_WOODEN:
+        return new MetaBlock1_12(Blocks.WOODEN_PRESSURE_PLATE);
+      case BOOKSHELF:
+        return new MetaBlock1_12(Blocks.BOOKSHELF);
+      case REDSTONE_WIRE:
+        return new MetaBlock1_12(Blocks.REDSTONE_WIRE);
+      case REEDS:
+        return new MetaBlock1_12(Blocks.REEDS);
+      case CRAFTING_TABLE:
+        return (!RogueConfig.FURNITURE.getBoolean()
+            ? getPlankMetaBlock(Wood.OAK)
+            : new MetaBlock1_12(Blocks.CRAFTING_TABLE));
+      case NOTEBLOCK:
+        return new MetaBlock1_12(Blocks.NOTEBLOCK);
+      case REDSTONE_LAMP:
+        return new MetaBlock1_12(Blocks.REDSTONE_LAMP);
+      case REDSTONE_LAMP_LIT:
+        return new MetaBlock1_12(Blocks.LIT_REDSTONE_LAMP);
+      case JUKEBOX:
+        return new MetaBlock1_12(Blocks.JUKEBOX);
+      case TNT:
+        return new MetaBlock1_12(Blocks.TNT);
+      case ENCHANTING_TABLE:
+        return new MetaBlock1_12(Blocks.ENCHANTING_TABLE);
+      case FENCE_NETHER_BRICK:
+        return new MetaBlock1_12(Blocks.NETHER_BRICK_FENCE);
+      case WEB:
+        return new MetaBlock1_12(Blocks.WEB);
+      case PURPUR_BLOCK:
+        return new MetaBlock1_12(Blocks.PURPUR_BLOCK);
+      case PURPUR_PILLAR:
+        return new MetaBlock1_12(Blocks.PURPUR_PILLAR);
+      case PURPUR_STAIR:
+        return new MetaBlock1_12(Blocks.PURPUR_STAIRS);
+      case PURPUR_DOUBLE_SLAB:
+        return new MetaBlock1_12(Blocks.PURPUR_DOUBLE_SLAB);
+      case PURPUR_SLAB:
+        return new MetaBlock1_12(Blocks.PURPUR_SLAB);
+      case ENDER_BRICK:
+        return new MetaBlock1_12(Blocks.END_BRICKS);
+      case MAGMA:
+        return new MetaBlock1_12(Blocks.MAGMA);
+      case RED_NETHERBRICK:
+        return new MetaBlock1_12(Blocks.RED_NETHER_BRICK);
+      case NETHER_WART_BLOCK:
+        return new MetaBlock1_12(Blocks.NETHER_WART_BLOCK);
+      case OAK_SAPLING:
+        return getSapling(Wood.OAK);
+      case SPRUCE_SAPLING:
+        return getSapling(Wood.SPRUCE);
+      case BIRCH_SAPLING:
+        return getSapling(Wood.BIRCH);
+      case BONE_BLOCK:
+        return new MetaBlock1_12(Blocks.BONE_BLOCK);
+      case BREWING_STAND:
+        return new MetaBlock1_12(Blocks.BREWING_STAND);
+      case CACTUS:
+        return new MetaBlock1_12(Blocks.CACTUS);
+      case CAKE:
+        return new MetaBlock1_12(Blocks.CAKE);
+      case MOB_SPAWNER:
+        return new MetaBlock1_12(Blocks.MOB_SPAWNER);
+      case ENDER_CHEST:
+        return new MetaBlock1_12(Blocks.ENDER_CHEST);
+      case RED_FLOWER:
+        return new MetaBlock1_12(Blocks.RED_FLOWER);
+      case SKULL:
+        return new MetaBlock1_12(Blocks.SKULL);
+      case YELLOW_FLOWER:
+        return new MetaBlock1_12(Blocks.YELLOW_FLOWER);
+      case JUNGLE_SAPLING:
+        return getSapling(Wood.JUNGLE);
+      case ACACIA_SAPLING:
+        return getSapling(Wood.ACACIA);
+      case DARK_OAK_SAPLING:
+        return getSapling(Wood.DARK_OAK);
+      case WHEAT:
+        return new MetaBlock1_12(Blocks.WHEAT);
+      case SIGN:
+        return new MetaBlock1_12(Blocks.STANDING_SIGN);
+      case SPONGE:
+        return new MetaBlock1_12(Blocks.SPONGE);
     }
+    throw new ReportThisIssueException(new UnmappedBlockException(blockType));
   }
 
   private static MetaBlock1_12 mapTripwireHook(TripwireHookBlock block) {
@@ -327,7 +560,7 @@ public class BlockMapper1_12 {
   }
 
   public static BlockLever.EnumOrientation getLeverOrientation(Direction direction) {
-    switch(direction) {
+    switch (direction) {
       default:
       case NORTH:
         return BlockLever.EnumOrientation.NORTH;
@@ -345,274 +578,6 @@ public class BlockMapper1_12 {
   }
 
   // TODO: can all public calls to this be replaced with calls to map(SingleBlockBrush)?
-  public static MetaBlock1_12 map(BlockType blockType) {
-    switch (blockType) {
-      case AIR:
-        return new MetaBlock1_12(Blocks.AIR);
-      case WATER_STILL:
-        return new MetaBlock1_12(Blocks.WATER);
-      case WATER_FLOWING:
-        return new MetaBlock1_12(Blocks.FLOWING_WATER);
-      case LAVA_STILL:
-        return new MetaBlock1_12(Blocks.LAVA);
-      case LAVA_FLOWING:
-        return new MetaBlock1_12(Blocks.FLOWING_LAVA);
-      case FIRE:
-        return new MetaBlock1_12(Blocks.FIRE);
-      case IRON_BAR:
-        return new MetaBlock1_12(Blocks.IRON_BARS);
-      case STONE_SMOOTH:
-        return new MetaBlock1_12(Blocks.STONE);
-      case GRANITE:
-        return new MetaBlock1_12(Blocks.STONE, BlockStone.VARIANT, BlockStone.EnumType.GRANITE);
-      case GRANITE_POLISHED:
-        return new MetaBlock1_12(Blocks.STONE, BlockStone.VARIANT, BlockStone.EnumType.GRANITE_SMOOTH);
-      case DIORITE:
-        return new MetaBlock1_12(Blocks.STONE, BlockStone.VARIANT, BlockStone.EnumType.DIORITE);
-      case DIORITE_POLISHED:
-        return new MetaBlock1_12(Blocks.STONE, BlockStone.VARIANT, BlockStone.EnumType.DIORITE_SMOOTH);
-      case ANDESITE:
-        return new MetaBlock1_12(Blocks.STONE, BlockStone.VARIANT, BlockStone.EnumType.ANDESITE);
-      case ANDESITE_POLISHED:
-        return new MetaBlock1_12(Blocks.STONE, BlockStone.VARIANT, BlockStone.EnumType.ANDESITE_SMOOTH);
-      case GRASS:
-        return new MetaBlock1_12(Blocks.GRASS);
-      case DIRT:
-        return new MetaBlock1_12(Blocks.DIRT);
-      case DIRT_COARSE:
-        return new MetaBlock1_12(Blocks.DIRT, BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT);
-      case DIRT_PODZOL:
-        return new MetaBlock1_12(Blocks.DIRT, BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL);
-      case COBBLESTONE:
-        return new MetaBlock1_12(Blocks.COBBLESTONE);
-      case COBBLESTONE_WALL:
-        return new MetaBlock1_12(Blocks.COBBLESTONE_WALL);
-      case BED:
-        return new MetaBlock1_12(Blocks.BED);
-      case BEDROCK:
-        return new MetaBlock1_12(Blocks.BEDROCK);
-      case SAND:
-        return new MetaBlock1_12(Blocks.SAND);
-      case SAND_RED:
-        return new MetaBlock1_12(Blocks.SAND, BlockSand.VARIANT, BlockSand.EnumType.RED_SAND);
-      case GRAVEL:
-        return new MetaBlock1_12(Blocks.GRAVEL);
-      case ORE_GOLD:
-        return new MetaBlock1_12(Blocks.GOLD_ORE);
-      case ORE_IRON:
-        return new MetaBlock1_12(Blocks.IRON_ORE);
-      case ORE_COAL:
-        return new MetaBlock1_12(Blocks.COAL_BLOCK);
-      case GLASS:
-        return new MetaBlock1_12(Blocks.GLASS);
-      case GLASS_PANE:
-        return new MetaBlock1_12(Blocks.GLASS_PANE);
-      case STAINED_GLASS:
-        return map(BlockType.STAINED_GLASS.getBrush());
-      case STAINED_GLASS_PANE:
-        return map(BlockType.STAINED_GLASS_PANE.getBrush());
-      case ORE_LAPIS:
-        return new MetaBlock1_12(Blocks.LAPIS_ORE);
-      case LAPIS_BLOCK:
-        return new MetaBlock1_12(Blocks.LAPIS_BLOCK);
-      case ORE_EMERALD:
-        return new MetaBlock1_12(Blocks.EMERALD_ORE);
-      case SANDSTONE:
-        return new MetaBlock1_12(Blocks.SANDSTONE);
-      case CHISELED_SANDSTONE:
-        return new MetaBlock1_12(Blocks.SANDSTONE, BlockSandStone.TYPE, BlockSandStone.EnumType.CHISELED);
-      case SANDSTONE_SMOOTH:
-        return new MetaBlock1_12(Blocks.SANDSTONE, BlockSandStone.TYPE, BlockSandStone.EnumType.SMOOTH);
-      case GOLD_BLOCK:
-        return new MetaBlock1_12(Blocks.GOLD_BLOCK);
-      case IRON_BLOCK:
-        return new MetaBlock1_12(Blocks.IRON_BLOCK);
-      case BRICK:
-        return new MetaBlock1_12(Blocks.BRICK_BLOCK);
-      case COBBLESTONE_MOSSY:
-        return new MetaBlock1_12(Blocks.MOSSY_COBBLESTONE);
-      case OBSIDIAN:
-        return new MetaBlock1_12(Blocks.OBSIDIAN);
-      case ORE_DIAMOND:
-        return new MetaBlock1_12(Blocks.DIAMOND_ORE);
-      case DIAMOND_BLOCK:
-        return new MetaBlock1_12(Blocks.DIAMOND_BLOCK);
-      case FARMLAND:
-        return new MetaBlock1_12(Blocks.FARMLAND);
-      case ORE_REDSTONE:
-        return new MetaBlock1_12(Blocks.REDSTONE_ORE);
-      case ICE:
-        return new MetaBlock1_12(Blocks.ICE);
-      case SNOW:
-        return new MetaBlock1_12(Blocks.SNOW);
-      case CLAY:
-        return new MetaBlock1_12(Blocks.CLAY);
-      case NETHERRACK:
-        return new MetaBlock1_12(Blocks.NETHERRACK);
-      case SOUL_SAND:
-        return new MetaBlock1_12(Blocks.SOUL_SAND);
-      case GLOWSTONE:
-        return new MetaBlock1_12(Blocks.GLOWSTONE);
-      case STONE_BRICK:
-        return new MetaBlock1_12(Blocks.STONEBRICK);
-      case STONE_BRICK_MOSSY:
-        return new MetaBlock1_12(Blocks.STONEBRICK, BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.MOSSY);
-      case STONE_BRICK_CRACKED:
-        return new MetaBlock1_12(Blocks.STONEBRICK, BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.CRACKED);
-      case STONE_BRICK_CHISELED:
-        return new MetaBlock1_12(Blocks.STONEBRICK, BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.CHISELED);
-      case MYCELIUM:
-        return new MetaBlock1_12(Blocks.MYCELIUM);
-      case NETHERBRICK:
-        return new MetaBlock1_12(Blocks.NETHER_BRICK);
-      case END_STONE:
-        return new MetaBlock1_12(Blocks.END_STONE);
-      case EMERALD_BLOCK:
-        return new MetaBlock1_12(Blocks.EMERALD_BLOCK);
-      case ORE_QUARTZ:
-        return new MetaBlock1_12(Blocks.QUARTZ_ORE);
-      case PRISMITE:
-        return new MetaBlock1_12(Blocks.PRISMARINE, BlockPrismarine.VARIANT, BlockPrismarine.EnumType.ROUGH);
-      case PRISMARINE:
-        return new MetaBlock1_12(Blocks.PRISMARINE, BlockPrismarine.VARIANT, BlockPrismarine.EnumType.BRICKS);
-      case PRISMARINE_DARK:
-        return new MetaBlock1_12(Blocks.PRISMARINE, BlockPrismarine.VARIANT, BlockPrismarine.EnumType.DARK);
-      case SEA_LANTERN:
-        return new MetaBlock1_12(Blocks.SEA_LANTERN);
-      case COAL_BLOCK:
-        return new MetaBlock1_12(Blocks.COAL_BLOCK);
-      case ICE_PACKED:
-        return new MetaBlock1_12(Blocks.PACKED_ICE);
-      case RED_SANDSTONE:
-        return new MetaBlock1_12(Blocks.RED_SANDSTONE);
-      case CHISELED_RED_SANDSTONE:
-        return new MetaBlock1_12(Blocks.RED_SANDSTONE, BlockRedSandstone.TYPE, BlockRedSandstone.EnumType.CHISELED);
-      case SMOOTH_RED_SANDSTONE:
-        return new MetaBlock1_12(Blocks.RED_SANDSTONE, BlockRedSandstone.TYPE, BlockRedSandstone.EnumType.SMOOTH);
-      case QUARTZ:
-        return new MetaBlock1_12(Blocks.QUARTZ_BLOCK);
-      case REDSTONE_BLOCK:
-        return new MetaBlock1_12(Blocks.REDSTONE_BLOCK);
-      case PRESSURE_PLATE_STONE:
-        return new MetaBlock1_12(Blocks.STONE_PRESSURE_PLATE);
-      case PRESSURE_PLATE_WOODEN:
-        return new MetaBlock1_12(Blocks.WOODEN_PRESSURE_PLATE);
-      case BOOKSHELF:
-        return new MetaBlock1_12(Blocks.BOOKSHELF);
-      case REDSTONE_WIRE:
-        return new MetaBlock1_12(Blocks.REDSTONE_WIRE);
-      case REEDS:
-        return new MetaBlock1_12(Blocks.REEDS);
-      case CRAFTING_TABLE:
-        return (!RogueConfig.FURNITURE.getBoolean()
-            ? getPlankMetaBlock(Wood.OAK)
-            : new MetaBlock1_12(Blocks.CRAFTING_TABLE));
-      case NOTEBLOCK:
-        return new MetaBlock1_12(Blocks.NOTEBLOCK);
-      case REDSTONE_LAMP:
-        return new MetaBlock1_12(Blocks.REDSTONE_LAMP);
-      case REDSTONE_LAMP_LIT:
-        return new MetaBlock1_12(Blocks.LIT_REDSTONE_LAMP);
-      case JUKEBOX:
-        return new MetaBlock1_12(Blocks.JUKEBOX);
-      case TNT:
-        return new MetaBlock1_12(Blocks.TNT);
-      case ENCHANTING_TABLE:
-        return new MetaBlock1_12(Blocks.ENCHANTING_TABLE);
-      case FENCE_NETHER_BRICK:
-        return new MetaBlock1_12(Blocks.NETHER_BRICK_FENCE);
-      case WEB:
-        return new MetaBlock1_12(Blocks.WEB);
-      case VINE:
-        return new MetaBlock1_12(Blocks.VINE);
-      case PURPUR_BLOCK:
-        return new MetaBlock1_12(Blocks.PURPUR_BLOCK);
-      case PURPUR_PILLAR:
-        return new MetaBlock1_12(Blocks.PURPUR_PILLAR);
-      case PURPUR_STAIR:
-        return new MetaBlock1_12(Blocks.PURPUR_STAIRS);
-      case PURPUR_DOUBLE_SLAB:
-        return new MetaBlock1_12(Blocks.PURPUR_DOUBLE_SLAB);
-      case PURPUR_SLAB:
-        return new MetaBlock1_12(Blocks.PURPUR_SLAB);
-      case ENDER_BRICK:
-        return new MetaBlock1_12(Blocks.END_BRICKS);
-      case MAGMA:
-        return new MetaBlock1_12(Blocks.MAGMA);
-      case RED_NETHERBRICK:
-        return new MetaBlock1_12(Blocks.RED_NETHER_BRICK);
-      case NETHER_WART_BLOCK:
-        return new MetaBlock1_12(Blocks.NETHER_WART_BLOCK);
-      case OAK_SAPLING:
-        return getSapling(Wood.OAK);
-      case SPRUCE_SAPLING:
-        return getSapling(Wood.SPRUCE);
-      case BIRCH_SAPLING:
-        return getSapling(Wood.BIRCH);
-      case BONE_BLOCK:
-        return new MetaBlock1_12(Blocks.BONE_BLOCK);
-      case BREWING_STAND:
-        return new MetaBlock1_12(Blocks.BREWING_STAND);
-      case BROWN_MUSHROOM:
-        return new MetaBlock1_12(Blocks.BROWN_MUSHROOM);
-      case CACTUS:
-        return new MetaBlock1_12(Blocks.CACTUS);
-      case CAKE:
-        return new MetaBlock1_12(Blocks.CAKE);
-      case CARPET:
-        return new MetaBlock1_12(Blocks.CARPET);
-      case CHEST:
-        return new MetaBlock1_12(Blocks.CHEST);
-      case TRAPPED_CHEST:
-        return new MetaBlock1_12(Blocks.TRAPPED_CHEST);
-      case MOB_SPAWNER:
-        return new MetaBlock1_12(Blocks.MOB_SPAWNER);
-      case CONCRETE:
-        return new MetaBlock1_12(Blocks.CONCRETE);
-      case ENDER_CHEST:
-        return new MetaBlock1_12(Blocks.ENDER_CHEST);
-      case FURNACE:
-        return new MetaBlock1_12(Blocks.FURNACE);
-      case RED_FLOWER:
-        return new MetaBlock1_12(Blocks.RED_FLOWER);
-      case RED_MUSHROOM:
-        return new MetaBlock1_12(Blocks.RED_MUSHROOM);
-      case SKULL:
-        return new MetaBlock1_12(Blocks.SKULL);
-      case TALL_PLANT:
-        return new MetaBlock1_12(Blocks.TALLGRASS);
-      case COMPARATOR:
-        return new MetaBlock1_12(Blocks.UNPOWERED_COMPARATOR);
-      case WOOL:
-        return new MetaBlock1_12(Blocks.WOOL);
-      case YELLOW_FLOWER:
-        return new MetaBlock1_12(Blocks.YELLOW_FLOWER);
-      case HOPPER:
-        return new MetaBlock1_12(Blocks.HOPPER);
-      case DISPENSER:
-        return new MetaBlock1_12(Blocks.DISPENSER);
-      case PISTON:
-        return new MetaBlock1_12(Blocks.PISTON);
-      case JUNGLE_SAPLING:
-        return getSapling(Wood.JUNGLE);
-      case ACACIA_SAPLING:
-        return getSapling(Wood.ACACIA);
-      case DARK_OAK_SAPLING:
-        return getSapling(Wood.DARK_OAK);
-      case TORCH:
-        return map(BlockType.TORCH.getBrush());
-      case REDSTONE_TORCH:
-        return map(BlockType.REDSTONE_TORCH.getBrush());
-      case WHEAT:
-        return new MetaBlock1_12(Blocks.WHEAT);
-      case PUMPKIN:
-        return new MetaBlock1_12(Blocks.PUMPKIN);
-      case TRIPWIRE:
-        return new MetaBlock1_12(Blocks.TRIPWIRE);
-      default:
-        throw new ReportThisIssueException(new UnmappedBlockException(blockType));
-    }
-  }
 
   private static MetaBlock1_12 getColoredBlock(ColoredBlock coloredBlock) {
     if (coloredBlock.getBlockType() == BlockType.TERRACOTTA) {
@@ -656,11 +621,15 @@ public class BlockMapper1_12 {
 
   private static MetaBlock1_12 getAnvil(AnvilBlock block) {
     if (!RogueConfig.FURNITURE.getBoolean()) {
-      return map(BlockType.ANDESITE_POLISHED);
+      return new MetaBlock1_12(Blocks.STONE).withProperty(BlockStone.VARIANT, BlockStone.EnumType.ANDESITE);
     }
     return new MetaBlock1_12(Blocks.ANVIL)
         .withProperty(BlockAnvil.DAMAGE, block.getDamage().ordinal())
         .withProperty(BlockAnvil.FACING, getFacing(block.getFacing()));
+  }
+
+  public static IBlockState mapStairsToState(StairsBlock stairsBlock) {
+    return mapStairs(stairsBlock).getState();
   }
 
   public static MetaBlock1_12 mapStairs(StairsBlock block) {
@@ -718,7 +687,7 @@ public class BlockMapper1_12 {
     JsonElement json = block.getJson();
     MetaBlock1_12 doorMetaBlock = json != null
         ? new MetaBlock1_12(json)
-        : getDoorMetaBlock(block.getBlockType());
+        : new MetaBlock1_12(getBlockForDoor(block.getBlockType()));
     return doorMetaBlock
         .withProperty(BlockDoor.HALF, block.isTop() ? BlockDoor.EnumDoorHalf.UPPER : BlockDoor.EnumDoorHalf.LOWER)
         .withProperty(BlockDoor.FACING, getFacing(block.getFacing()))
@@ -726,23 +695,35 @@ public class BlockMapper1_12 {
         .withProperty(BlockDoor.HINGE, block.isHingeLeft() ? BlockDoor.EnumHingePosition.LEFT : BlockDoor.EnumHingePosition.RIGHT);
   }
 
-  private static MetaBlock1_12 getDoorMetaBlock(BlockType type) {
+  public static IBlockState mapDoorToState(DoorBlock block) {
+    JsonElement json = block.getJson();
+    IBlockState doorMetaBlock = json != null
+        ? BlockParser1_12.parse(json)
+        : getBlockForDoor(block.getBlockType()).getDefaultState();
+    return doorMetaBlock
+        .withProperty(BlockDoor.HALF, block.isTop() ? BlockDoor.EnumDoorHalf.UPPER : BlockDoor.EnumDoorHalf.LOWER)
+        .withProperty(BlockDoor.FACING, getFacing(block.getFacing()))
+        .withProperty(BlockDoor.OPEN, block.isOpen())
+        .withProperty(BlockDoor.HINGE, block.isHingeLeft() ? BlockDoor.EnumHingePosition.LEFT : BlockDoor.EnumHingePosition.RIGHT);
+  }
+
+  private static Block getBlockForDoor(BlockType type) {
     switch (type) {
       case IRON_DOOR:
-        return new MetaBlock1_12(Blocks.IRON_DOOR);
+        return Blocks.IRON_DOOR;
       case BIRCH_DOOR:
-        return new MetaBlock1_12(Blocks.BIRCH_DOOR);
+        return Blocks.BIRCH_DOOR;
       case SPRUCE_DOOR:
-        return new MetaBlock1_12(Blocks.SPRUCE_DOOR);
+        return Blocks.SPRUCE_DOOR;
       case JUNGLE_DOOR:
-        return new MetaBlock1_12(Blocks.JUNGLE_DOOR);
+        return Blocks.JUNGLE_DOOR;
       case ACACIA_DOOR:
-        return new MetaBlock1_12(Blocks.ACACIA_DOOR);
+        return Blocks.ACACIA_DOOR;
       case DARK_OAK_DOOR:
-        return new MetaBlock1_12(Blocks.DARK_OAK_DOOR);
+        return Blocks.DARK_OAK_DOOR;
       case OAK_DOOR:
       default:
-        return new MetaBlock1_12(Blocks.OAK_DOOR);
+        return Blocks.OAK_DOOR;
     }
   }
 
@@ -898,22 +879,22 @@ public class BlockMapper1_12 {
     Block minecraftLogBlock = getMinecraftLogBlock(type);
     MetaBlock1_12 log = new MetaBlock1_12(minecraftLogBlock);
     MetaBlock1_12 logWithVariants = addLogVariants(log, type);
-    return addLogFacing(logWithVariants, facing);
+    return logWithVariants.withProperty(BlockLog.LOG_AXIS, mapLogFacing(facing));
   }
 
-  private static MetaBlock1_12 addLogFacing(MetaBlock1_12 log, Direction facing) {
+  public static BlockLog.EnumAxis mapLogFacing(Direction facing) {
     switch (facing) {
       case UP:
       case DOWN:
-        return log.withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.Y);
+        return BlockLog.EnumAxis.Y;
       case EAST:
       case WEST:
-        return log.withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.X);
+        return BlockLog.EnumAxis.X;
       case NORTH:
       case SOUTH:
-        return log.withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.Z);
+        return BlockLog.EnumAxis.Z;
       default:
-        return log.withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.NONE);
+        return BlockLog.EnumAxis.NONE;
     }
   }
 
@@ -1025,7 +1006,6 @@ public class BlockMapper1_12 {
   }
 
   private static BlockPlanks.EnumType getWoodVariant(Wood type) {
-
     switch (type) {
       case SPRUCE:
         return BlockPlanks.EnumType.SPRUCE;
