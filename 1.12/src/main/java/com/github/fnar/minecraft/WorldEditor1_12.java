@@ -7,6 +7,8 @@ import com.google.gson.JsonElement;
 import com.github.fnar.minecraft.block.BlockMapper1_12;
 import com.github.fnar.minecraft.block.BlockParser1_12;
 import com.github.fnar.minecraft.block.BlockType;
+import com.github.fnar.minecraft.block.ColoredBlockMapper1_12;
+import com.github.fnar.minecraft.block.FacingMapper1_12;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.decorative.Plant;
 import com.github.fnar.minecraft.block.decorative.Skull;
@@ -280,7 +282,7 @@ public class WorldEditor1_12 implements WorldEditor {
   @Override
   public boolean canPlace(SingleBlockBrush block, Coord coord, Direction dir) {
     // todo: can we map the `block` here instead of block.getType()?
-    return isAirBlock(coord) && BlockMapper1_12.map(block.getBlockType().getBrush()).getBlock().canPlaceBlockOnSide(world, BlockPosMapper1_12.map(coord), BlockMapper1_12.getFacing(dir));
+    return isAirBlock(coord) && BlockMapper1_12.map(block.getBlockType().getBrush()).getBlock().canPlaceBlockOnSide(world, BlockPosMapper1_12.map(coord), FacingMapper1_12.getFacing(dir));
   }
 
   @Override
@@ -295,7 +297,7 @@ public class WorldEditor1_12 implements WorldEditor {
   public void setBedColorAt(Coord cursor, DyeColor color) {
     TileEntity tileEntity = getTileEntity(cursor);
     if (tileEntity instanceof TileEntityBed) {
-      ((TileEntityBed) tileEntity).setColor(BlockMapper1_12.toEnumDyeColor(color));
+      ((TileEntityBed) tileEntity).setColor(ColoredBlockMapper1_12.toEnumDyeColor(color));
     } else {
       logger.error("Failed to paint bed at position {} to become color {}. Current block at position is {}.", cursor, color, getBlockStateAt(cursor));
     }

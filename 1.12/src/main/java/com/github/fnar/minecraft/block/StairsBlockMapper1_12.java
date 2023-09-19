@@ -10,14 +10,14 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 
 public class StairsBlockMapper1_12 {
-  
+
   public static IBlockState mapStairsToState(StairsBlock stairsBlock) {
     JsonElement json = stairsBlock.getJson();
     IBlockState blockState = json != null
         ? BlockParser1_12.parse(json)
         : getBlockForStairs(stairsBlock.getBlockType()).getDefaultState();
     return blockState
-        .withProperty(BlockStairs.FACING, BlockMapper1_12.getFacing(stairsBlock.getFacing()))
+        .withProperty(BlockStairs.FACING, FacingMapper1_12.getFacing(stairsBlock.getFacing()))
         .withProperty(BlockStairs.HALF, stairsBlock.isUpsideDown() ? BlockStairs.EnumHalf.TOP : BlockStairs.EnumHalf.BOTTOM);
   }
 

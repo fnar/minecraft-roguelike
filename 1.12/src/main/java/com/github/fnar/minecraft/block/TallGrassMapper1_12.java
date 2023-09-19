@@ -12,7 +12,7 @@ class TallGrassMapper1_12 {
   public static IBlockState getTallPlant(TallPlantBlock tallPlantBlock) {
     return Blocks.DOUBLE_PLANT.getDefaultState()
         .withProperty(BlockDoublePlant.VARIANT, getTallPlantMinecraftBlock(tallPlantBlock.getTallPlant()))
-        .withProperty(BlockDoublePlant.FACING, BlockMapper1_12.getFacing(tallPlantBlock.getFacing()))
+        .withProperty(BlockDoublePlant.FACING, FacingMapper1_12.getFacing(tallPlantBlock.getFacing()))
         .withProperty(BlockDoublePlant.HALF, tallPlantBlock.isTop()
             ? BlockDoublePlant.EnumBlockHalf.UPPER
             : BlockDoublePlant.EnumBlockHalf.LOWER);
