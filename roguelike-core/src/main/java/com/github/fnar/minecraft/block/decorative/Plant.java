@@ -6,6 +6,7 @@ import greymerk.roguelike.worldgen.BlockBrush;
 
 public enum Plant {
 
+  // TODO: Consider deconstructing (flower, sapling, tall grass)
   DANDELION,
   POPPY,
   BLUE_ORCHID,

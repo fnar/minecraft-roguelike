@@ -1,14 +1,10 @@
 package com.github.fnar.minecraft.block;
 
-import com.google.gson.JsonElement;
-
 import com.github.fnar.minecraft.block.decorative.AnvilBlock;
 import com.github.fnar.minecraft.block.decorative.BedBlock;
 import com.github.fnar.minecraft.block.decorative.CropBlock;
-import com.github.fnar.minecraft.block.decorative.Plant;
 import com.github.fnar.minecraft.block.decorative.PlantBlock;
 import com.github.fnar.minecraft.block.decorative.PumpkinBlock;
-import com.github.fnar.minecraft.block.decorative.TallPlant;
 import com.github.fnar.minecraft.block.decorative.TallPlantBlock;
 import com.github.fnar.minecraft.block.decorative.TorchBlock;
 import com.github.fnar.minecraft.block.normal.ColoredBlock;
@@ -30,51 +26,39 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockAnvil;
 import net.minecraft.block.BlockBed;
 import net.minecraft.block.BlockChest;
-import net.minecraft.block.BlockCocoa;
 import net.minecraft.block.BlockColored;
 import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockDispenser;
-import net.minecraft.block.BlockDoor;
-import net.minecraft.block.BlockDoublePlant;
 import net.minecraft.block.BlockDropper;
-import net.minecraft.block.BlockFlower;
 import net.minecraft.block.BlockFurnace;
 import net.minecraft.block.BlockHopper;
 import net.minecraft.block.BlockLadder;
-import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLever;
 import net.minecraft.block.BlockLog;
-import net.minecraft.block.BlockNewLeaf;
 import net.minecraft.block.BlockNewLog;
-import net.minecraft.block.BlockOldLeaf;
 import net.minecraft.block.BlockOldLog;
 import net.minecraft.block.BlockPistonBase;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.BlockPortal;
 import net.minecraft.block.BlockPrismarine;
 import net.minecraft.block.BlockPumpkin;
-import net.minecraft.block.BlockQuartz;
 import net.minecraft.block.BlockRedSandstone;
 import net.minecraft.block.BlockRedstoneComparator;
 import net.minecraft.block.BlockRedstoneRepeater;
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.BlockSandStone;
-import net.minecraft.block.BlockSapling;
 import net.minecraft.block.BlockSilverfish;
 import net.minecraft.block.BlockSlab;
-import net.minecraft.block.BlockStairs;
 import net.minecraft.block.BlockStone;
 import net.minecraft.block.BlockStoneBrick;
 import net.minecraft.block.BlockStoneSlab;
 import net.minecraft.block.BlockStoneSlabNew;
-import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.BlockTorch;
 import net.minecraft.block.BlockTrapDoor;
 import net.minecraft.block.BlockTripWire;
 import net.minecraft.block.BlockTripWireHook;
 import net.minecraft.block.BlockVine;
 import net.minecraft.block.BlockWoodSlab;
-import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
@@ -87,68 +71,64 @@ import greymerk.roguelike.worldgen.MetaBlock1_12;
 
 public class BlockMapper1_12 {
 
-  public static IBlockState mapToState(SingleBlockBrush blockBrush) {
-    return map(blockBrush).getState();
-  }
-
-  public static MetaBlock1_12 map(SingleBlockBrush block) {
-    Direction facing = block.getFacing();
+  public static IBlockState map(SingleBlockBrush blockBrush) {
+    Direction facing = blockBrush.getFacing();
 
     EnumFacing enumFacing = getFacing(facing);
 
-    BlockType blockType = block.getBlockType();
+    BlockType blockType = blockBrush.getBlockType();
 
     switch (blockType) {
       case ANVIL:
-        return getAnvil((AnvilBlock) block);
+        return getAnvil((AnvilBlock) blockBrush).getState();
       case ACACIA_LOG:
-        return getLogMetaBlock(Wood.ACACIA, facing);
+        return getLogMetaBlock(Wood.ACACIA, facing).getState();
       case BIRCH_LOG:
-        return getLogMetaBlock(Wood.BIRCH, facing);
+        return getLogMetaBlock(Wood.BIRCH, facing).getState();
       case DARK_OAK_LOG:
-        return getLogMetaBlock(Wood.DARK_OAK, facing);
+        return getLogMetaBlock(Wood.DARK_OAK, facing).getState();
       case JUNGLE_LOG:
-        return getLogMetaBlock(Wood.JUNGLE, facing);
+        return getLogMetaBlock(Wood.JUNGLE, facing).getState();
       case OAK_LOG:
-        return getLogMetaBlock(Wood.OAK, facing);
+        return getLogMetaBlock(Wood.OAK, facing).getState();
       case SPRUCE_LOG:
-        return getLogMetaBlock(Wood.SPRUCE, facing);
+        return getLogMetaBlock(Wood.SPRUCE, facing).getState();
       case ACACIA_FENCE:
-        return getFenceMetaBlock(Wood.ACACIA);
+        return Blocks.ACACIA_FENCE.getDefaultState();
       case BIRCH_FENCE:
-        return getFenceMetaBlock(Wood.BIRCH);
+        return Blocks.BIRCH_FENCE.getDefaultState();
       case DARK_OAK_FENCE:
-        return getFenceMetaBlock(Wood.DARK_OAK);
+        return Blocks.DARK_OAK_FENCE.getDefaultState();
       case JUNGLE_FENCE:
-        return getFenceMetaBlock(Wood.JUNGLE);
+        return Blocks.JUNGLE_FENCE.getDefaultState();
       case OAK_FENCE:
-        return getFenceMetaBlock(Wood.OAK);
+        return Blocks.OAK_FENCE.getDefaultState();
       case SPRUCE_FENCE:
-        return getFenceMetaBlock(Wood.SPRUCE);
+        return Blocks.SPRUCE_FENCE.getDefaultState();
       case ACACIA_PLANK:
-        return getPlankMetaBlock(Wood.ACACIA);
+        return getPlankMetaBlock(Wood.ACACIA).getState();
       case BIRCH_PLANK:
-        return getPlankMetaBlock(Wood.BIRCH);
+        return getPlankMetaBlock(Wood.BIRCH).getState();
       case DARK_OAK_PLANK:
-        return getPlankMetaBlock(Wood.DARK_OAK);
+        return getPlankMetaBlock(Wood.DARK_OAK).getState();
       case JUNGLE_PLANK:
-        return getPlankMetaBlock(Wood.JUNGLE);
+        return getPlankMetaBlock(Wood.JUNGLE).getState();
       case OAK_PLANK:
-        return getPlankMetaBlock(Wood.OAK);
+        return getPlankMetaBlock(Wood.OAK).getState();
       case SPRUCE_PLANK:
-        return getPlankMetaBlock(Wood.SPRUCE);
+        return getPlankMetaBlock(Wood.SPRUCE).getState();
       case OAK_LEAVES:
-        return getLeaves(Wood.OAK, false);
+        return LeavesBlockMapper1_12.map(Wood.OAK, false);
       case SPRUCE_LEAVES:
-        return getLeaves(Wood.SPRUCE, false);
+        return LeavesBlockMapper1_12.map(Wood.SPRUCE, false);
       case BIRCH_LEAVES:
-        return getLeaves(Wood.BIRCH, false);
+        return LeavesBlockMapper1_12.map(Wood.BIRCH, false);
       case JUNGLE_LEAVES:
-        return getLeaves(Wood.JUNGLE, false);
+        return LeavesBlockMapper1_12.map(Wood.JUNGLE, false);
       case ACACIA_LEAVES2:
-        return getLeaves(Wood.ACACIA, false);
+        return LeavesBlockMapper1_12.map(Wood.ACACIA, false);
       case DARK_OAK_LEAVES:
-        return getLeaves(Wood.DARK_OAK, false);
+        return LeavesBlockMapper1_12.map(Wood.DARK_OAK, false);
       case CARPET:
       case CONCRETE:
       case CONCRETE_POWDER:
@@ -157,7 +137,7 @@ public class BlockMapper1_12 {
       case STAINED_HARDENED_CLAY:
       case TERRACOTTA:
       case WOOL:
-        return getColoredBlock((ColoredBlock) block);
+        return getColoredBlock((ColoredBlock) blockBrush).getState();
       case ACACIA_STAIRS:
       case BIRCH_STAIRS:
       case BRICK_STAIRS:
@@ -172,7 +152,7 @@ public class BlockMapper1_12 {
       case SPRUCE_STAIRS:
       case STONE_BRICK_STAIRS:
       case STONE_STAIRS:
-        return mapStairs((StairsBlock) block);
+        return StairsBlockMapper1_12.mapStairsToState((StairsBlock) blockBrush);
       case ACACIA_SLAB:
       case BIRCH_SLAB:
       case BRICK_SLAB:
@@ -189,7 +169,7 @@ public class BlockMapper1_12 {
       case SPRUCE_SLAB:
       case STONEBRICK_SLAB:
       case STONE_SLAB:
-        return getSlab((SlabBlock) block);
+        return getSlab((SlabBlock) blockBrush).getState();
       case IRON_DOOR:
       case OAK_DOOR:
       case BIRCH_DOOR:
@@ -199,362 +179,331 @@ public class BlockMapper1_12 {
       case DARK_OAK_DOOR:
       case WARPED_DOOR:
       case CRIMSON_DOOR:
-        return mapDoor((DoorBlock) block);
+        return DoorBlockMapper1_12.map((DoorBlock) blockBrush);
       case CHISELED_QUARTZ:
-        return getQuartz(Quartz.CHISELED, facing);
+        return QuartzBlockMapper1_12.map(Quartz.CHISELED, facing);
       case PILLAR_QUARTZ:
-        return getQuartz(Quartz.PILLAR, facing);
+        return QuartzBlockMapper1_12.map(Quartz.PILLAR, facing);
       case SMOOTH_QUARTZ:
-        return getQuartz(Quartz.SMOOTH, facing);
+        return QuartzBlockMapper1_12.map(Quartz.SMOOTH, facing);
       case VINE:
-        return createVine(facing);
+        return createVine(facing).getState();
       case CROP:
-        return getCrop((CropBlock) block);
+        return CropBlockMapper1_12.map((CropBlock) blockBrush);
       case PUMPKIN:
-        return block instanceof PumpkinBlock ? getPumpkin((PumpkinBlock) block) : new MetaBlock1_12(Blocks.PUMPKIN);
+        return blockBrush instanceof PumpkinBlock ? getPumpkin((PumpkinBlock) blockBrush).getState() : Blocks.PUMPKIN.getDefaultState();
       case FLOWER_POT:
-        return new MetaBlock1_12(Blocks.FLOWER_POT);
+        return Blocks.FLOWER_POT.getDefaultState();
       case BROWN_MUSHROOM:
-        return new MetaBlock1_12(Blocks.BROWN_MUSHROOM);
+        return Blocks.BROWN_MUSHROOM.getDefaultState();
       case RED_MUSHROOM:
-        return new MetaBlock1_12(Blocks.RED_MUSHROOM);
+        return Blocks.RED_MUSHROOM.getDefaultState();
       case PLANT:
-        return getPlant((PlantBlock) block);
+        return PlantBlockMapper1_12.getPlant((PlantBlock) blockBrush);
       case TALL_PLANT:
-        return getTallPlant((TallPlantBlock) block);
+        return TallGrassMapper1_12.getTallPlant((TallPlantBlock) blockBrush);
       case TRAPDOOR:
-        return getTrapdoor((TrapdoorBlock) block);
+        return getTrapdoor((TrapdoorBlock) blockBrush).getState();
       case LEVER:
-        return getLever((LeverBlock) block);
+        return getLever((LeverBlock) blockBrush).getState();
       case TORCH:
       case REDSTONE_TORCH:
-        return getTorch((TorchBlock) block);
+        return getTorch((TorchBlock) blockBrush).getState();
       case BED:
-        return getBed((BedBlock) block);
+        return getBed((BedBlock) blockBrush).getState();
       case FURNACE:
         if (!RogueConfig.FURNITURE.getBoolean()) {
-          return new MetaBlock1_12(Blocks.COBBLESTONE);
+          return Blocks.COBBLESTONE.getDefaultState();
         }
-        return new MetaBlock1_12(Blocks.FURNACE)
-            .withProperty(BlockFurnace.FACING, enumFacing);
+        return Blocks.FURNACE.getDefaultState().withProperty(BlockFurnace.FACING, enumFacing);
       case DISPENSER:
-        return new MetaBlock1_12(Blocks.DISPENSER)
-            .withProperty(BlockDispenser.FACING, enumFacing);
+        return Blocks.DISPENSER.getDefaultState().withProperty(BlockDispenser.FACING, enumFacing);
       case DROPPER:
-        return new MetaBlock1_12(Blocks.DROPPER)
-            .withProperty(BlockDropper.FACING, enumFacing);
+        return Blocks.DROPPER.getDefaultState().withProperty(BlockDropper.FACING, enumFacing);
       case HOPPER:
-        return new MetaBlock1_12(Blocks.HOPPER)
+        return Blocks.HOPPER.getDefaultState()
             .withProperty(BlockHopper.FACING, enumFacing);
       case COCOA_BEANS:
-        return new MetaBlock1_12(Blocks.COCOA);
+        return Blocks.COCOA.getDefaultState();
       case COMPARATOR:
-        return getComparator((ComparatorBlock) block);
+        return getComparator((ComparatorBlock) blockBrush).getState();
       case REPEATER:
-        return getRepeater((RepeaterBlock) block);
+        return getRepeater((RepeaterBlock) blockBrush).getState();
       case PISTON:
-        return new MetaBlock1_12(Blocks.PISTON)
+        return Blocks.PISTON.getDefaultState()
             .withProperty(BlockPistonBase.FACING, enumFacing);
       case STICKY_PISTON:
-        return new MetaBlock1_12(Blocks.STICKY_PISTON)
+        return Blocks.STICKY_PISTON.getDefaultState()
             .withProperty(BlockPistonBase.FACING, enumFacing);
       case INFESTED_BLOCK:
-        return getInfestedBlock((InfestedBlock) block);
+        return getInfestedBlock((InfestedBlock) blockBrush).getState();
       case CHEST:
-        return new MetaBlock1_12(Blocks.CHEST)
+        return Blocks.CHEST.getDefaultState()
             .withProperty(BlockChest.FACING, enumFacing);
       case TRAPPED_CHEST:
-        return new MetaBlock1_12(Blocks.TRAPPED_CHEST)
+        return Blocks.TRAPPED_CHEST.getDefaultState()
             .withProperty(BlockChest.FACING, enumFacing);
       case NETHER_PORTAL:
-        return new MetaBlock1_12(Blocks.PORTAL)
+        return Blocks.PORTAL.getDefaultState()
             .withProperty(BlockPortal.AXIS, enumFacing.getAxis());
       case TRIPWIRE:
-        return new MetaBlock1_12(Blocks.TRIPWIRE);
+        return Blocks.TRIPWIRE.getDefaultState();
       case TRIPWIRE_HOOK:
-        return mapTripwireHook((TripwireHookBlock) block)
+        return Blocks.TRIPWIRE_HOOK.getDefaultState()
+            .withProperty(BlockTripWire.ATTACHED, ((TripwireHookBlock) blockBrush).isAttached())
             .withProperty(BlockTripWireHook.FACING, enumFacing);
       case LADDER:
-        return new MetaBlock1_12(Blocks.LADDER)
+        return Blocks.LADDER.getDefaultState()
             .withProperty(BlockLadder.FACING, enumFacing);
       case AIR:
-        return new MetaBlock1_12(Blocks.AIR);
+        return Blocks.AIR.getDefaultState();
       case WATER_STILL:
-        return new MetaBlock1_12(Blocks.WATER);
+        return Blocks.WATER.getDefaultState();
       case WATER_FLOWING:
-        return new MetaBlock1_12(Blocks.FLOWING_WATER);
+        return Blocks.FLOWING_WATER.getDefaultState();
       case LAVA_STILL:
-        return new MetaBlock1_12(Blocks.LAVA);
+        return Blocks.LAVA.getDefaultState();
       case LAVA_FLOWING:
-        return new MetaBlock1_12(Blocks.FLOWING_LAVA);
+        return Blocks.FLOWING_LAVA.getDefaultState();
       case FIRE:
-        return new MetaBlock1_12(Blocks.FIRE);
+        return Blocks.FIRE.getDefaultState();
       case IRON_BAR:
-        return new MetaBlock1_12(Blocks.IRON_BARS);
+        return Blocks.IRON_BARS.getDefaultState();
       case STONE_SMOOTH:
-        return new MetaBlock1_12(Blocks.STONE);
+        return Blocks.STONE.getDefaultState();
       case GRANITE:
-        return new MetaBlock1_12(Blocks.STONE).withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE);
+        return Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE);
       case GRANITE_POLISHED:
-        return new MetaBlock1_12(Blocks.STONE).withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE_SMOOTH);
+        return Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE_SMOOTH);
       case DIORITE:
-        return new MetaBlock1_12(Blocks.STONE).withProperty(BlockStone.VARIANT, BlockStone.EnumType.DIORITE);
+        return Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.DIORITE);
       case DIORITE_POLISHED:
-        return new MetaBlock1_12(Blocks.STONE).withProperty(BlockStone.VARIANT, BlockStone.EnumType.DIORITE_SMOOTH);
+        return Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.DIORITE_SMOOTH);
       case ANDESITE:
-        return new MetaBlock1_12(Blocks.STONE).withProperty(BlockStone.VARIANT, BlockStone.EnumType.ANDESITE);
+        return Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.ANDESITE);
       case ANDESITE_POLISHED:
-        return new MetaBlock1_12(Blocks.STONE).withProperty(BlockStone.VARIANT, BlockStone.EnumType.ANDESITE_SMOOTH);
+        return Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.ANDESITE_SMOOTH);
       case GRASS:
-        return new MetaBlock1_12(Blocks.GRASS);
+        return Blocks.GRASS.getDefaultState();
       case DIRT:
-        return new MetaBlock1_12(Blocks.DIRT);
+        return Blocks.DIRT.getDefaultState();
       case DIRT_COARSE:
-        return new MetaBlock1_12(Blocks.DIRT).withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT);
+        return Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT);
       case DIRT_PODZOL:
-        return new MetaBlock1_12(Blocks.DIRT).withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL);
+        return Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.PODZOL);
       case COBBLESTONE:
-        return new MetaBlock1_12(Blocks.COBBLESTONE);
+        return Blocks.COBBLESTONE.getDefaultState();
       case COBBLESTONE_WALL:
-        return new MetaBlock1_12(Blocks.COBBLESTONE_WALL);
+        return Blocks.COBBLESTONE_WALL.getDefaultState();
       case BEDROCK:
-        return new MetaBlock1_12(Blocks.BEDROCK);
+        return Blocks.BEDROCK.getDefaultState();
       case SAND:
-        return new MetaBlock1_12(Blocks.SAND);
+        return Blocks.SAND.getDefaultState();
       case SAND_RED:
-        return new MetaBlock1_12(Blocks.SAND).withProperty(BlockSand.VARIANT, BlockSand.EnumType.RED_SAND);
+        return Blocks.SAND.getDefaultState().withProperty(BlockSand.VARIANT, BlockSand.EnumType.RED_SAND);
       case GRAVEL:
-        return new MetaBlock1_12(Blocks.GRAVEL);
+        return Blocks.GRAVEL.getDefaultState();
       case ORE_GOLD:
-        return new MetaBlock1_12(Blocks.GOLD_ORE);
+        return Blocks.GOLD_ORE.getDefaultState();
       case ORE_IRON:
-        return new MetaBlock1_12(Blocks.IRON_ORE);
+        return Blocks.IRON_ORE.getDefaultState();
       case ORE_COAL:
-        return new MetaBlock1_12(Blocks.COAL_BLOCK);
+        return Blocks.COAL_BLOCK.getDefaultState();
       case GLASS:
-        return new MetaBlock1_12(Blocks.GLASS);
+        return Blocks.GLASS.getDefaultState();
       case GLASS_PANE:
-        return new MetaBlock1_12(Blocks.GLASS_PANE);
+        return Blocks.GLASS_PANE.getDefaultState();
       case ORE_LAPIS:
-        return new MetaBlock1_12(Blocks.LAPIS_ORE);
+        return Blocks.LAPIS_ORE.getDefaultState();
       case LAPIS_BLOCK:
-        return new MetaBlock1_12(Blocks.LAPIS_BLOCK);
+        return Blocks.LAPIS_BLOCK.getDefaultState();
       case ORE_EMERALD:
-        return new MetaBlock1_12(Blocks.EMERALD_ORE);
+        return Blocks.EMERALD_ORE.getDefaultState();
       case SANDSTONE:
-        return new MetaBlock1_12(Blocks.SANDSTONE);
+        return Blocks.SANDSTONE.getDefaultState();
       case CHISELED_SANDSTONE:
-        return new MetaBlock1_12(Blocks.SANDSTONE).withProperty(BlockSandStone.TYPE, BlockSandStone.EnumType.CHISELED);
+        return Blocks.SANDSTONE.getDefaultState().withProperty(BlockSandStone.TYPE, BlockSandStone.EnumType.CHISELED);
       case SANDSTONE_SMOOTH:
-        return new MetaBlock1_12(Blocks.SANDSTONE).withProperty(BlockSandStone.TYPE, BlockSandStone.EnumType.SMOOTH);
+        return Blocks.SANDSTONE.getDefaultState().withProperty(BlockSandStone.TYPE, BlockSandStone.EnumType.SMOOTH);
       case GOLD_BLOCK:
-        return new MetaBlock1_12(Blocks.GOLD_BLOCK);
+        return Blocks.GOLD_BLOCK.getDefaultState();
       case IRON_BLOCK:
-        return new MetaBlock1_12(Blocks.IRON_BLOCK);
+        return Blocks.IRON_BLOCK.getDefaultState();
       case BRICK:
-        return new MetaBlock1_12(Blocks.BRICK_BLOCK);
+        return Blocks.BRICK_BLOCK.getDefaultState();
       case COBBLESTONE_MOSSY:
-        return new MetaBlock1_12(Blocks.MOSSY_COBBLESTONE);
+        return Blocks.MOSSY_COBBLESTONE.getDefaultState();
       case OBSIDIAN:
-        return new MetaBlock1_12(Blocks.OBSIDIAN);
+        return Blocks.OBSIDIAN.getDefaultState();
       case ORE_DIAMOND:
-        return new MetaBlock1_12(Blocks.DIAMOND_ORE);
+        return Blocks.DIAMOND_ORE.getDefaultState();
       case DIAMOND_BLOCK:
-        return new MetaBlock1_12(Blocks.DIAMOND_BLOCK);
+        return Blocks.DIAMOND_BLOCK.getDefaultState();
       case FARMLAND:
-        return new MetaBlock1_12(Blocks.FARMLAND);
+        return Blocks.FARMLAND.getDefaultState();
       case ORE_REDSTONE:
-        return new MetaBlock1_12(Blocks.REDSTONE_ORE);
+        return Blocks.REDSTONE_ORE.getDefaultState();
       case ICE:
-        return new MetaBlock1_12(Blocks.ICE);
+        return Blocks.ICE.getDefaultState();
       case SNOW:
-        return new MetaBlock1_12(Blocks.SNOW);
+        return Blocks.SNOW.getDefaultState();
       case CLAY:
-        return new MetaBlock1_12(Blocks.CLAY);
+        return Blocks.CLAY.getDefaultState();
       case NETHERRACK:
-        return new MetaBlock1_12(Blocks.NETHERRACK);
+        return Blocks.NETHERRACK.getDefaultState();
       case SOUL_SAND:
-        return new MetaBlock1_12(Blocks.SOUL_SAND);
+        return Blocks.SOUL_SAND.getDefaultState();
       case GLOWSTONE:
-        return new MetaBlock1_12(Blocks.GLOWSTONE);
+        return Blocks.GLOWSTONE.getDefaultState();
       case STONE_BRICK:
-        return new MetaBlock1_12(Blocks.STONEBRICK);
+        return Blocks.STONEBRICK.getDefaultState();
       case STONE_BRICK_MOSSY:
-        return new MetaBlock1_12(Blocks.STONEBRICK).withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.MOSSY);
+        return Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.MOSSY);
       case STONE_BRICK_CRACKED:
-        return new MetaBlock1_12(Blocks.STONEBRICK).withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.CRACKED);
+        return Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.CRACKED);
       case STONE_BRICK_CHISELED:
-        return new MetaBlock1_12(Blocks.STONEBRICK).withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.CHISELED);
+        return Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.CHISELED);
       case MYCELIUM:
-        return new MetaBlock1_12(Blocks.MYCELIUM);
+        return Blocks.MYCELIUM.getDefaultState();
       case NETHERBRICK:
-        return new MetaBlock1_12(Blocks.NETHER_BRICK);
+        return Blocks.NETHER_BRICK.getDefaultState();
       case END_STONE:
-        return new MetaBlock1_12(Blocks.END_STONE);
+        return Blocks.END_STONE.getDefaultState();
       case EMERALD_BLOCK:
-        return new MetaBlock1_12(Blocks.EMERALD_BLOCK);
+        return Blocks.EMERALD_BLOCK.getDefaultState();
       case ORE_QUARTZ:
-        return new MetaBlock1_12(Blocks.QUARTZ_ORE);
+        return Blocks.QUARTZ_ORE.getDefaultState();
       case PRISMITE:
-        return new MetaBlock1_12(Blocks.PRISMARINE).withProperty(BlockPrismarine.VARIANT, BlockPrismarine.EnumType.ROUGH);
+        return Blocks.PRISMARINE.getDefaultState().withProperty(BlockPrismarine.VARIANT, BlockPrismarine.EnumType.ROUGH);
       case PRISMARINE:
-        return new MetaBlock1_12(Blocks.PRISMARINE).withProperty(BlockPrismarine.VARIANT, BlockPrismarine.EnumType.BRICKS);
+        return Blocks.PRISMARINE.getDefaultState().withProperty(BlockPrismarine.VARIANT, BlockPrismarine.EnumType.BRICKS);
       case PRISMARINE_DARK:
-        return new MetaBlock1_12(Blocks.PRISMARINE).withProperty(BlockPrismarine.VARIANT, BlockPrismarine.EnumType.DARK);
+        return Blocks.PRISMARINE.getDefaultState().withProperty(BlockPrismarine.VARIANT, BlockPrismarine.EnumType.DARK);
       case SEA_LANTERN:
-        return new MetaBlock1_12(Blocks.SEA_LANTERN);
+        return Blocks.SEA_LANTERN.getDefaultState();
       case COAL_BLOCK:
-        return new MetaBlock1_12(Blocks.COAL_BLOCK);
+        return Blocks.COAL_BLOCK.getDefaultState();
       case ICE_PACKED:
-        return new MetaBlock1_12(Blocks.PACKED_ICE);
+        return Blocks.PACKED_ICE.getDefaultState();
       case RED_SANDSTONE:
-        return new MetaBlock1_12(Blocks.RED_SANDSTONE);
+        return Blocks.RED_SANDSTONE.getDefaultState();
       case CHISELED_RED_SANDSTONE:
-        return new MetaBlock1_12(Blocks.RED_SANDSTONE).withProperty(BlockRedSandstone.TYPE, BlockRedSandstone.EnumType.CHISELED);
+        return Blocks.RED_SANDSTONE.getDefaultState().withProperty(BlockRedSandstone.TYPE, BlockRedSandstone.EnumType.CHISELED);
       case SMOOTH_RED_SANDSTONE:
-        return new MetaBlock1_12(Blocks.RED_SANDSTONE).withProperty(BlockRedSandstone.TYPE, BlockRedSandstone.EnumType.SMOOTH);
+        return Blocks.RED_SANDSTONE.getDefaultState().withProperty(BlockRedSandstone.TYPE, BlockRedSandstone.EnumType.SMOOTH);
       case QUARTZ:
-        return new MetaBlock1_12(Blocks.QUARTZ_BLOCK);
+        return Blocks.QUARTZ_BLOCK.getDefaultState();
       case REDSTONE_BLOCK:
-        return new MetaBlock1_12(Blocks.REDSTONE_BLOCK);
+        return Blocks.REDSTONE_BLOCK.getDefaultState();
       case PRESSURE_PLATE_STONE:
-        return new MetaBlock1_12(Blocks.STONE_PRESSURE_PLATE);
+        return Blocks.STONE_PRESSURE_PLATE.getDefaultState();
       case PRESSURE_PLATE_WOODEN:
-        return new MetaBlock1_12(Blocks.WOODEN_PRESSURE_PLATE);
+        return Blocks.WOODEN_PRESSURE_PLATE.getDefaultState();
       case BOOKSHELF:
-        return new MetaBlock1_12(Blocks.BOOKSHELF);
+        return Blocks.BOOKSHELF.getDefaultState();
       case REDSTONE_WIRE:
-        return new MetaBlock1_12(Blocks.REDSTONE_WIRE);
+        return Blocks.REDSTONE_WIRE.getDefaultState();
       case REEDS:
-        return new MetaBlock1_12(Blocks.REEDS);
+        return Blocks.REEDS.getDefaultState();
       case CRAFTING_TABLE:
         return (!RogueConfig.FURNITURE.getBoolean()
-            ? getPlankMetaBlock(Wood.OAK)
-            : new MetaBlock1_12(Blocks.CRAFTING_TABLE));
+            ? getPlankMetaBlock(Wood.OAK).getState()
+            : Blocks.CRAFTING_TABLE.getDefaultState());
       case NOTEBLOCK:
-        return new MetaBlock1_12(Blocks.NOTEBLOCK);
+        return Blocks.NOTEBLOCK.getDefaultState();
       case REDSTONE_LAMP:
-        return new MetaBlock1_12(Blocks.REDSTONE_LAMP);
+        return Blocks.REDSTONE_LAMP.getDefaultState();
       case REDSTONE_LAMP_LIT:
-        return new MetaBlock1_12(Blocks.LIT_REDSTONE_LAMP);
+        return Blocks.LIT_REDSTONE_LAMP.getDefaultState();
       case JUKEBOX:
-        return new MetaBlock1_12(Blocks.JUKEBOX);
+        return Blocks.JUKEBOX.getDefaultState();
       case TNT:
-        return new MetaBlock1_12(Blocks.TNT);
+        return Blocks.TNT.getDefaultState();
       case ENCHANTING_TABLE:
-        return new MetaBlock1_12(Blocks.ENCHANTING_TABLE);
+        return Blocks.ENCHANTING_TABLE.getDefaultState();
       case FENCE_NETHER_BRICK:
-        return new MetaBlock1_12(Blocks.NETHER_BRICK_FENCE);
+        return Blocks.NETHER_BRICK_FENCE.getDefaultState();
       case WEB:
-        return new MetaBlock1_12(Blocks.WEB);
+        return Blocks.WEB.getDefaultState();
       case PURPUR_BLOCK:
-        return new MetaBlock1_12(Blocks.PURPUR_BLOCK);
+        return Blocks.PURPUR_BLOCK.getDefaultState();
       case PURPUR_PILLAR:
-        return new MetaBlock1_12(Blocks.PURPUR_PILLAR);
+        return Blocks.PURPUR_PILLAR.getDefaultState();
       case PURPUR_STAIR:
-        return new MetaBlock1_12(Blocks.PURPUR_STAIRS);
+        return Blocks.PURPUR_STAIRS.getDefaultState();
       case PURPUR_DOUBLE_SLAB:
-        return new MetaBlock1_12(Blocks.PURPUR_DOUBLE_SLAB);
+        return Blocks.PURPUR_DOUBLE_SLAB.getDefaultState();
       case PURPUR_SLAB:
-        return new MetaBlock1_12(Blocks.PURPUR_SLAB);
+        return Blocks.PURPUR_SLAB.getDefaultState();
       case ENDER_BRICK:
-        return new MetaBlock1_12(Blocks.END_BRICKS);
+        return Blocks.END_BRICKS.getDefaultState();
       case MAGMA:
-        return new MetaBlock1_12(Blocks.MAGMA);
+        return Blocks.MAGMA.getDefaultState();
       case RED_NETHERBRICK:
-        return new MetaBlock1_12(Blocks.RED_NETHER_BRICK);
+        return Blocks.RED_NETHER_BRICK.getDefaultState();
       case NETHER_WART_BLOCK:
-        return new MetaBlock1_12(Blocks.NETHER_WART_BLOCK);
+        return Blocks.NETHER_WART_BLOCK.getDefaultState();
       case OAK_SAPLING:
-        return getSapling(Wood.OAK);
+        return SaplingBlockMapper1_12.map(Wood.OAK);
       case SPRUCE_SAPLING:
-        return getSapling(Wood.SPRUCE);
+        return SaplingBlockMapper1_12.map(Wood.SPRUCE);
       case BIRCH_SAPLING:
-        return getSapling(Wood.BIRCH);
+        return SaplingBlockMapper1_12.map(Wood.BIRCH);
       case BONE_BLOCK:
-        return new MetaBlock1_12(Blocks.BONE_BLOCK);
+        return Blocks.BONE_BLOCK.getDefaultState();
       case BREWING_STAND:
-        return new MetaBlock1_12(Blocks.BREWING_STAND);
+        return Blocks.BREWING_STAND.getDefaultState();
       case CACTUS:
-        return new MetaBlock1_12(Blocks.CACTUS);
+        return Blocks.CACTUS.getDefaultState();
       case CAKE:
-        return new MetaBlock1_12(Blocks.CAKE);
+        return Blocks.CAKE.getDefaultState();
       case MOB_SPAWNER:
-        return new MetaBlock1_12(Blocks.MOB_SPAWNER);
+        return Blocks.MOB_SPAWNER.getDefaultState();
       case ENDER_CHEST:
-        return new MetaBlock1_12(Blocks.ENDER_CHEST);
+        return Blocks.ENDER_CHEST.getDefaultState();
       case RED_FLOWER:
-        return new MetaBlock1_12(Blocks.RED_FLOWER);
+        return Blocks.RED_FLOWER.getDefaultState();
       case SKULL:
-        return new MetaBlock1_12(Blocks.SKULL);
+        return Blocks.SKULL.getDefaultState();
       case YELLOW_FLOWER:
-        return new MetaBlock1_12(Blocks.YELLOW_FLOWER);
+        return Blocks.YELLOW_FLOWER.getDefaultState();
       case JUNGLE_SAPLING:
-        return getSapling(Wood.JUNGLE);
+        return SaplingBlockMapper1_12.map(Wood.JUNGLE);
       case ACACIA_SAPLING:
-        return getSapling(Wood.ACACIA);
+        return SaplingBlockMapper1_12.map(Wood.ACACIA);
       case DARK_OAK_SAPLING:
-        return getSapling(Wood.DARK_OAK);
+        return SaplingBlockMapper1_12.map(Wood.DARK_OAK);
       case WHEAT:
-        return new MetaBlock1_12(Blocks.WHEAT);
+        return Blocks.WHEAT.getDefaultState();
       case SIGN:
-        return new MetaBlock1_12(Blocks.STANDING_SIGN);
+        return Blocks.STANDING_SIGN.getDefaultState();
       case SPONGE:
-        return new MetaBlock1_12(Blocks.SPONGE);
+        return Blocks.SPONGE.getDefaultState();
     }
     throw new ReportThisIssueException(new UnmappedBlockException(blockType));
   }
 
-  private static MetaBlock1_12 mapTripwireHook(TripwireHookBlock block) {
-    return new MetaBlock1_12(Blocks.TRIPWIRE_HOOK)
-        .withProperty(BlockTripWire.ATTACHED, block.isAttached());
-  }
-
-  private static MetaBlock1_12 getCrop(CropBlock cropBlock) {
-    switch (cropBlock.getCrop()) {
-      case BEETROOTS:
-        return new MetaBlock1_12(Blocks.BEETROOTS);
-      case CARROTS:
-        return new MetaBlock1_12(Blocks.CARROTS);
-      case COCOA:
-        return getCocoaBlock(cropBlock.getFacing());
-      case MELON:
-        return new MetaBlock1_12(Blocks.MELON_STEM);
-      case NETHER_WART:
-        return new MetaBlock1_12(Blocks.NETHER_WART);
-      case POTATOES:
-        return new MetaBlock1_12(Blocks.POTATOES);
-      case PUMPKIN:
-        return new MetaBlock1_12(Blocks.PUMPKIN_STEM);
-      default:
-      case WHEAT:
-        return new MetaBlock1_12(Blocks.WHEAT);
-    }
+  private static MetaBlock1_12 createMetaBlock(Block block) {
+    return new MetaBlock1_12(block);
   }
 
   private static MetaBlock1_12 getRepeater(RepeaterBlock block) {
-    return new MetaBlock1_12(block.isPowered() ? Blocks.POWERED_REPEATER : Blocks.UNPOWERED_REPEATER)
+    return createMetaBlock(block.isPowered() ? Blocks.POWERED_REPEATER : Blocks.UNPOWERED_REPEATER)
         .withProperty(BlockRedstoneRepeater.DELAY, block.getDelay().asInt())
         .withProperty(BlockRedstoneRepeater.FACING, getFacing(block.getFacing()));
   }
 
   private static MetaBlock1_12 getComparator(ComparatorBlock block) {
-    return new MetaBlock1_12(block.isPowered() ? Blocks.POWERED_COMPARATOR : Blocks.UNPOWERED_COMPARATOR)
+    return createMetaBlock(block.isPowered() ? Blocks.POWERED_COMPARATOR : Blocks.UNPOWERED_COMPARATOR)
         .withProperty(BlockRedstoneComparator.FACING, getFacing(block.getFacing()))
         .withProperty(BlockRedstoneComparator.MODE, block.getMode() == ComparatorBlock.Mode.SUBTRACTION
             ? BlockRedstoneComparator.Mode.SUBTRACT
             : BlockRedstoneComparator.Mode.COMPARE);
   }
 
-  private static MetaBlock1_12 getCocoaBlock(Direction facing) {
-    return new MetaBlock1_12(Blocks.COCOA)
-        .withProperty(BlockCocoa.FACING, getFacing(facing.reverse()))
-        .withProperty(BlockCocoa.AGE, 2);
-  }
-
   private static MetaBlock1_12 getLever(LeverBlock leverBlock) {
     Direction dir = leverBlock.getFacing();
-    return new MetaBlock1_12(Blocks.LEVER)
+    return createMetaBlock(Blocks.LEVER)
         .withProperty(BlockLever.POWERED, leverBlock.isActive())
         .withProperty(BlockLever.FACING, getLeverOrientation(dir));
   }
@@ -581,9 +530,9 @@ public class BlockMapper1_12 {
 
   private static MetaBlock1_12 getColoredBlock(ColoredBlock coloredBlock) {
     if (coloredBlock.getBlockType() == BlockType.TERRACOTTA) {
-      return new MetaBlock1_12(getTerracottaByColor(coloredBlock.getColor()));
+      return createMetaBlock(getTerracottaByColor(coloredBlock.getColor()));
     }
-    return new MetaBlock1_12(getBlock(coloredBlock.getBlockType()))
+    return createMetaBlock(getBlock(coloredBlock.getBlockType()))
         .withProperty(BlockColored.COLOR, toEnumDyeColor(coloredBlock.getColor()));
   }
 
@@ -609,127 +558,35 @@ public class BlockMapper1_12 {
   }
 
   private static MetaBlock1_12 getBed(BedBlock bedBlock) {
-    return new MetaBlock1_12(Blocks.BED)
+    return createMetaBlock(Blocks.BED)
         .withProperty(BlockBed.FACING, getFacing(bedBlock.getFacing()))
         .withProperty(BlockBed.PART, bedBlock.isHead() ? BlockBed.EnumPartType.HEAD : BlockBed.EnumPartType.FOOT);
   }
 
   private static MetaBlock1_12 getPumpkin(PumpkinBlock block) {
-    return new MetaBlock1_12(block.isLit() ? Blocks.LIT_PUMPKIN : Blocks.PUMPKIN)
+    return createMetaBlock(block.isLit() ? Blocks.LIT_PUMPKIN : Blocks.PUMPKIN)
         .withProperty(BlockPumpkin.FACING, getFacing(block.getFacing()));
   }
 
   private static MetaBlock1_12 getAnvil(AnvilBlock block) {
     if (!RogueConfig.FURNITURE.getBoolean()) {
-      return new MetaBlock1_12(Blocks.STONE).withProperty(BlockStone.VARIANT, BlockStone.EnumType.ANDESITE);
+      return createMetaBlock(Blocks.STONE).withProperty(BlockStone.VARIANT, BlockStone.EnumType.ANDESITE);
     }
-    return new MetaBlock1_12(Blocks.ANVIL)
+    return createMetaBlock(Blocks.ANVIL)
         .withProperty(BlockAnvil.DAMAGE, block.getDamage().ordinal())
         .withProperty(BlockAnvil.FACING, getFacing(block.getFacing()));
   }
 
-  public static IBlockState mapStairsToState(StairsBlock stairsBlock) {
-    return mapStairs(stairsBlock).getState();
-  }
-
-  public static MetaBlock1_12 mapStairs(StairsBlock block) {
-    JsonElement json = block.getJson();
-    MetaBlock1_12 metaBlock1_12 = json != null
-        ? new MetaBlock1_12(json)
-        : new MetaBlock1_12(getBlockForStairs(block.getBlockType()));
-    return metaBlock1_12
-        .withProperty(BlockStairs.FACING, getFacing(block.getFacing()))
-        .withProperty(BlockStairs.HALF, block.isUpsideDown() ? BlockStairs.EnumHalf.TOP : BlockStairs.EnumHalf.BOTTOM);
-  }
-
-  private static Block getBlockForStairs(BlockType stairs) {
-    switch (stairs) {
-      case ACACIA_STAIRS:
-        return Blocks.ACACIA_STAIRS;
-      case BIRCH_STAIRS:
-        return Blocks.BIRCH_STAIRS;
-      case BRICK_STAIRS:
-        return Blocks.BRICK_STAIRS;
-      case DARK_OAK_STAIRS:
-        return Blocks.DARK_OAK_STAIRS;
-      case JUNGLE_STAIRS:
-        return Blocks.JUNGLE_STAIRS;
-      case NETHER_BRICK_STAIRS:
-        return Blocks.NETHER_BRICK_STAIRS;
-      case OAK_STAIRS:
-        return Blocks.OAK_STAIRS;
-      case PURPUR_STAIRS:
-        return Blocks.PURPUR_STAIRS;
-      case QUARTZ_STAIRS:
-        return Blocks.QUARTZ_STAIRS;
-      case RED_SANDSTONE_STAIRS:
-        return Blocks.RED_SANDSTONE_STAIRS;
-      case SANDSTONE_STAIRS:
-        return Blocks.SANDSTONE_STAIRS;
-      case SPRUCE_STAIRS:
-        return Blocks.SPRUCE_STAIRS;
-      case STONE_BRICK_STAIRS:
-        return Blocks.STONE_BRICK_STAIRS;
-      case STONE_STAIRS:
-      default:
-        return Blocks.STONE_STAIRS;
-    }
-  }
-
   private static MetaBlock1_12 getTrapdoor(TrapdoorBlock block) {
-    return new MetaBlock1_12(block.getMaterial() == Material.METAL ? Blocks.IRON_DOOR : Blocks.TRAPDOOR)
+    return createMetaBlock(block.getMaterial() == Material.METAL ? Blocks.IRON_DOOR : Blocks.TRAPDOOR)
         .withProperty(BlockTrapDoor.HALF, block.isFlushWithTop() ? BlockTrapDoor.DoorHalf.TOP : BlockTrapDoor.DoorHalf.BOTTOM)
         .withProperty(BlockTrapDoor.OPEN, block.isOpen())
         .withProperty(BlockTrapDoor.FACING, getFacing(block.getFacing()));
   }
 
-  public static MetaBlock1_12 mapDoor(DoorBlock block) {
-    JsonElement json = block.getJson();
-    MetaBlock1_12 doorMetaBlock = json != null
-        ? new MetaBlock1_12(json)
-        : new MetaBlock1_12(getBlockForDoor(block.getBlockType()));
-    return doorMetaBlock
-        .withProperty(BlockDoor.HALF, block.isTop() ? BlockDoor.EnumDoorHalf.UPPER : BlockDoor.EnumDoorHalf.LOWER)
-        .withProperty(BlockDoor.FACING, getFacing(block.getFacing()))
-        .withProperty(BlockDoor.OPEN, block.isOpen())
-        .withProperty(BlockDoor.HINGE, block.isHingeLeft() ? BlockDoor.EnumHingePosition.LEFT : BlockDoor.EnumHingePosition.RIGHT);
-  }
-
-  public static IBlockState mapDoorToState(DoorBlock block) {
-    JsonElement json = block.getJson();
-    IBlockState doorMetaBlock = json != null
-        ? BlockParser1_12.parse(json)
-        : getBlockForDoor(block.getBlockType()).getDefaultState();
-    return doorMetaBlock
-        .withProperty(BlockDoor.HALF, block.isTop() ? BlockDoor.EnumDoorHalf.UPPER : BlockDoor.EnumDoorHalf.LOWER)
-        .withProperty(BlockDoor.FACING, getFacing(block.getFacing()))
-        .withProperty(BlockDoor.OPEN, block.isOpen())
-        .withProperty(BlockDoor.HINGE, block.isHingeLeft() ? BlockDoor.EnumHingePosition.LEFT : BlockDoor.EnumHingePosition.RIGHT);
-  }
-
-  private static Block getBlockForDoor(BlockType type) {
-    switch (type) {
-      case IRON_DOOR:
-        return Blocks.IRON_DOOR;
-      case BIRCH_DOOR:
-        return Blocks.BIRCH_DOOR;
-      case SPRUCE_DOOR:
-        return Blocks.SPRUCE_DOOR;
-      case JUNGLE_DOOR:
-        return Blocks.JUNGLE_DOOR;
-      case ACACIA_DOOR:
-        return Blocks.ACACIA_DOOR;
-      case DARK_OAK_DOOR:
-        return Blocks.DARK_OAK_DOOR;
-      case OAK_DOOR:
-      default:
-        return Blocks.OAK_DOOR;
-    }
-  }
-
   private static MetaBlock1_12 getSlab(SlabBlock slabBlock) {
     Block minecraftBlock = getSlabMinecraftBlock(slabBlock.getBlockType(), slabBlock.isFullBlock());
-    MetaBlock1_12 metaBlock = new MetaBlock1_12(minecraftBlock);
+    MetaBlock1_12 metaBlock = createMetaBlock(minecraftBlock);
     switch (slabBlock.getBlockType()) {
       case STONE_SLAB:
         metaBlock.withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.EnumType.STONE);
@@ -832,7 +689,7 @@ public class BlockMapper1_12 {
             ? EnumFacing.DOWN
             : getFacing(dir.reverse());
 
-    return new MetaBlock1_12(minecraftTorchBlock)
+    return createMetaBlock(minecraftTorchBlock)
         .withProperty(BlockTorch.FACING, facing);
   }
 
@@ -877,7 +734,7 @@ public class BlockMapper1_12 {
 
   private static MetaBlock1_12 getLogMetaBlock(Wood type, Direction facing) {
     Block minecraftLogBlock = getMinecraftLogBlock(type);
-    MetaBlock1_12 log = new MetaBlock1_12(minecraftLogBlock);
+    MetaBlock1_12 log = createMetaBlock(minecraftLogBlock);
     MetaBlock1_12 logWithVariants = addLogVariants(log, type);
     return logWithVariants.withProperty(BlockLog.LOG_AXIS, mapLogFacing(facing));
   }
@@ -927,7 +784,7 @@ public class BlockMapper1_12 {
   }
 
   private static MetaBlock1_12 getPlankMetaBlock(Wood type) {
-    MetaBlock1_12 plank = new MetaBlock1_12(Blocks.PLANKS);
+    MetaBlock1_12 plank = createMetaBlock(Blocks.PLANKS);
     switch (type) {
       default:
       case OAK:
@@ -945,67 +802,7 @@ public class BlockMapper1_12 {
     }
   }
 
-  private static MetaBlock1_12 getFenceMetaBlock(Wood type) {
-    switch (type) {
-      case SPRUCE:
-        return new MetaBlock1_12(Blocks.SPRUCE_FENCE);
-      case BIRCH:
-        return new MetaBlock1_12(Blocks.BIRCH_FENCE);
-      case JUNGLE:
-        return new MetaBlock1_12(Blocks.JUNGLE_FENCE);
-      case ACACIA:
-        return new MetaBlock1_12(Blocks.ACACIA_FENCE);
-      case DARK_OAK:
-        return new MetaBlock1_12(Blocks.DARK_OAK_FENCE);
-      case OAK:
-      default:
-        return new MetaBlock1_12(Blocks.OAK_FENCE);
-    }
-  }
-
-  private static MetaBlock1_12 getSapling(Wood type) {
-    MetaBlock1_12 sapling = new MetaBlock1_12(Blocks.SAPLING);
-    switch (type) {
-      default:
-      case OAK:
-        return sapling.withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.OAK);
-      case SPRUCE:
-        return sapling.withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.SPRUCE);
-      case BIRCH:
-        return sapling.withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.BIRCH);
-      case JUNGLE:
-        return sapling.withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.JUNGLE);
-      case ACACIA:
-        return sapling.withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.ACACIA);
-      case DARK_OAK:
-        return sapling.withProperty(BlockSapling.TYPE, BlockPlanks.EnumType.DARK_OAK);
-    }
-  }
-
-  private static MetaBlock1_12 getLeaves(Wood type, boolean decay) {
-    Block base = getBlockId(type);
-    PropertyEnum<BlockPlanks.EnumType> variantType = base == Blocks.LEAVES ? BlockOldLeaf.VARIANT : BlockNewLeaf.VARIANT;
-    return new MetaBlock1_12(base)
-        .withProperty(variantType, getWoodVariant(type))
-        .withProperty(BlockLeaves.DECAYABLE, decay);
-  }
-
-  private static Block getBlockId(Wood type) {
-    switch (type) {
-      case OAK:
-      case SPRUCE:
-      case JUNGLE:
-      case BIRCH:
-        return Blocks.LEAVES;
-      case ACACIA:
-      case DARK_OAK:
-        return Blocks.LEAVES2;
-      default:
-        return Blocks.LOG;
-    }
-  }
-
-  private static BlockPlanks.EnumType getWoodVariant(Wood type) {
+  public static BlockPlanks.EnumType getWoodVariant(Wood type) {
     switch (type) {
       case SPRUCE:
         return BlockPlanks.EnumType.SPRUCE;
@@ -1024,7 +821,7 @@ public class BlockMapper1_12 {
   }
 
   private static MetaBlock1_12 createVine(Direction dir) {
-    MetaBlock1_12 vine = new MetaBlock1_12(Blocks.VINE);
+    MetaBlock1_12 vine = createMetaBlock(Blocks.VINE);
     vine.withProperty(BlockVine.UP, dir == Direction.UP);
     vine.withProperty(BlockVine.NORTH, dir == Direction.NORTH);
     vine.withProperty(BlockVine.EAST, dir == Direction.EAST);
@@ -1033,70 +830,8 @@ public class BlockMapper1_12 {
     return vine;
   }
 
-  private static MetaBlock1_12 getPlant(PlantBlock block) {
-    return getPlant(block.getPlant());
-  }
-
-  private static MetaBlock1_12 getPlant(Plant type) {
-    switch (type) {
-      case POPPY:
-        return new MetaBlock1_12(Blocks.RED_FLOWER);
-      case BLUE_ORCHID:
-        return new MetaBlock1_12(Blocks.RED_FLOWER)
-            .withProperty(Blocks.RED_FLOWER.getTypeProperty(), BlockFlower.EnumFlowerType.BLUE_ORCHID);
-      case ALLIUM:
-        return new MetaBlock1_12(Blocks.RED_FLOWER)
-            .withProperty(Blocks.RED_FLOWER.getTypeProperty(), BlockFlower.EnumFlowerType.ALLIUM);
-      case AZURE_BLUET:
-        return new MetaBlock1_12(Blocks.RED_FLOWER)
-            .withProperty(Blocks.RED_FLOWER.getTypeProperty(), BlockFlower.EnumFlowerType.HOUSTONIA);
-      case RED_TULIP:
-        return new MetaBlock1_12(Blocks.RED_FLOWER)
-            .withProperty(Blocks.RED_FLOWER.getTypeProperty(), BlockFlower.EnumFlowerType.RED_TULIP);
-      case ORANGE_TULIP:
-        return new MetaBlock1_12(Blocks.RED_FLOWER)
-            .withProperty(Blocks.RED_FLOWER.getTypeProperty(), BlockFlower.EnumFlowerType.ORANGE_TULIP);
-      case WHITE_TULIP:
-        return new MetaBlock1_12(Blocks.RED_FLOWER)
-            .withProperty(Blocks.RED_FLOWER.getTypeProperty(), BlockFlower.EnumFlowerType.WHITE_TULIP);
-      case PINK_TULIP:
-        return new MetaBlock1_12(Blocks.RED_FLOWER)
-            .withProperty(Blocks.RED_FLOWER.getTypeProperty(), BlockFlower.EnumFlowerType.PINK_TULIP);
-      case OXEYE_DAISY:
-        return new MetaBlock1_12(Blocks.RED_FLOWER)
-            .withProperty(Blocks.RED_FLOWER.getTypeProperty(), BlockFlower.EnumFlowerType.OXEYE_DAISY);
-      case RED_MUSHROOM:
-        return new MetaBlock1_12(Blocks.RED_MUSHROOM);
-      case BROWN_MUSHROOM:
-        return new MetaBlock1_12(Blocks.BROWN_MUSHROOM);
-      case CACTUS:
-        return new MetaBlock1_12(Blocks.CACTUS);
-      case OAK_SAPLING:
-        return getSapling(Wood.OAK);
-      case SPRUCE_SAPLING:
-        return getSapling(Wood.SPRUCE);
-      case BIRCH_SAPLING:
-        return getSapling(Wood.BIRCH);
-      case JUNGLE_SAPLING:
-        return getSapling(Wood.JUNGLE);
-      case ACACIA_SAPLING:
-        return getSapling(Wood.ACACIA);
-      case DARK_OAK_SAPLING:
-        return getSapling(Wood.DARK_OAK);
-      case DEAD_BUSH:
-        return new MetaBlock1_12(Blocks.TALLGRASS)
-            .withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.DEAD_BUSH);
-      case FERN:
-        return new MetaBlock1_12(Blocks.TALLGRASS)
-            .withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.FERN);
-      case DANDELION:
-      default:
-        return new MetaBlock1_12(Blocks.YELLOW_FLOWER);
-    }
-  }
-
   private static MetaBlock1_12 getInfestedBlock(InfestedBlock block) {
-    MetaBlock1_12 block1 = new MetaBlock1_12(Blocks.MONSTER_EGG);
+    MetaBlock1_12 block1 = createMetaBlock(Blocks.MONSTER_EGG);
     Stone stone = block.getStone();
     switch (stone) {
       default:
@@ -1112,62 +847,6 @@ public class BlockMapper1_12 {
         return block1.withProperty(BlockSilverfish.VARIANT, BlockSilverfish.EnumType.CRACKED_STONEBRICK);
       case STONEBRICK_CHISELED:
         return block1.withProperty(BlockSilverfish.VARIANT, BlockSilverfish.EnumType.CHISELED_STONEBRICK);
-    }
-  }
-
-  private static MetaBlock1_12 getQuartz(Quartz type, Direction facing) {
-    MetaBlock1_12 block = new MetaBlock1_12(Blocks.QUARTZ_BLOCK);
-    switch (type) {
-      case CHISELED:
-        block = block.withProperty(BlockQuartz.VARIANT, BlockQuartz.EnumType.CHISELED);
-        return addPillarLines(block, facing);
-      case PILLAR:
-        return addPillarLines(block, facing);
-      case SMOOTH:
-      default:
-        return block;
-    }
-  }
-
-  private static MetaBlock1_12 addPillarLines(MetaBlock1_12 block, Direction facing) {
-    switch (facing) {
-      case EAST:
-      case WEST:
-        return block.withProperty(BlockQuartz.VARIANT, BlockQuartz.EnumType.LINES_X);
-      case NORTH:
-      case SOUTH:
-        return block.withProperty(BlockQuartz.VARIANT, BlockQuartz.EnumType.LINES_Z);
-      case UP:
-      case DOWN:
-      default:
-        return block.withProperty(BlockQuartz.VARIANT, BlockQuartz.EnumType.LINES_Y);
-    }
-  }
-
-  private static MetaBlock1_12 getTallPlant(TallPlantBlock tallPlantBlock) {
-    return new MetaBlock1_12(Blocks.DOUBLE_PLANT)
-        .withProperty(BlockDoublePlant.VARIANT, getTallPlantMinecraftBlock(tallPlantBlock.getTallPlant()))
-        .withProperty(BlockDoublePlant.FACING, getFacing(tallPlantBlock.getFacing()))
-        .withProperty(BlockDoublePlant.HALF, tallPlantBlock.isTop()
-            ? BlockDoublePlant.EnumBlockHalf.UPPER
-            : BlockDoublePlant.EnumBlockHalf.LOWER);
-  }
-
-  private static BlockDoublePlant.EnumPlantType getTallPlantMinecraftBlock(TallPlant type) {
-    switch (type) {
-      default:
-      case DOUBLE_TALL_GRASS:
-        return BlockDoublePlant.EnumPlantType.GRASS;
-      case SUNFLOWER:
-        return BlockDoublePlant.EnumPlantType.SUNFLOWER;
-      case LILAC:
-        return BlockDoublePlant.EnumPlantType.SYRINGA;
-      case LARGE_FERN:
-        return BlockDoublePlant.EnumPlantType.FERN;
-      case ROSE_BUSH:
-        return BlockDoublePlant.EnumPlantType.ROSE;
-      case PEONY:
-        return BlockDoublePlant.EnumPlantType.PAEONIA;
     }
   }
 
