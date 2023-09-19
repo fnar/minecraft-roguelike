@@ -88,13 +88,16 @@ public abstract class BaseRoom {
   protected void generateSpawner(Coord spawnerLocation, MobType... defaultMobs) {
     MobType[] mobTypes = defaultMobs.length > 0 ? defaultMobs : MobType.COMMON_MOBS;
     Spawner spawner = chooseSpawner(mobTypes);
-    generateSpawnerSafe(worldEditor, spawner, spawnerLocation);
+    worldEditor.generateSpawner(spawner, spawnerLocation);
   }
 
   private Spawner chooseSpawner(MobType[] mobTypes) {
     Optional<SpawnerSettings> roomSpawnerSettings = getSpawnerSettings(roomSetting.getSpawnerId());
     if (roomSpawnerSettings.isPresent()) {
-      return roomSpawnerSettings.get().chooseOneAtRandom(random());
+      SpawnerSettings spawnerSettings = roomSpawnerSettings.get();
+      if (!spawnerSettings.isEmpty()) {
+        return spawnerSettings.chooseOneAtRandom(random());
+      }
     }
     SpawnerSettings levelSpawnerSettings = levelSettings.getSpawnerSettings();
     if (!levelSpawnerSettings.isEmpty()) {
@@ -114,14 +117,6 @@ public abstract class BaseRoom {
       e.printStackTrace();
     }
     return Optional.empty();
-  }
-
-  public static void generateSpawnerSafe(WorldEditor editor, Spawner spawner, Coord cursor) {
-    try {
-      editor.generateSpawner(spawner, cursor);
-    } catch (Exception e) {
-      throw new RuntimeException("Tried to spawn empty spawner", e);
-    }
   }
 
   protected ChestType getChestTypeOrUse(ChestType defaultChestType) {

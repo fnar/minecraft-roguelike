@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.DungeonLevel;
-import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.TreasureChest;
@@ -51,7 +50,7 @@ public class SegmentTomb extends SegmentBase {
     Spawner spawner = level.getSpawnerSettings().isEmpty()
         ? MobType.asSpawner(MobType.UNDEAD_MOBS)
         : level.getSpawnerSettings().getSpawners().get(editor.getRandom());
-    BaseRoom.generateSpawnerSafe(editor, spawner, cursor);
+    editor.generateSpawner(spawner, cursor);
     cursor.translate(dir);
     new TreasureChest(cursor, editor)
         .withChestType(ChestType.chooseRandomAmong(editor.getRandom(), ChestType.COMMON_TREASURES))
