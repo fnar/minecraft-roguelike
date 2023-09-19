@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.DungeonLevel;
-import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.BlockWeightedRandom;
@@ -68,7 +67,7 @@ public class SilverfishNest {
     Spawner spawner = settings.getSpawnerSettings().isEmpty()
             ? MobType.SILVERFISH.asSpawner()
             : settings.getSpawnerSettings().getSpawners().get(editor.getRandom());
-    BaseRoom.generateSpawnerSafe(editor, spawner, centre);
+    editor.generateSpawner(spawner, centre);
   }
 
   private void nest(WorldEditor editor, Random rand, int x, int y, int z) {

@@ -5,7 +5,6 @@ import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.spawner.MobType;
 import com.github.fnar.minecraft.block.spawner.Spawner;
 
-import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
@@ -46,7 +45,7 @@ public class PrisonCell {
       Spawner spawner = levelSettings.getSpawnerSettings().isEmpty()
           ? MobType.ZOMBIE.asSpawner()
           : levelSettings.getSpawnerSettings().getSpawners().get(editor.getRandom());
-      BaseRoom.generateSpawnerSafe(editor, spawner, cursor);
+      editor.generateSpawner(spawner, cursor);
     }
 
     cursor = origin.copy();
