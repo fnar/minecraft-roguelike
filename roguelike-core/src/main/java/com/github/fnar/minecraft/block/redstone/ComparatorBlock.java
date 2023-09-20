@@ -26,6 +26,14 @@ public class ComparatorBlock extends SingleBlockBrush {
     return mode;
   }
 
+  public boolean isInCompareMode() {
+    return getMode() == Mode.COMPARE;
+  }
+
+  public boolean isInSubtractMode() {
+    return getMode() == Mode.SUBTRACTION;
+  }
+
   public ComparatorBlock setPowered(boolean isPowered) {
     this.isPowered = isPowered;
     return this;

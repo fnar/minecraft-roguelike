@@ -50,17 +50,17 @@ public class PlantBlockMapper1_12 {
       case CACTUS:
         return Blocks.CACTUS.getDefaultState();
       case OAK_SAPLING:
-        return SaplingBlockMapper1_12.map(Wood.OAK);
+        return WoodMapper1_12.mapSapling(Wood.OAK);
       case SPRUCE_SAPLING:
-        return SaplingBlockMapper1_12.map(Wood.SPRUCE);
+        return WoodMapper1_12.mapSapling(Wood.SPRUCE);
       case BIRCH_SAPLING:
-        return SaplingBlockMapper1_12.map(Wood.BIRCH);
+        return WoodMapper1_12.mapSapling(Wood.BIRCH);
       case JUNGLE_SAPLING:
-        return SaplingBlockMapper1_12.map(Wood.JUNGLE);
+        return WoodMapper1_12.mapSapling(Wood.JUNGLE);
       case ACACIA_SAPLING:
-        return SaplingBlockMapper1_12.map(Wood.ACACIA);
+        return WoodMapper1_12.mapSapling(Wood.ACACIA);
       case DARK_OAK_SAPLING:
-        return SaplingBlockMapper1_12.map(Wood.DARK_OAK);
+        return WoodMapper1_12.mapSapling(Wood.DARK_OAK);
       case DEAD_BUSH:
         return Blocks.TALLGRASS.getDefaultState()
             .withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.DEAD_BUSH);

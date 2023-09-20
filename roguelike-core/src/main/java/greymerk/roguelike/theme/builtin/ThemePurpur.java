@@ -16,7 +16,7 @@ public class ThemePurpur extends Theme {
     BlockBrush pillar = BlockType.PURPUR_PILLAR.getBrush();
 
     this.primary = new BlockSet(walls, stair, pillar);
-    BlockBrush SegmentWall = BlockType.ENDER_BRICK.getBrush();
+    BlockBrush SegmentWall = BlockType.END_STONE_BRICKS.getBrush();
     this.secondary = new BlockSet(SegmentWall, stair, pillar);
 
   }

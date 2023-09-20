@@ -50,7 +50,7 @@ public class BlockMapper1_12 {
   public static IBlockState map(SingleBlockBrush blockBrush) {
     Direction facing = blockBrush.getFacing();
 
-    EnumFacing enumFacing = FacingMapper1_12.getFacing(facing);
+    EnumFacing enumFacing = DirectionMapper1_12.map(facing);
 
     BlockType blockType = blockBrush.getBlockType();
 
@@ -132,18 +132,18 @@ public class BlockMapper1_12 {
       case ACACIA_SLAB:
       case BIRCH_SLAB:
       case BRICK_SLAB:
-      case COBBLE_SLAB:
+      case COBBLESTONE_SLAB:
       case DARK_OAK_SLAB:
       case JUNGLE_SLAB:
-      case LEGACY_OAK_SLAB:
-      case NETHERBRICK_SLAB:
+      case PETRIFIED_OAK_SLAB:
+      case NETHER_BRICK_SLAB:
       case OAK_SLAB:
       case QUARTZ_SLAB:
       case RED_SANDSTONE_SLAB:
       case SANDSTONE_SLAB:
       case SMOOTH_RED_SANDSTONE_SLAB:
       case SPRUCE_SLAB:
-      case STONEBRICK_SLAB:
+      case STONE_BRICK_SLAB:
       case STONE_SLAB:
         return SlabBlockMapper1_12.map((SlabBlock) blockBrush);
       case IRON_DOOR:
@@ -160,6 +160,9 @@ public class BlockMapper1_12 {
         return QuartzBlockMapper1_12.map(Quartz.CHISELED, facing);
       case PILLAR_QUARTZ:
         return QuartzBlockMapper1_12.map(Quartz.PILLAR, facing);
+      case WITHER_SKELETON_SKULL:
+        // TODO: Figure out how to manifest wither skull here
+        return Blocks.SKULL.getDefaultState();
       case SMOOTH_QUARTZ:
         return QuartzBlockMapper1_12.map(Quartz.SMOOTH, facing);
       case VINE:
@@ -331,7 +334,7 @@ public class BlockMapper1_12 {
         return Blocks.SOUL_SAND.getDefaultState();
       case GLOWSTONE:
         return Blocks.GLOWSTONE.getDefaultState();
-      case STONE_BRICK:
+      case STONE_BRICKS:
         return Blocks.STONEBRICK.getDefaultState();
       case STONE_BRICK_MOSSY:
         return Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.MOSSY);
@@ -349,9 +352,9 @@ public class BlockMapper1_12 {
         return Blocks.EMERALD_BLOCK.getDefaultState();
       case ORE_QUARTZ:
         return Blocks.QUARTZ_ORE.getDefaultState();
-      case PRISMITE:
-        return Blocks.PRISMARINE.getDefaultState().withProperty(BlockPrismarine.VARIANT, BlockPrismarine.EnumType.ROUGH);
       case PRISMARINE:
+        return Blocks.PRISMARINE.getDefaultState().withProperty(BlockPrismarine.VARIANT, BlockPrismarine.EnumType.ROUGH);
+      case PRISMARINE_BRICKS:
         return Blocks.PRISMARINE.getDefaultState().withProperty(BlockPrismarine.VARIANT, BlockPrismarine.EnumType.BRICKS);
       case PRISMARINE_DARK:
         return Blocks.PRISMARINE.getDefaultState().withProperty(BlockPrismarine.VARIANT, BlockPrismarine.EnumType.DARK);
@@ -373,13 +376,13 @@ public class BlockMapper1_12 {
         return Blocks.REDSTONE_BLOCK.getDefaultState();
       case PRESSURE_PLATE_STONE:
         return Blocks.STONE_PRESSURE_PLATE.getDefaultState();
-      case PRESSURE_PLATE_WOODEN:
+      case OAK_PRESSURE_PLATE:
         return Blocks.WOODEN_PRESSURE_PLATE.getDefaultState();
       case BOOKSHELF:
         return Blocks.BOOKSHELF.getDefaultState();
       case REDSTONE_WIRE:
         return Blocks.REDSTONE_WIRE.getDefaultState();
-      case REEDS:
+      case SUGAR_CANE:
         return Blocks.REEDS.getDefaultState();
       case CRAFTING_TABLE:
         return (!RogueConfig.FURNITURE.getBoolean()
@@ -399,7 +402,7 @@ public class BlockMapper1_12 {
         return Blocks.ENCHANTING_TABLE.getDefaultState();
       case FENCE_NETHER_BRICK:
         return Blocks.NETHER_BRICK_FENCE.getDefaultState();
-      case WEB:
+      case COBWEB:
         return Blocks.WEB.getDefaultState();
       case PURPUR_BLOCK:
         return Blocks.PURPUR_BLOCK.getDefaultState();
@@ -407,24 +410,22 @@ public class BlockMapper1_12 {
         return Blocks.PURPUR_PILLAR.getDefaultState();
       case PURPUR_STAIR:
         return Blocks.PURPUR_STAIRS.getDefaultState();
-      case PURPUR_DOUBLE_SLAB:
-        return Blocks.PURPUR_DOUBLE_SLAB.getDefaultState();
       case PURPUR_SLAB:
         return Blocks.PURPUR_SLAB.getDefaultState();
-      case ENDER_BRICK:
+      case END_STONE_BRICKS:
         return Blocks.END_BRICKS.getDefaultState();
       case MAGMA:
         return Blocks.MAGMA.getDefaultState();
-      case RED_NETHERBRICK:
+      case RED_NETHER_BRICKS:
         return Blocks.RED_NETHER_BRICK.getDefaultState();
       case NETHER_WART_BLOCK:
         return Blocks.NETHER_WART_BLOCK.getDefaultState();
       case OAK_SAPLING:
-        return SaplingBlockMapper1_12.map(Wood.OAK);
+        return WoodMapper1_12.mapSapling(Wood.OAK);
       case SPRUCE_SAPLING:
-        return SaplingBlockMapper1_12.map(Wood.SPRUCE);
+        return WoodMapper1_12.mapSapling(Wood.SPRUCE);
       case BIRCH_SAPLING:
-        return SaplingBlockMapper1_12.map(Wood.BIRCH);
+        return WoodMapper1_12.mapSapling(Wood.BIRCH);
       case BONE_BLOCK:
         return Blocks.BONE_BLOCK.getDefaultState();
       case BREWING_STAND:
@@ -433,25 +434,25 @@ public class BlockMapper1_12 {
         return Blocks.CACTUS.getDefaultState();
       case CAKE:
         return Blocks.CAKE.getDefaultState();
-      case MOB_SPAWNER:
+      case SPAWNER:
         return Blocks.MOB_SPAWNER.getDefaultState();
       case ENDER_CHEST:
         return Blocks.ENDER_CHEST.getDefaultState();
-      case RED_FLOWER:
+      case POPPY:
         return Blocks.RED_FLOWER.getDefaultState();
-      case SKULL:
+      case SKELETONS_SKULL:
         return Blocks.SKULL.getDefaultState();
-      case YELLOW_FLOWER:
+      case DANDELION:
         return Blocks.YELLOW_FLOWER.getDefaultState();
       case JUNGLE_SAPLING:
-        return SaplingBlockMapper1_12.map(Wood.JUNGLE);
+        return WoodMapper1_12.mapSapling(Wood.JUNGLE);
       case ACACIA_SAPLING:
-        return SaplingBlockMapper1_12.map(Wood.ACACIA);
+        return WoodMapper1_12.mapSapling(Wood.ACACIA);
       case DARK_OAK_SAPLING:
-        return SaplingBlockMapper1_12.map(Wood.DARK_OAK);
+        return WoodMapper1_12.mapSapling(Wood.DARK_OAK);
       case WHEAT:
         return Blocks.WHEAT.getDefaultState();
-      case SIGN:
+      case OAK_SIGN:
         return Blocks.STANDING_SIGN.getDefaultState();
       case SPONGE:
         return Blocks.SPONGE.getDefaultState();

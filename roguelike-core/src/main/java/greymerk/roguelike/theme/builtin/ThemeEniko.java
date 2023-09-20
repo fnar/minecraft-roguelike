@@ -22,7 +22,7 @@ public class ThemeEniko extends Theme {
     floor.addBlock(stainedHardenedClay().setColor(DyeColor.WHITE));
 
     BlockWeightedRandom walls = new BlockWeightedRandom();
-    walls.addBlock(BlockType.STONE_BRICK.getBrush(), 100);
+    walls.addBlock(BlockType.STONE_BRICKS.getBrush(), 100);
     walls.addBlock(BlockType.STONE_BRICK_CRACKED.getBrush(), 1);
     walls.addBlock(BlockType.STONE_BRICK_MOSSY.getBrush(), 5);
 

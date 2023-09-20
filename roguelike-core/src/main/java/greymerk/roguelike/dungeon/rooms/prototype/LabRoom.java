@@ -72,7 +72,7 @@ public class LabRoom extends BaseRoom {
   // fountains
   private static void southEast(WorldEditor editor, Theme theme, int x, int y, int z) {
 
-    BlockBrush stone = BlockType.STONE_BRICK.getBrush();
+    BlockBrush stone = BlockType.STONE_BRICKS.getBrush();
     StairsBlock stair = StairsBlock.stoneBrick();
     BlockBrush slab = SlabBlock.stoneBrick();
     BlockBrush water = BlockType.WATER_FLOWING.getBrush();
@@ -104,7 +104,7 @@ public class LabRoom extends BaseRoom {
 
   private static void northWest(WorldEditor editor, Theme theme, int x, int y, int z) {
 
-    BlockBrush stone = BlockType.STONE_BRICK.getBrush();
+    BlockBrush stone = BlockType.STONE_BRICKS.getBrush();
     BlockBrush redstone = BlockType.REDSTONE_BLOCK.getBrush();
     BlockBrush lamp = BlockType.REDSTONE_LAMP_LIT.getBrush();
     BlockBrush farmland = BlockType.FARMLAND.getBrush();
@@ -145,7 +145,7 @@ public class LabRoom extends BaseRoom {
 
   private static void northEast(WorldEditor editor, Theme theme, int x, int y, int z) {
 
-    BlockBrush stone = BlockType.STONE_BRICK.getBrush();
+    BlockBrush stone = BlockType.STONE_BRICKS.getBrush();
     BlockBrush redstone = BlockType.REDSTONE_BLOCK.getBrush();
     BlockBrush lamp = BlockType.REDSTONE_LAMP_LIT.getBrush();
     BlockBrush farmland = BlockType.FARMLAND.getBrush();

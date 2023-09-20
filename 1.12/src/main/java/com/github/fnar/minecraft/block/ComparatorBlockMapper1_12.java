@@ -10,7 +10,7 @@ public class ComparatorBlockMapper1_12 {
   static IBlockState map(ComparatorBlock block) {
     return (block.isPowered() ? Blocks.POWERED_COMPARATOR : Blocks.UNPOWERED_COMPARATOR)
         .getDefaultState()
-        .withProperty(BlockRedstoneComparator.FACING, FacingMapper1_12.getFacing(block.getFacing()))
+        .withProperty(BlockRedstoneComparator.FACING, DirectionMapper1_12.map(block.getFacing()))
         .withProperty(BlockRedstoneComparator.MODE, block.getMode() == ComparatorBlock.Mode.SUBTRACTION
             ? BlockRedstoneComparator.Mode.SUBTRACT
             : BlockRedstoneComparator.Mode.COMPARE);

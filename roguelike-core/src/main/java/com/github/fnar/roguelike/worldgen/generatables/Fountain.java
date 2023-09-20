@@ -24,7 +24,7 @@ public class Fountain extends BaseGeneratable {
 
   @Override
   public BaseGeneratable generate(Coord at) {
-    SingleBlockBrush stoneBrick = BlockType.STONE_BRICK.getBrush();
+    SingleBlockBrush stoneBrick = BlockType.STONE_BRICKS.getBrush();
     stoneBrick.fill(worldEditor, at.newRect(2).down());
     liquid.fill(worldEditor, at.newRect(2));
     stoneBrick.fill(worldEditor, at.newRect(1).withHeight(3));

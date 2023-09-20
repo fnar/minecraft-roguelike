@@ -13,11 +13,11 @@ public class ThemeSewer extends Theme {
   public ThemeSewer() {
 
     BlockWeightedRandom wall = new BlockWeightedRandom();
-    wall.addBlock(BlockType.STONE_BRICK.getBrush(), 10);
+    wall.addBlock(BlockType.STONE_BRICKS.getBrush(), 10);
     wall.addBlock(BlockType.STONE_BRICK_MOSSY.getBrush(), 4);
     wall.addBlock(BlockType.STONE_BRICK_CRACKED.getBrush(), 1);
 
-    BlockBrush floor = BlockType.STONE_BRICK.getBrush();
+    BlockBrush floor = BlockType.STONE_BRICKS.getBrush();
 
     StairsBlock stair = StairsBlock.stoneBrick();
 

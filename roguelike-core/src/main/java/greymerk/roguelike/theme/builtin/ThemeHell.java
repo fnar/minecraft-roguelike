@@ -24,7 +24,7 @@ public class ThemeHell extends Theme {
 
     BlockWeightedRandom floor = new BlockWeightedRandom();
     floor.addBlock(walls, 1500);
-    floor.addBlock(BlockType.RED_NETHERBRICK.getBrush(), 500);
+    floor.addBlock(BlockType.RED_NETHER_BRICKS.getBrush(), 500);
     floor.addBlock(BlockType.REDSTONE_BLOCK.getBrush(), 50);
     if (RogueConfig.PRECIOUSBLOCKS.getBoolean()) {
       floor.addBlock(BlockType.GOLD_BLOCK.getBrush(), 2);
@@ -42,7 +42,7 @@ public class ThemeHell extends Theme {
 
     this.primary = new BlockSet(floor, walls, stair, pillar, door, lightstone, liquid);
 
-    BlockBrush secondaryWalls = BlockType.RED_NETHERBRICK.getBrush();
+    BlockBrush secondaryWalls = BlockType.RED_NETHER_BRICKS.getBrush();
     BlockBrush secondaryPillar = BlockType.MAGMA.getBrush();
     this.secondary = new BlockSet(floor, secondaryWalls, stair, secondaryPillar, door, lightstone, liquid);
   }

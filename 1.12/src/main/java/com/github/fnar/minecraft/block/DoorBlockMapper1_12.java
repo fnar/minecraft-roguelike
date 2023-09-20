@@ -18,7 +18,7 @@ public class DoorBlockMapper1_12 {
         : getBlockForDoor(block.getBlockType()).getDefaultState();
     return doorMetaBlock
         .withProperty(BlockDoor.HALF, block.isTop() ? BlockDoor.EnumDoorHalf.UPPER : BlockDoor.EnumDoorHalf.LOWER)
-        .withProperty(BlockDoor.FACING, FacingMapper1_12.getFacing(block.getFacing()))
+        .withProperty(BlockDoor.FACING, DirectionMapper1_12.map(block.getFacing()))
         .withProperty(BlockDoor.OPEN, block.isOpen())
         .withProperty(BlockDoor.HINGE, block.isHingeLeft() ? BlockDoor.EnumHingePosition.LEFT : BlockDoor.EnumHingePosition.RIGHT);
   }

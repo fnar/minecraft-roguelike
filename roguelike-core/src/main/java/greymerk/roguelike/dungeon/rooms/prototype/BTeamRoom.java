@@ -52,7 +52,7 @@ public class BTeamRoom extends BaseRoom {
   private BTeamRoom generateReversedBecauseEntrancesShouldBeOutwardFromRoomCenter(Coord at, Direction entrance) {
     StairsBlock stair = StairsBlock.spruce();
     BlockBrush log = Wood.OAK.getLog();
-    BlockBrush stonebrick = BlockType.STONE_BRICK.getBrush();
+    BlockBrush stonebrick = BlockType.STONE_BRICKS.getBrush();
     BlockBrush cyan = stainedHardenedClay().setColor(DyeColor.CYAN);
     BlockBrush slab = SlabBlock.stone().setTop(false).setFullBlock(true).setSeamless(true);
     BlockBrush cobble = BlockType.COBBLESTONE.getBrush();
@@ -338,7 +338,7 @@ public class BTeamRoom extends BaseRoom {
 
   private void bWall(Direction dir, Coord origin) {
     BlockJumble bricks = new BlockJumble();
-    bricks.addBlock(BlockType.STONE_BRICK.getBrush());
+    bricks.addBlock(BlockType.STONE_BRICKS.getBrush());
     bricks.addBlock(BlockType.STONE_BRICK_CRACKED.getBrush());
     bricks.addBlock(BlockType.STONE_BRICK_MOSSY.getBrush());
     BlockBrush plank = Wood.SPRUCE.getPlanks();

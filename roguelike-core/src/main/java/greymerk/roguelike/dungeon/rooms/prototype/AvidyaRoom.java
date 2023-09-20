@@ -127,7 +127,7 @@ public class AvidyaRoom extends BaseRoom {
         whiteClay.fill(worldEditor, RectSolid.newRect(start, end));
         start.down(5);
         end.down(5);
-        BlockType.STONE_BRICK.getBrush().fill(worldEditor, RectSolid.newRect(start, end));
+        BlockType.STONE_BRICKS.getBrush().fill(worldEditor, RectSolid.newRect(start, end));
 
         start = new Coord(x, y, z);
         start.translate(dir, 7);

@@ -19,7 +19,7 @@ public class ThemeEnder extends Theme {
     floor.addBlock(stainedHardenedClay().setColor(DyeColor.BROWN));
     floor.addBlock(stainedHardenedClay().setColor(DyeColor.YELLOW));
 
-    BlockBrush walls = BlockType.ENDER_BRICK.getBrush();
+    BlockBrush walls = BlockType.END_STONE_BRICKS.getBrush();
     StairsBlock stair = StairsBlock.sandstone();
     BlockBrush pillar = BlockType.OBSIDIAN.getBrush();
     this.primary = new BlockSet(floor, walls, stair, pillar);

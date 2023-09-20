@@ -49,7 +49,7 @@ public enum BlockType {
   COBBLESTONE,
   COBBLESTONE_MOSSY,
   COBBLESTONE_WALL,
-  COBBLE_SLAB,
+  COBBLESTONE_SLAB,
   COCOA_BEANS,
   COMPARATOR,
   CONCRETE,
@@ -75,7 +75,7 @@ public enum BlockType {
   DROPPER,
   EMERALD_BLOCK,
   ENCHANTING_TABLE,
-  ENDER_BRICK,
+  END_STONE_BRICKS,
   ENDER_CHEST,
   END_STONE,
   FARMLAND,
@@ -111,13 +111,13 @@ public enum BlockType {
   LAPIS_BLOCK,
   LAVA_FLOWING,
   LAVA_STILL,
-  LEGACY_OAK_SLAB,
+  PETRIFIED_OAK_SLAB,
   LEVER,
   MAGMA,
-  MOB_SPAWNER,
+  SPAWNER,
   MYCELIUM,
   NETHERBRICK,
-  NETHERBRICK_SLAB,
+  NETHER_BRICK_SLAB,
   NETHERRACK,
   NETHER_BRICK_STAIRS,
   NETHER_PORTAL,
@@ -144,13 +144,12 @@ public enum BlockType {
   PISTON,
   PLANT,
   PRESSURE_PLATE_STONE,
-  PRESSURE_PLATE_WOODEN,
-  PRISMARINE,
+  OAK_PRESSURE_PLATE,
+  PRISMARINE_BRICKS,
   PRISMARINE_DARK,
-  PRISMITE,
+  PRISMARINE,
   PUMPKIN,
   PURPUR_BLOCK,
-  PURPUR_DOUBLE_SLAB,
   PURPUR_PILLAR,
   PURPUR_SLAB,
   PURPUR_STAIR,
@@ -163,13 +162,13 @@ public enum BlockType {
   REDSTONE_LAMP_LIT,
   REDSTONE_TORCH,
   REDSTONE_WIRE,
-  RED_FLOWER,
+  POPPY,
   RED_MUSHROOM,
-  RED_NETHERBRICK,
+  RED_NETHER_BRICKS,
   RED_SANDSTONE,
   RED_SANDSTONE_SLAB,
   RED_SANDSTONE_STAIRS,
-  REEDS,
+  SUGAR_CANE,
   REPEATER,
   SAND,
   SANDSTONE,
@@ -178,8 +177,9 @@ public enum BlockType {
   SANDSTONE_STAIRS,
   SAND_RED,
   SEA_LANTERN,
-  SIGN,
-  SKULL,
+  OAK_SIGN,
+  SKELETONS_SKULL,
+  WITHER_SKELETON_SKULL,
   SMOOTH_QUARTZ,
   SMOOTH_RED_SANDSTONE,
   SMOOTH_RED_SANDSTONE_SLAB,
@@ -198,8 +198,8 @@ public enum BlockType {
   STAINED_GLASS_PANE,
   STAINED_HARDENED_CLAY,
   STICKY_PISTON,
-  STONEBRICK_SLAB,
-  STONE_BRICK,
+  STONE_BRICK_SLAB,
+  STONE_BRICKS,
   STONE_BRICK_CHISELED,
   STONE_BRICK_CRACKED,
   STONE_BRICK_MOSSY,
@@ -219,10 +219,17 @@ public enum BlockType {
   WARPED_DOOR,
   WATER_FLOWING,
   WATER_STILL,
-  WEB,
+  COBWEB,
   WHEAT,
   WOOL,
-  YELLOW_FLOWER,
+  DANDELION,
+  ACACIA_PRESSURE_PLATE,
+  BIRCH_PRESSURE_PLATE,
+  DARK_OAK_PRESSURE_PLATE,
+  SPRUCE_PRESSURE_PLATE,
+  JUNGLE_PRESSURE_PLATE,
+  QUARTZ_BRICKS,
+  SMOOTH_STONE_SLAB
   ;
 
   public BlockItem asItem() {
@@ -289,15 +296,15 @@ public enum BlockType {
         return SlabBlock.birch();
       case BRICK_SLAB:
         return SlabBlock.brick();
-      case COBBLE_SLAB:
+      case COBBLESTONE_SLAB:
         return SlabBlock.cobble();
       case DARK_OAK_SLAB:
         return SlabBlock.darkOak();
       case JUNGLE_SLAB:
         return SlabBlock.jungle();
-      case LEGACY_OAK_SLAB:
+      case PETRIFIED_OAK_SLAB:
         return SlabBlock.legacyOak();
-      case NETHERBRICK_SLAB:
+      case NETHER_BRICK_SLAB:
         return SlabBlock.netherBrick();
       case OAK_SLAB:
         return SlabBlock.oak();
@@ -311,7 +318,7 @@ public enum BlockType {
         return SlabBlock.smoothRedSandstone();
       case SPRUCE_SLAB:
         return SlabBlock.spruce();
-      case STONEBRICK_SLAB:
+      case STONE_BRICK_SLAB:
         return SlabBlock.stoneBrick();
       case STONE_SLAB:
         return SlabBlock.stone();

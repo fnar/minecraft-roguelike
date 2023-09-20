@@ -198,7 +198,7 @@ public enum ItemNovelty {
   }
 
   public static RldItemStack zisteauSign() {
-    return BlockType.SIGN.asItem()
+    return BlockType.OAK_SIGN.asItem()
         .withEnchantment(Enchantment.Effect.SHARPNESS.atLevel(5))
         .withEnchantment(Enchantment.Effect.KNOCKBACK.atLevel(3))
         .withEnchantment(Enchantment.Effect.FIRE_ASPECT)

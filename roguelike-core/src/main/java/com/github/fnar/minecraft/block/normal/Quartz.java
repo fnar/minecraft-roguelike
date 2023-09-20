@@ -9,6 +9,7 @@ public enum Quartz {
   SMOOTH(BlockType.SMOOTH_QUARTZ),
   CHISELED(BlockType.CHISELED_QUARTZ),
   PILLAR(BlockType.PILLAR_QUARTZ),
+  BRICKS(BlockType.QUARTZ_BRICKS),
   ;
 
   private final BlockType blockType;

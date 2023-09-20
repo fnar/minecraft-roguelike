@@ -13,6 +13,6 @@ public class TrapdoorBlockMapper1_12 {
     return block1.getDefaultState()
         .withProperty(BlockTrapDoor.HALF, block.isFlushWithTop() ? BlockTrapDoor.DoorHalf.TOP : BlockTrapDoor.DoorHalf.BOTTOM)
         .withProperty(BlockTrapDoor.OPEN, block.isOpen())
-        .withProperty(BlockTrapDoor.FACING, FacingMapper1_12.getFacing(block.getFacing()));
+        .withProperty(BlockTrapDoor.FACING, DirectionMapper1_12.map(block.getFacing()));
   }
 }

@@ -24,12 +24,13 @@ public class InfestedBlock extends SingleBlockBrush {
     return stone;
   }
 
+  // TODO: Move, does not belong here
   public static BlockBrush getJumble() {
     Stone[] silverfishBlocks = new Stone[]{
-        Stone.COBBLE,
-        Stone.STONEBRICK,
-        Stone.STONEBRICK_MOSSY,
-        Stone.STONEBRICK_CRACKED
+        Stone.COBBLESTONE,
+        Stone.STONE_BRICKS,
+        Stone.MOSSY_STONE_BRICKS,
+        Stone.CRACKED_STONE_BRICKS
     };
     BlockJumble jumble = new BlockJumble();
     for (Stone stone : silverfishBlocks) {
