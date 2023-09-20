@@ -10,6 +10,7 @@ import net.minecraft.block.BlockNewLog;
 import net.minecraft.block.BlockOldLeaf;
 import net.minecraft.block.BlockOldLog;
 import net.minecraft.block.BlockPlanks;
+import net.minecraft.block.BlockSapling;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -116,5 +117,27 @@ public class WoodMapper1_12 {
 
   private static PropertyEnum<BlockPlanks.EnumType> getLeavesVariantProperty(Block base) {
     return base == Blocks.LEAVES ? BlockOldLeaf.VARIANT : BlockNewLeaf.VARIANT;
+  }
+
+  public static IBlockState mapSapling(Wood type) {
+    return Blocks.SAPLING.getDefaultState().withProperty(BlockSapling.TYPE, mapSaplingType(type));
+  }
+
+  private static BlockPlanks.EnumType mapSaplingType(Wood type) {
+    switch (type) {
+      default:
+      case OAK:
+        return BlockPlanks.EnumType.OAK;
+      case SPRUCE:
+        return BlockPlanks.EnumType.SPRUCE;
+      case BIRCH:
+        return BlockPlanks.EnumType.BIRCH;
+      case JUNGLE:
+        return BlockPlanks.EnumType.JUNGLE;
+      case ACACIA:
+        return BlockPlanks.EnumType.ACACIA;
+      case DARK_OAK:
+        return BlockPlanks.EnumType.DARK_OAK;
+    }
   }
 }

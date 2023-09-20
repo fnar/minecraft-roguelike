@@ -130,7 +130,7 @@ public class ThemeTest {
     Theme child = new Theme(null, null);
 
     Theme actual = Theme.inherit(parent, child);
-    assertThat(actual.getPrimary().getFloor()).isEqualTo(BlockType.STONE_BRICK.getBrush());
-    assertThat(actual.getSecondary().getFloor()).isEqualTo(BlockType.STONE_BRICK.getBrush());
+    assertThat(actual.getPrimary().getFloor()).isEqualTo(BlockType.STONE_BRICKS.getBrush());
+    assertThat(actual.getSecondary().getFloor()).isEqualTo(BlockType.STONE_BRICKS.getBrush());
   }
 }

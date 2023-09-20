@@ -14,7 +14,7 @@ public class ThemeSpruce extends Theme {
   public ThemeSpruce() {
 
     BlockWeightedRandom walls = new BlockWeightedRandom();
-    walls.addBlock(BlockType.STONE_BRICK.getBrush(), 20);
+    walls.addBlock(BlockType.STONE_BRICKS.getBrush(), 20);
     BlockBrush cracked = BlockType.STONE_BRICK_CRACKED.getBrush();
 
     walls.addBlock(cracked, 10);

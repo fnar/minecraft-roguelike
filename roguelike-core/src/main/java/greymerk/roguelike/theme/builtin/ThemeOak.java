@@ -2,8 +2,8 @@ package greymerk.roguelike.theme.builtin;
 
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
-import com.github.fnar.minecraft.material.Wood;
 import com.github.fnar.minecraft.block.redstone.DoorBlock;
+import com.github.fnar.minecraft.material.Wood;
 
 import greymerk.roguelike.theme.BlockSet;
 import greymerk.roguelike.theme.Theme;
@@ -15,7 +15,7 @@ public class ThemeOak extends Theme {
   public ThemeOak() {
 
     BlockWeightedRandom walls = new BlockWeightedRandom();
-    walls.addBlock(BlockType.STONE_BRICK.getBrush(), 30);
+    walls.addBlock(BlockType.STONE_BRICKS.getBrush(), 30);
     BlockBrush cracked = BlockType.STONE_BRICK_CRACKED.getBrush();
     walls.addBlock(cracked, 20);
     walls.addBlock(BlockType.COBBLESTONE.getBrush(), 5);

@@ -4,8 +4,8 @@ import net.minecraft.util.EnumFacing;
 
 import greymerk.roguelike.worldgen.Direction;
 
-public class FacingMapper1_12 {
-  public static EnumFacing getFacing(Direction direction) {
+public class DirectionMapper1_12 {
+  public static EnumFacing map(Direction direction) {
     // NOTE: I notice these are flipped but I'm not entirely sure why.
     // *** If you "fix" them, then all of the blocks in the dungeon are reversed.
     switch (direction) {

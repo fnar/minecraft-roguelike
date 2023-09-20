@@ -24,7 +24,7 @@ public class TorchBlockMapper1_12 {
         ? EnumFacing.UP
         : dir == Direction.DOWN
             ? EnumFacing.DOWN
-            : FacingMapper1_12.getFacing(dir.reverse());
+            : DirectionMapper1_12.map(dir.reverse());
 
     return minecraftTorchBlock.getDefaultState()
         .withProperty(BlockTorch.FACING, facing);

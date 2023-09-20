@@ -3,9 +3,9 @@ package greymerk.roguelike.worldgen.filter;
 import com.github.fnar.minecraft.block.BlockType;
 
 import greymerk.roguelike.theme.Theme;
+import greymerk.roguelike.worldgen.Bounded;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
-import greymerk.roguelike.worldgen.Bounded;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.shapes.Shape;
 
@@ -47,7 +47,7 @@ public class CobwebFilter implements IFilter {
       return;
     }
 
-    BlockType.WEB.getBrush().stroke(editor, pos);
+    BlockType.COBWEB.getBrush().stroke(editor, pos);
 
     for (int i = 0; i < 2; ++i) {
       Direction dir = Direction.values()[editor.getRandom().nextInt(Direction.values().length)];

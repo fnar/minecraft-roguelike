@@ -40,7 +40,7 @@ public class DungeonsSpiderNest extends BaseRoom {
     originZ = at.getZ();
 
     BlockWeightedRandom webs = new BlockWeightedRandom();
-    webs.addBlock(BlockType.WEB.getBrush(), 3);
+    webs.addBlock(BlockType.COBWEB.getBrush(), 3);
     webs.addBlock(SingleBlockBrush.AIR, 1);
 
     for (int blockX = originX - dungeonLength - 1; blockX <= originX + dungeonLength + 1; blockX++) {

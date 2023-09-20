@@ -12,6 +12,6 @@ public class RepeaterBlockMapper1_12 {
     Block block1 = block.isPowered() ? Blocks.POWERED_REPEATER : Blocks.UNPOWERED_REPEATER;
     return block1.getDefaultState()
         .withProperty(BlockRedstoneRepeater.DELAY, block.getDelay().asInt())
-        .withProperty(BlockRedstoneRepeater.FACING, FacingMapper1_12.getFacing(block.getFacing()));
+        .withProperty(BlockRedstoneRepeater.FACING, DirectionMapper1_12.map(block.getFacing()));
   }
 }

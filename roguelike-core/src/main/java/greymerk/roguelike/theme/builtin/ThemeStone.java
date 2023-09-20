@@ -10,7 +10,7 @@ import greymerk.roguelike.worldgen.BlockBrush;
 public class ThemeStone extends Theme {
 
   public ThemeStone() {
-    BlockBrush walls = BlockType.STONE_BRICK.getBrush();
+    BlockBrush walls = BlockType.STONE_BRICKS.getBrush();
     StairsBlock stair = StairsBlock.stoneBrick();
     BlockBrush pillar = BlockType.ANDESITE_POLISHED.getBrush();
 

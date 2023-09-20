@@ -12,7 +12,7 @@ public class Spawner extends SingleBlockBrush {
   private final List<SpawnPotential> potentials = Lists.newArrayList();
 
   public Spawner(List<SpawnPotential> spawnPotentials) {
-    super(BlockType.MOB_SPAWNER);
+    super(BlockType.SPAWNER);
     potentials.addAll(spawnPotentials);
   }
 

@@ -20,7 +20,7 @@ public class BlockLootItem extends LootItem {
     this.loot.add(BlockType.GRANITE_POLISHED.asItem(), 1);
     this.loot.add(BlockType.DIORITE_POLISHED.asItem(), 1);
     this.loot.add(BlockType.COBBLESTONE.asItem(), 10);
-    this.loot.add(BlockType.STONE_BRICK.asItem(), 5);
+    this.loot.add(BlockType.STONE_BRICKS.asItem(), 5);
     this.loot.add(BlockType.STONE_BRICK_MOSSY.asItem(), 1);
     this.loot.add(BlockType.STONE_BRICK_CRACKED.asItem(), 1);
   }

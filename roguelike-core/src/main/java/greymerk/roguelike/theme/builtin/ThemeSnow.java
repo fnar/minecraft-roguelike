@@ -13,7 +13,7 @@ public class ThemeSnow extends Theme {
 
   public ThemeSnow() {
     BlockWeightedRandom walls = new BlockWeightedRandom();
-    walls.addBlock(BlockType.STONE_BRICK.getBrush(), 10);
+    walls.addBlock(BlockType.STONE_BRICKS.getBrush(), 10);
     walls.addBlock(BlockType.STONE_BRICK_CRACKED.getBrush(), 1);
     walls.addBlock(BlockType.STONE_BRICK_MOSSY.getBrush(), 1);
 

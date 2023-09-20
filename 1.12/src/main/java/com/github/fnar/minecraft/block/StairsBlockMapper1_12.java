@@ -17,7 +17,7 @@ public class StairsBlockMapper1_12 {
         ? BlockParser1_12.parse(json)
         : getBlockForStairs(stairsBlock.getBlockType()).getDefaultState();
     return blockState
-        .withProperty(BlockStairs.FACING, FacingMapper1_12.getFacing(stairsBlock.getFacing()))
+        .withProperty(BlockStairs.FACING, DirectionMapper1_12.map(stairsBlock.getFacing()))
         .withProperty(BlockStairs.HALF, stairsBlock.isUpsideDown() ? BlockStairs.EnumHalf.TOP : BlockStairs.EnumHalf.BOTTOM);
   }
 

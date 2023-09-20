@@ -8,23 +8,24 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 
 public class InfestedBlockMapper1_12 {
-   public static IBlockState map(InfestedBlock block) {
-    IBlockState block1 = Blocks.MONSTER_EGG.getDefaultState();
-    Stone stone = block.getStone();
-    switch (stone) {
-      default:
+   public static IBlockState map(InfestedBlock infestedBlock) {
+    IBlockState block = Blocks.MONSTER_EGG.getDefaultState();
+     Stone stone = infestedBlock.getStone();
+     switch (stone) {
       case STONE:
-        return block1.withProperty(BlockSilverfish.VARIANT, BlockSilverfish.EnumType.STONE);
-      case COBBLE:
-        return block1.withProperty(BlockSilverfish.VARIANT, BlockSilverfish.EnumType.COBBLESTONE);
-      case STONEBRICK:
-        return block1.withProperty(BlockSilverfish.VARIANT, BlockSilverfish.EnumType.STONEBRICK);
-      case STONEBRICK_MOSSY:
-        return block1.withProperty(BlockSilverfish.VARIANT, BlockSilverfish.EnumType.MOSSY_STONEBRICK);
-      case STONEBRICK_CRACKED:
-        return block1.withProperty(BlockSilverfish.VARIANT, BlockSilverfish.EnumType.CRACKED_STONEBRICK);
-      case STONEBRICK_CHISELED:
-        return block1.withProperty(BlockSilverfish.VARIANT, BlockSilverfish.EnumType.CHISELED_STONEBRICK);
-    }
+        return block.withProperty(BlockSilverfish.VARIANT, BlockSilverfish.EnumType.STONE);
+      case COBBLESTONE:
+        return block.withProperty(BlockSilverfish.VARIANT, BlockSilverfish.EnumType.COBBLESTONE);
+      case STONE_BRICKS:
+        return block.withProperty(BlockSilverfish.VARIANT, BlockSilverfish.EnumType.STONEBRICK);
+      case MOSSY_STONE_BRICKS:
+        return block.withProperty(BlockSilverfish.VARIANT, BlockSilverfish.EnumType.MOSSY_STONEBRICK);
+      case CRACKED_STONE_BRICKS:
+        return block.withProperty(BlockSilverfish.VARIANT, BlockSilverfish.EnumType.CRACKED_STONEBRICK);
+      case CHISELED_STONE_BRICKS:
+        return block.withProperty(BlockSilverfish.VARIANT, BlockSilverfish.EnumType.CHISELED_STONEBRICK);
+       default:
+         throw new IllegalStateException("Unexpected value: " + stone);
+     }
   }
 }

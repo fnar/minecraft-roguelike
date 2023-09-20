@@ -25,6 +25,10 @@ public class TorchBlock extends SingleBlockBrush {
     return this;
   }
 
+  public boolean isRedstone() {
+    return getBlockType().equals(BlockType.REDSTONE_TORCH);
+  }
+
   public static TorchBlock redstone() {
     return new TorchBlock(BlockType.REDSTONE_TORCH);
   }

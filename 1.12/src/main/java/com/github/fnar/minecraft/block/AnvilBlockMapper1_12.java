@@ -17,6 +17,6 @@ public class AnvilBlockMapper1_12 {
     }
     return Blocks.ANVIL.getDefaultState()
         .withProperty(BlockAnvil.DAMAGE, block.getDamage().ordinal())
-        .withProperty(BlockAnvil.FACING, FacingMapper1_12.getFacing(block.getFacing()));
+        .withProperty(BlockAnvil.FACING, DirectionMapper1_12.map(block.getFacing()));
   }
 }

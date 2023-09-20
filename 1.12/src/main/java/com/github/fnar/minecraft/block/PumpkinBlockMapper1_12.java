@@ -10,6 +10,6 @@ public class PumpkinBlockMapper1_12 {
   static IBlockState map(PumpkinBlock block) {
     return (block.isLit() ? Blocks.LIT_PUMPKIN : Blocks.PUMPKIN)
         .getDefaultState()
-        .withProperty(BlockPumpkin.FACING, FacingMapper1_12.getFacing(block.getFacing()));
+        .withProperty(BlockPumpkin.FACING, DirectionMapper1_12.map(block.getFacing()));
   }
 }

@@ -8,6 +8,7 @@ public class SlabBlock extends SingleBlockBrush {
   private boolean isFullBlock;
   private boolean isTop;
   private boolean isSeamless;
+  private boolean isWaterlogged;
 
   public SlabBlock(BlockType blockType) {
     super(blockType);
@@ -26,7 +27,7 @@ public class SlabBlock extends SingleBlockBrush {
   }
 
   public static SlabBlock cobble() {
-    return new SlabBlock(BlockType.COBBLE_SLAB);
+    return new SlabBlock(BlockType.COBBLESTONE_SLAB);
   }
 
   public static SlabBlock darkOak() {
@@ -38,7 +39,7 @@ public class SlabBlock extends SingleBlockBrush {
   }
 
   public static SlabBlock legacyOak() {
-    return new SlabBlock(BlockType.LEGACY_OAK_SLAB);
+    return new SlabBlock(BlockType.PETRIFIED_OAK_SLAB);
   }
 
   public static SlabBlock oak() {
@@ -46,7 +47,7 @@ public class SlabBlock extends SingleBlockBrush {
   }
 
   public static SlabBlock netherBrick() {
-    return new SlabBlock(BlockType.NETHERBRICK_SLAB);
+    return new SlabBlock(BlockType.NETHER_BRICK_SLAB);
   }
 
   public static SlabBlock spruce() {
@@ -59,6 +60,10 @@ public class SlabBlock extends SingleBlockBrush {
 
   public static SlabBlock redSandStone() {
     return new SlabBlock(BlockType.RED_SANDSTONE_SLAB);
+  }
+
+  public static SlabBlock purpur() {
+    return new SlabBlock(BlockType.PURPUR_SLAB);
   }
 
   public static SlabBlock smoothRedSandstone() {
@@ -74,11 +79,15 @@ public class SlabBlock extends SingleBlockBrush {
   }
 
   public static SlabBlock stoneBrick() {
-    return new SlabBlock(BlockType.STONEBRICK_SLAB);
+    return new SlabBlock(BlockType.STONE_BRICK_SLAB);
   }
 
   public boolean isFullBlock() {
     return isFullBlock;
+  }
+
+  public SlabBlock setFullBlock() {
+    return setFullBlock(true);
   }
 
   public SlabBlock setFullBlock(boolean fullBlock) {
@@ -90,9 +99,17 @@ public class SlabBlock extends SingleBlockBrush {
     return isTop;
   }
 
+  public SlabBlock setTop() {
+    return setTop(true).setFullBlock(false);
+  }
+
   public SlabBlock setTop(boolean top) {
     isTop = top;
     return this;
+  }
+
+  public SlabBlock setBottom() {
+    return setTop(false).setFullBlock(false);
   }
 
   public boolean isSeamless() {
@@ -102,6 +119,23 @@ public class SlabBlock extends SingleBlockBrush {
   public SlabBlock setSeamless(boolean seamless) {
     isSeamless = seamless;
     return this;
+  }
+
+  public void setWaterlogged(boolean isWaterlogged) {
+    this.isWaterlogged = isWaterlogged;
+  }
+
+  public SlabBlock withWaterlogging(boolean isWaterlogged) {
+    this.isWaterlogged = isWaterlogged;
+    return this;
+  }
+
+  public SlabBlock withWaterlogging() {
+    return this.withWaterlogging(true);
+  }
+
+  public boolean isWaterlogged() {
+    return this.isWaterlogged;
   }
 
   @Override

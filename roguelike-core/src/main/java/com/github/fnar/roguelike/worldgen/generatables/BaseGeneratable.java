@@ -21,7 +21,7 @@ public abstract class BaseGeneratable implements Generatable {
 
   protected StairsBlock stairs = StairsBlock.netherBrick();
   protected BlockBrush pillar = ColoredBlock.wool().red();
-  protected BlockBrush walls = BlockType.STONE_BRICK.getBrush();
+  protected BlockBrush walls = BlockType.STONE_BRICKS.getBrush();
 
   protected BaseGeneratable(WorldEditor worldEditor) {
     this.worldEditor = worldEditor;

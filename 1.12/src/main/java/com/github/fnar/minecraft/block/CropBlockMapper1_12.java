@@ -13,7 +13,7 @@ public class CropBlockMapper1_12 {
     IBlockState blockState = mapToBlock(cropBlock).getDefaultState();
     if (cropBlock.getCrop().equals(Crop.COCOA)) {
       return blockState
-          .withProperty(BlockCocoa.FACING, FacingMapper1_12.getFacing(cropBlock.getFacing().reverse()))
+          .withProperty(BlockCocoa.FACING, DirectionMapper1_12.map(cropBlock.getFacing().reverse()))
           .withProperty(BlockCocoa.AGE, 2);
     }
     return blockState;

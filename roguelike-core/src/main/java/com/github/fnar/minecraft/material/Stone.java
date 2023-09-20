@@ -7,11 +7,11 @@ import greymerk.roguelike.worldgen.BlockBrush;
 public enum Stone {
 
   STONE,
-  COBBLE,
-  STONEBRICK,
-  STONEBRICK_MOSSY,
-  STONEBRICK_CRACKED,
-  STONEBRICK_CHISELED,
+  COBBLESTONE,
+  STONE_BRICKS,
+  MOSSY_STONE_BRICKS,
+  CRACKED_STONE_BRICKS,
+  CHISELED_STONE_BRICKS,
   ;
 
   public BlockBrush getInfested() {

@@ -13,9 +13,9 @@ public class ThemeTemple extends Theme {
   public ThemeTemple() {
 
     BlockWeightedRandom walls = new BlockWeightedRandom();
-    walls.addBlock(BlockType.PRISMARINE.getBrush(), 5);
+    walls.addBlock(BlockType.PRISMARINE_BRICKS.getBrush(), 5);
     walls.addBlock(BlockType.PRISMARINE_DARK.getBrush(), 10);
-    walls.addBlock(BlockType.PRISMITE.getBrush(), 5);
+    walls.addBlock(BlockType.PRISMARINE.getBrush(), 5);
     walls.addBlock(BlockType.SEA_LANTERN.getBrush(), 3);
 
     StairsBlock stair = StairsBlock.quartz();

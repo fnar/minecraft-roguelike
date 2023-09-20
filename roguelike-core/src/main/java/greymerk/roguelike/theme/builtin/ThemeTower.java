@@ -15,7 +15,7 @@ public class ThemeTower extends Theme {
   public ThemeTower() {
 
     BlockJumble stone = new BlockJumble();
-    stone.addBlock(BlockType.STONE_BRICK.getBrush());
+    stone.addBlock(BlockType.STONE_BRICKS.getBrush());
     stone.addBlock(BlockType.STONE_BRICK_CRACKED.getBrush());
     stone.addBlock(BlockType.STONE_BRICK_MOSSY.getBrush());
 

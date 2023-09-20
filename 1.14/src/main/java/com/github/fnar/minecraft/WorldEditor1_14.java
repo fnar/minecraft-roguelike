@@ -279,7 +279,7 @@ public class WorldEditor1_14 implements WorldEditor {
 
   @Override
   public void setSkull(WorldEditor editor, Coord cursor, Direction dir, Skull type) {
-    SingleBlockBrush skullBlock = BlockType.SKULL.getBrush();
+    SingleBlockBrush skullBlock = BlockType.SKELETONS_SKULL.getBrush();
     // Makes the skull sit flush against the block below it.
     skullBlock.setFacing(Direction.UP);
     if (!skullBlock.stroke(editor, cursor)) {

@@ -2,6 +2,7 @@ package greymerk.roguelike.theme.builtin;
 
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.normal.ColoredBlock;
+import com.github.fnar.minecraft.block.normal.SlabBlock;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 
 import greymerk.roguelike.theme.BlockSet;
@@ -23,7 +24,7 @@ public class ThemeTerracotta extends Theme {
 
     StairsBlock stair = StairsBlock.purpur();
     BlockBrush pillar = BlockType.PURPUR_PILLAR.getBrush();
-    BlockBrush deco = BlockType.PURPUR_DOUBLE_SLAB.getBrush();
+    BlockBrush deco = SlabBlock.purpur().setFullBlock(true);
 
     this.primary = new BlockSet(blocks, stair, pillar);
     this.secondary = new BlockSet(deco, stair, pillar);

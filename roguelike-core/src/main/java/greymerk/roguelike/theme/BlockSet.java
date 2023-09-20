@@ -15,7 +15,7 @@ import static java.util.Optional.ofNullable;
 public class BlockSet {
 
   private BlockBrush floor;
-  private BlockBrush walls = BlockType.STONE_BRICK.getBrush();
+  private BlockBrush walls = BlockType.STONE_BRICKS.getBrush();
   private StairsBlock stair = StairsBlock.stoneBrick();
   private BlockBrush pillar;
   private DoorBlock door = DoorBlock.oak();
