@@ -1,8 +1,7 @@
-package greymerk.roguelike.command;
+package com.github.fnar.roguelike.command;
 
 import com.github.fnar.forge.ModLoader;
 import com.github.fnar.minecraft.item.RldItemStack;
-import com.github.fnar.roguelike.command.ContextHolder;
 
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;

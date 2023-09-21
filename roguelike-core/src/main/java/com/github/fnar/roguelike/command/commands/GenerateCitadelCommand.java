@@ -1,7 +1,8 @@
-package com.github.fnar.roguelike.command;
+package com.github.fnar.roguelike.command.commands;
+
+import com.github.fnar.roguelike.command.CommandContext;
 
 import greymerk.roguelike.citadel.Citadel;
-import greymerk.roguelike.command.CommandContext;
 import greymerk.roguelike.worldgen.Coord;
 
 public class GenerateCitadelCommand extends BaseRoguelikeCommand {

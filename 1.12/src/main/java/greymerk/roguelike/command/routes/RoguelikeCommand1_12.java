@@ -1,9 +1,10 @@
 package greymerk.roguelike.command.routes;
 
+import com.github.fnar.roguelike.command.CommandContext;
+
 import java.util.List;
 
 import greymerk.roguelike.command.BaseCommandRoute;
-import greymerk.roguelike.command.CommandContext;
 
 public class RoguelikeCommand1_12 extends BaseCommandRoute {
 

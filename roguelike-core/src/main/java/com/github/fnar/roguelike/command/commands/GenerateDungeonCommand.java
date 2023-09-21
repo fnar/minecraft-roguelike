@@ -1,11 +1,12 @@
-package com.github.fnar.roguelike.command;
+package com.github.fnar.roguelike.command.commands;
+
+import com.github.fnar.roguelike.command.CommandContext;
+import com.github.fnar.roguelike.command.exception.NoValidLocationException;
+import com.github.fnar.roguelike.command.exception.SettingNameNotFoundException;
 
 import java.util.Optional;
 import java.util.Random;
 
-import greymerk.roguelike.command.CommandContext;
-import greymerk.roguelike.command.exception.NoValidLocationException;
-import greymerk.roguelike.command.exception.SettingNameNotFoundException;
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;

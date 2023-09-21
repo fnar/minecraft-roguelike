@@ -1,6 +1,5 @@
 package com.github.fnar.roguelike.command;
 
-import greymerk.roguelike.command.CommandSender;
 import greymerk.roguelike.worldgen.Coord;
 
 public interface ContextHolder {

@@ -1,6 +1,7 @@
 package greymerk.roguelike.command.routes;
 
-import com.github.fnar.roguelike.command.GenerateTowerCommand;
+import com.github.fnar.roguelike.command.CommandContext;
+import com.github.fnar.roguelike.command.commands.GenerateTowerCommand;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -9,7 +10,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import greymerk.roguelike.command.BaseCommandRoute;
-import greymerk.roguelike.command.CommandContext;
 import greymerk.roguelike.dungeon.towers.TowerType;
 import greymerk.roguelike.util.ArgumentParser;
 import greymerk.roguelike.util.EnumTools;

@@ -1,5 +1,6 @@
 package greymerk.roguelike.command;
 
+import com.github.fnar.roguelike.command.CommandContext;
 import com.github.fnar.util.Strings;
 
 import java.util.ArrayList;

@@ -1,8 +1,9 @@
-package com.github.fnar.roguelike.command;
+package com.github.fnar.roguelike.command.commands;
+
+import com.github.fnar.roguelike.command.CommandContext;
 
 import java.util.List;
 
-import greymerk.roguelike.command.CommandContext;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 

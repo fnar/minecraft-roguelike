@@ -1,4 +1,4 @@
-package greymerk.roguelike.command.exception;
+package com.github.fnar.roguelike.command.exception;
 
 public class SettingNameNotFoundException extends Exception {
   public SettingNameNotFoundException(String settingName) {
