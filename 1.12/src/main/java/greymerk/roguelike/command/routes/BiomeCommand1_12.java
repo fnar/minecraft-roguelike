@@ -11,9 +11,9 @@ import greymerk.roguelike.util.ArgumentParser;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 
-public class CommandRouteBiome1_12 extends CommandRouteBase {
+public class BiomeCommand1_12 extends CommandRouteBase {
 
-  public CommandRouteBiome1_12(greymerk.roguelike.command.CommandBase commandBase) {
+  public BiomeCommand1_12(greymerk.roguelike.command.CommandBase commandBase) {
     super(commandBase);
   }
 

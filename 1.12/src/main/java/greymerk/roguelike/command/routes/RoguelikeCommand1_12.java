@@ -6,17 +6,17 @@ import greymerk.roguelike.command.CommandBase1_12;
 import greymerk.roguelike.command.CommandContext;
 import greymerk.roguelike.command.CommandRouteBase;
 
-public class CommandRouteRoguelike1_12 extends CommandRouteBase {
+public class RoguelikeCommand1_12 extends CommandRouteBase {
 
-  public CommandRouteRoguelike1_12() {
+  public RoguelikeCommand1_12() {
     super(new CommandBase1_12());
-    this.addRoute("dungeon", new CommandRouteDungeon(commandBase));
-    this.addRoute("give", new CommandRouteGive1_12(commandBase));
-    this.addRoute("config", new CommandRouteConfig(commandBase));
-    this.addRoute("settings", new CommandRouteSettings(commandBase));
-    this.addRoute("tower", new CommandRouteTower(commandBase));
-    this.addRoute("biome", new CommandRouteBiome1_12(commandBase));
-    this.addRoute("citadel", new CommandRouteCitadel(commandBase));
+    this.addRoute("dungeon", new DungeonCommand(commandBase));
+    this.addRoute("give", new GiveCommand1_12(commandBase));
+    this.addRoute("config", new ConfigCommand(commandBase));
+    this.addRoute("settings", new SettingsCommand(commandBase));
+    this.addRoute("tower", new TowerCommand(commandBase));
+    this.addRoute("biome", new BiomeCommand1_12(commandBase));
+    this.addRoute("citadel", new CitadelCommand(commandBase));
   }
 
   @Override

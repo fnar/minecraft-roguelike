@@ -2,21 +2,26 @@ package com.github.fnar.roguelike.command;
 
 import java.util.function.Consumer;
 
-public class SimpleRoguelikeCommand implements RoguelikeCommand {
+import greymerk.roguelike.command.CommandContext;
+
+public class SimpleRoguelikeCommand extends BaseRoguelikeCommand {
 
   private final Runnable onRun;
   private final Runnable onSuccess;
   private final Consumer<Exception> onException;
 
   public SimpleRoguelikeCommand(
+      CommandContext commandContext,
       Runnable onRun,
       Runnable onSuccess,
       Consumer<Exception> onException
   ) {
+    super(commandContext);
     this.onRun = onRun;
     this.onSuccess = onSuccess;
     this.onException = onException;
   }
+
   @Override
   public void onSuccess() {
     onSuccess.run();
@@ -28,13 +33,7 @@ public class SimpleRoguelikeCommand implements RoguelikeCommand {
   }
 
   @Override
-  public void run() {
-    try {
-      onRun.run();
-    } catch (Exception exception) {
-      onException(exception);
-      return;
-    }
-    onSuccess();
+  public void onRun() {
+    this.onRun.run();
   }
 }

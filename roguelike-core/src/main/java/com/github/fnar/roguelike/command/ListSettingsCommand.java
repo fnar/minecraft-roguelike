@@ -4,42 +4,30 @@ import greymerk.roguelike.command.CommandContext;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.SettingsResolver;
 
-public class ListSettingsCommand implements RoguelikeCommand {
+public class ListSettingsCommand extends BaseRoguelikeCommand {
 
-  private final CommandContext commandContext;
   private final String namespace;
 
   public ListSettingsCommand(CommandContext commandContext, String namespace) {
-    this.commandContext = commandContext;
+    super(commandContext);
     this.namespace = namespace;
   }
 
   @Override
-  public void run() {
-    try {
-      SettingsContainer settingsContainer = new SettingsContainer(commandContext.getModLoader()).loadFiles();
-      SettingsResolver.instance = new SettingsResolver(settingsContainer);
+  public void onRun() {
+    SettingsContainer settingsContainer = new SettingsContainer(commandContext.getModLoader()).loadFiles();
+    SettingsResolver.instance = new SettingsResolver(settingsContainer);
 
-      if (namespace.isEmpty()) {
-        commandContext.sendInfo(SettingsResolver.instance.toString());
-      } else {
-        commandContext.sendInfo(SettingsResolver.instance.toString(namespace));
-      }
-    } catch (Exception exception) {
-      onException(exception);
-      return;
+    if (namespace.isEmpty()) {
+      commandContext.sendInfo(SettingsResolver.instance.toString());
+    } else {
+      commandContext.sendInfo(SettingsResolver.instance.toString(namespace));
     }
-    onSuccess();
   }
 
   @Override
   public void onSuccess() {
     commandContext.sendSuccess("settingslisted");
-  }
-
-  @Override
-  public void onException(Exception exception) {
-    commandContext.sendFailure(exception);
   }
 
 }

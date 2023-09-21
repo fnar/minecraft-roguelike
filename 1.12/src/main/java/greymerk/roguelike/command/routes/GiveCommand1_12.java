@@ -10,9 +10,9 @@ import greymerk.roguelike.command.CommandRouteBase;
 import greymerk.roguelike.treasure.loot.provider.ItemNovelty;
 import greymerk.roguelike.util.ArgumentParser;
 
-public class CommandRouteGive1_12 extends CommandRouteBase {
+public class GiveCommand1_12 extends CommandRouteBase {
 
-  public CommandRouteGive1_12(CommandBase commandBase) {
+  public GiveCommand1_12(CommandBase commandBase) {
     super(commandBase);
   }
 
