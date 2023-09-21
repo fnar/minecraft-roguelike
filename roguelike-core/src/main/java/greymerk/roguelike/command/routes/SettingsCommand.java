@@ -10,9 +10,9 @@ import greymerk.roguelike.command.CommandContext;
 import greymerk.roguelike.command.CommandRouteBase;
 import greymerk.roguelike.util.ArgumentParser;
 
-public class CommandRouteSettings extends CommandRouteBase {
+public class SettingsCommand extends CommandRouteBase {
 
-  public CommandRouteSettings(CommandBase commandBase) {
+  public SettingsCommand(CommandBase commandBase) {
     super(commandBase);
   }
 

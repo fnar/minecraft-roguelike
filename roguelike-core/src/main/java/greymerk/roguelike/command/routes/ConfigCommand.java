@@ -8,9 +8,9 @@ import greymerk.roguelike.command.CommandRouteBase;
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.util.ArgumentParser;
 
-public class CommandRouteConfig extends CommandRouteBase {
+public class ConfigCommand extends CommandRouteBase {
 
-  public CommandRouteConfig(CommandBase commandBase) {
+  public ConfigCommand(CommandBase commandBase) {
     super(commandBase);
   }
 

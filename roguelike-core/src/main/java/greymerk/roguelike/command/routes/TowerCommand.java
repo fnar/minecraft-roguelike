@@ -18,9 +18,9 @@ import greymerk.roguelike.worldgen.WorldEditor;
 
 import static greymerk.roguelike.dungeon.Dungeon.TOPLEVEL;
 
-public class CommandRouteTower extends CommandRouteBase {
+public class TowerCommand extends CommandRouteBase {
 
-  public CommandRouteTower(CommandBase commandBase) {
+  public TowerCommand(CommandBase commandBase) {
     super(commandBase);
   }
 

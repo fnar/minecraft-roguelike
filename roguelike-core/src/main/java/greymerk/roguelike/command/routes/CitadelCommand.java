@@ -7,9 +7,9 @@ import greymerk.roguelike.command.CommandBase;
 import greymerk.roguelike.command.CommandContext;
 import greymerk.roguelike.worldgen.Coord;
 
-public class CommandRouteCitadel extends CommandRouteDungeon {
+public class CitadelCommand extends DungeonCommand {
 
-  public CommandRouteCitadel(CommandBase commandBase) {
+  public CitadelCommand(CommandBase commandBase) {
     super(commandBase);
   }
 

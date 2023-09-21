@@ -18,9 +18,9 @@ import greymerk.roguelike.util.ArgumentParser;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 
-public class CommandRouteDungeon extends CommandRouteBase {
+public class DungeonCommand extends CommandRouteBase {
 
-  public CommandRouteDungeon(greymerk.roguelike.command.CommandBase commandBase) {
+  public DungeonCommand(greymerk.roguelike.command.CommandBase commandBase) {
     super(commandBase);
   }
 

@@ -8,6 +8,8 @@ import com.github.fnar.forge.ModLoader;
 
 import org.apache.commons.io.FilenameUtils;
 
+import sun.plugin.dom.exception.InvalidStateException;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -73,11 +75,11 @@ public class SettingsContainer {
     this.dungeonSettingsParser = new DungeonSettingsParser(modLoader);
   }
 
-  public SettingsContainer loadFiles() throws Exception {
+  public SettingsContainer loadFiles() {
     File settingsDirectoryFile = new File(RogueConfig.CONFIG_DIRECTORY + "/settings");
 
     if (settingsDirectoryFile.exists() && !settingsDirectoryFile.isDirectory()) {
-      throw new Exception("Settings directory is a file");
+      throw new InvalidStateException("Settings directory is a file");
     }
 
     if (!settingsDirectoryFile.exists()) {
@@ -117,14 +119,14 @@ public class SettingsContainer {
     }
   }
 
-  public void put(Map<String, String> dungeonSettingsJsonByFileName) throws Exception {
+  public void put(Map<String, String> dungeonSettingsJsonByFileName) {
     for (Map.Entry<String, String> entry : dungeonSettingsJsonByFileName.entrySet()) {
       String filePath = entry.getKey();
       String setting = entry.getValue();
       try {
         put(setting);
       } catch (Exception e) {
-        throw new Exception("Error in: " + filePath + ": " + e.getMessage(), e);
+        throw new InvalidStateException("Error in: " + filePath + ": " + e.getMessage());
       }
     }
   }
@@ -182,7 +184,7 @@ public class SettingsContainer {
 
   public DungeonSettings get(SettingIdentifier id) {
     if (!contains(id)) {
-      throw new RuntimeException("Setting not found: " + id.toString());
+      throw new RuntimeException("Setting not found: " + id);
     }
     return getNamespace(id).get(id.getName());
   }
