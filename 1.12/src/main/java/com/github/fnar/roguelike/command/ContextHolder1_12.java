@@ -26,17 +26,30 @@ public class ContextHolder1_12 implements ContextHolder {
   public Coord getArgumentAsCoord(String argumentName) {
     ArgumentParser argumentParser = new ArgumentParser(args);
     if (argumentParser.hasEntry(0)) {
-      try {
-        int x = CommandBase.parseInt(argumentParser.get(0));
-        int y = CommandBase.parseInt(argumentParser.get(1));
-        int z = CommandBase.parseInt(argumentParser.get(2));
-        return new Coord(x, y, z);
-      } catch (NumberInvalidException e) {
-        throw new RuntimeException(e);
+      int arg1 = getArgAsInt(argumentParser, 1);
+      int arg2 = getArgAsInt(argumentParser, 2);
+
+      if (!argumentParser.hasEntry(3)) {
+        return new Coord(arg1, 0, arg2);
+      } else {
+        int arg3 = getArgAsInt(argumentParser, 3);
+        return new Coord(arg1, arg2, arg3);
       }
     }
-    // TODO: Fix;
-    throw new NotImplementedException("Part of 1.12 commands refactor");
+    // todo: internationalization
+    throw new IllegalArgumentException(String.format("Could not map arguments to coord: %s.", argumentParser));
+  }
+
+  private static int getArgAsInt(ArgumentParser argumentParser, int index) {
+    return parseInteger(argumentParser.get(index));
+  }
+
+  private static int parseInteger(String input) {
+    try {
+      return CommandBase.parseInt(input);
+    } catch (NumberInvalidException e) {
+      throw new RuntimeException("Could not parse input as number: " + input);
+    }
   }
 
   @Override
