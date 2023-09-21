@@ -2,16 +2,21 @@ package greymerk.roguelike.command;
 
 import com.github.fnar.forge.ModLoader;
 import com.github.fnar.minecraft.item.RldItemStack;
+import com.github.fnar.roguelike.command.ContextHolder;
 
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 
 public class CommandContext {
 
-  private final CommandSender commandSender;
+  private final ContextHolder contextHolder;
 
-  public CommandContext(CommandSender commandSender) {
-    this.commandSender = commandSender;
+  public CommandContext(ContextHolder contextHolder) {
+    this.contextHolder = contextHolder;
+  }
+
+  private CommandSender getCommandSender() {
+    return contextHolder.getCommandSender();
   }
 
   public void sendFailure(Exception e) {
@@ -51,26 +56,34 @@ public class CommandContext {
   }
 
   public void sendMessage(String message, MessageType type) {
-    commandSender.sendMessage(message, type);
+    getCommandSender().sendMessage(message, type);
   }
 
   public void sendMessage(String message, String details, MessageType type) {
-    commandSender.sendMessage(message, details, type);
+    getCommandSender().sendMessage(message, details, type);
   }
 
   public WorldEditor createEditor() {
-    return commandSender.createWorldEditor();
+    return getCommandSender().createWorldEditor();
   }
 
   public Coord getPos() {
-    return commandSender.getPos();
+    return getCommandSender().getPos();
   }
 
   public void give(RldItemStack item) {
-    commandSender.give(item);
+    getCommandSender().give(item);
   }
 
   public ModLoader getModLoader() {
     return requiredModName -> false;
+  }
+
+  public String getArgument(String argumentName) {
+    return this.contextHolder.getArgument(argumentName);
+  }
+
+  public Coord getArgumentAsCoord(String position) {
+    return this.contextHolder.getArgumentAsCoord(position);
   }
 }

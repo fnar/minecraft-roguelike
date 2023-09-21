@@ -19,39 +19,41 @@ public class CommandRouteBiome1_12 extends CommandRouteBase {
 
   @Override
   public void execute(CommandContext context, List<String> args) {
-    Coord pos = getCoord(context, args);
-    if (pos == null) {
+    Coord coord = getCoord(context, args);
+    if (coord == null) {
       return;
     }
-
-    context.sendSpecial("notif.roguelike.biomeinfo", pos.toString());
-
-    WorldEditor editor = context.createEditor();
-    context.sendSpecial(editor.getBiomeName(pos));
-
-    List<String> typeNames = editor.getBiomeTagNames(pos);
-    context.sendSpecial(String.join("", typeNames));
+    sendBiomeDetails(context, coord);
   }
 
   private Coord getCoord(CommandContext context, List<String> args) {
-    ArgumentParser ap = new ArgumentParser(args);
+    ArgumentParser argumentParser = new ArgumentParser(args);
 
-    Coord pos;
-    if (!ap.hasEntry(0)) {
-      pos = context.getPos();
+    Coord coord;
+    if (!argumentParser.hasEntry(0)) {
+      coord = context.getPos();
     } else {
       int x;
       int z;
       try {
-        x = CommandBase.parseInt(ap.get(0));
-        z = CommandBase.parseInt(ap.get(1));
+        x = CommandBase.parseInt(argumentParser.get(0));
+        z = CommandBase.parseInt(argumentParser.get(1));
       } catch (NumberInvalidException e) {
         context.sendFailure("invalidcoords", "X Z");
         return null;
       }
-      pos = new Coord(x, 0, z);
+      coord = new Coord(x, 0, z);
     }
-    return pos;
+    return coord;
+  }
+
+  private static void sendBiomeDetails(CommandContext commandContext, Coord coord) {
+    commandContext.sendSpecial("notif.roguelike.biomeinfo", coord.toString());
+
+    WorldEditor editor = commandContext.createEditor();
+    commandContext.sendSpecial(editor.getBiomeName(coord));
+
+    List<String> typeNames = editor.getBiomeTagNames(coord);
+    commandContext.sendSpecial(String.join("", typeNames));
   }
 }
-
