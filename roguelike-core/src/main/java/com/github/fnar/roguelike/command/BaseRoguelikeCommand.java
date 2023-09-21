@@ -11,7 +11,7 @@ public class BaseRoguelikeCommand implements RoguelikeCommand {
   }
 
   @Override
-  public void onRun() {
+  public void onRun() throws Exception {
 
   }
 

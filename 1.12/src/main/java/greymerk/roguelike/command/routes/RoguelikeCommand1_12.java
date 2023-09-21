@@ -2,19 +2,19 @@ package greymerk.roguelike.command.routes;
 
 import java.util.List;
 
+import greymerk.roguelike.command.BaseCommandRoute;
 import greymerk.roguelike.command.CommandContext;
-import greymerk.roguelike.command.CommandRouteBase;
 
-public class RoguelikeCommand1_12 extends CommandRouteBase {
+public class RoguelikeCommand1_12 extends BaseCommandRoute {
 
   public RoguelikeCommand1_12() {
-    this.addRoute("dungeon", new DungeonCommand());
+    this.addRoute("dungeon", new DungeonCommand1_12());
     this.addRoute("give", new GiveCommand1_12());
-    this.addRoute("config", new ConfigCommand());
-    this.addRoute("settings", new SettingsCommand());
-    this.addRoute("tower", new TowerCommand());
+    this.addRoute("config", new ConfigCommand1_12());
+    this.addRoute("settings", new SettingsCommand1_12());
+    this.addRoute("tower", new TowerCommand1_12());
     this.addRoute("biome", new BiomeCommand1_12());
-    this.addRoute("citadel", new CitadelCommand());
+    this.addRoute("citadel", new CitadelCommand1_12());
   }
 
   @Override

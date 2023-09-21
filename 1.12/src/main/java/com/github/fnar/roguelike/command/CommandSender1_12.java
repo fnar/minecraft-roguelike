@@ -62,8 +62,8 @@ public class CommandSender1_12 implements CommandSender {
 
   @Override
   public Coord getPos() {
-    BlockPos bp = commandSender.getPosition();
-    return new Coord(bp.getX(), bp.getY(), bp.getZ());
+    BlockPos blockPos = commandSender.getPosition();
+    return new Coord(blockPos.getX(), blockPos.getY(), blockPos.getZ());
   }
 
   public static TextFormatting toTextFormatting(TextFormat textFormat) {

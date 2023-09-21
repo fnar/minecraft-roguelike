@@ -1,13 +1,14 @@
 package greymerk.roguelike.command.routes;
 
+import com.github.fnar.roguelike.command.ReloadConfigCommand;
+
 import java.util.List;
 
+import greymerk.roguelike.command.BaseCommandRoute;
 import greymerk.roguelike.command.CommandContext;
-import greymerk.roguelike.command.CommandRouteBase;
-import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.util.ArgumentParser;
 
-public class ConfigCommand extends CommandRouteBase {
+public class ConfigCommand1_12 extends BaseCommandRoute {
 
   @Override
   public void execute(CommandContext context, List<String> args) {
@@ -16,8 +17,7 @@ public class ConfigCommand extends CommandRouteBase {
     if (!ap.hasEntry(0)) {
       context.sendInfo("notif.roguelike.usage_", "roguelike config reload");
     } else if (ap.match(0, "reload")) {
-      RogueConfig.reload(true);
-      context.sendSuccess("configreloaded");
+      new ReloadConfigCommand(context).run();
     }
   }
 

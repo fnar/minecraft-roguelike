@@ -1,6 +1,6 @@
 package com.github.fnar.roguelike;
 
-import com.github.fnar.roguelike.command.CommandRoguelike1_12;
+import com.github.fnar.roguelike.command.RoguelikeCommand1_12;
 import com.github.fnar.roguelike.worldgen.DungeonGenerator1_12;
 
 import net.minecraft.command.ICommandManager;
@@ -14,9 +14,9 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import greymerk.roguelike.ItemTooltip;
 
 import greymerk.roguelike.EntityJoinWorld1_12;
+import greymerk.roguelike.ItemTooltip;
 
 @Mod(modid = "roguelike", name = "Roguelike Dungeons -- Fnar Edition", version = Roguelike.version, acceptableRemoteVersions = "*")
 public class Roguelike {
@@ -44,6 +44,6 @@ public class Roguelike {
     MinecraftServer server = event.getServer();
     ICommandManager command = server.getCommandManager();
     ServerCommandManager serverCommand = ((ServerCommandManager) command);
-    serverCommand.registerCommand(new CommandRoguelike1_12());
+    serverCommand.registerCommand(new RoguelikeCommand1_12());
   }
 }

@@ -5,11 +5,11 @@ import com.github.fnar.roguelike.command.ReloadSettingsCommand;
 
 import java.util.List;
 
+import greymerk.roguelike.command.BaseCommandRoute;
 import greymerk.roguelike.command.CommandContext;
-import greymerk.roguelike.command.CommandRouteBase;
 import greymerk.roguelike.util.ArgumentParser;
 
-public class SettingsCommand extends CommandRouteBase {
+public class SettingsCommand1_12 extends BaseCommandRoute {
 
   @Override
   public void execute(CommandContext commandContext, List<String> args) {
