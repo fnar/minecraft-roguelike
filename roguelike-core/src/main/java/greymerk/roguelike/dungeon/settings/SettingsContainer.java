@@ -8,8 +8,6 @@ import com.github.fnar.forge.ModLoader;
 
 import org.apache.commons.io.FilenameUtils;
 
-import sun.plugin.dom.exception.InvalidStateException;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -79,7 +77,7 @@ public class SettingsContainer {
     File settingsDirectoryFile = new File(RogueConfig.CONFIG_DIRECTORY + "/settings");
 
     if (settingsDirectoryFile.exists() && !settingsDirectoryFile.isDirectory()) {
-      throw new InvalidStateException("Settings directory is a file");
+      throw new RuntimeException("Settings directory is a file");
     }
 
     if (!settingsDirectoryFile.exists()) {
@@ -126,7 +124,7 @@ public class SettingsContainer {
       try {
         put(setting);
       } catch (Exception e) {
-        throw new InvalidStateException("Error in: " + filePath + ": " + e.getMessage());
+        throw new RuntimeException("Error in: " + filePath + ": " + e.getMessage());
       }
     }
   }
