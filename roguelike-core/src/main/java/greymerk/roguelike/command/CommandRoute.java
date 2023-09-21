@@ -2,7 +2,7 @@ package greymerk.roguelike.command;
 
 import java.util.List;
 
-public interface ICommandRouter {
+public interface CommandRoute {
 
   void execute(CommandContext context, List<String> args);
 

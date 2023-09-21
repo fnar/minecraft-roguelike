@@ -7,9 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class CommandRouteBase implements ICommandRouter {
+public abstract class CommandRouteBase implements CommandRoute {
 
-  private final Map<String, ICommandRouter> routes;
+  private final Map<String, CommandRoute> routes;
   protected final greymerk.roguelike.command.CommandBase commandBase;
 
   public CommandRouteBase(greymerk.roguelike.command.CommandBase commandBase) {
@@ -17,7 +17,7 @@ public abstract class CommandRouteBase implements ICommandRouter {
     this.commandBase = commandBase;
   }
 
-  protected void addRoute(String id, ICommandRouter route) {
+  protected void addRoute(String id, CommandRoute route) {
     this.routes.put(id, route);
   }
 
