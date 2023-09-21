@@ -1,29 +1,29 @@
 package greymerk.roguelike.command.routes;
 
+import com.github.fnar.roguelike.command.GenerateTowerCommand;
+
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+import greymerk.roguelike.command.BaseCommandRoute;
 import greymerk.roguelike.command.CommandContext;
-import greymerk.roguelike.command.CommandRouteBase;
-import greymerk.roguelike.dungeon.towers.Tower;
 import greymerk.roguelike.dungeon.towers.TowerType;
-import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.util.ArgumentParser;
 import greymerk.roguelike.util.EnumTools;
 import greymerk.roguelike.worldgen.Coord;
-import greymerk.roguelike.worldgen.WorldEditor;
 
 import static greymerk.roguelike.dungeon.Dungeon.TOPLEVEL;
 
-public class TowerCommand extends CommandRouteBase {
+public class TowerCommand1_12 extends BaseCommandRoute {
 
   @Override
   public void execute(CommandContext context, List<String> args) {
-    ArgumentParser ap = new ArgumentParser(args);
+    ArgumentParser argumentParser = new ArgumentParser(args);
 
-    if (!ap.hasEntry(0)) {
+    if (!argumentParser.hasEntry(0)) {
       List<String> towers = EnumTools.valuesToStrings(TowerType.class)
           .stream()
           .map(String::toLowerCase)
@@ -32,23 +32,27 @@ public class TowerCommand extends CommandRouteBase {
 
       return;
     }
-    String towerName = ap.get(0);
-    TowerType type;
-    try {
-      type = TowerType.get(towerName.toUpperCase());
-    } catch (Exception e) {
-      context.sendFailure("nosuchtower", towerName);
+    String towerName = argumentParser.get(0);
+    Optional<TowerType> towerType = getTowerType(context, towerName);
+    if (!towerType.isPresent()) {
       return;
     }
+    TowerType type = towerType.get();
 
-    Coord here = new Coord(context.getPos().getX(), TOPLEVEL, context.getPos().getZ());
+    Coord coord = context.getPos().setY(TOPLEVEL);
 
-    WorldEditor worldEditor = context.createEditor();
-    Theme theme = TowerType.getDefaultTheme(type).getThemeBase();
-    Tower tower = TowerType.instantiate(type, worldEditor, theme);
-    tower.generate(here);
+    new GenerateTowerCommand(context, type, coord).run();
     //context.sendSuccess(towerName + " Tower generated at " + here);
-    context.sendSuccess(towerName + "_generated", here.toString());
+    context.sendSuccess(towerName + "_generated", coord.toString());
+  }
+
+  private static Optional<TowerType> getTowerType(CommandContext context, String towerName) {
+    try {
+      return Optional.of(TowerType.get(towerName.toUpperCase()));
+    } catch (Exception e) {
+      context.sendFailure("nosuchtower", towerName);
+    }
+    return Optional.empty();
   }
 
   @Override

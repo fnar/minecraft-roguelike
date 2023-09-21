@@ -9,11 +9,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public abstract class CommandRouteBase implements CommandRoute {
+public abstract class BaseCommandRoute implements CommandRoute {
 
   private final Map<String, CommandRoute> routes;
 
-  public CommandRouteBase() {
+  public BaseCommandRoute() {
     this.routes = new HashMap<>();
   }
 
@@ -23,13 +23,12 @@ public abstract class CommandRouteBase implements CommandRoute {
 
   @Override
   public void execute(CommandContext context, List<String> args) {
-    if (args.size() > 0) {
-      if (this.routes.containsKey(args.get(0))) {
-        List<String> tail = new ArrayList<>(args);
-        String head = tail.remove(0);
-        this.routes.get(head).execute(context, tail);
-      }
+    if (args.isEmpty() || !this.routes.containsKey(args.get(0))) {
+      return;
     }
+    List<String> tail = new ArrayList<>(args);
+    String head = tail.remove(0);
+    this.routes.get(head).execute(context, tail);
   }
 
   @Override
@@ -38,13 +37,14 @@ public abstract class CommandRouteBase implements CommandRoute {
       return getListTabOptions(args.get(0), this.routes.keySet());
     }
 
-    if (args.size() > 1) {
-      List<String> tail = new ArrayList<>(args);
-      String head = tail.remove(0);
+    if (args.size() <= 1) {
+      return Collections.emptyList();
+    }
+    List<String> tail = new ArrayList<>(args);
+    String head = tail.remove(0);
 
-      if (this.routes.containsKey(head)) {
-        return this.routes.get(head).getTabCompletion(tail);
-      }
+    if (this.routes.containsKey(head)) {
+      return this.routes.get(head).getTabCompletion(tail);
     }
 
     return Collections.emptyList();
