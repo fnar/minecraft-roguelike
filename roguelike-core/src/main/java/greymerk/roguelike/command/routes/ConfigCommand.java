@@ -2,17 +2,12 @@ package greymerk.roguelike.command.routes;
 
 import java.util.List;
 
-import greymerk.roguelike.command.CommandBase;
 import greymerk.roguelike.command.CommandContext;
 import greymerk.roguelike.command.CommandRouteBase;
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.util.ArgumentParser;
 
 public class ConfigCommand extends CommandRouteBase {
-
-  public ConfigCommand(CommandBase commandBase) {
-    super(commandBase);
-  }
 
   @Override
   public void execute(CommandContext context, List<String> args) {

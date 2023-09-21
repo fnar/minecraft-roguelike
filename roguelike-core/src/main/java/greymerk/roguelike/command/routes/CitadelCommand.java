@@ -3,15 +3,10 @@ package greymerk.roguelike.command.routes;
 import java.util.List;
 
 import greymerk.roguelike.citadel.Citadel;
-import greymerk.roguelike.command.CommandBase;
 import greymerk.roguelike.command.CommandContext;
 import greymerk.roguelike.worldgen.Coord;
 
 public class CitadelCommand extends DungeonCommand {
-
-  public CitadelCommand(CommandBase commandBase) {
-    super(commandBase);
-  }
 
   @Override
   public void execute(CommandContext commandContext, List<String> args) {

@@ -20,21 +20,14 @@ import greymerk.roguelike.worldgen.WorldEditor;
 
 public class DungeonCommand extends CommandRouteBase {
 
-  public DungeonCommand(greymerk.roguelike.command.CommandBase commandBase) {
-    super(commandBase);
-  }
-
   public Coord getLocation(CommandContext context, List<String> args) {
     ArgumentParser argumentParser = new ArgumentParser(args);
     if (argumentParser.match(0, "here") || argumentParser.match(0, "nearby")) {
-      Coord coord = context.getPos();
-      return new Coord(coord.getX(), 0, coord.getZ());
+      return context.getPos().setY(0);
     }
     try {
-      int x = commandBase.parseInt(argumentParser.get(0));
-      int z = commandBase.parseInt(argumentParser.get(1));
-      return new Coord(x, 0, z);
-    } catch (RuntimeException e) {
+      return argumentParser.getXZCoord(0);
+    } catch (IllegalArgumentException e) {
       context.sendFailure("invalidcoords", "X Z");
       throw (e);
     }

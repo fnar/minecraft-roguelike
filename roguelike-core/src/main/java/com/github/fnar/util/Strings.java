@@ -18,4 +18,8 @@ public class Strings {
   public static List<String> asStrings(Collection<Object> stringables) {
     return stringables.stream().map(Object::toString).collect(Collectors.toList());
   }
+
+  public static boolean startWith(String original, String region) {
+    return region.regionMatches(true, 0, original, 0, original.length());
+  }
 }

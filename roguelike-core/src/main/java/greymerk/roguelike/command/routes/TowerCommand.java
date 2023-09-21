@@ -5,7 +5,6 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import greymerk.roguelike.command.CommandBase;
 import greymerk.roguelike.command.CommandContext;
 import greymerk.roguelike.command.CommandRouteBase;
 import greymerk.roguelike.dungeon.towers.Tower;
@@ -19,10 +18,6 @@ import greymerk.roguelike.worldgen.WorldEditor;
 import static greymerk.roguelike.dungeon.Dungeon.TOPLEVEL;
 
 public class TowerCommand extends CommandRouteBase {
-
-  public TowerCommand(CommandBase commandBase) {
-    super(commandBase);
-  }
 
   @Override
   public void execute(CommandContext context, List<String> args) {
@@ -53,7 +48,7 @@ public class TowerCommand extends CommandRouteBase {
     Tower tower = TowerType.instantiate(type, worldEditor, theme);
     tower.generate(here);
     //context.sendSuccess(towerName + " Tower generated at " + here);
-    context.sendSuccess(towerName + "_generated",here.toString());
+    context.sendSuccess(towerName + "_generated", here.toString());
   }
 
   @Override
@@ -63,7 +58,7 @@ public class TowerCommand extends CommandRouteBase {
         .map(String::toLowerCase)
         .collect(Collectors.toList());
 
-    if (args.size() > 0) {
+    if (!args.isEmpty()) {
       return this.getListTabOptions(args.get(0).toLowerCase(), towers);
     }
 

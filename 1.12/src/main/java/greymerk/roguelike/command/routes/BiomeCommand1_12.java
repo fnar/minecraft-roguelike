@@ -11,10 +11,6 @@ import greymerk.roguelike.util.ArgumentParser;
 
 public class BiomeCommand1_12 extends CommandRouteBase {
 
-  public BiomeCommand1_12(greymerk.roguelike.command.CommandBase commandBase) {
-    super(commandBase);
-  }
-
   @Override
   public void execute(CommandContext context, List<String> args) {
     if (!new ArgumentParser(args).hasEntry(0)) {
