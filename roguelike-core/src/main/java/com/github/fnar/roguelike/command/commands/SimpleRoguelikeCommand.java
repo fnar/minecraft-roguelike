@@ -1,8 +1,8 @@
-package com.github.fnar.roguelike.command;
+package com.github.fnar.roguelike.command.commands;
+
+import com.github.fnar.roguelike.command.CommandContext;
 
 import java.util.function.Consumer;
-
-import greymerk.roguelike.command.CommandContext;
 
 public class SimpleRoguelikeCommand extends BaseRoguelikeCommand {
 

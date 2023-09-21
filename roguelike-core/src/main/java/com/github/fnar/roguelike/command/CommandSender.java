@@ -1,4 +1,4 @@
-package greymerk.roguelike.command;
+package com.github.fnar.roguelike.command;
 
 import com.github.fnar.minecraft.item.RldItemStack;
 

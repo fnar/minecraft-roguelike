@@ -1,5 +1,7 @@
 package com.github.fnar.roguelike.command;
 
+import com.github.fnar.roguelike.command.commands.BiomeAtLocationCommand;
+import com.github.fnar.roguelike.command.commands.BiomeAtPlayerCommand;
 import com.mojang.brigadier.Command;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
@@ -9,8 +11,6 @@ import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.arguments.BlockPosArgument;
 import net.minecraft.command.arguments.ILocationArgument;
-
-import greymerk.roguelike.command.CommandContext;
 
 public class RoguelikeCommands {
 

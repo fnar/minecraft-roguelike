@@ -1,11 +1,11 @@
 package greymerk.roguelike.command.routes;
 
-import com.github.fnar.roguelike.command.GenerateDungeonCommand;
+import com.github.fnar.roguelike.command.CommandContext;
+import com.github.fnar.roguelike.command.commands.GenerateDungeonCommand;
 
 import java.util.List;
 
 import greymerk.roguelike.command.BaseCommandRoute;
-import greymerk.roguelike.command.CommandContext;
 import greymerk.roguelike.util.ArgumentParser;
 import greymerk.roguelike.worldgen.Coord;
 

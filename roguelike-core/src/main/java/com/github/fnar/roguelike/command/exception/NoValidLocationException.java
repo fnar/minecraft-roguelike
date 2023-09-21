@@ -1,4 +1,4 @@
-package greymerk.roguelike.command.exception;
+package com.github.fnar.roguelike.command.exception;
 
 import greymerk.roguelike.worldgen.Coord;
 

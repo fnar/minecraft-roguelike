@@ -1,4 +1,4 @@
-package com.github.fnar.roguelike.command;
+package com.github.fnar.roguelike.command.commands;
 
 public interface RoguelikeCommand extends Runnable {
 

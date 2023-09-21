@@ -6,7 +6,6 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.arguments.BlockPosArgument;
 
-import greymerk.roguelike.command.CommandSender;
 import greymerk.roguelike.worldgen.Coord;
 
 class ContextHolder1_14 implements ContextHolder {

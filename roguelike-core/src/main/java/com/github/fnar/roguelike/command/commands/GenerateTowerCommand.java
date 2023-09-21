@@ -1,6 +1,7 @@
-package com.github.fnar.roguelike.command;
+package com.github.fnar.roguelike.command.commands;
 
-import greymerk.roguelike.command.CommandContext;
+import com.github.fnar.roguelike.command.CommandContext;
+
 import greymerk.roguelike.dungeon.towers.Tower;
 import greymerk.roguelike.dungeon.towers.TowerType;
 import greymerk.roguelike.theme.Theme;
