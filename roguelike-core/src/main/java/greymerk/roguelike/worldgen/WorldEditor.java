@@ -16,7 +16,6 @@ import java.util.Random;
 
 import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.TreasureManager;
-import greymerk.roguelike.util.DyeColor;
 
 public interface WorldEditor {
 
@@ -53,8 +52,6 @@ public interface WorldEditor {
   boolean canPlace(SingleBlockBrush block, Coord coord, Direction dir);
 
   Coord findNearestStructure(VanillaStructure type, Coord coord, int radius);
-
-  void setBedColorAt(Coord cursor, DyeColor color);
 
   void setItem(Coord coord, int slot, RldItemStack itemStack);
 

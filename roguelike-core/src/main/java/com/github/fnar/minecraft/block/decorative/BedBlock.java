@@ -66,11 +66,10 @@ public class BedBlock extends SingleBlockBrush {
       return true;
     }
     editor.setBlock(cursor, this, fillAir, replaceSolid);
-    editor.setBedColorAt(cursor, color);
 
     cursor.translate(this.getFacing());
     editor.setBlock(cursor, getFoot(), fillAir, replaceSolid);
-    editor.setBedColorAt(cursor, color);
+
     return true;
   }
 
