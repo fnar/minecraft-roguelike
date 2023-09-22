@@ -2,7 +2,6 @@ package com.github.fnar.minecraft;
 
 
 import com.google.common.collect.Sets;
-import com.google.gson.JsonElement;
 
 import com.github.fnar.minecraft.block.BlockMapper1_12;
 import com.github.fnar.minecraft.block.BlockParser1_12;
@@ -10,10 +9,9 @@ import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.ColoredBlockMapper1_12;
 import com.github.fnar.minecraft.block.DirectionMapper1_12;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
+import com.github.fnar.minecraft.block.decorative.BedBlock;
 import com.github.fnar.minecraft.block.decorative.Plant;
 import com.github.fnar.minecraft.block.decorative.Skull;
-import com.github.fnar.minecraft.block.normal.StairsBlock;
-import com.github.fnar.minecraft.block.redstone.DoorBlock;
 import com.github.fnar.minecraft.block.spawner.SpawnPotentialMapper1_12;
 import com.github.fnar.minecraft.block.spawner.Spawner;
 import com.github.fnar.minecraft.item.RldItemStack;
@@ -58,7 +56,6 @@ import java.util.stream.Collectors;
 
 import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.TreasureManager;
-import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -219,8 +216,12 @@ public class WorldEditor1_12 implements WorldEditor {
       return false;
     }
 
-    IBlockState state = gitState(singleBlockBrush);
+    IBlockState state = singleBlockBrush.getJson() == null
+        ? BlockMapper1_12.map(singleBlockBrush)
+        : BlockParser1_12.parse(singleBlockBrush.getJson());
     world.setBlockState(BlockPosMapper1_12.map(coord), state, 2);
+
+    setColorIfBed(coord, singleBlockBrush);
 
     BlockType blockType = singleBlockBrush.getBlockType();
     // block type is null when it's a block from JSON
@@ -229,20 +230,6 @@ public class WorldEditor1_12 implements WorldEditor {
     }
 
     return true;
-  }
-
-  private static IBlockState gitState(SingleBlockBrush singleBlockBrush) {
-    JsonElement json = singleBlockBrush.getJson();
-    if (json == null) {
-      return BlockMapper1_12.map(singleBlockBrush);
-    }
-    if (singleBlockBrush instanceof StairsBlock) {
-      return BlockMapper1_12.map(singleBlockBrush);
-    }
-    if (singleBlockBrush instanceof DoorBlock) {
-      return BlockMapper1_12.map(singleBlockBrush);
-    }
-    return BlockParser1_12.parse(json);
   }
 
   @Override
@@ -293,13 +280,14 @@ public class WorldEditor1_12 implements WorldEditor {
     return Optional.ofNullable(structureBlockPosition).map(BlockPosMapper1_12::map).orElse(null);
   }
 
-  @Override
-  public void setBedColorAt(Coord cursor, DyeColor color) {
-    TileEntity tileEntity = getTileEntity(cursor);
-    if (tileEntity instanceof TileEntityBed) {
-      ((TileEntityBed) tileEntity).setColor(ColoredBlockMapper1_12.toEnumDyeColor(color));
+  private void setColorIfBed(Coord coord, SingleBlockBrush singleBlockBrush) {
+    TileEntity tileEntity = getTileEntity(coord);
+    if (!(tileEntity instanceof TileEntityBed)
+        || !singleBlockBrush.getBlockType().equals(BlockType.BED)
+        || !(singleBlockBrush instanceof BedBlock)) {
+      logger.error("Failed to paint bed at position {} to become color {}. Current block at position is {}.", coord, ((BedBlock) singleBlockBrush).getColor(), getBlockStateAt(coord));
     } else {
-      logger.error("Failed to paint bed at position {} to become color {}. Current block at position is {}.", cursor, color, getBlockStateAt(cursor));
+      ((TileEntityBed) tileEntity).setColor(ColoredBlockMapper1_12.toEnumDyeColor(((BedBlock) singleBlockBrush).getColor()));
     }
   }
 

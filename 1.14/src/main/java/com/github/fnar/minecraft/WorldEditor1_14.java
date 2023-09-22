@@ -2,6 +2,8 @@ package com.github.fnar.minecraft;
 
 import com.google.common.collect.Sets;
 
+import com.github.fnar.minecraft.block.BlockMapper1_14;
+import com.github.fnar.minecraft.block.BlockParser1_14;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.decorative.Plant;
@@ -43,7 +45,6 @@ import java.util.stream.Collectors;
 
 import greymerk.roguelike.treasure.TreasureChest;
 import greymerk.roguelike.treasure.TreasureManager;
-import greymerk.roguelike.util.DyeColor;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -151,34 +152,31 @@ public class WorldEditor1_14 implements WorldEditor {
 
   @Override
   public boolean setBlock(Coord coord, SingleBlockBrush singleBlockBrush, boolean fillAir, boolean replaceSolid) {
-//    if (isBlockOfTypeAt(BlockType.CHEST, coord) ||
-//        isBlockOfTypeAt(BlockType.TRAPPED_CHEST, coord) ||
-//        isBlockOfTypeAt(BlockType.MOB_SPAWNER, coord)) {
-//      return false;
-//    }
-//    boolean isAir = isBlockOfTypeAt(BlockType.AIR, coord);
-//    if (!fillAir && isAir) {
-//      return false;
-//    }
-//    if (!replaceSolid && !isAir) {
-//      return false;
-//    }
-//
-//    MetaBlock1_14 metaBlock = getMetaBlock(singleBlockBrush);
-//    try {
-//      world.setBlockState(BlockPosMapper1_14.map(coord), metaBlock.getState(), metaBlock.getFlag());
-//    } catch (NullPointerException npe) {
-//      LogManager.getLogger(MOD_ID).error(npe);
-//    }
-//
-//    BlockType blockType = singleBlockBrush.getBlockType();
-//    // block type is null when it's a block from JSON
-//    if (blockType != null) {
-//      stats.merge(blockType, 1, Integer::sum);
-//    }
-//
-//    return true;
-    throw new NotImplementedException("Not yet implemented");
+    if (isBlockOfTypeAt(BlockType.CHEST, coord) ||
+        isBlockOfTypeAt(BlockType.TRAPPED_CHEST, coord) ||
+        isBlockOfTypeAt(BlockType.SPAWNER, coord)) {
+      return false;
+    }
+    boolean isAir = isBlockOfTypeAt(BlockType.AIR, coord);
+    if (!fillAir && isAir) {
+      return false;
+    }
+    if (!replaceSolid && !isAir) {
+      return false;
+    }
+
+    BlockState state = singleBlockBrush.getJson() == null
+        ? BlockMapper1_14.map(singleBlockBrush)
+        : BlockParser1_14.parse(singleBlockBrush.getJson());
+    world.setBlockState(BlockPosMapper1_14.map(coord), state, 2);
+
+    BlockType blockType = singleBlockBrush.getBlockType();
+    // block type is null when it's a block from JSON
+    if (blockType != null) {
+      stats.merge(blockType, 1, Integer::sum);
+    }
+
+    return true;
   }
 
   @Override
@@ -224,17 +222,6 @@ public class WorldEditor1_14 implements WorldEditor {
     String structureName = VanillaStructure.getName(type);
     BlockPos structureBlockPosition = world.findNearestStructure(structureName, BlockPosMapper1_14.map(coord), radius, false);
     return Optional.ofNullable(structureBlockPosition).map(BlockPosMapper1_14::map).orElse(null);
-  }
-
-  @Override
-  public void setBedColorAt(Coord cursor, DyeColor color) {
-//    TileEntity tileEntity = getTileEntity(cursor);
-//    if (tileEntity instanceof BedTileEntity) {
-//      ((BedTileEntity) tileEntity).setColor(BlockMapper1_14.toEnumDyeColor(color));
-//    } else {
-//      logger.error("Failed to paint bed at position {} to become color {}. Current block at position is {}.", cursor, color, getBlockStateAt(cursor));
-//    }
-    throw new NotImplementedException("Not yet implemented");
   }
 
   @Override
@@ -300,11 +287,11 @@ public class WorldEditor1_14 implements WorldEditor {
   }
 
   public static void setSkullType(SkullTileEntity skull, Skull type) {
-
+    throw new NotImplementedException("Not yet implemented");
   }
 
   public static void setSkullRotation(Random rand, SkullTileEntity skull, Direction dir) {
-
+    throw new NotImplementedException("Not yet implemented");
   }
 
   @Override
