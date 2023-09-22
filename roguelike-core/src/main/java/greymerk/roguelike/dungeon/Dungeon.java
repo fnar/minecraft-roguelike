@@ -241,7 +241,7 @@ public class Dungeon {
     if (SettingsResolver.instance == null) {
       return Optional.empty();
     }
-    return SettingsResolver.instance.chooseDungeonSetting(editor, coord);
+    return SettingsResolver.instance.chooseRandom(editor, coord);
   }
 
   public Coord getPosition() {

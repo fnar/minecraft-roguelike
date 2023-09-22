@@ -1,7 +1,7 @@
 package greymerk.roguelike.command.routes;
 
 import com.github.fnar.roguelike.command.CommandContext;
-import com.github.fnar.roguelike.command.commands.GenerateDungeonCommand;
+import com.github.fnar.roguelike.command.commands.DungeonCommand;
 
 import java.util.List;
 
@@ -21,7 +21,7 @@ public class DungeonCommand1_12 extends BaseCommandRoute {
       }
       String settingName = parseSettingName(argumentParser);
       Coord coord = parseCoord(commandContext, args);
-      new GenerateDungeonCommand(commandContext, settingName, coord).run();
+      new DungeonCommand(commandContext, coord, settingName).run();
     } catch (Exception e) {
       commandContext.sendFailure(e);
     }
