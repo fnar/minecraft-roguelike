@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import com.google.common.io.Files;
 
 import com.github.fnar.forge.ModLoader;
+import com.github.fnar.roguelike.settings.exception.SettingsNotFoundException;
 
 import org.apache.commons.io.FilenameUtils;
 
@@ -182,7 +183,7 @@ public class SettingsContainer {
 
   public DungeonSettings get(SettingIdentifier id) {
     if (!contains(id)) {
-      throw new RuntimeException("Setting not found: " + id);
+      throw new SettingsNotFoundException(id.getName());
     }
     return getNamespace(id).get(id.getName());
   }

@@ -1,5 +1,7 @@
 package greymerk.roguelike.dungeon.settings;
 
+import com.github.fnar.roguelike.settings.exception.SettingsNotFoundException;
+
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -27,21 +29,16 @@ public class SettingsResolver {
     this.settingsContainer = settingsContainer;
   }
 
-  public Optional<DungeonSettings> chooseDungeonSetting(WorldEditor editor, Coord coord) {
-    Optional<DungeonSettings> customDungeon = chooseRandomCustomDungeonIfPossible(editor, coord);
-    return customDungeon.isPresent()
-        ? customDungeon
-        : chooseOneBuiltinSettingAtRandom(editor, coord);
+  public DungeonSettings resolve(String settingName) {
+    DungeonSettings dungeonSettings = settingsContainer.get(new SettingIdentifier(settingName));
+    DungeonSettings inflatedDungeonSettings = processInheritance(dungeonSettings);
+    return ofNullable(inflatedDungeonSettings).orElseThrow(() -> new SettingsNotFoundException(settingName));
   }
 
-  public DungeonSettings getByName(String name) {
-    try {
-      SettingIdentifier id = new SettingIdentifier(name);
-      DungeonSettings dungeonSettings = settingsContainer.get(id);
-      return processInheritance(dungeonSettings);
-    } catch (Exception e) {
-      throw new RuntimeException(e);
-    }
+  public Optional<DungeonSettings> chooseRandom(WorldEditor editor, Coord coord) {
+    return Optional.ofNullable(chooseRandomCustom(editor, coord)
+        .orElse(chooseRandomBuiltin(editor, coord)
+            .orElse(null)));
   }
 
   public DungeonSettings processInheritance(DungeonSettings dungeonSettings) {
@@ -53,14 +50,14 @@ public class SettingsResolver {
     return dungeonSettings.inherit(accumulatedInheritedSettings);
   }
 
-  private Optional<DungeonSettings> chooseOneBuiltinSettingAtRandom(WorldEditor editor, Coord coord) {
+  private Optional<DungeonSettings> chooseRandomBuiltin(WorldEditor editor, Coord coord) {
     if (!RogueConfig.SPAWNBUILTIN.getBoolean()) {
       return empty();
     }
     return chooseRandomValid(editor, coord, settingsContainer.getBuiltinSettings());
   }
 
-  private Optional<DungeonSettings> chooseRandomCustomDungeonIfPossible(WorldEditor editor, Coord coord) {
+  private Optional<DungeonSettings> chooseRandomCustom(WorldEditor editor, Coord coord) {
     return chooseRandomValid(editor, coord, settingsContainer.getCustomSettings());
   }
 

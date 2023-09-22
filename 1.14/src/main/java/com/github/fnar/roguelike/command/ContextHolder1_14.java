@@ -8,7 +8,7 @@ import net.minecraft.command.arguments.BlockPosArgument;
 
 import greymerk.roguelike.worldgen.Coord;
 
-class ContextHolder1_14 implements ContextHolder {
+public class ContextHolder1_14 implements ContextHolder {
   private final com.mojang.brigadier.context.CommandContext<CommandSource> context;
   private final CommandSender1_14 commandSender;
 
@@ -25,7 +25,7 @@ class ContextHolder1_14 implements ContextHolder {
   @Override
   public Coord getArgumentAsCoord(String argumentName) {
     try {
-      return BlockPosMapper1_14.map(BlockPosArgument.getLoadedBlockPos(context, "position"));
+      return BlockPosMapper1_14.map(BlockPosArgument.getBlockPos(context, "position"));
     } catch (CommandSyntaxException e) {
       // todo: Create new module-neutral Exception Class
       throw new RuntimeException(e);

@@ -244,14 +244,13 @@ public class SettingsResolverTest {
     );
     String potionLootRules = potionTypes.stream().map(this::createPotionLootRule).collect(Collectors.joining(","));
     String settingsName = "loot:potions";
-    String potionLootSettings = "" +
-        "{\n" +
+    String potionLootSettings = "{\n" +
         "  \"name\": \"" + settingsName + "\",\n" +
         "  \"lootRules\": [" + potionLootRules + "]" +
         "}";
 
     settingsContainer.put(potionLootSettings);
-    DungeonSettings dungeonSettings = settingsResolver.getByName(settingsName);
+    DungeonSettings dungeonSettings = settingsResolver.resolve(settingsName);
 
     dungeonSettings.getLootRules().process(treasureManager);
 
