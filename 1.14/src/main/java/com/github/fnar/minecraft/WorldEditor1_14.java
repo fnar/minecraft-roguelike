@@ -30,7 +30,6 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.spawner.AbstractSpawner;
 import net.minecraftforge.common.BiomeDictionary;
 
-import org.apache.commons.lang3.NotImplementedException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -210,11 +209,8 @@ public class WorldEditor1_14 implements WorldEditor {
   }
 
   @Override
-  public boolean canPlace(SingleBlockBrush block, Coord coord, Direction dir) {
-    // todo: can we map the `block` here instead of block.getType()?
-//    return isAirBlock(coord)
-//        && BlockMapper1_14.map(block.getBlockType()).getBlock().canPlaceBlockOnSide(world, BlockPosMapper1_14.map(coord), BlockMapper1_12.getFacing(dir));
-    throw new NotImplementedException("Not yet implemented");
+  public boolean isValidPosition(SingleBlockBrush block, Coord coord) {
+    return BlockMapper1_14.map(block).isValidPosition(world, BlockPosMapper1_14.map(coord));
   }
 
   @Override
@@ -226,6 +222,7 @@ public class WorldEditor1_14 implements WorldEditor {
 
   @Override
   public void setItem(Coord coord, int slot, RldItemStack itemStack) {
+    // TODO: implement
 //    TileEntity tileEntity = getTileEntity(coord);
 //    if (tileEntity == null) {
 //      return;
@@ -239,11 +236,12 @@ public class WorldEditor1_14 implements WorldEditor {
 //    } catch (NullPointerException nullPointerException) {
 //      logger.error("Could not place item {} at position {}. BlockState at pos: {}.", forgeItemStack, coord, getBlockStateAt(coord));
 //    }
-    throw new NotImplementedException("Not yet implemented");
   }
 
   @Override
   public void setFlowerPotContent(Coord coord, Plant choice) {
+    // TODO: implement
+
 //    TileEntity potEntity = getTileEntity(coord);
 //
 //    if (potEntity == null) {
@@ -261,7 +259,6 @@ public class WorldEditor1_14 implements WorldEditor {
 //    ///////
 //    Supplier<Block> flowerDelegate = () -> Blocks.CACTUS;
 //    new FlowerPotBlock(null, flowerDelegate, null);
-    throw new NotImplementedException("Not yet implemented");
   }
 
   @Override
@@ -287,11 +284,11 @@ public class WorldEditor1_14 implements WorldEditor {
   }
 
   public static void setSkullType(SkullTileEntity skull, Skull type) {
-    throw new NotImplementedException("Not yet implemented");
+    // TODO: implement
   }
 
   public static void setSkullRotation(Random rand, SkullTileEntity skull, Direction dir) {
-    throw new NotImplementedException("Not yet implemented");
+    // TODO: implement
   }
 
   @Override

@@ -49,7 +49,7 @@ public interface WorldEditor {
 
   Map<BlockType, Integer> getStats();
 
-  boolean canPlace(SingleBlockBrush block, Coord coord, Direction dir);
+  boolean isValidPosition(SingleBlockBrush block, Coord coord);
 
   Coord findNearestStructure(VanillaStructure type, Coord coord, int radius);
 

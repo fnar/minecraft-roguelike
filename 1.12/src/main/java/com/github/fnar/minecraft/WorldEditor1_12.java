@@ -267,9 +267,8 @@ public class WorldEditor1_12 implements WorldEditor {
   }
 
   @Override
-  public boolean canPlace(SingleBlockBrush block, Coord coord, Direction dir) {
-    // todo: can we map the `block` here instead of block.getType()?
-    return isAirBlock(coord) && BlockMapper1_12.map(block.getBlockType().getBrush()).getBlock().canPlaceBlockOnSide(world, BlockPosMapper1_12.map(coord), DirectionMapper1_12.map(dir));
+  public boolean isValidPosition(SingleBlockBrush block, Coord coord) {
+    return BlockMapper1_12.map(block).getBlock().canPlaceBlockOnSide(world, BlockPosMapper1_12.map(coord), DirectionMapper1_12.map(block.getFacing()));
   }
 
   @Override
