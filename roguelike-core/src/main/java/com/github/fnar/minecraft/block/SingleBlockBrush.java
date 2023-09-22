@@ -40,7 +40,7 @@ public class SingleBlockBrush implements BlockBrush {
   }
 
   @Override
-  public BlockBrush setFacing(Direction facing) {
+  public SingleBlockBrush setFacing(Direction facing) {
     this.facing = facing;
     return this;
   }
@@ -50,6 +50,10 @@ public class SingleBlockBrush implements BlockBrush {
     copy.setFacing(facing);
     copy.setJson(json);
     return copy;
+  }
+
+  public boolean isValidPosition(WorldEditor editor, Coord coord) {
+    return editor.isValidPosition(this, coord);
   }
 
 }

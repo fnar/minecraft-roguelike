@@ -25,12 +25,8 @@ public class VineBlock extends SingleBlockBrush {
     directions.add(Direction.UP);
     Collections.shuffle(directions, editor.getRandom());
     for (Direction dir : directions) {
-      if (dir == Direction.DOWN) {
-        return false;
-      }
-      Coord c = origin.copy();
-      if (editor.canPlace(this, c, dir)) {
-        setFacing(dir);
+      setFacing(dir);
+      if (isValidPosition(editor, origin.copy())) {
         super.stroke(editor, origin, fillAir, replaceSolid);
         return true;
       }
@@ -47,5 +43,10 @@ public class VineBlock extends SingleBlockBrush {
     VineBlock vineBlock = new VineBlock();
     vineBlock.setFacing(getFacing());
     return vineBlock;
+  }
+
+  @Override
+  public boolean isValidPosition(WorldEditor editor, Coord coord) {
+    return editor.isAirBlock(coord) && super.isValidPosition(editor, coord);
   }
 }

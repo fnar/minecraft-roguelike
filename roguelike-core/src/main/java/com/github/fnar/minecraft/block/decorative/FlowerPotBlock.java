@@ -31,11 +31,14 @@ public class FlowerPotBlock extends SingleBlockBrush {
 
   @Override
   public boolean stroke(WorldEditor editor, Coord pos, boolean fillAir, boolean replaceSolid) {
-    boolean succeeded = super.stroke(editor, pos, fillAir, replaceSolid);
-    if (succeeded && this.content != null) {
-      editor.setFlowerPotContent(pos, this.getContent());
+    if (!super.stroke(editor, pos, fillAir, replaceSolid)) {
+      return false;
     }
-    return succeeded;
+    if (this.content == null) {
+      return true;
+    }
+    editor.setFlowerPotContent(pos, this.getContent());
+    return true;
   }
 
   public static FlowerPotBlock flowerPot() {
