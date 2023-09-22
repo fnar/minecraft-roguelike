@@ -89,6 +89,15 @@ public class StairsBlock extends SingleBlockBrush {
     return new StairsBlock(BlockType.PURPUR_STAIRS, Material.NONE);
   }
 
+  public StairsBlock withWaterlogging(boolean isWaterlogged) {
+    super.withWaterlogging(isWaterlogged);
+    return this;
+  }
+
+  public StairsBlock withWaterlogging() {
+    return this.withWaterlogging(true);
+  }
+
   @Override
   public StairsBlock copy() {
     JsonElement json = getJson();
@@ -97,6 +106,7 @@ public class StairsBlock extends SingleBlockBrush {
         : new StairsBlock(getBlockType(), getMaterial());
     copy.setFacing(getFacing());
     copy.setUpsideDown(this.isUpsideDown);
+    copy.setWaterlogged(isWaterlogged());
     return copy;
   }
 }

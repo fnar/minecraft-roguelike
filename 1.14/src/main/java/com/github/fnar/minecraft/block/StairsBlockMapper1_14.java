@@ -8,6 +8,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.state.properties.Half;
+import net.minecraft.state.properties.StairsShape;
 
 public class StairsBlockMapper1_14 {
 
@@ -18,7 +19,10 @@ public class StairsBlockMapper1_14 {
         : getBlockForStairs(stairsBlock.getBlockType()).getDefaultState();
     return blockState
         .with(net.minecraft.block.StairsBlock.FACING, DirectionMapper1_14.map(stairsBlock.getFacing()))
-        .with(net.minecraft.block.StairsBlock.HALF, stairsBlock.isUpsideDown() ? Half.TOP : Half.BOTTOM);
+        .with(net.minecraft.block.StairsBlock.HALF, stairsBlock.isUpsideDown() ? Half.TOP : Half.BOTTOM)
+        .with(net.minecraft.block.StairsBlock.SHAPE, StairsShape.STRAIGHT) // TODO: implement
+        .with(net.minecraft.block.StairsBlock.WATERLOGGED, stairsBlock.isWaterlogged())
+        ;
   }
 
   private static Block getBlockForStairs(BlockType stairs) {

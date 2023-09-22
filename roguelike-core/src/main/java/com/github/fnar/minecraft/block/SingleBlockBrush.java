@@ -20,6 +20,7 @@ public class SingleBlockBrush implements BlockBrush {
   private Direction facing = Direction.EAST;
   private JsonElement json;
   private Material material;
+  private boolean isWaterlogged;
 
   public SingleBlockBrush(BlockType blockType) {
     this(blockType, Material.NONE);
@@ -45,10 +46,29 @@ public class SingleBlockBrush implements BlockBrush {
     return this;
   }
 
+  public void setWaterlogged(boolean isWaterlogged) {
+    this.isWaterlogged = isWaterlogged;
+  }
+
+  public SingleBlockBrush withWaterlogging(boolean isWaterlogged) {
+    this.isWaterlogged = isWaterlogged;
+    return this;
+  }
+
+  public SingleBlockBrush withWaterlogging() {
+    return this.withWaterlogging(true);
+  }
+
+  public boolean isWaterlogged() {
+    return this.isWaterlogged;
+  }
+
   public SingleBlockBrush copy() {
-    SingleBlockBrush copy = new SingleBlockBrush(this.blockType, this.material);
+    SingleBlockBrush copy = new SingleBlockBrush(this.blockType);
     copy.setFacing(facing);
     copy.setJson(json);
+    copy.setMaterial(material);
+    copy.setWaterlogged(isWaterlogged);
     return copy;
   }
 
