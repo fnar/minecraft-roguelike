@@ -11,12 +11,14 @@ import com.github.fnar.minecraft.block.decorative.Skull;
 import com.github.fnar.minecraft.block.spawner.SpawnPotentialMapper1_14;
 import com.github.fnar.minecraft.block.spawner.Spawner;
 import com.github.fnar.minecraft.item.RldItemStack;
+import com.github.fnar.minecraft.item.mapper.ItemMapper1_14;
 import com.github.fnar.minecraft.world.BiomeTag;
 import com.github.fnar.minecraft.world.BiomeTagMapper1_14;
 import com.github.fnar.minecraft.world.BlockPosMapper1_14;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ChestTileEntity;
 import net.minecraft.tileentity.LockableLootTileEntity;
@@ -222,20 +224,19 @@ public class WorldEditor1_14 implements WorldEditor {
 
   @Override
   public void setItem(Coord coord, int slot, RldItemStack itemStack) {
-    // TODO: implement
-//    TileEntity tileEntity = getTileEntity(coord);
-//    if (tileEntity == null) {
-//      return;
-//    }
-//    if (!(tileEntity instanceof LockableLootTileEntity)) {
-//      return;
-//    }
-//    ItemStack forgeItemStack = new ItemMapper1_14().map(itemStack);
-//    try {
-//      ((LockableLootTileEntity) tileEntity).setInventorySlotContents(slot, forgeItemStack);
-//    } catch (NullPointerException nullPointerException) {
-//      logger.error("Could not place item {} at position {}. BlockState at pos: {}.", forgeItemStack, coord, getBlockStateAt(coord));
-//    }
+    TileEntity tileEntity = getTileEntity(coord);
+    if (tileEntity == null) {
+      return;
+    }
+    if (!(tileEntity instanceof LockableLootTileEntity)) {
+      return;
+    }
+    ItemStack forgeItemStack = new ItemMapper1_14().map(itemStack);
+    try {
+      ((LockableLootTileEntity) tileEntity).setInventorySlotContents(slot, forgeItemStack);
+    } catch (NullPointerException nullPointerException) {
+      logger.error("Could not place item {} at position {}. BlockState at pos: {}.", forgeItemStack, coord, getBlockStateAt(coord));
+    }
   }
 
   @Override
