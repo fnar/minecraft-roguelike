@@ -8,7 +8,6 @@ public class SlabBlock extends SingleBlockBrush {
   private boolean isFullBlock;
   private boolean isTop;
   private boolean isSeamless;
-  private boolean isWaterlogged;
 
   public SlabBlock(BlockType blockType) {
     super(blockType);
@@ -121,12 +120,8 @@ public class SlabBlock extends SingleBlockBrush {
     return this;
   }
 
-  public void setWaterlogged(boolean isWaterlogged) {
-    this.isWaterlogged = isWaterlogged;
-  }
-
   public SlabBlock withWaterlogging(boolean isWaterlogged) {
-    this.isWaterlogged = isWaterlogged;
+    super.withWaterlogging(isWaterlogged);
     return this;
   }
 
@@ -134,17 +129,15 @@ public class SlabBlock extends SingleBlockBrush {
     return this.withWaterlogging(true);
   }
 
-  public boolean isWaterlogged() {
-    return this.isWaterlogged;
-  }
-
   @Override
   public SlabBlock copy() {
-    SlabBlock copy = new SlabBlock(getBlockType());
+    SlabBlock copy = new SlabBlock(this.getBlockType());
+    copy.setMaterial(getMaterial());
     copy.setFacing(getFacing());
-    copy.setFullBlock(isFullBlock);
-    copy.setSeamless(isSeamless);
-    copy.setTop(isTop);
+    copy.setFullBlock(isFullBlock());
+    copy.setSeamless(isSeamless());
+    copy.setTop(isTop());
+    copy.setWaterlogged(isWaterlogged());
     return copy;
   }
 }
