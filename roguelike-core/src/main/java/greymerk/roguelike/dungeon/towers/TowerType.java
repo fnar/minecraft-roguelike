@@ -24,39 +24,6 @@ public enum TowerType {
   WITCH
   ;
 
-  public static Tower instantiate(TowerType type, WorldEditor worldEditor, Theme theme) {
-
-    switch (type) {
-      default:
-      case ROGUE:
-        return new RogueTower(worldEditor, theme);
-      case ENIKO:
-        return new EniTower(worldEditor, theme);
-      case ETHO:
-        return new EthoTower(worldEditor, theme);
-      case PYRAMID:
-        return new PyramidTower(worldEditor, theme);
-      case JUNGLE:
-        return new JungleTower(worldEditor, theme);
-      case WITCH:
-        return new WitchTower(worldEditor, theme);
-      case HOUSE:
-        return new HouseTower(worldEditor, theme);
-      case BUNKER:
-        return new BunkerTower(worldEditor, theme);
-      case RUIN:
-        return new RuinTower(worldEditor, theme);
-      case HOLE:
-        return new HoleTower(worldEditor, theme);
-      case TREE:
-        return new TreeTower(worldEditor, theme);
-      case BUMBO:
-        return new BumboTower(worldEditor, theme);
-      case VILLAGER_HOUSE:
-        return new VillagerHouseTower(worldEditor, theme);
-    }
-  }
-
   public static Themes getDefaultTheme(TowerType type) {
     switch (type) {
       case ETHO:
@@ -118,4 +85,36 @@ public enum TowerType {
   }
 
 
+  public Tower instantiate(WorldEditor worldEditor, Theme theme) {
+
+    switch (this) {
+      default:
+      case ROGUE:
+        return new RogueTower(worldEditor, theme);
+      case ENIKO:
+        return new EniTower(worldEditor, theme);
+      case ETHO:
+        return new EthoTower(worldEditor, theme);
+      case PYRAMID:
+        return new PyramidTower(worldEditor, theme);
+      case JUNGLE:
+        return new JungleTower(worldEditor, theme);
+      case WITCH:
+        return new WitchTower(worldEditor, theme);
+      case HOUSE:
+        return new HouseTower(worldEditor, theme);
+      case BUNKER:
+        return new BunkerTower(worldEditor, theme);
+      case RUIN:
+        return new RuinTower(worldEditor, theme);
+      case HOLE:
+        return new HoleTower(worldEditor, theme);
+      case TREE:
+        return new TreeTower(worldEditor, theme);
+      case BUMBO:
+        return new BumboTower(worldEditor, theme);
+      case VILLAGER_HOUSE:
+        return new VillagerHouseTower(worldEditor, theme);
+    }
+  }
 }

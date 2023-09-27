@@ -11,6 +11,7 @@ public class RoguelikeCommand1_14 {
     return Commands.literal("roguelike")
         .requires(RoguelikeCommand1_14::isCreativePlayer)
         .then(BiomeCommand1_14.biomeCommand())
+        .then(CitadelCommand1_14.citadelCommand())
         .then(ConfigCommand1_14.configCommand())
         .then(DungeonCommand1_14.dungeonCommand())
         .then(GiveCommand1_14.giveCommand())

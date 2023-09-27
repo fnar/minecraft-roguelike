@@ -14,7 +14,7 @@ import greymerk.roguelike.worldgen.Coord;
 public class DungeonCommand1_14 {
 
   public static final String ARG_SETTINGS_NAME = "settingsName";
-  public static final String ARG_POSITION = "position";
+  public static final String ARG_COORD = "coord";
 
   public static LiteralArgumentBuilder<CommandSource> dungeonCommand() {
     return Commands.literal("dungeon")
@@ -26,17 +26,18 @@ public class DungeonCommand1_14 {
             .executes(DungeonCommand1_14::generateDungeon)
             .then(Commands.argument(ARG_SETTINGS_NAME, StringArgumentType.string())
                 .executes(DungeonCommand1_14::generateDungeon)))
-        .then(Commands.argument(ARG_POSITION, BlockPosArgument.blockPos())
+        .then(Commands.argument(ARG_COORD, BlockPosArgument.blockPos())
             .executes(DungeonCommand1_14::generateDungeon)
             .then(Commands.argument(ARG_SETTINGS_NAME, StringArgumentType.string())
-                .executes(DungeonCommand1_14::generateDungeon)));
+                .executes(DungeonCommand1_14::generateDungeon)))
+        .executes(DungeonCommand1_14::generateDungeon);
   }
 
   private static int generateDungeon(CommandContext<CommandSource> context) {
-    com.github.fnar.roguelike.command.CommandContext commandContext = new com.github.fnar.roguelike.command.CommandContext(new ContextHolder1_14(context));
-    Coord coord = commandContext.getArgumentAsCoord(ARG_POSITION).orElse(null);
-    String settingName = commandContext.getArgument(ARG_SETTINGS_NAME).orElse(null);
-    new DungeonCommand(commandContext, coord, settingName).run();
+    com.github.fnar.roguelike.command.CommandContext context1_14 = new com.github.fnar.roguelike.command.CommandContext(new ContextHolder1_14(context));
+    Coord coord = context1_14.getArgumentAsCoord(ARG_COORD).orElse(null);
+    String settingName = context1_14.getArgument(ARG_SETTINGS_NAME).orElse(null);
+    new DungeonCommand(context1_14, coord, settingName).run();
     return 0;
   }
 
