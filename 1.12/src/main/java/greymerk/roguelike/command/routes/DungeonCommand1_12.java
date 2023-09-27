@@ -40,7 +40,7 @@ public class DungeonCommand1_12 extends BaseCommandRoute {
   protected Coord parseCoord(CommandContext context, List<String> args) {
     ArgumentParser argumentParser = new ArgumentParser(args);
     if (isNearby(argumentParser)) {
-      return context.getPos().setY(0);
+      return context.getSenderCoord().setY(0);
     }
     try {
       return argumentParser.getXZCoord(0);

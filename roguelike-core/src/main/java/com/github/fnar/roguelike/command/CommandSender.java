@@ -15,5 +15,5 @@ public interface CommandSender {
 
   WorldEditor createWorldEditor();
 
-  Coord getPos();
+  Coord getCoord();
 }

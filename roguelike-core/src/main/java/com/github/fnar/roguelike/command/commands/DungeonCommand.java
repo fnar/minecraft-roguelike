@@ -3,6 +3,7 @@ package com.github.fnar.roguelike.command.commands;
 import com.github.fnar.roguelike.command.CommandContext;
 import com.github.fnar.roguelike.command.exception.NoValidLocationException;
 
+import java.util.Optional;
 import java.util.Random;
 
 import greymerk.roguelike.dungeon.Dungeon;
@@ -22,7 +23,7 @@ public class DungeonCommand extends BaseRoguelikeCommand {
   public DungeonCommand(CommandContext commandContext, Coord coord, String settingName) {
     super(commandContext);
     this.settingName = settingName;
-    this.coord = coord;
+    this.coord = Optional.ofNullable(coord).orElse(commandContext.getSenderCoord());
   }
 
   @Override

@@ -5,10 +5,14 @@ import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.arguments.BlockPosArgument;
+import net.minecraft.util.math.BlockPos;
+
+import java.util.Optional;
 
 import greymerk.roguelike.worldgen.Coord;
 
 public class ContextHolder1_14 implements ContextHolder {
+
   private final com.mojang.brigadier.context.CommandContext<CommandSource> context;
   private final CommandSender1_14 commandSender;
 
@@ -18,22 +22,40 @@ public class ContextHolder1_14 implements ContextHolder {
   }
 
   @Override
-  public String getArgument(String argumentName) {
-    return context.getArgument(argumentName, String.class);
+  public Optional<String> getArgument(int argumentIndex) {
+    throw getException1_14DoesNotSupportIndexedArguments();
   }
 
   @Override
-  public Coord getArgumentAsCoord(String argumentName) {
+  public Optional<String> getArgument(String argumentName) {
     try {
-      return BlockPosMapper1_14.map(BlockPosArgument.getBlockPos(context, "position"));
-    } catch (CommandSyntaxException e) {
-      // todo: Create new module-neutral Exception Class
-      throw new RuntimeException(e);
+      return Optional.ofNullable(context.getArgument(argumentName, String.class));
+    } catch (IllegalArgumentException ignored) {
     }
+    return Optional.empty();
+  }
+
+  @Override
+  public Optional<Coord> getArgumentAsCoord(String argumentName) {
+    try {
+      BlockPos position = BlockPosArgument.getBlockPos(context, argumentName);
+      return Optional.of(BlockPosMapper1_14.map(position));
+    } catch (CommandSyntaxException | IllegalArgumentException ignored) {
+    }
+    return Optional.empty();
+  }
+
+  @Override
+  public Optional<Coord> getArgumentAsCoord(int argumentIndex) {
+    throw getException1_14DoesNotSupportIndexedArguments();
   }
 
   @Override
   public CommandSender getCommandSender() {
     return commandSender;
+  }
+
+  private static UnsupportedOperationException getException1_14DoesNotSupportIndexedArguments() {
+    return new UnsupportedOperationException("1.14 does not support fetching arguments by index.");
   }
 }

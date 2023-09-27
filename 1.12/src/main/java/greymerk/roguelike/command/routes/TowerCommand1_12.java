@@ -39,7 +39,7 @@ public class TowerCommand1_12 extends BaseCommandRoute {
     }
     TowerType type = towerType.get();
 
-    Coord coord = context.getPos().setY(TOPLEVEL);
+    Coord coord = context.getSenderCoord().setY(TOPLEVEL);
 
     new GenerateTowerCommand(context, type, coord).run();
     //context.sendSuccess(towerName + " Tower generated at " + here);

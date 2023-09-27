@@ -1,6 +1,6 @@
 package com.github.fnar.roguelike;
 
-import com.github.fnar.roguelike.command.RoguelikeCommands;
+import com.github.fnar.roguelike.command.RoguelikeCommand1_14;
 import com.mojang.brigadier.CommandDispatcher;
 
 import net.minecraft.block.Block;
@@ -105,7 +105,7 @@ public class Roguelike {
 
     CommandDispatcher<CommandSource> commandDispatcher = event.getServer().getCommandManager().getDispatcher();
 
-    commandDispatcher.register(RoguelikeCommands.roguelikeCommand());
+    commandDispatcher.register(RoguelikeCommand1_14.roguelikeCommand());
   }
 
   // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD

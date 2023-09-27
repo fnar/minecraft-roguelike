@@ -2,9 +2,8 @@ package com.github.fnar.roguelike.command;
 
 import net.minecraft.command.ICommandSender;
 
-import org.apache.commons.lang3.NotImplementedException;
-
 import java.util.List;
+import java.util.Optional;
 
 import greymerk.roguelike.util.ArgumentParser;
 import greymerk.roguelike.worldgen.Coord;
@@ -20,18 +19,32 @@ public class ContextHolder1_12 implements ContextHolder {
   }
 
   @Override
-  public Coord getArgumentAsCoord(String argumentName) {
-    return argumentParser.getCoord(1);
+  public Optional<String> getArgument(int argumentIndex) {
+    return Optional.ofNullable(argumentParser.get(argumentIndex));
   }
 
   @Override
-  public String getArgument(String argumentName) {
-    // TODO: Fix;
-    throw new NotImplementedException("Part of 1.12 commands refactor");
+  public Optional<String> getArgument(String argumentName) {
+    throw getException1_12DoesNotSupportNamedArguments();
+  }
+
+  @Override
+  public Optional<Coord> getArgumentAsCoord(int argumentIndex) {
+    return Optional.of(argumentParser.getCoord(argumentIndex));
+  }
+
+  @Override
+  public Optional<Coord> getArgumentAsCoord(String argumentName) {
+    throw getException1_12DoesNotSupportNamedArguments();
   }
 
   @Override
   public CommandSender getCommandSender() {
     return sender;
   }
+
+  private static UnsupportedOperationException getException1_12DoesNotSupportNamedArguments() {
+    return new UnsupportedOperationException("1.12 does not support fetching arguments by name.");
+  }
+
 }
