@@ -281,13 +281,15 @@ public class WorldEditor1_12 implements WorldEditor {
 
   private void setColorIfBed(Coord coord, SingleBlockBrush singleBlockBrush) {
     TileEntity tileEntity = getTileEntity(coord);
-    if (!(tileEntity instanceof TileEntityBed)
-        || !singleBlockBrush.getBlockType().equals(BlockType.BED)
-        || !(singleBlockBrush instanceof BedBlock)) {
-      logger.error("Failed to paint bed at position {} to become color {}. Current block at position is {}.", coord, ((BedBlock) singleBlockBrush).getColor(), getBlockStateAt(coord));
-    } else {
-      ((TileEntityBed) tileEntity).setColor(ColoredBlockMapper1_12.toEnumDyeColor(((BedBlock) singleBlockBrush).getColor()));
+    if (!singleBlockBrush.getBlockType().equals(BlockType.BED)) {
+      return;
     }
+    if (!(tileEntity instanceof TileEntityBed) || !(singleBlockBrush instanceof BedBlock)) {
+      logger.error("Failed to paint bed at position {}. Current block at position is {}.", coord, getBlockStateAt(coord));
+      return;
+    }
+
+    ((TileEntityBed) tileEntity).setColor(ColoredBlockMapper1_12.toEnumDyeColor(((BedBlock) singleBlockBrush).getColor()));
   }
 
   @Override
