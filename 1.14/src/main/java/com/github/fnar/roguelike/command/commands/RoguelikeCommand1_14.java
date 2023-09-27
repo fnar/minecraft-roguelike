@@ -13,6 +13,7 @@ public class RoguelikeCommand1_14 {
         .then(BiomeCommand1_14.biomeCommand())
         .then(ConfigCommand1_14.configCommand())
         .then(DungeonCommand1_14.dungeonCommand())
+        .then(GiveCommand1_14.giveCommand())
         .then(SettingsCommand1_14.settingsCommand());
   }
 
