@@ -13,6 +13,7 @@ public class ArgumentParser {
     this.args.addAll(args);
   }
 
+  @Deprecated
   public int getInt(int index) {
     if (!this.hasEntry(index)) {
       throw new IllegalArgumentException(String.format("Missing argument. No input provided at index %s.", index));
@@ -20,6 +21,7 @@ public class ArgumentParser {
     return getParseInt(get(index));
   }
 
+  @Deprecated
   private static int getParseInt(String s) {
     try {
       return Integer.parseInt(s);
@@ -28,10 +30,12 @@ public class ArgumentParser {
     }
   }
 
+  @Deprecated
   public String get(int index) {
     return this.hasEntry(index) ? this.args.get(index) : null;
   }
 
+  @Deprecated
   public Coord getXZCoord(int index) {
     if (!hasEntry(index) || !hasEntry(index + 1)) {
       throw new IllegalArgumentException("Need strictly two coordinates: <X> <Z>");
@@ -43,6 +47,7 @@ public class ArgumentParser {
     return new Coord(arg1, 0, arg2);
   }
 
+  @Deprecated
   public Coord getCoord(int index) {
     if (!hasEntry(index) || !hasEntry(index + 1)) {
       throw new IllegalArgumentException("Need at least two coordinates: <X> <Z> | <X> <Y> <Z>");

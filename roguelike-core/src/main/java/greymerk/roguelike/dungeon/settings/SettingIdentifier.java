@@ -6,6 +6,7 @@ import java.util.Objects;
 
 public class SettingIdentifier {
 
+  public static final String DELIMITER = ":";
   private final Pair<String, String> identifier;
 
   public SettingIdentifier(String namespace, String name) {
@@ -13,7 +14,7 @@ public class SettingIdentifier {
   }
 
   public SettingIdentifier(String name) {
-    String[] parts = name.split(":");
+    String[] parts = name.split(DELIMITER);
     String namespace = parts.length > 1 ? parts[0] : SettingsContainer.DEFAULT_NAMESPACE;
     String uniqueName = parts.length > 1 ? parts[1] : name;
     this.identifier = new Pair<>(namespace, uniqueName);
@@ -46,6 +47,6 @@ public class SettingIdentifier {
 
   @Override
   public String toString() {
-    return getNamespace() + ":" + getName();
+    return getNamespace() + DELIMITER + getName();
   }
 }

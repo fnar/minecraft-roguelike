@@ -2,6 +2,8 @@ package com.github.fnar.roguelike.command.commands;
 
 import com.github.fnar.roguelike.command.CommandContext;
 
+import java.util.Optional;
+
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.SettingsResolver;
 
@@ -11,14 +13,13 @@ public class ListSettingsCommand extends BaseRoguelikeCommand {
 
   public ListSettingsCommand(CommandContext commandContext, String namespace) {
     super(commandContext);
-    this.namespace = namespace;
+    this.namespace = Optional.ofNullable(namespace).orElse("");
   }
 
   @Override
   public void onRun() {
     SettingsContainer settingsContainer = new SettingsContainer(commandContext.getModLoader()).loadFiles();
     SettingsResolver.instance = new SettingsResolver(settingsContainer);
-
     if (namespace.isEmpty()) {
       commandContext.sendInfo(SettingsResolver.instance.toString());
     } else {

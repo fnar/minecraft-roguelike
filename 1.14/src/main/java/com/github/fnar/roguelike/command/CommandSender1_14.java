@@ -3,13 +3,19 @@ package com.github.fnar.roguelike.command;
 import com.github.fnar.minecraft.WorldEditor1_14;
 import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.minecraft.item.mapper.ItemMapper1_14;
+import com.github.fnar.minecraft.world.BlockPosMapper1_14;
 
 import net.minecraft.command.CommandSource;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.Style;
+import net.minecraft.util.text.TranslationTextComponent;
+
+import java.util.Optional;
 
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -24,13 +30,20 @@ public class CommandSender1_14 implements CommandSender {
 
   @Override
   public void sendMessage(String message, MessageType type) {
-    String formattedMessage = type.apply(message);
-    StringTextComponent text = new StringTextComponent(formattedMessage);
-    commandSource.getEntity().sendMessage(text);
+    commandSource.sendFeedback(new StringTextComponent(type.apply(message)), true);
   }
 
   @Override
   public void sendMessage(String message, String details, MessageType type) {
+    commandSource.sendFeedback(
+        formatMessage(message, type)
+            .appendText(" ")
+            .appendSibling(new StringTextComponent(details)), true);
+  }
+
+  private static ITextComponent formatMessage(String message, MessageType type) {
+    Style style = new Style().setColor(TextFormattingMapper1_14.toTextFormatting(type.getTextFormat().getCodeChar()));
+    return new TranslationTextComponent(message).setStyle(style);
   }
 
   @Override
@@ -47,8 +60,11 @@ public class CommandSender1_14 implements CommandSender {
   }
 
   @Override
-  public Coord getPos() {
-    BlockPos pos = commandSource.getEntity().getPosition();
-    return new Coord(pos.getX(), pos.getY(), pos.getZ());
+  public Coord getCoord() {
+    return BlockPosMapper1_14.map(
+        Optional.ofNullable(commandSource.getEntity())
+            .map(Entity::getPosition)
+            .orElse(BlockPos.ZERO));
   }
+
 }

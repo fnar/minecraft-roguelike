@@ -3,6 +3,8 @@ package com.github.fnar.roguelike.command;
 import com.github.fnar.forge.ModLoader;
 import com.github.fnar.minecraft.item.RldItemStack;
 
+import java.util.Optional;
+
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 
@@ -66,8 +68,8 @@ public class CommandContext {
     return getCommandSender().createWorldEditor();
   }
 
-  public Coord getPos() {
-    return getCommandSender().getPos();
+  public Coord getSenderCoord() {
+    return getCommandSender().getCoord();
   }
 
   public void give(RldItemStack item) {
@@ -78,11 +80,19 @@ public class CommandContext {
     return requiredModName -> false;
   }
 
-  public String getArgument(String argumentName) {
+  public Optional<String> getArgument(int argumentIndex) {
+    return this.contextHolder.getArgument(argumentIndex);
+  }
+
+  public Optional<String> getArgument(String argumentName) {
     return this.contextHolder.getArgument(argumentName);
   }
 
-  public Coord getArgumentAsCoord(String position) {
+  public Optional<Coord> getArgumentAsCoord(int argumentIndex) {
+    return this.contextHolder.getArgumentAsCoord(argumentIndex);
+  }
+
+  public Optional<Coord> getArgumentAsCoord(String position) {
     return this.contextHolder.getArgumentAsCoord(position);
   }
 }
