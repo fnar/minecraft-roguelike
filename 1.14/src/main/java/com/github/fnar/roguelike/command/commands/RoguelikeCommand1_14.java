@@ -1,8 +1,5 @@
-package com.github.fnar.roguelike.command;
+package com.github.fnar.roguelike.command.commands;
 
-import com.github.fnar.roguelike.command.commands.BiomeCommand1_14;
-import com.github.fnar.roguelike.command.commands.DungeonCommand1_14;
-import com.github.fnar.roguelike.command.commands.SettingsCommand1_14;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 
 import net.minecraft.command.CommandSource;
@@ -14,6 +11,7 @@ public class RoguelikeCommand1_14 {
     return Commands.literal("roguelike")
         .requires(RoguelikeCommand1_14::isCreativePlayer)
         .then(BiomeCommand1_14.biomeCommand())
+        .then(ConfigCommand1_14.configCommand())
         .then(DungeonCommand1_14.dungeonCommand())
         .then(SettingsCommand1_14.settingsCommand());
   }
