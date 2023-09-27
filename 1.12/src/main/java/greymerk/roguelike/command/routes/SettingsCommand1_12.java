@@ -16,7 +16,7 @@ public class SettingsCommand1_12 extends BaseCommandRoute {
     ArgumentParser argumentParser = new ArgumentParser(args);
 
     if (!argumentParser.hasEntry(0)) {
-      commandContext.sendInfo("notif.roguelike.usage_", "roguelike settings [reload | list]");
+      ListSettingsCommand.sendUsage(commandContext);
       return;
     }
 

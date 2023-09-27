@@ -16,6 +16,10 @@ public class ListSettingsCommand extends BaseRoguelikeCommand {
     this.namespace = Optional.ofNullable(namespace).orElse("");
   }
 
+  public static void sendUsage(CommandContext commandContext) {
+    commandContext.sendInfo("notif.roguelike.usage_", "roguelike settings [reload | list]");
+  }
+
   @Override
   public void onRun() {
     SettingsContainer settingsContainer = new SettingsContainer(commandContext.getModLoader()).loadFiles();
