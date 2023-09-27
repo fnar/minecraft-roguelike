@@ -36,7 +36,7 @@ public class RoguelikeCommand1_12 extends CommandBase {
   @Override
   public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
     List<String> argsList = Arrays.asList(args);
-    CommandContext context = new CommandContext(new ContextHolder1_12(sender, argsList));
+    CommandContext context = new CommandContext1_12(sender, argsList);
     routes.execute(context, argsList);
   }
 
