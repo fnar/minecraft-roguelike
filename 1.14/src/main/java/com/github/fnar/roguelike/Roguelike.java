@@ -1,6 +1,6 @@
 package com.github.fnar.roguelike;
 
-import com.github.fnar.roguelike.command.RoguelikeCommand1_14;
+import com.github.fnar.roguelike.command.commands.RoguelikeCommand1_14;
 import com.mojang.brigadier.CommandDispatcher;
 
 import net.minecraft.block.Block;
