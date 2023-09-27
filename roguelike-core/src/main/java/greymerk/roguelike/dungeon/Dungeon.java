@@ -285,7 +285,7 @@ public class Dungeon {
     TowerType tower = settings.getTower().getType();
     Theme theme = settings.getTower().getTheme();
     Coord at = getPosition();
-    TowerType.instantiate(tower, editor, theme).generate(at);
+    tower.instantiate(editor, theme).generate(at);
   }
 
   public void applyFilters(WorldEditor editor) {

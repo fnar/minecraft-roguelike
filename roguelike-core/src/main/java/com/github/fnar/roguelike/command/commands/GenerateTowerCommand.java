@@ -23,7 +23,7 @@ public class GenerateTowerCommand extends BaseRoguelikeCommand {
   public void onRun() throws Exception {
     WorldEditor worldEditor = commandContext.createEditor();
     Theme theme = TowerType.getDefaultTheme(towerType).getThemeBase();
-    Tower tower = TowerType.instantiate(towerType, worldEditor, theme);
+    Tower tower = towerType.instantiate(worldEditor, theme);
     tower.generate(coord);
   }
 
