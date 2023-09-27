@@ -16,6 +16,11 @@ public class GiveCommand extends BaseRoguelikeCommand {
 
   @Override
   public void onRun() {
+    if (itemName == null) {
+      commandContext.sendInfo("notif.roguelike.usage_", "roguelike give novelty_name");
+      return;
+    }
+
     RldItemStack item = ItemNovelty.getItemByName(itemName);
     if (item == null) {
       commandContext.sendFailure("nosuchitem");
