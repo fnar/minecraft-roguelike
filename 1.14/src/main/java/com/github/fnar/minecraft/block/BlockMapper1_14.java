@@ -26,7 +26,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.block.DropperBlock;
-import net.minecraft.block.FlowingFluidBlock;
 import net.minecraft.block.FurnaceBlock;
 import net.minecraft.block.HopperBlock;
 import net.minecraft.block.LadderBlock;
@@ -233,11 +232,11 @@ public class BlockMapper1_14 {
       case WATER_STILL:
         return Blocks.WATER.getDefaultState();
       case WATER_FLOWING:
-        return Blocks.WATER.getDefaultState().with(FlowingFluidBlock.LEVEL, 14);
+        return Blocks.WATER.getDefaultState();
       case LAVA_STILL:
         return Blocks.LAVA.getDefaultState();
       case LAVA_FLOWING:
-        return Blocks.LAVA.getDefaultState().with(FlowingFluidBlock.LEVEL, 14);
+        return Blocks.LAVA.getDefaultState();
       case FIRE:
         return Blocks.FIRE.getDefaultState();
       case IRON_BAR:
