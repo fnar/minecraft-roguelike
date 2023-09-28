@@ -1,10 +1,11 @@
 package com.github.fnar.minecraft.item.mapper;
 
+import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.item.BlockItem;
 
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-
-import org.apache.commons.lang3.NotImplementedException;
 
 public class BlockMapper1_14 extends BaseItemMapper1_14<BlockItem> {
 
@@ -13,12 +14,12 @@ public class BlockMapper1_14 extends BaseItemMapper1_14<BlockItem> {
     return BlockItem.class;
   }
 
-  // TODO: Implement
   @Override
-  public ItemStack map(BlockItem block) {
-//    MetaBlock1_12 metaBlock = com.github.fnar.minecraft.block.BlockMapper1_14.map(block.getBlockType());
-//    Item item = Item.getItemFromBlock(metaBlock.getBlock());
-//    return new ItemStack(item);
-    throw new NotImplementedException("1.14 not yet supported");
+  public ItemStack map(BlockItem blockItem) {
+    SingleBlockBrush brush = blockItem.getBlockType().getBrush();
+    Block block = com.github.fnar.minecraft.block.BlockMapper1_14.map(brush).getBlock();
+    Item item = Item.getItemFromBlock(block);
+    return new ItemStack(item);
   }
+
 }
