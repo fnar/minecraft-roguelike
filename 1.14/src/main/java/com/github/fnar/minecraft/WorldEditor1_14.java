@@ -298,7 +298,11 @@ public class WorldEditor1_14 implements WorldEditor {
   }
 
   public int getCapacity(TreasureChest treasureChest) {
-    return ((LockableLootTileEntity) getTileEntity(treasureChest.getCoord())).getSizeInventory();
+    TileEntity tileEntity = getTileEntity(treasureChest.getCoord());
+    if (!(tileEntity instanceof LockableLootTileEntity)) {
+      return 0;
+    }
+    return ((LockableLootTileEntity) tileEntity).getSizeInventory();
   }
 
   public boolean isEmptySlot(TreasureChest treasureChest, int slot) {
