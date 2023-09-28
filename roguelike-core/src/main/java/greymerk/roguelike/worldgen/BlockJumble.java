@@ -31,6 +31,11 @@ public class BlockJumble implements BlockBrush {
     blocks.add(toAdd);
   }
 
+  public BlockJumble with(BlockBrush toAdd) {
+    addBlock(toAdd);
+    return this;
+  }
+
   @Override
   public boolean stroke(WorldEditor editor, Coord origin, boolean fillAir, boolean replaceSolid) {
     BlockBrush block = blocks.get(editor.getRandom().nextInt(blocks.size()));
