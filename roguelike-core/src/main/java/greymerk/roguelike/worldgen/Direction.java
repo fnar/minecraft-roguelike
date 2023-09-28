@@ -114,4 +114,9 @@ public enum Direction {
   public Direction[] orthogonals() {
     return new Direction[]{antiClockwise(), clockwise()};
   }
+
+  public boolean isCardinal() {
+    return CARDINAL.contains(this);
+  }
+
 }
