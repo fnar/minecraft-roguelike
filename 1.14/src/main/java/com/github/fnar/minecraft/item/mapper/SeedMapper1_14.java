@@ -1,5 +1,6 @@
 package com.github.fnar.minecraft.item.mapper;
 
+import com.github.fnar.minecraft.block.BlockMapper1_14;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.item.CouldNotMapItemException;
 import com.github.fnar.minecraft.item.Seed;
@@ -8,8 +9,6 @@ import com.github.fnar.minecraft.material.Crop;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-
-import org.apache.commons.lang3.NotImplementedException;
 
 public class SeedMapper1_14 extends BaseItemMapper1_14<Seed> {
   @Override
@@ -45,9 +44,7 @@ public class SeedMapper1_14 extends BaseItemMapper1_14<Seed> {
   }
 
   private Item asItem(SingleBlockBrush brush) {
-    // TODO: implement
-    throw new NotImplementedException("1.14 not yet supported");
-//    return BlockMapper1_14.map(brush).asItem();
+    return Item.getItemFromBlock(BlockMapper1_14.map(brush).getBlock());
   }
 
 }
