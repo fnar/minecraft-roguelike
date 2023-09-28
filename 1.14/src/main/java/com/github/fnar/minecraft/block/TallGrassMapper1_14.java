@@ -11,11 +11,9 @@ import net.minecraft.state.properties.DoubleBlockHalf;
 
 class TallGrassMapper1_14 {
 
-  public static BlockState getTallPlant(TallPlantBlock tallPlantBlock) {
+  public static BlockState map(TallPlantBlock tallPlantBlock) {
     return getTallPlantMinecraftBlock(tallPlantBlock.getTallPlant())
         .getDefaultState()
-        // TODO: Figure out how to do general block facing
-//        .with(Block.OffsetType.XZ, DirectionMapper1_14.map(tallPlantBlock.getFacing()))
         .with(DoublePlantBlock.HALF, tallPlantBlock.isTop() ? DoubleBlockHalf.UPPER : DoubleBlockHalf.LOWER);
   }
 
@@ -23,13 +21,13 @@ class TallGrassMapper1_14 {
     switch (type) {
       default:
       case DOUBLE_TALL_GRASS:
-        return Blocks.GRASS;
+        return Blocks.TALL_GRASS;
       case SUNFLOWER:
         return Blocks.SUNFLOWER;
       case LILAC:
         return Blocks.LILAC;
       case LARGE_FERN:
-        return Blocks.FERN;
+        return Blocks.LARGE_FERN;
       case ROSE_BUSH:
         return Blocks.ROSE_BUSH;
       case PEONY:

@@ -36,6 +36,7 @@ import net.minecraft.block.BlockSand;
 import net.minecraft.block.BlockSandStone;
 import net.minecraft.block.BlockStone;
 import net.minecraft.block.BlockStoneBrick;
+import net.minecraft.block.BlockTallGrass;
 import net.minecraft.block.BlockTripWire;
 import net.minecraft.block.BlockTripWireHook;
 import net.minecraft.block.state.IBlockState;
@@ -178,9 +179,14 @@ public class BlockMapper1_12 {
       case RED_MUSHROOM:
         return Blocks.RED_MUSHROOM.getDefaultState();
       case PLANT:
-        return PlantBlockMapper1_12.getPlant((PlantBlock) blockBrush);
+        return PlantBlockMapper1_12.map((PlantBlock) blockBrush);
       case TALL_PLANT:
-        return TallGrassMapper1_12.getTallPlant((TallPlantBlock) blockBrush);
+        return TallGrassMapper1_12.map((TallPlantBlock) blockBrush);
+      case GRASS_PLANT:
+        return Blocks.TALLGRASS.getDefaultState().withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.GRASS);
+      case FERN:
+        return Blocks.TALLGRASS.getDefaultState()
+            .withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.FERN);
       case TRAPDOOR:
         return TrapdoorBlockMapper1_12.map((TrapdoorBlock) blockBrush);
       case LEVER:
@@ -265,7 +271,7 @@ public class BlockMapper1_12 {
         return Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.ANDESITE);
       case ANDESITE_POLISHED:
         return Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.ANDESITE_SMOOTH);
-      case GRASS:
+      case GRASS_BLOCK:
         return Blocks.GRASS.getDefaultState();
       case DIRT:
         return Blocks.DIRT.getDefaultState();

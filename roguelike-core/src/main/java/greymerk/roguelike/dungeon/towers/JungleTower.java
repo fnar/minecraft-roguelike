@@ -30,7 +30,7 @@ public class JungleTower extends Tower {
     Coord origin = TowerType.getBaseCoord(editor, dungeon);
     origin.up();
     StairsBlock stair = getPrimaryStair();
-    BlockBrush grass = BlockType.GRASS.getBrush();
+    BlockBrush grass = BlockType.GRASS_BLOCK.getBrush();
 
     Coord start;
     Coord end;

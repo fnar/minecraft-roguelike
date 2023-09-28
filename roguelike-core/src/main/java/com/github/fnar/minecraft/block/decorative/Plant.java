@@ -28,6 +28,7 @@ public enum Plant {
   DARK_OAK_SAPLING,
   DEAD_BUSH,
   FERN,
+  GRASS,
   ;
 
   public BlockBrush getBrush() {

@@ -9,7 +9,7 @@ import net.minecraft.init.Blocks;
 
 class TallGrassMapper1_12 {
 
-  public static IBlockState getTallPlant(TallPlantBlock tallPlantBlock) {
+  public static IBlockState map(TallPlantBlock tallPlantBlock) {
     return Blocks.DOUBLE_PLANT.getDefaultState()
         .withProperty(BlockDoublePlant.VARIANT, getTallPlantMinecraftBlock(tallPlantBlock.getTallPlant()))
         .withProperty(BlockDoublePlant.FACING, DirectionMapper1_12.map(tallPlantBlock.getFacing()))

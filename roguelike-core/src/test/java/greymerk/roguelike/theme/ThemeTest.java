@@ -68,7 +68,7 @@ public class ThemeTest {
   @Test
   public void themesInheritFromTheirParents() {
     BlockSet dirtBlockSet = new BlockSet(BlockType.DIRT.getBrush(), StairsBlock.oak(), null);
-    BlockSet grassBlockSet = new BlockSet(BlockType.GRASS.getBrush(), StairsBlock.oak(), null);
+    BlockSet grassBlockSet = new BlockSet(BlockType.GRASS_BLOCK.getBrush(), StairsBlock.oak(), null);
 
     Theme parent = new Theme(dirtBlockSet, null);
     Theme child = new Theme(null, grassBlockSet);
@@ -81,7 +81,7 @@ public class ThemeTest {
   @Test
   public void themesInheritTheirSecondaryBlockSetFromTheirPrimaryIfTheirSecondaryBlockSetIsAbsent() {
     BlockSet dirtBlockSet = new BlockSet(BlockType.DIRT.getBrush(), StairsBlock.oak(), null);
-    BlockSet grassBlockSet = new BlockSet(BlockType.GRASS.getBrush(), StairsBlock.oak(), null);
+    BlockSet grassBlockSet = new BlockSet(BlockType.GRASS_BLOCK.getBrush(), StairsBlock.oak(), null);
 
     Theme dirtTheme = new Theme(dirtBlockSet, null);
     Theme grassTheme = new Theme(grassBlockSet, null);

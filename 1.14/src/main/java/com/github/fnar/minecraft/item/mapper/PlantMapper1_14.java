@@ -1,5 +1,6 @@
 package com.github.fnar.minecraft.item.mapper;
 
+import com.github.fnar.minecraft.CouldNotMapException;
 import com.github.fnar.minecraft.block.decorative.Plant;
 
 import net.minecraft.block.Blocks;
@@ -11,6 +12,8 @@ public class PlantMapper1_14 {
     switch (type) {
       case POPPY:
         return new ItemStack(Blocks.POPPY);
+      case DANDELION:
+        return new ItemStack(Blocks.DANDELION);
       case BLUE_ORCHID:
         return new ItemStack(Blocks.BLUE_ORCHID);
       case ALLIUM:
@@ -45,13 +48,14 @@ public class PlantMapper1_14 {
         return new ItemStack(Blocks.ACACIA_SAPLING);
       case DARK_OAK_SAPLING:
         return new ItemStack(Blocks.DARK_OAK_SAPLING);
+      case GRASS:
+        return new ItemStack(Blocks.GRASS);
       case DEAD_BUSH:
         return new ItemStack(Blocks.DEAD_BUSH);
       case FERN:
         return new ItemStack(Blocks.FERN);
-      case DANDELION:
       default:
-        return new ItemStack(Blocks.DANDELION);
+        throw new CouldNotMapException(type.toString());
     }
   }
 }

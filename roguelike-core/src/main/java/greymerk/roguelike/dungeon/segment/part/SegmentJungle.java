@@ -34,7 +34,7 @@ public class SegmentJungle extends SegmentBase {
     if (editor.getRandom().nextInt(5) == 0) {
       BlockType.WATER_FLOWING.getBrush().fill(editor, RectSolid.newRect(start, end));
     } else {
-      BlockType.GRASS.getBrush().fill(editor, RectSolid.newRect(start, end));
+      BlockType.GRASS_BLOCK.getBrush().fill(editor, RectSolid.newRect(start, end));
       start.up(1);
       end.up(1);
       if (editor.getRandom().nextBoolean()) {

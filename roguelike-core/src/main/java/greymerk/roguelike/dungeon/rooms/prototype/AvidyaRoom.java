@@ -232,15 +232,15 @@ public class AvidyaRoom extends BaseRoom {
         cursor.down();
         cursor.translate(dir, 8);
         cursor.translate(orthogonals, 3);
-        BlockType.GRASS.getBrush().stroke(worldEditor, cursor);
+        BlockType.GRASS_BLOCK.getBrush().stroke(worldEditor, cursor);
         BlockBrush leaves = Wood.OAK.getLeaves();
 
         leaves.stroke(worldEditor, cursor);
         cursor.translate(orthogonals, 1);
-        BlockType.GRASS.getBrush().stroke(worldEditor, cursor);
+        BlockType.GRASS_BLOCK.getBrush().stroke(worldEditor, cursor);
         leaves.stroke(worldEditor, cursor);
         cursor.translate(orthogonals, 1);
-        BlockType.GRASS.getBrush().stroke(worldEditor, cursor);
+        BlockType.GRASS_BLOCK.getBrush().stroke(worldEditor, cursor);
         leaves.stroke(worldEditor, cursor);
         cursor.translate(dir.reverse(), 1);
         BlockType.COBBLESTONE.getBrush().stroke(worldEditor, cursor);
