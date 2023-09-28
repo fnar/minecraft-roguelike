@@ -4,9 +4,9 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import greymerk.roguelike.dungeon.towers.TowerType;
-import greymerk.roguelike.theme.Themes;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.theme.ThemeParser;
+import greymerk.roguelike.theme.Themes;
 import greymerk.roguelike.theme.builtin.ThemeTower;
 
 public class TowerSettings {
@@ -23,7 +23,7 @@ public class TowerSettings {
 
     JsonObject data = e.getAsJsonObject();
 
-    type = data.has("type") ? TowerType.get(data.get("type").getAsString()) : null;
+    type = data.has("type") ? TowerType.get(data.get("type").getAsString()).orElse(null) : null;
     try {
       theme = data.has("theme") ? ThemeParser.parse(data.get("theme").getAsJsonObject()) : null;
     } catch (DungeonSettingParseException exception) {

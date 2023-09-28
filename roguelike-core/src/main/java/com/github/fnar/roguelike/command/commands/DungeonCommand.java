@@ -28,11 +28,11 @@ public class DungeonCommand extends BaseRoguelikeCommand {
 
   @Override
   public void onRun() throws Exception {
-    WorldEditor editor = commandContext.createEditor();
-    SettingsContainer settingsContainer = new SettingsContainer(commandContext.getModLoader()).loadFiles();
+    WorldEditor editor = context.createEditor();
+    SettingsContainer settingsContainer = new SettingsContainer(context.getModLoader()).loadFiles();
     SettingsResolver.instance = new SettingsResolver(settingsContainer);
     DungeonSettings dungeonSettings = chooseDungeonSettings(SettingsResolver.instance, settingName, coord, editor);
-    generateDungeon(commandContext, coord, editor, dungeonSettings);
+    generateDungeon(context, coord, editor, dungeonSettings);
   }
 
   private void generateDungeon(CommandContext context, Coord coord, WorldEditor editor, DungeonSettings dungeonSettings) {

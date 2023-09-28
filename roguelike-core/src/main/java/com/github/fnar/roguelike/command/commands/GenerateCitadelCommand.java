@@ -18,6 +18,6 @@ public class GenerateCitadelCommand extends BaseRoguelikeCommand {
 
   @Override
   public void onRun() {
-    Citadel.generate(commandContext.createEditor(), coord.getX(), coord.getZ());
+    Citadel.generate(context.createEditor(), coord.getX(), coord.getZ());
   }
 }

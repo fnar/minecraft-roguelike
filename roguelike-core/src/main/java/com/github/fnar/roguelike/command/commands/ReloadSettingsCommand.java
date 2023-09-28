@@ -13,13 +13,13 @@ public class ReloadSettingsCommand extends BaseRoguelikeCommand {
 
   @Override
   public void onRun() {
-    SettingsContainer settingsContainer = new SettingsContainer(commandContext.getModLoader()).loadFiles();
+    SettingsContainer settingsContainer = new SettingsContainer(context.getModLoader()).loadFiles();
     SettingsResolver.instance = new SettingsResolver(settingsContainer);
   }
 
   @Override
   public void onSuccess() {
-    commandContext.sendSuccess("settingsreloaded");
+    context.sendSuccess("settingsreloaded");
   }
 
 }

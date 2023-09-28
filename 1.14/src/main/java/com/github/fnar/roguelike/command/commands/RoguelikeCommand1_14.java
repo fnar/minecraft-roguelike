@@ -15,7 +15,8 @@ public class RoguelikeCommand1_14 {
         .then(ConfigCommand1_14.configCommand())
         .then(DungeonCommand1_14.dungeonCommand())
         .then(GiveCommand1_14.giveCommand())
-        .then(SettingsCommand1_14.settingsCommand());
+        .then(SettingsCommand1_14.settingsCommand())
+        .then(TowerCommand1_14.towerCommand());
   }
 
   private static boolean isCreativePlayer(CommandSource commandSource) {
