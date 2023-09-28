@@ -19,7 +19,6 @@ import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.treasure.loot.Quality;
 import greymerk.roguelike.util.DyeColor;
-import greymerk.roguelike.util.TextFormat;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -125,7 +124,7 @@ public class FireworkRoom extends BaseRoom {
     cursor = at.copy();
     cursor.translate(entrance.reverse(), 3);
     cursor.down();
-    TorchBlock.redstone().setFacing(Direction.UP).stroke(worldEditor, cursor);
+    TorchBlock.redstone().stroke(worldEditor, cursor);
     cursor.down();
     breadboard.stroke(worldEditor, cursor);
     cursor.translate(entrance.antiClockwise());
@@ -224,7 +223,7 @@ public class FireworkRoom extends BaseRoom {
     boolean torch = false;
     while (end.getY() < top.getY()) {
       if (torch) {
-        TorchBlock.redstone().setFacing(Direction.UP).stroke(editor, cursor);
+        TorchBlock.redstone().stroke(editor, cursor);
       } else {
         breadboard.stroke(editor, cursor);
       }

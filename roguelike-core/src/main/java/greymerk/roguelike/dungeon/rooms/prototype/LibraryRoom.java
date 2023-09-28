@@ -184,7 +184,7 @@ public class LibraryRoom extends BaseRoom {
     carpet().setColor(DyeColor.GREEN).stroke(editor, cursor);
 
     cursor.translate(dir.antiClockwise());
-    TorchBlock.torch().setFacing(Direction.UP).stroke(editor, cursor);
+    TorchBlock.torch().stroke(editor, cursor);
   }
 
   private void plants(WorldEditor editor, Theme theme, Direction dir, Coord origin) {

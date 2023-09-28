@@ -155,7 +155,7 @@ public class BedRoomRoom extends BaseRoom {
     cursor.down();
     secondaryStairBrush().setUpsideDown(true).setFacing(entranceDirection).stroke(worldEditor, cursor);
     cursor.up();
-    TorchBlock.torch().setFacing(Direction.UP).stroke(worldEditor, cursor);
+    TorchBlock.torch().stroke(worldEditor, cursor);
   }
 
   private void generateChestz(Coord origin, Direction entranceDirection) {
@@ -194,7 +194,7 @@ public class BedRoomRoom extends BaseRoom {
 
   private void generateTorchAbove(Coord cursor) {
     cursor.up();
-    TorchBlock.torch().setFacing(Direction.UP).stroke(worldEditor, cursor);
+    TorchBlock.torch().stroke(worldEditor, cursor);
     cursor.down();
   }
 

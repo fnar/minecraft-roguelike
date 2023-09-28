@@ -107,7 +107,7 @@ public class PitRoom extends BaseRoom {
     BlockType.REDSTONE_WIRE.getBrush().stroke(worldEditor, cursor);
 
     cursor.translate(outward).up();
-    TorchBlock.redstone().extinguish().setFacing(Direction.UP).stroke(worldEditor, cursor);
+    TorchBlock.redstone().extinguish().stroke(worldEditor, cursor);
 
     cursor.translate(outward.reverse()).up();
     BlockType.STICKY_PISTON.getBrush().setFacing(outward).stroke(worldEditor, cursor);

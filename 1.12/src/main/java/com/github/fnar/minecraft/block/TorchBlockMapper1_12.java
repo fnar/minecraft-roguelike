@@ -14,7 +14,7 @@ public class TorchBlockMapper1_12 {
    public static IBlockState map(TorchBlock torchBlock) {
     Block minecraftTorchBlock = !torchBlock.isLit()
         ? Blocks.UNLIT_REDSTONE_TORCH
-        : torchBlock.getBlockType() == BlockType.REDSTONE_TORCH
+        : torchBlock.isRedstone()
             ? Blocks.REDSTONE_TORCH
             : Blocks.TORCH;
 

@@ -14,7 +14,6 @@ import java.util.Random;
 
 import greymerk.roguelike.dungeon.DungeonLevel;
 import greymerk.roguelike.theme.Theme;
-
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
 import greymerk.roguelike.worldgen.WorldEditor;
@@ -106,7 +105,7 @@ public class SegmentTrap extends SegmentBase {
   private void placeRedstoneTorchesUpward(WorldEditor editor, Direction outward, Coord origin) {
     Coord redstoneTorch = origin.copy()
         .translate(outward, 4);
-    TorchBlock.redstone().setFacing(Direction.UP).stroke(editor, redstoneTorch);
+    TorchBlock.redstone().stroke(editor, redstoneTorch);
     redstoneTorch.down(2);
     TorchBlock.redstone().setFacing(outward).stroke(editor, redstoneTorch);
   }

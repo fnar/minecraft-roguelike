@@ -216,6 +216,6 @@ public class RogueTower extends Tower {
     }
 
     cursor.up(1);
-    TorchBlock.torch().setFacing(Direction.UP).stroke(editor, cursor);
+    TorchBlock.torch().stroke(editor, cursor);
   }
 }
