@@ -22,47 +22,45 @@ public class LinkerRoom extends BaseRoom {
 
   @Override
   public BaseRoom generate(Coord at, List<Direction> entrances) {
-    Coord start = at.copy();
-    Coord end = at.copy();
-    start.translate(new Coord(-4, -1, -4));
-    end.translate(new Coord(4, 9, 4));
-    RectHollow.newRect(start, end).fill(worldEditor, primaryWallBrush(), false, true);
-
-    start = at.copy();
-    end = at.copy();
-    start.translate(new Coord(-4, 9, -4));
-    end.translate(new Coord(4, 9, 4));
-    primaryWallBrush().fill(worldEditor, RectSolid.newRect(start, end));
-
-    start = at.copy();
-    end = at.copy();
-    start.translate(new Coord(-4, -1, -4));
-    end.translate(new Coord(4, -1, 4));
-    primaryFloorBrush().fill(worldEditor, RectSolid.newRect(start, end));
-
-    for (Direction dir : Direction.CARDINAL) {
-
-      start = at.copy();
-      start.translate(dir, 4);
-      end = start.copy();
-      end.up(8);
-      start.down();
-      start.translate(dir.antiClockwise(), 4);
-      end.translate(dir.clockwise(), 4);
-      RectSolid.newRect(start, end).fill(worldEditor, BlockType.IRON_BAR.getBrush(), true, false);
-
-      start = at.copy();
-      end = at.copy();
-      start.translate(dir, 3);
-      start.translate(dir.antiClockwise(), 3);
-      end.translate(dir, 4);
-      end.translate(dir.antiClockwise(), 4);
-      end.up(8);
-      primaryPillarBrush().fill(worldEditor, RectSolid.newRect(start, end));
-    }
-
-
+    generateWalls(at);
+    generateCeiling(at);
+    generateFloors(at);
+    Direction.CARDINAL.forEach(dir -> generateGrate(at, dir));
+    Direction.CARDINAL.forEach(dir -> generateCorner(at, dir));
     return this;
+  }
+
+  private void generateWalls(Coord at) {
+    RectHollow.newRect(
+            at.copy().translate(new Coord(-4, -1, -4)),
+            at.copy().translate(new Coord(4, 9, 4)))
+        .fill(worldEditor, primaryWallBrush(), false, true);
+  }
+
+  private void generateCeiling(Coord at) {
+    primaryWallBrush()
+        .fill(worldEditor, RectSolid.newRect(
+            at.copy().translate(new Coord(-4, 9, -4)),
+            at.copy().translate(new Coord(4, 9, 4))));
+  }
+
+  private void generateFloors(Coord at) {
+    primaryFloorBrush()
+        .fill(worldEditor, RectSolid.newRect(
+            at.copy().translate(new Coord(-4, -1, -4)),
+            at.copy().translate(new Coord(4, -1, 4))));
+  }
+
+  private void generateGrate(Coord at, Direction dir) {
+    Coord start = at.copy().translate(dir, 4).down().translate(dir.antiClockwise(), 4);
+    Coord end = at.copy().translate(dir, 4).up(8).translate(dir.clockwise(), 4);
+    RectSolid.newRect(start, end).fill(worldEditor, BlockType.IRON_BAR.getBrush(), true, false);
+  }
+
+  private void generateCorner(Coord at, Direction dir) {
+    Coord start = at.copy().translate(dir, 3).translate(dir.antiClockwise(), 3);
+    Coord end = at.copy().translate(dir, 4).translate(dir.antiClockwise(), 4).up(8);
+    primaryPillarBrush().fill(worldEditor, RectSolid.newRect(start, end));
   }
 
 }

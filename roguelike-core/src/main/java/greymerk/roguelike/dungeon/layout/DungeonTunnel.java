@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
-import java.util.Random;
 
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.DungeonLevel;
@@ -45,74 +44,48 @@ public class DungeonTunnel implements Iterable<Coord>, Bounded {
   }
 
   public void encase(WorldEditor editor, Theme theme) {
-    Coord s;
-    Coord e;
     Direction dir = getDirection();
-
-    s = start.copy();
-    e = end.copy();
-    s.translate(dir.antiClockwise(), 3);
-    s.up(3);
-    e.translate(dir.clockwise(), 3);
-    e.down(3);
+    Coord s = start.copy().translate(dir.antiClockwise(), 3).up(3);
+    Coord e = end.copy().translate(dir.clockwise(), 3).down(3);
     RectSolid.newRect(s, e).fill(editor, theme.getPrimary().getWall());
   }
 
   public void construct(WorldEditor editor, LevelSettings settings) {
+    generateHollow(editor);
+    generateWalls(editor, settings);
+    generateFloorAndBridges(editor, settings);
+    generateEndOfTunnel(editor, settings);
+  }
 
-    BlockBrush wallBlocks = settings.getTheme().getPrimary().getWall();
-    BlockBrush floor = settings.getTheme().getPrimary().getFloor();
-    BlockJumble bridgeBlocks = new BlockJumble();
-    Coord s;
-    Coord e;
-
-    bridgeBlocks.addBlock(floor);
-    bridgeBlocks.addBlock(SingleBlockBrush.AIR);
-
-    s = start.copy();
-    s.north();
-    s.east();
-    e = end.copy();
-    e.south();
-    e.west();
-    e.up(2);
+  private void generateHollow(WorldEditor editor) {
+    Coord s = start.copy().north().east();
+    Coord e = end.copy().south().west().up(2);
     RectSolid.newRect(s, e).fill(editor, SingleBlockBrush.AIR);
+//    ColoredBlock.wool().green().stroke(editor, s);
+//    ColoredBlock.wool().red().stroke(editor, e);
+  }
 
-    s.north();
-    s.east();
-    s.down();
-    e.south();
-    e.west();
-    e.up();
-    RectHollow.newRect(s, e).fill(editor, wallBlocks, false, true);
+  private void generateWalls(WorldEditor editor, LevelSettings settings) {
+    Coord s = start.copy().north().east().north().east().down();
+    Coord e = end.copy().south().west().up(2).south().west().up();
+    RectHollow.newRect(s, e).fill(editor, settings.getTheme().getPrimary().getWall(), false, true);
+  }
 
-    s = start.copy();
-    s.north();
-    s.east();
-    s.down();
-    e = end.copy();
-    e.south();
-    e.west();
-    e.down();
+  private void generateFloorAndBridges(WorldEditor editor, LevelSettings settings) {
+    BlockBrush floor = settings.getTheme().getPrimary().getFloor();
+    BlockJumble bridgeBlocks = new BlockJumble().with(floor).with(SingleBlockBrush.AIR);
+    Coord s = start.copy().north().east().down();
+    Coord e = end.copy().south().west().down();
     RectSolid.newRect(s, e).fill(editor, floor, false, true);
     RectSolid.newRect(s, e).fill(editor, bridgeBlocks, true, false);
+  }
 
+  private void generateEndOfTunnel(WorldEditor editor, LevelSettings settings) {
     Direction dir = getDirection();
-
-    // end of the tunnel;
-    Coord location = end.copy();
-    location.translate(dir, 1);
-
-    Coord start = location.copy();
-    Direction[] orth = dir.orthogonals();
-    start.translate(orth[0], 2);
-    start.up(2);
-    Coord end = location.copy();
-    end.translate(orth[1], 2);
-    end.down(2);
-
-    RectSolid.newRect(start, end).fill(editor, wallBlocks, false, true);
-
+    Coord endOfTunnel = end.copy().translate(dir, 1);
+    Coord start = endOfTunnel.copy().translate(dir.left(), 2).up(2);
+    Coord end = endOfTunnel.copy().translate(dir.right(), 2).down(2);
+    RectSolid.newRect(start, end).fill(editor, settings.getTheme().getPrimary().getWall(), false, true);
   }
 
   public Coord[] getEnds() {
