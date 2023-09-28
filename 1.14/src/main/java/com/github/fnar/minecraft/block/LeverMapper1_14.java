@@ -10,11 +10,13 @@ import greymerk.roguelike.worldgen.Direction;
 
 public class LeverMapper1_14 {
   static BlockState getLever(LeverBlock leverBlock) {
-    Direction dir = leverBlock.getFacing();
-    return Blocks.LEVER.getDefaultState()
-        .with(net.minecraft.block.LeverBlock.POWERED, leverBlock.isActive())
-        .with(net.minecraft.block.LeverBlock.HORIZONTAL_FACING, DirectionMapper1_14.map(dir))
-        .with(net.minecraft.block.LeverBlock.FACE, getLeverOrientation(dir));
+    Direction dir = leverBlock.getFacing().reverse();
+    BlockState state = Blocks.LEVER.getDefaultState()
+        .with(net.minecraft.block.LeverBlock.FACE, getLeverOrientation(dir))
+        .with(net.minecraft.block.LeverBlock.POWERED, leverBlock.isActive());
+    return dir.isCardinal()
+        ? state.with(net.minecraft.block.LeverBlock.HORIZONTAL_FACING, DirectionMapper1_14.map(dir))
+        : state;
   }
 
   private static AttachFace getLeverOrientation(Direction direction) {
