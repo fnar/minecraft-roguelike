@@ -333,7 +333,11 @@ public class WorldEditor1_12 implements WorldEditor {
 
   @Override
   public int getCapacity(TreasureChest treasureChest) {
-    return ((TileEntityLockableLoot) getTileEntity(treasureChest.getCoord())).getSizeInventory();
+    TileEntity tileEntity = getTileEntity(treasureChest.getCoord());
+    if (!(tileEntity instanceof TileEntityLockableLoot)) {
+      return 0;
+    }
+    return ((TileEntityLockableLoot) tileEntity).getSizeInventory();
   }
 
   @Override
