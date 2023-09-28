@@ -32,6 +32,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.spawner.AbstractSpawner;
 import net.minecraftforge.common.BiomeDictionary;
 
+import org.apache.commons.lang3.NotImplementedException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -132,12 +133,15 @@ public class WorldEditor1_14 implements WorldEditor {
 
   @Override
   public boolean isBlockOfTypeAt(BlockType blockType, Coord coord) {
-    return false;
+    return BlockMapper1_14.map(blockType.getBrush()).getBlock() == getBlockStateAt(coord).getBlock();
   }
 
   @Override
   public boolean isMaterialAt(com.github.fnar.minecraft.block.Material material, Coord coord) {
-    return false;
+    throw new NotImplementedException("Bad Fnar, bad!");
+//    Material forgeMaterial = getBlockStateAt(coord).getMaterial();
+//    material.equals(forgeMaterial);
+//    return false;
   }
 
   @Override
