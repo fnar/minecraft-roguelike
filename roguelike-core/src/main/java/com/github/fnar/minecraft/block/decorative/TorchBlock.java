@@ -3,12 +3,19 @@ package com.github.fnar.minecraft.block.decorative;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 
+import greymerk.roguelike.worldgen.Direction;
+
 public class TorchBlock extends SingleBlockBrush {
 
   private boolean isLit = true;
 
   public TorchBlock(BlockType blockType) {
     super(blockType);
+    setFacing(Direction.UP);
+  }
+
+  public boolean isAttachedToWall() {
+    return getFacing().isCardinal();
   }
 
   public TorchBlock extinguish() {

@@ -85,7 +85,7 @@ public class SegmentLamp extends SegmentBase {
     cursor.translate(dir);
     TorchBlock.redstone().setFacing(dir).stroke(editor, cursor);
     cursor.up(2);
-    TorchBlock.redstone().setFacing(Direction.UP).stroke(editor, cursor);
+    TorchBlock.redstone().stroke(editor, cursor);
     cursor.up(2);
     start = cursor.copy();
     end = start.copy();

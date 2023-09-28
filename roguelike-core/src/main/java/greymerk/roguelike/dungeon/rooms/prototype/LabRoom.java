@@ -92,7 +92,7 @@ public class LabRoom extends BaseRoom {
     stair.setUpsideDown(false).setFacing(Direction.SOUTH).stroke(editor, new Coord(x + 5, y + 1, z + 3));
 
     RectSolid.newRect(new Coord(x + 3, y, z + 3), new Coord(x + 4, y, z + 4)).fill(editor, stone);
-    TorchBlock.torch().setFacing(Direction.UP).stroke(editor, new Coord(x + 3, y + 1, z + 3));
+    TorchBlock.torch().stroke(editor, new Coord(x + 3, y + 1, z + 3));
 
     stair.setUpsideDown(false).setFacing(Direction.NORTH).stroke(editor, new Coord(x + 4, y, z + 1));
     stair.setUpsideDown(false).setFacing(Direction.WEST).stroke(editor, new Coord(x + 3, y, z + 2));

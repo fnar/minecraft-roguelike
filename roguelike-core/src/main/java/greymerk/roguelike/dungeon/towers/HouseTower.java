@@ -144,7 +144,7 @@ public class HouseTower extends Tower {
     cursor.translate(dir.reverse());
     SlabBlock.oak().setTop(true).setFullBlock(false).setSeamless(false).stroke(editor, cursor);
     cursor.up();
-    TorchBlock.torch().setFacing(Direction.UP).stroke(editor, cursor);
+    TorchBlock.torch().stroke(editor, cursor);
     cursor.down();
     cursor.translate(dir.reverse());
     BlockType.CRAFTING_TABLE.getBrush().stroke(editor, cursor);
