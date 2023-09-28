@@ -12,7 +12,7 @@ public class ThemeEtho extends Theme {
 
   public ThemeEtho() {
 
-    BlockBrush floor = BlockType.GRASS.getBrush();
+    BlockBrush floor = BlockType.GRASS_BLOCK.getBrush();
 
     BlockBrush walls = Wood.OAK.getPlanks();
 

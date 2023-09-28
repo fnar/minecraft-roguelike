@@ -168,9 +168,13 @@ public class BlockMapper1_14 {
       case RED_MUSHROOM:
         return Blocks.RED_MUSHROOM.getDefaultState();
       case PLANT:
-        return PlantBlockMapper1_14.getPlant((PlantBlock) blockBrush);
+        return PlantBlockMapper1_14.map((PlantBlock) blockBrush);
       case TALL_PLANT:
-        return TallGrassMapper1_14.getTallPlant((TallPlantBlock) blockBrush);
+        return TallGrassMapper1_14.map((TallPlantBlock) blockBrush);
+      case GRASS_PLANT:
+        return Blocks.GRASS.getDefaultState();
+      case FERN:
+        return Blocks.FERN.getDefaultState();
       case TRAPDOOR:
         return TrapdoorBlockMapper1_14.map((TrapdoorBlock) blockBrush);
       case LEVER:
@@ -252,7 +256,7 @@ public class BlockMapper1_14 {
         return Blocks.ANDESITE.getDefaultState();
       case ANDESITE_POLISHED:
         return Blocks.POLISHED_ANDESITE.getDefaultState();
-      case GRASS:
+      case GRASS_BLOCK:
         return Blocks.GRASS.getDefaultState();
       case DIRT:
         return Blocks.DIRT.getDefaultState();

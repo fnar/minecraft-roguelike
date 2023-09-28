@@ -1,6 +1,6 @@
 package com.github.fnar.minecraft.block;
 
-import com.github.fnar.minecraft.block.decorative.Plant;
+import com.github.fnar.minecraft.CouldNotMapException;
 import com.github.fnar.minecraft.block.decorative.PlantBlock;
 import com.github.fnar.minecraft.material.Wood;
 
@@ -11,14 +11,12 @@ import net.minecraft.init.Blocks;
 
 public class PlantBlockMapper1_12 {
 
-  public static IBlockState getPlant(PlantBlock block) {
-    return getPlant(block.getPlant());
-  }
-
-  private static IBlockState getPlant(Plant type) {
-    switch (type) {
+  public static IBlockState map(PlantBlock block) {
+    switch (block.getPlant()) {
       case POPPY:
         return Blocks.RED_FLOWER.getDefaultState();
+      case DANDELION:
+        return Blocks.YELLOW_FLOWER.getDefaultState();
       case BLUE_ORCHID:
         return Blocks.RED_FLOWER.getDefaultState()
             .withProperty(Blocks.RED_FLOWER.getTypeProperty(), BlockFlower.EnumFlowerType.BLUE_ORCHID);
@@ -61,15 +59,18 @@ public class PlantBlockMapper1_12 {
         return WoodMapper1_12.mapSapling(Wood.ACACIA);
       case DARK_OAK_SAPLING:
         return WoodMapper1_12.mapSapling(Wood.DARK_OAK);
+      case GRASS:
+        return Blocks.TALLGRASS.getDefaultState()
+            .withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.GRASS);
       case DEAD_BUSH:
         return Blocks.TALLGRASS.getDefaultState()
             .withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.DEAD_BUSH);
       case FERN:
         return Blocks.TALLGRASS.getDefaultState()
             .withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.FERN);
-      case DANDELION:
       default:
-        return Blocks.YELLOW_FLOWER.getDefaultState();
+        throw new CouldNotMapException(block.toString());
     }
   }
+
 }

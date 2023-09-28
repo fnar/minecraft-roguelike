@@ -9,10 +9,12 @@ import net.minecraft.block.Blocks;
 
 public class PlantBlockMapper1_14 {
 
-  public static BlockState getPlant(PlantBlock block) {
+  public static BlockState map(PlantBlock block) {
     switch (block.getPlant()) {
       case POPPY:
         return Blocks.POPPY.getDefaultState();
+      case DANDELION:
+        return Blocks.DANDELION.getDefaultState();
       case BLUE_ORCHID:
         return Blocks.BLUE_ORCHID.getDefaultState();
       case ALLIUM:
@@ -47,12 +49,12 @@ public class PlantBlockMapper1_14 {
         return WoodMapper1_14.map(Wood.ACACIA);
       case DARK_OAK_SAPLING:
         return WoodMapper1_14.map(Wood.DARK_OAK);
+      case GRASS:
+        return Blocks.GRASS.getDefaultState();
       case DEAD_BUSH:
         return Blocks.DEAD_BUSH.getDefaultState();
       case FERN:
         return Blocks.FERN.getDefaultState();
-      case DANDELION:
-        return Blocks.DANDELION.getDefaultState();
     }
     throw new CouldNotMapException(block.toString());
   }
