@@ -4,10 +4,10 @@ import com.github.fnar.roguelike.command.CommandContext;
 
 public class BaseRoguelikeCommand implements RoguelikeCommand {
 
-  protected final CommandContext commandContext;
+  protected final CommandContext context;
 
-  public BaseRoguelikeCommand(CommandContext commandContext) {
-    this.commandContext = commandContext;
+  public BaseRoguelikeCommand(CommandContext context) {
+    this.context = context;
   }
 
   @Override
@@ -18,12 +18,12 @@ public class BaseRoguelikeCommand implements RoguelikeCommand {
   @Override
   public void onSuccess() {
     // todo: internationalization
-    commandContext.sendSuccess("Successful command.");
+    context.sendSuccess("Successful command.");
   }
 
   @Override
   public void onException(Exception exception) {
-    commandContext.sendFailure(exception);
+    context.sendFailure(exception);
   }
 
   @Override

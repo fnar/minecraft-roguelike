@@ -1,6 +1,10 @@
 package greymerk.roguelike.dungeon.towers;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.theme.Themes;
@@ -62,21 +66,13 @@ public enum TowerType {
     return new Coord(origin.getX(), origin.getY() + yOffset, origin.getZ());
   }
 
-  public static TowerType get(String name) throws Exception {
-    if (!contains(name.toUpperCase())) {
-      throw new Exception("No such tower type: " + name);
-    }
-
-    return valueOf(name.toUpperCase());
+  public static Optional<TowerType> get(String name) {
+    return contains(name) ? Optional.of(valueOf(name.toUpperCase())) : Optional.empty();
   }
 
   public static boolean contains(String name) {
-    for (TowerType value : TowerType.values()) {
-      if (value.toString().equals(name)) {
-        return true;
-      }
-    }
-    return false;
+    return Arrays.stream(TowerType.values())
+        .anyMatch(value -> name.equalsIgnoreCase(value.toString()));
   }
 
   public static TowerType random(Random random) {
@@ -84,6 +80,16 @@ public enum TowerType {
     return values[random.nextInt(values.length)];
   }
 
+  public static List<String> getTowerList() {
+    return Arrays.stream(values())
+        .map(TowerType::toString)
+        .map(String::toLowerCase)
+        .collect(Collectors.toList());
+  }
+
+  public Tower instantiate(WorldEditor worldEditor) {
+    return instantiate(worldEditor, TowerType.getDefaultTheme(this).getThemeBase());
+  }
 
   public Tower instantiate(WorldEditor worldEditor, Theme theme) {
 

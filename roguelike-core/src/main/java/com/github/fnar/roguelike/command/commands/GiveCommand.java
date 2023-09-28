@@ -17,21 +17,21 @@ public class GiveCommand extends BaseRoguelikeCommand {
   @Override
   public void onRun() {
     if (itemName == null) {
-      commandContext.sendInfo("notif.roguelike.usage_", "roguelike give novelty_name");
+      context.sendInfo("notif.roguelike.usage_", "roguelike give novelty_name");
       return;
     }
 
     RldItemStack item = ItemNovelty.getItemByName(itemName);
     if (item == null) {
-      commandContext.sendFailure("nosuchitem");
+      context.sendFailure("nosuchitem");
       return;
     }
-    commandContext.give(item);
+    context.give(item);
   }
 
   @Override
   public void onSuccess() {
-    commandContext.sendSuccess("given", itemName);
+    context.sendSuccess("given", itemName);
   }
 
   private static RldItemStack onRun(String name) {

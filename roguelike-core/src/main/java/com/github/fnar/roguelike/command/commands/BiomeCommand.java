@@ -19,19 +19,19 @@ public class BiomeCommand extends BaseRoguelikeCommand {
 
   @Override
   public void onRun() {
-    commandContext.sendSpecial("notif.roguelike.biomeinfo", coord.toString());
+    context.sendSpecial("notif.roguelike.biomeinfo", coord.toString());
 
-    WorldEditor editor = commandContext.createEditor();
-    commandContext.sendSpecial(editor.getBiomeName(coord));
+    WorldEditor editor = context.createEditor();
+    context.sendSpecial(editor.getBiomeName(coord));
 
     List<String> typeNames = editor.getBiomeTagNames(coord);
-    commandContext.sendSpecial(String.join("", typeNames));
+    context.sendSpecial(String.join("", typeNames));
   }
 
   @Override
   public void onSuccess() {
     // todo: Add to language files
-    commandContext.sendSuccess("biomeslisted");
+    context.sendSuccess("biomeslisted");
   }
 
 }

@@ -16,7 +16,7 @@ public class ReloadConfigCommand extends BaseRoguelikeCommand {
 
   @Override
   public void onSuccess() {
-    commandContext.sendSuccess("configreloaded");
+    context.sendSuccess("configreloaded");
   }
 
 }

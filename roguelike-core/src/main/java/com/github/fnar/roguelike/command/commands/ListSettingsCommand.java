@@ -22,18 +22,18 @@ public class ListSettingsCommand extends BaseRoguelikeCommand {
 
   @Override
   public void onRun() {
-    SettingsContainer settingsContainer = new SettingsContainer(commandContext.getModLoader()).loadFiles();
+    SettingsContainer settingsContainer = new SettingsContainer(context.getModLoader()).loadFiles();
     SettingsResolver.instance = new SettingsResolver(settingsContainer);
     if (namespace.isEmpty()) {
-      commandContext.sendInfo(SettingsResolver.instance.toString());
+      context.sendInfo(SettingsResolver.instance.toString());
     } else {
-      commandContext.sendInfo(SettingsResolver.instance.toString(namespace));
+      context.sendInfo(SettingsResolver.instance.toString(namespace));
     }
   }
 
   @Override
   public void onSuccess() {
-    commandContext.sendSuccess("settingslisted");
+    context.sendSuccess("settingslisted");
   }
 
 }
