@@ -5,7 +5,6 @@ import com.github.fnar.minecraft.world.BiomeTag;
 import java.util.stream.IntStream;
 
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
-import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.settings.builtin.BuiltinBaseSettings;
@@ -14,7 +13,7 @@ import greymerk.roguelike.theme.Themes;
 
 public class BuiltinMesaDungeonSettings extends DungeonSettings {
 
-  public static final SettingIdentifier ID = new SettingIdentifier(SettingsContainer.BUILTIN_NAMESPACE, "mesa");
+  public static final String ID = SettingsContainer.BUILTIN_NAMESPACE + "Mesa";
 
   public BuiltinMesaDungeonSettings() {
     super(ID);

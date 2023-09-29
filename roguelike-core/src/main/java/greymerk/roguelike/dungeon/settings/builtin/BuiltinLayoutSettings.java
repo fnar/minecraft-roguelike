@@ -3,12 +3,11 @@ package greymerk.roguelike.dungeon.settings.builtin;
 import greymerk.roguelike.dungeon.layout.LayoutGenerator;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
 
 public class BuiltinLayoutSettings extends DungeonSettings {
 
-  public static final SettingIdentifier ID = new SettingIdentifier(SettingsContainer.BUILTIN_NAMESPACE, "layout");
+  public static final String ID = SettingsContainer.BUILTIN_NAMESPACE + "Layout";
 
   public BuiltinLayoutSettings() {
     super(ID);

@@ -11,12 +11,12 @@ import org.apache.commons.io.FilenameUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.dungeon.settings.builtin.BuiltinBaseSettings;
@@ -48,7 +48,7 @@ public class SettingsContainer {
   public static final String DEFAULT_NAMESPACE = "default";
   public static final String BUILTIN_NAMESPACE = "builtin";
 
-  private final Map<String, Map<String, DungeonSettings>> settingsByNamespace = new HashMap<>();
+  private final Map<String, DungeonSettings> settingsByName = new HashMap<>();
   private final DungeonSettingsParser dungeonSettingsParser;
 
   public SettingsContainer(ModLoader modLoader) {
@@ -143,70 +143,53 @@ public class SettingsContainer {
   }
 
   private void put(DungeonSettings dungeonSettings) {
-    String namespace = dungeonSettings.getNamespace();
-
-    if (!containsNamespace(namespace)) {
-      settingsByNamespace.put(namespace, new HashMap<>());
-    }
-
-    settingsByNamespace.get(namespace).put(dungeonSettings.getName(), dungeonSettings);
+    settingsByName.put(dungeonSettings.getName(), dungeonSettings);
   }
 
-  public Collection<DungeonSettings> getByNamespace(String namespace) {
-    if (containsNamespace(namespace)) {
-      return settingsByNamespace.get(namespace).values();
-    }
-    return new ArrayList<>();
+  public String getNamesStartingWith(String namespace) {
+    return getStartingWith(namespace).stream()
+        .map(DungeonSettings::getName)
+        .collect(joining(" "));
+  }
+
+  public Collection<DungeonSettings> getStartingWith(String name) {
+    return settingsByName.keySet().stream()
+        .filter(s -> s.startsWith(name))
+        .map(settingsByName::get)
+        .collect(Collectors.toSet());
   }
 
   public Collection<DungeonSettings> getBuiltinSettings() {
-    return settingsByNamespace.entrySet().stream()
-        .filter(this::isBuiltIn)
+    return settingsByName.entrySet().stream()
+        .filter(this::isBuiltin)
         .map(Map.Entry::getValue)
-        .map(Map::values)
-        .flatMap(Collection::stream)
-        .collect(toList());
+        .collect(Collectors.toSet());
   }
 
-  private boolean isBuiltIn(Map.Entry<String, Map<String, DungeonSettings>> entry) {
-    return BUILTIN_NAMESPACE.equals(entry.getKey());
+  private boolean isBuiltin(Map.Entry<String, DungeonSettings> entry) {
+    return entry.getKey().startsWith(BUILTIN_NAMESPACE);
   }
 
   public Collection<DungeonSettings> getCustomSettings() {
-    return settingsByNamespace.entrySet().stream()
-        .filter(((Predicate<Map.Entry<String, Map<String, DungeonSettings>>>) this::isBuiltIn).negate())
+    return settingsByName.entrySet().stream()
+        .filter(((Predicate<Map.Entry<String, DungeonSettings>>) this::isBuiltin).negate())
         .map(Map.Entry::getValue)
-        .map(Map::values)
-        .flatMap(Collection::stream)
-        .collect(toList());
+        .collect(Collectors.toSet());
   }
 
-  public DungeonSettings get(SettingIdentifier id) {
+  public DungeonSettings get(String id) {
     if (!contains(id)) {
-      throw new SettingsNotFoundException(id.getName());
+      throw new SettingsNotFoundException(id);
     }
-    return getNamespace(id).get(id.getName());
+    return settingsByName.get(id);
   }
 
-  private boolean contains(SettingIdentifier id) {
-    return containsNamespace(id.getNamespace()) && getNamespace(id).containsKey(id.getName());
-  }
-
-  private boolean containsNamespace(String namespace) {
-    return settingsByNamespace.containsKey(namespace);
-  }
-
-  private Map<String, DungeonSettings> getNamespace(SettingIdentifier id) {
-    return settingsByNamespace.get(id.getNamespace());
+  private boolean contains(String id) {
+    return settingsByName.containsKey(id);
   }
 
   @Override
   public String toString() {
-    return settingsByNamespace.values().stream()
-        .map(Map::values)
-        .flatMap(Collection::stream)
-        .map(DungeonSettings::getId)
-        .map(SettingIdentifier::toString)
-        .collect(joining(" "));
+    return String.join(" ", settingsByName.keySet());
   }
 }

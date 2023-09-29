@@ -3,12 +3,11 @@ package greymerk.roguelike.dungeon.settings.builtin;
 import greymerk.roguelike.dungeon.base.SecretsSetting;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
 
 public class BuiltinSecretsSettings extends DungeonSettings {
 
-  public static final SettingIdentifier ID = new SettingIdentifier(SettingsContainer.BUILTIN_NAMESPACE, "secrets");
+  public static final String ID = SettingsContainer.BUILTIN_NAMESPACE + "Secrets";
 
   public BuiltinSecretsSettings() {
     super(ID);

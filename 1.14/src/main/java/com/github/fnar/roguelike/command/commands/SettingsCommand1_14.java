@@ -11,14 +11,14 @@ import net.minecraft.command.Commands;
 
 public class SettingsCommand1_14 {
 
-  public static final String ARG_NAMESPACE = "namespace";
+  public static final String ARG_SETTING_NAME = "setting name";
 
   public static LiteralArgumentBuilder<CommandSource> settingsCommand() {
     return Commands.literal("settings")
         .executes(SettingsCommand1_14::sendUsage)
         .then(Commands.literal("list")
             .executes(SettingsCommand1_14::listSettings)
-            .then(Commands.argument(ARG_NAMESPACE, StringArgumentType.string())
+            .then(Commands.argument(ARG_SETTING_NAME, StringArgumentType.string())
                 .executes(SettingsCommand1_14::listSettings)))
         .then(Commands.literal("reload")
             .executes(reload()));
@@ -38,7 +38,7 @@ public class SettingsCommand1_14 {
 
   private static int listSettings(CommandContext<CommandSource> context) {
     com.github.fnar.roguelike.command.CommandContext commandContext = new CommandContext1_14(context);
-    String namespace = commandContext.getArgument(ARG_NAMESPACE).orElse("");
+    String namespace = commandContext.getArgument(ARG_SETTING_NAME).orElse("");
     new ListSettingsCommand(commandContext, namespace).run();
     return 0;
   }
