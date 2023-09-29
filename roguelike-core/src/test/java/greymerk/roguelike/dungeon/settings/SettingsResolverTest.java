@@ -72,7 +72,7 @@ public class SettingsResolverTest {
 
     settingsContainer.put(main, toInherit);
 
-    main.getInherit().add(toInherit.getId());
+    main.getInherit().add(toInherit.getName());
 
     toInherit.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(Material.Type.STICK.asItem().asStack(), 1), 0, 1));
 
@@ -91,8 +91,8 @@ public class SettingsResolverTest {
 
     settingsContainer.put(main, child, grandchild);
 
-    main.getInherit().add(child.getId());
-    child.getInherit().add(grandchild.getId());
+    main.getInherit().add(child.getName());
+    child.getInherit().add(grandchild.getName());
 
     child.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(Material.Type.STICK.asItem().asStack(), 1), 0, 1));
     grandchild.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(Material.Type.DIAMOND.asItem().asStack(), 1), 0, 1));
@@ -113,9 +113,9 @@ public class SettingsResolverTest {
 
     settingsContainer.put(main, parent, otherParent, grandparent);
 
-    main.getInherit().add(parent.getId());
-    main.getInherit().add(otherParent.getId());
-    parent.getInherit().add(grandparent.getId());
+    main.getInherit().add(parent.getName());
+    main.getInherit().add(otherParent.getName());
+    parent.getInherit().add(grandparent.getName());
 
     parent.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(Material.Type.STICK.asItem().asStack(), 1), 0, 1));
     otherParent.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(Material.Type.COAL.asItem().asStack(), 1), 0, 1));
@@ -139,7 +139,7 @@ public class SettingsResolverTest {
 
     DungeonSettings child = new DungeonSettings("child");
     child.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(coal, 1), 0, 1));
-    child.getInherit().add(parent.getId());
+    child.getInherit().add(parent.getName());
     settingsContainer.put(child);
 
     DungeonSettings assembled = settingsResolver.processInheritance(child);
@@ -162,7 +162,7 @@ public class SettingsResolverTest {
 
     DungeonSettings child = new DungeonSettings("child");
     child.getLootRules().add(new TypedForEachLootRule(ChestType.STARTER, new WeightedChoice<>(coal, 1), 0, 1));
-    child.getInherit().add(parent.getId());
+    child.getInherit().add(parent.getName());
     settingsContainer.put(child);
 
     DungeonSettings assembled = settingsResolver.processInheritance(child);
@@ -180,8 +180,8 @@ public class SettingsResolverTest {
     settingsContainer.put(Theme.forestThemeSettingsJson());
     settingsContainer.put(Dungeon.dungeonForestTempleSettingsJson());
 
-    String forestTempleId = "dungeon:forest_temple";
-    DungeonSettings forestTempleSettings = settingsContainer.get(new SettingIdentifier(forestTempleId));
+    String forestTempleId = "dungeonForestTemple";
+    DungeonSettings forestTempleSettings = settingsContainer.get(forestTempleId);
     DungeonSettings dungeonSettings = settingsResolver.processInheritance(forestTempleSettings);
 
     SingleBlockBrush lightBlock = (SingleBlockBrush) dungeonSettings.getLevelSettings(0).getTheme().getPrimary().getLightBlock();
@@ -243,7 +243,7 @@ public class SettingsResolverTest {
         "long_slow_falling"
     );
     String potionLootRules = potionTypes.stream().map(this::createPotionLootRule).collect(Collectors.joining(","));
-    String settingsName = "loot:potions";
+    String settingsName = "lootPotions";
     String potionLootSettings = "{\n" +
         "  \"name\": \"" + settingsName + "\",\n" +
         "  \"lootRules\": [" + potionLootRules + "]" +

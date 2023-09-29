@@ -103,7 +103,7 @@ public class Dungeon {
   }
 
   public void generate(DungeonSettings dungeonSettings, Coord coord) {
-    logger.info("Trying to spawn dungeon with id {} at {}...", dungeonSettings.getId(), coord);
+    logger.info("Trying to spawn dungeon with id {} at {}...", dungeonSettings.getName(), coord);
     try {
 
       origin = new Coord(coord.getX(), TOPLEVEL, coord.getZ());
@@ -117,7 +117,7 @@ public class Dungeon {
           .flatMap(stage -> DungeonTaskRegistry.getInstance().getTasks(stage).stream())
           .forEach(task -> performTaskSafely(dungeonSettings, task));
 
-      logger.info("Successfully generated dungeon with id {} at {}.", dungeonSettings.getId(), coord);
+      logger.info("Successfully generated dungeon with id {} at {}.", dungeonSettings.getName(), coord);
 
     } catch (Exception e) {
       e.printStackTrace();
