@@ -279,7 +279,6 @@ json.roguelike.tradingcard.106=§3Plata
 json.roguelike.tradingcard.107=§3Platino
 json.roguelike.tradingcard.108=§5Iridio
 
-
 json.roguelike.tradingcard.1.desc=§7§oUn terreno árido y arenoso, poblado por hostiles cactus y pequeños animales escondidos.
 json.roguelike.tradingcard.2.desc=§7§oLas onduladas colinas y sombrías arboledas forman hermosos paisajes en este bioma.
 json.roguelike.tradingcard.3.desc.1=§7§oMonstruosas criaturas e incluso plantas asesinas habitan este caluroso y húmedo paisaje,
@@ -444,6 +443,10 @@ json.roguelike.painting.xxx.name=§oXXX
 json.roguelike.painting.xxx.lore=§fProbablemente no debiste encontrar esto.
 json.roguelike.painting.piglet.name=§oPiglet
 json.roguelike.painting.piglet.lore=§fEs como si un niño hubiera pintado esto. Cómo lo consideran arte?
+json.roguelike.painting.yourmum.name=§o!!??
+json.roguelike.painting.yourmum.lore=§fEs esa una foto de tu mamá??
+json.roguelike.painting.dogspoker.name=§oPerros jugando Poker
+json.roguelike.painting.dogspoker.lore=§fEs lo que es.
 json.roguelike.painting.babyshiv.name=§oFoto de Shivaxi bebé
 json.roguelike.painting.babyshiv.lore=§fNo se veía lindo cuando era una cría? n_n
 json.roguelike.painting.fnar.name=§oFotografía de Fnar
