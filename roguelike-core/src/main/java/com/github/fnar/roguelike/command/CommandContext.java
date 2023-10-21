@@ -5,6 +5,7 @@ import com.github.fnar.minecraft.item.RldItemStack;
 
 import java.util.Optional;
 
+import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 
@@ -86,6 +87,10 @@ public class CommandContext {
 
   public Optional<String> getArgument(String argumentName) {
     return this.contextHolder.getArgument(argumentName);
+  }
+
+  public Optional<SettingIdentifier> getArgumentAsSettingIdentifier(String argumentName) {
+    return this.contextHolder.getArgumentAsSettingIdentifier(argumentName);
   }
 
   public Optional<Coord> getArgumentAsCoord(int argumentIndex) {

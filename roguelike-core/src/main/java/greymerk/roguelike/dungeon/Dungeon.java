@@ -19,7 +19,6 @@ import java.util.stream.IntStream;
 
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
-import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.SettingsRandom;
 import greymerk.roguelike.dungeon.settings.SettingsResolver;
 import greymerk.roguelike.dungeon.settings.SpawnCriteria;
@@ -57,8 +56,7 @@ public class Dungeon {
     this.editor = editor;
     try {
       RogueConfig.reload(false);
-      SettingsContainer settingsContainer = new SettingsContainer(modLoader).loadFiles();
-      SettingsResolver.instance = new SettingsResolver(settingsContainer);
+      SettingsResolver.getInstance(modLoader);
     } catch (Exception e) {
       // do nothing
     }
@@ -238,10 +236,7 @@ public class Dungeon {
     if (RogueConfig.RANDOM.getBoolean()) {
       return Optional.of(new SettingsRandom(editor.getRandom()));
     }
-    if (SettingsResolver.instance == null) {
-      return Optional.empty();
-    }
-    return SettingsResolver.instance.chooseRandom(editor, coord);
+    return SettingsResolver.getInstance().chooseRandom(editor, coord);
   }
 
   public Coord getPosition() {

@@ -9,6 +9,7 @@ import net.minecraft.util.math.BlockPos;
 
 import java.util.Optional;
 
+import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.worldgen.Coord;
 
 public class ContextHolder1_14 implements ContextHolder {
@@ -53,6 +54,11 @@ public class ContextHolder1_14 implements ContextHolder {
   @Override
   public CommandSender getCommandSender() {
     return commandSender;
+  }
+
+  @Override
+  public Optional<SettingIdentifier> getArgumentAsSettingIdentifier(String argumentName) {
+    return Optional.ofNullable(context.getArgument(argumentName, SettingIdentifier.class));
   }
 
   private static UnsupportedOperationException getException1_14DoesNotSupportIndexedArguments() {

@@ -5,6 +5,7 @@ import net.minecraft.command.ICommandSender;
 import java.util.List;
 import java.util.Optional;
 
+import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.util.ArgumentParser;
 import greymerk.roguelike.worldgen.Coord;
 
@@ -41,6 +42,11 @@ public class ContextHolder1_12 implements ContextHolder {
   @Override
   public CommandSender getCommandSender() {
     return sender;
+  }
+
+  @Override
+  public Optional<SettingIdentifier> getArgumentAsSettingIdentifier(String argumentName) {
+    throw getException1_12DoesNotSupportNamedArguments();
   }
 
   private static UnsupportedOperationException getException1_12DoesNotSupportNamedArguments() {

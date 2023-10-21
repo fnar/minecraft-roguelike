@@ -110,7 +110,7 @@ public class RoomsSettingTest {
 
   @Test
   public void testGetSingle() {
-    SettingsResolver.instance = new SettingsResolver(new SettingsContainer(modLoader));
+    SettingsResolver.getInstance(modLoader);
     WorldEditor editor = mock(WorldEditor.class);
     when(editor.getRandom()).thenReturn(new Random());
 

@@ -16,7 +16,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.dungeon.settings.builtin.BuiltinBaseSettings;
@@ -183,7 +185,7 @@ public class SettingsContainer {
 
   public DungeonSettings get(SettingIdentifier id) {
     if (!contains(id)) {
-      throw new SettingsNotFoundException(id.getName());
+      throw new SettingsNotFoundException(id);
     }
     return getNamespace(id).get(id.getName());
   }
@@ -202,11 +204,17 @@ public class SettingsContainer {
 
   @Override
   public String toString() {
+    return getAllSettingIdentifiers()
+        .stream()
+        .map(SettingIdentifier::toString)
+        .collect(joining(" "));
+  }
+
+  public Set<SettingIdentifier> getAllSettingIdentifiers() {
     return settingsByNamespace.values().stream()
         .map(Map::values)
         .flatMap(Collection::stream)
         .map(DungeonSettings::getId)
-        .map(SettingIdentifier::toString)
-        .collect(joining(" "));
+        .collect(Collectors.toSet());
   }
 }
