@@ -9,6 +9,7 @@ import greymerk.roguelike.dungeon.segment.Segment;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.settings.builtin.BuiltinBaseSettings;
@@ -19,7 +20,7 @@ import greymerk.roguelike.worldgen.filter.Filter;
 public class BuiltinForestDungeonSettings {
 
   public static DungeonSettings create() {
-    DungeonSettings dungeonSettings = new DungeonSettings().withName(SettingsContainer.BUILTIN_NAMESPACE + "Forest");
+    DungeonSettings dungeonSettings = new DungeonSettings().withId(new SettingIdentifier(SettingsContainer.BUILTIN_NAMESPACE, "forest"));
     dungeonSettings.setExclusive(true);
     dungeonSettings.getInherit().add(BuiltinBaseSettings.ID);
     dungeonSettings.getCriteria().addBiomeTags(BiomeTag.FOREST);

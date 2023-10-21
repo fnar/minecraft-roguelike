@@ -17,11 +17,15 @@ import greymerk.roguelike.treasure.loot.LootTableRule;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 
+import static greymerk.roguelike.dungeon.settings.SettingsContainer.DEFAULT_NAMESPACE;
+import static java.util.Optional.ofNullable;
+
+
 public class DungeonSettings {
 
   public static final int MAXIMUM_COUNT_OF_LEVELS = 5;
-  private String name;
-  private final List<String> inherit = new ArrayList<>();
+  private SettingIdentifier id;
+  private final List<SettingIdentifier> inherit = new ArrayList<>();
   private boolean exclusive;
   private TowerSettings towerSettings;
   private final Map<Integer, LevelSettings> levels = new HashMap<>();
@@ -36,14 +40,18 @@ public class DungeonSettings {
         .forEach(level -> levels.put(level.getLevel(), level));
   }
 
-  public DungeonSettings(String name) {
+  public DungeonSettings(String id) {
+    this(new SettingIdentifier(id));
+  }
+
+  public DungeonSettings(SettingIdentifier id) {
     this();
-    this.name = name;
+    withId(id);
   }
 
   public DungeonSettings inherit(DungeonSettings toInherit) {
     DungeonSettings dungeonSettings = new DungeonSettings();
-    dungeonSettings.name = name;
+    dungeonSettings.id = id;
 //    dungeonSettings.inherit.addAll(getInherit());
 //    dungeonSettings.overrides.addAll(ofNullable(getOverrides()).orElse(newHashSet()));
     dungeonSettings.exclusive = isExclusive();
@@ -82,7 +90,7 @@ public class DungeonSettings {
   }
 
   public DungeonSettings(DungeonSettings toCopy) {
-    name = toCopy.name;
+    id = toCopy.id;
     inherit.addAll(toCopy.inherit);
     overrides.addAll(toCopy.overrides);
     exclusive = toCopy.exclusive;
@@ -96,17 +104,25 @@ public class DungeonSettings {
     towerSettings = toCopy.towerSettings != null ? new TowerSettings(toCopy.towerSettings) : null;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public SettingIdentifier getId() {
+    return id;
   }
 
-  public DungeonSettings withName(String name) {
-    this.name = name;
+  public void setId(SettingIdentifier id) {
+    this.id = id;
+  }
+
+  public DungeonSettings withId(SettingIdentifier id) {
+    this.id = id;
     return this;
   }
 
+  public String getNamespace() {
+    return ofNullable(getId().getNamespace()).orElse(DEFAULT_NAMESPACE);
+  }
+
   public String getName() {
-    return name;
+    return getId().getName();
   }
 
   public void setSpawnCriteria(SpawnCriteria spawnCriteria) {
@@ -158,7 +174,7 @@ public class DungeonSettings {
     this.towerSettings = towerSettings;
   }
 
-  public List<String> getInherit() {
+  public List<SettingIdentifier> getInherit() {
     return inherit;
   }
 

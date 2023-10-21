@@ -3,8 +3,9 @@ package com.github.fnar.roguelike.dungeon.settings.fixture;
 public class Theme {
 
   public static String caveThemeSettingsJson() {
-    return "{\n" +
-        "  \"name\": \"themeCave\",\n" +
+    return "" +
+        "{\n" +
+        "  \"name\": \"theme:cave\",\n" +
         "  \"themes\": [\n" +
         "    {\n" +
         "      \"base\": \"MOSSY\",\n" +
@@ -55,8 +56,9 @@ public class Theme {
   }
 
   public static String forestThemeSettingsJson() {
-    return "{\n" +
-        "  \"name\" : \"themeForest\",\n" +
+    return "" +
+        "{\n" +
+        "  \"name\" : \"theme:forest\",\n" +
         "  \"themes\" : [\n" +
         "    {\n" +
         "      \"base\": \"DARKOAK\",\n" +

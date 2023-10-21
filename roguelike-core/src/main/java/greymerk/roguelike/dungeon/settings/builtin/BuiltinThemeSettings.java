@@ -2,6 +2,7 @@ package greymerk.roguelike.dungeon.settings.builtin;
 
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.towers.TowerType;
@@ -10,7 +11,7 @@ import greymerk.roguelike.theme.Themes;
 
 public class BuiltinThemeSettings extends DungeonSettings {
 
-  public static final String ID = SettingsContainer.BUILTIN_NAMESPACE + "Theme";
+  public static final SettingIdentifier ID = new SettingIdentifier(SettingsContainer.BUILTIN_NAMESPACE, "theme");
 
   private final static Themes[] themes = {Themes.OAK, Themes.SPRUCE, Themes.CRYPT, Themes.MOSSY};
   private final static Themes[] level4Themes = {Themes.CAVE, Themes.HELL, Themes.ICE, Themes.NETHER, Themes.NETHER_FORTRESS};

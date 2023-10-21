@@ -7,6 +7,7 @@ import greymerk.roguelike.dungeon.segment.Segment;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.settings.builtin.BuiltinBaseSettings;
@@ -19,7 +20,7 @@ import greymerk.roguelike.worldgen.filter.Filter;
 
 public class BuiltinJungleDungeonSettings extends DungeonSettings {
 
-  public static final String ID = SettingsContainer.BUILTIN_NAMESPACE + "Jungle";
+  public static final SettingIdentifier ID = new SettingIdentifier(SettingsContainer.BUILTIN_NAMESPACE, "jungle");
 
   public BuiltinJungleDungeonSettings() {
     super(ID);

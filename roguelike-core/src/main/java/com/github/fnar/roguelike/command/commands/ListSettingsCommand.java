@@ -9,11 +9,11 @@ import greymerk.roguelike.dungeon.settings.SettingsResolver;
 
 public class ListSettingsCommand extends BaseRoguelikeCommand {
 
-  private final String name;
+  private final String namespace;
 
-  public ListSettingsCommand(CommandContext commandContext, String name) {
+  public ListSettingsCommand(CommandContext commandContext, String namespace) {
     super(commandContext);
-    this.name = Optional.ofNullable(name).orElse("");
+    this.namespace = Optional.ofNullable(namespace).orElse("");
   }
 
   public static void sendUsage(CommandContext commandContext) {
@@ -24,10 +24,10 @@ public class ListSettingsCommand extends BaseRoguelikeCommand {
   public void onRun() {
     SettingsContainer settingsContainer = new SettingsContainer(context.getModLoader()).loadFiles();
     SettingsResolver.instance = new SettingsResolver(settingsContainer);
-    if (name.isEmpty()) {
+    if (namespace.isEmpty()) {
       context.sendInfo(SettingsResolver.instance.toString());
     } else {
-      context.sendInfo(SettingsResolver.instance.toString(name));
+      context.sendInfo(SettingsResolver.instance.toString(namespace));
     }
   }
 
