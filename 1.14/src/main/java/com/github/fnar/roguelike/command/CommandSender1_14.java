@@ -4,6 +4,8 @@ import com.github.fnar.minecraft.WorldEditor1_14;
 import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.minecraft.item.mapper.ItemMapper1_14;
 import com.github.fnar.minecraft.world.BlockPosMapper1_14;
+import com.github.fnar.roguelike.command.message.Message;
+import com.github.fnar.roguelike.command.message.MessageType;
 
 import net.minecraft.command.CommandSource;
 import net.minecraft.entity.Entity;
@@ -29,16 +31,11 @@ public class CommandSender1_14 implements CommandSender {
   }
 
   @Override
-  public void sendMessage(String message, MessageType type) {
-    commandSource.sendFeedback(new StringTextComponent(type.apply(message)), true);
-  }
-
-  @Override
-  public void sendMessage(String message, String details, MessageType type) {
+  public void sendMessage(Message message) {
     commandSource.sendFeedback(
-        formatMessage(message, type)
+        formatMessage(message.getMessage(), message.getMessageType())
             .appendText(" ")
-            .appendSibling(new StringTextComponent(details)), true);
+            .appendSibling(new StringTextComponent(message.getDetails())), true);
   }
 
   private static ITextComponent formatMessage(String message, MessageType type) {

@@ -2,6 +2,12 @@ package com.github.fnar.roguelike.command;
 
 import com.github.fnar.forge.ModLoader;
 import com.github.fnar.minecraft.item.RldItemStack;
+import com.github.fnar.roguelike.command.message.ErrorMessage;
+import com.github.fnar.roguelike.command.message.InfoMessage;
+import com.github.fnar.roguelike.command.message.Message;
+import com.github.fnar.roguelike.command.message.SpecialMessage;
+import com.github.fnar.roguelike.command.message.SuccessMessage;
+import com.github.fnar.roguelike.command.message.WarningMessage;
 
 import java.util.Optional;
 
@@ -26,43 +32,47 @@ public class CommandContext {
   }
 
   public void sendFailure(String message) {
-    sendMessage("notif.roguelike.failure_" + message, MessageType.ERROR);
+    sendMessage(new ErrorMessage("notif.roguelike.failure_" + message));
   }
 
   public void sendFailure(String message, String details) {
-    sendMessage("notif.roguelike.failure_" + message, details, MessageType.ERROR);
+    sendMessage(new ErrorMessage("notif.roguelike.failure_" + message).withDetails(details));
   }
 
   public void sendInfo(String message) {
-    sendMessage(message, MessageType.INFO);
+    sendMessage(new InfoMessage(message));
   }
 
   public void sendInfo(String message, String details) {
-    sendMessage(message, details, MessageType.INFO);
+    sendMessage(new InfoMessage(message).withDetails(details));
   }
 
   public void sendSpecial(String message) {
-    sendMessage(message, MessageType.SPECIAL);
+    sendMessage(new SpecialMessage(message));
   }
 
   public void sendSpecial(String message, String details) {
-    sendMessage(message, details, MessageType.SPECIAL);
+    sendMessage(new SpecialMessage(message).withDetails(details));
   }
 
   public void sendSuccess(String message) {
-    sendMessage("notif.roguelike.success_" + message, MessageType.SUCCESS);
+    sendMessage(new SuccessMessage("notif.roguelike.success_" + message));
   }
 
   public void sendSuccess(String message, String details) {
-    sendMessage("notif.roguelike.success_" + message, details, MessageType.SUCCESS);
+    sendMessage(new SuccessMessage("notif.roguelike.success_" + message).withDetails(details));
   }
 
-  public void sendMessage(String message, MessageType type) {
-    getCommandSender().sendMessage(message, type);
+  public void sendWarning(String message) {
+    sendMessage(new WarningMessage(message));
   }
 
-  public void sendMessage(String message, String details, MessageType type) {
-    getCommandSender().sendMessage(message, details, type);
+  public void sendWarning(String message, String details) {
+    sendMessage(new WarningMessage(message).withDetails(details));
+  }
+
+  public void sendMessage(Message message) {
+    getCommandSender().sendMessage(message);
   }
 
   public WorldEditor createEditor() {
