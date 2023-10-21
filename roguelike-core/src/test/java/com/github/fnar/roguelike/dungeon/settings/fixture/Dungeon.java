@@ -2,41 +2,45 @@ package com.github.fnar.roguelike.dungeon.settings.fixture;
 
 public class Dungeon {
   public static String dungeonGenericSettingsJson() {
-    return "{\n" +
-        "  \"name\": \"dungeonGeneric\"" +
+    return "" +
+        "{\n" +
+        "  \"name\": \"dungeon:generic\"" +
         "}";
   }
 
   public static String dungeonCaveSettingsJson() {
-    return "{\n" +
-        "  \"name\": \"fnarDungeonCave\",\n" +
+    return "" +
+        "{\n" +
+        "  \"name\": \"fnar:dungeon_cave\",\n" +
         "  \"exclusive\": true,\n" +
         "  \"inherit\": [\n" +
-        "    \"themeCave\"\n" +
+        "    \"theme:cave\"\n" +
         "  ],\n" +
         "  \"criteria\": {\"biomeTypes\": [\"FOREST\", \"MESA\", \"PLAINS\", \"SANDY\", \"SNOWY\"]}\n" +
         "}\n";
   }
 
   public static String dungeonCaveSmallSettingsJson() {
-    return "{\n" +
-        "  \"name\": \"fnarDungeonCaveSmall\",\n" +
+    return "" +
+        "{\n" +
+        "  \"name\": \"fnar:dungeon_cave_small\",\n" +
         "  \"exclusive\": true,\n" +
         "  \"inherit\": [\n" +
-        "    \"fnarDungeonCave\",\n" +
-        "    \"layoutSizeSmall\"\n" +
+        "    \"fnar:dungeon_cave\",\n" +
+        "    \"layout:size_small\"\n" +
         "  ]\n" +
         "}\n";
   }
 
   public static String dungeonForestTempleSettingsJson() {
-    return "{\n" +
-        "  \"name\" : \"dungeonForestTemple\",\n" +
+    return "" +
+        "{\n" +
+        "  \"name\" : \"dungeon:forest_temple\",\n" +
         "  \"exclusive\": true,\n" +
         "  \"inherit\" : [\n" +
-        "    \"dungeonGeneric\",\n" +
-        "    \"themeForest\",\n" +
-        "    \"dungeonGeneric\"\n" +
+        "    \"dungeon:generic\",\n" +
+        "    \"theme:forest\",\n" +
+        "    \"dungeon:generic\"\n" +
         "  ]\n" +
         "}";
   }

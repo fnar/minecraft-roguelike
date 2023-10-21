@@ -1,6 +1,7 @@
 package greymerk.roguelike.dungeon.settings.builtin;
 
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
+import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.treasure.loot.Equipment;
@@ -22,7 +23,7 @@ import static com.google.common.collect.Lists.newArrayList;
 
 public class BuiltinLootSettings extends DungeonSettings {
 
-  public static final String ID = SettingsContainer.BUILTIN_NAMESPACE + "Loot";
+  public static final SettingIdentifier ID = new SettingIdentifier(SettingsContainer.BUILTIN_NAMESPACE, "loot");
 
   public BuiltinLootSettings() {
     super(ID);

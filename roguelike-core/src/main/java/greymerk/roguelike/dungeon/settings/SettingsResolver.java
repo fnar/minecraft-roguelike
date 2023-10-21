@@ -15,6 +15,7 @@ import greymerk.roguelike.worldgen.WorldEditor;
 
 import static java.util.Optional.empty;
 import static java.util.Optional.ofNullable;
+import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
 
 public class SettingsResolver {
@@ -29,7 +30,7 @@ public class SettingsResolver {
   }
 
   public DungeonSettings resolve(String settingName) {
-    DungeonSettings dungeonSettings = settingsContainer.get(settingName);
+    DungeonSettings dungeonSettings = settingsContainer.get(new SettingIdentifier(settingName));
     DungeonSettings inflatedDungeonSettings = processInheritance(dungeonSettings);
     return ofNullable(inflatedDungeonSettings).orElseThrow(() -> new SettingsNotFoundException(settingName));
   }
@@ -82,7 +83,10 @@ public class SettingsResolver {
   }
 
   public String toString(String namespace) {
-    return settingsContainer.getNamesStartingWith(namespace);
+    return settingsContainer.getByNamespace(namespace).stream()
+        .map(DungeonSettings::getId)
+        .map(SettingIdentifier::toString)
+        .collect(joining(" "));
   }
 
   @Override

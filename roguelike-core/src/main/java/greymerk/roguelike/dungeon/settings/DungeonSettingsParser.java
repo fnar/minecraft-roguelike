@@ -55,7 +55,7 @@ public class DungeonSettingsParser {
     } catch (DungeonSettingParseException | RequiredModMissingException exception) {
       throw exception;
     } catch (Exception e) {
-      throw new Exception("An unknown error occurred while parsing json: " + e.getClass() + " " + e.getMessage());
+      throw new Exception("An unknown error occurred while parsing json: " + e.getClass().toString() + " " + e.getMessage());
     }
   }
 
@@ -120,8 +120,14 @@ public class DungeonSettingsParser {
     if (!root.has("name")) {
       throw new Exception("Setting missing name");
     }
-    String name = root.get("name").getAsString();
-    dungeonSettings.setName(name);
+
+    if (root.has("namespace")) {
+      String name = root.get("name").getAsString();
+      String namespace = root.get("namespace").getAsString();
+      dungeonSettings.setId(new SettingIdentifier(namespace, name));
+    } else {
+      dungeonSettings.setId(new SettingIdentifier(root.get("name").getAsString()));
+    }
   }
 
   private static void parseExclusive(JsonObject root, DungeonSettings dungeonSettings) {
@@ -170,7 +176,7 @@ public class DungeonSettingsParser {
         if (jsonElement.isJsonNull()) {
           continue;
         }
-        dungeonSettings.getInherit().add(jsonElement.getAsString());
+        dungeonSettings.getInherit().add(new SettingIdentifier(jsonElement.getAsString()));
       }
     }
   }

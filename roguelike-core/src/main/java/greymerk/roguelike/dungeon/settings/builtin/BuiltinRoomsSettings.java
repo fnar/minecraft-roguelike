@@ -4,8 +4,11 @@ import com.google.common.collect.Lists;
 
 import java.util.List;
 
+import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
+import greymerk.roguelike.dungeon.settings.LevelSettings;
+import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.dungeon.settings.SettingsContainer;
 
 import static greymerk.roguelike.dungeon.base.RoomType.BLAZE;
@@ -33,7 +36,7 @@ import static greymerk.roguelike.dungeon.base.RoomType.SPIDER;
 
 public class BuiltinRoomsSettings extends DungeonSettings {
 
-  public static final String ID = SettingsContainer.BUILTIN_NAMESPACE + "Rooms";
+  public static final SettingIdentifier ID = new SettingIdentifier(SettingsContainer.BUILTIN_NAMESPACE, "rooms");
 
   public BuiltinRoomsSettings() {
     super(ID);

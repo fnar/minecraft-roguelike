@@ -46,14 +46,14 @@ public class DungeonIntegrationTest {
 
   @Test
   public void immediateThemesInheritCorrectly() {
-    assertThat(settingsResolver.resolve("fnarDungeonCave").getLevelSettings(0).getTheme())
-        .isEqualTo(settingsResolver.resolve("themeCave").getLevelSettings(0).getTheme());
+    assertThat(settingsResolver.resolve("fnar:dungeon_cave").getLevelSettings(0).getTheme())
+        .isEqualTo(settingsResolver.resolve("theme:cave").getLevelSettings(0).getTheme());
   }
 
   @Test
   public void inheritedThemesAreNotOverwrittenBySubsequentInheritances() {
     // the small cave dungeon should retain the cave theme that it inherited from the normal cave dungeon
-    assertThat(settingsResolver.resolve("fnarDungeonCaveSmall").getLevelSettings(0).getTheme())
-        .isEqualTo(settingsResolver.resolve("themeCave").getLevelSettings(0).getTheme());
+    assertThat(settingsResolver.resolve("fnar:dungeon_cave_small").getLevelSettings(0).getTheme())
+        .isEqualTo(settingsResolver.resolve("theme:cave").getLevelSettings(0).getTheme());
   }
 }
