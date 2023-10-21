@@ -18,7 +18,8 @@ public class BaseRoguelikeCommand implements RoguelikeCommand {
   @Override
   public void onSuccess() {
     // todo: internationalization
-    context.sendSuccess("Successful command.");
+    //context.sendSuccess("Successful command.");
+    context.sendSuccess("notif.roguelike.success_command");
   }
 
   @Override

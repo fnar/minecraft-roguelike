@@ -28,7 +28,7 @@ public class SpecialEquipment {
   private final StringBuilder suffix = new StringBuilder();
   private Quality quality;
   protected RldItem rldItem;
-  private String lore;
+  private String lore, loclore;
 
   public static RldItemStack newRandomSpecialEquipment(Random random, Equipment type, Quality quality) {
     switch (type) {
@@ -72,12 +72,18 @@ public class SpecialEquipment {
     return this;
   }
 
-  public SpecialEquipment withLore(String langkey) {
-    lore = langkey;
+  public SpecialEquipment withLore(String s) {
+    lore = s;
     return this;
   }
+
   public SpecialEquipment withLore(String s, TextFormat textFormatColor) {
     lore = textFormatColor.apply(s);
+    return this;
+  }
+
+  public SpecialEquipment withLocLore(String langkey) {
+    loclore = langkey;
     return this;
   }
 
@@ -131,8 +137,8 @@ public class SpecialEquipment {
       if (enchantmentLevel == 2) {
         //withPrefix("Tempered");
         withPrefix("unbr2");
-        //withLore("Highly Durable", TextFormat.DARKGREEN);
-        withLore("lore.roguelike.unbreaking2");
+        withLore("Highly Durable", TextFormat.DARKGREEN);
+        withLocLore("lore.roguelike.unbreaking2");
       }
       if (enchantmentLevel == 1) {
         //withPrefix("Reinforced");
