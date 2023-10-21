@@ -1,10 +1,12 @@
 package greymerk.roguelike.dungeon.settings;
 
+import com.github.fnar.forge.ModLoader;
 import com.github.fnar.roguelike.settings.exception.SettingsNotFoundException;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Predicate;
 
 import greymerk.roguelike.config.RogueConfig;
@@ -20,10 +22,21 @@ import static java.util.stream.Collectors.toList;
 
 public class SettingsResolver {
 
-  // TODO: Convert to instance
-  public static SettingsResolver instance;
+  private static SettingsResolver instance;
 
   private final SettingsContainer settingsContainer;
+
+  public static SettingsResolver getInstance() {
+    return getInstance((foo) -> false);
+  }
+
+  public static SettingsResolver getInstance(ModLoader modLoader) {
+    if (instance == null) {
+      SettingsContainer settingsContainer = new SettingsContainer(modLoader).loadFiles();
+      SettingsResolver.instance = new SettingsResolver(settingsContainer);
+    }
+    return instance;
+  }
 
   public SettingsResolver(SettingsContainer settingsContainer) {
     this.settingsContainer = settingsContainer;
@@ -92,5 +105,9 @@ public class SettingsResolver {
   @Override
   public String toString() {
     return settingsContainer.toString();
+  }
+
+  public Set<SettingIdentifier> getAllSettingIdentifiers() {
+    return settingsContainer.getAllSettingIdentifiers();
   }
 }

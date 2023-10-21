@@ -2,6 +2,7 @@ package com.github.fnar.roguelike.command;
 
 import java.util.Optional;
 
+import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.worldgen.Coord;
 
 public interface ContextHolder {
@@ -15,5 +16,7 @@ public interface ContextHolder {
   Optional<Coord> getArgumentAsCoord(String argumentName);
 
   CommandSender getCommandSender();
+
+  Optional<SettingIdentifier> getArgumentAsSettingIdentifier(String argumentName);
 
 }

@@ -8,7 +8,7 @@ import java.util.Random;
 
 import greymerk.roguelike.dungeon.Dungeon;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
-import greymerk.roguelike.dungeon.settings.SettingsContainer;
+import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.dungeon.settings.SettingsRandom;
 import greymerk.roguelike.dungeon.settings.SettingsResolver;
 import greymerk.roguelike.dungeon.settings.TestDungeonSettings;
@@ -26,12 +26,16 @@ public class DungeonCommand extends BaseRoguelikeCommand {
     this.coord = Optional.ofNullable(coord).orElse(commandContext.getSenderCoord());
   }
 
+  public DungeonCommand(CommandContext commandContext, Coord coord, SettingIdentifier settingIdentifier) {
+    super(commandContext);
+    this.settingName = settingIdentifier.toString();
+    this.coord = Optional.ofNullable(coord).orElse(commandContext.getSenderCoord());
+  }
+
   @Override
   public void onRun() throws Exception {
     WorldEditor editor = context.createEditor();
-    SettingsContainer settingsContainer = new SettingsContainer(context.getModLoader()).loadFiles();
-    SettingsResolver.instance = new SettingsResolver(settingsContainer);
-    DungeonSettings dungeonSettings = chooseDungeonSettings(SettingsResolver.instance, settingName, coord, editor);
+    DungeonSettings dungeonSettings = chooseDungeonSettings(SettingsResolver.getInstance(context.getModLoader()), settingName, coord, editor);
     generateDungeon(context, coord, editor, dungeonSettings);
   }
 
@@ -49,7 +53,7 @@ public class DungeonCommand extends BaseRoguelikeCommand {
     } else if (settingName.equals("random")) {
       return getRandomSettings(editor, pos);
     } else {
-      return SettingsResolver.instance.resolve(settingName);
+      return SettingsResolver.getInstance().resolve(settingName);
     }
   }
 
