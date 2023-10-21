@@ -1,6 +1,8 @@
 package greymerk.roguelike.treasure.loot.provider;
 
 
+import com.google.common.base.Functions;
+
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.item.ArmourType;
 import com.github.fnar.minecraft.item.Dye;
@@ -13,8 +15,9 @@ import com.github.fnar.minecraft.item.ToolType;
 import com.github.fnar.minecraft.item.WeaponType;
 import com.github.fnar.util.Color;
 
-import java.util.HashMap;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import greymerk.roguelike.treasure.loot.Quality;
 import greymerk.roguelike.util.DyeColor;
@@ -50,49 +53,18 @@ public enum ItemNovelty {
   VECHS,
   ZISTEAUSIGN;
 
-  public static final Map<String, ItemNovelty> names;
-
-  static {
-    names = new HashMap<>();
-    names.put("greymerk", ItemNovelty.GREYMERK);
-    names.put("nebriscrown", ItemNovelty.NEBRISCROWN);
-    names.put("nebrissword", ItemNovelty.NULL);
-    names.put("zisteaupants", ItemNovelty.MANPANTS);
-    names.put("zisteausign", ItemNovelty.ZISTEAUSIGN);
-    names.put("avidya", ItemNovelty.AVIDYA);
-    names.put("ashlea", ItemNovelty.ASHLEA);
-    names.put("kurt", ItemNovelty.KURT);
-    names.put("amlp", ItemNovelty.AMLP);
-    names.put("cleo", ItemNovelty.CLEO);
-    names.put("enikosword", ItemNovelty.ENIKOSWORD);
-    names.put("enikobow", ItemNovelty.ENIKOBOW);
-    names.put("bdoubleo", ItemNovelty.BDOUBLEO);
-    names.put("guude", ItemNovelty.GUUDE);
-    names.put("rleahy", ItemNovelty.RLEAHY);
-    names.put("etho", ItemNovelty.ETHO);
-    names.put("baj", ItemNovelty.BAJ);
-    names.put("docm", ItemNovelty.DOCM);
-    names.put("ginger", ItemNovelty.GINGER);
-    names.put("vechs", ItemNovelty.VECHS);
-    names.put("notch", ItemNovelty.NOTCH);
-    names.put("quantumleap", ItemNovelty.QUANTUMLEAP);
-    names.put("generikb", ItemNovelty.GENERIKB);
-    names.put("fourles", ItemNovelty.FOURLES);
-    names.put("dinnerbone", ItemNovelty.DINNERBONE);
-    names.put("grim", ItemNovelty.GRIM);
-    names.put("mmillss", ItemNovelty.MMILLSS);
-    names.put("valandrah", ItemNovelty.VALANDRAH);
-  }
+  public static final Map<String, ItemNovelty> names = Arrays.stream(ItemNovelty.values())
+      .collect(Collectors.toMap(Enum::toString, Functions.identity()));
 
   public static RldItemStack getItemByName(String name) {
-    if (!names.containsKey(name)) {
-      return null;
-    }
-    return getItem(names.get(name));
+    return getItemByNamePrivate(name.toUpperCase());
+  }
+
+  private static RldItemStack getItemByNamePrivate(String name) {
+    return names.containsKey(name) ? getItem(names.get(name)) : null;
   }
 
   public static RldItemStack getItem(ItemNovelty choice) {
-
     switch (choice) {
       case GREYMERK:
         return greymerksHatchet();
