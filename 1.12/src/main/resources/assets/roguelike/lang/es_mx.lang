@@ -1,18 +1,27 @@
 ## Translated by KameiB on 2023
-# Lore
-lore.roguelike.unbreaking2=§2§oAltamente duradero
-lore.roguelike.diamond_hoe=§i§oNo craftees una Azada de diamante
-lore.roguelike.yew_bow=§2§oUna técnica superior
-lore.roguelike.laminated_bow=§2§oAltamente pulido
-lore.roguelike.elven_bow=§2§oHermosamente fabricado
-lore.roguelike.faerie_bow=§2§oBendecido por los sueños
-lore.roguelike.recurve_bow=§2§oSe curva al exterior hacia el objetivo
-lore.roguelike.eldritch_bow=§2§oCálido al tacto
-lore.roguelike.looting3=§2§oPerteneció al rey de los ladrones del desierto.
-lore.roguelike.fire_aspect1=§e§oCálido al tacto
-lore.roguelike.fire_aspect2=§c§oTan caliente que casi te quema la mano
-lore.roguelike.fire_aspect3=§4§oDe las profundidades del infierno
-lore.roguelike.stick_rlu=§8§oUnidad de lógica aleatoria
+# Potions Mixtures
+mixture.roguelike.absinthe.name=§oAbsenta
+mixture.roguelike.absinthe.lore=
+mixture.roguelike.aura.name=§oLuma
+mixture.roguelike.aura.lore=§5§oUn extracto de piedra brillante.
+mixture.roguelike.coffee.name=§oCafé
+mixture.roguelike.coffee.lore=§5§oDestilado de granos tostados.
+mixture.roguelike.laudanum.name=§oLaudanio
+mixture.roguelike.laudanum.lore=§5§oUna tintura medicinal.
+mixture.roguelike.moonshine.name=§oBrillo lunar
+mixture.roguelike.moonshine.lore=
+mixture.roguelike.nectar.name=§oNéctar
+mixture.roguelike.nectar.lore=§5§oUn extracto floral.
+mixture.roguelike.rage.name=§oAnimus
+mixture.roguelike.rage.lore=§5§oUna mezcla inestable.
+mixture.roguelike.stamina.name=§oVitae
+mixture.roguelike.stamina.lore=§5§oLa esencia de la vida.
+mixture.roguelike.stout.name=§oStout
+mixture.roguelike.stout.lore=§5§o"Es buena para tí"
+mixture.roguelike.tequila.name=§oTequila
+mixture.roguelike.tequila.lore=
+mixture.roguelike.vile.name=§oMezcla vil
+mixture.roguelike.vile.lore=
 
 # Novelty items
 novelty.roguelike.greymerk.name=§oHacha de Greymerk
@@ -74,6 +83,21 @@ novelty.roguelike.mmillss.lore=§2§o"De verdad ya no necesito más hilo..."
 novelty.roguelike.valandrah.name=§oBeso de Valandrah
 novelty.roguelike.valandrah.lore=§2§o"Siente su afilado beso"
 
+# Lore
+lore.roguelike.unbreaking2=§2§oAltamente duradero
+lore.roguelike.diamond_hoe=§i§oNo craftees una Azada de diamante
+lore.roguelike.yew_bow=§2§oUna técnica superior
+lore.roguelike.laminated_bow=§2§oAltamente pulido
+lore.roguelike.elven_bow=§2§oHermosamente fabricado
+lore.roguelike.faerie_bow=§2§oBendecido por los sueños
+lore.roguelike.recurve_bow=§2§oSe curva al exterior hacia el objetivo
+lore.roguelike.eldritch_bow=§2§oCálido al tacto
+lore.roguelike.looting3=§2§oPerteneció al rey de los ladrones del desierto.
+lore.roguelike.fire_aspect1=§e§oCálido al tacto
+lore.roguelike.fire_aspect2=§c§oTan caliente que casi te quema la mano
+lore.roguelike.fire_aspect3=§4§oDe las profundidades del infierno
+lore.roguelike.stick_rlu=§8§oUnidad de lógica aleatoria
+
 # Commands
 notif.roguelike.success_=Exito:
 notif.roguelike.failure_=Error:
@@ -104,170 +128,334 @@ notif.roguelike.success_generateddungeon=Exito: Calabozo generado satisfactoriam
 notif.roguelike.success_settingsreloaded=Exito: Las configuraciones se volvieron a cargar satisfactoriamente.
 notif.roguelike.success_settingslisted=Exito: Configuraciones enlistadas satisfactoriamente.
 
-# Potions Mixtures
-mixture.roguelike.absinthe.name=§oAbsenta
-mixture.roguelike.absinthe.lore=
-mixture.roguelike.aura.name=§oLuma
-mixture.roguelike.aura.lore=§5§oUn extracto de piedra brillante.
-mixture.roguelike.coffee.name=§oCafé
-mixture.roguelike.coffee.lore=§5§oDestilado de granos tostados.
-mixture.roguelike.laudanum.name=§oLaudanio
-mixture.roguelike.laudanum.lore=§5§oUna tintura medicinal.
-mixture.roguelike.moonshine.name=§oBrillo lunar
-mixture.roguelike.moonshine.lore=
-mixture.roguelike.nectar.name=§oNéctar
-mixture.roguelike.nectar.lore=§5§oUn extracto floral.
-mixture.roguelike.rage.name=§oAnimus
-mixture.roguelike.rage.lore=§5§oUna mezcla inestable.
-mixture.roguelike.stamina.name=§oVitae
-mixture.roguelike.stamina.lore=§5§oLa esencia de la vida.
-mixture.roguelike.stout.name=§oStout
-mixture.roguelike.stout.lore=§5§o"Es buena para tí"
-mixture.roguelike.tequila.name=§oTequila
-mixture.roguelike.tequila.lore=
-mixture.roguelike.vile.name=§oMezcla vil
-mixture.roguelike.vile.lore=
-
-## Roguelike dungeons JSON loot names and lore ##
+## JSON loot names and lore ##
 # looting_trading_cards.json
 json.roguelike.tradingcard.name=§oCarta coleccionable
 json.roguelike.tradingcard.common=§8Común
 json.roguelike.tradingcard.uncommon=§7Poco común
 json.roguelike.tradingcard.rare=§6Raro
+json.roguelike.tradingcard.epic=§5Épico
+json.roguelike.tradingcard.legendary=§dLegendario
+
 json.roguelike.tradingcard.land=§2Tierra
 json.roguelike.tradingcard.element=§3Elemento
-json.roguelike.tradingcard.elemental=§1Elemental
-json.roguelike.tradingcard.heavens=§bCielo
+json.roguelike.tradingcard.golem=§8Golem
+json.roguelike.tradingcard.heavens=§bCielos
 json.roguelike.tradingcard.season=§aEstación
 json.roguelike.tradingcard.mob=§cMob
-json.roguelike.tradingcard.bossmob=§4Boss
+json.roguelike.tradingcard.mob_passive=§cMob pasivo
+json.roguelike.tradingcard.mob_tameable=§cMob domesticable
+json.roguelike.tradingcard.mob_neutral=§cMob neutral
+json.roguelike.tradingcard.mob_hostile=§cMob hostil
+json.roguelike.tradingcard.mob_boss=§4Mob boss
 json.roguelike.tradingcard.profession=§dProfesión
 json.roguelike.tradingcard.humanoid=§nHumanoide
 json.roguelike.tradingcard.beast=§5Bestia
 json.roguelike.tradingcard.gemstone=§eGema
-json.roguelike.tradingcard.1=§iDesierto
-json.roguelike.tradingcard.2=§iBosque
-json.roguelike.tradingcard.3=§iJungla
-json.roguelike.tradingcard.4=§iMontaña
-json.roguelike.tradingcard.5=§iOcéano
-json.roguelike.tradingcard.6=§iPlanicie
-json.roguelike.tradingcard.7=§iRío
-json.roguelike.tradingcard.8=§iPantano
-json.roguelike.tradingcard.9=§iTundra
-json.roguelike.tradingcard.10=§iAire
-json.roguelike.tradingcard.11=§iFuego
-json.roguelike.tradingcard.12=§iTierra
-json.roguelike.tradingcard.13=§iAgua
-json.roguelike.tradingcard.14=§iEspíritu
-json.roguelike.tradingcard.15=§iElectricidad
-json.roguelike.tradingcard.16=§iAgua
-json.roguelike.tradingcard.17=§iFuego
-json.roguelike.tradingcard.18=§iRelámpago
-json.roguelike.tradingcard.19=§iAlma
-json.roguelike.tradingcard.20=§iTierra
-json.roguelike.tradingcard.21=§iViento
-json.roguelike.tradingcard.22=§iSol
-json.roguelike.tradingcard.23=§iLuna llena
-json.roguelike.tradingcard.24=§iLuna menguante
-json.roguelike.tradingcard.25=§iLuna nueva
-json.roguelike.tradingcard.26=§iLuna creciente
-json.roguelike.tradingcard.27=§iEclipse
-json.roguelike.tradingcard.28=§iPrimavera
-json.roguelike.tradingcard.29=§iVerano
-json.roguelike.tradingcard.30=§iOtoño
-json.roguelike.tradingcard.31=§iInvierno
-json.roguelike.tradingcard.32=§iMurciélago
-json.roguelike.tradingcard.33=§iGallina
-json.roguelike.tradingcard.34=§iVaca
-json.roguelike.tradingcard.35=§iCaballo
-json.roguelike.tradingcard.36=§iCerdo
-json.roguelike.tradingcard.37=§iConejo
-json.roguelike.tradingcard.38=§iOveja
-json.roguelike.tradingcard.39=§iCalamar
-json.roguelike.tradingcard.40=§iLobo
-json.roguelike.tradingcard.41=§iOcelote
-json.roguelike.tradingcard.42=§iLoro
-json.roguelike.tradingcard.43=§iZorro
-json.roguelike.tradingcard.44=§iPanda
-json.roguelike.tradingcard.45=§iTortuga
-json.roguelike.tradingcard.46=§iZombi
-json.roguelike.tradingcard.47=§iEsqueleto
-json.roguelike.tradingcard.48=§iCreeper
-json.roguelike.tradingcard.49=§iAraña
-json.roguelike.tradingcard.50=§iSlime
-json.roguelike.tradingcard.51=§iPiglin zombi
-json.roguelike.tradingcard.52=§iGhast
-json.roguelike.tradingcard.53=§iBlaze
-json.roguelike.tradingcard.54=§iPez plateado
-json.roguelike.tradingcard.55=§iEnderman
-json.roguelike.tradingcard.56=§iPhantom
-json.roguelike.tradingcard.57=§iAldeano
-json.roguelike.tradingcard.58=§iBruja
-json.roguelike.tradingcard.59=§iEndermite
-json.roguelike.tradingcard.60=§iShulker
-json.roguelike.tradingcard.61=§iGuardián
-json.roguelike.tradingcard.62=§iWither
-json.roguelike.tradingcard.63=§iEnderdragón
-json.roguelike.tradingcard.64=§iHerrero de armaduras
-json.roguelike.tradingcard.65=§iCarnicero
-json.roguelike.tradingcard.67=§iCartógrafo
-json.roguelike.tradingcard.68=§iClérigo
-json.roguelike.tradingcard.69=§iGranjero
-json.roguelike.tradingcard.70=§iPescador
-json.roguelike.tradingcard.71=§iFlechero
-json.roguelike.tradingcard.72=§iPeletero
-json.roguelike.tradingcard.73=§iBibliotecario
-json.roguelike.tradingcard.74=§iAlbañil
-json.roguelike.tradingcard.75=§iSimplón
-json.roguelike.tradingcard.76=§iPastor
-json.roguelike.tradingcard.77=§iHerrero de herramientas
-json.roguelike.tradingcard.78=§iHerrero de armas
-json.roguelike.tradingcard.79=§iEnano
-json.roguelike.tradingcard.80=§iElfo
-json.roguelike.tradingcard.81=§iHada
-json.roguelike.tradingcard.82=§iGnomo
-json.roguelike.tradingcard.83=§iOrco
-json.roguelike.tradingcard.84=§iGoblin
-json.roguelike.tradingcard.85=§iKobold
-json.roguelike.tradingcard.86=§iTroll
-json.roguelike.tradingcard.87=§iGorgona
-json.roguelike.tradingcard.88=§iMinotauro
-json.roguelike.tradingcard.89=§iLibrodrilo
-json.roguelike.tradingcard.90=§iSerpiente marina
-json.roguelike.tradingcard.91=§iDragón de fuego
-json.roguelike.tradingcard.92=§iDragón de hielo
-json.roguelike.tradingcard.93=§iAmetista
-json.roguelike.tradingcard.94=§iDiamante
-json.roguelike.tradingcard.95=§iEsmeralda
-json.roguelike.tradingcard.96=§iGranate
-json.roguelike.tradingcard.97=§iSafiro
-json.roguelike.tradingcard.98=§iRubí
+json.roguelike.tradingcard.ore=§8Mineral
 
-# loot_treasure.json
+json.roguelike.tradingcard.1=§aDesierto
+json.roguelike.tradingcard.2=§7Bosque
+json.roguelike.tradingcard.3=§aJungla
+json.roguelike.tradingcard.4=§7Montaña
+json.roguelike.tradingcard.5=§7Océano
+json.roguelike.tradingcard.6=§7Planicie
+json.roguelike.tradingcard.7=§7Río
+json.roguelike.tradingcard.8=§aPantano
+json.roguelike.tradingcard.9=§3Tundra
+
+json.roguelike.tradingcard.10=§7Aire
+json.roguelike.tradingcard.11=§7Fuego
+json.roguelike.tradingcard.12=§7Tierra
+json.roguelike.tradingcard.13=§7Agua
+json.roguelike.tradingcard.14=§3Espíritu
+json.roguelike.tradingcard.15=§aElectricidad
+
+json.roguelike.tradingcard.16=§7Golem de Agua
+json.roguelike.tradingcard.17=§7Golem de fuego
+json.roguelike.tradingcard.18=§aGolem de electricidad
+json.roguelike.tradingcard.19=§3Golem de alma
+json.roguelike.tradingcard.20=§7Golem de tierra
+json.roguelike.tradingcard.21=§7Golem de viento
+
+json.roguelike.tradingcard.22=§5Sol
+json.roguelike.tradingcard.23=§3Luna llena
+json.roguelike.tradingcard.24=§7Luna menguante
+json.roguelike.tradingcard.25=§aLuna nueva
+json.roguelike.tradingcard.26=§7Luna creciente
+json.roguelike.tradingcard.27=§6Eclipse
+
+json.roguelike.tradingcard.28=§7Primavera
+json.roguelike.tradingcard.29=§7Verano
+json.roguelike.tradingcard.30=§7Otoño
+json.roguelike.tradingcard.31=§7Invierno
+
+json.roguelike.tradingcard.32=§aMurciélago
+json.roguelike.tradingcard.33=§7Gallina
+json.roguelike.tradingcard.34=§7Vaca
+json.roguelike.tradingcard.35=§3Caballo
+json.roguelike.tradingcard.36=§7Cerdo
+json.roguelike.tradingcard.37=§7Conejo
+json.roguelike.tradingcard.38=§7Oveja
+json.roguelike.tradingcard.39=§aCalamar
+json.roguelike.tradingcard.40=§aTortuga
+json.roguelike.tradingcard.41=§5Zorro
+json.roguelike.tradingcard.57=§aAldeano
+
+json.roguelike.tradingcard.42=§5Lobo
+json.roguelike.tradingcard.43=§3Ocelote
+json.roguelike.tradingcard.44=§3Loro
+
+json.roguelike.tradingcard.45=§3Panda
+
+json.roguelike.tradingcard.51=§aPiglin zombificado
+json.roguelike.tradingcard.55=§3Enderman
+
+json.roguelike.tradingcard.46a=§7Zoglin
+json.roguelike.tradingcard.46b=§7Zombi
+json.roguelike.tradingcard.47=§7Esqueleto
+json.roguelike.tradingcard.48=§aCreeper
+json.roguelike.tradingcard.49=§7Araña
+json.roguelike.tradingcard.50=§3Slime
+json.roguelike.tradingcard.52=§aGhast
+json.roguelike.tradingcard.53=§aBlaze
+json.roguelike.tradingcard.54=§aPez plateado
+json.roguelike.tradingcard.56=§3Phantom
+json.roguelike.tradingcard.58=§aBruja
+json.roguelike.tradingcard.59=§aEndermite
+json.roguelike.tradingcard.60=§3Shulker
+json.roguelike.tradingcard.61=§aGuardián
+
+json.roguelike.tradingcard.62=§5Wither
+json.roguelike.tradingcard.63=§6Enderdragón
+json.roguelike.tradingcard.64=§5Guardián anciano
+
+json.roguelike.tradingcard.65=§7Herrero de armaduras
+json.roguelike.tradingcard.66=§7Carnicero
+json.roguelike.tradingcard.67=§aCartógrafo
+json.roguelike.tradingcard.68=§aClérigo
+json.roguelike.tradingcard.69=§7Granjero
+json.roguelike.tradingcard.70=§7Pescador
+json.roguelike.tradingcard.71=§aFlechero
+json.roguelike.tradingcard.72=§7Peletero
+json.roguelike.tradingcard.73=§aBibliotecario
+json.roguelike.tradingcard.74=§aAlbañil
+json.roguelike.tradingcard.75=§6Simplón
+json.roguelike.tradingcard.76=§aPastor
+json.roguelike.tradingcard.77=§aHerrero de herramientas
+json.roguelike.tradingcard.78=§aHerrero de armas
+
+json.roguelike.tradingcard.79=§3Enano
+json.roguelike.tradingcard.80=§7Elfo
+json.roguelike.tradingcard.81=§aHada
+json.roguelike.tradingcard.82=§3Gnomo
+
+json.roguelike.tradingcard.83=§7Orco
+json.roguelike.tradingcard.84=§7Goblin
+json.roguelike.tradingcard.85=§7Kobold
+json.roguelike.tradingcard.86=§7Troll
+json.roguelike.tradingcard.87=§aGorgona
+json.roguelike.tradingcard.88=§7Minotauro
+json.roguelike.tradingcard.89=§3Serpiente marina
+json.roguelike.tradingcard.90=§3Dragón de fuego
+json.roguelike.tradingcard.91=§3Dragón de hielo
+json.roguelike.tradingcard.92=§3Sierpe
+
+json.roguelike.tradingcard.93=§3Ametista
+json.roguelike.tradingcard.94=§5Diamante
+json.roguelike.tradingcard.95=§6Esmeralda
+json.roguelike.tradingcard.96=§3Granate
+json.roguelike.tradingcard.97=§5Safiro
+json.roguelike.tradingcard.98=§5Rubí
+
+json.roguelike.tradingcard.99=§7Carbón
+json.roguelike.tradingcard.100=§aHierro
+json.roguelike.tradingcard.101=§aCobre
+json.roguelike.tradingcard.102=§aEstaño
+json.roguelike.tradingcard.103=§aPlomo
+json.roguelike.tradingcard.104=§aAluminio
+json.roguelike.tradingcard.105=§3Oro
+json.roguelike.tradingcard.106=§3Plata
+json.roguelike.tradingcard.107=§3Platino
+json.roguelike.tradingcard.108=§5Iridio
+
+json.roguelike.tradingcard.1.desc=§7§oUn terreno árido y arenoso, poblado por hostiles cactus y pequeños animales escondidos.
+json.roguelike.tradingcard.2.desc=§7§oLas onduladas colinas y sombrías arboledas forman hermosos paisajes en este bioma.
+json.roguelike.tradingcard.3.desc.1=§7§oMonstruosas criaturas e incluso plantas asesinas habitan este caluroso y húmedo paisaje,
+json.roguelike.tradingcard.3.desc.2=§7§oel cual está densamente poblado por muchos árboles y arbustos.
+json.roguelike.tradingcard.4.desc.1=§7§oPor sus altos picos, cortantes acantilados y temperaturas que hielan los huesos,
+json.roguelike.tradingcard.4.desc.2=§7§oen este bioma sólo las criaturas más adaptadas pueden sobrevivir y prosperar.
+json.roguelike.tradingcard.5.desc.1=§7§oEste cuerpo de agua aparentemente infinito resalta de entre los demás biomas, pero no
+json.roguelike.tradingcard.5.desc.2=§7§ote dejes engañar por sus incesantes olas, porque los peces que lo habitan son innumerables.
+json.roguelike.tradingcard.6.desc=§7§oLas colinas onduladas, kilométricas y soleadas quedan perfectas con la brisa tibia y el sonido tranquilo.
+json.roguelike.tradingcard.7.desc.1=§7§oA diferencia del océano, los ríos se mueven rápido y son destructivos. Aunque lentamente,
+json.roguelike.tradingcard.7.desc.2=§7§oson capaces de perforar rocas, transformando incluso las más altas montañas en valles.
+json.roguelike.tradingcard.8.desc=§7§oLos pantanos son la conjunción de agua y bosque, pero su agua sucia oculta espantosos depredadores.
+json.roguelike.tradingcard.9.desc.1=§7§oDe cierta forma las Tundras son el polo opuesto de los desiertos, pero son más parecidos de lo
+json.roguelike.tradingcard.9.desc.2=§7§oque crees. Ambos son de temperaturas extremas, faltos de agua y terreno plano de kilómetros.
+
+json.roguelike.tradingcard.10.desc=§7§o
+json.roguelike.tradingcard.11.desc=§7§o
+json.roguelike.tradingcard.12.desc=§7§o
+json.roguelike.tradingcard.13.desc=§7§o
+json.roguelike.tradingcard.14.desc=§7§o
+json.roguelike.tradingcard.15.desc=§7§o
+
+json.roguelike.tradingcard.16.desc=§7§oUn golem acuoso construido para nadar a altas velocidades con sus jets y cuerpo aerodinámico.
+json.roguelike.tradingcard.17.desc=§7§oEl golem de fuego dispara bolas de fuego de diferentes agujeros en su cuerpo voluminoso.
+json.roguelike.tradingcard.18.desc=§7§oUn golem eléctrico, pequeño y extremadamente rápido, construido para golpear velozmente antes de huir.
+json.roguelike.tradingcard.19.desc=§7§o
+json.roguelike.tradingcard.20.desc=§7§o
+json.roguelike.tradingcard.21.desc=§7§o
+
+json.roguelike.tradingcard.22.desc=§7§oEl Sol gira alrededor de la Tierra, trayendo luz a todos sus habitantes.
+json.roguelike.tradingcard.23.desc=§7§oCuando la Luna está en su máximo brillo, su luz se compara incluso con la del Sol.
+json.roguelike.tradingcard.24.desc=§7§oCon el paso del tiempo, la Luna pierde lentamente su brillo.
+json.roguelike.tradingcard.25.desc=§7§oLa Luna Nueva es una esfera oscura que flota en el cielo nocturno, como si estuviera descansando...
+json.roguelike.tradingcard.26.desc=§7§o...pero eventualmente siempre regresa.
+json.roguelike.tradingcard.27.desc=§7§oEn su forma más increíble, este raro evento sólo ocurre 1 vez cada 100 años, cuando el Sol es tapado por la Luna o la Tierra.
+
+json.roguelike.tradingcard.28.desc=§7§o 4 estaciones se entre mezclan
+json.roguelike.tradingcard.29.desc=§7§oel final del año
+json.roguelike.tradingcard.30.desc=§7§ocasi está aquí
+json.roguelike.tradingcard.31.desc=§7§o y es momento de volver a empezar.
+
+json.roguelike.tradingcard.32.desc=§7§o
+json.roguelike.tradingcard.33.desc=§7§o
+json.roguelike.tradingcard.34.desc=§7§o
+json.roguelike.tradingcard.35.desc=§7§o
+json.roguelike.tradingcard.36.desc=§7§o
+json.roguelike.tradingcard.37.desc=§7§o
+json.roguelike.tradingcard.38.desc=§7§o
+json.roguelike.tradingcard.39.desc=§7§o
+json.roguelike.tradingcard.40.desc=§7§o
+json.roguelike.tradingcard.41.desc=§7§o
+json.roguelike.tradingcard.57.desc=§7§o
+
+json.roguelike.tradingcard.42.desc=§7§o
+json.roguelike.tradingcard.43.desc=§7§o
+json.roguelike.tradingcard.44.desc=§7§o
+
+json.roguelike.tradingcard.45.desc=§7§o
+
+json.roguelike.tradingcard.51.desc=§7§o
+json.roguelike.tradingcard.55.desc=§7§o
+
+json.roguelike.tradingcard.46a.desc=§7§o
+json.roguelike.tradingcard.46b.desc=§7§o
+json.roguelike.tradingcard.47.desc=§7§o
+json.roguelike.tradingcard.48.desc=§7§o
+json.roguelike.tradingcard.49.desc=§7§o
+json.roguelike.tradingcard.50.desc=§7§o
+json.roguelike.tradingcard.52.desc=§7§o
+json.roguelike.tradingcard.53.desc=§7§o
+json.roguelike.tradingcard.54.desc=§7§o
+json.roguelike.tradingcard.56.desc=§7§o
+json.roguelike.tradingcard.58.desc=§7§o
+json.roguelike.tradingcard.59.desc=§7§o
+json.roguelike.tradingcard.60.desc=§7§o
+json.roguelike.tradingcard.61.desc=§7§o
+
+json.roguelike.tradingcard.62.desc=§7§o
+json.roguelike.tradingcard.63.desc=§7§o
+json.roguelike.tradingcard.64.desc=§7§o
+
+json.roguelike.tradingcard.65.desc=§7§o
+json.roguelike.tradingcard.66.desc=§7§o
+json.roguelike.tradingcard.67.desc=§7§o
+json.roguelike.tradingcard.68.desc=§7§o
+json.roguelike.tradingcard.69.desc=§7§o
+json.roguelike.tradingcard.70.desc=§7§o
+json.roguelike.tradingcard.71.desc=§7§o
+json.roguelike.tradingcard.72.desc=§7§o
+json.roguelike.tradingcard.73.desc=§7§o
+json.roguelike.tradingcard.74.desc=§7§o
+json.roguelike.tradingcard.75.desc=§7§o
+json.roguelike.tradingcard.76.desc=§7§o
+json.roguelike.tradingcard.77.desc=§7§o
+json.roguelike.tradingcard.78.desc=§7§o
+
+json.roguelike.tradingcard.79.desc=§7§oLos enanos son criaturas humanoides de baja estatura, excepcionales en la forja y construcción de un amplia gama de útiles herramientas, armadura y otras cosas.
+json.roguelike.tradingcard.80.desc.1=§7§oLos elfos viven un gran lapso de tiempo y se diferencian de otras criaturas humanoides por sus orejas largas y puntiaguadas.
+json.roguelike.tradingcard.80.desc.2=§7§oSon generalmente muy competentes con los arcos y espadas rectas.
+json.roguelike.tradingcard.81.desc.1=§7§oLas hadas son relativamente pequeñas y tienen pequeñas alas, como las mariposas.
+json.roguelike.tradingcard.81.desc.2=§7§oSon generalmente mágicas y muy poderosas.
+json.roguelike.tradingcard.82.desc=§7§oLos gnomos son visualmente muy similares a los enanos, pero se diferencian por preferir esconderse bajo tierra, evitando interactuar con los humanos.
+
+json.roguelike.tradingcard.83.desc=§7§o
+json.roguelike.tradingcard.84.desc.1=§7§oEstos pequeños ladrones verdes viven en tribus de 4-9 goblins, cerca de
+json.roguelike.tradingcard.84.desc.2=§7§ola civilización, a la cual asaltan por recursos.
+json.roguelike.tradingcard.85.desc.1=§7§oLos kobolds son pequeñas criaturas parecidas a dragones con escamas y cuernos, pero no tienen las
+json.roguelike.tradingcard.85.desc.2=§7§ocaracterísticas alas majestuosas de sus contrapartes más grandes.
+json.roguelike.tradingcard.86.desc.1=§7§oLos trolls viven en cuevas, montañas y otras áreas aisladas en pequeñas unidades familiares.
+json.roguelike.tradingcard.86.desc.2=§7§oSon criaturas grandes, agresivas hacia los humanos.
+json.roguelike.tradingcard.87.desc.1=§7§oLas gorgonas son asquerosas criaturas verdes como serpientes con una cola larga de serpiente en lugar de piernas
+json.roguelike.tradingcard.87.desc.2=§7§oy pequeñas serpientes en lugar de cabello. Una sola mirada de estas criaturas te convertirá en piedra.
+json.roguelike.tradingcard.88.desc.1=§7§oEl minotauro es una criatura mitad toro, mitad humano atrapada en el laberinto por ser
+json.roguelike.tradingcard.88.desc.2=§7§odemasiado monstruoso para vivir en su ciudad.
+json.roguelike.tradingcard.89.desc.1=§7§oEsta criatura larga y escamosa vive en las oscuras profundidades del océano
+json.roguelike.tradingcard.89.desc.2=§7§oy tienen un gran abanico de habilidades, desde disparar agua hirviendo a sus
+json.roguelike.tradingcard.89.desc.3=§7§opresas hasta escupir burbujas de ácido, capaz de derretir madera e incluso acero.
+json.roguelike.tradingcard.90.desc=§7§oEste tipo de dragón usa principalmente fuego para quemar a sus enemigos y tiene escamas de color rojo oscuro.
+json.roguelike.tradingcard.91.desc=§7§oEste tipo de dragón usa principalmente su aliento gélido para congelar a sus enemigos y tienen muchos picos filosos cubriendo sus espaldas.
+json.roguelike.tradingcard.92.desc.1=§7§oEstas ancestrales criaturas parecidas a serpientes vuelan con sus alas,
+json.roguelike.tradingcard.92.desc.2=§7§omatan con enormes colmillos o garras y tienen cerradas e impenetrables escamas.
+
+json.roguelike.tradingcard.93.desc=§7§oLa amatista brilla en un reluciente tono morado y puede esculpirse en muchas formas.
+json.roguelike.tradingcard.94.desc.1=§7§oEl diamante es uno de los minerales más duros, con valor de 10 en la escala de dureza mohs,
+json.roguelike.tradingcard.94.desc.2=§7§olo cual significa que sólo puede ser rayado por otro diamante.
+json.roguelike.tradingcard.95.desc.1=§7§oLas esmeraldas, a diferencia de los diamantes, son relativamente más suaves que otras piedras preciosas.
+json.roguelike.tradingcard.95.desc.2=§7§oA parte de esto, tienen un hermoso tono verde por el que son buscadas.
+json.roguelike.tradingcard.96.desc=§7§oCon un tono de rojo intenso, el granate fue usado en talismanes protectores.
+json.roguelike.tradingcard.97.desc.1=§7§oLos zafiros de hecho contienen pequeñas cantidades de hierro y titanio.
+json.roguelike.tradingcard.97.desc.2=§7§oTambién son muy duros, con valor de 9 en la escala de dureza mohs.
+json.roguelike.tradingcard.98.desc=§7§oLos rubís se parecen al granate en el color, pero los rubís tienen un tono mucho más brillante de rojo.
+
+json.roguelike.tradingcard.99.desc=§7§o
+json.roguelike.tradingcard.100.desc=§7§o
+json.roguelike.tradingcard.101.desc=§7§o
+json.roguelike.tradingcard.102.desc=§7§o
+json.roguelike.tradingcard.103.desc=§7§o
+json.roguelike.tradingcard.104.desc=§7§o
+json.roguelike.tradingcard.105.desc=§7§o
+json.roguelike.tradingcard.106.desc=§7§o
+json.roguelike.tradingcard.107.desc=§7§o
+json.roguelike.tradingcard.108.desc=§7§o
+
+# loot_paintings.json
 json.roguelike.painting.gothic.name=§oGótico americano
-json.roguelike.painting.gothic.lore=§iPero qué §osignifica§r§i?
+json.roguelike.painting.gothic.lore=§fPero qué §osignifica§r§f?
 json.roguelike.painting.supper.name=§oEl último superior
-json.roguelike.painting.supper.lore=§iSí señor.
+json.roguelike.painting.supper.lore=§fSí señor.
 json.roguelike.painting.adam.name=§oLa creación de Adán
-json.roguelike.painting.adam.lore=§iDos tipos tocando las llemas.
+json.roguelike.painting.adam.lore=§fDos tipos tocando las yemas de los dedos.
 json.roguelike.painting.monalisa.name=§oMona Lisa
-json.roguelike.painting.monalisa.lore=§iEstá sonriendo! Eso es bueno?
+json.roguelike.painting.monalisa.lore=§fEstá sonriendo! Eso es bueno?
 json.roguelike.painting.scream.name=§oEl grito
-json.roguelike.painting.scream.lore=§iTodos gritamos como aldeanos.
+json.roguelike.painting.scream.lore=§fTodos gritamos como aldeanos.
 json.roguelike.painting.earring.name=§oChica con arete de perlas
-json.roguelike.painting.earring.lore=§iEstupendo.
+json.roguelike.painting.earring.lore=§fAbsolutamente asombroso.
 json.roguelike.painting.starry.name=§oLa noche estrellada
-json.roguelike.painting.starry.lore=§iDicen que fumaba cosas.
+json.roguelike.painting.starry.lore=§fDicen que fumaba cosas.
 json.roguelike.painting.man.name=§oRetrato de un hombre
-json.roguelike.painting.man.lore=§iSe ve muy solo.
+json.roguelike.painting.man.lore=§fSe ve muy solo.
 json.roguelike.painting.xxx.name=§oXXX
-json.roguelike.painting.xxx.lore=§iProbablemente no debiste encontrar esto.
+json.roguelike.painting.xxx.lore=§fProbablemente no debiste encontrar esto.
 json.roguelike.painting.piglet.name=§oPiglet
-json.roguelike.painting.piglet.lore=§iEs como si un niño hubiera pintado esto. Cómo lo consideran arte?
+json.roguelike.painting.piglet.lore=§fEs como si un niño hubiera pintado esto. Cómo lo consideran arte?
+json.roguelike.painting.yourmum.name=§o!!??
+json.roguelike.painting.yourmum.lore=§fEs esa una foto de tu mamá??
+json.roguelike.painting.dogspoker.name=§oPerros jugando Poker
+json.roguelike.painting.dogspoker.lore=§fEs lo que es.
+json.roguelike.painting.babyshiv.name=§oFoto de Shivaxi bebé
+json.roguelike.painting.babyshiv.lore=§fNo se veía lindo cuando era una cría? n_n
+json.roguelike.painting.fnar.name=§oFotografía de Fnar
+json.roguelike.painting.fnar.lore=§fPero qué significa Fnar?
+
 json.roguelike.book.xxx.name=§oXXX
-json.roguelike.book.xxx.lore=§iProbablemente no debiste encontrar esto.
-json.roguelike.book.streaming.name=§oStreamear para principiantes
-json.roguelike.book.streaming.lore=§iUna guía práctica para volverse famoso en Twitch
+json.roguelike.book.xxx.lore=§fProbablemente no debiste encontrar esto.
+json.roguelike.book.streaming.name=§oStreaming para principiantes
+json.roguelike.book.streaming.lore=§fUna guía práctica para volverse famoso en Twitch
 
 ## USE THE EXCEL TO AUTOMATICALLY CREATE ALL CUSTOM NAME COMBINATIONS! There are THOUSANDS!
 # Helmets
