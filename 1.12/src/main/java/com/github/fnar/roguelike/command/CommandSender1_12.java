@@ -32,10 +32,13 @@ public class CommandSender1_12 implements CommandSender {
 
   @Override
   public void sendMessage(String message, String details, MessageType type) {
-    commandSender.sendMessage(
-        formatMessage(message, type)
-            .appendText(" ")
-            .appendSibling(new TextComponentString(details)));
+    ITextComponent component = formatMessage(message, type).appendText(" ");
+    component = withDetails(component, details);
+    commandSender.sendMessage(component);
+  }
+
+  private static ITextComponent withDetails(ITextComponent component, String details) {
+    return details != null ? component.appendSibling(new TextComponentString(details)) : component;
   }
 
   private static ITextComponent formatMessage(String message, MessageType type) {

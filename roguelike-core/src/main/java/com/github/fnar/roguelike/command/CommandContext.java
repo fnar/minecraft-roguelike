@@ -22,7 +22,7 @@ public class CommandContext {
   }
 
   public void sendFailure(Exception e) {
-    sendFailure("", e.getLocalizedMessage());
+    sendFailure("", e.getLocalizedMessage() != null ? e.getLocalizedMessage() : e.getMessage());
   }
 
   public void sendFailure(String message) {
