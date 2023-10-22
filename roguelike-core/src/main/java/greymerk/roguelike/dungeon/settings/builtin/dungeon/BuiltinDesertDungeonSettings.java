@@ -16,7 +16,7 @@ import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.settings.builtin.BuiltinBaseSettings;
 import greymerk.roguelike.dungeon.towers.TowerType;
-import greymerk.roguelike.theme.Themes;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.loot.MinecraftItemLootItem;
 import greymerk.roguelike.treasure.loot.rule.SingleUseLootRule;
 
@@ -29,12 +29,12 @@ public class BuiltinDesertDungeonSettings extends DungeonSettings {
     setExclusive(true);
     getInherit().add(BuiltinBaseSettings.ID);
     getCriteria().addBiomeTags(BiomeTag.SANDY);
-    setTowerSettings(new TowerSettings(TowerType.PYRAMID, Themes.PYRAMID));
+    setTowerSettings(new TowerSettings(TowerType.PYRAMID, Theme.Type.PYRAMID));
     for (int i = 0; i < 5; ++i) {
       getLootRules().add(new SingleUseLootRule(new MinecraftItemLootItem(Material.Type.GOLD_INGOT.asItem(), 0, 1, 1 + i, 1), i, 6));
     }
 
-    Themes[] themes = {Themes.PYRAMID, Themes.SANDSTONE, Themes.SANDSTONERED, Themes.ENDER, Themes.NETHER};
+    Theme.Type[] themes = {Theme.Type.PYRAMID, Theme.Type.SANDSTONE, Theme.Type.SANDSTONERED, Theme.Type.ENDER, Theme.Type.NETHER};
 
     for (int level = 0; level < MAXIMUM_COUNT_OF_LEVELS; level++) {
 

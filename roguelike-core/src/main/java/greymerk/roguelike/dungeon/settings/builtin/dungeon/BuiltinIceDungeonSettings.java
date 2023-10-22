@@ -10,7 +10,7 @@ import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.settings.builtin.BuiltinBaseSettings;
 import greymerk.roguelike.dungeon.towers.TowerType;
-import greymerk.roguelike.theme.Themes;
+import greymerk.roguelike.theme.Theme;
 
 public class BuiltinIceDungeonSettings extends DungeonSettings {
 
@@ -21,10 +21,10 @@ public class BuiltinIceDungeonSettings extends DungeonSettings {
     setExclusive(true);
     getInherit().add(BuiltinBaseSettings.ID);
     getCriteria().addBiomeTags(BiomeTag.SNOWY);
-    setTowerSettings(new TowerSettings(TowerType.PYRAMID, Themes.ICE));
+    setTowerSettings(new TowerSettings(TowerType.PYRAMID, Theme.Type.ICE));
     IntStream.range(0, MAXIMUM_COUNT_OF_LEVELS)
         .mapToObj(this::getLevelSettings)
-        .forEach(levelSettings -> levelSettings.setTheme(Themes.ICE));
+        .forEach(levelSettings -> levelSettings.setTheme(Theme.Type.ICE));
   }
 
 }

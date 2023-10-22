@@ -16,7 +16,7 @@ import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.settings.builtin.BuiltinBaseSettings;
 import greymerk.roguelike.dungeon.towers.TowerType;
-import greymerk.roguelike.theme.Themes;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.loot.MinecraftItemLootItem;
 import greymerk.roguelike.treasure.loot.rule.ForEachLootRule;
 import greymerk.roguelike.treasure.loot.rule.SingleUseLootRule;
@@ -32,14 +32,14 @@ public class BuiltinSwampDungeonSettings extends DungeonSettings {
     setExclusive(true);
     getInherit().add(BuiltinBaseSettings.ID);
     getCriteria().addBiomeTags(BiomeTag.SWAMP);
-    setTowerSettings(new TowerSettings(TowerType.WITCH, Themes.DARKOAK));
+    setTowerSettings(new TowerSettings(TowerType.WITCH, Theme.Type.DARKOAK));
 
-    Themes[] themes = {
-        Themes.DARKHALL,
-        Themes.DARKHALL,
-        Themes.MUDDY,
-        Themes.MOSSY,
-        Themes.NETHER
+    Theme.Type[] themes = {
+        Theme.Type.DARKHALL,
+        Theme.Type.DARKHALL,
+        Theme.Type.MUDDY,
+        Theme.Type.MOSSY,
+        Theme.Type.NETHER
     };
 
     WeightedRandomizer<RldItemStack> brewing = new WeightedRandomizer<>();

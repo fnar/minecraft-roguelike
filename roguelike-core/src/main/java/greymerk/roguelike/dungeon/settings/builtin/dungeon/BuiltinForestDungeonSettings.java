@@ -14,7 +14,7 @@ import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.settings.builtin.BuiltinBaseSettings;
 import greymerk.roguelike.dungeon.towers.TowerType;
-import greymerk.roguelike.theme.Themes;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.filter.Filter;
 
 public class BuiltinForestDungeonSettings {
@@ -24,7 +24,7 @@ public class BuiltinForestDungeonSettings {
     dungeonSettings.setExclusive(true);
     dungeonSettings.getInherit().add(BuiltinBaseSettings.ID);
     dungeonSettings.getCriteria().addBiomeTags(BiomeTag.FOREST);
-    dungeonSettings.setTowerSettings(new TowerSettings(TowerType.ROGUE, Themes.TOWER));
+    dungeonSettings.setTowerSettings(new TowerSettings(TowerType.ROGUE, Theme.Type.TOWER));
 
     level0(dungeonSettings);
     level1(dungeonSettings);
@@ -46,7 +46,7 @@ public class BuiltinForestDungeonSettings {
     secrets.add(RoomType.SMITH.newSingleRoomSetting());
     secrets.add(RoomType.BEDROOM.newSingleRoomSetting());
 
-    levelSettings.setTheme(Themes.SPRUCE.getThemeBase());
+    levelSettings.setTheme(Theme.Type.SPRUCE.getThemeBase());
 
     SegmentGenerator segments = levelSettings.getSegments();
     segments.add(Segment.CHEST, 1);
@@ -64,7 +64,7 @@ public class BuiltinForestDungeonSettings {
     rooms.add(RoomType.SLIME.newSingleRoomSetting());
     rooms.add(RoomType.SLIME.newSingleRoomSetting());
 
-    levelSettings.setTheme(Themes.DARKHALL.getThemeBase());
+    levelSettings.setTheme(Theme.Type.DARKHALL.getThemeBase());
 
     SegmentGenerator segments = levelSettings.getSegments();
     segments.add(Segment.DOOR, 10);
