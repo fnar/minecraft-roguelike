@@ -28,8 +28,8 @@ public class ItemTooltip {
         if(itemLore != null && !itemLore.isEmpty()){
             short iTooltip = 1, iLore=0;
             for ( ; iTooltip<tooltip.size() ; iTooltip++){
-                if (tooltip.get(iTooltip).equals(itemLore.get(0))){ //Only look for the first Lore text
-                    // remove the following lore texts, without comparing each time (for performance)
+                if (tooltip.get(iTooltip).contains(itemLore.get(0))){ //Only look for the first Lore text
+                    // Remove the following lore texts, without comparing each time (for performance)
                     // you can change this to compare every line to be more safe if you want.
                     while(iLore<itemLore.size() && iTooltip<tooltip.size()){ //don't get out of bounds!
                         tooltip.remove(iTooltip);
@@ -40,6 +40,7 @@ public class ItemTooltip {
             }
         }
         for(short i = 0 ; i < itemLocLore.size() ; i++){
+            // Add the lore text at the beginning of the tooltip, instead of the default position
             tooltip.add(i+1, I18n.format(itemLocLore.get(i)));
         }
     }

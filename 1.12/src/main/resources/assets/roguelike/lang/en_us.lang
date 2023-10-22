@@ -127,6 +127,7 @@ notif.roguelike.success_generateddungeon=Success: Successfully generated dungeon
 notif.roguelike.success_settingsreloaded=Success: Settings reloaded successfully.
 notif.roguelike.success_settingslisted=Success: Settings listed successfully.
 notif.roguelike.success_command=Successful command.
+notif.roguelike.success_biomeslisted=Success: Biomes listed.
 
 ## JSON loot names and lore ##
 # looting_trading_cards.json

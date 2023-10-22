@@ -163,7 +163,10 @@ public class SpecialEquipment {
 
     RldItemStack rldItemStack = rldItem.asStack().withDisplayName(name);
     if (lore != null) {
-      return rldItemStack.withDisplayLore(lore);
+      rldItemStack.withDisplayLore(lore);
+    }
+    if (loclore != null){
+      rldItemStack.withDisplayLocLore(loclore);
     }
     return rldItemStack;
   }

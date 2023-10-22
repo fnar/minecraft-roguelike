@@ -128,6 +128,7 @@ notif.roguelike.success_generateddungeon=Exito: Calabozo generado satisfactoriam
 notif.roguelike.success_settingsreloaded=Exito: Las configuraciones se volvieron a cargar satisfactoriamente.
 notif.roguelike.success_settingslisted=Exito: Configuraciones enlistadas satisfactoriamente.
 notif.roguelike.success_command=Comando satisfactorio.
+notif.roguelike.success_biomeslisted=Exito: Biomas listados.
 
 ## JSON loot names and lore ##
 # looting_trading_cards.json
