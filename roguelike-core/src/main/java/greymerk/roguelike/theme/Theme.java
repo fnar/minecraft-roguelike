@@ -54,11 +54,6 @@ public class Theme {
   public Theme() {
   }
 
-  public Theme(Theme toCopy) {
-    this.primary = new BlockSet(toCopy.getPrimary());
-    this.secondary = new BlockSet(toCopy.getSecondary());
-  }
-
   public Theme(BlockSet primary, BlockSet secondary) {
     this.primary = primary;
     this.secondary = secondary;
