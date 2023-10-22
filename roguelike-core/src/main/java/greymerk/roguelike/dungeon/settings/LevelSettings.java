@@ -174,15 +174,11 @@ public class LevelSettings {
 
   public Theme getTheme() {
     // todo: not rely on this class to provide default as it's an inverted dependency
-    return theme != null ? theme : Theme.Type.STONE.asTheme();
+    return theme != null ? theme : Theme.STONE;
   }
 
   public void setTheme(Theme theme) {
     this.theme = theme;
-  }
-
-  public void setTheme(Theme.Type theme) {
-    this.theme = theme.asTheme();
   }
 
   public SpawnerSettings getSpawnerSettings() {

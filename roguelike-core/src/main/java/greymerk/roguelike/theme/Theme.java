@@ -48,6 +48,47 @@ import lombok.ToString;
 @ToString
 public class Theme {
 
+  public static final ThemeBling BLING = new ThemeBling();
+  public static final ThemeBrick BRICK = new ThemeBrick();
+  public static final ThemeBumbo BUMBO = new ThemeBumbo();
+  public static final ThemeCave CAVE = new ThemeCave();
+  public static final ThemeChecker CHECKER = new ThemeChecker();
+  public static final ThemeCrypt CRYPT = new ThemeCrypt();
+  public static final ThemeDarkHall DARKHALL = new ThemeDarkHall();
+  public static final ThemeDarkOak DARKOAK = new ThemeDarkOak();
+  public static final ThemeEnder ENDER = new ThemeEnder();
+  public static final ThemeEniIce ENIICE = new ThemeEniIce();
+  public static final ThemeEniko ENIKO = new ThemeEniko();
+  public static final ThemeEniko2 ENIKO2 = new ThemeEniko2();
+  public static final ThemeEniQuartz ENIQUARTZ = new ThemeEniQuartz();
+  public static final ThemeEtho ETHO = new ThemeEtho();
+  public static final ThemeEthoTower ETHOTOWER = new ThemeEthoTower();
+  public static final ThemeGrey GREY = new ThemeGrey();
+  public static final ThemeHell HELL = new ThemeHell();
+  public static final ThemeHouse HOUSE = new ThemeHouse();
+  public static final ThemeIce ICE = new ThemeIce();
+  public static final ThemeJungle JUNGLE = new ThemeJungle();
+  public static final ThemeMineShaft MINESHAFT = new ThemeMineShaft();
+  public static final ThemeMossy MOSSY = new ThemeMossy();
+  public static final ThemeMuddy MUDDY = new ThemeMuddy();
+  public static final ThemeNether NETHER = new ThemeNether();
+  public static final NetherFortressTheme NETHER_FORTRESS = new NetherFortressTheme();
+  public static final ThemeOak OAK = new ThemeOak();
+  public static final ThemePurpur PURPUR = new ThemePurpur();
+  public static final ThemePyramid PYRAMID = new ThemePyramid();
+  public static final ThemeQuartz QUARTZ = new ThemeQuartz();
+  public static final ThemeRainbow RAINBOW = new ThemeRainbow();
+  public static final ThemeSandstone SANDSTONE = new ThemeSandstone();
+  public static final ThemeSandstoneRed SANDSTONERED = new ThemeSandstoneRed();
+  public static final ThemeSewer SEWER = new ThemeSewer();
+  public static final ThemeSnow SNOW = new ThemeSnow();
+  public static final ThemeSpruce SPRUCE = new ThemeSpruce();
+  public static final ThemeStone STONE = new ThemeStone();
+  public static final ThemeTemple TEMPLE = new ThemeTemple();
+  public static final ThemeTerracotta TERRACOTTA = new ThemeTerracotta();
+  public static final ThemeTower TOWER = new ThemeTower();
+
+
   protected BlockSet primary;
   protected BlockSet secondary;
 
@@ -73,47 +114,51 @@ public class Theme {
     return Optional.ofNullable(secondary).orElse(getPrimary());
   }
 
+  public static Theme random(Random random) {
+    return Theme.Type.random(random).asTheme();
+  }
+
   public enum Type {
 
-    BLING(new ThemeBling()),
-    BRICK(new ThemeBrick()),
-    BUMBO(new ThemeBumbo()),
-    CAVE(new ThemeCave()),
-    CHECKER(new ThemeChecker()),
-    CRYPT(new ThemeCrypt()),
-    DARKHALL(new ThemeDarkHall()),
-    DARKOAK(new ThemeDarkOak()),
-    ENDER(new ThemeEnder()),
-    ENIICE(new ThemeEniIce()),
-    ENIKO(new ThemeEniko()),
-    ENIKO2(new ThemeEniko2()),
-    ENIQUARTZ(new ThemeEniQuartz()),
-    ETHO(new ThemeEtho()),
-    ETHOTOWER(new ThemeEthoTower()),
-    GREY(new ThemeGrey()),
-    HELL(new ThemeHell()),
-    HOUSE(new ThemeHouse()),
-    ICE(new ThemeIce()),
-    JUNGLE(new ThemeJungle()),
-    MINESHAFT(new ThemeMineShaft()),
-    MOSSY(new ThemeMossy()),
-    MUDDY(new ThemeMuddy()),
-    NETHER(new ThemeNether()),
-    NETHER_FORTRESS(new NetherFortressTheme()),
-    OAK(new ThemeOak()),
-    PURPUR(new ThemePurpur()),
-    PYRAMID(new ThemePyramid()),
-    QUARTZ(new ThemeQuartz()),
-    RAINBOW(new ThemeRainbow()),
-    SANDSTONE(new ThemeSandstone()),
-    SANDSTONERED(new ThemeSandstoneRed()),
-    SEWER(new ThemeSewer()),
-    SNOW(new ThemeSnow()),
-    SPRUCE(new ThemeSpruce()),
-    STONE(new ThemeStone()),
-    TEMPLE(new ThemeTemple()),
-    TERRACOTTA(new ThemeTerracotta()),
-    TOWER(new ThemeTower());
+    BLING(Theme.BLING),
+    BRICK(Theme.BRICK),
+    BUMBO(Theme.BUMBO),
+    CAVE(Theme.CAVE),
+    CHECKER(Theme.CHECKER),
+    CRYPT(Theme.CRYPT),
+    DARKHALL(Theme.DARKHALL),
+    DARKOAK(Theme.DARKOAK),
+    ENDER(Theme.ENDER),
+    ENIICE(Theme.ENIICE),
+    ENIKO(Theme.ENIKO),
+    ENIKO2(Theme.ENIKO2),
+    ENIQUARTZ(Theme.ENIQUARTZ),
+    ETHO(Theme.ETHO),
+    ETHOTOWER(Theme.ETHOTOWER),
+    GREY(Theme.GREY),
+    HELL(Theme.HELL),
+    HOUSE(Theme.HOUSE),
+    ICE(Theme.ICE),
+    JUNGLE(Theme.JUNGLE),
+    MINESHAFT(Theme.MINESHAFT),
+    MOSSY(Theme.MOSSY),
+    MUDDY(Theme.MUDDY),
+    NETHER(Theme.NETHER),
+    NETHER_FORTRESS(Theme.NETHER_FORTRESS),
+    OAK(Theme.OAK),
+    PURPUR(Theme.PURPUR),
+    PYRAMID(Theme.PYRAMID),
+    QUARTZ(Theme.QUARTZ),
+    RAINBOW(Theme.RAINBOW),
+    SANDSTONE(Theme.SANDSTONE),
+    SANDSTONERED(Theme.SANDSTONERED),
+    SEWER(Theme.SEWER),
+    SNOW(Theme.SNOW),
+    SPRUCE(Theme.SPRUCE),
+    STONE(Theme.STONE),
+    TEMPLE(Theme.TEMPLE),
+    TERRACOTTA(Theme.TERRACOTTA),
+    TOWER(Theme.TOWER);
 
     private final Theme theme;
 
@@ -125,7 +170,7 @@ public class Theme {
       return theme;
     }
 
-    public static Type random(Random random) {
+    private static Type random(Random random) {
       Type[] values = values();
       return values[random.nextInt(values.length)];
     }

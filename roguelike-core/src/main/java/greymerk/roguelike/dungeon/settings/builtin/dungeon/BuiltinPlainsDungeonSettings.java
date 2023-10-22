@@ -26,7 +26,7 @@ public class BuiltinPlainsDungeonSettings extends DungeonSettings {
     getInherit().add(BuiltinBaseSettings.ID);
     getCriteria().addBiomeTags(BiomeTag.PLAINS);
 
-    setTowerSettings(new TowerSettings(TowerType.HOUSE, Theme.Type.HOUSE));
+    setTowerSettings(new TowerSettings(TowerType.HOUSE, Theme.HOUSE));
 
     for (int level = 0; level < DungeonSettings.MAXIMUM_COUNT_OF_LEVELS; level++) {
 

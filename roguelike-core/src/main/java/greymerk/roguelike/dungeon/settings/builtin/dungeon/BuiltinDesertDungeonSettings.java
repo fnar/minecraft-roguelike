@@ -29,17 +29,17 @@ public class BuiltinDesertDungeonSettings extends DungeonSettings {
     setExclusive(true);
     getInherit().add(BuiltinBaseSettings.ID);
     getCriteria().addBiomeTags(BiomeTag.SANDY);
-    setTowerSettings(new TowerSettings(TowerType.PYRAMID, Theme.Type.PYRAMID));
+    setTowerSettings(new TowerSettings(TowerType.PYRAMID, Theme.PYRAMID));
     for (int i = 0; i < 5; ++i) {
       getLootRules().add(new SingleUseLootRule(new MinecraftItemLootItem(Material.Type.GOLD_INGOT.asItem(), 0, 1, 1 + i, 1), i, 6));
     }
 
-    Theme.Type[] themes = {Theme.Type.PYRAMID, Theme.Type.SANDSTONE, Theme.Type.SANDSTONERED, Theme.Type.ENDER, Theme.Type.NETHER};
+    Theme[] themes = {Theme.PYRAMID, Theme.SANDSTONE, Theme.SANDSTONERED, Theme.ENDER, Theme.NETHER};
 
     for (int level = 0; level < MAXIMUM_COUNT_OF_LEVELS; level++) {
 
       LevelSettings levelSettings = new LevelSettings(level);
-      levelSettings.setTheme(themes[level].asTheme());
+      levelSettings.setTheme(themes[level]);
 
       if (level == 0) {
         levelSettings.setLevel(2);

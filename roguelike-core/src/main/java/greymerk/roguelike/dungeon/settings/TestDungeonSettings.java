@@ -20,7 +20,7 @@ public class TestDungeonSettings extends DungeonSettings {
     super(ID);
     this.random = random;
     setExclusive(true);
-    setTowerSettings(new TowerSettings(TowerType.random(random), Theme.Type.random(random)));
+    setTowerSettings(new TowerSettings(TowerType.random(random), Theme.random(random)));
     IntStream.range(0, 5).forEach(this::generateLevelSettings);
   }
 
@@ -31,7 +31,7 @@ public class TestDungeonSettings extends DungeonSettings {
     levelSettings.setRange(60);
     levelSettings.setScatter(15);
 
-    levelSettings.setTheme(Theme.Type.random(random));
+    levelSettings.setTheme(Theme.random(random));
 
     Arrays.stream(RoomType.values()).map(RoomType::newSingleRoomSetting).forEach(levelSettings.getRooms()::add);
     Arrays.stream(RoomType.values()).map(RoomType::newSingleRoomSetting).forEach(levelSettings.getSecrets()::add);

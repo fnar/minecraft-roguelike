@@ -32,14 +32,14 @@ public class BuiltinSwampDungeonSettings extends DungeonSettings {
     setExclusive(true);
     getInherit().add(BuiltinBaseSettings.ID);
     getCriteria().addBiomeTags(BiomeTag.SWAMP);
-    setTowerSettings(new TowerSettings(TowerType.WITCH, Theme.Type.DARKOAK));
+    setTowerSettings(new TowerSettings(TowerType.WITCH, Theme.DARKOAK));
 
-    Theme.Type[] themes = {
-        Theme.Type.DARKHALL,
-        Theme.Type.DARKHALL,
-        Theme.Type.MUDDY,
-        Theme.Type.MOSSY,
-        Theme.Type.NETHER
+    Theme[] themes = {
+        Theme.DARKHALL,
+        Theme.DARKHALL,
+        Theme.MUDDY,
+        Theme.MOSSY,
+        Theme.NETHER
     };
 
     WeightedRandomizer<RldItemStack> brewing = new WeightedRandomizer<>();
@@ -55,7 +55,7 @@ public class BuiltinSwampDungeonSettings extends DungeonSettings {
     for (int level = 0; level < DungeonSettings.MAXIMUM_COUNT_OF_LEVELS; level++) {
 
       LevelSettings levelSettings = getLevelSettings(level);
-      levelSettings.setTheme(themes[level].asTheme());
+      levelSettings.setTheme(themes[level]);
 
       if (level == 0) {
 

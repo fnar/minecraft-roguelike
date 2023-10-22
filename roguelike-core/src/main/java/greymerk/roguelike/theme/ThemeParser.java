@@ -33,17 +33,17 @@ public class ThemeParser {
 
   private static Theme parseThemeBase(JsonObject json) {
     if (!json.has(THEME_BASE_KEY)) {
-      return Theme.Type.OAK.asTheme();
+      return Theme.OAK;
     }
 
     JsonElement baseElement = json.get(THEME_BASE_KEY);
     if (baseElement.isJsonNull()) {
-      return Theme.Type.OAK.asTheme();
+      return Theme.OAK;
     }
 
     String baseString = baseElement.getAsString();
     if (baseString.isEmpty()) {
-      return Theme.Type.OAK.asTheme();
+      return Theme.OAK;
     }
 
     return get(baseString).asTheme();

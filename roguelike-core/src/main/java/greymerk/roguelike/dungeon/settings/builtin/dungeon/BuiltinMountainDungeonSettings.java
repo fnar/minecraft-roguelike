@@ -26,13 +26,13 @@ public class BuiltinMountainDungeonSettings extends DungeonSettings {
     setExclusive(true);
     getInherit().add(BuiltinBaseSettings.ID);
     getCriteria().addBiomeTags(BiomeTag.MOUNTAIN);
-    setTowerSettings(new TowerSettings(TowerType.ENIKO, Theme.Type.OAK));
+    setTowerSettings(new TowerSettings(TowerType.ENIKO, Theme.OAK));
 
-    Theme.Type[] themes = {Theme.Type.ENIKO, Theme.Type.ENIKO2, Theme.Type.SEWER, Theme.Type.MOSSY, Theme.Type.NETHER};
+    Theme[] themes = {Theme.ENIKO, Theme.ENIKO2, Theme.SEWER, Theme.MOSSY, Theme.NETHER};
 
     for (int level = 0; level < DungeonSettings.MAXIMUM_COUNT_OF_LEVELS; level++) {
       LevelSettings levelSettings = getLevelSettings(level);
-      levelSettings.setTheme(themes[level].asTheme());
+      levelSettings.setTheme(themes[level]);
 
       if (level == 0) {
         levelSettings.setScatter(16);

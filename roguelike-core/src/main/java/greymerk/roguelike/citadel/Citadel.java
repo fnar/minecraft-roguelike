@@ -11,7 +11,7 @@ public class Citadel {
 
   public static void generate(WorldEditor editor, int x, int z) {
     MinimumSpanningTree mst = new MinimumSpanningTree(editor.getRandom(), 7, EDGE_LENGTH);
-    new CityGrounds(editor, mst, Theme.Type.OAK.asTheme()).generate(new Coord(x, 50, z));
+    new CityGrounds(editor, mst, Theme.OAK).generate(new Coord(x, 50, z));
   }
 
 }
