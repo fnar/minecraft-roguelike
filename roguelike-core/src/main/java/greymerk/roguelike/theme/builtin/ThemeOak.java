@@ -23,12 +23,28 @@ public class ThemeOak extends Theme {
 
     StairsBlock stair = StairsBlock.stoneBrick();
     DoorBlock door = DoorBlock.spruce();
-    this.primary = new BlockSet(walls, walls, stair, walls, door);
+    this.primary = new BlockSet(
+        walls,
+        walls,
+        stair,
+        walls,
+        door,
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
 
     Wood wood = Wood.OAK;
     BlockBrush pillar = wood.getLog();
     BlockBrush segmentWall = wood.getPlanks();
     StairsBlock segmentStair = StairsBlock.oak();
-    this.secondary = new BlockSet(segmentWall, segmentWall, segmentStair, pillar, door);
+    this.secondary = new BlockSet(
+        segmentWall,
+        segmentWall,
+        segmentStair,
+        pillar,
+        door,
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
   }
 }

@@ -41,7 +41,15 @@ public class ThemeMossy extends Theme {
 
     StairsBlock stair = StairsBlock.cobble();
     DoorBlock door = DoorBlock.iron();
-    this.primary = new BlockSet(floor, walls, stair, walls, door);
+    this.primary = new BlockSet(
+        floor,
+        walls,
+        stair,
+        walls,
+        door,
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
     this.secondary = this.primary;
   }
 }
