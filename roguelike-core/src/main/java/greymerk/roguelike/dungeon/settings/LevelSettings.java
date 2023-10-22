@@ -10,12 +10,11 @@ import java.util.List;
 import java.util.Set;
 
 import greymerk.roguelike.dungeon.Dungeon;
-import greymerk.roguelike.dungeon.layout.LayoutGenerator;
 import greymerk.roguelike.dungeon.base.RoomsSetting;
 import greymerk.roguelike.dungeon.base.SecretsSetting;
+import greymerk.roguelike.dungeon.layout.LayoutGenerator;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
 import greymerk.roguelike.theme.Theme;
-import greymerk.roguelike.theme.Themes;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.filter.Filter;
 import lombok.ToString;
@@ -175,14 +174,14 @@ public class LevelSettings {
 
   public Theme getTheme() {
     // todo: not rely on this class to provide default as it's an inverted dependency
-    return theme != null ? theme : Themes.STONE.getThemeBase();
+    return theme != null ? theme : Theme.Type.STONE.getThemeBase();
   }
 
   public void setTheme(Theme theme) {
     this.theme = theme;
   }
 
-  public void setTheme(Themes theme) {
+  public void setTheme(Theme.Type theme) {
     this.theme = theme.getThemeBase();
   }
 

@@ -12,7 +12,7 @@ import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.settings.builtin.BuiltinBaseSettings;
 import greymerk.roguelike.dungeon.towers.TowerType;
-import greymerk.roguelike.theme.Themes;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.filter.Filter;
 
 public class BuiltinPlainsDungeonSettings extends DungeonSettings {
@@ -26,7 +26,7 @@ public class BuiltinPlainsDungeonSettings extends DungeonSettings {
     getInherit().add(BuiltinBaseSettings.ID);
     getCriteria().addBiomeTags(BiomeTag.PLAINS);
 
-    setTowerSettings(new TowerSettings(TowerType.HOUSE, Themes.HOUSE));
+    setTowerSettings(new TowerSettings(TowerType.HOUSE, Theme.Type.HOUSE));
 
     for (int level = 0; level < DungeonSettings.MAXIMUM_COUNT_OF_LEVELS; level++) {
 

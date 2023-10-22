@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-import greymerk.roguelike.dungeon.layout.LayoutGenerator;
 import greymerk.roguelike.dungeon.base.RoomType;
+import greymerk.roguelike.dungeon.layout.LayoutGenerator;
 import greymerk.roguelike.dungeon.segment.Segment;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
 import greymerk.roguelike.dungeon.towers.TowerType;
@@ -20,7 +20,7 @@ import greymerk.roguelike.treasure.loot.rule.ForEachLootRule;
 import greymerk.roguelike.treasure.loot.rule.SingleUseLootRule;
 import greymerk.roguelike.treasure.loot.rule.TypedForEachLootRule;
 
-import static greymerk.roguelike.theme.Themes.random;
+import static greymerk.roguelike.theme.Theme.Type.random;
 
 public class SettingsRandom extends DungeonSettings {
 

@@ -33,17 +33,17 @@ public class ThemeParser {
 
   private static Theme parseThemeBase(JsonObject json) {
     if (!json.has(THEME_BASE_KEY)) {
-      return Themes.OAK.getThemeBase();
+      return Theme.Type.OAK.getThemeBase();
     }
 
     JsonElement baseElement = json.get(THEME_BASE_KEY);
     if (baseElement.isJsonNull()) {
-      return Themes.OAK.getThemeBase();
+      return Theme.Type.OAK.getThemeBase();
     }
 
     String baseString = baseElement.getAsString();
     if (baseString.isEmpty()) {
-      return Themes.OAK.getThemeBase();
+      return Theme.Type.OAK.getThemeBase();
     }
 
     return get(baseString).getThemeBase();
@@ -78,15 +78,15 @@ public class ThemeParser {
         null);
   }
 
-  public static Themes get(String name) throws DungeonSettingParseException {
+  public static Theme.Type get(String name) throws DungeonSettingParseException {
     if (!contains(name.toUpperCase())) {
       throw new DungeonSettingParseException("No such theme: " + name);
     }
-    return Themes.valueOf(name.toUpperCase());
+    return Theme.Type.valueOf(name.toUpperCase());
   }
 
   public static boolean contains(String name) {
-    return Arrays.stream(Themes.values())
+    return Arrays.stream(Theme.Type.values())
         .anyMatch(value -> value.toString().equals(name));
   }
 }

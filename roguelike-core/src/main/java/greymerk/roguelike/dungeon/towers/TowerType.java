@@ -7,7 +7,6 @@ import java.util.Random;
 import java.util.stream.Collectors;
 
 import greymerk.roguelike.theme.Theme;
-import greymerk.roguelike.theme.Themes;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 
@@ -25,25 +24,24 @@ public enum TowerType {
   RUIN,
   TREE,
   VILLAGER_HOUSE,
-  WITCH
-  ;
+  WITCH;
 
-  public static Themes getDefaultTheme(TowerType type) {
+  public static Theme.Type getDefaultTheme(TowerType type) {
     switch (type) {
       case ETHO:
-        return Themes.ETHOTOWER;
+        return Theme.Type.ETHOTOWER;
       case PYRAMID:
-        return Themes.PYRAMID;
+        return Theme.Type.PYRAMID;
       case JUNGLE:
-        return Themes.JUNGLE;
+        return Theme.Type.JUNGLE;
       case WITCH:
-        return Themes.DARKHALL;
+        return Theme.Type.DARKHALL;
       case HOUSE:
-        return Themes.HOUSE;
+        return Theme.Type.HOUSE;
       case BUMBO:
-        return Themes.BUMBO;
+        return Theme.Type.BUMBO;
       default:
-        return Themes.OAK;
+        return Theme.Type.OAK;
     }
   }
 

@@ -7,7 +7,6 @@ import java.util.List;
 import greymerk.roguelike.dungeon.towers.Tower;
 import greymerk.roguelike.dungeon.towers.TowerType;
 import greymerk.roguelike.theme.Theme;
-import greymerk.roguelike.theme.Themes;
 import greymerk.roguelike.util.graph.Edge;
 import greymerk.roguelike.util.graph.Graph;
 import greymerk.roguelike.util.mst.MSTPoint;
@@ -80,7 +79,7 @@ public class CityGrounds {
     for (Coord towerCoord : towers) {
       towerCoord.translate(coord);
       TowerType towerType = TowerType.random(editor.getRandom());
-      Theme themeBase = Themes.random(editor.getRandom()).getThemeBase();
+      Theme themeBase = Theme.Type.random(editor.getRandom()).getThemeBase();
       Tower tower = towerType.instantiate(editor, themeBase);
       tower.generate(towerCoord.copy().setY(TOPLEVEL));
     }
