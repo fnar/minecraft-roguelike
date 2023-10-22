@@ -79,7 +79,7 @@ public class CityGrounds {
     for (Coord towerCoord : towers) {
       towerCoord.translate(coord);
       TowerType towerType = TowerType.random(editor.getRandom());
-      Theme themeBase = Theme.Type.random(editor.getRandom()).getThemeBase();
+      Theme themeBase = Theme.Type.random(editor.getRandom()).asTheme();
       Tower tower = towerType.instantiate(editor, themeBase);
       tower.generate(towerCoord.copy().setY(TOPLEVEL));
     }

@@ -86,7 +86,7 @@ public enum TowerType {
   }
 
   public Tower instantiate(WorldEditor worldEditor) {
-    return instantiate(worldEditor, TowerType.getDefaultTheme(this).getThemeBase());
+    return instantiate(worldEditor, TowerType.getDefaultTheme(this).asTheme());
   }
 
   public Tower instantiate(WorldEditor worldEditor, Theme theme) {

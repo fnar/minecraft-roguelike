@@ -46,7 +46,7 @@ public class BuiltinForestDungeonSettings {
     secrets.add(RoomType.SMITH.newSingleRoomSetting());
     secrets.add(RoomType.BEDROOM.newSingleRoomSetting());
 
-    levelSettings.setTheme(Theme.Type.SPRUCE.getThemeBase());
+    levelSettings.setTheme(Theme.Type.SPRUCE.asTheme());
 
     SegmentGenerator segments = levelSettings.getSegments();
     segments.add(Segment.CHEST, 1);
@@ -64,7 +64,7 @@ public class BuiltinForestDungeonSettings {
     rooms.add(RoomType.SLIME.newSingleRoomSetting());
     rooms.add(RoomType.SLIME.newSingleRoomSetting());
 
-    levelSettings.setTheme(Theme.Type.DARKHALL.getThemeBase());
+    levelSettings.setTheme(Theme.Type.DARKHALL.asTheme());
 
     SegmentGenerator segments = levelSettings.getSegments();
     segments.add(Segment.DOOR, 10);

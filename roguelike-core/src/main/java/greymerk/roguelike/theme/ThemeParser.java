@@ -33,20 +33,20 @@ public class ThemeParser {
 
   private static Theme parseThemeBase(JsonObject json) {
     if (!json.has(THEME_BASE_KEY)) {
-      return Theme.Type.OAK.getThemeBase();
+      return Theme.Type.OAK.asTheme();
     }
 
     JsonElement baseElement = json.get(THEME_BASE_KEY);
     if (baseElement.isJsonNull()) {
-      return Theme.Type.OAK.getThemeBase();
+      return Theme.Type.OAK.asTheme();
     }
 
     String baseString = baseElement.getAsString();
     if (baseString.isEmpty()) {
-      return Theme.Type.OAK.getThemeBase();
+      return Theme.Type.OAK.asTheme();
     }
 
-    return get(baseString).getThemeBase();
+    return get(baseString).asTheme();
   }
 
   private static BlockSet parsePrimaryBlockSet(JsonObject json, Theme base) throws DungeonSettingParseException {

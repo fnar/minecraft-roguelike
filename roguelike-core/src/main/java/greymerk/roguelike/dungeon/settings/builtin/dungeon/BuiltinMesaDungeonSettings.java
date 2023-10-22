@@ -25,6 +25,6 @@ public class BuiltinMesaDungeonSettings extends DungeonSettings {
 
     Theme.Type[] themes = {Theme.Type.ETHOTOWER, Theme.Type.ETHOTOWER, Theme.Type.CRYPT, Theme.Type.CRYPT, Theme.Type.NETHER};
     IntStream.range(0, DungeonSettings.MAXIMUM_COUNT_OF_LEVELS)
-        .forEach(level -> getLevelSettings(level).setTheme(themes[level].getThemeBase()));
+        .forEach(level -> getLevelSettings(level).setTheme(themes[level].asTheme()));
   }
 }
