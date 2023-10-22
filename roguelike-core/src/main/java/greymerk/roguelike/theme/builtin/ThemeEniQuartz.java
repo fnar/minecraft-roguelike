@@ -3,6 +3,7 @@ package greymerk.roguelike.theme.builtin;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.normal.Quartz;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.block.redstone.DoorBlock;
 
 import greymerk.roguelike.theme.BlockSet;
 import greymerk.roguelike.theme.Theme;
@@ -31,12 +32,28 @@ public class ThemeEniQuartz extends Theme {
 
     StairsBlock stair = StairsBlock.brick();
 
-    this.primary = new BlockSet(floor, walls, stair, walls);
+    this.primary = new BlockSet(
+        floor,
+        walls,
+        stair,
+        walls,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
 
     BlockBrush quartz = BlockType.QUARTZ.getBrush();
     StairsBlock quartzStair = StairsBlock.quartz();
     BlockBrush quartzPillar = Quartz.PILLAR.getBrush().setFacing(Direction.UP);
 
-    this.secondary = new BlockSet(floor, quartz, quartzStair, quartzPillar);
+    this.secondary = new BlockSet(
+        floor,
+        quartz,
+        quartzStair,
+        quartzPillar,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
   }
 }

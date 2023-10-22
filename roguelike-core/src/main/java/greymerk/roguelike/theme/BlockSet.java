@@ -53,52 +53,6 @@ public class BlockSet {
     this.liquid = liquid;
   }
 
-  public BlockSet(
-      BlockBrush floor,
-      BlockBrush walls,
-      StairsBlock stair,
-      BlockBrush pillar,
-      DoorBlock door
-  ) {
-    this(
-        floor,
-        walls,
-        stair,
-        pillar,
-        door,
-        BlockType.GLOWSTONE.getBrush(),
-        BlockType.WATER_FLOWING.getBrush()
-    );
-  }
-
-  public BlockSet(
-      BlockBrush floor,
-      BlockBrush walls,
-      StairsBlock stair,
-      BlockBrush pillar
-  ) {
-    this(
-        floor,
-        walls,
-        stair,
-        pillar,
-        DoorBlock.oak()
-    );
-  }
-
-  public BlockSet(
-      BlockBrush walls,
-      StairsBlock stair,
-      BlockBrush pillar
-  ) {
-    this(
-        walls,
-        walls,
-        stair,
-        pillar
-    );
-  }
-
   static BlockSet inherit(
       BlockSet parentBlockSet,
       BlockSet childBlockSet

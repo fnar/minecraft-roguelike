@@ -31,8 +31,24 @@ public class ThemeDarkHall extends Theme {
 
     DoorBlock door = DoorBlock.darkOak();
 
-    this.primary = new BlockSet(walls, walls, stair, pillar, door);
-    this.secondary = new BlockSet(walls2, walls2, stair2, pillar2, door);
+    this.primary = new BlockSet(
+        walls,
+        walls,
+        stair,
+        pillar,
+        door,
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
+    this.secondary = new BlockSet(
+        walls2,
+        walls2,
+        stair2,
+        pillar2,
+        door,
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
 
   }
 }
