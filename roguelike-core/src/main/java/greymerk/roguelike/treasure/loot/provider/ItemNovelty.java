@@ -9,6 +9,7 @@ import com.github.fnar.minecraft.item.Dye;
 import com.github.fnar.minecraft.item.Enchantment;
 import com.github.fnar.minecraft.item.Food;
 import com.github.fnar.minecraft.item.Material;
+import com.github.fnar.minecraft.item.Miscellaneous;
 import com.github.fnar.minecraft.item.Record;
 import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.minecraft.item.ToolType;
@@ -170,7 +171,7 @@ public enum ItemNovelty {
   }
 
   public static RldItemStack zisteauSign() {
-    return BlockType.OAK_SIGN.asItem()
+    return Miscellaneous.Type.SIGN.asItem()
         .withEnchantment(Enchantment.Effect.SHARPNESS.atLevel(5))
         .withEnchantment(Enchantment.Effect.KNOCKBACK.atLevel(3))
         .withEnchantment(Enchantment.Effect.FIRE_ASPECT)

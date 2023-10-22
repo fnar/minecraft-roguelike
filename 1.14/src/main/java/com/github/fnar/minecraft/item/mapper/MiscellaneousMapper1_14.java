@@ -36,6 +36,8 @@ public class MiscellaneousMapper1_14 extends RldBaseItemMapper1_14<Miscellaneous
         return Items.LEAD;
       case SADDLE:
         return Items.SADDLE;
+      case SIGN:
+        return Items.OAK_SIGN;
     }
     throw new CouldNotMapItemException(item);
   }
