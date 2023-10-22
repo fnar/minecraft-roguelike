@@ -1,4 +1,4 @@
-package com.github.fnar.roguelike.command;
+package com.github.fnar.roguelike.command.message;
 
 import greymerk.roguelike.util.TextFormat;
 

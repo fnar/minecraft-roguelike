@@ -26,6 +26,7 @@ public class Miscellaneous extends RldBaseItem {
     GLASS_BOTTLE,
     LEAD,
     SADDLE,
+    SIGN
     ;
 
     public Miscellaneous asItem() {

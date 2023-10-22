@@ -2,6 +2,7 @@ package greymerk.roguelike.theme.builtin;
 
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.block.redstone.DoorBlock;
 
 import greymerk.roguelike.theme.BlockSet;
 import greymerk.roguelike.theme.Theme;
@@ -20,11 +21,27 @@ public class ThemeSandstoneRed extends Theme {
 
     BlockBrush pillar = BlockType.SMOOTH_RED_SANDSTONE.getBrush();
 
-    this.primary = new BlockSet(walls, stair, pillar);
+    this.primary = new BlockSet(
+        walls,
+        walls,
+        stair,
+        pillar,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
 
     BlockBrush segmentWall = BlockType.CHISELED_RED_SANDSTONE.getBrush();
 
-    this.secondary = new BlockSet(segmentWall, stair, pillar);
+    this.secondary = new BlockSet(
+        segmentWall,
+        segmentWall,
+        stair,
+        pillar,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
 
   }
 }

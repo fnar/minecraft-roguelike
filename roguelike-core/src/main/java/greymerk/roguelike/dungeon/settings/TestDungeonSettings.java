@@ -4,12 +4,12 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-import greymerk.roguelike.dungeon.layout.LayoutGenerator;
 import greymerk.roguelike.dungeon.base.RoomType;
+import greymerk.roguelike.dungeon.layout.LayoutGenerator;
 import greymerk.roguelike.dungeon.segment.Segment;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
 import greymerk.roguelike.dungeon.towers.TowerType;
-import greymerk.roguelike.theme.Themes;
+import greymerk.roguelike.theme.Theme;
 
 public class TestDungeonSettings extends DungeonSettings {
 
@@ -20,7 +20,7 @@ public class TestDungeonSettings extends DungeonSettings {
     super(ID);
     this.random = random;
     setExclusive(true);
-    setTowerSettings(new TowerSettings(TowerType.random(random), Themes.random(random)));
+    setTowerSettings(new TowerSettings(TowerType.random(random), Theme.random(random)));
     IntStream.range(0, 5).forEach(this::generateLevelSettings);
   }
 
@@ -31,7 +31,7 @@ public class TestDungeonSettings extends DungeonSettings {
     levelSettings.setRange(60);
     levelSettings.setScatter(15);
 
-    levelSettings.setTheme(Themes.random(random));
+    levelSettings.setTheme(Theme.random(random));
 
     Arrays.stream(RoomType.values()).map(RoomType::newSingleRoomSetting).forEach(levelSettings.getRooms()::add);
     Arrays.stream(RoomType.values()).map(RoomType::newSingleRoomSetting).forEach(levelSettings.getSecrets()::add);

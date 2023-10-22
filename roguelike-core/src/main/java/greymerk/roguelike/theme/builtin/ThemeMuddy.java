@@ -2,6 +2,7 @@ package greymerk.roguelike.theme.builtin;
 
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.block.redstone.DoorBlock;
 import com.github.fnar.minecraft.material.Wood;
 
 import greymerk.roguelike.theme.BlockSet;
@@ -33,11 +34,27 @@ public class ThemeMuddy extends Theme {
     StairsBlock stair = StairsBlock.cobble();
     BlockBrush mossy = BlockType.STONE_BRICK_MOSSY.getBrush();
 
-    this.primary = new BlockSet(floor, walls, stair, mossy);
+    this.primary = new BlockSet(
+        floor,
+        walls,
+        stair,
+        mossy,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
 
     BlockBrush segmentWall = Wood.DARK_OAK.getLog();
     StairsBlock segmentStair = StairsBlock.darkOak();
 
-    this.secondary = new BlockSet(floor, segmentWall, segmentStair, segmentWall);
+    this.secondary = new BlockSet(
+        floor,
+        segmentWall,
+        segmentStair,
+        segmentWall,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
   }
 }

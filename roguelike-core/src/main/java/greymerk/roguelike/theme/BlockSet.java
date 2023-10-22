@@ -3,6 +3,7 @@ package greymerk.roguelike.theme;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.minecraft.block.redstone.DoorBlock;
+import com.github.fnar.minecraft.material.Wood;
 
 import greymerk.roguelike.worldgen.BlockBrush;
 import lombok.EqualsAndHashCode;
@@ -14,25 +15,15 @@ import static java.util.Optional.ofNullable;
 @ToString
 public class BlockSet {
 
-  private BlockBrush floor;
+  private BlockBrush floor = Wood.OAK.getPlanks();
   private BlockBrush walls = BlockType.STONE_BRICKS.getBrush();
   private StairsBlock stair = StairsBlock.stoneBrick();
-  private BlockBrush pillar;
+  private BlockBrush pillar = Wood.OAK.getLog();
   private DoorBlock door = DoorBlock.oak();
   private BlockBrush lightBlock = BlockType.GLOWSTONE.getBrush();
   private BlockBrush liquid = BlockType.WATER_FLOWING.getBrush();
 
   public BlockSet() {
-  }
-
-  public BlockSet(BlockSet toCopy) {
-    this.floor = toCopy.getFloor();
-    this.walls = toCopy.getWall();
-    this.stair = toCopy.getStair();
-    this.pillar = toCopy.getPillar();
-    this.door = toCopy.getDoor();
-    this.lightBlock = toCopy.getLightBlock();
-    this.liquid = toCopy.getLiquid();
   }
 
   public BlockSet(
@@ -51,52 +42,6 @@ public class BlockSet {
     this.door = door;
     this.lightBlock = lightBlock;
     this.liquid = liquid;
-  }
-
-  public BlockSet(
-      BlockBrush floor,
-      BlockBrush walls,
-      StairsBlock stair,
-      BlockBrush pillar,
-      DoorBlock door
-  ) {
-    this(
-        floor,
-        walls,
-        stair,
-        pillar,
-        door,
-        BlockType.GLOWSTONE.getBrush(),
-        BlockType.WATER_FLOWING.getBrush()
-    );
-  }
-
-  public BlockSet(
-      BlockBrush floor,
-      BlockBrush walls,
-      StairsBlock stair,
-      BlockBrush pillar
-  ) {
-    this(
-        floor,
-        walls,
-        stair,
-        pillar,
-        DoorBlock.oak()
-    );
-  }
-
-  public BlockSet(
-      BlockBrush walls,
-      StairsBlock stair,
-      BlockBrush pillar
-  ) {
-    this(
-        walls,
-        walls,
-        stair,
-        pillar
-    );
   }
 
   static BlockSet inherit(

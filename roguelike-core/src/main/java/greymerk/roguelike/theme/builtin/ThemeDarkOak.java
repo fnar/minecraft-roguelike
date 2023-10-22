@@ -2,8 +2,8 @@ package greymerk.roguelike.theme.builtin;
 
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
-import com.github.fnar.minecraft.material.Wood;
 import com.github.fnar.minecraft.block.redstone.DoorBlock;
+import com.github.fnar.minecraft.material.Wood;
 
 import greymerk.roguelike.theme.BlockSet;
 import greymerk.roguelike.theme.Theme;
@@ -17,7 +17,15 @@ public class ThemeDarkOak extends Theme {
     BlockBrush pillar = Wood.DARK_OAK.getLog();
     DoorBlock door = DoorBlock.darkOak();
 
-    this.primary = new BlockSet(walls, walls, stair, pillar, door);
+    this.primary = new BlockSet(
+        walls,
+        walls,
+        stair,
+        pillar,
+        door,
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
     this.secondary = primary;
   }
 }

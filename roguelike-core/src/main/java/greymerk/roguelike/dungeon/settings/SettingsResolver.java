@@ -22,8 +22,6 @@ import static java.util.stream.Collectors.toList;
 
 public class SettingsResolver {
 
-  private static SettingsResolver instance;
-
   private final SettingsContainer settingsContainer;
 
   public static SettingsResolver getInstance() {
@@ -31,11 +29,7 @@ public class SettingsResolver {
   }
 
   public static SettingsResolver getInstance(ModLoader modLoader) {
-    if (instance == null) {
-      SettingsContainer settingsContainer = new SettingsContainer(modLoader).loadFiles();
-      SettingsResolver.instance = new SettingsResolver(settingsContainer);
-    }
-    return instance;
+    return new SettingsResolver(new SettingsContainer(modLoader).loadFiles());
   }
 
   public SettingsResolver(SettingsContainer settingsContainer) {

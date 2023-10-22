@@ -12,7 +12,7 @@ import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.settings.builtin.BuiltinBaseSettings;
 import greymerk.roguelike.dungeon.towers.TowerType;
-import greymerk.roguelike.theme.Themes;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.loot.MinecraftItemLootItem;
 import greymerk.roguelike.treasure.loot.rule.SingleUseLootRule;
 import greymerk.roguelike.util.WeightedChoice;
@@ -27,7 +27,7 @@ public class BuiltinJungleDungeonSettings extends DungeonSettings {
     setExclusive(true);
     getInherit().add(BuiltinBaseSettings.ID);
     getCriteria().addBiomeTags(BiomeTag.JUNGLE);
-    setTowerSettings(new TowerSettings(TowerType.JUNGLE, Themes.JUNGLE));
+    setTowerSettings(new TowerSettings(TowerType.JUNGLE, Theme.JUNGLE));
 
     for (int i = 0; i < 5; ++i) {
       getLootRules().add(new SingleUseLootRule(new MinecraftItemLootItem(Material.Type.EMERALD.asItem(), 0, 1, 1 + i, 1), i, 6));
@@ -35,12 +35,12 @@ public class BuiltinJungleDungeonSettings extends DungeonSettings {
     }
 
 
-    Themes[] themes = {
-        Themes.JUNGLE,
-        Themes.JUNGLE,
-        Themes.MOSSY,
-        Themes.MOSSY,
-        Themes.NETHER
+    Theme[] themes = {
+        Theme.JUNGLE,
+        Theme.JUNGLE,
+        Theme.MOSSY,
+        Theme.MOSSY,
+        Theme.NETHER
     };
 
     SegmentGenerator segments;
@@ -62,7 +62,7 @@ public class BuiltinJungleDungeonSettings extends DungeonSettings {
         levelSettings.addFilter(Filter.VINE);
       }
 
-      levelSettings.setTheme(themes[level].getThemeBase());
+      levelSettings.setTheme(themes[level]);
       getLevelSettings().put(level, levelSettings);
     }
   }

@@ -3,6 +3,8 @@ package com.github.fnar.roguelike.command;
 import com.github.fnar.minecraft.WorldEditor1_12;
 import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.minecraft.item.mapper.ItemMapper1_12;
+import com.github.fnar.roguelike.command.message.Message;
+import com.github.fnar.roguelike.command.message.MessageType;
 
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.Entity;
@@ -25,22 +27,20 @@ public class CommandSender1_12 implements CommandSender {
     this.commandSender = iCommandSender;
   }
 
-  @Override
-  public void sendMessage(String message, MessageType type) {
-    commandSender.sendMessage(formatMessage(message, type));
+  public void sendMessage(Message message) {
+    ITextComponent textComponent = new TextComponentTranslation(message.getMessage());
+    textComponent = withStyle(textComponent, message.getMessageType());
+    textComponent = message.getDetails() != null ? withDetails(textComponent.appendText(" "), message.getDetails()) : textComponent;
+    commandSender.sendMessage(textComponent);
   }
 
-  @Override
-  public void sendMessage(String message, String details, MessageType type) {
-    commandSender.sendMessage(
-        formatMessage(message, type)
-            .appendText(" ")
-            .appendSibling(new TextComponentString(details)));
+  private static ITextComponent withDetails(ITextComponent component, String details) {
+    return details != null ? component.appendSibling(new TextComponentString(details)) : component;
   }
 
-  private static ITextComponent formatMessage(String message, MessageType type) {
+  private static ITextComponent withStyle(ITextComponent textComponent, MessageType type) {
     Style style = new Style().setColor(TextFormattingMapper1_12.map(type.getTextFormat().getCodeChar()));
-    return new TextComponentTranslation(message).setStyle(style);
+    return textComponent.setStyle(style);
   }
 
   @Override

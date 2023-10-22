@@ -14,7 +14,7 @@ import greymerk.roguelike.dungeon.settings.SettingsContainer;
 import greymerk.roguelike.dungeon.settings.TowerSettings;
 import greymerk.roguelike.dungeon.settings.builtin.BuiltinBaseSettings;
 import greymerk.roguelike.dungeon.towers.TowerType;
-import greymerk.roguelike.theme.Themes;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.filter.Filter;
 
 public class BuiltinMountainDungeonSettings extends DungeonSettings {
@@ -26,13 +26,13 @@ public class BuiltinMountainDungeonSettings extends DungeonSettings {
     setExclusive(true);
     getInherit().add(BuiltinBaseSettings.ID);
     getCriteria().addBiomeTags(BiomeTag.MOUNTAIN);
-    setTowerSettings(new TowerSettings(TowerType.ENIKO, Themes.OAK));
+    setTowerSettings(new TowerSettings(TowerType.ENIKO, Theme.OAK));
 
-    Themes[] themes = {Themes.ENIKO, Themes.ENIKO2, Themes.SEWER, Themes.MOSSY, Themes.NETHER};
+    Theme[] themes = {Theme.ENIKO, Theme.ENIKO2, Theme.SEWER, Theme.MOSSY, Theme.NETHER};
 
     for (int level = 0; level < DungeonSettings.MAXIMUM_COUNT_OF_LEVELS; level++) {
       LevelSettings levelSettings = getLevelSettings(level);
-      levelSettings.setTheme(themes[level].getThemeBase());
+      levelSettings.setTheme(themes[level]);
 
       if (level == 0) {
         levelSettings.setScatter(16);

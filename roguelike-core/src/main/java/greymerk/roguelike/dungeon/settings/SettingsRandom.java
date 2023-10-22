@@ -4,11 +4,12 @@ import java.util.Arrays;
 import java.util.Random;
 import java.util.stream.IntStream;
 
-import greymerk.roguelike.dungeon.layout.LayoutGenerator;
 import greymerk.roguelike.dungeon.base.RoomType;
+import greymerk.roguelike.dungeon.layout.LayoutGenerator;
 import greymerk.roguelike.dungeon.segment.Segment;
 import greymerk.roguelike.dungeon.segment.SegmentGenerator;
 import greymerk.roguelike.dungeon.towers.TowerType;
+import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.treasure.loot.ChestType;
 import greymerk.roguelike.treasure.loot.Equipment;
 import greymerk.roguelike.treasure.loot.GreymerkChestType;
@@ -20,13 +21,11 @@ import greymerk.roguelike.treasure.loot.rule.ForEachLootRule;
 import greymerk.roguelike.treasure.loot.rule.SingleUseLootRule;
 import greymerk.roguelike.treasure.loot.rule.TypedForEachLootRule;
 
-import static greymerk.roguelike.theme.Themes.random;
-
 public class SettingsRandom extends DungeonSettings {
 
   public SettingsRandom(Random random) {
 
-    setTowerSettings(new TowerSettings(TowerType.random(random), random(random)));
+    setTowerSettings(new TowerSettings(TowerType.random(random), Theme.random(random)));
 
     IntStream.range(0, 5)
         .forEach(i -> getLevelSettings().put(i, createRandomLevel(random, i)));
@@ -72,7 +71,7 @@ public class SettingsRandom extends DungeonSettings {
     level.setRange(60);
     level.setScatter(15);
 
-    level.setTheme(random(random));
+    level.setTheme(Theme.random(random));
     RoomType.getIntersections().stream().map(roomType -> roomType.newRandomRoomSetting(1)).forEach(level.getRooms()::add);
     RoomType.getSecrets().stream().map(roomType -> roomType.newRandomRoomSetting(1)).forEach(level.getSecrets()::add);
     Arrays.stream(Segment.values()).map(segment -> new SegmentGenerator().with(segment, 1)).forEach(level.getSegments()::add);

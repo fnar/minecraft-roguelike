@@ -5,6 +5,7 @@ import com.google.gson.JsonObject;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
+import com.github.fnar.minecraft.block.redstone.DoorBlock;
 
 import org.junit.Test;
 
@@ -67,8 +68,24 @@ public class ThemeTest {
 
   @Test
   public void themesInheritFromTheirParents() {
-    BlockSet dirtBlockSet = new BlockSet(BlockType.DIRT.getBrush(), StairsBlock.oak(), null);
-    BlockSet grassBlockSet = new BlockSet(BlockType.GRASS_BLOCK.getBrush(), StairsBlock.oak(), null);
+    BlockSet dirtBlockSet = new BlockSet(
+        BlockType.DIRT.getBrush(),
+        BlockType.DIRT.getBrush(),
+        StairsBlock.oak(),
+        null,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
+    BlockSet grassBlockSet = new BlockSet(
+        BlockType.GRASS_BLOCK.getBrush(),
+        BlockType.GRASS_BLOCK.getBrush(),
+        StairsBlock.oak(),
+        null,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
 
     Theme parent = new Theme(dirtBlockSet, null);
     Theme child = new Theme(null, grassBlockSet);
@@ -80,8 +97,24 @@ public class ThemeTest {
 
   @Test
   public void themesInheritTheirSecondaryBlockSetFromTheirPrimaryIfTheirSecondaryBlockSetIsAbsent() {
-    BlockSet dirtBlockSet = new BlockSet(BlockType.DIRT.getBrush(), StairsBlock.oak(), null);
-    BlockSet grassBlockSet = new BlockSet(BlockType.GRASS_BLOCK.getBrush(), StairsBlock.oak(), null);
+    BlockSet dirtBlockSet = new BlockSet(
+        BlockType.DIRT.getBrush(),
+        BlockType.DIRT.getBrush(),
+        StairsBlock.oak(),
+        null,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
+    BlockSet grassBlockSet = new BlockSet(
+        BlockType.GRASS_BLOCK.getBrush(),
+        BlockType.GRASS_BLOCK.getBrush(),
+        StairsBlock.oak(),
+        null,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
 
     Theme dirtTheme = new Theme(dirtBlockSet, null);
     Theme grassTheme = new Theme(grassBlockSet, null);
@@ -93,7 +126,15 @@ public class ThemeTest {
 
   @Test
   public void themesInheritTheirPrimaryBlockSetFromTheirParentIfAbsent() {
-    BlockSet dirtBlockSet = new BlockSet(BlockType.DIRT.getBrush(), null, null);
+    BlockSet dirtBlockSet = new BlockSet(
+        BlockType.DIRT.getBrush(),
+        BlockType.DIRT.getBrush(),
+        null,
+        null,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
 
     Theme parent = new Theme(dirtBlockSet, null);
     Theme child = new Theme(null, null);
@@ -104,7 +145,15 @@ public class ThemeTest {
 
   @Test
   public void themesInheritTheirSecondaryBlockSetFromTheirParentIfAbsent() {
-    BlockSet dirtBlockSet = new BlockSet(BlockType.DIRT.getBrush(), null, null);
+    BlockSet dirtBlockSet = new BlockSet(
+        BlockType.DIRT.getBrush(),
+        BlockType.DIRT.getBrush(),
+        null,
+        null,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
 
     Theme parent = new Theme(null, dirtBlockSet);
     Theme child = new Theme(null, null);
@@ -115,7 +164,15 @@ public class ThemeTest {
 
   @Test
   public void themesInheritTheirSecondaryBlockSetFromTheirParentsPrimaryIfTheParentHasNoSecondary() {
-    BlockSet dirtBlockSet = new BlockSet(BlockType.DIRT.getBrush(), null, null);
+    BlockSet dirtBlockSet = new BlockSet(
+        BlockType.DIRT.getBrush(),
+        BlockType.DIRT.getBrush(),
+        null,
+        null,
+        DoorBlock.oak(),
+        BlockType.GLOWSTONE.getBrush(),
+        BlockType.WATER_FLOWING.getBrush()
+    );
 
     Theme parent = new Theme(dirtBlockSet, null);
     Theme child = new Theme(null, null);
