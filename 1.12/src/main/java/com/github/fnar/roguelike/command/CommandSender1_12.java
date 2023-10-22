@@ -30,7 +30,7 @@ public class CommandSender1_12 implements CommandSender {
   public void sendMessage(Message message) {
     ITextComponent textComponent = new TextComponentTranslation(message.getMessage());
     textComponent = withStyle(textComponent, message.getMessageType());
-    textComponent = message.getMessage() != null ? withDetails(textComponent.appendText(" "), message.getMessage()) : textComponent;
+    textComponent = message.getDetails() != null ? withDetails(textComponent.appendText(" "), message.getDetails()) : textComponent;
     commandSender.sendMessage(textComponent);
   }
 
