@@ -15,7 +15,7 @@ public class TowerSettings {
 
   public TowerSettings(TowerType type, Theme.Type theme) {
     this.type = type;
-    this.theme = theme.getThemeBase();
+    this.theme = theme.asTheme();
   }
 
   public TowerSettings(JsonElement e) throws Exception {

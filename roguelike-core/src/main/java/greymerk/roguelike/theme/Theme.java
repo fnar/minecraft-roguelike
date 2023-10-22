@@ -126,7 +126,7 @@ public class Theme {
       this.theme = theme;
     }
 
-    public Theme getThemeBase() {
+    public Theme asTheme() {
       return theme;
     }
 

@@ -62,7 +62,7 @@ public class BuiltinJungleDungeonSettings extends DungeonSettings {
         levelSettings.addFilter(Filter.VINE);
       }
 
-      levelSettings.setTheme(themes[level].getThemeBase());
+      levelSettings.setTheme(themes[level].asTheme());
       getLevelSettings().put(level, levelSettings);
     }
   }
