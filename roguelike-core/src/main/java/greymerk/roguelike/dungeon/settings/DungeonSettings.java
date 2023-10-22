@@ -139,7 +139,7 @@ public class DungeonSettings {
 
   public TowerSettings getTower() {
     if (towerSettings == null) {
-      return new TowerSettings(TowerType.ROGUE, Theme.Type.STONE);
+      return new TowerSettings(TowerType.ROGUE, Theme.STONE);
     }
 
     return towerSettings;

@@ -21,10 +21,10 @@ public class BuiltinMesaDungeonSettings extends DungeonSettings {
     setExclusive(true);
     getInherit().add(BuiltinBaseSettings.ID);
     getCriteria().addBiomeTags(BiomeTag.MESA);
-    setTowerSettings(new TowerSettings(TowerType.ETHO, Theme.Type.ETHOTOWER));
+    setTowerSettings(new TowerSettings(TowerType.ETHO, Theme.ETHOTOWER));
 
-    Theme.Type[] themes = {Theme.Type.ETHOTOWER, Theme.Type.ETHOTOWER, Theme.Type.CRYPT, Theme.Type.CRYPT, Theme.Type.NETHER};
+    Theme[] themes = {Theme.ETHOTOWER, Theme.ETHOTOWER, Theme.CRYPT, Theme.CRYPT, Theme.NETHER};
     IntStream.range(0, DungeonSettings.MAXIMUM_COUNT_OF_LEVELS)
-        .forEach(level -> getLevelSettings(level).setTheme(themes[level].asTheme()));
+        .forEach(level -> getLevelSettings(level).setTheme(themes[level]));
   }
 }

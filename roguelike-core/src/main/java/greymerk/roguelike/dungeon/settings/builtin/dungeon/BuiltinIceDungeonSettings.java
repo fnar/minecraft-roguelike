@@ -21,10 +21,10 @@ public class BuiltinIceDungeonSettings extends DungeonSettings {
     setExclusive(true);
     getInherit().add(BuiltinBaseSettings.ID);
     getCriteria().addBiomeTags(BiomeTag.SNOWY);
-    setTowerSettings(new TowerSettings(TowerType.PYRAMID, Theme.Type.ICE));
+    setTowerSettings(new TowerSettings(TowerType.PYRAMID, Theme.ICE));
     IntStream.range(0, MAXIMUM_COUNT_OF_LEVELS)
         .mapToObj(this::getLevelSettings)
-        .forEach(levelSettings -> levelSettings.setTheme(Theme.Type.ICE));
+        .forEach(levelSettings -> levelSettings.setTheme(Theme.ICE));
   }
 
 }

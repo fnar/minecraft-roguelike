@@ -26,22 +26,22 @@ public enum TowerType {
   VILLAGER_HOUSE,
   WITCH;
 
-  public static Theme.Type getDefaultTheme(TowerType type) {
+  public static Theme getDefaultTheme(TowerType type) {
     switch (type) {
       case ETHO:
-        return Theme.Type.ETHOTOWER;
+        return Theme.ETHOTOWER;
       case PYRAMID:
-        return Theme.Type.PYRAMID;
+        return Theme.PYRAMID;
       case JUNGLE:
-        return Theme.Type.JUNGLE;
+        return Theme.JUNGLE;
       case WITCH:
-        return Theme.Type.DARKHALL;
+        return Theme.DARKHALL;
       case HOUSE:
-        return Theme.Type.HOUSE;
+        return Theme.HOUSE;
       case BUMBO:
-        return Theme.Type.BUMBO;
+        return Theme.BUMBO;
       default:
-        return Theme.Type.OAK;
+        return Theme.OAK;
     }
   }
 
@@ -86,7 +86,7 @@ public enum TowerType {
   }
 
   public Tower instantiate(WorldEditor worldEditor) {
-    return instantiate(worldEditor, TowerType.getDefaultTheme(this).asTheme());
+    return instantiate(worldEditor, TowerType.getDefaultTheme(this));
   }
 
   public Tower instantiate(WorldEditor worldEditor, Theme theme) {

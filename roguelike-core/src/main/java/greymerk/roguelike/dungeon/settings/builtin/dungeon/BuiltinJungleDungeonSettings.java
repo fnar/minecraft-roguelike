@@ -27,7 +27,7 @@ public class BuiltinJungleDungeonSettings extends DungeonSettings {
     setExclusive(true);
     getInherit().add(BuiltinBaseSettings.ID);
     getCriteria().addBiomeTags(BiomeTag.JUNGLE);
-    setTowerSettings(new TowerSettings(TowerType.JUNGLE, Theme.Type.JUNGLE));
+    setTowerSettings(new TowerSettings(TowerType.JUNGLE, Theme.JUNGLE));
 
     for (int i = 0; i < 5; ++i) {
       getLootRules().add(new SingleUseLootRule(new MinecraftItemLootItem(Material.Type.EMERALD.asItem(), 0, 1, 1 + i, 1), i, 6));
@@ -35,12 +35,12 @@ public class BuiltinJungleDungeonSettings extends DungeonSettings {
     }
 
 
-    Theme.Type[] themes = {
-        Theme.Type.JUNGLE,
-        Theme.Type.JUNGLE,
-        Theme.Type.MOSSY,
-        Theme.Type.MOSSY,
-        Theme.Type.NETHER
+    Theme[] themes = {
+        Theme.JUNGLE,
+        Theme.JUNGLE,
+        Theme.MOSSY,
+        Theme.MOSSY,
+        Theme.NETHER
     };
 
     SegmentGenerator segments;
@@ -62,7 +62,7 @@ public class BuiltinJungleDungeonSettings extends DungeonSettings {
         levelSettings.addFilter(Filter.VINE);
       }
 
-      levelSettings.setTheme(themes[level].asTheme());
+      levelSettings.setTheme(themes[level]);
       getLevelSettings().put(level, levelSettings);
     }
   }

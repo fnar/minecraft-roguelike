@@ -13,9 +13,9 @@ public class TowerSettings {
   private final TowerType type;
   private final Theme theme;
 
-  public TowerSettings(TowerType type, Theme.Type theme) {
+  public TowerSettings(TowerType type, Theme theme) {
     this.type = type;
-    this.theme = theme.asTheme();
+    this.theme = theme;
   }
 
   public TowerSettings(JsonElement e) throws Exception {
