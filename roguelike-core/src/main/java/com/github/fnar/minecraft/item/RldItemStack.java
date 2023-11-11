@@ -91,7 +91,12 @@ public class RldItemStack {
   }
 
   public RldItemStack withDisplayLore(String... lore) {
-    //ensureCompoundTag("display").withTag("Lore", new ListTag().withTags(lore));
+    ensureCompoundTag("display").withTag("Lore", new ListTag().withTags(lore));
+
+    return this;
+  }
+
+  public RldItemStack withDisplayLocLore(String... lore) {
     ensureCompoundTag("display").withTag("rldLocLore", new ListTag().withTags(lore));
 
     return this;
