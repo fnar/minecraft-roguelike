@@ -30,7 +30,6 @@ public class BiomeCommand extends BaseRoguelikeCommand {
 
   @Override
   public void onSuccess() {
-    // todo: Add to language files
     context.sendSuccess("biomeslisted");
   }
 
