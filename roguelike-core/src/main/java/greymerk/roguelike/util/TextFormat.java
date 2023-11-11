@@ -36,9 +36,14 @@ public enum TextFormat {
     return codeChar;
   }
 
+  public String toString() {
+    //return "§" + codeChar; //this shows a weird character at the beginning of the formatting
+    return "\u00A7" + codeChar;
+  }
+
   public String apply(String text) {
-    //return String.format("§%s%s", getCodeChar(), text);
-    return "§" + getCodeChar() + "" + text;
+    //return "§" + getCodeChar() + "" + text;
+    return this.toString() + text;
   }
 
 }

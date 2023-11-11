@@ -19,6 +19,7 @@ import greymerk.roguelike.dungeon.rooms.RoomSetting;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
 import greymerk.roguelike.treasure.loot.Quality;
 import greymerk.roguelike.util.DyeColor;
+import greymerk.roguelike.util.TextFormat;
 import greymerk.roguelike.worldgen.BlockBrush;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.Direction;
@@ -180,8 +181,8 @@ public class FireworkRoom extends BaseRoom {
 
       RldItemStack stick = Material.Type.STICK.asItem().asStack()
           .withDisplayName(Integer.toString(i))
-          //.withDisplayLore(TextFormat.DARKGRAY.apply("Random logic unit"));
-          .withDisplayLore("lore.roguelike.stick_rlu");
+          .withDisplayLore(TextFormat.DARKGRAY.apply("Random logic unit"))
+          .withDisplayLocLore("lore.roguelike.stick_rlu");
       editor.setItem(cursor, i, stick);
     }
     editor.setItem(cursor, 8, ToolType.HOE.asItem().withQuality(Quality.WOOD).asStack());

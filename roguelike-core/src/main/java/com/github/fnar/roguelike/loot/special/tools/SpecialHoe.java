@@ -17,8 +17,8 @@ public class SpecialHoe extends SpecialTool {
     withToolEnchantments(random);
     withCommonEnchantments(random);
     if (quality == Quality.DIAMOND) {
-      //withLore("Don't craft a diamond hoe", TextFormat.GRAY);
-      withLore("lore.roguelike.diamond_hoe");
+      withLore("Don't craft a diamond hoe", TextFormat.GRAY);
+      withLocLore("lore.roguelike.diamond_hoe");
     }
   }
 

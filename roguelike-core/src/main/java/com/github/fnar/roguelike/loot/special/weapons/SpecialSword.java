@@ -72,8 +72,8 @@ public class SpecialSword extends SpecialEquipment {
     } else {
       //withPrefix("Bandit King's");
       withPrefix("loot3");
-      // withLore("Once belonged to a king of hidden desert thieves.", TextFormat.DARKGREEN);
-      withLore("lore.roguelike.looting3");
+      withLore("Once belonged to a king of hidden desert thieves.", TextFormat.DARKGREEN);
+      withLocLore("lore.roguelike.looting3");
     }
     return this;
   }
@@ -90,22 +90,22 @@ public class SpecialSword extends SpecialEquipment {
     if (enchantmentLevel == 1) {
       //withPrefix("Ember");
       withPrefix("fire1");
-      //withLore("Warm to the touch", TextFormat.YELLOW);
-      withLore("lore.roguelike.fire_aspect1");
+      withLore("Warm to the touch", TextFormat.YELLOW);
+      withLocLore("lore.roguelike.fire_aspect1");
       return this;
     }
 
     if (enchantmentLevel == 2) {
       //withPrefix("Fiery");
       withPrefix("fire2");
-      //withLore("Almost too hot to hold", TextFormat.RED);
-      withLore("lore.roguelike.fire_aspect2");
+      withLore("Almost too hot to hold", TextFormat.RED);
+      withLocLore("lore.roguelike.fire_aspect2");
       return this;
     }
     //withSuffix("of the Inferno");
     withSuffix("fire3");
-    //withLore("From the fiery depths", TextFormat.DARKRED);
-    withLore("lore.roguelike.fire_aspect3");
+    withLore("From the fiery depths", TextFormat.DARKRED);
+    withLocLore("lore.roguelike.fire_aspect3");
     return this;
   }
 
