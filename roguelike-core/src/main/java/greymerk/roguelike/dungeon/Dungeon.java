@@ -1,7 +1,7 @@
 package greymerk.roguelike.dungeon;
 
 import com.github.fnar.forge.ModLoader;
-import com.github.fnar.minecraft.block.Material;
+import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.util.ReportThisIssueException;
 
 import org.apache.logging.log4j.LogManager;
@@ -198,7 +198,8 @@ public class Dungeon {
       if (cursor.getY() < lowerLimit) {
         return false;
       }
-      if (editor.isMaterialAt(Material.WATER, cursor)) {
+      //if (editor.isMaterialAt(Material.WATER, cursor)) {
+      if (editor.isBlockOfTypeAt(BlockType.WATER_STILL,cursor)) {
         return false;
       }
     }
