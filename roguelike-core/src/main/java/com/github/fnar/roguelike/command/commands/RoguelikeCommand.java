@@ -2,7 +2,7 @@ package com.github.fnar.roguelike.command.commands;
 
 public interface RoguelikeCommand extends Runnable {
 
-  void onRun() throws Exception;
+  boolean onRun() throws Exception;
 
   void onSuccess();
 

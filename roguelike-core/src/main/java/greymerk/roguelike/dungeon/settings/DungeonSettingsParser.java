@@ -111,7 +111,7 @@ public class DungeonSettingsParser {
       if (!modLoader.isModLoaded(requiredModName)) {
         throw new RequiredModMissingException(requiredModName);
       }
-      return false;
+      //return false;
     }
     return true;
   }
