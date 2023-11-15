@@ -20,21 +20,22 @@ public class GenerateTowerCommand extends BaseRoguelikeCommand {
   }
 
   @Override
-  public void onRun() throws Exception {
+  public boolean onRun() throws Exception {
 
     if (towerName == null) {
       context.sendInfo("notif.roguelike.usage_", "roguelike tower <tower name>");
       context.sendInfo("notif.roguelike.towertypes", String.join(" ", TowerType.getTowerList()));
-      return;
+      return false;
     }
 
     Optional<TowerType> towerType = TowerType.get(towerName);
     if (!towerType.isPresent()) {
       context.sendFailure("nosuchtower", towerName);
-      return;
+      return false;
     }
 
     towerType.map(this::instantiateTower).ifPresent(this::generateTower);
+    return true;
   }
 
   private void generateTower(Tower tower) {

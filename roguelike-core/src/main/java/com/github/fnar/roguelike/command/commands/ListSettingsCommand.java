@@ -20,12 +20,13 @@ public class ListSettingsCommand extends BaseRoguelikeCommand {
   }
 
   @Override
-  public void onRun() {
+  public boolean onRun() {
     if (namespace.isEmpty()) {
       context.sendInfo(SettingsResolver.getInstance(context.getModLoader()).toString());
     } else {
       context.sendInfo(SettingsResolver.getInstance(context.getModLoader()).toString(namespace));
     }
+    return true;
   }
 
   @Override

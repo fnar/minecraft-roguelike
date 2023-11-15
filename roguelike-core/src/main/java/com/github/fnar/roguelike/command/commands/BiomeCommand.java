@@ -18,7 +18,7 @@ public class BiomeCommand extends BaseRoguelikeCommand {
   }
 
   @Override
-  public void onRun() {
+  public boolean onRun() {
     context.sendSpecial("notif.roguelike.biomeinfo", coord.toString());
 
     WorldEditor editor = context.createEditor();
@@ -26,6 +26,7 @@ public class BiomeCommand extends BaseRoguelikeCommand {
 
     List<String> typeNames = editor.getBiomeTagNames(coord);
     context.sendSpecial(String.join("", typeNames));
+    return true;
   }
 
   @Override
