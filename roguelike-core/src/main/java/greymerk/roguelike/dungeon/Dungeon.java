@@ -51,12 +51,14 @@ public class Dungeon {
   private Coord origin;
   private final List<DungeonLevel> levels = new ArrayList<>();
   private final WorldEditor editor;
+  private final ModLoader modLoader;
 
   public Dungeon(WorldEditor editor, ModLoader modLoader) {
     this.editor = editor;
+    this.modLoader=modLoader;
     try {
       RogueConfig.reload(false);
-      SettingsResolver.getInstance(modLoader);
+      SettingsResolver.getInstance(this.modLoader);
     } catch (Exception e) {
       // do nothing
     }
@@ -237,7 +239,7 @@ public class Dungeon {
     if (RogueConfig.RANDOM.getBoolean()) {
       return Optional.of(new SettingsRandom(editor.getRandom()));
     }
-    return SettingsResolver.getInstance().chooseRandom(editor, coord);
+    return SettingsResolver.getInstance(modLoader).chooseRandom(editor, coord);
   }
 
   public Coord getPosition() {
