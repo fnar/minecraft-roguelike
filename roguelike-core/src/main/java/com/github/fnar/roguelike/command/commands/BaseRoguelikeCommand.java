@@ -11,8 +11,8 @@ public class BaseRoguelikeCommand implements RoguelikeCommand {
   }
 
   @Override
-  public void onRun() throws Exception {
-
+  public boolean onRun() throws Exception {
+    return false;
   }
 
   @Override
@@ -30,8 +30,8 @@ public class BaseRoguelikeCommand implements RoguelikeCommand {
   @Override
   public final void run() {
     try {
-      onRun();
-      onSuccess();
+      if ( onRun() )
+        onSuccess();
     } catch (Exception e) {
       onException(e);
     }

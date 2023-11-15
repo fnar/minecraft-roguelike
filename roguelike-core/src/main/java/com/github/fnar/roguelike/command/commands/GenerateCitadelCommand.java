@@ -17,7 +17,8 @@ public class GenerateCitadelCommand extends BaseRoguelikeCommand {
   }
 
   @Override
-  public void onRun() {
+  public boolean onRun() {
     Citadel.generate(context.createEditor(), coord.getX(), coord.getZ());
+    return true;
   }
 }

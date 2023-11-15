@@ -10,8 +10,9 @@ public class ReloadConfigCommand extends BaseRoguelikeCommand {
   }
 
   @Override
-  public void onRun() throws Exception {
+  public boolean onRun() throws Exception {
     RogueConfig.reload(true);
+    return true;
   }
 
   @Override

@@ -11,8 +11,9 @@ public class ReloadSettingsCommand extends BaseRoguelikeCommand {
   }
 
   @Override
-  public void onRun() {
+  public boolean onRun() {
     SettingsResolver.getInstance(context.getModLoader());
+    return true;
   }
 
   @Override

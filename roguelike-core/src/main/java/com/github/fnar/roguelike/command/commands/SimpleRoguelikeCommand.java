@@ -33,7 +33,8 @@ public class SimpleRoguelikeCommand extends BaseRoguelikeCommand {
   }
 
   @Override
-  public void onRun() {
+  public boolean onRun() {
     this.onRun.run();
+    return true;
   }
 }
