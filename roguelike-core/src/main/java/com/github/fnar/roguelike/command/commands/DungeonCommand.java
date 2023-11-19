@@ -41,8 +41,8 @@ public class DungeonCommand extends BaseRoguelikeCommand {
   }
 
   private void generateDungeon(CommandContext context, Coord coord, WorldEditor editor, DungeonSettings dungeonSettings) {
-    Dungeon dungeon = new Dungeon(editor, context.getModLoader());
-    dungeon.generate(dungeonSettings, coord);
+    Dungeon dungeon = new Dungeon(editor);
+    dungeon.timedGenerate(dungeonSettings, coord);
     context.sendSuccess("generateddungeon", String.format("%s at %s.", dungeonSettings.getId(), coord));
   }
 

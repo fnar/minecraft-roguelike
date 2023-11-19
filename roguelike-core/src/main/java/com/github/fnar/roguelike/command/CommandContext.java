@@ -88,7 +88,7 @@ public class CommandContext {
   }
 
   public ModLoader getModLoader() {
-    return requiredModName -> false;
+    return createEditor().getModLoader();
   }
 
   public Optional<String> getArgument(int argumentIndex) {

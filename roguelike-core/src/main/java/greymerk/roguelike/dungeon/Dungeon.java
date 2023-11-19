@@ -1,8 +1,8 @@
 package greymerk.roguelike.dungeon;
 
-import com.github.fnar.forge.ModLoader;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.util.ReportThisIssueException;
+import com.github.fnar.util.TimedTask;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -51,20 +51,37 @@ public class Dungeon {
   private Coord origin;
   private final List<DungeonLevel> levels = new ArrayList<>();
   private final WorldEditor editor;
-  private final ModLoader modLoader;
 
-  public Dungeon(WorldEditor editor, ModLoader modLoader) {
+  public Dungeon(WorldEditor editor) {
     this.editor = editor;
-    this.modLoader=modLoader;
     try {
       RogueConfig.reload(false);
-      SettingsResolver.getInstance(this.modLoader);
+      SettingsResolver.getInstance(editor.getModLoader());
     } catch (Exception e) {
       // do nothing
     }
   }
 
-  public static boolean canSpawnInChunk(int chunkX, int chunkZ, WorldEditor editor) {
+  public static void generateInChunkIfPossible(WorldEditor editor, int chunkX, int chunkZ) {
+    if (!isDungeonChunk(editor, chunkX, chunkZ)) {
+      return;
+    }
+    logger.info("Trying to spawn dungeon at chunkX {} and chunkZ {}...", chunkX, chunkZ);
+    Dungeon dungeon = new Dungeon(editor);
+    Optional<Coord> coord = dungeon.selectLocation(editor.getRandom(), chunkX * CHUNK_SIZE, chunkZ * CHUNK_SIZE);
+    if (!coord.isPresent()) {
+      return;
+    }
+
+    Optional<DungeonSettings> settings = dungeon.getDungeonSettingsMaybe(coord.get());
+    if (!settings.isPresent()) {
+      return;
+    }
+
+    dungeon.timedGenerate(settings.get(), coord.get());
+  }
+
+  public static boolean isDungeonChunk(WorldEditor editor, int chunkX, int chunkZ) {
     return RogueConfig.DUNGEONS_SPAWN_ENABLED.getBoolean()
         && SpawnCriteria.isValidDimension(editor.getDimension())
 //        && isVillageChunk(editor, chunkX, chunkZ)
@@ -102,11 +119,15 @@ public class Dungeon {
     }
   }
 
+  public void timedGenerate(DungeonSettings dungeonSettings, Coord coord) {
+    new TimedTask("Dungeon.generate()", () -> generate(dungeonSettings, coord)).run();
+  }
+
   public void generate(DungeonSettings dungeonSettings, Coord coord) {
     logger.info("Trying to spawn dungeon with id {} at {}...", dungeonSettings.getId(), coord);
     try {
 
-      origin = new Coord(coord.getX(), TOPLEVEL, coord.getZ());
+      origin = coord.copy().setY(TOPLEVEL);
 
       IntStream.range(0, dungeonSettings.getNumLevels())
           .mapToObj(dungeonSettings::getLevelSettings)
@@ -129,20 +150,6 @@ public class Dungeon {
       task.execute(editor, this, dungeonSettings);
     } catch (Exception exception) {
       new ReportThisIssueException(exception).printStackTrace();
-    }
-  }
-
-  public void spawnInChunk(Random rand, int chunkX, int chunkZ) {
-    if (canSpawnInChunk(chunkX, chunkZ, editor)) {
-      logger.info("Trying to spawn dungeon at chunkX {} and chunkZ {}...", chunkX, chunkZ);
-      int x = chunkX * CHUNK_SIZE;
-      int z = chunkZ * CHUNK_SIZE;
-
-      selectLocation(rand, x, z)
-          .ifPresent(coord ->
-              getDungeonSettingsMaybe(coord)
-                  .ifPresent(dungeonSettings ->
-                      generate(dungeonSettings, coord)));
     }
   }
 
@@ -174,12 +181,10 @@ public class Dungeon {
       return false;
     }
 
-    int upperLimit = RogueConfig.UPPERLIMIT.getInt();
-    int lowerLimit = RogueConfig.LOWERLIMIT.getInt();
-    Coord cursor = new Coord(coord.getX(), upperLimit, coord.getZ());
+    Coord cursor = coord.copy().setY(RogueConfig.UPPERLIMIT.getInt());
 
     return editor.isAirBlock(cursor)
-        && canFindStartingCoord(lowerLimit, cursor)
+        && canFindStartingCoord(cursor)
         && isFreeOverhead(cursor)
         && isSolidBelow(cursor);
   }
@@ -194,10 +199,10 @@ public class Dungeon {
     return coord.distance(structureCoord) < minimumDistanceRequired;
   }
 
-  private boolean canFindStartingCoord(int lowerLimit, Coord cursor) {
+  private boolean canFindStartingCoord(Coord cursor) {
     while (!editor.isValidGroundBlock(cursor)) {
       cursor.down();
-      if (cursor.getY() < lowerLimit) {
+      if (cursor.getY() < RogueConfig.LOWERLIMIT.getInt()) {
         return false;
       }
       //if (editor.isMaterialAt(Material.WATER, cursor)) {
@@ -209,8 +214,8 @@ public class Dungeon {
   }
 
   private boolean isFreeOverhead(Coord cursor) {
-    Coord start = cursor.copy().translate(new Coord(-4, 4, -4));
-    Coord end = cursor.copy().translate(new Coord(4, 4, 4));
+    Coord start = cursor.copy().up(4).translate(new Coord(-4, 0, -4));
+    Coord end = cursor.copy().up(4).translate(new Coord(4, 0, 4));
 
     for (Coord c : RectSolid.newRect(start, end)) {
       if (editor.isValidGroundBlock(c)) {
@@ -239,7 +244,7 @@ public class Dungeon {
     if (RogueConfig.RANDOM.getBoolean()) {
       return Optional.of(new SettingsRandom(editor.getRandom()));
     }
-    return SettingsResolver.getInstance(modLoader).chooseRandom(editor, coord);
+    return SettingsResolver.getInstance(editor.getModLoader()).chooseRandom(editor, coord);
   }
 
   public Coord getPosition() {
