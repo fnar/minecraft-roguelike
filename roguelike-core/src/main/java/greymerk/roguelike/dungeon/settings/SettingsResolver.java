@@ -22,7 +22,7 @@ import static java.util.stream.Collectors.toList;
 
 public class SettingsResolver {
 
-  protected SettingsContainer settingsContainer;
+  private final SettingsContainer settingsContainer;
 
   public static SettingsResolver getInstance() {
     return getInstance((foo) -> false);
