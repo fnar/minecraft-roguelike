@@ -11,6 +11,7 @@ import com.github.fnar.forge.ModLoader;
 import com.github.fnar.minecraft.block.spawner.Spawner;
 import com.github.fnar.minecraft.block.spawner.SpawnerSettings;
 import com.github.fnar.roguelike.settings.RequiredModMissingException;
+import com.github.fnar.roguelike.settings.parsing.RequirementsParser;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,8 +35,6 @@ public class DungeonSettingsParser {
 
   public static final List<Integer> ALL_LEVELS = Collections.unmodifiableList(Lists.newArrayList(0, 1, 2, 3, 4));
 
-  private static final String REQUIRES_KEY = "requires";
-
   private final ModLoader modLoader;
 
   public DungeonSettingsParser(ModLoader modLoader) {
@@ -55,13 +54,14 @@ public class DungeonSettingsParser {
     } catch (DungeonSettingParseException | RequiredModMissingException exception) {
       throw exception;
     } catch (Exception e) {
-      throw new Exception("An unknown error occurred while parsing json: " + e.getClass().toString() + " " + e.getMessage());
+      throw new Exception("An unknown error occurred while parsing json: " + e.getClass() + " " + e.getMessage());
     }
   }
 
   public Optional<DungeonSettings> parseDungeonSettings(JsonObject root) throws Exception {
-    boolean hasRequiredMods = parseRequires(root);
-    if (!hasRequiredMods) {
+    List<String> requires = RequirementsParser.parse(root);
+
+    if (!hasRequiredMods(requires)) {
       return Optional.empty();
     }
 
@@ -91,29 +91,24 @@ public class DungeonSettingsParser {
     return Optional.of(dungeonSettings);
   }
 
-  private boolean parseRequires(JsonObject root) throws Exception {
+  private boolean hasRequiredMods(List<String> requires) throws Exception {
     if (!RogueConfig.BREAK_IF_REQUIRED_MOD_IS_MISSING.getBoolean()) {
       return true;
     }
-    if (!root.has(REQUIRES_KEY)) {
-      return true;
+    Optional<RequiredModMissingException> modMissingException = requires.stream()
+        .filter(this::isModAbsent)
+        .map(RequiredModMissingException::new)
+        .findFirst();
+
+    if (modMissingException.isPresent()) {
+      throw modMissingException.get();
     }
-    JsonElement requiresElement = root.get(REQUIRES_KEY);
-    if (requiresElement.isJsonObject()) {
-      throw new DungeonSettingParseException("Expected field '" + REQUIRES_KEY + "' to be list of modid's but instead found a single object.");
-    }
-    if (!requiresElement.isJsonArray()) {
-      throw new DungeonSettingParseException("Expected field '" + REQUIRES_KEY + "' to be list of modid's but it wasn't.");
-    }
-    JsonArray requiresArray = requiresElement.getAsJsonArray();
-    for (JsonElement requiredModElement : requiresArray) {
-      String requiredModName = requiredModElement.getAsString();
-      if (!modLoader.isModLoaded(requiredModName)) {
-        throw new RequiredModMissingException(requiredModName);
-      }
-      //return false;
-    }
+
     return true;
+  }
+
+  private boolean isModAbsent(String modName) {
+    return !modLoader.isModLoaded(modName);
   }
 
   private static void parseId(JsonObject root, DungeonSettings dungeonSettings) throws Exception {
