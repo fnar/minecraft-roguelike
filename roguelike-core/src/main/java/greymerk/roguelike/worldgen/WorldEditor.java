@@ -1,5 +1,6 @@
 package greymerk.roguelike.worldgen;
 
+import com.github.fnar.forge.ModLoader;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.Material;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
@@ -78,4 +79,6 @@ public interface WorldEditor {
   String getBiomeName(Coord coord);
 
   List<String> getBiomeTagNames(Coord coord);
+
+  ModLoader getModLoader();
 }

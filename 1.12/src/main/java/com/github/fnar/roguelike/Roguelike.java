@@ -26,11 +26,11 @@ public class Roguelike {
   // The instance of your mod that Forge uses.
   @Instance("roguelike")
   public static Roguelike instance;
-  public static DungeonGenerator1_12 worldGen = new DungeonGenerator1_12();
+  public static DungeonGenerator1_12 roguelikeDungeonGenerator = new DungeonGenerator1_12();
 
   @EventHandler
   public void preInit(FMLPreInitializationEvent event) {
-    GameRegistry.registerWorldGenerator(worldGen, 0);
+    GameRegistry.registerWorldGenerator(roguelikeDungeonGenerator, 0);
   }
 
   @EventHandler

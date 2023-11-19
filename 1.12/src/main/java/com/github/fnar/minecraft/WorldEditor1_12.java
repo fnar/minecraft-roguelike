@@ -3,6 +3,8 @@ package com.github.fnar.minecraft;
 
 import com.google.common.collect.Sets;
 
+import com.github.fnar.forge.ModLoader;
+import com.github.fnar.forge.ModLoader1_12;
 import com.github.fnar.minecraft.block.BlockMapper1_12;
 import com.github.fnar.minecraft.block.BlockParser1_12;
 import com.github.fnar.minecraft.block.BlockType;
@@ -84,6 +86,8 @@ public class WorldEditor1_12 implements WorldEditor {
   private final Map<BlockType, Integer> stats = new HashMap<>();
   private final Random random;
   private final TreasureManager treasureManager;
+
+  private static final ModLoader modLoader = new ModLoader1_12();
 
   public WorldEditor1_12(World world) {
     this.world = world;
@@ -400,6 +404,11 @@ public class WorldEditor1_12 implements WorldEditor {
     return BiomeDictionary.getTypes(getBiomeAt(pos)).stream()
         .map(type -> type.getName() + " ")
         .collect(Collectors.toList());
+  }
+
+  @Override
+  public ModLoader getModLoader() {
+    return modLoader;
   }
 
   public Biome getBiomeAt(Coord coord) {
