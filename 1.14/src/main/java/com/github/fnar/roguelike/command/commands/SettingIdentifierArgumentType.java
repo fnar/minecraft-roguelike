@@ -39,7 +39,7 @@ public class SettingIdentifierArgumentType implements ArgumentType<SettingIdenti
 
   @Override
   public <S> CompletableFuture<Suggestions> listSuggestions(CommandContext<S> context, SuggestionsBuilder builder) {
-    Collection<String> settingIdentifiers = SettingsResolver.getInstance()
+    Collection<String> settingIdentifiers = SettingsResolver.getInstance(requiredModName -> true)
         .getAllSettingIdentifiers().stream()
         .map(SettingIdentifier::toString)
         .collect(Collectors.toSet());

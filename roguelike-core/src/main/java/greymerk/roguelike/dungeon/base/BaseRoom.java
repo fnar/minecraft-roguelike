@@ -109,7 +109,7 @@ public abstract class BaseRoom {
   private Optional<SpawnerSettings> getSpawnerSettings(String spawnerId) {
     try {
       if (spawnerId != null) {
-        return Optional.ofNullable(SettingsResolver.getInstance().resolve(spawnerId))
+        return Optional.ofNullable(SettingsResolver.getInstance(worldEditor.getModLoader()).resolve(spawnerId))
             .map(dungeonSettings -> dungeonSettings.getLevelSettings(levelSettings.getLevel()))
             .map(LevelSettings::getSpawnerSettings);
       }
