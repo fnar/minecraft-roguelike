@@ -24,10 +24,6 @@ public class SettingsResolver {
 
   private final SettingsContainer settingsContainer;
 
-  public static SettingsResolver getInstance() {
-    return getInstance((foo) -> false);
-  }
-
   public static SettingsResolver getInstance(ModLoader modLoader) {
     return new SettingsResolver(new SettingsContainer(modLoader).loadFiles());
   }
