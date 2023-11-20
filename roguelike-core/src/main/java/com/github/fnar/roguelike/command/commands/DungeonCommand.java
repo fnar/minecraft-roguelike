@@ -54,7 +54,7 @@ public class DungeonCommand extends BaseRoguelikeCommand {
     } else if (settingName.equals("random")) {
       return getRandomSettings(editor, pos);
     } else {
-      return SettingsResolver.getInstance(editor.getModLoader()).resolve(settingName);
+      return settingsResolver.resolve(settingName);
     }
   }
 
