@@ -35,6 +35,10 @@ public class SingleBlockBrush implements BlockBrush {
     this.json = jsonElement;
   }
 
+  public boolean isBlockOfType(BlockType blockType) {
+    return blockType != null && blockType.equals(getBlockType());
+  }
+
   @Override
   public boolean stroke(WorldEditor editor, Coord pos, boolean fillAir, boolean replaceSolid) {
     return editor.setBlock(pos, this, fillAir, replaceSolid);

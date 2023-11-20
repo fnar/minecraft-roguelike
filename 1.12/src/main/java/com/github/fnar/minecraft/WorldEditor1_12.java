@@ -285,7 +285,7 @@ public class WorldEditor1_12 implements WorldEditor {
 
   private void setColorIfBed(Coord coord, SingleBlockBrush singleBlockBrush) {
     TileEntity tileEntity = getTileEntity(coord);
-    if (!singleBlockBrush.getBlockType().equals(BlockType.BED)) {
+    if (!singleBlockBrush.isBlockOfType(BlockType.BED)) {
       return;
     }
     if (!(tileEntity instanceof TileEntityBed) || !(singleBlockBrush instanceof BedBlock)) {
