@@ -6,6 +6,7 @@ import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.normal.StairsBlock;
 import com.github.fnar.minecraft.block.redstone.DoorBlock;
+import com.github.fnar.minecraft.material.Wood;
 
 import org.junit.Test;
 
@@ -182,12 +183,25 @@ public class ThemeTest {
   }
 
   @Test
-  public void themesGetADefaultStoneBrickThemeWhenThereIsNothingToInherit() {
+  public void themesGetADefaultThemeWhenThereIsNothingToInherit() {
     Theme parent = new Theme(null, null);
     Theme child = new Theme(null, null);
 
     Theme actual = Theme.inherit(parent, child);
-    assertThat(actual.getPrimary().getFloor()).isEqualTo(BlockType.STONE_BRICKS.getBrush());
-    assertThat(actual.getSecondary().getFloor()).isEqualTo(BlockType.STONE_BRICKS.getBrush());
+    assertThat(actual.getPrimary().getFloor()).isEqualTo(BlockType.OAK_PLANK.getBrush());
+    assertThat(actual.getPrimary().getWall()).isEqualTo(BlockType.STONE_BRICKS.getBrush());
+    assertThat(actual.getPrimary().getStair()).isEqualTo(BlockType.STONE_BRICK_STAIRS.getBrush());
+    assertThat(actual.getPrimary().getPillar()).isEqualTo(Wood.OAK.getLog());
+    assertThat(actual.getPrimary().getDoor()).isEqualTo(DoorBlock.oak());
+    assertThat(actual.getPrimary().getLightBlock()).isEqualTo(BlockType.GLOWSTONE.getBrush());
+    assertThat(actual.getPrimary().getLiquid()).isEqualTo(BlockType.WATER_FLOWING.getBrush());
+
+    assertThat(actual.getSecondary().getFloor()).isEqualTo(BlockType.OAK_PLANK.getBrush());
+    assertThat(actual.getSecondary().getWall()).isEqualTo(BlockType.STONE_BRICKS.getBrush());
+    assertThat(actual.getSecondary().getStair()).isEqualTo(BlockType.STONE_BRICK_STAIRS.getBrush());
+    assertThat(actual.getSecondary().getPillar()).isEqualTo(Wood.OAK.getLog());
+    assertThat(actual.getSecondary().getDoor()).isEqualTo(DoorBlock.oak());
+    assertThat(actual.getSecondary().getLightBlock()).isEqualTo(BlockType.GLOWSTONE.getBrush());
+    assertThat(actual.getSecondary().getLiquid()).isEqualTo(BlockType.WATER_FLOWING.getBrush());
   }
 }
