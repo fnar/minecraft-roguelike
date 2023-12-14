@@ -76,8 +76,4 @@ public class SingleBlockBrush implements BlockBrush {
     return copy;
   }
 
-  public boolean isValidPosition(WorldEditor editor, Coord coord) {
-    return editor.isValidPosition(this, coord);
-  }
-
 }

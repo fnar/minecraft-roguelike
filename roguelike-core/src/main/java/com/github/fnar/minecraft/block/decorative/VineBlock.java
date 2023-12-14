@@ -45,8 +45,7 @@ public class VineBlock extends SingleBlockBrush {
     return vineBlock;
   }
 
-  @Override
-  public boolean isValidPosition(WorldEditor editor, Coord coord) {
-    return editor.isAirBlock(coord) && super.isValidPosition(editor, coord);
+  private boolean isValidPosition(WorldEditor editor, Coord coord) {
+    return editor.isAirBlock(coord) && editor.isValidPosition(this, coord);
   }
 }
