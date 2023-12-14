@@ -22,7 +22,7 @@ public class ItemMapper1_12 implements ItemMapper {
       case BANNER:
         return new BannerMapper1_12().map(rldItemStack);
       case BLOCK:
-        return new BlockMapper1_12().map(rldItemStack);
+        return new BlockItemMapper1_12().map(rldItemStack);
       case DYE:
         return new DyeMapper1_12().map(rldItemStack);
       case FIREWORK:

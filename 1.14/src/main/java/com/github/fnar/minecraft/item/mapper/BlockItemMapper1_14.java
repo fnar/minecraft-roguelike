@@ -9,7 +9,7 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class BlockMapper1_14 extends BaseItemMapper1_14<BlockItem> {
+public class BlockItemMapper1_14 extends BaseItemMapper1_14<BlockItem> {
 
   @Override
   public Class<BlockItem> getClazz() {
