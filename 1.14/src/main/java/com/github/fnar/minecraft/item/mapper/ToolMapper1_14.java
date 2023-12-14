@@ -18,12 +18,12 @@ public class ToolMapper1_14 extends RldBaseItemMapper1_14<Tool> {
   }
 
   @Override
-  public ItemStack map(Tool rldItem) {
+  public ItemStack map(Tool rldItem) throws CouldNotMapItemException {
     Item item = map(rldItem, rldItem.getToolType(), rldItem.getQuality());
     return map(rldItem, item);
   }
 
-  private Item map(Tool tool, ToolType toolType, Quality quality) {
+  private Item map(Tool tool, ToolType toolType, Quality quality) throws CouldNotMapItemException {
     switch (toolType) {
       case AXE:
         return EquipmentMapper1_14.map(quality, Items.WOODEN_AXE, Items.STONE_AXE, Items.IRON_AXE, Items.GOLDEN_AXE, Items.DIAMOND_AXE);

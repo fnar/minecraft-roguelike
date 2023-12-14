@@ -13,11 +13,11 @@ public class DyeMapper1_12 extends BaseItemMapper1_12<Dye> {
   }
 
   @Override
-  public ItemStack map(Dye item) {
+  public ItemStack map(Dye item) throws CouldNotMapItemException {
     return new ItemStack(Items.DYE, 1, getMetaForDyeColour(item));
   }
 
-  public int getMetaForDyeColour(Dye item) {
+  public int getMetaForDyeColour(Dye item) throws CouldNotMapItemException {
     switch (item.getDyeColor()) {
       case BLACK:
         return 0;

@@ -18,7 +18,7 @@ public abstract class BaseItemMapper1_12<ItemClass> implements ItemMapper {
 
   public abstract Class<ItemClass> getClazz();
 
-  public ItemStack map(RldItemStack rldItemStack) {
+  public ItemStack map(RldItemStack rldItemStack) throws CouldNotMapItemException {
     Class<ItemClass> clazz = getClazz();
     if (!(clazz.isAssignableFrom(rldItemStack.getItem().getClass()))) {
       throw new CouldNotMapItemException(rldItemStack);
@@ -32,9 +32,9 @@ public abstract class BaseItemMapper1_12<ItemClass> implements ItemMapper {
     return itemStack;
   }
 
-  public abstract ItemStack map(ItemClass item);
+  public abstract ItemStack map(ItemClass item) throws CouldNotMapItemException;
 
-  private static void mapPlzNbt(RldItemStack rldItemStack, ItemStack itemStack) {
+  private static void mapPlzNbt(RldItemStack rldItemStack, ItemStack itemStack) throws CouldNotMapItemException {
     if (!rldItemStack.isPlzNbt()) {
       return;
     }

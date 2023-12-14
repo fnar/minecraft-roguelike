@@ -1,7 +1,9 @@
 package com.github.fnar.minecraft.entity;
 
 import com.github.fnar.minecraft.block.spawner.MobType;
+import com.github.fnar.minecraft.item.CouldNotMapItemException;
 import com.github.fnar.minecraft.item.mapper.ItemMapper1_14;
+import com.github.fnar.roguelike.Roguelike;
 
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -67,8 +69,12 @@ public class EntityProfiler1_14 {
 
       mob.getItems().forEach((slot, rldItemStack) -> {
         EquipmentSlotType equipmentSlot = new SlotMapper1_14().map(slot);
-        ItemStack item = new ItemMapper1_14().map(rldItemStack);
-        newEntity.setItemStackToSlot(equipmentSlot, item);
+        try {
+          ItemStack item = new ItemMapper1_14().map(rldItemStack);
+          newEntity.setItemStackToSlot(equipmentSlot, item);
+        } catch (CouldNotMapItemException e) {
+          Roguelike.LOGGER.info(e);
+        }
       });
     }
 

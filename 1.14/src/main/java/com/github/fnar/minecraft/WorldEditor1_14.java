@@ -13,6 +13,7 @@ import com.github.fnar.minecraft.block.decorative.Plant;
 import com.github.fnar.minecraft.block.decorative.Skull;
 import com.github.fnar.minecraft.block.spawner.SpawnPotentialMapper1_14;
 import com.github.fnar.minecraft.block.spawner.Spawner;
+import com.github.fnar.minecraft.item.CouldNotMapItemException;
 import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.minecraft.item.mapper.ItemMapper1_14;
 import com.github.fnar.minecraft.world.BiomeTag;
@@ -255,7 +256,12 @@ public class WorldEditor1_14 implements WorldEditor {
     if (!(tileEntity instanceof LockableLootTileEntity)) {
       return;
     }
-    ItemStack forgeItemStack = new ItemMapper1_14().map(itemStack);
+    ItemStack forgeItemStack = null;
+    try {
+      forgeItemStack = new ItemMapper1_14().map(itemStack);
+    } catch (CouldNotMapItemException e) {
+      logger.error(e);
+    }
     try {
       ((LockableLootTileEntity) tileEntity).setInventorySlotContents(slot, forgeItemStack);
     } catch (NullPointerException nullPointerException) {

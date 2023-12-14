@@ -14,11 +14,11 @@ public class MiscellaneousMapper1_14 extends RldBaseItemMapper1_14<Miscellaneous
   }
 
   @Override
-  public ItemStack map(Miscellaneous item) {
+  public ItemStack map(Miscellaneous item) throws CouldNotMapItemException {
     return map(item, mapItem(item));
   }
 
-  private Item mapItem(Miscellaneous item) {
+  private Item mapItem(Miscellaneous item) throws CouldNotMapItemException {
     switch(item.getType()) {
       case BOOK:
         return Items.BOOK;

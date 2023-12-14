@@ -15,11 +15,11 @@ public class IngredientMapper1_14 extends BaseItemMapper1_14<Ingredient> {
   }
 
   @Override
-  public ItemStack map(Ingredient item) {
+  public ItemStack map(Ingredient item) throws CouldNotMapItemException {
     return new ItemStack(mapItem(item));
   }
 
-  private Item mapItem(Ingredient item) {
+  private Item mapItem(Ingredient item) throws CouldNotMapItemException {
     switch(item.getType()) {
       case BLAZE_POWDER:
         return Items.BLAZE_POWDER;

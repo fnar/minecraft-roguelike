@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 public class ItemMapper1_14 implements ItemMapper {
 
   @Override
-  public ItemStack map(RldItemStack rldItemStack) {
+  public ItemStack map(RldItemStack rldItemStack) throws CouldNotMapItemException {
     RldItem item = rldItemStack.getItem();
     switch (item.getItemType()) {
       case ARMOUR:
