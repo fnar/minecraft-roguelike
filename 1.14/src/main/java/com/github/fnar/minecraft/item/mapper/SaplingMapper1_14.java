@@ -15,7 +15,7 @@ public class SaplingMapper1_14 extends BaseItemMapper1_14<Sapling> {
 
   @Override
   public ItemStack map(Sapling item) {
-    return new BlockMapper1_14().map(mapToBlock(item));
+    return new BlockItemMapper1_14().map(mapToBlock(item));
   }
 
   private BlockItem mapToBlock(Sapling item) {
