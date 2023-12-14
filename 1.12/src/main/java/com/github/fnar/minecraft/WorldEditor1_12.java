@@ -9,6 +9,7 @@ import com.github.fnar.minecraft.block.BlockMapper1_12;
 import com.github.fnar.minecraft.block.BlockParser1_12;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.ColoredBlockMapper1_12;
+import com.github.fnar.minecraft.block.CouldNotMapBlockException;
 import com.github.fnar.minecraft.block.DirectionMapper1_12;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.decorative.BedBlock;
@@ -185,7 +186,12 @@ public class WorldEditor1_12 implements WorldEditor {
 
   @Override
   public boolean isBlockOfTypeAt(BlockType blockType, Coord coord) {
-    return BlockMapper1_12.map(blockType.getBrush()).getBlock() == getBlockStateAt(coord).getBlock();
+    try {
+      return BlockMapper1_12.map(blockType.getBrush()).getBlock() == getBlockStateAt(coord).getBlock();
+    } catch (CouldNotMapBlockException e) {
+      logger.info(e);
+      return false;
+    }
   }
 
   @Override
@@ -220,9 +226,15 @@ public class WorldEditor1_12 implements WorldEditor {
       return false;
     }
 
-    IBlockState state = singleBlockBrush.getJson() == null
-        ? BlockMapper1_12.map(singleBlockBrush)
-        : BlockParser1_12.parse(singleBlockBrush.getJson());
+    IBlockState state;
+    try {
+      state = singleBlockBrush.getJson() == null
+          ? BlockMapper1_12.map(singleBlockBrush)
+          : BlockParser1_12.parse(singleBlockBrush.getJson());
+    } catch (CouldNotMapBlockException e) {
+      logger.info(e);
+      return false;
+    }
     world.setBlockState(BlockPosMapper1_12.map(coord), state, 2);
 
     setColorIfBed(coord, singleBlockBrush);
@@ -272,7 +284,12 @@ public class WorldEditor1_12 implements WorldEditor {
 
   @Override
   public boolean isValidPosition(SingleBlockBrush block, Coord coord) {
-    return BlockMapper1_12.map(block).getBlock().canPlaceBlockOnSide(world, BlockPosMapper1_12.map(coord), DirectionMapper1_12.map(block.getFacing()));
+    try {
+      return BlockMapper1_12.map(block).getBlock().canPlaceBlockOnSide(world, BlockPosMapper1_12.map(coord), DirectionMapper1_12.map(block.getFacing()));
+    } catch (CouldNotMapBlockException e) {
+      logger.info(e);
+      return false;
+    }
   }
 
   @Override
