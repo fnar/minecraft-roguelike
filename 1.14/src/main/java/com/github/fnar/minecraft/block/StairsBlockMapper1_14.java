@@ -12,7 +12,7 @@ import net.minecraft.state.properties.StairsShape;
 
 public class StairsBlockMapper1_14 {
 
-  public static BlockState mapStairsToState(StairsBlock stairsBlock) throws CouldNotMapBlockException {
+  public static BlockState map(StairsBlock stairsBlock) throws CouldNotMapBlockException {
     JsonElement json = stairsBlock.getJson();
     BlockState blockState = json != null
         ? BlockParser1_14.parse(json)

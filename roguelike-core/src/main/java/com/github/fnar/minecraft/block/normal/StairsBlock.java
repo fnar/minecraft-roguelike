@@ -18,6 +18,7 @@ public class StairsBlock extends SingleBlockBrush {
 
   public StairsBlock(JsonElement jsonElement) throws DungeonSettingParseException {
     super(jsonElement);
+    super.setBlockType(BlockType.OAK_STAIRS);
   }
 
   public StairsBlock setUpsideDown(boolean isUpsideDown) {

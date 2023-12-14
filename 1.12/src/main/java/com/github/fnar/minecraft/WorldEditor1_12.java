@@ -6,7 +6,6 @@ import com.google.common.collect.Sets;
 import com.github.fnar.forge.ModLoader;
 import com.github.fnar.forge.ModLoader1_12;
 import com.github.fnar.minecraft.block.BlockMapper1_12;
-import com.github.fnar.minecraft.block.BlockParser1_12;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.ColoredBlockMapper1_12;
 import com.github.fnar.minecraft.block.CouldNotMapBlockException;
@@ -229,9 +228,7 @@ public class WorldEditor1_12 implements WorldEditor {
 
     IBlockState state;
     try {
-      state = singleBlockBrush.getJson() == null
-          ? BlockMapper1_12.map(singleBlockBrush)
-          : BlockParser1_12.parse(singleBlockBrush.getJson());
+      state = BlockMapper1_12.map(singleBlockBrush);
     } catch (CouldNotMapBlockException e) {
       logger.info(e);
       return false;
