@@ -39,7 +39,7 @@ import greymerk.roguelike.worldgen.Direction;
 
 public class BlockMapper1_14 {
 
-  public static BlockState map(SingleBlockBrush blockBrush) {
+  public static BlockState map(SingleBlockBrush blockBrush) throws CouldNotMapBlockException {
     Direction facing = blockBrush.getFacing();
 
     net.minecraft.util.Direction direction = DirectionMapper1_14.map(facing);

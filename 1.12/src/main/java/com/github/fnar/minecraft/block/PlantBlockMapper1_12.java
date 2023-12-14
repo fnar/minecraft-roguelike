@@ -1,6 +1,5 @@
 package com.github.fnar.minecraft.block;
 
-import com.github.fnar.minecraft.CouldNotMapException;
 import com.github.fnar.minecraft.block.decorative.PlantBlock;
 import com.github.fnar.minecraft.material.Wood;
 
@@ -11,7 +10,7 @@ import net.minecraft.init.Blocks;
 
 public class PlantBlockMapper1_12 {
 
-  public static IBlockState map(PlantBlock block) {
+  public static IBlockState map(PlantBlock block) throws CouldNotMapBlockException {
     switch (block.getPlant()) {
       case POPPY:
         return Blocks.RED_FLOWER.getDefaultState();
@@ -69,7 +68,7 @@ public class PlantBlockMapper1_12 {
         return Blocks.TALLGRASS.getDefaultState()
             .withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.FERN);
       default:
-        throw new CouldNotMapException(block.toString());
+        throw new CouldNotMapBlockException(block.toString());
     }
   }
 

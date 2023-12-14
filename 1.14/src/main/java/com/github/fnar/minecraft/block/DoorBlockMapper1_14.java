@@ -12,7 +12,7 @@ import net.minecraft.state.properties.DoubleBlockHalf;
 
 public class DoorBlockMapper1_14 {
 
-  public static BlockState map(DoorBlock block) {
+  public static BlockState map(DoorBlock block) throws CouldNotMapBlockException {
     JsonElement json = block.getJson();
     BlockState doorMetaBlock = json != null
         ? BlockParser1_14.parse(json)

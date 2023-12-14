@@ -1,6 +1,7 @@
 package com.github.fnar.minecraft.item.mapper;
 
 import com.github.fnar.minecraft.block.BlockMapper1_12;
+import com.github.fnar.minecraft.block.CouldNotMapBlockException;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.item.CouldNotMapItemException;
 import com.github.fnar.minecraft.item.Seed;
@@ -44,7 +45,11 @@ public class SeedMapper1_12 extends BaseItemMapper1_12<Seed> {
   }
 
   private Item asItem(SingleBlockBrush brush) {
-    return Item.getItemFromBlock(BlockMapper1_12.map(brush).getBlock());
+    try {
+      return Item.getItemFromBlock(BlockMapper1_12.map(brush).getBlock());
+    } catch (CouldNotMapBlockException e) {
+      throw new CouldNotMapItemException(brush.getBlockType().asItem(), e);
+    }
   }
 
 }

@@ -48,7 +48,7 @@ import greymerk.roguelike.worldgen.Direction;
 
 public class BlockMapper1_12 {
 
-  public static IBlockState map(SingleBlockBrush blockBrush) {
+  public static IBlockState map(SingleBlockBrush blockBrush) throws CouldNotMapBlockException {
     Direction facing = blockBrush.getFacing();
 
     EnumFacing enumFacing = DirectionMapper1_12.map(facing);

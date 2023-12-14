@@ -1,6 +1,7 @@
 package com.github.fnar.minecraft.item.mapper;
 
 import com.github.fnar.minecraft.CouldNotMapException;
+import com.github.fnar.minecraft.block.CouldNotMapBlockException;
 import com.github.fnar.minecraft.block.decorative.Plant;
 
 import net.minecraft.block.Blocks;
@@ -8,7 +9,7 @@ import net.minecraft.item.ItemStack;
 
 public class PlantMapper1_14 {
 
-  public ItemStack map(Plant type) {
+  public ItemStack map(Plant type) throws CouldNotMapBlockException {
     switch (type) {
       case POPPY:
         return new ItemStack(Blocks.POPPY);
