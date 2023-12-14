@@ -1,5 +1,7 @@
 package com.github.fnar.minecraft.block;
 
+import com.google.gson.JsonElement;
+
 import com.github.fnar.minecraft.block.decorative.AnvilBlock;
 import com.github.fnar.minecraft.block.decorative.BedBlock;
 import com.github.fnar.minecraft.block.decorative.CropBlock;
@@ -49,11 +51,21 @@ import greymerk.roguelike.worldgen.Direction;
 public class BlockMapper1_12 {
 
   public static IBlockState map(SingleBlockBrush blockBrush) throws CouldNotMapBlockException {
+    JsonElement json = blockBrush.getJson();
+    BlockType blockType = blockBrush.getBlockType();
+    if (json != null) {
+      if (BlockType.OAK_STAIRS.equals(blockType)) {
+        return StairsBlockMapper1_12.map((StairsBlock) blockBrush);
+      }
+      if (BlockType.OAK_DOOR.equals(blockType)) {
+        return DoorBlockMapper1_12.map((DoorBlock) blockBrush);
+      }
+      return BlockParser1_12.parse(json);
+    }
+
     Direction facing = blockBrush.getFacing();
 
     EnumFacing enumFacing = DirectionMapper1_12.map(facing);
-
-    BlockType blockType = blockBrush.getBlockType();
 
     switch (blockType) {
       case ANVIL:
@@ -129,7 +141,7 @@ public class BlockMapper1_12 {
       case SPRUCE_STAIRS:
       case STONE_BRICK_STAIRS:
       case STONE_STAIRS:
-        return StairsBlockMapper1_12.mapStairsToState((StairsBlock) blockBrush);
+        return StairsBlockMapper1_12.map((StairsBlock) blockBrush);
       case ACACIA_SLAB:
       case BIRCH_SLAB:
       case BRICK_SLAB:

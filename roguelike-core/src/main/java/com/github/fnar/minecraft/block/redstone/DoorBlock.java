@@ -26,6 +26,7 @@ public class DoorBlock extends SingleBlockBrush {
 
   public DoorBlock(JsonElement jsonElement) throws DungeonSettingParseException {
     super(jsonElement);
+    super.setBlockType(BlockType.OAK_DOOR);
   }
 
   public DoorBlock setOpen() {
