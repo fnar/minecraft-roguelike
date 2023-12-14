@@ -1,8 +1,11 @@
 package com.github.fnar.roguelike.command;
 
 import com.github.fnar.minecraft.WorldEditor1_12;
+import com.github.fnar.minecraft.item.CouldNotMapItemException;
 import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.minecraft.item.mapper.ItemMapper1_12;
+import com.github.fnar.roguelike.Roguelike;
+import com.github.fnar.roguelike.command.message.ErrorMessage;
 import com.github.fnar.roguelike.command.message.Message;
 import com.github.fnar.roguelike.command.message.MessageType;
 
@@ -45,10 +48,15 @@ public class CommandSender1_12 implements CommandSender {
 
   @Override
   public void give(RldItemStack item) {
-    Entity player = commandSender.getCommandSenderEntity();
-    ItemStack mappedItem = new ItemMapper1_12().map(item);
-    EntityItem drop = player.entityDropItem(mappedItem, 0);
-    drop.setNoPickupDelay();
+    try {
+      Entity player = commandSender.getCommandSenderEntity();
+      ItemStack mappedItem = new ItemMapper1_12().map(item);
+      EntityItem drop = player.entityDropItem(mappedItem, 0);
+      drop.setNoPickupDelay();
+    } catch (CouldNotMapItemException e) {
+      Roguelike.LOGGER.info(e);
+      sendMessage(new ErrorMessage(e.getMessage()));
+    }
   }
 
   @Override

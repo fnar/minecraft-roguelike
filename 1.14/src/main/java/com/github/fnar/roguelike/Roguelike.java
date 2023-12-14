@@ -23,8 +23,12 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.stream.Collectors;
 
+import greymerk.roguelike.dungeon.Dungeon;
+
 @Mod("roguelike")
 public class Roguelike {
+
+  public static final Logger LOGGER = LogManager.getLogger(Dungeon.MOD_ID);
 
   public static final String version = "2.4.4";
   public static final String date = "2023/2/27";
@@ -53,9 +57,6 @@ public class Roguelike {
 //    ServerCommandManager serverCommand = ((ServerCommandManager) command);
 //    serverCommand.registerCommand(new CommandRoguelike());
 //  }
-
-  // Directly reference a log4j logger.
-  private static final Logger LOGGER = LogManager.getLogger();
 
   public Roguelike() {
     // Register the setup method for modloading

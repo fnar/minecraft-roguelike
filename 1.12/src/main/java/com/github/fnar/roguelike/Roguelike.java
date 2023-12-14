@@ -15,11 +15,17 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import greymerk.roguelike.EntityJoinWorld1_12;
 import greymerk.roguelike.ItemTooltip;
+import greymerk.roguelike.dungeon.Dungeon;
 
 @Mod(modid = "roguelike", name = "Roguelike Dungeons -- Fnar Edition", version = Roguelike.version, acceptableRemoteVersions = "*")
 public class Roguelike {
+
+  public static final Logger LOGGER = LogManager.getLogger(Dungeon.MOD_ID);
 
   public static final String version = "2.4.4";
   public static final String date = "2023/2/27";

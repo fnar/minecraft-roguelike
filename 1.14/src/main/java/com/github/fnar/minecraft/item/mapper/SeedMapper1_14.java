@@ -18,11 +18,11 @@ public class SeedMapper1_14 extends BaseItemMapper1_14<Seed> {
   }
 
   @Override
-  public ItemStack map(Seed item) {
+  public ItemStack map(Seed item) throws CouldNotMapItemException {
     return new ItemStack(mapToItem(item));
   }
 
-  private Item mapToItem(Seed item) {
+  private Item mapToItem(Seed item) throws CouldNotMapItemException {
     switch (item.getCrop()) {
       case BEETROOTS:
         return Items.BEETROOT;
@@ -44,7 +44,7 @@ public class SeedMapper1_14 extends BaseItemMapper1_14<Seed> {
     throw new CouldNotMapItemException(item);
   }
 
-  private Item asItem(SingleBlockBrush brush) {
+  private Item asItem(SingleBlockBrush brush) throws CouldNotMapItemException {
     try {
       return Item.getItemFromBlock(BlockMapper1_14.map(brush).getBlock());
     } catch (CouldNotMapBlockException e) {

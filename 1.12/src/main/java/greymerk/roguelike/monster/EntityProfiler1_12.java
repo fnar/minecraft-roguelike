@@ -2,7 +2,9 @@ package greymerk.roguelike.monster;
 
 import com.github.fnar.minecraft.block.spawner.MobType;
 import com.github.fnar.minecraft.entity.SlotMapper1_12;
+import com.github.fnar.minecraft.item.CouldNotMapItemException;
 import com.github.fnar.minecraft.item.mapper.ItemMapper1_12;
+import com.github.fnar.roguelike.Roguelike;
 
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.boss.EntityDragon;
@@ -67,8 +69,12 @@ public class EntityProfiler1_12 {
 
       mob.getItems().forEach((slot, rldItemStack) -> {
         EntityEquipmentSlot equipmentSlot = new SlotMapper1_12().map(slot);
-        ItemStack item = new ItemMapper1_12().map(rldItemStack);
-        newEntity.setItemStackToSlot(equipmentSlot, item);
+        try {
+          ItemStack item = new ItemMapper1_12().map(rldItemStack);
+          newEntity.setItemStackToSlot(equipmentSlot, item);
+        } catch (CouldNotMapItemException e) {
+          Roguelike.LOGGER.info(e);
+        }
       });
     }
 

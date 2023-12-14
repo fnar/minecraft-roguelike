@@ -1,8 +1,10 @@
 package com.github.fnar.minecraft.block.spawner;
 
 import com.github.fnar.minecraft.EffectType;
+import com.github.fnar.minecraft.item.CouldNotMapItemException;
 import com.github.fnar.minecraft.item.RldItem;
 import com.github.fnar.minecraft.item.mapper.ItemMapper1_14;
+import com.github.fnar.roguelike.Roguelike;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 
 import net.minecraft.nbt.CompoundNBT;
@@ -68,7 +70,8 @@ public class SpawnPotentialMapper1_14 {
       item.putString("id", itemName);
       item.putInt("Count", 1);
       return item;
-    } catch (NullPointerException ignored) {
+    } catch (NullPointerException | CouldNotMapItemException e) {
+      Roguelike.LOGGER.error(e);
       return null;
     }
   }

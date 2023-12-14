@@ -17,7 +17,7 @@ public class BlockItemMapper1_12 extends BaseItemMapper1_12<BlockItem> {
   }
 
   @Override
-  public ItemStack map(BlockItem blockItem) {
+  public ItemStack map(BlockItem blockItem) throws CouldNotMapItemException {
     SingleBlockBrush brush = blockItem.getBlockType().getBrush();
     try {
       Block block = com.github.fnar.minecraft.block.BlockMapper1_12.map(brush).getBlock();
