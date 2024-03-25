@@ -18,12 +18,12 @@ public class WeaponMapper1_12 extends RldBaseItemMapper1_12<Weapon> {
   }
 
   @Override
-  public ItemStack map(Weapon rldItem) {
+  public ItemStack map(Weapon rldItem) throws CouldNotMapItemException {
     Item item = map(rldItem, rldItem.getWeaponType(), rldItem.getQuality());
     return map(rldItem, item);
   }
 
-  private Item map(Weapon item, WeaponType weaponType, Quality quality) {
+  private Item map(Weapon item, WeaponType weaponType, Quality quality) throws CouldNotMapItemException {
     switch(weaponType) {
       case BOW:
         return EquipmentMapper1_12.map(quality, Items.BOW, Items.BOW, Items.BOW, Items.BOW, Items.BOW);

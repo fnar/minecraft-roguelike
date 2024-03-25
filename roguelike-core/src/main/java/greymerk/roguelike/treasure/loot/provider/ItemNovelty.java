@@ -53,7 +53,8 @@ public enum ItemNovelty {
   RLEAHY,
   VALANDRAH,
   VECHS,
-  ZISTEAUSIGN;
+  ZISTEAUSIGN,
+  BDUBSSWEATER;
 
   public static final Map<String, ItemNovelty> names = Arrays.stream(ItemNovelty.values())
       .collect(Collectors.toMap(Enum::toString, Functions.identity()));
@@ -124,6 +125,8 @@ public enum ItemNovelty {
         return mmillssSpiderBane();
       case VALANDRAH:
         return valandrahsKiss();
+      case BDUBSSWEATER:
+        return bDoubleOspinkSweater();
       default:
         return null;
     }

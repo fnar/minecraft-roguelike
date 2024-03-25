@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 public class ItemMapper1_14 implements ItemMapper {
 
   @Override
-  public ItemStack map(RldItemStack rldItemStack) {
+  public ItemStack map(RldItemStack rldItemStack) throws CouldNotMapItemException {
     RldItem item = rldItemStack.getItem();
     switch (item.getItemType()) {
       case ARMOUR:
@@ -22,7 +22,7 @@ public class ItemMapper1_14 implements ItemMapper {
       case BANNER:
         return new BannerMapper1_14().map(rldItemStack);
       case BLOCK:
-        return new BlockMapper1_14().map(rldItemStack);
+        return new BlockItemMapper1_14().map(rldItemStack);
       case DYE:
         return new DyeMapper1_14().map(rldItemStack);
       case FIREWORK:

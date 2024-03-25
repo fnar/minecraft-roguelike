@@ -14,11 +14,11 @@ public class RecordMapper1_14 extends BaseItemMapper1_14<Record> {
     return Record.class;
   }
 
-  public ItemStack map(Record item) {
+  public ItemStack map(Record item) throws CouldNotMapItemException {
     return new ItemStack(getId(item));
   }
 
-  private Item getId(Record item) {
+  private Item getId(Record item) throws CouldNotMapItemException {
 
     switch (item.getSong()) {
       case THIRTEEN:

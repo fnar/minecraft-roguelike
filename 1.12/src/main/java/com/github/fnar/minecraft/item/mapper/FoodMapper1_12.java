@@ -14,11 +14,11 @@ public class FoodMapper1_12 extends BaseItemMapper1_12<Food> {
   }
 
   @Override
-  public ItemStack map(Food item) {
+  public ItemStack map(Food item) throws CouldNotMapItemException {
     return new ItemStack(getItemForFood(item));
   }
 
-  private Item getItemForFood(Food item) {
+  private Item getItemForFood(Food item) throws CouldNotMapItemException {
     switch(item.getFoodType()) {
       case APPLE:
         return Items.APPLE;

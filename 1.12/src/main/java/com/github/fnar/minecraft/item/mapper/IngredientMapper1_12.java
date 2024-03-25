@@ -15,19 +15,19 @@ public class IngredientMapper1_12 extends BaseItemMapper1_12<Ingredient> {
   }
 
   @Override
-  public ItemStack map(Ingredient item) {
+  public ItemStack map(Ingredient item) throws CouldNotMapItemException {
     if (Ingredient.Type.PUFFERFISH.equals(item.getType())) {
       return new ItemStack(Items.FISH, 3);
     }
     return new ItemStack(mapItem(item));
   }
 
-  private Item mapItem(Ingredient item) {
+  private Item mapItem(Ingredient item) throws CouldNotMapItemException {
     switch(item.getType()) {
       case BLAZE_POWDER:
         return Items.BLAZE_POWDER;
       case BROWN_MUSHROOM:
-        return new BlockMapper1_12().map(BlockType.BROWN_MUSHROOM.asItem().asStack()).getItem();
+        return new BlockItemMapper1_12().map(BlockType.BROWN_MUSHROOM.asItem().asStack()).getItem();
       case FERMENTED_SPIDER_EYE:
         return Items.FERMENTED_SPIDER_EYE;
       case PUFFERFISH:
@@ -51,7 +51,7 @@ public class IngredientMapper1_12 extends BaseItemMapper1_12<Ingredient> {
       case REDSTONE:
         return Items.REDSTONE;
       case RED_MUSHROOM:
-        return new BlockMapper1_12().map(BlockType.RED_MUSHROOM.asItem().asStack()).getItem();
+        return new BlockItemMapper1_12().map(BlockType.RED_MUSHROOM.asItem().asStack()).getItem();
       case SPIDER_EYE:
         return Items.SPIDER_EYE;
       case SUGAR:

@@ -1,7 +1,6 @@
 package com.github.fnar.minecraft.item.mapper;
 
 import com.github.fnar.minecraft.item.RldBaseItem;
-import com.github.fnar.util.Color;
 
 import net.minecraft.enchantment.EnchantmentData;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -9,7 +8,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemEnchantedBook;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 
 import java.util.List;
 import java.util.Random;

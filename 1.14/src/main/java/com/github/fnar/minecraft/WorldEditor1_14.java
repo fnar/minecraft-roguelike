@@ -5,13 +5,14 @@ import com.google.common.collect.Sets;
 import com.github.fnar.forge.ModLoader;
 import com.github.fnar.forge.ModLoader1_14;
 import com.github.fnar.minecraft.block.BlockMapper1_14;
-import com.github.fnar.minecraft.block.BlockParser1_14;
 import com.github.fnar.minecraft.block.BlockType;
+import com.github.fnar.minecraft.block.CouldNotMapBlockException;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.decorative.Plant;
 import com.github.fnar.minecraft.block.decorative.Skull;
 import com.github.fnar.minecraft.block.spawner.SpawnPotentialMapper1_14;
 import com.github.fnar.minecraft.block.spawner.Spawner;
+import com.github.fnar.minecraft.item.CouldNotMapItemException;
 import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.minecraft.item.mapper.ItemMapper1_14;
 import com.github.fnar.minecraft.world.BiomeTag;
@@ -136,7 +137,12 @@ public class WorldEditor1_14 implements WorldEditor {
 
   @Override
   public boolean isBlockOfTypeAt(BlockType blockType, Coord coord) {
-    return BlockMapper1_14.map(blockType.getBrush()).getBlock() == getBlockStateAt(coord).getBlock();
+    try {
+      return BlockMapper1_14.map(blockType.getBrush()).getBlock() == getBlockStateAt(coord).getBlock();
+    } catch (CouldNotMapBlockException e) {
+      logger.info(e);
+      return false;
+    }
   }
 
   @Override
@@ -173,9 +179,13 @@ public class WorldEditor1_14 implements WorldEditor {
       return false;
     }
 
-    BlockState state = singleBlockBrush.getJson() == null
-        ? BlockMapper1_14.map(singleBlockBrush)
-        : BlockParser1_14.parse(singleBlockBrush.getJson());
+    BlockState state;
+    try {
+      state = BlockMapper1_14.map(singleBlockBrush);
+    } catch (CouldNotMapBlockException e) {
+      logger.info(e);
+      return false;
+    }
     world.setBlockState(BlockPosMapper1_14.map(coord), state, 2);
 
     BlockType blockType = singleBlockBrush.getBlockType();
@@ -219,7 +229,12 @@ public class WorldEditor1_14 implements WorldEditor {
 
   @Override
   public boolean isValidPosition(SingleBlockBrush block, Coord coord) {
-    return BlockMapper1_14.map(block).isValidPosition(world, BlockPosMapper1_14.map(coord));
+    try {
+      return BlockMapper1_14.map(block).isValidPosition(world, BlockPosMapper1_14.map(coord));
+    } catch (CouldNotMapBlockException e) {
+      logger.info(e);
+      return false;
+    }
   }
 
   @Override
@@ -238,7 +253,12 @@ public class WorldEditor1_14 implements WorldEditor {
     if (!(tileEntity instanceof LockableLootTileEntity)) {
       return;
     }
-    ItemStack forgeItemStack = new ItemMapper1_14().map(itemStack);
+    ItemStack forgeItemStack = null;
+    try {
+      forgeItemStack = new ItemMapper1_14().map(itemStack);
+    } catch (CouldNotMapItemException e) {
+      logger.error(e);
+    }
     try {
       ((LockableLootTileEntity) tileEntity).setInventorySlotContents(slot, forgeItemStack);
     } catch (NullPointerException nullPointerException) {

@@ -11,7 +11,7 @@ import net.minecraft.init.Blocks;
 
 public class StairsBlockMapper1_12 {
 
-  public static IBlockState mapStairsToState(StairsBlock stairsBlock) {
+  public static IBlockState map(StairsBlock stairsBlock) {
     JsonElement json = stairsBlock.getJson();
     IBlockState blockState = json != null
         ? BlockParser1_12.parse(json)

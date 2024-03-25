@@ -14,11 +14,11 @@ public class MaterialMapper1_12 extends BaseItemMapper1_12<Material> {
   }
 
   @Override
-  public ItemStack map(Material item) {
+  public ItemStack map(Material item) throws CouldNotMapItemException {
     return new ItemStack(mapItemOrThrow(item));
   }
 
-  private Item mapItemOrThrow(Material item) {
+  private Item mapItemOrThrow(Material item) throws CouldNotMapItemException {
     switch (item.getMaterialType()) {
       case BONE:
         return Items.BONE;

@@ -20,7 +20,7 @@ public class ArmourMapper1_14 extends RldBaseItemMapper1_14<Armour> {
   }
 
   @Override
-  public ItemStack map(Armour rldItem) {
+  public ItemStack map(Armour rldItem) throws CouldNotMapItemException {
     Item item = map(rldItem, rldItem.getArmourType(), rldItem.getQuality());
 
     ItemStack itemStack = map(rldItem, item);
@@ -30,7 +30,7 @@ public class ArmourMapper1_14 extends RldBaseItemMapper1_14<Armour> {
     return itemStack;
   }
 
-  public Item map(Armour item, ArmourType armourType, Quality quality) {
+  public Item map(Armour item, ArmourType armourType, Quality quality) throws CouldNotMapItemException {
     switch (armourType) {
       case HELMET:
         return EquipmentMapper1_14.map(quality, Items.LEATHER_HELMET, Items.CHAINMAIL_HELMET, Items.IRON_HELMET, Items.GOLDEN_HELMET, Items.DIAMOND_HELMET);
