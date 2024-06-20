@@ -78,8 +78,12 @@ jar {
         configurations.compile.collect {
             exclude 'dummyThing'
             exclude 'LICENSE'
-            exclude 'META-INF/*'
+            exclude 'META-INF/**'
             exclude 'module-info.class'
+
+            exclude 'Log4j*'
+            exclude 'com/google/'
+            exclude 'org/'
 
             it.isDirectory() ? it : zipTree(it)
         }
