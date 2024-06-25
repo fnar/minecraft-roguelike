@@ -36,6 +36,7 @@ public class TreasureChest {
     this.level = Dungeon.getLevel(pos.getY());
     this.pos = pos.copy();
     this.worldEditor = worldEditor;
+    this.facing = Direction.randomCardinal(worldEditor.getRandom());
   }
 
   public void setSlot(int slot, RldItemStack itemStack) {
