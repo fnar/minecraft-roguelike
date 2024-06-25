@@ -202,6 +202,7 @@ public class WorldEditor1_14 implements WorldEditor {
   private List<BlockType> blocksToNotReplace() {
     return Lists.newArrayList(
         BlockType.BED,
+        BlockType.BEDROCK,
         BlockType.CHEST,
         BlockType.END_PORTAL,
         BlockType.END_PORTAL_FRAME,
