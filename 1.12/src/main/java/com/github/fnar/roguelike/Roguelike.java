@@ -27,8 +27,8 @@ public class Roguelike {
 
   public static final Logger LOGGER = LogManager.getLogger(Dungeon.MOD_ID);
 
-  public static final String version = "2.4.4";
-  public static final String date = "2023/2/27";
+  public static final String version = "2.4.5";
+  public static final String date = "2024/6/29";
   // The instance of your mod that Forge uses.
   @Instance("roguelike")
   public static Roguelike instance;
