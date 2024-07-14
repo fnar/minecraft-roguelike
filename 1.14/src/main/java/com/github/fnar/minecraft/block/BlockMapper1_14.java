@@ -39,6 +39,9 @@ import net.minecraft.block.TripWireHookBlock;
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.worldgen.Direction;
 
+import static net.minecraft.block.Blocks.END_PORTAL;
+import static net.minecraft.block.Blocks.END_PORTAL_FRAME;
+
 public class BlockMapper1_14 {
 
   public static BlockState map(SingleBlockBrush blockBrush) throws CouldNotMapBlockException {
@@ -351,6 +354,10 @@ public class BlockMapper1_14 {
         return Blocks.MYCELIUM.getDefaultState();
       case NETHERBRICK:
         return Blocks.NETHER_BRICKS.getDefaultState();
+      case END_PORTAL:
+        return END_PORTAL.getDefaultState();
+      case END_PORTAL_FRAME:
+        return END_PORTAL_FRAME.getDefaultState();
       case END_STONE:
         return Blocks.END_STONE.getDefaultState();
       case EMERALD_BLOCK:

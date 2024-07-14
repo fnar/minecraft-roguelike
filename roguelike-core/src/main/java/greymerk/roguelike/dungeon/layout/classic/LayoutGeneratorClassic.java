@@ -135,7 +135,7 @@ public class LayoutGeneratorClassic implements LayoutGenerator {
 
     if (hasNodeNearby(edge.getEnd())) {
       edge.getEnd().translate(edge.getDir(), scatter);
-    } else if (random.nextInt(1 + edge.getExtensionsRemaining()) > 0) {
+    } else if (random.nextInt(edge.getExtensionsRemaining()) > 0) {
       edge.getEnd().translate(edge.getDir(), scatter);
       edge.setExtensionsRemaining(edge.getExtensionsRemaining() - 1);
     } else {

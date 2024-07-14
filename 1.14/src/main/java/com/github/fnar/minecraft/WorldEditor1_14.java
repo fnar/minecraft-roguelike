@@ -1,5 +1,6 @@
 package com.github.fnar.minecraft;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
 import com.github.fnar.forge.ModLoader;
@@ -166,16 +167,7 @@ public class WorldEditor1_14 implements WorldEditor {
 
   @Override
   public boolean setBlock(Coord coord, SingleBlockBrush singleBlockBrush, boolean fillAir, boolean replaceSolid) {
-    if (isBlockOfTypeAt(BlockType.CHEST, coord) ||
-        isBlockOfTypeAt(BlockType.TRAPPED_CHEST, coord) ||
-        isBlockOfTypeAt(BlockType.SPAWNER, coord)) {
-      return false;
-    }
-    boolean isAir = isBlockOfTypeAt(BlockType.AIR, coord);
-    if (!fillAir && isAir) {
-      return false;
-    }
-    if (!replaceSolid && !isAir) {
+    if (cantReplaceBlock(coord, fillAir, replaceSolid)) {
       return false;
     }
 
@@ -195,6 +187,36 @@ public class WorldEditor1_14 implements WorldEditor {
     }
 
     return true;
+  }
+
+  private boolean cantReplaceBlock(Coord coord, boolean fillAir, boolean replaceSolid) {
+    return isIrreplaceableBlock(coord)
+        || cantReplaceAir(coord, fillAir)
+        || cantReplaceSolids(coord, replaceSolid);
+  }
+
+  private boolean isIrreplaceableBlock(Coord coord) {
+    return blocksToNotReplace().stream().anyMatch(blockType -> isBlockOfTypeAt(blockType, coord));
+  }
+
+  private List<BlockType> blocksToNotReplace() {
+    return Lists.newArrayList(
+        BlockType.BED,
+        BlockType.BEDROCK,
+        BlockType.CHEST,
+        BlockType.END_PORTAL,
+        BlockType.END_PORTAL_FRAME,
+        BlockType.SPAWNER,
+        BlockType.TRAPPED_CHEST
+    );
+  }
+
+  private boolean cantReplaceAir(Coord coord, boolean fillAir) {
+    return !fillAir && isAirBlock(coord);
+  }
+
+  private boolean cantReplaceSolids(Coord coord, boolean replaceSolid) {
+    return !replaceSolid && isSolidBlock(coord);
   }
 
   @Override

@@ -48,6 +48,9 @@ import net.minecraft.util.EnumFacing;
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.worldgen.Direction;
 
+import static net.minecraft.init.Blocks.END_PORTAL;
+import static net.minecraft.init.Blocks.END_PORTAL_FRAME;
+
 public class BlockMapper1_12 {
 
   public static IBlockState map(SingleBlockBrush blockBrush) throws CouldNotMapBlockException {
@@ -367,6 +370,10 @@ public class BlockMapper1_12 {
         return Blocks.MYCELIUM.getDefaultState();
       case NETHERBRICK:
         return Blocks.NETHER_BRICK.getDefaultState();
+      case END_PORTAL:
+        return END_PORTAL.getDefaultState();
+      case END_PORTAL_FRAME:
+        return END_PORTAL_FRAME.getDefaultState();
       case END_STONE:
         return Blocks.END_STONE.getDefaultState();
       case EMERALD_BLOCK:
