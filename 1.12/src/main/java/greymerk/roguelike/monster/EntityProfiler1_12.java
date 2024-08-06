@@ -91,14 +91,14 @@ public class EntityProfiler1_12 {
         return new EntityCaveSpider(world);
       case CREEPER:
         return new EntityCreeper(world);
-      case ENDER_DRAGON:
-        return new EntityDragon(world);
       case ELDER_GUARDIAN:
         return new EntityElderGuardian(world);
       case ENDERMAN:
         return new EntityEnderman(world);
       case ENDERMITE:
         return new EntityEndermite(world);
+      case ENDER_DRAGON:
+        return new EntityDragon(world);
       case EVOKER:
         return new EntityEvoker(world);
       case GHAST:
@@ -111,8 +111,6 @@ public class EntityProfiler1_12 {
         return new EntityIllusionIllager(world);
       case MAGMA_CUBE:
         return new EntityMagmaCube(world);
-      case ZOMBIE_PIGMAN:
-        return new EntityPigZombie(world);
       case SHULKER:
         return new EntityShulker(world);
       case SILVERFISH:
@@ -136,6 +134,11 @@ public class EntityProfiler1_12 {
       case WITHER_SKELETON:
         return new EntityWitherSkeleton(world);
       case ZOMBIE:
+        return new EntityZombie(world);
+      case ZOMBIE_PIGMAN:
+        return new EntityPigZombie(world);
+      case ZOMBIE_VILLAGER:
+        return new EntityZombieVillager(world);
       default:
         return new EntityZombie(world);
     }
