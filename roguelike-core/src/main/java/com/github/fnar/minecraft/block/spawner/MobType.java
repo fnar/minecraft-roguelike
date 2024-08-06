@@ -46,7 +46,9 @@ public enum MobType {
       STRAY,
       WITHER_SKELETON,
       ZOMBIE,
-      ZOMBIE_VILLAGER
+      ZOMBIE_VILLAGER,
+      VEX,
+      VINDICATOR
   );
 
   public static final MobType[] COMMON_MOBS = {SKELETON, SPIDER, ZOMBIE};
@@ -56,8 +58,8 @@ public enum MobType {
   public static final MobType[] LEGENDARY_MOBS = {};
 
 
-  public static final MobType[] HUMANOID_MOBS = {SKELETON, WITCH, ZOMBIE};
-  public static final MobType[] UNDEAD_MOBS = {SKELETON, ZOMBIE};
+  public static final MobType[] HUMANOID_MOBS = {SKELETON, WITCH, ZOMBIE, ZOMBIE_VILLAGER};
+  public static final MobType[] UNDEAD_MOBS = {SKELETON, ZOMBIE, ZOMBIE_VILLAGER};
   public static final MobType[] NETHER_MOBS = {BLAZE, MAGMA_CUBE, ZOMBIE_PIGMAN, WITHER_SKELETON};
   public static final MobType[] ILLAGERS = {EVOKER, ILLUSIONER, VINDICATOR};
 
