@@ -21,8 +21,7 @@ public class RoguelikeCommand1_12 extends BaseCommandRoute {
   @Override
   public void execute(CommandContext context, List<String> args) {
     if (args.isEmpty()) {
-      //context.sendInfo("Usage: roguelike [dungeon | give | config | settings | tower]");
-      context.sendInfo("notif.roguelike.usage_", "roguelike [dungeon | give | config | settings | tower]");
+      context.sendInfo("notif.roguelike.usage_", "/roguelike [dungeon | give | config | settings | tower]");
     }
     super.execute(context, args);
   }

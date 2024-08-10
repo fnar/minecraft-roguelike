@@ -101,6 +101,7 @@ lore.roguelike.stick_rlu=§8§oRandom logic unit
 notif.roguelike.success_=Success:
 notif.roguelike.failure_=Failure:
 notif.roguelike.usage_=Usage:
+notif.roguelike.example_=Example:
 notif.roguelike.nosuchitem=No such item
 notif.roguelike.given_=Given
 notif.roguelike.failure_nosuchitem=Failure: No such item
