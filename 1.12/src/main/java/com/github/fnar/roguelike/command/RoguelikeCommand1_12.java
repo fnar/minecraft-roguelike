@@ -30,7 +30,7 @@ public class RoguelikeCommand1_12 extends CommandBase {
 
   @Override
   public String getUsage(ICommandSender sender) {
-    return null;
+    return "/roguelike";
   }
 
   @Override
