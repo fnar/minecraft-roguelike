@@ -17,7 +17,8 @@ public class GiveCommand extends BaseRoguelikeCommand {
   @Override
   public boolean onRun() {
     if (itemName == null) {
-      context.sendInfo("notif.roguelike.usage_", "roguelike give novelty_name");
+      context.sendInfo("notif.roguelike.usage_", "/roguelike give <novelty_name>");
+      context.sendInfo("notif.roguelike.example_", "/roguelike give BDOUBLEO");
       return false;
     }
 

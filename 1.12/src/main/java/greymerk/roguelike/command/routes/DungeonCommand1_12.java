@@ -16,7 +16,7 @@ public class DungeonCommand1_12 extends BaseCommandRoute {
     try {
       ArgumentParser argumentParser = new ArgumentParser(args);
       if (!argumentParser.hasEntry(0)) {
-        commandContext.sendInfo("notif.roguelike.usage_", "roguelike dungeon {X Z | here} [setting]");
+        commandContext.sendInfo("notif.roguelike.usage_", "/roguelike dungeon {X Z | here} [setting]");
         return;
       }
       String settingName = parseSettingName(argumentParser);
