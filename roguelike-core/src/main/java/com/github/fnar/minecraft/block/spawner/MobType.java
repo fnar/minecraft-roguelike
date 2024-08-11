@@ -41,11 +41,13 @@ public enum MobType {
 
   public static final Set<MobType> EQUIPPABLE_MOB_TYPES = Sets.newHashSet(
       HUSK,
-      ZOMBIE_PIGMAN,
       SKELETON,
       STRAY,
+      VEX,
+      VINDICATOR,
       WITHER_SKELETON,
       ZOMBIE,
+      ZOMBIE_PIGMAN,
       ZOMBIE_VILLAGER
   );
 
