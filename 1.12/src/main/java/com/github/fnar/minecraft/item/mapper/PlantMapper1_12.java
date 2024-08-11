@@ -1,14 +1,14 @@
 package com.github.fnar.minecraft.item.mapper;
 
 import com.github.fnar.minecraft.CouldNotMapException;
-import com.github.fnar.minecraft.block.decorative.Plant;
+import com.github.fnar.minecraft.block.decorative.PlantType;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
 public class PlantMapper1_12 {
 
-  public ItemStack map(Plant type) throws CouldNotMapException {
+  public ItemStack map(PlantType type) throws CouldNotMapException {
     switch (type) {
       case POPPY:
         return new ItemStack(Blocks.RED_FLOWER, 1, 0);

@@ -13,7 +13,7 @@ import com.github.fnar.minecraft.block.CouldNotMapBlockException;
 import com.github.fnar.minecraft.block.DirectionMapper1_12;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
 import com.github.fnar.minecraft.block.decorative.BedBlock;
-import com.github.fnar.minecraft.block.decorative.Plant;
+import com.github.fnar.minecraft.block.decorative.PlantType;
 import com.github.fnar.minecraft.block.decorative.Skull;
 import com.github.fnar.minecraft.block.spawner.SpawnPotentialMapper1_12;
 import com.github.fnar.minecraft.block.spawner.Spawner;
@@ -356,7 +356,7 @@ public class WorldEditor1_12 implements WorldEditor {
   }
 
   @Override
-  public void setFlowerPotContent(Coord coord, Plant choice) {
+  public void setFlowerPotContent(Coord coord, PlantType choice) {
     TileEntity potEntity = getTileEntity(coord);
 
     if (potEntity == null) {

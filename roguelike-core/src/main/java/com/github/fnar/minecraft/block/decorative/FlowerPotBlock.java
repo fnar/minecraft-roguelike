@@ -10,23 +10,23 @@ import greymerk.roguelike.worldgen.WorldEditor;
 
 public class FlowerPotBlock extends SingleBlockBrush {
 
-  private Plant content;
+  private PlantType content;
 
   public FlowerPotBlock() {
     super(BlockType.FLOWER_POT);
   }
 
-  public FlowerPotBlock setContent(Plant content) {
+  public FlowerPotBlock setContent(PlantType content) {
     this.content = content;
     return this;
   }
 
-  public Plant getContent() {
+  public PlantType getContent() {
     return content;
   }
 
   public FlowerPotBlock withRandomContent(Random random) {
-    return setContent(Plant.chooseRandom(random));
+    return setContent(PlantType.chooseRandom(random));
   }
 
   @Override

@@ -5,19 +5,19 @@ import com.github.fnar.minecraft.block.SingleBlockBrush;
 
 public class PlantBlock extends SingleBlockBrush {
 
-  private Plant plant;
+  private PlantType plantType;
 
   public PlantBlock() {
     super(BlockType.PLANT);
   }
 
-  public PlantBlock setPlant(Plant plant) {
-    this.plant = plant;
+  public PlantBlock setPlant(PlantType plantType) {
+    this.plantType = plantType;
     return this;
   }
 
-  public Plant getPlant() {
-    return plant;
+  public PlantType getPlant() {
+    return plantType;
   }
 
   public static PlantBlock plant() {
@@ -28,7 +28,7 @@ public class PlantBlock extends SingleBlockBrush {
   public PlantBlock copy() {
     PlantBlock copy = new PlantBlock();
     copy.setFacing(getFacing());
-    copy.setPlant(plant);
+    copy.setPlant(plantType);
     return copy;
   }
 }

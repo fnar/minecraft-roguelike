@@ -4,7 +4,7 @@ import java.util.Random;
 
 import greymerk.roguelike.worldgen.BlockBrush;
 
-public enum Plant {
+public enum PlantType {
 
   // TODO: Consider deconstructing (flower, sapling, tall grass)
   DANDELION,
@@ -35,8 +35,8 @@ public enum Plant {
     return PlantBlock.plant().setPlant(this);
   }
 
-  public static Plant chooseRandom(Random random) {
-    return Plant.values()[random.nextInt(Plant.values().length)];
+  public static PlantType chooseRandom(Random random) {
+    return PlantType.values()[random.nextInt(PlantType.values().length)];
   }
 
 }
