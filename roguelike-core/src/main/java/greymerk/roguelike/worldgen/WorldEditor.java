@@ -4,7 +4,7 @@ import com.github.fnar.forge.ModLoader;
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.minecraft.block.Material;
 import com.github.fnar.minecraft.block.SingleBlockBrush;
-import com.github.fnar.minecraft.block.decorative.Plant;
+import com.github.fnar.minecraft.block.decorative.PlantType;
 import com.github.fnar.minecraft.block.decorative.Skull;
 import com.github.fnar.minecraft.block.spawner.Spawner;
 import com.github.fnar.minecraft.item.RldItemStack;
@@ -56,7 +56,7 @@ public interface WorldEditor {
 
   void setItem(Coord coord, int slot, RldItemStack itemStack);
 
-  void setFlowerPotContent(Coord coord, Plant choice);
+  void setFlowerPotContent(Coord coord, PlantType choice);
 
   void setSkull(WorldEditor editor, Coord cursor, Direction dir, Skull type);
 
