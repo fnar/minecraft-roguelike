@@ -3,7 +3,7 @@ package com.github.fnar.minecraft.item;
 import java.util.Optional;
 import java.util.Random;
 
-public class Arrow implements RldItem {
+public class Arrow extends RldBaseItem {
 
   private Potion tip;
 

@@ -14,8 +14,8 @@ public class RecordMapper1_12 extends BaseItemMapper1_12<Record> {
     return Record.class;
   }
 
-  public ItemStack map(Record item) throws CouldNotMapItemException {
-    return new ItemStack(getId(item));
+  public ItemStack map(Record record) throws CouldNotMapItemException {
+    return addEnchantmentNbtTags(record, getId(record));
   }
 
   private Item getId(Record item) throws CouldNotMapItemException {

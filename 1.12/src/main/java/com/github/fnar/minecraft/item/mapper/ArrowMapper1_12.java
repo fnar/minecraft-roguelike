@@ -9,7 +9,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.potion.PotionType;
 
-public class ArrowMapper1_12 {
+public class ArrowMapper1_12 extends BaseItemMapper1_12<Arrow> {
+
+  @Override
+  public Class<Arrow> getClazz() {
+    return Arrow.class;
+  }
 
   public ItemStack map(RldItemStack rldItemStack) {
     return map((Arrow) rldItemStack.getItem());
@@ -17,19 +22,19 @@ public class ArrowMapper1_12 {
 
   public ItemStack map(Arrow arrow) {
     return arrow.getTip()
-        .map(ArrowMapper1_12::getTippedArrowStack)
+        .map(potion -> getTippedArrowStack(arrow, potion))
         .orElseGet(() -> new ItemStack(Items.ARROW));
   }
 
-  private static ItemStack getTippedArrowStack(Potion potion) {
+  private ItemStack getTippedArrowStack(Arrow arrow, Potion potion) {
     // TODO: Move amplification and extension onto effect instead of potion
     PotionType potionType = new PotionMapper1_12().mapToPotionType(potion.getEffect(), false, false);
     String tipString = net.minecraft.potion.PotionType.REGISTRY.getNameForObject(potionType).toString();
-    ItemStack arrow = new ItemStack(Items.TIPPED_ARROW);
+    ItemStack item = addEnchantmentNbtTags(arrow, Items.TIPPED_ARROW);
     NBTTagCompound nbt = new NBTTagCompound();
     nbt.setString("Potion", tipString);
-    arrow.setTagCompound(nbt);
-    return arrow;
+    item.setTagCompound(nbt);
+    return item;
   }
 
 }

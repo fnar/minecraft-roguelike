@@ -14,12 +14,12 @@ public class SaplingMapper1_12 extends BaseItemMapper1_12<Sapling> {
   }
 
   @Override
-  public ItemStack map(Sapling item) throws CouldNotMapItemException {
-    return new BlockItemMapper1_12().map(mapToBlock(item));
+  public ItemStack map(Sapling sapling) throws CouldNotMapItemException {
+    return new BlockItemMapper1_12().map(mapToBlock(sapling));
   }
 
   private BlockItem mapToBlock(Sapling item) throws CouldNotMapItemException {
-    switch(item.getWood()) {
+    switch (item.getWood()) {
       case OAK:
         return BlockType.OAK_SAPLING.asItem();
       case SPRUCE:

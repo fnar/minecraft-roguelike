@@ -19,11 +19,11 @@ public class IngredientMapper1_12 extends BaseItemMapper1_12<Ingredient> {
     if (Ingredient.Type.PUFFERFISH.equals(item.getType())) {
       return new ItemStack(Items.FISH, 3);
     }
-    return new ItemStack(mapItem(item));
+    return addEnchantmentNbtTags(item, mapItem(item));
   }
 
   private Item mapItem(Ingredient item) throws CouldNotMapItemException {
-    switch(item.getType()) {
+    switch (item.getType()) {
       case BLAZE_POWDER:
         return Items.BLAZE_POWDER;
       case BROWN_MUSHROOM:

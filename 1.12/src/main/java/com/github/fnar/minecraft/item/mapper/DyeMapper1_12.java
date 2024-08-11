@@ -13,8 +13,8 @@ public class DyeMapper1_12 extends BaseItemMapper1_12<Dye> {
   }
 
   @Override
-  public ItemStack map(Dye item) throws CouldNotMapItemException {
-    return new ItemStack(Items.DYE, 1, getMetaForDyeColour(item));
+  public ItemStack map(Dye dye) throws CouldNotMapItemException {
+    return addEnchantmentNbtTags(dye, new ItemStack(Items.DYE, 1, getMetaForDyeColour(dye)));
   }
 
   public int getMetaForDyeColour(Dye item) throws CouldNotMapItemException {

@@ -7,7 +7,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
-public class MiscellaneousMapper1_12 extends RldBaseItemMapper1_12<Miscellaneous> {
+public class MiscellaneousMapper1_12 extends BaseItemMapper1_12<Miscellaneous> {
   @Override
   public Class<Miscellaneous> getClazz() {
     return Miscellaneous.class;
@@ -15,11 +15,11 @@ public class MiscellaneousMapper1_12 extends RldBaseItemMapper1_12<Miscellaneous
 
   @Override
   public ItemStack map(Miscellaneous item) throws CouldNotMapItemException {
-    return map(item, mapItem(item));
+    return addEnchantmentNbtTags(item, mapItem(item));
   }
 
   private Item mapItem(Miscellaneous item) throws CouldNotMapItemException {
-    switch(item.getType()) {
+    switch (item.getType()) {
       case BOOK:
         return Items.BOOK;
       case ENCHANTED_BOOK:

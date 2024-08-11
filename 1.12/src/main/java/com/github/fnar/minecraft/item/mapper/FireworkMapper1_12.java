@@ -12,29 +12,7 @@ import net.minecraft.nbt.NBTTagList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FireworkMapper1_12 extends RldBaseItemMapper1_12<Firework> {
-
-  @Override
-  public Class<Firework> getClazz() {
-    return Firework.class;
-  }
-
-  @Override
-  public ItemStack map(Firework firework) {
-    NBTTagList explosionsTag = mapExplosions(firework);
-
-    NBTTagCompound fireworks = new NBTTagCompound();
-    fireworks.setByte("Flight", (byte) firework.getFlightLength().ordinal());
-    fireworks.setTag("Explosions", explosionsTag);
-
-    NBTTagCompound tag = new NBTTagCompound();
-    tag.setTag("Fireworks", fireworks);
-
-    ItemStack rocket = new ItemStack(Items.FIREWORKS);
-    rocket.setTagCompound(tag);
-
-    return rocket;
-  }
+public class FireworkMapper1_12 extends BaseItemMapper1_12<Firework> {
 
   private static NBTTagList mapExplosions(Firework firework) {
     NBTTagList explosionsTag = new NBTTagList();
@@ -60,5 +38,28 @@ public class FireworkMapper1_12 extends RldBaseItemMapper1_12<Firework> {
       colorArr[i] = colorsAsInt.get(i);
     }
     return colorArr;
+  }
+
+  @Override
+  public Class<Firework> getClazz() {
+    return Firework.class;
+  }
+
+  @Override
+  public ItemStack map(Firework firework) {
+    NBTTagList explosionsTag = mapExplosions(firework);
+
+    NBTTagCompound fireworks = new NBTTagCompound();
+    fireworks.setByte("Flight", (byte) firework.getFlightLength().ordinal());
+    fireworks.setTag("Explosions", explosionsTag);
+
+    NBTTagCompound tag = new NBTTagCompound();
+    tag.setTag("Fireworks", fireworks);
+
+    ItemStack rocket = new ItemStack(Items.FIREWORKS);
+    rocket.setTagCompound(tag);
+    rocket = addEnchantmentNbtTags(firework, rocket);
+
+    return rocket;
   }
 }

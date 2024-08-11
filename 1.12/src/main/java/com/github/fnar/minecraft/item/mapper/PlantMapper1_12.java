@@ -2,13 +2,16 @@ package com.github.fnar.minecraft.item.mapper;
 
 import com.github.fnar.minecraft.CouldNotMapException;
 import com.github.fnar.minecraft.block.decorative.PlantType;
+import com.github.fnar.minecraft.item.CouldNotMapItemException;
+import com.github.fnar.minecraft.item.Plant;
 
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
-public class PlantMapper1_12 {
 
-  public ItemStack map(PlantType type) throws CouldNotMapException {
+public class PlantMapper1_12 extends BaseItemMapper1_12<Plant> {
+
+  private static ItemStack getItemStack(PlantType type) {
     switch (type) {
       case POPPY:
         return new ItemStack(Blocks.RED_FLOWER, 1, 0);
@@ -57,6 +60,16 @@ public class PlantMapper1_12 {
       default:
         throw new CouldNotMapException(type.toString());
     }
+  }
+
+  @Override
+  public Class<Plant> getClazz() {
+    return Plant.class;
+  }
+
+  @Override
+  public ItemStack map(Plant plant) throws CouldNotMapItemException {
+    return addEnchantmentNbtTags(plant, getItemStack(plant.getPlantType()));
   }
 
 }
