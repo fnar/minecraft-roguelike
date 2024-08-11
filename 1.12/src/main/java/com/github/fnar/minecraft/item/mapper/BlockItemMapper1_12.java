@@ -22,7 +22,7 @@ public class BlockItemMapper1_12 extends BaseItemMapper1_12<BlockItem> {
     try {
       Block block = com.github.fnar.minecraft.block.BlockMapper1_12.map(brush).getBlock();
       Item item = Item.getItemFromBlock(block);
-      return new ItemStack(item);
+      return addEnchantmentNbtTags(blockItem, item);
     } catch (CouldNotMapBlockException e) {
       throw new CouldNotMapItemException(blockItem, e);
     }

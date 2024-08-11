@@ -18,8 +18,8 @@ public class SeedMapper1_12 extends BaseItemMapper1_12<Seed> {
   }
 
   @Override
-  public ItemStack map(Seed item) throws CouldNotMapItemException {
-    return new ItemStack(mapToItem(item));
+  public ItemStack map(Seed seed) throws CouldNotMapItemException {
+    return addEnchantmentNbtTags(seed, mapToItem(seed));
   }
 
   private Item mapToItem(Seed item) throws CouldNotMapItemException {

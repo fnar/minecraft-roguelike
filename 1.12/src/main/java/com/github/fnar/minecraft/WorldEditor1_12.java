@@ -18,6 +18,7 @@ import com.github.fnar.minecraft.block.decorative.Skull;
 import com.github.fnar.minecraft.block.spawner.SpawnPotentialMapper1_12;
 import com.github.fnar.minecraft.block.spawner.Spawner;
 import com.github.fnar.minecraft.item.CouldNotMapItemException;
+import com.github.fnar.minecraft.item.Plant;
 import com.github.fnar.minecraft.item.RldItemStack;
 import com.github.fnar.minecraft.item.mapper.ItemMapper1_12;
 import com.github.fnar.minecraft.item.mapper.PlantMapper1_12;
@@ -83,40 +84,16 @@ public class WorldEditor1_12 implements WorldEditor {
       Material.SNOW,
       Material.CLAY
   );
-
+  private static final ModLoader modLoader = new ModLoader1_12();
   private final World world;
   private final Map<BlockType, Integer> stats = new HashMap<>();
   private final Random random;
   private final TreasureManager treasureManager;
 
-  private static final ModLoader modLoader = new ModLoader1_12();
-
   public WorldEditor1_12(World world) {
     this.world = world;
     random = new Random(Objects.hash(getSeed()));
     treasureManager = new TreasureManager(random);
-  }
-
-  @Override
-  public void setSkull(WorldEditor editor, Coord cursor, Direction dir, Skull type) {
-    SingleBlockBrush skullBlock = BlockType.SKELETONS_SKULL.getBrush();
-    // Makes the skull sit flush against the block below it.
-    skullBlock.setFacing(Direction.UP);
-    if (!skullBlock.stroke(editor, cursor)) {
-      return;
-    }
-
-    TileEntity tileEntity = getTileEntity(cursor);
-    if (tileEntity == null) {
-      return;
-    }
-    if (!(tileEntity instanceof TileEntitySkull)) {
-      return;
-    }
-
-    TileEntitySkull tileEntitySkull = (TileEntitySkull) tileEntity;
-    setSkullType(tileEntitySkull, type);
-    setSkullRotation(editor.getRandom(), tileEntitySkull, dir);
   }
 
   public static void setSkullType(TileEntitySkull skull, Skull type) {
@@ -164,6 +141,28 @@ public class WorldEditor1_12 implements WorldEditor {
       case WEST:
         return 12;
     }
+  }
+
+  @Override
+  public void setSkull(WorldEditor editor, Coord cursor, Direction dir, Skull type) {
+    SingleBlockBrush skullBlock = BlockType.SKELETONS_SKULL.getBrush();
+    // Makes the skull sit flush against the block below it.
+    skullBlock.setFacing(Direction.UP);
+    if (!skullBlock.stroke(editor, cursor)) {
+      return;
+    }
+
+    TileEntity tileEntity = getTileEntity(cursor);
+    if (tileEntity == null) {
+      return;
+    }
+    if (!(tileEntity instanceof TileEntitySkull)) {
+      return;
+    }
+
+    TileEntitySkull tileEntitySkull = (TileEntitySkull) tileEntity;
+    setSkullType(tileEntitySkull, type);
+    setSkullRotation(editor.getRandom(), tileEntitySkull, dir);
   }
 
   @Override
@@ -368,8 +367,12 @@ public class WorldEditor1_12 implements WorldEditor {
 
     TileEntityFlowerPot flowerPot = (TileEntityFlowerPot) potEntity;
 
-    ItemStack flowerItem = new PlantMapper1_12().map(choice);
-    flowerPot.setItemStack(flowerItem);
+    try {
+      ItemStack flowerItem = new PlantMapper1_12().map(new Plant(choice));
+      flowerPot.setItemStack(flowerItem);
+    } catch (CouldNotMapItemException e) {
+      logger.error(e);
+    }
   }
 
   @Override

@@ -13,6 +13,7 @@ public enum ItemType {
   INGREDIENT,
   MATERIAL,
   MISCELLANEOUS,
+  PLANT,
   POTION,
   RECORD,
   SAPLING,

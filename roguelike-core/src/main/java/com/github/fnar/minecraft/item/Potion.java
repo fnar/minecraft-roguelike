@@ -7,13 +7,13 @@ import com.github.fnar.util.Color;
 import java.util.List;
 import java.util.Random;
 
-public class Potion implements RldItem {
+public class Potion extends RldBaseItem {
 
+  private final List<com.github.fnar.minecraft.Effect> effects = Lists.newArrayList();
   // TODO: Move amplification and extension onto effect instead of potion
   // TODO: Potions can hold multiple effects
   private Effect effect;
   private Form form;
-  private final List<com.github.fnar.minecraft.Effect> effects = Lists.newArrayList();
   private boolean isAmplified;
   private boolean isExtended;
   private Color color;
@@ -121,12 +121,12 @@ public class Potion implements RldItem {
       this.level = level;
     }
 
-    public int getLevel() {
-      return level;
-    }
-
     public static Amplification chooseRandom(Random random) {
       return Amplification.values()[random.nextInt(Amplification.values().length)];
+    }
+
+    public int getLevel() {
+      return level;
     }
   }
 

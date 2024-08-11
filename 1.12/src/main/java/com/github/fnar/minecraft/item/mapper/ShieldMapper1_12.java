@@ -17,7 +17,7 @@ public class ShieldMapper1_12 extends BaseItemMapper1_12<Shield> {
   @Override
   public ItemStack map(Shield shield) {
     Banner banner = new Banner().withDesigns(shield.getDesigns());
-    ItemStack shieldItemStack = new ItemStack(Items.SHIELD, 1, 0);
+    ItemStack shieldItemStack = addEnchantmentNbtTags(shield, new ItemStack(Items.SHIELD, 1, 0));
     applyDesign(new BannerMapper1_12().map(banner), shieldItemStack);
     return shieldItemStack;
   }

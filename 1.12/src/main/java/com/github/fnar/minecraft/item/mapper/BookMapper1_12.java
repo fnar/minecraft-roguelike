@@ -19,7 +19,7 @@ public class BookMapper1_12 extends BaseItemMapper1_12<Book> {
   }
 
   public ItemStack map(Book book) {
-    ItemStack itemStack = new ItemStack(Items.WRITTEN_BOOK, 1);
+    ItemStack itemStack = addEnchantmentNbtTags(book, Items.WRITTEN_BOOK);
 
     NBTTagList nbtPages = new NBTTagList();
 

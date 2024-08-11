@@ -16,6 +16,13 @@ import java.util.Optional;
 
 public class PotionMapper1_12 extends BaseItemMapper1_12<Potion> {
 
+  private static void mapEffectTags(NBTTagCompound effectTag, NBTTagCompound tags) {
+    final String customPotionEffectsTag = "CustomPotionEffects";
+    NBTTagList effects = tags.getTagList(customPotionEffectsTag, 10);
+    effects.appendTag(effectTag);
+    tags.setTag(customPotionEffectsTag, effects);
+  }
+
   @Override
   public Class<Potion> getClazz() {
     return Potion.class;
@@ -25,7 +32,7 @@ public class PotionMapper1_12 extends BaseItemMapper1_12<Potion> {
   public ItemStack map(Potion potion) {
     ItemPotion potionForm = mapForm(potion.getForm());
     PotionType potionType = mapPotionType(potion);
-    ItemStack itemStack = PotionUtils.addPotionToItemStack(new ItemStack(potionForm), potionType);
+    ItemStack itemStack = PotionUtils.addPotionToItemStack(addEnchantmentNbtTags(potion, potionForm), potionType);
 
     NBTTagCompound tags = getNbtTagCompound(itemStack);
 
@@ -62,13 +69,6 @@ public class PotionMapper1_12 extends BaseItemMapper1_12<Potion> {
     effectTag.setInteger("Duration", effect.getDuration() * ticksPerSecond);
     effectTag.setBoolean("Ambient", false);
     return effectTag;
-  }
-
-  private static void mapEffectTags(NBTTagCompound effectTag, NBTTagCompound tags) {
-    final String customPotionEffectsTag = "CustomPotionEffects";
-    NBTTagList effects = tags.getTagList(customPotionEffectsTag, 10);
-    effects.appendTag(effectTag);
-    tags.setTag(customPotionEffectsTag, effects);
   }
 
   public net.minecraft.potion.PotionType mapToPotionType(

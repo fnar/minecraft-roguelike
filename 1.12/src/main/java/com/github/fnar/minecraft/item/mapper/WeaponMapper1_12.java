@@ -10,7 +10,7 @@ import net.minecraft.item.ItemStack;
 
 import greymerk.roguelike.treasure.loot.Quality;
 
-public class WeaponMapper1_12 extends RldBaseItemMapper1_12<Weapon> {
+public class WeaponMapper1_12 extends BaseItemMapper1_12<Weapon> {
 
   @Override
   public Class<Weapon> getClazz() {
@@ -20,11 +20,11 @@ public class WeaponMapper1_12 extends RldBaseItemMapper1_12<Weapon> {
   @Override
   public ItemStack map(Weapon rldItem) throws CouldNotMapItemException {
     Item item = map(rldItem, rldItem.getWeaponType(), rldItem.getQuality());
-    return map(rldItem, item);
+    return addEnchantmentNbtTags(rldItem, item);
   }
 
   private Item map(Weapon item, WeaponType weaponType, Quality quality) throws CouldNotMapItemException {
-    switch(weaponType) {
+    switch (weaponType) {
       case BOW:
         return EquipmentMapper1_12.map(quality, Items.BOW, Items.BOW, Items.BOW, Items.BOW, Items.BOW);
       case SWORD:

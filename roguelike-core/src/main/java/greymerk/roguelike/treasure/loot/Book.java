@@ -1,16 +1,16 @@
 package greymerk.roguelike.treasure.loot;
 
 import com.github.fnar.minecraft.item.ItemType;
-import com.github.fnar.minecraft.item.RldItem;
+import com.github.fnar.minecraft.item.RldBaseItem;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Book implements RldItem {
+public class Book extends RldBaseItem {
 
   private final List<String> pages = new ArrayList<>();
-  private String author;
-  private String title;
+  private final String author;
+  private final String title;
 
   public Book(String author, String title) {
     this.author = author;

@@ -11,30 +11,6 @@ import net.minecraft.nbt.NBTTagList;
 
 public class BannerMapper1_12 extends BaseItemMapper1_12<Banner> {
 
-  @Override
-  public Class<Banner> getClazz() {
-    return Banner.class;
-  }
-
-  public ItemStack map(Banner banner) {
-    ItemStack bannerItemStack = new ItemStack(Items.BANNER);
-
-    NBTTagCompound bannerNbtTagCompound = ensureNbtTagCompound(bannerItemStack);
-
-    NBTTagCompound blockEntityTag = ensureBlockEntityTag(bannerNbtTagCompound);
-
-    NBTTagList patternsTag = ensurePatternsTag(blockEntityTag);
-
-    NBTTagCompound patternsAttributes = new NBTTagCompound();
-
-    for (Design bannerDesign : banner.getDesigns()) {
-      patternsAttributes.setInteger("Color", ColoredBlockMapper1_12.toEnumDyeColor(bannerDesign.getColor()).getDyeDamage());
-      patternsAttributes.setString("Pattern", new DesignMapper1_12().map(bannerDesign.getDesignPattern()).getHashname());
-      patternsTag.appendTag(patternsAttributes);
-    }
-    return bannerItemStack;
-  }
-
   private static NBTTagCompound ensureNbtTagCompound(ItemStack banner) {
     NBTTagCompound nbt = banner.getTagCompound();
     if (nbt != null) {
@@ -64,5 +40,29 @@ public class BannerMapper1_12 extends BaseItemMapper1_12<Banner> {
       tag.setTag("Patterns", patterns);
     }
     return patterns;
+  }
+
+  @Override
+  public Class<Banner> getClazz() {
+    return Banner.class;
+  }
+
+  public ItemStack map(Banner banner) {
+    ItemStack bannerItemStack = addEnchantmentNbtTags(banner, Items.BANNER);
+
+    NBTTagCompound bannerNbtTagCompound = ensureNbtTagCompound(bannerItemStack);
+
+    NBTTagCompound blockEntityTag = ensureBlockEntityTag(bannerNbtTagCompound);
+
+    NBTTagList patternsTag = ensurePatternsTag(blockEntityTag);
+
+    NBTTagCompound patternsAttributes = new NBTTagCompound();
+
+    for (Design bannerDesign : banner.getDesigns()) {
+      patternsAttributes.setInteger("Color", ColoredBlockMapper1_12.toEnumDyeColor(bannerDesign.getColor()).getDyeDamage());
+      patternsAttributes.setString("Pattern", new DesignMapper1_12().map(bannerDesign.getDesignPattern()).getHashname());
+      patternsTag.appendTag(patternsAttributes);
+    }
+    return bannerItemStack;
   }
 }
