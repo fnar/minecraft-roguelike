@@ -57,11 +57,20 @@ public enum MobType {
   public static final MobType[] EPIC_MOBS = {ENDER_DRAGON, WITHER};
   public static final MobType[] LEGENDARY_MOBS = {};
 
+  public static final MobType[] COMMON_DESERT = {SKELETON, SPIDER, HUSK};
+  public static final MobType[] COMMON_SNOW = {STRAY, SPIDER, ZOMBIE};
+  public static final MobType[] COMMON_SWAMP = {SKELETON, SLIME, WITCH};
 
   public static final MobType[] HUMANOID_MOBS = {SKELETON, WITCH, ZOMBIE};
   public static final MobType[] UNDEAD_MOBS = {SKELETON, ZOMBIE};
   public static final MobType[] NETHER_MOBS = {BLAZE, MAGMA_CUBE, ZOMBIE_PIGMAN, WITHER_SKELETON};
   public static final MobType[] ILLAGERS = {EVOKER, ILLUSIONER, VINDICATOR};
+
+  public static final MobType[] NIGHTMARE_MOBS = {CREEPER, ENDERMAN, GHAST, SILVERFISH, VEX};
+  public static final MobType[] END_MOBS = {ENDERMAN, ENDERMITE, SHULKER};
+  public static final MobType[] SKELETONS = {SKELETON, STRAY, WITHER_SKELETON};
+  public static final MobType[] ZOMBIES = {ZOMBIE, ZOMBIE_VILLAGER, HUSK};
+  public static final MobType[] SPIDERS = {SPIDER, CAVESPIDER};
 
   private final String name;
 
