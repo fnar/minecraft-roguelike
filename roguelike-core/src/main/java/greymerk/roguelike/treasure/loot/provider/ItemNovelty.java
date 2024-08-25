@@ -69,64 +69,64 @@ public enum ItemNovelty {
 
   public static RldItemStack getItem(ItemNovelty choice) {
     switch (choice) {
-      case GREYMERK:
-        return greymerksHatchet();
-      case NEBRISCROWN:
-        return nebrisCrown();
-      case NULL:
-        return nullPointer();
-      case MANPANTS:
-        return manPants();
-      case ZISTEAUSIGN:
-        return zisteauSign();
-      case AVIDYA:
-        return avidyasWhiteRussian();
-      case ASHLEA:
-        return ashleasOatmealCookie();
-      case KURT:
-        return farlandTravellers();
       case AMLP:
         return lascerator();
-      case CLEO:
-        return cleophianDiggingFeesh();
+      case ASHLEA:
+        return ashleasOatmealCookie();
+      case AVIDYA:
+        return avidyasWhiteRussian();
+      case BAJ:
+        return bajsLastResort();
       case BDOUBLEO:
         return bDoubleOsDigJob();
-      case GUUDE:
-        return boulderfistianGoldenRecord();
-      case RLEAHY:
-        return rleahianBattleSub();
-      case ETHO:
-        return ethosYourMomJoke();
+      case BDUBSSWEATER:
+        return bDoubleOspinkSweater();
+      case CLEO:
+        return cleophianDiggingFeesh();
+      case DINNERBONE:
+        return oldDinnerbone();
+      case DOCM:
+        return docmRodOfCommand();
       case ENIKOBOW:
         return enikosStringTheory();
       case ENIKOSWORD:
         return enikosEarring();
-      case BAJ:
-        return bajsLastResort();
-      case DOCM:
-        return docmRodOfCommand();
-      case GINGER:
-        return gingerSpiceChicken();
-      case VECHS:
-        return vechsLegendaryStick();
-      case NOTCH:
-        return notchsApple();
-      case QUANTUMLEAP:
-        return quantumleapsSwissCheese();
-      case GENERIKB:
-        return generikBsHotPotato();
+      case ETHO:
+        return ethosYourMomJoke();
       case FOURLES:
         return fourlesDarkroastBeans();
-      case DINNERBONE:
-        return oldDinnerbone();
+      case GENERIKB:
+        return generikBsHotPotato();
+      case GINGER:
+        return gingerSpiceChicken();
+      case GREYMERK:
+        return greymerksHatchet();
       case GRIM:
         return grimChewToy();
+      case GUUDE:
+        return boulderfistianGoldenRecord();
+      case KURT:
+        return farlandTravellers();
+      case MANPANTS:
+        return manPants();
       case MMILLSS:
         return mmillssSpiderBane();
+      case NEBRISCROWN:
+        return nebrisCrown();
+      case NOTCH:
+        return notchsApple();
+      case NULL:
+        return nullPointer();
+      case QUANTUMLEAP:
+        return quantumleapsSwissCheese();
+      case RLEAHY:
+        return rleahianBattleSub();
       case VALANDRAH:
         return valandrahsKiss();
-      case BDUBSSWEATER:
-        return bDoubleOspinkSweater();
+      case VECHS:
+        return vechsLegendaryStick();
+      case ZISTEAUSIGN:
+        return zisteauSign();
       default:
         return null;
     }
