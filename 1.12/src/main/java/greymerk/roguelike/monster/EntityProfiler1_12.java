@@ -1,5 +1,7 @@
 package greymerk.roguelike.monster;
 
+import com.github.fnar.forge.minecraft.entity.EntityMagmaCube;
+import com.github.fnar.forge.minecraft.entity.EntitySlime;
 import com.github.fnar.minecraft.block.spawner.MobType;
 import com.github.fnar.minecraft.entity.SlotMapper1_12;
 import com.github.fnar.minecraft.item.CouldNotMapItemException;
@@ -20,12 +22,10 @@ import net.minecraft.entity.monster.EntityGhast;
 import net.minecraft.entity.monster.EntityGuardian;
 import net.minecraft.entity.monster.EntityHusk;
 import net.minecraft.entity.monster.EntityIllusionIllager;
-import net.minecraft.entity.monster.EntityMagmaCube;
 import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.entity.monster.EntityShulker;
 import net.minecraft.entity.monster.EntitySilverfish;
 import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.EntitySlime;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityStray;
 import net.minecraft.entity.monster.EntityVex;
@@ -110,7 +110,9 @@ public class EntityProfiler1_12 {
       case ILLUSIONER:
         return new EntityIllusionIllager(world);
       case MAGMA_CUBE:
-        return new EntityMagmaCube(world);
+        EntityMagmaCube entityMagmaCube = new EntityMagmaCube(world);
+        entityMagmaCube.setSlimeSize(randomSlimeSize(), true);
+        return entityMagmaCube;
       case SHULKER:
         return new EntityShulker(world);
       case SILVERFISH:
@@ -118,7 +120,9 @@ public class EntityProfiler1_12 {
       case SKELETON:
         return new EntitySkeleton(world);
       case SLIME:
-        return new EntitySlime(world);
+        EntitySlime entitySlime = new EntitySlime(world);
+        entitySlime.setSlimeSize(randomSlimeSize(), false);
+        return entitySlime;
       case SPIDER:
         return new EntitySpider(world);
       case STRAY:
@@ -142,6 +146,10 @@ public class EntityProfiler1_12 {
       default:
         return new EntityZombie(world);
     }
+  }
+
+  private static int randomSlimeSize() {
+    return 1 << new Random().nextInt(7);
   }
 
   private static Mob applyProfile(EntityLiving entityLiving, int level, int difficulty, Random random) {
