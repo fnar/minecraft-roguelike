@@ -121,7 +121,7 @@ public class EntityProfiler1_12 {
         return new EntitySkeleton(world);
       case SLIME:
         EntitySlime entitySlime = new EntitySlime(world);
-        entitySlime.setSlimeSize(randomSlimeSize(), false);
+        entitySlime.setSlimeSize(randomSlimeSize(), true);
         return entitySlime;
       case SPIDER:
         return new EntitySpider(world);
@@ -149,7 +149,7 @@ public class EntityProfiler1_12 {
   }
 
   private static int randomSlimeSize() {
-    return 1 << new Random().nextInt(7);
+    return 1 << new Random().nextInt(3);
   }
 
   private static Mob applyProfile(EntityLiving entityLiving, int level, int difficulty, Random random) {
