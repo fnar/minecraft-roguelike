@@ -43,6 +43,7 @@ public enum ItemNovelty {
   GREYMERK,
   GRIM,
   GUUDE,
+  KAMEIB,
   KURT,
   MANPANTS,
   MMILLSS,
@@ -105,6 +106,8 @@ public enum ItemNovelty {
         return grimChewToy();
       case GUUDE:
         return boulderfistianGoldenRecord();
+      case KAMEIB:
+        return kameibShell();
       case KURT:
         return farlandTravellers();
       case MANPANTS:
@@ -469,6 +472,17 @@ public enum ItemNovelty {
         .withDisplayName("novelty.roguelike.valandrah.name")
         .withDisplayLore(TextFormat.DARKGREEN.apply("\"Feel the kiss of my blade\""))
         .withDisplayLocLore("novelty.roguelike.valandrah.lore");
+  }
+
+  public static RldItemStack kameibShell() {
+    return ArmourType.HELMET.asItem().diamond()
+        .withEnchantment(Enchantment.Effect.RESPIRATION.atLevel(5))
+        .withEnchantment(Enchantment.Effect.LUCK_OF_THE_SEA.atLevel(2))
+        .withEnchantment(Enchantment.Effect.THORNS.atLevel(1))
+        .asStack()
+        .withDisplayName("novelty.roguelike.kameib.name")
+        .withDisplayLore(TextFormat.DARKGREEN.apply("Fishing and chill"))
+        .withDisplayLocLore("novelty.roguelike.kameib.lore");
   }
 
 }
