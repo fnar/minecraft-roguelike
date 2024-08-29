@@ -26,8 +26,9 @@ public class BlockParser1_12 {
         .getStateFromMeta(meta);
 
     if (name.contains("leaves")) {
-      blockState.withProperty(BlockLeaves.DECAYABLE, false);
+      return blockState.withProperty(BlockLeaves.DECAYABLE, false);
     }
+
     return blockState;
   }
 

@@ -18,63 +18,63 @@ public class SlabBlockMapper1_12 {
     IBlockState blockState = minecraftBlock.getDefaultState();
     switch (slabBlock.getBlockType()) {
       case STONE_SLAB:
-        blockState.withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.EnumType.STONE);
+        blockState = blockState.withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.EnumType.STONE);
         break;
       case SANDSTONE_SLAB:
-        blockState.withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.EnumType.SAND);
+        blockState = blockState.withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.EnumType.SAND);
         break;
       case PETRIFIED_OAK_SLAB:
-        blockState.withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.EnumType.WOOD);
+        blockState = blockState.withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.EnumType.WOOD);
         break;
       case COBBLESTONE_SLAB:
-        blockState.withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.EnumType.COBBLESTONE);
+        blockState = blockState.withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.EnumType.COBBLESTONE);
         break;
       case BRICK_SLAB:
-        blockState.withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.EnumType.BRICK);
+        blockState = blockState.withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.EnumType.BRICK);
         break;
       case STONE_BRICK_SLAB:
-        blockState.withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.EnumType.SMOOTHBRICK);
+        blockState = blockState.withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.EnumType.SMOOTHBRICK);
         break;
       case NETHER_BRICK_SLAB:
-        blockState.withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.EnumType.NETHERBRICK);
+        blockState = blockState.withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.EnumType.NETHERBRICK);
         break;
       case QUARTZ_SLAB:
-        blockState.withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.EnumType.QUARTZ);
+        blockState = blockState.withProperty(BlockStoneSlab.VARIANT, BlockStoneSlab.EnumType.QUARTZ);
         break;
       case RED_SANDSTONE_SLAB:
       case SMOOTH_RED_SANDSTONE_SLAB:
-        blockState.withProperty(BlockStoneSlabNew.VARIANT, BlockStoneSlabNew.EnumType.RED_SANDSTONE);
+        blockState = blockState.withProperty(BlockStoneSlabNew.VARIANT, BlockStoneSlabNew.EnumType.RED_SANDSTONE);
         break;
       case OAK_SLAB:
-        blockState.withProperty(BlockWoodSlab.VARIANT, BlockPlanks.EnumType.OAK);
+        blockState = blockState.withProperty(BlockWoodSlab.VARIANT, BlockPlanks.EnumType.OAK);
         break;
       case SPRUCE_SLAB:
-        blockState.withProperty(BlockWoodSlab.VARIANT, BlockPlanks.EnumType.SPRUCE);
+        blockState = blockState.withProperty(BlockWoodSlab.VARIANT, BlockPlanks.EnumType.SPRUCE);
         break;
       case BIRCH_SLAB:
-        blockState.withProperty(BlockWoodSlab.VARIANT, BlockPlanks.EnumType.BIRCH);
+        blockState = blockState.withProperty(BlockWoodSlab.VARIANT, BlockPlanks.EnumType.BIRCH);
         break;
       case JUNGLE_SLAB:
-        blockState.withProperty(BlockWoodSlab.VARIANT, BlockPlanks.EnumType.JUNGLE);
+        blockState = blockState.withProperty(BlockWoodSlab.VARIANT, BlockPlanks.EnumType.JUNGLE);
         break;
       case ACACIA_SLAB:
-        blockState.withProperty(BlockWoodSlab.VARIANT, BlockPlanks.EnumType.ACACIA);
+        blockState = blockState.withProperty(BlockWoodSlab.VARIANT, BlockPlanks.EnumType.ACACIA);
         break;
       case DARK_OAK_SLAB:
-        blockState.withProperty(BlockWoodSlab.VARIANT, BlockPlanks.EnumType.DARK_OAK);
+        blockState = blockState.withProperty(BlockWoodSlab.VARIANT, BlockPlanks.EnumType.DARK_OAK);
         break;
       case PURPUR_SLAB:
-        blockState.withProperty(BlockPurpurSlab.VARIANT, BlockPurpurSlab.Variant.DEFAULT);
+        blockState = blockState.withProperty(BlockPurpurSlab.VARIANT, BlockPurpurSlab.Variant.DEFAULT);
         break;
       default:
     }
 
     if (!slabBlock.isFullBlock() && slabBlock.isTop()) {
-      blockState.withProperty(BlockWoodSlab.HALF, BlockSlab.EnumBlockHalf.TOP);
+      blockState = blockState.withProperty(BlockWoodSlab.HALF, BlockSlab.EnumBlockHalf.TOP);
     }
 
     if (slabBlock.isFullBlock() && slabBlock.isSeamless()) {
-      blockState.withProperty(BlockStoneSlab.SEAMLESS, true);
+      blockState = blockState.withProperty(BlockStoneSlab.SEAMLESS, true);
     }
 
     return blockState;
