@@ -197,7 +197,10 @@ public class BlockMapper1_14 {
       case REDSTONE_TORCH:
         return TorchBlockMapper1_14.map((TorchBlock) blockBrush);
       case BED:
-        return BedBlockMapper1_14.map((BedBlock) blockBrush);
+        if (blockBrush instanceof BedBlock) {
+          return BedBlockMapper1_14.map((BedBlock) blockBrush);
+        }
+        return map(new BedBlock());
       case FURNACE:
         if (!RogueConfig.FURNITURE.getBoolean()) {
           return Blocks.COBBLESTONE.getDefaultState();
