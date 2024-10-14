@@ -39,10 +39,18 @@ public class CommandSender1_14 implements CommandSender {
 
   @Override
   public void sendMessage(Message message) {
-    commandSource.sendFeedback(
-        formatMessage(message.getMessage(), message.getMessageType())
+    commandSource.sendFeedback(composeTextComponent(message), true);
+  }
+
+  private static ITextComponent composeTextComponent(Message message) {
+    String text = message.getMessage();
+    MessageType type = message.getMessageType();
+    String details = message.getDetails();
+    return details == null
+        ? formatMessage(text, type)
+        : formatMessage(text, type)
             .appendText(" ")
-            .appendSibling(new StringTextComponent(message.getDetails())), true);
+            .appendSibling(new StringTextComponent(details));
   }
 
   private static ITextComponent formatMessage(String message, MessageType type) {
