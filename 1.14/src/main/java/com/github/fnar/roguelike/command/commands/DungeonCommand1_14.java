@@ -36,8 +36,13 @@ public class DungeonCommand1_14 {
   private static int generateDungeon(CommandContext<CommandSource> context) {
     com.github.fnar.roguelike.command.CommandContext context1_14 = new com.github.fnar.roguelike.command.CommandContext(new ContextHolder1_14(context));
     Coord coord = context1_14.getArgumentAsCoord(ARG_COORD).orElse(null);
-    SettingIdentifier settingName = context1_14.getArgumentAsSettingIdentifier(ARG_SETTINGS_NAME).orElse(null);
-    new DungeonCommand(context1_14, coord, settingName).run();
+    try {
+      SettingIdentifier settingIdentifier = context1_14.getArgumentAsSettingIdentifier(ARG_SETTINGS_NAME).orElse(null);
+      new DungeonCommand(context1_14, coord, settingIdentifier).run();
+    } catch (IllegalArgumentException illegalArgumentException) {
+      String name = null;
+      new DungeonCommand(context1_14, coord, name).run();
+    }
     return 0;
   }
 
