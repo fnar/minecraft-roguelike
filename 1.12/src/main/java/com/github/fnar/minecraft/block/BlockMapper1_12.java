@@ -176,9 +176,6 @@ public class BlockMapper1_12 {
         return QuartzBlockMapper1_12.map(Quartz.CHISELED, facing);
       case PILLAR_QUARTZ:
         return QuartzBlockMapper1_12.map(Quartz.PILLAR, facing);
-      case WITHER_SKELETON_SKULL:
-        // TODO: Figure out how to manifest wither skull here
-        return Blocks.SKULL.getDefaultState();
       case SMOOTH_QUARTZ:
         return QuartzBlockMapper1_12.map(Quartz.SMOOTH, facing);
       case VINE:
@@ -469,6 +466,9 @@ public class BlockMapper1_12 {
       case POPPY:
         return Blocks.RED_FLOWER.getDefaultState();
       case SKELETONS_SKULL:
+        return Blocks.SKULL.getDefaultState();
+      case WITHER_SKELETON_SKULL:
+        // TODO: Figure out how to manifest wither skull here
         return Blocks.SKULL.getDefaultState();
       case DANDELION:
         return Blocks.YELLOW_FLOWER.getDefaultState();
