@@ -16,37 +16,15 @@ public class DungeonCommand1_12 extends BaseCommandRoute {
     try {
       ArgumentParser argumentParser = new ArgumentParser(args);
       if (!argumentParser.hasEntry(0)) {
-        commandContext.sendInfo("notif.roguelike.usage_", "/roguelike dungeon {X Z | here} [setting]");
+        commandContext.sendInfo("notif.roguelike.usage_", "/roguelike dungeon {X Z | here | nearby} [setting]");
         return;
       }
-      String settingName = parseSettingName(argumentParser);
-      Coord coord = parseCoord(commandContext, args);
+      Coord coord = argumentParser.parseNearbyOrXZCoord(commandContext);
+      boolean isNearby = argumentParser.isNearby();
+      String settingName = argumentParser.get(isNearby ? 1 : 2);
       new DungeonCommand(commandContext, coord, settingName).run();
     } catch (Exception e) {
       commandContext.sendFailure(e);
-    }
-  }
-
-  private String parseSettingName(ArgumentParser argumentParser) {
-    boolean isNearby = isNearby(argumentParser);
-    return argumentParser.get(isNearby ? 1 : 2);
-  }
-
-  private static boolean isNearby(ArgumentParser argumentParser) {
-    return argumentParser.match(0, "here")
-        || argumentParser.match(0, "nearby");
-  }
-
-  protected Coord parseCoord(CommandContext context, List<String> args) {
-    ArgumentParser argumentParser = new ArgumentParser(args);
-    if (isNearby(argumentParser)) {
-      return context.getSenderCoord().setY(0);
-    }
-    try {
-      return argumentParser.getXZCoord(0);
-    } catch (IllegalArgumentException e) {
-      context.sendFailure("invalidcoords", "X Z");
-      throw (e);
     }
   }
 

@@ -36,7 +36,7 @@ public class RoomSettingParser {
     if (!roomSettingJson.has(TYPE_KEY)) {
       throw new RuntimeException(String.format("Room setting is missing a value for key '%s' which is required", TYPE_KEY));
     }
-    return RoomType.valueOf(roomSettingJson.get(TYPE_KEY).getAsString().toUpperCase());
+    return RoomType.fromString(roomSettingJson.get(TYPE_KEY).getAsString());
   }
 
   private static Frequency parseRoomFrequency(JsonObject roomSettingJson) {

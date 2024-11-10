@@ -11,9 +11,9 @@ import greymerk.roguelike.dungeon.towers.TowerType;
 public class TowerCommand1_12 extends BaseCommandRoute {
 
   @Override
-  public void execute(CommandContext context, List<String> args) {
-    String towerName = context.getArgument(1).orElse(null);
-    new GenerateTowerCommand(context, towerName).run();
+  public void execute(CommandContext commandContext, List<String> args) {
+    String towerName = commandContext.getArgument(1).orElse(null);
+    new GenerateTowerCommand(commandContext, towerName).run();
   }
 
   @Override

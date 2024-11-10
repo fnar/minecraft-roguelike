@@ -11,9 +11,9 @@ import greymerk.roguelike.worldgen.Coord;
 public class BiomeCommand1_12 extends BaseCommandRoute {
 
   @Override
-  public void execute(CommandContext context, List<String> args) {
-    Coord position = context.getArgumentAsCoord(1).orElse(context.getSenderCoord());
-    new BiomeCommand(context, position).run();
+  public void execute(CommandContext commandContext, List<String> args) {
+    Coord position = commandContext.getArgumentAsCoord(1).orElse(commandContext.getSenderCoord());
+    new BiomeCommand(commandContext, position).run();
   }
 
 }

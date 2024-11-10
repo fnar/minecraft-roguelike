@@ -2,6 +2,7 @@ package greymerk.roguelike.treasure.loot.provider;
 
 import com.github.fnar.minecraft.item.Material;
 import com.github.fnar.minecraft.item.RldItemStack;
+import com.github.fnar.util.Exceptions;
 
 import java.util.Random;
 
@@ -34,7 +35,7 @@ public abstract class LootItem implements IWeighted<RldItemStack> {
           .withDisplayName("Report: Loot Item Generation Failure")
           .withDisplayLore(
               e.getClass().getName(),
-              e.getLocalizedMessage(),
+              Exceptions.asString(e),
               "Check server logs for details",
               "Consider submitting to https://github.com/fnar/minecraft-roguelike/issues"
           );

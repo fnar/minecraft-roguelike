@@ -70,6 +70,10 @@ public enum RoomType {
     this.isSecret = isSecret;
   }
 
+  public static RoomType fromString(String string) {
+    return valueOf(string.toUpperCase());
+  }
+
   public RoomSetting newRandomRoomSetting(int weight) {
     return new RoomSetting(
         this,

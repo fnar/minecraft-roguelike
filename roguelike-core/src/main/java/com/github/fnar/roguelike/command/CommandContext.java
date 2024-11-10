@@ -8,6 +8,7 @@ import com.github.fnar.roguelike.command.message.Message;
 import com.github.fnar.roguelike.command.message.SpecialMessage;
 import com.github.fnar.roguelike.command.message.SuccessMessage;
 import com.github.fnar.roguelike.command.message.WarningMessage;
+import com.github.fnar.util.Exceptions;
 
 import java.util.Optional;
 
@@ -28,7 +29,7 @@ public class CommandContext {
   }
 
   public void sendFailure(Exception e) {
-    sendFailure("", e.getLocalizedMessage() != null ? e.getLocalizedMessage() : e.getMessage());
+    sendFailure("", Exceptions.asString(e));
   }
 
   public void sendFailure(String message) {

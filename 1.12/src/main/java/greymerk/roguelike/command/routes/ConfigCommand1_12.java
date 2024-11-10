@@ -10,8 +10,8 @@ import greymerk.roguelike.command.BaseCommandRoute;
 public class ConfigCommand1_12 extends BaseCommandRoute {
 
   @Override
-  public void execute(CommandContext context, List<String> args) {
-    new ReloadConfigCommand(context).run();
+  public void execute(CommandContext commandContext, List<String> args) {
+    new ReloadConfigCommand(commandContext).run();
   }
 
 }

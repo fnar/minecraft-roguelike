@@ -23,13 +23,13 @@ public abstract class BaseCommandRoute implements CommandRoute {
   }
 
   @Override
-  public void execute(CommandContext context, List<String> args) {
+  public void execute(CommandContext commandContext, List<String> args) {
     if (args.isEmpty() || !this.routes.containsKey(args.get(0))) {
       return;
     }
     List<String> tail = new ArrayList<>(args);
     String head = tail.remove(0);
-    this.routes.get(head).execute(context, tail);
+    this.routes.get(head).execute(commandContext, tail);
   }
 
   @Override
