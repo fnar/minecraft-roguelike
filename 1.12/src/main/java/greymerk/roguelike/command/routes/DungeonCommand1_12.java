@@ -13,19 +13,15 @@ public class DungeonCommand1_12 extends BaseCommandRoute {
 
   @Override
   public void execute(CommandContext commandContext, List<String> args) {
-    try {
-      ArgumentParser argumentParser = new ArgumentParser(args);
-      if (!argumentParser.hasEntry(0)) {
-        commandContext.sendInfo("notif.roguelike.usage_", "/roguelike dungeon {X Z | here | nearby} [setting]");
-        return;
-      }
-      Coord coord = argumentParser.parseNearbyOrXZCoord(commandContext);
-      boolean isNearby = argumentParser.isNearby();
-      String settingName = argumentParser.get(isNearby ? 1 : 2);
-      new DungeonCommand(commandContext, coord, settingName).run();
-    } catch (Exception e) {
-      commandContext.sendFailure(e);
+    ArgumentParser argumentParser = new ArgumentParser(args);
+    if (!argumentParser.hasEntry(0)) {
+      commandContext.sendInfo("notif.roguelike.usage_", "/roguelike dungeon {X Z | here | nearby} [setting]");
+      return;
     }
+    Coord coord = argumentParser.parseNearbyOrXZCoord(commandContext);
+    boolean isNearby = argumentParser.isNearby();
+    String settingName = argumentParser.get(isNearby ? 1 : 2);
+    new DungeonCommand(commandContext, coord, settingName).run();
   }
 
 }

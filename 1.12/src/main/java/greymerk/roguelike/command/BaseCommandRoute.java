@@ -30,7 +30,11 @@ public abstract class BaseCommandRoute implements CommandRoute {
     }
     List<String> tail = new ArrayList<>(args);
     String head = tail.remove(0);
-    this.routes.get(head).execute(commandContext, tail);
+    try {
+      this.routes.get(head).execute(commandContext, tail);
+    } catch (Exception e) {
+      commandContext.sendFailure(e);
+    }
   }
 
   @Override
