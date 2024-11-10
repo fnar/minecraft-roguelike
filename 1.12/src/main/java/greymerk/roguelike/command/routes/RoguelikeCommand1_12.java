@@ -16,6 +16,7 @@ public class RoguelikeCommand1_12 extends BaseCommandRoute {
     this.addRoute("dungeon", new DungeonCommand1_12());
     this.addRoute("give", new GiveCommand1_12());
     this.addRoute("room", new RoomCommand1_12());
+    this.addRoute("rooms", new RoomCommand1_12());
     this.addRoute("settings", new SettingsCommand1_12());
     this.addRoute("tower", new TowerCommand1_12());
   }
