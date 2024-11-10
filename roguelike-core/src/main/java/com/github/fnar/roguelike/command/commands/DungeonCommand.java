@@ -36,14 +36,15 @@ public class DungeonCommand extends BaseRoguelikeCommand {
   public boolean onRun() throws Exception {
     WorldEditor editor = context.createEditor();
     DungeonSettings dungeonSettings = chooseDungeonSettings(SettingsResolver.getInstance(context.getModLoader()), settingName, coord, editor);
-    generateDungeon(context, coord, editor, dungeonSettings);
-    return false;
+    new Dungeon(editor).timedGenerate(dungeonSettings, coord);
+    context.sendSuccess("generateddungeon", String.format("%s at %s.", dungeonSettings.getId(), coord));
+    return true;
   }
 
-  private void generateDungeon(CommandContext context, Coord coord, WorldEditor editor, DungeonSettings dungeonSettings) {
-    Dungeon dungeon = new Dungeon(editor);
-    dungeon.timedGenerate(dungeonSettings, coord);
-    context.sendSuccess("generateddungeon", String.format("%s at %s.", dungeonSettings.getId(), coord));
+  @Override
+  public void onSuccess() {
+    // override the default success log message
+    // no need to log -- we already do during onRun()
   }
 
   public static DungeonSettings chooseDungeonSettings(SettingsResolver settingsResolver, String settingName, Coord pos, WorldEditor editor) throws NoValidLocationException {
