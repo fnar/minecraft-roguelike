@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public abstract class BaseCommandRoute implements CommandRoute {
 
@@ -60,6 +61,10 @@ public abstract class BaseCommandRoute implements CommandRoute {
     }
 
     return options;
+  }
+
+  protected Set<String> getRoutes() {
+    return routes.keySet();
   }
 
 }

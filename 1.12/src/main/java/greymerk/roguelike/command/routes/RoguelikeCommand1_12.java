@@ -4,6 +4,7 @@ import com.github.fnar.roguelike.command.CommandContext;
 import com.github.fnar.roguelike.command.routes.RoomCommand1_12;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import greymerk.roguelike.command.BaseCommandRoute;
 
@@ -24,8 +25,14 @@ public class RoguelikeCommand1_12 extends BaseCommandRoute {
   @Override
   public void execute(CommandContext commandContext, List<String> args) {
     if (args.isEmpty()) {
-      commandContext.sendInfo("notif.roguelike.usage_", "/roguelike [dungeon | give | config | settings | tower]");
+      commandContext.sendInfo("notif.roguelike.usage_", "/roguelike [" + subcommands() + "]");
     }
     super.execute(commandContext, args);
+  }
+
+  private String subcommands() {
+    return getRoutes().stream()
+        .sorted()
+        .collect(Collectors.joining(" | "));
   }
 }
