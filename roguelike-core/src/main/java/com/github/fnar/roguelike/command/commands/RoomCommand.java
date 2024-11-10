@@ -16,13 +16,13 @@ import greymerk.roguelike.worldgen.WorldEditor;
 
 public class RoomCommand extends BaseRoguelikeCommand {
 
-  private final String roomType;
   private final Coord coord;
+  private final String roomType;
 
-  public RoomCommand(CommandContext context, String roomType, Coord coord) {
+  public RoomCommand(CommandContext context, Coord coord, String roomType) {
     super(context);
-    this.roomType = roomType;
     this.coord = coord;
+    this.roomType = roomType;
   }
 
   @Override

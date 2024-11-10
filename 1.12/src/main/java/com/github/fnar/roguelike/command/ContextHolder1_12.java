@@ -40,6 +40,11 @@ public class ContextHolder1_12 implements ContextHolder {
   }
 
   @Override
+  public Optional<Coord> getArgumentAsXZCoord(int argumentIndex) {
+    return Optional.of(argumentParser.getXZCoord(argumentIndex));
+  }
+
+  @Override
   public CommandSender getCommandSender() {
     return sender;
   }

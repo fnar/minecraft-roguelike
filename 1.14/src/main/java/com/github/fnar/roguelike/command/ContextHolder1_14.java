@@ -47,6 +47,11 @@ public class ContextHolder1_14 implements ContextHolder {
   }
 
   @Override
+  public Optional<Coord> getArgumentAsXZCoord(int argumentIndex) {
+    throw getException1_14DoesNotSupportIndexedArguments();
+  }
+
+  @Override
   public Optional<Coord> getArgumentAsCoord(int argumentIndex) {
     throw getException1_14DoesNotSupportIndexedArguments();
   }

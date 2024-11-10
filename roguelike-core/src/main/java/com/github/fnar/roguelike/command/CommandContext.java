@@ -111,4 +111,29 @@ public class CommandContext {
   public Optional<Coord> getArgumentAsCoord(String position) {
     return this.contextHolder.getArgumentAsCoord(position);
   }
+
+  public Coord parseNearbyOrXZCoord(int argumentIndex) {
+    if (isNearby(argumentIndex)) {
+      return getSenderXZ();
+    }
+    return parseXZCoordMaybe(argumentIndex).orElse(getSenderXZ());
+  }
+
+  private Coord getSenderXZ() {
+    return getSenderCoord().setY(0);
+  }
+
+  private Optional<Coord> parseXZCoordMaybe(int argumentIndex) {
+    try {
+      return this.contextHolder.getArgumentAsXZCoord(argumentIndex);
+    } catch (IllegalArgumentException ignored) {
+    }
+    return Optional.empty();
+  }
+
+  public boolean isNearby(int argumentIndex) {
+    return getArgument(argumentIndex)
+        .filter(string -> string.equals("here") || string.equals("nearby"))
+        .isPresent();
+  }
 }

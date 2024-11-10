@@ -5,15 +5,16 @@ import com.github.fnar.roguelike.command.commands.GenerateCitadelCommand;
 
 import java.util.List;
 
-import greymerk.roguelike.util.ArgumentParser;
+import greymerk.roguelike.command.BaseCommandRoute;
 import greymerk.roguelike.worldgen.Coord;
 
-public class CitadelCommand1_12 extends DungeonCommand1_12 {
+public class CitadelCommand1_12 extends BaseCommandRoute {
+
+  private static final int coordArgumentIndex = 1;
 
   @Override
   public void execute(CommandContext commandContext, List<String> args) {
-    ArgumentParser argumentParser = new ArgumentParser(args);
-    Coord coord = argumentParser.parseNearbyOrXZCoord(commandContext);
+    Coord coord = commandContext.parseNearbyOrXZCoord(coordArgumentIndex);
     new GenerateCitadelCommand(commandContext, coord).run();
   }
 

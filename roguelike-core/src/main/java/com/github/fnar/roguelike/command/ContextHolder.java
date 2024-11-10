@@ -15,6 +15,8 @@ public interface ContextHolder {
 
   Optional<Coord> getArgumentAsCoord(String argumentName);
 
+  Optional<Coord> getArgumentAsXZCoord(int argumentIndex);
+
   CommandSender getCommandSender();
 
   Optional<SettingIdentifier> getArgumentAsSettingIdentifier(String argumentName);

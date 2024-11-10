@@ -1,7 +1,5 @@
 package greymerk.roguelike.util;
 
-import com.github.fnar.roguelike.command.CommandContext;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,11 +11,6 @@ public class ArgumentParser {
 
   public ArgumentParser(List<String> args) {
     this.args.addAll(args);
-  }
-
-  public boolean isNearby() {
-    return match(0, "here")
-        || match(0, "nearby");
   }
 
   @Deprecated
@@ -83,19 +76,4 @@ public class ArgumentParser {
     return this.args.toString();
   }
 
-  public Coord parseXZCoord(CommandContext commandContext) {
-    try {
-      return getXZCoord(0);
-    } catch (IllegalArgumentException e) {
-      commandContext.sendFailure("invalidcoords", "X Z");
-      throw (e);
-    }
-  }
-
-  public Coord parseNearbyOrXZCoord(CommandContext commandContext) {
-    if (isNearby()) {
-      return commandContext.getSenderCoord().setY(0);
-    }
-    return parseXZCoord(commandContext);
-  }
 }
