@@ -2,6 +2,7 @@ package greymerk.roguelike.dungeon;
 
 import com.github.fnar.minecraft.block.BlockType;
 import com.github.fnar.util.ReportThisIssueException;
+import com.github.fnar.util.TimedCallable;
 import com.github.fnar.util.TimedTask;
 
 import org.apache.logging.log4j.LogManager;
@@ -65,9 +66,13 @@ public class Dungeon {
     if (!isDungeonChunk(editor, chunkX, chunkZ)) {
       return;
     }
+    new TimedTask("Dungeon.generateInChunk()", () -> generateInChunk(editor, chunkX, chunkZ)).run();
+  }
+
+  private static void generateInChunk(WorldEditor editor, int chunkX, int chunkZ) {
     logger.info("Trying to spawn dungeon at chunkX {} and chunkZ {}...", chunkX, chunkZ);
     Dungeon dungeon = new Dungeon(editor);
-    Optional<Coord> coord = dungeon.selectLocation(editor.getRandom(), chunkX * CHUNK_SIZE, chunkZ * CHUNK_SIZE);
+    Optional<Coord> coord = new TimedCallable<>("Dungeon.selectLocation()", () -> dungeon.selectLocation(editor.getRandom(), chunkX * CHUNK_SIZE, chunkZ * CHUNK_SIZE)).call();
     if (!coord.isPresent()) {
       return;
     }
@@ -174,9 +179,7 @@ public class Dungeon {
   }
 
   public boolean canGenerateDungeonHere(Coord coord) {
-    Predicate<VanillaStructure> isTooCloseTo = structure -> hasStructureTooCloseBy(coord, structure);
-    Set<VanillaStructure> structuresToCheckDistanceTo = RogueConfig.vanillaStructuresToCheckDistanceTo();
-    if (!structuresToCheckDistanceTo.isEmpty() && structuresToCheckDistanceTo.stream().anyMatch(isTooCloseTo)) {
+    if (new TimedCallable<>("Dungeon.isTooCloseToStructures()", () -> isTooCloseToStructures(coord)).call()) {
       return false;
     }
 
@@ -186,6 +189,12 @@ public class Dungeon {
         && canFindStartingCoord(cursor)
         && isFreeOverhead(cursor)
         && isSolidBelow(cursor);
+  }
+
+  private boolean isTooCloseToStructures(Coord coord) {
+    Predicate<VanillaStructure> structuresToAvoid = structure -> hasStructureTooCloseBy(coord, structure);
+    Set<VanillaStructure> structuresToCheckDistanceTo = RogueConfig.vanillaStructuresToCheckDistanceTo();
+    return !structuresToCheckDistanceTo.isEmpty() && structuresToCheckDistanceTo.stream().anyMatch(structuresToAvoid);
   }
 
   private boolean hasStructureTooCloseBy(Coord coord, VanillaStructure structure) {

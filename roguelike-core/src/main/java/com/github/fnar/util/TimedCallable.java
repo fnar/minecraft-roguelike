@@ -3,23 +3,27 @@ package com.github.fnar.util;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.concurrent.Callable;
+
 import static greymerk.roguelike.dungeon.Dungeon.MOD_ID;
 
-public class TimedTask implements Runnable {
+public class TimedCallable<V> implements Callable<V> {
 
   private static final Logger logger = LogManager.getLogger(MOD_ID);
   private final String name;
-  private final Runnable runnable;
+  private final Callable<V> callable;
 
-  public TimedTask(String name, Runnable runnable) {
+  public TimedCallable(String name, Callable<V> callable) {
     this.name = name;
-    this.runnable = runnable;
+    this.callable = callable;
   }
 
-  public void run() {
+  @Override
+  public V call() {
     long start = System.currentTimeMillis();
+    V result = null;
     try {
-      runnable.run();
+      result = callable.call();
     } catch (Exception exception) {
       logger.error(exception);
     }
@@ -28,5 +32,6 @@ public class TimedTask implements Runnable {
     long runTime = end - start;
 
     logger.info(String.format("Task %s completed in %d milliseconds.", name, runTime));
+    return result;
   }
 }
