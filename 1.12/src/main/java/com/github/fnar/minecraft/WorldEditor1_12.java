@@ -30,14 +30,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.MobSpawnerBaseLogic;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityBed;
-import net.minecraft.tileentity.TileEntityChest;
-import net.minecraft.tileentity.TileEntityFlowerPot;
-import net.minecraft.tileentity.TileEntityLockableLoot;
-import net.minecraft.tileentity.TileEntityMobSpawner;
-import net.minecraft.tileentity.TileEntitySkull;
+import net.minecraft.tileentity.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -338,7 +331,7 @@ public class WorldEditor1_12 implements WorldEditor {
     if (tileEntity == null) {
       return;
     }
-    if (!(tileEntity instanceof TileEntityLockableLoot)) {
+    if (!(tileEntity instanceof TileEntityLockableLoot) && !(tileEntity instanceof TileEntityFurnace) && !(tileEntity instanceof TileEntityBrewingStand)) {
       return;
     }
     ItemStack forgeItemStack = null;
@@ -347,8 +340,18 @@ public class WorldEditor1_12 implements WorldEditor {
     } catch (CouldNotMapItemException e) {
       logger.error(e);
     }
+    if (forgeItemStack == null) {
+      return;
+    }
+    
     try {
-      ((TileEntityLockableLoot) tileEntity).setInventorySlotContents(slot, forgeItemStack);
+      if (tileEntity instanceof TileEntityLockableLoot) {
+        ((TileEntityLockableLoot) tileEntity).setInventorySlotContents(slot, forgeItemStack);
+      } else if (tileEntity instanceof TileEntityFurnace) {
+        ((TileEntityFurnace) tileEntity).setInventorySlotContents(slot, forgeItemStack);
+      } else {
+        ((TileEntityBrewingStand) tileEntity).setInventorySlotContents(slot, forgeItemStack);
+      }
     } catch (NullPointerException nullPointerException) {
       logger.error("Could not place item {} at position {}. BlockState at pos: {}.", forgeItemStack, coord, getBlockStateAt(coord));
     }
