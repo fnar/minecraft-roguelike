@@ -1,5 +1,6 @@
 package greymerk.roguelike.dungeon.rooms.prototype;
 
+import com.github.fnar.minecraft.block.decorative.FurnaceBlock;
 import com.google.common.collect.Lists;
 
 import com.github.fnar.minecraft.block.BlockType;
@@ -210,7 +211,7 @@ public class BedRoomRoom extends BaseRoom {
 
     RldItemStack coal = Material.Type.COAL.asItemStack().withCount(2 + random().nextInt(3));
 
-    worldEditor.setItem(furnace, WorldEditor.FURNACE_FUEL_SLOT, coal);
+    worldEditor.setItem(furnace, FurnaceBlock.Slot.FUEL, coal);
   }
 
 }
