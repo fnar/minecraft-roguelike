@@ -135,7 +135,7 @@ public class EnchantmentMapper1_12 {
         case "soul_speed":
           return 0;
         case "sweeping_edge":
-          return 0;
+          return 22;
         case "swift_sneak":
           return 0;
         case "thorns":
