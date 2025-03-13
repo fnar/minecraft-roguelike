@@ -153,76 +153,77 @@ public class EntityProfiler1_12 {
   }
 
   private static Mob applyProfile(EntityLiving entityLiving, int level, int difficulty, Random random) {
-    if (entityLiving instanceof EntityBlaze) {
+    Class<? extends EntityLiving> entityClass = entityLiving.getClass();
+    if (entityClass.equals(EntityBlaze.class)) {
       return new Mob().withMobType(MobType.BLAZE);
     }
-    if (entityLiving instanceof EntityCaveSpider) {
+    if (entityClass.equals(EntityCaveSpider.class)) {
       return new Mob().withMobType(MobType.CAVESPIDER);
     }
-    if (entityLiving instanceof EntityCreeper) {
+    if (entityClass.equals(EntityCreeper.class)) {
       return new Mob().withMobType(MobType.CREEPER);
     }
-    if (entityLiving instanceof EntityEnderman) {
+    if (entityClass.equals(EntityEnderman.class)) {
       return new Mob().withMobType(MobType.ENDERMAN);
     }
-    if (entityLiving instanceof EntityEndermite) {
+    if (entityClass.equals(EntityEndermite.class)) {
       return new Mob().withMobType(MobType.ENDERMITE);
     }
-    if (entityLiving instanceof EntityEvoker) {
+    if (entityClass.equals(EntityEvoker.class)) {
       return new Mob().apply(MonsterProfileType.EVOKER, level, difficulty, random);
     }
-    if (entityLiving instanceof EntityGhast) {
+    if (entityClass.equals(EntityGhast.class)) {
       return new Mob().withMobType(MobType.GHAST);
     }
-    if (entityLiving instanceof EntityGuardian) {
+    if (entityClass.equals(EntityGuardian.class)) {
       return new Mob().withMobType(MobType.GUARDIAN);
     }
-    if (entityLiving instanceof EntityHusk) {
+    if (entityClass.equals(EntityHusk.class)) {
       return new Mob().apply(MonsterProfileType.HUSK, level, difficulty, random);
     }
-    if (entityLiving instanceof EntityIllusionIllager) {
+    if (entityClass.equals(EntityIllusionIllager.class)) {
       return new Mob().withMobType(MobType.ILLUSIONER);
     }
-    if (entityLiving instanceof EntityMagmaCube) {
+    if (entityClass.equals(EntityMagmaCube.class)) {
       return new Mob().withMobType(MobType.MAGMA_CUBE);
     }
-    if (entityLiving instanceof EntityShulker) {
+    if (entityClass.equals(EntityShulker.class)) {
       return new Mob().withMobType(MobType.SHULKER);
     }
-    if (entityLiving instanceof EntitySilverfish) {
+    if (entityClass.equals(EntitySilverfish.class)) {
       return new Mob().withMobType(MobType.SILVERFISH);
     }
-    if (entityLiving instanceof EntitySkeleton) {
+    if (entityClass.equals(EntitySkeleton.class)) {
       return new Mob().apply(MonsterProfileType.SKELETON, level, difficulty, random);
     }
-    if (entityLiving instanceof EntitySlime) {
+    if (entityClass.equals(EntitySlime.class)) {
       return new Mob().withMobType(MobType.SLIME);
     }
-    if (entityLiving instanceof EntitySpider) {
+    if (entityClass.equals(EntitySpider.class)) {
       return new Mob().withMobType(MobType.SPIDER);
     }
-    if (entityLiving instanceof EntityStray) {
+    if (entityClass.equals(EntityStray.class)) {
       return new Mob().withMobType(MobType.STRAY);
     }
-    if (entityLiving instanceof EntityVex) {
+    if (entityClass.equals(EntityVex.class)) {
       return new Mob().withMobType(MobType.VEX);
     }
-    if (entityLiving instanceof EntityVindicator) {
+    if (entityClass.equals(EntityVindicator.class)) {
       return new Mob().apply(MonsterProfileType.VINDICATOR, level, difficulty, random);
     }
-    if (entityLiving instanceof EntityWitch) {
+    if (entityClass.equals(EntityWitch.class)) {
       return new Mob().apply(MonsterProfileType.WITCH, level, difficulty, random);
     }
-    if (entityLiving instanceof EntityWitherSkeleton) {
+    if (entityClass.equals(EntityWitherSkeleton.class)) {
       return new Mob().apply(MonsterProfileType.WITHER_SKELETON, level, difficulty, random);
     }
-    if (entityLiving instanceof EntityPigZombie) {
+    if (entityClass.equals(EntityPigZombie.class)) {
       return new Mob().apply(MonsterProfileType.PIG_ZOMBIE, level, difficulty, random);
     }
-    if (entityLiving instanceof EntityZombieVillager) {
+    if (entityClass.equals(EntityZombieVillager.class)) {
       return new Mob().apply(MonsterProfileType.ZOMBIE_VILLAGER, level, difficulty, random);
     }
-    if (entityLiving instanceof EntityZombie) {
+    if (entityClass.equals(EntityZombie.class)) {
       return new Mob().apply(MonsterProfileType.ZOMBIE, level, difficulty, random);
     }
     return null;

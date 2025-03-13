@@ -18,6 +18,7 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Arrays;
+import java.util.Optional;
 
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.monster.EntityProfiler1_12;
@@ -74,17 +75,17 @@ public class EntityJoinWorld1_12 {
 
     int difficulty = world.getDifficulty().ordinal();
 
-    EntityLiving newEntity = EntityProfiler1_12.applyProfile(entity, level, world.rand, difficulty);
-    if (newEntity == null) {
-      return;
-    }
+    Optional.ofNullable(EntityProfiler1_12.applyProfile(entity, level, world.rand, difficulty))
+        .ifPresent(newEntity -> replaceEntity(entity, newEntity));
+  }
 
-    newEntity.copyLocationAndAnglesFrom(entity);
-    copyTags(entity, newEntity);
+  private static void replaceEntity(EntityLiving oldEntity, EntityLiving newEntity) {
+    newEntity.copyLocationAndAnglesFrom(oldEntity);
+    copyTags(oldEntity, newEntity);
     Arrays.stream(EntityEquipmentSlot.values()).forEach(value -> newEntity.setDropChance(value, (float) RogueConfig.MOBS_ITEMS_DROP_CHANCE.getDouble()));
 
     // Mob type might be changed by this mod, so it's important to respawn
-    entity.world.removeEntity(entity);
+    oldEntity.world.removeEntity(oldEntity);
     newEntity.world.spawnEntity(newEntity);
   }
 
