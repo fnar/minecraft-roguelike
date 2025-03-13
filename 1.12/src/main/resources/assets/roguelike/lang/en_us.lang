@@ -86,7 +86,7 @@ novelty.roguelike.zisteausign.name=§5§oBattle Sign
 
 # Lore
 lore.roguelike.unbreaking2=§2§oHighly Durable
-lore.roguelike.diamond_hoe=§i§oDon't craft a diamond hoe
+lore.roguelike.diamond_hoe=§3§oDon't craft a diamond hoe
 lore.roguelike.yew_bow=§2§oSuperior craftsmanship
 lore.roguelike.laminated_bow=§2§oHighly polished
 lore.roguelike.elven_bow=§2§oBeautifully crafted
@@ -134,7 +134,7 @@ notif.roguelike.success_biomeslisted=Success: Biomes listed.
 
 ## JSON loot names and lore ##
 # looting_trading_cards.json
-json.roguelike.tradingcard.name=§oTrading card
+json.roguelike.tradingcard.name=§a§oTrading card
 json.roguelike.tradingcard.common=§8Common
 json.roguelike.tradingcard.uncommon=§7Uncommon
 json.roguelike.tradingcard.rare=§6Rare
@@ -427,39 +427,39 @@ json.roguelike.tradingcard.107.desc=§7
 json.roguelike.tradingcard.108.desc=§7
 
 # loot_paintings.json
-json.roguelike.painting.gothic.name=§oAmerican Gothic
-json.roguelike.painting.gothic.lore=§fBut what does it §omean§r§f?
-json.roguelike.painting.supper.name=§oThe Last Supper
-json.roguelike.painting.supper.lore=§fAllegedly.
-json.roguelike.painting.adam.name=§oThe Creation of Adam
-json.roguelike.painting.adam.lore=§fTwo dudes touching tips.
-json.roguelike.painting.monalisa.name=§oMona Lisa
-json.roguelike.painting.monalisa.lore=§fShe's smiling! Is that good?
-json.roguelike.painting.scream.name=§oThe Scream
-json.roguelike.painting.scream.lore=§fWe all scream for ice cream.
-json.roguelike.painting.earring.name=§oGirl with a Pearl Earring
-json.roguelike.painting.earring.lore=§fAbsolutely stunning.
-json.roguelike.painting.starry.name=§oThe Starry Night
-json.roguelike.painting.starry.lore=§fThey say he was on drugs.
-json.roguelike.painting.man.name=§oPortrait of a Man
-json.roguelike.painting.man.lore=§fHe looks really lonely.
-json.roguelike.painting.xxx.name=§oXXX
-json.roguelike.painting.xxx.lore=§fYou probably weren't meant to find this.
-json.roguelike.painting.piglet.name=§oPiglet
-json.roguelike.painting.piglet.lore=§fIt looks like a child painted this. How is this art?
-json.roguelike.painting.yourmum.name=§o!!??
-json.roguelike.painting.yourmum.lore=§fIt's a picture of your mum??
-json.roguelike.painting.dogspoker.name=§oDogs Playing Poker
-json.roguelike.painting.dogspoker.lore=§fIt is what it is.
-json.roguelike.painting.babyshiv.name=§oShivaxi's Baby Photo
-json.roguelike.painting.babyshiv.lore=§fWasn't he cute as a hatchling? n_n
-json.roguelike.painting.fnar.name=§oPhotograph of Fnar
-json.roguelike.painting.fnar.lore=§fWhat does Fnar mean anyway?
+json.roguelike.painting.gothic.name=§9§oAmerican Gothic
+json.roguelike.painting.gothic.lore=§6But what does it §omean§r§6?
+json.roguelike.painting.supper.name=§9§oThe Last Supper
+json.roguelike.painting.supper.lore=§6Allegedly.
+json.roguelike.painting.adam.name=§9§oThe Creation of Adam
+json.roguelike.painting.adam.lore=§6Two dudes touching tips.
+json.roguelike.painting.monalisa.name=§9§oMona Lisa
+json.roguelike.painting.monalisa.lore=§6She's smiling! Is that good?
+json.roguelike.painting.scream.name=§9§oThe Scream
+json.roguelike.painting.scream.lore=§6We all scream for ice cream.
+json.roguelike.painting.earring.name=§9§oGirl with a Pearl Earring
+json.roguelike.painting.earring.lore=§6Absolutely stunning.
+json.roguelike.painting.starry.name=§9§oThe Starry Night
+json.roguelike.painting.starry.lore=§6They say he was on drugs.
+json.roguelike.painting.man.name=§9§oPortrait of a Man
+json.roguelike.painting.man.lore=§6He looks really lonely.
+json.roguelike.painting.xxx.name=§9§oXXX
+json.roguelike.painting.xxx.lore=§6You probably weren't meant to find this.
+json.roguelike.painting.piglet.name=§9§oPiglet
+json.roguelike.painting.piglet.lore=§6It looks like a child painted this. How is this art?
+json.roguelike.painting.yourmum.name=§9§o!!??
+json.roguelike.painting.yourmum.lore=§6It's a picture of your mum??
+json.roguelike.painting.dogspoker.name=§9§oDogs Playing Poker
+json.roguelike.painting.dogspoker.lore=§6It is what it is.
+json.roguelike.painting.babyshiv.name=§9§oShivaxi's Baby Photo
+json.roguelike.painting.babyshiv.lore=§6Wasn't he cute as a hatchling? n_n
+json.roguelike.painting.fnar.name=§9§oPhotograph of Fnar
+json.roguelike.painting.fnar.lore=§6What does Fnar mean anyway?
 
-json.roguelike.book.xxx.name=§oXXX
-json.roguelike.book.xxx.lore=§fYou probably weren't meant to find this.
-json.roguelike.book.streaming.name=§oStreaming for beginners
-json.roguelike.book.streaming.lore=§fA practical guide to getting famous on Twitch
+json.roguelike.book.xxx.name=§9§oXXX
+json.roguelike.book.xxx.lore=§6You probably weren't meant to find this.
+json.roguelike.book.streaming.name=§9§oStreaming for beginners
+json.roguelike.book.streaming.lore=§6A practical guide to getting famous on Twitch
 
 ## USE THE EXCEL TO AUTOMATICALLY CREATE ALL CUSTOM NAME COMBINATIONS! There are THOUSANDS!
 # Helmets ====================================================================================================
