@@ -1,5 +1,10 @@
 package com.github.fnar.minecraft.item.mapper;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
 import com.github.fnar.minecraft.item.CouldNotMapItemException;
 import com.github.fnar.minecraft.item.ItemMapper;
 import com.github.fnar.minecraft.item.RldBaseItem;
@@ -32,10 +37,46 @@ public abstract class BaseItemMapper1_12<RldBaseItemClass extends RldBaseItem> i
       return;
     }
     try {
-      itemStack.setTagCompound(JsonToNBT.getTagFromJson(rldItemStack.getPlzNbt()));
+      String plzNbt = transformEnchantmentNamesToIds(rldItemStack.getPlzNbt());
+      NBTTagCompound tagCompound = JsonToNBT.getTagFromJson(plzNbt);
+      itemStack.setTagCompound(tagCompound);
     } catch (NBTException e) {
       throw new CouldNotMapItemException(rldItemStack);
     }
+  }
+
+  private static String transformEnchantmentNamesToIds(String plzNbt) {
+    JsonParser jsonParser = new JsonParser();
+    JsonElement plzNbtElement = jsonParser.parse(plzNbt);
+    if (!plzNbtElement.isJsonObject()) {
+      return plzNbt;
+    }
+    JsonObject jsonObject = plzNbtElement.getAsJsonObject();
+    if (!jsonObject.has("StoredEnchantments")) {
+      return plzNbt;
+    }
+    JsonElement storedEnchantmentsElement = jsonObject.get("StoredEnchantments");
+    if (!storedEnchantmentsElement.isJsonArray()) {
+      return plzNbt;
+    }
+    JsonArray storedEnchantmentsArray = storedEnchantmentsElement.getAsJsonArray();
+    for (JsonElement storedEnchantmentElement : storedEnchantmentsArray) {
+      if (!storedEnchantmentElement.isJsonObject()) {
+        return plzNbt;
+      }
+      JsonObject storedEnchantmentObject = storedEnchantmentElement.getAsJsonObject();
+      if (!storedEnchantmentObject.has("id")) {
+        return plzNbt;
+      }
+      JsonElement storedEnchantmentIdElement = storedEnchantmentObject.get("id");
+      if (!storedEnchantmentIdElement.isJsonPrimitive()) {
+        return plzNbt;
+      }
+      String storedEnchantmentIdString = storedEnchantmentIdElement.getAsString();
+      int mappedId = EnchantmentMapper1_12.mapNameToId(storedEnchantmentIdString);
+      storedEnchantmentObject.addProperty("id", mappedId);
+    }
+    return plzNbtElement.toString();
   }
 
   private static void mergeTags(RldItemStack rldItemStack, ItemStack itemStack) {
