@@ -1,4 +1,4 @@
-## Translated by KameiB on 2023
+## Translated by KameiB on 2023. Updated 2025
 # Potions Mixtures
 mixture.roguelike.absinthe.name=§oAbsenta
 mixture.roguelike.absinthe.lore=
@@ -87,7 +87,7 @@ novelty.roguelike.zisteausign.name=§5§oLetrero de batalla
 
 # Lore
 lore.roguelike.unbreaking2=§2§oAltamente durable
-lore.roguelike.diamond_hoe=§i§oNo craftees una Azada de diamante
+lore.roguelike.diamond_hoe=§3§oNo craftees una Azada de diamante
 lore.roguelike.yew_bow=§2§oUna técnica superior
 lore.roguelike.laminated_bow=§2§oAltamente pulido
 lore.roguelike.elven_bow=§2§oHermosamente fabricado
@@ -104,6 +104,7 @@ lore.roguelike.stick_rlu=§8§oUnidad de lógica aleatoria
 notif.roguelike.success_=Exito:
 notif.roguelike.failure_=Error:
 notif.roguelike.usage_=Uso:
+notif.roguelike.example_=Ejemplo:
 notif.roguelike.nosuchitem=No existe dicho item
 notif.roguelike.given_=Recibió
 notif.roguelike.failure_nosuchitem=Error: No existe el ítem
@@ -134,7 +135,7 @@ notif.roguelike.success_biomeslisted=Exito: Biomas listados.
 
 ## JSON loot names and lore ##
 # looting_trading_cards.json
-json.roguelike.tradingcard.name=§oCarta coleccionable
+json.roguelike.tradingcard.name=§a§oCarta coleccionable
 json.roguelike.tradingcard.common=§8Común
 json.roguelike.tradingcard.uncommon=§7Poco común
 json.roguelike.tradingcard.rare=§6Raro
@@ -427,39 +428,39 @@ json.roguelike.tradingcard.107.desc=§7§o
 json.roguelike.tradingcard.108.desc=§7§o
 
 # loot_paintings.json
-json.roguelike.painting.gothic.name=§oGótico americano
-json.roguelike.painting.gothic.lore=§fPero qué §osignifica§r§f?
-json.roguelike.painting.supper.name=§oEl último superior
-json.roguelike.painting.supper.lore=§fSí señor.
-json.roguelike.painting.adam.name=§oLa creación de Adán
-json.roguelike.painting.adam.lore=§fDos tipos tocando las yemas de los dedos.
-json.roguelike.painting.monalisa.name=§oMona Lisa
-json.roguelike.painting.monalisa.lore=§fEstá sonriendo! Eso es bueno?
-json.roguelike.painting.scream.name=§oEl grito
-json.roguelike.painting.scream.lore=§fTodos gritamos como aldeanos.
-json.roguelike.painting.earring.name=§oChica con arete de perlas
-json.roguelike.painting.earring.lore=§fAbsolutamente asombroso.
-json.roguelike.painting.starry.name=§oLa noche estrellada
-json.roguelike.painting.starry.lore=§fDicen que fumaba cosas.
-json.roguelike.painting.man.name=§oRetrato de un hombre
-json.roguelike.painting.man.lore=§fSe ve muy solo.
-json.roguelike.painting.xxx.name=§oXXX
-json.roguelike.painting.xxx.lore=§fProbablemente no debiste encontrar esto.
-json.roguelike.painting.piglet.name=§oPiglet
-json.roguelike.painting.piglet.lore=§fEs como si un niño hubiera pintado esto. Cómo lo consideran arte?
-json.roguelike.painting.yourmum.name=§o!!??
-json.roguelike.painting.yourmum.lore=§fEs esa una foto de tu mamá??
-json.roguelike.painting.dogspoker.name=§oPerros jugando Poker
-json.roguelike.painting.dogspoker.lore=§fEs lo que es.
-json.roguelike.painting.babyshiv.name=§oFoto de Shivaxi bebé
-json.roguelike.painting.babyshiv.lore=§fNo se veía lindo cuando era una cría? n_n
-json.roguelike.painting.fnar.name=§oFotografía de Fnar
-json.roguelike.painting.fnar.lore=§fPero qué significa Fnar?
+json.roguelike.painting.gothic.name=§9§oGótico americano
+json.roguelike.painting.gothic.lore=§6Pero qué §osignifica§r§6?
+json.roguelike.painting.supper.name=§9§oEl último superior
+json.roguelike.painting.supper.lore=§6Sí señor.
+json.roguelike.painting.adam.name=§9§oLa creación de Adán
+json.roguelike.painting.adam.lore=§6Dos tipos tocando las yemas de los dedos.
+json.roguelike.painting.monalisa.name=§9§oMona Lisa
+json.roguelike.painting.monalisa.lore=§6Está sonriendo! Eso es bueno?
+json.roguelike.painting.scream.name=§9§oEl grito
+json.roguelike.painting.scream.lore=§6Todos gritamos como aldeanos.
+json.roguelike.painting.earring.name=§9§oChica con arete de perlas
+json.roguelike.painting.earring.lore=§6Absolutamente asombroso.
+json.roguelike.painting.starry.name=§9§oLa noche estrellada
+json.roguelike.painting.starry.lore=§6Dicen que fumaba cosas.
+json.roguelike.painting.man.name=§9§oRetrato de un hombre
+json.roguelike.painting.man.lore=§6Se ve muy solo.
+json.roguelike.painting.xxx.name=§9§oXXX
+json.roguelike.painting.xxx.lore=§6Probablemente no debiste encontrar esto.
+json.roguelike.painting.piglet.name=§9§oPiglet
+json.roguelike.painting.piglet.lore=§6Es como si un niño hubiera pintado esto. Cómo lo consideran arte?
+json.roguelike.painting.yourmum.name=§9§o!!??
+json.roguelike.painting.yourmum.lore=§6Es esa una foto de tu mamá??
+json.roguelike.painting.dogspoker.name=§9§oPerros jugando Poker
+json.roguelike.painting.dogspoker.lore=§6Es lo que es.
+json.roguelike.painting.babyshiv.name=§9§oFoto de Shivaxi bebé
+json.roguelike.painting.babyshiv.lore=§6No se veía lindo cuando era una cría? n_n
+json.roguelike.painting.fnar.name=§9§oFotografía de Fnar
+json.roguelike.painting.fnar.lore=§6Pero qué significa Fnar?
 
-json.roguelike.book.xxx.name=§oXXX
-json.roguelike.book.xxx.lore=§fProbablemente no debiste encontrar esto.
-json.roguelike.book.streaming.name=§oStreaming para principiantes
-json.roguelike.book.streaming.lore=§fUna guía práctica para volverse famoso en Twitch
+json.roguelike.book.xxx.name=§9§oXXX
+json.roguelike.book.xxx.lore=§6Probablemente no debiste encontrar esto.
+json.roguelike.book.streaming.name=§9§oStreaming para principiantes
+json.roguelike.book.streaming.lore=§6Una guía práctica para volverse famoso en Twitch
 
 ## USE THE EXCEL TO AUTOMATICALLY CREATE ALL CUSTOM NAME COMBINATIONS! There are THOUSANDS!
 # Helmets =====================================================================================================
