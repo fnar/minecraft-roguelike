@@ -1,6 +1,10 @@
 package com.github.fnar.roguelike.worldgen;
 
 import com.github.fnar.minecraft.WorldEditor1_12;
+import com.github.fnar.roguelike.events.GenerationEvents;
+import com.github.fnar.roguelike.events.GenerationPartsEvent;
+import com.github.fnar.roguelike.events.StructureGenerationEvent;
+import com.github.fnar.roguelike.events.StructurePartsGenerationEvent;
 import com.github.fnar.util.SafeRunnable;
 
 import net.minecraft.world.World;
@@ -19,7 +23,9 @@ public class DungeonGenerator1_12 implements IWorldGenerator {
   public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {
     SafeRunnable.run(() -> {
       WorldEditor editor = new WorldEditor1_12(world);
-      Dungeon.generateInChunkIfPossible(editor, chunkX, chunkZ);
+      GenerationEvents eventBus = new StructureGenerationEvent(world, editor.getDimension());
+      GenerationPartsEvent partsEventBus = new StructurePartsGenerationEvent(world, editor.getDimension());
+      Dungeon.generateInChunkIfPossible(editor, chunkX, chunkZ, eventBus, partsEventBus);
     });
   }
 }
