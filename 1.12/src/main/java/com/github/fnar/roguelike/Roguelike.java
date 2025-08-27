@@ -1,6 +1,7 @@
 package com.github.fnar.roguelike;
 
 import com.github.fnar.roguelike.command.RoguelikeCommand1_12;
+import com.github.fnar.roguelike.events.SubscriberTester;
 import com.github.fnar.roguelike.worldgen.DungeonGenerator1_12;
 
 import net.minecraft.command.ICommandManager;
@@ -43,6 +44,7 @@ public class Roguelike {
   public void modInit(FMLInitializationEvent event) {
     MinecraftForge.EVENT_BUS.register(new EntityJoinWorld1_12());
     MinecraftForge.EVENT_BUS.register(new ItemTooltip());
+    MinecraftForge.EVENT_BUS.register(SubscriberTester.class);
   }
 
   @EventHandler
