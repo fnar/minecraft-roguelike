@@ -1,6 +1,8 @@
 package greymerk.roguelike.dungeon;
 
 import com.github.fnar.minecraft.block.BlockType;
+import com.github.fnar.roguelike.events.GenerationEvents;
+import com.github.fnar.roguelike.events.GenerationPartsEvent;
 import com.github.fnar.util.ReportThisIssueException;
 import com.github.fnar.util.TimedCallable;
 import com.github.fnar.util.TimedTask;
@@ -52,6 +54,9 @@ public class Dungeon {
   private final List<DungeonLevel> levels = new ArrayList<>();
   private final WorldEditor editor;
 
+  private static GenerationEvents generationEvents;
+  private static GenerationPartsEvent generationPartsEvents;
+
   public Dungeon(WorldEditor editor) {
     this.editor = editor;
     try {
@@ -62,7 +67,9 @@ public class Dungeon {
     }
   }
 
-  public static void generateInChunkIfPossible(WorldEditor editor, int chunkX, int chunkZ) {
+  public static void generateInChunkIfPossible(WorldEditor editor, int chunkX, int chunkZ, GenerationEvents structureEvenBus, GenerationPartsEvent partsEventBus) {
+    generationEvents = structureEvenBus;
+    generationPartsEvents = partsEventBus;
     if (!isDungeonChunk(editor, chunkX, chunkZ)) {
       return;
     }
@@ -82,7 +89,9 @@ public class Dungeon {
       return;
     }
 
-    dungeon.timedGenerate(settings.get(), coord.get());
+    if (generationEvents.eventSuggest(settings.get().getId(), coord.get())) {
+      dungeon.timedGenerate(settings.get(), coord.get());
+    }
   }
 
   public static boolean isDungeonChunk(WorldEditor editor, int chunkX, int chunkZ) {
@@ -124,6 +133,7 @@ public class Dungeon {
   }
 
   public void timedGenerate(DungeonSettings dungeonSettings, Coord coord) {
+    generationEvents.eventPre(dungeonSettings.getId(), coord);
     new TimedTask("Dungeon.generate()", () -> generate(dungeonSettings, coord)).run();
   }
 
@@ -142,8 +152,11 @@ public class Dungeon {
           .flatMap(stage -> DungeonTaskRegistry.getInstance().getTasks(stage).stream())
           .forEach(task -> performTaskSafely(dungeonSettings, task));
 
+      generationEvents.eventPost(dungeonSettings.getId(), coord);
       logger.info("Successfully generated dungeon with id {} at {}.", dungeonSettings.getId(), coord);
-
+      for (DungeonLevel level : levels) {
+        level.getLevelBBActualAsync(generationPartsEvents, dungeonSettings.getId(), level.layout);
+      }
     } catch (Exception e) {
       e.printStackTrace();
     }

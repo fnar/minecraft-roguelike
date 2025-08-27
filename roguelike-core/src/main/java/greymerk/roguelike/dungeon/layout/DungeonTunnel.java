@@ -38,6 +38,10 @@ public class DungeonTunnel implements Iterable<Coord>, Bounded {
     segments = new ArrayList<>();
   }
 
+  public List<Coord> getTunnel() {
+    return tunnel;
+  }
+
   @Override
   public Iterator<Coord> iterator() {
     return tunnel.iterator();
