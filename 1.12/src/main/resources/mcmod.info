@@ -1,0 +1,17 @@
+[
+{
+  "modid" : "roguelike",
+  "name" : "Roguelike Dungeons -- Fnar Edition",
+  "description" : "Provides a world generator that creates randomized dungeons periodically.",
+  "version" : "${version}",
+  "mcversion": "${mcversion}",
+  "url" : "github.com/fnar/minecraft-roguelike",
+  "credits": "",
+  "logoFile": "",
+  "updateUrl": "",
+  "authorList" : ["Greymerk", "Fnar"],
+  "parent": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]

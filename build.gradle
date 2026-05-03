@@ -24,12 +24,12 @@ subprojects {
 
 project(':1.12') {
     dependencies {
-        compile project(':roguelike-core')
+        implementation project(':roguelike-core')
     }
 }
 
 //project(':1.14') {
 //    dependencies {
-//        compile project(':roguelike-core')
+//        implementation project(':roguelike-core')
 //    }
 //}

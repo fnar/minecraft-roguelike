@@ -1,91 +1,129 @@
 buildscript {
     repositories {
-        jcenter()
-        maven { url = "http://files.minecraftforge.net/maven" }
+        maven { url = 'https://maven.minecraftforge.net/' }
     }
     dependencies {
-        classpath "net.minecraftforge.gradle:ForgeGradle:${forgegradle_version}"
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '6.+', changing: true
+
     }
 }
-apply plugin: 'net.minecraftforge.gradle.forge'
-apply plugin: 'idea'
-apply plugin: 'java'
+apply plugin: 'net.minecraftforge.gradle'
 
 version = "2.4.6"
 group = "com.github.fnar"
 archivesBaseName = "RoguelikeDungeonsFnarEdition-${minecraft_version}"
 
-sourceCompatibility = targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
-compileJava {
-    sourceCompatibility = targetCompatibility = '1.8'
-}
+java.toolchain.languageVersion = JavaLanguageVersion.of(8)
 
 minecraft {
-    version = "${minecraft_version}-${forge_version}"
-    runDir = "run"
-    mappings = "snapshot_20171003"
-    makeObfSourceJar = false
+    mappings channel: 'snapshot', version: '20171003-1.12'
+
+    runs {
+
+        client {}
+
+        server {}
+
+        data {
+            args '--mod', 'roguelikedungeons', '--all', '--output', file('src/generated/resources/')
+        }
+
+        configureEach {
+            workingDirectory project.file('run')
+
+            jvmArg "-Dlog4j.configurationFile=log4j.xml"
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+            property 'forge.logging.console.level', 'debug'
+            property 'fml.ignoreInvalidMinecraftCertificates', 'true'
+            property 'fml.ignorePatchDiscrepancies', 'true'
+
+            mods {
+                roguelike {
+                    source sourceSets.main
+                }
+            }
+        }
+
+    }
 }
 
 repositories {
     mavenCentral()
-    jcenter()
 }
 
 dependencies {
+    minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2859'
+
+    implementation project(':roguelike-core')
+
     compileOnly 'org.projectlombok:lombok:1.18.20'
     annotationProcessor 'org.projectlombok:lombok:1.18.20'
 
     testCompileOnly 'org.projectlombok:lombok:1.18.20'
     testAnnotationProcessor 'org.projectlombok:lombok:1.18.20'
 
-    testCompile "junit:junit:4.11"
+    testImplementation "junit:junit:4.11"
 
-    testCompile "org.mockito:mockito-core:1.+"
-    testCompile("org.assertj:assertj-core:3.11.1")
+    testImplementation "org.mockito:mockito-core:1.+"
+    testImplementation("org.assertj:assertj-core:3.11.1")
+    testImplementation 'org.hamcrest:hamcrest-core:1.3'
+}
+
+configurations.configureEach {
+    resolutionStrategy {
+        // Force the specific versions Forge 1.12.2 expects
+        force 'org.apache.logging.log4j:log4j-api:2.8.1'
+        force 'org.apache.logging.log4j:log4j-core:2.8.1'
+        // Force an older SLF4J that doesn't have Java 9 modules
+        force 'org.slf4j:slf4j-api:1.7.25'
+
+        // Optional: Modern FG6 usually handles ASM, but kept if you have specific 1.12.2 crashes
+        force 'org.ow2.asm:asm-debug-all:5.2'
+    }
+
+    // excluded for causing a crash
+    exclude group: "net.minecraftforge", module: "mergetool"
+    // excluded for causing a crash
+    exclude group: 'org.apache.logging.log4j', module: 'log4j-slf4j18-impl'
 }
 
 processResources {
-    // this will ensure that this task is redone when the versions change.
-    inputs.property "version", project.version
-    inputs.property "mcversion", project.minecraft.version
+    // Gradle 8.x prefers EXCLUDE or WARN to handle overlapping files from subprojects
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
 
-    // replace stuff in mcmod.info, nothing else
+    // Define the properties we want to inject
+    var replaceProperties = [
+            version  : project.version,
+            mcversion: project.minecraft_version
+    ]
+
+    // Register inputs so Gradle knows when to re-run this task
+    inputs.properties replaceProperties
+
+    // 1. Handle the core project resources (since you're bundling it)
+    from(project(':roguelike-core').sourceSets.main.resources.srcDirs)
+
+    // 2. Handle this project's resources
     from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
-        // replace version and mcversion
-        expand 'version': project.version, 'mcversion': project.minecraft.version
-    }
-    // copy everything else, thats not the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info'
+        // Use 'replace' or 'expand', but only on specific files
+        filesMatching('mcmod.info') {
+            expand replaceProperties
+        }
     }
 }
 
 jar {
     manifest {
         attributes([
-                "Specification-Title"     : "examplemod",
-                "Specification-Vendor"    : "examplemodsareus",
-                "Specification-Version"   : "1", // We are version 1 of ourselves
+                "Specification-Title"     : "roguelike",
+                "Specification-Vendor"    : "Fnar",
+                "Specification-Version"   : "1",
                 "Implementation-Title"    : project.name,
-                "Implementation-Version"  : "${version}",
-                "Implementation-Vendor"   : "examplemodsareus",
+                "Implementation-Version"  : project.version,
+                "Implementation-Vendor"   : "Fnar",
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
-    from {
-        configurations.compile.collect {
-            exclude 'dummyThing'
-            exclude 'LICENSE'
-            exclude 'META-INF/**'
-            exclude 'module-info.class'
 
-            exclude 'Log4j*'
-            exclude 'com/google/'
-            exclude 'org/'
-
-            it.isDirectory() ? it : zipTree(it)
-        }
-    }
+    from project(':roguelike-core').sourceSets.main.output
 }
