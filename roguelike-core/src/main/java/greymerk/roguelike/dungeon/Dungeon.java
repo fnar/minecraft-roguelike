@@ -22,6 +22,7 @@ import java.util.stream.IntStream;
 
 import greymerk.roguelike.config.RogueConfig;
 import greymerk.roguelike.dungeon.settings.DungeonSettings;
+import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.dungeon.settings.SettingsRandom;
 import greymerk.roguelike.dungeon.settings.SettingsResolver;
 import greymerk.roguelike.dungeon.settings.SpawnCriteria;
@@ -155,7 +156,7 @@ public class Dungeon {
       generationEvents.eventPost(dungeonSettings.getId(), coord);
       logger.info("Successfully generated dungeon with id {} at {}.", dungeonSettings.getId(), coord);
       for (DungeonLevel level : levels) {
-        level.getLevelBBActualAsync(generationPartsEvents, dungeonSettings.getId(), level.layout);
+        postLevelBoundingBoxEventAsync(level, generationPartsEvents, dungeonSettings.getId());
       }
     } catch (Exception e) {
       e.printStackTrace();
@@ -168,6 +169,12 @@ public class Dungeon {
     } catch (Exception exception) {
       new ReportThisIssueException(exception).printStackTrace();
     }
+  }
+
+  private static void postLevelBoundingBoxEventAsync(DungeonLevel dungeonLevel, GenerationPartsEvent eventBus, SettingIdentifier id) {
+    new Thread(() -> {
+      eventBus.eventParts(id, dungeonLevel.layout.getLevelBoundingBox());
+    }).start();
   }
 
   private Optional<Coord> selectLocation(Random rand, int x, int z) {

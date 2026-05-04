@@ -1,6 +1,7 @@
 package greymerk.roguelike.dungeon.layout;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
@@ -140,4 +141,38 @@ public class LevelLayout {
     return getNodes().stream().anyMatch(node -> node.contains(coord));
   }
 
+  public List<Float> getLevelBoundingBox() {
+    float maxX = Integer.MIN_VALUE;
+    float maxY = Integer.MIN_VALUE;
+    float maxZ = Integer.MIN_VALUE;
+    float minX = Integer.MAX_VALUE;
+    float minY = Integer.MAX_VALUE;
+    float minZ = Integer.MAX_VALUE;
+    for (DungeonTunnel tunnel : getTunnels()) {
+      for (Coord tunnelCoords : tunnel.getTunnel()) {
+        float x = tunnelCoords.getX();
+        float y = tunnelCoords.getY();
+        float z = tunnelCoords.getZ();
+        if (x > maxX) {
+          maxX = x;
+        }
+        if (y > maxY) {
+          maxY = y;
+        }
+        if (z > maxZ) {
+          maxZ = z;
+        }
+        if (x < minX) {
+          minX = x;
+        }
+        if (y < minY) {
+          minY = y;
+        }
+        if (z < minZ) {
+          minZ = z;
+        }
+      }
+    }
+    return Arrays.asList(minX, minY, minZ, maxX, maxY, maxZ);
+  }
 }
