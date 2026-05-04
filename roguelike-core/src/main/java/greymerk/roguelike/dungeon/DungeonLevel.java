@@ -1,6 +1,5 @@
 package greymerk.roguelike.dungeon;
 
-import com.github.fnar.roguelike.events.GenerationPartsEvent;
 import com.github.fnar.roguelike.worldgen.generatables.BaseGeneratable;
 import com.github.fnar.roguelike.worldgen.generatables.LadderPillar;
 import com.github.fnar.roguelike.worldgen.generatables.SpiralStaircase;
@@ -9,18 +8,13 @@ import greymerk.roguelike.dungeon.base.BaseRoom;
 import greymerk.roguelike.dungeon.base.RoomIterator;
 import greymerk.roguelike.dungeon.base.RoomType;
 import greymerk.roguelike.dungeon.layout.DungeonNode;
-import greymerk.roguelike.dungeon.layout.DungeonTunnel;
 import greymerk.roguelike.dungeon.layout.LevelLayout;
 import greymerk.roguelike.dungeon.settings.LevelSettings;
-import greymerk.roguelike.dungeon.settings.SettingIdentifier;
 import greymerk.roguelike.theme.Theme;
 import greymerk.roguelike.worldgen.Coord;
 import greymerk.roguelike.worldgen.WorldEditor;
 import greymerk.roguelike.worldgen.filter.Filter;
 import greymerk.roguelike.worldgen.filter.IFilter;
-
-import java.util.Arrays;
-import java.util.List;
 
 public class DungeonLevel {
 
@@ -138,29 +132,4 @@ public class DungeonLevel {
     return layout.containsRoomAt(coord);
   }
 
-  public void getLevelBBActualAsync(GenerationPartsEvent eventBus, SettingIdentifier id, LevelLayout layout) {
-    new Thread(() -> {
-      float maxX = Integer.MIN_VALUE;
-      float maxY = Integer.MIN_VALUE;
-      float maxZ = Integer.MIN_VALUE;
-      float minX = Integer.MAX_VALUE;
-      float minY = Integer.MAX_VALUE;
-      float minZ = Integer.MAX_VALUE;
-      for (DungeonTunnel tunnel : layout.getTunnels()) {
-        for (Coord tunnelCoords : tunnel.getTunnel()) {
-          float x = tunnelCoords.getX();
-          float y = tunnelCoords.getY();
-          float z = tunnelCoords.getZ();
-          if (x > maxX) maxX = x;
-          if (y > maxY) maxY = y;
-          if (z > maxZ) maxZ = z;
-          if (x < minX) minX = x;
-          if (y < minY) minY = y;
-          if (z < minZ) minZ = z;
-        }
-      }
-      List<Float> result = Arrays.asList(minX, minY, minZ, maxX, maxY, maxZ);
-      eventBus.eventParts(id, result);
-    }).start();
-  }
 }
